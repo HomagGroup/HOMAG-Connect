@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MMR Mobile", "HomagConnect.MMR Mobile", "{69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{D59622E0-CD8A-48D0-B81D-751064101B43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile", "Applications\MmrMobile\Client\HomagConnect.MmrMobile\HomagConnect.MmrMobile.csproj", "{1E9236E3-4716-4810-8FAD-A603C7B13801}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base", "Base\HomagConnect.Base\HomagConnect.Base.csproj", "{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E9236E3-4716-4810-8FAD-A603C7B13801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9236E3-4716-4810-8FAD-A603C7B13801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9236E3-4716-4810-8FAD-A603C7B13801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E9236E3-4716-4810-8FAD-A603C7B13801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{D59622E0-CD8A-48D0-B81D-751064101B43} = {69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}
+		{1E9236E3-4716-4810-8FAD-A603C7B13801} = {D59622E0-CD8A-48D0-B81D-751064101B43}
+		{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
+	EndGlobalSection
+EndGlobal
