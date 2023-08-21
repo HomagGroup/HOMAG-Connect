@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.MmrMobile.Models
+namespace HomagConnect.MmrMobile.Client.Models
 {
     public class MachineInformation
     {

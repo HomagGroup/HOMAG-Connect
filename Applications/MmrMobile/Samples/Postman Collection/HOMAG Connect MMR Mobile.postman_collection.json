@@ -1,0 +1,583 @@
+{
+	"info": {
+		"_postman_id": "764700a1-fd57-4419-adb7-092d46b70a1b",
+		"name": "HOMAG Connect MMR Mobile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28009578"
+	},
+	"item": [
+		{
+			"name": "MMR States",
+			"item": [
+				{
+					"name": "📈 all my machines, last 14 days",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 all my machines, only 5 days",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?from=2021-08-01&to=2050-01-01",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2021-08-01"
+								},
+								{
+									"key": "to",
+									"value": "2050-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machinetype",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinetype=cnc",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinetype",
+									"value": "cnc"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machine",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machine and explicit instance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&instanceId=M1-C1",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "instanceId",
+									"value": "M1-C1"
+								},
+								{
+									"key": "from",
+									"value": "2023-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machine and invalid instance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&instanceId=M1-C999",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "instanceId",
+									"value": "M1-C999"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machine and only one state group",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&stateGroupId=s_mainusage",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "stateGroupId",
+									"value": "s_mainusage"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machine and only one state",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&stateid=S_OMU_MODE1",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "stateid",
+									"value": "S_OMU_MODE1"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MMR Counters",
+			"item": [
+				{
+					"name": "📉 all my machines, last 14 days",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "zh-CN",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 all my machines, only 5 days",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "zh-CN",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?from=2021-08-01&to=2050-08-07",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2021-08-01"
+								},
+								{
+									"key": "to",
+									"value": "2050-08-07"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 one machinetype",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "de-DE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinetype=edge",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								},
+								{
+									"key": "machinetype",
+									"value": "edge"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 one machine",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "de-DE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 one machine and explicit instance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "de-DE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}&instanceId=M1-C1",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "instanceId",
+									"value": "M1-C1"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 one machine and invalid instance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "de-DE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}&instanceId=M1-C999",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "instanceId",
+									"value": "M1-C999"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 one machine and only one counter",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "de-DE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?counterid=S_OUT_PiecesAll",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "counterid",
+									"value": "S_OUT_PiecesAll"
+								},
+								{
+									"key": "from",
+									"value": "2020-01-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

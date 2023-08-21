@@ -1,0 +1,7 @@
+﻿<RunSettings>
+  <TestRunParameters>
+    <Parameter name="BaseUrl" value="https://connect.homag.cloud" />
+    <Parameter name="Username" value="820a547d-b2b0-4e0e-9b0f-2533e8310b3e" />
+    <Parameter name="Token" value="" />
+  </TestRunParameters>
+</RunSettings>

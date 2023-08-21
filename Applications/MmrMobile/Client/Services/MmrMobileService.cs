@@ -4,13 +4,15 @@ using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
 using HomagConnect.Base;
 using HomagConnect.Base.Services;
-using HomagConnect.MmrMobile.Interfaces;
-using HomagConnect.MmrMobile.Models;
+using HomagConnect.MmrMobile.Client.Interfaces;
+using HomagConnect.MmrMobile.Client.Models;
+
 using Newtonsoft.Json;
 
-namespace HomagConnect.MmrMobile.Services
+namespace HomagConnect.MmrMobile.Client.Services
 {
     public class MmrMobileService : ServiceBase, IMmrMobileService
     {
@@ -77,37 +79,37 @@ namespace HomagConnect.MmrMobile.Services
                 parameters += $"to={to:s}";
             }
 
-            if (string.IsNullOrEmpty(machineNumber))
+            if (!string.IsNullOrEmpty(machineNumber))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
                 parameters += $"machineNumber={Uri.EscapeDataString(machineNumber)}";
             }
 
-            if (string.IsNullOrEmpty(instanceId))
+            if (!string.IsNullOrEmpty(instanceId))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
                 parameters += $"instanceId={Uri.EscapeDataString(instanceId)}";
             }
 
-            if (string.IsNullOrEmpty(machineType))
+            if (!string.IsNullOrEmpty(machineType))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
                 parameters += $"machineType={Uri.EscapeDataString(machineType)}";
             }
 
-            if (string.IsNullOrEmpty(stateId))
+            if (!string.IsNullOrEmpty(stateId))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
                 parameters += $"stateId={Uri.EscapeDataString(stateId)}";
             }
 
-            if (string.IsNullOrEmpty(stateGroupId))
+            if (!string.IsNullOrEmpty(stateGroupId))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
                 parameters += $"stateGroupId={Uri.EscapeDataString(stateGroupId)}";
             }
 
-            if (string.IsNullOrEmpty(counterId))
+            if (!string.IsNullOrEmpty(counterId))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
                 parameters += $"counterId={Uri.EscapeDataString(counterId)}";
