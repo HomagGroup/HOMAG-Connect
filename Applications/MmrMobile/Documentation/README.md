@@ -49,7 +49,7 @@ cd homag-api-gateway-client
 
     1. If you know your *Subscription ID* you can just insert this in the link below and continue with 3.
 
-        [https://my.tapio.one/subscriptions/<Subscription ID>/applications/74fbbd3c-af43-4630-928b-e4022995fd02/addons/0e120a01-126a-4a19-a9b8-bbfc543345c1](https://my.tapio.one/subscriptions/<Subscription ID>/applications/74fbbd3c-af43-4630-928b-e4022995fd02/addons/0e120a01-126a-4a19-a9b8-bbfc543345c1)
+    [https://my.tapio.one/subscriptions/<Subscription ID>/applications/74fbbd3c-af43-4630-928b-e4022995fd02/addons/0e120a01-126a-4a19-a9b8-bbfc543345c1](https://my.tapio.one/subscriptions/<Subscription ID>/applications/74fbbd3c-af43-4630-928b-e4022995fd02/addons/0e120a01-126a-4a19-a9b8-bbfc543345c1)
 
     2. If you don't know your *Subscription ID* just go to [https://my.tapio.one](https://my.tapio.one). Select your subscription, select **Applications**, open **HOMAG productionManager** and click on **HOMAG File Agent**.
 
@@ -85,6 +85,50 @@ dotnet build
 ~~~bash
 dotnet test --filter TestCategory!=UserTestNoInteractionNeeded
 ~~~
+
+## Use in powerBI
+
+1. get the file sample from this repository and open it
+
+"StatesAndCounters.pbix"
+
+2. Click on "Transform data"
+
+![Transform ](pbi_main.png)
+
+3. Adjust the Parameters
+
+You must add here your subsiptionId (from tapio) and perhaps adjust the number of days, for which you want to get data
+
+![Parameter adjust](pbi_params.png)
+
+4. Adjust credentials
+
+The username is the name of your tapio-account (see it in the url of your browser, when you are in the management view)
+
+![Parameter adjust](pbi_tapio.png)
+
+The password is the key, you are creating for each Connect-App
+
+![Parameter adjust](pbi_tapio2.png)
+
+Please add these data in the Credentials dialog
+
+![Parameter adjust](pbi_connect.png)
+
+5. Work with the data
+Hit Close and Apply button in the ribbon
+
+## Use data in excel
+1. Copy the sample excel-file "StatesAndCounters.xlsx"
+
+2. Go to the powerQuery Management
+![Parameter adjust](excel_main.png)
+- Click on Queries in the ribbon (1)
+- doubleclick one of the queries (2)
+- select the first query and click on "advanced editor"(3)
+
+3. change the
 
 ## Contribute
 
