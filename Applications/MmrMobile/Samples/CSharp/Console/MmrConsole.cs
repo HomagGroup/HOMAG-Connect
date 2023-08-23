@@ -22,10 +22,10 @@ do
     var choice = string.Empty;
     do
     {
-        Console.WriteLine("\nDo you want to receive an evaluation of \n" +
-                          "1. All your machines counter data for the last 14 days \n" +
-                          "2. All your machines state data for the last 14 days \n" +
-                          "3. Get your production cycle for the last 14 days");
+        Console.WriteLine("\nDo you want to receive an evaluation of: \n" +
+                          "1. All your machines counter data for the last 14 days. \n" +
+                          "2. All your machines state data for the last 14 days.\n" +
+                          "3. Get your production cycle for the last 14 days.");
         choice = Console.ReadLine();
         if (choice == "1" || choice == "2" || choice == "3")
         {
@@ -58,11 +58,11 @@ do
                 s.Key.CounterId,
                 TotalCounter = s.Sum(x => x.Value)
             });
-            Console.WriteLine($"You produced {groupedCounter.First().TotalCounter} pieces in the last 14 days");
+            Console.WriteLine($"You produced {groupedCounter.First().TotalCounter} pieces in the last 14 days.");
         }
         else
         {
-            Console.WriteLine("No data has been found related to this subscription");
+            Console.WriteLine("No data has been found related to this subscription.");
         }
     }
 
@@ -71,27 +71,28 @@ do
         var states = await mmrMobileService.GetStateData(subscriptionId);
         if (states != null)
         {
-            var groupedStates = states.GroupBy(c => new { c.StateId }).Select(s => new
+            var groupedStates = states.GroupBy(c => new { c.StateId, c.StateTranslation }).Select(s => new
             {
                 s.Key.StateId,
+                s.Key.StateTranslation,
                 StateTime = s.Sum(x => x.DurationInHours),
             });
             var maximumWorkingHours = groupedStates.Sum(c => c.StateTime);
             Console.WriteLine("\nYour machines have been in the following stages for this many hours:");
             foreach (var state in groupedStates)
             {
-                Console.WriteLine($"{state.StateId}: {Math.Round(state.StateTime, 2)}");
+                Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime, 2)}");
             }
 
-            Console.WriteLine("\nSeen in percentage it would be (out of operation excluded)");
+            Console.WriteLine("\nSeen in percentage it would be: (out of operation excluded)");
             foreach (var state in groupedStates.Where(y => y.StateId != StateGroupCodes.OutOfOperation))
             {
-                Console.WriteLine($"{state.StateId}: {Math.Round(state.StateTime / maximumWorkingHours * 100, 2)}%");
+                Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime / maximumWorkingHours * 100, 2)}%");
             }
         }
         else
         {
-            Console.WriteLine("No data has been found related to this subscription");
+            Console.WriteLine("No data has been found related to this subscription.");
         }
     }
 
@@ -116,7 +117,7 @@ do
             });
 
             Console.WriteLine(
-                $"Your production cycle for the last 14 days was {Math.Round(groupedCounter.First().TotalCounter / maximumWorkingHours, 2)} parts per hour ");
+                $"Your production cycle for the last 14 days was {Math.Round(groupedCounter.First().TotalCounter / maximumWorkingHours, 2)} parts per hour.");
         }
     }
 
@@ -126,4 +127,5 @@ do
     {
         break;
     }
+
 } while (true);

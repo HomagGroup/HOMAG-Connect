@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{0270
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Client", "Applications\MmrMobile\Client\HomagConnect.MmrMobile.Client.csproj", "{7E3C98BE-5CD8-40D5-929C-92E108FEF2ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Samples.Console", "Applications\MmrMobile\Samples\C#\Console\HomagConnect.MmrMobile.Samples.Console.csproj", "{3016CA6B-D99B-4D3D-B827-2337BD88C145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Samples.Console", "Applications\MmrMobile\Samples\CSharp\Console\HomagConnect.MmrMobile.Samples.Console.csproj", "{3016CA6B-D99B-4D3D-B827-2337BD88C145}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Samples.Tests", "Applications\MmrMobile\Samples\C#\Tests\HomagConnect.MmrMobile.Samples.Tests.csproj", "{1BF4F8D0-ECFD-4AD8-AEB6-AE04721A14AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Samples.Tests", "Applications\MmrMobile\Samples\CSharp\Tests\HomagConnect.MmrMobile.Samples.Tests.csproj", "{1BF4F8D0-ECFD-4AD8-AEB6-AE04721A14AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{07DF7DD9-420B-49D8-892D-D18C154CA578}"
 EndProject

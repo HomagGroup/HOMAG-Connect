@@ -2,18 +2,18 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace HomagConnect.MmrMobile.Samples
+namespace HomagConnect.MmrMobile.Samples.Tests
 {
     public class TestBase
     {
-        public static (string, string, string) ReadProps()
+        public static (string, string, string) ReadProps(string area)
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true)
                 .Build();
-            var baseUrl = configuration["HomagApiGateway:BaseUrl"];
-            var username = configuration["HomagApiGateway:Username"];
-            var token = configuration["HomagApiGateway:Token"];
+            var baseUrl = configuration["HomagConnect:BaseUrl"];
+            var username = configuration[$"HomagConnect:{area}:Username"];
+            var token = configuration[$"HomagConnect:{area}:Token"];
 
             return (baseUrl, username, token);
         }
