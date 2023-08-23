@@ -1,134 +1,84 @@
-# HOMAG API Gateway Client
+# HOMAG MMR Mobile Client
 
-The following repository contains the **HOMAG API Gateway Client**, the [documentation](./Documentation/README.md) and [some samples](./Samples/README.md) for the usage.
+With these packages you can easily integrate different workflows of HOMAG applications into your own application.
 
-With these packages you can easily integrate different workflows of HOMAG applications into your own application. For further details and prerequisites for using the API client, please see the documentation.
+# Content table
 
-# TL;DR
+1. [TL;DR](#tldr)
+2. [PowerBI](#use-in-power-bi)
+3. [Excel](#use-data-in-excel)
+
+## TL;DR
 
 ~~~bash
-mkdir test-homag-api-gateway
-dotnet new console
-dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
-dotnet add package HomagGroup.DigitalFactory.ApiGateway.Client
+NuGet Coming soon 
 ~~~
 
 ~~~csharp
-using HomagGroup.DigitalFactory.ApiGateway.Client.Services;
+using System.Net.Http.Headers;
 using System.Text;
 
-Console.WriteLine("Hello at the HOMAG API Gateway");
+using HomagConnect.MmrMobile.Client.Services;
+
+Console.WriteLine("Hello at the HOMAG MMR Mobile Client");
 
 var client = new HttpClient();
-client.BaseAddress = new Uri("https://api-gateway.homag.cloud");
+client.BaseAddress = new Uri("https://connect.homag.cloud");
+Console.WriteLine("Please insert your subscription Id:");
+var subscriptionId = Console.ReadLine();
 Console.WriteLine("Please insert your token:");
 var token = Console.ReadLine();
-var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"8878FEF1-E271-402D-B3C1-296FCBF7A854:{token}"));
-client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
-
-var productionServices = new ProductionServices(client);
-var workplaces = await productionServices.PMGetFeedbackWorkplaces();
-
-Console.WriteLine($"We found {workplaces.Workplaces.Count} workplaces in your subscription.");
+var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{token}"));
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
+var states = await mmrMobileService.GetStateData(subscriptionId);
+var counters = await mmrMobileService.GetCounterData(subscriptionId);
+Console.WriteLine($"You got {states.Count()} states and {counters.Count()} counter for the last 14 days")
 ~~~
 
 ~~~bash
 dotnet run
 ~~~
 
-## Getting started
 
-1. Clone the repository
+## Use in Power BI
 
-~~~bash
-git clone https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client
-cd homag-api-gateway-client
-~~~
+1. Get the Power BI [sample file](/Applications/MmrMobile/Samples/PowerBI/StatesAndCounters.pbix).<br><br>
 
-2. Get your personal access token from [https://my.tapio.one](https://my.tapio.one)
 
-    1. If you know your *Subscription ID* you can just insert this in the link below and continue with 3.
+2. Click on **Transform data**.<br>
+![Transform](Assets/pbi_main.png)<br><br>
 
-    [https://my.tapio.one/subscriptions/<Subscription ID>/applications/74fbbd3c-af43-4630-928b-e4022995fd02/addons/0e120a01-126a-4a19-a9b8-bbfc543345c1](https://my.tapio.one/subscriptions/<Subscription ID>/applications/74fbbd3c-af43-4630-928b-e4022995fd02/addons/0e120a01-126a-4a19-a9b8-bbfc543345c1)
+3. Adjust the parameters.<br>
+Remark: You must add here your subscriptionId (from tapio) and perhaps adjust the number of days for which you want to get data.<br>
+![Parameter adjust](Assets/pbi_params.png)<br><br>
 
-    2. If you don't know your *Subscription ID* just go to [https://my.tapio.one](https://my.tapio.one). Select your subscription, select **Applications**, open **HOMAG productionManager** and click on **HOMAG File Agent**.
+4. Adjust credentials. <br>
+Remark: Please add your personal credentials into the dialog. If you don´t know how to get your credentials click [here](/README.md#get-your-personal-access-token-for-your-application).<br>
+![Parameter adjust](Assets/pbi_connect.png)<br><br>
 
-    3. Click on **Edit** and click on **Add**. Insert a name for your token, confirm and copy the token to your clipboard.
+5. Hit **Close** and **Apply** button in the ribbon.<br>
 
-    4. Copy *Samples/appsettings.json* to *Samples/appsettings.test.json*
 
-    ~~~bash
-    cp Samples/csharp/HomagGroup.ApiGateway.Client.Samples/appsettings.json Samples/csharp/HomagGroup.ApiGateway.Client.Samples/appsettings.test.json
-    ~~~
+## Use data in Excel
 
-    5. Insert your access token in the *Samples/appsettings.test.json*. It should look like below.
+1. Copy the excel [sample file](/Applications/MmrMobile/Samples/Excel/StatesAndCounters.xlsx).<br><br>
 
-    ~~~json
-    {
-        "HomagApiGateway":
-        {
-            "BaseUrl": "https://api-gateway.homag.cloud",
-            "Username": "8878FEF1-E271-402D-B3C1-296FCBF7A854", // Keep this username for your requests
-            "Token": "" // Use your personal access token from tapio
-        }
-    }
-    ~~~
+2. Go to the powerQuery Management.   
+   1. Click on queries in the ribbon.
+   2. Double-click one of the queries. 
+   3. Select the first query and click on **advanced editor**.
 
-3. Build the solution
+   ![Parameter adjust](Assets/excel_main.png)<br><br>
 
-~~~bash
-dotnet build
-~~~
+3. Change the subscription Id in the advanced query editor
+![Advanced editor](Assets/excel_editor.png)<br><br>
 
-4. Run tests
+4. Change the subscription and credentials. If you don´t know how to get your credentials click [here](/README.md#get-your-personal-access-token-for-your-application).<br>
+Remark: The username is the name of your tapio-account (see it in the url of your browser, when you are in the management view) 
+![Alt text](Assets/excel_credentials.png)<br><br>
 
-~~~bash
-dotnet test --filter TestCategory!=UserTestNoInteractionNeeded
-~~~
+5. Hit **Close** and **Apply** button in the ribbon.
 
-## Use in powerBI
-
-1. get the file sample from this repository and open it
-
-"StatesAndCounters.pbix"
-
-2. Click on "Transform data"
-
-![Transform ](pbi_main.png)
-
-3. Adjust the Parameters
-
-You must add here your subsiptionId (from tapio) and perhaps adjust the number of days, for which you want to get data
-
-![Parameter adjust](pbi_params.png)
-
-4. Adjust credentials
-
-The username is the name of your tapio-account (see it in the url of your browser, when you are in the management view)
-
-![Parameter adjust](pbi_tapio.png)
-
-The password is the key, you are creating for each Connect-App
-
-![Parameter adjust](pbi_tapio2.png)
-
-Please add these data in the Credentials dialog
-
-![Parameter adjust](pbi_connect.png)
-
-5. Work with the data
-Hit Close and Apply button in the ribbon
-
-## Use data in excel
-1. Copy the sample excel-file "StatesAndCounters.xlsx"
-
-2. Go to the powerQuery Management
-![Parameter adjust](excel_main.png)
-- Click on Queries in the ribbon (1)
-- doubleclick one of the queries (2)
-- select the first query and click on "advanced editor"(3)
-
-3. change the
 
 ## Contribute
 

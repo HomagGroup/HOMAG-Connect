@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HomagConnect.MmrMobile.Models
+namespace HomagConnect.MmrMobile.Client.Models
 {
     /// <summary>
     /// Machine state details

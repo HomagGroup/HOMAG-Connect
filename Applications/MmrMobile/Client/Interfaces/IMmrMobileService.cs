@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HomagConnect.MmrMobile.Models;
 
-namespace HomagConnect.MmrMobile.Interfaces
+using HomagConnect.MmrMobile.Client.Models;
+
+namespace HomagConnect.MmrMobile.Client.Interfaces
 {
     public interface IMmrMobileService
     {
@@ -19,7 +20,8 @@ namespace HomagConnect.MmrMobile.Interfaces
         /// <param name="stateId"></param>
         /// <param name="stateGroupId"></param>
         /// <returns></returns>
-        Task<IEnumerable<MachineState>> GetStateData(string subscriptionId, DateTime? from = null, DateTime? to = null, string machineNumber = null,
+        Task<IEnumerable<MachineState>> GetStateData(string subscriptionId, DateTime? from = null, DateTime? to = null,
+            string machineNumber = null,
             string instanceId = null, string machineType = null, string stateId = null, string stateGroupId = null);
 
         /// <summary>
