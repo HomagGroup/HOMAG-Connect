@@ -25,14 +25,14 @@ stages:
           clean: "true"
           persistCredentials: "true"
 
-        #- task: PowerShell@2
-        #  displayName: Set version environment variable
-        #  inputs:
-        #    targetType: inline
-        #    script: |
-        #      $VERSION_TAG = git describe --tags --dirty --match '[0-9]*'
-        #      echo "Set version tag: $($VERSION_TAG)"
-        #      echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
+        - task: PowerShell@2
+          displayName: Set version environment variable
+          inputs:
+            targetType: inline
+            script: |
+              $VERSION_TAG = git describe --tags --dirty --match '[0-9]*'
+              echo "Set version tag: $($VERSION_TAG)"
+              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
