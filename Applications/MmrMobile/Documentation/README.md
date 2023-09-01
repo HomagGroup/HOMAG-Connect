@@ -2,13 +2,16 @@
 
 With these packages you can easily integrate different workflows of HOMAG applications into your own application.
 
-# Content table
+## Content table
 
-1. [TL;DR](#tldr)
-2. [PowerBI](#use-in-power-bi)
-3. [Excel](#use-data-in-excel)
+1. [User-Documentation](#user-Documentation)<br>
+   1.1 [TL;DR](#tldr)<br>
+   1.2 [PowerBI](#use-in-power-bi)<br>
+   1.3 [Excel](#use-data-in-excel)
+2. [Developer-Documentation](#developer-documentation)
 
-## TL;DR
+## User-Documentation
+### TL;DR
 
 ~~~bash
 NuGet Coming soon 
@@ -40,7 +43,7 @@ dotnet run
 ~~~
 
 
-## Use in Power BI
+### Use in Power BI
 
 1. Get the Power BI [sample file](/Applications/MmrMobile/Samples/PowerBI/StatesAndCounters.pbix).<br><br>
 
@@ -59,7 +62,7 @@ Remark: Please add your personal credentials into the dialog. If you don´t know
 5. Hit **Close** and **Apply** button in the ribbon.<br>
 
 
-## Use data in Excel
+### Use data in Excel
 
 1. Copy the excel [sample file](/Applications/MmrMobile/Samples/Excel/StatesAndCounters.xlsx).<br><br>
 
@@ -78,6 +81,32 @@ Remark: The username is the name of your tapio-account (see it in the url of you
 ![Alt text](Assets/excel_credentials.png)<br><br>
 
 5. Hit **Close** and **Apply** button in the ribbon.
+
+## Developer-Documentation
+### Homag Connect MMR Mobile interface overview
+
+Name           | Method | API                                                                                                                                                                                                                              | Usage 
+---------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
+GetStateData   |Get     |`_PREFIX_/{subscriptionId}/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&stateGroupId={stateGroupId}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetCounterData |Get     |`_PREFIX_/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`                              | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+
+### Details
+#### GetStateData
+##### Input 
+
+Parameter      | Description
+---------------|------------------------------------------------------
+subscriptionId | The id of the subscription
+from           | DateTime that the search should start from
+to             | DateTime that the search should end
+machineNumber  | Number of the machine
+instanceId     | The id of the instance
+machineType    | Type of machine (e.g. CNC, Drilling, etc.)
+stateId        | Id of the state
+stateGroupId   | Id of the state group
+
+##### Output
+
 
 
 ## Contribute

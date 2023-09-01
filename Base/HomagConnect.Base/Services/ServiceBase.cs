@@ -15,7 +15,7 @@ namespace HomagConnect.Base.Services
         /// <summary>
         /// Base route for all apis
         /// </summary>
-        protected static readonly string Prefix = "api/gw/";
+        protected static readonly string Prefix = "api/";
 
         /// <summary>
         /// CTOR : Store the HttpClient for all requests
@@ -34,7 +34,7 @@ namespace HomagConnect.Base.Services
                 verStream = new MemoryStream();
                 var streamWriter = new StreamWriter(verStream);
                 streamWriter.Write(
-                    "{'versions': [{'DateTime': '2021-01-21', 'IsDeprecated': false},{'DateTime': '2021-08-10', 'IsDeprecated': false}]}");
+                    "{'versions': [{'DateTime': '2023-08-29', 'IsDeprecated': false}]}");
                 streamWriter.Flush();
                 verStream.Position = 0;
             }
