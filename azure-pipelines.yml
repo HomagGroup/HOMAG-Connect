@@ -50,7 +50,7 @@ stages:
           inputs:
             command: 'build'
             projects: '**/*.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore -p:Version=$(VERSION_TAG)'
+            arguments: '--configuration $(BuildConfiguration) --no-restore /p:Version=$(VERSION_TAG)'
 
         - task: DotNetCoreCLI@2
           displayName: Run Unit Tests
