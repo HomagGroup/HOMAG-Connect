@@ -22,8 +22,9 @@ stages:
         steps:
 
         - checkout: self
-          clean: "true"
-          persistCredentials: "true"
+          fetchDepth: 1
+          clean: true
+          persistCredentials: true
 
         - task: PowerShell@2
           displayName: Set version environment variable
