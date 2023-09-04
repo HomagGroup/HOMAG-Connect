@@ -5,6 +5,7 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
