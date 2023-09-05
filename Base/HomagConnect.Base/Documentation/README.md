@@ -21,7 +21,7 @@ HOMAG subscription id     |  The subscription id must be passed in each call to 
 
 ### Partner / developer experience
 
-The partner must register at HOMAG. Then the partner gets an partner id and can then start to call Homag Connect with this partner id and the SAT for the chosen application (MMR Mobile, intelliDivide, etc.), which was created within an tapio subscription.
+The partner must register at HOMAG. Then the partner gets an partner id and can then start to call Homag-Connect with this partner id and the SAT for the chosen application (MMR Mobile, intelliDivide, etc.), which was created within an tapio subscription.
 
 ### Customer experience
 

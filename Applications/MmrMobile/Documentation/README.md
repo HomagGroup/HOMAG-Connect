@@ -11,12 +11,12 @@ Version   | Date     | Comment
 ## Content table
 
 1. [User-Documentation](#user-Documentation)<br/>
-    1.1 [TL;DR](#tldr)<br/>
-    1.2 [PowerBI](#use-in-power-bi)<br/>
-    1.3 [Excel](#use-data-in-excel)
+    1.1. [TL;DR](#tldr)<br/>
+    1.2. [PowerBI](#use-in-power-bi)<br/>
+    1.3. [Excel](#use-data-in-excel)
 2. [Developer-Documentation](#developer-documentation)<br/>
-    2.1 [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)<br/>
-    2.2 [Details](#details)
+    2.1. [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)<br/>
+    2.2. [Details](#details)
 
 ## User-Documentation
 ### TL;DR
@@ -104,11 +104,11 @@ GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to
 Parameter      | Description
 ---------------|------------------------------------------------------
 subscriptionId | The id of the subscription
-from           | DateTime that the search should start from
-to             | DateTime that the search should end
+from           | DateTime that the search should start from (Dateformat: yyyy-mm-dd)
+to             | DateTime that the search should end (Dateformat: yyyy-mm-dd)
 machineNumber  | Number of the machine
 instanceId     | The id of the instance
-machineType    | Type of machine (e.g. CNC, Drilling, etc.)
+machineType    | Type of machine (possible machine types: CNC, Drilling, Edge, Saw, Assembly, Storing, Stock, Sorting, Shipping, PreAssembly, Lamination, Moulding, Packaging, Handling)
 stateId        | Id of the state
 stateGroupId   | Id of the state group
 
@@ -166,11 +166,11 @@ Content-Type: application/json; charset=utf-8
 Parameter      | Description
 ---------------|------------------------------------------------------
 subscriptionId | The id of the subscription
-from           | DateTime that the search should start from
-to             | DateTime that the search should end
+from           | DateTime that the search should start from (Dateformat: yyyy-mm-dd)
+to             | DateTime that the search should end (Dateformat: yyyy-mm-dd)
 machineNumber  | Number of the machine
 instanceId     | The id of the instance
-machineType    | Type of machine (e.g. CNC, Drilling, etc.)
+machineType    | Type of machine (possible machine types: CNC, Drilling, Edge, Saw, Assembly, Storing, Stock, Sorting, Shipping, PreAssembly, Lamination, Moulding, Packaging, Handling)
 counterId      | Id of the state
 
 ##### Output
