@@ -2,13 +2,21 @@
 
 With these packages you can easily integrate different workflows of HOMAG applications into your own application.
 
+## Version history
+
+Version   | Date     | Comment 
+----------|----------|---------
+1.0.0     |05.09.2023| First Draft
+
 ## Content table
 
-1. [User-Documentation](#user-Documentation)<br>
-   1.1 [TL;DR](#tldr)<br>
-   1.2 [PowerBI](#use-in-power-bi)<br>
-   1.3 [Excel](#use-data-in-excel)
-2. [Developer-Documentation](#developer-documentation)
+1. [User-Documentation](#user-Documentation)<br/>
+    1.1 [TL;DR](#tldr)<br/>
+    1.2 [PowerBI](#use-in-power-bi)<br/>
+    1.3 [Excel](#use-data-in-excel)
+2. [Developer-Documentation](#developer-documentation)<br/>
+    2.1 [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)<br/>
+    2.2 [Details](#details)
 
 ## User-Documentation
 ### TL;DR
@@ -87,13 +95,12 @@ Remark: The username is the name of your tapio-account (see it in the url of you
 
 Name           | Method | API                                                                                                                                                                                                                              | Usage 
 ---------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
-GetStateData   |Get     |`_PREFIX_/{subscriptionId}/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&stateGroupId={stateGroupId}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
-GetCounterData |Get     |`_PREFIX_/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`                              | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetStateData   |GET     |`api/{subscriptionId}/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&stateGroupId={stateGroupId}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`                              | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
 
 ### Details
 #### GetStateData
 ##### Input 
-
 Parameter      | Description
 ---------------|------------------------------------------------------
 subscriptionId | The id of the subscription
@@ -106,8 +113,110 @@ stateId        | Id of the state
 stateGroupId   | Id of the state group
 
 ##### Output
+Property          | Description
+------------------|-----------------------------------------------
+Machine Number    | Number of the machine
+Machine Name      | Name of the machine
+Machine Type      | Type of machine (e.g. CNC, Drilling, etc.)
+Timestamp         | Time when the data was gathered
+Duration [h]      | Time that the machine spent in the state in hours 
+Instance Id       | Id of the instance
+Detailed State Id | Internal detailed state id
+Detailed State    | Detailed state translated into the requested language
+State Id          | Internal state id
+State             | State translated into the requested language
 
+##### Example
 
+Request
+
+```text
+GET /api/{someSubscriptionId}/mmr/states
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+[
+    {
+        "Machine Number": "0-242-92-1234",
+        "Machine Name": "Some Machine | 0-242-92-1234",
+        "Machine Type": "CNC",
+        "Timestamp": "2022-09-27T00:00:00",
+        "Duration [h]": 4.348055555555556,
+        "Instance Id": "M1-C1",
+        "Detailed State Id": "S_OMU_MODE1",
+        "Detailed State": "Hauptnutzung Tisch links",
+        "State Id": "s_mainusage",
+        "State": "Hauptnutzung"
+    }
+]
+```
+
+#### GetCounterData
+##### Input
+Parameter      | Description
+---------------|------------------------------------------------------
+subscriptionId | The id of the subscription
+from           | DateTime that the search should start from
+to             | DateTime that the search should end
+machineNumber  | Number of the machine
+instanceId     | The id of the instance
+machineType    | Type of machine (e.g. CNC, Drilling, etc.)
+counterId      | Id of the state
+
+##### Output
+Property       | Description
+---------------|-----------------------------------------------
+Machine Number | Number of the machine
+Machine Name   | Name of the machine
+Machine Type   | Type of machine (e.g. CNC, Drilling, etc.)
+Timestamp      | Time when the data was gathered
+Value          | Output value 
+Instance Id    | Id of the instance
+Counter Id     | Internal counter id
+Counter        | Counter translated into the requested language
+
+##### Example
+
+Request
+
+```text
+GET /api/{someSubscriptionId}/mmr/counters
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+[
+    {
+        "Machine Number": "0-242-92-1234",
+        "Machine Name": "Some Machine | 0-242-92-1234",
+        "Machine Type": "CNC",
+        "Timestamp": "2022-09-05T00:00:00",
+        "Value": 62.0,
+        "Instance Id": "M1-C1",
+        "Counter Id": "S_OUT_CyclesAll",
+        "Counter": "Ausbringung Zyklen"
+    }
+]
+```
 
 ## Contribute
 

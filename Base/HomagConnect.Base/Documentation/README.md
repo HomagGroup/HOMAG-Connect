@@ -2,9 +2,9 @@
 
 ## Version history
 
-Version | Date     | Comment 
---------|----------|---------
-0.7     |31.08.2023| First Draft
+Version   | Date     | Comment 
+----------|----------|---------
+1.0.0     |05.09.2023| First Draft
 
 ## Introduction
 
@@ -16,8 +16,8 @@ Each partner needs to register with HOMAG and tapio in order to use this communi
 Term                      | Description
 --------------------------|--------------------------------------------------------------------------
 Homag Connect             | A central gateway for communicating with HOMAG applications. It is deployed worldwide on different regions. The call will automatically be routed to the nearest endpoint / region.
-SAT                       | Subscription Access Token (similar to a PAT (Personal Access Token)).<br>It can be created in the tapio admin UI by the customer; also it can be revoked if needed.<br>This SAT must be created by the end customer and stored inside the partners application for this customer. It is then passed to the API gateway to authenticate the access.<br>In tapio this is also called `Authorization key`.
-HOMAG partner id          | Each partner is assigned a unique partner id. This id must be passed in each call to the API gateway. It is mainly used to identify the calling application (it is more an information). The authentication is still done with the SAT.
+SAT                       | Subscription Access Token (similar to a PAT (Personal Access Token)).<br>It can be created in the tapio admin UI by the customer; also it can be revoked if needed.<br>This SAT must be created by the end customer and stored inside the partners application for this customer. It is then passed to HOMAG-Connect to authenticate the access.<br>In tapio this is also called `Authorization key`.
+HOMAG subscription id     | Each partner is assigned a unique partner id which owns subscription Id(s). The subscription id must be passed in each call to HOMAG-Connect. It is mainly used to identify the calling application (it is more an information). The authentication is still done with the SAT.
 
 ### Partner / developer experience
 
@@ -122,9 +122,18 @@ HOMAG -> tapio: \n*Validate SAT and return subscriptionId\nand application/licen
 #### Authentication
 
 We use [basic authentication](https://swagger.io/docs/specification/authentication/basic-authentication/).
-The username is the given from HOMAG, which is your `HOMAG partner id` and the password is the provided SAT from the customer in your application.
+The username is the given from HOMAG, which is your `HOMAG subscription id` and the password is the provided SAT from the customer in your application.
 
 #### Additional header data
+
+##### Versioning
+
+You should provide a `api-version` header, so we known, which version of the API you want to call. If this header is not present, we assume always the latest version.
+The current version is `2021-08-10`.
+
+##### Locale
+
+You should provide the [`accept-language`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) header, so you also receive possible error messages or other localized texts in the preferred language.
 
 ##### Additional data / tracing
 
