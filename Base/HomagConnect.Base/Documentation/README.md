@@ -15,13 +15,13 @@ Each partner needs to register with HOMAG and tapio in order to use this communi
 
 Term                      | Description
 --------------------------|--------------------------------------------------------------------------
-Homag Connect             | A central gateway for communicating with HOMAG applications. It is deployed worldwide on multiple regions. The call will automatically be routed to the nearest available endpoint / region.
-SAT                       | Subscription Access Token (similar to a PAT (Personal Access Token)).<br>It can be created in the tapio admin UI by the customer; also it can be revoked if needed.<br>This SAT must be created by the end customer and stored inside the partners application for this customer. It is then passed to HOMAG-Connect to authenticate the access.<br>In tapio this is also called `Authorization key`.
-HOMAG subscription id     |  The subscription id must be passed in each call to HOMAG-Connect. It is mainly used to identify the calling application (it is more an information). The authentication is still done with the SAT.
+HOMAG Connect             | A central gateway for communicating with HOMAG applications. It is deployed worldwide on multiple regions. The call will automatically be routed to the nearest available endpoint / region.
+SAT                       | Subscription Access Token (similar to a PAT (Personal Access Token)).<br>It can be created in the tapio admin UI by the customer; also it can be revoked if needed.<br>This SAT must be created by the end customer and stored inside the partners application for this customer. It is then passed to HOMAG Connect to authenticate the access.<br>In tapio this is also called `Authorization key`.
+HOMAG subscription id     |  The subscription id must be passed in each call to HOMAG Connect. It is mainly used to identify the calling application (it is more an information). The authentication is still done with the SAT.
 
 ### Partner / developer experience
 
-The partner must register at HOMAG. Then the partner gets an partner id and can then start to call Homag Connect with this partner id and the SAT for the chosen application (MMR Mobile, intelliDivide, etc.), which was created within an tapio subscription.
+The partner must register at HOMAG. Then the partner gets an partner id and can then start to call HOMAG Connect with this partner id and the SAT for the chosen application (MMR Mobile, intelliDivide, etc.), which was created within an tapio subscription.
 
 ### Customer experience
 
@@ -166,6 +166,6 @@ For more information, please refer to [RFC7807](https://tools.ietf.org/html/rfc7
 
 ### Interface overview
 
-#### Homag Connect MMR Mobile interface
+#### HOMAG Connect MMR Mobile interface
 Follow the [link](/Applications/MmrMobile/Documentation/README.md#)
 

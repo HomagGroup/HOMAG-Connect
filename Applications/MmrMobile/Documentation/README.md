@@ -11,12 +11,12 @@ Version   | Date     | Comment
 ## Content table
 
 1. [User-Documentation](#user-Documentation)<br/>
-    1.1 [TL;DR](#tldr)<br/>
-    1.2 [PowerBI](#use-in-power-bi)<br/>
-    1.3 [Excel](#use-data-in-excel)
+    1.1. [TL;DR](#tldr)<br/>
+    1.2. [PowerBI](#use-in-power-bi)<br/>
+    1.3. [Excel](#use-data-in-excel)
 2. [Developer-Documentation](#developer-documentation)<br/>
-    2.1 [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)<br/>
-    2.2 [Details](#details)
+    2.1. [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)<br/>
+    2.2. [Details](#details)
 
 ## User-Documentation
 ### TL;DR
@@ -100,31 +100,31 @@ GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to
 
 ### Details
 #### GetStateData
-##### Input 
-Parameter      | Description
----------------|------------------------------------------------------
-subscriptionId | The id of the subscription
-from           | DateTime that the search should start from
-to             | DateTime that the search should end
-machineNumber  | Number of the machine
-instanceId     | The id of the instance
-machineType    | Type of machine (e.g. CNC, Drilling, etc.)
-stateId        | Id of the state
-stateGroupId   | Id of the state group
+##### Input       
+Parameter                   | Type     | Description                                        
+----------------------------|----------|---------------------------------------------------
+subscriptionId *(Required)* | string   | The id of the subscription 
+from *(Optional)*           | DateTime | DateTime that the search should start from         
+to *(Optional)*             | DateTime | DateTime that the search should end                
+machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)                              
+instanceId *(Optional)*     | string   | The id of the instance                             
+machineType *(Optional)*    | string   | Type of machine                                    
+stateId *(Optional)*        | string   | Id of the state                                    
+stateGroupId *(Optional)*   | string   | Id of the state group                              
 
 ##### Output
-Property          | Description
-------------------|-----------------------------------------------
-Machine Number    | Number of the machine
-Machine Name      | Name of the machine
-Machine Type      | Type of machine (e.g. CNC, Drilling, etc.)
-Timestamp         | Time when the data was gathered
-Duration [h]      | Time that the machine spent in the state in hours 
-Instance Id       | Id of the instance
-Detailed State Id | Internal detailed state id
-Detailed State    | Detailed state translated into the requested language
-State Id          | Internal state id
-State             | State translated into the requested language
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+Machine Number    | string   | Number of the machine
+Machine Name      | string   | Name of the machine
+Machine Type      | string   | Type of machine
+Timestamp         | DateTime | Day when the data was gathered
+Duration [h]      | double   | Time that the machine spent in the state in hours 
+Instance Id       | string   | Id of the instance
+Detailed State Id | string   | Internal detailed state id
+Detailed State    | string   | Detailed state translated into the requested language
+State Id          | string   | Internal state id
+State             | string   | State translated into the requested language
 
 ##### Example
 
@@ -163,27 +163,27 @@ Content-Type: application/json; charset=utf-8
 
 #### GetCounterData
 ##### Input
-Parameter      | Description
----------------|------------------------------------------------------
-subscriptionId | The id of the subscription
-from           | DateTime that the search should start from
-to             | DateTime that the search should end
-machineNumber  | Number of the machine
-instanceId     | The id of the instance
-machineType    | Type of machine (e.g. CNC, Drilling, etc.)
-counterId      | Id of the state
-
-##### Output
-Property       | Description
----------------|-----------------------------------------------
-Machine Number | Number of the machine
-Machine Name   | Name of the machine
-Machine Type   | Type of machine (e.g. CNC, Drilling, etc.)
-Timestamp      | Time when the data was gathered
-Value          | Output value 
-Instance Id    | Id of the instance
-Counter Id     | Internal counter id
-Counter        | Counter translated into the requested language
+Parameter                   | Type     | Description                                                        
+----------------------------|----------|-------------------------------------------
+subscriptionId *(Required)* | string   | The id of the subscription                                          
+from *(Optional)*           | DateTime | DateTime that the search should start from 
+to *(Optional*)             | DateTime | DateTime that the search should end         
+machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)                                               
+instanceId *(Optional)*     | string   | The id of the instance                                              
+machineType *(Optional)*    | string   | Type of machine                                                     
+counterId *(Optional)*      | string   | Id of the state                                                     
+   
+##### Output      
+Property       | Type     | Description                                    
+---------------|----------|------------------------------------------------ 
+Machine Number | string   | Number of the machine                          
+Machine Name   | string   | Name of the machine                            
+Machine Type   | string   | Type of machine                                
+Timestamp      | DateTime | Day when the data was gathered                
+Value          | double   | Output value                                   
+Instance Id    | string   | Id of the instance                             
+Counter Id     | string   | Internal counter id                            
+Counter        | string   | Counter translated into the requested language 
 
 ##### Example
 
