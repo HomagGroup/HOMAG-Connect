@@ -4,7 +4,7 @@
 
 Version   | Date     | Comment 
 ----------|----------|---------
-1.0.0     |05.09.2023| First Draft
+1.0.0     |07.09.2023| First Draft
 
 ## Introduction
 
