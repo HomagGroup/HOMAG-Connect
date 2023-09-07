@@ -11,7 +11,7 @@ trigger:
 
 variables:
   dotnetVersion: 6.0.x
-  ProductName: HomagGroup.HomagConnect.DigitalDevelopment
+  ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect
 
 
