@@ -49,7 +49,7 @@ stages:
           inputs:
             command: 'restore'
 
-        - task: SonarQubePrepare@4
+        - task: SonarQubePrepare@5
           displayName: 'Prepare analysis on SonarQube'
           inputs:
             SonarQube: 'SonarQube Enterprise'
@@ -73,11 +73,11 @@ stages:
             command: 'test'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'
         
-        - task: SonarQubeAnalyze@4
+        - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
-        - task: SonarQubePublish@4
+        - task: SonarQubePublish@5
           displayName: 'Publish Quality Gate Result'
           continueOnError: true
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
