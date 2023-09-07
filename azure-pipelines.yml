@@ -46,6 +46,17 @@ stages:
           inputs:
             command: 'restore'
 
+        - task: SonarQubePrepare@4
+          displayName: 'Prepare analysis on SonarQube'
+          inputs:
+            SonarQube: 'SonarQube Enterprise'
+            projectKey: $(ProductName).$(ProjectName)
+            projectName: $(ProductName).$(ProjectName)
+            projectVersion: '$(MajorMinorBuildVersion)'
+            extraProperties: |
+                sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+            condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+
         - task: DotNetCoreCLI@2
           displayName: Build projects
           inputs:
@@ -58,6 +69,15 @@ stages:
           inputs:
             command: 'test'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'
+        
+        - task: SonarQubeAnalyze@4
+          displayName: 'Run Code Analysis'
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+
+        - task: SonarQubePublish@4
+          displayName: 'Publish Quality Gate Result'
+          continueOnError: true
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) Applications/HomagConnect.MMR Mobile/Client/HomagConnect.MmrMobile.Client/**/*.nupkg
           displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"
