@@ -1,17 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;netcoreapp3.0;netstandard2.1;</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Title>Homag-Connect MMR Mobile Client</Title>
+    <Description>Client assembly for the usage of Homag-Connect MMR Mobile routes</Description>
+    <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MmrMobile/Client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Resources\" />
+    <None Include="..\Documentation\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Package References">
+    <PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

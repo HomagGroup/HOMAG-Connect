@@ -11,6 +11,9 @@ trigger:
 
 variables:
   dotnetVersion: 6.0.x
+  ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
+  ProjectName: HomagConnect
+
 
 stages:
   - stage: Build
@@ -23,18 +26,18 @@ stages:
         steps:
 
         - checkout: self
-          fetchDepth: 1
-          clean: true
-          persistCredentials: true
+          fetchDepth: 0
 
         - task: PowerShell@2
           displayName: Set version environment variable
           inputs:
             targetType: inline
             script: |
-              $VERSION_TAG = git describe --tags --dirty --match='v[0-9]*'
+              git log
+              $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
               echo "Set version tag: $($VERSION_TAG)"
               echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
+
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
           inputs:
@@ -46,19 +49,39 @@ stages:
           inputs:
             command: 'restore'
 
+        - task: SonarQubePrepare@5
+          displayName: 'Prepare analysis on SonarQube'
+          inputs:
+            SonarQube: 'SonarQube Enterprise'
+            projectKey: $(ProductName).$(ProjectName)
+            projectName: $(ProductName).$(ProjectName)
+            projectVersion: '$(MajorMinorBuildVersion)'
+            extraProperties: |
+                sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+            condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+
         - task: DotNetCoreCLI@2
           displayName: Build projects
           inputs:
             command: 'build'
             projects: '**/*.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore -p:Version=$(VERSION_TAG)'
+            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
           displayName: Run Unit Tests
           inputs:
             command: 'test'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'
+        
+        - task: SonarQubeAnalyze@5
+          displayName: 'Run Code Analysis'
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
-#        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY) Client/HomagGroup.DigitalFactory.ApiGateway.Client/**/*.nupkg
-#          displayName: "Publish NuGet package on nuget.org"
-#          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'homag-api-gateway-client'))
+        - task: SonarQubePublish@5
+          displayName: 'Publish Quality Gate Result'
+          continueOnError: true
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) Applications/HomagConnect.MMR Mobile/Client/HomagConnect.MmrMobile.Client/**/*.nupkg
+          displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'homag-connect'))
