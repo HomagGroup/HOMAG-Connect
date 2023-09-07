@@ -1,28 +1,29 @@
 # HOMAG MMR Mobile Client
 
-With these packages you can easily integrate different workflows of HOMAG applications into your own application.
+HOMAG Connect MMR Mobile gives you direct access to your machine data (counters, states) from MMR Mobile. You can then conveniently integrate this into your applications.
+To help you get started, we have prepared a few examples that you can find below.
 
 ## Version history
 
 Version   | Date     | Comment 
-----------|----------|---------
-1.0.0     |05.09.2023| First Draft
+----------|----------|------------
+1.0.0     |07.09.2023| First Draft
 
 ## Content table
+1. [TL;DR](#tldr)
+2. [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)
+3. [Details](#details)
 
-1. [User-Documentation](#user-Documentation)<br/>
-    1.1. [TL;DR](#tldr)<br/>
-    1.2. [PowerBI](#use-in-power-bi)<br/>
-    1.3. [Excel](#use-data-in-excel)
-2. [Developer-Documentation](#developer-documentation)<br/>
-    2.1. [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)<br/>
-    2.2. [Details](#details)
+## Authorization
 
-## User-Documentation
-### TL;DR
+
+## TL;DR
 
 ~~~bash
-NuGet Coming soon 
+mkdir test-homag-connect-mmr-client
+dotnet new console
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+dotnet add package HomagGroup.HomagConnect.MmrMobile.Client
 ~~~
 
 ~~~csharp
@@ -50,69 +51,28 @@ Console.WriteLine($"You got {states.Count()} states and {counters.Count()} count
 dotnet run
 ~~~
 
+## Homag Connect MMR Mobile interface overview
 
-### Use in Power BI
+Name           | Method | API                                                                                                                                                                                                                               | Usage 
+---------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
+GetStateData   |GET     |`api/{subscriptionId}/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&detailedStateId={detailedStateId}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
 
-1. Get the Power BI [sample file](/Applications/MmrMobile/Samples/PowerBI/StatesAndCounters.pbix).<br><br>
+## Details
+### GetStateData
+#### Input       
+Parameter                    | Type     | Description                                        
+-----------------------------|----------|---------------------------------------------------
+subscriptionId *(Required)*  | string   | The id of the subscription 
+from *(Optional)*            | DateTime | DateTime that the search should start from         
+to *(Optional)*              | DateTime | DateTime that the search should end                
+machineNumber *(Optional)*   | string   | Number of the machine (Format: x-xxx-xx-xxxx)                              
+instanceId *(Optional)*      | string   | The id of the instance                             
+machineType *(Optional)*     | string   | Type of machine                                    
+stateId *(Optional)*         | string   | Id of the state                                    
+detailedStateId *(Optional)* | string   | Id of the detailed state                             
 
-
-2. Click on **Transform data**.<br>
-![Transform](Assets/pbi_main.png)<br><br>
-
-3. Adjust the parameters.<br>
-Remark: You must add here your subscriptionId (from tapio) and perhaps adjust the number of days for which you want to get data.<br>
-![Parameter adjust](Assets/pbi_params.png)<br><br>
-
-4. Adjust credentials. <br>
-Remark: Please add your personal credentials into the dialog. If you don´t know how to get your credentials click [here](/README.md#get-your-personal-access-token-for-your-application).<br>
-![Parameter adjust](Assets/pbi_connect.png)<br><br>
-
-5. Hit **Close** and **Apply** button in the ribbon.<br>
-
-
-### Use data in Excel
-
-1. Copy the excel [sample file](/Applications/MmrMobile/Samples/Excel/StatesAndCounters.xlsx).<br><br>
-
-2. Go to the powerQuery Management.   
-   1. Click on queries in the ribbon.
-   2. Double-click one of the queries. 
-   3. Select the first query and click on **advanced editor**.
-
-   ![Parameter adjust](Assets/excel_main.png)<br><br>
-
-3. Change the subscription Id in the advanced query editor
-![Advanced editor](Assets/excel_editor.png)<br><br>
-
-4. Change the subscription and credentials. If you don´t know how to get your credentials click [here](/README.md#get-your-personal-access-token-for-your-application).<br>
-Remark: The username is the name of your tapio-account (see it in the url of your browser, when you are in the management view) 
-![Alt text](Assets/excel_credentials.png)<br><br>
-
-5. Hit **Close** and **Apply** button in the ribbon.
-
-## Developer-Documentation
-### Homag Connect MMR Mobile interface overview
-
-Name           | Method | API                                                                                                                                                                                                                              | Usage 
----------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
-GetStateData   |GET     |`api/{subscriptionId}/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&stateGroupId={stateGroupId}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
-GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`                              | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
-
-### Details
-#### GetStateData
-##### Input       
-Parameter                   | Type     | Description                                        
-----------------------------|----------|---------------------------------------------------
-subscriptionId *(Required)* | string   | The id of the subscription 
-from *(Optional)*           | DateTime | DateTime that the search should start from         
-to *(Optional)*             | DateTime | DateTime that the search should end                
-machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)                              
-instanceId *(Optional)*     | string   | The id of the instance                             
-machineType *(Optional)*    | string   | Type of machine                                    
-stateId *(Optional)*        | string   | Id of the state                                    
-stateGroupId *(Optional)*   | string   | Id of the state group                              
-
-##### Output
+#### Output
 Property          | Type     | Description
 ------------------|----------|-----------------------------------------------
 Machine Number    | string   | Number of the machine
@@ -121,12 +81,12 @@ Machine Type      | string   | Type of machine
 Timestamp         | DateTime | Day when the data was gathered
 Duration [h]      | double   | Time that the machine spent in the state in hours 
 Instance Id       | string   | Id of the instance
-Detailed State Id | string   | Internal detailed state id
+Detailed State Id | string   | Id of the detailed state 
 Detailed State    | string   | Detailed state translated into the requested language
-State Id          | string   | Internal state id
+State Id          | string   | Id of the state 
 State             | string   | State translated into the requested language
 
-##### Example
+#### Example
 
 Request
 
@@ -161,8 +121,8 @@ Content-Type: application/json; charset=utf-8
 ]
 ```
 
-#### GetCounterData
-##### Input
+### GetCounterData
+#### Input
 Parameter                   | Type     | Description                                                        
 ----------------------------|----------|-------------------------------------------
 subscriptionId *(Required)* | string   | The id of the subscription                                          
@@ -171,9 +131,9 @@ to *(Optional*)             | DateTime | DateTime that the search should end
 machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)                                               
 instanceId *(Optional)*     | string   | The id of the instance                                              
 machineType *(Optional)*    | string   | Type of machine                                                     
-counterId *(Optional)*      | string   | Id of the state                                                     
+counterId *(Optional)*      | string   | Id of the counter                                                     
    
-##### Output      
+#### Output      
 Property       | Type     | Description                                    
 ---------------|----------|------------------------------------------------ 
 Machine Number | string   | Number of the machine                          
@@ -182,10 +142,10 @@ Machine Type   | string   | Type of machine
 Timestamp      | DateTime | Day when the data was gathered                
 Value          | double   | Output value                                   
 Instance Id    | string   | Id of the instance                             
-Counter Id     | string   | Internal counter id                            
+Counter Id     | string   | Id of the counter                           
 Counter        | string   | Counter translated into the requested language 
 
-##### Example
+#### Example
 
 Request
 
