@@ -11,6 +11,9 @@ trigger:
 
 variables:
   dotnetVersion: 6.0.x
+  ProductName: HomagGroup.HomagConnect.DigitalDevelopment
+  ProjectName: HomagConnect
+
 
 stages:
   - stage: Build
