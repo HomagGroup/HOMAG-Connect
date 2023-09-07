@@ -1,11 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;netcoreapp3.0;netstandard2.1;</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>HomagGroup.HomagConnect.Base</PackageId>
+    <Title>Homag-Connect Base</Title>
+    <Description>Base assembly for all Homag-Connect clients</Description>
+    <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup Label="Package References">
+    <PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
