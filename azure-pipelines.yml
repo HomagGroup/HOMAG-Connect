@@ -82,6 +82,6 @@ stages:
           continueOnError: true
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) Applications/HomagConnect.MMR Mobile/Client/HomagConnect.MmrMobile.Client/**/*.nupkg
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) "Applications/HomagConnect.MMR Mobile/Client/HomagConnect.MmrMobile.Client/**/*.nupkg"
           displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"
           condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
