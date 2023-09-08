@@ -8,6 +8,8 @@ using HomagConnect.MmrMobile.Samples.Console;
 
 Console.WriteLine("Hello at the HOMAG MMR Mobile Client");
 
+
+var testUri = "https://test.sonar.com";
 var client = new HttpClient();
 client.BaseAddress = new Uri("https://connect-preview.homag.cloud");
 Console.WriteLine("Please insert your subscription Id:");
