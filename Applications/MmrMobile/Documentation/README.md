@@ -8,6 +8,7 @@ To help you get started, we have prepared a few examples that you can find below
 Version   | Date     | Comment 
 ----------|----------|------------
 1.0.0     |07.09.2023| First Draft
+1.1.0     |21.09.2923| Add granularity for getting the data and updating the technical documentation
 
 ## Content table
 1. [TL;DR](#tldr)
@@ -59,6 +60,9 @@ GetStateData   |GET     |`api/{subscriptionId}/mmr/`<br/>`states?from={from}&to=
 GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
 
 ## Details
+### Rate Limiting
+As mentioned in the base documentation, each application has a different rate limitation. For the following endpoints this limit is currently set to 6 requests in a minute.
+
 ### GetStateData
 #### Input       
 Parameter                    | Type     | Description                                        
@@ -70,7 +74,8 @@ machineNumber *(Optional)*   | string   | Number of the machine (Format: x-xxx-x
 instanceId *(Optional)*      | string   | The id of the instance                             
 machineType *(Optional)*     | string   | Type of machine                                    
 stateId *(Optional)*         | string   | Id of the state                                    
-detailedStateId *(Optional)* | string   | Id of the detailed state                             
+detailedStateId *(Optional)* | string   | Id of the detailed state           
+granularity *(Optional)*     | string   | Specifies granualrity of the returned data (hourly, daily, weekly, monthly) Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
 
 #### Output
 Property          | Type     | Description
@@ -85,6 +90,8 @@ Detailed State Id | string   | Id of the detailed state
 Detailed State    | string   | Detailed state translated into the requested language
 State Id          | string   | Id of the state 
 State             | string   | State translated into the requested language
+Granularity       | string   | Granularity of the requested data
+
 
 #### Example
 
@@ -120,7 +127,7 @@ Content-Type: application/json; charset=utf-8
     }
 ]
 ```
-
+The default route with no timespan added will always return related data for the last 14 days.
 ### GetCounterData
 #### Input
 Parameter                   | Type     | Description                                                        
@@ -131,7 +138,8 @@ to *(Optional*)             | DateTime | DateTime that the search should end
 machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)                                               
 instanceId *(Optional)*     | string   | The id of the instance                                              
 machineType *(Optional)*    | string   | Type of machine                                                     
-counterId *(Optional)*      | string   | Id of the counter                                                     
+counterId *(Optional)*      | string   | Id of the counter  
+granularity *(Optional)*    | string   | Specifies granualrity of the returned data (hourly, daily, weekly, monthly) Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
    
 #### Output      
 Property       | Type     | Description                                    
@@ -144,6 +152,7 @@ Value          | double   | Output value
 Instance Id    | string   | Id of the instance                             
 Counter Id     | string   | Id of the counter                           
 Counter        | string   | Counter translated into the requested language 
+Granularity    | string   | Granularity of the requested data
 
 #### Example
 
@@ -177,6 +186,7 @@ Content-Type: application/json; charset=utf-8
     }
 ]
 ```
+The default route with no timespan added will always return related data for the last 14 days.
 
 ## Contribute
 

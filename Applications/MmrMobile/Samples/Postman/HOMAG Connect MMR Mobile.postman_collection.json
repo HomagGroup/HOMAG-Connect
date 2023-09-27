@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "764700a1-fd57-4419-adb7-092d46b70a1b",
+		"_postman_id": "e3da4e75-2c71-4342-95a2-56d025a6ae1f",
 		"name": "HOMAG Connect MMR Mobile",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28009578"
@@ -246,7 +246,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&stateGroupId=s_mainusage",
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&stateId=s_mainusage",
 							"host": [
 								"{{ConnectHost}}"
 							],
@@ -262,13 +262,13 @@
 									"value": "{{machineNumber}}"
 								},
 								{
-									"key": "stateGroupId",
-									"value": "s_mainusage"
-								},
-								{
 									"key": "from",
 									"value": "2020-01-01",
 									"disabled": true
+								},
+								{
+									"key": "stateId",
+									"value": "s_mainusage"
 								}
 							]
 						}
@@ -288,7 +288,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&stateid=S_OMU_MODE1",
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&detailedStateId=S_OMU_MODE1",
 							"host": [
 								"{{ConnectHost}}"
 							],
@@ -304,13 +304,13 @@
 									"value": "{{machineNumber}}"
 								},
 								{
-									"key": "stateid",
-									"value": "S_OMU_MODE1"
-								},
-								{
 									"key": "from",
 									"value": "2020-01-01",
 									"disabled": true
+								},
+								{
+									"key": "detailedStateId",
+									"value": "S_OMU_MODE1"
 								}
 							]
 						}
@@ -578,6 +578,29 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "basic"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

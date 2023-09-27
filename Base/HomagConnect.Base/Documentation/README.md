@@ -5,6 +5,7 @@
 Version   | Date     | Comment 
 ----------|----------|---------
 1.0.0     |07.09.2023| First Draft
+1.1.0     |21.09.2023| Updating documentation
 
 ## Introduction
 
@@ -28,12 +29,17 @@ HOMAG subscription id     | The subscription id must be passed in each call to H
 We use [basic authentication](https://swagger.io/docs/specification/authentication/basic-authentication/).
 The username is the given from HOMAG, which is your `HOMAG subscription id` and the password is the provided SAT from the customer in your application.
 
+#### Rate Limiting
+
+To control the rate of requests send or received by a network interface controller, rate limiting was implemented. The current maximum for calls of a controller differ per application.
+Afterwards you will receive a **HTTP 429: Too many request** as response.
+
 #### Additional header data
 
 ##### Versioning
 
 You should provide a `api-version` header, so we known, which version of the API you want to call. If this header is not present, we assume always the latest version.
-The current version is `2021-08-10`.
+The current version is `2023-09-21`.
 
 ##### Locale
 

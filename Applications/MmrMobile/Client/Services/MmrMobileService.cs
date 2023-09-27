@@ -26,10 +26,10 @@ namespace HomagConnect.MmrMobile.Client.Services
         /// <inheritdoc />
         public async Task<IEnumerable<MachineState>> GetStateData(string subscriptionId, DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null,
-            string machineType = null, string stateId = null, string stateGroupId = null)
+            string machineType = null, string stateId = null, string detailedStateId = null)
         {
             var url = $"/api/{subscriptionId}/mmr/states";
-            var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, stateGroupId, null);
+            var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null);
             var request = new HttpRequestMessage { Method = HttpMethod.Get };
             request.RequestUri = new Uri(url + parameters, UriKind.Relative);
             request.Headers.AcceptLanguage.Clear();
@@ -63,7 +63,7 @@ namespace HomagConnect.MmrMobile.Client.Services
         }
 
         private string GetParameters(DateTime? from, DateTime? to, string machineNumber, string instanceId, string machineType,
-            string stateId, string stateGroupId, string counterId)
+            string stateId, string detailedStateId, string counterId)
         {
             string parameters = string.Empty;
 
@@ -103,10 +103,10 @@ namespace HomagConnect.MmrMobile.Client.Services
                 parameters += $"stateId={Uri.EscapeDataString(stateId)}";
             }
 
-            if (!string.IsNullOrEmpty(stateGroupId))
+            if (!string.IsNullOrEmpty(detailedStateId))
             {
                 parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
-                parameters += $"stateGroupId={Uri.EscapeDataString(stateGroupId)}";
+                parameters += $"detailedStateId={Uri.EscapeDataString(detailedStateId)}";
             }
 
             if (!string.IsNullOrEmpty(counterId))
