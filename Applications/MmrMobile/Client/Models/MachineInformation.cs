@@ -28,5 +28,10 @@ namespace HomagConnect.MmrMobile.Client.Models
         /// Timestamp of the taken data
         /// </summary>
         public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// Shows the requested granularity
+        /// </summary>
+        public string Granularity { get; set; }
     }
 }
