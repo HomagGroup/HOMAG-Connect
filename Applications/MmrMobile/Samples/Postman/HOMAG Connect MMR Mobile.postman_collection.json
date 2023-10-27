@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e3da4e75-2c71-4342-95a2-56d025a6ae1f",
+		"_postman_id": "af1d358d-ee8c-4f28-b9c1-0a53582ceb33",
 		"name": "HOMAG Connect MMR Mobile",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28009578"
@@ -143,6 +143,43 @@
 									"key": "from",
 									"value": "2020-01-01",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📈 one machine and specific granularity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&granularity={{granularity}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"states"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "granularity",
+									"value": "{{granularity}}"
 								}
 							]
 						}
@@ -452,6 +489,42 @@
 									"key": "from",
 									"value": "2020-01-01",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "📉 one machine and specific granularity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "de-DE",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}&granularity={{granularity}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"{{ConnectUserNameConnect}}",
+								"mmr",
+								"counters"
+							],
+							"query": [
+								{
+									"key": "machinenumber",
+									"value": "{{machineNumber}}"
+								},
+								{
+									"key": "granularity",
+									"value": "{{granularity}}"
 								}
 							]
 						}
