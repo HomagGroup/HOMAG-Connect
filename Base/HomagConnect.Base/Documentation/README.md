@@ -5,7 +5,7 @@
 Version   | Date     | Comment 
 ----------|----------|---------
 1.0.0     |07.09.2023| First Draft
-1.1.0     |21.09.2023| Updating documentation
+1.1.0     |27.10.2023| Updating documentation
 
 ## Introduction
 

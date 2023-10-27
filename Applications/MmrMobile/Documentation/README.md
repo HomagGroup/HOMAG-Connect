@@ -8,7 +8,7 @@ To help you get started, we have prepared a few examples that you can find below
 Version   | Date     | Comment 
 ----------|----------|------------
 1.0.0     |07.09.2023| First Draft
-1.1.0     |18.10.2023| Add granularity for getting the data and updating the technical documentation
+1.1.0     |27.10.2023| Add granularity for getting the data and updating the technical documentation
 
 ## Content table
 1. [TL;DR](#tldr)
@@ -75,7 +75,7 @@ instanceId *(Optional)*      | string   | The id of the instance
 machineType *(Optional)*     | string   | Type of machine                                    
 stateId *(Optional)*         | string   | Id of the state                                    
 detailedStateId *(Optional)* | string   | Id of the detailed state           
-granularity *(Optional)*     | string   | Specifies granualrity of the returned data (hour, day, week, month) Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
+granularity *(Optional)*     | string   | Specifies granualrity of the returned data (hour, day, week, month). Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
 
 #### Output
 Property          | Type     | Description
@@ -140,7 +140,7 @@ machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx
 instanceId *(Optional)*     | string   | The id of the instance                                              
 machineType *(Optional)*    | string   | Type of machine                                                     
 counterId *(Optional)*      | string   | Id of the counter  
-granularity *(Optional)*    | string   | Specifies granualrity of the returned data (hourly, daily, weekly, monthly) Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
+granularity *(Optional)*    | string   | Specifies granualrity of the returned data (hour, day, week, month). Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
    
 #### Output      
 Property       | Type     | Description                                    
@@ -179,7 +179,7 @@ Content-Type: application/json; charset=utf-8
         "Machine Number": "0-242-92-1234",
         "Machine Name": "Some Machine | 0-242-92-1234",
         "Machine Type": "CNC",
-        "Timestamp": "2022-09-05T00:00:00",
+        "Timestamp": "2022-09-05T05:00:00",
         "Granularity": "hour",
         "Value": 62.0,
         "Instance Id": "M1-C1",
