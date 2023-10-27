@@ -34,7 +34,7 @@ namespace HomagConnect.Base.Services
                 verStream = new MemoryStream();
                 var streamWriter = new StreamWriter(verStream);
                 streamWriter.Write(
-                    "{'versions': [{'DateTime': '2023-09-07', 'IsDeprecated': false}]}");
+                    "{'versions': [{'DateTime': '2023-10-27', 'IsDeprecated': false}]}");
                 streamWriter.Flush();
                 verStream.Position = 0;
             }
