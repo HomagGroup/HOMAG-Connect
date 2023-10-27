@@ -39,7 +39,7 @@ Afterwards you will receive a **HTTP 429: Too many request** as response.
 ##### Versioning
 
 You should provide a `api-version` header, so we known, which version of the API you want to call. If this header is not present, we assume always the latest version.
-The current version is `2023-09-21`.
+The current version is `2023-10-27`.
 
 ##### Locale
 
