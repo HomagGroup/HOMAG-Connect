@@ -11,7 +11,6 @@ namespace HomagConnect.MmrMobile.Client.Interfaces
         /// <summary>
         /// generic approarch for state data with much filters
         /// </summary>
-        /// <param name="subscriptionId"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <param name="machineNumber"></param>
@@ -21,14 +20,13 @@ namespace HomagConnect.MmrMobile.Client.Interfaces
         /// <param name="detailedStateId"></param>
         /// <param name="granularity"></param>
         /// <returns></returns>
-        Task<IEnumerable<MachineState>> GetStateData(string subscriptionId, DateTime? from = null, DateTime? to = null,
+        Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null,
             string instanceId = null, string machineType = null, string stateId = null, string detailedStateId = null, Granularity? granularity = null);
 
         /// <summary>
         /// generic approarch for counter data with much filters
         /// </summary>
-        /// <param name="subscriptionId"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <param name="machineNumber"></param>
@@ -37,7 +35,7 @@ namespace HomagConnect.MmrMobile.Client.Interfaces
         /// <param name="counterId"></param>
         /// <param name="granularity"></param>
         /// <returns></returns>
-        Task<IEnumerable<MachineCounter>> GetCounterData(string subscriptionId, DateTime? from = null, DateTime? to = null,
+        Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null);
     }
 }

@@ -19,7 +19,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
             var mmrMobileService = new MmrMobileService(client);
 
-            var counters = await mmrMobileService.GetCounterData(username);
+            var counters = await mmrMobileService.GetCounterData();
 
             Assert.IsNotNull(counters);
             Assert.IsTrue(counters.Count() >= 0);
@@ -35,7 +35,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
             var mmrMobileService = new MmrMobileService(client);
 
-            var counters = await mmrMobileService.GetStateData(username);
+            var counters = await mmrMobileService.GetStateData();
 
             Assert.IsNotNull(counters);
             Assert.IsTrue(counters.Count() >= 0);

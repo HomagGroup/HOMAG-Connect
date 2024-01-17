@@ -61,7 +61,7 @@ For more information, please refer to the [W3C Trace Context - Level 1 specifica
 #### Host
 
 * Production system =  `https://connect.homag.cloud`
-* Test system =  `https://preview-connect.homag.cloud`
+* Test system =  `https://connect-preview.homag.cloud`
 
 #### Error handling / response
 

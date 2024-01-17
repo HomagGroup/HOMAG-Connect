@@ -24,11 +24,11 @@ namespace HomagConnect.MmrMobile.Client.Services
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MachineState>> GetStateData(string subscriptionId, DateTime? from = null, DateTime? to = null,
+        public async Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null,
             string machineType = null, string stateId = null, string detailedStateId = null, Granularity? granularity= null)
         {
-            var url = $"/api/{subscriptionId}/mmr/states";
+            var url = $"/api/mmr/states";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
             var request = new HttpRequestMessage { Method = HttpMethod.Get };
             request.RequestUri = new Uri(url + parameters, UriKind.Relative);
@@ -44,10 +44,10 @@ namespace HomagConnect.MmrMobile.Client.Services
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MachineCounter>> GetCounterData(string subscriptionId, DateTime? from = null, DateTime? to = null,
+        public async Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null)
         {
-            var url = $"/api/{subscriptionId}/mmr/counters";
+            var url = $"/api/mmr/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
             var request = new HttpRequestMessage { Method = HttpMethod.Get };
             request.RequestUri = new Uri(url + parameters, UriKind.Relative);
