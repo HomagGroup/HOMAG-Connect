@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "af1d358d-ee8c-4f28-b9c1-0a53582ceb33",
+		"_postman_id": "c74d18a7-4f3e-4a8f-a34e-927d53111971",
 		"name": "HOMAG Connect MMR Mobile",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28009578"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -22,13 +21,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states",
+							"raw": "{{ConnectHost}}/api/mmr/states",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							]
@@ -49,13 +47,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?from=2021-08-01&to=2050-01-01",
+							"raw": "{{ConnectHost}}/api/mmr/states?from=2021-08-01&to=2050-01-01",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -86,13 +83,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinetype=cnc",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinetype=cnc",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -124,13 +120,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinenumber={{machineNumber}}",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -162,13 +157,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&granularity={{granularity}}",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinenumber={{machineNumber}}&granularity={{granularity}}",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -199,13 +193,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&instanceId=M1-C1",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinenumber={{machineNumber}}&instanceId=M1-C1",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -241,13 +234,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&instanceId=M1-C999",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinenumber={{machineNumber}}&instanceId=M1-C999",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -283,13 +275,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&stateId=s_mainusage",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinenumber={{machineNumber}}&stateId=s_mainusage",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -325,13 +316,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/states?machinenumber={{machineNumber}}&detailedStateId=S_OMU_MODE1",
+							"raw": "{{ConnectHost}}/api/mmr/states?machinenumber={{machineNumber}}&detailedStateId=S_OMU_MODE1",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"states"
 							],
@@ -371,13 +361,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters",
+							"raw": "{{ConnectHost}}/api/mmr/counters",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							]
@@ -397,13 +386,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?from=2021-08-01&to=2050-08-07",
+							"raw": "{{ConnectHost}}/api/mmr/counters?from=2021-08-01&to=2050-08-07",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -433,13 +421,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinetype=edge",
+							"raw": "{{ConnectHost}}/api/mmr/counters?machinetype=edge",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -470,13 +457,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}",
+							"raw": "{{ConnectHost}}/api/mmr/counters?machinenumber={{machineNumber}}",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -507,13 +493,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}&granularity={{granularity}}",
+							"raw": "{{ConnectHost}}/api/mmr/counters?machinenumber={{machineNumber}}&granularity={{granularity}}",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -543,13 +528,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}&instanceId=M1-C1",
+							"raw": "{{ConnectHost}}/api/mmr/counters?machinenumber={{machineNumber}}&instanceId=M1-C1",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -584,13 +568,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?machinenumber={{machineNumber}}&instanceId=M1-C999",
+							"raw": "{{ConnectHost}}/api/mmr/counters?machinenumber={{machineNumber}}&instanceId=M1-C999",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -625,13 +608,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{ConnectHost}}/api/{{ConnectUserNameConnect}}/mmr/counters?counterid=S_OUT_PiecesAll",
+							"raw": "{{ConnectHost}}/api/mmr/counters?counterid=S_OUT_PiecesAll",
 							"host": [
 								"{{ConnectHost}}"
 							],
 							"path": [
 								"api",
-								"{{ConnectUserNameConnect}}",
 								"mmr",
 								"counters"
 							],
@@ -654,7 +636,19 @@
 		}
 	],
 	"auth": {
-		"type": "basic"
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{ConnectTokenFromTapio}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{ConnectUserName}}",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{

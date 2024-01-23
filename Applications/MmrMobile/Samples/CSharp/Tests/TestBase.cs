@@ -12,7 +12,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests
                 .AddJsonFile("appsettings.json", optional: true)
                 .Build();
             var baseUrl = configuration["HomagConnect:BaseUrl"];
-            var username = configuration[$"HomagConnect:{area}:Username"];
+            var username = configuration[$"HomagConnect:{area}:SubscriptionId"];
             var token = configuration[$"HomagConnect:{area}:Token"];
 
             return (baseUrl, username, token);

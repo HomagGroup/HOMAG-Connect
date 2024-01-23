@@ -9,7 +9,7 @@ using HomagConnect.MmrMobile.Samples.Console;
 Console.WriteLine("Hello at the HOMAG MMR Mobile Client");
 
 var client = new HttpClient();
-client.BaseAddress = new Uri("https://connect-preview.homag.cloud");
+client.BaseAddress = new Uri("https://connect.homag.cloud");
 Console.WriteLine("Please insert your subscription Id:");
 var subscriptionId = Console.ReadLine();
 Console.WriteLine("Please insert your token:");
@@ -50,7 +50,7 @@ do
 
     async Task GetCounterData()
     {
-        var counters = await mmrMobileService.GetCounterData(subscriptionId);
+        var counters = await mmrMobileService.GetCounterData();
         if (counters != null)
         {
             var groupedCounter = counters.GroupBy(c => new { c.CounterId }).Select(s => new
@@ -68,7 +68,7 @@ do
 
     async Task GetStateData()
     {
-        var states = await mmrMobileService.GetStateData(subscriptionId);
+        var states = await mmrMobileService.GetStateData();
         if (states != null)
         {
             var groupedStates = states.GroupBy(c => new { c.StateId, c.StateTranslation }).Select(s => new
@@ -98,8 +98,8 @@ do
 
     async Task GetProductionCycle()
     {
-        var states = await mmrMobileService.GetStateData(subscriptionId);
-        var counters = await mmrMobileService.GetCounterData(subscriptionId);
+        var states = await mmrMobileService.GetStateData();
+        var counters = await mmrMobileService.GetCounterData();
 
         if (counters != null && states != null)
         {

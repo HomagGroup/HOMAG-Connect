@@ -5,7 +5,7 @@ To help you get started, we have prepared a few examples that you can find below
 
 ## Version history
 
-Version   | Date     | Comment 
+Version   | Date     | Comment
 ----------|----------|------------
 1.0.0     |07.09.2023| First Draft
 1.1.0     |27.10.2023| Add granularity for getting the data and updating the technical documentation
@@ -43,8 +43,8 @@ Console.WriteLine("Please insert your token:");
 var token = Console.ReadLine();
 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{token}"));
 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
-var states = await mmrMobileService.GetStateData(subscriptionId);
-var counters = await mmrMobileService.GetCounterData(subscriptionId);
+var states = await mmrMobileService.GetStateData();
+var counters = await mmrMobileService.GetCounterData();
 Console.WriteLine($"You got {states.Count()} states and {counters.Count()} counter for the last 14 days")
 ~~~
 
@@ -54,27 +54,26 @@ dotnet run
 
 ## Homag Connect MMR Mobile interface overview
 
-Name           | Method | API                                                                                                                                                                                                                                                                | Usage 
+Name           | Method | API                                                                                                                                                                                                                                                                | Usage
 ---------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
-GetStateData   |GET     |`api/{subscriptionId}/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&detailedStateId={detailedStateId}`<br/>`&granularity={granularity}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
-GetCounterData |GET     |`api/{subscriptionId}/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`<br/>`&granularity={granularity}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetStateData   |GET     |`api/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&detailedStateId={detailedStateId}`<br/>`&granularity={granularity}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetCounterData |GET     |`api/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`<br/>`&granularity={granularity}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
 
 ## Details
 ### Rate Limiting
 As mentioned in the base documentation, each application has a different rate limitation. For the following endpoints this limit is currently set to 6 requests in a minute.
 
 ### GetStateData
-#### Input       
-Parameter                    | Type     | Description                                        
+#### Input
+Parameter                    | Type     | Description
 -----------------------------|----------|---------------------------------------------------
-subscriptionId *(Required)*  | string   | The id of the subscription 
-from *(Optional)*            | DateTime | DateTime that the search should start from         
-to *(Optional)*              | DateTime | DateTime that the search should end                
-machineNumber *(Optional)*   | string   | Number of the machine (Format: x-xxx-xx-xxxx)                              
-instanceId *(Optional)*      | string   | The id of the instance                             
-machineType *(Optional)*     | string   | Type of machine                                    
-stateId *(Optional)*         | string   | Id of the state                                    
-detailedStateId *(Optional)* | string   | Id of the detailed state           
+from *(Optional)*            | DateTime | DateTime that the search should start from
+to *(Optional)*              | DateTime | DateTime that the search should end
+machineNumber *(Optional)*   | string   | Number of the machine (Format: x-xxx-xx-xxxx)
+instanceId *(Optional)*      | string   | The id of the instance
+machineType *(Optional)*     | string   | Type of machine
+stateId *(Optional)*         | string   | Id of the state
+detailedStateId *(Optional)* | string   | Id of the detailed state
 granularity *(Optional)*     | string   | Specifies granualrity of the returned data (hour, day, week, month). Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
 
 #### Output
@@ -85,11 +84,11 @@ Machine Name      | string   | Name of the machine
 Machine Type      | string   | Type of machine
 Timestamp         | DateTime | Day when the data was gathered
 Granularity       | string   | Granularity of the requested data
-Duration [h]      | double   | Time that the machine spent in the state in hours 
+Duration [h]      | double   | Time that the machine spent in the state in hours
 Instance Id       | string   | Id of the instance
-Detailed State Id | string   | Id of the detailed state 
+Detailed State Id | string   | Id of the detailed state
 Detailed State    | string   | Detailed state translated into the requested language
-State Id          | string   | Id of the state 
+State Id          | string   | Id of the state
 State             | string   | State translated into the requested language
 
 
@@ -98,7 +97,7 @@ State             | string   | State translated into the requested language
 Request
 
 ```text
-GET /api/{someSubscriptionId}/mmr/states
+GET /api/mmr/states
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -131,36 +130,35 @@ Content-Type: application/json; charset=utf-8
 The default route with no timespan added will always return related data for the last 14 days.
 ### GetCounterData
 #### Input
-Parameter                   | Type     | Description                                                        
+Parameter                   | Type     | Description
 ----------------------------|----------|-------------------------------------------
-subscriptionId *(Required)* | string   | The id of the subscription                                          
-from *(Optional)*           | DateTime | DateTime that the search should start from 
-to *(Optional*)             | DateTime | DateTime that the search should end         
-machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)                                               
-instanceId *(Optional)*     | string   | The id of the instance                                              
-machineType *(Optional)*    | string   | Type of machine                                                     
-counterId *(Optional)*      | string   | Id of the counter  
+from *(Optional)*           | DateTime | DateTime that the search should start from
+to *(Optional*)             | DateTime | DateTime that the search should end
+machineNumber *(Optional)*  | string   | Number of the machine (Format: x-xxx-xx-xxxx)
+instanceId *(Optional)*     | string   | The id of the instance
+machineType *(Optional)*    | string   | Type of machine
+counterId *(Optional)*      | string   | Id of the counter
 granularity *(Optional)*    | string   | Specifies granualrity of the returned data (hour, day, week, month). Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
-   
-#### Output      
-Property       | Type     | Description                                    
----------------|----------|------------------------------------------------ 
-Machine Number | string   | Number of the machine                          
-Machine Name   | string   | Name of the machine                            
-Machine Type   | string   | Type of machine                                
-Timestamp      | DateTime | Day when the data was gathered    
+
+#### Output
+Property       | Type     | Description
+---------------|----------|------------------------------------------------
+Machine Number | string   | Number of the machine
+Machine Name   | string   | Name of the machine
+Machine Type   | string   | Type of machine
+Timestamp      | DateTime | Day when the data was gathered
 Granularity    | string   | Granularity of the requested data
-Value          | double   | Output value                                   
-Instance Id    | string   | Id of the instance                             
-Counter Id     | string   | Id of the counter                           
-Counter        | string   | Counter translated into the requested language 
+Value          | double   | Output value
+Instance Id    | string   | Id of the instance
+Counter Id     | string   | Id of the counter
+Counter        | string   | Counter translated into the requested language
 
 #### Example
 
 Request
 
 ```text
-GET /api/{someSubscriptionId}/mmr/counters
+GET /api/mmr/counters
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
