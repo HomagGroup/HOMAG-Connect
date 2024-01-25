@@ -1,9 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Client</PackageId>
+		<Title>Homag-Connect IntelliDivide Client</Title>
+		<Description>Client assembly for the usage of Homag-Connect IntelliDivide API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Client</PackageProjectUrl>
+		<PackageReadmeFile></PackageReadmeFile>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\Documentation\README.md" Link="README.md" />
+	</ItemGroup>
+
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+	</ItemGroup>
 
 </Project>

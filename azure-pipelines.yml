@@ -90,4 +90,7 @@ stages:
           condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_INTELLIDIVIDE_CONTRACTS) "Applications/IntelliDivide/Contracts/**/*.nupkg"
-          displayName: "Publish HomagConnect IntelliDivide NuGet package on nuget.org"         
+          displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
+          
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_INTELLIDIVIDE_CLIENT) "Applications/IntelliDivide/Client/**/*.nupkg"
+          displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"      
