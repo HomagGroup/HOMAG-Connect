@@ -26,6 +26,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19C1ED1F-932D-44B3-B84E-4F30A7103DA7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.IntelliDivide", "HomagConnect.IntelliDivide", "{49D52272-39DD-4CB3-8921-B33207BE43AE}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\IntelliDivide\Documentation\README.md = Applications\IntelliDivide\Documentation\README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Contracts", "Applications\IntelliDivide\Contracts\HomagConnect.IntelliDivide.Contracts.csproj", "{842FC672-9A07-469A-B882-9863BB0F182B}"
 EndProject
