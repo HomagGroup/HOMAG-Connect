@@ -90,6 +90,4 @@ stages:
           condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) "Applications\IntelliDivide\Contracts/**/*.nupkg"
-          displayName: "Publish HomagConnect IntelliDivide NuGet package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
-
+          displayName: "Publish HomagConnect IntelliDivide NuGet package on nuget.org"         
