@@ -8,6 +8,13 @@ namespace HomagConnect.IntelliDivide.Tests
     [TestCategory("UserTestInteractionNeeded")]
     public class GetSettingsTests : IntelliDivideTestBase
     {
+        public TestContext TestContext { get; set; }
+
+        [TestMethod] public void GetBaseUrlFromContext()
+        {
+            TestContext.WriteLine("BaseUrl:" +  TestContext.Properties["BaseUrl"]);
+        }
+
         [TestMethod]
         public async Task GetCuttingMachines()
         {
