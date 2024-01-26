@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.IntelliDivide.Contracts.Converter;
 
-namespace HomagConnect.Base.Contracts
+using Newtonsoft.Json;
+
+namespace HomagConnect.IntelliDivide.Contracts.Base
 {
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum Grain

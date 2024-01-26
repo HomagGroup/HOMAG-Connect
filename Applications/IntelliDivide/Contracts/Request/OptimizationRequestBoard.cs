@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-using HomagConnect.Base.Contracts;
+using HomagConnect.IntelliDivide.Contracts.Base;
 using HomagConnect.IntelliDivide.Contracts.Common;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request

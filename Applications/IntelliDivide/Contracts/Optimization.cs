@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System;
+﻿using System;
+using System.Diagnostics;
 
 namespace HomagConnect.IntelliDivide.Contracts
 {
@@ -7,6 +7,8 @@ namespace HomagConnect.IntelliDivide.Contracts
     public class Optimization
     {
         public Guid Id { get; set; }
+
+        public DateTime LastModifiedDate { get; set; }
 
         public Uri Link { get; set; }
 
@@ -16,14 +18,12 @@ namespace HomagConnect.IntelliDivide.Contracts
 
         public string ParameterName { get; set; }
 
-        public OptimizationStatus Status { get; set; }
-
-        public DateTime LastModifiedDate { get; set; }
-
         public int PartsCount { get; set; }
+
+        public TimeSpan ProductionTime { get; set; }
 
         public double Scrap { get; set; }
 
-        public TimeSpan ProductionTime { get; set; }
+        public OptimizationStatus Status { get; set; }
     }
 }

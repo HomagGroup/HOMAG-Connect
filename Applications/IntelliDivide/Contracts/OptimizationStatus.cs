@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts;
+﻿using HomagConnect.IntelliDivide.Contracts.Converter;
 
 using Newtonsoft.Json;
 

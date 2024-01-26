@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<LangVersion>8.0</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
 		<Title>Homag-Connect IntelliDivide Contracts</Title>
 		<Description>Client assembly for the usage of Homag-Connect IntelliDivide API</Description>
@@ -16,10 +17,6 @@
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
