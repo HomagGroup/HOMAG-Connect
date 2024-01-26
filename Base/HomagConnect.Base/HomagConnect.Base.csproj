@@ -10,11 +10,7 @@
     <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
-  <ItemGroup Label="Package References">
+	<ItemGroup Label="Package References">
     <PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
   </ItemGroup>
 
