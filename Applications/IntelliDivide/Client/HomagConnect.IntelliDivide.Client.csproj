@@ -21,4 +21,9 @@
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+	  <ProjectReference Include="..\Contracts\HomagConnect.IntelliDivide.Contracts.csproj" />
+	</ItemGroup>
+
 </Project>

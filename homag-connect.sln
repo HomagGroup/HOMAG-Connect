@@ -32,19 +32,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.IntelliDivide"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Contracts", "Applications\IntelliDivide\Contracts\HomagConnect.IntelliDivide.Contracts.csproj", "{842FC672-9A07-469A-B882-9863BB0F182B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.IntelliDivide.Client", "Applications\IntelliDivide\Client\HomagConnect.IntelliDivide.Client.csproj", "{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Client", "Applications\IntelliDivide\Client\HomagConnect.IntelliDivide.Client.csproj", "{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.IntelliDivide.Samples", "Applications\IntelliDivide\Samples\HomagConnect.IntelliDivide.Samples.csproj", "{3EF18632-0086-4327-85BD-A2DB782BE06F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Samples", "Applications\IntelliDivide\Samples\HomagConnect.IntelliDivide.Samples.csproj", "{3EF18632-0086-4327-85BD-A2DB782BE06F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.IntelliDivide.Tests", "Applications\IntelliDivide\Tests\HomagConnect.IntelliDivide.Tests.csproj", "{2E8F906A-E9D0-4063-A544-BAE60F29A90B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Tests", "Applications\IntelliDivide\Tests\HomagConnect.IntelliDivide.Tests.csproj", "{2E8F906A-E9D0-4063-A544-BAE60F29A90B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E7E070F-ED86-401C-93B5-7A2ABF62A80A}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines.yml = azure-pipelines.yml
 		homag-connect.sln.DotSettings = homag-connect.sln.DotSettings
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Contracts", "Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj", "{C2DC2C6E-DC12-4340-8570-58C7D95214EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,10 +82,6 @@ Global
 		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2DC2C6E-DC12-4340-8570-58C7D95214EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2DC2C6E-DC12-4340-8570-58C7D95214EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2DC2C6E-DC12-4340-8570-58C7D95214EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2DC2C6E-DC12-4340-8570-58C7D95214EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,7 +101,6 @@ Global
 		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 		{3EF18632-0086-4327-85BD-A2DB782BE06F} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 		{2E8F906A-E9D0-4063-A544-BAE60F29A90B} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
-		{C2DC2C6E-DC12-4340-8570-58C7D95214EC} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

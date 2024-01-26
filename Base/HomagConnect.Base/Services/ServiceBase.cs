@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
@@ -53,17 +56,22 @@ namespace HomagConnect.Base.Services
         }
 
         /// <summary>
+        /// </summary>
+        public string ApiVersion { get; }
+
+        /// <summary>
         /// Client for all Requests
         /// </summary>
         public HttpClient Client { get; }
 
         /// <summary>
         /// </summary>
-        public string ApiVersion { get; }
+        public string HeaderKey { get; }
 
         /// <summary>
+        /// This is called, if the response is marked as deprecated
         /// </summary>
-        public string HeaderKey { get; }
+        public Action<HttpRequestMessage, HttpResponseMessage> OnDeprecatedAction { get; set; }
 
         /// <summary>
         /// If this is <c>true</c>, then the methods will throw an exception, if the response from the server
@@ -71,9 +79,36 @@ namespace HomagConnect.Base.Services
         /// </summary>
         public bool ThrowExceptionOnDeprecatedCalls { get; set; }
 
-        /// <summary>
-        /// This is called, if the response is marked as deprecated
-        /// </summary>
-        public Action<HttpRequestMessage, HttpResponseMessage> OnDeprecatedAction { get; set; }
+        protected async Task<IEnumerable<T>> RequestEnumerable<T>(string url)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Get };
+            request.RequestUri = new Uri(url, UriKind.Relative);
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
+
+            return data ?? Array.Empty<T>();
+        }
+
+        protected async Task<T> RequestObject<T>(string url)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Get };
+            request.RequestUri = new Uri(url, UriKind.Relative);
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<T>(result, SerializerSettings.Default);
+
+            return data;
+        }
     }
 }
