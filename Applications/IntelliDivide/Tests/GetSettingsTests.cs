@@ -5,6 +5,7 @@ namespace HomagConnect.IntelliDivide.Tests
 {
     [TestClass]
     [TestCategory("IntelliDivide.Settings")]
+    [TestCategory("UserTestInteractionNeeded")]
     public class GetSettingsTests : IntelliDivideTestBase
     {
         [TestMethod]
