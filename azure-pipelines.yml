@@ -103,7 +103,7 @@ stages:
           displayName: 'Publish packages to internal feed'
           inputs:
               command: push
-              packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+              packagesToPush: 'Applications/**/HomagGroup.HomagConnect.IntelliDivide.Samples*.nupkg;/**/HomagGroup.*.snupkg'
               allowPackageConflicts: true
               includeNuGetOrg: true
               publishVstsFeed: 'Development'       
