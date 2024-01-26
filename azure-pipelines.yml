@@ -72,9 +72,12 @@ stages:
 
         - task: DotNetCoreCLI@2
           displayName: Run Unit Tests
+          variables: 
+            BaseUrl: ""            
           inputs:
             command: 'test'
-            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'
+            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'            
+            overrideTestrunParameters: '-BaseUrl $(BaseUrl)
         
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
@@ -95,5 +98,5 @@ stages:
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"      
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "/Base/HomagConnect.Base/**/*.nupkg"
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg"
           displayName: "Publish HomagConnect Base NuGet package on nuget.org"      
