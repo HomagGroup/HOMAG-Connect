@@ -5,7 +5,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<LangVersion>8.0</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Samples</PackageId>
 		<Title>Homag-Connect IntelliDivide Samples</Title>
 		<Description>Client assembly showing the usage of Homag-Connect IntelliDivide API</Description>
