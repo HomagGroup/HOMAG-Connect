@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -14,7 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="..\Documentation\README.md" Link="README.md" />
+	  <None Include="..\Documentation\README.md" Pack="true" Link="README.md" />
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
@@ -22,8 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
-	  <ProjectReference Include="..\Contracts\HomagConnect.IntelliDivide.Contracts.csproj" />
+		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+		<ProjectReference Include="..\Contracts\HomagConnect.IntelliDivide.Contracts.csproj" />
 	</ItemGroup>
-
 </Project>

@@ -13,7 +13,7 @@ trigger:
     - '*'
 
 variables:
-  dotnetVersion: 6.0.x
+  dotnetVersion: 7.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect
 
@@ -89,8 +89,11 @@ stages:
           displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"
           condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_INTELLIDIVIDE_CONTRACTS) "Applications/IntelliDivide/Contracts/**/*.nupkg"
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
           
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_INTELLIDIVIDE_CLIENT) "Applications/IntelliDivide/Client/**/*.nupkg"
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"      
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "/Base/HomagConnect.Base/**/*.nupkg"
+          displayName: "Publish HomagConnect Base NuGet package on nuget.org"      

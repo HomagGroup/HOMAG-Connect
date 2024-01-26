@@ -11,7 +11,7 @@
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Include="..\Documentation\README.md" Link="README.md" />
+	  <None Include="..\Documentation\README.md" Pack="true" Link="README.md" />
 	</ItemGroup>
 
 	<ItemGroup>
