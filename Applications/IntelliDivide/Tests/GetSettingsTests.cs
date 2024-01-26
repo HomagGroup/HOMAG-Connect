@@ -4,6 +4,7 @@ using HomagConnect.IntelliDivide.Tests.Base;
 namespace HomagConnect.IntelliDivide.Tests
 {
     [TestClass]
+    [TestCategory("IntelliDivide.Settings")]
     public class GetSettingsTests : IntelliDivideTestBase
     {
         [TestMethod]
@@ -28,6 +29,14 @@ namespace HomagConnect.IntelliDivide.Tests
             var intelliDivide = GetIntelliDivideClient();
 
             await ImportTemplatesSamples.GetCuttingTemplatesSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task GetMachines()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await MachineSamples.GetMachinesSample(intelliDivide);
         }
 
         [TestMethod]

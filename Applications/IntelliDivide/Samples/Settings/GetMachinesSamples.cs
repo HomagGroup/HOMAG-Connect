@@ -20,6 +20,17 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
             machines.Trace();
         }
 
+        public static async Task GetMachinesSample(IntelliDivideClient intelliDivide)
+        {
+            var machines = (await intelliDivide.GetMachinesAsync()).ToArray();
+
+            Assert.IsNotNull(machines);
+            Assert.IsTrue(machines.Any());
+            Assert.IsFalse(machines.Any(m => string.IsNullOrWhiteSpace(m.Name)));
+
+            machines.Trace();
+        }
+
         public static async Task GetNestingMachinesSample(IntelliDivideClient intelliDivide)
         {
             const OptimizationType optimizationType = OptimizationType.Nesting;
