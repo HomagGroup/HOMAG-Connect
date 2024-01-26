@@ -26,11 +26,7 @@ stages:
       BuildConfiguration: Release
     jobs:
       - job: Build
-        variables:           
-        BaseUrl: $(BaseUrl)
-
         steps:
-
         - checkout: self
           fetchDepth: 0
 
