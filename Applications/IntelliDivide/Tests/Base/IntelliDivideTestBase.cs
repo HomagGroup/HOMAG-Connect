@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -14,32 +15,38 @@ public class IntelliDivideTestBase
         return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{token}"));
     }
 
-    protected static IntelliDivideClient GetIntelliDivideClient(Guid subscriptionId)
+    protected static IntelliDivideClient GetIntelliDivideClient()
     {
-        var (baseUrl, username, token) = ReadProps("IntelliDivide");
+        var (baseUrl, subscriptionId, token) = ReadProps("IntelliDivide");
 
         Assert.IsFalse(string.IsNullOrWhiteSpace(baseUrl), "BaseUrl in appSettings json must not be null or whitespace.");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(username), "Username in appSettings json must not be null or whitespace.");
-        Assert.IsTrue(Guid.TryParse(username, out subscriptionId), "Username in appSettings json must be the subscription id which must be a GUID.");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(subscriptionId), "Username in appSettings json must not be null or whitespace.");
+        Assert.IsTrue(Guid.TryParse(subscriptionId, out var guid), "Username in appSettings json must be the subscription id which must be a GUID.");
         Assert.IsFalse(string.IsNullOrWhiteSpace(token), "Token in appSettings json must not be null or whitespace.");
+
+        Debug.WriteLine($"Base:\t{baseUrl}");
+        Debug.WriteLine($"Subscription:\t{subscriptionId}");
+        Debug.WriteLine("");
 
         var httpClient = new HttpClient();
 
         httpClient.BaseAddress = new Uri(baseUrl);
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(subscriptionId, token));
 
-        return new IntelliDivideClient(httpClient, subscriptionId);
+        return new IntelliDivideClient(httpClient);
     }
 
-    protected static (string? baseUrl, string? username, string? token) ReadProps(string area)
+    protected static (string? baseUrl, string? subscriptionId, string? token) ReadProps(string area)
     {
         var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true)
+            .AddUserSecrets("05d68c42-49ad-4338-91d5-e80d2c675907")
             .Build();
+
         var baseUrl = configuration["HomagConnect:BaseUrl"];
-        var username = configuration[$"HomagConnect:{area}:Username"];
+        var subscriptionId = configuration[$"HomagConnect:{area}:SubscriptionId"];
         var token = configuration[$"HomagConnect:{area}:Token"];
 
-        return (baseUrl, username, token);
+        return (baseUrl, subscriptionId, token);
     }
 }

@@ -1,4 +1,4 @@
-using HomagConnect.IntelliDivide.Samples;
+using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests
@@ -6,14 +6,52 @@ namespace HomagConnect.IntelliDivide.Tests
     [TestClass]
     public class GetSettingsTests : IntelliDivideTestBase
     {
-        protected Guid TestSubscriptionId { get; } = new("62b8fee0-1b35-41c1-b03a-b947304a0d58");
-
         [TestMethod]
         public async Task GetCuttingMachines()
         {
-            var intelliDivide = GetIntelliDivideClient(TestSubscriptionId);
+            var intelliDivide = GetIntelliDivideClient();
 
-            await GetSettingsSamples.GetCuttingMachinesSample(intelliDivide);
+            await MachineSamples.GetCuttingMachinesSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task GetCuttingParameters()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await ParameterSamples.GetCuttingParametersSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task GetCuttingTemplates()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await ImportTemplatesSamples.GetCuttingTemplatesSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task GetNestingMachines()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await MachineSamples.GetNestingMachinesSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task GetNestingParameters()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await ParameterSamples.GetNestingParametersSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task GetNestingTemplates()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await ImportTemplatesSamples.GetNestingTemplatesSample(intelliDivide);
         }
     }
 }
