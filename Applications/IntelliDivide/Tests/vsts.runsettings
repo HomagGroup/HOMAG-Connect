@@ -1,0 +1,5 @@
+﻿<RunSettings>
+	<TestRunParameters>
+		<Parameter name="BaseUrl" value="https://connect.homag.cloud" />
+	</TestRunParameters>
+</RunSettings>
