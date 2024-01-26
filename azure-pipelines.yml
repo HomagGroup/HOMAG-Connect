@@ -73,7 +73,7 @@ stages:
           displayName: Run Unit Tests          
           inputs:
             command: 'test'
-            arguments: '--configuration $(BuildConfiguration) --TestRunParameters.Parameter(name=\""BaseUrl\", value=\"$(BaseUrl)\") --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'                        
+            arguments: '--configuration $(BuildConfiguration) --TestRunParameters.Parameter(name=%22BaseUrl\", value=\"$(BaseUrl)\") --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'                        
         
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
