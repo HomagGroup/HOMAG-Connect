@@ -30,8 +30,14 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             Assert.IsNotNull(optimization);
             Assert.AreEqual(OptimizationStatus.New, optimization.Status);
-
+            
             optimization.Trace();
+
+            Assert.AreEqual(request.Parameters, optimization.ParameterName);
+            Assert.AreEqual(request.Name, optimization.Name);
+            Assert.AreEqual(request.Parts.Sum(p => p.Quantity), optimization.PartsCount);
+
+            Assert.AreEqual(request.Machine, optimization.Machine);
         }
 
         public static async Task OptimizeCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
