@@ -40,7 +40,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             Assert.AreEqual(request.Machine, optimization.Machine);
         }
 
-        public static async Task OptimizeCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
+        public static async Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
 
@@ -68,6 +68,45 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
                     Assert.IsNotNull(optimization);
                     Assert.AreEqual(OptimizationStatus.Optimized, optimization.Status);
+
+                    optimization.Trace();
+                    return;
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+
+            Assert.Fail("Timeout");
+        }
+
+        public static async Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient intelliDivide)
+        {
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
+
+            request.Action = OptimizationRequestAction.Send;
+
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            Assert.IsNotNull(response.OptimizationId);
+            Assert.AreEqual(OptimizationStatus.Started, response.OptimizationStatus);
+            Assert.IsFalse(response.ValidationErrors.Any());
+
+            var optimizationId = response.OptimizationId;
+
+            var timeout = DateTime.Now + TimeSpan.FromSeconds(60);
+
+            while (DateTime.Now < timeout)
+            {
+                var optimizationStatus = await intelliDivide.GetOptimizationStatusAsync(optimizationId);
+
+                Assert.AreNotEqual(OptimizationStatus.Faulted, optimizationStatus);
+
+                if (optimizationStatus == OptimizationStatus.Transferred)
+                {
+                    var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+
+                    Assert.IsNotNull(optimization);
+                    Assert.AreEqual(OptimizationStatus.Transferred, optimization.Status);
 
                     optimization.Trace();
                     return;
@@ -115,5 +154,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             return request;
         }
+
+    
     }
 }

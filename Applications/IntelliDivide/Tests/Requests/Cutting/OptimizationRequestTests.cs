@@ -36,10 +36,17 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    public async Task OptimizeCuttingOptimizationUsingModel()
+    public async Task CreateCuttingOptimizationUsingModelAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        await CuttingOptimizationUsingObjectModel.OptimizeCuttingOptimizationByObjectModel(intelliDivide);
+        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndOptimize(intelliDivide);
+    }
+    [TestMethod]
+    public async Task CreateCuttingOptimizationUsingModelAndOptimizeAndSend()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(intelliDivide);
     }
 }
