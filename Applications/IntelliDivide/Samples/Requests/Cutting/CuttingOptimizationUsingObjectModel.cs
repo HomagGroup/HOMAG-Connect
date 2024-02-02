@@ -44,7 +44,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var machine = await intelliDivide.GetMachineAsync("productionAssist Cutting");
             var parameter = (await intelliDivide.GetParametersAsync(machine.OptimizationType)).OrderBy(p => p.Name).First();
 
-            request.Name = optimizationName + DateTime.Now.ToString("-yyyyMMdd-HHmm");
+            request.Name = optimizationName + DateTime.Now.ToString("s");
             request.Machine = machine.Name;
             request.Parameters = parameter.Name;
 
