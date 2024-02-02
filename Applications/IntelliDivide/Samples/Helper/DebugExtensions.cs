@@ -16,20 +16,20 @@ namespace HomagConnect.IntelliDivide.Samples.Helper
 
         internal static void Trace(this IEnumerable enumerable, [CallerMemberName] string description = "")
         {
-            Debug.WriteLine(description);
+            Console.WriteLine(description);
 
-            Debug.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+            Console.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
 
-            Debug.WriteLine(string.Empty);
+            Console.WriteLine(string.Empty);
         }
 
         internal static void Trace(this object o, [CallerMemberName] string description = "")
         {
-            Debug.WriteLine(description);
+            Console.WriteLine(description);
 
-            Debug.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+            Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
 
-            Debug.WriteLine(string.Empty);
+            Console.WriteLine(string.Empty);
         }
     }
 }

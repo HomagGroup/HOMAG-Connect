@@ -9,6 +9,9 @@
 		<Title>Homag-Connect IntelliDivide Samples</Title>
 		<Description>Client assembly showing the usage of Homag-Connect IntelliDivide API</Description>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType> 
 	</PropertyGroup>
 
 	<ItemGroup>

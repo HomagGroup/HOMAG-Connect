@@ -9,6 +9,9 @@
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Contracts</PackageProjectUrl>
 		<PackageReadmeFile></PackageReadmeFile>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Include="..\Documentation\README.md" Pack="true" Link="README.md" />
