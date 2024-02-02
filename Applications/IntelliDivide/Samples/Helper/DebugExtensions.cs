@@ -1,46 +1,35 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Samples.Helper
 {
     internal static class DebugExtensions
     {
+        private static readonly JsonSerializerSettings _JsonSerializerSettings = new()
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            Formatting = Formatting.Indented
+        };
+
         internal static void Trace(this IEnumerable enumerable, [CallerMemberName] string description = "")
         {
             Debug.WriteLine(description);
 
-            Debug.WriteLine(JsonConvert.SerializeObject(enumerable, Formatting.Indented));
+            Debug.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
 
-            foreach (var o in enumerable)
-            {
-                Trace(o);
-            }
             Debug.WriteLine(string.Empty);
         }
 
-        internal static void Trace(this object o)
+        internal static void Trace(this object o, [CallerMemberName] string description = "")
         {
-            Debug.WriteLine(o);
+            Debug.WriteLine(description);
 
-            foreach (var p in o.GetType().GetProperties())
-            {
-                var name = p.Name;
-                var value = p.GetValue(o);
+            Debug.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
 
-                if (value != null)
-                {
-                    Debug.WriteLine($"\t{name}:\t{value}");
-                }
-            }
-
-            Debug.WriteLine("");
+            Debug.WriteLine(string.Empty);
         }
     }
 }

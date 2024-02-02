@@ -34,11 +34,4 @@
     <ProjectReference Include="..\Samples\HomagConnect.IntelliDivide.Samples.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="vsts.runsettings">
-      <Generator></Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

@@ -1,12 +1,12 @@
 using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 
-namespace HomagConnect.IntelliDivide.Tests
+namespace HomagConnect.IntelliDivide.Tests.Settings
 {
     [TestClass]
     [TestCategory("IntelliDivide.Settings")]
     [TestCategory("UserTestInteractionNeeded")]
-    public class GetSettingsTests : IntelliDivideTestBase
+    public class SettingsTests : IntelliDivideTestBase
     {
         [TestMethod]
         public async Task GetCuttingMachines()

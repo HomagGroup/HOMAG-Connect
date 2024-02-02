@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace HomagConnect.IntelliDivide.Contracts
@@ -22,6 +23,7 @@ namespace HomagConnect.IntelliDivide.Contracts
 
         public TimeSpan ProductionTime { get; set; }
 
+        [DefaultValue(0.0)]
         public double Scrap { get; set; }
 
         public OptimizationStatus Status { get; set; }

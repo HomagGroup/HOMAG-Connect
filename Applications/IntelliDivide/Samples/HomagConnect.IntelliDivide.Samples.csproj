@@ -20,4 +20,9 @@
 		<ProjectReference Include="..\Client\HomagConnect.IntelliDivide.Client.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Requests\Cutting\" />
+	  <Folder Include="Requests\Nesting\" />
+	</ItemGroup>
+
 </Project>
