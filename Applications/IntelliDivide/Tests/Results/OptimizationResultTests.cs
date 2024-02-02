@@ -17,15 +17,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    public async Task GetOptimizationStatus()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetOptimizationStatusSample(intelliDivide);
-    }
-
-
-    [TestMethod]
     public async Task GetOptimizations()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -34,10 +25,26 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    public async Task GetOptimizationSolutions()
+    public async Task GetOptimizationStatus()
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        await OptimizationResultSamples.GetOptimizationSolutionsSample(intelliDivide);
+        await OptimizationResultSamples.GetOptimizationStatusSample(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task GetSolutionDetails()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetSolutionDetailsSample(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task GetSolutions()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetSolutionsSample(intelliDivide);
     }
 }

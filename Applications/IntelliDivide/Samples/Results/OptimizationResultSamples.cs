@@ -1,5 +1,6 @@
 ﻿using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
+using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,16 +25,36 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         {
             var optimizationId = (await intelliDivide.GetOptimizationsAsync()).First(o => o.Status == OptimizationStatus.Optimized).Id;
 
-            var optimizationStatus = (await intelliDivide.GetOptimizationStatusAsync(optimizationId));
+            var optimizationStatus = await intelliDivide.GetOptimizationStatusAsync(optimizationId);
             
             Assert.AreEqual(OptimizationStatus.Optimized, optimizationStatus);
 
             optimizationStatus.Trace();
         }
 
-        public static async Task GetOptimizationSolutionsSample(IntelliDivideClient intelliDivide)
+      
+        public static async Task GetSolutionsSample(IntelliDivideClient intelliDivide)
         {
-            var optimization = (await intelliDivide.GetOptimizationsAsync()).FirstOrDefault(o => o.Status == OptimizationStatus.Optimized);
+            var optimizationId = (await intelliDivide.GetOptimizationsAsync()).First(o => o.Status == OptimizationStatus.Optimized).Id;
+
+            var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimizationId);
+
+            Assert.IsNotNull(optimizationSolutions);
+
+            optimizationSolutions.Trace();
+        }
+
+        public static async Task GetSolutionDetailsSample(IntelliDivideClient intelliDivide)
+        {
+            var optimizationId = (await intelliDivide.GetOptimizationsAsync()).First(o => o.Status == OptimizationStatus.Optimized).Id;
+
+            var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimizationId);
+
+            var balancedSolution = optimizationSolutions.Where(s => s.Name == SolutionName.BalancedSolution);
+
+            Assert.IsNotNull(balancedSolution);
+
+            balancedSolution.Trace();
         }
 
         public static async Task GetOptimizationsSample(IntelliDivideClient intelliDivide)
