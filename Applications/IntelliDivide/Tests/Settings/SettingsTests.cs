@@ -4,6 +4,7 @@ using HomagConnect.IntelliDivide.Tests.Base;
 namespace HomagConnect.IntelliDivide.Tests.Settings
 {
     [TestClass]
+    [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Settings")]
     [TestCategory("UserTestInteractionNeeded")]
     public class SettingsTests : IntelliDivideTestBase

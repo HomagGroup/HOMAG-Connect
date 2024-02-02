@@ -4,7 +4,8 @@ using HomagConnect.IntelliDivide.Tests.Base;
 namespace HomagConnect.IntelliDivide.Tests.Results;
 
 [TestClass]
-[TestCategory("IntelliDivide.Optimization.Result")]
+[TestCategory("IntelliDivide")]
+[TestCategory("IntelliDivide.Results")]
 [TestCategory("UserTestInteractionNeeded")]
 public class OptimizationResultTests : IntelliDivideTestBase
 {
