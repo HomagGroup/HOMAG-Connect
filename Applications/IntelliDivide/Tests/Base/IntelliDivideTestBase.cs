@@ -20,8 +20,8 @@ public class IntelliDivideTestBase
         var (baseUrl, subscriptionId, token) = ReadProps("IntelliDivide");
 
         Assert.IsFalse(string.IsNullOrWhiteSpace(baseUrl), "BaseUrl in appSettings json must not be null or whitespace.");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(subscriptionId), "Username in appSettings json must not be null or whitespace.");
-        Assert.IsTrue(Guid.TryParse(subscriptionId, out var guid), "Username in appSettings json must be the subscription id which must be a GUID.");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(subscriptionId), "SubscriptionId in appSettings json must not be null or whitespace.");
+        Assert.IsTrue(Guid.TryParse(subscriptionId, out var guid), "SubscriptionId in appSettings json must be the subscription id which must be a GUID.");
         Assert.IsFalse(string.IsNullOrWhiteSpace(token), "Token in appSettings json must not be null or whitespace.");
 
         Debug.WriteLine($"Base:\t{baseUrl}");
