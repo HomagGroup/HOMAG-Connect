@@ -120,19 +120,28 @@ public Task<Optimization> GetOptimizationAsync(Guid optimizationId)
 
 ### **GetOptimizationsAsync(UInt32, UInt32)**
 
+Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
+
 ```csharp
-public Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint skip, uint take)
+public Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip)
 ```
 
 #### Parameters
 
-`skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-
 `take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+Quantity of optimizations to return max.
+
+`skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+Quantity of optimizations to skip.
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+#### Exceptions
+
+[ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/system.argumentoutofrangeexception)<br>
+Thrown, when more then  optimizations are requested.
 
 ### **GetOptimizationStatusAsync(Guid)**
 

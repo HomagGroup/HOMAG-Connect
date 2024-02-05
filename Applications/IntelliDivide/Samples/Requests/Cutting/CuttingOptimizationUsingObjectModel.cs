@@ -35,7 +35,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             Assert.AreEqual(request.Parameters, optimization.ParameterName);
             Assert.AreEqual(request.Name, optimization.Name);
-            Assert.AreEqual(request.Parts.Sum(p => p.Quantity), optimization.PartsCount);
+            Assert.AreEqual(request.Parts.Sum(p => p.Quantity), optimization.QuantityOfParts);
 
             Assert.AreEqual(request.Machine, optimization.Machine);
         }

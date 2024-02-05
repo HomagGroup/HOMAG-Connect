@@ -47,6 +47,6 @@ public class CuttingOptimizationUsingExcel
         Assert.AreEqual(OptimizationStatus.New, optimization.Status);
         Assert.AreEqual(optimizationMachine.Name, optimization.Machine);
         Assert.AreEqual(optimizationParameter.Name, optimization.ParameterName);
-        Assert.AreEqual(69, optimization.PartsCount);
+        Assert.AreEqual(69, optimization.QuantityOfParts);
     }
 }
