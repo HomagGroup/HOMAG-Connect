@@ -1,8 +1,12 @@
 # HOMAG IntelliDivide Client
 
-The HOMAG IntelliDivide Client ([Source Code](./..//Client/IntelliDivideClient.cs) / [Documentation](./homagconnect.intellidivide.client.intellidivideclient.md)) enables access to the intelliDivide application for integration into your own applications. 
+The [HOMAG IntelliDivide Client](./homagconnect.intellidivide.client.intellidivideclient.md) enables access to the intelliDivide application for integration into your own applications. The functions offered on the website are available for a programmatic integration.
 
-The functions offered on the website are available for a programmatic integration.
+The HOMAG IntelliDivide Client is written in C# ([Source Code](./../Client/IntelliDivideClient.cs)). It only facilitates access to the intelliDivide REST API. The source code can be used to convert the relevant functions for integration into another programming language.
+
+The most important functions are described below. 
+
+More can be found in the [Documentation](./homagconnect.intellidivide.client.intellidivideclient.md) and in the [Source Code](./../Client/IntelliDivideClient.cs) on GitHub.
 
 ## Request a optimization
 
