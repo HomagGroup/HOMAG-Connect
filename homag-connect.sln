@@ -45,6 +45,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{EB249CD3-484B-44B7-B959-FA58CD6C52CB}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\IntelliDivide\Documentation\README.md = Applications\IntelliDivide\Documentation\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +107,7 @@ Global
 		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 		{3EF18632-0086-4327-85BD-A2DB782BE06F} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 		{2E8F906A-E9D0-4063-A544-BAE60F29A90B} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{EB249CD3-484B-44B7-B959-FA58CD6C52CB} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
