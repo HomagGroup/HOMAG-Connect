@@ -6,8 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
+    /// <summary />
     public class CuttingOptimizationUsingProjectZip
     {
+        /// <summary />
         public static async Task CreatedCuttingOptimizationUsingProjectZip(IntelliDivideClient intelliDivide)
         {
             var projectFile = new FileInfo(@"Requests\Cutting\Project.zip");

@@ -5,9 +5,10 @@ using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Client
 {
+    /// <summary />
     public partial class IntelliDivideClient : ServiceBase
     {
-        private const int _takeLimit = 100;
+        private const int _TakeLimit = 100;
 
         public async Task<Optimization> GetOptimizationAsync(Guid optimizationId)
         {
@@ -25,7 +26,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
         {
-            if (take is > _takeLimit or 0)
+            if (take is > _TakeLimit or 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(take));
             }
@@ -45,7 +46,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, uint take, uint skip = 0)
         {
-            if (take is > _takeLimit or 0)
+            if (take is > _TakeLimit or 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(take));
             }
@@ -66,7 +67,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, uint take, uint skip = 0)
         {
-            if (take is > _takeLimit or 0)
+            if (take is > _TakeLimit or 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(take));
             }

@@ -45,7 +45,8 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         public string ParameterName { get; set; }
 
-        [Obsolete]
+        /// <summary />
+        [Obsolete("Replaced with QuantityOfParts")]
         public int PartsCount
         {
             get
@@ -68,7 +69,8 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         public int QuantityOfParts { get; set; }
 
-        [Obsolete]
+        /// <summary />
+        [Obsolete("Replaced with Waste")]
         public double Scrap
         {
             get

@@ -4,6 +4,7 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 
 namespace HomagConnect.IntelliDivide.Client
 {
+    /// <summary />
     public partial class IntelliDivideClient : ServiceBase
     {
         public async Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "")

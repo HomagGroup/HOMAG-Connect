@@ -18,6 +18,22 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    public async Task GetOptimizationsHavingStatusOptimized()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetOptimizationsHavingStatusOptimized(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task GetOptimizationsOfTypeCutting()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetOptimizationsOfTypeCuttingSample(intelliDivide);
+    }
+
+    [TestMethod]
     public async Task GetOptimizations()
     {
         var intelliDivide = GetIntelliDivideClient();

@@ -10,8 +10,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
+    /// <summary />
     public class CuttingOptimizationUsingObjectModel
     {
+        /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
@@ -40,6 +42,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             Assert.AreEqual(request.Machine, optimization.Machine);
         }
 
+        /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
@@ -79,6 +82,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             Assert.Fail("Timeout");
         }
 
+        /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);

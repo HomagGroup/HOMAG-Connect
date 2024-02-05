@@ -6,8 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Settings
 {
+    /// <summary />
     public class ParameterSamples
     {
+        /// <summary />
         public static async Task GetCuttingParametersSample(IntelliDivideClient intelliDivide)
         {
             var parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Cutting)).ToArray();
@@ -20,6 +22,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
             parameters.Trace();
         }
 
+        /// <summary />
         public static async Task GetNestingParametersSample(IntelliDivideClient intelliDivide)
         {
             var parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting)).ToArray();

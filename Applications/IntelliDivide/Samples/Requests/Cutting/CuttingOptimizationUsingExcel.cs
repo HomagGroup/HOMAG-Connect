@@ -9,8 +9,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 
+/// <summary />
 public class CuttingOptimizationUsingExcel
 {
+    /// <summary />
     public static async Task CreatedCuttingOptimizationByImportingFromExcel(IntelliDivideClient intelliDivide)
     {
         var excelFile = new FileInfo(@"Requests\Cutting\Kitchen.xlsx");

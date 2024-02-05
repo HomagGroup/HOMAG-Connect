@@ -6,8 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Settings
 {
+    /// <summary />
     public class MachineSamples
     {
+        /// <summary />
         public static async Task GetCuttingMachinesSample(IntelliDivideClient intelliDivide)
         {
             var machines = (await intelliDivide.GetMachinesAsync(OptimizationType.Cutting)).ToArray();
@@ -20,6 +22,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
             machines.Trace();
         }
 
+        /// <summary />
         public static async Task GetMachinesSample(IntelliDivideClient intelliDivide)
         {
             var machines = (await intelliDivide.GetMachinesAsync()).ToArray();
@@ -31,6 +34,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
             machines.Trace();
         }
 
+        /// <summary />
         public static async Task GetNestingMachinesSample(IntelliDivideClient intelliDivide)
         {
             const OptimizationType optimizationType = OptimizationType.Nesting;

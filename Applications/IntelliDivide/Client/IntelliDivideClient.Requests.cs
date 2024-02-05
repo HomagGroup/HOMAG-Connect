@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Client
 {
+    /// <summary />
     public partial class IntelliDivideClient : ServiceBase
     {
         public async Task<OptimizationRequestResponse?> RequestOptimizationAsync(FileInfo projectFile)
