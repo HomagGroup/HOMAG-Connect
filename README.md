@@ -6,7 +6,7 @@ The following repository contains the **HOMAG Connect Clients**,
    [Documentation for MMR Mobile Client](/Applications/MmrMobile/Documentation/README.md) and [some samples](/Applications/MmrMobile/Samples/) for the usage.
 
 2. intelliDivide <br> 
-   [Documentation for intelliDivide Client](/Applications/intelliDivide/Documentation/README.md) and [some samples](/Applications/intelliDivide/Samples/) for the usage.
+   [Documentation for intelliDivide Client](./Applications/IntelliDivide/Documentation/README.md) and [some samples](./Applications/IntelliDivide/Samples/) for the usage.
 
 With these packages you can easily integrate different workflows of HOMAG applications into your own application. For further details and prerequisites for using the Homag Connect, please see the documentation of each application.
 

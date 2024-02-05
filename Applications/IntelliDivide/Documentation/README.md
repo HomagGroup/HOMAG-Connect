@@ -1,6 +1,8 @@
 # HOMAG IntelliDivide Client
 
-The [HOMAG IntelliDivide Client](./..//Client/IntelliDivideClient.cs) enables access to the intelliDivide application for integration into your own applications. The most important functions that are also offered on the website are available.
+The HOMAG IntelliDivide Client ([Source Code](./..//Client/IntelliDivideClient.cs) / [Documentation](./homagconnect.intellidivide.client.intellidivideclient.md)) enables access to the intelliDivide application for integration into your own applications. 
+
+The functions offered on the website are available for a programmatic integration.
 
 ## Request a optimization
 
