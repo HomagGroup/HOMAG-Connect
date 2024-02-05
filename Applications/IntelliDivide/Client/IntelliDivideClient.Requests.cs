@@ -14,6 +14,13 @@ namespace HomagConnect.IntelliDivide.Client
     /// <summary />
     public partial class IntelliDivideClient : ServiceBase
     {
+        /// <summary>
+        /// Request an optimization using a structured zip file, whose format corresponds to the ImportSpecification (
+        /// <seealso href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview" />
+        /// ) and contains all data.
+        /// </summary>
+        /// <param name="projectFile"></param>
+        /// <returns></returns>
         public async Task<OptimizationRequestResponse?> RequestOptimizationAsync(FileInfo projectFile)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
@@ -42,7 +49,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var optimizationRequestResponse = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
 
-            return optimizationRequestResponse; 
+            return optimizationRequestResponse;
         }
 
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files)
@@ -88,6 +95,5 @@ namespace HomagConnect.IntelliDivide.Client
 
             return responseObject ?? new OptimizationRequestResponse();
         }
-
     }
 }

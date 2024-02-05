@@ -10,6 +10,10 @@ namespace HomagConnect.IntelliDivide.Client
     {
         private const int _TakeLimit = 100;
 
+        /// <summary>
+        /// Gets the optimization having the specified optimization id.
+        /// </summary>
+        /// <param name="optimizationId">The id of of the optimization to get.</param>
         public async Task<Optimization> GetOptimizationAsync(Guid optimizationId)
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}".ToLower();
@@ -77,6 +81,10 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
+        /// <summary>
+        /// Gets the <see cref="OptimizationStatus" /> of the optimization having the provided optimization id.
+        /// </summary>
+        /// <param name="optimizationId">The id of of the optimization.</param>
         public async Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}/state".ToLowerInvariant();
@@ -93,6 +101,11 @@ namespace HomagConnect.IntelliDivide.Client
             return solution;
         }
 
+        /// <summary>
+        /// Gets the <see cref="IEnumerable&lt;Solution&gt;" /> which have been calculated for an optimization request.
+        /// </summary>
+        /// <param name="optimizationId">The id of of the optimization.</param>
+        /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>
         public async Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions".ToLowerInvariant();
