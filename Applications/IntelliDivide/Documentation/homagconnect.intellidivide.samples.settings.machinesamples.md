@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Settings
 
+
+
 ```csharp
 public class MachineSamples
 ```
@@ -20,6 +22,8 @@ public MachineSamples()
 
 ### **GetCuttingMachinesSample(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task GetCuttingMachinesSample(IntelliDivideClient intelliDivide)
 ```
@@ -34,6 +38,8 @@ public static Task GetCuttingMachinesSample(IntelliDivideClient intelliDivide)
 
 ### **GetMachinesSample(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task GetMachinesSample(IntelliDivideClient intelliDivide)
 ```
@@ -47,6 +53,8 @@ public static Task GetMachinesSample(IntelliDivideClient intelliDivide)
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
 ### **GetNestingMachinesSample(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task GetNestingMachinesSample(IntelliDivideClient intelliDivide)

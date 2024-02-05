@@ -14,7 +14,7 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 
 ### **Name**
 
-File name
+Gets or sets the name which is used as reference.
 
 ```csharp
 public string Name { get; set; }
@@ -48,6 +48,8 @@ public ImportFile()
 
 ### **CreateAsync(FileInfo)**
 
+Creates a new instance of [ImportFile](./homagconnect.intellidivide.contracts.base.importfile.md).
+
 ```csharp
 public static Task<ImportFile> CreateAsync(FileInfo fileInfo)
 ```
@@ -59,3 +61,7 @@ public static Task<ImportFile> CreateAsync(FileInfo fileInfo)
 #### Returns
 
 [Task&lt;ImportFile&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+#### Exceptions
+
+[FileNotFoundException](https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception)<br>

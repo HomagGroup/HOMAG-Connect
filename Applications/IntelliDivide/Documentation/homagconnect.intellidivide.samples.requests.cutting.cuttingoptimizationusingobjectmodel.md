@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
+
+
 ```csharp
 public class CuttingOptimizationUsingObjectModel
 ```
@@ -20,6 +22,8 @@ public CuttingOptimizationUsingObjectModel()
 
 ### **CreateCuttingOptimizationByObjectModel(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task CreateCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
 ```
@@ -34,6 +38,8 @@ public static Task CreateCuttingOptimizationByObjectModel(IntelliDivideClient in
 
 ### **CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient intelliDivide)
 ```
@@ -47,6 +53,8 @@ public static Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivi
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
 ### **CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient intelliDivide)

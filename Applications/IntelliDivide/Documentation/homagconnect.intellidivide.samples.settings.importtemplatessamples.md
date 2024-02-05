@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Settings
 
+
+
 ```csharp
 public class ImportTemplatesSamples
 ```
@@ -20,6 +22,8 @@ public ImportTemplatesSamples()
 
 ### **GetCuttingTemplatesSample(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task GetCuttingTemplatesSample(IntelliDivideClient intelliDivide)
 ```
@@ -33,6 +37,8 @@ public static Task GetCuttingTemplatesSample(IntelliDivideClient intelliDivide)
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
 ### **GetNestingTemplatesSample(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task GetNestingTemplatesSample(IntelliDivideClient intelliDivide)

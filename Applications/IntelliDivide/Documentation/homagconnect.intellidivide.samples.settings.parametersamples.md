@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Settings
 
+
+
 ```csharp
 public class ParameterSamples
 ```
@@ -20,6 +22,8 @@ public ParameterSamples()
 
 ### **GetCuttingParametersSample(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task GetCuttingParametersSample(IntelliDivideClient intelliDivide)
 ```
@@ -33,6 +37,8 @@ public static Task GetCuttingParametersSample(IntelliDivideClient intelliDivide)
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
 ### **GetNestingParametersSample(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task GetNestingParametersSample(IntelliDivideClient intelliDivide)

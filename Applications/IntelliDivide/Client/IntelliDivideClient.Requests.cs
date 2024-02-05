@@ -15,12 +15,9 @@ namespace HomagConnect.IntelliDivide.Client
     public partial class IntelliDivideClient : ServiceBase
     {
         /// <summary>
-        /// Request an optimization using a structured zip file, whose format corresponds to the ImportSpecification (
-        /// <seealso href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview" />
-        /// ) and contains all data.
+        /// Request an optimization using a structured zip file.
         /// </summary>
-        /// <param name="projectFile"></param>
-        /// <returns></returns>
+        /// <param name="projectFile">Structured zip file, whose format corresponds to the ImportSpecification (<seealso href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview" /> format.</param>
         public async Task<OptimizationRequestResponse?> RequestOptimizationAsync(FileInfo projectFile)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
@@ -87,7 +84,6 @@ namespace HomagConnect.IntelliDivide.Client
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
 
-            //var content = await response.Content.ReadAsStringAsync(); // TODO: check if still needed
             response.EnsureSuccessStatusCodeWithDetails(request);
 
             var result = await response.Content.ReadAsStringAsync();

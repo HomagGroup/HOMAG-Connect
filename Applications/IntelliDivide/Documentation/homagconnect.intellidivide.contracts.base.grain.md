@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Base
 
+Defines the grain of a part, board or offcut.
+
 ```csharp
 public enum Grain
 ```
@@ -13,3 +15,6 @@ Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icom
 
 | Name | Value | Description |
 | --- | --: | --- |
+| None | 0 | No grain. |
+| Lengthwise | 1 | Grain along the length. |
+| Crosswise | 2 | Grain along the width. |

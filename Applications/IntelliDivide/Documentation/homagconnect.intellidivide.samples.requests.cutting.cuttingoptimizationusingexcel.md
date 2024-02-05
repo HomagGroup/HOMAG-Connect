@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
+
+
 ```csharp
 public class CuttingOptimizationUsingExcel
 ```
@@ -19,6 +21,8 @@ public CuttingOptimizationUsingExcel()
 ## Methods
 
 ### **CreatedCuttingOptimizationByImportingFromExcel(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task CreatedCuttingOptimizationByImportingFromExcel(IntelliDivideClient intelliDivide)

@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Results
 
+
+
 ```csharp
 public class OptimizationResultSamples
 ```
@@ -20,6 +22,8 @@ public OptimizationResultSamples()
 
 ### **GetOptimizationSample(IntelliDivideClient)**
 
+
+
 ```csharp
 public static Task GetOptimizationSample(IntelliDivideClient intelliDivide)
 ```
@@ -32,7 +36,57 @@ public static Task GetOptimizationSample(IntelliDivideClient intelliDivide)
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
+### **GetOptimizationsHavingStatusOptimized(IntelliDivideClient)**
+
+
+
+```csharp
+public static Task GetOptimizationsHavingStatusOptimized(IntelliDivideClient intelliDivide)
+```
+
+#### Parameters
+
+`intelliDivide` IntelliDivideClient<br>
+
+#### Returns
+
+[Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
+
+### **GetOptimizationsOfTypeCuttingSample(IntelliDivideClient)**
+
+
+
+```csharp
+public static Task GetOptimizationsOfTypeCuttingSample(IntelliDivideClient intelliDivide)
+```
+
+#### Parameters
+
+`intelliDivide` IntelliDivideClient<br>
+
+#### Returns
+
+[Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
+
+### **GetOptimizationsSample(IntelliDivideClient)**
+
+
+
+```csharp
+public static Task GetOptimizationsSample(IntelliDivideClient intelliDivide)
+```
+
+#### Parameters
+
+`intelliDivide` IntelliDivideClient<br>
+
+#### Returns
+
+[Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
+
 ### **GetOptimizationStatusSample(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task GetOptimizationStatusSample(IntelliDivideClient intelliDivide)
@@ -46,21 +100,9 @@ public static Task GetOptimizationStatusSample(IntelliDivideClient intelliDivide
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **GetSolutionsSample(IntelliDivideClient)**
-
-```csharp
-public static Task GetSolutionsSample(IntelliDivideClient intelliDivide)
-```
-
-#### Parameters
-
-`intelliDivide` IntelliDivideClient<br>
-
-#### Returns
-
-[Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
-
 ### **GetSolutionDetailsSample(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task GetSolutionDetailsSample(IntelliDivideClient intelliDivide)
@@ -74,10 +116,12 @@ public static Task GetSolutionDetailsSample(IntelliDivideClient intelliDivide)
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **GetOptimizationsSample(IntelliDivideClient)**
+### **GetSolutionsSample(IntelliDivideClient)**
+
+
 
 ```csharp
-public static Task GetOptimizationsSample(IntelliDivideClient intelliDivide)
+public static Task GetSolutionsSample(IntelliDivideClient intelliDivide)
 ```
 
 #### Parameters

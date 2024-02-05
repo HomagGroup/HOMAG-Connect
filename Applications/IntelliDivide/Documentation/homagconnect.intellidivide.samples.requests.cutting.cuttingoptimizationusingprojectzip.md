@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
+
+
 ```csharp
 public class CuttingOptimizationUsingProjectZip
 ```
@@ -19,6 +21,8 @@ public CuttingOptimizationUsingProjectZip()
 ## Methods
 
 ### **CreatedCuttingOptimizationUsingProjectZip(IntelliDivideClient)**
+
+
 
 ```csharp
 public static Task CreatedCuttingOptimizationUsingProjectZip(IntelliDivideClient intelliDivide)
