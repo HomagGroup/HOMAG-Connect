@@ -2,7 +2,7 @@
 
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
-using HomagConnect.IntelliDivide.Contracts.Base;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Samples.Helper;
 

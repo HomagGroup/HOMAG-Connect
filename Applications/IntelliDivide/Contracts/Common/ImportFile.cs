@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace HomagConnect.IntelliDivide.Contracts.Base
+namespace HomagConnect.IntelliDivide.Contracts.Common
 {
     /// <summary>
     /// Import file

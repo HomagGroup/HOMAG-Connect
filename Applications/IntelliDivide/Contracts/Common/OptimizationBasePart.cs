@@ -1,7 +1,4 @@
 ﻿using System.Runtime.Serialization;
-
-using HomagConnect.IntelliDivide.Contracts.Base;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Common

@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Base
+namespace HomagConnect.IntelliDivide.Contracts.Common
 {
     /// <summary>
     /// Defines the grain of a part, board or offcut.

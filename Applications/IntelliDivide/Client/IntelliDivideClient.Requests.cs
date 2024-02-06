@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 using HomagConnect.Base;
 using HomagConnect.Base.Services;
-using HomagConnect.IntelliDivide.Contracts.Base;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 
 using Newtonsoft.Json;
