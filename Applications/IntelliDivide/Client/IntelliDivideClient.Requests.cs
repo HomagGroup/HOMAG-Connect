@@ -4,8 +4,10 @@ using System.Net.Http.Headers;
 
 using HomagConnect.Base;
 using HomagConnect.Base.Services;
+using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
+using HomagConnect.IntelliDivide.Contracts.Result;
 
 using Newtonsoft.Json;
 
@@ -17,7 +19,12 @@ namespace HomagConnect.IntelliDivide.Client
         /// <summary>
         /// Request an optimization using a structured zip file.
         /// </summary>
-        /// <param name="projectFile">Structured zip file, whose format corresponds to the ImportSpecification (<seealso href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview" /> format.</param>
+        /// <param name="projectFile">
+        /// Structured zip file, whose format corresponds to the ImportSpecification (
+        /// <seealso
+        ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview" />
+        /// format.
+        /// </param>
         public async Task<OptimizationRequestResponse?> RequestOptimizationAsync(FileInfo projectFile)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
@@ -90,6 +97,44 @@ namespace HomagConnect.IntelliDivide.Client
             var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
 
             return responseObject ?? new OptimizationRequestResponse();
+        }
+
+        public async Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
+        {
+            var timeout = DateTime.Now + maxDuration;
+
+            while (DateTime.Now < timeout)
+            {
+                var currentStatus = await GetOptimizationStatusAsync(optimizationId);
+
+                if (currentStatus is OptimizationStatus.Optimized
+                    or OptimizationStatus.Faulted
+                    or OptimizationStatus.Canceled
+                    or OptimizationStatus.Transferred
+                   )
+                {
+                    return await GetOptimizationAsync(optimizationId);
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+
+            throw new TimeoutException();
+        }
+
+        public async Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
+        {
+            var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/exports/{exportTye}".ToLowerInvariant();
+
+            var data = await RequestRawData(url);
+
+            if (data == null || data.Length == 0)
+            {
+                throw new FileNotFoundException();
+            }
+
+            await File.WriteAllBytesAsync(fileInfo.FullName, data);
+
         }
     }
 }

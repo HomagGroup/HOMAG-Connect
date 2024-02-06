@@ -110,5 +110,20 @@ namespace HomagConnect.Base.Services
 
             return data;
         }
+
+        protected async Task<byte[]> RequestRawData(string url)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Get };
+            request.RequestUri = new Uri(url, UriKind.Relative);
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var data = await response.Content.ReadAsByteArrayAsync();
+
+            return data;
+        }
     }
 }

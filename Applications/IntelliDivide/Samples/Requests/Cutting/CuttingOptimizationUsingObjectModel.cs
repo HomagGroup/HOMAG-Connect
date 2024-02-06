@@ -3,7 +3,9 @@
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Contracts.Request;
+using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,9 +18,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
         {
-            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
-
-            request.Action = OptimizationRequestAction.ImportOnly;
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.ImportOnly);
 
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
@@ -32,7 +32,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             Assert.IsNotNull(optimization);
             Assert.AreEqual(OptimizationStatus.New, optimization.Status);
-            
+
             optimization.Trace();
 
             Assert.AreEqual(request.Parameters, optimization.ParameterName);
@@ -45,9 +45,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient intelliDivide)
         {
-            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
-
-            request.Action = OptimizationRequestAction.Optimize;
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
 
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
@@ -55,7 +53,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             Assert.AreEqual(OptimizationStatus.Started, response.OptimizationStatus);
             Assert.IsFalse(response.ValidationErrors.Any());
 
-            var optimizationId =  response.OptimizationId;
+            var optimizationId = response.OptimizationId;
 
             var timeout = DateTime.Now + TimeSpan.FromSeconds(60);
 
@@ -85,9 +83,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient intelliDivide)
         {
-            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide);
-
-            request.Action = OptimizationRequestAction.Send;
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Send);
 
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
@@ -122,7 +118,42 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             Assert.Fail("Timeout");
         }
 
-        private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide, [CallerMemberName] string optimizationName = "")
+        /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults(IntelliDivideClient intelliDivide)
+        {
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, TimeSpan.FromSeconds(120));
+
+            if (optimization.Status != OptimizationStatus.Optimized)
+            {
+                throw new InvalidOperationException("Optimization did not reach the state optimized.");
+            }
+            else
+            {
+                optimization.Trace(nameof(optimization));
+
+                var solutions = (await intelliDivide.GetSolutionsAsync(optimization.Id)).ToArray();
+
+                if (solutions == null)
+                {
+                    throw new InvalidOperationException("Solutions could not get retrieved.");
+                }
+
+                solutions.Trace(nameof(solutions));
+
+                var balancedSolutionDetails = await intelliDivide.GetSolutionDetailsAsync(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
+
+                balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
+
+                await intelliDivide.DownloadSolutionExport(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Saw,
+                    new FileInfo("CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults.saw"));
+            }
+        }
+
+        private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
+            [CallerMemberName] string optimizationName = "")
         {
             var request = new OptimizationRequest();
 
@@ -156,9 +187,9 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 }
             };
 
+            request.Action = optimizationRequestAction;
+
             return request;
         }
-
-    
     }
 }
