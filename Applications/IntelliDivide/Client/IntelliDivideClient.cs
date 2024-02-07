@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.IntelliDivide.Client
 {
     /// <summary />
-    public partial class IntelliDivideClient : ServiceBase
+    public class IntelliDivideClient : ServiceBase
     {
         #region Constants
 
@@ -333,6 +333,9 @@ namespace HomagConnect.IntelliDivide.Client
 
         #region Solutions
 
+        /// <summary>
+        /// Gets the solution details.
+        /// </summary>
         public async Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}".ToLowerInvariant();
@@ -356,6 +359,9 @@ namespace HomagConnect.IntelliDivide.Client
             return solutions;
         }
 
+        /// <summary>
+        /// Sends the solution to the machine for which the optimization was requested for.
+        /// </summary>
         /// <exception cref="NotSupportedException">Thrown, if the selected machine is not able send.</exception>
         public async Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
         {
@@ -364,6 +370,10 @@ namespace HomagConnect.IntelliDivide.Client
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Downloads the specified <see cref="SolutionExportType" /> into the specified file.
+        /// </summary>
+        /// <exception cref="FileNotFoundException">Thrown, when the specified file is not available.</exception>
         public async Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/exports/{exportTye}".ToLowerInvariant();
