@@ -231,25 +231,6 @@ namespace HomagConnect.IntelliDivide.Client
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
-        {
-            if (take is > _TakeLimit or 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(take));
-            }
-
-            var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
-
-            return await RequestEnumerable<Optimization>(url);
-        }
-
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
@@ -289,6 +270,36 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
+        {
+            if (take is > _TakeLimit or 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
+            var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
+
+            return await RequestEnumerable<Optimization>(url);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="OptimizationStatus" /> of the optimization having the provided optimization id.
+        /// </summary>
+        /// <param name="optimizationId">The id of of the optimization.</param>
+        public async Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
+        {
+            var url = $"api/intelliDivide/optimizations/{optimizationId}/state".ToLowerInvariant();
+
+            return await RequestObject<OptimizationStatus>(url);
+        }
+
+        /// <summary>
         /// Archives the optimization having the specified id.
         /// </summary>
         public async Task ArchiveOptimizationAsync(Guid optimizationId)
@@ -316,17 +327,6 @@ namespace HomagConnect.IntelliDivide.Client
             await Task.Run(() => throw new NotImplementedException());
 
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets the <see cref="OptimizationStatus" /> of the optimization having the provided optimization id.
-        /// </summary>
-        /// <param name="optimizationId">The id of of the optimization.</param>
-        public async Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
-        {
-            var url = $"api/intelliDivide/optimizations/{optimizationId}/state".ToLowerInvariant();
-
-            return await RequestObject<OptimizationStatus>(url);
         }
 
         #endregion
