@@ -6,10 +6,10 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 [TestClass]
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Cutting")]
-[TestCategory("UserTestInteractionNeeded")]
 public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
     [TestMethod]
+    [TestCategory("UserTestInteractionNeeded")]
     public async Task CreatedCuttingOptimizationBasedOnExcelFile()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -26,6 +26,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
     
     [TestMethod]
+    [TestCategory("UserTestInteractionNeeded")]
     public async Task CreateCuttingOptimizationUsingModel()
     {
         var intelliDivide = GetIntelliDivideClient();

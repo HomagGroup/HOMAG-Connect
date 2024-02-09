@@ -6,7 +6,6 @@ namespace HomagConnect.IntelliDivide.Tests.Results;
 [TestClass]
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Results")]
-[TestCategory("UserTestInteractionNeeded")]
 public class OptimizationResultTests : IntelliDivideTestBase
 {
     [TestMethod]
@@ -18,6 +17,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TestCategory("UserTestInteractionNeeded")]
     public async Task GetOptimizationsHavingStatusOptimized()
     {
         var intelliDivide = GetIntelliDivideClient();

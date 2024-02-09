@@ -71,9 +71,11 @@ stages:
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
-          displayName: Run Unit Tests    
+          displayName: Run Integration Tests in DEV environment.   
           env:
-            BaseUrl: $(BaseUrl)
+            HomagConnect:BaseUrl: $(HomagConnect:BaseUrl:DEV)
+            HomagConnect:IntelliDivide:SubscriptionId: $(HomagConnect:IntelliDivide:SubscriptionId)
+            HomagConnect:IntelliDivide:Token: $(HomagConnect:IntelliDivide:Token)
           inputs:
             command: 'test'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'                        
