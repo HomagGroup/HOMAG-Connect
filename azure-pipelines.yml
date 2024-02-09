@@ -26,6 +26,15 @@ stages:
       BuildConfiguration: Release
     jobs:
       - job: Build
+  
+        variables: 
+            - name: BaseUrl
+              value: $(BaseUrl)
+            - name: TestSubscriptionId
+              value: $(TestSubscriptionId)
+            - name: TestSubscriptionToken
+              value: $(TestSubscriptionToken)
+
         steps:
         - checkout: self
           fetchDepth: 0
