@@ -78,7 +78,7 @@ stages:
             HomagConnect:IntelliDivide:Token: $(HomagConnect:IntelliDivide:Token)
           inputs:
             command: 'test'
-            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'                        
+            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'

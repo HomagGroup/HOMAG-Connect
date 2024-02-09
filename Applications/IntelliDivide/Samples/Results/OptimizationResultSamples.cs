@@ -16,12 +16,11 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetOptimizationSample(IntelliDivideClient intelliDivide)
         {
-            var optimizationId = (await intelliDivide.GetOptimizationsAsync(_Take)).First(o => o.Status == OptimizationStatus.Optimized).Id;
-
-            var optimization = (await intelliDivide.GetOptimizationAsync(optimizationId));
+            var optimization = (await intelliDivide.GetOptimizationsAsync(1)).First();
+            var optimizationDetails = (await intelliDivide.GetOptimizationAsync(optimization.Id));
 
             Assert.IsNotNull(optimization);
-            Assert.AreEqual(OptimizationStatus.Optimized, optimization.Status);
+            Assert.AreEqual(optimization.Status, optimizationDetails.Status);
 
             optimization.Trace();
         }
@@ -75,7 +74,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetSolutionDetailsSample(IntelliDivideClient intelliDivide)
         {
-            var optimizationId = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take)).First(o => o.Status == OptimizationStatus.Optimized).Id;
+            var optimizationId = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take)).First().Id;
 
             var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimizationId);
 
