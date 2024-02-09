@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Net.Http.Headers;
+
 
 using HomagConnect.Base;
 using HomagConnect.Base.Services;
@@ -14,7 +13,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.IntelliDivide.Client
 {
     /// <summary />
-    public class IntelliDivideClient : ServiceBase
+    public class IntelliDivideClient : ServiceBase, IIntelliDivideClient
     {
         #region Constants
 

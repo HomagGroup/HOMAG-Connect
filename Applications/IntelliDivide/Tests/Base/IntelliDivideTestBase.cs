@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 
 using HomagConnect.IntelliDivide.Client;
+using HomagConnect.IntelliDivide.Contracts;
 
 using Microsoft.Extensions.Configuration;
 
@@ -52,7 +53,7 @@ public class IntelliDivideTestBase
         return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{token}"));
     }
 
-    protected IntelliDivideClient GetIntelliDivideClient()
+    protected IIntelliDivideClient GetIntelliDivideClient()
     {
         Trace($"BaseUrl: {BaseUrl}");
         Trace($"Subscription: {SubscriptionId}");

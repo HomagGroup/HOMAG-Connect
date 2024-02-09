@@ -13,9 +13,6 @@
 		<EmbedAllSources>true</EmbedAllSources>
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
-	<ItemGroup>
-	  <None Include="..\Documentation\README.md" Pack="true" Link="README.md" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

@@ -10,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
     public class CuttingOptimizationUsingProjectZip
     {
         /// <summary />
-        public static async Task CreatedCuttingOptimizationUsingProjectZip(IntelliDivideClient intelliDivide)
+        public static async Task CreatedCuttingOptimizationUsingProjectZip(IIntelliDivideClient intelliDivide)
         {
             var projectFile = new FileInfo(@"Requests\Cutting\Project.zip");
 

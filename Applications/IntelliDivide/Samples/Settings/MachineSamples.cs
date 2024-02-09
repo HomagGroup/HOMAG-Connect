@@ -1,4 +1,5 @@
 ﻿using HomagConnect.IntelliDivide.Client;
+using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
@@ -10,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
     public class MachineSamples
     {
         /// <summary />
-        public static async Task GetCuttingMachinesSample(IntelliDivideClient intelliDivide)
+        public static async Task GetCuttingMachinesSample(IIntelliDivideClient intelliDivide)
         {
             var machines = (await intelliDivide.GetMachinesAsync(OptimizationType.Cutting)).ToArray();
 
@@ -23,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         }
 
         /// <summary />
-        public static async Task GetMachinesSample(IntelliDivideClient intelliDivide)
+        public static async Task GetMachinesSample(IIntelliDivideClient intelliDivide)
         {
             var machines = (await intelliDivide.GetMachinesAsync()).ToArray();
 
@@ -35,7 +36,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         }
 
         /// <summary />
-        public static async Task GetNestingMachinesSample(IntelliDivideClient intelliDivide)
+        public static async Task GetNestingMachinesSample(IIntelliDivideClient intelliDivide)
         {
             const OptimizationType optimizationType = OptimizationType.Nesting;
 

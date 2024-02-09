@@ -14,7 +14,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         private const int _Take = 3;
 
         /// <summary />
-        public static async Task GetOptimizationSample(IntelliDivideClient intelliDivide)
+        public static async Task GetOptimizationSample(IIntelliDivideClient intelliDivide)
         {
             var optimization = (await intelliDivide.GetOptimizationsAsync(1)).First();
             var optimizationDetails = (await intelliDivide.GetOptimizationAsync(optimization.Id));
@@ -26,7 +26,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-        public static async Task GetOptimizationsHavingStatusOptimized(IntelliDivideClient intelliDivide)
+        public static async Task GetOptimizationsHavingStatusOptimized(IIntelliDivideClient intelliDivide)
         {
             var optimizations = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take)).ToArray();
 
@@ -37,7 +37,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-        public static async Task GetOptimizationsOfTypeCuttingSample(IntelliDivideClient intelliDivide)
+        public static async Task GetOptimizationsOfTypeCuttingSample(IIntelliDivideClient intelliDivide)
         {
             var optimizations = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, _Take)).ToArray();
 
@@ -48,7 +48,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-        public static async Task GetOptimizationsSample(IntelliDivideClient intelliDivide)
+        public static async Task GetOptimizationsSample(IIntelliDivideClient intelliDivide)
         {
             var optimizations = (await intelliDivide.GetOptimizationsAsync(_Take)).ToArray();
 
@@ -60,7 +60,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-        public static async Task GetOptimizationStatusSample(IntelliDivideClient intelliDivide)
+        public static async Task GetOptimizationStatusSample(IIntelliDivideClient intelliDivide)
         {
             var optimizationId = (await intelliDivide.GetOptimizationsAsync(_Take)).First(o => o.Status == OptimizationStatus.Optimized).Id;
 
@@ -72,7 +72,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-        public static async Task GetSolutionDetailsSample(IntelliDivideClient intelliDivide)
+        public static async Task GetSolutionDetailsSample(IIntelliDivideClient intelliDivide)
         {
             var optimizationId = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take)).First().Id;
 
@@ -86,7 +86,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-        public static async Task GetSolutionsSample(IntelliDivideClient intelliDivide)
+        public static async Task GetSolutionsSample(IIntelliDivideClient intelliDivide)
         {
             var optimizationId = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take)).First(o => o.Status == OptimizationStatus.Optimized).Id;
 

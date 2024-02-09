@@ -1,4 +1,4 @@
-﻿using HomagConnect.IntelliDivide.Client;
+﻿using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
@@ -10,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
     public class ParameterSamples
     {
         /// <summary />
-        public static async Task GetCuttingParametersSample(IntelliDivideClient intelliDivide)
+        public static async Task GetCuttingParametersSample(IIntelliDivideClient intelliDivide)
         {
             var parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Cutting)).ToArray();
 
@@ -23,7 +23,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         }
 
         /// <summary />
-        public static async Task GetNestingParametersSample(IntelliDivideClient intelliDivide)
+        public static async Task GetNestingParametersSample(IIntelliDivideClient intelliDivide)
         {
             var parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting)).ToArray();
 

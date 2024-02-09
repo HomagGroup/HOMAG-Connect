@@ -16,7 +16,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
     public class CuttingOptimizationUsingObjectModel
     {
         /// <summary />
-        public static async Task CreateCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
+        public static async Task CreateCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.ImportOnly);
 
@@ -43,7 +43,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         }
 
         /// <summary />
-        public static async Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient intelliDivide)
+        public static async Task CreateCuttingOptimizationByObjectModelAndOptimize(IIntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
 
@@ -81,7 +81,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         }
 
         /// <summary />
-        public static async Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient intelliDivide)
+        public static async Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IIntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Send);
 
@@ -119,7 +119,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         }
 
         /// <summary />
-        public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults(IntelliDivideClient intelliDivide)
+        public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults(IIntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
             var response = await intelliDivide.RequestOptimizationAsync(request);
@@ -152,7 +152,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
         }
 
-        private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
+        private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
             [CallerMemberName] string optimizationName = "")
         {
             var request = new OptimizationRequest();

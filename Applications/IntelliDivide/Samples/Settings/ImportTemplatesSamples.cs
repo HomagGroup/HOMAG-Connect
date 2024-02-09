@@ -1,4 +1,5 @@
 ﻿using HomagConnect.IntelliDivide.Client;
+using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
@@ -10,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
     public class ImportTemplatesSamples
     {
         /// <summary />
-        public static async Task GetCuttingTemplatesSample(IntelliDivideClient intelliDivide)
+        public static async Task GetCuttingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
             var templates = (await intelliDivide.GetImportTemplatesAsync(OptimizationType.Cutting)).ToArray();
 
@@ -23,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         }
 
         /// <summary />
-        public static async Task GetNestingTemplatesSample(IntelliDivideClient intelliDivide)
+        public static async Task GetNestingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
             var templates = (await intelliDivide.GetImportTemplatesAsync(OptimizationType.Nesting)).ToArray();
 

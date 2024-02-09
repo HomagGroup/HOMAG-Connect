@@ -12,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 public class CuttingOptimizationUsingExcel
 {
     /// <summary />
-    public static async Task CreatedCuttingOptimizationByImportingFromExcel(IntelliDivideClient intelliDivide)
+    public static async Task CreatedCuttingOptimizationByImportingFromExcel(IIntelliDivideClient intelliDivide)
     {
         var excelFile = new FileInfo(@"Requests\Cutting\Kitchen.xlsx");
 

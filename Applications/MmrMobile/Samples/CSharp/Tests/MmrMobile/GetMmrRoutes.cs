@@ -11,7 +11,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
     public class GetMmrRoutes : TestBase
     {
         [TestMethod]
-        [TestCategory("UserTestNoInteractionNeeded")]
+        [TemporaryDisabledOnServer(2024, 3, 1)]
         public async Task GetCounterTest()
         {
             (var baseUrl, var username, var token) = ReadProps("MmrMobile");
