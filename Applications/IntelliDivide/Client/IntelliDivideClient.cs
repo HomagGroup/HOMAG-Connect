@@ -118,9 +118,7 @@ namespace HomagConnect.IntelliDivide.Client
             var uri = "api/intelliDivide/optimizations".ToLowerInvariant();
 
             request.RequestUri = new Uri(uri, UriKind.Relative);
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
-
+            
             using var httpContent = new MultipartFormDataContent();
 
             HttpContent streamContent = new StreamContent(stream);
@@ -158,9 +156,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var uri = "api/intelliDivide/optimizations".ToLowerInvariant();
             request.RequestUri = new Uri(uri, UriKind.Relative);
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
-
+            
             using var httpContent = new MultipartFormDataContent();
 
             var json = JsonConvert.SerializeObject(optimizationRequest);
