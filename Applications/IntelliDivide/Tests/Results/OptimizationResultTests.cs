@@ -1,3 +1,4 @@
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Results;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -17,7 +18,15 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,3,1)]
+    public async Task GetOptimizations()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetOptimizationsSample(intelliDivide);
+    }
+
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 3, 1)]
     public async Task GetOptimizationsHavingStatusOptimized()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -31,14 +40,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await OptimizationResultSamples.GetOptimizationsOfTypeCuttingSample(intelliDivide);
-    }
-
-    [TestMethod]
-    public async Task GetOptimizations()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetOptimizationsSample(intelliDivide);
     }
 
     [TestMethod]

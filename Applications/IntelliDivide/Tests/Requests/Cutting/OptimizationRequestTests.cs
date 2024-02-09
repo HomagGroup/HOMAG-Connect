@@ -1,3 +1,4 @@
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -18,6 +19,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024,3,1)]
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {
         var intelliDivide = GetIntelliDivideClient();

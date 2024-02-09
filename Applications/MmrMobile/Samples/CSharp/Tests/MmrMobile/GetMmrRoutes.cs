@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.MmrMobile.Client.Services;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,7 +27,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
         }
 
         [TestMethod]
-        [TestCategory("UserTestNoInteractionNeeded")]
+        [TemporaryDisabledOnServer(2024, 3, 1)]
         public async Task GetStatesTest()
         {
             (var baseUrl, var username, var token) = ReadProps("MmrMobile");

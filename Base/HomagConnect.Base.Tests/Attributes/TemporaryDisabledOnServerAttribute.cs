@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.IntelliDivide.Tests.Base
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace HomagConnect.Base.Tests.Attributes
 {
     /// <summary>
     /// Test Attribute to comment to link to an Area
