@@ -26,15 +26,7 @@ stages:
       BuildConfiguration: Release
     jobs:
       - job: Build
-  
-        variables: 
-            - name: BaseUrl
-              value: $(BaseUrl)
-            - name: TestSubscriptionId
-              value: $(TestSubscriptionId)
-            - name: TestSubscriptionToken
-              value: $(TestSubscriptionToken)
-
+           
         steps:
         - checkout: self
           fetchDepth: 0
@@ -79,7 +71,9 @@ stages:
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
-          displayName: Run Unit Tests          
+          displayName: Run Unit Tests    
+          env:
+            BaseUrl: $(BaseUrl)
           inputs:
             command: 'test'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'                        

@@ -1,4 +1,5 @@
 using HomagConnect.IntelliDivide.Tests.Base;
+
 using Microsoft.Extensions.Configuration;
 
 namespace HomagConnect.IntelliDivide.Tests;
@@ -6,19 +7,7 @@ namespace HomagConnect.IntelliDivide.Tests;
 [TestClass]
 public class GetTestContextTests : IntelliDivideTestBase
 {
-    public TestContext TestContext { get; set; }
-
-    [TestMethod]
-    public void GetBaseUrlFromContext()
-    {
-        TestContext.WriteLine("BaseUrl:" + TestContext.Properties["BaseUrl"]);
-    }
-
-    [TestMethod]
-    public void GetBaseUrlFromEnvironment()
-    {
-        TestContext.WriteLine("BaseUrl:" + System.Environment.GetEnvironmentVariable("BaseUrl"));
-    }
+    public override TestContext? TestContext { get; set; }
 
     [TestMethod]
     public void GetBaseUrlFromAppSettings()
@@ -30,8 +19,43 @@ public class GetTestContextTests : IntelliDivideTestBase
 
         var baseUrl = configuration["HomagConnect:BaseUrl"];
 
-        TestContext.WriteLine("BaseUrl:" + baseUrl);
+        if (TestContext == null)
+        {
+            Console.Write($"BaseUrl: {baseUrl}");
+        }
+        else
+        {
+            TestContext.WriteLine($"BaseUrl: {baseUrl}");
+        }
     }
 
+    [TestMethod]
+    public void GetBaseUrlFromContext()
+    {
+        if (TestContext == null)
+        {
+          
+        }
+        else
+        {
+            var baseUrl = TestContext.Properties["BaseUrl"];
 
+            TestContext.WriteLine($"BaseUrl: {baseUrl}");
+        }
+    }
+
+    [TestMethod]
+    public void GetBaseUrlFromEnvironment()
+    {
+        var baseUrl = Environment.GetEnvironmentVariable("BaseUrl", EnvironmentVariableTarget.Process);
+
+        if (TestContext == null)
+        {
+            Console.Write($"BaseUrl: {baseUrl}");
+        }
+        else
+        {
+            TestContext.WriteLine($"BaseUrl: {baseUrl}");
+        }
+    }
 }

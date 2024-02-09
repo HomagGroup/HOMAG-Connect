@@ -10,6 +10,8 @@ namespace HomagConnect.IntelliDivide.Tests.Base;
 
 public class IntelliDivideTestBase
 {
+    public virtual TestContext? TestContext { get; set; }
+
     protected static string EncodeBase64Token(string username, string token)
     {
         return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{token}"));
