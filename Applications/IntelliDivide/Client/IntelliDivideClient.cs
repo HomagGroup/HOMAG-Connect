@@ -273,11 +273,6 @@ namespace HomagConnect.IntelliDivide.Client
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
         {
-            if (take is > _TakeLimit or 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(take));
-            }
-
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
 
             return await RequestEnumerable<Optimization>(url);

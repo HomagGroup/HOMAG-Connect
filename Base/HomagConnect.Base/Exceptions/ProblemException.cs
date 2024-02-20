@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace HomagConnect.Base
+namespace HomagConnect.Base.Exceptions
 {
     /// <summary>
     /// This exception is forwarded to the calling system and is then displayed to the customer in an error page
