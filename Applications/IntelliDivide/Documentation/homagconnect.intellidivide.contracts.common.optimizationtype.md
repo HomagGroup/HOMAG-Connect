@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Common
 
+Defines the type of the patterns to generate.
+
 ```csharp
 public enum OptimizationType
 ```
@@ -13,3 +15,5 @@ Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icom
 
 | Name | Value | Description |
 | --- | --: | --- |
+| Cutting | 0 | The optimization generates cutting patterns for saws. |
+| Nesting | 1 | The optimization generates nesting patterns for nesting machines. |

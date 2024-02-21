@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
+Defines the actions which should get performed on a the request.
+
 ```csharp
 public enum OptimizationRequestAction
 ```

@@ -1,5 +1,12 @@
-﻿namespace HomagConnect.IntelliDivide.Contracts.Request
+﻿using HomagConnect.IntelliDivide.Contracts.Converter;
+using Newtonsoft.Json;
+
+namespace HomagConnect.IntelliDivide.Contracts.Request
 {
+    /// <summary>
+    /// Defines the actions which should get performed on a the request.
+    /// </summary>
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum OptimizationRequestAction
     {
         /// <summary>

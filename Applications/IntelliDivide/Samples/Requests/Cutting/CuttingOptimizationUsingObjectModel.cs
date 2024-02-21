@@ -47,6 +47,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
 
+            request.Trace(nameof (request));
+
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
             Assert.IsNotNull(response.OptimizationId);

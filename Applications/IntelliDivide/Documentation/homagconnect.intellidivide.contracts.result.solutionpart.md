@@ -61,37 +61,19 @@ public int QuantityTotal { get; set; }
 
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
-### **CncProgramName1**
+### **ExtensionData**
 
 ```csharp
-public string CncProgramName1 { get; set; }
+public ExtensionDataObject ExtensionData { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **CncProgramName2**
-
-```csharp
-public string CncProgramName2 { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **CustomerName**
-
-```csharp
-public string CustomerName { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+ExtensionDataObject<br>
 
 ### **Description**
+
+Gets or sets a description for the part.
 
 ```csharp
 public string Description { get; set; }
@@ -101,27 +83,57 @@ public string Description { get; set; }
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
-### **EdgeBack**
+### **MaterialCode**
+
+Gets or sets the material code.
 
 ```csharp
-public string EdgeBack { get; set; }
+public string MaterialCode { get; set; }
 ```
 
 #### Property Value
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
-### **EdgeDiagram**
+### **Grain**
+
+Gets or sets the [OptimizationBasePart.Grain](./homagconnect.intellidivide.contracts.common.optimizationbasepart.md#grain) of the part.
 
 ```csharp
-public string EdgeDiagram { get; set; }
+public Grain Grain { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+[Grain](./homagconnect.intellidivide.contracts.common.grain.md)<br>
+
+### **Length**
+
+Gets or sets the length of the part.
+
+```csharp
+public double Length { get; set; }
+```
+
+#### Property Value
+
+[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
+
+### **Width**
+
+Gets or sets the width of the part.
+
+```csharp
+public double Width { get; set; }
+```
+
+#### Property Value
+
+[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
 
 ### **EdgeFront**
+
+Gets or sets the edgeband code of the edgeband type which should get applied on the front.
 
 ```csharp
 public string EdgeFront { get; set; }
@@ -131,7 +143,21 @@ public string EdgeFront { get; set; }
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
+### **EdgeBack**
+
+Gets or sets the edgeband code of the edgeband type which should get applied on the back.
+
+```csharp
+public string EdgeBack { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
 ### **EdgeLeft**
+
+Gets or sets the edgeband code of the edgeband type which should get applied on the left.
 
 ```csharp
 public string EdgeLeft { get; set; }
@@ -143,6 +169,8 @@ public string EdgeLeft { get; set; }
 
 ### **EdgeRight**
 
+Gets or sets the edgeband code of the edgeband type which should get applied on the right.
+
 ```csharp
 public string EdgeRight { get; set; }
 ```
@@ -151,7 +179,93 @@ public string EdgeRight { get; set; }
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
+### **EdgeDiagram**
+
+Gets or sets how the edgebands should get applied.
+
+```csharp
+public string EdgeDiagram { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **CncProgramName1**
+
+Gets or sets the program name of the CNC program to execute.
+
+```csharp
+public string CncProgramName1 { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **CncProgramName2**
+
+Gets or sets the program name of the CNC program to execute.
+
+```csharp
+public string CncProgramName2 { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **LaminateTop**
+
+Gets or sets the material code of the laminate type which should get applied on the top.
+
+```csharp
+public string LaminateTop { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **LaminateBottom**
+
+Gets or sets the material code of the laminate type which should get applied on the bottom.
+
+```csharp
+public string LaminateBottom { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **CustomerName**
+
+Gets or sets the name of the customer who has ordered the part.
+
+```csharp
+public string CustomerName { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **OrderName**
+
+Gets or sets the name of the order.
+
+```csharp
+public string OrderName { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
 ### **FinishLength**
+
+Gets or sets the finish length.
 
 ```csharp
 public Nullable<double> FinishLength { get; set; }
@@ -163,6 +277,8 @@ public Nullable<double> FinishLength { get; set; }
 
 ### **FinishWidth**
 
+Gets or sets the finish length.
+
 ```csharp
 public Nullable<double> FinishWidth { get; set; }
 ```
@@ -170,86 +286,6 @@ public Nullable<double> FinishWidth { get; set; }
 #### Property Value
 
 [Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
-
-### **Grain**
-
-```csharp
-public Grain Grain { get; set; }
-```
-
-#### Property Value
-
-[Grain](./homagconnect.intellidivide.contracts.common.grain.md)<br>
-
-### **LaminateBottom**
-
-```csharp
-public string LaminateBottom { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **LaminateTop**
-
-```csharp
-public string LaminateTop { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **Length**
-
-```csharp
-public double Length { get; set; }
-```
-
-#### Property Value
-
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
-
-### **MaterialCode**
-
-```csharp
-public string MaterialCode { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **OrderName**
-
-```csharp
-public string OrderName { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **Width**
-
-```csharp
-public double Width { get; set; }
-```
-
-#### Property Value
-
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
-
-### **ExtensionData**
-
-```csharp
-public ExtensionDataObject ExtensionData { get; set; }
-```
-
-#### Property Value
-
-ExtensionDataObject<br>
 
 ## Constructors
 

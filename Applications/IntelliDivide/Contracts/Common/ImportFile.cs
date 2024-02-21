@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace HomagConnect.IntelliDivide.Contracts.Common
 {
     /// <summary>
-    /// Import file
+    /// Wrapper for handling of import files.
     /// </summary>
     [DebuggerDisplay("Name = {Name}")]
     public class ImportFile
@@ -18,7 +18,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// File content as stream
+        /// Gets or sets the content as stream
         /// </summary>
         [Required]
         public Stream Stream { get; set; }
@@ -26,9 +26,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <summary>
         /// Creates a new instance of <see cref="ImportFile" />.
         /// </summary>
-        /// <param name="fileInfo"></param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="FileNotFoundException">Thrown, if the specified was not found.</exception>
         public static async Task<ImportFile> CreateAsync(FileInfo fileInfo)
         {
             if (!fileInfo.Exists) throw new FileNotFoundException("Import file does not exist.", fileInfo.FullName);

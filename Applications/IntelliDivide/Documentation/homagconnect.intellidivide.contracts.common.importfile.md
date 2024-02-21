@@ -2,7 +2,7 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Common
 
-Import file
+Wrapper for handling of import files.
 
 ```csharp
 public class ImportFile
@@ -26,7 +26,7 @@ public string Name { get; set; }
 
 ### **Stream**
 
-File content as stream
+Gets or sets the content as stream
 
 ```csharp
 public Stream Stream { get; set; }
@@ -65,3 +65,4 @@ public static Task<ImportFile> CreateAsync(FileInfo fileInfo)
 #### Exceptions
 
 [FileNotFoundException](https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception)<br>
+Thrown, if the specified was not found.
