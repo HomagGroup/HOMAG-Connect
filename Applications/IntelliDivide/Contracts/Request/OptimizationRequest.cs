@@ -8,6 +8,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     [DebuggerDisplay("Name={Name}, Action={Action}")]
     public class OptimizationRequest
     {
+        /// <summary>
+        /// Gets or sets the <see cref="OptimizationRequestAction"/>.
+        /// </summary>
         [Required]
         [DefaultValue(OptimizationRequestAction.ImportOnly)]
         public OptimizationRequestAction Action { get; set; } = OptimizationRequestAction.ImportOnly;
@@ -17,6 +20,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         public List<OptimizationRequestBoard> Boards { get; set; } = new List<OptimizationRequestBoard>();
 
+        /// <summary>
+        /// Optional. Gets or sets the name of the import template.
+        /// </summary>
         public string ImportTemplate { get; set; }
 
         /// <summary>
@@ -40,6 +46,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         [StringLength(100, MinimumLength = 3)]
         public string Parameters { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the list of parts to optimize.
+        /// </summary>
         public List<OptimizationRequestPart> Parts { get; set; } = new List<OptimizationRequestPart>();
     }
 }

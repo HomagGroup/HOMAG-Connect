@@ -33,7 +33,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [Required]
         [JsonProperty(Order = 11)]
-        public string MaterialCode { get; set; } = string.Empty;
+        [StringLength(50, MinimumLength = 1)]
+        public string MaterialCode { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Grain" /> of the part.

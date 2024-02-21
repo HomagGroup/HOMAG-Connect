@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 
-using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Constants;
@@ -47,7 +46,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
 
-            request.Trace(nameof (request));
+            request.Trace(nameof(request));
 
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
@@ -95,7 +94,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             var optimizationId = response.OptimizationId;
 
-            var timeout = DateTime.Now + TimeSpan.FromSeconds(60);
+            var timeout = DateTime.Now + TimeSpan.FromSeconds(120);
 
             while (DateTime.Now < timeout)
             {

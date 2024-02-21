@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 using HomagConnect.Base;
 using HomagConnect.Base.Services;
+using HomagConnect.Base.Validation;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -117,7 +117,7 @@ namespace HomagConnect.IntelliDivide.Client
             var uri = "api/intelliDivide/optimizations".ToLowerInvariant();
 
             request.RequestUri = new Uri(uri, UriKind.Relative);
-            
+
             using var httpContent = new MultipartFormDataContent();
 
             HttpContent streamContent = new StreamContent(stream);
@@ -141,7 +141,15 @@ namespace HomagConnect.IntelliDivide.Client
         /// </summary>
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files)
         {
-            Validator.ValidateObject(optimizationRequest, new ValidationContext(optimizationRequest, null, null));
+            var validator = new DataAnnotationsValidator();
+            var validationResults = new List<ValidationResult>();
+
+            if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
+            {
+                var validationResult = validationResults.First();
+                
+                throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
+            }
 
             foreach (var optimizationRequestPart in optimizationRequest.Parts.Where(p => !string.IsNullOrWhiteSpace(p.MprFileName)))
             {
@@ -155,7 +163,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var uri = "api/intelliDivide/optimizations".ToLowerInvariant();
             request.RequestUri = new Uri(uri, UriKind.Relative);
-            
+
             using var httpContent = new MultipartFormDataContent();
 
             var json = JsonConvert.SerializeObject(optimizationRequest);

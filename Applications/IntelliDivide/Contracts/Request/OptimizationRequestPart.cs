@@ -62,5 +62,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         public RotationAngle? AllowedRotationAngle { get; set; }
 
         #endregion
+
+        /// <inheritdoc />
+     public override string ToString()
+        {
+            return $"{Description}({MaterialCode})";
+        }
     }
 }
