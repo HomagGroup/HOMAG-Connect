@@ -12,6 +12,8 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 
 ### **Action**
 
+Gets or sets the [OptimizationRequestAction](./homagconnect.intellidivide.contracts.request.optimizationrequestaction.md).
+
 ```csharp
 public OptimizationRequestAction Action { get; set; }
 ```
@@ -33,6 +35,8 @@ public List<OptimizationRequestBoard> Boards { get; set; }
 [List&lt;OptimizationRequestBoard&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1)<br>
 
 ### **ImportTemplate**
+
+Optional. Gets or sets the name of the import template.
 
 ```csharp
 public string ImportTemplate { get; set; }
@@ -79,6 +83,8 @@ public string Parameters { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Parts**
+
+Gets or sets the list of parts to optimize.
 
 ```csharp
 public List<OptimizationRequestPart> Parts { get; set; }
