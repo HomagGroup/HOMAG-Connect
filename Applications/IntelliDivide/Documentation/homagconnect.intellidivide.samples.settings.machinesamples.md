@@ -20,49 +20,49 @@ public MachineSamples()
 
 ## Methods
 
-### **GetCuttingMachinesSample(IntelliDivideClient)**
+### **GetCuttingMachinesSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetCuttingMachinesSample(IntelliDivideClient intelliDivide)
+public static Task GetCuttingMachinesSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **GetMachinesSample(IntelliDivideClient)**
+### **GetMachinesSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetMachinesSample(IntelliDivideClient intelliDivide)
+public static Task GetMachinesSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **GetNestingMachinesSample(IntelliDivideClient)**
+### **GetNestingMachinesSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetNestingMachinesSample(IntelliDivideClient intelliDivide)
+public static Task GetNestingMachinesSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 

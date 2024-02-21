@@ -39,7 +39,7 @@ public Grain Grain { get; set; }
 
 #### Property Value
 
-[Grain](./homagconnect.intellidivide.contracts.base.grain.md)<br>
+[Grain](./homagconnect.intellidivide.contracts.common.grain.md)<br>
 
 ### **Length**
 

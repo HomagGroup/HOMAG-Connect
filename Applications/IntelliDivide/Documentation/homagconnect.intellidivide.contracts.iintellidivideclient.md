@@ -1,96 +1,25 @@
-# IntelliDivideClient
+# IIntelliDivideClient
 
-Namespace: HomagConnect.IntelliDivide.Client
-
-
+Namespace: HomagConnect.IntelliDivide.Contracts
 
 ```csharp
-public class IntelliDivideClient : HomagConnect.Base.Services.ServiceBase, HomagConnect.IntelliDivide.Contracts.IIntelliDivideClient
+public interface IIntelliDivideClient
 ```
-
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [IntelliDivideClient](./homagconnect.intellidivide.client.intellidivideclient.md)<br>
-Implements IIntelliDivideClient
-
-## Properties
-
-### **ApiVersion**
-
-```csharp
-public string ApiVersion { get; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **Client**
-
-```csharp
-public HttpClient Client { get; }
-```
-
-#### Property Value
-
-HttpClient<br>
-
-### **HeaderKey**
-
-```csharp
-public string HeaderKey { get; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **OnDeprecatedAction**
-
-```csharp
-public Action<HttpRequestMessage, HttpResponseMessage> OnDeprecatedAction { get; set; }
-```
-
-#### Property Value
-
-[Action&lt;HttpRequestMessage, HttpResponseMessage&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-2)<br>
-
-### **ThrowExceptionOnDeprecatedCalls**
-
-```csharp
-public bool ThrowExceptionOnDeprecatedCalls { get; set; }
-```
-
-#### Property Value
-
-[Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)<br>
-
-## Constructors
-
-### **IntelliDivideClient(HttpClient)**
-
-Creates a new instance of [IntelliDivideClient](./homagconnect.intellidivide.client.intellidivideclient.md)
-
-```csharp
-public IntelliDivideClient(HttpClient client)
-```
-
-#### Parameters
-
-`client` HttpClient<br>
 
 ## Methods
 
 ### **GetImportTemplatesAsync(OptimizationType, String, String)**
 
-Gets the import templates which have been created for the . See
+Gets the import templates which have been created for the [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md). See
   for details.
 
 ```csharp
-public Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension, string name)
+Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension, string name)
 ```
 
 #### Parameters
 
-`optimizationType` OptimizationType<br>
+`optimizationType` [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)<br>
 
 `fileExtension` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
@@ -105,7 +34,7 @@ public Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(Opt
 Gets the machine having the name.
 
 ```csharp
-public Task<OptimizationMachine> GetMachineAsync(string machineName)
+Task<OptimizationMachine> GetMachineAsync(string machineName)
 ```
 
 #### Parameters
@@ -122,7 +51,7 @@ The machine if exists, otherwise null.
 Gets the list of machines.
 
 ```csharp
-public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
+Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
 ```
 
 #### Returns
@@ -131,15 +60,15 @@ public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
 
 ### **GetMachinesAsync(OptimizationType)**
 
-Gets the list of machines of the specified .
+Gets the list of machines of the specified [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md).
 
 ```csharp
-public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType)
+Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType)
 ```
 
 #### Parameters
 
-`optimizationType` OptimizationType<br>
+`optimizationType` [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)<br>
 
 #### Returns
 
@@ -147,15 +76,15 @@ public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType 
 
 ### **GetParametersAsync(OptimizationType)**
 
-Gets the list of parameter sets for the specified .
+Gets the list of parameter sets for the specified [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md).
 
 ```csharp
-public Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType)
+Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType)
 ```
 
 #### Parameters
 
-`optimizationType` OptimizationType<br>
+`optimizationType` [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)<br>
 
 #### Returns
 
@@ -164,7 +93,7 @@ public Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationT
 ### **RequestOptimizationAsync(FileInfo)**
 
 ```csharp
-public Task<OptimizationRequestResponse> RequestOptimizationAsync(FileInfo projectFile)
+Task<OptimizationRequestResponse> RequestOptimizationAsync(FileInfo projectFile)
 ```
 
 #### Parameters
@@ -177,17 +106,17 @@ public Task<OptimizationRequestResponse> RequestOptimizationAsync(FileInfo proje
 
 ### **RequestOptimizationAsync(OptimizationRequest, ImportFile[])**
 
-Request an optimization based on a structured .
+Request an optimization based on a structured [OptimizationRequest](./homagconnect.intellidivide.contracts.request.optimizationrequest.md).
 
 ```csharp
-public Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, ImportFile[] files)
+Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, ImportFile[] files)
 ```
 
 #### Parameters
 
-`optimizationRequest` OptimizationRequest<br>
+`optimizationRequest` [OptimizationRequest](./homagconnect.intellidivide.contracts.request.optimizationrequest.md)<br>
 
-`files` ImportFile[]<br>
+`files` [ImportFile[]](./homagconnect.intellidivide.contracts.common.importfile.md)<br>
 
 #### Returns
 
@@ -195,11 +124,11 @@ public Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRe
 
 ### **WaitForCompletion(Guid, TimeSpan)**
 
-Waits until the optimization has reached the state  or has reached a state
- from which the state  can't get reached any more.
+Waits until the optimization has reached the state [OptimizationStatus.Optimized](./homagconnect.intellidivide.contracts.optimizationstatus.md#optimized) or has reached a state
+ from which the state [OptimizationStatus.Optimized](./homagconnect.intellidivide.contracts.optimizationstatus.md#optimized) can't get reached any more.
 
 ```csharp
-public Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
+Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
 ```
 
 #### Parameters
@@ -222,7 +151,7 @@ Raised, when the specified maxDuration has been exceeded.
 Gets the optimization having the specified optimization id.
 
 ```csharp
-public Task<Optimization> GetOptimizationAsync(Guid optimizationId)
+Task<Optimization> GetOptimizationAsync(Guid optimizationId)
 ```
 
 #### Parameters
@@ -239,13 +168,13 @@ The id of of the optimization to get.
 Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
 
 ```csharp
-public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, uint take, uint skip)
+Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, uint take, uint skip)
 ```
 
 #### Parameters
 
-`optimizationType` OptimizationType<br>
-Request only optimizations having a specific
+`optimizationType` [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)<br>
+Request only optimizations having a specific [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)
 
 `take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
 Quantity of optimizations to return max.
@@ -267,16 +196,16 @@ Thrown, when more then 100 optimizations are requested.
 Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
 
 ```csharp
-public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, uint take, uint skip)
+Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, uint take, uint skip)
 ```
 
 #### Parameters
 
-`optimizationType` OptimizationType<br>
-Request only optimizations having a specific
+`optimizationType` [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)<br>
+Request only optimizations having a specific [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)
 
-`optimizationStatus` OptimizationStatus<br>
-Request only optimizations having a specific
+`optimizationStatus` [OptimizationStatus](./homagconnect.intellidivide.contracts.optimizationstatus.md)<br>
+Request only optimizations having a specific [OptimizationStatus](./homagconnect.intellidivide.contracts.optimizationstatus.md)
 
 `take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
 Quantity of optimizations to return max.
@@ -298,7 +227,7 @@ Thrown, when more then 100 optimizations are requested.
 Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
 
 ```csharp
-public Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip)
+Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip)
 ```
 
 #### Parameters
@@ -320,10 +249,10 @@ Thrown, when more then 100 optimizations are requested.
 
 ### **GetOptimizationStatusAsync(Guid)**
 
-Gets the  of the optimization having the provided optimization id.
+Gets the [OptimizationStatus](./homagconnect.intellidivide.contracts.optimizationstatus.md) of the optimization having the provided optimization id.
 
 ```csharp
-public Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
+Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
 ```
 
 #### Parameters
@@ -340,7 +269,7 @@ The id of of the optimization.
 Archives the optimization having the specified id.
 
 ```csharp
-public Task ArchiveOptimizationAsync(Guid optimizationId)
+Task ArchiveOptimizationAsync(Guid optimizationId)
 ```
 
 #### Parameters
@@ -356,7 +285,7 @@ public Task ArchiveOptimizationAsync(Guid optimizationId)
 Deletes the optimization having the specified id.
 
 ```csharp
-public Task DeleteOptimizationAsync(Guid optimizationId)
+Task DeleteOptimizationAsync(Guid optimizationId)
 ```
 
 #### Parameters
@@ -372,7 +301,7 @@ public Task DeleteOptimizationAsync(Guid optimizationId)
 Starts the optimization having the specified id.
 
 ```csharp
-public Task StartOptimizationAsync(Guid optimizationId)
+Task StartOptimizationAsync(Guid optimizationId)
 ```
 
 #### Parameters
@@ -388,7 +317,7 @@ public Task StartOptimizationAsync(Guid optimizationId)
 Gets the solution details.
 
 ```csharp
-public Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid solutionId)
+Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid solutionId)
 ```
 
 #### Parameters
@@ -406,7 +335,7 @@ public Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid s
 Gets the [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) which have been calculated for an optimization request.
 
 ```csharp
-public Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
+Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
 ```
 
 #### Parameters
@@ -424,7 +353,7 @@ Solutions if the optimization has been optimized successfully, otherwise an empt
 Sends the solution to the machine for which the optimization was requested for.
 
 ```csharp
-public Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
+Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
 ```
 
 #### Parameters
@@ -444,10 +373,10 @@ Thrown, if the selected machine is not able send.
 
 ### **DownloadSolutionExport(Guid, Guid, SolutionExportType, FileInfo)**
 
-Downloads the specified  into the specified file.
+Downloads the specified [SolutionExportType](./homagconnect.intellidivide.contracts.result.solutionexporttype.md) into the specified file.
 
 ```csharp
-public Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
+Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
 ```
 
 #### Parameters
@@ -456,7 +385,7 @@ public Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, Solutio
 
 `solutionId` [Guid](https://docs.microsoft.com/en-us/dotnet/api/system.guid)<br>
 
-`exportTye` SolutionExportType<br>
+`exportTye` [SolutionExportType](./homagconnect.intellidivide.contracts.result.solutionexporttype.md)<br>
 
 `fileInfo` [FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)<br>
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Exceptions;
@@ -72,21 +73,23 @@ namespace HomagConnect.Base
 
                     if (problemDetails != null)
                     {
+                        exception = new ProblemDetailsException(problemDetails);
+
                         if (problemDetails.Type == nameof(ArgumentOutOfRangeException))
                         {
-                            exception = new ArgumentOutOfRangeException(problemDetails.Title, problemDetails.Detail);
+                            exception = new ArgumentOutOfRangeException(problemDetails.Detail, exception);
                         }
                         else if (problemDetails.Type == nameof(NotSupportedException))
                         {
-                            exception = new NotSupportedException(problemDetails.Detail);
+                            exception = new NotSupportedException(problemDetails.Detail, exception);
                         }
                         else if (problemDetails.Type == nameof(NotImplementedException))
                         {
-                            exception = new NotImplementedException(problemDetails.Detail);
+                            exception = new NotImplementedException(problemDetails.Detail, exception);
                         }
-                        else
+                        else if (problemDetails.Type == nameof(AuthenticationException))
                         {
-                            exception = new ProblemDetailsException(problemDetails);
+                            exception = new AuthenticationException(problemDetails.Detail, exception);
                         }
                     }
                 }

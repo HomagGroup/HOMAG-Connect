@@ -20,17 +20,17 @@ public CuttingOptimizationUsingProjectZip()
 
 ## Methods
 
-### **CreatedCuttingOptimizationUsingProjectZip(IntelliDivideClient)**
+### **CreatedCuttingOptimizationUsingProjectZip(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task CreatedCuttingOptimizationUsingProjectZip(IntelliDivideClient intelliDivide)
+public static Task CreatedCuttingOptimizationUsingProjectZip(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 

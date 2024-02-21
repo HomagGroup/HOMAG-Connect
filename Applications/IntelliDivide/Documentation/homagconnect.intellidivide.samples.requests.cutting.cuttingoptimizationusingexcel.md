@@ -20,17 +20,17 @@ public CuttingOptimizationUsingExcel()
 
 ## Methods
 
-### **CreatedCuttingOptimizationByImportingFromExcel(IntelliDivideClient)**
+### **CreatedCuttingOptimizationByImportingFromExcel(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task CreatedCuttingOptimizationByImportingFromExcel(IntelliDivideClient intelliDivide)
+public static Task CreatedCuttingOptimizationByImportingFromExcel(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 

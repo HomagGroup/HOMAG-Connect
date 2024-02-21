@@ -62,7 +62,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetOptimizationStatusSample(IIntelliDivideClient intelliDivide)
         {
-            var optimizationId = (await intelliDivide.GetOptimizationsAsync(_Take)).First(o => o.Status == OptimizationStatus.Optimized).Id;
+            var optimizationId = (await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take)).First().Id;
 
             var optimizationStatus = await intelliDivide.GetOptimizationStatusAsync(optimizationId);
 

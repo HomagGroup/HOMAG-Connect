@@ -11,16 +11,6 @@ Implements IExtensibleDataObject
 
 ## Properties
 
-### **MprFileName**
-
-```csharp
-public string MprFileName { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
 ### **Quantity**
 
 ```csharp
@@ -40,6 +30,36 @@ public int QuantityPlus { get; set; }
 #### Property Value
 
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
+
+### **MprFileName**
+
+```csharp
+public string MprFileName { get; set; }
+```
+
+#### Property Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+### **RotationAngle**
+
+```csharp
+public RotationAngle RotationAngle { get; set; }
+```
+
+#### Property Value
+
+[RotationAngle](./homagconnect.intellidivide.contracts.common.rotationangle.md)<br>
+
+### **MprProgramVariables**
+
+```csharp
+public List<MprProgramVariable> MprProgramVariables { get; set; }
+```
+
+#### Property Value
+
+[List&lt;MprProgramVariable&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1)<br>
 
 ### **Template**
 
@@ -169,7 +189,7 @@ public Grain Grain { get; set; }
 
 #### Property Value
 
-[Grain](./homagconnect.intellidivide.contracts.base.grain.md)<br>
+[Grain](./homagconnect.intellidivide.contracts.common.grain.md)<br>
 
 ### **LaminateBottom**
 

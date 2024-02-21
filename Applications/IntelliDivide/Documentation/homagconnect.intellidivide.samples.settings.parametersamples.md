@@ -20,33 +20,33 @@ public ParameterSamples()
 
 ## Methods
 
-### **GetCuttingParametersSample(IntelliDivideClient)**
+### **GetCuttingParametersSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetCuttingParametersSample(IntelliDivideClient intelliDivide)
+public static Task GetCuttingParametersSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **GetNestingParametersSample(IntelliDivideClient)**
+### **GetNestingParametersSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetNestingParametersSample(IntelliDivideClient intelliDivide)
+public static Task GetNestingParametersSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 

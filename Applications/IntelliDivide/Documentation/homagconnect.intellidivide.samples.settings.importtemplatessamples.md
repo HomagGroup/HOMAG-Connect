@@ -20,33 +20,33 @@ public ImportTemplatesSamples()
 
 ## Methods
 
-### **GetCuttingTemplatesSample(IntelliDivideClient)**
+### **GetCuttingTemplatesSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetCuttingTemplatesSample(IntelliDivideClient intelliDivide)
+public static Task GetCuttingTemplatesSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **GetNestingTemplatesSample(IntelliDivideClient)**
+### **GetNestingTemplatesSample(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task GetNestingTemplatesSample(IntelliDivideClient intelliDivide)
+public static Task GetNestingTemplatesSample(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 

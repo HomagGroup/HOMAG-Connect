@@ -20,49 +20,65 @@ public CuttingOptimizationUsingObjectModel()
 
 ## Methods
 
-### **CreateCuttingOptimizationByObjectModel(IntelliDivideClient)**
+### **CreateCuttingOptimizationByObjectModel(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task CreateCuttingOptimizationByObjectModel(IntelliDivideClient intelliDivide)
+public static Task CreateCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient)**
+### **CreateCuttingOptimizationByObjectModelAndOptimize(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task CreateCuttingOptimizationByObjectModelAndOptimize(IntelliDivideClient intelliDivide)
+public static Task CreateCuttingOptimizationByObjectModelAndOptimize(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-### **CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient)**
+### **CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IIntelliDivideClient)**
 
 
 
 ```csharp
-public static Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IntelliDivideClient intelliDivide)
+public static Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IIntelliDivideClient intelliDivide)
 ```
 
 #### Parameters
 
-`intelliDivide` IntelliDivideClient<br>
+`intelliDivide` IIntelliDivideClient<br>
+
+#### Returns
+
+[Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
+
+### **CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults(IIntelliDivideClient)**
+
+
+
+```csharp
+public static Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults(IIntelliDivideClient intelliDivide)
+```
+
+#### Parameters
+
+`intelliDivide` IIntelliDivideClient<br>
 
 #### Returns
 
