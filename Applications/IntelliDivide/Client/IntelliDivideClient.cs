@@ -255,6 +255,27 @@ namespace HomagConnect.IntelliDivide.Client
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
+        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, uint take, uint skip = 0)
+        {
+            if (take is > _TakeLimit or 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
+            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
+
+            return await RequestEnumerable<Optimization>(url);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
+        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
@@ -275,6 +296,29 @@ namespace HomagConnect.IntelliDivide.Client
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
+        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
+        /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
+        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
+            uint take, uint skip = 0)
+        {
+            if (take is > _TakeLimit or 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
+            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
+
+            return await RequestEnumerable<Optimization>(url);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
@@ -282,6 +326,21 @@ namespace HomagConnect.IntelliDivide.Client
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
+
+            return await RequestEnumerable<Optimization>(url);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
+        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, uint take, uint skip = 0)
+        {
+            var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
 
             return await RequestEnumerable<Optimization>(url);
         }
