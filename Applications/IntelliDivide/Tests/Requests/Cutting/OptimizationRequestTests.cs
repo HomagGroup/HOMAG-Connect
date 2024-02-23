@@ -19,7 +19,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,3,1)]
+    [TestCategory("UserTestInteractionNeeded")]
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {
         var intelliDivide = GetIntelliDivideClient();

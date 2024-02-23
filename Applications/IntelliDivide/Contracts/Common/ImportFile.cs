@@ -40,6 +40,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
                 await memoryStream.WriteAsync(bytes, 0, (int)fileStream.Length).ConfigureAwait(false);
             }
 
+            memoryStream.Position = 0;
+
             return new ImportFile
             {
                 Name = fileInfo.Name,
