@@ -26,7 +26,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 3, 1)]
     public async Task GetOptimizationsHavingStatusOptimized()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -43,7 +42,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 3, 1)]
     public async Task GetOptimizationStatus()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -52,7 +50,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 3, 1)]
     public async Task GetSolutionDetails()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -61,7 +58,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 3, 1)]
     public async Task GetSolutions()
     {
         var intelliDivide = GetIntelliDivideClient();
