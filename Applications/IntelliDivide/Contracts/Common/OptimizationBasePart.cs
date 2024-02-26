@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.IntelliDivide.Contracts.Common
 {
     /// <summary>
-    /// Describes a part which in context of an optimization.
+    /// Describes a part in context of an intelliDivide optimization.
     /// </summary>
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}")]
     public class OptimizationBasePart : IExtensibleDataObject
@@ -37,7 +37,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         public string MaterialCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Grain" /> of the part.
+        /// Gets or sets the <see cref="Common.Grain" /> of the part.
         /// </summary>
         [Required]
         [JsonProperty(Order = 12)]
