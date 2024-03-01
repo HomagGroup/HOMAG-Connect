@@ -28,10 +28,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 20)]
         public SolutionOverviewFiguresProduction Production { get; set; } = new SolutionOverviewFiguresProduction();
 
-        /// <summary>
-        ///     <see cref="IExtensibleDataObject.ExtensionData" />
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
-        public ExtensionDataObject? ExtensionData { get; set; }
+        public ExtensionDataObject ExtensionData { get; set; }
     }
 }

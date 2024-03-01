@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
+    /// <summary>
+    /// Describes the material used in the solution.
+    /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public class SolutionMaterialOffcut : IExtensibleDataObject
     {
@@ -28,7 +31,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 4)]
         public double Width { get; set; }
 
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
-        public ExtensionDataObject? ExtensionData { get; set; }
+        public ExtensionDataObject ExtensionData { get; set; }
     }
 }

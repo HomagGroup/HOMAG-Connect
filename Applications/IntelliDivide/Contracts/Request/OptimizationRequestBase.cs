@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
@@ -9,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     /// Optimization request base class.
     /// </summary>
     [DebuggerDisplay("Action={Action}")]
-    public class OptimizationRequestBase
+    public class OptimizationRequestBase: IExtensibleDataObject
     {
         /// <summary>
         /// Gets or sets the <see cref="OptimizationRequestAction" />.
@@ -43,5 +45,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// Optional. If no boards are provided the required boards are retrieved from materialManager.
         /// </summary>
         public List<OptimizationRequestBoard> Boards { get; set; } = new List<OptimizationRequestBoard>();
+
+        /// <inheritdoc />
+        [JsonProperty(Order = 99)]
+        public ExtensionDataObject ExtensionData { get; set; }
     }
 }

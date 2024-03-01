@@ -35,9 +35,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 3)]
         public IReadOnlyCollection<SolutionMaterialOffcutProduced> OffcutsProduced { get; set; }
 
-        /// <summary>
-        /// See <see cref="IExtensibleDataObject.ExtensionData" />
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
     }

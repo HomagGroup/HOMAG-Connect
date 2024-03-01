@@ -23,10 +23,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 20)]
         public IReadOnlyCollection<SolutionPattern> Pattern { get; set; } = new List<SolutionPattern>();
 
-        /// <summary>
-        ///     <see cref="IExtensibleDataObject.ExtensionData" />
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
-        public ExtensionDataObject? ExtensionData { get; set; }
+        public ExtensionDataObject ExtensionData { get; set; }
     }
 }

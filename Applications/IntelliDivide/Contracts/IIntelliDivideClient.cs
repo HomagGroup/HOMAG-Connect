@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
+using HomagConnect.IntelliDivide.Contracts.Statistics;
 
 namespace HomagConnect.IntelliDivide.Contracts
 {
@@ -185,5 +186,10 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration);
+
+        /// <summary>
+        /// Gets the material statistics.
+        /// </summary>
+        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to);
     }
 }

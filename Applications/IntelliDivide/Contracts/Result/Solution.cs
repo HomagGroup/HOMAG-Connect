@@ -46,9 +46,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 80)]
         public double TotalScore { get; set; }
 
-        /// <summary>
-        ///     <see cref="IExtensibleDataObject.ExtensionData" />
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
     }

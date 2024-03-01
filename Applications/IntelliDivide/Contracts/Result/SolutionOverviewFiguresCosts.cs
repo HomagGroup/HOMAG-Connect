@@ -34,10 +34,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 2)]
         public double? MaterialCostsPerPart { get; set; }
 
-        /// <summary>
-        ///     <see cref="IExtensibleDataObject.ExtensionData" />
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
-        public ExtensionDataObject? ExtensionData { get; set; }
+        public ExtensionDataObject ExtensionData { get; set; }
     }
 }

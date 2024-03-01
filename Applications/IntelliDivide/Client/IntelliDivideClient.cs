@@ -7,12 +7,13 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
+using HomagConnect.IntelliDivide.Contracts.Statistics;
 
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Client
 {
-    /// <summary />
+    /// <inheritdoc cref="IIntelliDivideClient" />
     public class IntelliDivideClient : ServiceBase, IIntelliDivideClient
     {
         #region Constants
@@ -23,19 +24,28 @@ namespace HomagConnect.IntelliDivide.Client
 
         #region Constructors
 
-        /// <summary>
-        /// Creates a new instance of <see cref="IntelliDivideClient" />
-        /// </summary>
+        /// <inheritdoc />
         public IntelliDivideClient(HttpClient client) : base(client) { }
+
+        #endregion
+
+        #region Statistics
+
+        /// <summary>
+        /// Gets the statistics for the material efficiency.
+        /// </summary>
+        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to)
+        {
+            var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}".ToLowerInvariant();
+
+            return await RequestEnumerable<MaterialEfficiency>(url);
+        }
 
         #endregion
 
         #region Settings (Machines, Parameters, Import templates)
 
-        /// <summary>
-        /// Gets the import templates which have been created for the <see cref="OptimizationType" />. See
-        /// <a href="https://docs.homag.cloud/en/intellidivide/tutorial/importing-data" /> for details.
-        /// </summary>
+        /// <inheritdoc />
         public async Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "")
         {
             var url = $"/api/intelliDivide/{optimizationType}/templates".ToLowerInvariant();
@@ -54,10 +64,7 @@ namespace HomagConnect.IntelliDivide.Client
             return templates;
         }
 
-        /// <summary>
-        /// Gets the machine having the name.
-        /// </summary>
-        /// <returns>The machine if exists, otherwise null.</returns>
+        /// <inheritdoc />
         public async Task<OptimizationMachine> GetMachineAsync(string machineName)
         {
             var machines = await GetMachinesAsync();
@@ -65,9 +72,7 @@ namespace HomagConnect.IntelliDivide.Client
             return machines.First(m => m.Name == machineName);
         }
 
-        /// <summary>
-        /// Gets the list of machines.
-        /// </summary>
+        /// <inheritdoc />
         public async Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
         {
             var cuttingMachines = await GetMachinesAsync(OptimizationType.Cutting);
@@ -76,18 +81,14 @@ namespace HomagConnect.IntelliDivide.Client
             return cuttingMachines.Union(nestingMachines).OrderBy(m => m.Name);
         }
 
-        /// <summary>
-        /// Gets the list of machines of the specified <see cref="OptimizationType" />.
-        /// </summary>
+        /// <inheritdoc />
         public async Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType)
         {
             var url = $"/api/intelliDivide/{optimizationType}/machines".ToLowerInvariant();
             return await RequestEnumerable<OptimizationMachine>(url);
         }
 
-        /// <summary>
-        /// Gets the list of parameter sets for the specified <see cref="OptimizationType" />.
-        /// </summary>
+        /// <inheritdoc />
         public async Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType)
         {
             var url = $"/api/intelliDivide/{optimizationType}/parameters".ToLowerInvariant();
@@ -98,47 +99,7 @@ namespace HomagConnect.IntelliDivide.Client
 
         #region Optimization Request
 
-        /// <summary>
-        /// Request an optimization using a structured zip file.
-        /// </summary>
-        /// <param name="projectFile">
-        /// Structured zip file, whose format corresponds to the ImportSpecification (
-        /// <seealso
-        ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
-        /// format.
-        /// </param>
-        public async Task<OptimizationRequestResponse?> RequestOptimizationAsync(FileInfo projectFile)
-        {
-            var request = new HttpRequestMessage { Method = HttpMethod.Post };
-
-            var fileName = projectFile.Name;
-            await using var stream = projectFile.OpenRead();
-
-            var uri = "api/intelliDivide/optimizations".ToLowerInvariant();
-
-            request.RequestUri = new Uri(uri, UriKind.Relative);
-
-            using var httpContent = new MultipartFormDataContent();
-
-            HttpContent streamContent = new StreamContent(stream);
-            httpContent.Add(streamContent, fileName, fileName);
-
-            request.Content = httpContent;
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-
-            response.EnsureSuccessStatusCodeWithDetails(request);
-
-            var result = await response.Content.ReadAsStringAsync();
-
-            var optimizationRequestResponse = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
-
-            return optimizationRequestResponse;
-        }
-
-        /// <summary>
-        /// See <see cref="RequestOptimizationAsync(OptimizationRequestBasedOnParts, ImportFile[]) " />
-        /// </summary>
+        /// <inheritdoc />
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnParts optimizationRequest, params ImportFile[] files)
         {
             var validator = new DataAnnotationsValidator();
@@ -188,9 +149,7 @@ namespace HomagConnect.IntelliDivide.Client
             return responseObject ?? new OptimizationRequestResponse();
         }
 
-        /// <summary>
-        /// See <see cref="RequestOptimizationAsync(OptimizationRequestBasedOnTemplate, ImportFile[]) " />
-        /// </summary>
+        /// <inheritdoc />
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnTemplate optimizationRequest, params ImportFile[] files)
         {
             var validator = new DataAnnotationsValidator();
@@ -232,9 +191,7 @@ namespace HomagConnect.IntelliDivide.Client
             return responseObject ?? new OptimizationRequestResponse();
         }
 
-        /// <summary>
-        /// See <see cref="RequestOptimizationAsync(OptimizationRequestBasedOnProject, FileInfo) " />
-        /// </summary>
+        /// <inheritdoc />
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnProject optimizationRequest, FileInfo projectFile)
         {
             var validator = new DataAnnotationsValidator();
@@ -278,11 +235,7 @@ namespace HomagConnect.IntelliDivide.Client
             return responseObject ?? new OptimizationRequestResponse();
         }
 
-        /// <summary>
-        /// Waits until the optimization has reached the state  <see cref="OptimizationStatus.Optimized" /> or has reached a state
-        /// from which the state <see cref="OptimizationStatus.Optimized" /> can't get reached any more.
-        /// </summary>
-        /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
+        /// <inheritdoc />
         public async Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
         {
             var timeout = DateTime.Now + maxDuration;
@@ -310,10 +263,7 @@ namespace HomagConnect.IntelliDivide.Client
 
         #region Optimzation List, Archive, Delete, Start
 
-        /// <summary>
-        /// Gets the optimization having the specified optimization id.
-        /// </summary>
-        /// <param name="optimizationId">The id of of the optimization to get.</param>
+        /// <inheritdoc />
         public async Task<Optimization> GetOptimizationAsync(Guid optimizationId)
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}".ToLower();
@@ -321,14 +271,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestObject<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
-        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, uint take, uint skip = 0)
         {
             if (take is > _TakeLimit or 0)
@@ -341,15 +284,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
-        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, uint take, uint skip = 0)
         {
             if (take is > _TakeLimit or 0)
@@ -362,15 +297,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
-        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, uint take, uint skip = 0)
         {
             if (take is > _TakeLimit or 0)
@@ -383,16 +310,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
-        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
-        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
             uint take, uint skip = 0)
         {
@@ -406,13 +324,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
@@ -420,14 +332,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
-        /// </summary>
-        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
-        /// <param name="take">Quantity of optimizations to return max.</param>
-        /// <param name="skip">Quantity of optimizations to skip.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, uint take, uint skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
@@ -435,10 +340,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<Optimization>(url);
         }
 
-        /// <summary>
-        /// Gets the <see cref="OptimizationStatus" /> of the optimization having the provided optimization id.
-        /// </summary>
-        /// <param name="optimizationId">The id of of the optimization.</param>
+        /// <inheritdoc />
         public async Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}/state".ToLowerInvariant();
@@ -446,9 +348,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestObject<OptimizationStatus>(url);
         }
 
-        /// <summary>
-        /// Archives the optimization having the specified id.
-        /// </summary>
+        /// <inheritdoc />
         public async Task ArchiveOptimizationAsync(Guid optimizationId)
         {
             await Task.Run(() => throw new NotImplementedException());
@@ -456,9 +356,7 @@ namespace HomagConnect.IntelliDivide.Client
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Deletes the optimization having the specified id.
-        /// </summary>
+        /// <inheritdoc />
         public async Task DeleteOptimizationAsync(Guid optimizationId)
         {
             await Task.Run(() => throw new NotImplementedException());
@@ -466,9 +364,7 @@ namespace HomagConnect.IntelliDivide.Client
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Starts the optimization having the specified id.
-        /// </summary>
+        /// <inheritdoc />
         public async Task StartOptimizationAsync(Guid optimizationId)
         {
             await Task.Run(() => throw new NotImplementedException());
@@ -480,9 +376,7 @@ namespace HomagConnect.IntelliDivide.Client
 
         #region Solutions
 
-        /// <summary>
-        /// Gets the solution details.
-        /// </summary>
+        /// <inheritdoc />
         public async Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}".ToLowerInvariant();
@@ -492,11 +386,7 @@ namespace HomagConnect.IntelliDivide.Client
             return solution;
         }
 
-        /// <summary>
-        /// Gets the <see cref="IEnumerable&lt;Solution&gt;" /> which have been calculated for an optimization request.
-        /// </summary>
-        /// <param name="optimizationId">The id of of the optimization.</param>
-        /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>
+        /// <inheritdoc />
         public async Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions".ToLowerInvariant();
@@ -506,10 +396,7 @@ namespace HomagConnect.IntelliDivide.Client
             return solutions;
         }
 
-        /// <summary>
-        /// Sends the solution to the machine for which the optimization was requested for.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown, if the selected machine is not able send.</exception>
+        /// <inheritdoc />
         public async Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
         {
             await Task.Run(() => throw new NotImplementedException());
@@ -517,10 +404,7 @@ namespace HomagConnect.IntelliDivide.Client
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Downloads the specified <see cref="SolutionExportType" /> into the specified file.
-        /// </summary>
-        /// <exception cref="FileNotFoundException">Thrown, when the specified file is not available.</exception>
+        /// <inheritdoc />
         public async Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/exports/{exportTye}".ToLowerInvariant();

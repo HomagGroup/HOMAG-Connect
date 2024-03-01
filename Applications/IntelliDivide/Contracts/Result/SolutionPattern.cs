@@ -45,7 +45,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets a link to a preview image of the pattern.
         /// </summary>
         [JsonProperty(Order = 5)]
-        public Uri? Preview { get; set; }
+        public Uri Preview { get; set; }
 
         /// <summary>
         /// Gets the total quantity in which the pattern will get produced.
@@ -53,10 +53,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 4)]
         public int Quantity { get; set; }
 
-        /// <summary>
-        ///     <see cref="IExtensibleDataObject.ExtensionData" />
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 99)]
-        public ExtensionDataObject? ExtensionData { get; set; }
+        public ExtensionDataObject ExtensionData { get; set; }
     }
 }

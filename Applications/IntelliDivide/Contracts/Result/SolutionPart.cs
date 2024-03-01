@@ -16,7 +16,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets a link to a preview image of the part.
         /// </summary>
         [JsonProperty(Order = 70)]
-        public Uri? Preview { get; set; }
+        public Uri Preview { get; set; }
 
         /// <summary>
         /// Gets the quantity of parts.
