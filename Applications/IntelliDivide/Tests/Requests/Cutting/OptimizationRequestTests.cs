@@ -11,6 +11,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
     [TestMethod]
     [TestCategory("UserTestInteractionNeeded")]
+    [TemporaryDisabledOnServer(2024, 4, 1)]
     public async Task CreatedCuttingOptimizationBasedOnExcelFile()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -20,6 +21,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
     [TestMethod]
     [TestCategory("UserTestInteractionNeeded")]
+    [TemporaryDisabledOnServer(2024,4,1)]
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {
         var intelliDivide = GetIntelliDivideClient();

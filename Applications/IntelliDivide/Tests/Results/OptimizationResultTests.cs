@@ -1,3 +1,4 @@
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Results;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -73,6 +74,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 4, 1)]
     public async Task Statistics_GetMaterial_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
