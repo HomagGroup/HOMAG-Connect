@@ -20,7 +20,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var optimizationMachine = (await intelliDivide.GetMachinesAsync(OptimizationType.Cutting)).First(m => m.Name == "productionAssist Cutting");
             var optimizationParameter = (await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType)).First();
 
-            var request = new OptimizationRequestBasedOnProject
+            var request = new OptimizationRequestUsingProject
             {
                 Name = "Connect " + projectFile.Name + " " + DateTime.Now.ToString("s"),
                 Machine = optimizationMachine.Name,

@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Common
 
+Optimization parameter set.
+
 ```csharp
 public class OptimizationParameter
 ```
@@ -12,6 +14,8 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 
 ### **Name**
 
+Gets or sets the name of the parameter set.
+
 ```csharp
 public string Name { get; set; }
 ```
@@ -21,6 +25,8 @@ public string Name { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **OptimizationType**
+
+Gets or sets the [OptimizationParameter.OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationparameter.md#optimizationtype).
 
 ```csharp
 public OptimizationType OptimizationType { get; set; }

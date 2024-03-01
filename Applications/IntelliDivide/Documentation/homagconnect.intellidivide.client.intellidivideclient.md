@@ -2,8 +2,6 @@
 
 Namespace: HomagConnect.IntelliDivide.Client
 
-
-
 ```csharp
 public class IntelliDivideClient : HomagConnect.Base.Services.ServiceBase, HomagConnect.IntelliDivide.Contracts.IIntelliDivideClient
 ```
@@ -67,8 +65,6 @@ public bool ThrowExceptionOnDeprecatedCalls { get; set; }
 
 ### **IntelliDivideClient(HttpClient)**
 
-Creates a new instance of [IntelliDivideClient](./homagconnect.intellidivide.client.intellidivideclient.md)
-
 ```csharp
 public IntelliDivideClient(HttpClient client)
 ```
@@ -79,10 +75,29 @@ public IntelliDivideClient(HttpClient client)
 
 ## Methods
 
-### **GetImportTemplatesAsync(OptimizationType, String, String)**
+### **GetMaterialStatisticsAsync(DateTime, DateTime, UInt32, UInt32)**
 
-Gets the import templates which have been created for the . See
-  for details.
+Gets the statistics for the material efficiency.
+
+```csharp
+public Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, uint take, uint skip)
+```
+
+#### Parameters
+
+`from` [DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime)<br>
+
+`to` [DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime)<br>
+
+`take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+`skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+#### Returns
+
+[Task&lt;IEnumerable&lt;MaterialEfficiency&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **GetImportTemplatesAsync(OptimizationType, String, String)**
 
 ```csharp
 public Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension, string name)
@@ -102,8 +117,6 @@ public Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(Opt
 
 ### **GetMachineAsync(String)**
 
-Gets the machine having the name.
-
 ```csharp
 public Task<OptimizationMachine> GetMachineAsync(string machineName)
 ```
@@ -115,11 +128,8 @@ public Task<OptimizationMachine> GetMachineAsync(string machineName)
 #### Returns
 
 [Task&lt;OptimizationMachine&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The machine if exists, otherwise null.
 
 ### **GetMachinesAsync()**
-
-Gets the list of machines.
 
 ```csharp
 public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
@@ -130,8 +140,6 @@ public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
 [Task&lt;IEnumerable&lt;OptimizationMachine&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **GetMachinesAsync(OptimizationType)**
-
-Gets the list of machines of the specified .
 
 ```csharp
 public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType)
@@ -147,8 +155,6 @@ public Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType 
 
 ### **GetParametersAsync(OptimizationType)**
 
-Gets the list of parameter sets for the specified .
-
 ```csharp
 public Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType)
 ```
@@ -161,23 +167,7 @@ public Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationT
 
 [Task&lt;IEnumerable&lt;OptimizationParameter&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **RequestOptimizationAsync(FileInfo)**
-
-```csharp
-public Task<OptimizationRequestResponse> RequestOptimizationAsync(FileInfo projectFile)
-```
-
-#### Parameters
-
-`projectFile` [FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)<br>
-
-#### Returns
-
-[Task&lt;OptimizationRequestResponse&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
 ### **RequestOptimizationAsync(OptimizationRequest, ImportFile[])**
-
-Request an optimization based on a structured .
 
 ```csharp
 public Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, ImportFile[] files)
@@ -193,10 +183,39 @@ public Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRe
 
 [Task&lt;OptimizationRequestResponse&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **WaitForCompletion(Guid, TimeSpan)**
+### **RequestOptimizationAsync(OptimizationRequestUsingTemplate, ImportFile[])**
 
-Waits until the optimization has reached the state  or has reached a state
- from which the state  can't get reached any more.
+```csharp
+public Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingTemplate optimizationRequest, ImportFile[] files)
+```
+
+#### Parameters
+
+`optimizationRequest` OptimizationRequestUsingTemplate<br>
+
+`files` ImportFile[]<br>
+
+#### Returns
+
+[Task&lt;OptimizationRequestResponse&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **RequestOptimizationAsync(OptimizationRequestUsingProject, FileInfo)**
+
+```csharp
+public Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingProject optimizationRequest, FileInfo projectFile)
+```
+
+#### Parameters
+
+`optimizationRequest` OptimizationRequestUsingProject<br>
+
+`projectFile` [FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)<br>
+
+#### Returns
+
+[Task&lt;OptimizationRequestResponse&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **WaitForCompletion(Guid, TimeSpan)**
 
 ```csharp
 public Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
@@ -212,14 +231,7 @@ public Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDur
 
 [Task&lt;Optimization&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-#### Exceptions
-
-[TimeoutException](https://docs.microsoft.com/en-us/dotnet/api/system.timeoutexception)<br>
-Raised, when the specified maxDuration has been exceeded.
-
 ### **GetOptimizationAsync(Guid)**
-
-Gets the optimization having the specified optimization id.
 
 ```csharp
 public Task<Optimization> GetOptimizationAsync(Guid optimizationId)
@@ -228,15 +240,12 @@ public Task<Optimization> GetOptimizationAsync(Guid optimizationId)
 #### Parameters
 
 `optimizationId` [Guid](https://docs.microsoft.com/en-us/dotnet/api/system.guid)<br>
-The id of of the optimization to get.
 
 #### Returns
 
 [Task&lt;Optimization&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **GetOptimizationsAsync(OptimizationType, UInt32, UInt32)**
-
-Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
 
 ```csharp
 public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, uint take, uint skip)
@@ -245,26 +254,36 @@ public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType op
 #### Parameters
 
 `optimizationType` OptimizationType<br>
-Request only optimizations having a specific
 
 `take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-Quantity of optimizations to return max.
 
 `skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-Quantity of optimizations to skip.
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-#### Exceptions
+### **GetOptimizationsAsync(OptimizationType, String, UInt32, UInt32)**
 
-[ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/system.argumentoutofrangeexception)<br>
-Thrown, when more then 100 optimizations are requested.
+```csharp
+public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, uint take, uint skip)
+```
+
+#### Parameters
+
+`optimizationType` OptimizationType<br>
+
+`orderBy` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+`take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+`skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+#### Returns
+
+[Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **GetOptimizationsAsync(OptimizationType, OptimizationStatus, UInt32, UInt32)**
-
-Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
 
 ```csharp
 public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, uint take, uint skip)
@@ -273,29 +292,40 @@ public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType op
 #### Parameters
 
 `optimizationType` OptimizationType<br>
-Request only optimizations having a specific
 
 `optimizationStatus` OptimizationStatus<br>
-Request only optimizations having a specific
 
 `take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-Quantity of optimizations to return max.
 
 `skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-Quantity of optimizations to skip.
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-#### Exceptions
+### **GetOptimizationsAsync(OptimizationType, OptimizationStatus, String, UInt32, UInt32)**
 
-[ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/system.argumentoutofrangeexception)<br>
-Thrown, when more then 100 optimizations are requested.
+```csharp
+public Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, uint take, uint skip)
+```
+
+#### Parameters
+
+`optimizationType` OptimizationType<br>
+
+`optimizationStatus` OptimizationStatus<br>
+
+`orderBy` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+`take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+`skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+#### Returns
+
+[Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **GetOptimizationsAsync(UInt32, UInt32)**
-
-Gets a [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) of optimizations available.
 
 ```csharp
 public Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip)
@@ -304,23 +334,32 @@ public Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint ski
 #### Parameters
 
 `take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-Quantity of optimizations to return max.
 
 `skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
-Quantity of optimizations to skip.
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-#### Exceptions
+### **GetOptimizationsAsync(String, UInt32, UInt32)**
 
-[ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/system.argumentoutofrangeexception)<br>
-Thrown, when more then 100 optimizations are requested.
+```csharp
+public Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, uint take, uint skip)
+```
+
+#### Parameters
+
+`orderBy` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+`take` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+`skip` [UInt32](https://docs.microsoft.com/en-us/dotnet/api/system.uint32)<br>
+
+#### Returns
+
+[Task&lt;IEnumerable&lt;Optimization&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **GetOptimizationStatusAsync(Guid)**
-
-Gets the  of the optimization having the provided optimization id.
 
 ```csharp
 public Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
@@ -329,15 +368,12 @@ public Task<OptimizationStatus> GetOptimizationStatusAsync(Guid optimizationId)
 #### Parameters
 
 `optimizationId` [Guid](https://docs.microsoft.com/en-us/dotnet/api/system.guid)<br>
-The id of of the optimization.
 
 #### Returns
 
 [Task&lt;OptimizationStatus&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **ArchiveOptimizationAsync(Guid)**
-
-Archives the optimization having the specified id.
 
 ```csharp
 public Task ArchiveOptimizationAsync(Guid optimizationId)
@@ -353,8 +389,6 @@ public Task ArchiveOptimizationAsync(Guid optimizationId)
 
 ### **DeleteOptimizationAsync(Guid)**
 
-Deletes the optimization having the specified id.
-
 ```csharp
 public Task DeleteOptimizationAsync(Guid optimizationId)
 ```
@@ -369,8 +403,6 @@ public Task DeleteOptimizationAsync(Guid optimizationId)
 
 ### **StartOptimizationAsync(Guid)**
 
-Starts the optimization having the specified id.
-
 ```csharp
 public Task StartOptimizationAsync(Guid optimizationId)
 ```
@@ -384,8 +416,6 @@ public Task StartOptimizationAsync(Guid optimizationId)
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
 ### **GetSolutionDetailsAsync(Guid, Guid)**
-
-Gets the solution details.
 
 ```csharp
 public Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid solutionId)
@@ -403,8 +433,6 @@ public Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid s
 
 ### **GetSolutionsAsync(Guid)**
 
-Gets the [IEnumerable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) which have been calculated for an optimization request.
-
 ```csharp
 public Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
 ```
@@ -412,16 +440,12 @@ public Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
 #### Parameters
 
 `optimizationId` [Guid](https://docs.microsoft.com/en-us/dotnet/api/system.guid)<br>
-The id of of the optimization.
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;Solution&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-Solutions if the optimization has been optimized successfully, otherwise an empty list.
 
 ### **SendSolutionAsync(Guid, Guid)**
-
-Sends the solution to the machine for which the optimization was requested for.
 
 ```csharp
 public Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
@@ -437,14 +461,7 @@ public Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
 
-#### Exceptions
-
-[NotSupportedException](https://docs.microsoft.com/en-us/dotnet/api/system.notsupportedexception)<br>
-Thrown, if the selected machine is not able send.
-
 ### **DownloadSolutionExport(Guid, Guid, SolutionExportType, FileInfo)**
-
-Downloads the specified  into the specified file.
 
 ```csharp
 public Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
@@ -463,8 +480,3 @@ public Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, Solutio
 #### Returns
 
 [Task](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task)<br>
-
-#### Exceptions
-
-[FileNotFoundException](https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception)<br>
-Thrown, when the specified file is not available.

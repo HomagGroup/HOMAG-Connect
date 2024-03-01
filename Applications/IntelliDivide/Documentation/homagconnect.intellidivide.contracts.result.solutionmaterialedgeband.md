@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Result
 
+Describes the material used in the solution.
+
 ```csharp
 public class SolutionMaterialEdgeband : System.Runtime.Serialization.IExtensibleDataObject
 ```

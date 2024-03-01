@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Result
 
+Represents the material used in a solution.
+
 ```csharp
 public class SolutionMaterial : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **Boards**
 
+Gets or sets the boards used in the solution.
+
 ```csharp
 public IReadOnlyCollection<SolutionMaterialBoard> Boards { get; set; }
 ```
@@ -22,6 +26,8 @@ public IReadOnlyCollection<SolutionMaterialBoard> Boards { get; set; }
 [IReadOnlyCollection&lt;SolutionMaterialBoard&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlycollection-1)<br>
 
 ### **Edgebands**
+
+Gets or sets the edgebands used in the solution.
 
 ```csharp
 public IReadOnlyCollection<SolutionMaterialEdgeband> Edgebands { get; set; }
@@ -33,6 +39,8 @@ public IReadOnlyCollection<SolutionMaterialEdgeband> Edgebands { get; set; }
 
 ### **Offcuts**
 
+Gets or sets the offcuts used in the solution.
+
 ```csharp
 public IReadOnlyCollection<SolutionMaterialOffcut> Offcuts { get; set; }
 ```
@@ -42,6 +50,8 @@ public IReadOnlyCollection<SolutionMaterialOffcut> Offcuts { get; set; }
 [IReadOnlyCollection&lt;SolutionMaterialOffcut&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlycollection-1)<br>
 
 ### **OffcutsProduced**
+
+Gets or sets the offcuts produced in the solution.
 
 ```csharp
 public IReadOnlyCollection<SolutionMaterialOffcutProduced> OffcutsProduced { get; set; }

@@ -39,8 +39,6 @@ public IReadOnlyCollection<SolutionPattern> Pattern { get; set; }
 
 ### **ExtensionData**
 
-
-
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }
 ```

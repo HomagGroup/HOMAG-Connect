@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
+Optimization import template.
+
 ```csharp
 public class OptimizationImportTemplate
 ```
@@ -12,7 +14,7 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 
 ### **FileExtension**
 
-Gets or sets the file extension (without leading dot)
+Gets or sets the file extension (without leading dot) for which the template was created.
 
 ```csharp
 public string FileExtension { get; set; }
@@ -22,17 +24,9 @@ public string FileExtension { get; set; }
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
-### **Id**
-
-```csharp
-public string Id { get; set; }
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
 ### **Name**
+
+Ges or sets the name of the import template.
 
 ```csharp
 public string Name { get; set; }
@@ -43,6 +37,8 @@ public string Name { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **OptimizationType**
+
+Gets or sets the [OptimizationImportTemplate.OptimizationType](./homagconnect.intellidivide.contracts.request.optimizationimporttemplate.md#optimizationtype) for which the template is valid..
 
 ```csharp
 public OptimizationType OptimizationType { get; set; }

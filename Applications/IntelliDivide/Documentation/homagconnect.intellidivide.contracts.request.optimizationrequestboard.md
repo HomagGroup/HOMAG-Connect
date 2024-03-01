@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
+Represents a board to use in an optimization.
+
 ```csharp
 public class OptimizationRequestBoard : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **BoardCode**
 
+Gets or sets the board code.
+
 ```csharp
 public string BoardCode { get; set; }
 ```
@@ -22,6 +26,8 @@ public string BoardCode { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Costs**
+
+Gets or sets the costs of the board per m² or ft².
 
 ```csharp
 public double Costs { get; set; }
@@ -33,6 +39,8 @@ public double Costs { get; set; }
 
 ### **Grain**
 
+Gets or sets the grain of the board.
+
 ```csharp
 public Grain Grain { get; set; }
 ```
@@ -42,6 +50,8 @@ public Grain Grain { get; set; }
 [Grain](./homagconnect.intellidivide.contracts.common.grain.md)<br>
 
 ### **Length**
+
+Gets or sets the length of the board.
 
 ```csharp
 public double Length { get; set; }
@@ -53,6 +63,8 @@ public double Length { get; set; }
 
 ### **MaterialCode**
 
+Gets or sets the material code.
+
 ```csharp
 public string MaterialCode { get; set; }
 ```
@@ -62,6 +74,8 @@ public string MaterialCode { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Quantity**
+
+Gets or sets the name of the board.
 
 ```csharp
 public int Quantity { get; set; }
@@ -73,6 +87,8 @@ public int Quantity { get; set; }
 
 ### **Thickness**
 
+Gets or sets the thickness of the board.
+
 ```csharp
 public double Thickness { get; set; }
 ```
@@ -82,6 +98,8 @@ public double Thickness { get; set; }
 [Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
 
 ### **Type**
+
+Gets or sets the type of the board.
 
 ```csharp
 public OptimizationBoardType Type { get; set; }
@@ -93,6 +111,8 @@ public OptimizationBoardType Type { get; set; }
 
 ### **Width**
 
+Gets or sets the length of the board.
+
 ```csharp
 public double Width { get; set; }
 ```
@@ -102,6 +122,8 @@ public double Width { get; set; }
 [Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
 
 ### **ExtensionData**
+
+members.
 
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }

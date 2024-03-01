@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
+Represents the response of an optimization request
+
 ```csharp
 public class OptimizationRequestResponse
 ```
@@ -36,6 +38,8 @@ public string ErrorText { get; set; }
 
 ### **Link**
 
+Gets or sets the link to the optimization
+
 ```csharp
 public Uri Link { get; set; }
 ```
@@ -45,6 +49,8 @@ public Uri Link { get; set; }
 Uri<br>
 
 ### **OptimizationId**
+
+Gets or sets the optimization id
 
 ```csharp
 public Guid OptimizationId { get; set; }
@@ -56,6 +62,8 @@ public Guid OptimizationId { get; set; }
 
 ### **OptimizationStatus**
 
+Gets or sets the optimization status
+
 ```csharp
 public OptimizationStatus OptimizationStatus { get; set; }
 ```
@@ -65,6 +73,8 @@ public OptimizationStatus OptimizationStatus { get; set; }
 [OptimizationStatus](./homagconnect.intellidivide.contracts.optimizationstatus.md)<br>
 
 ### **ValidationErrors**
+
+Gets or sets the validation errors
 
 ```csharp
 public OptimizationValidationError[] ValidationErrors { get; set; }

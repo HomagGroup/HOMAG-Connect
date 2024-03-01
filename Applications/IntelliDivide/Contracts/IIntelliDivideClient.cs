@@ -54,6 +54,11 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType);
 
         /// <summary>
+        /// Gets the material statistics.
+        /// </summary>
+        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, uint take, uint skip = 0);
+
+        /// <summary>
         /// Gets the optimization having the specified optimization id.
         /// </summary>
         /// <param name="optimizationId">The id of of the optimization to get.</param>
@@ -146,20 +151,20 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId);
 
         /// <summary>
-        /// Request an optimization based on a structured <see cref="OptimizationRequestBasedOnParts" />.
+        /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
         /// </summary>
-        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnParts optimizationRequest, params ImportFile[] files);
+        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files);
 
         /// <summary>
-        /// Request an optimization based on a structured <see cref="OptimizationRequestBasedOnParts" />.
+        /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
         /// </summary>
-        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnTemplate optimizationRequest, params ImportFile[] files);
+        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingTemplate optimizationRequest, params ImportFile[] files);
 
         /// <summary>
         /// Request an optimization using a structured zip file.
         /// </summary>
         /// <param name="optimizationRequest">
-        /// Optimization request based on a structured <see cref="OptimizationRequestBasedOnParts" />.
+        /// Optimization request based on a structured <see cref="OptimizationRequest" />.
         /// </param>
         /// <param name="projectFile">
         /// Structured zip file, whose format corresponds to the ImportSpecification (
@@ -167,7 +172,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
         /// format.
         /// </param>
-        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnProject optimizationRequest, FileInfo projectFile);
+        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingProject optimizationRequest, FileInfo projectFile);
 
         /// <summary>
         /// Sends the solution to the machine for which the optimization was requested for.
@@ -186,10 +191,5 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration);
-
-        /// <summary>
-        /// Gets the material statistics.
-        /// </summary>
-        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, uint take, uint skip = 0);
     }
 }

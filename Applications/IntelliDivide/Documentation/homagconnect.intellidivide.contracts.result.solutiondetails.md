@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Result
 
+Represents a solution with details.
+
 ```csharp
 public class SolutionDetails : Solution, System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **Exports**
 
+Gets or sets the exports ([SolutionExportType](./homagconnect.intellidivide.contracts.result.solutionexporttype.md) of the solution.
+
 ```csharp
 public IReadOnlyCollection<SolutionExportType> Exports { get; set; }
 ```
@@ -22,6 +26,8 @@ public IReadOnlyCollection<SolutionExportType> Exports { get; set; }
 [IReadOnlyCollection&lt;SolutionExportType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlycollection-1)<br>
 
 ### **Material**
+
+Gets ors ets the material of the solution.
 
 ```csharp
 public SolutionMaterial Material { get; set; }
@@ -33,6 +39,8 @@ public SolutionMaterial Material { get; set; }
 
 ### **Parts**
 
+Gets or sets the parts of the solution.
+
 ```csharp
 public IReadOnlyCollection<SolutionPart> Parts { get; set; }
 ```
@@ -42,6 +50,8 @@ public IReadOnlyCollection<SolutionPart> Parts { get; set; }
 [IReadOnlyCollection&lt;SolutionPart&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ireadonlycollection-1)<br>
 
 ### **Id**
+
+Gets or sets the unique identifier of the solution.
 
 ```csharp
 public Guid Id { get; set; }
@@ -53,6 +63,8 @@ public Guid Id { get; set; }
 
 ### **Name**
 
+Gets or sets the name of the solution. See [SolutionName](./homagconnect.intellidivide.contracts.constants.solutionname.md) for more details.
+
 ```csharp
 public string Name { get; set; }
 ```
@@ -62,6 +74,8 @@ public string Name { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **OptimizationId**
+
+Gets or sets the optimization id.
 
 ```csharp
 public Guid OptimizationId { get; set; }
@@ -73,6 +87,8 @@ public Guid OptimizationId { get; set; }
 
 ### **Overview**
 
+Gets or sets the [SolutionOverview](./homagconnect.intellidivide.contracts.result.solutionoverview.md).
+
 ```csharp
 public SolutionOverview Overview { get; set; }
 ```
@@ -82,6 +98,9 @@ public SolutionOverview Overview { get; set; }
 [SolutionOverview](./homagconnect.intellidivide.contracts.result.solutionoverview.md)<br>
 
 ### **TotalScore**
+
+Gets or sets the total score of the solution. The [SolutionName.BalancedSolution](./homagconnect.intellidivide.contracts.constants.solutionname.md#balancedsolution) has typically the
+ highest score. The solutions are listed in the app sorted by the score (highest first).
 
 ```csharp
 public double TotalScore { get; set; }

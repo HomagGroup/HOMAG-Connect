@@ -1,29 +1,29 @@
-# OptimizationRequest
+# OptimizationRequestUsingTemplate
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
-Optimization request class to use to create requests on object model.
+Optimization request class to use to create requests using a import template and file.
 
 ```csharp
-public class OptimizationRequest : OptimizationRequestBase, System.Runtime.Serialization.IExtensibleDataObject
+public class OptimizationRequestUsingTemplate : OptimizationRequestBase, System.Runtime.Serialization.IExtensibleDataObject
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [OptimizationRequestBase](./homagconnect.intellidivide.contracts.request.optimizationrequestbase.md) → [OptimizationRequest](./homagconnect.intellidivide.contracts.request.optimizationrequest.md)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [OptimizationRequestBase](./homagconnect.intellidivide.contracts.request.optimizationrequestbase.md) → [OptimizationRequestUsingTemplate](./homagconnect.intellidivide.contracts.request.optimizationrequestusingtemplate.md)<br>
 Implements IExtensibleDataObject
 
 ## Properties
 
-### **Parts**
+### **ImportTemplate**
 
-Gets or sets the list of parts to optimize.
+Optional. Gets or sets the name of the import template.
 
 ```csharp
-public List<OptimizationRequestPart> Parts { get; set; }
+public string ImportTemplate { get; set; }
 ```
 
 #### Property Value
 
-[List&lt;OptimizationRequestPart&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1)<br>
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Action**
 
@@ -97,8 +97,8 @@ ExtensionDataObject<br>
 
 ## Constructors
 
-### **OptimizationRequest()**
+### **OptimizationRequestUsingTemplate()**
 
 ```csharp
-public OptimizationRequest()
+public OptimizationRequestUsingTemplate()
 ```

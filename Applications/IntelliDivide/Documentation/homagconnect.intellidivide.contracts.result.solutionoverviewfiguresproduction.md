@@ -87,8 +87,6 @@ public int QuantityOfPlusParts { get; set; }
 
 ### **ExtensionData**
 
-
-
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }
 ```

@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Result
 
+Describes the offcuts used in the solution.
+
 ```csharp
 public class SolutionMaterialOffcut : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **BoardCode**
 
+Gets or sets the board code.
+
 ```csharp
 public string BoardCode { get; set; }
 ```
@@ -22,6 +26,8 @@ public string BoardCode { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Costs**
+
+Gets or sets the costs of the offcut.
 
 ```csharp
 public double Costs { get; set; }
@@ -33,6 +39,8 @@ public double Costs { get; set; }
 
 ### **Demand**
 
+Gets or sets the demand.
+
 ```csharp
 public int Demand { get; set; }
 ```
@@ -42,6 +50,8 @@ public int Demand { get; set; }
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
 ### **Length**
+
+Gets or sets the length of the offcut.
 
 ```csharp
 public double Length { get; set; }
@@ -53,6 +63,8 @@ public double Length { get; set; }
 
 ### **MaterialCode**
 
+Gets or sets the material code.
+
 ```csharp
 public string MaterialCode { get; set; }
 ```
@@ -63,6 +75,8 @@ public string MaterialCode { get; set; }
 
 ### **Thickness**
 
+Gets or sets the thickness.
+
 ```csharp
 public double Thickness { get; set; }
 ```
@@ -72,6 +86,8 @@ public double Thickness { get; set; }
 [Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
 
 ### **Width**
+
+Gets or sets the width of the offcut.
 
 ```csharp
 public double Width { get; set; }

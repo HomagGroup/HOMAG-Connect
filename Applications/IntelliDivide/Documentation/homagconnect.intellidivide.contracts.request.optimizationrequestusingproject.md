@@ -1,29 +1,17 @@
-# OptimizationRequest
+# OptimizationRequestUsingProject
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
-Optimization request class to use to create requests on object model.
+Optimization request class to use to create requests using a project file.
 
 ```csharp
-public class OptimizationRequest : OptimizationRequestBase, System.Runtime.Serialization.IExtensibleDataObject
+public class OptimizationRequestUsingProject : OptimizationRequestBase, System.Runtime.Serialization.IExtensibleDataObject
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [OptimizationRequestBase](./homagconnect.intellidivide.contracts.request.optimizationrequestbase.md) → [OptimizationRequest](./homagconnect.intellidivide.contracts.request.optimizationrequest.md)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [OptimizationRequestBase](./homagconnect.intellidivide.contracts.request.optimizationrequestbase.md) → [OptimizationRequestUsingProject](./homagconnect.intellidivide.contracts.request.optimizationrequestusingproject.md)<br>
 Implements IExtensibleDataObject
 
 ## Properties
-
-### **Parts**
-
-Gets or sets the list of parts to optimize.
-
-```csharp
-public List<OptimizationRequestPart> Parts { get; set; }
-```
-
-#### Property Value
-
-[List&lt;OptimizationRequestPart&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1)<br>
 
 ### **Action**
 
@@ -97,8 +85,8 @@ ExtensionDataObject<br>
 
 ## Constructors
 
-### **OptimizationRequest()**
+### **OptimizationRequestUsingProject()**
 
 ```csharp
-public OptimizationRequest()
+public OptimizationRequestUsingProject()
 ```

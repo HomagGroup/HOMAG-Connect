@@ -15,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **LargeOffcutsProduced**
 
+Gets large offcuts produced.
+
 ```csharp
 public int LargeOffcutsProduced { get; set; }
 ```
@@ -24,6 +26,8 @@ public int LargeOffcutsProduced { get; set; }
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
 ### **LargeOffcutsRequired**
+
+Gets large offcuts required.
 
 ```csharp
 public int LargeOffcutsRequired { get; set; }
@@ -35,6 +39,8 @@ public int LargeOffcutsRequired { get; set; }
 
 ### **LargeOffcutsTotal**
 
+Gets large offcuts in total.
+
 ```csharp
 public int LargeOffcutsTotal { get; set; }
 ```
@@ -44,6 +50,8 @@ public int LargeOffcutsTotal { get; set; }
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
 ### **SmallOffcutsProduced**
+
+Gets small offcuts produced.
 
 ```csharp
 public int SmallOffcutsProduced { get; set; }
@@ -55,6 +63,8 @@ public int SmallOffcutsProduced { get; set; }
 
 ### **SmallOffcutsRequired**
 
+Gets small offcuts required.
+
 ```csharp
 public int SmallOffcutsRequired { get; set; }
 ```
@@ -64,6 +74,8 @@ public int SmallOffcutsRequired { get; set; }
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
 ### **SmallOffcutsTotal**
+
+Gets small offcuts in total.
 
 ```csharp
 public int SmallOffcutsTotal { get; set; }
@@ -110,8 +122,6 @@ public int WholeBoards { get; set; }
 [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
 ### **ExtensionData**
-
-
 
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }

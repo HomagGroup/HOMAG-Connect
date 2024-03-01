@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Request
 
+Gets or sets the optimization validation error.
+
 ```csharp
 public class OptimizationValidationError
 ```

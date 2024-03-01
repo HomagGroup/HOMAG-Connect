@@ -97,7 +97,7 @@ public string MaterialCode { get; set; }
 
 ### **Grain**
 
-Gets or sets the [OptimizationBasePart.Grain](./homagconnect.intellidivide.contracts.common.optimizationbasepart.md#grain) of the part.
+Gets or sets the [Grain](./homagconnect.intellidivide.contracts.common.grain.md) of the part.
 
 ```csharp
 public Grain Grain { get; set; }

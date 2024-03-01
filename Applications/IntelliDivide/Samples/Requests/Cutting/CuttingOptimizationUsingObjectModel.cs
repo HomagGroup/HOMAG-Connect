@@ -147,10 +147,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
         }
 
-        private static async Task<OptimizationRequestBasedOnParts> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
+        private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
             [CallerMemberName] string optimizationName = "")
         {
-            var request = new OptimizationRequestBasedOnParts();
+            var request = new OptimizationRequest();
 
             var machine = await intelliDivide.GetMachineAsync("productionAssist Cutting");
             var parameter = (await intelliDivide.GetParametersAsync(machine.OptimizationType)).OrderBy(p => p.Name).First();

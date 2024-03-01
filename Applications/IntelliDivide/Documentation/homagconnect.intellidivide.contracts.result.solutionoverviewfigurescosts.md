@@ -63,8 +63,6 @@ public Nullable<double> MaterialCostsPerPart { get; set; }
 
 ### **ExtensionData**
 
-
-
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }
 ```

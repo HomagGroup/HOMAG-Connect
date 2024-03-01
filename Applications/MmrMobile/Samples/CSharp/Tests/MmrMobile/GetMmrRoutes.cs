@@ -14,9 +14,13 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
         [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetCounterTest()
         {
-            (var baseUrl, var username, var token) = ReadProps("MmrMobile");
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(baseUrl);
+            var (baseUrl, username, token) = ReadProps("MmrMobile");
+            
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(baseUrl)
+            };
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
             var mmrMobileService = new MmrMobileService(client);
 
@@ -30,9 +34,11 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
         [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetStatesTest()
         {
-            (var baseUrl, var username, var token) = ReadProps("MmrMobile");
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(baseUrl);
+            var (baseUrl, username, token) = ReadProps("MmrMobile");
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(baseUrl)
+            };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
             var mmrMobileService = new MmrMobileService(client);
 

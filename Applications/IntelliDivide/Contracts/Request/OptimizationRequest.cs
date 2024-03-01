@@ -7,7 +7,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     /// Optimization request class to use to create requests on object model.
     /// </summary>
     [DebuggerDisplay("Name={Name}, Action={Action}")]
-    public class OptimizationRequestBasedOnParts : OptimizationRequestBase
+    public class OptimizationRequest : OptimizationRequestBase
     {
         /// <summary>
         /// Gets or sets the list of parts to optimize.

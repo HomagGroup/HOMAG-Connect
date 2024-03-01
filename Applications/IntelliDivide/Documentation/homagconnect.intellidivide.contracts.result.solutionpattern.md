@@ -99,8 +99,6 @@ public int Quantity { get; set; }
 
 ### **ExtensionData**
 
-
-
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }
 ```

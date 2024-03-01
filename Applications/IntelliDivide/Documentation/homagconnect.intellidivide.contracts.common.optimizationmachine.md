@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Common
 
+Machine for which the optimization is performed.
+
 ```csharp
 public class OptimizationMachine
 ```
@@ -11,6 +13,8 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 ## Properties
 
 ### **Name**
+
+Gets or sets the name of the machine.
 
 ```csharp
 public string Name { get; set; }
@@ -22,6 +26,8 @@ public string Name { get; set; }
 
 ### **OptimizationType**
 
+Gets or sets the [OptimizationMachine.OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationmachine.md#optimizationtype).
+
 ```csharp
 public OptimizationType OptimizationType { get; set; }
 ```
@@ -31,6 +37,8 @@ public OptimizationType OptimizationType { get; set; }
 [OptimizationType](./homagconnect.intellidivide.contracts.common.optimizationtype.md)<br>
 
 ### **SupportsSending**
+
+Gets or sets whether sending is supported. Only productionAssist Cutting / Nesting and machine connected to tapio are supported.
 
 ```csharp
 public bool SupportsSending { get; set; }

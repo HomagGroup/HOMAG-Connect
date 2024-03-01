@@ -23,7 +23,7 @@ public class CuttingOptimizationUsingExcel
         var optimizationParameter = (await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType)).First();
         var importTemplate = (await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, excelFile.Extension)).First(i => i.Name.Contains("homag.cloud"));
 
-        var request = new OptimizationRequestBasedOnTemplate()
+        var request = new OptimizationRequestUsingTemplate()
         {
             Name = "Connect " + excelFile.Name + " " + DateTime.Now.ToString("s"),
             Machine = optimizationMachine.Name,

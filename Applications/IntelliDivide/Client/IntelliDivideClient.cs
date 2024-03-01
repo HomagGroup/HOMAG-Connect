@@ -2,7 +2,6 @@
 
 using HomagConnect.Base;
 using HomagConnect.Base.Services;
-using HomagConnect.Base.Validation;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -100,18 +99,8 @@ namespace HomagConnect.IntelliDivide.Client
         #region Optimization Request
 
         /// <inheritdoc />
-        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnParts optimizationRequest, params ImportFile[] files)
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files)
         {
-            var validator = new DataAnnotationsValidator();
-            var validationResults = new List<ValidationResult>();
-
-            if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
-            {
-                var validationResult = validationResults.First();
-
-                throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
-            }
-
             foreach (var optimizationRequestPart in optimizationRequest.Parts.Where(p => !string.IsNullOrWhiteSpace(p.MprFileName)))
             {
                 if (files.All(f => f.Name != optimizationRequestPart.MprFileName))
@@ -150,21 +139,11 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnTemplate optimizationRequest, params ImportFile[] files)
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingTemplate optimizationRequest, params ImportFile[] files)
         {
-            var validator = new DataAnnotationsValidator();
-            var validationResults = new List<ValidationResult>();
-
-            if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
-            {
-                var validationResult = validationResults.First();
-
-                throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
-            }
-
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
 
-            var uri = "api/intelliDivide/optimizations/RequestBasedOnTemplate".ToLowerInvariant();
+            var uri = "api/intelliDivide/optimizations/RequestUsingTemplate".ToLowerInvariant();
             request.RequestUri = new Uri(uri, UriKind.Relative);
 
             using var httpContent = new MultipartFormDataContent();
@@ -192,24 +171,14 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnProject optimizationRequest, FileInfo projectFile)
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingProject optimizationRequest, FileInfo projectFile)
         {
-            var validator = new DataAnnotationsValidator();
-            var validationResults = new List<ValidationResult>();
-
-            if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
-            {
-                var validationResult = validationResults.First();
-
-                throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
-            }
-
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
 
             var fileName = projectFile.Name;
             await using var stream = projectFile.OpenRead();
 
-            var uri = "api/intelliDivide/optimizations/RequestBasedProject".ToLowerInvariant();
+            var uri = "api/intelliDivide/optimizations/RequestUsingProject".ToLowerInvariant();
 
             request.RequestUri = new Uri(uri, UriKind.Relative);
 

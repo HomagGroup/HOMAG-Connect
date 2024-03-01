@@ -16,6 +16,5 @@ Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icom
 | Name | Value | Description |
 | --- | --: | --- |
 | ImportOnly | 0 | Creates a new optimization in intelliDivide using the provided data. |
-| Estimate | 1 | Creates a new optimization in intelliDivide using the provided data and executes a optimization just for estimation. A reduced number of optimizations is performed. No export data is generated. |
-| Optimize | 2 | Creates a new optimization in intelliDivide using the provided data and executes the optimization. |
-| Send | 3 | Creates a new optimization in intelliDivide using the provided data, executes the optimization and sends the balanced solution to the machine. |
+| Optimize | 1 | Creates a new optimization in intelliDivide using the provided data and executes the optimization. |
+| Send | 2 | Creates a new optimization in intelliDivide using the provided data, executes the optimization and sends the balanced solution to the machine. |

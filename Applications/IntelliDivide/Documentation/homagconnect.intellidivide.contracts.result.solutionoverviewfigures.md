@@ -51,8 +51,6 @@ public SolutionOverviewFiguresProduction Production { get; set; }
 
 ### **ExtensionData**
 
-
-
 ```csharp
 public ExtensionDataObject ExtensionData { get; set; }
 ```

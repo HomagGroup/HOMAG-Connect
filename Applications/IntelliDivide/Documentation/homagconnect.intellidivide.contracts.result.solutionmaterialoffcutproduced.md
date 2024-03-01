@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Result
 
+Describes the offcuts produced by the solution
+
 ```csharp
 public class SolutionMaterialOffcutProduced : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **Costs**
 
+Gets or sets the total costs.
+
 ```csharp
 public double Costs { get; set; }
 ```
@@ -21,17 +25,9 @@ public double Costs { get; set; }
 
 [Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
 
-### **Demand**
-
-```csharp
-public int Demand { get; set; }
-```
-
-#### Property Value
-
-[Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
 ### **Length**
+
+Gets or sets the length.
 
 ```csharp
 public double Length { get; set; }
@@ -43,6 +39,8 @@ public double Length { get; set; }
 
 ### **MaterialCode**
 
+Gets or sets the material code.
+
 ```csharp
 public string MaterialCode { get; set; }
 ```
@@ -51,7 +49,21 @@ public string MaterialCode { get; set; }
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
+### **Quantity**
+
+Gets or sets the demand.
+
+```csharp
+public int Quantity { get; set; }
+```
+
+#### Property Value
+
+[Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
+
 ### **Thickness**
+
+Gets or sets the thickness.
 
 ```csharp
 public double Thickness { get; set; }
@@ -62,6 +74,8 @@ public double Thickness { get; set; }
 [Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
 
 ### **Width**
+
+Gets or sets the width.
 
 ```csharp
 public double Width { get; set; }

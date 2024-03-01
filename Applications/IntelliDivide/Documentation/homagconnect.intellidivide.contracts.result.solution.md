@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.IntelliDivide.Contracts.Result
 
+Represents a solution of a cutting or nesting optimization.
+
 ```csharp
 public class Solution : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **Id**
 
+Gets or sets the unique identifier of the solution.
+
 ```csharp
 public Guid Id { get; set; }
 ```
@@ -22,6 +26,8 @@ public Guid Id { get; set; }
 [Guid](https://docs.microsoft.com/en-us/dotnet/api/system.guid)<br>
 
 ### **Name**
+
+Gets or sets the name of the solution. See [SolutionName](./homagconnect.intellidivide.contracts.constants.solutionname.md) for more details.
 
 ```csharp
 public string Name { get; set; }
@@ -33,6 +39,8 @@ public string Name { get; set; }
 
 ### **OptimizationId**
 
+Gets or sets the optimization id.
+
 ```csharp
 public Guid OptimizationId { get; set; }
 ```
@@ -43,6 +51,8 @@ public Guid OptimizationId { get; set; }
 
 ### **Overview**
 
+Gets or sets the [SolutionOverview](./homagconnect.intellidivide.contracts.result.solutionoverview.md).
+
 ```csharp
 public SolutionOverview Overview { get; set; }
 ```
@@ -52,6 +62,9 @@ public SolutionOverview Overview { get; set; }
 [SolutionOverview](./homagconnect.intellidivide.contracts.result.solutionoverview.md)<br>
 
 ### **TotalScore**
+
+Gets or sets the total score of the solution. The [SolutionName.BalancedSolution](./homagconnect.intellidivide.contracts.constants.solutionname.md#balancedsolution) has typically the
+ highest score. The solutions are listed in the app sorted by the score (highest first).
 
 ```csharp
 public double TotalScore { get; set; }

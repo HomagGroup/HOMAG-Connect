@@ -8,8 +8,10 @@ using HomagConnect.MmrMobile.Samples.Console;
 
 Console.WriteLine("Hello at the HOMAG MMR Mobile Client");
 
-var client = new HttpClient();
-client.BaseAddress = new Uri("https://connect.homag.cloud");
+var client = new HttpClient
+{
+    BaseAddress = new Uri("https://connect.homag.cloud")
+};
 Console.WriteLine("Please insert your subscription Id:");
 var subscriptionId = Console.ReadLine();
 Console.WriteLine("Please insert your token:");
@@ -123,7 +125,7 @@ do
 
     Console.WriteLine("\nDo you want to exit? [y/n]");
     var exit = Console.ReadLine();
-    if (exit.ToLower() == "y")
+    if (exit?.ToLower() == "y")
     {
         break;
     }

@@ -7,7 +7,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     /// Optimization request class to use to create requests using a import template and file.
     /// </summary>
     [DebuggerDisplay("ImportTemplate={ImportTemplate}, {Action={Action}")]
-    public class OptimizationRequestBasedOnTemplate : OptimizationRequestBase
+    public class OptimizationRequestUsingTemplate : OptimizationRequestBase
     {
         /// <summary>
         /// Optional. Gets or sets the name of the import template.

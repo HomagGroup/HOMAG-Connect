@@ -6,7 +6,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     /// Optimization request class to use to create requests using a project file.
     /// </summary>
     [DebuggerDisplay("{Action={Action}")]
-    public class OptimizationRequestBasedOnProject : OptimizationRequestBase
+    public class OptimizationRequestUsingProject : OptimizationRequestBase
     {
         
     }
