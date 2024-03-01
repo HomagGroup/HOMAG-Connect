@@ -190,6 +190,6 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Gets the material statistics.
         /// </summary>
-        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to);
+        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, uint take, uint skip = 0);
     }
 }

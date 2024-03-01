@@ -34,9 +34,9 @@ namespace HomagConnect.IntelliDivide.Client
         /// <summary>
         /// Gets the statistics for the material efficiency.
         /// </summary>
-        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to)
+        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, uint take, uint skip = 0)
         {
-            var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}".ToLowerInvariant();
+            var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}".ToLowerInvariant();
 
             return await RequestEnumerable<MaterialEfficiency>(url);
         }

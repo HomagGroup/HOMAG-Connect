@@ -79,7 +79,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var materialStatisticsAsync = await intelliDivide.GetMaterialStatisticsAsync(DateTime.Now, DateTime.Now.AddDays(-90));
+        var materialStatisticsAsync = await intelliDivide.GetMaterialStatisticsAsync(DateTime.Now, DateTime.Now.AddDays(-90), 100);
 
         Assert.IsNotNull(materialStatisticsAsync);
         Assert.IsFalse(!materialStatisticsAsync.Any());

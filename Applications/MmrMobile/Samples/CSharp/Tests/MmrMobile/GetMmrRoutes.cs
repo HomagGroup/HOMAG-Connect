@@ -11,7 +11,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
     public class GetMmrRoutes : TestBase
     {
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 3, 1)]
+        [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetCounterTest()
         {
             (var baseUrl, var username, var token) = ReadProps("MmrMobile");
@@ -27,7 +27,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 3, 1)]
+        [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetStatesTest()
         {
             (var baseUrl, var username, var token) = ReadProps("MmrMobile");
