@@ -5,25 +5,18 @@ using System.Diagnostics;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
-    [DebuggerDisplay("Name={Name}, Action={Action}")]
-    public class OptimizationRequest
+    /// <summary>
+    /// Optimization request base class.
+    /// </summary>
+    [DebuggerDisplay("Action={Action}")]
+    public class OptimizationRequestBase
     {
         /// <summary>
-        /// Gets or sets the <see cref="OptimizationRequestAction"/>.
+        /// Gets or sets the <see cref="OptimizationRequestAction" />.
         /// </summary>
         [Required]
         [DefaultValue(OptimizationRequestAction.ImportOnly)]
         public OptimizationRequestAction Action { get; set; } = OptimizationRequestAction.ImportOnly;
-
-        /// <summary>
-        /// Optional. If no boards are provided the required boards are retrieved from materialManager.
-        /// </summary>
-        public List<OptimizationRequestBoard> Boards { get; set; } = new List<OptimizationRequestBoard>();
-
-        /// <summary>
-        /// Optional. Gets or sets the name of the import template.
-        /// </summary>
-        public string ImportTemplate { get; set; }
 
         /// <summary>
         /// Optional. If no machine is provided the first cutting machine sorted by name is used.
@@ -47,8 +40,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         public string Parameters { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the list of parts to optimize.
+        /// Optional. If no boards are provided the required boards are retrieved from materialManager.
         /// </summary>
-        public List<OptimizationRequestPart> Parts { get; set; } = new List<OptimizationRequestPart>();
+        public List<OptimizationRequestBoard> Boards { get; set; } = new List<OptimizationRequestBoard>();
     }
 }

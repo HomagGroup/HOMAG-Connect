@@ -1,4 +1,5 @@
 ﻿using HomagConnect.IntelliDivide.Contracts.Converter;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
@@ -13,12 +14,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// Creates a new optimization in intelliDivide using the provided data.
         /// </summary>
         ImportOnly,
-
-        /// <summary>
-        /// Creates a new optimization in intelliDivide using the provided data and executes a optimization just for estimation. A
-        /// reduced number of optimizations is performed. No export data is generated.
-        /// </summary>
-        Estimate,
 
         /// <summary>
         /// Creates a new optimization in intelliDivide using the provided data and executes the optimization.

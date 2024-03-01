@@ -104,7 +104,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <param name="projectFile">
         /// Structured zip file, whose format corresponds to the ImportSpecification (
         /// <seealso
-        ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview" />
+        ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
         /// format.
         /// </param>
         public async Task<OptimizationRequestResponse?> RequestOptimizationAsync(FileInfo projectFile)
@@ -137,9 +137,9 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <summary>
-        /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
+        /// See <see cref="RequestOptimizationAsync(OptimizationRequestBasedOnParts, ImportFile[]) " />
         /// </summary>
-        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files)
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnParts optimizationRequest, params ImportFile[] files)
         {
             var validator = new DataAnnotationsValidator();
             var validationResults = new List<ValidationResult>();
@@ -147,7 +147,7 @@ namespace HomagConnect.IntelliDivide.Client
             if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
             {
                 var validationResult = validationResults.First();
-                
+
                 throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
             }
 
@@ -183,6 +183,96 @@ namespace HomagConnect.IntelliDivide.Client
             response.EnsureSuccessStatusCodeWithDetails(request);
 
             var result = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
+
+            return responseObject ?? new OptimizationRequestResponse();
+        }
+
+        /// <summary>
+        /// See <see cref="RequestOptimizationAsync(OptimizationRequestBasedOnTemplate, ImportFile[]) " />
+        /// </summary>
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnTemplate optimizationRequest, params ImportFile[] files)
+        {
+            var validator = new DataAnnotationsValidator();
+            var validationResults = new List<ValidationResult>();
+
+            if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
+            {
+                var validationResult = validationResults.First();
+
+                throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
+            }
+
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            var uri = "api/intelliDivide/optimizations/RequestBasedOnTemplate".ToLowerInvariant();
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            var json = JsonConvert.SerializeObject(optimizationRequest);
+
+            httpContent.Add(new StringContent(json));
+
+            foreach (var file in files)
+            {
+                HttpContent streamContent = new StreamContent(file.Stream);
+                httpContent.Add(streamContent, file.Name, file.Name);
+            }
+
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
+
+            return responseObject ?? new OptimizationRequestResponse();
+        }
+
+        /// <summary>
+        /// See <see cref="RequestOptimizationAsync(OptimizationRequestBasedOnProject, FileInfo) " />
+        /// </summary>
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestBasedOnProject optimizationRequest, FileInfo projectFile)
+        {
+            var validator = new DataAnnotationsValidator();
+            var validationResults = new List<ValidationResult>();
+
+            if (!validator.TryValidateObjectRecursive(optimizationRequest, validationResults))
+            {
+                var validationResult = validationResults.First();
+
+                throw new ValidationException($"{validationResult.MemberNames.First()}: {validationResult.ErrorMessage}");
+            }
+
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            var fileName = projectFile.Name;
+            await using var stream = projectFile.OpenRead();
+
+            var uri = "api/intelliDivide/optimizations/RequestBasedProject".ToLowerInvariant();
+
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            var json = JsonConvert.SerializeObject(optimizationRequest);
+
+            httpContent.Add(new StringContent(json));
+
+            HttpContent streamContent = new StreamContent(stream);
+            httpContent.Add(streamContent, fileName, fileName);
+
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+
             var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
 
             return responseObject ?? new OptimizationRequestResponse();

@@ -5,13 +5,16 @@ using HomagConnect.IntelliDivide.Contracts.Common;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
+    /// <summary>
+    /// Optimization import template.
+    /// </summary>
     [DebuggerDisplay("{Name}")]
     public class OptimizationImportTemplate
     {
         private string _FileExtension = string.Empty;
 
         /// <summary>
-        /// Gets or sets the file extension (without leading dot)
+        /// Gets or sets the file extension (without leading dot) for which the template was created.
         /// </summary>
         [Required]
         public string FileExtension
@@ -33,12 +36,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
             }
         }
 
-        [Required]
-        public string Id { get; set; } = string.Empty;
-
+        /// <summary>
+        /// Ges or sets the name of the import template.
+        /// </summary>
         [Required]
         public string Name { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the <see cref="OptimizationType" /> for which the template is valid..
+        /// </summary>
         [Required]
         public OptimizationType OptimizationType { get; set; }
     }

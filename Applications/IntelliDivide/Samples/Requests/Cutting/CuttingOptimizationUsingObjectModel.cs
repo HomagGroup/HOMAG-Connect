@@ -135,13 +135,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             {
                 optimization.Trace(nameof(optimization));
 
-                var solutions = (await intelliDivide.GetSolutionsAsync(optimization.Id)).ToArray();
-
-                if (solutions == null)
-                {
-                    throw new InvalidOperationException("Solutions could not get retrieved.");
-                }
-
+                var solutions = (await intelliDivide.GetSolutionsAsync(optimization.Id)).ToArray() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
                 solutions.Trace(nameof(solutions));
 
                 var balancedSolutionDetails = await intelliDivide.GetSolutionDetailsAsync(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
@@ -153,10 +147,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
         }
 
-        private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
+        private static async Task<OptimizationRequestBasedOnParts> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
             [CallerMemberName] string optimizationName = "")
         {
-            var request = new OptimizationRequest();
+            var request = new OptimizationRequestBasedOnParts();
 
             var machine = await intelliDivide.GetMachineAsync("productionAssist Cutting");
             var parameter = (await intelliDivide.GetParametersAsync(machine.OptimizationType)).OrderBy(p => p.Name).First();

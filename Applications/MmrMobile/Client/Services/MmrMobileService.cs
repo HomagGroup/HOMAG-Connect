@@ -30,9 +30,12 @@ namespace HomagConnect.MmrMobile.Client.Services
         {
             var url = $"/api/mmr/states";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url + parameters, UriKind.Relative);
-            
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url + parameters, UriKind.Relative)
+            };
+
             var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
             response.EnsureSuccessStatusCodeWithDetails(request);
 
@@ -47,9 +50,12 @@ namespace HomagConnect.MmrMobile.Client.Services
         {
             var url = $"/api/mmr/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url + parameters, UriKind.Relative);
-            
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url + parameters, UriKind.Relative)
+            };
+
             var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
             response.EnsureSuccessStatusCodeWithDetails(request);
 

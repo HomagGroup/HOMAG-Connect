@@ -1,5 +1,4 @@
-﻿using HomagConnect.IntelliDivide.Client;
-using HomagConnect.IntelliDivide.Contracts;
+﻿using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Samples.Helper;
@@ -21,10 +20,10 @@ public class CuttingOptimizationUsingExcel
         var importFile = await ImportFile.CreateAsync(excelFile);
 
         var optimizationMachine = (await intelliDivide.GetMachinesAsync(OptimizationType.Cutting)).First(m => m.Name == "productionAssist Cutting");
-        var optimizationParameter = (await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType)).First(p => p.Name == "Default");
+        var optimizationParameter = (await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType)).First();
         var importTemplate = (await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, excelFile.Extension)).First(i => i.Name.Contains("homag.cloud"));
 
-        var request = new OptimizationRequest
+        var request = new OptimizationRequestBasedOnTemplate()
         {
             Name = "Connect " + excelFile.Name + " " + DateTime.Now.ToString("s"),
             Machine = optimizationMachine.Name,
