@@ -186,10 +186,16 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task StartOptimizationAsync(Guid optimizationId);
 
         /// <summary>
-        /// Waits until the optimization has reached the state  <see cref="OptimizationStatus.Optimized" /> or has reached a state
+        /// Waits until the optimization has reached the state <see cref="OptimizationStatus.Optimized" /> or <see cref="OptimizationStatus.Transferred" /> or has reached a state
         /// from which the state <see cref="OptimizationStatus.Optimized" /> can't get reached any more.
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration);
+
+        /// <summary>
+        /// Waits until the optimization is reached the specified <see cref="OptimizationStatus" /> or a following state or a from which the specified state can't get reached any more.
+        /// </summary>
+        /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
+        Task<Optimization> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration);
     }
 }

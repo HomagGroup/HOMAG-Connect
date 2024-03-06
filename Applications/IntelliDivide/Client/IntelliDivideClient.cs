@@ -207,18 +207,54 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
         {
+            return await WaitForOptimizationStatus(optimizationId, OptimizationStatus.Optimized, maxDuration);
+        }
+
+        public async Task<Optimization> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration)
+        {
             var timeout = DateTime.Now + maxDuration;
 
             while (DateTime.Now < timeout)
             {
                 var currentStatus = await GetOptimizationStatusAsync(optimizationId);
 
-                if (currentStatus is OptimizationStatus.Optimized
-                    or OptimizationStatus.Faulted
-                    or OptimizationStatus.Canceled
-                    or OptimizationStatus.Transferred
-                   )
+                if (currentStatus == optimizationStatus)
                 {
+                    return await GetOptimizationAsync(optimizationId);
+                }
+
+                if (optimizationStatus == OptimizationStatus.Started)
+                {
+                    if (currentStatus
+                        is OptimizationStatus.Started
+                        or OptimizationStatus.Optimized
+                        or OptimizationStatus.Transferred)
+                    {
+                        // When waiting for status Started the optimization might be already optimized or transferred.
+
+                        return await GetOptimizationAsync(optimizationId);
+                    }
+                }
+                
+                if (optimizationStatus == OptimizationStatus.Optimized)
+                {
+                    if (currentStatus 
+                        is OptimizationStatus.Optimized 
+                        or OptimizationStatus.Transferred)
+                    {
+                        // When waiting for status Optimized the optimization might be already transferred.
+
+                        return await GetOptimizationAsync(optimizationId);
+                    }
+                }
+
+                if (currentStatus 
+                    is OptimizationStatus.Faulted 
+                    or OptimizationStatus.Canceled 
+                    or OptimizationStatus.Archived)
+                {
+                    // It is not possible to reach another state.
+
                     return await GetOptimizationAsync(optimizationId);
                 }
 
