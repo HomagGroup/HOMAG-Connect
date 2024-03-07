@@ -7,8 +7,6 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary />
@@ -17,106 +15,58 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide)
         {
+            // Prepare the request
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.ImportOnly);
 
+            request.Trace(nameof(request));
+
+            // Send the request
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            Assert.IsNotNull(response.OptimizationId);
-            Assert.AreEqual(OptimizationStatus.New, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            response.Trace(nameof(response));
 
-            response.Trace();
-
+            // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
-            Assert.IsNotNull(optimization);
-            Assert.AreEqual(OptimizationStatus.New, optimization.Status);
-
-            optimization.Trace();
-
-            Assert.AreEqual(request.Parameters, optimization.ParameterName);
-            Assert.AreEqual(request.Name, optimization.Name);
-            Assert.AreEqual(request.Parts.Sum(p => p.Quantity), optimization.QuantityOfParts);
-
-            Assert.AreEqual(request.Machine, optimization.Machine);
+            optimization.Trace(nameof(optimization));
         }
 
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelAndOptimize(IIntelliDivideClient intelliDivide)
         {
+            // Prepare the request
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
 
             request.Trace(nameof(request));
 
+            // Send the request
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            Assert.IsNotNull(response.OptimizationId);
-            Assert.AreEqual(OptimizationStatus.Started, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            response.Trace(nameof(response));
 
-            var optimizationId = response.OptimizationId;
+            // Wait for completion
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, TimeSpan.FromMinutes(1));
 
-            var timeout = DateTime.Now + TimeSpan.FromSeconds(60);
-
-            while (DateTime.Now < timeout)
-            {
-                var optimizationStatus = await intelliDivide.GetOptimizationStatusAsync(optimizationId);
-
-                Assert.AreNotEqual(OptimizationStatus.Faulted, optimizationStatus);
-
-                if (optimizationStatus == OptimizationStatus.Optimized)
-                {
-                    var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
-
-                    Assert.IsNotNull(optimization);
-                    Assert.AreEqual(OptimizationStatus.Optimized, optimization.Status);
-
-                    optimization.Trace();
-                    return;
-                }
-
-                await Task.Delay(TimeSpan.FromSeconds(1));
-            }
-
-            Assert.Fail("Timeout");
+            optimization.Trace(nameof(optimization));
         }
 
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelAndOptimizeAndSend(IIntelliDivideClient intelliDivide)
         {
+            // Prepare the request
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Send);
 
+            request.Trace(nameof(request));
+
+            // Send the request
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            Assert.IsNotNull(response.OptimizationId);
-            Assert.AreEqual(OptimizationStatus.Started, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            response.Trace(nameof(response));
 
-            var optimizationId = response.OptimizationId;
+            // Wait for transferred
+            var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(1));
 
-            var timeout = DateTime.Now + TimeSpan.FromSeconds(120);
-
-            while (DateTime.Now < timeout)
-            {
-                var optimizationStatus = await intelliDivide.GetOptimizationStatusAsync(optimizationId);
-
-                Assert.AreNotEqual(OptimizationStatus.Faulted, optimizationStatus);
-
-                if (optimizationStatus == OptimizationStatus.Transferred)
-                {
-                    var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
-
-                    Assert.IsNotNull(optimization);
-                    Assert.AreEqual(OptimizationStatus.Transferred, optimization.Status);
-
-                    optimization.Trace();
-                    return;
-                }
-
-                await Task.Delay(TimeSpan.FromSeconds(1));
-            }
-
-            Assert.Fail("Timeout");
+            optimization.Trace(nameof(optimization));
         }
 
         /// <summary />
