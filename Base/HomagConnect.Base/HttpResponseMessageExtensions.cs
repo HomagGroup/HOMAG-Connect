@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -90,6 +91,10 @@ namespace HomagConnect.Base
                         else if (problemDetails.Type == nameof(AuthenticationException))
                         {
                             exception = new AuthenticationException(problemDetails.Detail, exception);
+                        }
+                        else if (problemDetails.Type == nameof(ValidationException))
+                        {
+                            exception= new ValidationException(problemDetails.Detail, exception);
                         }
                     }
                 }

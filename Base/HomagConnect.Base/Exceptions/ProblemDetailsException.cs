@@ -9,7 +9,7 @@ namespace HomagConnect.Base.Exceptions
     {
         public ProblemDetailsException() { }
 
-        public ProblemDetailsException(ProblemDetails problemDetails)
+        public ProblemDetailsException(ProblemDetails problemDetails) : base(problemDetails.Detail)
         {
             Type = problemDetails.Type;
             Title = problemDetails.Title;

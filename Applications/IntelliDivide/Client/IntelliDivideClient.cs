@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base;
+﻿using HomagConnect.Base;
 using HomagConnect.Base.Services;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
@@ -33,7 +31,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <summary>
         /// Gets the statistics for the material efficiency.
         /// </summary>
-        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, uint take, uint skip = 0)
+        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}".ToLowerInvariant();
 
@@ -210,6 +208,7 @@ namespace HomagConnect.IntelliDivide.Client
             return await WaitForOptimizationStatus(optimizationId, OptimizationStatus.Optimized, maxDuration);
         }
 
+        /// <inheritdoc />
         public async Task<Optimization> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration)
         {
             var timeout = DateTime.Now + maxDuration;
@@ -235,11 +234,11 @@ namespace HomagConnect.IntelliDivide.Client
                         return await GetOptimizationAsync(optimizationId);
                     }
                 }
-                
+
                 if (optimizationStatus == OptimizationStatus.Optimized)
                 {
-                    if (currentStatus 
-                        is OptimizationStatus.Optimized 
+                    if (currentStatus
+                        is OptimizationStatus.Optimized
                         or OptimizationStatus.Transferred)
                     {
                         // When waiting for status Optimized the optimization might be already transferred.
@@ -248,9 +247,9 @@ namespace HomagConnect.IntelliDivide.Client
                     }
                 }
 
-                if (currentStatus 
-                    is OptimizationStatus.Faulted 
-                    or OptimizationStatus.Canceled 
+                if (currentStatus
+                    is OptimizationStatus.Faulted
+                    or OptimizationStatus.Canceled
                     or OptimizationStatus.Archived)
                 {
                     // It is not possible to reach another state.
@@ -277,7 +276,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, uint take, uint skip = 0)
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -290,7 +289,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, uint take, uint skip = 0)
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -303,7 +302,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, uint take, uint skip = 0)
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -317,7 +316,7 @@ namespace HomagConnect.IntelliDivide.Client
 
         /// <inheritdoc />
         public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
-            uint take, uint skip = 0)
+            int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -330,7 +329,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(uint take, uint skip = 0)
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
 
@@ -338,7 +337,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, uint take, uint skip = 0)
+        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
 
