@@ -22,7 +22,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             var request = new OptimizationRequestUsingProject
             {
-                Name = "Connect " + projectFile.Name + " " + DateTime.Now.ToString("s"),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
                 Action = OptimizationRequestAction.ImportOnly
