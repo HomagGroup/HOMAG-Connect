@@ -119,5 +119,23 @@ namespace HomagConnect.Base.Services
 
             return data;
         }
+
+        protected async Task PostObject<T>(string url)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+            request.RequestUri = new Uri(url, UriKind.Relative);
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+        }
+
+        protected async Task DeleteObject<T>(string url)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Delete };
+            request.RequestUri = new Uri(url, UriKind.Relative);
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+        }
     }
 }
