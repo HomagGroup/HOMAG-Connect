@@ -24,6 +24,18 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public IntelliDivideClient(HttpClient client) : base(client) { }
 
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken) : base(subscriptionId, accessToken) { }
+
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken, string homagConnectUrl) : base(subscriptionId, accessToken, homagConnectUrl) { }
+
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken, Guid partnerId) : base(subscriptionId, accessToken, partnerId) { }
+
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken, Guid partnerId, string homagConnectUrl) : base(subscriptionId, accessToken, partnerId, homagConnectUrl) { }
+
         #endregion
 
         #region Statistics
