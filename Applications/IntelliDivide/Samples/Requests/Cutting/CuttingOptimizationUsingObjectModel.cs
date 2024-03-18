@@ -97,6 +97,39 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
         }
 
+        /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndArchive(IIntelliDivideClient intelliDivide)
+        {
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, TimeSpan.FromSeconds(120));
+
+            if (optimization.Status != OptimizationStatus.Optimized)
+            {
+                throw new InvalidOperationException("Optimization did not reach the state optimized.");
+            }
+
+            optimization.Trace(nameof(optimization));
+
+            await intelliDivide.ArchiveOptimizationAsync(optimization.Id);
+        }
+
+        /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelAndDelete(IIntelliDivideClient intelliDivide)
+        {
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.ImportOnly);
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+
+            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+
+            optimization.Trace(nameof(optimization));
+
+            await intelliDivide.DeleteOptimizationAsync(optimization.Id);
+        }
+
         private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
             [CallerMemberName] string optimizationName = "")
         {
