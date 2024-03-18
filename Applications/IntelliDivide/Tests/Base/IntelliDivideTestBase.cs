@@ -21,7 +21,7 @@ public class IntelliDivideTestBase
         }
     }
 
-    protected string SubscriptionId
+    protected Guid SubscriptionId
     {
         get
         {
@@ -30,7 +30,7 @@ public class IntelliDivideTestBase
             Assert.IsFalse(string.IsNullOrWhiteSpace(subscriptionId), "SubscriptionId in appSettings json must not be null or whitespace.");
             Assert.IsTrue(Guid.TryParse(subscriptionId, out var guid), "SubscriptionId in appSettings json must be the subscription id which must be a GUID.");
 
-            return subscriptionId;
+            return guid;
         }
     }
 
@@ -62,7 +62,7 @@ public class IntelliDivideTestBase
         var httpClient = new HttpClient();
 
         httpClient.BaseAddress = new Uri(BaseUrl);
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId, Token));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), Token));
 
         return new IntelliDivideClient(httpClient);
     }

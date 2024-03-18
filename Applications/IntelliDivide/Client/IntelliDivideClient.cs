@@ -24,6 +24,18 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public IntelliDivideClient(HttpClient client) : base(client) { }
 
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken) : base(subscriptionId, accessToken) { }
+
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken, string homagConnectUrl) : base(subscriptionId, accessToken, homagConnectUrl) { }
+
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken, Guid partnerId) : base(subscriptionId, accessToken, partnerId) { }
+
+        /// <inheritdoc />
+        public IntelliDivideClient(Guid subscriptionId, string accessToken, Guid partnerId, string homagConnectUrl) : base(subscriptionId, accessToken, partnerId, homagConnectUrl) { }
+
         #endregion
 
         #region Statistics
@@ -355,17 +367,17 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task ArchiveOptimizationAsync(Guid optimizationId)
         {
-            await Task.Run(() => throw new NotImplementedException());
+            var url = $"api/intelliDivide/optimizations/{optimizationId}/archive".ToLowerInvariant();
 
-            throw new NotImplementedException();
+            await PostObject<string>(url);
         }
 
         /// <inheritdoc />
         public async Task DeleteOptimizationAsync(Guid optimizationId)
         {
-            await Task.Run(() => throw new NotImplementedException());
+            var url = $"api/intelliDivide/optimizations/{optimizationId}".ToLowerInvariant();
 
-            throw new NotImplementedException();
+            await DeleteObject<string>(url);
         }
 
         /// <inheritdoc />
