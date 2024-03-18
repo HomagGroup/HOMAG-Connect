@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.IntelliDivide.Contracts.Common;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
@@ -58,7 +58,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// <summary>
         /// Gets or sets the type of the board.
         /// </summary>
-        public OptimizationBoardType Type { get; set; } = OptimizationBoardType.Board;
+        public BoardTypeType Type { get; set; } = BoardTypeType.Board;
 
         /// <summary>
         /// Gets or sets the length of the board.

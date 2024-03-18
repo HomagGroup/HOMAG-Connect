@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<LangVersion>8.0</LangVersion>
+		<LangVersion>12.0</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
 		<Title>Homag-Connect IntelliDivide Contracts</Title>
 		<Description>Client assembly for the usage of Homag-Connect IntelliDivide API</Description>
@@ -21,5 +21,9 @@
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
 	</ItemGroup>
 </Project>

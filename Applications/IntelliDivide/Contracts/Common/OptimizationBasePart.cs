@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-
+using HomagConnect.Base.Contracts.Enumerations;
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Common
@@ -37,7 +37,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         public string MaterialCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Common.Grain" /> of the part.
+        /// Gets or sets the <see cref="Grain" /> of the part.
         /// </summary>
         [Required]
         [JsonProperty(Order = 12)]

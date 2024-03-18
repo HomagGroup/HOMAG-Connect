@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
 
-using Newtonsoft.Json;
-
-namespace HomagConnect.IntelliDivide.Contracts.Converter
+namespace HomagConnect.Base.Contracts.Converter
 {
     /// <summary>
     /// We use this converter in order to extend in the future enum entries without breaking the deserialization of old

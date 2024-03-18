@@ -1,4 +1,5 @@
-﻿using HomagConnect.IntelliDivide.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Converter;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Common

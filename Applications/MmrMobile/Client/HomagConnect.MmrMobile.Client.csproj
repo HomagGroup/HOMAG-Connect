@@ -1,32 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Title>Homag-Connect MMR Mobile Client</Title>
-    <Description>Client assembly for the usage of Homag-Connect MMR Mobile routes</Description>
-    <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MmrMobile/Client</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>Homag-Connect MMR Mobile Client</Title>
+		<Description>Client assembly for the usage of Homag-Connect MMR Mobile routes</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MmrMobile/Client</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-    <None Include="..\Documentation\README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Resources\" />
+		<None Include="..\Documentation\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
+	</ItemGroup>
 
-  <ItemGroup Label="Package References">
-    <PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
-  </ItemGroup>
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+	</ItemGroup>
 </Project>

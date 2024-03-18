@@ -19,6 +19,20 @@ namespace HomagConnect.IntelliDivide.Client
 
         #endregion
 
+        #region Statistics
+
+        /// <summary>
+        /// Gets the statistics for the material efficiency.
+        /// </summary>
+        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
+        {
+            var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}".ToLowerInvariant();
+
+            return await RequestEnumerable<MaterialEfficiency>(url);
+        }
+
+        #endregion
+
         #region Constructors
 
         /// <inheritdoc />
@@ -35,20 +49,6 @@ namespace HomagConnect.IntelliDivide.Client
 
         /// <inheritdoc />
         public IntelliDivideClient(Guid subscriptionId, string accessToken, Guid partnerId, string homagConnectUrl) : base(subscriptionId, accessToken, partnerId, homagConnectUrl) { }
-
-        #endregion
-
-        #region Statistics
-
-        /// <summary>
-        /// Gets the statistics for the material efficiency.
-        /// </summary>
-        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
-        {
-            var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}".ToLowerInvariant();
-
-            return await RequestEnumerable<MaterialEfficiency>(url);
-        }
 
         #endregion
 
