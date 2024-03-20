@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     public class EdgebandTypeInventory
     {
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
-        public string Workstation { get; set; }
+        public string? Workstation { get; set; }
 
         public double? Length { get; set; }
 
@@ -22,6 +20,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
         public double? Quantity { get; set; }
 
-        public string AdditionalCommentsEdgeband { get; set; }
+        public string? AdditionalCommentsEdgeband { get; set; }
     }
 }

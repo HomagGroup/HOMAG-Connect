@@ -7,11 +7,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     public class EdgebandType
     {
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
-        public string MaterialCategory { get; set; }
+        public string? MaterialCategory { get; set; }
 
-        public string GluingCategory { get; set; }
+        public string? GluingCategory { get; set; }
 
         public double? Lasertec { get; set; }
 
@@ -21,7 +21,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
         public double? FunctionLayerThickness { get; set; }
 
-        public string MacroName { get; set; }
+        public string? MacroName { get; set; }
 
         public double? Height { get; set; }
 
@@ -29,17 +29,17 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
         public double? Length { get; set; }
 
-        public string ManufacturerName { get; set; }
+        public string? ManufacturerName { get; set; }
 
-        public string ProductName { get; set; }
+        public string? ProductName { get; set; }
 
-        public string DecorName { get; set; }
+        public string? DecorName { get; set; }
 
-        public string DecorCode { get; set; }
+        public string? DecorCode { get; set; }
 
-        public string DecorEmbossingCode { get; set; }
+        public string? DecorEmbossingCode { get; set; }
 
-        public string ArticleNumber { get; set; }
+        public string? ArticleNumber { get; set; }
 
         public double? Costs { get; set; }
 
@@ -47,7 +47,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
         public double? MinimumLengthAvailable { get; set; }
 
-        public string AdditionalNotes { get; set; }
+        public string? AdditionalNotes { get; set; }
 
         public double? TotalAmount { get; set; }
 
@@ -58,6 +58,5 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         public DateTimeOffset? LastUsedDate { get; set; }
 
         public ICollection<ImageInformation> Images { get; set; } = new List<ImageInformation>();
-
     }
 }
