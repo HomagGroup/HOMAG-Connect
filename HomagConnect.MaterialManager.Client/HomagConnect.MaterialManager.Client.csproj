@@ -1,14 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<LangVersion>11.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
-    <ProjectReference Include="..\HomagConnect.MaterialManager.Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
-  </ItemGroup>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+		<ProjectReference Include="..\HomagConnect.MaterialManager.Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
+	</ItemGroup>
 
 </Project>

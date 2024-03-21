@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
@@ -7,15 +8,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     public class EdgebandType
     {
+        [Key]
         public string? Code { get; set; }
 
         public string? MaterialCategory { get; set; }
 
         public string? GluingCategory { get; set; }
 
-        public double? Lasertec { get; set; }
+        public double? Lasertec { get; set; } // TODO: Bool?
 
-        public double? Airtec { get; set; }
+        public double? Airtec { get; set; }  // TODO: Bool?
 
         public double? ProtectionFilmThickness { get; set; }
 
@@ -43,17 +45,17 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
         public double? Costs { get; set; }
 
-        public double? MinimumAmountAvailable { get; set; }
+        public double? MinimumAmountAvailable { get; set; } // TODO: Align with <see cref="BoardType.TotalQuantityAvailableWarningLimit"/>.
 
         public double? MinimumLengthAvailable { get; set; }
 
-        public string? AdditionalNotes { get; set; }
+        public string? AdditionalNotes { get; set; } // TODO: Comments?
 
-        public double? TotalAmount { get; set; }
+        public double? TotalAmount { get; set; } // TODO: Total Quantity?
 
         public double? TotalLength { get; set; }
 
-        public bool? InsufficientInventory { get; set; }
+        public bool? InsufficientInventory { get; set; } // TODO: Align with <see cref="BoardType.TotalQuantityAvailableWarningLimitReached"/>. InsufficientInventory might be better.
 
         public DateTimeOffset? LastUsedDate { get; set; }
 

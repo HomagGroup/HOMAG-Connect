@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
@@ -12,35 +13,37 @@ namespace HomagConnect.MaterialManager.Client;
 
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    public const string BaseRoute = "api/materialManager/materials/boards";
-    public const string InventoryRoute = "/inventory";
-    public const string MaterialCodesRoute = "/materialCodes";
-    public const string MaterialCode = "materialCode";
-    public const string BoardCode = "boardCode";
-    public const string IncludingDetails = "includingDetails";
+    private const string _BaseRoute = "api/materialManager/materials/boards";
+    private const string _InventoryRoute = "/inventory";
+    private const string _MaterialCodesRoute = "/materialCodes";
+    private const string _MaterialCode = "materialCode";
+    private const string _BoardCode = "boardCode";
+    private const string _IncludingDetails = "includingDetails";
 
     public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
 
+    /// <inheritdoc />
     public async Task<BoardType> GetBoardType(string boardCode)
     {
-        var url = $"{BaseRoute}?{BoardCode}={Uri.EscapeDataString(boardCode)}";
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
         return await RequestObject<BoardType>(url);
     }
 
-    public async Task<IReadOnlyCollection<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
     {
-        var boardCodeList = boardCodes.ToList();
-        if (!boardCodeList.Any())
-        {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
-        }
+        ArgumentException.ThrowIfNullOrEmpty(nameof(boardCodes));
 
-        var codes = boardCodeList.OrderBy(b => b).Distinct().Where(b => !string.IsNullOrWhiteSpace(b));
+        var codes = boardCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).AsEnumerated();
 
-        var urls = CreateUrls(codes, BoardCode, InventoryRoute);
+        var urls = CreateUrls(codes, _BoardCode, _InventoryRoute);
 
         var boardCodesWithInventory = new List<BoardCodeWithInventory>();
+
         foreach (var url in urls)
         {
             boardCodesWithInventory.AddRange(await RequestEnumerable<BoardCodeWithInventory>(url));
@@ -49,26 +52,33 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardCodesWithInventory;
     }
 
-    public async Task<IReadOnlyCollection<BoardType>> GetBoardTypes(int take, int skip = 0)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
     {
-        var url = $"{BaseRoute}?take={take}&skip={skip}";
+        var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
-        return (await RequestEnumerable<BoardType>(url)).ToList();
+        return await RequestEnumerable<BoardType>(url);
     }
 
-    public async Task<IReadOnlyCollection<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
     {
-        var boardCodeList = boardCodes.ToList();
-        if (!boardCodeList.Any())
+        ArgumentException.ThrowIfNullOrEmpty(nameof(boardCodes));
+
+        var codes = boardCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).AsEnumerated();
+
+        if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
         }
 
-        var codes = boardCodeList.OrderBy(b => b).Distinct().Where(b => !string.IsNullOrWhiteSpace(b));
-
-        var urls = CreateUrls(codes, BoardCode);
+        var urls = CreateUrls(codes, _BoardCode);
 
         var boardTypes = new List<BoardType>();
+
         foreach (var url in urls)
         {
             boardTypes.AddRange(await RequestEnumerable<BoardType>(url));
@@ -77,33 +87,42 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardTypes;
     }
 
-    public async Task<IReadOnlyCollection<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
     {
-        var url = $"{BaseRoute}?{MaterialCode}={Uri.EscapeDataString(materialCode)}";
+        var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
-        return (await RequestEnumerable<BoardType>(url)).ToList();
+        return await RequestEnumerable<BoardType>(url);
     }
 
-    public async Task<IReadOnlyCollection<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
     {
-        var url = $"{BaseRoute}?{MaterialCode}={Uri.EscapeDataString(materialCode)}&{IncludingDetails}=true";
+        var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
-        return (await RequestEnumerable<BoardTypeDetails>(url)).ToList();
+        return await RequestEnumerable<BoardTypeDetails>(url);
     }
 
-    public async Task<IReadOnlyCollection<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
     {
-        var materialCodeList = materialCodes as string[] ?? materialCodes.ToArray();
-        if (!materialCodeList.Any())
+        ArgumentException.ThrowIfNullOrEmpty(nameof(materialCodes));
+
+        var codes = materialCodes
+            .Where(m => !string.IsNullOrWhiteSpace(m))
+            .Distinct()
+            .OrderBy(m => m)
+            .AsEnumerated();
+
+        if (!codes.Any())
         {
             throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
         }
 
-        var codes = materialCodeList.OrderBy(b => b).Distinct().Where(b => !string.IsNullOrWhiteSpace(b));
-
-        var urls = CreateUrls(codes, MaterialCode);
+        var urls = CreateUrls(codes, _MaterialCode);
 
         var boardCodesWithInventory = new List<BoardType>();
+
         foreach (var url in urls)
         {
             boardCodesWithInventory.AddRange(await RequestEnumerable<BoardType>(url));
@@ -112,19 +131,26 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardCodesWithInventory;
     }
 
-    public async Task<IReadOnlyCollection<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
     {
-        var materialCodeList = materialCodes.ToList();
-        if (!materialCodeList.Any())
+        ArgumentException.ThrowIfNullOrEmpty(nameof(materialCodes));
+
+        var codes = materialCodes
+            .Where(m => !string.IsNullOrWhiteSpace(m))
+            .Distinct()
+            .OrderBy(m => m)
+            .AsEnumerated();
+
+        if (!codes.Any())
         {
             throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
         }
 
-        var codes = materialCodeList.OrderBy(b => b).Distinct().Where(b => !string.IsNullOrWhiteSpace(b));
-
-        var uris = CreateUrls(codes, MaterialCode, includingDetails: true);
+        var uris = CreateUrls(codes, _MaterialCode, includingDetails: true);
 
         var boardTypesDetails = new List<BoardTypeDetails>();
+
         foreach (var uri in uris)
         {
             boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(uri));
@@ -133,19 +159,25 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardTypesDetails;
     }
 
-    public async Task<IReadOnlyCollection<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
     {
-        var boardCodeList = boardCodes.ToList();
-        if (!boardCodeList.Any())
+        ArgumentException.ThrowIfNullOrEmpty(nameof(boardCodes));
+
+        var codes = boardCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).AsEnumerated();
+
+        if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
         }
 
-        var codes = boardCodeList.OrderBy(b => b).Distinct().Where(b => !string.IsNullOrWhiteSpace(b));
-
-        var urls = CreateUrls(codes, BoardCode, includingDetails: true);
+        var urls = CreateUrls(codes, _BoardCode, includingDetails: true);
 
         var boardTypesDetails = new List<BoardTypeDetails>();
+
         foreach (var url in urls)
         {
             boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(url));
@@ -154,21 +186,23 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardTypesDetails;
     }
 
-    public async Task<IReadOnlyCollection<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0)
+    /// <inheritdoc />
+    public async Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0)
     {
-        var url = $"{BaseRoute}{MaterialCodesRoute}?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
+        var url = $"{_BaseRoute}{_MaterialCodesRoute}?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
 
-        return (await RequestEnumerable<MaterialCodeWithThumbnail>(url)).ToList();
+        return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
     }
 
-    public async Task<IReadOnlyCollection<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0)
+    /// <inheritdoc />
+    public async Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0)
     {
-        var url = $"{BaseRoute}{MaterialCodesRoute}?take={take}&skip={skip}";
+        var url = $"{_BaseRoute}{_MaterialCodesRoute}?take={take}&skip={skip}";
 
-        return (await RequestEnumerable<MaterialCodeWithThumbnail>(url)).ToList();
+        return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
     }
 
-    private List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "", bool includingDetails = false)
+    private static IEnumerable<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "", bool includingDetails = false)
     {
         var queryParameters = new StringBuilder("?");
         var i = 1;
@@ -178,15 +212,15 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         {
             queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
             // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit.
-            if (queryParameters.Length + BaseRoute.Length > 1900)
+            if (queryParameters.Length + _BaseRoute.Length > 1900)
             {
                 if (includingDetails)
                 {
-                    urls.Add($"{BaseRoute}{route}{queryParameters}&{includingDetails}=true");
+                    urls.Add($"{_BaseRoute}{route}{queryParameters}&{includingDetails}=true");
                 }
                 else
                 {
-                    urls.Add($"{BaseRoute}{route}{queryParameters}");
+                    urls.Add($"{_BaseRoute}{route}{queryParameters}");
                 }
 
                 queryParameters = new StringBuilder("?");
@@ -201,11 +235,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (includingDetails)
         {
-            urls.Add($"{BaseRoute}{route}{queryParameters}&{includingDetails}=true");
+            urls.Add($"{_BaseRoute}{route}{queryParameters}&{includingDetails}=true");
         }
         else
         {
-            urls.Add($"{BaseRoute}{route}{queryParameters}");
+            urls.Add($"{_BaseRoute}{route}{queryParameters}");
         }
 
         return urls;
