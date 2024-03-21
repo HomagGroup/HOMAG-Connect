@@ -35,13 +35,19 @@ namespace HomagConnect.Base.Contracts.Converter
             else if (reader.TokenType == JsonToken.Integer)
             {
                 int int32 = Convert.ToInt32(reader.Value);
-                if (((IEnumerable<int>)Enum.GetValues(enumType)).Contains<int>(int32))
-                    return Enum.Parse(enumType, int32.ToString());
+
+                foreach (var value in ((IEnumerable<int>)Enum.GetValues(enumType)))
+                {
+                    if (Equals(value, int32))
+                        return Enum.Parse(enumType, int32.ToString());
+                }
             }
 
             if (flag)
                 return (object)null;
-            string str1 = ((IEnumerable<string>)names).FirstOrDefault<string>((Func<string, bool>)(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase))) ??
+            string first = names.Where((Func<string, bool>)(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase))).FirstOrDefault();
+
+            string str1 = first ??
                           ((IEnumerable<string>)names).First<string>();
             return Enum.Parse(enumType, str1);
         }
