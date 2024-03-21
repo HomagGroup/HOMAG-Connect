@@ -4,6 +4,12 @@
 		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.MaterialManager.Contracts</PackageId>
+		<Title>Homag-Connect MaterialManager Contracts</Title>
+		<Description>Client assembly for the usage of Homag-Connect MaterialManager API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialManager/Contracts</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>

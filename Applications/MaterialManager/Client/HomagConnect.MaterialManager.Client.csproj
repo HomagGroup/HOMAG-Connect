@@ -5,6 +5,12 @@
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.MaterialManager.Client</PackageId>
+		<Title>Homag-Connect MaterialManager Client</Title>
+		<Description>Client assembly for the usage of Homag-Connect MaterialManager API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialManager/Client</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
 
 	</PropertyGroup>
 
