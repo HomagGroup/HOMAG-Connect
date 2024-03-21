@@ -14,13 +14,10 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client;
 
-public class MaterialManagerClientProcessingOptimization : HomagConnect.Base.Services.ServiceBase
+public class MaterialManagerClientProcessingOptimization : ServiceBase
 {
-    public MaterialManagerClientProcessingOptimization(HttpClient client) : base(client)
-    {
-        
-    }
-    
+    public MaterialManagerClientProcessingOptimization(HttpClient client) : base(client) { }
+
     public async Task<IDictionary<string, MaximumBookHeight>?> GetMaximumBookHeights(params string[] materialCodes)
     {
         var url = $"/api//materialManager/processing/optimization/bookheight".ToLowerInvariant();
