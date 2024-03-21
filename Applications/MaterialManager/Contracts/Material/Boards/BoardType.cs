@@ -52,6 +52,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the thickness.
         /// </summary>
         [JsonProperty(Order = 24)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Thickness { get; set; }
 
         /// <summary>

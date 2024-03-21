@@ -62,6 +62,26 @@ public static class ContainsUnitSystemDependentPropertiesExtensions
                         }
                     }
                 }
+                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.SquareMeter)
+                {
+                    var value = propertyInfo.GetValue(clone);
+
+                    if (value != null)
+                    {
+                        if (clone.UnitSystem == UnitSystem.Imperial)
+                        {
+                            propertyInfo.SetValue(clone, ConvertSquareMeterToSquareFeet(value));
+                        }
+                        else if (clone.UnitSystem == UnitSystem.Metric)
+                        {
+                            propertyInfo.SetValue(clone, ConvertSquareFeetToSquareMeter(value));
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("Invalid unit system.");
+                        }
+                    }
+                }
                 else
                 {
                     throw new NotImplementedException();
@@ -79,5 +99,15 @@ public static class ContainsUnitSystemDependentPropertiesExtensions
     private static double? ConvertMillimeterToInch(object value)
     {
         return (double?)value / 25.4;
+    }
+
+    private static double? ConvertSquareMeterToSquareFeet(object value)
+    {
+        return (double?)value * 10.7639104;
+    }
+
+    private static double? ConvertSquareFeetToSquareMeter(object value)
+    {
+        return (double?)value / 10.7639104;
     }
 }
