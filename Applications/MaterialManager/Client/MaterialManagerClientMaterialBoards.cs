@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 
 namespace HomagConnect.MaterialManager.Client;
 

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
-    public class BoardTypeInventory
+    public class BoardTypeInventory: IExtensibleDataObject
     {
         public string? OrderNumber { get; set; }
 
@@ -17,5 +18,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public string? AdditionalCommentsBoards { get; set; }
 
         public DateTimeOffset? CreationDate { get; set; }
+
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
     }
 }

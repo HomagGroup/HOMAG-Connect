@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
-    public class BoardTypeAllocation
+    public class BoardTypeAllocation: IExtensibleDataObject
     {
         public string? AllocationComments { get; set; }
 
@@ -13,5 +14,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public string? Type { get; set; }
 
         public string? Workstation { get; set; }
+
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
     }
 }

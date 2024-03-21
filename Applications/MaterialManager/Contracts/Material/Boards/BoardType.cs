@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -9,7 +10,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// <summary>
     /// The board type details.
     /// </summary>
-    public class BoardTypeDetails : BoardType
+    public class BoardTypeDetails : BoardType, IBoardCodeWithInventory
     {
         /// <summary>
         /// Gets or sets the board type allocations.

@@ -1,5 +1,8 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Material.Boards
+﻿namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
+    /// <summary>
+    /// The cutting standard quality.
+    /// </summary>
     public enum StandardQuality
     {
         /// <summary>

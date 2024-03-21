@@ -1,60 +1,53 @@
 ﻿using System.Collections.Generic;
-
+using System.Runtime.Serialization;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
-    public class BoardCodeWithInventory
+    /// <summary>
+    /// A board code with inventory.
+    /// </summary>
+    public class BoardCodeWithInventory : IBoardCodeWithInventory, IExtensibleDataObject
     {
-        /// <summary>
-        /// Gets or sets the board code.
-        /// </summary>
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
+
+        #region IBoardCodeWithInventory Members
+
+        /// <inheritdoc />
         [JsonProperty(Order = 1)]
         public string BoardCode { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Gets or sets the total quantity of boards of this type in the inventory.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 50)]
-        public int? TotalQuantity { get; set; } 
+        public int? TotalQuantityInInventory { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total quantity of boards of this type which have been allocated to a production order.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 51)]
-        public int? TotalQuantityAllocated { get; set; } 
+        public int? TotalQuantityAllocated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total quantity of boards of this type which are available in the inventory.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 52)]
         public int? TotalQuantityAvailable { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total area of boards of this type in the inventory. The unit depends on the settings of the
-        /// subscription (metric: m², imperial: ft²).
-        /// </summary>
         [JsonProperty(Order = 56)]
-        public double? TotalArea { get; set; } 
+        public double? TotalAreaInventory { get; }
 
-        /// <summary>
-        /// Gets or sets the total area of boards of this type which have been allocated to a production order. The unit depends on
-        /// the settings of the subscription (metric: m², imperial: ft²).
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 57)]
-        public double? TotalAreaAllocated { get; set; } 
+        public double? TotalAreaAllocated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the total area of boards of this type which are available in the inventory. The unit depends on the
-        /// settings of the subscription (metric: m², imperial: ft²).
-        /// </summary>
         [JsonProperty(Order = 58)]
         public double? TotalAreaAvailable { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board type inventory.
-        /// </summary>
         [JsonProperty(Order = 82)]
         public ICollection<BoardTypeInventory> Inventory { get; set; } = new List<BoardTypeInventory>();
+
+        #endregion
     }
 }

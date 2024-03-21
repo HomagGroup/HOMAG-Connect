@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
 
@@ -8,7 +9,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// <summary>
     /// A material code with thumbnail.
     /// </summary>
-    public class MaterialCodeWithThumbnail
+    public class MaterialCodeWithThumbnail: IExtensibleDataObject
     {
         /// <summary>
         /// Gets or sets the material code.
@@ -23,5 +24,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [JsonProperty(Order = 2)]
         public Uri? Thumbnail { get; set; }
+
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
     }
 }
