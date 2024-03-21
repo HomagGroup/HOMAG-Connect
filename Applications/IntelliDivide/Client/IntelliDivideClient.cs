@@ -435,6 +435,16 @@ namespace HomagConnect.IntelliDivide.Client
             await File.WriteAllBytesAsync(fileInfo.FullName, data);
         }
 
+        /// <inheritdoc />
+        public async Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId)
+        {
+            var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/parts".ToLowerInvariant();
+
+            var producedParts = await RequestEnumerable<SolutionPart>(url);
+
+            return producedParts;
+        }
+
         #endregion
     }
 }

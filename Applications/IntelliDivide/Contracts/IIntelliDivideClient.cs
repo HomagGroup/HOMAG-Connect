@@ -151,6 +151,14 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optimizationId">The optimization id</param>
+        /// <param name="solutionId">The solution id</param>
+        /// <returns>produced parts of the solution</returns>
+        Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
+
+        /// <summary>
         /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
         /// </summary>
         Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files);
