@@ -62,6 +62,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManage
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{5ECB8B6A-CD21-4E60-B2B8-543D10B4B4CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.MaterialManager.Tests", "Applications\MaterialManager\Tests\HomagConnect.MaterialManager.Tests.csproj", "{FB26B71F-ABD5-4FF5-81A2-F7C974472764}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,10 @@ Global
 		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +148,7 @@ Global
 		{34894EB7-8814-495C-B9E3-2E07A8946A11} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 		{99D3C526-53DF-4191-968F-6105F7CEB9FF} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 		{5ECB8B6A-CD21-4E60-B2B8-543D10B4B4CF} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
