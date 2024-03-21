@@ -114,6 +114,19 @@ namespace HomagConnect.Base.Services
 
         protected async Task<IEnumerable<T>> RequestEnumerable<T>(string url)
         {
+            var list = new List<T>();
+
+            await foreach (var item in RequestAsyncEnumerable<T>(url:url))
+            {
+                list.Add(item);
+            }
+
+            return list;
+        }
+
+
+        protected async IAsyncEnumerable<T> RequestAsyncEnumerable<T>(string url)
+        {
             var request = new HttpRequestMessage { Method = HttpMethod.Get };
             request.RequestUri = new Uri(url, UriKind.Relative);
 
@@ -121,9 +134,17 @@ namespace HomagConnect.Base.Services
             response.EnsureSuccessStatusCodeWithDetails(request);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
+            var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
 
-            return data ?? Array.Empty<T>();
+            if (enumerable == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in enumerable)
+            {
+                yield return item;
+            }
         }
 
         protected async Task<T> RequestObject<T>(string url)

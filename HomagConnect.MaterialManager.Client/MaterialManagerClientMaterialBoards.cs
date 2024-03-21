@@ -33,7 +33,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
     {
-        ArgumentException.ThrowIfNullOrEmpty(nameof(boardCodes));
+        if (boardCodes == null)
+        {
+            throw new ArgumentNullException(nameof(boardCodes));
+        }
 
         var codes = boardCodes
             .Where(b => !string.IsNullOrWhiteSpace(b))
@@ -63,7 +66,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
     {
-        ArgumentException.ThrowIfNullOrEmpty(nameof(boardCodes));
+        if (boardCodes == null)
+        {
+            throw new ArgumentNullException(nameof(boardCodes));
+        }
 
         var codes = boardCodes
             .Where(b => !string.IsNullOrWhiteSpace(b))
@@ -106,7 +112,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
     {
-        ArgumentException.ThrowIfNullOrEmpty(nameof(materialCodes));
+        if (materialCodes == null)
+        {
+            throw new ArgumentNullException(nameof(materialCodes));
+        }
 
         var codes = materialCodes
             .Where(m => !string.IsNullOrWhiteSpace(m))
@@ -134,7 +143,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
     {
-        ArgumentException.ThrowIfNullOrEmpty(nameof(materialCodes));
+        if (materialCodes == null)
+        {
+            throw new ArgumentNullException(nameof(materialCodes));
+        }
 
         var codes = materialCodes
             .Where(m => !string.IsNullOrWhiteSpace(m))
@@ -162,7 +174,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
     {
-        ArgumentException.ThrowIfNullOrEmpty(nameof(boardCodes));
+        if (boardCodes == null)
+        {
+            throw new ArgumentNullException(nameof(boardCodes));
+        }
 
         var codes = boardCodes
             .Where(b => !string.IsNullOrWhiteSpace(b))
