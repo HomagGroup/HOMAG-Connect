@@ -9,7 +9,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
 		<ProjectReference Include="..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+		<ProjectReference Include="..\Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
 		<ProjectReference Include="..\HomagConnect.MaterialManager.Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
 	</ItemGroup>
 
