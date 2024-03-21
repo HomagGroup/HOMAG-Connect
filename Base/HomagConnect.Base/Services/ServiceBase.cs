@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -114,16 +115,8 @@ namespace HomagConnect.Base.Services
 
         protected async Task<IEnumerable<T>> RequestEnumerable<T>(string url)
         {
-            var list = new List<T>();
-
-            await foreach (var item in RequestAsyncEnumerable<T>(url:url))
-            {
-                list.Add(item);
-            }
-
-            return list;
+            return await RequestAsyncEnumerable<T>(url).ToListAsync();
         }
-
 
         protected async IAsyncEnumerable<T> RequestAsyncEnumerable<T>(string url)
         {
