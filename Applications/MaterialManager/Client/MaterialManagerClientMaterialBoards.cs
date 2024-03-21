@@ -13,12 +13,18 @@ namespace HomagConnect.MaterialManager.Client;
 
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Constants
+
     private const string _BaseRoute = "api/materialManager/materials/boards";
     private const string _InventoryRoute = "/inventory";
     private const string _MaterialCodesRoute = "/materialCodes";
     private const string _MaterialCode = "materialCode";
     private const string _BoardCode = "boardCode";
     private const string _IncludingDetails = "includingDetails";
+
+    #endregion
+
+    #region Read
 
     public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
 
@@ -31,7 +37,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
+    public async IAsyncEnumerable<BoardCodeWithInventory> GetBoardTypeInventory(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -52,19 +58,27 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             boardCodesWithInventory.AddRange(await RequestEnumerable<BoardCodeWithInventory>(url));
         }
 
-        return boardCodesWithInventory;
+        foreach (var boardCode in boardCodesWithInventory)
+        {
+            yield return boardCode;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+    public async IAsyncEnumerable<BoardType> GetBoardTypes(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
-        return await RequestEnumerable<BoardType>(url);
+        var boardTypes = await RequestEnumerable<BoardType>(url);
+
+        foreach (var boardType in boardTypes)
+        {
+            yield return boardType;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
+    public async IAsyncEnumerable<BoardType> GetBoardTypes(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -90,27 +104,40 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             boardTypes.AddRange(await RequestEnumerable<BoardType>(url));
         }
 
-        return boardTypes;
+        foreach (var boardType in boardTypes)
+        {
+            yield return boardType;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
+    public async IAsyncEnumerable<BoardType> GetBoardTypesByMaterialCode(string materialCode)
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
-        return await RequestEnumerable<BoardType>(url);
+        var boardTypes = await RequestEnumerable<BoardType>(url);
+
+        foreach (var boardType in boardTypes)
+        {
+            yield return boardType;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
+    public async IAsyncEnumerable<BoardTypeDetails> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
-        return await RequestEnumerable<BoardTypeDetails>(url);
+        var boardTypesDetails = await RequestEnumerable<BoardTypeDetails>(url);
+
+        foreach (var boardTypesDetail in boardTypesDetails)
+        {
+            yield return boardTypesDetail;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
+    public async IAsyncEnumerable<BoardType> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
     {
         if (materialCodes == null)
         {
@@ -137,11 +164,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             boardCodesWithInventory.AddRange(await RequestEnumerable<BoardType>(url));
         }
 
-        return boardCodesWithInventory;
+        foreach (var boardCodeWithInventory in boardCodesWithInventory)
+        {
+            yield return boardCodeWithInventory;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
+    public async IAsyncEnumerable<BoardTypeDetails> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
     {
         if (materialCodes == null)
         {
@@ -168,11 +198,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(uri));
         }
 
-        return boardTypesDetails;
+        foreach (var boardTypeDetails in boardTypesDetails)
+        {
+            yield return boardTypeDetails;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
+    public async IAsyncEnumerable<BoardTypeDetails> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -198,26 +231,40 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(url));
         }
 
-        return boardTypesDetails;
+        foreach (var boardTypeDetails in boardTypesDetails)
+        {
+            yield return boardTypeDetails;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0)
+    public async IAsyncEnumerable<MaterialCodeWithThumbnail> GetMaterialCodes(string search, int take, int skip = 0)
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
 
-        return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
+        var materialCodesWithThumbnail = await RequestEnumerable<MaterialCodeWithThumbnail>(url);
+
+        foreach (var materialCodeWithThumbnail in materialCodesWithThumbnail)
+        {
+            yield return materialCodeWithThumbnail;
+        }
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0)
+    public async IAsyncEnumerable<MaterialCodeWithThumbnail> GetMaterialCodes(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?take={take}&skip={skip}";
 
-        return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
+        var materialCodesWithThumbnail = await RequestEnumerable<MaterialCodeWithThumbnail>(url);
+
+        foreach (var materialCodeWithThumbnail in materialCodesWithThumbnail)
+        {
+            yield return materialCodeWithThumbnail;
+        }
     }
 
-    private static IEnumerable<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "", bool includingDetails = false)
+    private static IEnumerable<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+        bool includingDetails = false)
     {
         var queryParameters = new StringBuilder("?");
         var i = 1;
@@ -226,12 +273,12 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         while (i <= codeList.Count)
         {
             queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
-            // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit.
+            // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
             if (queryParameters.Length + _BaseRoute.Length > 1900)
             {
                 if (includingDetails)
                 {
-                    urls.Add($"{_BaseRoute}{route}{queryParameters}&{includingDetails}=true");
+                    urls.Add($"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true");
                 }
                 else
                 {
@@ -250,7 +297,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (includingDetails)
         {
-            urls.Add($"{_BaseRoute}{route}{queryParameters}&{includingDetails}=true");
+            urls.Add($"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true");
         }
         else
         {
@@ -259,4 +306,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         return urls;
     }
+
+    #endregion
 }
