@@ -10,6 +10,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
     [TestMethod]
+    [TemporaryDisabledOnServer(2024,5,1)]
     public async Task CreatedCuttingOptimizationBasedOnExcelFile()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -18,6 +19,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 5, 1)]
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {
         var intelliDivide = GetIntelliDivideClient();
