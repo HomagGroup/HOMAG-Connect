@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the list of additional images.
         /// </summary>
         [JsonProperty(Order = 81)]
-        public ICollection<ImageInformation> Images { get; set; } = new List<ImageInformation>();
+        public ICollection<ImageInformation> Images { get; set; } = new List<ImageInformation>(); // TODO: Restructure when adding additional data.
 
         /// <summary>
         /// Gets or sets the board type inventory.
