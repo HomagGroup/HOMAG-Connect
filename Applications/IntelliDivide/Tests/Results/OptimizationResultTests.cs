@@ -97,4 +97,13 @@ public class OptimizationResultTests : IntelliDivideTestBase
         Assert.IsNotNull(materialStatisticsAsync);
         Assert.IsFalse(!materialStatisticsAsync.Any());
     }
+
+    /// <summary />
+    [TestMethod]
+    public async Task Solution_ProducedParts()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetSolutionPartsSample(intelliDivide);
+    }
 }
