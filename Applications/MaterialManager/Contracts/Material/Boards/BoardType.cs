@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -12,18 +15,28 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// A board type.
     /// </summary>
     [DebuggerDisplay("{BoardCode}")]
-    public class BoardType
+    public class BoardType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {
-        /// <summary>
-        /// Gets or sets the unit system.
-        /// </summary>
-        public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
         /// <summary>
         /// Gets or sets the timestamp when board type has been used last.
         /// </summary>
         [JsonProperty(Order = 90)]
         public DateTimeOffset? LastUsed { get; set; }
+
+        #region IContainsUnitSystemDependentProperties Members
+
+        /// <inheritdoc />
+
+        public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+
+        #endregion
+
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
 
         #region Material
 
@@ -72,6 +85,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [Required]
         [Range(0.1, 9999.9)]
         [JsonProperty(Order = 22)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
 
         /// <summary>
@@ -81,6 +95,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [Required]
         [Range(0.1, 9999.9)]
         [JsonProperty(Order = 23)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
         /// <summary>
@@ -94,7 +109,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [JsonProperty(Order = 26)]
         public double? Costs { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the type of the board.
         /// </summary>
@@ -218,7 +233,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
                 throw new NotSupportedException();
             }
-        } 
+        }
 
         /// <summary>
         /// Gets or sets the total area of boards of this type which have been allocated to a production order. The unit depends on
@@ -246,14 +261,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
                 throw new NotSupportedException();
             }
-        } 
+        }
 
         /// <summary>
         /// Gets or sets the total area of boards of this type which are available in the inventory. The unit depends on the
         /// settings of the subscription (metric: m², imperial: ft²).
         /// </summary>
         [JsonProperty(Order = 58)]
-        public double? TotalAreaAvailable 
+        public double? TotalAreaAvailable
         {
             get
             {
