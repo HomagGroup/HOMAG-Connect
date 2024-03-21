@@ -109,7 +109,7 @@ stages:
         #  displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg"
-          displayName: "Publish HomagConnect MaterialManager Contracts Samples package on nuget.org"
+          displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg"
           displayName: "Publish HomagConnect MaterialManager Client NuGet package on nuget.org"
