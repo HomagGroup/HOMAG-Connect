@@ -1,13 +1,26 @@
+using FluentAssertions;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 namespace HomagConnect.MaterialManager.Tests
 {
     [TestClass]
-    public class BoardTypeTests
+    [TestCategory("MaterialManager")]
+    [TestCategory("MaterialManager.Boards")]
+    public class BoardTypeTests : TestBase
     {
-        public virtual TestContext? TestContext { get; set; }
+        protected override Guid UserSecretsFolder { get; set; } = new("7a028258-94b9-4d79-822a-1005e4558b74");
+
+        [TestMethod]
+        public void BoardType_CheckConfiguration_ConfigValid()
+        {
+            BaseUrl.Should().NotBeNullOrEmpty();
+            SubscriptionId.Should().NotBeEmpty();
+            Token.Should().NotBeNullOrEmpty();
+        }
 
         [TestMethod]
         public void BoardType_SwitchUnitSystem_LengthWidthThicknessChanged()
@@ -18,25 +31,17 @@ namespace HomagConnect.MaterialManager.Tests
             boardTypeMetric.Width = 600;
             boardTypeMetric.Thickness = 19;
 
+            Trace(boardTypeMetric);
+
             var boardTypeImperial = boardTypeMetric.SwitchUnitSystem(UnitSystem.Imperial);
 
-           Assert.AreEqual(UnitSystem.Imperial, boardTypeImperial.UnitSystem);
+            Trace(boardTypeImperial);
 
-           Assert.AreNotEqual(boardTypeMetric.Length, boardTypeImperial.Length);
-           Assert.AreNotEqual(boardTypeMetric.Width, boardTypeImperial.Width);
-           Assert.AreNotEqual(boardTypeMetric.Thickness, boardTypeImperial.Thickness);
-        }
+            Assert.AreEqual(UnitSystem.Imperial, boardTypeImperial.UnitSystem);
 
-        protected void Trace(string o)
-        {
-            if (TestContext == null)
-            {
-                Console.WriteLine(o);
-            }
-            else
-            {
-                TestContext.WriteLine(o);
-            }
+            Assert.AreNotEqual(boardTypeMetric.Length, boardTypeImperial.Length);
+            Assert.AreNotEqual(boardTypeMetric.Width, boardTypeImperial.Width);
+            Assert.AreNotEqual(boardTypeMetric.Thickness, boardTypeImperial.Thickness);
         }
     }
 }
