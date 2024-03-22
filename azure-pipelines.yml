@@ -101,6 +101,7 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
+
           
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"      
