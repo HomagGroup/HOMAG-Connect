@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -114,6 +115,11 @@ namespace HomagConnect.Base.Services
 
         protected async Task<IEnumerable<T>> RequestEnumerable<T>(string url)
         {
+            return await RequestAsyncEnumerable<T>(url).ToListAsync();
+        }
+
+        protected async IAsyncEnumerable<T> RequestAsyncEnumerable<T>(string url)
+        {
             var request = new HttpRequestMessage { Method = HttpMethod.Get };
             request.RequestUri = new Uri(url, UriKind.Relative);
 
@@ -121,9 +127,17 @@ namespace HomagConnect.Base.Services
             response.EnsureSuccessStatusCodeWithDetails(request);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
+            var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
 
-            return data ?? Array.Empty<T>();
+            if (enumerable == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in enumerable)
+            {
+                yield return item;
+            }
         }
 
         protected async Task<T> RequestObject<T>(string url)

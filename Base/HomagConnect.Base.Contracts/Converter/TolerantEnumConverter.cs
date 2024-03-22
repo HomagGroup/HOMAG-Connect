@@ -10,45 +10,97 @@ namespace HomagConnect.Base.Contracts.Converter
     public class TolerantEnumConverter : JsonConverter
     {
         /// <inheritdoc />
-        public override bool CanConvert(Type objectType) => (this.IsNullableType(objectType) ? Nullable.GetUnderlyingType(objectType) : objectType).IsEnum;
+        public override bool CanConvert(Type objectType)
+        {
+            if (IsNullableType(objectType))
+            {
+                var underlyingType = Nullable.GetUnderlyingType(objectType);
+
+                if (underlyingType != null)
+                {
+                    return underlyingType.IsEnum;
+                }
+            }
+            else
+            {
+                return objectType.IsEnum;
+            }
+
+            return false;
+        }
 
         /// <inheritdoc />
-        public override object ReadJson(
+        public override object? ReadJson(
             JsonReader reader,
             Type objectType,
-            object existingValue,
+            object? existingValue,
             JsonSerializer serializer)
         {
-            bool flag = this.IsNullableType(objectType);
-            Type enumType = flag ? Nullable.GetUnderlyingType(objectType) : objectType;
-            string[] names = Enum.GetNames(enumType);
+            if (objectType == null)
+            {
+                throw new ArgumentNullException(nameof(objectType));
+            }
+
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            if (reader.Value == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            var flag = IsNullableType(objectType);
+            var enumType = flag ? Nullable.GetUnderlyingType(objectType) : objectType;
+
+            if (enumType == null)
+            {
+                throw new NotSupportedException();
+            }
+
+            var names = Enum.GetNames(enumType);
+
             if (reader.TokenType == JsonToken.String)
             {
-                string enumText = reader.Value.ToString();
+                var enumText = reader.Value.ToString();
+
                 if (!string.IsNullOrEmpty(enumText))
                 {
-                    string str = ((IEnumerable<string>)names).FirstOrDefault<string>((Func<string, bool>)(n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase)));
-                    if (str != null)
+                    var str = names.FirstOrDefault(n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase));
+
+                    if (!string.IsNullOrWhiteSpace(str))
+                    {
                         return Enum.Parse(enumType, str);
+                    }
                 }
             }
             else if (reader.TokenType == JsonToken.Integer)
             {
-                int int32 = Convert.ToInt32(reader.Value);
-                if (((IEnumerable<int>)Enum.GetValues(enumType)).Contains<int>(int32))
+                var int32 = Convert.ToInt32(reader.Value);
+                var enumValues = Enum.GetValues(enumType).OfType<int>();
+
+                if (enumValues == null) throw new NotSupportedException();
+
+                if (enumValues.Contains(int32))
+                {
                     return Enum.Parse(enumType, int32.ToString());
+                }
             }
 
             if (flag)
-                return (object)null;
-            string str1 = ((IEnumerable<string>)names).FirstOrDefault<string>((Func<string, bool>)(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase))) ??
-                          ((IEnumerable<string>)names).First<string>();
+            {
+                return null;
+            }
+
+            var str1 = names.FirstOrDefault(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase)) ?? names.First();
+
             return Enum.Parse(enumType, str1);
         }
 
         /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => writer.WriteValue(value.ToString());
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => writer.WriteValue(value?.ToString());
 
-        private bool IsNullableType(Type t) => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
+        private static bool IsNullableType(Type t) => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
     }
 }

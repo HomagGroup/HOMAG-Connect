@@ -1,17 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<LangVersion>11.0</LangVersion>
-		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
-		<Title>Homag-Connect IntelliDivide Contracts</Title>
-		<Description>Client assembly for the usage of Homag-Connect IntelliDivide API</Description>
-		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Contracts</PackageProjectUrl>
-		<PackageReadmeFile></PackageReadmeFile>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.MaterialManager.Contracts</PackageId>
+		<Title>Homag-Connect MaterialManager Contracts</Title>
+		<Description>Client assembly for the usage of Homag-Connect MaterialManager API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialManager/Contracts</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<EmbedAllSources>true</EmbedAllSources>
-		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,4 +24,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
 	</ItemGroup>
+
 </Project>
