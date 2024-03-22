@@ -44,7 +44,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, TimeSpan.FromMinutes(1));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(1));
 
             optimization.Trace(nameof(optimization));
         }
@@ -63,7 +63,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for transferred
-            var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(1));
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(1));
 
             optimization.Trace(nameof(optimization));
         }
@@ -74,7 +74,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, TimeSpan.FromSeconds(120));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromSeconds(120));
 
             if (optimization.Status != OptimizationStatus.Optimized)
             {
@@ -84,7 +84,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             {
                 optimization.Trace(nameof(optimization));
 
-                var solutions = (await intelliDivide.GetSolutionsAsync(optimization.Id)).ToArray() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
+                var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
                 solutions.Trace(nameof(solutions));
 
                 var balancedSolutionDetails = await intelliDivide.GetSolutionDetailsAsync(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
@@ -102,7 +102,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, TimeSpan.FromSeconds(120));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromSeconds(120));
 
             if (optimization.Status != OptimizationStatus.Optimized)
             {
@@ -135,7 +135,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = new OptimizationRequest();
 
             var machine = await intelliDivide.GetMachineAsync("productionAssist Cutting");
-            var parameter = (await intelliDivide.GetParametersAsync(machine.OptimizationType)).OrderBy(p => p.Name).First();
+            var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).OrderBy(p => p.Name).FirstAsync();
 
             request.Name = optimizationName + DateTime.Now.ToString("s");
             request.Machine = machine.Name;

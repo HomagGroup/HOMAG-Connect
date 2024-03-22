@@ -1,5 +1,4 @@
-﻿using HomagConnect.IntelliDivide.Client;
-using HomagConnect.IntelliDivide.Contracts;
+﻿using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
@@ -13,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         /// <summary />
         public static async Task GetCuttingMachinesSample(IIntelliDivideClient intelliDivide)
         {
-            var machines = (await intelliDivide.GetMachinesAsync(OptimizationType.Cutting)).ToArray();
+            var machines = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).ToListAsync();
 
             Assert.IsNotNull(machines);
             Assert.IsTrue(machines.Any());
@@ -26,7 +25,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         /// <summary />
         public static async Task GetMachinesSample(IIntelliDivideClient intelliDivide)
         {
-            var machines = (await intelliDivide.GetMachinesAsync()).ToArray();
+            var machines = await intelliDivide.GetMachinesAsync().ToListAsync();
 
             Assert.IsNotNull(machines);
             Assert.IsTrue(machines.Any());
@@ -40,7 +39,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         {
             const OptimizationType optimizationType = OptimizationType.Nesting;
 
-            var machines = (await intelliDivide.GetMachinesAsync(optimizationType)).ToArray();
+            var machines = await intelliDivide.GetMachinesAsync(optimizationType).ToListAsync();
 
             Assert.IsNotNull(machines);
             Assert.IsTrue(machines.Any());

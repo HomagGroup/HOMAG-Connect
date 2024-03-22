@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.IntelliDivide.Contracts.Common;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {

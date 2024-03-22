@@ -78,7 +78,7 @@ do
                 s.Key.StateId,
                 s.Key.StateTranslation,
                 StateTime = s.Sum(x => x.DurationInHours),
-            });
+            }).ToArray();
             var maximumWorkingHours = groupedStates.Sum(c => c.StateTime);
             Console.WriteLine("\nYour machines have been in the following stages for this many hours:");
             foreach (var state in groupedStates)

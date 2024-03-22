@@ -24,11 +24,11 @@ namespace HomagConnect.IntelliDivide.Client
         /// <summary>
         /// Gets the statistics for the material efficiency.
         /// </summary>
-        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
+        public IAsyncEnumerable<MaterialEfficiency> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}".ToLowerInvariant();
 
-            return await RequestEnumerable<MaterialEfficiency>(url);
+            return RequestAsyncEnumerable<MaterialEfficiency>(url);
         }
 
         #endregion
@@ -55,10 +55,10 @@ namespace HomagConnect.IntelliDivide.Client
         #region Settings (Machines, Parameters, Import templates)
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "")
+        public IAsyncEnumerable<OptimizationImportTemplate> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "")
         {
             var url = $"/api/intelliDivide/{optimizationType}/templates".ToLowerInvariant();
-            var templates = await RequestEnumerable<OptimizationImportTemplate>(url);
+            var templates = RequestAsyncEnumerable<OptimizationImportTemplate>(url);
 
             if (!string.IsNullOrEmpty(fileExtension))
             {
@@ -76,32 +76,30 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<OptimizationMachine> GetMachineAsync(string machineName)
         {
-            var machines = await GetMachinesAsync();
-
-            return machines.First(m => m.Name == machineName);
+            return await GetMachinesAsync().FirstAsync(m => string.Equals(m.Name, machineName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationMachine>> GetMachinesAsync()
+        public IAsyncEnumerable<OptimizationMachine> GetMachinesAsync()
         {
-            var cuttingMachines = await GetMachinesAsync(OptimizationType.Cutting);
-            var nestingMachines = await GetMachinesAsync(OptimizationType.Nesting);
+            var cuttingMachines =  GetMachinesAsync(OptimizationType.Cutting);
+            var nestingMachines =  GetMachinesAsync(OptimizationType.Nesting);
 
             return cuttingMachines.Union(nestingMachines).OrderBy(m => m.Name);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType)
+        public IAsyncEnumerable<OptimizationMachine> GetMachinesAsync(OptimizationType optimizationType)
         {
             var url = $"/api/intelliDivide/{optimizationType}/machines".ToLowerInvariant();
-            return await RequestEnumerable<OptimizationMachine>(url);
+            return RequestAsyncEnumerable<OptimizationMachine>(url);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType)
+        public IAsyncEnumerable<OptimizationParameter> GetParametersAsync(OptimizationType optimizationType)
         {
             var url = $"/api/intelliDivide/{optimizationType}/parameters".ToLowerInvariant();
-            return await RequestEnumerable<OptimizationParameter>(url);
+            return RequestAsyncEnumerable<OptimizationParameter>(url);
         }
 
         #endregion
@@ -215,13 +213,13 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
+        public async Task<Optimization> WaitForCompletionAsync(Guid optimizationId, TimeSpan maxDuration)
         {
-            return await WaitForOptimizationStatus(optimizationId, OptimizationStatus.Optimized, maxDuration);
+            return await WaitForOptimizationStatusAsync(optimizationId, OptimizationStatus.Optimized, maxDuration);
         }
 
         /// <inheritdoc />
-        public async Task<Optimization> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration)
+        public async Task<Optimization> WaitForOptimizationStatusAsync(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration)
         {
             var timeout = DateTime.Now + maxDuration;
 
@@ -288,7 +286,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, int take, int skip = 0)
+        public IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -297,11 +295,11 @@ namespace HomagConnect.IntelliDivide.Client
 
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&take={take}&skip={skip}".ToLowerInvariant();
 
-            return await RequestEnumerable<Optimization>(url);
+            return RequestAsyncEnumerable<Optimization>(url);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, int take, int skip = 0)
+        public IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -310,11 +308,11 @@ namespace HomagConnect.IntelliDivide.Client
 
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
 
-            return await RequestEnumerable<Optimization>(url);
+            return RequestAsyncEnumerable<Optimization>(url);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0)
+        public IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
             {
@@ -323,11 +321,11 @@ namespace HomagConnect.IntelliDivide.Client
 
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}".ToLowerInvariant();
 
-            return await RequestEnumerable<Optimization>(url);
+            return RequestAsyncEnumerable<Optimization>(url);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
+        public IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
             int take, int skip = 0)
         {
             if (take is > _TakeLimit or 0)
@@ -337,23 +335,23 @@ namespace HomagConnect.IntelliDivide.Client
 
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
 
-            return await RequestEnumerable<Optimization>(url);
+            return RequestAsyncEnumerable<Optimization>(url);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(int take, int skip = 0)
+        public IAsyncEnumerable<Optimization> GetOptimizationsAsync(int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}".ToLowerInvariant();
 
-            return await RequestEnumerable<Optimization>(url);
+            return RequestAsyncEnumerable<Optimization>(url);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, int take, int skip = 0)
+        public IAsyncEnumerable<Optimization> GetOptimizationsAsync(string orderBy, int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}&orderBy={orderBy}".ToLowerInvariant();
 
-            return await RequestEnumerable<Optimization>(url);
+            return RequestAsyncEnumerable<Optimization>(url);
         }
 
         /// <inheritdoc />
@@ -369,7 +367,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}/archive".ToLowerInvariant();
 
-            await PostObject<string>(url);
+            await PostObject(url);
         }
 
         /// <inheritdoc />
@@ -377,7 +375,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}".ToLowerInvariant();
 
-            await DeleteObject<string>(url);
+            await DeleteObject(url);
         }
 
         /// <inheritdoc />
@@ -403,13 +401,11 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId)
+        public IAsyncEnumerable<Solution> GetSolutionsAsync(Guid optimizationId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions".ToLowerInvariant();
 
-            var solutions = await RequestEnumerable<Solution>(url);
-
-            return solutions;
+            return RequestAsyncEnumerable<Solution>(url);
         }
 
         /// <inheritdoc />
@@ -436,13 +432,11 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId)
+        public IAsyncEnumerable<SolutionPart> GetSolutionProducedParts(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/parts".ToLowerInvariant();
 
-            var producedParts = await RequestEnumerable<SolutionPart>(url);
-
-            return producedParts;
+            return RequestAsyncEnumerable<SolutionPart>(url);
         }
 
         #endregion

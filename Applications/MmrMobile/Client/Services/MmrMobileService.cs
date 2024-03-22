@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
@@ -64,7 +62,7 @@ namespace HomagConnect.MmrMobile.Client.Services
             return machineCounterResponse;
         }
 
-        private string GetParameters(DateTime? from, DateTime? to, string machineNumber, string instanceId, string machineType,
+        private static string GetParameters(DateTime? from, DateTime? to, string machineNumber, string instanceId, string machineType,
             string stateId, string detailedStateId, string counterId, Granularity? granularity)
         {
             string parameters = string.Empty;

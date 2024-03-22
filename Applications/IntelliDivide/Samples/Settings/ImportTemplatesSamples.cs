@@ -1,5 +1,4 @@
-﻿using HomagConnect.IntelliDivide.Client;
-using HomagConnect.IntelliDivide.Contracts;
+﻿using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
@@ -13,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         /// <summary />
         public static async Task GetCuttingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
-            var templates = (await intelliDivide.GetImportTemplatesAsync(OptimizationType.Cutting)).ToArray();
+            var templates = await intelliDivide.GetImportTemplatesAsync(OptimizationType.Cutting).ToListAsync();
 
             Assert.IsNotNull(templates);
             Assert.IsTrue(templates.Any());
@@ -26,8 +25,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         /// <summary />
         public static async Task GetNestingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
-            var templates = (await intelliDivide.GetImportTemplatesAsync(OptimizationType.Nesting)).ToArray();
-
+            var templates = await intelliDivide.GetImportTemplatesAsync(OptimizationType.Nesting).ToListAsync();
             Assert.IsNotNull(templates);
             Assert.IsTrue(templates.Any());
             Assert.IsFalse(templates.Any(m => m.OptimizationType != OptimizationType.Nesting));

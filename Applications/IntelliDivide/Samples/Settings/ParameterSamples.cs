@@ -12,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         /// <summary />
         public static async Task GetCuttingParametersSample(IIntelliDivideClient intelliDivide)
         {
-            var parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Cutting)).ToArray();
+            var parameters = await intelliDivide.GetParametersAsync(OptimizationType.Cutting).ToListAsync();
 
             Assert.IsNotNull(parameters);
             Assert.IsTrue(parameters.Any());
@@ -25,7 +25,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         /// <summary />
         public static async Task GetNestingParametersSample(IIntelliDivideClient intelliDivide)
         {
-            var parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting)).ToArray();
+            var parameters = await intelliDivide.GetParametersAsync(OptimizationType.Nesting).ToListAsync();
 
             Assert.IsNotNull(parameters);
             Assert.IsTrue(parameters.Any());

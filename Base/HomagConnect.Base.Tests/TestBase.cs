@@ -57,6 +57,11 @@ namespace HomagConnect.Base.Tests
 
         private IConfigurationRoot? Configuration { get; set; }
 
+        protected static string EncodeBase64Token(string username, string token)
+        {
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{token}"));
+        }
+
         protected string GetConfigurationSetting(string key)
         {
             {
@@ -87,25 +92,34 @@ namespace HomagConnect.Base.Tests
 
         protected void Trace(IEnumerable enumerable, [CallerMemberName] string description = "")
         {
-            Console.WriteLine(description);
-
-            Console.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
-
-            Console.WriteLine(string.Empty);
+            if (TestContext == null)
+            {
+                Console.WriteLine(description);
+                Console.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+                Console.WriteLine(string.Empty);
+            }
+            else
+            {
+                TestContext.WriteLine(description);
+                TestContext.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+                TestContext.WriteLine(string.Empty);
+            }
         }
 
         protected void Trace(object o, [CallerMemberName] string description = "")
         {
-            Console.WriteLine(description);
-
-            Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
-
-            Console.WriteLine(string.Empty);
-        }
-
-        protected string EncodeBase64Token(string username, string token)
-        {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{token}"));
+            if (TestContext == null)
+            {
+                Console.WriteLine(description);
+                Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+                Console.WriteLine(string.Empty);
+            }
+            else
+            {
+                TestContext.WriteLine(description);
+                TestContext.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+                TestContext.WriteLine(string.Empty);
+            }
         }
     }
 }

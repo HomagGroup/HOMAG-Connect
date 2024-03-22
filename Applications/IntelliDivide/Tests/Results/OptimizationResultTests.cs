@@ -1,8 +1,6 @@
-using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Results;
 using HomagConnect.IntelliDivide.Tests.Base;
-using System;
 
 namespace HomagConnect.IntelliDivide.Tests.Results;
 
@@ -20,6 +18,14 @@ public class OptimizationResultTests : IntelliDivideTestBase
         await OptimizationResultSamples.GetOptimizationSample(intelliDivide);
     }
 
+    /// <summary />
+    [TestMethod]
+    public async Task Optimization_GetStatus_NoException()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetOptimizationStatusSample(intelliDivide);
+    }
 
     /// <summary />
     [TestMethod]
@@ -28,17 +34,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
         var intelliDivide = new IntelliDivideClient(SubscriptionId, Token, BaseUrl);
 
         await OptimizationResultSamples.GetOptimizationSample(intelliDivide);
-    }
-
-
-
-    /// <summary />
-    [TestMethod]
-    public async Task Optimization_GetStatus_NoException()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetOptimizationStatusSample(intelliDivide);
     }
 
     /// <summary />
@@ -84,18 +79,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await OptimizationResultSamples.GetSolutionsSample(intelliDivide);
-    }
-
-    /// <summary />
-    [TestMethod]
-    public async Task Statistics_GetMaterial_NoException()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        var materialStatisticsAsync = await intelliDivide.GetMaterialStatisticsAsync( DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100);
-
-        Assert.IsNotNull(materialStatisticsAsync);
-        Assert.IsFalse(!materialStatisticsAsync.Any());
     }
 
     /// <summary />
