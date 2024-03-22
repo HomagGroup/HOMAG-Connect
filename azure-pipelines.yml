@@ -99,12 +99,15 @@ stages:
         #  displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"
         #  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
 
+        - script: echo "name is variables['Build.SourceBranch']"
+
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
+          condition: and(succeeded(), or (eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide'))
 
           
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"      
+          displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
