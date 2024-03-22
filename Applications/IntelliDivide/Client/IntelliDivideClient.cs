@@ -124,7 +124,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             using var httpContent = new MultipartFormDataContent();
 
-            var json = JsonConvert.SerializeObject(optimizationRequest);
+            var json = JsonConvert.SerializeObject(optimizationRequest, SerializerSettings.Default);
 
             httpContent.Add(new StringContent(json), nameof(optimizationRequest));
 
@@ -156,7 +156,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             using var httpContent = new MultipartFormDataContent();
 
-            var json = JsonConvert.SerializeObject(optimizationRequest);
+            var json = JsonConvert.SerializeObject(optimizationRequest, SerializerSettings.Default);
 
             httpContent.Add(new StringContent(json), nameof(optimizationRequest));
 
@@ -192,7 +192,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             using var httpContent = new MultipartFormDataContent();
 
-            var json = JsonConvert.SerializeObject(optimizationRequest);
+            var json = JsonConvert.SerializeObject(optimizationRequest, SerializerSettings.Default);
 
             httpContent.Add(new StringContent(json), nameof(optimizationRequest));
 
