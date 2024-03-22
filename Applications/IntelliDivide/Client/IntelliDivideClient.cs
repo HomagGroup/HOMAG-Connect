@@ -126,7 +126,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var json = JsonConvert.SerializeObject(optimizationRequest);
 
-            httpContent.Add(new StringContent(json));
+            httpContent.Add(new StringContent(json), nameof(optimizationRequest));
 
             foreach (var file in files)
             {
@@ -158,7 +158,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var json = JsonConvert.SerializeObject(optimizationRequest);
 
-            httpContent.Add(new StringContent(json));
+            httpContent.Add(new StringContent(json), nameof(optimizationRequest));
 
             foreach (var file in files)
             {
@@ -194,7 +194,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var json = JsonConvert.SerializeObject(optimizationRequest);
 
-            httpContent.Add(new StringContent(json));
+            httpContent.Add(new StringContent(json), nameof(optimizationRequest));
 
             HttpContent streamContent = new StreamContent(stream);
             httpContent.Add(streamContent, fileName, fileName);
