@@ -1,3 +1,5 @@
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+
 # HOMAG IntelliDivide Client
 
 The [HOMAG IntelliDivide Client](./homagconnect.intellidivide.client.intellidivideclient.md) enables access to the intelliDivide application for integration into your own applications. The functions offered on the website are available for a programmatic integration.
