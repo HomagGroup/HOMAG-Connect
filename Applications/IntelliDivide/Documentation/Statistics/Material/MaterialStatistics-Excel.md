@@ -32,7 +32,7 @@ Rename table and columns to make them easier to use in reports.
 
 ![alt text](MaterialStatistics-Excel-07.jpg)
 
-Close Query Editor: Once you have made any necessary changes to the table and columns, you can close the Query Editor and return to Excel.
+Once you have made any necessary changes to the table and columns, you can close the Query Editor and return to Excel.
 
 ![alt text](MaterialStatistics-Excel-08.jpg)
 
