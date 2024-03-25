@@ -12,4 +12,4 @@ The most important functions are described below. More can be found in the [Docu
 
 1. [Authorization](Authorization/Authorization.md)
 2. [Request an optimization](OptimizationRequest/OptimizationRequest.md)
-3. Anaylze Data (Statistics/MaterialStatistics.md)
+3. [Anaylze Data](Statistics/MaterialStatistics.md)
