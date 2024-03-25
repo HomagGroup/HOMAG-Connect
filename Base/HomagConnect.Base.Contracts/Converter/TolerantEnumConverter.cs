@@ -67,7 +67,7 @@ namespace HomagConnect.Base.Contracts.Converter
 
                 if (!string.IsNullOrEmpty(enumText))
                 {
-                    var str = names.FirstOrDefault(n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase));
+                    string str = names.FirstOrDefault(n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase));
 
                     if (!string.IsNullOrWhiteSpace(str))
                     {
