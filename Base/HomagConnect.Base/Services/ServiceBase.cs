@@ -9,8 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using static System.Net.WebRequestMethods;
 
 namespace HomagConnect.Base.Services
 {
@@ -79,13 +77,16 @@ namespace HomagConnect.Base.Services
             var verStr = new StreamReader(verStream);
             var versions = JsonConvert.DeserializeObject<VersionInformation>(verStr.ReadToEnd());
 
-            // get the latest version / this is the default version for our APIs
-            ApiVersion = versions.Default.DateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-            if (!string.IsNullOrEmpty(ApiVersion) && !Client.DefaultRequestHeaders.Contains(versions.HeaderKey))
+            if (versions != null)
             {
-                HeaderKey = versions.HeaderKey;
-                Client.DefaultRequestHeaders.Add(versions.HeaderKey, ApiVersion);
+                // get the latest version / this is the default version for our APIs
+                ApiVersion = versions.Default.DateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                if (!string.IsNullOrEmpty(ApiVersion) && !Client.DefaultRequestHeaders.Contains(versions.HeaderKey))
+                {
+                    HeaderKey = versions.HeaderKey;
+                    Client.DefaultRequestHeaders.Add(versions.HeaderKey, ApiVersion);
+                }
             }
         }
 
@@ -167,7 +168,7 @@ namespace HomagConnect.Base.Services
             return data;
         }
 
-        protected async Task PostObject<T>(string url)
+        protected async Task PostObject(string url)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
             request.RequestUri = new Uri(url, UriKind.Relative);
@@ -176,7 +177,7 @@ namespace HomagConnect.Base.Services
             response.EnsureSuccessStatusCodeWithDetails(request);
         }
 
-        protected async Task DeleteObject<T>(string url)
+        protected async Task DeleteObject(string url)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Delete };
             request.RequestUri = new Uri(url, UriKind.Relative);

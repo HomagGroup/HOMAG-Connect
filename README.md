@@ -1,3 +1,5 @@
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+
 # HOMAG Connect
 
 The following repository contains the **HOMAG Connect Clients**, 

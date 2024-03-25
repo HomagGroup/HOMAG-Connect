@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HomagConnect.MaterialManager.Contracts.Material.Base
+﻿namespace HomagConnect.MaterialManager.Contracts.Material.Base
 {
     public enum Size
     {

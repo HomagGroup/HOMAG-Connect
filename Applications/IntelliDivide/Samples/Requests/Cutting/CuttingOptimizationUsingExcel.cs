@@ -19,9 +19,9 @@ public class CuttingOptimizationUsingExcel
 
         var importFile = await ImportFile.CreateAsync(excelFile);
 
-        var optimizationMachine = (await intelliDivide.GetMachinesAsync(OptimizationType.Cutting)).First(m => m.Name == "productionAssist Cutting");
-        var optimizationParameter = (await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType)).First();
-        var importTemplate = (await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, excelFile.Extension)).First(i => i.Name.Contains("homag.cloud"));
+        var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
+        var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
+        var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, excelFile.Extension).FirstAsync(i => i.Name.Contains("homag.cloud"));
 
         var request = new OptimizationRequestUsingTemplate()
         {
