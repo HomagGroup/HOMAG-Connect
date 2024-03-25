@@ -52,16 +52,16 @@ stages:
           inputs:
             command: 'restore'
 
-        - task: SonarQubePrepare@5
-          displayName: 'Prepare analysis on SonarQube'
-          inputs:
-            SonarQube: 'SonarQube Enterprise'
-            projectKey: $(ProductName).$(ProjectName)
-            projectName: $(ProductName).$(ProjectName)
-            projectVersion: '$(MajorMinorBuildVersion)'
-            extraProperties: |
-                sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
-            condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+        # - task: SonarQubePrepare@5
+        #   displayName: 'Prepare analysis on SonarQube'
+        #   inputs:
+        #     SonarQube: 'SonarQube Enterprise'
+        #     projectKey: $(ProductName).$(ProjectName)
+        #     projectName: $(ProductName).$(ProjectName)
+        #     projectVersion: '$(MajorMinorBuildVersion)'
+        #     extraProperties: |
+        #         sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+        #     condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - task: DotNetCoreCLI@2
           displayName: Build projects
@@ -80,9 +80,9 @@ stages:
             command: 'test'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
-        - task: SonarQubeAnalyze@5
-          displayName: 'Run Code Analysis'
-          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+        # - task: SonarQubeAnalyze@5
+        #   displayName: 'Run Code Analysis'
+        #   condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - task: SonarQubePublish@5
           displayName: 'Publish Quality Gate Result'
