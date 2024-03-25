@@ -74,6 +74,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OptimizationRequest", "Opti
 		Applications\IntelliDivide\Documentation\OptimizationRequest\OptimzationRequest.md = Applications\IntelliDivide\Documentation\OptimizationRequest\OptimzationRequest.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Statistics", "Statistics", "{A255C636-CE14-4235-85DD-7EF22F204FD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Material", "Material", "{AD5BE7C3-6E19-4CEF-95C2-33F722B76FD9}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Excel.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Excel.md
+		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +169,8 @@ Global
 		{FB26B71F-ABD5-4FF5-81A2-F7C974472764} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 		{D6E6F5DD-161B-493B-AB12-42FE4777BBEB} = {EB249CD3-484B-44B7-B959-FA58CD6C52CB}
 		{A3028654-56E3-4E06-B6BD-8CE041087FDF} = {EB249CD3-484B-44B7-B959-FA58CD6C52CB}
+		{A255C636-CE14-4235-85DD-7EF22F204FD7} = {EB249CD3-484B-44B7-B959-FA58CD6C52CB}
+		{AD5BE7C3-6E19-4CEF-95C2-33F722B76FD9} = {A255C636-CE14-4235-85DD-7EF22F204FD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
