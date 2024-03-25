@@ -78,6 +78,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Statistics", "Statistics", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Material", "Material", "{AD5BE7C3-6E19-4CEF-95C2-33F722B76FD9}"
 	ProjectSection(SolutionItems) = preProject
+		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Client.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Client.md
 		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Excel.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Excel.md
 		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-PowerBI.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-PowerBI.md
 		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics.md

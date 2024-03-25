@@ -1,3 +1,4 @@
+using HomagConnect.IntelliDivide.Samples.Statistics.Material;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Statistics;
@@ -17,9 +18,14 @@ public class MaterialStatisticTests : IntelliDivideTestBase
 
         Assert.IsNotNull(materialStatistics);
         Assert.IsFalse(!materialStatistics.Any());
-        
+
         Trace(materialStatistics);
     }
 
-    
+    /// <summary />
+    [TestMethod]
+    public async Task Statistics_Sample_RetrieveMaterialStatistics()
+    {
+        await MaterialStatisticsSample.RetrieveMaterialStatistics(SubscriptionId, AuthorizationKey);
+    }
 }
