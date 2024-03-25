@@ -31,27 +31,18 @@ namespace HomagConnect.Base.Services
             Initialize(client);
         }
 
-        protected ServiceBase(Guid subscriptionId, string accessToken, string homagConnectUrl = "https://connect.homag.cloud")
+        protected ServiceBase(Guid subscriptionId, string authorizationKey, string homagConnectUrl = "https://connect.homag.cloud")
         {
-            Initialize(subscriptionId, accessToken, null, homagConnectUrl);
+            Initialize(subscriptionId, authorizationKey, homagConnectUrl);
         }
 
-        protected ServiceBase(Guid subscriptionId, string accessToken, Guid partnerId, string homagConnectUrl = "https://connect.homag.cloud")
-        {
-            Initialize(subscriptionId, accessToken, null, homagConnectUrl);
-        }
 
-        private void Initialize(Guid subscriptionId, string accessToken, Guid? partnerId, string homagConnectUrl)
+        private void Initialize(Guid subscriptionId, string authorizationKey, string homagConnectUrl)
         {
             var httpClient = new HttpClient();
 
             httpClient.BaseAddress = new Uri(homagConnectUrl);
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{accessToken}")));
-
-            if (partnerId.HasValue)
-            {
-                httpClient.DefaultRequestHeaders.Add("PartnerId", partnerId.Value.ToString());
-            }
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{authorizationKey}")));
 
             Initialize(httpClient);
         }

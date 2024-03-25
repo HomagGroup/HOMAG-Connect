@@ -1,4 +1,4 @@
-<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+<strong>[This is preliminary documentation and is subject to change.]</strong>
 
 # HOMAG IntelliDivide Client
 
@@ -8,14 +8,8 @@ The HOMAG IntelliDivide Client is written in C# ([Source Code](./../Client/Intel
 
 The most important functions are described below. More can be found in the [Documentation](./homagconnect.intellidivide.client.intellidivideclient.md) and in the [Source Code](./../Client/IntelliDivideClient.cs) on GitHub.
 
-## Request an optimization
+## Table of content
 
-There are various methods available for requesting an optimization.
-
-Method| sdf|Sample
-------|------|------
-Object Model|The data required (parts, machine, parameter, boards (optional)) for optimization is gathered in a [OptimizationRequest](homagconnect.intellidivide.contracts.request.optimizationrequest.md) object and transferred to intelliDivide.|[CuttingOptimizationUsingObjectModel.cs](./../Samples/Requests/Cutting/CuttingOptimizationUsingObjectModel.cs)
-Import file (Excel, CSV, PNX) using a template|A structured file (e.g. [Kitchen.xlsx](./../Samples/Requests/Cutting/Kitchen.xlsx)) is sent to intelliDivide. The data is converted into the intelliDivide object model using an import template previously created in the web application. See [docs.homag.cloud](https://docs.homag.cloud/en/intellidivide/tutorial/importing-data) for details.| [CuttingOptimizationUsingExcel.cs](./../Samples/Requests/Cutting/CuttingOptimizationUsingExcel.cs)
-Project.zip|A structured zip file, whose format corresponds to the [ImportSpecification](https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md&_a=preview) and contains all data, is sent to intelliDivide. |[CuttingOptimizationUsingProjectZip.cs](./../Samples/Requests/Cutting/CuttingOptimizationUsingProjectZip.cs)
-
-Depending on the set [OptimizationRequestAction](./homagconnect.intellidivide.contracts.request.optimizationrequestaction.md), the [OptimizationRequest](./homagconnect.intellidivide.contracts.request.optimizationrequest.md) is imported, the optimization is started or, if supported by the machine, the balanced solution is sent automatically.
+1. [Authorization](Authorization/Authorization.md)
+2. [Request an optimization](OptimizationRequest/OptimizationRequest.md)
+3. [Anaylze Data](Statistics/Material/MaterialStatistics.md)
