@@ -37,4 +37,4 @@ Enter a meaningful description for your authorization key so that you can easily
 
 ![alt text](AuthorizationKey04.jpg)
 
-<strong>Note: Make sure to keep your access token confidential as it provides authorized access to the apps.</strong>
+<strong>Note:</strong>Make sure to keep your access token confidential as it provides authorized access to the apps.

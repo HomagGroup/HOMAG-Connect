@@ -1,4 +1,4 @@
-<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+<strong>[This is preliminary documentation and is subject to change.]</strong>
 
 # HOMAG IntelliDivide Client
 
