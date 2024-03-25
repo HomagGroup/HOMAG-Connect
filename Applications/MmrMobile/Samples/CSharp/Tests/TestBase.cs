@@ -15,7 +15,7 @@ namespace HomagConnect.MmrMobile.Samples.Tests
             var username = configuration[$"HomagConnect:{area}:SubscriptionId"];
             var token = configuration[$"HomagConnect:{area}:Token"];
 
-            return (baseUrl, username, token);
+            return (baseUrl, username, token)!;
         }
 
         public static string EncodeBase64Token(string username, string token)

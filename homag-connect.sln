@@ -25,6 +25,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{07DF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19C1ED1F-932D-44B3-B84E-4F30A7103DA7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.IntelliDivide", "HomagConnect.IntelliDivide", "{49D52272-39DD-4CB3-8921-B33207BE43AE}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\IntelliDivide\Documentation\README.md = Applications\IntelliDivide\Documentation\README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Contracts", "Applications\IntelliDivide\Contracts\HomagConnect.IntelliDivide.Contracts.csproj", "{842FC672-9A07-469A-B882-9863BB0F182B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Client", "Applications\IntelliDivide\Client\HomagConnect.IntelliDivide.Client.csproj", "{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Samples", "Applications\IntelliDivide\Samples\HomagConnect.IntelliDivide.Samples.csproj", "{3EF18632-0086-4327-85BD-A2DB782BE06F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Tests", "Applications\IntelliDivide\Tests\HomagConnect.IntelliDivide.Tests.csproj", "{2E8F906A-E9D0-4063-A544-BAE60F29A90B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E7E070F-ED86-401C-93B5-7A2ABF62A80A}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		homag-connect.sln.DotSettings = homag-connect.sln.DotSettings
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{EB249CD3-484B-44B7-B959-FA58CD6C52CB}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\IntelliDivide\Documentation\README.md = Applications\IntelliDivide\Documentation\README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base.Tests", "Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj", "{FAE434F6-9E58-4AC7-B481-8D661080FAE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base.Contracts", "Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj", "{6BD4F45A-5C4A-4300-A4FB-171E53C0A123}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MaterialManager", "HomagConnect.MaterialManager", "{BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManager.Client", "Applications\MaterialManager\Client\HomagConnect.MaterialManager.Client.csproj", "{34894EB7-8814-495C-B9E3-2E07A8946A11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManager.Contracts", "Applications\MaterialManager\Contracts\HomagConnect.MaterialManager.Contracts.csproj", "{99D3C526-53DF-4191-968F-6105F7CEB9FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{5ECB8B6A-CD21-4E60-B2B8-543D10B4B4CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.MaterialManager.Tests", "Applications\MaterialManager\Tests\HomagConnect.MaterialManager.Tests.csproj", "{FB26B71F-ABD5-4FF5-81A2-F7C974472764}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +86,42 @@ Global
 		{1BF4F8D0-ECFD-4AD8-AEB6-AE04721A14AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BF4F8D0-ECFD-4AD8-AEB6-AE04721A14AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BF4F8D0-ECFD-4AD8-AEB6-AE04721A14AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842FC672-9A07-469A-B882-9863BB0F182B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842FC672-9A07-469A-B882-9863BB0F182B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842FC672-9A07-469A-B882-9863BB0F182B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842FC672-9A07-469A-B882-9863BB0F182B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF18632-0086-4327-85BD-A2DB782BE06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF18632-0086-4327-85BD-A2DB782BE06F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF18632-0086-4327-85BD-A2DB782BE06F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF18632-0086-4327-85BD-A2DB782BE06F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E8F906A-E9D0-4063-A544-BAE60F29A90B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAE434F6-9E58-4AC7-B481-8D661080FAE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAE434F6-9E58-4AC7-B481-8D661080FAE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAE434F6-9E58-4AC7-B481-8D661080FAE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAE434F6-9E58-4AC7-B481-8D661080FAE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD4F45A-5C4A-4300-A4FB-171E53C0A123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD4F45A-5C4A-4300-A4FB-171E53C0A123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD4F45A-5C4A-4300-A4FB-171E53C0A123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD4F45A-5C4A-4300-A4FB-171E53C0A123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34894EB7-8814-495C-B9E3-2E07A8946A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34894EB7-8814-495C-B9E3-2E07A8946A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34894EB7-8814-495C-B9E3-2E07A8946A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34894EB7-8814-495C-B9E3-2E07A8946A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D3C526-53DF-4191-968F-6105F7CEB9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +136,19 @@ Global
 		{1BF4F8D0-ECFD-4AD8-AEB6-AE04721A14AF} = {19C1ED1F-932D-44B3-B84E-4F30A7103DA7}
 		{07DF7DD9-420B-49D8-892D-D18C154CA578} = {027052D8-E4BC-4C8A-BC66-8DDCB07732F2}
 		{19C1ED1F-932D-44B3-B84E-4F30A7103DA7} = {027052D8-E4BC-4C8A-BC66-8DDCB07732F2}
+		{49D52272-39DD-4CB3-8921-B33207BE43AE} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{842FC672-9A07-469A-B882-9863BB0F182B} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{FA2A71F9-C999-4CD6-9F2C-73AC0C40AC49} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{3EF18632-0086-4327-85BD-A2DB782BE06F} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{2E8F906A-E9D0-4063-A544-BAE60F29A90B} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{EB249CD3-484B-44B7-B959-FA58CD6C52CB} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{FAE434F6-9E58-4AC7-B481-8D661080FAE3} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
+		{6BD4F45A-5C4A-4300-A4FB-171E53C0A123} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
+		{BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{34894EB7-8814-495C-B9E3-2E07A8946A11} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
+		{99D3C526-53DF-4191-968F-6105F7CEB9FF} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
+		{5ECB8B6A-CD21-4E60-B2B8-543D10B4B4CF} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
+		{FB26B71F-ABD5-4FF5-81A2-F7C974472764} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

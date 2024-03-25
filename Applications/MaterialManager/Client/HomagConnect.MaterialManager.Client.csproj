@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<LangVersion>11.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.MaterialManager.Client</PackageId>
+		<Title>Homag-Connect MaterialManager Client</Title>
+		<Description>Client assembly for the usage of Homag-Connect MaterialManager API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialManager/Client</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+
+	</PropertyGroup>
+
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+	  <ProjectReference Include="..\Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
+	</ItemGroup>
+
+</Project>

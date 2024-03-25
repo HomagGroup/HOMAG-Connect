@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<LangVersion>11.0</LangVersion>
+		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.Base.Contracts</PackageId>
+		<Title>Homag-Connect Base Contracts</Title>
+		<Description>Base Contracts assembly for all Homag-Connect clients</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+	</PropertyGroup>
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+</Project>

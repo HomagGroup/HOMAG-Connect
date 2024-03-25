@@ -1,28 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>HomagGroup.HomagConnect.Base</PackageId>
-    <Title>Homag-Connect Base</Title>
-    <Description>Base assembly for all Homag-Connect clients</Description>
-    <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<LangVersion>11.0</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.Base</PackageId>
+		<Title>Homag-Connect Base</Title>
+		<Description>Base assembly for all Homag-Connect clients</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+	</ItemGroup>
 
-  <ItemGroup Label="Package References">
-    <PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.32" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.32" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
+	</ItemGroup>
 
 </Project>

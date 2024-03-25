@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<LangVersion>11.0</LangVersion>
+		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
+		<Title>Homag-Connect IntelliDivide Contracts</Title>
+		<Description>Client assembly for the usage of Homag-Connect IntelliDivide API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Contracts</PackageProjectUrl>
+		<PackageReadmeFile></PackageReadmeFile>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
+	</ItemGroup>
+</Project>

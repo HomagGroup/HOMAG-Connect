@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
@@ -30,10 +28,11 @@ namespace HomagConnect.MmrMobile.Client.Services
         {
             var url = $"/api/mmr/states";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url + parameters, UriKind.Relative);
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url + parameters, UriKind.Relative)
+            };
 
             var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
             response.EnsureSuccessStatusCodeWithDetails(request);
@@ -49,10 +48,11 @@ namespace HomagConnect.MmrMobile.Client.Services
         {
             var url = $"/api/mmr/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url + parameters, UriKind.Relative);
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url + parameters, UriKind.Relative)
+            };
 
             var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
             response.EnsureSuccessStatusCodeWithDetails(request);
@@ -62,7 +62,7 @@ namespace HomagConnect.MmrMobile.Client.Services
             return machineCounterResponse;
         }
 
-        private string GetParameters(DateTime? from, DateTime? to, string machineNumber, string instanceId, string machineType,
+        private static string GetParameters(DateTime? from, DateTime? to, string machineNumber, string instanceId, string machineType,
             string stateId, string detailedStateId, string counterId, Granularity? granularity)
         {
             string parameters = string.Empty;

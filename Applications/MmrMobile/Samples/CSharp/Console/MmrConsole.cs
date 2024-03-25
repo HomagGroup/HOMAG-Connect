@@ -8,8 +8,10 @@ using HomagConnect.MmrMobile.Samples.Console;
 
 Console.WriteLine("Hello at the HOMAG MMR Mobile Client");
 
-var client = new HttpClient();
-client.BaseAddress = new Uri("https://connect.homag.cloud");
+var client = new HttpClient
+{
+    BaseAddress = new Uri("https://connect.homag.cloud")
+};
 Console.WriteLine("Please insert your subscription Id:");
 var subscriptionId = Console.ReadLine();
 Console.WriteLine("Please insert your token:");
@@ -76,7 +78,7 @@ do
                 s.Key.StateId,
                 s.Key.StateTranslation,
                 StateTime = s.Sum(x => x.DurationInHours),
-            });
+            }).ToArray();
             var maximumWorkingHours = groupedStates.Sum(c => c.StateTime);
             Console.WriteLine("\nYour machines have been in the following stages for this many hours:");
             foreach (var state in groupedStates)
@@ -123,7 +125,7 @@ do
 
     Console.WriteLine("\nDo you want to exit? [y/n]");
     var exit = Console.ReadLine();
-    if (exit.ToLower() == "y")
+    if (exit?.ToLower() == "y")
     {
         break;
     }

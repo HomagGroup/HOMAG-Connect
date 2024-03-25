@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionPattern" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAACAAAAAgBAAAAAAAAAAAQAEAAQAgAAAAAA=</HashCode>
+      <FileName>Result\SolutionPattern.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionPart" Collapsed="true">
+    <Position X="9.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAhAAAAAA=</HashCode>
+      <FileName>Result\SolutionPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresProduction" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAACAEAAAAAAAACAEAAAAAACBAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresProduction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresMaterial" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIgAAAABAAAAAQAAgJQAACAEAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresMaterial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresCosts" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAEAAAAAAgAAAE=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresCosts.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFigures" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAABAAAACAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFigures.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverview" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverview.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterialOffcutProduced" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAgAACAEBAAAAAAAAEAAAAAAAAAAQ=</HashCode>
+      <FileName>Result\SolutionMaterialOffcutProduced.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterialOffcut" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAgBACAEBAAAAAAAAEAAAAAAAAAAQ=</HashCode>
+      <FileName>Result\SolutionMaterialOffcut.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterialEdgeband" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionMaterialEdgeband.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterialBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAgBACAEBAAAAAAAAEAAAAAAAAAAQ=</HashCode>
+      <FileName>Result\SolutionMaterialBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterial" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAABAAAAAAAAEAAAAACAAAAE=</HashCode>
+      <FileName>Result\SolutionMaterial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionDetails" Collapsed="true">
+    <Position X="3.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.Solution" Collapsed="true">
+    <Position X="3.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAACAAAAIAAAAAAAAAQAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Result\Solution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionExportType" Collapsed="true">
+    <Position X="6.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAABAAAAAAAAEAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionExportType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

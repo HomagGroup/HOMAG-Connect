@@ -1,10 +1,16 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Exceptions;
+
 using Microsoft.Extensions.Logging;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.Base
 {
@@ -49,7 +55,8 @@ namespace HomagConnect.Base
 
             if (!response.IsSuccessStatusCode)
             {
-                string resTxt = string.Empty;
+                var resTxt = string.Empty;
+
                 try
                 {
                     resTxt = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -59,18 +66,57 @@ namespace HomagConnect.Base
                     // If we can´t get the content, we throw the exception without content
                 }
 
-                var exp = new HttpRequestException(
-                    $"HTTP request '{request?.RequestUri}' failed with status code {response.StatusCode}{Environment.NewLine}Response:{Environment.NewLine}{response}{Environment.NewLine}Response-Body:{Environment.NewLine}{resTxt}{Environment.NewLine}Request:{Environment.NewLine}{request}");
+                Exception exception = null;
+
+                if (!string.IsNullOrWhiteSpace(resTxt))
+                {
+                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(resTxt);
+
+                    if (problemDetails != null)
+                    {
+                        exception = new ProblemDetailsException(problemDetails);
+
+                        if (problemDetails.Type == nameof(ArgumentOutOfRangeException))
+                        {
+                            exception = new ArgumentOutOfRangeException(problemDetails.Detail, exception);
+                        }
+                        else if (problemDetails.Type == nameof(NotSupportedException))
+                        {
+                            exception = new NotSupportedException(problemDetails.Detail, exception);
+                        }
+                        else if (problemDetails.Type == nameof(NotImplementedException))
+                        {
+                            exception = new NotImplementedException(problemDetails.Detail, exception);
+                        }
+                        else if (problemDetails.Type == nameof(AuthenticationException))
+                        {
+                            exception = new AuthenticationException(problemDetails.Detail, exception);
+                        }
+                        else if (problemDetails.Type == nameof(ValidationException))
+                        {
+                            exception= new ValidationException(problemDetails.Detail, exception);
+                        }
+                    }
+                }
+
+                if (exception == null)
+                {
+                    exception = new HttpRequestException(
+                        $"HTTP request '{request?.RequestUri}' failed with status code {response.StatusCode}{Environment.NewLine}Response:{Environment.NewLine}{response}{Environment.NewLine}Response-Body:{Environment.NewLine}{resTxt}{Environment.NewLine}Request:{Environment.NewLine}{request}");
+                }
+
                 if (handleResponse != null)
                 {
-                    if (await handleResponse.Invoke(response.StatusCode, resTxt, exp).ConfigureAwait(false))
+                    if (await handleResponse.Invoke(response.StatusCode, resTxt, exception).ConfigureAwait(false))
                     {
                         return;
                     }
                 }
 
-                logger?.LogError(exp, "Request failed", request?.RequestUri, response.StatusCode, resTxt);
-                throw exp;
+                // ReSharper disable once StructuredMessageTemplateProblem
+                logger?.LogError(exception, "Request failed", request?.RequestUri, response.StatusCode, resTxt);
+
+                throw exception;
             }
         }
 

@@ -1,3 +1,5 @@
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+
 # HOMAG MMR Mobile Client
 
 HOMAG Connect MMR Mobile gives you direct access to your machine data (counters, states) from MMR Mobile. You can then conveniently integrate this into your applications.

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationRequestResponse" Collapsed="true">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAJAAAAAAAACAAAAAAAAEAAAAAQAAAAAA=</HashCode>
+      <FileName>Request\OptimizationRequestResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationImportTemplate" Collapsed="true">
+    <Position X="4.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAQBEAAAAAAAA=</HashCode>
+      <FileName>Request\OptimizationImportTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationRequest" Collapsed="true">
+    <Position X="6" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAEABAAAAQAAAAAAAAAAIAAACAAAAQ=</HashCode>
+      <FileName>Request\OptimizationRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationRequestBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAgBACAEBAAAAAAAAEAQAAgAABAAA=</HashCode>
+      <FileName>Request\OptimizationRequestBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationRequestPart" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAEAEAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Request\OptimizationRequestPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationValidationError" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Request\OptimizationValidationError.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="HomagConnect.IntelliDivide.Contracts.Request.OptimizationRequestAction" Collapsed="true">
+    <Position X="4.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAIAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Request\OptimizationRequestAction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

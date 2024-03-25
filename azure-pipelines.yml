@@ -13,7 +13,7 @@ trigger:
     - '*'
 
 variables:
-  dotnetVersion: 6.0.x
+  dotnetVersion: 7.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect
 
@@ -26,8 +26,8 @@ stages:
       BuildConfiguration: Release
     jobs:
       - job: Build
+           
         steps:
-
         - checkout: self
           fetchDepth: 0
 
@@ -52,16 +52,16 @@ stages:
           inputs:
             command: 'restore'
 
-        - task: SonarQubePrepare@5
-          displayName: 'Prepare analysis on SonarQube'
-          inputs:
-            SonarQube: 'SonarQube Enterprise'
-            projectKey: $(ProductName).$(ProjectName)
-            projectName: $(ProductName).$(ProjectName)
-            projectVersion: '$(MajorMinorBuildVersion)'
-            extraProperties: |
-                sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
-            condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+        # - task: SonarQubePrepare@5
+        #   displayName: 'Prepare analysis on SonarQube'
+        #   inputs:
+        #     SonarQube: 'SonarQube Enterprise'
+        #     projectKey: $(ProductName).$(ProjectName)
+        #     projectName: $(ProductName).$(ProjectName)
+        #     projectVersion: '$(MajorMinorBuildVersion)'
+        #     extraProperties: |
+        #         sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+        #     condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - task: DotNetCoreCLI@2
           displayName: Build projects
@@ -71,20 +71,56 @@ stages:
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
-          displayName: Run Unit Tests
+          displayName: Run Integration Tests in DEV environment.   
+          env:
+            HomagConnect:BaseUrl: $(HomagConnect:BaseUrl:DEV)
+            HomagConnect:SubscriptionId: $(HomagConnect:IntelliDivide:SubscriptionId)
+            HomagConnect:Token: $(HomagConnect:IntelliDivide:Token)
           inputs:
             command: 'test'
-            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=UserTestNoInteractionNeeded&TestCategory!=UserTestInteractionNeeded'
+            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
-        - task: SonarQubeAnalyze@5
-          displayName: 'Run Code Analysis'
-          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+        # - task: SonarQubeAnalyze@5
+        #   displayName: 'Run Code Analysis'
+        #   condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - task: SonarQubePublish@5
           displayName: 'Publish Quality Gate Result'
           continueOnError: true
-          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))          
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg"
+          displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"     
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg"
+          displayName: "Publish HomagConnect Base NuGet package on nuget.org"                        
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) "Applications/MmrMobile/Client/**/*.nupkg"
-          displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['Build.Repository.Name'], 'HomagGroup/HOMAG-Connect'))
+          displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"          
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg"
+          displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg"
+          displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg"
+          displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg"
+          displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg"
+          displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
+        
+        
+
+
+
+
+        
+       

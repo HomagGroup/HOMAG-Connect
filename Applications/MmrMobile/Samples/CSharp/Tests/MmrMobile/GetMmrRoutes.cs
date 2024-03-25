@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.MmrMobile.Client.Services;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,12 +11,16 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
     public class GetMmrRoutes : TestBase
     {
         [TestMethod]
-        [TestCategory("UserTestNoInteractionNeeded")]
+        [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetCounterTest()
         {
-            (var baseUrl, var username, var token) = ReadProps("MmrMobile");
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(baseUrl);
+            var (baseUrl, username, token) = ReadProps("MmrMobile");
+            
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(baseUrl)
+            };
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
             var mmrMobileService = new MmrMobileService(client);
 
@@ -26,12 +31,14 @@ namespace HomagConnect.MmrMobile.Samples.Tests.MmrMobile
         }
 
         [TestMethod]
-        [TestCategory("UserTestNoInteractionNeeded")]
+        [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetStatesTest()
         {
-            (var baseUrl, var username, var token) = ReadProps("MmrMobile");
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(baseUrl);
+            var (baseUrl, username, token) = ReadProps("MmrMobile");
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(baseUrl)
+            };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
             var mmrMobileService = new MmrMobileService(client);
 
