@@ -154,5 +154,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         public double? FinishWidth { get; set; }
 
         #endregion
+
+        #region (7) Label
+
+        /// <summary>
+        /// Gets or sets the label layout.
+        /// </summary>
+        [JsonProperty(Order = 70)]
+        public string LabelLayout { get; set; }
+
+        #endregion
     }
 }
