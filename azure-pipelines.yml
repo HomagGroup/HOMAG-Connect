@@ -91,35 +91,35 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"     
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" 
           displayName: "Publish HomagConnect Base NuGet package on nuget.org"                        
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) "Applications/MmrMobile/Client/**/*.nupkg"
           displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"          
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
              
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
           
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg"
           displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
         
         
 
