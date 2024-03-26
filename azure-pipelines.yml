@@ -29,7 +29,11 @@ stages:
            
         steps:
         - checkout: self
-          fetchDepth: 0
+          fetchDepth: 0         
+        
+        - script: echo "Build branch is $(Build.SourceBranch)" 
+          displayName: Set version environment variable    
+    
 
         - task: PowerShell@2
           displayName: Set version environment variable
@@ -39,7 +43,7 @@ stages:
               git log
               $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
               echo "Set version tag: $($VERSION_TAG)"
-              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
+              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
@@ -88,37 +92,35 @@ stages:
           displayName: 'Publish Quality Gate Result'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))          
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg"
-          displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"     
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg" --skip-duplicate
+          displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"               
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" 
-          displayName: "Publish HomagConnect Base NuGet package on nuget.org"                        
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" --skip-duplicate
+          displayName: "Publish HomagConnect Base NuGet package on nuget.org"               
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) "Applications/MmrMobile/Client/**/*.nupkg"
           displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"          
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/mmr')))     
              
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide')))     
           
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide')))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide')))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/materialManager')))        
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg"
           displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/materialManager')))     
         
         
 
