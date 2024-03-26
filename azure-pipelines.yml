@@ -31,6 +31,8 @@ stages:
         - checkout: self
           fetchDepth: 0         
         
+        - script: echo "Build branch is $(variables['Build.SourceBranch'])"
+
         - task: PowerShell@2
           displayName: Set version environment variable
           inputs:
