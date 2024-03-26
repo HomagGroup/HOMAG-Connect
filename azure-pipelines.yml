@@ -98,7 +98,7 @@ stages:
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect Base NuGet package on nuget.org"               
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(API_KEY_MMR_MOBILE) "Applications/MmrMobile/Client/**/*.nupkg"
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MmrMobile/Client/**/*.nupkg"
           displayName: "Publish HomagConnect MmrMobile NuGet package on nuget.org"          
           condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/mmr')))     
              
