@@ -39,17 +39,7 @@ stages:
               git log
               $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
               echo "Set version tag: $($VERSION_TAG)"
-              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
-
-        - task: PowerShell@2
-          displayName: Set branch name environment variable
-          inputs:
-            targetType: inline
-            script: |
-              git log
-              $BRANCH_NAME = git rev-parse --abbrev-ref HEAD
-              echo "Set branch tag: $($BRANCH_NAME)"
-              echo "##vso[task.setvariable variable=BRANCH_NAME]$($BRANCH_NAME)"
+              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
@@ -101,7 +91,7 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"     
-          condition: and(succeeded(), startsWith(variables['BRANCH_NAME'], 'feature/287081'))     
+          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" 
           displayName: "Publish HomagConnect Base NuGet package on nuget.org"                        
