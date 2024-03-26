@@ -43,8 +43,4 @@
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Statistics\Material\" />
-	</ItemGroup>
-
 </Project>

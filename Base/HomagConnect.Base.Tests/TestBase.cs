@@ -41,6 +41,15 @@ namespace HomagConnect.Base.Tests
             }
         }
 
+        protected string AuthorizationKey
+        {
+            get
+            {
+                return Token;
+            }
+        }
+
+        [Obsolete]
         protected string Token
         {
             get
