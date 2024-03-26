@@ -105,15 +105,15 @@ stages:
              
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287417')))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide')))     
           
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287417')))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide')))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg"
           displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287417')))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/intelliDivide')))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
