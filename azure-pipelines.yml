@@ -86,7 +86,6 @@ stages:
 
         - task: SonarQubePublish@5
           displayName: 'Publish Quality Gate Result'
-          continueOnError: true
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))          
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg"

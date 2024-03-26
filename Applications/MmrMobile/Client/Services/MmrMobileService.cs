@@ -26,8 +26,8 @@ namespace HomagConnect.MmrMobile.Client.Services
             string machineNumber = null, string instanceId = null,
             string machineType = null, string stateId = null, string detailedStateId = null, Granularity? granularity= null)
         {
-            var url = $"/api/mmr/states";
-            var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
+            const string url = "/api/mmr/states";
+            string parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
@@ -46,7 +46,7 @@ namespace HomagConnect.MmrMobile.Client.Services
         public async Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null)
         {
-            var url = $"/api/mmr/counters";
+            string url = $"/api/mmr/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
             var request = new HttpRequestMessage
             {
@@ -66,58 +66,67 @@ namespace HomagConnect.MmrMobile.Client.Services
             string stateId, string detailedStateId, string counterId, Granularity? granularity)
         {
             string parameters = string.Empty;
+            string separator = "?";
 
             if (from != null)
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"from={from:s}";
             }
 
             if (to != null)
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"to={to:s}";
             }
 
             if (!string.IsNullOrEmpty(machineNumber))
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"machineNumber={Uri.EscapeDataString(machineNumber)}";
             }
 
             if (!string.IsNullOrEmpty(instanceId))
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"instanceId={Uri.EscapeDataString(instanceId)}";
             }
 
             if (!string.IsNullOrEmpty(machineType))
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"machineType={Uri.EscapeDataString(machineType)}";
             }
 
             if (!string.IsNullOrEmpty(stateId))
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"stateId={Uri.EscapeDataString(stateId)}";
             }
 
             if (!string.IsNullOrEmpty(detailedStateId))
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"detailedStateId={Uri.EscapeDataString(detailedStateId)}";
             }
 
             if (!string.IsNullOrEmpty(counterId))
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
+                separator = "&";
                 parameters += $"counterId={Uri.EscapeDataString(counterId)}";
             }
 
             if (granularity != null)
             {
-                parameters += string.IsNullOrEmpty(parameters) ? "?" : "&";
+                parameters += separator;
                 parameters += $"granularity={Uri.EscapeDataString(granularity.Value.ToString())}";
             }
 
