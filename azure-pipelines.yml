@@ -31,6 +31,13 @@ stages:
         - checkout: self
           fetchDepth: 0
 
+        - name: Set branch name
+          id: set-branch
+          run: echo "::set-output name=branch_name::${GITHUB_REF#refs/heads/}"
+
+        - name: Display branch name
+          run: echo "Current branch: ${{ steps.set-branch.outputs.branch_name }}"
+
         - task: PowerShell@2
           displayName: Set version environment variable
           inputs:
@@ -91,7 +98,7 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg"
           displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"     
-          condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/287081'))     
+          condition: and(succeeded(), startsWith(${{ steps.set-branch.outputs.branch_name }}, 'refs/heads/feature/287081'))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" 
           displayName: "Publish HomagConnect Base NuGet package on nuget.org"                        
