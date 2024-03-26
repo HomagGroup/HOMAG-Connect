@@ -29,11 +29,8 @@ stages:
            
         steps:
         - checkout: self
-          fetchDepth: 0
-          
-        - name: Display branch name
-          run: echo "Current branch: ${GITHUB_REF#refs/heads/}"
-
+          fetchDepth: 0         
+        
         - task: PowerShell@2
           displayName: Set version environment variable
           inputs:
