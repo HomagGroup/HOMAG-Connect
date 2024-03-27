@@ -13,7 +13,7 @@ public class IntelliDivideTestBase : TestBase
     protected IIntelliDivideClient GetIntelliDivideClient()
     {
         Trace($"BaseUrl: {BaseUrl}");
-        Trace($"Subscription: {SubscriptionId}");
+        Trace($"Subscription: {SubscriptionId}"); 
         Trace($"Token: {Token.Substring(0, 4)}*");
 
         var httpClient = new HttpClient();

@@ -6,7 +6,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReadmeFile></PackageReadmeFile>
 		<Title>Homag-Connect MMR Mobile Client</Title>
 		<Description>Client assembly for the usage of Homag-Connect MMR Mobile routes</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MmrMobile/Client</PackageProjectUrl>
@@ -15,7 +15,6 @@
 
 	<ItemGroup>
 		<Folder Include="Resources\" />
-		<None Include="..\Documentation\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,5 +27,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+		<ProjectReference Include="..\Contracts\HomagConnect.MmrMobile.Contracts.csproj" />
 	</ItemGroup>
+
 </Project>
