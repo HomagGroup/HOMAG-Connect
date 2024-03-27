@@ -45,20 +45,11 @@ namespace HomagConnect.Base.Tests
         {
             get
             {
-                return Token;
-            }
-        }
+                var authorizationKey = GetConfigurationSetting("HomagConnect:AuthorizationKey");
 
-        [Obsolete]
-        protected string Token
-        {
-            get
-            {
-                var token = GetConfigurationSetting("HomagConnect:Token");
+                Assert.IsFalse(string.IsNullOrWhiteSpace(authorizationKey), "AuthorizationKey in appSettings json must not be null or whitespace.");
 
-                Assert.IsFalse(string.IsNullOrWhiteSpace(token), "Token in appSettings json must not be null or whitespace.");
-
-                return token;
+                return authorizationKey;
             }
         }
 

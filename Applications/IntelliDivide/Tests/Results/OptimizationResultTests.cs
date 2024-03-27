@@ -31,7 +31,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
     [TestMethod]
     public async Task Optimization_HttpClientAutoCreated_GetResult_NoException()
     {
-        var intelliDivide = new IntelliDivideClient(SubscriptionId, Token, BaseUrl);
+        var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);
 
         await OptimizationResultSamples.GetOptimizationSample(intelliDivide);
     }

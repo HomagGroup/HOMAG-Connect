@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialManager.Tests
         {
             BaseUrl.Should().NotBeNullOrEmpty();
             SubscriptionId.Should().NotBeEmpty();
-            Token.Should().NotBeNullOrEmpty();
+            AuthorizationKey.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
