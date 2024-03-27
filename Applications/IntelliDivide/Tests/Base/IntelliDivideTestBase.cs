@@ -14,12 +14,12 @@ public class IntelliDivideTestBase : TestBase
     {
         Trace($"BaseUrl: {BaseUrl}");
         Trace($"Subscription: {SubscriptionId}");
-        Trace($"Token: {Token.Substring(0, 4)}*");
+        Trace($"Token: {AuthorizationKey.Substring(0, 4)}*");
 
         var httpClient = new HttpClient();
 
         httpClient.BaseAddress = new Uri(BaseUrl);
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), Token));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
         return new IntelliDivideClient(httpClient);
     }
