@@ -31,7 +31,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
         request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
         var response = await Client.SendAsync(request).ConfigureAwait(false);
-        response.EnsureSuccessStatusCodeWithDetails(request);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();
         var data = JsonConvert.DeserializeObject<IDictionary<string, MaximumBookHeight>>(result, SerializerSettings.Default);

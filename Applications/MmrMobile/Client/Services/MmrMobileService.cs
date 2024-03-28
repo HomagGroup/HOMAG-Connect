@@ -35,7 +35,7 @@ namespace HomagConnect.MmrMobile.Client.Services
             };
 
             var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
             var machineStateResponse = JsonConvert.DeserializeObject<IEnumerable<MachineState>>(result, SerializerSettings.Default);
@@ -46,7 +46,7 @@ namespace HomagConnect.MmrMobile.Client.Services
         public async Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null)
         {
-            string url = $"/api/mmr/counters";
+            var url = $"/api/mmr/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
             var request = new HttpRequestMessage
             {
@@ -55,7 +55,7 @@ namespace HomagConnect.MmrMobile.Client.Services
             };
 
             var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
             var machineCounterResponse = JsonConvert.DeserializeObject<IEnumerable<MachineCounter>>(result, SerializerSettings.Default);

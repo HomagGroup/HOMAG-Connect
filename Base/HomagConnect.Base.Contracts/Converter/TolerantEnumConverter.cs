@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Globalization;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Contracts.Converter
 {
@@ -52,13 +54,7 @@ namespace HomagConnect.Base.Contracts.Converter
             }
 
             var flag = IsNullableType(objectType);
-            var enumType = flag ? Nullable.GetUnderlyingType(objectType) : objectType;
-
-            if (enumType == null)
-            {
-                throw new NotSupportedException();
-            }
-
+            var enumType = (flag ? Nullable.GetUnderlyingType(objectType) : objectType) ?? throw new NotSupportedException();
             var names = Enum.GetNames(enumType);
 
             if (reader.TokenType == JsonToken.String)
@@ -67,7 +63,7 @@ namespace HomagConnect.Base.Contracts.Converter
 
                 if (!string.IsNullOrEmpty(enumText))
                 {
-                    string str = names.FirstOrDefault(n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase));
+                    var str = Array.Find(names, n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase));
 
                     if (!string.IsNullOrWhiteSpace(str))
                     {
@@ -77,14 +73,12 @@ namespace HomagConnect.Base.Contracts.Converter
             }
             else if (reader.TokenType == JsonToken.Integer)
             {
-                var int32 = Convert.ToInt32(reader.Value);
+                var int32 = Convert.ToInt32(reader.Value, CultureInfo.InvariantCulture);
                 var enumValues = Enum.GetValues(enumType).OfType<int>();
-
-                if (enumValues == null) throw new NotSupportedException();
 
                 if (enumValues.Contains(int32))
                 {
-                    return Enum.Parse(enumType, int32.ToString());
+                    return Enum.Parse(enumType, int32.ToString(CultureInfo.InvariantCulture));
                 }
             }
 
@@ -93,7 +87,7 @@ namespace HomagConnect.Base.Contracts.Converter
                 return null;
             }
 
-            var str1 = names.FirstOrDefault(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase)) ?? names.First();
+            var str1 = Array.Find(names, (n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase))) ?? names[0];
 
             return Enum.Parse(enumType, str1);
         }

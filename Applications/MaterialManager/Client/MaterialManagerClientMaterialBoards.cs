@@ -38,7 +38,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
-        return await RequestObject<BoardType>(url);
+        return await RequestObject<BoardType>(new Uri(url));
     }
 
     /// <inheritdoc />
@@ -227,6 +227,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
     }
 
+    
+
     private static IEnumerable<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
@@ -238,7 +240,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         {
             queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
             // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-            if (queryParameters.Length + _BaseRoute.Length > 1900)
+            if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
             {
                 if (includingDetails)
                 {

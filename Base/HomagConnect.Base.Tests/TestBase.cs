@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Configuration;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -20,11 +21,30 @@ namespace HomagConnect.Base.Tests
 
         public virtual TestContext? TestContext { get; set; }
 
-        protected string BaseUrl
+        protected string AuthorizationKey
         {
             get
             {
-                return GetConfigurationSetting("HomagConnect:BaseUrl");
+                var authorizationKey = GetConfigurationSetting("HomagConnect:AuthorizationKey");
+
+                Assert.IsFalse(string.IsNullOrWhiteSpace(authorizationKey), "AuthorizationKey in appSettings json must not be null or whitespace.");
+
+                return authorizationKey;
+            }
+        }
+
+        protected Uri? BaseUrl
+        {
+            get
+            {
+                var baseUrl = GetConfigurationSetting("HomagConnect:BaseUrl");
+
+                if (string.IsNullOrWhiteSpace(baseUrl))
+                {
+                    return null;
+                }
+
+                return new Uri(baseUrl);
             }
         }
 
@@ -35,21 +55,9 @@ namespace HomagConnect.Base.Tests
                 var subscriptionId = GetConfigurationSetting($"HomagConnect:SubscriptionId");
 
                 Assert.IsFalse(string.IsNullOrWhiteSpace(subscriptionId), "SubscriptionId in appSettings json must not be null or whitespace.");
-                Assert.IsTrue(Guid.TryParse(subscriptionId, out var guid), "SubscriptionId in appSettings json must be the subscription id which must be a GUID.");
+                Assert.IsTrue(Guid.TryParse(subscriptionId, CultureInfo.InvariantCulture, out var guid), "SubscriptionId in appSettings json must be the subscription id which must be a GUID.");
 
                 return guid;
-            }
-        }
-
-        protected string AuthorizationKey
-        {
-            get
-            {
-                var authorizationKey = GetConfigurationSetting("HomagConnect:AuthorizationKey");
-
-                Assert.IsFalse(string.IsNullOrWhiteSpace(authorizationKey), "AuthorizationKey in appSettings json must not be null or whitespace.");
-
-                return authorizationKey;
             }
         }
 

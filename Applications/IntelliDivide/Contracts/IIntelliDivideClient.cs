@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -66,7 +65,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<Optimization> GetOptimizationAsync(Guid optimizationId);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="take">Quantity of optimizations to return max.</param>
@@ -76,7 +75,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, int take, int skip = 0);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
@@ -87,7 +86,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, int take, int skip = 0);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
