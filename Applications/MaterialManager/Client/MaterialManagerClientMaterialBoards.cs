@@ -33,7 +33,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
-        return await RequestObject<BoardType>(new Uri(url));
+        return await RequestObject<BoardType>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -58,7 +58,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var boardCodesWithInventory = new List<BoardCodeWithInventory>();
         foreach (var url in urls)
         {
-            boardCodesWithInventory.AddRange(await RequestEnumerable<BoardCodeWithInventory>(new Uri(url)));
+            boardCodesWithInventory.AddRange(await RequestEnumerable<BoardCodeWithInventory>(new Uri(url, UriKind.Relative)));
         }
 
         return boardCodesWithInventory;
@@ -69,7 +69,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
-        return await RequestEnumerable<BoardType>(new Uri(url));
+        return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -95,7 +95,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url)));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)));
         }
 
         return boardTypes;
@@ -106,7 +106,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
-        return await RequestEnumerable<BoardType>(new Uri(url));
+        return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -114,7 +114,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
-        return await RequestEnumerable<BoardTypeDetails>(new Uri(url));
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -141,7 +141,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url)));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)));
         }
 
         return boardTypes;
@@ -171,7 +171,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url)));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)));
         }
 
         return boardTypesDetails;
@@ -200,7 +200,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url)));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)));
         }
 
         return boardTypesDetails;
@@ -211,7 +211,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
 
-        return await RequestEnumerable<MaterialCodeWithThumbnail>(new Uri(url));
+        return await RequestEnumerable<MaterialCodeWithThumbnail>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -219,7 +219,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?take={take}&skip={skip}";
 
-        return await RequestEnumerable<MaterialCodeWithThumbnail>(new Uri(url));
+        return await RequestEnumerable<MaterialCodeWithThumbnail>(new Uri(url, UriKind.Relative));
     }
 
     

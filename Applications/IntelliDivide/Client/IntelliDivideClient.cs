@@ -275,7 +275,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}";
 
-            return await RequestObject<Optimization>(new Uri(url));
+            return await RequestObject<Optimization>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
@@ -332,7 +332,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}/state";
 
-            return await RequestObject<OptimizationStatus>(new Uri(url));
+            return await RequestObject<OptimizationStatus>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
@@ -340,7 +340,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}/archive";
 
-            await PostObject(new Uri(url));
+            await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
@@ -348,7 +348,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"api/intelliDivide/optimizations/{optimizationId}";
 
-            await DeleteObject(new Uri(url));
+            await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
@@ -368,7 +368,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}";
 
-            var solution = await RequestObject<SolutionDetails>(new Uri(url));
+            var solution = await RequestObject<SolutionDetails>(new Uri(url, UriKind.Relative));
 
             return solution;
         }
@@ -394,7 +394,7 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/exports/{exportTye}";
 
-            var data = await RequestRawData(new Uri(url));
+            var data = await RequestRawData(new Uri(url, UriKind.Relative));
 
             if (data == null || data.Length == 0)
             {
