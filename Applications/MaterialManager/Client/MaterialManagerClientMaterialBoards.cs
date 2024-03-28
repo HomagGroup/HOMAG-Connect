@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
@@ -14,6 +13,26 @@ namespace HomagConnect.MaterialManager.Client;
 
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    protected IAsyncEnumerable<T> RequestAsyncEnumerable<T>(string uri)
+    {
+        return RequestAsyncEnumerable<T>(new Uri(uri, UriKind.Relative));
+    }
+
+    protected async IAsyncEnumerable<T> RequestAsyncEnumerable<T>(Uri uri)
+    {
+        var enumerable = await RequestEnumerable<T>(uri);
+
+        if (enumerable == null)
+        {
+            yield break;
+        }
+
+        foreach (var item in enumerable)
+        {
+            yield return item;
+        }
+    }
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -48,7 +67,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var codes = boardCodes
             .Where(b => !string.IsNullOrWhiteSpace(b))
             .Distinct()
-            .OrderBy(b => b).AsEnumerated();
+            .OrderBy(b => b).ToList();
 
         if (!codes.Any())
         {
@@ -85,7 +104,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var codes = boardCodes
             .Where(b => !string.IsNullOrWhiteSpace(b))
             .Distinct()
-            .OrderBy(b => b).AsEnumerated();
+            .OrderBy(b => b).ToList();
 
         if (!codes.Any())
         {
@@ -131,7 +150,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .Where(m => !string.IsNullOrWhiteSpace(m))
             .Distinct()
             .OrderBy(m => m)
-            .AsEnumerated();
+            .ToList();
 
         if (!codes.Any())
         {
@@ -161,7 +180,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .Where(m => !string.IsNullOrWhiteSpace(m))
             .Distinct()
             .OrderBy(m => m)
-            .AsEnumerated();
+            .ToList();
 
         if (!codes.Any())
         {
@@ -190,7 +209,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var codes = boardCodes
             .Where(b => !string.IsNullOrWhiteSpace(b))
             .Distinct()
-            .OrderBy(b => b).AsEnumerated();
+            .OrderBy(b => b).ToList();
 
         if (!codes.Any())
         {

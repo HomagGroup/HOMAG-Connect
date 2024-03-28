@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -135,7 +136,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = new OptimizationRequest();
 
             var machine = await intelliDivide.GetMachineAsync("productionAssist Cutting");
-            var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).OrderBy(p => p.Name).FirstAsync();
+            var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).FirstAsync();
 
             request.Name = optimizationName + DateTime.Now.ToString("s");
             request.Machine = machine.Name;
