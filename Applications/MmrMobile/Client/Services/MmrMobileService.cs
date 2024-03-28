@@ -46,7 +46,7 @@ namespace HomagConnect.MmrMobile.Client.Services
         public async Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null)
         {
-            var url = $"/api/mmr/counters";
+            const string url = "/api/mmr/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
             var request = new HttpRequestMessage
             {

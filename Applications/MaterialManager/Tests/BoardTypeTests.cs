@@ -25,11 +25,12 @@ namespace HomagConnect.MaterialManager.Tests
         [TestMethod]
         public void BoardType_SwitchUnitSystem_LengthWidthThicknessChanged()
         {
-            var boardTypeMetric = new BoardType();
-
-            boardTypeMetric.Length = 1000;
-            boardTypeMetric.Width = 600;
-            boardTypeMetric.Thickness = 19;
+            var boardTypeMetric = new BoardType
+            {
+                Length = 1000,
+                Width = 600,
+                Thickness = 19
+            };
 
             Trace(boardTypeMetric);
 

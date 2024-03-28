@@ -22,8 +22,12 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
     {
         const string url = $"/api//materialManager/processing/optimization/bookheight";
 
-        var request = new HttpRequestMessage { Method = HttpMethod.Get };
-        request.RequestUri = new Uri(url, UriKind.Relative);
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(url, UriKind.Relative)
+        };
+
         request.Headers.AcceptLanguage.Clear();
         request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 

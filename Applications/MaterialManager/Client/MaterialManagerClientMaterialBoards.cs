@@ -13,11 +13,6 @@ namespace HomagConnect.MaterialManager.Client;
 
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    protected async Task<IEnumerable<T>> RequestEnumerable<T>(string uri)
-    {
-        return await RequestEnumerable<T>(new Uri(uri, UriKind.Relative));
-    }
-
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -63,7 +58,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var boardCodesWithInventory = new List<BoardCodeWithInventory>();
         foreach (var url in urls)
         {
-            boardCodesWithInventory.AddRange(await RequestEnumerable<BoardCodeWithInventory>(url));
+            boardCodesWithInventory.AddRange(await RequestEnumerable<BoardCodeWithInventory>(new Uri(url)));
         }
 
         return boardCodesWithInventory;
@@ -74,7 +69,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
-        return await RequestEnumerable<BoardType>(url);
+        return await RequestEnumerable<BoardType>(new Uri(url));
     }
 
     /// <inheritdoc />
@@ -100,7 +95,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(url));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url)));
         }
 
         return boardTypes;
@@ -111,7 +106,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
-        return await RequestEnumerable<BoardType>(url);
+        return await RequestEnumerable<BoardType>(new Uri(url));
     }
 
     /// <inheritdoc />
@@ -119,7 +114,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
-        return await RequestEnumerable<BoardTypeDetails>(url);
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url));
     }
 
     /// <inheritdoc />
@@ -146,7 +141,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(url));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url)));
         }
 
         return boardTypes;
@@ -176,7 +171,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(url));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url)));
         }
 
         return boardTypesDetails;
@@ -205,7 +200,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(url));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url)));
         }
 
         return boardTypesDetails;
@@ -216,7 +211,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
 
-        return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
+        return await RequestEnumerable<MaterialCodeWithThumbnail>(new Uri(url));
     }
 
     /// <inheritdoc />
@@ -224,12 +219,12 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?take={take}&skip={skip}";
 
-        return await RequestEnumerable<MaterialCodeWithThumbnail>(url);
+        return await RequestEnumerable<MaterialCodeWithThumbnail>(new Uri(url));
     }
 
     
 
-    private static IEnumerable<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
         var queryParameters = new StringBuilder("?");
@@ -242,14 +237,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
             if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
             {
-                if (includingDetails)
-                {
-                    urls.Add($"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true");
-                }
-                else
-                {
-                    urls.Add($"{_BaseRoute}{route}{queryParameters}");
-                }
+                urls.Add(includingDetails 
+                    ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true" 
+                    : $"{_BaseRoute}{route}{queryParameters}");
 
                 queryParameters = new StringBuilder("?");
             }
@@ -257,18 +247,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             i++;
             if (i <= codeList.Count)
             {
-                queryParameters.Append("&");
+                queryParameters.Append('&');
             }
         }
 
-        if (includingDetails)
-        {
-            urls.Add($"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true");
-        }
-        else
-        {
-            urls.Add($"{_BaseRoute}{route}{queryParameters}");
-        }
+        urls.Add(includingDetails 
+            ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true" 
+            : $"{_BaseRoute}{route}{queryParameters}");
 
         return urls;
     }
