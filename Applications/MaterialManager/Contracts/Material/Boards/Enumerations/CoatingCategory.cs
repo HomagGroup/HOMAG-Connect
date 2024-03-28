@@ -4,7 +4,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     public enum CoatingCategory
     {
-        [Display(Description = "Aluminum")]
+        [Display(Description = "Aluminium")]
         Aluminium,
 
         [Display(Description = "Glass laminate (PMMA)")]

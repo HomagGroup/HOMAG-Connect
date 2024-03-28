@@ -16,10 +16,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         [Display(Description = "Al-Si alloy")]
         NEM_ASL,
 
-        [Display(Description = "Aluminum")]
+        [Display(Description = "Aluminium")]
         NEM_A,
 
-        [Display(Description = "Aluminum honeycomb panels")]
+        [Display(Description = "Aluminium honeycomb panels")]
         NEM_AW,
 
         [Display(Description = "Blockboard and laminboard (hard wood)")]
@@ -46,7 +46,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         [Display(Description = "Compact panels (HPL)")]
         DP_HPL,
 
-        [Display(Description = "Composite panels with aluminum")]
+        [Display(Description = "Composite panels with aluminium")]
         V_A,
 
         [Display(Description = "Copper, zinc, brass")]
