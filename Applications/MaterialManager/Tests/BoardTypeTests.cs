@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialManager.Tests
         [TestMethod]
         public void BoardType_CheckConfiguration_ConfigValid()
         {
-            BaseUrl.Should().NotBeNullOrEmpty();
+            BaseUrl.Should().NotBeNull();
             SubscriptionId.Should().NotBeEmpty();
             AuthorizationKey.Should().NotBeNullOrEmpty();
         }

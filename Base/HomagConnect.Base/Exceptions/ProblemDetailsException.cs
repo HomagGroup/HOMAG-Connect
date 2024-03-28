@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace HomagConnect.Base.Exceptions
 {
-    [Serializable]
     public class ProblemDetailsException : Exception
     {
         public ProblemDetailsException() { }
@@ -18,8 +16,6 @@ namespace HomagConnect.Base.Exceptions
             Detail = problemDetails.Detail;
             Errors = problemDetails.Errors;
         }
-
-        protected ProblemDetailsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public ProblemDetailsException(string message) : base(message) { }
 

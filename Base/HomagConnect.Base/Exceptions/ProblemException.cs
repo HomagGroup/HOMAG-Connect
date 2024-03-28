@@ -6,7 +6,6 @@ namespace HomagConnect.Base.Exceptions
     /// <summary>
     /// This exception is forwarded to the calling system and is then displayed to the customer in an error page
     /// </summary>
-    [Serializable]
     public class ProblemException : Exception
     {
         /// <summary>
@@ -42,12 +41,6 @@ namespace HomagConnect.Base.Exceptions
         }
 
         /// <summary>
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        protected ProblemException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
-        /// <summary>
         /// Localized title of the error
         /// </summary>
         public string Title { get; set; }
@@ -72,22 +65,6 @@ namespace HomagConnect.Base.Exceptions
         /// </summary>
         public virtual string ProblemDetailsTypePrefix { get; } = "hgconnect:";
 
-        /// <summary>
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
-
-            info.AddValue(nameof(Title), Title);
-            info.AddValue(nameof(SubTitle), SubTitle);
-            info.AddValue(nameof(ErrorCode), ErrorCode);
-
-            base.GetObjectData(info, context);
-        }
+       
     }
 }
