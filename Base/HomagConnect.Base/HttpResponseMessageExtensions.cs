@@ -46,10 +46,7 @@ namespace HomagConnect.Base
         public static async Task EnsureSuccessStatusCodeWithDetailsAsync(this HttpResponseMessage response, HttpRequestMessage request,
             ILogger logger, Func<HttpStatusCode, string, Exception, Task<bool>> handleResponse)
         {
-            if (request == null)
-            {
-                request = response.RequestMessage;
-            }
+            request ??= response.RequestMessage;
 
             if (!response.IsSuccessStatusCode)
             {
@@ -97,11 +94,8 @@ namespace HomagConnect.Base
                     }
                 }
 
-                if (exception == null)
-                {
-                    exception = new HttpRequestException(
-                        $"HTTP request '{request?.RequestUri}' failed with status code {response.StatusCode}{Environment.NewLine}Response:{Environment.NewLine}{response}{Environment.NewLine}Response-Body:{Environment.NewLine}{resTxt}{Environment.NewLine}Request:{Environment.NewLine}{request}");
-                }
+                exception ??= new HttpRequestException(
+                    $"HTTP request '{request?.RequestUri}' failed with status code {response.StatusCode}{Environment.NewLine}Response:{Environment.NewLine}{response}{Environment.NewLine}Response-Body:{Environment.NewLine}{resTxt}{Environment.NewLine}Request:{Environment.NewLine}{request}");
 
                 if (handleResponse != null && await handleResponse.Invoke(response.StatusCode, resTxt, exception).ConfigureAwait(false))
                 {

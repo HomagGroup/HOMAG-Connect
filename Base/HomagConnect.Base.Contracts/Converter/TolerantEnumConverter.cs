@@ -38,6 +38,7 @@ namespace HomagConnect.Base.Contracts.Converter
             object? existingValue,
             JsonSerializer serializer)
         {
+
             if (objectType == null)
             {
                 throw new ArgumentNullException(nameof(objectType));

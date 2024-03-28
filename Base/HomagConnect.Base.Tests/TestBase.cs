@@ -72,27 +72,23 @@ namespace HomagConnect.Base.Tests
 
         protected string GetConfigurationSetting(string key)
         {
-            {
-                var config = Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process);
+            var config = Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process);
 
-                if (config != null)
-                {
-                    return config;
-                }
+            if (config != null)
+            {
+                return config;
             }
 
+            Configuration ??= new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddUserSecrets(UserSecretsFolder.ToString())
+                .Build();
+
+            config = Configuration[key];
+
+            if (config != null)
             {
-                Configuration ??= new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: true)
-                    .AddUserSecrets(UserSecretsFolder.ToString())
-                    .Build();
-
-                var config = Configuration[key];
-
-                if (config != null)
-                {
-                    return config;
-                }
+                return config;
             }
 
             throw new ConfigurationErrorsException($"Missing config setting: {key}");
