@@ -18,49 +18,49 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Gets the board type inventory by board codes.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardCodeWithInventory.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardCodeWithInventory> GetBoardTypeInventory(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types paginated
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        IAsyncEnumerable<BoardType> GetBoardTypes(int take, int skip = 0);
+        Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types by board codes.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardType> GetBoardTypes(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types by material code.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardType> GetBoardTypesByMaterialCode(string materialCode);
+        Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode);
 
         /// <summary>
         /// Gets the board types by material code including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardTypeDetails> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode);
+        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode);
 
         /// <summary>
         /// Gets the board types by material codes.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardType> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes);
+        Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes);
 
         /// <summary>
         /// Gets the board types by material codes including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardTypeDetails> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
+        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
         /// <summary>
         /// Gets the board types  by board codes including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        IAsyncEnumerable<BoardTypeDetails> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets material codes including thumbnail paginated.
@@ -72,7 +72,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// List of <see cref="MaterialCodeWithThumbnail" /> sorted by
         /// <see cref="MaterialCodeWithThumbnail.MaterialCode" />>
         /// </returns>
-        IAsyncEnumerable<MaterialCodeWithThumbnail> GetMaterialCodes(string search, int take, int skip = 0);
+        Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0);
 
         /// <summary>
         /// Gets material codes including thumbnail paginated.
@@ -83,6 +83,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// List of <see cref="MaterialCodeWithThumbnail" /> sorted by
         /// <see cref="MaterialCodeWithThumbnail.MaterialCode" />>
         /// </returns>
-        IAsyncEnumerable<MaterialCodeWithThumbnail> GetMaterialCodes(int take, int skip = 0);
+        Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0);
     }
 }
