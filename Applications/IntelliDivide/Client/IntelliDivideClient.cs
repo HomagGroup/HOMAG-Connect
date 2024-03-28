@@ -226,29 +226,23 @@ namespace HomagConnect.IntelliDivide.Client
                     return await GetOptimizationAsync(optimizationId);
                 }
 
-                if (optimizationStatus == OptimizationStatus.Started)
-                {
-                    if (currentStatus
+                if (optimizationStatus == OptimizationStatus.Started && currentStatus
                         is OptimizationStatus.Started
                         or OptimizationStatus.Optimized
                         or OptimizationStatus.Transferred)
-                    {
-                        // When waiting for status Started the optimization might be already optimized or transferred.
+                {
+                    // When waiting for status Started the optimization might be already optimized or transferred.
 
-                        return await GetOptimizationAsync(optimizationId);
-                    }
+                    return await GetOptimizationAsync(optimizationId);
                 }
 
-                if (optimizationStatus == OptimizationStatus.Optimized)
-                {
-                    if (currentStatus
+                if (optimizationStatus == OptimizationStatus.Optimized && currentStatus
                         is OptimizationStatus.Optimized
                         or OptimizationStatus.Transferred)
-                    {
-                        // When waiting for status Optimized the optimization might be already transferred.
+                {
+                    // When waiting for status Optimized the optimization might be already transferred.
 
-                        return await GetOptimizationAsync(optimizationId);
-                    }
+                    return await GetOptimizationAsync(optimizationId);
                 }
 
                 if (currentStatus

@@ -11,14 +11,15 @@ Version   | Date     | Comment
 ----------|----------|------------
 1.0.0     |07.09.2023| First Draft
 1.1.0     |27.10.2023| Add granularity for getting the data and updating the technical documentation
+1.2.0     |27.03.2024|Add endpoint for machine data
 
 ## Content table
+
 1. [TL;DR](#tldr)
 2. [Homag Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview)
 3. [Details](#details)
 
 ## Authorization
-
 
 ## TL;DR
 
@@ -54,7 +55,7 @@ Console.WriteLine($"You got {states.Count()} states and {counters.Count()} count
 dotnet run
 ~~~
 
-## Homag Connect MMR Mobile interface overview
+## Homag Connect MMR Mobile interface overview (states and counters)
 
 Name           | Method | API                                                                                                                                                                                                                                                                | Usage
 ---------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,11 +63,15 @@ GetStateData   |GET     |`api/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machi
 GetCounterData |GET     |`api/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`<br/>`&granularity={granularity}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
 
 ## Details
+
 ### Rate Limiting
+
 As mentioned in the base documentation, each application has a different rate limitation. For the following endpoints this limit is currently set to 6 requests in a minute.
 
 ### GetStateData
+
 #### Input
+
 Parameter                    | Type     | Description
 -----------------------------|----------|---------------------------------------------------
 from *(Optional)*            | DateTime | DateTime that the search should start from
@@ -79,6 +84,7 @@ detailedStateId *(Optional)* | string   | Id of the detailed state
 granularity *(Optional)*     | string   | Specifies granualrity of the returned data (hour, day, week, month). Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
 
 #### Output
+
 Property          | Type     | Description
 ------------------|----------|-----------------------------------------------
 Machine Number    | string   | Number of the machine
@@ -92,7 +98,6 @@ Detailed State Id | string   | Id of the detailed state
 Detailed State    | string   | Detailed state translated into the requested language
 State Id          | string   | Id of the state
 State             | string   | State translated into the requested language
-
 
 #### Example
 
@@ -129,9 +134,13 @@ Content-Type: application/json; charset=utf-8
     }
 ]
 ```
+
 The default route with no timespan added will always return related data for the last 14 days.
+
 ### GetCounterData
+
 #### Input
+
 Parameter                   | Type     | Description
 ----------------------------|----------|-------------------------------------------
 from *(Optional)*           | DateTime | DateTime that the search should start from
@@ -143,6 +152,7 @@ counterId *(Optional)*      | string   | Id of the counter
 granularity *(Optional)*    | string   | Specifies granualrity of the returned data (hour, day, week, month). Default will be like the following: 1 day: hourly, 2-14 days: daily, 15 days - 3 months: weekly, every timespan requested bigger than 3 months: monthly if not asked specifically. The hourly data is only available for the last 14 days.
 
 #### Output
+
 Property       | Type     | Description
 ---------------|----------|------------------------------------------------
 Machine Number | string   | Number of the machine
@@ -188,7 +198,289 @@ Content-Type: application/json; charset=utf-8
     }
 ]
 ```
+
 The default route with no timespan added will always return related data for the last 14 days.
+
+## Homag Connect MMR Mobile interface overview (machinedata)
+
+Name| Method | API | Usage
+--|--|---|--
+GetMachineList|GET     |`api/mmr-mobile/machinedata/machines`| Returns all machines assigned to the subscription, which have a license for the HOMAG CONNECT MMR Mobile Addon.
+GetNodeList|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes`| Returns for one valid machine, which nodes are available for this machine.
+GetCurrentValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes/{nodeName}`| Returns for one valid machine and a set of nodes the last reported values.
+GetValuesAtTimestamp|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}?timestamp={before}`| Returns for one valid machine and a set of nodes the last reported values at a specific point in time.
+GetHistoricalValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a set of nodes all reported values during a defined timespan.
+
+## Details
+
+### GetMachineList
+
+#### Input
+
+Parameter                    | Type     | Description
+-----------------------------|----------|---------------------------------------------------
+
+#### Output (List)
+
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+MachineNumber    | string   | Number of the machine
+MachineName      | string   | Name of the machine
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machinedata/machines
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+[
+    {
+        "MachineNumber": "0-242-92-1234",
+        "MachineName": "Some Machine | 0-242-92-1234"
+    },
+    {
+        "MachineNumber": "0-242-92-1235",
+        "MachineName": "Other Machine | 0-242-92-1235"
+    }
+]
+```
+
+### GetNodeList
+
+#### Input
+
+Parameter                    | Type     | Description
+------------------|----------|---------------------------------------------------
+MachineNumber    | string   | Number of the machine (any supported format: "hg1234567890", '1234567890', '0-123-45-6789')
+
+#### Output
+
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+MachineNumber    | string   | Number of the machine
+MachineName      | string   | Name of the machine
+Nodes | string[]  | List of Node-Names
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machinedata/machines/1234567890/nodes
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+{
+    "MachineNumber": "0-242-92-1234",
+    "MachineName": "Some Machine | 0-242-92-1234",
+    "Nodes": [
+        "Identification.Key1",
+        "Identification.Key2",
+        "Identification.Key3",
+        "Identification.Key4"
+    ]
+},
+```
+
+### GetCurrentValue
+
+#### Input
+
+Parameter                    | Type     | Description
+------------------|----------|---------------------------------------------------
+MachineNumber    | string   | Number of the machine
+node    | string   | List of Node-Names. <br />These names are inside one string and separated by comma. Every entry is either a node (complete name) or a branch (selecting all nodes beginning with the entry).<br />*sample Node*: Identification.Key1<br />*sample Branch*: Identification.<br />*sample combination*: Identification.Key.,Identification.Test1
+
+#### Output (List)
+
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+MachineNumber    | string   | Number of the machine
+MachineName      | string   | Name of the machine
+Nodes | MmrNodeData[] | Structure for one Value at a specific point in time
+`-` node |string|Nodename
+`-` Value |string|Value
+`-` Timestamp |Datetime|Timestamp, when the value was reported in UTC
+
+  
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machinedata/machines/1234567890/nodes/Identification.Key1
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+{
+    "machineNumber": "0-256-02-2942",
+    "machineName": "SANTEQ W-300 | 0-256-02-2942",
+    "nodes": [
+        {
+            "timestamp": "2024-03-27T12:36:20.2778399Z",
+            "node": "Identification.Key1",
+            "value": "0.003"
+        }
+    ]
+}
+```
+
+### GetValuesAtTimestamp
+
+#### Input
+
+Parameter    | Type     | Description
+------|----------|------
+MachineNumber    | string   | Number of the machine
+node    | string   | List of Node-Names. <br />These names are inside one string and separated by comma. Every entry is either a node (complete name) or a branch (selecting all nodes beginning with the entry).<br />*sample Node*: Identification.Key1<br />*sample Branch*: Identification.<br />*sample combination*: Identification.Key.,Identification.Test1
+timestamp    | DateTime   | Date in a valid ISO form and timezone
+
+#### Output (List)
+
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+MachineNumber    | string   | Number of the machine
+MachineName      | string   | Name of the machine
+Nodes | MmrNodeData[] | Structure for one Value at a specific point in time
+`-` node |string|Nodename
+`-` Value |string|Value
+`-` Timestamp |Datetime|Timestamp, when the value was reported in UTC
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machinedata/machines/1234567890/nodes/Identification.Key1?timestamp=2024-03-29T05:16:51Z
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+{
+    "machineNumber": "0-256-02-2942",
+    "machineName": "SANTEQ W-300 | 0-256-02-2942",
+    "nodes": [
+        {
+            "timestamp": "2024-03-29T04:10:20.2778399Z",
+            "node": "Identification.Key1",
+            "value": "0.003"
+        }
+    ]
+}
+```
+
+### GetHistoricalValues
+
+#### Input
+
+Parameter    | Type     | Description
+------|----------|------
+MachineNumber    | string   | Number of the machine
+node    | string   | List of Node-Names. <br />These names are inside one string and separated by comma. Every entry is either a node (complete name) or a branch (selecting all nodes beginning with the entry).<br />*sample Node*: Identification.Key1<br />*sample Branch*: Identification.<br />*sample combination*: Identification.Key.,Identification.Test1
+from    | DateTime   | Date in a valid ISO form and timezone. Optional, Default = now minus  2 weeks
+to    | DateTime   | Date in a valid ISO form and timezone. Optional, Default = now
+take    | int   | Number of rows to read. Optional, Default = 10.000
+skip    | DateTime   | Number of rows to skip. Optional, Default = 0
+
+#### Output
+
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+MachineNumber    | string   | Number of the machine
+MachineName      | string   | Name of the machine
+Nodes | MmrNodeData[] | Structure for one Value at a specific point in time
+`-` node |string|Nodename
+`-` Value |string|Value
+`-` Timestamp |Datetime|Timestamp, when the value was reported in UTC
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machinedata/machines/1234567890/nodes/Identification.Key1?timestamp=2024-03-29T05:16:51Z
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+{
+    "machineNumber": "0-256-02-2942",
+    "machineName": "SANTEQ W-300 | 0-256-02-2942",
+    "nodes": [
+        {
+            "timestamp": "2024-03-29T04:10:20.2778399Z",
+            "node": "Identification.Key1",
+            "value": "0.003"
+        },
+        {
+            "timestamp": "2024-03-29T02:10:20.2778399Z",
+            "node": "Identification.Key1",
+            "value": "0.003"
+        },
+        {
+            "timestamp": "2024-03-28T22:10:20.2778399Z",
+            "node": "Identification.Key1",
+            "value": "0.003"
+        },
+        {
+            "timestamp": "2024-03-28T21:10:20.2778399Z",
+            "node": "Identification.Key1",
+            "value": "0.003"
+        }
+    ]
+}
+```
 
 ## Contribute
 
