@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Globalization;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Contracts.Converter
 {
@@ -77,10 +79,14 @@ namespace HomagConnect.Base.Contracts.Converter
             }
             else if (reader.TokenType == JsonToken.Integer)
             {
-                var int32 = Convert.ToInt32(reader.Value);
+                var int32 = Convert.ToInt32(reader.Value, CultureInfo.InvariantCulture);
+
                 var enumValues = Enum.GetValues(enumType).OfType<int>();
 
-                if (enumValues == null) throw new NotSupportedException();
+                if (enumValues == null)
+                {
+                    throw new NotSupportedException();
+                }
 
                 if (enumValues.Contains(int32))
                 {
@@ -93,7 +99,7 @@ namespace HomagConnect.Base.Contracts.Converter
                 return null;
             }
 
-            var str1 = names.FirstOrDefault(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase)) ?? names.First();
+            var str1 = names.FirstOrDefault(n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase)) ?? names[0];
 
             return Enum.Parse(enumType, str1);
         }

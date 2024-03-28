@@ -110,11 +110,13 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files)
         {
-            foreach (var optimizationRequestPart in optimizationRequest.Parts)
+            var mprFileNames = optimizationRequest.Parts.Select(p => p.MprFileName);
+
+            foreach (var mprFileName in mprFileNames)
             {
-                if (!string.IsNullOrWhiteSpace(optimizationRequestPart.MprFileName) && files.All(f => f.Name != optimizationRequestPart.MprFileName))
+                if (files.All(f => f.Name != mprFileName))
                 {
-                    throw new FileNotFoundException(optimizationRequestPart.MprFileName + " is missing!");
+                    throw new FileNotFoundException(mprFileName + " is missing!");
                 }
             }
 
