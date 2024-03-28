@@ -26,6 +26,9 @@ namespace HomagConnect.IntelliDivide.Samples.Statistics.Material
             var totalBoardsUsedInSquareMeter = materialStatistics.Sum(m => m.BoardsUsed);
             var totalOffcutGrowthInSquareMeter = materialStatistics.Sum(m => m.OffcutsGrowth);
 
+            totalBoardsUsedInSquareMeter.Trace(nameof(totalBoardsUsedInSquareMeter));
+            totalOffcutGrowthInSquareMeter.Trace(nameof(totalOffcutGrowthInSquareMeter));
+
             materialStatistics.Trace();
         }
     }
