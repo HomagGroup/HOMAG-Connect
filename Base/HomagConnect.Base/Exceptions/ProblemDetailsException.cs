@@ -5,6 +5,7 @@ namespace HomagConnect.Base.Exceptions
 {
     public class ProblemDetailsException : Exception
     {
+#pragma warning disable S4004 // Collection properties should be readonly
         public ProblemDetailsException() { }
 
         public ProblemDetailsException(ProblemDetails problemDetails) : base(problemDetails.Detail)
@@ -22,8 +23,9 @@ namespace HomagConnect.Base.Exceptions
         public ProblemDetailsException(string message, Exception innerException) : base(message, innerException) { }
 
         public string Detail { get; set; }
-
+        
         public Dictionary<string, string[]> Errors { get; set; }
+
 
         public int Status { get; set; }
 
@@ -33,4 +35,6 @@ namespace HomagConnect.Base.Exceptions
 
         public string Type { get; set; }
     }
+
+#pragma warning restore S4004 // Collection properties should be readonly
 }
