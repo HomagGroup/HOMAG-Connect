@@ -105,15 +105,15 @@ namespace HomagConnect.Base.Services
         /// </summary>
         public bool ThrowExceptionOnDeprecatedCalls { get; set; }
 
-        protected async Task<IEnumerable<T>> RequestEnumerable<T>(string url)
-        {
-            return await RequestAsyncEnumerable<T>(url).ToListAsync();
-        }
 
-        protected async IAsyncEnumerable<T> RequestAsyncEnumerable<T>(string url)
+        protected async Task<IEnumerable<T>> RequestEnumerable<T>(Uri uri)
+
         {
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url, UriKind.Relative);
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = uri
+            };
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             response.EnsureSuccessStatusCodeWithDetails(request);
@@ -121,16 +121,10 @@ namespace HomagConnect.Base.Services
             var result = await response.Content.ReadAsStringAsync();
             var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
 
-            if (enumerable == null)
-            {
-                yield break;
-            }
-
-            foreach (var item in enumerable)
-            {
-                yield return item;
-            }
+            return enumerable;
         }
+
+       
 
         protected async Task<T> RequestObject<T>(string url)
         {

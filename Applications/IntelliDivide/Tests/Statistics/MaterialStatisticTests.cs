@@ -1,3 +1,4 @@
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -8,6 +9,7 @@ namespace HomagConnect.IntelliDivide.Tests.Statistics;
 [TestCategory("IntelliDivide.Statistics")]
 public class MaterialStatisticTests : IntelliDivideTestBase
 {
+#pragma warning disable S2699 // Tests should include assertions
     /// <summary />
     [TestMethod]
     public async Task Statistics_GetMaterial_NoException()
@@ -28,4 +30,5 @@ public class MaterialStatisticTests : IntelliDivideTestBase
     {
         await MaterialStatisticsSample.RetrieveMaterialStatistics(SubscriptionId, AuthorizationKey);
     }
+#pragma warning restore S2699 // Tests should include assertions
 }

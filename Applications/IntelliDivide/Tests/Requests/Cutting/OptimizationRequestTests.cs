@@ -9,8 +9,11 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 [TestCategory("IntelliDivide.Requests.Cutting")]
 public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
+#pragma warning disable S2699 // Tests should include assertions
+
     [TestMethod]
     [TemporaryDisabledOnServer(2024,5,1)]
+
     public async Task CreatedCuttingOptimizationBasedOnExcelFile()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -75,4 +78,6 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
         await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndDelete(intelliDivide);
     }
+
+#pragma warning restore S2699 // Tests should include assertions
 }
