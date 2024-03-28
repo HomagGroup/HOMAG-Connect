@@ -48,7 +48,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
-        return await RequestObject<BoardType>(url);
+        return await RequestObject<BoardType>(new Uri(url));
     }
 
     /// <inheritdoc />
