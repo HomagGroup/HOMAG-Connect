@@ -4,16 +4,10 @@ using HomagConnect.Base.Services;
 
 namespace HomagConnect.MaterialManager.Client
 {
-    public class MaterialManagerClient : ServiceBase
+    public class MaterialManagerClient(HttpClient client) : ServiceBase(client)
     {
-        public MaterialManagerClient(HttpClient client) : base(client)
-        {
-            Processing = new MaterialManagerClientProcessing(client);
-            Material = new MaterialManagerClientMaterial(client);
-        }
+        public MaterialManagerClientMaterial Material { get; set; } = new MaterialManagerClientMaterial(client);
 
-        public MaterialManagerClientMaterial Material { get; set; }
-
-        public MaterialManagerClientProcessing Processing { get; }
+        public MaterialManagerClientProcessing Processing { get; } = new MaterialManagerClientProcessing(client);
     }
 }

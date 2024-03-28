@@ -13,11 +13,6 @@ namespace HomagConnect.MaterialManager.Client;
 
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    protected IAsyncEnumerable<T> RequestAsyncEnumerable<T>(string uri)
-    {
-        return RequestAsyncEnumerable<T>(new Uri(uri, UriKind.Relative));
-    }
-
     protected async IAsyncEnumerable<T> RequestAsyncEnumerable<T>(Uri uri)
     {
         var enumerable = await RequestEnumerable<T>(uri);
@@ -78,7 +73,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardCodeWithInventory>(url))
+            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardCodeWithInventory>(new Uri(url, UriKind.Relative)))
             {
                 yield return boardTypesDetail;
             }
@@ -90,7 +85,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
-        return RequestAsyncEnumerable<BoardType>(url);
+        return RequestAsyncEnumerable<BoardType>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -115,7 +110,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardType>(url))
+            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardType>(new Uri(url, UriKind.Relative)))
             {
                 yield return boardTypesDetail;
             }
@@ -127,7 +122,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
-        return RequestAsyncEnumerable<BoardType>(url);
+        return RequestAsyncEnumerable<BoardType>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -135,7 +130,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
-        return RequestAsyncEnumerable<BoardTypeDetails>(url);
+        return RequestAsyncEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -161,7 +156,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardType>(url))
+            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardType>(new Uri(url, UriKind.Relative)))
             {
                 yield return boardTypesDetail;
             }
@@ -191,7 +186,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardTypeDetails>(url))
+            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)))
             {
                 yield return boardTypesDetail;
             }
@@ -220,7 +215,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardTypeDetails>(url))
+            await foreach (var boardTypesDetail in RequestAsyncEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)))
             {
                 yield return boardTypesDetail;
             }
@@ -232,7 +227,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
 
-        return RequestAsyncEnumerable<MaterialCodeWithThumbnail>(url);
+        return RequestAsyncEnumerable<MaterialCodeWithThumbnail>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -240,8 +235,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_BaseRoute}{_MaterialCodesRoute}?take={take}&skip={skip}";
 
-        return RequestAsyncEnumerable<MaterialCodeWithThumbnail>(url);
+        return RequestAsyncEnumerable<MaterialCodeWithThumbnail>(new Uri(url, UriKind.Relative));
     }
+
+    
+
 
     private static IEnumerable<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
@@ -254,7 +252,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         {
             queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
             // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-            if (queryParameters.Length + _BaseRoute.Length > 1900)
+            if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
             {
                 if (includingDetails)
                 {
@@ -271,7 +269,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             i++;
             if (i <= codeList.Count)
             {
-                queryParameters.Append("&");
+                queryParameters.Append('&');
             }
         }
 

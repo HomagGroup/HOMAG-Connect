@@ -19,8 +19,6 @@ namespace HomagConnect.Base.Exceptions
             Errors = problemDetails.Errors;
         }
 
-        protected ProblemDetailsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
         public ProblemDetailsException(string message) : base(message) { }
 
         public ProblemDetailsException(string message, Exception innerException) : base(message, innerException) { }

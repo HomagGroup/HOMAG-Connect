@@ -114,7 +114,7 @@ namespace HomagConnect.Base
                 }
 
                 // ReSharper disable once StructuredMessageTemplateProblem
-                logger?.LogError(exception, "Request failed", request?.RequestUri, response.StatusCode, resTxt);
+                logger?.LogError(exception, "Request failed: {0}, {1}, {2}", request?.RequestUri, response.StatusCode, resTxt);
 
                 throw exception;
             }

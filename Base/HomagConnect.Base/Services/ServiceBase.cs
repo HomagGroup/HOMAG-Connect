@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -18,6 +17,18 @@ namespace HomagConnect.Base.Services
     public class ServiceBase
     {
         /// <summary>
+        /// Gets the query parameter max length.
+        /// </summary>
+        protected const int QueryParametersMaxLength = 1900;
+
+        /// <summary>
+        /// Gets the HOMAG Connect base url.
+        /// </summary>
+#pragma warning disable S1075 // URIs should not be hardcoded
+        protected const string BaseUrl = "https://connect.homag.cloud";
+#pragma warning restore S1075 // URIs should not be hardcoded
+
+        /// <summary>
         /// Base route for all apis
         /// </summary>
         protected static readonly string Prefix = "api/";
@@ -31,17 +42,129 @@ namespace HomagConnect.Base.Services
             Initialize(client);
         }
 
-        protected ServiceBase(Guid subscriptionId, string authorizationKey, string homagConnectUrl = "https://connect.homag.cloud")
+        protected ServiceBase(Guid subscriptionId, string authorizationKey)
         {
-            Initialize(subscriptionId, authorizationKey, homagConnectUrl);
+            Initialize(subscriptionId, authorizationKey, new Uri(BaseUrl));
         }
 
-
-        private void Initialize(Guid subscriptionId, string authorizationKey, string homagConnectUrl)
+        protected ServiceBase(Guid subscriptionId, string authorizationKey, string homagConnectUri)
         {
-            var httpClient = new HttpClient();
+            Initialize(subscriptionId, authorizationKey, new Uri(homagConnectUri));
+        }
 
-            httpClient.BaseAddress = new Uri(homagConnectUrl);
+        protected ServiceBase(Guid subscriptionId, string authorizationKey, Uri homagConnectUri)
+        {
+            homagConnectUri ??= new Uri(BaseUrl);
+
+            Initialize(subscriptionId, authorizationKey, homagConnectUri);
+        }
+
+        /// <summary>
+        /// </summary>
+        public string ApiVersion { get; private set; }
+
+        /// <summary>
+        /// Client for all Requests
+        /// </summary>
+        public HttpClient Client { get; private set; }
+
+        /// <summary>
+        /// </summary>
+        public string HeaderKey { get; private set; }
+
+        /// <summary>
+        /// This is called, if the response is marked as deprecated
+        /// </summary>
+        public Action<HttpRequestMessage, HttpResponseMessage> OnDeprecatedAction { get; set; }
+
+        /// <summary>
+        /// If this is <c>true</c>, then the methods will throw an exception, if the response from the server
+        /// indicates, that this api version is marked as deprecated
+        /// </summary>
+        public bool ThrowExceptionOnDeprecatedCalls { get; set; }
+
+        protected async Task DeleteObject(Uri uri)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = uri
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+        }
+
+        protected async Task PostObject(Uri uri)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = uri
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+        }
+
+        protected async Task<IEnumerable<T>> RequestEnumerable<T>(Uri uri)
+
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = uri
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
+
+            return enumerable;
+        }
+
+        protected async Task<T> RequestObject<T>(Uri uri)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = uri
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<T>(result, SerializerSettings.Default);
+
+            return data;
+        }
+
+        protected async Task<byte[]> RequestRawData(Uri uri)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = uri
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCodeWithDetails(request);
+
+            var data = await response.Content.ReadAsByteArrayAsync();
+
+            return data;
+        }
+
+        private void Initialize(Guid subscriptionId, string authorizationKey, Uri homagConnectUri)
+        {
+            var httpClient = new HttpClient
+            {
+                BaseAddress = homagConnectUri
+            };
+
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{authorizationKey}")));
 
             Initialize(httpClient);
@@ -79,96 +202,6 @@ namespace HomagConnect.Base.Services
                     Client.DefaultRequestHeaders.Add(versions.HeaderKey, ApiVersion);
                 }
             }
-        }
-
-        /// <summary>
-        /// </summary>
-        public string ApiVersion { get; private set; }
-
-        /// <summary>
-        /// Client for all Requests
-        /// </summary>
-        public HttpClient Client { get; private set; }
-
-        /// <summary>
-        /// </summary>
-        public string HeaderKey { get; private set; }
-
-        /// <summary>
-        /// This is called, if the response is marked as deprecated
-        /// </summary>
-        public Action<HttpRequestMessage, HttpResponseMessage> OnDeprecatedAction { get; set; }
-
-        /// <summary>
-        /// If this is <c>true</c>, then the methods will throw an exception, if the response from the server
-        /// indicates, that this api version is marked as deprecated
-        /// </summary>
-        public bool ThrowExceptionOnDeprecatedCalls { get; set; }
-
-
-        protected async Task<IEnumerable<T>> RequestEnumerable<T>(Uri uri)
-
-        {
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = uri
-            };
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
-
-            var result = await response.Content.ReadAsStringAsync();
-            var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
-
-            return enumerable;
-        }
-
-       
-
-        protected async Task<T> RequestObject<T>(string url)
-        {
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url, UriKind.Relative);
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
-
-            var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<T>(result, SerializerSettings.Default);
-
-            return data;
-        }
-
-        protected async Task<byte[]> RequestRawData(string url)
-        {
-            var request = new HttpRequestMessage { Method = HttpMethod.Get };
-            request.RequestUri = new Uri(url, UriKind.Relative);
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
-
-            var data = await response.Content.ReadAsByteArrayAsync();
-
-            return data;
-        }
-
-        protected async Task PostObject(string url)
-        {
-            var request = new HttpRequestMessage { Method = HttpMethod.Post };
-            request.RequestUri = new Uri(url, UriKind.Relative);
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
-        }
-
-        protected async Task DeleteObject(string url)
-        {
-            var request = new HttpRequestMessage { Method = HttpMethod.Delete };
-            request.RequestUri = new Uri(url, UriKind.Relative);
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
         }
     }
 }
