@@ -20,7 +20,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
 
     public async Task<IDictionary<string, MaximumBookHeight>?> GetMaximumBookHeights(params string[] materialCodes)
     {
-        var url = $"/api//materialManager/processing/optimization/bookheight".ToLowerInvariant();
+        const string url = $"/api//materialManager/processing/optimization/bookheight";
 
         var request = new HttpRequestMessage { Method = HttpMethod.Get };
         request.RequestUri = new Uri(url, UriKind.Relative);

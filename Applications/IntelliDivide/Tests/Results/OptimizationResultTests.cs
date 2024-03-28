@@ -9,6 +9,7 @@ namespace HomagConnect.IntelliDivide.Tests.Results;
 [TestCategory("IntelliDivide.Results")]
 public class OptimizationResultTests : IntelliDivideTestBase
 {
+#pragma warning disable S2699 // Tests should include assertions
     /// <summary />
     [TestMethod]
     public async Task Optimization_GetResult_NoException()
@@ -89,4 +90,5 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
         await OptimizationResultSamples.GetSolutionPartsSample(intelliDivide);
     }
+#pragma warning restore S2699 // Tests should include assertions
 }
