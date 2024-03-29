@@ -45,20 +45,6 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         public string ParameterName { get; set; }
 
-        /// <summary />
-        [Obsolete("Replaced with QuantityOfParts")]
-        public int PartsCount
-        {
-            get
-            {
-                return QuantityOfParts;
-            }
-            set
-            {
-                QuantityOfParts = value;
-            }
-        }
-
         /// <summary>
         /// Gets or sets the estimated production time.
         /// </summary>
@@ -68,21 +54,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets or sets the quantity of parts.
         /// </summary>
         public int QuantityOfParts { get; set; }
-
-        /// <summary />
-        [Obsolete("Replaced with Waste")]
-        public double Scrap
-        {
-            get
-            {
-                return Waste;
-            }
-            set
-            {
-                Waste = value;
-            }
-        }
-
+        
         /// <summary>
         /// Gets or sets the status.
         /// </summary>

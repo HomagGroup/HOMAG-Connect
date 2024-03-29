@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Globalization;
+using System.Runtime.CompilerServices;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
@@ -10,7 +11,7 @@ using HomagConnect.IntelliDivide.Samples.Helper;
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary />
-    public class CuttingOptimizationUsingObjectModel
+    public static class CuttingOptimizationUsingObjectModel
     {
         /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide)
@@ -138,7 +139,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var machine = await intelliDivide.GetMachineAsync("productionAssist Cutting");
             var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).FirstAsync();
 
-            request.Name = optimizationName + DateTime.Now.ToString("s");
+            request.Name = optimizationName + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);
             request.Machine = machine.Name;
             request.Parameters = parameter.Name;
 

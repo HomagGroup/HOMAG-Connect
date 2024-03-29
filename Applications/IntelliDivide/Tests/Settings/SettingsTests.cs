@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -9,8 +11,18 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
     [TestCategory("UserTestInteractionNeeded")]
     public class SettingsTests : IntelliDivideTestBase
     {
+#pragma warning disable S2699 // Tests should include assertions
+        [TestMethod]
+        public void IntelliDivide_CheckConfiguration_ConfigValid()
+        {
+            BaseUrl.Should().NotBeNull();
+            SubscriptionId.Should().NotBeEmpty();
+            AuthorizationKey.Should().NotBeNullOrEmpty();
+        }
+
         [TestMethod]
         public async Task GetCuttingMachines()
+
         {
             var intelliDivide = GetIntelliDivideClient();
 
@@ -65,4 +77,6 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
             await ImportTemplatesSamples.GetNestingTemplatesSample(intelliDivide);
         }
     }
+
+#pragma warning restore S2699 // Tests should include assertions
 }

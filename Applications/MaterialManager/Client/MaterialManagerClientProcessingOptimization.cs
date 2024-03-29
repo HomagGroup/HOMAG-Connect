@@ -22,8 +22,12 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
     {
         const string url = $"/api//materialManager/processing/optimization/bookheight";
 
-        var request = new HttpRequestMessage { Method = HttpMethod.Get };
-        request.RequestUri = new Uri(url, UriKind.Relative);
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(url, UriKind.Relative)
+        };
+
         request.Headers.AcceptLanguage.Clear();
         request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
@@ -31,7 +35,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
         request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
         var response = await Client.SendAsync(request).ConfigureAwait(false);
-        response.EnsureSuccessStatusCodeWithDetails(request);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();
         var data = JsonConvert.DeserializeObject<IDictionary<string, MaximumBookHeight>>(result, SerializerSettings.Default);
