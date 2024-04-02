@@ -9,6 +9,7 @@ namespace HomagConnect.IntelliDivide.Contracts
     /// </summary>
     public class OptimizationStatusDetails
     {
+#pragma warning disable S4004 // Collection properties should be readonly
         /// <summary>Error message</summary>
         [JsonProperty("error")]
         public string Error { get; set; }
@@ -28,5 +29,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>A list of possible validation errors</summary>
         [JsonProperty("validationErrors")]
         public IList<string> ValidationErrors { get; set; }
+
+#pragma warning restore S4004 // Collection properties should be readonly
     }
 }

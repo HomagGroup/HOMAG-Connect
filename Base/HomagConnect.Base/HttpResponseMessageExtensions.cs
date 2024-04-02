@@ -21,18 +21,16 @@ namespace HomagConnect.Base
     {
         public const string DeprecatedVersionHeaderKey = "api-deprecated-versions";
 
-        public static void EnsureSuccessStatusCodeWithDetails(this HttpResponseMessage response,
-            HttpRequestMessage request)
+        public static async Task EnsureSuccessStatusCodeWithDetailsAsync(this HttpResponseMessage response, HttpRequestMessage request)
         {
-            response.EnsureSuccessStatusCodeWithDetails(request, null);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request, null);
         }
 
-        public static void EnsureSuccessStatusCodeWithDetails(this HttpResponseMessage response,
-            HttpRequestMessage request, ILogger logger)
+        public static async Task EnsureSuccessStatusCodeWithDetailsAsync(this HttpResponseMessage response, HttpRequestMessage request, ILogger logger)
         {
             try
             {
-                response.EnsureSuccessStatusCodeWithDetailsAsync(request, logger, null).Wait();
+                await response.EnsureSuccessStatusCodeWithDetailsAsync(request, logger, null);
             }
             catch (AggregateException e)
             {
@@ -91,13 +89,13 @@ namespace HomagConnect.Base
                         }
                         else if (problemDetails.Type == nameof(ValidationException))
                         {
-                            exception= new ValidationException(problemDetails.Detail, exception);
+                            exception = new ValidationException(problemDetails.Detail, exception);
                         }
                     }
                 }
 
                 exception ??= new HttpRequestException(
-                        $"HTTP request '{request?.RequestUri}' failed with status code {response.StatusCode}{Environment.NewLine}Response:{Environment.NewLine}{response}{Environment.NewLine}Response-Body:{Environment.NewLine}{resTxt}{Environment.NewLine}Request:{Environment.NewLine}{request}");
+                    $"HTTP request '{request?.RequestUri}' failed with status code {response.StatusCode}{Environment.NewLine}Response:{Environment.NewLine}{response}{Environment.NewLine}Response-Body:{Environment.NewLine}{resTxt}{Environment.NewLine}Request:{Environment.NewLine}{request}");
 
                 if (handleResponse != null && await handleResponse.Invoke(response.StatusCode, resTxt, exception).ConfigureAwait(false))
                 {
@@ -105,7 +103,7 @@ namespace HomagConnect.Base
                 }
 
                 // ReSharper disable once StructuredMessageTemplateProblem
-                logger?.LogError(exception, "Request failed", request?.RequestUri, response.StatusCode, resTxt);
+                logger?.LogError(exception, "Request failed: {request?.RequestUri}, {response.StatusCode}, {resTxt}", request?.RequestUri, response.StatusCode, resTxt);
 
                 throw exception;
             }

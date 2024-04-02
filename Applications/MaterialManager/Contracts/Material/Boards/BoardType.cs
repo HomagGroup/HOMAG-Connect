@@ -59,10 +59,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the material category name
         /// </summary>
         [JsonProperty(Order = 12)]
-        public string MaterialCategory { get; set; } = string.Empty; // TODO: Will be handled by intelliSettings BE to provide a fullname, not the ID
+        public MaterialCategory MaterialCategory { get; set; }
 
         [JsonProperty(Order = 13)]
-        public string CoatingCategory { get; set; } = string.Empty; // TODO: Will be handled by intelliSettings BE to provide a fullname, not the ID
+        public CoatingCategory CoatingCategory { get; set; }
 
         [JsonProperty(Order = 14)]
         public StandardQuality StandardQuality { get; set; }

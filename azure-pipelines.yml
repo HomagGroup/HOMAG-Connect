@@ -13,7 +13,7 @@ trigger:
     - '*'
 
 variables:
-  dotnetVersion: 7.0.x
+  dotnetVersion: 8.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect
 
@@ -21,7 +21,7 @@ variables:
 stages:
   - stage: Build
     pool:
-      vmImage: 'ubuntu-22.04'
+      vmimage: 'windows-latest'
     variables:
       BuildConfiguration: Release
     jobs:

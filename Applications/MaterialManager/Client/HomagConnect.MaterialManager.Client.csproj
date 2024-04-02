@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
@@ -15,7 +15,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="4.3.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>

@@ -1,4 +1,5 @@
-﻿using HomagConnect.IntelliDivide.Contracts;
+﻿using HomagConnect.Base.Extensions;
+using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Samples.Helper;

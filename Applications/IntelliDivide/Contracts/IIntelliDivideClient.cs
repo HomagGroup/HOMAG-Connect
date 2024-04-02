@@ -35,7 +35,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets the import templates which have been created for the <see cref="OptimizationType" />. See
         /// <a href="https://docs.homag.cloud/en/intellidivide/tutorial/importing-data" /> for details.
         /// </summary>
-        IAsyncEnumerable<OptimizationImportTemplate> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "");
+        Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "");
 
         /// <summary>
         /// Gets the machine having the name.
@@ -46,17 +46,17 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Gets the list of machines.
         /// </summary>
-        IAsyncEnumerable<OptimizationMachine> GetMachinesAsync();
+        Task<IEnumerable<OptimizationMachine>> GetMachinesAsync();
 
         /// <summary>
         /// Gets the list of machines of the specified <see cref="OptimizationType" />.
         /// </summary>
-        IAsyncEnumerable<OptimizationMachine> GetMachinesAsync(OptimizationType optimizationType);
+        Task<IEnumerable<OptimizationMachine>> GetMachinesAsync(OptimizationType optimizationType);
 
         /// <summary>
         /// Gets the material statistics.
         /// </summary>
-        IAsyncEnumerable<MaterialEfficiency> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0);
+        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0);
 
         /// <summary>
         /// Gets the optimization having the specified optimization id.
@@ -65,17 +65,17 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<Optimization> GetOptimizationAsync(Guid optimizationId);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, int take, int skip = 0);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
@@ -83,10 +83,10 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, string orderBy, int take, int skip = 0);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
@@ -94,10 +94,10 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0);
 
         /// <summary>
-        /// Gets a <see cref="IAsyncEnumerable{T}" /> of optimizations available.
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
         /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
@@ -106,7 +106,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        IAsyncEnumerable<Optimization> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizationsAsync(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, int take, int skip = 0);
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
@@ -115,7 +115,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        IAsyncEnumerable<Optimization> GetOptimizationsAsync(int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizationsAsync(int take, int skip = 0);
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
@@ -125,7 +125,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        IAsyncEnumerable<Optimization> GetOptimizationsAsync(string orderBy, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizationsAsync(string orderBy, int take, int skip = 0);
 
         /// <summary>
         /// Gets the <see cref="OptimizationStatus" /> of the optimization having the provided optimization id.
@@ -136,8 +136,8 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Gets the list of parameter sets for the specified <see cref="OptimizationType" />.
         /// </summary>
-        IAsyncEnumerable<OptimizationParameter> GetParametersAsync(OptimizationType optimizationType);
-
+        Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType);
+            
         /// <summary>
         /// Gets the solution details.
         /// </summary>
@@ -148,7 +148,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         /// <param name="optimizationId">The id of of the optimization.</param>
         /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>
-        IAsyncEnumerable<Solution> GetSolutionsAsync(Guid optimizationId);
+        Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId);
 
         /// <summary>
         /// 
@@ -156,7 +156,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="optimizationId">The optimization id</param>
         /// <param name="solutionId">The solution id</param>
         /// <returns>produced parts of the solution</returns>
-        IAsyncEnumerable<SolutionPart> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
+        Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
 
         /// <summary>
         /// Request an optimization based on a structured <see cref="OptimizationRequest" />.

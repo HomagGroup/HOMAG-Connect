@@ -1,14 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	  <TargetFramework>net7.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-    <UserSecretsId>585739b5-e918-437e-a0e6-61b90a4be38d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,19 +18,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
-    <PackageReference Include="coverlet.collector" Version="3.2.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.2.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
-    <ProjectReference Include="..\Client\HomagConnect.MmrMobile.Client.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+    <ProjectReference Include="..\..\..\Client\HomagConnect.MmrMobile.Client.csproj" />
   </ItemGroup>
-
 
   <ItemGroup>
     <None Update="vsts.runsettings">
