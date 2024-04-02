@@ -26,13 +26,13 @@ if (string.IsNullOrEmpty(subscriptionId))
 }
 
 Console.WriteLine("Please insert your token:");
-var token = Console.ReadLine();
-if (string.IsNullOrEmpty(token))
+var authorizationKey = Console.ReadLine();
+if (string.IsNullOrEmpty(authorizationKey))
 {
-    token = configuration["Token"];
+    authorizationKey = configuration["AuthorizationKey"];
 }
 
-var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{token}"));
+var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{authorizationKey}"));
 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
 
 var choice = string.Empty;

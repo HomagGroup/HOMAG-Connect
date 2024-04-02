@@ -13,16 +13,16 @@ public class MmrTestBase : TestBase
     /// </summary>
     /// <param name="area"></param>
     /// <returns></returns>
-    public static (string? baseUrl, string? username, string? token) ReadProps(string area)
+    public static (string? baseUrl, string? username, string? token) ReadProps()
     {
         var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true)
-            .AddUserSecrets("585739b5-e918-437e-a0e6-61b90a4be38d")
+            .AddUserSecrets("10225a60-2f4f-4e77-b6b5-b57926da5ad6")
             .Build();
         var baseUrl = configuration["HomagConnect:BaseUrl"];
-        var username = configuration[$"HomagConnect:{area}:SubscriptionId"];
-        var token = configuration[$"HomagConnect:{area}:Token"];
+        var username = configuration[$"HomagConnect:SubscriptionId"];
+        var AuthorizationKey = configuration[$"HomagConnect:AuthorizationKey"];
 
-        return (baseUrl, username, token);
+        return (baseUrl, username, AuthorizationKey);
     }
 }

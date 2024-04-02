@@ -116,16 +116,16 @@ public class MmrMobileClientTests : MmrTestBase
     }
     protected virtual MmrMobileClient GetMmrMobileClient()
     {
-        var (baseUrl, username, token) = ReadProps("MmrMobile");
+        var (baseUrl, username, authorizationKey) = ReadProps();
 
         if (TestContext != null && TestContext.Properties.Contains("BaseUrl"))
         {
             baseUrl = TestContext.Properties["BaseUrl"]?.ToString() ;
         }
 
-        if (TestContext != null && TestContext.Properties.Contains("Token"))
+        if (TestContext != null && TestContext.Properties.Contains("AuthorizationKey"))
         {
-            token = TestContext.Properties["Token"]?.ToString();
+            authorizationKey = TestContext.Properties["AuthorizationKey"]?.ToString();
         }
 
         if (TestContext != null && TestContext.Properties.Contains("Username"))
@@ -135,16 +135,16 @@ public class MmrMobileClientTests : MmrTestBase
 
         baseUrl.Should().NotBeNullOrEmpty();
         username.Should().NotBeNullOrEmpty();
-        token.Should().NotBeNullOrEmpty();
+        authorizationKey.Should().NotBeNullOrEmpty();
 
         baseUrl ??= "dummy"; // sonar
         username ??= "dummy"; // sonar
-        token ??= "dummy"; // sonar
+        authorizationKey ??= "dummy"; // sonar
         var client = new HttpClient
         {
             BaseAddress = new Uri(baseUrl)
         };
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, token));
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, authorizationKey));
         return new MmrMobileClient(client);
     }
 }

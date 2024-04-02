@@ -13,14 +13,14 @@ namespace HomagConnect.MmrMobile.Tests
         [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetCounterTest()
         {
-            var (baseUrl, username, token) = ReadProps("MmrMobile");
+            var (baseUrl, username, authorizationKey) = ReadProps();
 
             var client = new HttpClient
             {
                 BaseAddress = new Uri(baseUrl ?? "")
             };
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username ?? "", token ?? ""));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username ?? "", authorizationKey ?? ""));
             var mmrMobileClient = new MmrMobileClient(client);
 
             var counters = await mmrMobileClient.GetCounterData();
@@ -32,14 +32,14 @@ namespace HomagConnect.MmrMobile.Tests
         [TemporaryDisabledOnServer(2024, 4, 1)]
         public async Task GetStatesTest()
         {
-            var (baseUrl, username, token) = ReadProps("MmrMobile");
+            var (baseUrl, username, authorizationKey) = ReadProps();
 
             var client = new HttpClient
             {
                 BaseAddress = new Uri(baseUrl ?? "")
             };
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username ?? "", token ?? ""));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username ?? "", authorizationKey ?? ""));
             var mmrMobileClient = new MmrMobileClient(client);
 
             var states = await mmrMobileClient.GetStateData();
