@@ -109,6 +109,27 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
+        public static async Task GetSolutionPatternsSample(IIntelliDivideClient intelliDivide)
+        {
+            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync(o => o.Status == OptimizationStatus.Optimized);
+
+            var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
+
+            Assert.IsNotNull(optimizationSolutions);
+            optimizationSolutions.Trace();
+
+            var solution = optimizationSolutions.First();
+
+            Assert.IsNotNull(solution);
+            solution.Trace();
+
+            var solutionPatterns = await intelliDivide.GetSolutionPatterns(optimization.Id, solution.Id).ToListAsync();
+
+            Assert.IsNotNull(solutionPatterns);
+            solutionPatterns.Trace();
+        }
+
+        /// <summary />
         public static async Task GetSolutionsSample(IIntelliDivideClient intelliDivide)
         {
             var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync(o => o.Status == OptimizationStatus.Optimized);

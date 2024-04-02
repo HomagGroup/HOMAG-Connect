@@ -1,3 +1,4 @@
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Results;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -89,6 +90,16 @@ public class OptimizationResultTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await OptimizationResultSamples.GetSolutionPartsSample(intelliDivide);
+    }
+
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 4, 15)]
+    public async Task Solution_Patterns()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationResultSamples.GetSolutionPatternsSample(intelliDivide);
     }
 #pragma warning restore S2699 // Tests should include assertions
 }

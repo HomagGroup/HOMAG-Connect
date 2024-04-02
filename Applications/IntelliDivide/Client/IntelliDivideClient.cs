@@ -413,6 +413,14 @@ namespace HomagConnect.IntelliDivide.Client
             return await RequestEnumerable<SolutionPart>(new Uri(url, UriKind.Relative));
         }
 
+        /// <inheritdoc />
+        public async Task<IEnumerable<SolutionPattern>> GetSolutionPatterns(Guid optimizationId, Guid solutionId)
+        {
+            var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/patterns";
+
+            return await RequestEnumerable<SolutionPattern>(new Uri(url, UriKind.Relative));
+        }
+
         #endregion
     }
 }
