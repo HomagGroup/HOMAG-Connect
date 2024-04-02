@@ -3,7 +3,7 @@
   <PropertyGroup>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>19e6f831-f72a-4ad8-9f70-72a3fe4c4e60</UserSecretsId>
@@ -16,7 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
     <ProjectReference Include="..\Client\HomagConnect.MmrMobile.Client.csproj" />
+    <ProjectReference Include="..\Contracts\HomagConnect.MmrMobile.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -37,8 +37,8 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Clear();
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            HttpResponseMessage response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<IEnumerable<MmrMachine>>(result, SerializerSettings.Default);
@@ -64,7 +64,7 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<MmrNodeList>(result, SerializerSettings.Default);
@@ -92,7 +92,7 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<MmrNodeData>(result, SerializerSettings.Default);
@@ -121,7 +121,7 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<MmrNodeData>(result, SerializerSettings.Default);
@@ -153,7 +153,7 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<MmrNodeData>(result, SerializerSettings.Default);
@@ -177,7 +177,7 @@ namespace HomagConnect.MmrMobile.Client
             };
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var machineStateResponse = JsonConvert.DeserializeObject<IEnumerable<MachineState>>(result, SerializerSettings.Default);
@@ -197,7 +197,7 @@ namespace HomagConnect.MmrMobile.Client
             };
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCodeWithDetails(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
             var machineCounterResponse = JsonConvert.DeserializeObject<IEnumerable<MachineCounter>>(result, SerializerSettings.Default);

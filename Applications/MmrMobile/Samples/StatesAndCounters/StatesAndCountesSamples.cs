@@ -7,6 +7,9 @@ namespace HomagConnect.Applications.MmrMobile.Samples
     /// </summary>
     internal static class StatesAndCountesSamples
     {
+        private const int percent = 100;
+        private const int Digits = 2;
+
         /// <summary>
         /// get all counters (last 14 days)
         /// group and summarize by counterid
@@ -58,13 +61,13 @@ namespace HomagConnect.Applications.MmrMobile.Samples
 
                 foreach (var state in groupedStates)
                 {
-                    Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime, 2)}");
+                    Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime, Digits)}");
                 }
 
                 Console.WriteLine("\nSeen in percentage it would be: (out of operation excluded)");
                 foreach (var state in groupedStates.Where(y => y.StateId != StateGroupCodes.OutOfOperation))
                 {
-                    Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime / maximumWorkingHours * 100, 2)}%");
+                    Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime / maximumWorkingHours * percent, Digits)}%");
                 }
             }
             else

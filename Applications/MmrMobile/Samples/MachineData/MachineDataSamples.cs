@@ -120,7 +120,7 @@ namespace HomagConnect.Applications.MmrMobile.Samples
             var machines = (await mmrMobileClient.GetMachines()).ToArray();
             if (!machines.Any())
             {
-                return new List<string?>();
+                return [];
             }
 
             return machines.Select(m => m.MachineNumber).ToList();

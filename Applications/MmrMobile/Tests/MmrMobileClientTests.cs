@@ -1,9 +1,6 @@
 using FluentAssertions;
-using HomagConnect.Base.Tests;
 using HomagConnect.MmrMobile.Client;
-using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
-using System.Reflection;
 
 namespace HomagConnect.MmrMobile.Tests;
 
@@ -11,6 +8,8 @@ namespace HomagConnect.MmrMobile.Tests;
 /// 
 /// </summary>
 [TestClass]
+[TestCategory("MmrMobile")]
+
 public class MmrMobileClientTests : MmrTestBase
 {
     /// <summary>

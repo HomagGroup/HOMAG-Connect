@@ -15,7 +15,7 @@ var configuration = new ConfigurationBuilder()
 
 var client = new HttpClient
 {
-    BaseAddress = new Uri(configuration["BaseUrl"])
+    BaseAddress = new Uri(configuration["BaseUrl"]??"please check url in settings")
 };
 
 Console.WriteLine("Please insert your subscription Id:");
@@ -55,7 +55,7 @@ do
                           "99. Exit\n" +
                           " ");
         choice = Console.ReadLine();
-        List<string> choices = new(new[] { "1", "2", "10", "11", "12", "13", "14", "99" });
+        List<string> choices = new(["1", "2", "10", "11", "12", "13", "14", "99"]);
         if (choices.Exists(c => c == choice))
         {
             break;

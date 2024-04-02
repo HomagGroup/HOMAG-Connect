@@ -31,7 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E7E070F-ED86-401C-93B5-7A2ABF62A80A}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
 		azure-pipelines.yml = azure-pipelines.yml
 		homag-connect.sln.DotSettings = homag-connect.sln.DotSettings
 		README.md = README.md
@@ -81,9 +80,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Tests", "Applications\MmrMobile\Tests\HomagConnect.MmrMobile.Tests.csproj", "{262F23C2-54C8-4BD2-8200-72C39D5EAA4C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{EAD66683-1FF4-4C91-8FCC-18415AA99FFB}"
-	ProjectSection(SolutionItems) = preProject
-		Applications\MmrMobile\Documentation\README.md = Applications\MmrMobile\Documentation\README.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Samples.Console", "Applications\MmrMobile\Samples\HomagConnect.MmrMobile.Samples.Console.csproj", "{71E1F386-26A2-4D9D-B95F-FA0C631258C9}"
 EndProject

@@ -1,12 +1,12 @@
-﻿using HomagConnect.Base.Tests;
-using HomagConnect.Base.Tests.Attributes;
+﻿using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.MmrMobile.Client;
-using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
 
 namespace HomagConnect.MmrMobile.Tests
 {
     [TestClass]
+    [TestCategory("MmrMobile")]
+
     public class GetMmrRoutes : MmrTestBase
     {
         [TestMethod]
