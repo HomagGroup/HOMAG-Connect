@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReadmeFile></PackageReadmeFile>
 		<Title>Homag-Connect MMR Mobile Client</Title>
 		<Description>Client assembly for the usage of Homag-Connect MMR Mobile routes</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MmrMobile/Client</PackageProjectUrl>
@@ -15,7 +15,6 @@
 
 	<ItemGroup>
 		<Folder Include="Resources\" />
-		<None Include="..\Documentation\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
@@ -24,5 +23,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+		<ProjectReference Include="..\Contracts\HomagConnect.MmrMobile.Contracts.csproj" />
 	</ItemGroup>
+
 </Project>

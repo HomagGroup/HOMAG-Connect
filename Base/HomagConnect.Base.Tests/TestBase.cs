@@ -65,9 +65,9 @@ namespace HomagConnect.Base.Tests
 
         private IConfigurationRoot? Configuration { get; set; }
 
-        protected static string EncodeBase64Token(string username, string token)
+        protected static string EncodeBase64Token(string username, string AuthorizationKey)
         {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{token}"));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{AuthorizationKey}"));
         }
 
         protected string GetConfigurationSetting(string key)
