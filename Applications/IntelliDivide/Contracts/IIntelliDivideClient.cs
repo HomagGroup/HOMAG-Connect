@@ -158,6 +158,16 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <returns>produced parts of the solution</returns>
         Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
 
+
+        /// <summary>
+        /// Returns solution patterns
+        /// </summary>
+        /// <param name="optimizationId"></param>
+        /// <param name="solutionId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<SolutionPattern>> GetSolutionPatterns(Guid optimizationId, Guid solutionId);
+
+
         /// <summary>
         /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
         /// </summary>
