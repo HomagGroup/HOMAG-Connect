@@ -18,6 +18,7 @@ public class MmrTestBase : TestBase
         var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true)
             .AddUserSecrets("10225a60-2f4f-4e77-b6b5-b57926da5ad6")
+            .AddEnvironmentVariables()
             .Build();
         var baseUrl = configuration["HomagConnect:BaseUrl"];
         var username = configuration[$"HomagConnect:SubscriptionId"];
