@@ -5,12 +5,17 @@ using System.Linq;
 
 namespace HomagConnect.Base.Extensions
 {
+#pragma warning disable S3956 // "Generic.List" instances should not be part of public APIs
+#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
+#pragma warning disable S134 // Control flow statements "if", "switch", "for", "foreach", "while", "do"  and "try" should not be nested too deeply
+
     /// <summary>
     /// See https://github.com/reustmd/DataAnnotationsValidatorRecursive for details.
     /// </summary>
     public static class DataAnnotationsValidator
     {
         public static bool TryValidateObjectRecursive<T>(T obj, out List<ValidationResult> results, IDictionary<object, object> validationContextItems = null)
+
         {
             results = new List<ValidationResult>();
 
@@ -24,7 +29,6 @@ namespace HomagConnect.Base.Extensions
 
         private static bool TryValidateObjectRecursive<T>(T obj, List<ValidationResult> results, ISet<object> validatedObjects, IDictionary<object, object> validationContextItems = null)
         {
-            //short-circuit to avoid infinite loops on cyclical object graphs
             if (validatedObjects.Contains(obj))
             {
                 return true;
@@ -96,4 +100,8 @@ namespace HomagConnect.Base.Extensions
             return result;
         }
     }
+
+#pragma warning restore S3956 // "Generic.List" instances should not be part of public APIs
+#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
+#pragma warning restore S134 // Control flow statements "if", "switch", "for", "foreach", "while", "do"  and "try" should not be nested too deeply
 }

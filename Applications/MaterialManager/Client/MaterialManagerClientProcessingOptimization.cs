@@ -39,6 +39,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
         // Mock the request for now
 
 #pragma warning disable S109 // Magic numbers should not be used
+#pragma warning disable S125 // Sections of code should not be commented out
 
         var materialCodesP2 = validatedMaterialCodes.Where(m => m.StartsWith("P2_", StringComparison.InvariantCultureIgnoreCase)).ToArray();
 
@@ -136,10 +137,14 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
             });
         }
 
+
+        return await Task.FromResult(offcutParameterSets);
+
+        // return await RequestEnumerable<OffcutParameterSet>(new Uri(url, UriKind.Relative));
+
+        #pragma warning restore S125 // Sections of code should not be commented out
 #pragma warning restore S109 // Magic numbers should not be used
 
-        return offcutParameterSets;
-
-        return await RequestEnumerable<OffcutParameterSet>(new Uri(url, UriKind.Relative));
     }
+
 }

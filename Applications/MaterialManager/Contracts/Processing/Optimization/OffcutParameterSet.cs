@@ -52,7 +52,9 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     #region IValidatableObject Members
 
     /// <inheritdoc />
+#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
     {
         var results = new List<ValidationResult>();
 
