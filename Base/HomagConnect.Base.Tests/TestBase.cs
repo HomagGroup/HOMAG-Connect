@@ -61,6 +61,8 @@ namespace HomagConnect.Base.Tests
             }
         }
 
+
+
         protected virtual Guid UserSecretsFolder { get; set; }
 
         private IConfigurationRoot? Configuration { get; set; }

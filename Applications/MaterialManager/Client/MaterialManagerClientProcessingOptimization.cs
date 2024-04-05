@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-using HomagConnect.Base;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
-
-using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -18,28 +14,92 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
 {
     public MaterialManagerClientProcessingOptimization(HttpClient client) : base(client) { }
 
-    public async Task<IDictionary<string, MaximumBookHeight>?> GetMaximumBookHeights(params string[] materialCodes)
+    public async Task<OffcutParameterSet> GetOffcutParameterSetAsync(string materialCode)
     {
-        const string url = $"/api//materialManager/processing/optimization/bookheight";
+        var offcutParameterSets = await GetOffcutParameterSetsAsync(new[] { materialCode });
 
-        var request = new HttpRequestMessage
+        return offcutParameterSets.First();
+    }
+
+    public async Task<IEnumerable<OffcutParameterSet>> GetOffcutParameterSetsAsync(IEnumerable<string> materialCodes)
+    {
+        var validatedMaterialCodes = materialCodes.Select(m => m.Trim()).Where(m => !string.IsNullOrWhiteSpace(m)).Distinct().OrderBy(m => m).ToArray();
+
+        var queryParameters = new StringBuilder();
+
+        foreach (var materialCode in validatedMaterialCodes)
         {
-            Method = HttpMethod.Get,
-            RequestUri = new Uri(url, UriKind.Relative)
-        };
+            queryParameters.Append($"materialCode={Uri.EscapeDataString(materialCode)}&");
+        }
 
-        request.Headers.AcceptLanguage.Clear();
-        request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+        var url = $"/api/materialManager/processing/optimization/offcuts?{queryParameters.ToString().Trim('&')}";
 
-        var json = JsonConvert.SerializeObject(materialCodes);
-        request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+        var offcutParameterSets = new List<OffcutParameterSet>();
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+        // Mock the request for now
 
-        var result = await response.Content.ReadAsStringAsync();
-        var data = JsonConvert.DeserializeObject<IDictionary<string, MaximumBookHeight>>(result, SerializerSettings.Default);
+        var materialCodesP2 = validatedMaterialCodes.Where(m => m.StartsWith("P2_")).ToArray();
 
-        return data;
+        if (materialCodesP2.Any())
+        {
+            offcutParameterSets.Add(new OffcutParameterSet
+            {
+                MaterialGroupName = "Chipboard",
+                MaterialCodes = materialCodesP2,
+                Parameters = new OffcutParameters
+                {
+                    OffcutsEnabled = true,
+                    OffcutMinimumLength = 500,
+                    OffcutMinimumWidth = 500,
+                    OffcutMinimumArea = 0.3,
+                    OffcutValue = 0.3,
+                    LargeOffcutsEnabled = true,
+                    LargeOffcutMinimumLength = 1500,
+                    LargeOffcutMinimumWidth = 800,
+                    LargeOffcutMinimumArea = 1.6,
+                    LargeOffcutValue = 0.8
+                }
+            });
+        }
+
+        var materialCodesVp = validatedMaterialCodes.Where(m => m.StartsWith("VP_")).ToArray();
+
+        if (materialCodesVp.Any())
+        {
+            offcutParameterSets.Add(new OffcutParameterSet
+            {
+                MaterialGroupName = "Expensive (we keep everything)",
+                MaterialCodes = materialCodesVp,
+                Parameters = new OffcutParameters
+                {
+                    OffcutsEnabled = true,
+                    OffcutMinimumLength = 400,
+                    OffcutMinimumWidth = 400,
+                    OffcutMinimumArea = 0.2,
+                    OffcutValue = 0.8,
+                    LargeOffcutsEnabled = false
+                }
+            });
+        }
+
+        var materialCodesMdf = validatedMaterialCodes.Where(m => m.StartsWith("MDF_")).ToArray();
+
+        if (materialCodesMdf.Any())
+        {
+            offcutParameterSets.Add(new OffcutParameterSet
+            {
+                MaterialGroupName = "Cheap (do not waste the time)",
+                MaterialCodes = materialCodesMdf,
+                Parameters = new OffcutParameters
+                {
+                    OffcutsEnabled = false,
+                    LargeOffcutsEnabled = false
+                }
+            });
+        }
+
+        return offcutParameterSets;
+
+        return await RequestEnumerable<OffcutParameterSet>(new Uri(url, UriKind.Relative));
     }
 }
