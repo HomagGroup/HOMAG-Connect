@@ -46,18 +46,21 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
             {
                 MaterialGroupName = "Chipboard",
                 MaterialCodes = materialCodesP2,
-                Parameters = new OffcutParameters
+                OffcutParameters = new OffcutParameters
                 {
-                    OffcutsEnabled = true,
-                    OffcutMinimumLength = 500,
-                    OffcutMinimumWidth = 500,
-                    OffcutMinimumArea = 0.3,
-                    OffcutValue = 0.3,
-                    LargeOffcutsEnabled = true,
-                    LargeOffcutMinimumLength = 1500,
-                    LargeOffcutMinimumWidth = 800,
-                    LargeOffcutMinimumArea = 1.6,
-                    LargeOffcutValue = 0.8
+                    Enabled = true,
+                    MinimumLength = 500,
+                    MinimumWidth = 500,
+                    MinimumArea = 0.3,
+                    Value = 0.3,
+                },
+                LargeOffcutParameters = new OffcutParameters
+                {
+                    Enabled = true,
+                    MinimumLength = 1500,
+                    MinimumWidth = 800,
+                    MinimumArea = 1.6,
+                    Value = 0.8
                 }
             });
         }
@@ -70,15 +73,18 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
             {
                 MaterialGroupName = "Expensive (we keep everything)",
                 MaterialCodes = materialCodesVp,
-                Parameters = new OffcutParameters
+                OffcutParameters = new OffcutParameters
                 {
-                    OffcutsEnabled = true,
-                    OffcutMinimumLength = 400,
-                    OffcutMinimumWidth = 400,
-                    OffcutMinimumArea = 0.2,
-                    OffcutValue = 0.8,
-                    LargeOffcutsEnabled = false
-                }
+                    Enabled = true,
+                    MinimumLength = 400,
+                    MinimumWidth = 400,
+                    MinimumArea = 0.2,
+                    Value = 0.8,
+                },
+                LargeOffcutParameters = new OffcutParameters
+                {
+                    Enabled = false
+                },
             });
         }
 
@@ -90,10 +96,40 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
             {
                 MaterialGroupName = "Cheap (do not waste the time)",
                 MaterialCodes = materialCodesMdf,
-                Parameters = new OffcutParameters
+                OffcutParameters = new OffcutParameters
                 {
-                    OffcutsEnabled = false,
-                    LargeOffcutsEnabled = false
+                    Enabled = false
+                },
+                LargeOffcutParameters = new OffcutParameters
+                {
+                    Enabled = false
+                }
+            });
+        }
+
+        var materialCodesDefault = validatedMaterialCodes.Where(m => !offcutParameterSets.SelectMany(p => p.MaterialCodes).Contains(m)).ToArray();
+
+        if (materialCodesDefault.Any())
+        {
+            offcutParameterSets.Add(new OffcutParameterSet
+            {
+                MaterialGroupName = "Default",
+                MaterialCodes = materialCodesDefault,
+                OffcutParameters = new OffcutParameters
+                {
+                    Enabled = true,
+                    MinimumLength = 1200,
+                    MinimumWidth = 1000,
+                    MinimumArea = 0.3,
+                    Value = 0.3,
+                },
+                LargeOffcutParameters = new OffcutParameters
+                {
+                    Enabled = true,
+                    MinimumLength = 1500,
+                    MinimumWidth = 1200,
+                    MinimumArea = 1.6,
+                    Value = 0.8
                 }
             });
         }

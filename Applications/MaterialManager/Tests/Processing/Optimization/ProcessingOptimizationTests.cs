@@ -11,10 +11,10 @@ namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 public class ProcessingOptimizationTests : MaterialManagerTestBase
 {
     [TestMethod]
-    public async Task OffcutParameter_RequestForMultipleMaterials_ConfigValid()
+    public async Task OffcutParameters_RequestForMultipleMaterials_ConfigValid()
     {
         var client = GetMaterialManagerClient();
-        var materialCodes = new[] { "P2_Gold Craft Oak_19.0", "P2_White_19.0", "MDF_19.0", "VP_Fichte_19.0" };
+        var materialCodes = new[] { "P2_Gold Craft Oak_19.0", "P2_White_19.0", "MDF_19.0", "VP_Fichte_19.0", "HPL_F638_10.0" };
 
         var offcutParameterSets = await client.Processing.Optimization.GetOffcutParameterSetsAsync(materialCodes).ToListAsync();
 
@@ -22,10 +22,18 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         offcutParameterSets.Count.Should().BeGreaterThan(0);
 
         Trace(offcutParameterSets);
+
+        foreach (var offcutParameterSet in offcutParameterSets)
+        {
+            if (!DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults))
+            {
+                Assert.Fail(validationResults[0].ErrorMessage);
+            }
+        }
     }
 
     [TestMethod]
-    public async Task OffcutParameter_RequestForOneMaterial_ConfigValid()
+    public async Task OffcutParameters_RequestForOneMaterial_ConfigValid()
     {
         var client = GetMaterialManagerClient();
         const string materialCode = "P2_Gold Craft Oak_19.0";
@@ -36,8 +44,12 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
 
         offcutParameterSet.MaterialGroupName.Should().NotBeNullOrEmpty();
         offcutParameterSet.MaterialCodes.Should().Contain(materialCode);
-        offcutParameterSet.Parameters.Should().NotBeNull();
 
         Trace(offcutParameterSet);
+
+        if (!DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults))
+        {
+            Assert.Fail(validationResults[0].ErrorMessage);
+        }
     }
 }
