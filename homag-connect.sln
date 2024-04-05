@@ -100,6 +100,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Edgebands", "Edgebands", "{
 		..\..\..\..\Documents\Desktop\HomagConnectMaterialManagerClient\Edgebands\HomagConnectMaterialManagerClientEdgebands.md = ..\..\..\..\Documents\Desktop\HomagConnectMaterialManagerClient\Edgebands\HomagConnectMaterialManagerClientEdgebands.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManager.Samples", "Applications\MaterialManager\Samples\HomagConnect.MaterialManager.Samples.csproj", "{9348A3EA-DF7B-4879-AD8F-F76319EDA589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,10 @@ Global
 		{71E1F386-26A2-4D9D-B95F-FA0C631258C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71E1F386-26A2-4D9D-B95F-FA0C631258C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71E1F386-26A2-4D9D-B95F-FA0C631258C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,6 +201,7 @@ Global
 		{97E4117E-A777-47D0-B954-424260087FEB} = {5ECB8B6A-CD21-4E60-B2B8-543D10B4B4CF}
 		{F8ADCB89-E9EB-455C-AF38-F49D37181568} = {97E4117E-A777-47D0-B954-424260087FEB}
 		{E23C5DCD-636D-4B84-8CE8-4C00FCD63B6A} = {97E4117E-A777-47D0-B954-424260087FEB}
+		{9348A3EA-DF7B-4879-AD8F-F76319EDA589} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
