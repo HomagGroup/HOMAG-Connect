@@ -10,6 +10,9 @@ The following repository contains the **HOMAG Connect Clients**,
 2. intelliDivide <br> 
    [Documentation for intelliDivide Client](./Applications/IntelliDivide/Documentation/README.md) and [some samples](./Applications/IntelliDivide/Samples/) for the usage.
 
+3. materialManager <br>
+   [Documentation for materialManager Client](./Applications/MaterialManager/Documentation/README.md) and [some samples](./Applications/MaterialManager/Samples) for the usage.
+
 With these packages you can easily integrate different workflows of HOMAG applications into your own application. For further details and prerequisites for using the Homag Connect, please see the documentation of each application.
 
 ## Get your personal access token for your application
