@@ -38,7 +38,9 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
 
         // Mock the request for now
 
-        var materialCodesP2 = validatedMaterialCodes.Where(m => m.StartsWith("P2_")).ToArray();
+#pragma warning disable S109 // Magic numbers should not be used
+
+        var materialCodesP2 = validatedMaterialCodes.Where(m => m.StartsWith("P2_", StringComparison.InvariantCultureIgnoreCase)).ToArray();
 
         if (materialCodesP2.Any())
         {
@@ -65,7 +67,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
             });
         }
 
-        var materialCodesVp = validatedMaterialCodes.Where(m => m.StartsWith("VP_")).ToArray();
+        var materialCodesVp = validatedMaterialCodes.Where(m => m.StartsWith("VP_", StringComparison.InvariantCultureIgnoreCase)).ToArray();
 
         if (materialCodesVp.Any())
         {
@@ -88,7 +90,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
             });
         }
 
-        var materialCodesMdf = validatedMaterialCodes.Where(m => m.StartsWith("MDF_")).ToArray();
+        var materialCodesMdf = validatedMaterialCodes.Where(m => m.StartsWith("MDF_", StringComparison.InvariantCultureIgnoreCase)).ToArray();
 
         if (materialCodesMdf.Any())
         {
@@ -133,6 +135,8 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase
                 }
             });
         }
+
+#pragma warning restore S109 // Magic numbers should not be used
 
         return offcutParameterSets;
 
