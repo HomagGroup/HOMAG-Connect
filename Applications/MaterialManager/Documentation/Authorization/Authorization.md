@@ -39,4 +39,4 @@ Enter a meaningful description for your authorization key so that you can easily
 <b>Picture to be added</b>
 
 
-<strong>Note:</strong>Make sure to keep your access token confidential as it provides authorized access to the apps.
+<strong>Note:</strong> Make sure to keep your access token confidential as it provides authorized access to the apps.

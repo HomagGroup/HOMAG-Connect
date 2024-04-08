@@ -1,8 +1,9 @@
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # IBoardCodeWithInventory
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 
-This is an interface representing a board code with inventory.
+Interface for board code with inventory.
 
 ```csharp
 public interface IBoardCodeWithInventory

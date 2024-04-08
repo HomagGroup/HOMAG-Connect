@@ -1,4 +1,5 @@
-﻿# CoatingCategory
+﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+# CoatingCategory
 
 Namespace: HomagConnect.MaterialManager.Contracts.Enumerations
 
@@ -8,7 +9,7 @@ The coating category of a board.
 public enum CoatingCategory
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [ValueType](https://docs.microsoft.com/en-us/dotnet/api/system.valuetype) → [Enum](https://docs.microsoft.com/en-us/dotnet/api/system.enum) → [Grain](./homagconnect.intellidivide.contracts.base.grain.md)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [ValueType](https://docs.microsoft.com/en-us/dotnet/api/system.valuetype) → [Enum](https://docs.microsoft.com/en-us/dotnet/api/system.enum) → [Grain](./homagconnect.intellidivide.contracts.base.grain.md)
 Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icomparable), [IFormattable](https://docs.microsoft.com/en-us/dotnet/api/system.iformattable), [IConvertible](https://docs.microsoft.com/en-us/dotnet/api/system.iconvertible)
 
 ## Fields

@@ -1,4 +1,5 @@
-﻿# BoardTypeInventory Class
+﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+# BoardTypeInventory
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards
 

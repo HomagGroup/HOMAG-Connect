@@ -1,6 +1,9 @@
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # MaterialManagerClientMaterial
 
 Namespace: HomagConnect.MaterialManager.Client
+
+Client for materialManager materials
 
 ```csharp
 public class MaterialManagerClientMaterial : HomagConnect.Base.Services.ServiceBase

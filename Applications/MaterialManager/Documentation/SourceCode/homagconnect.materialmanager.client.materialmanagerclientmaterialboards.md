@@ -1,12 +1,15 @@
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # MaterialManagerClientMaterialBoards
 
 Namespace: HomagConnect.MaterialManager.Client
+
+Client for materialManager boards
 
 ```csharp
 public class MaterialManagerClientMaterialBoards : HomagConnect.Base.Services.ServiceBase, HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces.IMaterialManagerClientMaterialBoards
 ```
 
-Inheritance  [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [MaterialManagerClientMaterialBoards](./homagconnect.materialmanager.client.materialboards.md)<br>
+Inheritance  [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [MaterialManagerClientMaterialBoards](./homagconnect.materialmanager.client.materialboards.md)
 Implements [IMaterialManagerClientMaterialBoards](./homagconnect.materialmanager.contracts.material.boards.interfaces.imaterialmanagerclientmaterialboards.md)
 
 ## Constants

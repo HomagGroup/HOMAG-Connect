@@ -1,4 +1,5 @@
-﻿# StandardQuality
+﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+# StandardQuality
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 

@@ -1,4 +1,5 @@
-﻿# ImageInformation
+﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+# ImageInformation
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Base
 

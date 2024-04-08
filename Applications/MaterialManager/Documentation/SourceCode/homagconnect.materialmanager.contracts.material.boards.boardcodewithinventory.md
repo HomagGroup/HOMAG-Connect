@@ -1,4 +1,5 @@
-# Class: BoardCodeWithInventory
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+# BoardCodeWithInventory
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards
 
@@ -10,8 +11,8 @@ public class BoardCodeWithInventory : IBoardCodeWithInventory, IExtensibleDataOb
 
 Inheritance: 
 
-Object -> [BoardCodeWithInventory](./homagconnect.materialmanager.contracts.material.boards.boardcodewithinventory.md) -> [IBoardCodeWithInventory](./homagconnect.materialmanager.contracts.material.boards.interfaces.iboardcodewithinventory) -> [IExtensibleDataObject](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iextensibledataobject?view=netstandard-2.0)
-Implements IExtensibleDataObject
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) -> [BoardCodeWithInventory](./homagconnect.materialmanager.contracts.material.boards.boardcodewithinventory.md)
+Implements [IExtensibleDataObject](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iextensibledataobject), [IBoardCodeWithInventory](./homagconnect.materialmanager.contracts.material.boards.interfaces.iboardcodewithinventory)
 
 ## Properties
 

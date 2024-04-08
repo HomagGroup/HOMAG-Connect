@@ -1,4 +1,5 @@
-#Class: BoardTypeDetails
+<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
+# BoardTypeDetails
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards
 
@@ -8,8 +9,8 @@ The board type details.
 public class BoardTypeDetails : BoardType, IBoardCodeWithInventory
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) -> [BoardType](./homagconnect.materialmanager.contracts.material.boards.boardtype.md) -> [BoardTypeDetails](./homagconnect.materialmanager.contracts.material.boards.boardtypedetails.md) -> [IBoardCodeWithInventory](./homagconnect.materialmanager.contracts.material.boards.interfaces.boardtypedetails.md)
-Implements [IExtensibleDataObject](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iextensibledataobject)
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) -> [BoardType](./homagconnect.materialmanager.contracts.material.boards.boardtype.md)
+Implements [IExtensibleDataObject](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iextensibledataobject), [IBoardCodeWithInventory](./homagconnect.materialmanager.contracts.material.boards.interfaces.iboardcodewithinventory)
 
 
 ## Properties
