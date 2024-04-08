@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "e5fb42c7-533c-45d5-804b-193ec64eecdc",
+		"name": "Homag Connect materialManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read",
+			"item": [
+				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Get all boards",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?includingDetails=true&take=&skip",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "includingDetails",
+											"value": "true"
+										},
+										{
+											"key": "take",
+											"value": "",
+											"description": "Max. 1000 boards at once"
+										},
+										{
+											"key": "skip",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get boards for a certain materialCode",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=\"Test\"&includingDetails=true&take&skip",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "materialCode",
+											"value": "\"Test\""
+										},
+										{
+											"key": "includingDetails",
+											"value": "true"
+										},
+										{
+											"key": "take",
+											"value": null,
+											"description": "Max. 1000 boards at once"
+										},
+										{
+											"key": "skip",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get boards for a certain boardCode",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=\"Test\"&includingDetails=true&take&skip",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": "\"Test\""
+										},
+										{
+											"key": "includingDetails",
+											"value": "true"
+										},
+										{
+											"key": "take",
+											"value": null,
+											"description": "Max. 1000 boards at once"
+										},
+										{
+											"key": "skip",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get materialCodes with thumbnail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materialCodes?search=\"Test\"&take&skip",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"materialCodes"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "\"Test\""
+										},
+										{
+											"key": "take",
+											"value": null,
+											"description": "Max. 1000 boards at once"
+										},
+										{
+											"key": "skip",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get inventory for boardCodes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/inventory?boardCode=\"Test\"",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"inventory"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": "\"Test\""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Get all edgebands",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands/overview",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands",
+										"overview"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get edgebands with list filters for edgeband codes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCodes=",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "edgebandCodes",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "{{ConnectUserNameConnect}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{ConnectTokenFromTapio}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
