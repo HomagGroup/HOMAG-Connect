@@ -2,7 +2,7 @@
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
-    public enum MaterialCategory
+    public enum BoardMaterialCategory
     {
         [Display(Description = "Acrylic composite materials")]
         MW_AB,
