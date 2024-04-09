@@ -8,13 +8,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
         Abs,
 
         [Display(Description = "Acrylic")]
-        Acr,
+        Acrylic,
 
         [Display(Description = "Aluminum")]
         Aluminum,
 
         [Display(Description = "Melamine")]
-        Mel,
+        Melamine,
 
         [Display(Description = "Others")]
         Others,
@@ -29,7 +29,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
         Pvc,
 
         [Display(Description = "Real wood")]
-        Sw,
+        RealWood,
 
         [Display(Description = "Veneer")]
         Veneer
