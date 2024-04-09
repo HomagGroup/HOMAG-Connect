@@ -20,7 +20,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         {
             var materialManager = GetMaterialManagerClient();
 
-            await MaterialManagerReadBoardsResults.GetMaterialCodes(materialManager);
+            await MaterialManagerReadBoardsResults.GetMaterialCodes(materialManager.Material.Boards);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         {
             var materialManager = GetMaterialManagerClient();
 
-            await MaterialManagerReadBoardsResults.GetThumbnails(materialManager);
+            await MaterialManagerReadBoardsResults.GetThumbnails(materialManager.Material.Boards);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         {
             var materialManager = GetMaterialManagerClient();
 
-            await MaterialManagerReadBoardsResults.GetLocations(materialManager, new List<string>{ "P2_Graphitschwarz_19.0_2800_2070", "P2_Lichtgrau_19_2800_2070" });
+            await MaterialManagerReadBoardsResults.GetLocations(materialManager.Material.Boards, new List<string>{ "P2_Graphitschwarz_19.0_2800_2070", "P2_Lichtgrau_19_2800_2070" });
         }
     }
 }
