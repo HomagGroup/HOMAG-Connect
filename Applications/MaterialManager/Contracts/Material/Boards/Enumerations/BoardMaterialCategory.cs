@@ -2,8 +2,11 @@
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
-    public enum MaterialCategory
+    public enum BoardMaterialCategory
     {
+        // ReSharper disable InconsistentNaming
+        // ReSharper disable IdentifierTypo
+
         [Display(Description = "Acrylic composite materials")]
         MW_AB,
 
@@ -46,7 +49,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         [Display(Description = "Compact panels (HPL)")]
         DP_HPL,
 
-        [Display(Description = "Composite panels with aluminium")]
+        [Display(Description = "Composite panels with aluminum")]
         V_A,
 
         [Display(Description = "Copper, zinc, brass")]
@@ -165,5 +168,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 
         [Display(Description = "Wood-plastic composites (WPC)")]
         WPC_WPC
+
+        // ReSharper restore IdentifierTypo
+        // ReSharper restore InconsistentNaming
     }
 }

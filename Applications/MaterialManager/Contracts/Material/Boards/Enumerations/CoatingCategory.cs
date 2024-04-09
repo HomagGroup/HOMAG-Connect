@@ -11,6 +11,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         LaminatedGlass,
 
         [Display(Description = "HPL")]
+        // ReSharper disable once InconsistentNaming
         HPL,
 
         [Display(Description = "Laminates consisting of decorative paper")]
