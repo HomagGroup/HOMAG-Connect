@@ -8,7 +8,7 @@ The following repository contains the **HOMAG Connect Clients**,
    [Documentation for MMR Mobile Client](/Applications/MmrMobile/Documentation/README.md) and [some samples](/Applications/MmrMobile/Samples/) for the usage.
 
 2. intelliDivide <br> 
-   [Documentation for intelliDivide Client](./Applications/IntelliDivide/Documentation/README.md) and [some samples](./Applications/IntelliDivide/Samples/) for the usage.
+   [Documentation for intelliDivide Client](./Applications/IntelliDivide/README.md) and [some samples](./Applications/IntelliDivide/Samples/) for the usage.
 
 3. materialManager <br>
    [Documentation for materialManager Client](./Applications/MaterialManager/Documentation/README.md) and [some samples](./Applications/MaterialManager/Samples) for the usage.
