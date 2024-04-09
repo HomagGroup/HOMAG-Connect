@@ -8,7 +8,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
         Abs,
 
         [Display(Description = "Acrylic")]
-        Acr,
+        Acrylic,
 
         [Display(Description = "Aluminum")]
         Aluminum,

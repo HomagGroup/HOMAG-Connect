@@ -5,10 +5,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
     public enum GluingCategory
     {
         [Display(Description = "Hot-melt glue")]
-        HotMeltGlue,
+        HotmeltGlue,
 
         [Display(Description = "Zero-joint")]
-        ZeroJoint,
+        Zerojoint,
 
         [Display(Description = "Other")]
         Other
