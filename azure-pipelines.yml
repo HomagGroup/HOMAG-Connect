@@ -22,7 +22,7 @@ variables:
   dotnetVersion: 8.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect
-
+  
 stages:
   - stage: retrieve_version_info_from_git
     displayName: Get Version info
