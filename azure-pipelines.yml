@@ -50,7 +50,7 @@ stages:
       - retrieve_version_info_from_git
       fully_qualifed_package_name: HomagGroup.DigitalFactory.DigitalDevelopment.HomagConnect
       analyze_directory: $(Build.SourcesDirectory)
-      package_version: $[ stageDependencies.retrieve_version_info_from_git_stage.get_number_job.outputs['version_task.VERSION_TAG'] ]
+      package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
 
   - stage: Build
     pool:
