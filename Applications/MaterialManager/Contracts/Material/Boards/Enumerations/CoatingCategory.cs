@@ -12,13 +12,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 
         [Display(Description = "HPL")]
         // ReSharper disable once InconsistentNaming
-        HPL,
+        Hpl,
 
         [Display(Description = "Laminates consisting of decorative paper")]
         DecorativePaper,
 
         [Display(Description = "Melamine (thermoset)")]
-        MelamineThermoSet,
+        MelamineThermoset,
 
         [Display(Description = "Painted")]
         Painted,
@@ -30,10 +30,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         RealMetal,
 
         [Display(Description = "Uncoated")]
-        UnCoated,
+        Uncoated,
 
         [Display(Description = "Undefined")]
-        UnDefined,
+        Undefined,
 
         [Display(Description = "Veneer")]
         Veneer
