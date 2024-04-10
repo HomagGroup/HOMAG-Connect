@@ -4,15 +4,17 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     public enum CoatingCategory
     {
+        // ReSharper disable InconsistentNaming
+        // ReSharper disable IdentifierTypo
+
         [Display(Description = "Aluminium")]
         Aluminium,
 
         [Display(Description = "Glass laminate (PMMA)")]
-        LaminatedGlass,
+        LaminatedGlass_PMMA,
 
         [Display(Description = "HPL")]
-        // ReSharper disable once InconsistentNaming
-        Hpl,
+        HPL,
 
         [Display(Description = "Laminates consisting of decorative paper")]
         DecorativePaper,
@@ -37,5 +39,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 
         [Display(Description = "Veneer")]
         Veneer
+
+        // ReSharper restore InconsistentNaming
+        // ReSharper restore IdentifierTypo
     }
 }

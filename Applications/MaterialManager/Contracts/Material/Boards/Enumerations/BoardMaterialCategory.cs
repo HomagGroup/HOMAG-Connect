@@ -14,16 +14,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         AcrylicGlass_PMMA,
 
         [Display(Description = "Al-MG-Cu")]
-        Almgcu,
+        AlMgCu,
 
         [Display(Description = "Al-Si alloy")]
-        AlsiAlloy,
+        AlSiAlloy,
 
-        [Display(Description = "Aluminium")]
+        [Display(Description = "Aluminum")]
         Aluminum,
 
-        [Display(Description = "Aluminium honeycomb panels")]
-        AluminiumHoneycombPanels,
+        [Display(Description = "Aluminum honeycomb panels")]
+        AluminumHoneycombPanels,
 
         [Display(Description = "Blockboard and laminboard (hard wood)")]
         BlockboardAndLaminboard_HardWood,
@@ -32,7 +32,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         BlockboardAndLaminboard_SoftWood,
 
         [Display(Description = "Butyl rubber (IIR)")]
-        ButylRubber_Iir,
+        ButylRubber_IIR,
 
         [Display(Description = "Carbon-fibre-reinforced plastics (CFK)")]
         CarbonfibrereinforcedPlastics_CFK,
@@ -47,7 +47,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         CopolymerboundMineralMaterials,
 
         [Display(Description = "Compact panels (HPL)")]
-        CompactPanels_Hpl,
+        CompactPanels_HPL,
 
         [Display(Description = "Composite panels with aluminum")]
         CompositePanelsWithAluminum,
@@ -56,10 +56,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         CopperZincBrass,
 
         [Display(Description = "Fibreglass-reinforced plastics (GFRP)")]
-        FibreglassreinforcedPlastics_Gfrp,
+        FibreglassReinforcedPlastics_GFRP,
 
         [Display(Description = "Flakeboard (OSB panel)")]
-        Flakeboard_OsbPanel,
+        Flakeboard_OSBPanel,
 
         [Display(Description = "Glued wood panel/glue-laminated wood (hard wood)")]
         GluedWoodPanelGluelaminatedWood_HardWood,
@@ -74,7 +74,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         HardFoamPanel,
 
         [Display(Description = "Hard paper (HP)")]
-        HardPaper_Hp,
+        HardPaper_HP,
 
         [Display(Description = "Hard particle board")]
         HardParticleBoard,
@@ -86,7 +86,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         HardwoodLengthwise,
 
         [Display(Description = "High-density fiberboard (HDF)")]
-        HighdensityFiberboard_Hdf,
+        HighdensityFiberboard_HDF,
 
         [Display(Description = "Integral foam panel")]
         IntegralFoamPanel,
@@ -95,13 +95,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         Laminate,
 
         [Display(Description = "Laminate (HPL)")]
-        Laminate_Hpl,
+        Laminate_HPL,
 
         [Display(Description = "Laminate flooring panels")]
         LaminateFlooringPanels,
 
         [Display(Description = "Laminated fabric (HGW)")]
-        LaminatedFabric_Hgw,
+        LaminatedFabric_HGW,
 
         [Display(Description = "Lead alloy")]
         LeadAlloy,
@@ -113,16 +113,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         LightweightPanelWithMdfBoards,
 
         [Display(Description = "Low-melting thermoplastics (PP, PA)")]
-        LowmeltingThermoplastics_PpPa,
+        LowmeltingThermoplastics_PP_PA,
 
         [Display(Description = "Medium-density fiberboard (MDF)")]
-        MediumdensityFiberboard_Mdf,
+        MediumdensityFiberboard_MDF,
 
         [Display(Description = "Natural rubber (NR)")]
-        NaturalRubber_Nr,
+        NaturalRubber_NR,
 
         [Display(Description = "Phenol formaldehyde (PF)")]
-        PhenolFormaldehyde_Pf,
+        PhenolFormaldehyde_PF,
 
         [Display(Description = "Phenolic resin coated plywood")]
         PhenolicResinCoatedPlywood,
@@ -137,7 +137,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         PolyesterboundMineralMaterials,
 
         [Display(Description = "Polyvinyl carbazole (PVK)")]
-        PolyvinylCarbazole_Pvk,
+        PolyvinylCarbazole_PVK,
 
         [Display(Description = "Soft fiberboard")]
         SoftFiberboard,
@@ -149,7 +149,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         SoftwoodLengthwise,
 
         [Display(Description = "Styrene-butadiene rubber (SBR)")]
-        StyrenebutadieneRubber_Sbr,
+        StyrenebutadieneRubber_SBR,
 
         [Display(Description = "Thermoplastics (PE, PVC, ABS, POM, PS)")]
         Thermoplastics,
@@ -167,7 +167,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         Veneer,
 
         [Display(Description = "Wood-plastic composites (WPC)")]
-        WoodplasticComposites_Wpc
+        WoodplasticComposites_WPC
 
         // ReSharper restore IdentifierTypo
         // ReSharper restore InconsistentNaming
