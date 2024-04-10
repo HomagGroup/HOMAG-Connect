@@ -14,19 +14,6 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
-    /// Gets or sets the <see cref="OffcutParameters" />.
-    /// </summary>
-    [JsonProperty(Order = 21)]
-    public OffcutParameters LargeOffcutParameters { get; set; } = new();
-
-    /// <summary>
-    /// Gets or sets the material codes for which the <see cref="OffcutParameterSet" /> is valid.
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    [MinLength(1)]
-    public string[] MaterialCodes { get; set; } = Array.Empty<string>();
-
-    /// <summary>
     /// Gets or sets the name of the material group.
     /// </summary>
     [Key]
@@ -36,10 +23,29 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     public string MaterialGroupName { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the material codes for which the <see cref="OffcutParameterSet" /> is valid.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    [MinLength(1)]
+    public string[] MaterialCodes { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// Gets or sets the <see cref="MaterialManagerLink" />.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public string MaterialManagerLink { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the <see cref="OffcutParameters" />.
     /// </summary>
     [JsonProperty(Order = 11)]
     public OffcutParameters OffcutParameters { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the <see cref="OffcutParameters" />.
+    /// </summary>
+    [JsonProperty(Order = 21)]
+    public OffcutParameters LargeOffcutParameters { get; set; } = new();
 
     #region IContainsUnitSystemDependentProperties Members
 
