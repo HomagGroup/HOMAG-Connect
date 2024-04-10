@@ -4,8 +4,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 {
     public enum EdgebandMaterialCategory
     {
+        // ReSharper disable InconsistentNaming
+        // ReSharper disable IdentifierTypo
+
         [Display(Description = "ABS")]
-        Abs,
+        ABS,
 
         [Display(Description = "Acrylic")]
         Acrylic,
@@ -20,18 +23,21 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
         Others,
 
         [Display(Description = "PMMA")]
-        Pmma,
+        PMMA,
 
         [Display(Description = "PP")]
-        Pp,
+        PP,
 
         [Display(Description = "PVC")]
-        Pvc,
+        PVC,
 
         [Display(Description = "Real wood")]
         RealWood,
 
         [Display(Description = "Veneer")]
         Veneer
+
+        // ReSharper restore InconsistentNaming
+        // ReSharper restore IdentifierTypo
     }
 }

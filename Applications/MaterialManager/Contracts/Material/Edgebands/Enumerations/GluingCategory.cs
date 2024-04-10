@@ -4,6 +4,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 {
     public enum GluingCategory
     {
+        // ReSharper disable InconsistentNaming
+        // ReSharper disable IdentifierTypo
+
         [Display(Description = "Hot-melt glue")]
         HotmeltGlue,
 
@@ -12,5 +15,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 
         [Display(Description = "Other")]
         Other
+
+        // ReSharper restore InconsistentNaming
+        // ReSharper restore IdentifierTypo
     }
 }

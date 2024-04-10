@@ -8,166 +8,166 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         // ReSharper disable IdentifierTypo
 
         [Display(Description = "Acrylic composite materials")]
-        MW_AB,
+        AcrylicCompositeMaterials,
 
         [Display(Description = "Acrylic glass (PMMA)")]
-        TP_PMMA,
+        AcrylicGlass_PMMA,
 
         [Display(Description = "Al-MG-Cu")]
-        NEM_AMC,
+        AlMgCu,
 
         [Display(Description = "Al-Si alloy")]
-        NEM_ASL,
+        AlSiAlloy,
 
-        [Display(Description = "Aluminium")]
-        NEM_A,
+        [Display(Description = "Aluminum")]
+        Aluminum,
 
-        [Display(Description = "Aluminium honeycomb panels")]
-        NEM_AW,
+        [Display(Description = "Aluminum honeycomb panels")]
+        AluminumHoneycombPanels,
 
         [Display(Description = "Blockboard and laminboard (hard wood)")]
-        SF_SS_H,
+        BlockboardAndLaminboard_HardWood,
 
         [Display(Description = "Blockboard and laminboard (soft wood)")]
-        SF_SS_W,
+        BlockboardAndLaminboard_SoftWood,
 
         [Display(Description = "Butyl rubber (IIR)")]
-        E_IIR,
+        ButylRubber_IIR,
 
         [Display(Description = "Carbon-fibre-reinforced plastics (CFK)")]
-        FK_CFK,
+        CarbonfibrereinforcedPlastics_CFK,
 
         [Display(Description = "Cement-bound panels")]
-        V_ZG,
+        CementboundPanels,
 
         [Display(Description = "Chipboard")]
-        HH_SP,
+        Chipboard,
 
         [Display(Description = "Co-polymer-bound mineral materials")]
-        MW_CPB,
+        CopolymerboundMineralMaterials,
 
         [Display(Description = "Compact panels (HPL)")]
-        DP_HPL,
+        CompactPanels_HPL,
 
         [Display(Description = "Composite panels with aluminum")]
-        V_A,
+        CompositePanelsWithAluminum,
 
         [Display(Description = "Copper, zinc, brass")]
-        NEM_KZM,
+        CopperZincBrass,
 
         [Display(Description = "Fibreglass-reinforced plastics (GFRP)")]
-        FK_GFK,
+        FibreglassReinforcedPlastics_GFRP,
 
         [Display(Description = "Flakeboard (OSB panel)")]
-        HH_GSP,
+        Flakeboard_OSBPanel,
 
         [Display(Description = "Glued wood panel/glue-laminated wood (hard wood)")]
-        SF_LHP_BSP_H,
+        GluedWoodPanelGluelaminatedWood_HardWood,
 
         [Display(Description = "Glued wood panel/glue-laminated wood (soft wood)")]
-        SF_LHP_BSP_W,
+        GluedWoodPanelGluelaminatedWood_SoftWood,
 
         [Display(Description = "Gypsum plasterboard (plasterboard)")]
-        V_GK,
+        GypsumPlasterboard_Plasterboard,
 
         [Display(Description = "Hard foam panel")]
-        SS_EPS,
+        HardFoamPanel,
 
         [Display(Description = "Hard paper (HP)")]
-        DP_HP,
+        HardPaper_HP,
 
         [Display(Description = "Hard particle board")]
-        HH_HFP,
+        HardParticleBoard,
 
         [Display(Description = "Hardwood crosswise")]
-        VHWS_HQ,
+        HardwoodCrosswise,
 
         [Display(Description = "Hardwood lengthwise")]
-        VHWS_HL,
+        HardwoodLengthwise,
 
         [Display(Description = "High-density fiberboard (HDF)")]
-        HH_HDF,
+        HighdensityFiberboard_HDF,
 
         [Display(Description = "Integral foam panel")]
-        SS_PUR,
+        IntegralFoamPanel,
 
         [Display(Description = "Laminate")]
-        S_L,
+        Laminate,
 
         [Display(Description = "Laminate (HPL)")]
-        DP_HPL_SCH,
+        Laminate_HPL,
 
         [Display(Description = "Laminate flooring panels")]
-        V_LFP,
+        LaminateFlooringPanels,
 
         [Display(Description = "Laminated fabric (HGW)")]
-        DP_HGW,
+        LaminatedFabric_HGW,
 
         [Display(Description = "Lead alloy")]
-        NEM_BL,
+        LeadAlloy,
 
         [Display(Description = "Lightweight panel with chipboard")]
-        LB_SP,
+        LightweightPanelWithChipboard,
 
         [Display(Description = "Lightweight panel with MDF boards")]
-        LB_MDF,
+        LightweightPanelWithMdfBoards,
 
         [Display(Description = "Low-melting thermoplastics (PP, PA)")]
-        TP_PA,
+        LowmeltingThermoplastics_PP_PA,
 
         [Display(Description = "Medium-density fiberboard (MDF)")]
-        HH_MDF,
+        MediumdensityFiberboard_MDF,
 
         [Display(Description = "Natural rubber (NR)")]
-        E_NR,
+        NaturalRubber_NR,
 
         [Display(Description = "Phenol formaldehyde (PF)")]
-        DP_PF,
+        PhenolFormaldehyde_PF,
 
         [Display(Description = "Phenolic resin coated plywood")]
-        SF_SDP,
+        PhenolicResinCoatedPlywood,
 
         [Display(Description = "Plastic honeycomb panels")]
-        KW_KW,
+        PlasticHoneycombPanels,
 
         [Display(Description = "Plywood (multiplex panel)")]
-        SF_FSH,
+        Plywood_MultiplexPanel,
 
         [Display(Description = "Polyester-bound mineral materials")]
-        MW_PB,
+        PolyesterboundMineralMaterials,
 
         [Display(Description = "Polyvinyl carbazole (PVK)")]
-        E_PUK,
+        PolyvinylCarbazole_PVK,
 
         [Display(Description = "Soft fiberboard")]
-        HH_WFP,
+        SoftFiberboard,
 
         [Display(Description = "Softwood crosswise")]
-        VHWS_WQ,
+        SoftwoodCrosswise,
 
         [Display(Description = "Softwood lengthwise")]
-        VHWS_WL,
+        SoftwoodLengthwise,
 
         [Display(Description = "Styrene-butadiene rubber (SBR)")]
-        E_SBR,
+        StyrenebutadieneRubber_SBR,
 
         [Display(Description = "Thermoplastics (PE, PVC, ABS, POM, PS)")]
-        TP_PVC,
+        Thermoplastics,
 
         [Display(Description = "Three-layer panel, laminated timber panels (hard wood)")]
-        SF_DSP_H,
+        ThreelayerPanelLaminatedTimberPanels_HardWood,
 
         [Display(Description = "Three-layer panel, laminated timber panels (soft wood)")]
-        SF_DSP_W,
+        ThreelayerPanelLaminatedTimberPanels_SoftWood,
 
         [Display(Description = "Undefined")]
-        U,
+        Undefined,
 
         [Display(Description = "Veneer")]
-        SF_F,
+        Veneer,
 
         [Display(Description = "Wood-plastic composites (WPC)")]
-        WPC_WPC
+        WoodplasticComposites_WPC
 
         // ReSharper restore IdentifierTypo
         // ReSharper restore InconsistentNaming
