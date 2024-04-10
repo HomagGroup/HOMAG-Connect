@@ -29,7 +29,8 @@ stages:
     parameters:
       fully_qualifed_package_name: HomagGroup.DigitalFactory.DigitalDevelopment.HomagConnect
       analyze_directory: $(Build.SourcesDirectory)
-#      package_version: $[ stageDependencies.version_number_generator_stage.version_number_generator_job.outputs['version.MajorMinorVersion'] ]
+      #package_version: $[ stageDependencies.version_number_generator_stage.version_number_generator_job.outputs['version.MajorMinorVersion'] ]
+      package_version: '1.0'
 
   - stage: Build
     pool:
