@@ -30,5 +30,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CSharp\Console\" />
+    <Folder Include="CSharp\Tests\" />
+  </ItemGroup>
+
 
 </Project>

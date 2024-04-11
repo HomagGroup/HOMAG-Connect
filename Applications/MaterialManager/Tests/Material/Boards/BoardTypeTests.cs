@@ -1,11 +1,10 @@
 using FluentAssertions;
-
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
-namespace HomagConnect.MaterialManager.Tests
+namespace HomagConnect.MaterialManager.Tests.Material.Boards
 {
     [TestClass]
     [TestCategory("MaterialManager")]
