@@ -128,7 +128,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
                 balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
 
-                await intelliDivide.DownloadSolutionExport(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Saw,
+                await intelliDivide.DownloadSolutionExportAsync(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Saw,
                     new FileInfo("CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults.saw"));
             }
         }
@@ -138,11 +138,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         {
             var request = new OptimizationRequest();
 
-            request.Name = "Sample";
+            request.Name = "CreateCuttingOptimizationByObjectModelWithSpecificBoards" + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);
             request.Machine = "productionAssist Cutting";
             request.Parameters = "Default";
 
             request.Action = OptimizationRequestAction.Optimize;
+
             request.Parts.Add(new OptimizationRequestPart
             {
                 Description = "Part A",
@@ -175,16 +176,14 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
             else
             {
-                var optimizationId = response.OptimizationId;
+                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
 
-                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
-
-                var solutions = await intelliDivide.GetSolutionsAsync(optimizationId);
+                var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
 
                 var recommendedSolution = solutions.First();
-                var recommendedSolutionSawFile = new FileInfo(optimization.Name + ".saw");
+                var targetDirectory = new DirectoryInfo(".");
 
-                await intelliDivide.DownloadSolutionExport(optimizationId, recommendedSolution.Id, SolutionExportType.Saw, recommendedSolutionSawFile);
+                await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, targetDirectory);
             }
         }
 

@@ -43,6 +43,8 @@ namespace HomagConnect.IntelliDivide.Client
 
         #region Settings (Machines, Parameters, Import templates)
 
+       
+
         /// <inheritdoc />
         public async Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "")
         {
@@ -134,7 +136,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await Client.SendAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -166,7 +168,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await Client.SendAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -198,7 +200,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await Client.SendAsync(request);
 
            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -390,7 +392,32 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
+        public async Task DownloadSolutionExportAsync(Solution solution, SolutionExportType exportType, DirectoryInfo targetDirectory)
+        {
+
+            var optimization = await GetOptimizationAsync(solution.OptimizationId);
+
+            var fileExtension = exportType switch
+            {
+                SolutionExportType.Saw => ".saw",
+                SolutionExportType.Pdf => ".pdf",
+                SolutionExportType.Ptx => ".ptx",
+                SolutionExportType.MaterialDemand => ".xlsx",
+                _ => throw new NotSupportedException($"Export type {exportType} is not supported.")
+            };
+
+            var fileInfo = new FileInfo(Path.Combine(targetDirectory.FullName, Uri.EscapeDataString(optimization.Name) + fileExtension));
+
+            await DownloadSolutionExportAsync(solution.OptimizationId, solution.Id, exportType, fileInfo);
+
+            if (!fileInfo.Exists)
+            {
+                throw new FileNotFoundException(fileInfo.FullName);
+            }
+        }
+
+        /// <inheritdoc />
+        public async Task DownloadSolutionExportAsync(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/exports/{exportTye}";
 

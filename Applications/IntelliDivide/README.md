@@ -42,7 +42,7 @@ If you don't provide this information, the optimization name will be automatical
 
 The type of machine determines whether a cutting or nesting algorithm is used to perform the optimization.
 
-#### Specify the boards the boards taken into account
+#### Specify the boards taken into account
 
 You can specify the boards to be considered for the optimization, although it is not required. 
 
@@ -74,7 +74,7 @@ request.Action = OptimizationRequestAction.Optimize;
 
 #### Send the request and wait for the result
 
-The prepared request for optimization needs to be sent to intelliDivide.
+The prepared request needs to be sent to intelliDivide.
 
 ```c#
 var response = await intelliDivide.RequestOptimizationAsync(request);
@@ -82,6 +82,8 @@ var response = await intelliDivide.RequestOptimizationAsync(request);
 if (response.ValidationErrors.Any())
 {
     // Request contains errors which need to get corrected before the optimization can get executed.
+
+    throw new ValidationException(response.ValidationErrors[0].ToString());
 }
 else
 {
@@ -91,9 +93,11 @@ else
 }
 ``` 
 
-If there are any validation errors in the response, optimization cannot be executed until they have been addressed.
+If there are any validation errors in the response, the optimization cannot be executed until they have been addressed.
 
-If the action was set to <i> OptimizationRequestAction.Optimize</i> or <i>OptimizationRequestAction.Send</i> the optimization gets executed automatically. Otherwise the optimization needs to get started explicitly.
+If the action was set to <i> OptimizationRequestAction.Optimize</i> or <i>OptimizationRequestAction.Send</i> the optimization gets executed automatically. 
+
+Otherwise the optimization needs to get started explicitly.
 
 ```c#
 await intelliDivide.StartOptimizationAsync(optimizationId); 
@@ -108,12 +112,12 @@ var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizati
 #### Download solution exports
 
 ```c#
-var solutions = await intelliDivide.GetSolutionsAsync(optimizationId);
+var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
 
 var recommendedSolution = solutions.First();
-var recommendedSolutionSawFile = new FileInfo(optimization.Name +".saw");
+var targetDirectory = new DirectoryInfo(".");
 
-await intelliDivide.DownloadSolutionExport(optimizationId, recommendedSolution.Id, SolutionExportType.Saw, recommendedSolutionSawFile);
+await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, targetDirectory);
 ``` 
 
 The downloaded saw file can get copied to the machine network share.

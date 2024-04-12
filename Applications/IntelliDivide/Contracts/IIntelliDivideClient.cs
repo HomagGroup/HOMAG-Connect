@@ -29,7 +29,12 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Downloads the specified <see cref="SolutionExportType" /> into the specified file.
         /// </summary>
         /// <exception cref="FileNotFoundException">Thrown, when the specified file is not available.</exception>
-        Task DownloadSolutionExport(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo);
+        Task DownloadSolutionExportAsync(Guid optimizationId, Guid solutionId, SolutionExportType exportTye, FileInfo fileInfo);
+
+        /// <summary>
+        /// Downloads the specified <see cref="SolutionExportType" /> into the specified directory.
+        /// </summary>
+        Task DownloadSolutionExportAsync(Solution solution, SolutionExportType exportType, DirectoryInfo targetDirectory);
 
         /// <summary>
         /// Gets the import templates which have been created for the <see cref="OptimizationType" />. See
@@ -215,5 +220,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForOptimizationStatusAsync(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration);
+
+        
     }
 }
