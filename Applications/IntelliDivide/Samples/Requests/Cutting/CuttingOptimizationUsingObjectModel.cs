@@ -174,8 +174,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
-
-            await intelliDivide.DeleteOptimizationAsync(optimization.Id);
         }
 
         private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
