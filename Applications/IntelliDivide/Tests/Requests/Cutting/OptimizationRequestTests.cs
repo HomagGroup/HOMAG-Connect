@@ -19,6 +19,8 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingOptimizationUsingExcel.CreatedCuttingOptimizationByImportingFromExcel(intelliDivide).ConfigureAwait(false);
+
+        
     }
 
     [TestMethod]
@@ -37,6 +39,14 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModel(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task CreateCuttingOptimizationByObjectModelWithSpecificBoards()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelWithSpecificBoards(intelliDivide);
     }
 
     [TestMethod]

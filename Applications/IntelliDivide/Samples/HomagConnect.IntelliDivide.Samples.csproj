@@ -54,4 +54,8 @@
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Requests\Boards\" />
+	</ItemGroup>
+
 </Project>
