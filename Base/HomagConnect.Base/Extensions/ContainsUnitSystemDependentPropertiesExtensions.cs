@@ -38,7 +38,8 @@ public static class ContainsUnitSystemDependentPropertiesExtensions
 
         foreach (var propertyInfo in propertyInfos)
         {
-            var valueDependsOnUnitSystemAttribute = propertyInfo.GetCustomAttributes().OfType<ValueDependsOnUnitSystemAttribute>().FirstOrDefault();
+            var valueDependsOnUnitSystemAttribute =
+                propertyInfo.GetCustomAttributes().OfType<ValueDependsOnUnitSystemAttribute>().FirstOrDefault();
 
             if (valueDependsOnUnitSystemAttribute != null)
             {
@@ -50,7 +51,7 @@ public static class ContainsUnitSystemDependentPropertiesExtensions
                     {
                         if (clone.UnitSystem == UnitSystem.Imperial)
                         {
-                            propertyInfo.SetValue(clone,ConvertMillimeterToInch(value));
+                            propertyInfo.SetValue(clone, ConvertMillimeterToInch(value));
                         }
                         else if (clone.UnitSystem == UnitSystem.Metric)
                         {
@@ -82,12 +83,53 @@ public static class ContainsUnitSystemDependentPropertiesExtensions
                         }
                     }
                 }
+                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Meter)
+                {
+                    var value = propertyInfo.GetValue(clone);
+
+                    if (value != null)
+                    {
+                        if (clone.UnitSystem == UnitSystem.Imperial)
+                        {
+                            propertyInfo.SetValue(clone, ConvertMeterToFeet(value));
+                        }
+                        else if (clone.UnitSystem == UnitSystem.Metric)
+                        {
+                            propertyInfo.SetValue(clone, ConvertFeetToMeter(value));
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("Invalid unit system.");
+                        }
+                    }
+                }
+                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Bar)
+                {
+                    var value = propertyInfo.GetValue(clone);
+
+                    if (value != null)
+                    {
+                        if (clone.UnitSystem == UnitSystem.Imperial)
+                        {
+                            propertyInfo.SetValue(clone, ConvertBarToPsi(value));
+                        }
+                        else if (clone.UnitSystem == UnitSystem.Metric)
+                        {
+                            propertyInfo.SetValue(clone, ConvertPsiToBar(value));
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("Invalid unit system.");
+                        }
+                    }
+                }
                 else
                 {
                     throw new NotImplementedException();
                 }
             }
         }
+
         return clone;
     }
 
@@ -109,5 +151,25 @@ public static class ContainsUnitSystemDependentPropertiesExtensions
     private static double? ConvertSquareFeetToSquareMeter(object value)
     {
         return (double?)value / 10.7639104;
+    }
+
+    private static double? ConvertMeterToFeet(object value)
+    {
+        return (double?)value * 3.280839895;
+    }
+
+    private static double? ConvertFeetToMeter(object value)
+    {
+        return (double?)value / 3.280839895;
+    }
+
+    private static double? ConvertBarToPsi(object value)
+    {
+        return (double?)value * 14.503773773;
+    }
+
+    private static double? ConvertPsiToBar(object value)
+    {
+        return (double?)value / 14.503773773;
     }
 }

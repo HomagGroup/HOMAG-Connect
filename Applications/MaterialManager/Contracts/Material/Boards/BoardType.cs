@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the material category name
         /// </summary>
         [JsonProperty(Order = 12)]
-        public MaterialCategory MaterialCategory { get; set; }
+        public BoardMaterialCategory MaterialCategory { get; set; }
 
         [JsonProperty(Order = 13)]
         public CoatingCategory CoatingCategory { get; set; }
@@ -159,7 +159,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #region Material Management
 
         [JsonProperty(Order = 53)]
-        public int? TotalQuantityAvailableWarningLimit { get; set; } // Isn't MinimumAmountAvailable the same?
+        public int? TotalQuantityAvailableWarningLimit { get; set; }
 
         /// <summary>
         /// Gets or sets whether the board type should be optimized against infinite.

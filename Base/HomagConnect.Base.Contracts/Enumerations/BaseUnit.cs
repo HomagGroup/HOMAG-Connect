@@ -3,5 +3,7 @@
 public enum BaseUnit
 {
     Millimeter,
-    SquareMeter
+    SquareMeter,
+    Meter,
+    Bar,
 }

@@ -3,6 +3,12 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: OneHomag/SWC-DevOps-HoT
+    ref: main
 
 trigger:
   branches:
@@ -16,14 +22,42 @@ variables:
   dotnetVersion: 8.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect
-
-
+  
 stages:
+  - stage: retrieve_version_info_from_git
+    displayName: Get Version info
+    jobs:
+    - job: get_number_job
+           
+      steps:
+      - checkout: self
+        fetchDepth: 0         
+
+      - task: PowerShell@2
+        displayName: Set version environment variable
+        name: version_task
+        inputs:
+          targetType: inline
+          script: |
+            git log
+            $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
+            echo "Set version tag: $($VERSION_TAG)"
+            echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
+
+  - template: software-composition-analysis/template.yml@templates
+    parameters:
+      dependsOn: 
+      - retrieve_version_info_from_git
+      fully_qualifed_package_name: HomagGroup.DigitalFactory.DigitalDevelopment.HomagConnect
+      analyze_directory: $(Build.SourcesDirectory)
+      package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
+
   - stage: Build
     pool:
       vmimage: 'windows-latest'
     variables:
       BuildConfiguration: Release
+    dependsOn: software_composition_analysis_stage
     jobs:
       - job: Build
            
@@ -127,10 +161,3 @@ stages:
           displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
           condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
         
-        
-
-
-
-
-        
-       
