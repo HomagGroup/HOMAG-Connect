@@ -111,6 +111,8 @@ var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizati
 
 #### Download solution exports
 
+After the optimization is done the solutions can get retrieved. The first one is the recommended solution.
+
 ```c#
 var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
 
