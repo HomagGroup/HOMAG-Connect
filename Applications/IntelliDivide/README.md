@@ -31,7 +31,7 @@ There are several ways to request an optimization, each with its advantages and 
 2. [Importing a structured file (Excel, CSV, PNX, ...)]()
 3. [Importing a standardized ZIP file]()
 
-Please refer to the linked pages for detailed samples ane explanations.
+Please refer to the linked pages for detailed samples and explanations.
 
 For all optimization requests, you can specify the optimization name, the machine, and the parameters to be used.
 
