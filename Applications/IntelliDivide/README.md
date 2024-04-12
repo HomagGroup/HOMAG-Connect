@@ -1,7 +1,5 @@
 # HOMAG IntelliDivide Client
 
-The [HOMAG IntelliDivide Client](./homagconnect.intellidivide.client.intellidivideclient.md) enables access to the intelliDivide application for integration into your own applications. The functions offered on the website are available for a programmatic integration.
-
 The HOMAG IntelliDivide Client streamlines the process of accessing the intelliDivide REST API. It's available as a NuGet package on [nuget.org](https://www.nuget.org/packages/HomagGroup.HomagConnect.IntelliDivide.Client) and can be smoothly integrated into .NET applications. 
 
 Moreover, developers can easily access the source code on [GitHub](https://github.com/HomagGroup/HOMAG-Connect) to modify functions or convert them for usage in other programming languages.
@@ -25,7 +23,7 @@ For further information on how to obtain your Authorization Key and Subscription
 
 #### Prepare the optimization request
 
-There are several ways to request an optimization, each with its advantages and disadvantages:
+There are several ways to request an optimization:
 
 1. [Using the Object Model]()   
 2. [Importing a structured file (Excel, CSV, PNX, ...)]()
@@ -41,6 +39,8 @@ request.Machine = "productionAssist Cutting";
 request.Parameters = "Default";
 ```
 If you don't provide this information, the optimization name will be automatically generated and the first machine and default parameters will be used.
+
+The type of machine determines whether a cutting or nesting algorithm is used to perform the optimization.
 
 #### Specify the boards the boards taken into account
 
@@ -64,29 +64,60 @@ If no boards are defined, the data will be automatically obtained from materialM
 
 #### Define the steps to be performed
 
-By default, the optimization request is only created. However, it is also possible to [specify](./Contracts/Request/OptimizationRequestAction.cs) that the optimization should be automatically started and, if successful, sent to the machine.
+By default, the optimization request is only created. 
+
+However, it is also possible to [specify](./Contracts/Request/OptimizationRequestAction.cs) that the optimization should be automatically started and, if successful, sent to the workstation.
 
 ```c#
 request.Action = OptimizationRequestAction.Optimize;
 ``` 
 
+#### Send the request and wait for the result
 
+The prepared request for optimization needs to be sent to intelliDivide.
 
-#### Send and wait for the result
+```c#
+var response = await intelliDivide.RequestOptimizationAsync(request);
 
-Lorem impsum
+if (response.ValidationErrors.Any())
+{
+    // Request contains errors which need to get corrected before the optimization can get executed.
+}
+else
+{
+    var optimizationId = response.OptimizationId;
+    var optimizationStatus = response.OptimizationStatus;
+    var linkToOptimizationInApp = response.Link;
+}
+``` 
 
+If there are any validation errors in the response, optimization cannot be executed until they have been addressed.
 
-### Create an Optimization Request
+If the action was set to <i> OptimizationRequestAction.Optimize</i> or <i>OptimizationRequestAction.Send</i> the optimization gets executed automatically. Otherwise the optimization needs to get started explicitly.
 
-Lorem impsum
+```c#
+await intelliDivide.StartOptimizationAsync(optimizationId); 
+``` 
 
+IntelliDivide executes the optimization, and its completion can be awaited.
 
+```c#
+var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
+``` 
 
+#### Download solution exports
 
+```c#
+var solutions = await intelliDivide.GetSolutionsAsync(optimizationId);
 
-## Further details
+var recommendedSolution = solutions.First();
+var recommendedSolutionSawFile = new FileInfo(optimization.Name +".saw");
 
-1. [Authorization](Authorization/Authorization.md)
-2. [Request an optimization](OptimizationRequest/OptimizationRequest.md)
-3. [Anaylze Data](Statistics/Material/MaterialStatistics.md)
+await intelliDivide.DownloadSolutionExport(optimizationId, recommendedSolution.Id, SolutionExportType.Saw, recommendedSolutionSawFile);
+``` 
+
+The downloaded saw file can get copied to the machine network share.
+
+## Further topics
+
+1. [Material Statistics](Statistics/Material/MaterialStatistics.md)

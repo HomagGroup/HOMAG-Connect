@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 using HomagConnect.Base.Contracts.Enumerations;
@@ -142,8 +143,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             request.Parameters = "Default";
 
             request.Action = OptimizationRequestAction.Optimize;
-            
-
             request.Parts.Add(new OptimizationRequestPart
             {
                 Description = "Part A",
@@ -151,7 +150,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 Length = 800,
                 Width = 600,
                 Quantity = 1
-                
             });
 
             request.Boards.Add(
@@ -169,11 +167,25 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            response.Trace(nameof(response));
+            if (response.ValidationErrors.Any())
+            {
+                // Request contains errors which need to get corrected before the optimization can get executed.
 
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+                throw new ValidationException(response.ValidationErrors[0].ToString());
+            }
+            else
+            {
+                var optimizationId = response.OptimizationId;
 
-            optimization.Trace(nameof(optimization));
+                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
+
+                var solutions = await intelliDivide.GetSolutionsAsync(optimizationId);
+
+                var recommendedSolution = solutions.First();
+                var recommendedSolutionSawFile = new FileInfo(optimization.Name + ".saw");
+
+                await intelliDivide.DownloadSolutionExport(optimizationId, recommendedSolution.Id, SolutionExportType.Saw, recommendedSolutionSawFile);
+            }
         }
 
         private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
