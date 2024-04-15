@@ -172,7 +172,9 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                             Row = 1
                         }
                     },
-                    Options = GrainMatchingTemplateOptions.GrainLengthwise,
+                    Trims = GrainMatchingTemplateOptionsTrims.AllSides,
+                    Dividing = GrainMatchingTemplateOptionsDividing.SeparatePattern,
+                    Grain = Grain.Lengthwise,
                     Instance = 1
                 },
                 Grain = Grain.Lengthwise,

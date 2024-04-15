@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using System.Linq;
 
+using HomagConnect.Base.Contracts.Enumerations;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
@@ -12,14 +14,19 @@ namespace HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 public class GrainMatchTemplateReference
 {
     /// <summary>
+    /// Gets or sets whether the template should be divided within the pattern or in separate pattern.
+    /// </summary>
+    public GrainMatchingTemplateOptionsDividing Dividing { get; set; } = GrainMatchingTemplateOptionsDividing.SeparatePattern;
+
+    /// <summary>
+    /// Gets or sets the grain of the template.
+    /// </summary>
+    public Grain Grain { get; set; } = Grain.None;
+
+    /// <summary>
     /// Gets or sets the instance of the template.
     /// </summary>
     public int Instance { get; set; } = 1;
-
-    /// <summary>
-    /// Gets or sets the options for the template.
-    /// </summary>
-    public GrainMatchingTemplateOptions Options { get; set; } = GrainMatchingTemplateOptions.None;
 
     /// <summary>
     /// Gets or sets the positions within the template.
@@ -32,6 +39,11 @@ public class GrainMatchTemplateReference
     public string Template { get; set; }
 
     /// <summary>
+    /// Gets or sets the trims of the template.
+    /// </summary>
+    public GrainMatchingTemplateOptionsTrims Trims { get; set; } = GrainMatchingTemplateOptionsTrims.AllSides;
+
+    /// <summary>
     /// Converts a string into <see cref="GrainMatchTemplateReference" />.
     /// </summary>
     public static GrainMatchTemplateReference FromString(string grainMatchingTemplateReference)
@@ -41,30 +53,56 @@ public class GrainMatchTemplateReference
         const int templateIndex = 0;
         const int positionIndex = 1;
         const int instanceIndex = 2;
-        const int optionsIndex = 4;
+        const int optionsIndex = 3;
 
         var parts = grainMatchingTemplateReference.Split(':');
 
-        if (parts.Length - 1 >= templateIndex)
-        {
-            result.Template = parts[templateIndex].Trim();
-        }
+        result.Template = parts[templateIndex].Trim();
 
-        if (parts.Length - 1 >= positionIndex)
+        if (parts.Length >= positionIndex)
         {
-            var strings = parts[positionIndex].Split(' ');
+            var strings = parts[positionIndex].Trim().Split(' ');
 
             result.Positions = strings.Select(s => (GrainMatchTemplatePosition)s).ToArray();
         }
 
-        if (parts.Length - 1 >= instanceIndex && int.TryParse(parts[instanceIndex], NumberStyles.Integer, CultureInfo.InvariantCulture, out var instance))
+        if (parts.Length >= instanceIndex && int.TryParse(parts[instanceIndex].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var instance))
         {
             result.Instance = instance;
         }
 
-        if (parts.Length - 1 >= optionsIndex && int.TryParse(parts[optionsIndex], NumberStyles.Integer, CultureInfo.InvariantCulture, out var options))
+        if (parts.Length >= optionsIndex && int.TryParse(parts[optionsIndex].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var options))
         {
-            result.Options = (GrainMatchingTemplateOptions)options;
+            // Trims / AllSides is the default
+
+            if ((options & (int)GrainMatchingTemplateOptionsTrims.None) == (int)GrainMatchingTemplateOptionsTrims.None)
+            {
+                result.Trims = GrainMatchingTemplateOptionsTrims.None;
+            }
+
+            if ((options & (int)GrainMatchingTemplateOptionsTrims.ShortSides) == (int)GrainMatchingTemplateOptionsTrims.ShortSides)
+            {
+                result.Trims = GrainMatchingTemplateOptionsTrims.ShortSides;
+            }
+
+            // Dividing / SeparatePattern is the default
+
+            if ((options & (int)GrainMatchingTemplateOptionsDividing.WithinPattern) == (int)GrainMatchingTemplateOptionsDividing.WithinPattern)
+            {
+                result.Dividing = GrainMatchingTemplateOptionsDividing.WithinPattern;
+            }
+
+            // Grain / None is the default
+
+            if ((options & (int)Grain.Lengthwise) == (int)Grain.Lengthwise)
+            {
+                result.Grain = Grain.Lengthwise;
+            }
+
+            if ((options & (int)Grain.Crosswise) == (int)Grain.Crosswise)
+            {
+                result.Grain = Grain.Crosswise;
+            }
         }
 
         return result;
@@ -95,6 +133,10 @@ public class GrainMatchTemplateReference
     {
         var positions = Positions.Aggregate("", (current, position) => current + position + " ").Trim();
 
-        return $"{Template}:{positions}:{Instance}:{(int)Options}";
+        var options = (int)Trims;
+        options |= (int)Grain;
+        options |= (int)Dividing;
+
+        return $"{Template}:{positions}:{Instance}:{options}";
     }
 }

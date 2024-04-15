@@ -35,7 +35,7 @@ public class GrainMatchTemplatePosition
 
         var parts = position.Split('.');
 
-        if (parts.Length > 0 && int.TryParse(parts[0],NumberStyles.Integer, CultureInfo.InvariantCulture,out var column))
+        if (parts.Length > 0 && int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var column))
         {
             result.Column = column;
         }
