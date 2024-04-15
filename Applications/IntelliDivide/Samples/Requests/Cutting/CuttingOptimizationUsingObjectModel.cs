@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
+using HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
@@ -134,15 +135,80 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         }
 
         /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelUsingGrainMatchTemplates(IIntelliDivideClient intelliDivide)
+        {
+            var request = new OptimizationRequest
+            {
+                Name = "HOMAG Connect - GrainMatchTemplates " + DateTime.Now.ToString("s", CultureInfo.InvariantCulture),
+                Machine = "productionAssist Cutting",
+                Parameters = "Default"
+            };
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = "Part A",
+                MaterialCode = "OAK_19.0",
+                Length = 800,
+                Width = 600,
+                Template = "2 Parts (2 x 1):1.1:1:1",
+                Grain = Grain.Lengthwise,
+                Quantity = 1
+            });
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = "Part B",
+                MaterialCode = "OAK_19.0",
+                Length = 800,
+                Width = 600,
+                Template = new GrainMatchTemplateReference
+                {
+                    Template = "2 Parts (2 x 1)",
+                    Positions = new[]
+                    {
+                        new GrainMatchTemplatePosition
+                        {
+                            Column = 2,
+                            Row = 1
+                        }
+                    },
+                    Options = GrainMatchingTemplateOptions.GrainLengthwise,
+                    Instance = 1
+                },
+                Grain = Grain.Lengthwise,
+                Quantity = 1
+            });
+
+            request.Boards.Add(
+                new OptimizationRequestBoard
+                {
+                    MaterialCode = "OAK_19.0",
+                    BoardCode = "OAK_19.0_2800_2070",
+                    Length = 2800,
+                    Width = 2070,
+                    Thickness = 19.0,
+                    Costs = 10,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 70,
+                });
+
+            request.Trace(nameof(request));
+
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+        }
+
+        /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelWithSpecificBoards(IIntelliDivideClient intelliDivide)
         {
-            var request = new OptimizationRequest();
-
-            request.Name = "CreateCuttingOptimizationByObjectModelWithSpecificBoards" + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);
-            request.Machine = "productionAssist Cutting";
-            request.Parameters = "Default";
-
-            request.Action = OptimizationRequestAction.Optimize;
+            var request = new OptimizationRequest
+            {
+                Name = "CreateCuttingOptimizationByObjectModelWithSpecificBoards" + DateTime.Now.ToString("s", CultureInfo.InvariantCulture),
+                Machine = "productionAssist Cutting",
+                Parameters = "Default",
+                Action = OptimizationRequestAction.Optimize
+            };
 
             request.Parts.Add(new OptimizationRequestPart
             {

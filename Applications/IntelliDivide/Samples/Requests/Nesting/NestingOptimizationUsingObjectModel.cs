@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.ObjectModel;
+using System.Globalization;
 
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -116,7 +117,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
                     MprFileName = mpr.Name,
                     MaterialCode = "P2_Gold Craft Oak_19",
                     Grain = Grain.Lengthwise,
-                    MprProgramVariables = new List<MprProgramVariable>
+                    MprProgramVariables = new Collection<MprProgramVariable>
                     {
                         new() { Name = "L", Value = "980" },
                         new() { Name = "B", Value = "450" }
