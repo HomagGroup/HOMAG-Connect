@@ -106,44 +106,40 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
         {
             var request = new OptimizationRequest();
 
+            // Part A
+
+            var mprA = new FileInfo(@"Requests\Nesting\PartA.mpr");
+
+            request.Parts.Add(new OptimizationRequestPart
             {
-                // Part A
-
-                var mpr = new FileInfo(@"Requests\Nesting\PartA.mpr");
-
-                request.Parts.Add(new OptimizationRequestPart
+                Description = mprA.Name,
+                MprFileName = mprA.Name,
+                MaterialCode = "P2_Gold Craft Oak_19",
+                Grain = Grain.Lengthwise,
+                MprProgramVariables = new Collection<MprProgramVariable>
                 {
-                    Description = mpr.Name,
-                    MprFileName = mpr.Name,
-                    MaterialCode = "P2_Gold Craft Oak_19",
-                    Grain = Grain.Lengthwise,
-                    MprProgramVariables = new Collection<MprProgramVariable>
-                    {
-                        new() { Name = "L", Value = "980" },
-                        new() { Name = "B", Value = "450" }
-                    },
-                    Quantity = 2
-                });
+                    new() { Name = "L", Value = "980" },
+                    new() { Name = "B", Value = "450" }
+                },
+                Quantity = 2
+            });
 
-                mprFiles.Add(await ImportFile.CreateAsync(mpr));
-            }
+            mprFiles.Add(await ImportFile.CreateAsync(mprA));
 
+            // Part B
+            var mprB = new FileInfo(@"Requests\Nesting\PartB.mpr");
+
+            request.Parts.Add(new OptimizationRequestPart
             {
-                // Part B
-                var mpr = new FileInfo(@"Requests\Nesting\PartB.mpr");
+                Description = mprB.Name,
+                MprFileName = mprB.Name,
 
-                request.Parts.Add(new OptimizationRequestPart
-                {
-                    Description = mpr.Name,
-                    MprFileName = mpr.Name,
+                MaterialCode = "P2_Icy White_19",
+                Grain = Grain.None,
+                Quantity = 5
+            });
 
-                    MaterialCode = "P2_Icy White_19",
-                    Grain = Grain.None,
-                    Quantity = 5
-                });
-
-                mprFiles.Add(await ImportFile.CreateAsync(mpr));
-            }
+            mprFiles.Add(await ImportFile.CreateAsync(mprB));
 
             return request;
         }

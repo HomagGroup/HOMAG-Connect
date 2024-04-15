@@ -1,10 +1,12 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 
 namespace HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 
 /// <summary>
 /// Describes the position within a grain matching template.
 /// </summary>
+[DebuggerDisplay("{Column}.{Row}")]
 public class GrainMatchTemplatePosition
 {
     /// <summary>
