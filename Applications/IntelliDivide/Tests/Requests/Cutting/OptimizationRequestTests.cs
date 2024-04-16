@@ -46,6 +46,16 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    public async Task CreateCuttingOptimizationByObjectModelUsingGrainMatchTemplates()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelUsingGrainMatchTemplates(intelliDivide);
+    }
+
+    
+
+    [TestMethod]
     public async Task CreateCuttingOptimizationUsingModelAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();

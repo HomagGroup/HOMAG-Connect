@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using System.Globalization;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -9,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 
 /// <summary />
-public class CuttingOptimizationUsingExcel
+public static class CuttingOptimizationUsingExcel
 {
     /// <summary />
     public static async Task CreatedCuttingOptimizationByImportingFromExcel(IIntelliDivideClient intelliDivide)
@@ -22,11 +24,11 @@ public class CuttingOptimizationUsingExcel
 
         var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
         var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
-        var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, excelFile.Extension).FirstAsync(i => i.Name.Contains("homag.cloud"));
+        var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, excelFile.Extension).FirstAsync(i => i.Name.IndexOf("homag.cloud", StringComparison.InvariantCultureIgnoreCase) >= 0 );
 
-        var request = new OptimizationRequestUsingTemplate()
+        var request = new OptimizationRequestUsingTemplate
         {
-            Name = "Connect " + excelFile.Name + " " + DateTime.Now.ToString("s"),
+            Name = "Connect " + excelFile.Name + " " + DateTime.Now.ToString("s", CultureInfo.InvariantCulture),
             Machine = optimizationMachine.Name,
             Parameters = optimizationParameter.Name,
             ImportTemplate = importTemplate.Name,
