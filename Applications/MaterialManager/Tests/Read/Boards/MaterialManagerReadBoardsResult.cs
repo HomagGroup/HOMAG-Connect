@@ -8,9 +8,11 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
     [TestCategory("MaterialManager.Board.Read.Results")]
     public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
     {
+#pragma warning disable S2699 // Tests should include assertions
         [TestMethod]
         [TemporaryDisabledOnServer(2024, 5, 1)]
         public async Task GetLocations_GetResult_NoException()
+
         {
             var materialManager = GetMaterialManagerClient();
 
@@ -34,5 +36,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
 
             await MaterialManagerReadBoardsResults.GetThumbnails(materialManager.Material.Boards);
         }
+
+#pragma warning restore S2699 // Tests should include assertions
     }
 }
