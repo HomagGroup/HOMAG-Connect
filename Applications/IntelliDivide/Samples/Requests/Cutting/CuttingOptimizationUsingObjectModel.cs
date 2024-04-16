@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
@@ -30,6 +32,21 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelAndDelete(IIntelliDivideClient intelliDivide)
+        {
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.ImportOnly);
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+
+            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+
+            optimization.Trace(nameof(optimization));
+
+            await intelliDivide.DeleteOptimizationAsync(optimization.Id);
         }
 
         /// <summary />
@@ -71,6 +88,24 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         }
 
         /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndArchive(IIntelliDivideClient intelliDivide)
+        {
+            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromSeconds(120));
+
+            if (optimization.Status != OptimizationStatus.Optimized)
+            {
+                throw new InvalidOperationException("Optimization did not reach the state optimized.");
+            }
+
+            optimization.Trace(nameof(optimization));
+
+            await intelliDivide.ArchiveOptimizationAsync(optimization.Id);
+        }
+
+        /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults(IIntelliDivideClient intelliDivide)
         {
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
@@ -93,42 +128,63 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
                 balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
 
-                await intelliDivide.DownloadSolutionExport(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Saw,
+                await intelliDivide.DownloadSolutionExportAsync(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Saw,
                     new FileInfo("CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults.saw"));
             }
         }
 
         /// <summary />
-        public static async Task CreateCuttingOptimizationByObjectModelOptimizeAndArchive(IIntelliDivideClient intelliDivide)
+        public static async Task CreateCuttingOptimizationByObjectModelWithSpecificBoards(IIntelliDivideClient intelliDivide)
         {
-            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var request = new OptimizationRequest();
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromSeconds(120));
+            request.Name = "CreateCuttingOptimizationByObjectModelWithSpecificBoards" + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);
+            request.Machine = "productionAssist Cutting";
+            request.Parameters = "Default";
 
-            if (optimization.Status != OptimizationStatus.Optimized)
+            request.Action = OptimizationRequestAction.Optimize;
+
+            request.Parts.Add(new OptimizationRequestPart
             {
-                throw new InvalidOperationException("Optimization did not reach the state optimized.");
-            }
+                Description = "Part A",
+                MaterialCode = "MDF_19.0",
+                Length = 800,
+                Width = 600,
+                Quantity = 1
+            });
 
-            optimization.Trace(nameof(optimization));
+            request.Boards.Add(
+                new OptimizationRequestBoard
+                {
+                    MaterialCode = "MDF_19.0",
+                    BoardCode = "MDF_19.0_2800_2070",
+                    Length = 2800,
+                    Width = 2070,
+                    Thickness = 19.0,
+                    Costs = 10,
+                    Grain = Grain.None,
+                    Quantity = 70,
+                });
 
-            await intelliDivide.ArchiveOptimizationAsync(optimization.Id);
-        }
-
-        /// <summary />
-        public static async Task CreateCuttingOptimizationByObjectModelAndDelete(IIntelliDivideClient intelliDivide)
-        {
-            var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.ImportOnly);
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            response.Trace(nameof(response));
+            if (response.ValidationErrors.Any())
+            {
+                // Request contains errors which need to get corrected before the optimization can get executed.
 
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+                throw new ValidationException(response.ValidationErrors[0].ToString());
+            }
+            else
+            {
+                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
 
-            optimization.Trace(nameof(optimization));
+                var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
 
-            await intelliDivide.DeleteOptimizationAsync(optimization.Id);
+                var recommendedSolution = solutions.First();
+                var targetDirectory = new DirectoryInfo(".");
+
+                await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, targetDirectory);
+            }
         }
 
         private static async Task<OptimizationRequest> GetSampleCuttingOptimizationByObjectModel(IIntelliDivideClient intelliDivide, OptimizationRequestAction optimizationRequestAction,
