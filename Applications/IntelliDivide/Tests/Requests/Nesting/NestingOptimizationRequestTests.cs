@@ -10,8 +10,6 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
     [TestCategory("IntelliDivide.Requests.Nesting")]
     public class NestingOptimizationRequestTests : IntelliDivideTestBase
     {
-#pragma warning disable S2699 // Tests should include assertions
-
         [TestMethod]
         public async Task CreateNestingOptimizationRequestByObjectModel()
         {
@@ -47,11 +45,11 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
 
         [TestMethod]
         [TemporaryDisabledOnServer(2024, 5, 1)]
-        public async Task CreateNestingOptimizationUsingProjectZipAndOptimizeAndSend()
+        public async Task CreateNestingOptimizationUsingProjectZipAndOptimize()
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await NestingOptimizationUsingProjectZip.CreateNestingOptimizationUsingProjectZipAndOptimizeAndSend(intelliDivide);
+            await NestingOptimizationUsingProjectZip.CreateNestingOptimizationUsingProjectZipAndOptimize(intelliDivide);
         }
 
         [TestMethod]
@@ -63,6 +61,4 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
             await NestingOptimizationUsingProjectZip.CreateNestingOptimizationUsingProjectZipAndOptimizeAndSend(intelliDivide);
         }
     }
-
-#pragma warning restore S2699 // Tests should include assertions
 }
