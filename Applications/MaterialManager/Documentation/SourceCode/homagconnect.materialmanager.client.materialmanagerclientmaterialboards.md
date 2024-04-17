@@ -88,10 +88,10 @@ public MaterialManagerClientMaterialBoards(HttpClient client)
 
 ## Methods
 
-### **GetBoardTypeAsync(String)**
+### **GetBoardTypeByBoardCode(String)**
 
 ```csharp
-public Task<BoardType> GetBoardType(string boardCode)
+public Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
 ```
 
 #### Parameters
@@ -102,21 +102,7 @@ public Task<BoardType> GetBoardType(string boardCode)
 
 [Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypeInventoryAsync(IEnumerable&lt;String&gt;)**
-
-```csharp
-public Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
-```
-
-#### Parameters
-
-`boardCodes` IEnumerable&lt;String&gt;<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;BoardCodeWithInventory&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetBoardTypesAsync(Int32, Int32)**
+### **GetBoardTypes(Int32, Int32)**
 
 ```csharp
 public Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
@@ -132,10 +118,10 @@ public Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypeByBoardCodeIncludingDetails(IEnumerable&lt;String&gt;)**
 
 ```csharp
-public Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
+public Task<IEnumerable<BoardType>> GetBoardTypeByBoardCodeIncludingDetails(IEnumerable<string> boardCodes)
 ```
 
 #### Parameters
@@ -144,9 +130,9 @@ public Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes
 
 #### Returns
 
-[Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+[Task&lt;BoardTypeDetails&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodeAsync(String)**
+### **GetBoardTypesByMaterialCode(String)**
 
 ```csharp
 public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
@@ -160,7 +146,7 @@ public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialC
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodeIncludingDetailsAsync(String)**
+### **GetBoardTypesByMaterialCodeIncludingDetails(String)**
 
 ```csharp
 public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
@@ -174,7 +160,7 @@ public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingD
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodesAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypesByMaterialCodes(IEnumerable&lt;String&gt;)**
 
 ```csharp
 public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
@@ -188,7 +174,7 @@ public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<str
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodesIncludingDetailsAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable&lt;String&gt;)**
 
 ```csharp
 public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
@@ -202,10 +188,10 @@ public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncluding
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesIncludingDetailsAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypesByBoardCodesIncludingDetailsAsync(IEnumerable&lt;String&gt;)**
 
 ```csharp
-public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
+public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetailsAsync(IEnumerable<string> boardCodes)
 ```
 
 #### Parameters
@@ -216,39 +202,6 @@ public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumer
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetMaterialCodesAsync(String, Int32, Int32)**
-
-```csharp
-public Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0)
-```
-
-#### Parameters
-
-`search` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-`take` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-`skip` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;MaterialCodeWithThumbnail&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetMaterialCodesAsync(Int32, Int32)**
-
-```csharp
-public Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0)
-```
-
-#### Parameters
-
-`take` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-`skip` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;MaterialCodeWithThumbnail&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
 ### **CreateUrls(IEnumerable&lt;String&gt;, String, String, Boolean)**
 
