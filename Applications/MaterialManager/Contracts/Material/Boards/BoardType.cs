@@ -64,9 +64,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 12)]
         public BoardMaterialCategory MaterialCategory { get; set; }
 
+        /// <summary>
+        /// Gets or sets the coating category.
+        /// </summary>
         [JsonProperty(Order = 13)]
         public CoatingCategory CoatingCategory { get; set; }
 
+        /// <summary>
+        /// Gets or set the standard quality.
+        /// </summary>
         [JsonProperty(Order = 14)]
         public StandardQuality StandardQuality { get; set; }
 
@@ -157,7 +163,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #endregion
 
         #region Material Management
-
+        /// <summary>
+        /// Gets or sets the total quantity available warning limit.
+        /// </summary>
         [JsonProperty(Order = 53)]
         public int? TotalQuantityAvailableWarningLimit { get; set; }
 

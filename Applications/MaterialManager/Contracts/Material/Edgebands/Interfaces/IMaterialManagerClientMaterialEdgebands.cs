@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
-
-namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
+namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
 {
+    /// <summary>
+    /// Interface for MaterialManager Edgebands Client.
+    /// </summary>
     public interface IMaterialManagerClientMaterialEdgebands
     {
         /// <summary>
-        /// Gets all edgebands
+        /// Gets all edgebands.
         /// </summary>
         /// <param name="take"></param>
         /// <param name="skip"></param>
@@ -18,28 +17,28 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0);
 
         /// <summary>
-        /// Gets an edgeband by edgeband code
+        /// Gets an edgeband by edgeband code.
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
         Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode);
 
         /// <summary>
-        /// Gets an edgeband by edgeband code including details
+        /// Gets an edgeband by edgeband code including details.
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
         Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode);
 
         /// <summary>
-        /// Gets edgebands by edgeband codes
+        /// Gets edgebands by edgeband codes.
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
         Task<IEnumerable<EdgebandType>> GetEdgebandTypesByMaterialCodes(IEnumerable<string> edgebandCodes);
 
         /// <summary>
-        /// Gets edgebands by edgeband codes including details
+        /// Gets edgebands by edgeband codes including details.
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>

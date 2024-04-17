@@ -6,11 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Services;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 
 namespace HomagConnect.MaterialManager.Client
 {
+    /// <summary>
+    /// materialManager client for edgebands
+    /// </summary>
     public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialManagerClientMaterialEdgebands
     {
         #region Constants
@@ -21,8 +24,10 @@ namespace HomagConnect.MaterialManager.Client
 
         #endregion
 
-        public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }
-
+        /// <inheritdoc />
+        public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }        
+        
+        /// <inheritdoc />
         public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
         {
             var url = $"{_BaseRoute}?take={take}&skip={skip}";
@@ -30,6 +35,7 @@ namespace HomagConnect.MaterialManager.Client
             return await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative));
         }
 
+        /// <inheritdoc />
         public async Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
@@ -37,6 +43,7 @@ namespace HomagConnect.MaterialManager.Client
             return await RequestObject<EdgebandType>(new Uri(url, UriKind.Relative));
         }
 
+        /// <inheritdoc />
         public async Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&{_IncludingDetails}=true";

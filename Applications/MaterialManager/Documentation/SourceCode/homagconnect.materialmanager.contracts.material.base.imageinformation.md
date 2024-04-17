@@ -1,9 +1,6 @@
-﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # ImageInformation
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Base
-
-Represents image information for a material.
 
 ```csharp
 public class ImageInformation
@@ -15,34 +12,28 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 
 ### **Url**
 
-Gets or sets the URL of the image.
-
 ```csharp
-public Uri? Url { get; set; }
+public Uri Url { get; set; }
 ```
 
 #### Property Value
 
-[Uri](https://docs.microsoft.com/en-us/dotnet/api/system.uri)<br>
+Uri<br>
 
 ### **Size**
 
-Gets or sets the size of the image.
-
 ```csharp
-public Size? Size { get; set; }
+public Nullable<Size> Size { get; set; }
 ```
 
 #### Property Value
 
-[Size](./homagconnect.materialmanager.contracts.material.base.size.md)?<br>
+[Nullable&lt;Size&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Type**
 
-Gets or sets the type of the image.
-
 ```csharp
-public string? Type { get; set; }
+public string Type { get; set; }
 ```
 
 #### Property Value
@@ -51,10 +42,8 @@ public string? Type { get; set; }
 
 ### **FileName**
 
-Gets or sets the filename of the image.
-
 ```csharp
-public string? FileName { get; set; }
+public string FileName { get; set; }
 ```
 
 #### Property Value
@@ -63,10 +52,8 @@ public string? FileName { get; set; }
 
 ### **ContentType**
 
-Gets or sets the content type of the image.
-
 ```csharp
-public string? ContentType { get; set; }
+public string ContentType { get; set; }
 ```
 
 #### Property Value
@@ -75,31 +62,25 @@ public string? ContentType { get; set; }
 
 ### **Length**
 
-Gets or sets the length of the image.
-
 ```csharp
-public double? Length { get; set; }
+public Nullable<double> Length { get; set; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Width**
 
-Gets or sets the width of the image.
-
 ```csharp
-public double? Width { get; set; }
+public Nullable<double> Width { get; set; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Grain**
-
-Gets or sets the grain of the image.
 
 ```csharp
 public Grain Grain { get; set; }
@@ -107,4 +88,12 @@ public Grain Grain { get; set; }
 
 #### Property Value
 
-[Grain](../../../IntelliDivide/Documentation/SourceCode/homagconnect.intellidivide.contracts.base.grain.md)<br>
+Grain<br>
+
+## Constructors
+
+### **ImageInformation()**
+
+```csharp
+public ImageInformation()
+```
