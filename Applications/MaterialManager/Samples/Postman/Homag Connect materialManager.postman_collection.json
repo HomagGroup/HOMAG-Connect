@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e5fb42c7-533c-45d5-804b-193ec64eecdc",
+		"_postman_id": "93c6cb4e-99fd-47db-ab71-d1b0867ade1e",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -208,6 +208,26 @@
 										"materials",
 										"edgebands",
 										"overview"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "0",
+											"description": "Has to be >= 0",
+											"disabled": true
+										},
+										{
+											"key": "take",
+											"value": "500",
+											"description": "Has to be in range of 0 - 1000",
+											"disabled": true
+										},
+										{
+											"key": "includingDetails",
+											"value": "false",
+											"description": "bool",
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -219,7 +239,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCodes=",
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -232,7 +252,14 @@
 									"query": [
 										{
 											"key": "edgebandCodes",
-											"value": ""
+											"value": "Test",
+											"disabled": true
+										},
+										{
+											"key": "includingDetails",
+											"value": "true",
+											"description": "bool",
+											"disabled": true
 										}
 									]
 								}
@@ -248,13 +275,13 @@
 		"type": "basic",
 		"basic": [
 			{
-				"key": "username",
-				"value": "{{ConnectUserNameConnect}}",
+				"key": "password",
+				"value": "{{ConnectPassword}}",
 				"type": "string"
 			},
 			{
-				"key": "password",
-				"value": "{{ConnectTokenFromTapio}}",
+				"key": "username",
+				"value": "{{ConnectUserName}}",
 				"type": "string"
 			}
 		]
