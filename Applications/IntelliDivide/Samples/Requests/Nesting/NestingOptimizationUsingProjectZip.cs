@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -11,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 {
     /// <summary />
-    public class NestingOptimizationUsingProjectZip
+    public static class NestingOptimizationUsingProjectZip
     {
         /// <summary />
         public static async Task CreateNestingOptimizationUsingProjectZip(IIntelliDivideClient intelliDivide)
@@ -35,7 +33,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.OptimizationId);
             Assert.AreEqual(OptimizationStatus.New, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            Assert.IsFalse(response.ValidationResults.Any());
 
             response.Trace();
 
@@ -67,7 +65,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.OptimizationId);
             Assert.AreEqual(OptimizationStatus.Started, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            Assert.IsFalse(response.ValidationResults.Any());
 
             response.Trace();
 
@@ -101,7 +99,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.OptimizationId);
             Assert.AreEqual(OptimizationStatus.Started, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            Assert.IsFalse(response.ValidationResults.Any());
 
             response.Trace();
 

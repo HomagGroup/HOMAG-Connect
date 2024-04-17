@@ -7,6 +7,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 using HomagConnect.IntelliDivide.Contracts.Constants;
+using HomagConnect.IntelliDivide.Contracts.Extensions;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Samples.Helper;
@@ -25,7 +26,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimizationAsync(request).EnsureSuccessStatusCodeAsync();
 
             response.Trace(nameof(response));
 
@@ -81,6 +82,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
             response.Trace(nameof(response));
+
+            response.EnsureSuccessStatusCode();
 
             // Wait for transferred
             var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(1));
@@ -202,6 +205,51 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         }
 
         /// <summary />
+        public static async Task CreateCuttingOptimizationByObjectModelValidationResults(IIntelliDivideClient intelliDivide)
+        {
+            var request = new OptimizationRequest
+            {
+                Name = "CreateCuttingOptimizationByObjectModelWithSpecificBoards" + DateTime.Now.ToString("s", CultureInfo.InvariantCulture),
+                Machine = "productionAssist Cutting",
+                Parameters = "Default"
+            };
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = "Part A",
+                MaterialCode = "MDF_19.0",
+                Length = 800,
+                Width = 600,
+                Grain = Grain.None,
+                Quantity = 100
+            });
+
+            request.Boards.Add(
+                new OptimizationRequestBoard
+                {
+                    MaterialCode = "MDF_19.0",
+                    BoardCode = "MDF_19.0_2800_2070",
+                    Length = 2800,
+                    Width = 2070,
+                    Thickness = 19.0,
+                    Costs = 10,
+                    Grain = Grain.None,
+                    Quantity = 5
+                });
+
+            request.Trace(nameof(request));
+
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+
+            if (response.ValidationResults.Any())
+            {
+                // "There are not sufficient boards available."
+            }
+        }
+
+        /// <summary />
         public static async Task CreateCuttingOptimizationByObjectModelWithSpecificBoards(IIntelliDivideClient intelliDivide)
         {
             var request = new OptimizationRequest
@@ -236,11 +284,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            if (response.ValidationErrors.Any())
+            if (response.ValidationResults.Any())
             {
                 // Request contains errors which need to get corrected before the optimization can get executed.
 
-                throw new ValidationException(response.ValidationErrors[0].ToString());
+                throw new ValidationException(response.ValidationResults[0].ToString());
             }
             else
             {
@@ -267,28 +315,25 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             request.Machine = machine.Name;
             request.Parameters = parameter.Name;
 
-            request.Parts = new List<OptimizationRequestPart>
+            request.Parts.Add(new()
             {
-                new()
-                {
-                    Description = "Part A",
-                    MaterialCode = "P2_Gold Craft Oak_19",
-                    Length = 400,
-                    Width = 200,
-                    Grain = Grain.Lengthwise,
-                    Quantity = 1
-                },
+                Description = "Part A",
+                MaterialCode = "P2_Gold Craft Oak_19",
+                Length = 400,
+                Width = 200,
+                Grain = Grain.Lengthwise,
+                Quantity = 1
+            });
 
-                new()
-                {
-                    Description = "Part B",
-                    MaterialCode = "P2_White_19",
-                    Length = 300,
-                    Width = 300,
-                    Grain = Grain.None,
-                    Quantity = 5
-                }
-            };
+            request.Parts.Add(new()
+            {
+                Description = "Part B",
+                MaterialCode = "P2_White_19",
+                Length = 300,
+                Width = 300,
+                Grain = Grain.None,
+                Quantity = 5
+            });
 
             request.Action = optimizationRequestAction;
 

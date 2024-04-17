@@ -40,7 +40,7 @@ public static class CuttingOptimizationUsingExcel
         Assert.IsNotNull(response);
         Assert.IsNotNull(response.OptimizationId);
         Assert.AreEqual(OptimizationStatus.New, response.OptimizationStatus);
-        Assert.IsFalse(response.ValidationErrors.Any());
+        Assert.IsFalse(response.ValidationResults.Any());
 
         response.Trace();
 
