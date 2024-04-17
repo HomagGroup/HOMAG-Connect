@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
+using HomagConnect.Base.Services;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+
+namespace HomagConnect.MaterialManager.Client
+{
+    public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialManagerClientMaterialEdgebands
+    {
+        #region Constants
+
+        private const string _BaseRoute = "api/materialManager/materials/egdebands";
+        private const string _EdgebandCode = "edgebandCode";
+        private const string _IncludingDetails = "includingDetails";
+
+        #endregion
+
+        public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }
+
+        public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
+        {
+            var url = $"{_BaseRoute}?take={take}&skip={skip}";
+
+            return await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative));
+        }
+
+        public async Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
+        {
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+            return await RequestObject<EdgebandType>(new Uri(url, UriKind.Relative));
+        }
+
+        public async Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
+        {
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&{_IncludingDetails}=true";
+
+            return await RequestObject<EdgebandType>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandType>> GetEdgebandTypesByMaterialCodes(IEnumerable<string> edgebandCodes)
+        {
+            if (edgebandCodes == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes));
+            }
+
+            var codes = edgebandCodes
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes), "At least one material code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode);
+            var boardTypes = new List<EdgebandType>();
+
+            foreach (var url in urls)
+            {
+                boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)));
+            }
+
+            return boardTypes;
+        }
+
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByMaterialCodesIncludingDetails(IEnumerable<string> edgebandCodes)
+        {
+            if (edgebandCodes == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes));
+            }
+
+            var codes = edgebandCodes
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes), "At least one material code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode, includingDetails: true);
+            var edgebandTypeDetails = new List<EdgebandTypeDetails>();
+
+            foreach (var url in urls)
+            {
+                edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)));
+            }
+
+            return edgebandTypeDetails;
+        }
+
+
+        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+            bool includingDetails = false)
+        {
+            var queryParameters = new StringBuilder("?");
+            var i = 1;
+            var urls = new List<string>();
+            var codeList = codes.ToList();
+            while (i <= codeList.Count)
+            {
+                queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
+                // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
+                if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
+                {
+                    urls.Add(includingDetails
+                        ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
+                        : $"{_BaseRoute}{route}{queryParameters}");
+
+                    queryParameters = new StringBuilder("?");
+                }
+
+                i++;
+                if (i <= codeList.Count)
+                {
+                    queryParameters.Append('&');
+                }
+            }
+
+            urls.Add(includingDetails
+                ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
+                : $"{_BaseRoute}{route}{queryParameters}");
+
+            return urls;
+        }
+    }
+}
+
