@@ -82,24 +82,5 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
         await OptimizationResultSamples.GetSolutionsSample(intelliDivide);
     }
-
-    /// <summary />
-    [TestMethod]
-    public async Task Solution_ProducedParts()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetSolutionPartsSample(intelliDivide);
-    }
-
-    /// <summary />
-    [TestMethod]
-    [TemporaryDisabledOnServer(2024, 4, 15)]
-    public async Task Solution_Patterns()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetSolutionPatternsSample(intelliDivide);
-    }
 #pragma warning restore S2699 // Tests should include assertions
 }

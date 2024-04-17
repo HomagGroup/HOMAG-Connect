@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 
 using Newtonsoft.Json;
 
@@ -20,9 +21,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// Gets or sets the name and position with in a grain matching template.
         /// </summary>
         [JsonProperty(Order = 22)]
-        public string Template { get; set; }
+        public GrainMatchTemplateReference Template { get; set; }
 
         #endregion
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{Description}({MaterialCode})";
+        }
 
         #region (1) Required properties
 
@@ -53,7 +60,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// Gets or sets the mpr program variable values.
         /// </summary>
         [JsonProperty(Order = 23)]
-        public List<MprProgramVariable> MprProgramVariables { get; set; }
+        public Collection<MprProgramVariable> MprProgramVariables { get; set; }
 
         /// <summary>
         /// Gets or sets the allowed rotation angle.
@@ -62,11 +69,5 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         public RotationAngle? AllowedRotationAngle { get; set; }
 
         #endregion
-
-        /// <inheritdoc />
-     public override string ToString()
-        {
-            return $"{Description}({MaterialCode})";
-        }
     }
 }

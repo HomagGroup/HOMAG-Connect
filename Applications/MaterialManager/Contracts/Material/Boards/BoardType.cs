@@ -7,6 +7,7 @@ using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
@@ -17,6 +18,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     [DebuggerDisplay("{BoardCode}")]
     public class BoardType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {
+#pragma warning disable S109 // Magic numbers should not be used
+
         /// <summary>
         /// Gets or sets the timestamp when board type has been used last.
         /// </summary>
@@ -317,5 +320,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public Uri? Thumbnail { get; set; }
 
         #endregion
+
+#pragma warning restore S109 // Magic numbers should not be used
     }
 }
