@@ -53,7 +53,7 @@
         XML,
 
         /// <summary>
-        /// Extensible Markup Language (XML).
+        /// Tag Library Extension Samples (XML).
         /// </summary>
         TLDX,
 
