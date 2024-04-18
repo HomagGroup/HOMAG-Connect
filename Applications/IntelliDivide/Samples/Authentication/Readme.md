@@ -39,4 +39,4 @@ Enter a meaningful description for your authorization key so that you can easily
 
 <strong>Note:</strong> Make sure to keep your access token confidential as it provides authorized access to the apps.
 
-The file [AuthorizationSamples.cs](AuthorizationSamples.cs)  provides several examples for authorization. 
+The file [AuthenticationSamples.cs](AuthenticationSamples.cs)  provides several examples for authorization. 
