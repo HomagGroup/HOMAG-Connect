@@ -16,7 +16,7 @@ namespace HomagConnect.MaterialManager.Samples.Read.Boards
         /// </summary>
         public static async Task GetMaterialCodes(IMaterialManagerClientMaterialBoards materialManagerClientMaterialBoards)
         {
-            var materialCodes = await materialManagerClientMaterialBoards.GetMaterialCodes(_Take);
+            var materialCodes = await materialManagerClientMaterialBoards.GetBoardTypes(_Take);
             Assert.IsNotNull(materialCodes);
             materialCodes.Select(m => m.MaterialCode).Trace();
         }
@@ -24,7 +24,7 @@ namespace HomagConnect.MaterialManager.Samples.Read.Boards
 
         public static async Task GetThumbnails(IMaterialManagerClientMaterialBoards materialManagerClientMaterialBoards)
         {
-            var materialCodes = await materialManagerClientMaterialBoards.GetMaterialCodes(_Take);
+            var materialCodes = await materialManagerClientMaterialBoards.GetBoardTypes(_Take);
             Assert.IsNotNull(materialCodes);
             materialCodes.Select(m => m.Thumbnail).Trace();
         }
@@ -32,9 +32,9 @@ namespace HomagConnect.MaterialManager.Samples.Read.Boards
         public static async Task GetLocations(IMaterialManagerClientMaterialBoards materialManagerClientMaterialBoards,
             IEnumerable<string> boardCodes)
         {
-            var boardTypeInventorys = await materialManagerClientMaterialBoards.GetBoardTypeInventory(boardCodes);
+            var boardTypeInventorys = await materialManagerClientMaterialBoards.GetBoardTypesByBoardCodesIncludingDetails(boardCodes);
             Assert.IsNotNull(boardTypeInventorys);
-            boardTypeInventorys.Trace();
+            boardTypeInventorys.Select(m => m.Inventory).Trace();
         }
     }
 }

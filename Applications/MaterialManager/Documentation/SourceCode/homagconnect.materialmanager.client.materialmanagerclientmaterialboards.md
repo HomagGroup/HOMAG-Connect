@@ -1,78 +1,65 @@
-<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # MaterialManagerClientMaterialBoards
 
 Namespace: HomagConnect.MaterialManager.Client
-
-Client for materialManager boards
 
 ```csharp
 public class MaterialManagerClientMaterialBoards : HomagConnect.Base.Services.ServiceBase, HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces.IMaterialManagerClientMaterialBoards
 ```
 
-Inheritance  [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [MaterialManagerClientMaterialBoards](./homagconnect.materialmanager.client.materialboards.md)
-Implements [IMaterialManagerClientMaterialBoards](./homagconnect.materialmanager.contracts.material.boards.interfaces.imaterialmanagerclientmaterialboards.md)
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [MaterialManagerClientMaterialBoards](./homagconnect.materialmanager.client.materialmanagerclientmaterialboards.md)<br>
+Implements IMaterialManagerClientMaterialBoards
 
-## Constants
+## Properties
 
-### **_BaseRoute**
+### **ApiVersion**
 
 ```csharp
-private const string _BaseRoute = "api/materialManager/materials/boards";
+public string ApiVersion { get; }
 ```
 
 #### Property Value
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
-### **_InventoryRoute**
+### **Client**
 
 ```csharp
-private const string _InventoryRoute = "/inventory";
+public HttpClient Client { get; }
+```
+
+#### Property Value
+
+HttpClient<br>
+
+### **HeaderKey**
+
+```csharp
+public string HeaderKey { get; }
 ```
 
 #### Property Value
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
-### **_MaterialCodesRoute**
+### **OnDeprecatedAction**
 
 ```csharp
-private const string _MaterialCodesRoute = "/materialCodes";
+public Action<HttpRequestMessage, HttpResponseMessage> OnDeprecatedAction { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+[Action&lt;HttpRequestMessage, HttpResponseMessage&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.action-2)<br>
 
-### **_MaterialCode**
+### **ThrowExceptionOnDeprecatedCalls**
 
 ```csharp
-private const string _MaterialCode = "materialCode";
+public bool ThrowExceptionOnDeprecatedCalls { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **_BoardCode**
-
-```csharp
-private const string _BoardCode = "boardCode";
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-### **_IncludingDetails**
-
-```csharp
-private const string _IncludingDetails = "includingDetails";
-```
-
-#### Property Value
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+[Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)<br>
 
 ## Constructors
 
@@ -88,38 +75,10 @@ public MaterialManagerClientMaterialBoards(HttpClient client)
 
 ## Methods
 
-### **GetBoardTypeAsync(String)**
+### **GetBoardTypes(Int32, Int32)**
 
 ```csharp
-public Task<BoardType> GetBoardType(string boardCode)
-```
-
-#### Parameters
-
-`boardCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-#### Returns
-
-[Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetBoardTypeInventoryAsync(IEnumerable&lt;String&gt;)**
-
-```csharp
-public Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
-```
-
-#### Parameters
-
-`boardCodes` IEnumerable&lt;String&gt;<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;BoardCodeWithInventory&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetBoardTypesAsync(Int32, Int32)**
-
-```csharp
-public Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+public Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip)
 ```
 
 #### Parameters
@@ -132,21 +91,63 @@ public Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypeByBoardCode(String)**
 
 ```csharp
-public Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
+public Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
 ```
 
 #### Parameters
 
-`boardCodes` IEnumerable&lt;String&gt;<br>
+`boardCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+#### Returns
+
+[Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **GetBoardTypeByBoardCodeIncludingDetails(String)**
+
+```csharp
+public Task<BoardType> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
+```
+
+#### Parameters
+
+`boardCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+#### Returns
+
+[Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **GetBoardTypesByBoardCodes(IEnumerable&lt;String&gt;)**
+
+```csharp
+public Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes)
+```
+
+#### Parameters
+
+`boardCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodeAsync(String)**
+### **GetBoardTypesByBoardCodesIncludingDetails(IEnumerable&lt;String&gt;)**
+
+```csharp
+public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
+```
+
+#### Parameters
+
+`boardCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
+
+#### Returns
+
+[Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **GetBoardTypesByMaterialCode(String)**
 
 ```csharp
 public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
@@ -160,7 +161,7 @@ public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialC
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodeIncludingDetailsAsync(String)**
+### **GetBoardTypesByMaterialCodeIncludingDetails(String)**
 
 ```csharp
 public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
@@ -174,7 +175,7 @@ public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingD
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodesAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypesByMaterialCodes(IEnumerable&lt;String&gt;)**
 
 ```csharp
 public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> materialCodes)
@@ -182,13 +183,13 @@ public Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<str
 
 #### Parameters
 
-`materialCodes` IEnumerable&lt;String&gt;<br>
+`materialCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetBoardTypesByMaterialCodesIncludingDetailsAsync(IEnumerable&lt;String&gt;)**
+### **GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable&lt;String&gt;)**
 
 ```csharp
 public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes)
@@ -196,77 +197,8 @@ public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncluding
 
 #### Parameters
 
-`materialCodes` IEnumerable&lt;String&gt;<br>
+`materialCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetBoardTypesIncludingDetailsAsync(IEnumerable&lt;String&gt;)**
-
-```csharp
-public Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
-```
-
-#### Parameters
-
-`boardCodes` IEnumerable&lt;String&gt;<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetMaterialCodesAsync(String, Int32, Int32)**
-
-```csharp
-public Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0)
-```
-
-#### Parameters
-
-`search` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-`take` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-`skip` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;MaterialCodeWithThumbnail&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetMaterialCodesAsync(Int32, Int32)**
-
-```csharp
-public Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0)
-```
-
-#### Parameters
-
-`take` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-`skip` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;MaterialCodeWithThumbnail&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **CreateUrls(IEnumerable&lt;String&gt;, String, String, Boolean)**
-
-```csharp
-private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-        bool includingDetails = false)
-```
-
-#### Parameters
-
-`codes` IEnumerable&lt;String&gt;<br>
-
-`searchCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-`route` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-`includingDetails` [Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)<br>
-
-#### Returns
-
-[List&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1)<br>

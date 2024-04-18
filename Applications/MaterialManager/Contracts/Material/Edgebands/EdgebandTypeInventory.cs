@@ -2,6 +2,9 @@
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
+    /// <summary>
+    /// A edgeband type inventory.
+    /// </summary>
     public class EdgebandTypeInventory
     {
         /// <summary>

@@ -1,9 +1,8 @@
-<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # IMaterialManagerClientMaterialBoards
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 
-materialMaterial client interface for boards.
+materialMaterial Client for boards
 
 ```csharp
 public interface IMaterialManagerClientMaterialBoards
@@ -11,52 +10,19 @@ public interface IMaterialManagerClientMaterialBoards
 
 ## Methods
 
-### **GetBoardType(string)**
-
-Gets the board type by board code.
-
-```csharp
-Task<BoardType> GetBoardType(string boardCode)
-```
-
-#### Parameters
-
-`boardCode` [string](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-
-#### Returns
-
-[Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-
-### **GetBoardTypeInventory(IEnumerable&lt;string&gt;)**
-
-Gets the board type inventory by board codes.
-
-```csharp
-Task<IEnumerable<BoardCodeWithInventory>> GetBoardTypeInventory(IEnumerable<string> boardCodes)
-```
-
-#### Parameters
-
-`boardCodes` [IEnumerable&lt;string&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;BoardCodeWithInventory&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardCodeWithInventory.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardcodewithinventory.cs#properties).
-
-### **GetBoardTypes(int, int)**
+### **GetBoardTypes(Int32, Int32)**
 
 Gets the board types paginated
 
 ```csharp
-Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip)
 ```
 
 #### Parameters
 
-`take` [int](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
+`take` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
-`skip` [int](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
+`skip` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 
 #### Returns
 
@@ -67,24 +33,56 @@ Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
 [ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/system.argumentexception)<br>
 Thrown, if take is greater than 1000.
 
-### **GetBoardTypes(IEnumerable&lt;string&gt;)**
+### **GetBoardTypeByBoardCode(String)**
 
-Gets the board types by board codes.
+Gets the board type by board code.
 
 ```csharp
-Task<IEnumerable<BoardType>> GetBoardTypes(IEnumerable<string> boardCodes)
+Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
 ```
 
 #### Parameters
 
-`boardCodes` [IEnumerable&lt;string&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
+`boardCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+#### Returns
+
+[Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **GetBoardTypeByBoardCodeIncludingDetails(String)**
+
+Gets the board type by board code including details (inventory, allocation, images).
+
+```csharp
+Task<BoardType> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
+```
+
+#### Parameters
+
+`boardCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+
+#### Returns
+
+[Task&lt;BoardType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+
+### **GetBoardTypesByBoardCodes(IEnumerable&lt;String&gt;)**
+
+Gets the board types by board codes.
+
+```csharp
+Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes)
+```
+
+#### Parameters
+
+`boardCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties).
+The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#materialcode) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#boardcode).
 
-### **GetBoardTypesByMaterialCode(string)**
+### **GetBoardTypesByMaterialCode(String)**
 
 Gets the board types by material code.
 
@@ -94,14 +92,14 @@ Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
 
 #### Parameters
 
-`materialCode` [string](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+`materialCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties).
+The board types sorted by [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#boardcode).
 
-### **GetBoardTypesByMaterialCodeIncludingDetails(string)**
+### **GetBoardTypesByMaterialCodeIncludingDetails(String)**
 
 Gets the board types by material code including details (inventory, allocation, images).
 
@@ -111,14 +109,14 @@ Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(
 
 #### Parameters
 
-`materialCode` [string](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+`materialCode` [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties).
+The board types sorted by [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#boardcode).
 
-### **GetBoardTypesByMaterialCodes(IEnumerable&lt;string&gt;)**
+### **GetBoardTypesByMaterialCodes(IEnumerable&lt;String&gt;)**
 
 Gets the board types by material codes.
 
@@ -128,14 +126,14 @@ Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCodes(IEnumerable<string> ma
 
 #### Parameters
 
-`materialCodes` [IEnumerable&lt;string&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
+`materialCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties).
+The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#materialcode) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#boardcode).
 
-### **GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable&lt;string&gt;)**
+### **GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable&lt;String&gt;)**
 
 Gets the board types by material codes including details (inventory, allocation, images).
 
@@ -145,71 +143,26 @@ Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails
 
 #### Parameters
 
-`materialCodes` [IEnumerable&lt;string&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
+`materialCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties).
+The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#materialcode) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#boardcode).
 
-### **GetBoardTypesIncludingDetails(IEnumerable&lt;string&gt;)**
+### **GetBoardTypesByBoardCodesIncludingDetails(IEnumerable&lt;String&gt;)**
 
-Gets the board types  by board codes including details (inventory, allocation, images).
+Gets the board types by board codes including details (inventory, allocation, images).
 
 ```csharp
-Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(IEnumerable<string> boardCodes)
+Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
 ```
 
 #### Parameters
 
-`boardCodes` [IEnumerable&lt;string&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
+`boardCodes` [IEnumerable&lt;String&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1)<br>
 
 #### Returns
 
 [Task&lt;IEnumerable&lt;BoardTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardequivalent.csproj/boardtype.cs#properties).
-
-### **GetMaterialCodes(string, int, int)**
-
-Gets material codes including thumbnail paginated.
-
-```csharp
-Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(string search, int take, int skip = 0)
-```
-
-#### Parameters
-
-`search` [string](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-Part of the material code
-
-`take` [int](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-How many items to take.
-
-`skip` [int](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-How many items to skip.
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;MaterialCodeWithThumbnail&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-List of [MaterialCodeWithThumbnail](./homagconnect.materialmanager.contracts.material.boardequivalent.csproj/materialcodewiththumbnail.cs#properties) sorted by [MaterialCodeWithThumbnail.MaterialCode](./homagconnect.materialmanager.contracts.material.boardequivalent.csproj/materialcodewiththumbnail.cs#properties)
-
-### **GetMaterialCodes(int, int)**
-
-Gets material codes including thumbnail paginated.
-
-```csharp
-Task<IEnumerable<MaterialCodeWithThumbnail>> GetMaterialCodes(int take, int skip = 0)
-```
-
-#### Parameters
-
-`take` [int](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-How many items to take.
-
-`skip` [int](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
-How many items to skip.
-
-#### Returns
-
-[Task&lt;IEnumerable&lt;MaterialCodeWithThumbnail&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
-List of [MaterialCodeWithThumbnail](./homagconnect.materialmanager.contracts.material.boardequivalent.csproj/materialcodewiththumbnail.cs#properties) sorted by [MaterialCodeWithThumbnail.MaterialCode](./homagconnect.materialmanager.contracts.material.boardequivalent.csproj/materialcodewiththumbnail.cs#properties)
+The board types sorted by [BoardType.MaterialCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#materialcode) and [BoardType.BoardCode](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#boardcode).

@@ -1,34 +1,24 @@
-# MaterialManagerClient
+# MaterialManagerClientProcessing
 
 Namespace: HomagConnect.MaterialManager.Client
 
 ```csharp
-public class MaterialManagerClient : HomagConnect.Base.Services.ServiceBase
+public class MaterialManagerClientProcessing : HomagConnect.Base.Services.ServiceBase
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [MaterialManagerClient](./homagconnect.materialmanager.client.materialmanagerclient.md)
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → ServiceBase → [MaterialManagerClientProcessing](./homagconnect.materialmanager.client.materialmanagerclientprocessing.md)
 
 ## Properties
 
-### **Material**
+### **Optimization**
 
 ```csharp
-public MaterialManagerClientMaterial Material { get; set; }
+public MaterialManagerClientProcessingOptimization Optimization { get; }
 ```
 
 #### Property Value
 
-[MaterialManagerClientMaterial](./homagconnect.materialmanager.client.materialmanagerclientmaterial.md)<br>
-
-### **Processing**
-
-```csharp
-public MaterialManagerClientProcessing Processing { get; }
-```
-
-#### Property Value
-
-[MaterialManagerClientProcessing](./homagconnect.materialmanager.client.materialmanagerclientprocessing.md)<br>
+[MaterialManagerClientProcessingOptimization](./homagconnect.materialmanager.client.materialmanagerclientprocessingoptimization.md)<br>
 
 ### **ApiVersion**
 
@@ -82,10 +72,10 @@ public bool ThrowExceptionOnDeprecatedCalls { get; set; }
 
 ## Constructors
 
-### **MaterialManagerClient(HttpClient)**
+### **MaterialManagerClientProcessing(HttpClient)**
 
 ```csharp
-public MaterialManagerClient(HttpClient client)
+public MaterialManagerClientProcessing(HttpClient client)
 ```
 
 #### Parameters
