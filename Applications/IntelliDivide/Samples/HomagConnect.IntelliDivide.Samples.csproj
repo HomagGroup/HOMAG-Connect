@@ -59,4 +59,14 @@
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <Folder Include="Requests\Boards\" />
+	  <Folder Include="Requests\ObjectModel\Cutting\" />
+	  <Folder Include="Requests\ObjectModel\Nesting\" />
+	  <Folder Include="Requests\Project\Cutting\" />
+	  <Folder Include="Requests\Project\Nesting\" />
+	  <Folder Include="Requests\Template\Cutting\" />
+	  <Folder Include="Requests\Template\Nesting\" />
+	</ItemGroup>
 </Project>

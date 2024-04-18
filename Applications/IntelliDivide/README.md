@@ -6,7 +6,7 @@ Moreover, developers can easily access the source code on [GitHub](https://githu
 
 ## Getting started
 
-### Authoriziation
+### Authentication / Authoriziation
 
 To begin using the HOMAG IntelliDivide Client, you must first ensure that you have a valid HOMAG Connect IntelliDivide License. This license is included in the IntelliDivide Advanced and Premium licenses.
 
@@ -17,7 +17,7 @@ Once you have confirmed your license, you can create an instance of the client b
 var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 ``` 
 
-For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authorization](Documentation/Authorization/Authorization.md) page for detailed instructions.
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
 
 ### Perform an optimization
 
@@ -124,6 +124,7 @@ await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExp
 
 The downloaded saw file can get copied to the machine network share.
 
-## Further topics
+## Detailed documentation
 
-1. [Material Statistics](Statistics/Material/MaterialStatistics.md)
+- [Authentication / Authorization](Samples/Authentication/Readme.md)
+- [Material Statistics](Statistics/Material/MaterialStatistics.md)
