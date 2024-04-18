@@ -10,10 +10,15 @@
         /// <summary>
         /// Joint Photographic Experts Group (JPG).
         /// </summary>
+        JPG,
+
+        /// <summary>
+        /// Joint Photographic Experts Group (JPG).
+        /// </summary>
         JPEG,
 
         /// <summary>
-        /// Portable Network Graphics (PNG)
+        /// Portable Network Graphics (PNG).
         /// </summary>
         PNG,
 
@@ -33,6 +38,11 @@
         RTF,
 
         /// <summary>
+        /// Rich Text Format (RTX).
+        /// </summary>
+        RTX,
+
+        /// <summary>
         /// Portable Document Format (PDF).
         /// </summary>
         PDF,
@@ -41,6 +51,11 @@
         /// Extensible Markup Language (XML).
         /// </summary>
         XML,
+
+        /// <summary>
+        /// Extensible Markup Language (XML).
+        /// </summary>
+        TLDX,
 
         /// <summary>
         /// Unknown file format. 
