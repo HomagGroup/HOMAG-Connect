@@ -17,7 +17,7 @@ Once you have confirmed your license, you can create an instance of the client b
 var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 ``` 
 
-For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authorization](Documentation/Authorization/Authorization.md) page for detailed instructions.
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication/Readme.md) page for detailed instructions.
 
 ### Perform an optimization
 
@@ -124,6 +124,7 @@ await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExp
 
 The downloaded saw file can get copied to the machine network share.
 
-## Further topics
+## Detailed documentation
 
-1. [Material Statistics](Statistics/Material/MaterialStatistics.md)
+- [Authentication / Authorization](Samples/Authentication/Readme.md)
+- [Material Statistics](Statistics/Material/MaterialStatistics.md)

@@ -1,4 +1,4 @@
-# Authorization
+# Authentication / Authorization
 
 To access the HOMAG IntelliDivide Client Interface, a HOMAG Connect IntelliDivide License is required. This license is included in the IntelliDivide Advanced and Premium licenses.
 
@@ -38,3 +38,5 @@ Enter a meaningful description for your authorization key so that you can easily
 ![alt text](AuthorizationKey04.jpg)
 
 <strong>Note:</strong> Make sure to keep your access token confidential as it provides authorized access to the apps.
+
+The file [AuthorizationSamples.cs](AuthorizationSamples.cs)  provides several examples for authorization. 

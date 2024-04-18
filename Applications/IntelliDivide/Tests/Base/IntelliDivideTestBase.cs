@@ -16,6 +16,7 @@ public class IntelliDivideTestBase : TestBase
         Trace($"Subscription: {SubscriptionId}");
         Trace($"AuthorizationKey: {AuthorizationKey.Substring(0, 4)}*");
 
+
         var httpClient = new HttpClient
         {
             BaseAddress = BaseUrl
