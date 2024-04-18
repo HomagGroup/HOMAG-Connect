@@ -4,6 +4,9 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
+    /// <summary>
+    /// A edgeband type details.
+    /// </summary>
     public class EdgebandTypeDetails : EdgebandType
     {
         /// <summary>

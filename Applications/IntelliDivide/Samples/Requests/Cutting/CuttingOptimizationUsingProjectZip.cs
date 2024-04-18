@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary />
-    public class CuttingOptimizationUsingProjectZip
+    public static class CuttingOptimizationUsingProjectZip
     {
         /// <summary />
         public static async Task CreatedCuttingOptimizationUsingProjectZip(IIntelliDivideClient intelliDivide)
@@ -33,7 +33,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.OptimizationId);
             Assert.AreEqual(OptimizationStatus.New, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationErrors.Any());
+            Assert.IsFalse(response.ValidationResults.Any());
 
             response.Trace();
 

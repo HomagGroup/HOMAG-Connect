@@ -10,6 +10,9 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
+    /// <summary>
+    /// A edgeband type.
+    /// </summary>
     [DebuggerDisplay("{EdgebandCode}")]
     public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {

@@ -13,6 +13,11 @@
 		<EmbedAllSources>true</EmbedAllSources>
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Requests\Boards\**" />
+	  <EmbeddedResource Remove="Requests\Boards\**" />
+	  <None Remove="Requests\Boards\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove="Requests\Cutting\Kitchen.xlsx" />
@@ -54,6 +59,7 @@
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
 	</ItemGroup>
 
+
 	<ItemGroup>
 	  <Folder Include="Requests\Boards\" />
 	  <Folder Include="Requests\ObjectModel\Cutting\" />
@@ -63,5 +69,4 @@
 	  <Folder Include="Requests\Template\Cutting\" />
 	  <Folder Include="Requests\Template\Nesting\" />
 	</ItemGroup>
-
 </Project>

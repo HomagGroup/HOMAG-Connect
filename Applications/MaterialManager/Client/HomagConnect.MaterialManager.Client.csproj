@@ -11,8 +11,10 @@
 		<Description>Client assembly for the usage of Homag-Connect MaterialManager API</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialManager/Client</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
-
-	</PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EmbedAllSources>true</EmbedAllSources>
+    <DebugType>Embedded</DebugType>
+  </PropertyGroup>
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
