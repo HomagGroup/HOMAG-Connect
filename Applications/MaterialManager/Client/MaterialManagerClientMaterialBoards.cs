@@ -12,7 +12,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 namespace HomagConnect.MaterialManager.Client;
 
 /// <summary>
-/// materialMaterial Client for boards
+/// materialManager Client for boards
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
