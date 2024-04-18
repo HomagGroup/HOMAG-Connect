@@ -28,6 +28,11 @@
         TXT,
 
         /// <summary>
+        /// Rich Text Format (RTF).
+        /// </summary>
+        RTF,
+
+        /// <summary>
         /// Portable Document Format (PDF).
         /// </summary>
         PDF,
@@ -36,7 +41,7 @@
         /// Extensible Markup Language (XML).
         /// </summary>
         XML,
-        
+
         /// <summary>
         /// Unknown file format. 
         /// </summary>
