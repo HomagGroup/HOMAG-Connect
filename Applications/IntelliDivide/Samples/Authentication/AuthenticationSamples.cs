@@ -4,10 +4,13 @@ using System.Text;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
-namespace HomagConnect.IntelliDivide.Samples.Authorization
+namespace HomagConnect.IntelliDivide.Samples.Authentication
 {
     /// <summary>
     /// Authentication samples.
+    /// <remarks>
+    /// <see href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Authentication" /> for further details.
+    /// </remarks>
     /// </summary>
     public static class AuthenticationSamples
     {
