@@ -17,12 +17,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
         /// <summary>
         /// Gets or sets the size.
         /// </summary>
-        public Size? Size { get; set; }
+        public ImageSize? Size { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public string? Type { get; set; }
+        public ImageType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the file name.
@@ -30,9 +30,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
         public string? FileName { get; set; }
 
         /// <summary>
-        /// Gets or sets the content type.
+        /// Gets or sets the file format.
         /// </summary>
-        public string? ContentType { get; set; }
+        public FileFormat? FileFormat { get; set; }
 
         /// <summary>
         /// Gets or sets the length.

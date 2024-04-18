@@ -3,7 +3,7 @@
     /// <summary>
     /// Image sizes.
     /// </summary>
-    public enum Size
+    public enum ImageSize
     {
         /// <summary>
         /// Small size.
