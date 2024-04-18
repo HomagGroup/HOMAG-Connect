@@ -1,11 +1,11 @@
-﻿using HomagConnect.IntelliDivide.Samples.Authorization;
+﻿using HomagConnect.IntelliDivide.Samples.Authentication;
 using HomagConnect.IntelliDivide.Tests.Base;
 
-namespace HomagConnect.IntelliDivide.Tests.Authorization
+namespace HomagConnect.IntelliDivide.Tests.Authentication
 {
     [TestClass]
     [TestCategory("IntelliDivide")]
-    [TestCategory("IntelliDivide.Authorization")]
+    [TestCategory("IntelliDivide.Authentication")]
     public class AuthenticationTests : IntelliDivideTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
@@ -14,13 +14,13 @@ namespace HomagConnect.IntelliDivide.Tests.Authorization
         public async Task Authentication_UsingHttpClient()
 
         {
-            await AuthorizationSamples.CreateIntelliDivideClientUsingHttpClient(SubscriptionId, AuthorizationKey);
+            await AuthenticationSamples.CreateIntelliDivideClientUsingHttpClient(SubscriptionId, AuthorizationKey);
         }
 
         [TestMethod]
         public async Task Authentication_UsingSubscriptionIdAndToken()
         {
-            await AuthorizationSamples.CreateIntelliDivideClientUsingSubscriptionIdAndToken(SubscriptionId, AuthorizationKey);
+            await AuthenticationSamples.CreateIntelliDivideClientUsingSubscriptionIdAndToken(SubscriptionId, AuthorizationKey);
         }
 
 #pragma warning restore S2699 // Tests should include assertions
