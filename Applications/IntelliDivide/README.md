@@ -127,4 +127,4 @@ The downloaded saw file can get copied to the machine network share.
 ## Detailed documentation
 
 - [Authentication / Authorization](Samples/Authentication/Readme.md)
-- [Material Statistics](Statistics/Material/MaterialStatistics.md)
+- [Material Statistics](Samples/Statistics/Material/Readme.md)

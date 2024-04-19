@@ -17,9 +17,7 @@ skip|skip=0|Optional. The skip parameter allows you to specify the number of row
 
 The endpoint can be used in various clients to access the data.
 
-- [Access data using the HOMAG Connect Client](MaterialStatistics-Client.md) 
-- [Anaylze data using Microsoft Power BI](MaterialStatistics-PowerBI.md)
-- [Anaylze data using Microsoft Excel](MaterialStatistics-Excel.md)
-
-Some sample reports can be found at [intelliDivide - Material statistics sample reports](../../../Samples/Statistics/Material).
+- [Access data using the HOMAG Connect Client](Client/Readme.md) 
+- [Anaylze data using Microsoft Power BI](PowerBI/Readme.md)
+- [Anaylze data using Microsoft Excel](Excel/Readme.md)
 
