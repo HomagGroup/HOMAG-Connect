@@ -25,7 +25,7 @@ var mprFiles = new List<ImportFile>();
     request.Parts.Add(new OptimizationRequestPart
     {
         Description = "Part A",
-        MprFileName = mprA.Name, // The reference to the mpr file
+        MprFileName = mprA.Name, // The reference to the import file.
         MaterialCode = "P2_Gold Craft Oak_19",
         Grain = Grain.Lengthwise,
         Quantity = 2
