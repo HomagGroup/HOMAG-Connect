@@ -18,7 +18,7 @@ namespace HomagConnect.MaterialManager.Client
     {
         #region Constants
 
-        private const string _BaseRoute = "api/materialManager/materials/egdebands";
+        private const string _BaseRoute = "api/materialManager/materials/edgebands";
         private const string _EdgebandCode = "edgebandCode";
         private const string _IncludingDetails = "includingDetails";
 
@@ -52,7 +52,7 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandType>> GetEdgebandTypesByMaterialCodes(IEnumerable<string> edgebandCodes)
+        public async Task<IEnumerable<EdgebandType>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes)
         {
             if (edgebandCodes == null)
             {
@@ -83,7 +83,7 @@ namespace HomagConnect.MaterialManager.Client
 
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByMaterialCodesIncludingDetails(IEnumerable<string> edgebandCodes)
+        public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
         {
             if (edgebandCodes == null)
             {
