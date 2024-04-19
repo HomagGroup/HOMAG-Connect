@@ -18,6 +18,7 @@ The sample below shows how to add a part to the request having the required prop
 
 var mprFiles = new List<ImportFile>();
 
+
 { // Part A
 
     var mprA = await ImportFile.CreateAsync(new FileInfo(@"Requests\ObjectModel\Nesting\PartA.mpr"));
@@ -32,8 +33,7 @@ var mprFiles = new List<ImportFile>();
     });
 
     mprFiles.Add(mprA);
-
-} // Part
+}
 
 // The mpr files need to be added to the request.
 
