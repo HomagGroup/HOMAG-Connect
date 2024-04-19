@@ -1,5 +1,4 @@
 using HomagConnect.Base.Extensions;
-using HomagConnect.IntelliDivide.Samples.Statistics.Material.Code;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Statistics;

@@ -9,6 +9,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
     /// <summary>
     /// Cutting request samples using the object model.
     /// </summary>
+    /// <remarks>
+    /// <see
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/ObjectModel/Cutting/Readme.md" />
+    /// for further details.
+    /// </remarks>
     public static class CuttingRequestUsingObjectModelSamples
     {
         /// <summary>

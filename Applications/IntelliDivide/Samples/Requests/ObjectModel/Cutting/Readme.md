@@ -26,7 +26,7 @@ request.Parts.Add(
     });
 ```
 
-> For a detailed example, please refer to <i>CuttingRequest_ObjectModel_RequiredProperties_ImportOnly</i> in the file [CuttingUsingObjectModel.cs](CuttingUsingObjectModel.cs).
+> For a detailed example, please refer to <i>CuttingRequest_ObjectModel_RequiredProperties_ImportOnly</i> in the file [CuttingUsingObjectModelSamples.cs](CuttingUsingObjectModel.cs).
 
 All other properties which are available in the app can be set as well.
 
@@ -58,7 +58,7 @@ request.Parts.Add(
     });
 ```
 
-> For a detailed example, please refer to <i>CuttingRequest_ObjectModel_TypicalProperties_ImportOnly</i> in the file [CuttingUsingObjectModel.cs](CuttingUsingObjectModel.cs).
+> For a detailed example, please refer to <i>CuttingRequest_ObjectModel_TypicalProperties_ImportOnly</i> in the file [CuttingUsingObjectModelSamples.cs](CuttingUsingObjectModel.cs).
 
 A position in a grain matching template can get referenced as specific formatted string or using a grain matching template object.
 
@@ -104,4 +104,4 @@ request.Parts.Add(
     });
 ```
 
-> For a detailed example, please refer to <i>CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly</i> in the file [CuttingUsingObjectModel.cs](CuttingUsingObjectModel.cs).
+> For a detailed example, please refer to <i>CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly</i> in the file [CuttingUsingObjectModelSamples.cs](CuttingUsingObjectModel.cs).
