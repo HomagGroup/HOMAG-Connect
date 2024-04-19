@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Clie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.IntelliDivide", "HomagConnect.IntelliDivide", "{49D52272-39DD-4CB3-8921-B33207BE43AE}"
 	ProjectSection(SolutionItems) = preProject
-		Applications\IntelliDivide\README.md = Applications\IntelliDivide\README.md
+		Applications\IntelliDivide\Readme.md = Applications\IntelliDivide\Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.IntelliDivide.Contracts", "Applications\IntelliDivide\Contracts\HomagConnect.IntelliDivide.Contracts.csproj", "{842FC672-9A07-469A-B882-9863BB0F182B}"
@@ -37,9 +37,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{EB249CD3-484B-44B7-B959-FA58CD6C52CB}"
-	ProjectSection(SolutionItems) = preProject
-		Applications\IntelliDivide\Documentation\README.md = Applications\IntelliDivide\Documentation\README.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base.Tests", "Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj", "{FAE434F6-9E58-4AC7-B481-8D661080FAE3}"
 EndProject
@@ -58,16 +55,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OptimizationRequest", "OptimizationRequest", "{A3028654-56E3-4E06-B6BD-8CE041087FDF}"
 	ProjectSection(SolutionItems) = preProject
 		Applications\IntelliDivide\Documentation\OptimizationRequest\OptimzationRequest.md = Applications\IntelliDivide\Documentation\OptimizationRequest\OptimzationRequest.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Statistics", "Statistics", "{A255C636-CE14-4235-85DD-7EF22F204FD7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Material", "Material", "{AD5BE7C3-6E19-4CEF-95C2-33F722B76FD9}"
-	ProjectSection(SolutionItems) = preProject
-		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Client.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Client.md
-		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Excel.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-Excel.md
-		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-PowerBI.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics-PowerBI.md
-		Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics.md = Applications\IntelliDivide\Documentation\Statistics\Material\MaterialStatistics.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MmrMobile.Contracts", "Applications\MmrMobile\Contracts\HomagConnect.MmrMobile.Contracts.csproj", "{9E9B7350-544D-4B43-8169-DCE1428E2544}"
@@ -176,8 +163,6 @@ Global
 		{5ECB8B6A-CD21-4E60-B2B8-543D10B4B4CF} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 		{FB26B71F-ABD5-4FF5-81A2-F7C974472764} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
 		{A3028654-56E3-4E06-B6BD-8CE041087FDF} = {EB249CD3-484B-44B7-B959-FA58CD6C52CB}
-		{A255C636-CE14-4235-85DD-7EF22F204FD7} = {EB249CD3-484B-44B7-B959-FA58CD6C52CB}
-		{AD5BE7C3-6E19-4CEF-95C2-33F722B76FD9} = {A255C636-CE14-4235-85DD-7EF22F204FD7}
 		{9E9B7350-544D-4B43-8169-DCE1428E2544} = {69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}
 		{262F23C2-54C8-4BD2-8200-72C39D5EAA4C} = {69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}
 		{EAD66683-1FF4-4C91-8FCC-18415AA99FFB} = {69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}

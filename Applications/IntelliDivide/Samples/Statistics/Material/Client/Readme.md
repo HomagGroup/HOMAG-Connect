@@ -24,4 +24,4 @@ var totalOffcutGrowthInSquareMeter = materialStatistics.Sum(m => m.OffcutsGrowth
 materialStatistics.Trace();
 ``` 
 
-The sample code can be found at [intelliDivide - Material statistics sample reports](../../../Samples/Statistics/Material/MaterialStatisticsSample.cs).
+The sample code can be found at [intelliDivide - Material statistics sample reports](MaterialStatisticsSample.cs).

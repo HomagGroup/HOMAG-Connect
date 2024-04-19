@@ -30,4 +30,4 @@ Generate charts: Power BI can now be used to generate comprehensive charts and v
 
 ![alt text](MaterialStatistics-PowerBI-06.jpg)
 
-Some sample reports can be found at [intelliDivide - Material statistics sample reports](../../../Samples/Statistics/Material).
+A sample reports can be found at [MaterialEfficiency.pbix](MaterialEfficiency.pbix).

@@ -40,7 +40,7 @@ Use pivot tables and charts to create comprehensive reports.
 
 ![alt text](MaterialStatistics-Excel-09.jpg)
 
-Some sample reports can be found at [intelliDivide - Material statistics sample reports](../../../Samples/Statistics/Material).
+A sample reports can be found at [MaterialEfficiency.xlsx](MaterialEfficiency.xlsx).
 
 
 
