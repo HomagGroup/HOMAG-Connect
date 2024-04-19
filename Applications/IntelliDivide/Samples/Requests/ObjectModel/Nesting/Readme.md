@@ -18,7 +18,6 @@ The sample below shows how to add a part to the request having the required prop
 
 var mprFiles = new List<ImportFile>();
 
-
 { // Part A
 
     var mprA = await ImportFile.CreateAsync(new FileInfo(@"Requests\ObjectModel\Nesting\PartA.mpr"));
@@ -37,8 +36,10 @@ var mprFiles = new List<ImportFile>();
 
 // The mpr files need to be added to the request.
 
-var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles.ToArray());
+var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
 ```
+
+The file types MPR, MPRX and MPRXE are supported. The name of the ImportFile must match the MPRFileName property of the OptimizationRequestPart.
 
 > For a detailed example, please refer to <i>NestingRequest_ObjectModel_RequiredProperties_ImportOnly</i> in the file [NestingRequestUsingObjectModelSamples.cs](NestingRequestUsingObjectModelSamples.cs).
 

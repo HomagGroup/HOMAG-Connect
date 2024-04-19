@@ -49,7 +49,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting
             mprFiles.Add(mprA);
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles.ToArray());
+            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
 
             response.Trace(nameof(response));
 

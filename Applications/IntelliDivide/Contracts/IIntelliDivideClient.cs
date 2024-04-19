@@ -181,6 +181,11 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
         /// </summary>
+        Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, IEnumerable<ImportFile> files);
+
+        /// <summary>
+        /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
+        /// </summary>
         Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequestUsingTemplate optimizationRequest, params ImportFile[] files);
 
         /// <summary>

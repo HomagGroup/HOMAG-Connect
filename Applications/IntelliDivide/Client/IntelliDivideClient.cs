@@ -106,6 +106,12 @@ namespace HomagConnect.IntelliDivide.Client
         #region Optimization Request
 
         /// <inheritdoc />
+        public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, IEnumerable<ImportFile> files)
+        {
+            return await RequestOptimizationAsync(optimizationRequest, files.ToArray());
+        }
+
+        /// <inheritdoc />
         public async Task<OptimizationRequestResponse> RequestOptimizationAsync(OptimizationRequest optimizationRequest, params ImportFile[] files)
         {
             var partWithMissingMprFile = optimizationRequest.Parts
