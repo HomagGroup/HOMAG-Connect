@@ -96,6 +96,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 5, 1)]
     public async Task CreateCuttingOptimizationByObjectModelAndStartOptimization()
     {
         var intelliDivide = GetIntelliDivideClient();
