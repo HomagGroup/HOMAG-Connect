@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting;
+using HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
@@ -10,6 +11,15 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
     public class NestingOptimizationRequestTests : IntelliDivideTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
+
+        [TestMethod]
+        public async Task NestingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await NestingRequestUsingObjectModelSamples.NestingRequest_ObjectModel_RequiredProperties_ImportOnly(intelliDivide);
+        }
+
         [TestMethod]
         public async Task CreateNestingOptimizationRequestByObjectModel()
 

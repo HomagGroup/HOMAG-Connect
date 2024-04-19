@@ -70,7 +70,6 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
         await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelWithSpecificBoards(intelliDivide);
     }
 
-   
     [TestMethod]
     public async Task CreateCuttingOptimizationByObjectModelValidationResults()
     {

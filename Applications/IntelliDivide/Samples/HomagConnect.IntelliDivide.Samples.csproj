@@ -37,10 +37,10 @@
 		<Content Include="Requests\Nesting\Kitchen.zip">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Requests\Nesting\PartA.mpr">
+		<Content Include="Requests\ObjectModel\Nesting\PartA.mpr">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Requests\Nesting\PartB.mpr">
+		<Content Include="Requests\ObjectModel\Nesting\PartB.mpr">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
@@ -61,7 +61,6 @@
 
 
 	<ItemGroup>
-	  <Folder Include="Requests\ObjectModel\Nesting\" />
 	  <Folder Include="Requests\Project\Cutting\" />
 	  <Folder Include="Requests\Project\Nesting\" />
 	  <Folder Include="Requests\Template\Cutting\" />
