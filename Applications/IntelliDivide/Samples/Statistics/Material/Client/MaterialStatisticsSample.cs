@@ -2,7 +2,7 @@
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
-namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Code
+namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
 {
     /// <summary />
     public static class MaterialStatisticsSample

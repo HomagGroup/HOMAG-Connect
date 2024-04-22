@@ -1,5 +1,6 @@
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting;
+using HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
@@ -10,6 +11,30 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions
+
+    [TestMethod]
+    public async Task CuttingRequest_ObjectModel_RequiredProperties_ImportOnly()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_RequiredProperties_ImportOnly(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task CuttingRequest_ObjectModel_TypicalProperties_ImportOnly()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_TypicalProperties_ImportOnly(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly(intelliDivide);
+    }
 
     [TestMethod]
     public async Task CreatedCuttingOptimizationBasedOnExcelFile()
@@ -46,21 +71,12 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    public async Task CreateCuttingOptimizationByObjectModelUsingGrainMatchTemplates()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelUsingGrainMatchTemplates(intelliDivide);
-    }
-
-    [TestMethod]
     public async Task CreateCuttingOptimizationByObjectModelValidationResults()
     {
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelValidationResults(intelliDivide);
     }
-    
 
     [TestMethod]
     public async Task CreateCuttingOptimizationUsingModelAndOptimize()
