@@ -15,10 +15,8 @@ var request = new OptimizationRequestUsingTemplate
 {
     Name = "Sample",
     Machine = "productionAssist Cutting",
-    Parameters = "Default",
-
-    // Name of the template as shown in the app
-    ImportTemplate = "Excel"  
+    Parameters = "Default",    
+    ImportTemplate = "My import template" // Name of the template as shown in the app  
 };
 ```
 

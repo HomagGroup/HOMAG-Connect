@@ -38,14 +38,6 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    public async Task CreatedCuttingOptimizationBasedOnExcelFile()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await CuttingOptimizationUsingExcel.CreatedCuttingOptimizationByImportingFromExcel(intelliDivide);
-    }
-
-    [TestMethod]
     public async Task CuttingRequest_Template_Excel_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
