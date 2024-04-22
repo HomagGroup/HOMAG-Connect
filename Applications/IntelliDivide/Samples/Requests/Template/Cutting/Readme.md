@@ -32,7 +32,4 @@ var response = await intelliDivide.RequestOptimizationAsync(request, importFile)
 
 The response contains the `optimizationId`, which can be used to start the optimization or to retrieve the optimization result.
 
-```c#
-
-
-> For a detailed example, please refer to <i>CuttingRequest_Template_Excel_ImportOnly</i> in the file [CuttingRequestUsingTemplateSamples.cs](CuttingRequestUsingTemplateSamples.cs).
+>For a detailed example, please refer to `CuttingRequest_Template_Excel_ImportOnly` in the file [CuttingRequestUsingTemplateSamples.cs](CuttingRequestUsingTemplateSamples.cs).
