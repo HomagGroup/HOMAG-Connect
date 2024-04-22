@@ -1,6 +1,7 @@
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 using HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting;
+using HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
@@ -42,6 +43,14 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingOptimizationUsingExcel.CreatedCuttingOptimizationByImportingFromExcel(intelliDivide);
+    }
+
+    [TestMethod]
+    public async Task CuttingRequest_Template_Excel_ImportOnly()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportOnly(intelliDivide);
     }
 
     [TestMethod]

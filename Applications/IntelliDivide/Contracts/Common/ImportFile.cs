@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     public class ImportFile
     {
         /// <summary>
+        /// Gets or sets the extension of the file.
+        /// </summary>
+        public string Extension { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the name which is used as reference.
         /// </summary>
         [Required]
@@ -22,6 +28,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [Required]
         public Stream Stream { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ImportFile" />.
+        /// </summary>
+        /// <exception cref="FileNotFoundException">Thrown, if the specified was not found.</exception>
+        public static async Task<ImportFile> CreateAsync(string fileName)
+        {
+            return await CreateAsync(new FileInfo(fileName));
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="ImportFile" />.
@@ -48,6 +63,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
             return new ImportFile
             {
                 Name = fileInfo.Name,
+                Extension = fileInfo.Extension,
                 Stream = memoryStream,
             };
         }
