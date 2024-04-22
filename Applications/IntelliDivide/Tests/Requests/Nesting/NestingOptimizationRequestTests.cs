@@ -27,7 +27,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
             var intelliDivide = GetIntelliDivideClient();
 
             await NestingRequestUsingObjectModelSamples.NestingRequest_ObjectModel_MprProgramVariables_ImportOnly(intelliDivide);
-        }
+        }        
 
         [TestMethod]
         public async Task CreateNestingOptimizationRequestByObjectModel()
