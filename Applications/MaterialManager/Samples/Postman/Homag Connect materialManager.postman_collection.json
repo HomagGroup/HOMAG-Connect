@@ -198,7 +198,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands/overview",
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -206,9 +206,7 @@
 										"api",
 										"materialManager",
 										"materials",
-										"edgebands",
-										"overview"
-									],
+										"edgebands"									],
 									"query": [
 										{
 											"key": "skip",

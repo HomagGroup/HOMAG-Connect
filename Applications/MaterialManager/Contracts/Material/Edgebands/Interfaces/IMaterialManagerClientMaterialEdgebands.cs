@@ -35,13 +35,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
-        Task<IEnumerable<EdgebandType>> GetEdgebandTypesByMaterialCodes(IEnumerable<string> edgebandCodes);
+        Task<IEnumerable<EdgebandType>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes);
 
         /// <summary>
         /// Gets edgebands by edgeband codes including details.
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
-        Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByMaterialCodesIncludingDetails(IEnumerable<string> edgebandCodes);
+        Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
     }
 }
