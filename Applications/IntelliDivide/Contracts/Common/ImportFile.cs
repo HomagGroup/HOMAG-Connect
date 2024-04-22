@@ -29,7 +29,10 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <exception cref="FileNotFoundException">Thrown, if the specified was not found.</exception>
         public static async Task<ImportFile> CreateAsync(FileInfo fileInfo)
         {
-            if (!fileInfo.Exists) throw new FileNotFoundException("Import file does not exist.", fileInfo.FullName);
+            if (!fileInfo.Exists)
+            {
+                throw new FileNotFoundException("Import file does not exist.", fileInfo.FullName);
+            }
 
             var memoryStream = new MemoryStream();
 

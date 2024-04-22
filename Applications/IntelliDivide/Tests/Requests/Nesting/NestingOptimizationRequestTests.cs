@@ -21,6 +21,15 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
+        [TemporaryDisabledOnServer(2024,05,01)]
+        public async Task NestingRequest_ObjectModel_MprProgramVariables_ImportOnly()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await NestingRequestUsingObjectModelSamples.NestingRequest_ObjectModel_MprProgramVariables_ImportOnly(intelliDivide);
+        }        
+
+        [TestMethod]
         public async Task CreateNestingOptimizationRequestByObjectModel()
 
         {
