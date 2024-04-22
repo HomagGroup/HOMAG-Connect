@@ -25,7 +25,7 @@ For further information on how to obtain your Authorization Key and Subscription
 
 There are several ways to request an optimization:
 
-1. [Using the Object Model]()   
+1. Using the Object Model ([Cutting](Samples/Requests/ObjectModel/Cutting/Readme.md) / [Nesting](Samples/Requests/ObjectModel/Nesting/Readme.md))
 2. [Importing a structured file (Excel, CSV, PNX, ...)]()
 3. [Importing a standardized ZIP file]()
 
@@ -109,6 +109,8 @@ IntelliDivide executes the optimization, and its completion can be awaited.
 var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
 ``` 
 
+### Utilize the outcome of the optimization
+
 #### Download solution exports
 
 After the optimization is done the solutions can get retrieved. The first one is the recommended solution.
@@ -124,7 +126,6 @@ await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExp
 
 The downloaded saw file can get copied to the machine network share.
 
-## Detailed documentation
+## Further details and explanations
 
-- [Authentication / Authorization](Samples/Authentication/Readme.md)
-- [Material Statistics](Samples/Statistics/Material/Readme.md)
+For a detailed examples and explanations, please refer to [HOMAG Connect IntelliDivide Samples](Samples/Readme.md).
