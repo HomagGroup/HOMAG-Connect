@@ -27,6 +27,7 @@
 		<None Remove="Requests\Nesting\PartB.mpr" />
 		<None Remove="Requests\ObjectModel\Nesting\Generic.mpr" />
 		<None Remove="Requests\Template\Cutting\Kitchen.xlsx" />
+		<None Remove="Requests\Template\Nesting\Kitchen.zip" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -58,6 +59,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		  <Pack>true</Pack>
 		</Content>
+		<Content Include="Requests\Template\Nesting\Kitchen.zip">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,6 +82,5 @@
 	<ItemGroup>
 	  <Folder Include="Requests\Project\Cutting\" />
 	  <Folder Include="Requests\Project\Nesting\" />
-	  <Folder Include="Requests\Template\Nesting\" />
 	</ItemGroup>
 </Project>

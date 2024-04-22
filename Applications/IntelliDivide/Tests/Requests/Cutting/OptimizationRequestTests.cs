@@ -46,6 +46,17 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportAndOptimize(intelliDivide);
+    }
+
+
+    
+
+    [TestMethod]
     [TemporaryDisabledOnServer(2024, 5, 1)]
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {

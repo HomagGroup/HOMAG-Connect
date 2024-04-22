@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -51,12 +50,20 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
 
             var memoryStream = new MemoryStream();
 
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
+
             using (var fileStream = fileInfo.OpenRead())
             {
                 var bytes = new byte[fileStream.Length];
+
                 _ = await fileStream.ReadAsync(bytes, 0, (int)fileStream.Length).ConfigureAwait(false);
                 await memoryStream.WriteAsync(bytes, 0, (int)fileStream.Length).ConfigureAwait(false);
+#pragma warning restore CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
             }
+
+#pragma warning restore CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 
             memoryStream.Position = 0;
 

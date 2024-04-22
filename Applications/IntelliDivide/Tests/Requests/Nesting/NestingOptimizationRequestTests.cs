@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting;
 using HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting;
+using HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
@@ -21,13 +22,30 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024,05,01)]
+        public async Task NestingRequest_Template_CSV_MPR_ImportOnly()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await NestingRequestUsingTemplateSamples.NestingRequest_Template_CSV_MPR_ImportOnly(intelliDivide);
+        }
+
+        [TestMethod]
+        [TemporaryDisabledOnServer(2024,05,15)]
+        public async Task NestingRequest_Template_CSV_MPR_ImportAndOptimize()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await NestingRequestUsingTemplateSamples.NestingRequest_Template_CSV_MPR_ImportAndOptimize(intelliDivide);
+        }
+
+        [TestMethod]
+        [TemporaryDisabledOnServer(2024, 05, 01)]
         public async Task NestingRequest_ObjectModel_MprProgramVariables_ImportOnly()
         {
             var intelliDivide = GetIntelliDivideClient();
 
             await NestingRequestUsingObjectModelSamples.NestingRequest_ObjectModel_MprProgramVariables_ImportOnly(intelliDivide);
-        }        
+        }
 
         [TestMethod]
         public async Task CreateNestingOptimizationRequestByObjectModel()
