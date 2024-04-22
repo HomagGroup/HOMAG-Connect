@@ -37,7 +37,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
                 ImportTemplate = importTemplate.Name,
                 Action = OptimizationRequestAction.ImportOnly
             };
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Cutting\Kitchen.xlsx");
+
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
             response.Trace();
