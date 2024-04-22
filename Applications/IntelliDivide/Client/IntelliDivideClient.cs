@@ -408,6 +408,7 @@ namespace HomagConnect.IntelliDivide.Client
                 SolutionExportType.Saw => ".saw",
                 SolutionExportType.Pdf => ".pdf",
                 SolutionExportType.Ptx => ".ptx",
+                SolutionExportType.ZIP => ".zip",
                 SolutionExportType.MaterialDemand => ".xlsx",
                 _ => throw new NotSupportedException($"Export type {exportType} is not supported.")
             };

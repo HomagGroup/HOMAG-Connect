@@ -28,6 +28,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Excel file containing the material demand.
         /// </summary>
-        MaterialDemand
+        MaterialDemand,
+
+        /// <summary>
+        /// ZIP file containing the MPRs for nesting.
+        /// </summary>
+        ZIP
     }
 }
