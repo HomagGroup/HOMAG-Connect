@@ -142,27 +142,16 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets the list of parameter sets for the specified <see cref="OptimizationType" />.
         /// </summary>
         Task<IEnumerable<OptimizationParameter>> GetParametersAsync(OptimizationType optimizationType);
-            
+
+        /// <summary>
+        /// Gets the part sizes by material statistics.
+        /// </summary>
+        Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to);
+
         /// <summary>
         /// Gets the solution details.
         /// </summary>
         Task<SolutionDetails> GetSolutionDetailsAsync(Guid optimizationId, Guid solutionId);
-
-        /// <summary>
-        /// Gets the <see cref="IEnumerable&lt;Solution&gt;" /> which have been calculated for an optimization request.
-        /// </summary>
-        /// <param name="optimizationId">The id of of the optimization.</param>
-        /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>
-        Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="optimizationId">The optimization id</param>
-        /// <param name="solutionId">The solution id</param>
-        /// <returns>produced parts of the solution</returns>
-        Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
-
 
         /// <summary>
         /// Returns solution patterns
@@ -172,6 +161,19 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <returns></returns>
         Task<IEnumerable<SolutionPattern>> GetSolutionPatterns(Guid optimizationId, Guid solutionId);
 
+        /// <summary>
+        /// </summary>
+        /// <param name="optimizationId">The optimization id</param>
+        /// <param name="solutionId">The solution id</param>
+        /// <returns>produced parts of the solution</returns>
+        Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
+
+        /// <summary>
+        /// Gets the <see cref="IEnumerable&lt;Solution&gt;" /> which have been calculated for an optimization request.
+        /// </summary>
+        /// <param name="optimizationId">The id of of the optimization.</param>
+        /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>
+        Task<IEnumerable<Solution>> GetSolutionsAsync(Guid optimizationId);
 
         /// <summary>
         /// Request an optimization based on a structured <see cref="OptimizationRequest" />.
@@ -214,18 +216,18 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task StartOptimizationAsync(Guid optimizationId);
 
         /// <summary>
-        /// Waits until the optimization has reached the state <see cref="OptimizationStatus.Optimized" /> or <see cref="OptimizationStatus.Transferred" /> or has reached a state
+        /// Waits until the optimization has reached the state <see cref="OptimizationStatus.Optimized" /> or
+        /// <see cref="OptimizationStatus.Transferred" /> or has reached a state
         /// from which the state <see cref="OptimizationStatus.Optimized" /> can't get reached any more.
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForCompletionAsync(Guid optimizationId, TimeSpan maxDuration);
 
         /// <summary>
-        /// Waits until the optimization is reached the specified <see cref="OptimizationStatus" /> or a following state or a from which the specified state can't get reached any more.
+        /// Waits until the optimization is reached the specified <see cref="OptimizationStatus" /> or a following state or a from
+        /// which the specified state can't get reached any more.
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForOptimizationStatusAsync(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration);
-
-        
     }
 }
