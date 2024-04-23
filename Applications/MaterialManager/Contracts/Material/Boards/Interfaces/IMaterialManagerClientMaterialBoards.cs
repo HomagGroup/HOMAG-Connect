@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Statistics;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -63,6 +65,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
+
+        /// <summary>
+        /// Get statistical/historical data of board types by material codes. 
+        /// </summary>
+        /// <param name="materialCodes"></param>
+        /// <param name="boardTypeType"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        Task<IEnumerable<BoardTypeInventoryStatistics>> GetBoardTypesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType , DateTime from, DateTime to);
 
     }
 }

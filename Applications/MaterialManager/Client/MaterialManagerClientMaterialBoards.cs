@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Statistics;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -19,6 +21,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
+    private const string _BaseStatisticsRoute = "api/materialManager/statistics";
     private const string _MaterialCode = "materialCode";
     private const string _BoardCode = "boardCode";
     private const string _IncludingDetails = "includingDetails";
@@ -186,7 +189,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         return boardTypesDetails;
     }
-    
+
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
@@ -200,8 +203,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
             if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
             {
-                urls.Add(includingDetails 
-                    ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true" 
+                urls.Add(includingDetails
+                    ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
                     : $"{_BaseRoute}{route}{queryParameters}");
 
                 queryParameters = new StringBuilder("?");
@@ -214,12 +217,62 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             }
         }
 
-        urls.Add(includingDetails 
-            ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true" 
+        urls.Add(includingDetails
+            ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
             : $"{_BaseRoute}{route}{queryParameters}");
 
         return urls;
     }
+    #endregion
 
+    #region statistics
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="materialCodes"></param>
+    /// <param name="boardTypeType"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public Task<IEnumerable<BoardTypeInventoryStatistics>> GetBoardTypesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
+    {
+        if (materialCodes == null)
+        {
+            throw new ArgumentNullException(nameof(materialCodes));
+        }
+
+        var validMaterialCodes = materialCodes
+            .Select(m => m.Trim())
+            .Where(m => !string.IsNullOrWhiteSpace(m))
+            .Distinct()
+            .OrderBy(m => m).ToList();
+
+        if (!validMaterialCodes.Any())
+        {
+            throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
+        }
+
+        return GetBoardTypesByMaterialStatisticsInternalAsync(validMaterialCodes, boardTypeType, from, to);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="materialCodes"></param>
+    /// <param name="boardTypeType"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
+    private async Task<IEnumerable<BoardTypeInventoryStatistics>> GetBoardTypesByMaterialStatisticsInternalAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
+    {
+        var uris = materialCodes
+            .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
+            .Join(QueryParametersMaxLength)
+            .Select(c => $"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}&boardTypeType={boardTypeType}" + c)
+            .Select(c => new Uri(c, UriKind.Relative));
+
+        return await RequestEnumerableAsync<BoardTypeInventoryStatistics>(uris);
+    }
     #endregion
 }
