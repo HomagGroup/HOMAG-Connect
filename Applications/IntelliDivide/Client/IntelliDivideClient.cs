@@ -16,14 +16,45 @@ namespace HomagConnect.IntelliDivide.Client
     {
         #region Statistics
 
-        /// <summary>
-        /// Gets the statistics for the material efficiency.
-        /// </summary>
+        /// <inheritdoc />
         public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}";
 
             return await RequestEnumerable<MaterialEfficiency>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to)
+        {
+            if (materialCodes == null)
+            {
+                throw new ArgumentNullException(nameof(materialCodes));
+            }
+
+            var validMaterialCodes = materialCodes
+                .Select(m => m.Trim())
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m).ToList();
+
+            if (!validMaterialCodes.Any())
+            {
+                throw new ArgumentNullException(nameof(materialCodes), "At least one board code code must be passed.");
+            }
+
+            return GetPartSizesByMaterialStatisticsInternalAsync(validMaterialCodes, from, to);
+        }
+
+        private async Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatisticsInternalAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to)
+        {
+            var uris = materialCodes
+                .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"/api/intelliDivide/statistics/partSizesByMaterial?from={from:s}&to={to:s}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<PartSizesByMaterialStatistic>(uris);
         }
 
         #endregion
@@ -42,8 +73,6 @@ namespace HomagConnect.IntelliDivide.Client
         #endregion
 
         #region Settings (Machines, Parameters, Import templates)
-
-       
 
         /// <inheritdoc />
         public async Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplatesAsync(OptimizationType optimizationType, string fileExtension = "", string name = "")
@@ -208,7 +237,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var response = await Client.SendAsync(request);
 
-           await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
 
@@ -238,9 +267,9 @@ namespace HomagConnect.IntelliDivide.Client
                 }
 
                 if (optimizationStatus == OptimizationStatus.Started
-                    && currentStatus 
-                        is OptimizationStatus.Started 
-                        or OptimizationStatus.Optimized 
+                    && currentStatus
+                        is OptimizationStatus.Started
+                        or OptimizationStatus.Optimized
                         or OptimizationStatus.Transferred)
                 {
                     // When waiting for status Started the optimization might be already optimized or transferred.
@@ -249,8 +278,8 @@ namespace HomagConnect.IntelliDivide.Client
                 }
 
                 if (optimizationStatus == OptimizationStatus.Optimized
-                    && currentStatus 
-                        is OptimizationStatus.Optimized 
+                    && currentStatus
+                        is OptimizationStatus.Optimized
                         or OptimizationStatus.Transferred)
                 {
                     // When waiting for status Optimized the optimization might be already transferred.
@@ -258,9 +287,9 @@ namespace HomagConnect.IntelliDivide.Client
                     return await GetOptimizationAsync(optimizationId);
                 }
 
-                if (currentStatus 
-                    is OptimizationStatus.Faulted 
-                    or OptimizationStatus.Canceled 
+                if (currentStatus
+                    is OptimizationStatus.Faulted
+                    or OptimizationStatus.Canceled
                     or OptimizationStatus.Archived)
                 {
                     // It is not possible to reach another state.
@@ -400,7 +429,6 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task DownloadSolutionExportAsync(Solution solution, SolutionExportType exportType, DirectoryInfo targetDirectory)
         {
-
             var optimization = await GetOptimizationAsync(solution.OptimizationId);
 
             var fileExtension = exportType switch

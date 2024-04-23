@@ -1,4 +1,5 @@
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -22,6 +23,22 @@ public class MaterialStatisticTests : IntelliDivideTestBase
         Assert.IsFalse(!materialStatistics.Any());
 
         Trace(materialStatistics);
+    }
+
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 05, 15)]
+    public async Task Statistics_GetPartSizesByMaterial_NoException()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        var materialCodes = new[] { "P2_White_19", "P2_White_8" };
+
+        var to = DateTime.Now.AddDays(-1);
+        var from = to.AddMonths(-3);
+
+        var statistics = await intelliDivide.GetPartSizesByMaterialStatisticsAsync(materialCodes, from, to);
+
+        Trace(statistics);
     }
 
     /// <summary />
