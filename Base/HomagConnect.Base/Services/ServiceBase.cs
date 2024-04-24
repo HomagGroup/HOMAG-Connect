@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -101,6 +102,11 @@ namespace HomagConnect.Base.Services
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+        }
+
+        protected async Task<IEnumerable<T>> RequestEnumerableAsync<T>(IEnumerable<Uri> uris)
+        {
+            return (await Task.WhenAll(uris.AsParallel().Select(RequestEnumerable<T>))).SelectMany(s => s);
         }
 
         protected async Task<IEnumerable<T>> RequestEnumerable<T>(Uri uri)

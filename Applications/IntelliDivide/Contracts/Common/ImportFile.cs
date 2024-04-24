@@ -12,6 +12,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     public class ImportFile
     {
         /// <summary>
+        /// Gets or sets the extension of the file.
+        /// </summary>
+        public string Extension { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the name which is used as reference.
         /// </summary>
         [Required]
@@ -27,6 +32,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Creates a new instance of <see cref="ImportFile" />.
         /// </summary>
         /// <exception cref="FileNotFoundException">Thrown, if the specified was not found.</exception>
+        public static async Task<ImportFile> CreateAsync(string fileName)
+        {
+            return await CreateAsync(new FileInfo(fileName));
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ImportFile" />.
+        /// </summary>
+        /// <exception cref="FileNotFoundException">Thrown, if the specified was not found.</exception>
         public static async Task<ImportFile> CreateAsync(FileInfo fileInfo)
         {
             if (!fileInfo.Exists)
@@ -36,18 +50,27 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
 
             var memoryStream = new MemoryStream();
 
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
+
             using (var fileStream = fileInfo.OpenRead())
             {
                 var bytes = new byte[fileStream.Length];
+
                 _ = await fileStream.ReadAsync(bytes, 0, (int)fileStream.Length).ConfigureAwait(false);
                 await memoryStream.WriteAsync(bytes, 0, (int)fileStream.Length).ConfigureAwait(false);
+#pragma warning restore CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
             }
+
+#pragma warning restore CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 
             memoryStream.Position = 0;
 
             return new ImportFile
             {
                 Name = fileInfo.Name,
+                Extension = fileInfo.Extension,
                 Stream = memoryStream,
             };
         }
