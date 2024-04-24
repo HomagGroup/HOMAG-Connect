@@ -1,9 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Statistics
@@ -13,12 +16,17 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
     /// </summary>
     public class BoardTypeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {
+        private const int _BoardCodeMaxLength = 50;
+        private const int _MaterialCodeMaxLength = 50;
+        private const double _LengthDimensionMinValue = 0.1;
+        private const double _LengthDimensionMaxValue = 9999.9;
+
         /// <summary>
         /// Gets or sets the board code.
         /// </summary>
         [Key]
         [Required]
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(_BoardCodeMaxLength, MinimumLength = 1)]
         [JsonProperty(Order = 2)]
         public string BoardCode { get; set; } = string.Empty;
 
@@ -39,7 +47,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// inch).
         /// </summary>
         [Required]
-        [Range(0.1, 9999.9)]
+        [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
         [JsonProperty(Order = 4)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
@@ -48,7 +56,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// Gets or sets the material code.
         /// </summary>
         [Required]
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(_MaterialCodeMaxLength, MinimumLength = 1)]
         [JsonProperty(Order = 2)]
         public string MaterialCode { get; set; } = string.Empty;
 
@@ -67,22 +75,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         {
             get
             {
-                if (Width == null || Length == null || TotalQuantityAllocated == null)
-                {
-                    return null;
-                }
-
-                if (UnitSystem == UnitSystem.Metric)
-                {
-                    return Length / 1000 * Width / 1000 * TotalQuantityAllocated;
-                }
-
-                if (UnitSystem == UnitSystem.Imperial)
-                {
-                    return Length * Width / 144 * TotalQuantityAllocated;
-                }
-
-                throw new NotSupportedException("Unknown unit system.");
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityAllocated);
             }
         }
 
@@ -94,22 +87,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         {
             get
             {
-                if (Width == null || Length == null || TotalQuantityInInventory == null)
-                {
-                    return null;
-                }
-
-                if (UnitSystem == UnitSystem.Metric)
-                {
-                    return Length / 1000 * Width / 1000 * TotalQuantityInInventory;
-                }
-
-                if (UnitSystem == UnitSystem.Imperial)
-                {
-                    return Length * Width / 144 * TotalQuantityInInventory;
-                }
-
-                throw new NotSupportedException("Unknown unit system.");
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityInInventory);
             }
         }
 
@@ -129,7 +107,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// Gets or sets the width of the board. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
         [Required]
-        [Range(0.1, 9999.9)]
+        [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
         [JsonProperty(Order = 5)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }

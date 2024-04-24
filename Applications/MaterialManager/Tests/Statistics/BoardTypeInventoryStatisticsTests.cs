@@ -1,17 +1,15 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Tests;
 using HomagConnect.Base.Tests.Attributes;
 
-namespace HomagConnect.MaterialManager.Tests.Material.Boards
+namespace HomagConnect.MaterialManager.Tests.Statistics
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary />
     [TestClass]
     [TestCategory("MaterialManager")]
-    [TestCategory("MaterialManager.Boards")]
+    [TestCategory("MaterialManager.Statistics.Inventory")]
     public class BoardTypeInventoryStatisticsTests : MaterialManagerTestBase
     {
+        /// <summary />
         [TestMethod]
         [TemporaryDisabledOnServer(2024, 05, 15)]
         public async Task Statistics_GetInventoryByMaterial_NoException()
@@ -23,7 +21,9 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
             var to = DateTime.Now.AddDays(-1);
             var from = to.AddMonths(-3);
 
-            var statistics = await materialClient.Material.Boards.GetBoardTypesByMaterialStatisticsAsync(materialCodes, BoardTypeType.Board ,from, to);
+            var statistics = await materialClient.Material.Boards.GetBoardTypeInventoryHistoryAsync(materialCodes, BoardTypeType.Board, from, to);
+
+            Assert.IsNotNull(statistics);
 
             Trace(statistics);
         }
