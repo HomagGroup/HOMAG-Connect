@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 
-using HomagConnect.Base.Exceptions;
+using HomagConnect.Base.Contracts.Exceptions;
 
 using Microsoft.Extensions.Logging;
 
