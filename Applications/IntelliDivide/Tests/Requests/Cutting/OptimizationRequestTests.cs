@@ -127,5 +127,14 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
         await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndStartOptimization(intelliDivide);
     }
 
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 5, 1)]
+    public async Task CreateCuttingOptimizationByObjectModelAndSendSolution()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndSendSolution(intelliDivide);
+    }
+
 #pragma warning restore S2699 // Tests should include assertions
 }

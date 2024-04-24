@@ -392,9 +392,9 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task SendSolutionAsync(Guid optimizationId, Guid solutionId)
         {
-            await Task.Run(() => throw new NotSupportedException());
+            var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/send";
 
-            throw new NotSupportedException();
+            await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
