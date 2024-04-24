@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Statistics;
+using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {

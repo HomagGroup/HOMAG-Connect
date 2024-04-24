@@ -1,14 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Statistics
+namespace HomagConnect.MaterialManager.Contracts.Statistics
 {
     /// <summary>
     /// A board type inventory for statistical use.
