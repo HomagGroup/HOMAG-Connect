@@ -45,7 +45,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the quantity.
         /// </summary>
-        public double? Quantity { get; set; }
+        public int? Quantity { get; set; }
 
         /// <summary>
         /// Gets or sets the additional comments of the instance data.
