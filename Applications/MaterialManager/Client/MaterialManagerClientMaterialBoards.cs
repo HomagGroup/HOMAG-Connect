@@ -190,6 +190,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardTypesDetails;
     }
 
+   
+
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
@@ -226,16 +228,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #endregion
 
     #region statistics
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="materialCodes"></param>
-    /// <param name="boardTypeType"></param>
-    /// <param name="from"></param>
-    /// <param name="to"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public Task<IEnumerable<BoardTypeInventoryStatistics>> GetBoardTypesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
+
+    /// <inheritdoc />
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
     {
         if (materialCodes == null)
         {
@@ -253,18 +248,23 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
         }
 
-        return GetBoardTypesByMaterialStatisticsInternalAsync(validMaterialCodes, boardTypeType, from, to);
+        return GetBoardTypeInventoryHistoryInternalAsync(validMaterialCodes, boardTypeType, from, to);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="materialCodes"></param>
-    /// <param name="boardTypeType"></param>
-    /// <param name="from"></param>
-    /// <param name="to"></param>
-    /// <returns></returns>
-    private async Task<IEnumerable<BoardTypeInventoryStatistics>> GetBoardTypesByMaterialStatisticsInternalAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
+    /// <inheritdoc />
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to)
+    {
+        throw new NotImplementedException();
+    }
+
+   
+    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
     {
         var uris = materialCodes
             .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
@@ -272,7 +272,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .Select(c => $"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}&boardTypeType={boardTypeType}" + c)
             .Select(c => new Uri(c, UriKind.Relative));
 
-        return await RequestEnumerableAsync<BoardTypeInventoryStatistics>(uris);
+        return await RequestEnumerableAsync<BoardTypeInventoryHistory>(uris);
     }
     #endregion
 }

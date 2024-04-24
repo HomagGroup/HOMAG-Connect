@@ -1,8 +1,9 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Statistics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Statistics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {
@@ -11,13 +12,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
     /// </summary>
     public interface IMaterialManagerClientMaterialBoards
     {
-
-        /// <summary>
-        /// Gets the board types paginated
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
-
         /// <summary>
         /// Gets the board type by board code.
         /// </summary>
@@ -30,11 +24,24 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns></returns>
         Task<BoardType> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
 
+
+        /// <summary>
+        /// Gets the board types paginated
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+
         /// <summary>
         /// Gets the board types by board codes.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes);
+
+        /// <summary>
+        /// Gets the board types by board codes including details (inventory, allocation, images).
+        /// </summary>
+        /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
+        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types by material code.
@@ -60,21 +67,25 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
-        /// <summary>
-        /// Gets the board types by board codes including details (inventory, allocation, images).
-        /// </summary>
-        /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
+
+        #region Inventory History
 
         /// <summary>
-        /// Get statistical/historical data of board types by material codes. 
+        /// Get <see cref="BoardType" /> inventory history for specific material codes and <see cref="BoardTypeType" />.
         /// </summary>
-        /// <param name="materialCodes"></param>
-        /// <param name="boardTypeType"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <returns></returns>
-        Task<IEnumerable<BoardTypeInventoryStatistics>> GetBoardTypesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType , DateTime from, DateTime to);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for all board types.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for specific material codes.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to);
+
+        #endregion
 
     }
 }
