@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HomagConnect.Base.Exceptions
+﻿namespace HomagConnect.Base.Contracts.Exceptions
 {
     /// <summary>
     /// This exception is forwarded to the calling system and is then displayed to the customer in an error page
@@ -8,29 +6,20 @@ namespace HomagConnect.Base.Exceptions
     public class ProblemException : Exception
     {
         /// <summary>
+        /// Creates a new instance of <see cref="ProblemException" />.
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="subTitle"></param>
-        /// <param name="errorCode"></param>
         public ProblemException(string title, string subTitle, string errorCode)
             : this(title, subTitle, errorCode, title, null) { }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ProblemException" />.
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="subTitle"></param>
-        /// <param name="errorCode"></param>
-        /// <param name="message">THe message for the exception</param>
         public ProblemException(string title, string subTitle, string errorCode, string message)
             : this(title, subTitle, errorCode, message, null) { }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ProblemException" />.
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="subTitle"></param>
-        /// <param name="errorCode"></param>
-        /// <param name="message"></param>
-        /// <param name="innerException"></param>
         public ProblemException(string title, string subTitle, string errorCode, string message, Exception innerException)
             : base(message, innerException)
         {
@@ -38,16 +27,6 @@ namespace HomagConnect.Base.Exceptions
             SubTitle = subTitle;
             ErrorCode = errorCode;
         }
-
-        /// <summary>
-        /// Localized title of the error
-        /// </summary>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// Localized sub title
-        /// </summary>
-        public string SubTitle { get; set; }
 
         /// <summary>
         /// Code to identify the error
@@ -64,6 +43,14 @@ namespace HomagConnect.Base.Exceptions
         /// </summary>
         public virtual string ProblemDetailsTypePrefix { get; } = "hgconnect:";
 
-       
+        /// <summary>
+        /// Localized sub title
+        /// </summary>
+        public string SubTitle { get; set; }
+
+        /// <summary>
+        /// Localized title of the error
+        /// </summary>
+        public string Title { get; set; }
     }
 }

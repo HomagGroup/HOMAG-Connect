@@ -1,18 +1,22 @@
 using FluentAssertions;
+
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Tests;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Boards
 {
+    /// <summary />
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Boards")]
     public class BoardTypeTests : TestBase
     {
+        /// <summary />
         protected override Guid UserSecretsFolder { get; set; } = new("7a028258-94b9-4d79-822a-1005e4558b74");
 
+        /// <summary />
         [TestMethod]
         public void BoardType_CheckConfiguration_ConfigValid()
         {
@@ -21,6 +25,7 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
             AuthorizationKey.Should().NotBeNullOrEmpty();
         }
 
+        /// <summary />
         [TestMethod]
         public void BoardType_SwitchUnitSystem_LengthWidthThicknessChanged()
         {
