@@ -45,7 +45,7 @@ public static class UnitSystemExtensions
             return ConvertSquareInchToSquareFoot(length.Value * width.Value) * quantity;
         }
 
-        throw new NotSupportedException("Unknown unit system.");
+        throw new InvalidOperationException($"{nameof(UnitSystem)} {unitSystem} is not supported");
     }
 
     /// <summary>
@@ -60,12 +60,8 @@ public static class UnitSystemExtensions
         }
 
         var serializedObject = JsonConvert.SerializeObject(o);
-        var clone = JsonConvert.DeserializeObject<T>(serializedObject);
 
-        if (clone == null)
-        {
-            throw new InvalidOperationException("Failed to clone object.");
-        }
+        var clone = JsonConvert.DeserializeObject<T>(serializedObject) ?? throw new InvalidOperationException("Failed to clone object.");
 
         if (o.UnitSystem == unitSystem)
         {
@@ -205,7 +201,7 @@ public static class UnitSystemExtensions
             }
             else
             {
-                throw new InvalidOperationException("Invalid unit system.");
+                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
             }
         }
     }
@@ -226,7 +222,7 @@ public static class UnitSystemExtensions
             }
             else
             {
-                throw new InvalidOperationException("Invalid unit system.");
+                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
             }
         }
     }
@@ -247,7 +243,7 @@ public static class UnitSystemExtensions
             }
             else
             {
-                throw new InvalidOperationException("Invalid unit system.");
+                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
             }
         }
     }
@@ -268,7 +264,7 @@ public static class UnitSystemExtensions
             }
             else
             {
-                throw new InvalidOperationException("Invalid unit system.");
+                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
             }
         }
     }

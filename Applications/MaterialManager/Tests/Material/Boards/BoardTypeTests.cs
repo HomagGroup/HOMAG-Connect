@@ -1,7 +1,7 @@
 using FluentAssertions;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
