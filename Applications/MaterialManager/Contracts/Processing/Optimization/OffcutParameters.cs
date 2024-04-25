@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
 {
+    /// <summary>
+    /// Model for material dependent offcut parameters.
+    /// </summary>
     public class OffcutParameters
     {
         private const double _LengthConstraintMin = 0.1;
