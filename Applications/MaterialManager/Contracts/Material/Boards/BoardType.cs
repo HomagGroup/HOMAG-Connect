@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
@@ -228,22 +229,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         {
             get
             {
-                if (Width == null || Length == null || TotalQuantityInInventory == null)
-                {
-                    return null;
-                }
-
-                if (UnitSystem == UnitSystem.Metric)
-                {
-                    return Length / 1000 * Width / 1000 * TotalQuantityInInventory;
-                }
-
-                if (UnitSystem == UnitSystem.Imperial)
-                {
-                    return Length * Width / 144 * TotalQuantityInInventory;
-                }
-
-                throw new NotSupportedException();
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityInInventory);
             }
         }
 
@@ -256,22 +242,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         {
             get
             {
-                if (Width == null || Length == null || TotalQuantityAllocated == null)
-                {
-                    return null;
-                }
-
-                if (UnitSystem == UnitSystem.Metric)
-                {
-                    return Length / 1000 * Width / 1000 * TotalQuantityAllocated;
-                }
-
-                if (UnitSystem == UnitSystem.Imperial)
-                {
-                    return Length * Width / 144 * TotalQuantityAllocated;
-                }
-
-                throw new NotSupportedException();
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityAllocated);
             }
         }
 
@@ -284,22 +255,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         {
             get
             {
-                if (Width == null || Length == null || TotalQuantityAvailable == null)
-                {
-                    return null;
-                }
-
-                if (UnitSystem == UnitSystem.Metric)
-                {
-                    return Length / 1000 * Width / 1000 * TotalQuantityAvailable;
-                }
-
-                if (UnitSystem == UnitSystem.Imperial)
-                {
-                    return Length * Width / 144 * TotalQuantityAvailable;
-                }
-
-                throw new NotSupportedException();
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityAvailable);
             }
         }
 

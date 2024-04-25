@@ -4,12 +4,14 @@ using HomagConnect.Base.Extensions;
 
 namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 
+/// <summary />
 [TestClass]
 [TestCategory("MaterialManager")]
 [TestCategory("MaterialManager.Processing")]
 [TestCategory("MaterialManager.Processing.Optimization")]
 public class ProcessingOptimizationTests : MaterialManagerTestBase
 {
+    /// <summary />
     [TestMethod]
     public async Task OffcutParameters_RequestForMultipleMaterials_ConfigValid()
     {
@@ -32,6 +34,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         }
     }
 
+    /// <summary />
     [TestMethod]
     public async Task OffcutParameters_RequestForOneMaterial_ConfigValid()
     {

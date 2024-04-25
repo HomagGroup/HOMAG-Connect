@@ -7,7 +7,7 @@ namespace HomagConnect.MaterialManager.Samples.Helper
 {
     internal static class DebugExtensions
     {
-        private static readonly JsonSerializerSettings _JsonSerializerSettings = new JsonSerializerSettings()
+        private static readonly JsonSerializerSettings _JsonSerializerSettings = new ()
         {
             DefaultValueHandling = DefaultValueHandling.Ignore,
             Formatting = Formatting.Indented
@@ -22,7 +22,9 @@ namespace HomagConnect.MaterialManager.Samples.Helper
             Console.WriteLine(string.Empty);
         }
 
+#pragma warning disable S4225 // Extension methods should not extend "object"
         internal static void Trace(this object o, [CallerMemberName] string description = "")
+#pragma warning restore S4225 // Extension methods should not extend "object"
         {
             Console.WriteLine(description);
 
