@@ -74,7 +74,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
 
             response.Trace();
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(2));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(3));
 
             optimization.Trace();
 
