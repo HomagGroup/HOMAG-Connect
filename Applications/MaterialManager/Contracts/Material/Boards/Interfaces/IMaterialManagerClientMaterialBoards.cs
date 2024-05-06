@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <param name="boardCode"></param>
         /// <returns></returns>
-        Task<BoardType> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
+        Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
 
 
         /// <summary>

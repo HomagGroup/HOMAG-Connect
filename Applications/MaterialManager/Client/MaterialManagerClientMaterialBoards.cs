@@ -49,7 +49,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<BoardType> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
+    public async Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}&{_IncludingDetails}=true";
 
