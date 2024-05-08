@@ -171,6 +171,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public int? TotalQuantityAvailableWarningLimit { get; set; }
 
         /// <summary>
+        /// Gets or sets the total area available warning limit.
+        /// </summary>
+        [JsonProperty(Order = 54)]
+        public double? TotalAreaAvailableWarningLimit { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the board type should be optimized against infinite.
         /// </summary>
         [JsonProperty(Order = 92)]
@@ -225,7 +231,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// subscription (metric: m², imperial: ft²).
         /// </summary>
         [JsonProperty(Order = 56)]
-        public double? TotalAreaInventory
+        public double? TotalAreaInInventory
         {
             get
             {
@@ -263,7 +269,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets a indication whether the <see cref="TotalQuantityAvailable" /> is below the defined limit
         /// <see cref="TotalQuantityAvailableWarningLimit" />.
         /// </summary>
-        [JsonProperty(Order = 54)]
+        [JsonProperty(Order = 55)]
         public bool? TotalQuantityAvailableWarningLimitReached { get; set; }
 
         #endregion
