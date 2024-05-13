@@ -270,7 +270,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <see cref="TotalQuantityAvailableWarningLimit" />.
         /// </summary>
         [JsonProperty(Order = 55)]
-        public bool? TotalQuantityAvailableWarningLimitReached { get; set; }
+        public bool? InsufficientInventory { get; set; }
 
         #endregion
 
