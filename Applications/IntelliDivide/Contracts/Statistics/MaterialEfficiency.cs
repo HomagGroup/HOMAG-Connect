@@ -55,13 +55,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         [JsonProperty(Order = 20)]
         public double BoardsUsedArea { get; set; }
 
+        /// <summary>
+        /// Gets or sets the quantity of boards used.
+        /// </summary>
+        [JsonProperty(Order = 21)]
         public int BoardsUsedQuantity { get; set; }
 
         /// <summary>
         /// Gets or sets the area of offcuts used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 22)]
-        public double OffcutsUsed { get; set; }
+        public double OffcutsUsedArea { get; set; }
+
+        /// <summary>
+        /// Gets or sets the quantity of offcuts used.
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        public int OffcutsUsedQuantity { get; set; }
 
         #endregion
 
@@ -118,21 +128,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// <summary>
         /// Gets or sets the area of offcuts produced in %.
         /// </summary>
-        [JsonProperty(Order = 33)]
+
         [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
         public double OffcutsProducedPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the area of parts produced in %.
         /// </summary>
-        [JsonProperty(Order = 31)]
+
         [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
         public double PartsPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the area of waste produced in %.
         /// </summary>
-        [JsonProperty(Order = 37)]
+
         [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
         public double WastePercentage { get; set; }
 
@@ -173,7 +183,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// <summary>
         /// Gets or sets the area of offcuts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
-        [JsonProperty(Order = 32)]
+
         [Obsolete("Use OffcutsProducedArea instead.")]
         public double OffcutsProduced
         {
@@ -208,7 +218,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of offcuts produced - offcuts used used in m² (or ft² in subscriptions using the imperial unit
         /// system).
         /// </summary>
-        [JsonProperty(Order = 34)]
+
         [Obsolete("Use OffcutsGrowthArea instead.")]
         public double OffcutsGrowth
         {
@@ -225,7 +235,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// <summary>
         /// Gets or sets the area of boards used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
-        [JsonProperty(Order = 20)]
+
         [Obsolete("Use BoardsUsedArea instead.")]
         public double BoardsUsed
         {
@@ -236,6 +246,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
             set
             {
                 BoardsUsedArea = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the area of offcuts used in m² (or ft² in subscriptions using the imperial unit system).
+        /// </summary>
+
+        [Obsolete("Use OffcutsUsedArea instead.")]
+        public double OffcutsUsed
+        {
+            get
+            {
+                return OffcutsUsedArea;
+            }
+            set
+            {
+                OffcutsUsedArea = value;
             }
         }
 
