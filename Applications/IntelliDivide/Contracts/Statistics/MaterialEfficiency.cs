@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
 
@@ -7,7 +8,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
     /// <summary>
     /// Provides the material efficiency data for a material within an optimization.
     /// </summary>
-    public class MaterialEfficiency
+    public class MaterialEfficiency : IExtensibleDataObject
     {
         /// <summary>
         /// Gets or sets the name of the machine.
@@ -39,31 +40,28 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         [JsonProperty(Order = 10)]
         public DateTimeOffset TransferredAt { get; set; }
 
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject ExtensionData { get; set; }
+
+        #endregion
+
         #region Input
 
         /// <summary>
         /// Gets or sets the area of boards used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 20)]
-        public double BoardsUsed { get; set; }
+        public double BoardsUsedArea { get; set; }
 
-        /// <summary>
-        /// Gets or sets the area of boards used in %.
-        /// </summary>
-        [JsonProperty(Order = 21)]
-        public double BoardsUsedPercentage { get; set; }
+        public int BoardsUsedQuantity { get; set; }
 
         /// <summary>
         /// Gets or sets the area of offcuts used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 22)]
         public double OffcutsUsed { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of offcuts used in %.
-        /// </summary>
-        [JsonProperty(Order = 23)]
-        public double OffcutsUsedPercentage { get; set; }
 
         #endregion
 
@@ -73,50 +71,173 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of parts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 30)]
-        public double Parts { get; set; }
+        public double PartsArea { get; set; }
 
         /// <summary>
-        /// Gets or sets the area of parts produced in %.
+        /// Gets or sets the quantity of parts produced.
         /// </summary>
         [JsonProperty(Order = 31)]
-        public double PartsPercentage { get; set; }
+        public int PartsQuantity { get; set; }
 
         /// <summary>
         /// Gets or sets the area of offcuts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 32)]
-        public double OffcutsProduced { get; set; }
+        public double OffcutsProducedArea { get; set; }
+
+        /// <summary>
+        /// Gets or sets the quantity of offcuts produced.
+        /// </summary>
+        [JsonProperty(Order = 33)]
+        public int OffcutsProducedQuantity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of offcuts produced - offcuts used in m² (or ft² in subscriptions using the imperial unit
+        /// system).
+        /// </summary>
+        [JsonProperty(Order = 34)]
+        public double OffcutsGrowthArea { get; set; }
+
+        /// <summary>
+        /// Gets or sets the quantity of offcuts produced - offcuts used.
+        /// system).
+        /// </summary>
+        [JsonProperty(Order = 35)]
+        public double OffcutsGrowthQuantity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of waste produced in m² (or ft² in subscriptions using the imperial unit system).
+        /// </summary>
+        [JsonProperty(Order = 36)]
+        public double WasteArea { get; set; }
+
+        #endregion
+
+        #region Obsolete Properties
 
         /// <summary>
         /// Gets or sets the area of offcuts produced in %.
         /// </summary>
         [JsonProperty(Order = 33)]
+        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
         public double OffcutsProducedPercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of parts produced in %.
+        /// </summary>
+        [JsonProperty(Order = 31)]
+        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
+        public double PartsPercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of waste produced in %.
+        /// </summary>
+        [JsonProperty(Order = 37)]
+        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
+        public double WastePercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of offcuts produced - offcuts used used in %.
+        /// </summary>
+        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
+        public double OffcutsGrowthPercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of offcuts used in %.
+        /// </summary>
+        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
+        public double OffcutsUsedPercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of boards used in %.
+        /// </summary>
+        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
+        public double BoardsUsedPercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the area of parts produced in m² (or ft² in subscriptions using the imperial unit system).
+        /// </summary>
+        [Obsolete("Use PartsArea instead.")]
+        public double Parts
+        {
+            get
+            {
+                return PartsArea;
+            }
+            set
+            {
+                PartsArea = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the area of offcuts produced in m² (or ft² in subscriptions using the imperial unit system).
+        /// </summary>
+        [JsonProperty(Order = 32)]
+        [Obsolete("Use OffcutsProducedArea instead.")]
+        public double OffcutsProduced
+        {
+            get
+            {
+                return OffcutsProducedArea;
+            }
+            set
+            {
+                OffcutsProducedArea = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the area of waste produced in m² (or ft² in subscriptions using the imperial unit system).
+        /// </summary>
+
+        [Obsolete("Use WasteArea instead.")]
+        public double Waste
+        {
+            get
+            {
+                return WasteArea;
+            }
+            set
+            {
+                WasteArea = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the area of offcuts produced - offcuts used used in m² (or ft² in subscriptions using the imperial unit
         /// system).
         /// </summary>
         [JsonProperty(Order = 34)]
-        public double OffcutsGrowth { get; set; }
+        [Obsolete("Use OffcutsGrowthArea instead.")]
+        public double OffcutsGrowth
+        {
+            get
+            {
+                return OffcutsGrowthArea;
+            }
+            set
+            {
+                OffcutsGrowthArea = value;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the area of offcuts produced - offcuts used used in %.
+        /// Gets or sets the area of boards used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
-        [JsonProperty(Order = 35)]
-        public double OffcutsGrowthPercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of waste produced in m² (or ft² in subscriptions using the imperial unit system).
-        /// </summary>
-        [JsonProperty(Order = 36)]
-        public double Waste { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of waste produced in %.
-        /// </summary>
-        [JsonProperty(Order = 37)]
-        public double WastePercentage { get; set; }
+        [JsonProperty(Order = 20)]
+        [Obsolete("Use BoardsUsedArea instead.")]
+        public double BoardsUsed
+        {
+            get
+            {
+                return BoardsUsedArea;
+            }
+            set
+            {
+                BoardsUsedArea = value;
+            }
+        }
 
         #endregion
     }
