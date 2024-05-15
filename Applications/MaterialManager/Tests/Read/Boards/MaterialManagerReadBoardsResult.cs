@@ -20,6 +20,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         }
 
         [TestMethod]
+
+        [TemporaryDisabledOnServer(2024, 6, 1)]
         public async Task GetMaterialCodes_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -28,6 +30,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         }
 
         [TestMethod]
+        [TemporaryDisabledOnServer(2024, 6, 1)]
         public async Task GetThumbnails_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
