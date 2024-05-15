@@ -299,7 +299,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             request.Parts.Add(new()
             {
                 Description = "Part B",
-                MaterialCode = "P2_Weiss_19.0",
+                MaterialCode = "P2_White_19",
                 Length = 300,
                 Width = 300,
                 Grain = Grain.None,
