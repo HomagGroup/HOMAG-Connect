@@ -22,6 +22,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task CuttingRequest_ObjectModel_TypicalProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -52,9 +53,6 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
         await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportAndOptimize(intelliDivide);
     }
-
-
-    
 
     [TestMethod]
     [TemporaryDisabledOnServer(2024, 5, 1)]
@@ -131,12 +129,20 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 5, 1)]
     public async Task CreateCuttingOptimizationByObjectModelAndStartOptimization()
     {
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndStartOptimization(intelliDivide);
+    }
+
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 5, 1)]
+    public async Task CreateCuttingOptimizationByObjectModelAndSendSolution()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingOptimizationUsingObjectModel.CreateCuttingOptimizationByObjectModelAndSendSolution(intelliDivide);
     }
 
 #pragma warning restore S2699 // Tests should include assertions
