@@ -14,7 +14,6 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 #pragma warning disable S2699 // Tests should include assertions
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task CuttingRequest_ObjectModel_RequiredProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -48,16 +47,12 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportAndOptimize(intelliDivide);
     }
-
-
-    
 
     [TestMethod]
     [TemporaryDisabledOnServer(2024, 5, 1)]
