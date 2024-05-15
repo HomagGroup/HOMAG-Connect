@@ -1,9 +1,13 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Samples.Helper;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
 {
@@ -74,13 +78,20 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
 
             response.Trace();
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(3));
+            if (!response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
+            {
+                var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(3));
 
-            optimization.Trace();
+                optimization.Trace();
 
-            var recommendedSolution = await intelliDivide.GetSolutionsAsync(optimization.Id).FirstAsync();
+                var recommendedSolution = await intelliDivide.GetSolutionsAsync(optimization.Id).FirstAsync();
 
-            await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, new DirectoryInfo("."));
+                await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, new DirectoryInfo("."));
+            }
+            else
+            {
+                throw new InternalTestFailureException();
+            }
         }
     }
 }

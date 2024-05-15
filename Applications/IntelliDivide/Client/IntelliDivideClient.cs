@@ -290,6 +290,7 @@ namespace HomagConnect.IntelliDivide.Client
                 if (currentStatus
                     is OptimizationStatus.Faulted
                     or OptimizationStatus.Canceled
+                    or OptimizationStatus.Unknown
                     or OptimizationStatus.Archived)
                 {
                     // It is not possible to reach another state.
