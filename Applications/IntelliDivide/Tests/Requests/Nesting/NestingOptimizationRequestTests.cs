@@ -17,8 +17,9 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         [TestInitialize]
         public async Task Initialize()
         {
-            await EnsureSampleMaterialExists(NestingRequestUsingObjectModelSamples.SampleMaterialCodes);
-            await WaitForStartedOptimizationsToComplete(OptimizationType.Nesting, TimeSpan.FromMinutes(2));
+            await EnsureSampleMaterialExists(NestingRequestUsingObjectModelSamples.SampleMaterialCodes.Union(NestingRequestUsingTemplateSamples.SampleMaterialCodes));
+
+            await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Nesting, TimeSpan.FromMinutes(2));
         }
 
         [TestMethod]

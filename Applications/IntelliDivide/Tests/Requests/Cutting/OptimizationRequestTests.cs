@@ -17,10 +17,8 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     [TestInitialize]
     public async Task Initialize()
     {
-        await EnsureSampleMaterialExists(CuttingRequestUsingObjectModelSamples.SampleMaterialCodes);
-        await EnsureSampleMaterialExists(CuttingRequestUsingTemplateSamples.SampleMaterialCodes);
-
-        await WaitForStartedOptimizationsToComplete(OptimizationType.Cutting, TimeSpan.FromMinutes(2));
+        await EnsureSampleMaterialExists(CuttingRequestUsingObjectModelSamples.SampleMaterialCodes.Union(CuttingRequestUsingTemplateSamples.SampleMaterialCodes));
+        await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Cutting, TimeSpan.FromMinutes(2));
     }
 
     [TestMethod]

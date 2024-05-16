@@ -15,15 +15,16 @@ public class IntelliDivideTestBase : TestBase
     /// <summary>
     /// Checks if the sample material exists.
     /// </summary>
-    protected async Task EnsureSampleMaterialExists(params string[] materialCodes)
+    protected async Task EnsureSampleMaterialExists(IEnumerable<string> materialCodes)
     {
+        var distinctMaterialCodes = materialCodes.Distinct().ToList();
         var materialManagerClient = GetMaterialManagerClient();
-        var boardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(materialCodes).ToListAsync();
+        var boardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(distinctMaterialCodes).ToListAsync();
 
         Assert.IsNotNull(boardTypes, "Test material missing.");
         Assert.IsTrue(boardTypes.Any(), "Test material missing.");
 
-        foreach (var materialCode in materialCodes)
+        foreach (var materialCode in distinctMaterialCodes)
         {
             if (!boardTypes.Any(b => string.Equals(b.MaterialCode, materialCode, StringComparison.InvariantCultureIgnoreCase)))
             {
@@ -63,16 +64,17 @@ public class IntelliDivideTestBase : TestBase
     /// <summary>
     /// Waits until no more optimizations are running.
     /// </summary>
-    protected async Task WaitForStartedOptimizationsToComplete(OptimizationType optimizationType, TimeSpan timeout)
+    protected async Task WaitForParallelRunningOptimizationsWithinLimit(OptimizationType optimizationType, TimeSpan timeout)
     {
         var startTime = DateTime.Now;
+        const int parallelOptimizationsRunningLimit = 2;
         var intelliDivideClient = GetIntelliDivideClient();
 
         while (startTime.Add(timeout) > DateTime.Now)
         {
-            var startedOptimization = await intelliDivideClient.GetOptimizationsAsync(optimizationType, OptimizationStatus.Started, 1).FirstOrDefaultAsync();
+            var startedOptimization = await intelliDivideClient.GetOptimizationsAsync(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
 
-            if (startedOptimization == null)
+            if (startedOptimization.Count <= parallelOptimizationsRunningLimit)
             {
                 return;
             }
