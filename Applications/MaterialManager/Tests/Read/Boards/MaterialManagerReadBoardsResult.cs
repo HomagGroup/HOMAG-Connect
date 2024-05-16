@@ -10,7 +10,6 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
     {
 #pragma warning disable S2699 // Tests should include assertions
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 06, 15)]
         public async Task GetLocations_GetResult_NoException()
 
         {
