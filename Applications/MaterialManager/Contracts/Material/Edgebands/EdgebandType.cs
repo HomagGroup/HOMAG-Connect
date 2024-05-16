@@ -174,7 +174,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <see cref="TotalQuantityAvailableWarningLimit" />.
         /// <see cref="TotalLengthAvailableWarningLimit" />.
         /// </summary>
-        public bool? InsufficientInventory { get; set; } // TODO: Align with <see cref="BoardType.TotalQuantityAvailableWarningLimitReached"/>. InsufficientInventory might be better.
+        public bool? InsufficientInventory { get; set; }
 
         #endregion
 

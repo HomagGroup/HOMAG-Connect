@@ -28,7 +28,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
-        Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode);
+        Task<EdgebandTypeDetails> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode);
 
         /// <summary>
         /// Gets edgebands by edgeband codes.

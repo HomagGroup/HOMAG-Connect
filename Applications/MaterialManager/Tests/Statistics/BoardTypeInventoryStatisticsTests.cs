@@ -11,7 +11,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 05, 15)]
+        [TemporaryDisabledOnServer(2024, 06, 15)]
         public async Task Statistics_GetInventoryByMaterial_NoException()
         {
             var materialClient = GetMaterialManagerClient();

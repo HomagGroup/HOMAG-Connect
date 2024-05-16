@@ -30,7 +30,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024,05,15)]
+        [TemporaryDisabledOnServer(2024,05,30)]
         public async Task NestingRequest_Template_CSV_MPR_ImportAndOptimize()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -39,7 +39,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 05, 01)]
+        [TemporaryDisabledOnServer(2024, 05, 30)]
         public async Task NestingRequest_ObjectModel_MprProgramVariables_ImportOnly()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -73,7 +73,6 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 5, 1)]
         public async Task CreateNestingOptimizationUsingProjectZip()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -82,7 +81,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 5, 1)]
+        [TemporaryDisabledOnServer(2024, 6, 1)]
         public async Task CreateNestingOptimizationUsingProjectZipAndOptimize()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -91,7 +90,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 5, 1)]
+        [TemporaryDisabledOnServer(2024,6,1)]
         public async Task CreateNestingOptimizationUsingProjectZipAndOptimizeAndSend()
         {
             var intelliDivide = GetIntelliDivideClient();

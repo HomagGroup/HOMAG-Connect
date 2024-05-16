@@ -44,11 +44,11 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
+        public async Task<EdgebandTypeDetails> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&{_IncludingDetails}=true";
 
-            return await RequestObject<EdgebandType>(new Uri(url, UriKind.Relative));
+            return await RequestObject<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
