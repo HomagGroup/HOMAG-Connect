@@ -1,4 +1,5 @@
 using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 using HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting;
 using HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting;
@@ -12,6 +13,15 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions
+
+    [TestInitialize]
+    public async Task Initialize()
+    {
+        await EnsureSampleMaterialExists(CuttingRequestUsingObjectModelSamples.SampleMaterialCodes);
+        await EnsureSampleMaterialExists(CuttingRequestUsingTemplateSamples.SampleMaterialCodes);
+
+        await WaitForStartedOptimizationsToComplete(OptimizationType.Cutting, TimeSpan.FromMinutes(2));
+    }
 
     [TestMethod]
     public async Task CuttingRequest_ObjectModel_RequiredProperties_ImportOnly()
