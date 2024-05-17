@@ -18,6 +18,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
     public static class NestingRequestUsingTemplateSamples
     {
         /// <summary>
+        /// Gets the materials used in the samples.
+        /// </summary>
+        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold Craft Oak_19" };
+
+        /// <summary>
         /// The sample shows how to create a nesting request using a structured file (Excel, CSV, PNX, ...), the referenced MPRs
         /// and a template.
         /// </summary>

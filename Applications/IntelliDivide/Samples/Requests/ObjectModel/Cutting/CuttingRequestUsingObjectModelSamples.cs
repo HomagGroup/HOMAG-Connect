@@ -17,6 +17,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
     public static class CuttingRequestUsingObjectModelSamples
     {
         /// <summary>
+        /// Gets the materials used in the samples.
+        /// </summary>
+        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold Craft Oak_19.0" };
+
+        /// <summary>
         /// The sample shows how to create a cutting request using the object model with a parts referencing a grain matching
         /// template.
         /// </summary>
@@ -114,7 +119,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
                 new()
                 {
                     Description = "Part A",
-                    MaterialCode = "P2_Weiss_19.0",
+                    MaterialCode = "P2_White_19",
                     Length = 300,
                     Width = 300,
                     Quantity = 5
@@ -123,7 +128,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
             request.Parts.Add(new()
             {
                 Description = "Part B",
-                MaterialCode = "P2_Weiss_19.0",
+                MaterialCode = "P2_White_19",
                 Length = 600,
                 Width = 300,
                 Quantity = 10

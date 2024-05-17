@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Configuration;
 using System.Globalization;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
+
+using HomagConnect.MaterialManager.Client;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,6 +14,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Tests
 {
+    /// <summary>
+    /// Provides a base class for HOMAG Connect tests.
+    /// </summary>
     public class TestBase
     {
         private static readonly JsonSerializerSettings _JsonSerializerSettings = new()
@@ -19,7 +25,14 @@ namespace HomagConnect.Base.Tests
             Formatting = Formatting.Indented
         };
 
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the test context which provides information about and functionality for the current test run.
+        /// </summary>
         public virtual TestContext? TestContext { get; set; }
+
+        #endregion
 
         protected string AuthorizationKey
         {
@@ -61,17 +74,18 @@ namespace HomagConnect.Base.Tests
             }
         }
 
-
-
         protected virtual Guid UserSecretsFolder { get; set; }
 
         private IConfigurationRoot? Configuration { get; set; }
 
-        protected static string EncodeBase64Token(string username, string AuthorizationKey)
+        protected static string EncodeBase64Token(string username, string authorizationKey)
         {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{AuthorizationKey}"));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{authorizationKey}"));
         }
 
+        /// <summary>
+        /// Gets a configuration setting.
+        /// </summary>
         protected string GetConfigurationSetting(string key)
         {
             var config = Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process);
@@ -95,6 +109,27 @@ namespace HomagConnect.Base.Tests
 
             throw new ConfigurationErrorsException($"Missing config setting: {key}");
         }
+
+        #region Clients
+
+        /// <summary>
+        /// Gets a new instance of the <see cref="MaterialManagerClient" />.
+        /// </summary>
+        protected MaterialManagerClient GetMaterialManagerClient()
+        {
+            Trace($"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey.Substring(0, 4)}*");
+
+            var httpClient = new HttpClient
+            {
+                BaseAddress = BaseUrl
+            };
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+
+            return new MaterialManagerClient(httpClient);
+        }
+
+        #endregion
 
         protected void Trace(IEnumerable enumerable, [CallerMemberName] string description = "")
         {
