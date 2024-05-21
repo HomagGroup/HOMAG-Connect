@@ -17,7 +17,6 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 06, 15)]        
         public async Task GetLocations_GetResult_NoException()
 
         {
