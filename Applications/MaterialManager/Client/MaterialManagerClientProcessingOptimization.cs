@@ -10,17 +10,34 @@ using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
 namespace HomagConnect.MaterialManager.Client;
 
+/// <summary>
+/// 
+/// </summary>
 public class MaterialManagerClientProcessingOptimization : ServiceBase
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="client"></param>
     public MaterialManagerClientProcessingOptimization(HttpClient client) : base(client) { }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="materialCode"></param>
+    /// <returns></returns>
     public async Task<OffcutParameterSet> GetOffcutParameterSetAsync(string materialCode)
     {
-        var offcutParameterSets = await GetOffcutParameterSetsAsync(new[] { materialCode });
+        var offcutParameterSets = await GetOffcutParameterSetsAsync([materialCode]);
 
         return offcutParameterSets.First();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="materialCodes"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<OffcutParameterSet>> GetOffcutParameterSetsAsync(IEnumerable<string> materialCodes)
     {
         var validatedMaterialCodes = materialCodes.Select(m => m.Trim()).Where(m => !string.IsNullOrWhiteSpace(m)).Distinct().OrderBy(m => m).ToArray();
