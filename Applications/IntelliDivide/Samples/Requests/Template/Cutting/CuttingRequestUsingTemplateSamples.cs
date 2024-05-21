@@ -22,6 +22,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
     public static class CuttingRequestUsingTemplateSamples
     {
         /// <summary>
+        /// Gets the materials used in the samples.
+        /// </summary>
+        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold Craft Oak_19.0" };
+
+        /// <summary>
         /// The sample shows how to create a cutting request using a structured file (Excel, CSV, PNX, ...) and a template.
         /// template.
         /// </summary>

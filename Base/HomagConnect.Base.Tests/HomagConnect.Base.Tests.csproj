@@ -17,4 +17,8 @@
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Applications\MaterialManager\Client\HomagConnect.MaterialManager.Client.csproj" />
+	</ItemGroup>
+
 </Project>
