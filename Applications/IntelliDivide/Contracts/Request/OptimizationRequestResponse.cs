@@ -33,7 +33,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// Gets or sets the validation results
         /// </summary>
         [JsonProperty(Order = 4)]
-        public ValidationResult[] ValidationResults { get; set; } = Array.Empty<ValidationResult>();
+        public OptimizationValidationResult[] ValidationResults { get; set;} =  Array.Empty<OptimizationValidationResult>();
 
         #region IExtensibleDataObject Members
 
