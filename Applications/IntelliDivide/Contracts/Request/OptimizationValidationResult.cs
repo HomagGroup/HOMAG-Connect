@@ -19,6 +19,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         }
 
         /// <inheritdoc />
+        [JsonConstructor]
         public OptimizationValidationResult(string errorMessage) : base(errorMessage)
         {
         }
