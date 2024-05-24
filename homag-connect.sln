@@ -75,7 +75,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Edgebands", "Edgebands", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManager.Samples", "Applications\MaterialManager\Samples\HomagConnect.MaterialManager.Samples.csproj", "{9348A3EA-DF7B-4879-AD8F-F76319EDA589}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MaterialAssist", "HomagConnect.MaterialAssist", "{6742D637-7DF4-480B-88EF-141A15595673}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect", "HomagConnect", "{6742D637-7DF4-480B-88EF-141A15595673}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{074FE29B-48D9-4B4B-B948-CA48D91E0294}"
 EndProject
