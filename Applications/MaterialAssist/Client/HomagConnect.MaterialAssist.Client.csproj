@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>HomagGroup.HomagConnect.MaterialAssist.Client</PackageId>
+    <Title>Homag-Connect MaterialAssist Client</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Client assembly for the usage of Homag-Connect MaterialAssist API</Description>
+    <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialAssist/Client</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup Label="Package References">
+    <PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+  </ItemGroup>
+
+</Project>

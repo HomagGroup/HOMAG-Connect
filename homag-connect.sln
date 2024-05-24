@@ -75,6 +75,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Edgebands", "Edgebands", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManager.Samples", "Applications\MaterialManager\Samples\HomagConnect.MaterialManager.Samples.csproj", "{9348A3EA-DF7B-4879-AD8F-F76319EDA589}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MaterialAssist", "HomagConnect.MaterialAssist", "{6742D637-7DF4-480B-88EF-141A15595673}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\MmrMobile\Documentation\README.md = Applications\MmrMobile\Documentation\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{074FE29B-48D9-4B4B-B948-CA48D91E0294}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Client", "Applications\MaterialAssist\Client\HomagConnect.MaterialAssist.Client.csproj", "{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Contracts", "Applications\MaterialAssist\Contracts\HomagConnect.MaterialAssist.Contracts.csproj", "{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Samples", "Applications\MaterialAssist\Samples\HomagConnect.MaterialAssist.Samples.csproj", "{E2C61168-D256-4A11-B037-DC4072560D3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Tests", "Applications\MaterialAssist\Tests\HomagConnect.MaterialAssist.Tests.csproj", "{A41CC397-9A4E-478A-9B0D-724343F017BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +156,22 @@ Global
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +203,12 @@ Global
 		{F8ADCB89-E9EB-455C-AF38-F49D37181568} = {97E4117E-A777-47D0-B954-424260087FEB}
 		{E23C5DCD-636D-4B84-8CE8-4C00FCD63B6A} = {97E4117E-A777-47D0-B954-424260087FEB}
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
+		{6742D637-7DF4-480B-88EF-141A15595673} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{074FE29B-48D9-4B4B-B948-CA48D91E0294} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{E2C61168-D256-4A11-B037-DC4072560D3D} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{A41CC397-9A4E-478A-9B0D-724343F017BA} = {6742D637-7DF4-480B-88EF-141A15595673}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
