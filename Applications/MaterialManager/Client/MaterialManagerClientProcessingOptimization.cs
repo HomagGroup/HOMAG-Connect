@@ -37,12 +37,8 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase, IMateria
         return offcutParameterSets.First();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="materialCodes"></param>
-    /// <returns></returns>
-    public async Task<IEnumerable<OffcutParameterSet>> GetOffcutParameterSetsAsync(IEnumerable<string> materialCodes)
+    /// <inheritdoc />
+    public async Task<IEnumerable<OffcutParameterSet>> GetOffcutParameterSetsAsync(ICollection<string> materialCodes)
     {
         var validatedMaterialCodes = materialCodes.Select(m => m.Trim()).Where(m => !string.IsNullOrWhiteSpace(m)).Distinct()
             .OrderBy(m => m).ToArray();
