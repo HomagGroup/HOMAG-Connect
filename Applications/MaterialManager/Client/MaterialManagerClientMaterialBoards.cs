@@ -227,6 +227,18 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
     #endregion
 
+    #region Create
+
+    /// <inheritdoc />
+    public async Task CreateBoardType(BoardType boardType)
+    {
+        var url = $"{_BaseRoute}/create";
+
+        await PostObject(new Uri(url, UriKind.Relative), boardType);
+    }
+
+    #endregion Create
+
     #region statistics
 
     /// <inheritdoc />

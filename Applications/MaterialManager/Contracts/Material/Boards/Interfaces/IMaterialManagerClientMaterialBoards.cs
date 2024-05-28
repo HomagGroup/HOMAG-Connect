@@ -12,6 +12,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
     /// </summary>
     public interface IMaterialManagerClientMaterialBoards
     {
+        #region Read
+
         /// <summary>
         /// Gets the board type by board code.
         /// </summary>
@@ -67,6 +69,18 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
+        #endregion Read
+
+        #region Create
+
+        /// <summary>
+        /// Create a board type for the passed parameters
+        /// </summary>
+        /// <param name="boardType"></param>
+        /// <returns></returns>
+        Task CreateBoardType(BoardType boardType);
+
+        #endregion Create
 
         #region Inventory History
 
