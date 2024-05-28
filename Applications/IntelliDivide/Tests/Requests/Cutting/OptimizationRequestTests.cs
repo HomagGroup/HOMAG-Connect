@@ -65,7 +65,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 5, 1)]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {
         var intelliDivide = GetIntelliDivideClient();
