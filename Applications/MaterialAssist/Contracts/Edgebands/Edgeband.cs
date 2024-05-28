@@ -9,30 +9,12 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands
 {
-    /// <summary>
-    /// An edgeband type.
-    /// </summary>
-    [DebuggerDisplay("{EdgebandCode}")]
-    public class Edgeband : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class Edgeband
     {
         /// <summary>
         /// Gets or sets the timestamp when board type has been used last.
         /// </summary>
         public DateTimeOffset? MaterialLastUsed { get; set; }
-
-        #region IContainsUnitSystemDependentProperties Members
-
-        /// <inheritdoc />
-        public UnitSystem UnitSystem { get; set; } = Base.Contracts.Enumerations.UnitSystem.Metric;
-
-        #endregion
-
-        #region IExtensibleDataObject Members
-
-        /// <inheritdoc />
-        public ExtensionDataObject? ExtensionData { get; set; }
-
-        #endregion
 
         #region Edgeband
 

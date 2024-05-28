@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "93c6cb4e-99fd-47db-ab71-d1b0867ade1e",
+		"_postman_id": "67ec2803-b9c4-4439-8f3a-a8d747a4328f",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -206,7 +206,8 @@
 										"api",
 										"materialManager",
 										"materials",
-										"edgebands"									],
+										"edgebands"
+									],
 									"query": [
 										{
 											"key": "skip",
@@ -258,6 +259,43 @@
 											"value": "true",
 											"description": "bool",
 											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Processing",
+			"item": [
+				{
+					"name": "Optimization",
+					"item": [
+						{
+							"name": "Get offcut parametersets by materialCodes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/processing/optimization/offcuts?materialCodes=ST_Raw_16",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"processing",
+										"optimization",
+										"offcuts"
+									],
+									"query": [
+										{
+											"key": "materialCodes",
+											"value": "ST_Raw_16"
 										}
 									]
 								}

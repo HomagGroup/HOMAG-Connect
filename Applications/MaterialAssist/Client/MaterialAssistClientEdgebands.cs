@@ -1,6 +1,7 @@
 ﻿using System.Text;
 
 using HomagConnect.Base.Services;
+using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
@@ -207,7 +208,8 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness, string management,
+        public async Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness,
+            ManagementType managementType,
             string comments, string storageLocation)
         {
             if (string.IsNullOrEmpty(edgebandCode))
@@ -230,17 +232,12 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Current thickness must be higher than 0.01", nameof(currentThickness));
             }
 
-            if (string.IsNullOrEmpty(management))
-            {
-                throw new ArgumentException("Management must not be null or empty", nameof(management));
-            }
-
             var commentsParam = string.IsNullOrWhiteSpace(comments) ? "" : $"&comments={Uri.EscapeDataString(comments)}";
             var shelfIdParam = string.IsNullOrWhiteSpace(storageLocation)
                 ? ""
                 : $"&storageLocation={Uri.EscapeDataString(storageLocation)}";
             var url =
-                $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&quantity={quantity}&currentThickness={currentThickness}&management={Uri.EscapeDataString(management)}{commentsParam}{shelfIdParam}";
+                $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&quantity={quantity}&currentThickness={currentThickness}&management={managementType}{commentsParam}{shelfIdParam}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }

@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+﻿using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
 {
@@ -105,11 +106,11 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <param name="length"></param>
         /// <param name="quantity"></param>
         /// <param name="currentThickness"></param>
-        /// <param name="management"></param>
+        /// <param name="managementType"></param>
         /// <param name="comments"></param>
         /// <param name="storageLocation"></param>
         /// <returns></returns>
-        Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness, string management,
+        Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness, ManagementType managementType,
             string comments, string storageLocation);
 
         /// <summary>
