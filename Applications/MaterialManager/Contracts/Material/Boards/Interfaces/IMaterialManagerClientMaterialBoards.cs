@@ -86,6 +86,5 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to);
 
         #endregion
-
     }
 }
