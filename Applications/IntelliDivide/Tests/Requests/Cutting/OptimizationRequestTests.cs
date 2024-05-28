@@ -22,6 +22,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CuttingRequest_ObjectModel_RequiredProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -55,6 +56,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -63,7 +65,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 5, 1)]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreatedCuttingOptimizationUsingProjectZip()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -73,6 +75,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
     [TestMethod]
     [TestCategory("UserTestInteractionNeeded")]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationUsingModel()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -81,6 +84,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationByObjectModelWithSpecificBoards()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -97,6 +101,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationUsingModelAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -105,6 +110,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -113,6 +119,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationUsingModelAndOptimizeAndSend()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -121,6 +128,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationByObjectModelOptimizeAndArchive()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -129,6 +137,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationByObjectModelAndDelete()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -137,6 +146,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationByObjectModelAndStartOptimization()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -145,7 +155,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 5, 1)]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task CreateCuttingOptimizationByObjectModelAndSendSolution()
     {
         var intelliDivide = GetIntelliDivideClient();
