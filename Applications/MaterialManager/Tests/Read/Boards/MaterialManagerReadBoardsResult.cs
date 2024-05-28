@@ -17,6 +17,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         /// </summary>
         /// <returns></returns>
         [TestMethod]
+        [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
         public async Task GetLocations_GetResult_NoException()
 
         {

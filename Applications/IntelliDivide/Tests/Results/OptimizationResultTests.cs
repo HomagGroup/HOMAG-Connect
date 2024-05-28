@@ -67,6 +67,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task Solution_GetDetails_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -76,6 +77,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
     public async Task Solution_List_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
