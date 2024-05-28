@@ -104,6 +104,19 @@ namespace HomagConnect.Base.Services
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
         }
 
+        protected async Task PostObject<T>(Uri uri, T data)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = uri,
+                Content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings.Default), Encoding.UTF8, "application/json")
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+        }
+
         protected async Task<IEnumerable<T>> RequestEnumerableAsync<T>(IEnumerable<Uri> uris)
         {
             return (await Task.WhenAll(uris.AsParallel().Select(RequestEnumerable<T>))).SelectMany(s => s);

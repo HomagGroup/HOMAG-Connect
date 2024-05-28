@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
@@ -67,6 +68,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
+        #region Create
+
+        /// <summary>
+        /// Create an edgeband type for the passed parameters
+        /// </summary>
+        /// <param name="edgebandType"></param>
+        /// <returns></returns>
+        Task CreateEdgebandType(EdgebandType edgebandType);
+
+        #endregion Create
 
         #region Inventory History
 

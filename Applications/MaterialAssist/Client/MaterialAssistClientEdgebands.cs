@@ -3,6 +3,7 @@
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialAssist.Client
 {
@@ -12,30 +13,49 @@ namespace HomagConnect.MaterialAssist.Client
     public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientEdgebands
     {
         private const string _BaseRoute = "api/materialAssist/edgebands";
+        private const string _BaseRouteMaterialManager = "api/materialManager/edgebands";
         private const string _EdgebandCode = "edgebandCode";
         private const string _IncludingDetails = "includingDetails";
+        private const string _PrintLabel = "printLabel";
+        private const string _FromStorage = "fromStorage";
 
         /// <inheritdoc />
         public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandType>> GetEdgebands(int take, int skip = 0)
+        public async Task<IEnumerable<Edgeband>> GetEdgebandsFromInventory(int take, int skip = 0)
         {
-            var url = $"{_BaseRoute}?take={take}&skip={skip}";
+            var url = $"{_BaseRoute}?{_FromStorage}=false&take={take}&skip={skip}";
 
-            return await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<Edgeband>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<EdgebandType> GetEdgebandByEdgebandCode(string edgebandCode)
+        public async Task<IEnumerable<Edgeband>> GetEdgebandsFromStorage(int take, int skip = 0)
+        {
+            var url = $"{_BaseRoute}?{_FromStorage}=true&take={take}&skip={skip}";
+
+            return await RequestEnumerable<Edgeband>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<Edgeband> GetEdgebandByEdgebandCode(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 
-            return await RequestObject<EdgebandType>(new Uri(url, UriKind.Relative));
+            return await RequestObject<Edgeband>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandType>> GetEdgebandsByEdgebandCodes(IEnumerable<string> edgebandCodes)
+        public async Task<EdgebandDetails> GetEdgebandByEdgebandCodeIncludingDetails(string edgebandCode)
+        {
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&{_IncludingDetails}=true";
+
+            return await RequestObject<EdgebandDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Edgeband>> GetEdgebandsByEdgebandCodes(IEnumerable<string> edgebandCodes)
         {
             if (edgebandCodes == null)
             {
@@ -54,11 +74,41 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var urls = CreateUrls(codes, _EdgebandCode);
-            var boardTypes = new List<EdgebandType>();
+            var boardTypes = new List<Edgeband>();
 
             foreach (var url in urls)
             {
-                boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)));
+                boardTypes.AddRange(await RequestEnumerable<Edgeband>(new Uri(url, UriKind.Relative)));
+            }
+
+            return boardTypes;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandDetails>> GetEdgebandsByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
+        {
+            if (edgebandCodes == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes));
+            }
+
+            var codes = edgebandCodes
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes), "At least one material code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode, includingDetails: true);
+            var boardTypes = new List<EdgebandDetails>();
+
+            foreach (var url in urls)
+            {
+                boardTypes.AddRange(await RequestEnumerable<EdgebandDetails>(new Uri(url, UriKind.Relative)));
             }
 
             return boardTypes;
@@ -85,7 +135,15 @@ namespace HomagConnect.MaterialAssist.Client
 
             var commentsParam = string.IsNullOrWhiteSpace(comments) ? "" : $"&comments={Uri.EscapeDataString(comments)}";
             var url =
-                $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&currentThickness={currentThickness}{commentsParam}";
+                $"{_BaseRoute}/update?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&currentThickness={currentThickness}{commentsParam}";
+
+            await PostObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task PrintLabelByEdgebandCode(string edgebandCode)
+        {
+            var url = $"{_BaseRoute}/print?{_EdgebandCode}={edgebandCode}&{_PrintLabel}=true";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
@@ -98,30 +156,30 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
             }
 
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+            var url = $"{_BaseRoute}?/delete?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<string>> GetAvailableShelfIds()
+        public async Task<IEnumerable<string>> GetStorageLocations()
         {
-            var url = $"{_BaseRoute}/availableShelfIds";
+            var url = $"{_BaseRoute}/storageLocations";
 
             return await RequestEnumerable<string>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task AddEdgebandToStorage(string edgebandCode, string shelfId, double length)
+        public async Task AddEdgebandToStorageByEdgebandCode(string edgebandCode, string storageLocation, double length)
         {
             if (string.IsNullOrEmpty(edgebandCode))
             {
                 throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
             }
 
-            if (string.IsNullOrEmpty(shelfId))
+            if (string.IsNullOrEmpty(storageLocation))
             {
-                throw new ArgumentException("Storage location must be higher than 0", nameof(shelfId));
+                throw new ArgumentException("Storage location must be higher than 0", nameof(storageLocation));
             }
 
             if (length <= 0.1)
@@ -129,27 +187,28 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Length must be higher than 0.1", nameof(length));
             }
 
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&shelfId={shelfId}&length={length}";
+            var url =
+                $"{_BaseRoute}/store?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&storageLocation={storageLocation}&length={length}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task RemoveEdgebandFromStorage(string edgebandCode, bool deleteFromInventory = false)
+        public async Task RemoveEdgebandFromStorageByEdgebandCode(string edgebandCode, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(edgebandCode))
             {
                 throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
             }
 
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&deleteFromInventory={deleteFromInventory}";
+            var url = $"{_BaseRoute}/remove?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&deleteFromInventory={deleteFromInventory}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task AddNewEdgeband(string edgebandCode, double length, int quantity, double currentThickness, string management,
-            string comments, string shelfId)
+        public async Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness, string management,
+            string comments, string storageLocation)
         {
             if (string.IsNullOrEmpty(edgebandCode))
             {
@@ -177,11 +236,21 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var commentsParam = string.IsNullOrWhiteSpace(comments) ? "" : $"&comments={Uri.EscapeDataString(comments)}";
-            var shelfIdParam = string.IsNullOrWhiteSpace(shelfId) ? "" : $"&shelfId={Uri.EscapeDataString(shelfId)}";
+            var shelfIdParam = string.IsNullOrWhiteSpace(storageLocation)
+                ? ""
+                : $"&storageLocation={Uri.EscapeDataString(storageLocation)}";
             var url =
                 $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&quantity={quantity}&currentThickness={currentThickness}&management={Uri.EscapeDataString(management)}{commentsParam}{shelfIdParam}";
 
             await PostObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task CreateEdgebandType(EdgebandType edgebandType)
+        {
+            var url = $"{_BaseRouteMaterialManager}/create";
+
+            await PostObject(new Uri(url, UriKind.Relative), edgebandType);
         }
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",

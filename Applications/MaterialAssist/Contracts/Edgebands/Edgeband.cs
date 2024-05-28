@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
     /// An edgeband type.
     /// </summary>
     [DebuggerDisplay("{EdgebandCode}")]
-    public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class Edgeband : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// Gets or sets the timestamp when board type has been used last.
@@ -34,7 +34,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
 
         #endregion
 
-        #region EdgebandType
+        #region Edgeband
 
         /// <summary>
         /// Gets or sets the edgeband code

@@ -9,6 +9,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Client;
@@ -226,6 +227,19 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return urls;
     }
     #endregion
+
+    #region Create
+
+    /// <inheritdoc />
+    public async Task CreateEdgebandType(EdgebandType edgebandType)
+    {
+        var url = $"{_BaseRoute}/create";
+
+        await PostObject(new Uri(url, UriKind.Relative), edgebandType);
+    }
+
+    #endregion Create
+
 
     #region statistics
 
