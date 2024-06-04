@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
+﻿using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
@@ -9,100 +10,120 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
     public interface IMaterialAssistClientEdgebands
     {
         /// <summary>
-        /// Gets all edgebands from inventory.
+        /// Gets all edgeband entities.
         /// </summary>
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        Task<IEnumerable<Edgeband>> GetEdgebandsFromInventory(int take, int skip = 0);
-
+        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntities(int take, int skip = 0);
+        
         /// <summary>
-        /// Gets all edgebands from storage.
+        /// Gets an edgeband entity by id (#).
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task<IEnumerable<Edgeband>> GetEdgebandsFromStorage(int take, int skip = 0);
+        Task<EdgebandEntity> GetEdgebandEntityById(string id);
 
         /// <summary>
-        /// Gets an edgeband by edgeband code.
+        /// Gets an edgeband entity by id (#) including details.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<EdgebandEntityDetails> GetEdgebandEntityByIdIncludingDetails(string id);
+
+        /// <summary>
+        /// Gets an edgeband entities by id (#).
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByIds(IEnumerable<string> ids);
+
+        /// <summary>
+        /// Gets an edgeband entities by id (#) including details.
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task<IEnumerable<EdgebandEntityDetails>> GetEdgebandEntitiesByIdsIncludingDetails(IEnumerable<string> ids);
+
+        /// <summary>
+        /// Get edgeband entities by edgeband code.
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
-        Task<Edgeband> GetEdgebandByEdgebandCode(string edgebandCode);
+        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode);
 
         /// <summary>
-        /// Gets an edgeband by edgeband code including details.
+        /// Get edgeband entities by edgeband code including details.
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
-        Task<EdgebandDetails> GetEdgebandByEdgebandCodeIncludingDetails(string edgebandCode);
-
+        Task<IEnumerable<EdgebandEntityDetails>> GetEdgebandEntitiesByEdgebandCodeIncludingDetails(string edgebandCode);
+        
         /// <summary>
-        /// Gets an edgebands by edgeband code.
+        /// Get edgeband entities by edgeband codes.
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns></returns>
-        Task<IEnumerable<Edgeband>> GetEdgebandsByEdgebandCodes(IEnumerable<string> edgebandCodes);
+        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCodes(IEnumerable<string> edgebandCodes);
 
         /// <summary>
-        /// Gets an edgebands by edgeband code including details.
+        /// Get edgeband entities by edgeband codes including details.
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns></returns>
-        Task<IEnumerable<EdgebandDetails>> GetEdgebandsByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
+        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
         /// <summary>
-        /// Updates the edgeband by edgeband code.
+        /// Updates the edgeband entity by id (#).
         /// </summary>
-        /// <param name="edgebandCode"></param>
+        /// <param name="id"></param>
         /// <param name="length"></param>
         /// <param name="currentThickness"></param>
         /// <param name="comments"></param>
         /// <returns></returns>
-        Task UpdateEdgebandByEdgebandCode(string edgebandCode, double length, double currentThickness, string comments = "");
+        Task UpdateEdgeband(string id, double length, double currentThickness, string comments = "");
 
         /// <summary>
-        /// Prints the label by edgeband code.
+        /// Prints the label by id (#).
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task PrintLabelByEdgebandCode(string edgebandCode);
+        Task PrintLabel(string id);
 
         /// <summary>
-        /// Deletes the edgeband by edgeband code.
+        /// Deletes the edgeband by id (#).
         /// </summary>
-        /// <param name="edgebandCode"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteEdgebandByEdgebandCode(string edgebandCode);
+        Task DeleteEdgebandEntity(string id);
 
         /// <summary>
-        /// Gets the available shelf ids.
+        /// Gets the available storage locations.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<string>> GetStorageLocations();
+        Task<IEnumerable<StorageLocation>> GetStorageLocations();
 
         /// <summary>
-        /// Adds the edgeband to storage.
+        /// Adds the edgeband entity to storage.
         /// </summary>
-        /// <param name="edgebandCode"></param>
+        /// <param name="id"></param>
         /// <param name="storageLocation"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        Task AddEdgebandToStorageByEdgebandCode(string edgebandCode, string storageLocation, double length);
+        Task StoreEdgebandEntity(string id, string storageLocation, double length);
 
         /// <summary>
-        /// Removes the edgeband from storage.
+        /// Removes the edgeband entity from storage.
         /// </summary>
-        /// <param name="edgebandCode"></param>
+        /// <param name="id"></param>
         /// <param name="deleteFromInventory"></param>
         /// <returns></returns>
-        Task RemoveEdgebandFromStorageByEdgebandCode(string edgebandCode, bool deleteFromInventory = false);
+        Task RemoveEdgebandEntity(string id, bool deleteFromInventory = false);
 
         /// <summary>
-        /// Adds a new edgeband.
+        /// Adds a new edgeband entity.
         /// </summary>
-        /// <param name="edgebandCode"></param>
+        /// <param name="id"></param>
         /// <param name="length"></param>
         /// <param name="quantity"></param>
         /// <param name="currentThickness"></param>
@@ -110,8 +131,8 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <param name="comments"></param>
         /// <param name="storageLocation"></param>
         /// <returns></returns>
-        Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness, ManagementType managementType,
-            string comments, string storageLocation);
+        Task CreateEdgebandEntity(string id, double length, int quantity, double currentThickness, ManagementType managementType,
+            string comments, StorageLocation storageLocation);
 
         /// <summary>
         /// Create a new edgeband type.

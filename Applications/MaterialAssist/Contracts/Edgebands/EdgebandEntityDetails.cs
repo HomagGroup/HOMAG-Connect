@@ -2,7 +2,7 @@
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands
 {
-    public class EdgebandDetails : Edgeband
+    public class EdgebandEntityDetails : EdgebandEntity
     {
         /// <summary>
         /// Gets or sets the images of the board.

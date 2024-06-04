@@ -9,7 +9,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands
 {
-    public class Edgeband
+    public class EdgebandEntity
     {
         /// <summary>
         /// Gets or sets the timestamp when board type has been used last.

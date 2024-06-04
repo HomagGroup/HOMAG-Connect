@@ -1,6 +1,7 @@
 ﻿using System.Text;
 
 using HomagConnect.Base.Services;
+using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
@@ -24,39 +25,39 @@ namespace HomagConnect.MaterialAssist.Client
         public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Edgeband>> GetEdgebandsFromInventory(int take, int skip = 0)
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntities(int take, int skip = 0)
         {
-            var url = $"{_BaseRoute}?{_FromStorage}=false&take={take}&skip={skip}";
+            var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
-            return await RequestEnumerable<Edgeband>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Edgeband>> GetEdgebandsFromStorage(int take, int skip = 0)
+        public async Task<EdgebandEntity> GetEdgebandEntityById(string id)
         {
-            var url = $"{_BaseRoute}?{_FromStorage}=true&take={take}&skip={skip}";
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
 
-            return await RequestEnumerable<Edgeband>(new Uri(url, UriKind.Relative));
+            return await RequestObject<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<Edgeband> GetEdgebandByEdgebandCode(string edgebandCode)
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 
-            return await RequestObject<Edgeband>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<EdgebandDetails> GetEdgebandByEdgebandCodeIncludingDetails(string edgebandCode)
+        public async Task<IEnumerable<EdgebandEntityDetails>> GetEdgebandEntitiesByEdgebandCodeIncludingDetails(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&{_IncludingDetails}=true";
 
-            return await RequestObject<EdgebandDetails>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<EdgebandEntityDetails>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Edgeband>> GetEdgebandsByEdgebandCodes(IEnumerable<string> edgebandCodes)
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCodes(IEnumerable<string> edgebandCodes)
         {
             if (edgebandCodes == null)
             {
@@ -75,18 +76,18 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var urls = CreateUrls(codes, _EdgebandCode);
-            var boardTypes = new List<Edgeband>();
+            var edgebandEntities = new List<EdgebandEntity>();
 
             foreach (var url in urls)
             {
-                boardTypes.AddRange(await RequestEnumerable<Edgeband>(new Uri(url, UriKind.Relative)));
+                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)));
             }
 
-            return boardTypes;
+            return edgebandEntities;
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandDetails>> GetEdgebandsByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
         {
             if (edgebandCodes == null)
             {
@@ -104,24 +105,92 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentNullException(nameof(edgebandCodes), "At least one material code must be passed.");
             }
 
-            var urls = CreateUrls(codes, _EdgebandCode, includingDetails: true);
-            var boardTypes = new List<EdgebandDetails>();
+            var urls = CreateUrls(codes, _EdgebandCode, includingDetails:true);
+            var edgebandDetailEntities = new List<EdgebandEntityDetails>();
 
             foreach (var url in urls)
             {
-                boardTypes.AddRange(await RequestEnumerable<EdgebandDetails>(new Uri(url, UriKind.Relative)));
+                edgebandDetailEntities.AddRange(await RequestEnumerable<EdgebandEntityDetails>(new Uri(url, UriKind.Relative)));
+            }
+
+            return edgebandDetailEntities;
+        }
+
+        /// <inheritdoc />
+        public async Task<EdgebandEntityDetails> GetEdgebandEntityByIdIncludingDetails(string id)
+        {
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(id)}&{_IncludingDetails}=true";
+
+            return await RequestObject<EdgebandEntityDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByIds(IEnumerable<string> ids)
+        {
+            if (ids == null)
+            {
+                throw new ArgumentNullException(nameof(ids));
+            }
+
+            var codes = ids
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(ids), "At least one material code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode);
+            var boardTypes = new List<EdgebandEntity>();
+
+            foreach (var url in urls)
+            {
+                boardTypes.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)));
             }
 
             return boardTypes;
         }
 
         /// <inheritdoc />
-        public async Task UpdateEdgebandByEdgebandCode(string edgebandCode, double length, double currentThickness, string comments = "")
+        public async Task<IEnumerable<EdgebandEntityDetails>> GetEdgebandEntitiesByIdsIncludingDetails(IEnumerable<string> ids)
+        {
+            if (ids == null)
+            {
+                throw new ArgumentNullException(nameof(ids));
+            }
+
+            var codes = ids
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(ids), "At least one material code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode, includingDetails: true);
+            var boardTypes = new List<EdgebandEntityDetails>();
+
+            foreach (var url in urls)
+            {
+                boardTypes.AddRange(await RequestEnumerable<EdgebandEntityDetails>(new Uri(url, UriKind.Relative)));
+            }
+
+            return boardTypes;
+        }
+
+        /// <inheritdoc />
+        public async Task UpdateEdgebandEntity(string id, double length, double currentThickness, string comments = "")
         {
             // if edgeband code is null or empty, throw an argument exception
-            if (string.IsNullOrEmpty(edgebandCode))
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
+                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
             }
 
             if (length <= 0.1)
@@ -136,46 +205,46 @@ namespace HomagConnect.MaterialAssist.Client
 
             var commentsParam = string.IsNullOrWhiteSpace(comments) ? "" : $"&comments={Uri.EscapeDataString(comments)}";
             var url =
-                $"{_BaseRoute}/update?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&currentThickness={currentThickness}{commentsParam}";
+                $"{_BaseRoute}/update?{_EdgebandCode}={Uri.EscapeDataString(id)}&length={length}&currentThickness={currentThickness}{commentsParam}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task PrintLabelByEdgebandCode(string edgebandCode)
+        public async Task PrintLabel(string id)
         {
-            var url = $"{_BaseRoute}/print?{_EdgebandCode}={edgebandCode}&{_PrintLabel}=true";
+            var url = $"{_BaseRoute}/print?{_EdgebandCode}={id}&{_PrintLabel}=true";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task DeleteEdgebandByEdgebandCode(string edgebandCode)
+        public async Task DeleteEdgebandEntity(string id)
         {
-            if (string.IsNullOrEmpty(edgebandCode))
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
+                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}?/delete?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+            var url = $"{_BaseRoute}?/delete?{_EdgebandCode}={Uri.EscapeDataString(id)}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<string>> GetStorageLocations()
+        public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
             var url = $"{_BaseRoute}/storageLocations";
 
-            return await RequestEnumerable<string>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task AddEdgebandToStorageByEdgebandCode(string edgebandCode, string storageLocation, double length)
+        public async Task StoreEdgebandEntity(string id, string storageLocation, double length)
         {
-            if (string.IsNullOrEmpty(edgebandCode))
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
+                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
             }
 
             if (string.IsNullOrEmpty(storageLocation))
@@ -189,32 +258,33 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}/store?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&storageLocation={storageLocation}&length={length}";
+                $"{_BaseRoute}/store?{_EdgebandCode}={Uri.EscapeDataString(id)}&storageLocation={storageLocation}&length={length}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task RemoveEdgebandFromStorageByEdgebandCode(string edgebandCode, bool deleteFromInventory = false)
+        public async Task RemoveEdgebandEntity(string id, bool deleteFromInventory = false)
         {
-            if (string.IsNullOrEmpty(edgebandCode))
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
+                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/remove?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&deleteFromInventory={deleteFromInventory}";
+            var url = $"{_BaseRoute}/remove?{_EdgebandCode}={Uri.EscapeDataString(id)}&deleteFromInventory={deleteFromInventory}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
+        /// TODO: Add correct parsing to the body
         /// <inheritdoc />
-        public async Task CreateEdgeband(string edgebandCode, double length, int quantity, double currentThickness,
+        public async Task CreateEdgebandEntity(string edgebandTypeCode, double length, int quantity, double currentThickness,
             ManagementType managementType,
-            string comments, string storageLocation)
+            string comments, StorageLocation storageLocation)
         {
-            if (string.IsNullOrEmpty(edgebandCode))
+            if (string.IsNullOrEmpty(edgebandTypeCode))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandCode));
+                throw new ArgumentException("Edgeband code must not be null or empty", nameof(edgebandTypeCode));
             }
 
             if (length <= 0.1)
@@ -237,7 +307,7 @@ namespace HomagConnect.MaterialAssist.Client
                 ? ""
                 : $"&storageLocation={Uri.EscapeDataString(storageLocation)}";
             var url =
-                $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&length={length}&quantity={quantity}&currentThickness={currentThickness}&management={managementType}{commentsParam}{shelfIdParam}";
+                $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandTypeCode)}&length={length}&quantity={quantity}&currentThickness={currentThickness}&management={managementType}{commentsParam}{shelfIdParam}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
