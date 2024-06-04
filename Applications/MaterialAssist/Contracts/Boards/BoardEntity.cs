@@ -9,7 +9,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// <summary>
         /// Gets or sets the code (#) of a board.
         /// </summary>
-        public int Code { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the management type.

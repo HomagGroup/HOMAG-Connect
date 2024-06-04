@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Text;
+﻿using System.Text;
 
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
@@ -48,7 +47,7 @@ namespace HomagConnect.MaterialAssist.Client
         #region Read
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntities()
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntities(int take, int skip = 0)
         {
             var url = $"{_BaseRoute}";
 
