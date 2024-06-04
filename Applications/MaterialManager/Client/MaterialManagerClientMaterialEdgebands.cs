@@ -146,6 +146,18 @@ namespace HomagConnect.MaterialManager.Client
 
             return urls;
         }
+
+        #region Create
+
+        /// <inheritdoc />
+        public async Task CreateEdgebandType(EdgebandType edgebandType)
+        {
+            var url = $"{_BaseRoute}/create";
+
+            await PostObject(new Uri(url, UriKind.Relative), edgebandType);
+        }
+
+        #endregion Create
     }
 }
 

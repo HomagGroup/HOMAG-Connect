@@ -43,5 +43,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
         Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
+
+        #region Create
+
+        /// <summary>
+        /// Create an edgeband type for the passed parameters
+        /// </summary>
+        /// <param name="edgebandType"></param>
+        /// <returns></returns>
+        Task CreateEdgebandType(EdgebandType edgebandType);
+
+        #endregion Create
     }
 }
