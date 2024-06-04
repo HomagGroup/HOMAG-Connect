@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Data;
+using System.Text;
 
 using HomagConnect.Base.Services;
+using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Boards;
 using HomagConnect.MaterialAssist.Contracts.Boards.Interfaces;
@@ -15,9 +17,9 @@ namespace HomagConnect.MaterialAssist.Client
         #region Delete
 
         /// <inheritdoc />
-        public async Task DeleteBoardByCode(int code)
+        public async Task DeleteBoardById(string id)
         {
-            var url = $"{_BaseRoute}/delete?{_Code}={code}";
+            var url = $"{_BaseRoute}/delete?{_Id}={id}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
@@ -28,9 +30,9 @@ namespace HomagConnect.MaterialAssist.Client
 
         private const string _BaseRoute = "api/materialAssist/boards";
         private const string _BaseRouteMaterialManager = "api/materialManager/boards";
-        private const string _Code = "Code";
+        private const string _Id = "Id";
+        private const string _BoardCode = "boardCode";
         private const string _IncludingDetails = "includingDetails";
-        private const string _FromStorage = "fromStorage";
         private const string _PrintLabel = "printLabel";
         private const string _StorageLocation = "storageLocation";
         private const string _DeleteBoardFromInventory = "deleteBoardFromInventory";
@@ -46,69 +48,103 @@ namespace HomagConnect.MaterialAssist.Client
         #region Read
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Board>> GetBoardsFromInventory()
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntities()
         {
-            var url = $"{_BaseRoute}?{_FromStorage}=false";
+            var url = $"{_BaseRoute}";
 
-            return await RequestEnumerable<Board>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Board>> GetBoardsFromStorage()
+        public async Task<BoardEntity> GetBoardEntityById(string id)
         {
-            var url = $"{_BaseRoute}?{_FromStorage}=true";
+            var url = $"{_BaseRoute}?{_Id}={id}";
 
-            return await RequestEnumerable<Board>(new Uri(url, UriKind.Relative));
+            return await RequestObject<BoardEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<Board> GetBoardByCode(int code)
-        {
-            var url = $"{_BaseRoute}?{_Code}={code}";
-
-            return await RequestObject<Board>(new Uri(url, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<Board>> GetBoardsByCodes(IEnumerable<int> codes)
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByIds(IEnumerable<string> ids)
         {
             var url = $"{_BaseRoute}";
 
             var boardCodes = new StringBuilder("?");
-            boardCodes.Append(string.Join("&", codes.Select(bc => $"{_Code}={bc}")));
+            boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={id}")));
 
             url = url + boardCodes;
 
-            return await RequestEnumerable<Board>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<BoardDetails> GetBoardByCodeIncludingDetails(int code)
+        public async Task<BoardEntityDetails> GetBoardEntityByIdIncludingDetails(string id)
         {
-            var url = $"{_BaseRoute}?{_Code}={code}&{_IncludingDetails}=true";
+            var url = $"{_BaseRoute}?{_Id}={id}&{_IncludingDetails}=true";
 
-            return await RequestObject<BoardDetails>(new Uri(url, UriKind.Relative));
+            return await RequestObject<BoardEntityDetails>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardDetails>> GetBoardsByCodesIncludingDetails(IEnumerable<int> codes)
+        public async Task<IEnumerable<BoardEntityDetails>> GetBoardEntitiesByIdsIncludingDetails(IEnumerable<string> ids)
         {
             var url = $"{_BaseRoute}";
 
             var boardCodes = new StringBuilder("?");
-            boardCodes.Append(string.Join("&", codes.Select(bc => $"{_Code}={bc}")));
+            boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={id}")));
 
             url = url + boardCodes + $"&{_IncludingDetails}=true";
 
-            return await RequestEnumerable<BoardDetails>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<BoardEntityDetails>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<string>> GetStorageLocations()
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCode(string boardCode)
+        {
+            var url = $"{_BaseRoute}?{_BoardCode}={boardCode}";
+
+            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardEntityDetails>> GetBoardEntitiesByBoardCodeIncludingDetails(string boardCode)
+        {
+            var url = $"{_BaseRoute}?{_BoardCode}={boardCode}&{_IncludingDetails}=true";
+
+            return await RequestEnumerable<BoardEntityDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCodes(IEnumerable<string> boardCodes)
+        {
+            var url = $"{_BaseRoute}";
+
+            var appendedBoardCodes = new StringBuilder("?");
+            appendedBoardCodes.Append(string.Join("&", boardCodes.Select(boardCode => $"{_BoardCode}={boardCode}")));
+
+            url = url + boardCodes;
+
+            return await RequestEnumerable<BoardEntityDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardEntityDetails>> GetBoardEntitiesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
+        {
+            var url = $"{_BaseRoute}";
+
+            var appendedBoardCodes = new StringBuilder("?");
+            appendedBoardCodes.Append(string.Join("&", boardCodes.Select(boardCode => $"{_BoardCode}={boardCode}")));
+
+            url = url + boardCodes + $"&{_IncludingDetails}=true";
+
+            return await RequestEnumerable<BoardEntityDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
             var url = $"{_BaseRoute}/storageLocations";
 
-            return await RequestEnumerable<string>(new Uri(url, UriKind.Relative));
+            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
 
         #endregion Read
@@ -116,8 +152,8 @@ namespace HomagConnect.MaterialAssist.Client
         #region Create
 
         /// <inheritdoc />
-        public async Task CreateBoard(string boardTypeCode, int quantity, ManagementType managementType, string comments,
-            string storageLocation, bool printLabel = false)
+        public async Task CreateBoardEntity(string boardTypeCode, int quantity, ManagementType managementType, string comments,
+            StorageLocation storageLocation, bool printLabel = false)
         {
             var url =
                 $"{_BaseRoute}?{_BoardTypeCode}={boardTypeCode}&{_Quantity}={quantity}&{_ManagementType}={managementType}&{_Comments}={comments}&{_StorageLocation}={storageLocation}&{_PrintLabel}={printLabel}";
@@ -138,33 +174,41 @@ namespace HomagConnect.MaterialAssist.Client
         #region Update
 
         /// <inheritdoc />
-        public async Task UpdateBoardByCode(int code, double length, double width, string comments)
+        public async Task UpdateBoardEntityDimensions(string id, double length, double width)
         {
-            var url = $"{_BaseRoute}/update?{_Code}={code}&{_Length}={length}&{_Width}={width}";
+            var url = $"{_BaseRoute}/update?{_Id}={id}&{_Length}={length}&{_Width}={width}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task PrintLabelByCode(int code)
+        public async Task UpdateBoardEntityComment(string id, string comments)
         {
-            var url = $"{_BaseRoute}/print?{_Code}={code}&{_PrintLabel}=true";
+            var url = $"{_BaseRoute}/update?{_Id}={id}&{_Comments}={comments}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task StoreBoardByCode(int code, int length, int width, string storageLocation, bool printLabel = false)
+        public async Task PrintLabel(string id)
         {
-            var url = $"{_BaseRoute}/store?{_Code}={code}&{_StorageLocation}={storageLocation}&{_PrintLabel}=true";
+            var url = $"{_BaseRoute}/print?{_Id}={id}&{_PrintLabel}=true";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task RemoveBoardByCode(int code, bool deleteBoardFromInventory = false)
+        public async Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation, bool printLabel = false)
         {
-            var url = $"{_BaseRoute}/remove?{_Code}={code}&{_DeleteBoardFromInventory}={deleteBoardFromInventory}";
+            var url = $"{_BaseRoute}/store?{_Id}={id}&{_StorageLocation}={storageLocation}&{_PrintLabel}=true";
+
+            await PostObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task RemoveBoardEntity(string id, bool deleteBoardFromInventory = false)
+        {
+            var url = $"{_BaseRoute}/remove?{_Id}={id}&{_DeleteBoardFromInventory}={deleteBoardFromInventory}";
 
             await PostObject(new Uri(url, UriKind.Relative));
         }

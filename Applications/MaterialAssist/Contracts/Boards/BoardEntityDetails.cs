@@ -2,7 +2,7 @@
 
 namespace HomagConnect.MaterialAssist.Contracts.Boards
 {
-    public class BoardDetails : Board
+    public class BoardEntityDetails : BoardEntity
     {
         /// <summary>
         /// Gets or sets the images of the board.
