@@ -14,4 +14,4 @@ The most important functions are described below. More can be found in the [Docu
 2. [Read board data](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md)
 3. [Read egdeband Data](HomagConnectMaterialManagerClient/Edgebands/HomagConnectMaterialManagerClientEdgebands.md)
 4. [Excel (analog to MmrMobile)](../../MmrMobile/Documentation/Excel/README.md)
-5. [powerBI (analog to MmrMobile)](../../MmrMobile/Documentation/powerBI/README.md)
+5. [powerBI (analog to MmrMobile)](../../MmrMobile/Documentation/powerBi/README.md)
