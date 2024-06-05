@@ -12,6 +12,8 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Samples.Helper;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary />
@@ -267,6 +269,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(2));
 
             optimization.Trace(nameof(optimization));
+
+            if (optimization.Status != OptimizationStatus.Optimized)
+            {
+                throw new InvalidOperationException("Optimization did not reach the state optimized.");
+            }
 
             var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
             var solutionToSend = solutions.First();
