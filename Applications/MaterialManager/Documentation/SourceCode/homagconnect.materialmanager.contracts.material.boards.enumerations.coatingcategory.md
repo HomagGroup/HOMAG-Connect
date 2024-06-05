@@ -1,29 +1,28 @@
-﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # CoatingCategory
 
-Namespace: HomagConnect.MaterialManager.Contracts.Enumerations
+Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 
-The coating category of a board.
+Enum for the coating category
 
 ```csharp
 public enum CoatingCategory
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [ValueType](https://docs.microsoft.com/en-us/dotnet/api/system.valuetype) → [Enum](https://docs.microsoft.com/en-us/dotnet/api/system.enum) → [Grain](./homagconnect.intellidivide.contracts.base.grain.md)
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [ValueType](https://docs.microsoft.com/en-us/dotnet/api/system.valuetype) → [Enum](https://docs.microsoft.com/en-us/dotnet/api/system.enum) → [CoatingCategory](./homagconnect.materialmanager.contracts.material.boards.enumerations.coatingcategory.md)<br>
 Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icomparable), [IFormattable](https://docs.microsoft.com/en-us/dotnet/api/system.iformattable), [IConvertible](https://docs.microsoft.com/en-us/dotnet/api/system.iconvertible)
 
 ## Fields
 
-| Name | Value | Description|
-|------|-------|------------|
-| Aluminium | 0 | Aluminium coating. |
-| LaminatedGlass | 1 | Laminated glass coating. |
-| HPL | 2 | High pressure laminate coating. |
-| DecorativePaper | 3 | Decorative paper coating. |
-| MelamineThermoSet | 4 | Melamine thermoset coating. |
-| Painted | 5 | Painted coating. |
-| ProtectiveFilm | 6 | Protective film coating. |
-| RealMetal | 7 | Real metal coating. |
-| UnCoated | 8 | Uncoated. |
-| UnDefined | 9 | Undefined. |
-| Veneer | 10 | Veneer coating. |
+| Name | Value | Description |
+| --- | --: | --- |
+| Aluminium | 0 | Aluminium. |
+| LaminatedGlass_PMMA | 1 | Glass laminate (PMMA). |
+| HPL | 2 | HPL. |
+| DecorativePaper | 3 | Laminates consisting of decorative paper. |
+| MelamineThermoset | 4 | Melamine (thermoset). |
+| Painted | 5 | Painted. |
+| ProtectiveFilm | 6 | Protective film. |
+| RealMetal | 7 | Real metal. |
+| Uncoated | 8 | Uncoated. |
+| Undefined | 9 | Undefined. |
+| Veneer | 10 | Veneer. |

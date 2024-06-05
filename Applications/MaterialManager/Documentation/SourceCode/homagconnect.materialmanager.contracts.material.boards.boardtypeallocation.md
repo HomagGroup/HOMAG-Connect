@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards
 
+A board type allocation.
+
 ```csharp
 public class BoardTypeAllocation : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **AllocationComments**
 
+Gets or sets the allocation comments.
+
 ```csharp
 public string AllocationComments { get; set; }
 ```
@@ -22,6 +26,8 @@ public string AllocationComments { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **CreationDate**
+
+Gets or sets the creation date of the instance data.
 
 ```csharp
 public Nullable<DateTimeOffset> CreationDate { get; set; }
@@ -33,6 +39,8 @@ public Nullable<DateTimeOffset> CreationDate { get; set; }
 
 ### **Quantity**
 
+Gets or sets the quantity.
+
 ```csharp
 public Nullable<int> Quantity { get; set; }
 ```
@@ -43,6 +51,8 @@ public Nullable<int> Quantity { get; set; }
 
 ### **Type**
 
+Gets or sets the type
+
 ```csharp
 public string Type { get; set; }
 ```
@@ -52,6 +62,8 @@ public string Type { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Workstation**
+
+Gets or sets the workstation.
 
 ```csharp
 public string Workstation { get; set; }

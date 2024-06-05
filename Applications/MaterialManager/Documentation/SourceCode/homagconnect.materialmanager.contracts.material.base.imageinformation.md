@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Base
 
+Image information.
+
 ```csharp
 public class ImageInformation
 ```
@@ -11,6 +13,8 @@ Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) 
 ## Properties
 
 ### **Url**
+
+Gets or sets the url.
 
 ```csharp
 public Uri Url { get; set; }
@@ -22,25 +26,31 @@ Uri<br>
 
 ### **Size**
 
+Gets or sets the size.
+
 ```csharp
-public Nullable<Size> Size { get; set; }
+public Nullable<ImageSize> Size { get; set; }
 ```
 
 #### Property Value
 
-[Nullable&lt;Size&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
+[Nullable&lt;ImageSize&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Type**
 
+Gets or sets the type.
+
 ```csharp
-public string Type { get; set; }
+public ImageType Type { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+[ImageType](./homagconnect.materialmanager.contracts.material.base.imagetype.md)<br>
 
 ### **FileName**
+
+Gets or sets the file name.
 
 ```csharp
 public string FileName { get; set; }
@@ -50,17 +60,21 @@ public string FileName { get; set; }
 
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
-### **ContentType**
+### **FileFormat**
+
+Gets or sets the file format.
 
 ```csharp
-public string ContentType { get; set; }
+public Nullable<FileFormat> FileFormat { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+[Nullable&lt;FileFormat&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Length**
+
+Gets or sets the length.
 
 ```csharp
 public Nullable<double> Length { get; set; }
@@ -72,6 +86,8 @@ public Nullable<double> Length { get; set; }
 
 ### **Width**
 
+Gets or sets the width.
+
 ```csharp
 public Nullable<double> Width { get; set; }
 ```
@@ -81,6 +97,8 @@ public Nullable<double> Width { get; set; }
 [Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Grain**
+
+Gets or sets the grain.
 
 ```csharp
 public Grain Grain { get; set; }

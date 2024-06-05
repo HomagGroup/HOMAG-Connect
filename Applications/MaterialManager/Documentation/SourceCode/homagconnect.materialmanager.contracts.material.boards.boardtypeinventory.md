@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards
 
+A board type inventory.
+
 ```csharp
 public class BoardTypeInventory : System.Runtime.Serialization.IExtensibleDataObject
 ```
@@ -13,6 +15,8 @@ Implements IExtensibleDataObject
 
 ### **OrderNumber**
 
+Gets or sets the order number.
+
 ```csharp
 public string OrderNumber { get; set; }
 ```
@@ -22,6 +26,8 @@ public string OrderNumber { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Code**
+
+Gets or sets the board code.
 
 ```csharp
 public string Code { get; set; }
@@ -33,6 +39,8 @@ public string Code { get; set; }
 
 ### **Location**
 
+Gets or sets the location.
+
 ```csharp
 public string Location { get; set; }
 ```
@@ -42,6 +50,8 @@ public string Location { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **Workstation**
+
+Gets or sets the workstation.
 
 ```csharp
 public string Workstation { get; set; }
@@ -53,6 +63,8 @@ public string Workstation { get; set; }
 
 ### **Quantity**
 
+Gets or sets the quantity.
+
 ```csharp
 public int Quantity { get; set; }
 ```
@@ -63,6 +75,8 @@ public int Quantity { get; set; }
 
 ### **AdditionalCommentsBoards**
 
+Gets or sets the addtional comments for the board.
+
 ```csharp
 public string AdditionalCommentsBoards { get; set; }
 ```
@@ -72,6 +86,8 @@ public string AdditionalCommentsBoards { get; set; }
 [String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **CreationDate**
+
+Gets or sets the creation date of the instance data.
 
 ```csharp
 public Nullable<DateTimeOffset> CreationDate { get; set; }

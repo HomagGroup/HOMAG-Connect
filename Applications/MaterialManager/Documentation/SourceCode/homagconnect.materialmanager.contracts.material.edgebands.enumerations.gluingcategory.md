@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 
+Gluing category.
+
 ```csharp
 public enum GluingCategory
 ```
@@ -13,3 +15,6 @@ Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icom
 
 | Name | Value | Description |
 | --- | --: | --- |
+| HotmeltGlue | 0 | Hot-melt glue. |
+| Zerojoint | 1 | Zero-joint. |
+| Other | 2 | Other. |
