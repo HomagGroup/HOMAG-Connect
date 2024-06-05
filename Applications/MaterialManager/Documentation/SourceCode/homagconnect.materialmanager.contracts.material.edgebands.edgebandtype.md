@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
+A edgeband type.
+
 ```csharp
 public class EdgebandType : System.Runtime.Serialization.IExtensibleDataObject, HomagConnect.Base.Contracts.Interfaces.IContainsUnitSystemDependentProperties
 ```

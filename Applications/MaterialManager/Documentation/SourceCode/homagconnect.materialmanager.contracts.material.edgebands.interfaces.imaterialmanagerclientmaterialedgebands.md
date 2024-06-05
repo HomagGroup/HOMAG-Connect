@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
 
+Interface for MaterialManager Edgebands Client.
+
 ```csharp
 public interface IMaterialManagerClientMaterialEdgebands
 ```
@@ -10,7 +12,7 @@ public interface IMaterialManagerClientMaterialEdgebands
 
 ### **GetEdgebandTypes(Int32, Int32)**
 
-Gets all edgebands
+Gets all edgebands.
 
 ```csharp
 Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip)
@@ -28,7 +30,7 @@ Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip)
 
 ### **GetEdgebandTypeByEdgebandCode(String)**
 
-Gets an edgeband by edgeband code
+Gets an edgeband by edgeband code.
 
 ```csharp
 Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
@@ -44,10 +46,10 @@ Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
 
 ### **GetEdgebandTypeByEdgebandCodeIncludingDetails(String)**
 
-Gets an edgeband by edgeband code including details
+Gets an edgeband by edgeband code including details.
 
 ```csharp
-Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
+Task<EdgebandTypeDetails> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
 ```
 
 #### Parameters
@@ -56,14 +58,14 @@ Task<EdgebandType> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgeband
 
 #### Returns
 
-[Task&lt;EdgebandType&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
+[Task&lt;EdgebandTypeDetails&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 
-### **GetEdgebandTypesByMaterialCodes(IEnumerable&lt;String&gt;)**
+### **GetEdgebandTypesByEdgebandCodes(IEnumerable&lt;String&gt;)**
 
-Gets edgebands by edgeband codes
+Gets edgebands by edgeband codes.
 
 ```csharp
-Task<IEnumerable<EdgebandType>> GetEdgebandTypesByMaterialCodes(IEnumerable<string> edgebandCodes)
+Task<IEnumerable<EdgebandType>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes)
 ```
 
 #### Parameters
@@ -75,12 +77,12 @@ Task<IEnumerable<EdgebandType>> GetEdgebandTypesByMaterialCodes(IEnumerable<stri
 [Task&lt;IEnumerable&lt;EdgebandType&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 The edgeband types sorted by [EdgebandType.EdgebandCode](./homagconnect.materialmanager.contracts.material.edgebands.edgebandtype.md#edgebandcode).
 
-### **GetEdgebandTypesByMaterialCodesIncludingDetails(IEnumerable&lt;String&gt;)**
+### **GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable&lt;String&gt;)**
 
-Gets edgebands by edgeband codes including details
+Gets edgebands by edgeband codes including details.
 
 ```csharp
-Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByMaterialCodesIncludingDetails(IEnumerable<string> edgebandCodes)
+Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
 ```
 
 #### Parameters
@@ -91,3 +93,21 @@ Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByMaterialCodesIncludingD
 
 [Task&lt;IEnumerable&lt;EdgebandTypeDetails&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>
 The edgeband types sorted by [EdgebandType.EdgebandCode](./homagconnect.materialmanager.contracts.material.edgebands.edgebandtype.md#edgebandcode).
+
+### **GetEdgebandTypeInventoryHistoryAsync(DateTime, DateTime)**
+
+Get [EdgeInventoryHistory](./homagconnect.materialmanager.contracts.statistics.edgeinventoryhistory.md) inventory history for edgebands[EdgebandType](./homagconnect.materialmanager.contracts.material.edgebands.edgebandtype.md).
+
+```csharp
+Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
+```
+
+#### Parameters
+
+`from` [DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime)<br>
+
+`to` [DateTime](https://docs.microsoft.com/en-us/dotnet/api/system.datetime)<br>
+
+#### Returns
+
+[Task&lt;IEnumerable&lt;EdgeInventoryHistory&gt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1)<br>

@@ -1,65 +1,56 @@
-﻿<span style="color:red">[This is preliminary documentation and is subject to change.] </span>
 # BoardType
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Boards
 
-Represents a type of board material.
+A board type.
 
 ```csharp
-public class BoardType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+public class BoardType : System.Runtime.Serialization.IExtensibleDataObject, HomagConnect.Base.Contracts.Interfaces.IContainsUnitSystemDependentProperties
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [BoardType](./homagconnect.materialmanager.contracts.material.boards.boardtype.md)
-Implements [IExtensibleDataObject](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.iextensibledataobject)
-
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [BoardType](./homagconnect.materialmanager.contracts.material.boards.boardtype.md)<br>
+Implements IExtensibleDataObject, IContainsUnitSystemDependentProperties
 
 ## Properties
 
 ### **LastUsed**
 
-Gets or sets the timestamp when the board type has been used last.
+Gets or sets the timestamp when board type has been used last.
 
 ```csharp
-public DateTimeOffset? LastUsed { get; set; }
+public Nullable<DateTimeOffset> LastUsed { get; set; }
 ```
 
 #### Property Value
 
-[DateTimeOffset](https://docs.microsoft.com/en-us/dotnet/api/system.datetimeoffset)?<br>
+[Nullable&lt;DateTimeOffset&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **UnitSystem**
 
-Gets or sets the unit system of the board type.
-
 ```csharp
-public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+public UnitSystem UnitSystem { get; set; }
 ```
 
 #### Property Value
 
-[UnitSystem](./homagconnect.base.contracts.enumerations.unitsystem.md)<br>
+UnitSystem<br>
 
 ### **ExtensionData**
 
-Gets or sets the extension data for the board type.
-
 ```csharp
-public ExtensionDataObject? ExtensionData { get; set; }
+public ExtensionDataObject ExtensionData { get; set; }
 ```
 
 #### Property Value
 
-[ExtensionDataObject](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.serialization.extensiondataobject)?<br>
+ExtensionDataObject<br>
 
 ### **MaterialCode**
 
-Gets or sets the material code of the board type.
+Gets or sets the material code.
 
 ```csharp
-[Required]
-[StringLength(50, MinimumLength = 1)]
-[JsonProperty(Order = 10)]
-public string MaterialCode { get; set; } = string.Empty;
+public string MaterialCode { get; set; }
 ```
 
 #### Property Value
@@ -68,37 +59,33 @@ public string MaterialCode { get; set; } = string.Empty;
 
 ### **Thickness**
 
-Gets or sets the thickness of the board type.
+Gets or sets the thickness.
 
 ```csharp
-[JsonProperty(Order = 24)]
-[ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-public double? Thickness { get; set; }
+public Nullable<double> Thickness { get; set; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **MaterialCategory**
 
-Gets or sets the material category of the board type.
+Gets or sets the material category name
 
 ```csharp
-[JsonProperty(Order = 12)]
-public MaterialCategory MaterialCategory { get; set; }
+public BoardMaterialCategory MaterialCategory { get; set; }
 ```
 
 #### Property Value
 
-[MaterialCategory](./homagconnect.materialmanager.contracts.material.boards.enumerations.materialcategory.md)<br>
+[BoardMaterialCategory](./homagconnect.materialmanager.contracts.material.boards.enumerations.boardmaterialcategory.md)<br>
 
 ### **CoatingCategory**
 
-Gets or sets the coating category of the board type.
+Gets or sets the coating category.
 
 ```csharp
-[JsonProperty(Order = 13)]
 public CoatingCategory CoatingCategory { get; set; }
 ```
 
@@ -108,10 +95,9 @@ public CoatingCategory CoatingCategory { get; set; }
 
 ### **StandardQuality**
 
-Gets or sets the standard quality of the board type.
+Gets or set the standard quality.
 
 ```csharp
-[JsonProperty(Order = 14)]
 public StandardQuality StandardQuality { get; set; }
 ```
 
@@ -121,14 +107,10 @@ public StandardQuality StandardQuality { get; set; }
 
 ### **BoardCode**
 
-Gets or sets the board code of the board type.
+Gets or sets the board code.
 
 ```csharp
-[Key]
-[Required]
-[StringLength(50, MinimumLength = 1)]
-[JsonProperty(Order = 1)]
-public string BoardCode { get; set; } = string.Empty;
+public string BoardCode { get; set; }
 ```
 
 #### Property Value
@@ -137,160 +119,155 @@ public string BoardCode { get; set; } = string.Empty;
 
 ### **Width**
 
-Gets or sets the width of the board type.
+Gets or sets the width of the board. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
 
 ```csharp
-[Required]
-[Range(0.1, 9999.9)]
-[JsonProperty(Order = 22)]
-[ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-public double? Width { get; set; }
+public Nullable<double> Width { get; set; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Length**
 
-Gets or sets the length of the board type.
+Gets or sets the length of the board. The unit depends on the settings of the subscription (metric: mm, imperial:
+ inch).
 
 ```csharp
-[Required]
-[Range(0.1, 9999.9)]
-[JsonProperty(Order = 23)]
-[ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-public double? Length { get; set; }
+public Nullable<double> Length { get; set; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Grain**
 
-Gets or sets the grain of the board type.
+Gets or set the grain of the board.
 
 ```csharp
-[JsonProperty(Order = 25)]
 public Grain Grain { get; set; }
 ```
 
 #### Property Value
 
-[Grain](../../../IntelliDivide/Documentation/SourceCode/homagconnect.intellidivide.contracts.base.grain.md)<br>
+Grain<br>
 
 ### **Costs**
 
-Gets or sets the costs of the board type.
+Gets or sets the costs of the board. The unit depends on the settings of the subscription.
 
 ```csharp
-[JsonProperty(Order = 26)]
-public double? Costs { get; set; }
+public Nullable<double> Costs { get; set; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **BoardTypeType**
 
-Gets or sets the type of the board type.
+Gets or sets the type of the board.
 
 ```csharp
-[JsonProperty(Order = 27)]
 public BoardTypeType BoardTypeType { get; set; }
 ```
 
 #### Property Value
 
-[BoardTypeType](./homagconnect.materialmanager.contracts.material.boards.enumerations.boardtypetype.md)<br>
+BoardTypeType<br>
 
 ### **ManufacturerName**
 
-Gets or sets the name of the manufacturer of the board type.
+Gets or sets the name of the manufacturer.
 
 ```csharp
-[JsonProperty(Order = 31)]
-public string? ManufacturerName { get; set; }
+public string ManufacturerName { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)?<br>
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **ProductName**
 
-Gets or sets the name of the product of the board type.
+Gets or sets the name of the product.
 
 ```csharp
-[JsonProperty(Order = 32)]
-public string? ProductName { get; set; }
+public string ProductName { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)?<br>
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **ArticleNumber**
 
-Gets or sets the article number of the board type.
+Gets or sets the article number.
 
 ```csharp
-[JsonProperty(Order = 33)]
-public string? ArticleNumber { get; set; }
+public string ArticleNumber { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)?<br>
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **DecorCode**
 
-Gets or sets the decor code of the board type.
+Gets or sets the decor code.
 
 ```csharp
-[JsonProperty(Order = 34)]
-public string? DecorCode { get; set; }
+public string DecorCode { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)?<br>
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **DecorName**
 
-Gets or sets the decor name of the board type.
+Gets or sets the decor name.
 
 ```csharp
-[JsonProperty(Order = 35)]
-public string? DecorName { get; set; }
+public string DecorName { get; set; }
 ```
 
 #### Property Value
 
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)?<br>
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
 
 ### **TotalQuantityAvailableWarningLimit**
 
-Gets or sets the total quantity available warning limit of the board type.
+Gets or sets the total quantity available warning limit.
 
 ```csharp
-[JsonProperty(Order = 53)]
-public int? TotalQuantityAvailableWarningLimit { get; set; }
+public Nullable<int> TotalQuantityAvailableWarningLimit { get; set; }
 ```
 
 #### Property Value
 
-[Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)?<br>
+[Nullable&lt;Int32&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
+
+### **TotalAreaAvailableWarningLimit**
+
+Gets or sets the total area available warning limit.
+
+```csharp
+public Nullable<double> TotalAreaAvailableWarningLimit { get; set; }
+```
+
+#### Property Value
+
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **OptimizeAgainstInfinite**
 
-Gets or sets a value indicating whether the board type should be optimized against infinite.
+Gets or sets whether the board type should be optimized against infinite.
 
 ```csharp
-[JsonProperty(Order = 92)]
-public bool OptimizeAgainstInfinite { get; set; } = true;
+public bool OptimizeAgainstInfinite { get; set; }
 ```
 
 #### Property Value
@@ -299,10 +276,9 @@ public bool OptimizeAgainstInfinite { get; set; } = true;
 
 ### **LockedForOptimization**
 
-Gets or sets a value indicating whether the board type is locked for optimization.
+Gets or sets whether the board type is locked for optimization.
 
 ```csharp
-[JsonProperty(Order = 93)]
 public bool LockedForOptimization { get; set; }
 ```
 
@@ -315,100 +291,95 @@ public bool LockedForOptimization { get; set; }
 Gets or sets the total quantity of boards of this type in the inventory.
 
 ```csharp
-[JsonProperty(Order = 50)]
-public int? TotalQuantityInInventory { get; set; }
+public Nullable<int> TotalQuantityInInventory { get; set; }
 ```
 
 #### Property Value
 
-[Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)?<br>
+[Nullable&lt;Int32&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **TotalQuantityAllocated**
 
 Gets or sets the total quantity of boards of this type which have been allocated to a production order.
 
 ```csharp
-[JsonProperty(Order = 51)]
-public int? TotalQuantityAllocated { get; set; }
+public Nullable<int> TotalQuantityAllocated { get; set; }
 ```
 
 #### Property Value
 
-[Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)?<br>
+[Nullable&lt;Int32&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **TotalQuantityAvailable**
 
 Gets or sets the total quantity of boards of this type which are available in the inventory.
 
 ```csharp
-[JsonProperty(Order = 52)]
-public int? TotalQuantityAvailable { get; }
+public Nullable<int> TotalQuantityAvailable { get; }
 ```
 
 #### Property Value
 
-[Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)?<br>
+[Nullable&lt;Int32&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
-### **TotalAreaInventory**
+### **TotalAreaInInventory**
 
-Gets or sets the total area of boards of this type in the inventory.
+Gets or sets the total area of boards of this type in the inventory. The unit depends on the settings of the
+ subscription (metric: m², imperial: ft²).
 
 ```csharp
-[JsonProperty(Order = 56)]
-public double? TotalAreaInventory { get; }
+public Nullable<double> TotalAreaInInventory { get; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **TotalAreaAllocated**
 
-Gets or sets the total area of boards of this type which have been allocated to a production order.
+Gets or sets the total area of boards of this type which have been allocated to a production order. The unit depends on
+ the settings of the subscription (metric: m², imperial: ft²).
 
 ```csharp
-[JsonProperty(Order = 57)]
-public double? TotalAreaAllocated { get; }
+public Nullable<double> TotalAreaAllocated { get; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **TotalAreaAvailable**
 
-Gets or sets the total area of boards of this type which are available in the inventory.
+Gets or sets the total area of boards of this type which are available in the inventory. The unit depends on the
+ settings of the subscription (metric: m², imperial: ft²).
 
 ```csharp
-[JsonProperty(Order = 58)]
-public double? TotalAreaAvailable { get; }
+public Nullable<double> TotalAreaAvailable { get; }
 ```
 
 #### Property Value
 
-[Double](https://docs.microsoft.com/en-us/dotnet/api/system.double)?<br>
+[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
-### **TotalQuantityAvailableWarningLimitReached**
+### **InsufficientInventory**
 
-Gets or sets an indication whether the `TotalQuantityAvailable` is below the defined limit `TotalQuantityAvailableWarningLimit`.
+Gets or sets a indication whether the [BoardType.TotalQuantityAvailable](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#totalquantityavailable) is below the defined limit
+ [BoardType.TotalQuantityAvailableWarningLimit](./homagconnect.materialmanager.contracts.material.boards.boardtype.md#totalquantityavailablewarninglimit).
 
 ```csharp
-[JsonProperty(Order = 54)]
-public bool? TotalQuantityAvailableWarningLimitReached { get; set; }
+public Nullable<bool> InsufficientInventory { get; set; }
 ```
 
 #### Property Value
 
-[Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)?<br>
+[Nullable&lt;Boolean&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **Comments**
 
-Gets or sets any additional comments for the board type.
+Gets or sets the additional comments.
 
 ```csharp
-[StringLength(300)]
-[JsonProperty(Order = 80)]
-public string Comments { get; set; } = string.Empty;
+public string Comments { get; set; }
 ```
 
 #### Property Value
@@ -417,32 +388,20 @@ public string Comments { get; set; } = string.Empty;
 
 ### **Thumbnail**
 
-Gets or sets the thumbnail URI.
+Gets or set the thumbnail uri.
 
 ```csharp
-[JsonProperty(Order = 3)]
-public Uri? Thumbnail { get; set; }
+public Uri Thumbnail { get; set; }
 ```
 
 #### Property Value
 
-[Uri](https://docs.microsoft.com/en-us/dotnet/api/system.uri)?<br>
+Uri<br>
 
-## Interfaces
+## Constructors
 
-### IExtensibleDataObject
-
-Represents a data contract extension object that is used to store data that is not recognized as belonging to the data contract.
+### **BoardType()**
 
 ```csharp
-public ExtensionDataObject? ExtensionData { get; set; }
+public BoardType()
 ```
-
-### IContainsUnitSystemDependentProperties
-
-Provides methods and properties to get and set the unit system of dependant properties.
-
-```csharp
-public UnitSystem UnitSystem { get; set; }
-```
-

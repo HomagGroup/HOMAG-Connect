@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Client
 {
@@ -114,10 +115,11 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandTypeInventory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
+        public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
         {
             List<Uri> requestUri = [new Uri($"/{_BaseStatisticsRoute}/inventory/edgebands?from={from:s}&to={to:s}", UriKind.Relative)];
-            return await RequestEnumerableAsync<EdgebandTypeInventory>(requestUri);
+            var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
+            return ret;
         }
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",

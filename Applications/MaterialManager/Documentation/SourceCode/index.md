@@ -2,9 +2,13 @@
 
 ## HomagConnect.MaterialManager.Contracts.Material.Base
 
+[FileFormat](./homagconnect.materialmanager.contracts.material.base.fileformat.md)
+
 [ImageInformation](./homagconnect.materialmanager.contracts.material.base.imageinformation.md)
 
-[Size](./homagconnect.materialmanager.contracts.material.base.size.md)
+[ImageSize](./homagconnect.materialmanager.contracts.material.base.imagesize.md)
+
+[ImageType](./homagconnect.materialmanager.contracts.material.base.imagetype.md)
 
 ## HomagConnect.MaterialManager.Contracts.Material.Boards
 
@@ -46,12 +50,18 @@
 
 [IMaterialManagerClientMaterialEdgebands](./homagconnect.materialmanager.contracts.material.edgebands.interfaces.imaterialmanagerclientmaterialedgebands.md)
 
+## HomagConnect.MaterialManager.Contracts.Processing.Interfaces
+
+[IMaterialManagerClientProcessingOptimization](./homagconnect.materialmanager.contracts.processing.interfaces.imaterialmanagerclientprocessingoptimization.md)
+
 ## HomagConnect.MaterialManager.Contracts.Processing.Optimization
-
-[MaximumBookHeight](./homagconnect.materialmanager.contracts.processing.optimization.maximumbookheight.md)
-
-[MaximumBookHeightType](./homagconnect.materialmanager.contracts.processing.optimization.maximumbookheighttype.md)
 
 [OffcutParameters](./homagconnect.materialmanager.contracts.processing.optimization.offcutparameters.md)
 
 [OffcutParameterSet](./homagconnect.materialmanager.contracts.processing.optimization.offcutparameterset.md)
+
+## HomagConnect.MaterialManager.Contracts.Statistics
+
+[BoardTypeInventoryHistory](./homagconnect.materialmanager.contracts.statistics.boardtypeinventoryhistory.md)
+
+[EdgeInventoryHistory](./homagconnect.materialmanager.contracts.statistics.edgeinventoryhistory.md)

@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 
+Edgeband material category.
+
 ```csharp
 public enum EdgebandMaterialCategory
 ```
@@ -13,3 +15,13 @@ Implements [IComparable](https://docs.microsoft.com/en-us/dotnet/api/system.icom
 
 | Name | Value | Description |
 | --- | --: | --- |
+| ABS | 0 | ABS. |
+| Acrylic | 1 | Acrylic. |
+| Aluminum | 2 | Aluminum. |
+| Melamine | 3 | Melamine. |
+| Others | 4 | Others. |
+| PMMA | 5 | PMMA. |
+| PP | 6 | PP. |
+| PVC | 7 | PVC. |
+| RealWood | 8 | Real wood. |
+| Veneer | 9 | Veneer. |

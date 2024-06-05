@@ -2,6 +2,8 @@
 
 Namespace: HomagConnect.MaterialManager.Contracts.Material.Edgebands
 
+A edgeband type inventory.
+
 ```csharp
 public class EdgebandTypeInventory
 ```
@@ -99,12 +101,12 @@ public Nullable<DateTimeOffset> CreationDate { get; set; }
 Gets or sets the quantity.
 
 ```csharp
-public Nullable<double> Quantity { get; set; }
+public Nullable<int> Quantity { get; set; }
 ```
 
 #### Property Value
 
-[Nullable&lt;Double&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
+[Nullable&lt;Int32&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.nullable-1)<br>
 
 ### **AdditionalCommentsEdgeband**
 
