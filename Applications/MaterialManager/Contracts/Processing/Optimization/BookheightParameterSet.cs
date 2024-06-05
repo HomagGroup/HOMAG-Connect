@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
-public class BookheightParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
@@ -34,10 +34,10 @@ public class BookheightParameterSet : IValidatableObject, IContainsUnitSystemDep
     public string MaterialManagerLink { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets the <see cref="BookheightParameters" />.
+    ///     Gets or sets the <see cref="BookHeightParameters" />.
     /// </summary>
     [JsonProperty(Order = 11)]
-    public BookheightParameters BookheightParameters { get; set; } = new();
+    public BookHeightParameters BookHeightParameters { get; set; } = new();
 
     #region IContainsUnitSystemDependentProperties Members
 
@@ -56,17 +56,17 @@ public class BookheightParameterSet : IValidatableObject, IContainsUnitSystemDep
     {
         var results = new List<ValidationResult>();
 
-        if (BookheightParameters.Mode == BookheightMode.SpecificValue)
-            if (BookheightParameters.MaximumBookHeight == null)
+        if (BookHeightParameters.Mode == BookHeightMode.SpecificValue)
+            if (BookHeightParameters.MaximumBookHeight == null)
                 results.Add(new ValidationResult(
-                    $"When {nameof(BookheightParameters)}.{nameof(BookheightParameters.Mode)} is {nameof(BookheightMode.SpecificValue)} , the '{nameof(BookheightParameters)}.{nameof(BookheightParameters.MaximumBookHeight)}' parameter must not be null.",
-                    new[] { nameof(BookheightParameters.MaximumBookHeight) }));
+                    $"When {nameof(BookHeightParameters)}.{nameof(BookHeightParameters.Mode)} is {nameof(BookHeightMode.SpecificValue)} , the '{nameof(BookHeightParameters)}.{nameof(BookHeightParameters.MaximumBookHeight)}' parameter must not be null.",
+                    new[] { nameof(BookHeightParameters.MaximumBookHeight) }));
 
-        if (BookheightParameters.Mode == BookheightMode.MaximumSawBladeProjection)
-            if (BookheightParameters.MaximumSawBladeProjection == null)
+        if (BookHeightParameters.Mode == BookHeightMode.MaximumSawBladeProjectionDeduction)
+            if (BookHeightParameters.MaximumSawBladeProjectionDeduction == null)
                 results.Add(new ValidationResult(
-                    $"When {nameof(BookheightParameters)}.{nameof(BookheightParameters.Mode)} is {nameof(BookheightMode.MaximumSawBladeProjection)} , the '{nameof(BookheightParameters)}.{nameof(BookheightParameters.MaximumSawBladeProjection)}' parameter must not be null.",
-                    new[] { nameof(BookheightParameters.MaximumSawBladeProjection) }));
+                    $"When {nameof(BookHeightParameters)}.{nameof(BookHeightParameters.Mode)} is {nameof(BookHeightMode.MaximumSawBladeProjectionDeduction)} , the '{nameof(BookHeightParameters)}.{nameof(BookHeightParameters.MaximumSawBladeProjectionDeduction)}' parameter must not be null.",
+                    new[] { nameof(BookHeightParameters.MaximumSawBladeProjectionDeduction) }));
 
         return results;
     }

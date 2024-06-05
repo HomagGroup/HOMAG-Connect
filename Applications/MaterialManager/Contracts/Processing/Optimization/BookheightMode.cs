@@ -1,8 +1,8 @@
 ﻿namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
 {
-    public enum BookheightMode
+    public enum BookHeightMode
     {
-        MaximumSawBladeProjection,
+        MaximumSawBladeProjectionDeduction,
         SingleBoard,
         SpecificValue
     }

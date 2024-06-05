@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
@@ -7,24 +8,28 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
     /// <summary>
     /// Model for material dependent offcut parameters.
     /// </summary>
-    public class BookheightParameters
+    public class BookHeightParameters : IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// Gets or sets whether the offcut parameters are enabled.
         /// </summary>
         [JsonProperty(Order = 10)]
-        public BookheightMode Mode { get; set; }
+        public BookHeightMode Mode { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum area of the offcut. The value is dependent on the unit system (Metric: m², Imperial: ft²).
+        /// The deduction of the maximum saw blade projection.
         /// </summary>
         [JsonProperty(Order = 11)]
-        public double? MaximumSawBladeProjection { get; set; }
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double? MaximumSawBladeProjectionDeduction { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum length of the offcut. The value is dependent on the unit system (Metric: mm, Imperial: inch).
+        /// The maximum book height.
         /// </summary>
         [JsonProperty(Order = 12)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? MaximumBookHeight { get; set; }
+
+        public UnitSystem UnitSystem { get; set; }
     }
 }
