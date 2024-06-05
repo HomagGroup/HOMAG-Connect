@@ -86,7 +86,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.EnsureSuccessStatusCode();
 
             // Wait for transferred
-            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(1));
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(2));
 
             optimization.Trace(nameof(optimization));
         }
@@ -264,7 +264,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(1));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(2));
 
             optimization.Trace(nameof(optimization));
 
