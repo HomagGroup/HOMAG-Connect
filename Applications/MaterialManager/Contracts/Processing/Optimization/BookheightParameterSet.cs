@@ -21,7 +21,7 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
     public string MaterialGroupName { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets the material codes for which the <see cref="OffcutParameterSet" /> is valid.
+    ///     Gets or sets the material codes for which the <see cref="BookHeightParameterSet" /> is valid.
     /// </summary>
     [JsonProperty(Order = 2)]
     [MinLength(1)]

@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
 {
     /// <summary>
-    /// Model for material dependent offcut parameters.
+    /// Model for material dependent book height parameters.
     /// </summary>
     public class BookHeightParameters : IContainsUnitSystemDependentProperties
     {
         /// <summary>
-        /// Gets or sets whether the offcut parameters are enabled.
+        /// Gets or sets whether the book height parameters are enabled.
         /// </summary>
         [JsonProperty(Order = 10)]
         public BookHeightMode Mode { get; set; }
