@@ -13,6 +13,7 @@ public class MaterialStatisticTests : IntelliDivideTestBase
 #pragma warning disable S2699 // Tests should include assertions
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024,6,15)]
     public async Task Statistics_GetMaterial_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();

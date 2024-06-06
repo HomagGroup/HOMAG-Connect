@@ -1,50 +1,26 @@
-﻿using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.MmrMobile.Client;
-using System.Net.Http.Headers;
+﻿namespace HomagConnect.MmrMobile.Tests;
 
-namespace HomagConnect.MmrMobile.Tests
+[TestClass]
+[TestCategory("MmrMobile")]
+public class GetMmrRoutes : MmrTestBase
 {
-    [TestClass]
-    [TestCategory("MmrMobile")]
-
-    public class GetMmrRoutes : MmrTestBase
+    [TestMethod]
+    public async Task GetCounterTest()
     {
-        [TestMethod]
-        [TemporaryDisabledOnServer(2024, 4, 1)]
-        public async Task GetCounterTest()
-        {
-            var (baseUrl, username, authorizationKey) = ReadProps();
+        var mmrMobileClient = GetMmrMobileClient();
 
-            var client = new HttpClient
-            {
-                BaseAddress = new Uri(baseUrl ?? "")
-            };
+        var counters = await mmrMobileClient.GetCounterData();
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username ?? "", authorizationKey ?? ""));
-            var mmrMobileClient = new MmrMobileClient(client);
+        Assert.IsNotNull(counters);
+    }
 
-            var counters = await mmrMobileClient.GetCounterData();
+    [TestMethod]
+    public async Task GetStatesTest()
+    {
+        var mmrMobileClient = GetMmrMobileClient();
 
-            Assert.IsNotNull(counters);
-        }
+        var states = await mmrMobileClient.GetStateData();
 
-        [TestMethod]
-        [TemporaryDisabledOnServer(2024, 4, 1)]
-        public async Task GetStatesTest()
-        {
-            var (baseUrl, username, authorizationKey) = ReadProps();
-
-            var client = new HttpClient
-            {
-                BaseAddress = new Uri(baseUrl ?? "")
-            };
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username ?? "", authorizationKey ?? ""));
-            var mmrMobileClient = new MmrMobileClient(client);
-
-            var states = await mmrMobileClient.GetStateData();
-
-            Assert.IsNotNull(states);
-        }
+        Assert.IsNotNull(states);
     }
 }

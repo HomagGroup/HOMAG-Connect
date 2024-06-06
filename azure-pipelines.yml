@@ -108,9 +108,9 @@ stages:
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
-          displayName: Run Integration Tests in DEV environment.   
+          displayName: Run Integration Tests in INT environment.   
           env:
-            HomagConnect:BaseUrl: $(HomagConnect:BaseUrl:DEV)
+            HomagConnect:BaseUrl: $(HomagConnect:BaseUrl:INT)
             HomagConnect:SubscriptionId: $(HomagConnect:SubscriptionId)
             HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
           inputs:
