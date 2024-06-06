@@ -1,7 +1,5 @@
 using FluentAssertions;
 
-using HomagConnect.Base.Tests.Attributes;
-
 namespace HomagConnect.MmrMobile.Tests;
 
 /// <summary />
@@ -11,7 +9,6 @@ public class MmrMobileClientTests : MmrTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,6,15)]
     public async Task GetCurrentValue()
     {
         // Arrange
@@ -27,7 +24,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task GetHistoricalValue()
     {
         // Arrange
@@ -79,7 +75,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task GetNodesForMachine()
     {
         // Arrange
@@ -95,7 +90,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task GetPointInTimeValue()
     {
         // Arrange
