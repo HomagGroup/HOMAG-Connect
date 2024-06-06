@@ -1,57 +1,17 @@
 using FluentAssertions;
+
 using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.MmrMobile.Client;
-using System.Net.Http.Headers;
 
 namespace HomagConnect.MmrMobile.Tests;
 
-/// <summary>
-/// 
-/// </summary>
+/// <summary />
 [TestClass]
 [TestCategory("MmrMobile")]
-
 public class MmrMobileClientTests : MmrTestBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    protected Guid TestSubscriptionId { get; } = new("62b8fee0-1b35-41c1-b03a-b947304a0d58");
-
-    /// <summary>
-    /// getmachines
-    /// </summary>
-    /// <returns></returns>
+    /// <summary />
     [TestMethod]
-    public async Task GetMachinesForMmr()
-    {
-        // Arrange
-        var client = GetMmrMobileClient();
-
-        // Act
-        var result = await client.GetMachines();
-
-        // Assert
-        result.Should().NotBeNull();
-
-    }
-
-    [TestMethod]
-    public async Task GetNodesForMachine()
-    {
-        // Arrange
-        var client = GetMmrMobileClient();
-
-        // Act
-        var machines = await client.GetMachines();
-        var result = await client.GetNodesOfMachine(machines.First()?.MachineNumber ?? "123");
-
-        // Assert
-        result.Should().NotBeNull();
-
-    }
-
-    [TestMethod]
+    [TemporaryDisabledOnServer(2024,6,15)]
     public async Task GetCurrentValue()
     {
         // Arrange
@@ -63,25 +23,11 @@ public class MmrMobileClientTests : MmrTestBase
 
         // Assert
         result.Should().NotBeNull();
-
     }
 
+    /// <summary />
     [TestMethod]
-    public async Task GetPointInTimeValue()
-    {
-        // Arrange
-        var client = GetMmrMobileClient();
-
-        // Act
-        var machines = await client.GetMachines();
-        var result = await client.GetPointInTimeValuesFromMachine(machines.First()?.MachineNumber ?? "123", "Test", DateTime.Now);
-
-        // Assert
-        result.Should().NotBeNull();
-
-    }
-
-    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 15)]
     public async Task GetHistoricalValue()
     {
         // Arrange
@@ -89,13 +35,14 @@ public class MmrMobileClientTests : MmrTestBase
 
         // Act
         var machines = await client.GetMachines();
-        var result = await client.GetTimeSeriesFromMachine(machines.First()?.MachineNumber ?? "123", "Test", DateTime.Now.AddDays(-5), DateTime.Now);
+        var result = await client.GetTimeSeriesFromMachine(machines.First()?.MachineNumber ?? "123", "Test",
+            DateTime.Now.AddDays(-5), DateTime.Now);
 
         // Assert
         result.Should().NotBeNull();
-
     }
 
+    /// <summary />
     [TestMethod]
     public async Task GetHistoricalValueFail()
     {
@@ -106,46 +53,61 @@ public class MmrMobileClientTests : MmrTestBase
         var machines = await client.GetMachines();
         try
         {
-            await client.GetTimeSeriesFromMachine(machines.First()?.MachineNumber ?? "123", "Test", DateTime.Now.AddDays(-5), DateTime.Now, 1001);
+            await client.GetTimeSeriesFromMachine(machines.First()?.MachineNumber ?? "123", "Test",
+                DateTime.Now.AddDays(-5), DateTime.Now, 1001);
             Assert.Fail();
         }
         catch (Exception)
         {
             // expected exception to be ignored
         }
-
     }
-    protected virtual MmrMobileClient GetMmrMobileClient()
+
+    /// <summary />
+    [TestMethod]
+    public async Task GetMachinesForMmr()
     {
-        var (baseUrl, username, authorizationKey) = ReadProps();
+        // Arrange
+        var client = GetMmrMobileClient();
 
-        if (TestContext != null && TestContext.Properties.Contains("BaseUrl"))
-        {
-            baseUrl = TestContext.Properties["BaseUrl"]?.ToString() ;
-        }
+        // Act
+        var result = await client.GetMachines();
 
-        if (TestContext != null && TestContext.Properties.Contains("AuthorizationKey"))
-        {
-            authorizationKey = TestContext.Properties["AuthorizationKey"]?.ToString();
-        }
+        // Assert
+        result.Should().NotBeNull();
+    }
 
-        if (TestContext != null && TestContext.Properties.Contains("Username"))
-        {
-            username = TestContext.Properties["Username"]?.ToString();
-        }
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 15)]
+    public async Task GetNodesForMachine()
+    {
+        // Arrange
+        var client = GetMmrMobileClient();
 
-        baseUrl.Should().NotBeNullOrEmpty();
-        username.Should().NotBeNullOrEmpty();
-        authorizationKey.Should().NotBeNullOrEmpty();
+        // Act
+        var machines = await client.GetMachines();
+        var result = await client.GetNodesOfMachine(machines.First()?.MachineNumber ?? "123");
 
-        baseUrl ??= "dummy"; // sonar
-        username ??= "dummy"; // sonar
-        authorizationKey ??= "dummy"; // sonar
-        var client = new HttpClient
-        {
-            BaseAddress = new Uri(baseUrl)
-        };
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(username, authorizationKey));
-        return new MmrMobileClient(client);
+        // Assert
+        result.Should().NotBeNull();
+    }
+
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024, 6, 15)]
+    public async Task GetPointInTimeValue()
+    {
+        // Arrange
+        var client = GetMmrMobileClient();
+
+        // Act
+        var machines = await client.GetMachines();
+        var result =
+            await client.GetPointInTimeValuesFromMachine(machines.First()?.MachineNumber ?? "123", "Test",
+                DateTime.Now);
+
+        // Assert
+        result.Should().NotBeNull();
     }
 }
