@@ -1,5 +1,6 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Base;
-using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
+﻿using System.Collections.Specialized;
+
+using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
@@ -40,20 +41,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         Task<IEnumerable<BoardEntity>> GetBoardEntitiesByIds(IEnumerable<string> ids);
 
         /// <summary>
-        /// Get board entity by id (#) including details.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<BoardEntityDetails> GetBoardEntityByIdIncludingDetails(string id);
-
-        /// <summary>
-        /// Get boards by code including details.
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        Task<IEnumerable<BoardEntityDetails>> GetBoardEntitiesByIdsIncludingDetails(IEnumerable<string> ids);
-
-        /// <summary>
         /// Get board entities by board code.
         /// </summary>
         /// <param name="boardCode"></param>
@@ -61,25 +48,11 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCode(string boardCode);
 
         /// <summary>
-        /// Get board entities by board code including details.
-        /// </summary>
-        /// <param name="boardCode"></param>
-        /// <returns></returns>
-        Task<IEnumerable<BoardEntityDetails>> GetBoardEntitiesByBoardCodeIncludingDetails(string boardCode);
-
-        /// <summary>
         /// Get board entities by board codes.
         /// </summary>
         /// <param name="boardCodes"></param>
         /// <returns></returns>
         Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCodes(IEnumerable<string> boardCodes);
-
-        /// <summary>
-        /// Get board entities by board codes including details.
-        /// </summary>
-        /// <param name="boardCodes"></param>
-        /// <returns></returns>
-        Task<IEnumerable<BoardEntityDetails>> GetBoardEntitiesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Get storage locations.
@@ -95,14 +68,9 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// Create a board instance for a certain boardType.
         /// </summary>
         /// <param name="boardTypeCode"></param>
-        /// <param name="quantity"></param>
-        /// <param name="managementType"></param>
-        /// <param name="comments"></param>
-        /// <param name="storageLocation"></param>
-        /// <param name="printLabel"></param>
+        /// <param name="boardEntity"></param>
         /// <returns></returns>
-        Task CreateBoardEntity(string boardTypeCode, int quantity, ManagementType managementType, string comments,
-            StorageLocation storageLocation, bool printLabel = false);
+        Task<BoardEntity> CreateBoardEntity(string boardTypeCode, BoardEntity boardEntity);
 
         /// <summary>
         /// Create a board type.
@@ -133,30 +101,40 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         Task UpdateBoardEntityComment(string id, string comments);
 
         /// <summary>
-        /// Print a label for a board by its code (#).
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task PrintLabel(string id);
-
-        /// <summary>
         /// Store a board by its code (#).
         /// </summary>
         /// <param name="id"></param>
         /// <param name="length"></param>
         /// <param name="width"></param>
         /// <param name="storageLocation"></param>
-        /// <param name="printLabel"></param>
         /// <returns></returns>
-        Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation, bool printLabel = false);
+        Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation);
 
         /// <summary>
-        /// Remove a board by its code (#).
+        /// Remove all board entities by its code (#). This is available for all ManagementTypes.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="deleteBoardFromInventory"></param>
         /// <returns></returns>
-        Task RemoveBoardEntity(string id, bool deleteBoardFromInventory = false);
+        Task RemoveAllBoardEntities(string id, bool deleteBoardFromInventory = false);
+
+        /// <summary>
+        /// Remove a single board entity / entities by its code (#). This is available for ManagementTypes GoodsInStock and Stack.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="quantity"></param>
+        /// <param name="deleteBoardFromInventory"></param>
+        /// <returns></returns>
+        Task RemoveSingleBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false);
+
+        /// <summary>
+        /// Remove a subset of board entities by its code (#). This is available for ManagementTypes GoodsInStock and Stack.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="quantity"></param>
+        /// <param name="deleteBoardFromInventory"></param>
+        /// <returns></returns>
+        Task RemoveSubsetBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false);
 
         #endregion Update
     }

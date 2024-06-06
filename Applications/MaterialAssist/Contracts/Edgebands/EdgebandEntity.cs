@@ -1,160 +1,55 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
+using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands
 {
     public class EdgebandEntity
     {
         /// <summary>
-        /// Gets or sets the timestamp when board type has been used last.
-        /// </summary>
-        public DateTimeOffset? MaterialLastUsed { get; set; }
-
-        #region Edgeband
-
-        /// <summary>
-        /// Gets or sets the edgeband code
+        /// Gets or sets the id (#)
         /// </summary>
         [Key]
-        public string? EdgebandCode { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
+        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
+        /// inch).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? Height { get; set; }
+        public double Height { get; set; }
 
         /// <summary>
-        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
+        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
+        /// inch).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? Thickness { get; set; }
+        public double CurrentThickness { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial: ft).
-        /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
-        public double? Length { get; set; }
-
-        #endregion
-
-        #region Material
-
-        /// <summary>
-        /// Gets or sets the material category.
-        /// </summary>
-        public EdgebandMaterialCategory? MaterialCategory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the gluing category.
-        /// </summary>
-        public GluingCategory? GluingCategory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the lasertec (J/cm^2).
-        /// </summary>
-        public double? Lasertec { get; set; } // TODO: Bool? No bool, here the pressure (J/cm^2) for the values is set
-
-        /// <summary>
-        /// Gets or sets the airtec. The unit depends on the settings of the subscription (metric: bar, imperial: psi).
-        /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Bar)]
-        public double? Airtec { get; set; } // TODO: Bool? No bool, here the pressure (bar) for the values is set
-
-        /// <summary>
-        /// Gets or sets the protection film thickness.
-        /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? ProtectionFilmThickness { get; set; }
-
-        /// <summary>
-        /// Gets or sets the protection layer thickness.
-        /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? FunctionLayerThickness { get; set; }
-
-        /// <summary>
-        /// Gets or sets the macro name.
-        /// </summary>
-        public string? MacroName { get; set; }
-
-        #endregion
-
-        #region Manufacturer
-
-        /// <summary>
-        /// Gets or sets the name of the manufacturer.
-        /// </summary>
-        public string? ManufacturerName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the decor name.
-        /// </summary>
-        public string? DecorName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the product.
-        /// </summary>
-        public string? ProductName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the decor code.
-        /// </summary>
-        public string? DecorCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the decor embossing code.
-        /// </summary>
-        public string? DecorEmbossingCode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the article number.
-        /// </summary>
-        public string? ArticleNumber { get; set; }
-
-        #endregion
-
-        #region Inventory
-
-        /// <summary>
-        /// Gets or sets the total quantity available warning limit.
-        /// </summary>
-        public int? TotalQuantityAvailableWarningLimit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total length available warning limit. The unit depends on the settings of the subscription (metric: m, imperial: ft).
+        /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
+        /// ft).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-        public double? TotalLengthAvailableWarningLimit { get; set; }
+        public double Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the total quantity of boards of this type which are available in the inventory.
+        /// Gets or sets the quantity of the edgeband entitiy.
         /// </summary>
-        public int? TotalQuantityAvailable { get; set; }
+        public double Quantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the total length of boards of this type which are available in the inventory.
+        /// Gets or sets the creation date.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-        public double? TotalLengthAvailable { get; set; }
+        public DateTimeOffset? CreationDate { get; set; }
 
         /// <summary>
-        /// Gets or sets a indication whether the <see cref="TotalQuantityAvailable" /> or <see cref="TotalLengthAvailable" /> is
-        /// below the defined limit
-        /// <see cref="TotalQuantityAvailableWarningLimit" />.
-        /// <see cref="TotalLengthAvailableWarningLimit" />.
+        /// Gets or set the location.
         /// </summary>
-        public bool? InsufficientInventory { get; set; }
-
-        #endregion
-
-        #region Additional data
+        public StorageLocation Location { get; set; }
 
         /// <summary>
         /// Gets or sets the additional comments.
@@ -162,10 +57,8 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         public string? Comments { get; set; }
 
         /// <summary>
-        /// Gets or set the thumbnail uri.
+        /// Gets or sets the edgeband type.
         /// </summary>
-        public Uri? Thumbnail { get; set; }
-
-        #endregion
+        public EdgebandType EdgebandType { get; set; }
     }
 }
