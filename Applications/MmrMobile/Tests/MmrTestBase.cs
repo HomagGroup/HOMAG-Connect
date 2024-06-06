@@ -1,29 +1,29 @@
+using System.Net.Http.Headers;
+
 using HomagConnect.Base.Tests;
-using Microsoft.Extensions.Configuration;
+using HomagConnect.MmrMobile.Client;
 
 namespace HomagConnect.MmrMobile.Tests;
 
 /// <summary>
-/// 
 /// </summary>
 public class MmrTestBase : TestBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="area"></param>
-    /// <returns></returns>
-    public static (string? baseUrl, string? username, string? token) ReadProps()
-    {
-        var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true)
-            .AddUserSecrets("10225a60-2f4f-4e77-b6b5-b57926da5ad6")
-            .AddEnvironmentVariables()
-            .Build();
-        var baseUrl = configuration["HomagConnect:BaseUrl"];
-        var username = configuration[$"HomagConnect:SubscriptionId"];
-        var AuthorizationKey = configuration[$"HomagConnect:AuthorizationKey"];
+    protected override Guid UserSecretsFolder { get; set; } = new("10225a60-2f4f-4e77-b6b5-b57926da5ad6");
 
-        return (baseUrl, username, AuthorizationKey);
+    protected MmrMobileClient GetMmrMobileClient()
+    {
+        Trace($"BaseUrl: {BaseUrl}");
+        Trace($"Subscription: {SubscriptionId}");
+        Trace($"AuthorizationKey: {AuthorizationKey[..4]}*");
+
+        var httpClient = new HttpClient
+        {
+            BaseAddress = BaseUrl
+        };
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+
+        return new MmrMobileClient(httpClient);
     }
 }

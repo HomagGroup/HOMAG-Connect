@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -191,7 +191,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardTypesDetails;
     }
 
-   
+
 
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
@@ -265,27 +265,40 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to)
+    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to)
     {
-        throw new NotSupportedException();
+        return await GetBoardTypeInventoryHistoryInternalAsync(null, null, from, to);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to)
+    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to)
     {
-        throw new NotSupportedException();
+        return await GetBoardTypeInventoryHistoryInternalAsync(materialCodes, null, from, to);
     }
 
-   
-    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
-    {
-        var uris = materialCodes
-            .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
-            .Join(QueryParametersMaxLength)
-            .Select(c => $"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}&boardTypeType={boardTypeType}" + c)
-            .Select(c => new Uri(c, UriKind.Relative));
 
-        return await RequestEnumerableAsync<BoardTypeInventoryHistory>(uris);
+    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to)
+    {
+
+        IEnumerable<String> paths;
+        if (materialCodes != null)
+        {
+            paths = materialCodes
+                .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}" + c);
+        }
+        else
+        {
+            paths = [$"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}"];
+        }
+
+        if (boardTypeType != null)
+        {
+            paths = paths.Select(c => c + $"&boardTypeType={boardTypeType}");
+        }
+
+        return await RequestEnumerableAsync<BoardTypeInventoryHistory>(paths.Select(c => new Uri(c, UriKind.Relative)));
     }
     #endregion
 }

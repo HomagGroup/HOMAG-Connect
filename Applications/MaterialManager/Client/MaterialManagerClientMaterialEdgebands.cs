@@ -19,6 +19,7 @@ namespace HomagConnect.MaterialManager.Client
         #region Constants
 
         private const string _BaseRoute = "api/materialManager/materials/edgebands";
+        private const string _BaseStatisticsRoute = "api/materialManager/statistics";
         private const string _EdgebandCode = "edgebandCode";
         private const string _IncludingDetails = "includingDetails";
 
@@ -112,6 +113,12 @@ namespace HomagConnect.MaterialManager.Client
             return edgebandTypeDetails;
         }
 
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandTypeInventory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
+        {
+            List<Uri> requestUri = [new Uri($"/{_BaseStatisticsRoute}/inventory/edgebands?from={from:s}&to={to:s}", UriKind.Relative)];
+            return await RequestEnumerableAsync<EdgebandTypeInventory>(requestUri);
+        }
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
             bool includingDetails = false)
