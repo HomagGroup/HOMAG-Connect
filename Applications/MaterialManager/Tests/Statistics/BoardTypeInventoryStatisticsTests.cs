@@ -1,5 +1,4 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Tests.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics
 {
@@ -11,7 +10,6 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 06, 15)]
         public async Task Statistics_GetInventoryByMaterial_NoException()
         {
             var materialClient = GetMaterialManagerClient();

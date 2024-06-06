@@ -23,7 +23,6 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 15)] // todo: reenable tests divide!
         public async Task NestingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly()
         {
             var intelliDivide = GetIntelliDivideClient();
