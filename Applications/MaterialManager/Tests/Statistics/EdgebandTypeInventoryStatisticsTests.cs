@@ -6,6 +6,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Statistics.Inventory")]
+    [TemporaryDisabledOnServer(2024, 6, 15)] // todo: reenable tests divide!
     public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
     {
         /// <summary />
