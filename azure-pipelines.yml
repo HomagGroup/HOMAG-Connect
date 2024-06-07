@@ -13,7 +13,7 @@ resources:
 trigger:
   branches:
     include:
-    - refs/heads/main
+    - refs/remotes/origin/main
   tags:
     include:
     - '*'
