@@ -11,9 +11,11 @@ resources:
     ref: main
 
 trigger:
+  pr:
+  - main
   branches:
     include:
-    - refs/remotes/origin/main
+    - refs/heads/main
   tags:
     include:
     - '*'
