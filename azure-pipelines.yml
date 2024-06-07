@@ -11,16 +11,14 @@ resources:
     ref: main
 
 trigger:
-  branches:
-    include:
-    - main
-  tags:
-    include:
-    - '*'
 pr:
   branches:
     include:
     - refs/heads/main
+  tags:
+    include:
+    - '*'
+
 
 variables:
   dotnetVersion: 8.0.x
