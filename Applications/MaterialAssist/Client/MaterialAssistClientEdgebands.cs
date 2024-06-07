@@ -2,7 +2,6 @@
 
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
-using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
@@ -14,12 +13,6 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientEdgebands
     {
-        private const string _BaseRoute = "api/materialAssist/edgebands";
-        private const string _BaseRouteMaterialManager = "api/materialManager/edgebands";
-        private const string _EdgebandCode = "edgebandCode";
-        private const string _IncludingDetails = "includingDetails";
-
-
         /// <inheritdoc />
         public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
 
@@ -30,10 +23,10 @@ namespace HomagConnect.MaterialAssist.Client
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}?/delete?{_EdgebandCode}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRoute}?/delete?{_Id}={Uri.EscapeDataString(id)}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
@@ -78,6 +71,23 @@ namespace HomagConnect.MaterialAssist.Client
 
         #endregion Private methods
 
+        #region Constants
+
+        private const string _BaseRoute = "api/materialAssist/edgebands";
+        private const string _BaseRouteMaterialManager = "api/materialManager/edgebands";
+        private const string _Id = "Id";
+        private const string _EdgebandCode = "edgebandCode";
+        private const string _EdgebandTypeCode = "edgebandTypeCode";
+        private const string _StorageLocation = "storageLocation";
+        private const string _DeleteFromInventory = "deleteFromInventory";
+        private const string _Length = "length";
+        private const string _CurrentThickness = "currentThickness";
+        private const string _Comments = "comments";
+        private const string _RemovalType = "removalType";
+        private const string _IncludingDetails = "includingDetails";
+
+        #endregion Constants
+
         #region Read
 
         /// <inheritdoc />
@@ -91,7 +101,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<EdgebandEntity> GetEdgebandEntityById(string id)
         {
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
 
             return await RequestObject<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
@@ -153,7 +163,7 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentNullException(nameof(ids), "At least one material code must be passed.");
             }
 
-            var urls = CreateUrls(codes, _EdgebandCode);
+            var urls = CreateUrls(codes, _Id);
             var boardTypes = new List<EdgebandEntity>();
 
             foreach (var url in urls)
@@ -179,10 +189,9 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task UpdateEdgebandEntityDimensions(string id, double length, double currentThickness)
         {
-            // if edgeband code is null or empty, throw an argument exception
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
             if (length <= 0.1)
@@ -196,7 +205,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}/update?{_EdgebandCode}={Uri.EscapeDataString(id)}&length={length}&currentThickness={currentThickness}";
+                $"{_BaseRoute}/update?{_Id}={Uri.EscapeDataString(id)}&{_Length}={length}&{_CurrentThickness}={currentThickness}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -204,14 +213,13 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task UpdateEdgebandEntityComments(string id, string comments)
         {
-            // if edgeband code is null or empty, throw an argument exception
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
             var url =
-                $"{_BaseRoute}/update?{_EdgebandCode}={Uri.EscapeDataString(id)}&comments={comments}";
+                $"{_BaseRoute}/update?{_Id}={Uri.EscapeDataString(id)}&{_Comments}={comments}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -220,7 +228,7 @@ namespace HomagConnect.MaterialAssist.Client
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
             if (string.IsNullOrEmpty(storageLocation))
@@ -234,7 +242,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}/store?{_EdgebandCode}={Uri.EscapeDataString(id)}&storageLocation={storageLocation}&length={length}";
+                $"{_BaseRoute}/store?{_Id}={Uri.EscapeDataString(id)}&{_StorageLocation}={storageLocation}&{_Length}={length}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -244,10 +252,10 @@ namespace HomagConnect.MaterialAssist.Client
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/remove?{_EdgebandCode}={Uri.EscapeDataString(id)}&deleteFromInventory={deleteFromInventory}&RemovalType=All";
+            var url = $"{_BaseRoute}/remove?{_Id}={Uri.EscapeDataString(id)}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=All";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -257,10 +265,10 @@ namespace HomagConnect.MaterialAssist.Client
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/remove?{_EdgebandCode}={Uri.EscapeDataString(id)}&deleteFromInventory={deleteFromInventory}&RemovalType=Single";
+            var url = $"{_BaseRoute}/remove?{_Id}={Uri.EscapeDataString(id)}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Single";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -270,10 +278,10 @@ namespace HomagConnect.MaterialAssist.Client
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentException("Edgeband code must not be null or empty", nameof(id));
+                throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/remove?{_EdgebandCode}={Uri.EscapeDataString(id)}&deleteFromInventory={deleteFromInventory}&RemovalType=Subset";
+            var url = $"{_BaseRoute}/remove?{_Id}={Uri.EscapeDataString(id)}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Subset";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -307,7 +315,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandTypeCode)}";
+                $"{_BaseRoute}?{_EdgebandTypeCode}={Uri.EscapeDataString(edgebandTypeCode)}";
 
             await PostObject(new Uri(url, UriKind.Relative), edgebandEntity);
             return new EdgebandEntity();

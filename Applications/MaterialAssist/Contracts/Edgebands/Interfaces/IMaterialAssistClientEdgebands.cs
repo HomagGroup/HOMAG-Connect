@@ -127,10 +127,10 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <summary>
         /// Adds a new edgeband entity.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="edgebandTypeCode"></param>
         /// <param name="edgebandEntity"></param>
         /// <returns></returns>
-        Task<EdgebandEntity> CreateEdgebandEntity(string id, EdgebandEntity edgebandEntity);
+        Task<EdgebandEntity> CreateEdgebandEntity(string edgebandTypeCode, EdgebandEntity edgebandEntity);
 
         /// <summary>
         /// Create a new edgeband type.
