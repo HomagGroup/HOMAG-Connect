@@ -11,13 +11,17 @@ resources:
     ref: main
 
 trigger:
-pr:
   branches:
     include:
     - refs/heads/main
   tags:
     include:
     - '*'
+
+pr:
+- main
+
+
 
 
 variables:
