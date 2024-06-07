@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "67ec2803-b9c4-4439-8f3a-a8d747a4328f",
+		"_postman_id": "86c39563-1670-4a97-8707-aef6e26ffd87",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -303,6 +303,87 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "Get BoardInventory History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?from=2024-04-01&to=2024-06-01&materialCode=P2_Icy White_19",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"statistics",
+								"inventory",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2024-04-01"
+								},
+								{
+									"key": "to",
+									"value": "2024-06-01"
+								},
+								{
+									"key": "boardtypetype",
+									"value": "Board",
+									"disabled": true
+								},
+								{
+									"key": "materialCode",
+									"value": "P2_Icy White_19"
+								},
+								{
+									"key": "materialCode",
+									"value": "VERT_19",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Edgeband Inventory History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/edgebands?from=2024-05-01&to=2024-06-01",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"statistics",
+								"inventory",
+								"edgebands"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2024-05-01"
+								},
+								{
+									"key": "to",
+									"value": "2024-06-01"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
