@@ -17,20 +17,20 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Timestamp, when the Event started
         /// </summary>
         [JsonProperty(Order = 1)]
-        public DateTimeOffset EventStartTime { get; set; }
+        public DateTimeOffset StartTime { get; set; }
 
         /// <summary>
         /// Timestamp for the end of the event
         /// If the event is still active, the current timestamp is returned
         /// </summary>
         [JsonProperty(Order = 2)]
-        public DateTimeOffset EventEndTime { get; set; }
+        public DateTimeOffset EndTime { get; set; }
 
         /// <summary>
         /// Unique identifier for one event
         /// </summary>
         [JsonProperty(Order = 2)]
-        public Guid EventInstanceId { get; set; }
+        public Guid InstanceId { get; set; }
 
         /// <summary>
         /// Machine-Number, Format "x-yyy-zz-nnnn"
