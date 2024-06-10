@@ -11,9 +11,7 @@ resources:
     ref: main
 
 trigger:
-  branches:
-    include:
-    - refs/heads/main
+- main
   tags:
     include:
     - '*'
