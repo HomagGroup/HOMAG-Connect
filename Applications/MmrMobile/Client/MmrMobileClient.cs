@@ -162,6 +162,37 @@ namespace HomagConnect.MmrMobile.Client
         }
         #endregion
 
+        #region machinedata
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take = 1000, int skip = 0)
+        {
+            string url = $"/api/mmr-mobile/eventdata/machines/{machineNumber}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.Relative)
+            };
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<IEnumerable<AlertEvent>>(result, SerializerSettings.Default);
+
+            return data ?? new List<AlertEvent>()
+            {
+                new AlertEvent
+                {
+                    MachineNumber = machineNumber
+                }
+            };
+        }
+        #endregion
+
         #region mmr states and counters
         /// <inheritdoc />
         public async Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,

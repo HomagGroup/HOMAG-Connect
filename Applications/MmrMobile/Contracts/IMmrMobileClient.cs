@@ -55,6 +55,23 @@ namespace HomagConnect.MmrMobile.Contracts
         Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take = 1000, int skip = 0);
         #endregion
 
+        #region eventdata
+
+        /// <summary>
+        /// get all  events from the requested timespan
+        /// to discuss: we should show also events, that overlap the requested duration and adjust the timestamps to fit into this period.
+        /// 
+        /// </summary>
+        /// <param name="machineNumber"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="take">TBD</param>
+        /// <param name="skip">TBD</param>
+        /// <returns cref="AlertEvent">A list of AlertEvents</returns>
+        Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take = 1000, int skip = 0);
+        #endregion
+
+
         #region mmr states and counters
         /// <summary>
         /// generic approarch for state data with much filters
