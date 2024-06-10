@@ -11,11 +11,18 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         #region Delete
 
         /// <summary>
-        /// Deletes the edgeband by id (#).
+        /// Deletes the edgeband entity by its id (#).
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteEdgebandEntity(string id);
+
+        /// <summary>
+        /// Deletes edgeband entities by their ids (#).
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task DeleteEdgebandEntity(IEnumerable<string> ids);
 
         #endregion Delete
 

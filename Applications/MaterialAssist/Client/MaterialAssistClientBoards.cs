@@ -19,9 +19,22 @@ namespace HomagConnect.MaterialAssist.Client
         #region Delete
 
         /// <inheritdoc />
-        public async Task DeleteBoardById(string id)
+        public async Task DeleteBoardEntity(string id)
         {
             var url = $"{_BaseRoute}/delete?{_Id}={id}";
+
+            await DeleteObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteBoardEntities(IEnumerable<string> ids)
+        {
+            var url = $"{_BaseRoute}";
+
+            var boardCodes = new StringBuilder("?");
+            boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={id}")));
+
+            url = url + boardCodes;
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
@@ -138,7 +151,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task UpdateBoardEntityComment(string id, string comments)
+        public async Task UpdateBoardEntityComments(string id, string comments)
         {
             var url = $"{_BaseRoute}/update?{_Id}={id}&{_Comments}={comments}";
 

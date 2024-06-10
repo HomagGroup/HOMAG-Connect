@@ -31,6 +31,19 @@ namespace HomagConnect.MaterialAssist.Client
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
+        /// <inheritdoc />
+        public async Task DeleteEdgebandEntity(IEnumerable<string> ids)
+        {
+            var url = $"{_BaseRoute}";
+
+            var edgebandCodes = new StringBuilder("?");
+            edgebandCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={id}")));
+
+            url = url + edgebandCodes;
+
+            await DeleteObject(new Uri(url, UriKind.Relative));
+        }
+
         #endregion Delete
 
         #region Private methods

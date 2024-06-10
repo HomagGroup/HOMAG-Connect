@@ -10,11 +10,19 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         #region Delete
 
         /// <summary>
-        /// Deletes a board from the inventory by its code (#).
+        /// Deletes a board from the inventory by their ids (#).
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteBoardById(string id);
+        Task DeleteBoardEntity(string id);
+
+        /// <summary>
+        /// Delete a board entities from the inventory by their ids (#).
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task DeleteBoardEntities(IEnumerable<string> ids);
+
 
         #endregion Delete
 
@@ -98,7 +106,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// <param name="id"></param>
         /// <param name="comments"></param>
         /// <returns></returns>
-        Task UpdateBoardEntityComment(string id, string comments);
+        Task UpdateBoardEntityComments(string id, string comments);
 
         /// <summary>
         /// Store a board by its code (#).
