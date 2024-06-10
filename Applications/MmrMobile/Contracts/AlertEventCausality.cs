@@ -8,82 +8,82 @@
         /// <summary>
         /// Machine is the causality />
         /// </summary>
-        CausalityMachine,
+        Machine,
 
         /// <summary>
         /// User is the causality />
         /// </summary>
-        CausalityUser,
+        User,
 
         /// <summary>
         /// Supply is the causality />
         /// </summary>
-        CausalitySupply,
+        Supply,
 
         /// <summary>
         /// PlantMode is the causality />
         /// </summary>
-        CausalityPlantMode,
+        PlantMode,
 
         /// <summary>
-        /// The causality /> is unknown
+        /// unknown
         /// </summary>
-        CausalityUnknown,
+        Unknown,
 
         /// <summary>
         /// MachineElectric is the causality />
         /// </summary>
-        CausalityMachineElectric,
+        MachineElectric,
 
         /// <summary>
         /// MachineMechanic is the causality />
         /// </summary>
-        CausalityMachineMechanic,
+        MachineMechanic,
 
         /// <summary>
         /// MachineControl is the causality />
         /// </summary>
-        CausalityMachineControl,
+        MachineControl,
 
         /// <summary>
         /// UserOperational is the causality />
         /// </summary>
-        CausalityUserOperational,
+        UserOperational,
 
         /// <summary>
         /// LackAuxilarySupplies is the causality />
         /// </summary>
-        CausalityUserLackAuxilarySupplies,
+        UserLackAuxilarySupplies,
 
         /// <summary>
         /// UserMaintenance is the causality />
         /// </summary>
-        CausalityUserMaintenance,
+        UserMaintenance,
 
         /// <summary>
         /// SupplyElectric is the causality />
         /// </summary>
-        CausalitySupplyElectric,
+        SupplyElectric,
 
         /// <summary>
         /// SupplyCompressedAir is the causality />
         /// </summary>
-        CausalitySupplyCompressedAir,
+        SupplyCompressedAir,
 
         /// <summary>
         /// SupplyAirSuction is the causality />
         /// </summary>
-        CausalitySupplyAirSuction,
+        SupplyAirSuction,
 
         /// <summary>
         /// SupplyData is the causality />
         /// </summary>
-        CausalitySupplyData,
+        SupplyData,
 
         /// <summary>
         /// SupplyOffcut is the causality />
         /// </summary>
-        CausalitySupplyOffcut
+        SupplyOffcut
 
     }
 }

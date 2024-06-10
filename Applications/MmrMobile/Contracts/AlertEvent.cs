@@ -1,11 +1,18 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace HomagConnect.MmrMobile.Contracts
 {
     public class AlertEvent : IExtensibleDataObject
     {
+        public AlertEvent(IEnumerable<KeyValuePair<string, string>> localizedSource, IEnumerable<KeyValuePair<string, string>> localizedMessage)
+        {
+            LocalizedSource = localizedSource;
+            LocalizedMessage = localizedMessage;
+        }
+
         /// <summary>
         /// Timestamp, when the Event started
         /// </summary>
@@ -13,7 +20,7 @@ namespace HomagConnect.MmrMobile.Contracts
         public DateTimeOffset EventStartTime { get; set; }
 
         /// <summary>
-        /// Timestmp for the end of the event
+        /// Timestamp for the end of the event
         /// If the event is still active, the current timestamp is returned
         /// </summary>
         [JsonProperty(Order = 2)]
@@ -43,7 +50,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// - optional : customer language
         /// </summary>
         [JsonProperty(Order = 5)]
-        public string? LocalizedSource { get; set; }
+        public IEnumerable<KeyValuePair<string,string>> LocalizedSource { get; set; }
 
         /// <summary>
         /// JSON-String containing the shown error-message of the event in all available languages
@@ -51,7 +58,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// - optional : customer language
         /// </summary>
         [JsonProperty(Order = 6)]
-        public string? LocalizedMessage { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> LocalizedMessage { get; set; }
 
         /// <summary>
         /// Category of the event
