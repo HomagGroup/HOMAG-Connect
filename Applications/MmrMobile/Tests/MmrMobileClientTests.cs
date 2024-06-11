@@ -33,7 +33,7 @@ public class MmrMobileClientTests : MmrTestBase
         // Act
         var machines = await client.GetMachines();
         var result = await client.GetTimeSeriesFromMachine(machines.First()?.MachineNumber ?? "123", "Test",
-            DateTime.Now.AddDays(-5), DateTime.Now);
+            DateTime.Now.AddDays(-5), DateTime.Now, 1000);
 
         // Assert
         result.Should().NotBeNull();
@@ -71,7 +71,7 @@ public class MmrMobileClientTests : MmrTestBase
         // Act
         var machines = await client.GetMachines();
         var result = await client.GetEventSeriesFromMachine(machines.First()?.MachineNumber ?? "123", 
-            DateTime.Now.AddDays(-5), DateTime.Now);
+            DateTime.Now.AddDays(-5), DateTime.Now, 1000);
 
         // Assert
         result.Should().NotBeNull();
