@@ -36,10 +36,13 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Machine-Number, Format "x-yyy-zz-nnnn"
         /// </summary>
         [JsonProperty(Order = 3)]
-        public string? MachineNumber { get; set; }
+        public string MachineNumber { get; set; }
 
         /// <summary>
         /// value = 1 - 1000
+        /// e.g.
+        /// 600 = pre warning on maintenance over 70%
+        /// 900 = maintenance is due (100%)
         /// </summary>
         [JsonProperty(Order = 4)]
         public short Severity { get; set; }

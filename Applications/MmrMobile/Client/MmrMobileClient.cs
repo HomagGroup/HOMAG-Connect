@@ -140,7 +140,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <param name="take">optional, how many rows to take</param>
         /// <param name="skip">optional, how many rows should be skipped before taking them into account</param>
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
-        public async Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take = 1000, int skip = 0)
+        public async Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take, int skip = 0)
         {
             string url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/nodes/{node}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
 
@@ -165,7 +165,7 @@ namespace HomagConnect.MmrMobile.Client
         #region machinedata
 
         /// <inheritdoc />
-        public async Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take = 1000, int skip = 0)
+        public async Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0)
         {
             string url = $"/api/mmr-mobile/eventdata/machines/{machineNumber}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
 
