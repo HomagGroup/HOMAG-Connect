@@ -311,7 +311,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<Optimization> GetOptimizationAsync(Guid optimizationId)
         {
-            if(optimizationId == Guid.Empty)
+            if (optimizationId == Guid.Empty)
             {
                 throw new ArgumentException("The optimization id must not be empty.", nameof(optimizationId));
             }

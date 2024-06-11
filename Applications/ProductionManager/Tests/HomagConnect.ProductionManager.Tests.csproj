@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <UserSecretsId>2f18cd1a-9f4a-4fa9-92b7-a6ca29955613</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Import\Project.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Import\Project.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.2.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
+    <ProjectReference Include="..\Client\HomagConnect.ProductionManager.Client.csproj" />
+    <ProjectReference Include="..\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
+    <ProjectReference Include="..\Samples\HomagConnect.ProductionManager.Samples.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+</Project>

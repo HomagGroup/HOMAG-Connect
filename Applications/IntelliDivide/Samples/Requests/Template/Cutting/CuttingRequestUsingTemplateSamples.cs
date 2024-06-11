@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
-using HomagConnect.IntelliDivide.Samples.Helper;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

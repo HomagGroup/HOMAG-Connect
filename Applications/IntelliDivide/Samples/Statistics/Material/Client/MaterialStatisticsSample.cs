@@ -1,6 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
-using HomagConnect.IntelliDivide.Samples.Helper;
 
 namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
 {
