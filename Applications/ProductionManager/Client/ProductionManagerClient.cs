@@ -17,6 +17,11 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile)
         {
+            if (!projectFile.Exists)
+            {
+                throw new FileNotFoundException($"Project file '{projectFile.FullName}' not found.");
+            }
+
             return await Task.FromResult(new ImportOrderResponse());
         }
 

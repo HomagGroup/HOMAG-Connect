@@ -1,9 +1,8 @@
-﻿using HomagConnect.ProductionManager.Contracts;
+﻿using HomagConnect.Base.Extensions;
+using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 
-using HomagConnect.Base.Extensions;
-
-namespace HomagConnect.ProductionManager.Samples.Import
+namespace HomagConnect.ProductionManager.Samples.Orders
 {
     /// <summary>
     /// Sample class which shows how to import an order.
@@ -16,7 +15,7 @@ namespace HomagConnect.ProductionManager.Samples.Import
         /// <param name="productionManager"></param>
         public static async Task ImportOrderUsingProjectZipAsync(IProductionManagerClient productionManager)
         {
-            var projectFile = new FileInfo(@"Import\Project.zip");
+            var projectFile = new FileInfo(@"Orders\Project.zip");
             
             var request = new ImportOrderRequest
             {

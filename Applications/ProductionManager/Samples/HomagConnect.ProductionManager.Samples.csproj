@@ -16,11 +16,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Import\Project.zip" />
+	  <None Remove="Orders\Project.zip" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Import\Project.zip">
+	  <Content Include="Orders\Project.zip">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    <Pack>true</Pack>
 	  </Content>

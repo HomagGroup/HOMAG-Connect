@@ -1,6 +1,6 @@
-using HomagConnect.ProductionManager.Samples.Import;
+using HomagConnect.ProductionManager.Samples.Orders;
 
-namespace HomagConnect.ProductionManager.Tests.Import
+namespace HomagConnect.ProductionManager.Tests.Orders
 {
     /// <summary />
     [TestClass]
@@ -10,14 +10,14 @@ namespace HomagConnect.ProductionManager.Tests.Import
     {
         /// <summary />
         [TestMethod]
-        public void ImportOrder_ProjectZip_NoException()
+        public async Task ImportOrder_ProjectZip_NoException()
         {
             var productionManager = GetProductionManagerClient();
             var anyException = false;
 
             try
             {
-                ImportOrderSamples.ImportOrderUsingProjectZipAsync(productionManager);
+                await ImportOrderSamples.ImportOrderUsingProjectZipAsync(productionManager);
             }
             catch (Exception e)
             {
