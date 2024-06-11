@@ -14,7 +14,7 @@ The following repository contains the **HOMAG Connect Clients**,
    [Documentation for materialManager Client](./Applications/MaterialManager/Documentation/README.md) and [some samples](./Applications/MaterialManager/Samples) for the usage.
 
 4. productionManager <br>
-   [Documentation for productionManager Client](./Applications/ProductionManager/README.md) and [some samples](./Applications/ProductionManager/Samples) for the usage.
+   [Documentation for productionManager Client](./Applications/ProductionManager/Readme.md) and [some samples](./Applications/ProductionManager/Samples) for the usage.
 
 
 With these packages you can easily integrate different workflows of HOMAG applications into your own application. For further details and prerequisites for using the Homag Connect, please see the documentation of each application.

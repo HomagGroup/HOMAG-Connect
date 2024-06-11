@@ -8,4 +8,4 @@
    [Documentation for materialManager Client](/MaterialManager/Documentation/README.md) and [some samples](/MaterialManager/Samples) for the usage.
 
 4. productionManager <br>
-   [Documentation for productionManager Client](/ProductionManager/README.md) and [some samples](/ProductionManager/Samples) for the usage.
+   [Documentation for productionManager Client](/ProductionManager/Readme.md) and [some samples](/ProductionManager/Samples) for the usage.
