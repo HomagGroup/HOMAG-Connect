@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Samples.Helper
+namespace HomagConnect.Base.Extensions
 {
-    internal static class DebugExtensions
+    /// <summary>
+    /// Trace extensions.
+    /// </summary>
+    public static class TraceExtensions
     {
         private static readonly JsonSerializerSettings _JsonSerializerSettings = new()
         {
@@ -13,7 +17,10 @@ namespace HomagConnect.IntelliDivide.Samples.Helper
             Formatting = Formatting.Indented
         };
 
-        internal static void Trace(this IEnumerable enumerable, [CallerMemberName] string description = "")
+        /// <summary>
+        /// Trace an enumerable.
+        /// </summary>
+        public static void Trace(this IEnumerable enumerable, [CallerMemberName] string description = "")
         {
             Console.WriteLine(description);
 
@@ -22,8 +29,13 @@ namespace HomagConnect.IntelliDivide.Samples.Helper
             Console.WriteLine(string.Empty);
         }
 
+        /// <summary>
+        /// Trace an object.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="description"></param>
 #pragma warning disable S4225 // Extension methods should not extend "object"
-        internal static void Trace(this object o, [CallerMemberName] string description = "")
+        public static void Trace(this object o, [CallerMemberName] string description = "")
 #pragma warning restore S4225 // Extension methods should not extend "object"
         {
             Console.WriteLine(description);

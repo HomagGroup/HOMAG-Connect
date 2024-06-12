@@ -7,8 +7,6 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Contracts.Request;
-using HomagConnect.IntelliDivide.Contracts.Result;
-using HomagConnect.IntelliDivide.Samples.Helper;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 {

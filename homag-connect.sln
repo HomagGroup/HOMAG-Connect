@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\Readme.md = Applications\Readme.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MMR Mobile", "HomagConnect.MMR Mobile", "{69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}"
 	ProjectSection(SolutionItems) = preProject
@@ -75,6 +78,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Edgebands", "Edgebands", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialManager.Samples", "Applications\MaterialManager\Samples\HomagConnect.MaterialManager.Samples.csproj", "{9348A3EA-DF7B-4879-AD8F-F76319EDA589}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.ProductionManager", "HomagConnect.ProductionManager", "{2743D67C-5341-4B75-B517-D9067D3E3583}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\ProductionManager\Readme.md = Applications\ProductionManager\Readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionManager.Contracts", "Applications\ProductionManager\Contracts\HomagConnect.ProductionManager.Contracts.csproj", "{FE328081-1533-427C-9F9E-F5A8F8A65D3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionManager.Client", "Applications\ProductionManager\Client\HomagConnect.ProductionManager.Client.csproj", "{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionManager.Samples", "Applications\ProductionManager\Samples\HomagConnect.ProductionManager.Samples.csproj", "{C3B29C91-E98C-4C21-A61B-104F8BF00FD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionManager.Tests", "Applications\ProductionManager\Tests\HomagConnect.ProductionManager.Tests.csproj", "{788EBDFD-D7DF-4C67-9410-5941E2840A35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +157,22 @@ Global
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE328081-1533-427C-9F9E-F5A8F8A65D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE328081-1533-427C-9F9E-F5A8F8A65D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE328081-1533-427C-9F9E-F5A8F8A65D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE328081-1533-427C-9F9E-F5A8F8A65D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +204,11 @@ Global
 		{F8ADCB89-E9EB-455C-AF38-F49D37181568} = {97E4117E-A777-47D0-B954-424260087FEB}
 		{E23C5DCD-636D-4B84-8CE8-4C00FCD63B6A} = {97E4117E-A777-47D0-B954-424260087FEB}
 		{9348A3EA-DF7B-4879-AD8F-F76319EDA589} = {BAD63B1E-5971-410C-9FEE-0D9D1DCBCAD3}
+		{2743D67C-5341-4B75-B517-D9067D3E3583} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{FE328081-1533-427C-9F9E-F5A8F8A65D3E} = {2743D67C-5341-4B75-B517-D9067D3E3583}
+		{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41} = {2743D67C-5341-4B75-B517-D9067D3E3583}
+		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7} = {2743D67C-5341-4B75-B517-D9067D3E3583}
+		{788EBDFD-D7DF-4C67-9410-5941E2840A35} = {2743D67C-5341-4B75-B517-D9067D3E3583}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

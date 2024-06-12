@@ -2,14 +2,13 @@
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Constants;
-using HomagConnect.IntelliDivide.Samples.Helper;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Results
 {
     /// <summary />
-    public class OptimizationResultSamples
+    public static class OptimizationResultSamples
     {
         private const int _Take = 3;
 

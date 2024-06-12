@@ -218,9 +218,20 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
 
+            if (projectFile == null)
+            {
+                throw new ArgumentNullException(nameof(projectFile));
+            }
+
+            if (!projectFile.Exists)
+            {
+                throw new FileNotFoundException($"The project file '{projectFile.FullName}' does not exist.");
+            }
+
             var fileName = projectFile.Name;
 
             using var stream = projectFile.OpenRead();
+
             const string uri = "api/intelliDivide/optimizations/RequestUsingProject";
             request.RequestUri = new Uri(uri, UriKind.Relative);
 
@@ -311,7 +322,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<Optimization> GetOptimizationAsync(Guid optimizationId)
         {
-            if(optimizationId == Guid.Empty)
+            if (optimizationId == Guid.Empty)
             {
                 throw new ArgumentException("The optimization id must not be empty.", nameof(optimizationId));
             }
