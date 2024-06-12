@@ -38,12 +38,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [JsonProperty(Order = 13)]
+        [Range(1, 10000)]
         public int Quantity { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the quantity how often the part can get produced optional.
         /// </summary>
         [JsonProperty(Order = 14)]
+        [Range(0, 10000)]
         public int QuantityPlus { get; set; }
 
         #endregion
