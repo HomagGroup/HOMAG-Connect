@@ -98,7 +98,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <param name="storageLocation"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        Task StoreEdgebandEntity(string id, string storageLocation, double length);
+        Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length);
 
         /// <summary>
         /// Removes the edgeband entity from storage. Available for all ManagementTypes.
