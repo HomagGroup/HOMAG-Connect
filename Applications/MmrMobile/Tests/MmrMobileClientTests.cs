@@ -1,4 +1,5 @@
 using FluentAssertions;
+using HomagConnect.Base.Tests.Attributes;
 
 namespace HomagConnect.MmrMobile.Tests;
 
@@ -32,7 +33,7 @@ public class MmrMobileClientTests : MmrTestBase
         // Act
         var machines = await client.GetMachines();
         var result = await client.GetTimeSeriesFromMachine(machines.First()?.MachineNumber ?? "123", "Test",
-            DateTime.Now.AddDays(-5), DateTime.Now);
+            DateTime.Now.AddDays(-5), DateTime.Now, 1000);
 
         // Assert
         result.Should().NotBeNull();
@@ -57,6 +58,23 @@ public class MmrMobileClientTests : MmrTestBase
         {
             // expected exception to be ignored
         }
+    }
+
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2024,7,15)]
+    public async Task GetHistoricalEventSeries()
+    {
+        // Arrange
+        var client = GetMmrMobileClient();
+
+        // Act
+        var machines = await client.GetMachines();
+        var result = await client.GetEventSeriesFromMachine(machines.First()?.MachineNumber ?? "123", 
+            DateTime.Now.AddDays(-5), DateTime.Now, 1000);
+
+        // Assert
+        result.Should().NotBeNull();
     }
 
     /// <summary />

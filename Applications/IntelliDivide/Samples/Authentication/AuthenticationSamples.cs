@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
-using HomagConnect.IntelliDivide.Samples.Helper;
 
 namespace HomagConnect.IntelliDivide.Samples.Authentication
 {

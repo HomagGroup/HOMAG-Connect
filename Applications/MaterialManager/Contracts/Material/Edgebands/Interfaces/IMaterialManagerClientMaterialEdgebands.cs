@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
 {
@@ -46,7 +47,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
         /// <summary>
-        /// Get <see cref="EdgebandTypeInventory" /> inventory history for edgebands<see cref="EdgebandType" />.
+        /// Get <see cref="EdgeInventoryHistory" /> inventory history for edgebands<see cref="EdgebandType" />.
         /// </summary>
         Task<IEnumerable<EdgebandTypeInventory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to);
 
@@ -60,5 +61,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task CreateEdgebandType(EdgebandType edgebandType);
 
         #endregion Create
+        Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to);
     }
 }

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>11.0</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.ProductionManager.Samples</PackageId>
+		<Title>Homag-Connect ProductionManager Samples</Title>
+		<Description>Client assembly showing the usage of Homag-Connect ProductionManager API</Description>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Orders\Project.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Orders\Project.zip">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <Pack>true</Pack>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup Label="Package References">
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+	  <ProjectReference Include="..\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
+	</ItemGroup>
+
+</Project>
