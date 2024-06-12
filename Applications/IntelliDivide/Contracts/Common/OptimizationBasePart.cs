@@ -26,6 +26,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [Required]
         [JsonProperty(Order = 10)]
+        [StringLength(100, MinimumLength = 1)]
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
@@ -51,12 +52,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the length of the part.
         /// </summary>
         [JsonProperty(Order = 20)]
+        [Range(0.1, 9999.9)]
         public double Length { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the part.
         /// </summary>
         [JsonProperty(Order = 21)]
+        [Range(0.1, 9999.9)]
         public double Width { get; set; }
 
         #endregion
@@ -67,24 +70,28 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the front.
         /// </summary>
         [JsonProperty(Order = 31)]
+        [StringLength(50, MinimumLength = 1)]
         public string EdgeFront { get; set; }
 
         /// <summary>
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the back.
         /// </summary>
         [JsonProperty(Order = 32)]
+        [StringLength(50, MinimumLength = 1)]
         public string EdgeBack { get; set; }
 
         /// <summary>
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the left.
         /// </summary>
         [JsonProperty(Order = 33)]
+        [StringLength(50, MinimumLength = 1)]
         public string EdgeLeft { get; set; }
 
         /// <summary>
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the right.
         /// </summary>
         [JsonProperty(Order = 34)]
+        [StringLength(50, MinimumLength = 1)]
         public string EdgeRight { get; set; }
 
         /// <summary>
@@ -101,12 +108,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the program name of the CNC program to execute.
         /// </summary>
         [JsonProperty(Order = 41)]
+        [StringLength(100, MinimumLength = 1)]
         public string CncProgramName1 { get; set; }
 
         /// <summary>
         /// Gets or sets the program name of the CNC program to execute.
         /// </summary>
         [JsonProperty(Order = 42)]
+        [StringLength(100, MinimumLength = 1)]
         public string CncProgramName2 { get; set; }
 
         #endregion
@@ -117,12 +126,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the material code of the laminate type which should get applied on the top.
         /// </summary>
         [JsonProperty(Order = 51)]
+        [StringLength(50, MinimumLength = 1)]
         public string LaminateTop { get; set; }
 
         /// <summary>
         /// Gets or sets the material code of the laminate type which should get applied on the bottom.
         /// </summary>
         [JsonProperty(Order = 52)]
+        [StringLength(50, MinimumLength = 1)]
         public string LaminateBottom { get; set; }
 
         #endregion
