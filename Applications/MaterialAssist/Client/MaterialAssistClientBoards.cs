@@ -146,7 +146,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task UpdateBoardEntityDimensions(string id, double length, double width)
         {
-            var url = $"{_BaseRoute}/{id}?{_Length}={length}&{_Width}={width}";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_Width}={width}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -154,7 +154,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task UpdateBoardEntityComments(string id, string comments)
         {
-            var url = $"{_BaseRoute}/{id}?{_Comments}={Uri.EscapeDataString(comments)}";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Comments}={Uri.EscapeDataString(comments)}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -162,7 +162,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
         {
-            var url = $"{_BaseRoute}/{id}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -170,7 +170,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task RemoveAllBoardEntities(string id, bool deleteBoardFromInventory = false)
         {
-            var url = $"{_BaseRoute}/{id}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -178,7 +178,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task RemoveSubsetBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false)
         {
-            var url = $"{_BaseRoute}/{id}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -186,7 +186,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task RemoveSingleBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false)
         {
-            var url = $"{_BaseRoute}/{id}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }

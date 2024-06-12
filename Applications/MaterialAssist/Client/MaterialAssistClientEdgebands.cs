@@ -37,7 +37,7 @@ namespace HomagConnect.MaterialAssist.Client
             var url = $"{_BaseRoute}";
 
             var edgebandCodes = new StringBuilder("?");
-            edgebandCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={id}")));
+            edgebandCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={Uri.EscapeDataString(id)}")));
 
             url += edgebandCodes;
 
@@ -57,7 +57,7 @@ namespace HomagConnect.MaterialAssist.Client
             var codeList = codes.ToList();
             while (i <= codeList.Count)
             {
-                queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
+                queryParameters.Append($"{searchCode}={Uri.EscapeDataString(Uri.EscapeDataString(codeList[i - 1]))}");
                 // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
                 if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
                 {
@@ -219,7 +219,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}/{id}?{_Length}={length}&{_CurrentThickness}={currentThickness}";
+                $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_CurrentThickness}={currentThickness}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -233,7 +233,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}/{id}?{_Comments}={comments}";
+                $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Comments}={comments}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -256,7 +256,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var url =
-                $"{_BaseRoute}/{id}/store?{_StorageLocation}={storageLocation}&{_Length}={length}";
+                $"{_BaseRoute}/{Uri.EscapeDataString(id)}/store?{_StorageLocation}={storageLocation}&{_Length}={length}";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -269,7 +269,7 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/{id}/remove?{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=All";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=All";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -282,7 +282,7 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/{id}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Single";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Single";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
@@ -295,7 +295,7 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/{id}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Subset";
+            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Subset";
 
             await PatchObject(new Uri(url, UriKind.Relative));
         }
