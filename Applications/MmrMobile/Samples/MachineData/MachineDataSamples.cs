@@ -99,7 +99,7 @@ namespace HomagConnect.Applications.MmrMobile.Samples
         {
             (string machine, string nodeName) = await GetValidMachineNode(mmrMobileClient);
 
-            MmrNodeData value = await mmrMobileClient.GetTimeSeriesFromMachine(machine, nodeName, DateTime.Now.AddDays(-4), DateTime.Now.AddDays(-2));
+            MmrNodeData value = await mmrMobileClient.GetTimeSeriesFromMachine(machine, nodeName, DateTime.Now.AddDays(-4), DateTime.Now.AddDays(-2),1000);
 
             if (value != null && value.Nodes?.Length > 0)
             {
