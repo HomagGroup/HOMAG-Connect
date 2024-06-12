@@ -36,23 +36,26 @@ namespace HomagConnect.MmrMobile.Contracts
         /// request for one machine and a (comma separated) list of nodes the last know value
         /// for a given point in time
         /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <param name="node"></param>
-        /// <param name="timestamp"></param>
         /// <returns></returns>
         Task<MmrNodeData> GetPointInTimeValuesFromMachine(string machineNumber, string node, DateTime timestamp);
 
         /// <summary>
         /// Get for a given duration and a given list of nodes all values reported from the machine
         /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <param name="node"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
         /// <returns></returns>
-        Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take = 1000, int skip = 0);
+        Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take , int skip = 0);
+        #endregion
+
+        #region eventdata
+
+        /// <summary>
+        /// get all  events from the requested timespan
+        /// we show also events, that overlap the requested duration 
+        /// - start was before from-value
+        /// - end is after to-value
+        /// </summary>
+        /// <returns cref="AlertEvent">A list of AlertEvents</returns>
+        Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0);
         #endregion
 
         #region mmr states and counters
