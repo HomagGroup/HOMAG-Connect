@@ -20,7 +20,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase, IMateria
 
     private const string _BaseRoute = "api/materialManager/processing/optimization";
     private const string _Offcuts = "offcuts";
-    private const string _MaterialCodes = "materialCodes";
+    private const string _MaterialCode = "materialCode";
 
     #endregion Constants
 
@@ -44,7 +44,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase, IMateria
             .OrderBy(m => m).ToArray();
 
         StringBuilder materialCodesString = new StringBuilder();
-        materialCodesString.Append(string.Join("&", validatedMaterialCodes.Select(materialCode => $"{_MaterialCodes}={materialCode}")));
+        materialCodesString.Append(string.Join("&", validatedMaterialCodes.Select(materialCode => $"{_MaterialCode}={materialCode}")));
 
         var url = $"{_BaseRoute}/{_Offcuts}?{materialCodesString}";
 
