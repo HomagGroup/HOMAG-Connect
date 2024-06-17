@@ -13,7 +13,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders
         /// </summary>
         public static async Task GetAllOrdersAsync(IProductionManagerClient productionManager)
         {
-            var response = await productionManager.GetOrders();
+            var response = await productionManager.GetOrdersAsync();
             
             response.Trace();
         }

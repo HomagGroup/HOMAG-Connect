@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.Import
         /// The unique id of this order
         /// </summary>
         [JsonProperty(Order = 1)]
-        public string Id { get; set; } = string.Empty;
+        public Guid Id { get; set; }
 
         /// <summary>
         ///  The name of this order

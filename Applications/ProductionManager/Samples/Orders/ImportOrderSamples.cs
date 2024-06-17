@@ -33,9 +33,9 @@ namespace HomagConnect.ProductionManager.Samples.Orders
         /// <param name="productionManager"></param>
         public static async Task GetImportOrderStateAsync(IProductionManagerClient productionManager)
         {
-            var corellationId = Guid.NewGuid();
+            var correlationId = Guid.NewGuid();
 
-            var response = await productionManager.GetImportOrderStateAsync(corellationId.ToString());
+            var response = await productionManager.GetImportOrderStateAsync(correlationId);
 
             response.Trace();
         }
