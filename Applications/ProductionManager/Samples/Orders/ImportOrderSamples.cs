@@ -26,5 +26,18 @@ namespace HomagConnect.ProductionManager.Samples.Orders
             
             response.Trace();
         }
+
+        /// <summary>
+        /// Get the status of an order import operation.
+        /// </summary>
+        /// <param name="productionManager"></param>
+        public static async Task GetImportOrderStateAsync(IProductionManagerClient productionManager)
+        {
+            var corellationId = Guid.NewGuid();
+
+            var response = await productionManager.GetImportOrderStateAsync(corellationId.ToString());
+
+            response.Trace();
+        }
     }
 }

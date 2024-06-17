@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,14 +16,26 @@ namespace HomagConnect.ProductionManager.Client
         #region IProductionManagerClient
 
         /// <inheritdoc />
-        public async Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile)
+        public async Task<ImportOrderResult> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile)
         {
             if (!projectFile.Exists)
             {
                 throw new FileNotFoundException($"Project file '{projectFile.FullName}' not found.");
             }
 
-            return await Task.FromResult(new ImportOrderResponse());
+            return await Task.FromResult(new ImportOrderResult());
+        }
+
+        /// <inheritdoc />
+        public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(string correlationId)
+        {
+            return await Task.FromResult(new ImportOrderStateResponse());
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Order>> GetOrders()
+        {
+            return await Task.FromResult(Array.Empty<Order>());
         }
 
         #endregion
