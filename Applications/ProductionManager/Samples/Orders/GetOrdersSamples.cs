@@ -9,7 +9,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders
     public static class GetOrderSamples
     {
         /// <summary>
-        /// Gets the available orders for a customer.
+        /// Gets all the available orders for a customer.
         /// </summary>
         public static async Task GetAllOrdersAsync(IProductionManagerClient productionManager)
         {
