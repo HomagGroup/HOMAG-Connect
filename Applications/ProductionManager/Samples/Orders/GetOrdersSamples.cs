@@ -11,7 +11,6 @@ namespace HomagConnect.ProductionManager.Samples.Orders
         /// <summary>
         /// Gets the available orders for a customer.
         /// </summary>
-        /// <param name="productionManager"></param>
         public static async Task GetAllOrdersAsync(IProductionManagerClient productionManager)
         {
             var response = await productionManager.GetOrders();

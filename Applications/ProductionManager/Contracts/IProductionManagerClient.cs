@@ -17,7 +17,7 @@ namespace HomagConnect.ProductionManager.Contracts
         ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
         /// format.
         /// </param>
-        Task<ImportOrderResult> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
+        Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
 
         /// <summary>
         /// Get the import state of an order

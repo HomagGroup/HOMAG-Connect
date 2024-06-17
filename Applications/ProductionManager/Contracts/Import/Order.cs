@@ -43,6 +43,6 @@ namespace HomagConnect.ProductionManager.Contracts.Import
         /// The state of the order. Possible states are:`New` / `ReadyForProduction` / `InProduction` / `Finished` 
         /// </summary>       
         [JsonProperty(Order = 4)]
-        public string State { get; set; } = string.Empty;
+        public OrderState State { get; set; }
     }
 }

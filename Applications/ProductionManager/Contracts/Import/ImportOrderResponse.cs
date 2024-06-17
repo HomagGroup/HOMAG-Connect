@@ -3,9 +3,9 @@
 namespace HomagConnect.ProductionManager.Contracts.Import;
 
 /// <summary>
-/// Order import operation result
+/// Order import operation response
 /// </summary>
-public class ImportOrderResult
+public class ImportOrderResponse
 {
     /// <summary>
     /// Gets or sets the corellation Id for the import job
