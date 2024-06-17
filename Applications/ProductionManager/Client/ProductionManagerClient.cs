@@ -27,12 +27,14 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
+
         public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId)
         {
             return await Task.FromResult(new ImportOrderStateResponse());
         }
 
         /// <inheritdoc />
+
         public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             return await Task.FromResult(Array.Empty<Order>());
