@@ -24,12 +24,12 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
         /// <returns></returns>
-        Task<ImportOrderStateResponse> GetImportOrderStateAsync(string correlationId);
+        Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId);
 
         /// <summary>
         /// Get all orders the customer has access to
         /// </summary>
         /// <returns>The list of others</returns>
-        Task<IEnumerable<Order>> GetOrders();
+        Task<IEnumerable<Order>> GetOrdersAsync();
     }
 }

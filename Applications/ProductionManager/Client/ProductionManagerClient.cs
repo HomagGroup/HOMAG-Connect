@@ -20,20 +20,20 @@ namespace HomagConnect.ProductionManager.Client
         {
             if (!projectFile.Exists)
             {
-                throw new FileNotFoundException($"Project file '{projectFile.FullName}' not found.");
+                throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
             }
 
             return await Task.FromResult(new ImportOrderResponse());
         }
 
         /// <inheritdoc />
-        public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(string correlationId)
+        public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId)
         {
             return await Task.FromResult(new ImportOrderStateResponse());
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Order>> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             return await Task.FromResult(Array.Empty<Order>());
         }
