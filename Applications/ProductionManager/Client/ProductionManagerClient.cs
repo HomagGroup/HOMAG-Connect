@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -23,6 +24,18 @@ namespace HomagConnect.ProductionManager.Client
             }
 
             return await Task.FromResult(new ImportOrderResponse());
+        }
+
+        /// <inheritdoc />
+        public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(string correlationId)
+        {
+            return await Task.FromResult(new ImportOrderStateResponse());
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Order>> GetOrders()
+        {
+            return await Task.FromResult(Array.Empty<Order>());
         }
 
         #endregion
