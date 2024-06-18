@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -117,7 +118,7 @@ namespace HomagConnect.MaterialManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
         {
-            List<Uri> requestUri = [new Uri($"/{_BaseStatisticsRoute}/inventory/edgebands?from={from:s}&to={to:s}", UriKind.Relative)];
+            List<Uri> requestUri = [new Uri($"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}", UriKind.Relative)];
             var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
             return ret;
         }

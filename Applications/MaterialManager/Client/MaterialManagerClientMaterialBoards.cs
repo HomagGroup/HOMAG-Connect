@@ -6,6 +6,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -290,11 +291,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             paths = materialCodes
                 .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
                 .Join(QueryParametersMaxLength)
-                .Select(c => $"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}" + c);
+                .Select(c => $"/{_BaseStatisticsRoute}/inventory/boards?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" + c);
         }
         else
         {
-            paths = [$"/{_BaseStatisticsRoute}/inventory/boards?from={from:s}&to={to:s}"];
+            paths = [$"/{_BaseStatisticsRoute}/inventory/boards?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}"];
         }
 
         if (boardTypeType != null)
