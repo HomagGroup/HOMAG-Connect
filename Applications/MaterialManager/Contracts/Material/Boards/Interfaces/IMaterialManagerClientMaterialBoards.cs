@@ -85,6 +85,20 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to);
 
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for specific material codes and <see cref="BoardTypeType" />.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for all board types.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for specific material codes.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack);
         #endregion
     }
 }

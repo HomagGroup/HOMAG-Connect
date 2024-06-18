@@ -50,5 +50,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// Get <see cref="EdgeInventoryHistory" /> inventory history for edgebands<see cref="EdgebandType" />.
         /// </summary>
         Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to);
+
+        /// <summary>
+        /// Get <see cref="EdgeInventoryHistory" /> inventory history for edgebands<see cref="EdgebandType" />.
+        /// </summary>
+        Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack);
     }
 }

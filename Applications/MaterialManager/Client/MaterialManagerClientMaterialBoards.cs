@@ -263,6 +263,23 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return await GetBoardTypeInventoryHistoryInternalAsync(materialCodes, null, from, to);
     }
 
+    /// <inheritdoc />
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack)
+    {
+        return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now);
+    }
+
+    /// <inheritdoc />
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack)
+    {
+        return GetBoardTypeInventoryHistoryAsync( DateTime.Now.AddDays(-daysBack), DateTime.Now);
+    }
+
+    /// <inheritdoc />
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack)
+    {
+        return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now);
+    }
 
     private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to)
     {

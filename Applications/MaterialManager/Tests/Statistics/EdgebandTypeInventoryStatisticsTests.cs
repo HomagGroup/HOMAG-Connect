@@ -6,7 +6,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Statistics.Inventory")]
-    [TemporaryDisabledOnServer(2024, 6, 15)] // todo: reenable tests divide!
+    [TemporaryDisabledOnServer(2024, 7, 15)] 
     public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
     {
         /// <summary />
@@ -25,5 +25,17 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
             Trace(statistics);
         }
 
+        /// <summary />
+        [TestMethod]
+        public async Task Statistics_GetInventory_ByDays_NoException()
+        {
+            var materialClient = GetMaterialManagerClient();
+
+            var statistics = await materialClient.Material.Edgebands.GetEdgebandTypeInventoryHistoryAsync(60);
+
+            Assert.IsNotNull(statistics);
+
+            Trace(statistics);
+        }
    }
 }

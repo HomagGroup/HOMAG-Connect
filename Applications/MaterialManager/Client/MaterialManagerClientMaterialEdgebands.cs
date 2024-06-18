@@ -122,6 +122,11 @@ namespace HomagConnect.MaterialManager.Client
             return ret;
         }
 
+        public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
+        {
+            return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
+        }
+
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
             bool includingDetails = false)
         {
