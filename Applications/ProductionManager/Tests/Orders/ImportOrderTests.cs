@@ -1,3 +1,4 @@
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Samples.Orders;
 
 namespace HomagConnect.ProductionManager.Tests.Orders
@@ -6,6 +7,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders.Import")]
+    [TemporaryDisabledOnServer(2024, 7, 15)]
     public class ImportOrderTests : ProductionManagerTestBase
     {
         /// <summary />
