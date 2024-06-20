@@ -73,7 +73,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         public double Waste { get; set; }
 
         /// <summary>
-        /// Gets or sets validation and error messages
+        /// Gets or sets validation messages
         /// </summary>
         public OptimizationValidationResult[] ValidationResults { get; set; } = Array.Empty<OptimizationValidationResult>();
     }
