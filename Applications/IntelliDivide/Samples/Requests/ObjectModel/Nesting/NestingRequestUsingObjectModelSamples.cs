@@ -49,7 +49,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting
             {
                 Description = "Part A",
                 MprFileName = mprReference,
-                MaterialCode = "P2_Gold Craft Oak_19.0",
+                MaterialCode = "P2_Gold Craft Oak_19",
                 Grain = Grain.Lengthwise,
                 MprProgramVariables = new Collection<MprProgramVariable>
                 {
@@ -65,7 +65,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting
             {
                 Description = "Part B",
                 MprFileName = mprReference,
-                MaterialCode = "P2_Gold Craft Oak_19.0",
+                MaterialCode = "P2_Gold Craft Oak_19",
                 Grain = Grain.Lengthwise,
                 MprProgramVariables = new Collection<MprProgramVariable>
                 {
@@ -113,7 +113,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting
             {
                 Description = "Part A",
                 MprFileName = mprA.Name,
-                MaterialCode = "P2_Gold Craft Oak_19.0",
+                MaterialCode = "P2_Gold Craft Oak_19",
                 Grain = Grain.Lengthwise,
                 Quantity = 2
             });
