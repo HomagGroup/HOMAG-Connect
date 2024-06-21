@@ -2,15 +2,13 @@
 
 - [Authentication / Authorization](Authentication/Readme.md)
 
-- Request a optimization
+- Import an order
 
-	- Using a Object Model
-		- [Request a cutting optimization using object model](Requests/ObjectModel/Cutting/Readme.md)
-		- [Request a nesting optimization using object model](Requests/ObjectModel/Nesting/Readme.md)
-		
-	- Using a structured file (Excel, CSV, PNX, ...) and a template
-		- [Request a cutting optimization using a structured file and a template](Requests/Template/Cutting/Readme.md)
-		- [Request a nesting optimization using a structured file and a template](Requests/Template/Nesting/Readme.md)
+	- Using a structured file (.Zip)
+		- [Start import job for an order ](Orders/Import/Readme.md)
+		- [Get import status](Orders/Import/Readme.md)
 
+- Retrieving orders
 
-- [Material Statistics](Statistics/Material/Readme.md)
+	- Get a all orders
+		- [Retrieve all available orders](Orders/Import/Readme.md)
