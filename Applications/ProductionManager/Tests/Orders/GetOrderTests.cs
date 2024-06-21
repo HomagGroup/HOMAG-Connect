@@ -1,4 +1,5 @@
 using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.ProductionManager.Client;
 using HomagConnect.ProductionManager.Samples.Orders;
 
 namespace HomagConnect.ProductionManager.Tests.Orders
@@ -14,7 +15,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders
         [TestMethod]
         public async Task Orders_GetAllOrders_NoException()
         {
-            var productionManager = GetProductionManagerClient();
+            // Create new instance of the ProductionManager client:
+            var productionManager = new ProductionManagerClient(SubscriptionId, AuthorizationKey, BaseUrl);
             var anyException = false;
 
             try
