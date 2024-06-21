@@ -4,7 +4,7 @@ using HomagConnect.ProductionManager.Contracts.Import;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomagConnect.ProductionManager.Samples.Orders
+namespace HomagConnect.ProductionManager.Samples.Orders.Import
 {
     /// <summary>
     /// Sample class which shows how to import an order.

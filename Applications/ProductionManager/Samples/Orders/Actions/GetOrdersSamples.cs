@@ -3,7 +3,7 @@ using HomagConnect.ProductionManager.Contracts;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomagConnect.ProductionManager.Samples.Orders
+namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 {
     /// <summary>
     /// Sample class which shows how to get orders.

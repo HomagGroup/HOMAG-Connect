@@ -1,7 +1,7 @@
 using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.ProductionManager.Samples.Orders;
+using HomagConnect.ProductionManager.Samples.Orders.Import;
 
-namespace HomagConnect.ProductionManager.Tests.Orders
+namespace HomagConnect.ProductionManager.Tests.Orders.Import
 {
     /// <summary />
     [TestClass]

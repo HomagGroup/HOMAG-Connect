@@ -1,8 +1,8 @@
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Client;
-using HomagConnect.ProductionManager.Samples.Orders;
+using HomagConnect.ProductionManager.Samples.Orders.Actions;
 
-namespace HomagConnect.ProductionManager.Tests.Orders
+namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 {
     /// <summary />
     [TestClass]
