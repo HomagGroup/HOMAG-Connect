@@ -27,14 +27,26 @@ The prepared request needs to be sent to productionManager.
 var response = await productionManager.ImportOrderAsync(request, projectFile);
 
 ```
-> For a detailed example on how start an import job, please refer to <i>ImportOrderUsingProjectZipAsync</i> in the file [ImportOrdersSamples.cs](ImportOrderSamples.cs).
-##### Utilize the outcome of the import
 
 The outcome of the import would be a 'correlationId' which can be used to find additional data about the import which is taking place
 
 ```c#
-var response = await productionManager.ImportOrderAsync(request, projectFile);
 var correlationId = response.CorrelationId;
 ```
+> For a detailed example on how start an import job, please refer to <i>ImportOrderUsingProjectZipAsync</i> in the file [ImportOrdersSamples.cs](ImportOrderSamples.cs).
+
+# Utilize the outcome of the import
+### Get the import state
+
+After the import job is started, the response will contain a 'correlationId' which can be used to retrieve the status of the import job.
+
+```c#
+var importState = await productionManager.GetImportOrderStateAsync(correlationId);
+```
+
+The result is a [ImportOrderStateResponse](./Contracts/Import/ImportOrderStateResponse.cs) which based on the progress of the import job can retrieve a link to the newly created order and also the ID of the order.
+In case of error during import, 'ErrorDetails' should contain some basic information why the import failed.
+
+Also the current state of the import is retrieved. The possible states are defined in [ImportState](../../../Contracts/Import/ImportState.cs).
 
 > For a detailed example on how to use the outcome of import job, please refer to <i>GetImportOrderStateAsync</i> in the file [ImportOrdersSamples.cs](ImportOrderSamples.cs).
