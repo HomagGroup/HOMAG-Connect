@@ -6,7 +6,7 @@
 
 	- Using a structured file (.Zip)
 		- [Start import job for an order ](Orders/Import/Readme.md)
-		- [Get import status](Orders/Import/Readme.md)
+		- [Get import status](Orders/Import/Readme.md#Utilizetheoutcomeoftheimport)
 
 - Retrieving orders
 
