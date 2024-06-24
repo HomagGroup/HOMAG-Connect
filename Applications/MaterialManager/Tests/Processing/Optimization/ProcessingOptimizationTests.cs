@@ -14,7 +14,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 14)] // todo: reenable tests divide!
+    [TemporaryDisabledOnServer(2024, 7, 14)] // todo: reenable tests divide!
     public async Task OffcutParameters_RequestForMultipleMaterials_ConfigValid()
     {
         var client = GetMaterialManagerClient();
@@ -38,7 +38,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 6, 14)] // todo: reenable tests divide!
+    [TemporaryDisabledOnServer(2024, 7, 14)] // todo: reenable tests divide!
     public async Task OffcutParameters_RequestForOneMaterial_ConfigValid()
     {
         var client = GetMaterialManagerClient();
