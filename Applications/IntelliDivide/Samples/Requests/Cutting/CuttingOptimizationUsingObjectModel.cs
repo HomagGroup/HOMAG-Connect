@@ -292,7 +292,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             request.Parts.Add(new()
             {
                 Description = "Part A",
-                MaterialCode = "P2_Gold Craft Oak_19",
+                MaterialCode = "P2_Gold_Craft_Oak_19.0",
                 Length = 400,
                 Width = 200,
                 Grain = Grain.Lengthwise,

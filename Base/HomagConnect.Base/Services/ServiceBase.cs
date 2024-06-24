@@ -93,19 +93,7 @@ namespace HomagConnect.Base.Services
           await  response.EnsureSuccessStatusCodeWithDetailsAsync(request);
         }
 
-        protected async Task PostObject(Uri uri)
-        {
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = uri
-            };
-
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
-            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-        }
-
-        protected async Task<HttpResponseMessage> PostObject(Uri uri, StringContent content)
+        protected async Task<HttpResponseMessage> PostObject(Uri uri, StringContent content = null)
         {
             var request = new HttpRequestMessage
             {
