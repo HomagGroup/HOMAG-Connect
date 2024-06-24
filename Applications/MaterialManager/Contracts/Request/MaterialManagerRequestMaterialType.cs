@@ -9,28 +9,22 @@ namespace HomagConnect.MaterialManager.Contracts.Request;
 public abstract class MaterialManagerRequestMaterialType
 {
     /// <summary>
-    /// Gets or sets the costs of the board per m² or ft².
-    /// </summary>
-    [Range(0, double.PositiveInfinity)]
-    public double? Costs { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the name of the manufacturer.
-    /// </summary>
-    [StringLength(50)]
-    public string? ManufacturerName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name of the product.
-    /// </summary>
-    [StringLength(50)]
-    public string? ProductName { get; set; }
-
-    /// <summary>
     /// Gets or sets the article number.
     /// </summary>
     [StringLength(50)]
     public string? ArticleNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets the additional comments.
+    /// </summary>
+    [StringLength(300)]
+    public string Comments { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the costs of the board per m² or ft².
+    /// </summary>
+    [Range(0, double.PositiveInfinity)]
+    public double? Costs { get; set; }
 
     /// <summary>
     /// Gets or sets the decor code.
@@ -43,12 +37,18 @@ public abstract class MaterialManagerRequestMaterialType
     /// </summary>
     [StringLength(50)]
     public string? DecorName { get; set; }
-        
+
     /// <summary>
-    /// Gets or sets the additional comments.
+    /// Gets or sets the name of the manufacturer.
     /// </summary>
-    [StringLength(300)]
-    public string Comments { get; set; } = string.Empty;
+    [StringLength(50)]
+    public string? ManufacturerName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the product.
+    /// </summary>
+    [StringLength(50)]
+    public string? ProductName { get; set; }
 
     /// <summary>
     /// Gets or set the thumbnail uri.
