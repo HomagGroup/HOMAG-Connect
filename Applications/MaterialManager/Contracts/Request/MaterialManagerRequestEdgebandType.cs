@@ -9,7 +9,7 @@ namespace HomagConnect.MaterialManager.Contracts.Request;
 /// <summary>
 /// Request object to create an edgeband in materialManager.
 /// </summary>
-public class MaterialManagerRequestEdgeBandType : MaterialManagerRequestMaterialType
+public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterialType
 {
     /// <summary>
     /// Gets or sets the edgeband code
@@ -22,28 +22,33 @@ public class MaterialManagerRequestEdgeBandType : MaterialManagerRequestMaterial
     /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
     /// </summary>
     [Required]
+    [Range(0.1, 999.9)]
     public double Height { get; set; }
 
     /// <summary>
     /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
     /// </summary>
     [Required]
+    [Range(0.1, 99.9)]
     public double Thickness { get; set; }
 
     /// <summary>
     /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial: ft).
     /// </summary>
     [Required]
+    [Range(0.1, 9999.9)]
     public double Length { get; set; }
 
     /// <summary>
     /// Gets or sets the material category.
     /// </summary>
+    [Required]
     public EdgebandMaterialCategory MaterialCategory { get; set; }
 
     /// <summary>
     /// Gets or sets the gluing category.
     /// </summary>
+    [Required]
     public GluingCategory GluingCategory { get; set; }
 
     /// <summary>

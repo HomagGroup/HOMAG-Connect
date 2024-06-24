@@ -114,7 +114,7 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgeBandType edgebandTypeRequest)
+        public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest)
         {
             if (edgebandTypeRequest == null)
             {
