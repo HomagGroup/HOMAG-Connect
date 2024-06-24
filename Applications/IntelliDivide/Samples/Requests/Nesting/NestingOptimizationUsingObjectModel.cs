@@ -173,7 +173,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
                 Description = mprB.Name,
                 MprFileName = mprB.Name,
             
-                MaterialCode = "P2_White_19",
+                MaterialCode = "P2_White_19.0",
                 Grain = Grain.None,
                 Quantity = 5
             });

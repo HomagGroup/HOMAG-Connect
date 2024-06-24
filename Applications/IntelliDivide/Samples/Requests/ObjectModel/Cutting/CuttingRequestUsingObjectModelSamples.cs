@@ -119,7 +119,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
                 new()
                 {
                     Description = "Part A",
-                    MaterialCode = "P2_White_19",
+                    MaterialCode = "P2_White_19.0",
                     Length = 300,
                     Width = 300,
                     Quantity = 5
@@ -128,7 +128,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
             request.Parts.Add(new()
             {
                 Description = "Part B",
-                MaterialCode = "P2_White_19",
+                MaterialCode = "P2_White_19.0",
                 Length = 600,
                 Width = 300,
                 Quantity = 10

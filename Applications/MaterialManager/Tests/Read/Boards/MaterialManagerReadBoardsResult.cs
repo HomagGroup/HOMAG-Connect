@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 7, 20)] // todo: reenable tests divide!
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task GetLocations_GetResult_NoException()
 
         {
@@ -26,12 +26,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
             await MaterialManagerReadBoardsResults.GetLocations(materialManager.Material.Boards, ["P2_Graphitschwarz_19.0_2800_2070", "P2_Lichtgrau_19_2800_2070"]);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task GetMaterialCodes_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
