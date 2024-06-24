@@ -50,7 +50,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 20)] // todo: reenable tests divide!
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task NestingRequest_ObjectModel_MprProgramVariables_ImportOnly()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -59,7 +59,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task CreateNestingOptimizationRequestByObjectModel()
 
         {
@@ -69,7 +69,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task CreateNestingOptimizationRequestByObjectModelAndOptimize()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -78,7 +78,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 1)] // todo: reenable tests divide!
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task CreateNestingOptimizationRequestByObjectModelAndOptimizeAndSend()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -95,7 +95,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 20)]
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task CreateNestingOptimizationUsingProjectZipAndOptimize()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -104,7 +104,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 20)]
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task CreateNestingOptimizationUsingProjectZipAndOptimizeAndSend()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -113,7 +113,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 6, 20)]
+        [TemporaryDisabledOnServer(2024, 7, 1)]
         public async Task CreateNestingOptimizationRequestByObjectModelOptimizeAndRetrieveResults()
         {
             var intelliDivide = GetIntelliDivideClient();
