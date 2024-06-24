@@ -12,6 +12,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.MaterialManager.Contracts.Request;
+
+using Newtonsoft.Json;
+
 namespace HomagConnect.MaterialManager.Client;
 
 /// <summary>
@@ -191,8 +195,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return boardTypesDetails;
     }
 
-
-
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
@@ -228,6 +230,35 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
     #endregion
 
+    #region create
+    
+    /// <inheritdoc />
+    public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
+    {
+        if (boardTypeRequest == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeRequest));
+        }
+
+        ValidateRequiredProperties(boardTypeRequest);
+        
+        var payload = JsonConvert.SerializeObject(boardTypeRequest);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_BaseRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    #endregion 
+    
     #region statistics
 
     /// <inheritdoc />

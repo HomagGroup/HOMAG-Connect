@@ -5,11 +5,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client
 {
@@ -113,6 +115,31 @@ namespace HomagConnect.MaterialManager.Client
             }
 
             return edgebandTypeDetails;
+        }
+        
+        /// <inheritdoc />
+        public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgeBandType edgebandTypeRequest)
+        {
+            if (edgebandTypeRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandTypeRequest));
+            }
+
+            ValidateRequiredProperties(edgebandTypeRequest);
+        
+            var payload = JsonConvert.SerializeObject(edgebandTypeRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRoute, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
 
         /// <inheritdoc />

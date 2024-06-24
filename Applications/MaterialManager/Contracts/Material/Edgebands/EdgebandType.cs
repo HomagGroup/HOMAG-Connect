@@ -58,7 +58,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial: ft).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double? Length { get; set; }
 
         /// <summary>
