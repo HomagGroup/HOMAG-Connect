@@ -31,7 +31,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
             {
                 Name = "HOMAG Connect - Template_CSV_MPR_ImportAndOptimize",
                 Machine = "productionAssist Nesting",
-                Parameters = "Default Nesting",
+                Parameters = (await  intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 ImportTemplate = "CSV-MPR template",
                 Action = OptimizationRequestAction.Optimize
             };

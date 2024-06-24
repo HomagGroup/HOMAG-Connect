@@ -36,7 +36,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting
             {
                 Name = "HOMAG Connect - ObjectModel_MprProgramVariables_ImportOnly",
                 Machine = "productionAssist Nesting",
-                Parameters = "Default",
+                Parameters =(await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 Action = OptimizationRequestAction.ImportOnly
             };
 
@@ -100,8 +100,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting
             var request = new OptimizationRequest
             {
                 Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
-                Machine = "productionAssist Nesting",
-                Parameters = "Default",
+                Machine =  "productionAssist Nesting",
+                Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 Action = OptimizationRequestAction.ImportOnly
             };
 

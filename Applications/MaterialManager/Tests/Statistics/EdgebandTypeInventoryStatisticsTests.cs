@@ -6,7 +6,6 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Statistics.Inventory")]
-    [TemporaryDisabledOnServer(2024, 7, 15)] 
     public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
     {
         /// <summary />
