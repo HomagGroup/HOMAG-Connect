@@ -18,7 +18,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
     public async Task OffcutParameters_RequestForMultipleMaterials_ConfigValid()
     {
         var client = GetMaterialManagerClient();
-        var materialCodes = new[] { "P2_Gold Craft Oak_19.0", "P2_White_19.0", "MDF_19.0", "VP_Fichte_19.0", "HPL_F638_10.0" };
+        var materialCodes = new[] { "P2_Gold_Craft_Oak_19.0", "P2_White_19.0", "MDF_19.0", "VP_Fichte_19.0", "HPL_F638_10.0" };
 
         var offcutParameterSets = await client.Processing.Optimization.GetOffcutParameterSetsAsync(materialCodes).ToListAsync();
 
@@ -42,7 +42,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
     public async Task OffcutParameters_RequestForOneMaterial_ConfigValid()
     {
         var client = GetMaterialManagerClient();
-        const string materialCode = "P2_Gold Craft Oak_19.0";
+        const string materialCode = "P2_Gold_Craft_Oak_19.0";
 
         var offcutParameterSet = await client.Processing.Optimization.GetOffcutParameterSetAsync(materialCode);
 
