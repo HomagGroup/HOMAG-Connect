@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
@@ -12,6 +13,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
     /// </summary>
     public interface IMaterialManagerClientMaterialBoards
     {
+        /// <summary>
+        /// Creates the board type in materialManager.
+        /// </summary>
+        /// <returns>The created board type <see cref="BoardType" />.</returns>
+        Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
+
         /// <summary>
         /// Gets the board type by board code.
         /// </summary>
@@ -23,7 +30,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <param name="boardCode"></param>
         /// <returns></returns>
         Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
-
 
         /// <summary>
         /// Gets the board types paginated
@@ -67,7 +73,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
-
         #region Inventory History
 
         /// <summary>
@@ -99,6 +104,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Get <see cref="BoardType" /> inventory history for specific material codes.
         /// </summary>
         Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack);
+
         #endregion
     }
 }
