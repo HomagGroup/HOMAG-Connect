@@ -11,4 +11,4 @@
 - Retrieving orders
 
 	- Get a all orders
-		- [Retrieve all available orders](Orders/Import/Readme.md)
+		- [Retrieve all available orders](Orders/Actions/Readme.md)
