@@ -25,6 +25,9 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
                 Assert.IsFalse(string.IsNullOrEmpty(order.Name));
                 Assert.AreNotEqual(Guid.Empty, order.Id);
             }
+
+            var orderNames = response.Select(x => x.Name).ToList();
+            orderNames.Trace(nameof(orderNames));
         }
     }
 }
