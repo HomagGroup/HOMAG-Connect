@@ -1,16 +1,30 @@
-# HOMAG Connect ProductionManager Samples
+# Access data using the HOMAG Connect Client
 
-- [Authentication / Authorization](Authentication/Readme.md)
+With the HOMAG Connect Client, the orders can be retrieved from productionManager for further programmatic evaluation.
 
-- Request a optimization
+<strong>Example:</strong>
 
-	- Using a Object Model
-		- [Request a cutting optimization using object model](Requests/ObjectModel/Cutting/Readme.md)
-		- [Request a nesting optimization using object model](Requests/ObjectModel/Nesting/Readme.md)
-		
-	- Using a structured file (Excel, CSV, PNX, ...) and a template
-		- [Request a cutting optimization using a structured file and a template](Requests/Template/Cutting/Readme.md)
-		- [Request a nesting optimization using a structured file and a template](Requests/Template/Nesting/Readme.md)
+```c#
+ // Create new instance of the productionManager client:
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
 
+// Get the data
+var orders =  await client.GetOrdersAsync();
 
-- [Material Statistics](Statistics/Material/Readme.md)
+// Use the retrieved data
+  orders.Trace();
+
+  Assert.IsTrue(orders.Any());
+  foreach (var order in orders)
+  {
+      Assert.IsFalse(string.IsNullOrEmpty(order.Name));
+      Assert.AreNotEqual(Guid.Empty, order.Id);
+  }
+
+  var orderNames = orders.Select(x => x.Name).ToList();
+  orderNames.Trace(nameof(orderNames));
+``` 
+
+The response is a list of [Order](../../../Contracts/Import/Order.cs) which exposes basic information about the order
+
+The sample code can be found at [ProductionManager - Get Orders sample ](GetOrdersSamples.cs).
