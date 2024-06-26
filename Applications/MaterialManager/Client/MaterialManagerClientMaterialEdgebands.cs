@@ -5,11 +5,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using HomagConnect.Base.Contracts.Extensions;
+
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client
 {
@@ -18,18 +21,14 @@ namespace HomagConnect.MaterialManager.Client
     /// </summary>
     public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialManagerClientMaterialEdgebands
     {
-        #region Constants
-
         private const string _BaseRoute = "api/materialManager/materials/edgebands";
         private const string _BaseStatisticsRoute = "api/materialManager/statistics";
         private const string _EdgebandCode = "edgebandCode";
         private const string _IncludingDetails = "includingDetails";
 
-        #endregion
-
         /// <inheritdoc />
-        public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }        
-        
+        public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }
+
         /// <inheritdoc />
         public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
         {
@@ -84,7 +83,6 @@ namespace HomagConnect.MaterialManager.Client
             return boardTypes;
         }
 
-
         /// <inheritdoc />
         public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
         {
@@ -116,9 +114,39 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
+        public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest)
+        {
+            if (edgebandTypeRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandTypeRequest));
+            }
+
+            ValidateRequiredProperties(edgebandTypeRequest);
+
+            var payload = JsonConvert.SerializeObject(edgebandTypeRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRoute, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
+        }
+
+        /// <inheritdoc />
         public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
         {
-            List<Uri> requestUri = [new Uri($"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}", UriKind.Relative)];
+            List<Uri> requestUri =
+            [
+                new Uri(
+                    $"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}",
+                    UriKind.Relative)
+            ];
             var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
             return ret;
         }
@@ -163,4 +191,3 @@ namespace HomagConnect.MaterialManager.Client
         }
     }
 }
-

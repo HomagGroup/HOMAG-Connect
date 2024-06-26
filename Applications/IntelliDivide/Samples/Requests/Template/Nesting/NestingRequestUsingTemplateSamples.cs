@@ -19,7 +19,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
         /// <summary>
         /// Gets the materials used in the samples.
         /// </summary>
-        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold Craft Oak_19" };
+        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold_Craft_Oak_19.0" };
 
         /// <summary>
         /// The sample shows how to create a nesting request using a structured file (Excel, CSV, PNX, ...), the referenced MPRs
@@ -31,7 +31,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
             {
                 Name = "HOMAG Connect - Template_CSV_MPR_ImportAndOptimize",
                 Machine = "productionAssist Nesting",
-                Parameters = "Default Nesting",
+                Parameters = (await  intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 ImportTemplate = "CSV-MPR template",
                 Action = OptimizationRequestAction.Optimize
             };

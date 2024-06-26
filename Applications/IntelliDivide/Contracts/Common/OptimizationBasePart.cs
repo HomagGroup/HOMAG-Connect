@@ -53,14 +53,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
-        public double Length { get; set; }
+        public double? Length { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the part.
         /// </summary>
         [JsonProperty(Order = 21)]
         [Range(0.1, 9999.9)]
-        public double Width { get; set; }
+        public double? Width { get; set; }
 
         #endregion
 
