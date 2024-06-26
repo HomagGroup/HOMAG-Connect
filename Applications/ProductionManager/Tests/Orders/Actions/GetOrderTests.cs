@@ -8,7 +8,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders")]
-    [TemporaryDisabledOnServer(2024, 7, 15)]
+    [TemporaryDisabledOnServer(2024, 7, 22)]
     public class GetOrderTests : ProductionManagerTestBase
     {
         /// <summary />
@@ -16,7 +16,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
         public async Task Orders_GetAllOrders_NoException()
         {
             // Create new instance of the ProductionManager client:
-            var productionManager = new ProductionManagerClient(SubscriptionId, AuthorizationKey, BaseUrl);
+            var productionManager = new ProductionManagerClient(SubscriptionId, AuthorizationKey);
             var anyException = false;
 
             try
