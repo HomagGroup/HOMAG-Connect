@@ -227,6 +227,23 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
+        /// Gets the total value of boards of this type in inventory
+        /// </summary>
+        [JsonProperty(Order = 53)]
+        public double? TotalValueInInventory
+        {
+            get
+            {
+                if (TotalAreaInInventory.HasValue && Costs.HasValue)
+                {
+                    return Costs.Value * TotalAreaInInventory.Value;
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the total area of boards of this type in the inventory. The unit depends on the settings of the
         /// subscription (metric: m², imperial: ft²).
         /// </summary>
