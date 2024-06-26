@@ -17,7 +17,7 @@ public class ImportOrderStateResponse
     /// Gets or sets the order id
     /// </summary>
     [JsonProperty(Order = 1)]
-    public Guid OrderId { get; set; }
+    public Guid? OrderId { get; set; }
 
     /// <summary>
     /// Gets or sets the Import state of the order

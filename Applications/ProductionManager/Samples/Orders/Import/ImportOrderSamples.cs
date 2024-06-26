@@ -2,7 +2,9 @@
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 
-namespace HomagConnect.ProductionManager.Samples.Orders
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace HomagConnect.ProductionManager.Samples.Orders.Import
 {
     /// <summary>
     /// Sample class which shows how to import an order.
@@ -23,6 +25,8 @@ namespace HomagConnect.ProductionManager.Samples.Orders
             };
 
             var response = await productionManager.ImportOrderAsync(request, projectFile);
+
+            Assert.AreNotEqual(Guid.Empty, response.CorrelationId);
             
             response.Trace();
         }
@@ -33,7 +37,17 @@ namespace HomagConnect.ProductionManager.Samples.Orders
         /// <param name="productionManager"></param>
         public static async Task GetImportOrderStateAsync(IProductionManagerClient productionManager)
         {
-            var correlationId = Guid.NewGuid();
+            //First trigger an import job to get a correlation Id
+            var projectFile = new FileInfo(@"Orders\Project.zip");
+
+            var request = new ImportOrderRequest
+            {
+                Action = ImportOrderRequestAction.ImportOnly
+            };
+
+            var importOrderJob = await productionManager.ImportOrderAsync(request, projectFile);
+
+            var correlationId = importOrderJob.CorrelationId;
 
             var response = await productionManager.GetImportOrderStateAsync(correlationId);
 

@@ -1,7 +1,9 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 
-namespace HomagConnect.ProductionManager.Samples.Orders
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 {
     /// <summary>
     /// Sample class which shows how to get orders.
@@ -14,8 +16,18 @@ namespace HomagConnect.ProductionManager.Samples.Orders
         public static async Task GetAllOrdersAsync(IProductionManagerClient productionManager)
         {
             var response = await productionManager.GetOrdersAsync();
-            
+
             response.Trace();
+
+            Assert.IsTrue(response.Any());
+            foreach (var order in response)
+            {
+                Assert.IsFalse(string.IsNullOrEmpty(order.Name));
+                Assert.AreNotEqual(Guid.Empty, order.Id);
+            }
+
+            var orderNames = response.Select(x => x.Name).ToList();
+            orderNames.Trace(nameof(orderNames));
         }
     }
 }
