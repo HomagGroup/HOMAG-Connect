@@ -23,7 +23,14 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity)
         {
-            throw new NotImplementedException();
+            var request = new FeedbackRequest
+            {
+                WorkstationId = workstationId,
+                ProductionEntityId = productionEntityId,
+                Quantity = quantity
+            };
+
+            return Task.CompletedTask;
         }
 
         #endregion
