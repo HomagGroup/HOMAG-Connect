@@ -118,9 +118,9 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         {
             get
             {
-                if (TotalQuantityInInventory.HasValue && TotalQuantityAvailable.HasValue)
+                if (TotalQuantityInInventory.HasValue && TotalQuantityAllocated.HasValue)
                 {
-                    return TotalQuantityInInventory.Value - TotalQuantityAvailable.Value;
+                    return TotalQuantityInInventory.Value - TotalQuantityAllocated.Value;
                 }
 
                 return null;

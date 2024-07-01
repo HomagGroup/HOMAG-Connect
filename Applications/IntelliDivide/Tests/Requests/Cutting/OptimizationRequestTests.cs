@@ -38,7 +38,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,7,1)]
+    [TemporaryDisabledOnServer(2024,7,15)]
     public async Task CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -47,7 +47,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 1)]
+    [TemporaryDisabledOnServer(2024, 7, 15)]
     public async Task CuttingRequest_Template_Excel_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -56,7 +56,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 1)]
+    [TemporaryDisabledOnServer(2024, 7, 15)]
     public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -106,7 +106,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,7,1)]
+    [TemporaryDisabledOnServer(2024, 7, 15)]
     public async Task CreateCuttingOptimizationByObjectModelOptimizeAndRetrieveResults()
     {
         var intelliDivide = GetIntelliDivideClient();
