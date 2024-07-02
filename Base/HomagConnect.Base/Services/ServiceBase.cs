@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -92,16 +93,19 @@ namespace HomagConnect.Base.Services
           await  response.EnsureSuccessStatusCodeWithDetailsAsync(request);
         }
 
-        protected async Task PostObject(Uri uri)
+        protected async Task<HttpResponseMessage> PostObject(Uri uri, StringContent content = null)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = uri
+                RequestUri = uri,
+                Content = content
             };
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            
+            return response;
         }
 
         protected async Task<T> PostObject<T>(Uri uri, T data)
@@ -185,7 +189,22 @@ namespace HomagConnect.Base.Services
 
             return data;
         }
+        
+        protected static void ValidateRequiredProperties(object boardTypeRequest)
+        {
+            var validationResults = new List<ValidationResult>();
+            var validationContext = new ValidationContext(boardTypeRequest, null, null);
+            var isValid = Validator.TryValidateObject(boardTypeRequest, validationContext, validationResults, true);
 
+            if (isValid)
+            {
+                return;
+            }
+
+            var errorMessages = validationResults.Select(vr => vr.ErrorMessage);
+            throw new ValidationException("Required properties are missing: " + string.Join(", ", errorMessages));
+        }
+        
         private void Initialize(Guid subscriptionId, string authorizationKey, Uri baseUri)
         {
             var httpClient = new HttpClient

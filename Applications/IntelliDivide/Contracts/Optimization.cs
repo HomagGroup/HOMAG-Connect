@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.IntelliDivide.Contracts.Request;
 
 namespace HomagConnect.IntelliDivide.Contracts
 {
@@ -70,5 +71,10 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         [DefaultValue(0.0)]
         public double Waste { get; set; }
+
+        /// <summary>
+        /// Gets or sets validation messages
+        /// </summary>
+        public OptimizationValidationResult[] ValidationResults { get; set; } = Array.Empty<OptimizationValidationResult>();
     }
 }

@@ -25,5 +25,21 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Trace(statistics);
         }
+
+        /// <summary />
+        [TestMethod]
+        public async Task Statistics_GetInventoryByMaterial_ByDay_NoException()
+        {
+            var materialClient = GetMaterialManagerClient();
+
+            var materialCodes = new[] { "P2_White_19", "P2_White_8" };
+
+            var statistics = await materialClient.Material.Boards.GetBoardTypeInventoryHistoryAsync(materialCodes, BoardTypeType.Board, 90);
+
+            Assert.IsNotNull(statistics);
+
+            Trace(statistics);
+        }
+
     }
 }

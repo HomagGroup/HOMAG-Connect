@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
@@ -16,6 +16,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         #region Read
 
         /// <summary>
+        /// Creates the board type in materialManager.
+        /// </summary>
+        /// <returns>The created board type <see cref="BoardType" />.</returns>
+        Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
+
+        /// <summary>
         /// Gets the board type by board code.
         /// </summary>
         Task<BoardType> GetBoardTypeByBoardCode(string boardCode);
@@ -26,7 +32,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <param name="boardCode"></param>
         /// <returns></returns>
         Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
-
 
         /// <summary>
         /// Gets the board types paginated
@@ -70,19 +75,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
-        #endregion Read
-
-        #region Create
-
-        /// <summary>
-        /// Create a board type for the passed parameters
-        /// </summary>
-        /// <param name="boardType"></param>
-        /// <returns></returns>
-        Task CreateBoardType(BoardType boardType);
-
-        #endregion Create
-
         #region Inventory History
 
         /// <summary>
@@ -99,6 +91,21 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Get <see cref="BoardType" /> inventory history for specific material codes.
         /// </summary>
         Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for specific material codes and <see cref="BoardTypeType" />.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for all board types.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack);
+
+        /// <summary>
+        /// Get <see cref="BoardType" /> inventory history for specific material codes.
+        /// </summary>
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack);
 
         #endregion
     }

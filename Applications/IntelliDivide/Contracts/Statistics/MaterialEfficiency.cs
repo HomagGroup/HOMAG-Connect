@@ -142,45 +142,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
 
         #region Obsolete Properties
 
-        /// <summary>
-        /// Gets or sets the area of offcuts produced in %.
-        /// </summary>
-
-        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
-        public double OffcutsProducedPercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of parts produced in %.
-        /// </summary>
-
-        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
-        public double PartsPercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of waste produced in %.
-        /// </summary>
-
-        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
-        public double WastePercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of offcuts produced - offcuts used used in %.
-        /// </summary>
-        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
-        public double OffcutsGrowthPercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of offcuts used in %.
-        /// </summary>
-        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
-        public double OffcutsUsedPercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the area of boards used in %.
-        /// </summary>
-        [Obsolete("To avoid misinterpretations, calculate this value at the appropriate aggregation level on the client side.")]
-        public double BoardsUsedPercentage { get; set; }
-
+ 
         /// <summary>
         /// Gets or sets the area of parts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>

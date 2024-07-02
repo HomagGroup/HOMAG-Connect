@@ -3,19 +3,13 @@
 namespace HomagConnect.ProductionManager.Contracts.Import;
 
 /// <summary>
-/// Order import response
+/// Order import operation response
 /// </summary>
 public class ImportOrderResponse
 {
     /// <summary>
-    /// Gets or sets the link to the optimization
-    /// </summary>
-    [JsonProperty(Order = 3)]
-    public Uri? Link { get; set; }
-
-    /// <summary>
-    /// Gets or sets the order id
+    /// Gets or sets the correlation id for the import job
     /// </summary>
     [JsonProperty(Order = 1)]
-    public Guid OrderId { get; set; }
+    public Guid CorrelationId { get; set; }
 }
