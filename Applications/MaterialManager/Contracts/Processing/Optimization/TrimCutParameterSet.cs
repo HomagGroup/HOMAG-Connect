@@ -17,7 +17,7 @@ public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDepend
     /// Gets or sets the <see cref="TrimCutParameters" />.
     /// </summary>
     [JsonProperty(Order = 11)]
-    public TrimCutParameters TrimCutParameters { get; set; } = new();
+    public TrimCutParameters Parameters { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the material codes for which the <see cref="TrimCutParameterSet" /> is valid.

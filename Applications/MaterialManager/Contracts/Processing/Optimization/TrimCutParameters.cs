@@ -16,7 +16,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// Determines whether undershooting the minimum trim cut is allowed.
         /// </summary>
         [JsonProperty(Order = 10)]
-        public bool UndershootMinimumTrimCutAllowed { get; set; }
+        public bool MinimumTrimCutUndershotAllowed { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum trim cut. The value is dependent on the unit system (Metric: mm, Imperial: inch).
