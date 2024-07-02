@@ -57,25 +57,25 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
 #pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
     {
         var results = new List<ValidationResult>();
-        if (TensionTrimParameters.Enabled && TensionTrimParameters.MinimumCuttingLength == null)
+        if (Parameters.Enabled && Parameters.MinimumCuttingLength == null)
         {
             results.Add(new ValidationResult(
-                $"When {nameof(TensionTrimParameters)}.{nameof(TensionTrimParameters.Enabled)} is true, the '{nameof(TensionTrimParameters)}.{nameof(TensionTrimParameters.MinimumCuttingLength)}' parameter must not be null.",
-                new[] { nameof(TensionTrimParameters.MinimumCuttingLength) }));
+                $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumCuttingLength)}' parameter must not be null.",
+                new[] { nameof(Parameters.MinimumCuttingLength) }));
         }
 
-        if (TensionTrimParameters.Enabled && TensionTrimParameters.MinimumDistanceBetweenTensionTrims == null)
+        if (Parameters.Enabled && Parameters.MinimumDistanceBetweenTensionTrims == null)
         {
             results.Add(new ValidationResult(
-                $"When {nameof(TensionTrimParameters)}.{nameof(TensionTrimParameters.Enabled)} is true, the '{nameof(TensionTrimParameters)}.{nameof(TensionTrimParameters.MinimumDistanceBetweenTensionTrims)}' parameter must not be null.",
-                new[] { nameof(TensionTrimParameters.MinimumDistanceBetweenTensionTrims) }));
+                $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumDistanceBetweenTensionTrims)}' parameter must not be null.",
+                new[] { nameof(Parameters.MinimumDistanceBetweenTensionTrims) }));
         }
 
-        if (TensionTrimParameters.Enabled && TensionTrimParameters.WidthIncludingSawBladeThickness == null)
+        if (Parameters.Enabled && Parameters.WidthIncludingSawBladeThickness == null)
         {
             results.Add(new ValidationResult(
-                $"When {nameof(TensionTrimParameters)}.{nameof(TensionTrimParameters.Enabled)} is true, the '{nameof(TensionTrimParameters)}.{nameof(TensionTrimParameters.WidthIncludingSawBladeThickness)}' parameter must not be null.",
-                new[] { nameof(TensionTrimParameters.WidthIncludingSawBladeThickness) }));
+                $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.WidthIncludingSawBladeThickness)}' parameter must not be null.",
+                new[] { nameof(Parameters.WidthIncludingSawBladeThickness) }));
         }
 
         return results;
