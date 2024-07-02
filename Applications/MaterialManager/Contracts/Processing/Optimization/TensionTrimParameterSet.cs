@@ -39,7 +39,7 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
     /// Gets or sets the <see cref="TensionTrimParameters" />.
     /// </summary>
     [JsonProperty(Order = 11)]
-    public TensionTrimParameters TensionTrimParameters { get; set; } = new();
+    public TensionTrimParameters Parameters { get; set; } = new();
 
     #region IContainsUnitSystemDependentProperties Members
 
