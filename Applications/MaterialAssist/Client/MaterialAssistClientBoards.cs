@@ -1,10 +1,14 @@
 ﻿using System.Text;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Boards;
 using HomagConnect.MaterialAssist.Contracts.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Request;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialAssist.Client
 {
@@ -15,6 +19,20 @@ namespace HomagConnect.MaterialAssist.Client
     {
         /// <inheritdoc />
         public MaterialAssistClientBoards(HttpClient client) : base(client) { }
+
+        #region Private methods
+
+        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+        {
+            var urls = codes
+                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+
+            return urls;
+        }
+
+        #endregion Private methods
 
         #region Delete
 
@@ -55,6 +73,7 @@ namespace HomagConnect.MaterialAssist.Client
         private const string _Comments = "comments";
         private const string _RemovalType = "removalType";
         private const string _Quantity = "quantity";
+        private const string _MaterialCode = "materialCode";
 
         #endregion Constants
 
@@ -79,14 +98,30 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByIds(IEnumerable<string> ids)
         {
-            var url = $"{_BaseRoute}";
+            if (ids == null)
+            {
+                throw new ArgumentNullException(nameof(ids));
+            }
 
-            var boardCodes = new StringBuilder("?");
-            boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={Uri.EscapeDataString(id)}")));
+            var codes = ids
+                .Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
 
-            url += boardCodes;
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(ids), "At least one id must be passed.");
+            }
 
-            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+            var urls = CreateUrls(codes, _Id);
+            var boardEntities = new List<BoardEntity>();
+
+            foreach (var url in urls)
+            {
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)));
+            }
+
+            return boardEntities;
         }
 
         /// <inheritdoc />
@@ -100,20 +135,80 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCodes(IEnumerable<string> boardCodes)
         {
-            var url = $"{_BaseRoute}";
+            if (boardCodes == null)
+            {
+                throw new ArgumentNullException(nameof(boardCodes));
+            }
 
-            var appendedBoardCodes = new StringBuilder("?");
-            appendedBoardCodes.Append(string.Join("&", boardCodes.Select(boardCode => $"{_BoardCode}={Uri.EscapeDataString(boardCode)}")));
+            var codes = boardCodes
+                .Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
 
-            url += boardCodes;
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _BoardCode);
+            var boardEntities = new List<BoardEntity>();
+
+            foreach (var url in urls)
+            {
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)));
+            }
+
+            return boardEntities;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCode(string materialCode)
+        {
+            var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
             return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCodes(IEnumerable<string> materialCodes)
+        {
+            if (materialCodes == null)
+            {
+                throw new ArgumentNullException(nameof(materialCodes));
+            }
+
+            var codes = materialCodes
+                .Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _MaterialCode);
+            var boardEntities = new List<BoardEntity>();
+
+            foreach (var url in urls)
+            {
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)));
+            }
+
+            return boardEntities;
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
             var url = $"{_BaseRoute}/storageLocations";
+
+            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
+        }
+
+        public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation)
+        {
+            var url = $"{_BaseRoute}/storageLocations?workstation={workstation}";
 
             return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
@@ -132,11 +227,28 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task CreateBoardType(BoardType boardType)
+        public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
         {
-            var url = $"{_BaseRouteMaterialManager}";
+            if (boardTypeRequest == null)
+            {
+                throw new ArgumentNullException(nameof(boardTypeRequest));
+            }
 
-            await PostObject(new Uri(url, UriKind.Relative), boardType);
+            ValidateRequiredProperties(boardTypeRequest);
+
+            var payload = JsonConvert.SerializeObject(boardTypeRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(BoardType)}");
         }
 
         #endregion Create

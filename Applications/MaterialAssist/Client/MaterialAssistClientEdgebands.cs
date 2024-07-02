@@ -1,10 +1,14 @@
 ﻿using System.Text;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Request;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialAssist.Client
 {
@@ -15,6 +19,20 @@ namespace HomagConnect.MaterialAssist.Client
     {
         /// <inheritdoc />
         public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
+
+        #region Private methods
+
+        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+        {
+            var urls = codes
+                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+
+            return urls;
+        }
+
+        #endregion Private methods
 
         #region Delete
 
@@ -46,47 +64,9 @@ namespace HomagConnect.MaterialAssist.Client
 
         #endregion Delete
 
-        #region Private methods
-
-        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-            bool includingDetails = false)
-        {
-            var queryParameters = new StringBuilder("?");
-            var i = 1;
-            var urls = new List<string>();
-            var codeList = codes.ToList();
-            while (i <= codeList.Count)
-            {
-                queryParameters.Append($"{searchCode}={Uri.EscapeDataString(Uri.EscapeDataString(codeList[i - 1]))}");
-                // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-                if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
-                {
-                    urls.Add(includingDetails
-                        ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                        : $"{_BaseRoute}{route}{queryParameters}");
-
-                    queryParameters = new StringBuilder("?");
-                }
-
-                i++;
-                if (i <= codeList.Count)
-                {
-                    queryParameters.Append('&');
-                }
-            }
-
-            urls.Add(includingDetails
-                ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                : $"{_BaseRoute}{route}{queryParameters}");
-
-            return urls;
-        }
-
-        #endregion Private methods
-
         #region Constants
 
-        private const string _BaseRoute = "api/materialAssist/edgebands";
+        private const string _BaseRoute = "api/materialAssist/edgebandEntities";
         private const string _BaseRouteMaterialManager = "api/materialManager/edgebands";
         private const string _Id = "Id";
         private const string _EdgebandCode = "edgebandCode";
@@ -97,7 +77,6 @@ namespace HomagConnect.MaterialAssist.Client
         private const string _CurrentThickness = "currentThickness";
         private const string _Comments = "comments";
         private const string _RemovalType = "removalType";
-        private const string _IncludingDetails = "includingDetails";
         private const string _Quantity = "quantity";
 
         #endregion Constants
@@ -336,11 +315,28 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task CreateEdgebandType(EdgebandType edgebandType)
+        public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest)
         {
-            var url = $"{_BaseRouteMaterialManager}";
+            if (edgebandTypeRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandTypeRequest));
+            }
 
-            await PostObject(new Uri(url, UriKind.Relative), edgebandType);
+            ValidateRequiredProperties(edgebandTypeRequest);
+
+            var payload = JsonConvert.SerializeObject(edgebandTypeRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
 
         #endregion Create

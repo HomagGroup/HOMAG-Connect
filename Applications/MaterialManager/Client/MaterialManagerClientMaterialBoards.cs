@@ -23,7 +23,7 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    #region create
+    #region Create
 
     /// <inheritdoc />
     public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
@@ -106,7 +106,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
         }
 
         var urls = CreateUrls(codes, _BoardCode);
@@ -135,7 +135,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
         }
 
         var urls = CreateUrls(codes, _BoardCode, includingDetails: true);
@@ -260,19 +260,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
-
-    #region Create
-
-    /// <inheritdoc />
-    public async Task CreateBoardType(BoardType boardType)
-    {
-        var url = $"{_BaseRoute}/create";
-
-        await PostObject(new Uri(url, UriKind.Relative), boardType);
-    }
-
-    #endregion Create
-
+    
     #region statistics
 
     /// <inheritdoc />

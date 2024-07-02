@@ -2,6 +2,7 @@
 
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
 {
@@ -63,6 +64,22 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCodes(IEnumerable<string> boardCodes);
 
         /// <summary>
+        /// Get board entities by material code.
+        /// </summary>
+        /// <param name="materialCode"></param>
+        /// <returns></returns>
+        Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCode(string materialCode);
+
+        /// <summary>
+        /// Get board entities by material codes.
+        /// </summary>
+        /// <param name="materialCodes"></param>
+        /// <returns></returns>
+        Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCodes(IEnumerable<string> materialCodes);
+
+
+
+        /// <summary>
         /// Get storage locations.
         /// </summary>
         /// <returns></returns>
@@ -81,11 +98,10 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         Task<BoardEntity> CreateBoardEntity(string boardTypeCode, BoardEntity boardEntity);
 
         /// <summary>
-        /// Create a board type.
+        /// Creates the board type in materialManager.
         /// </summary>
-        /// <param name="boardType"></param>
-        /// <returns></returns>
-        Task CreateBoardType(BoardType boardType);
+        /// <returns>The created board type <see cref="BoardType" />.</returns>
+        Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
 
         #endregion Create
 

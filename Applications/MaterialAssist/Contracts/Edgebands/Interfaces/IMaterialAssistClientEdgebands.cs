@@ -1,5 +1,6 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
 {
@@ -126,7 +127,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <returns></returns>
         Task RemoveSingleEdgebandEntities(string id, int quantity, bool deleteFromInventory = false);
 
-
         #endregion Update
 
         #region Create
@@ -140,11 +140,10 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         Task<EdgebandEntity> CreateEdgebandEntity(string edgebandTypeCode, EdgebandEntity edgebandEntity);
 
         /// <summary>
-        /// Create a new edgeband type.
+        /// Creates the edgeband type in materialManager.
         /// </summary>
-        /// <param name="edgebandType"></param>
-        /// <returns></returns>
-        Task CreateEdgebandType(EdgebandType edgebandType);
+        /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
+        Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
 
         #endregion Create
     }
