@@ -23,7 +23,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// </summary>
         [JsonProperty(Order = 13)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
-        public double? MinimumTrimCut { get; set; }
+        public double MinimumTrimCut { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum trim recut in front. The value is dependent on the unit system (Metric: mm, Imperial: inch).
