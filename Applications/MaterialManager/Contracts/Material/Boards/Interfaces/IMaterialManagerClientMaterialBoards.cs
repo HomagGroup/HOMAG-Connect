@@ -13,8 +13,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
     /// </summary>
     public interface IMaterialManagerClientMaterialBoards
     {
-        #region Read
-
         /// <summary>
         /// Creates the board type in materialManager.
         /// </summary>
