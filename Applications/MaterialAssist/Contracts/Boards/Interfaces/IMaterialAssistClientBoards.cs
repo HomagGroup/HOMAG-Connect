@@ -77,13 +77,19 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// <returns></returns>
         Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCodes(IEnumerable<string> materialCodes);
 
-
-
         /// <summary>
         /// Get storage locations.
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<StorageLocation>> GetStorageLocations();
+
+        /// <summary>
+        /// Get storage locations by workstation.
+        /// </summary>
+        /// <param name="workstation"></param>
+        /// <returns></returns>
+        Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation);
+
 
         #endregion Read
 
