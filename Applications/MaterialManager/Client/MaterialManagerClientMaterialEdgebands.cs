@@ -114,6 +114,26 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
+        {
+            List<Uri> requestUri =
+            [
+                new Uri(
+                    $"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}",
+                    UriKind.Relative)
+            ];
+            var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
+            return ret;
+        }
+
+        public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
+        {
+            return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
+        }
+
+        #region Create
+
+        /// <inheritdoc />
         public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest)
         {
             if (edgebandTypeRequest == null)
@@ -138,23 +158,9 @@ namespace HomagConnect.MaterialManager.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
 
-        /// <inheritdoc />
-        public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
-        {
-            List<Uri> requestUri =
-            [
-                new Uri(
-                    $"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}",
-                    UriKind.Relative)
-            ];
-            var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
-            return ret;
-        }
+        #endregion Create
 
-        public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
-        {
-            return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
-        }
+        #region Private Methods
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
             bool includingDetails = false)
@@ -189,5 +195,7 @@ namespace HomagConnect.MaterialManager.Client
 
             return urls;
         }
+
+        #endregion Private methods
     }
 }
