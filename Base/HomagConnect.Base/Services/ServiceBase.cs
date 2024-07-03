@@ -149,6 +149,19 @@ namespace HomagConnect.Base.Services
             return enumerable;
         }
 
+        protected async Task<HttpResponseMessage> PatchObject(Uri uri, StringContent content = null)
+        {
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), uri)
+            {
+                Content = content
+            };
+            
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            return response;
+        }
+
         protected async Task<T> RequestObject<T>(Uri uri)
         {
             var request = new HttpRequestMessage
