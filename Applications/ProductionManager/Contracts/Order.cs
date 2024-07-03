@@ -19,13 +19,13 @@ namespace HomagConnect.ProductionManager.Contracts
         /// The name of the order
         /// </summary>
         [JsonProperty(Order = 110)]
-        public string OrderName { get; set; } = string.Empty;
+        public string OrderName { get; set; } = null!;
 
         /// <summary>
         /// The name of the customer of this order
         /// </summary>
         [JsonProperty(Order = 120)]
-        public string CustomerName { get; set; } = string.Empty;
+        public string? CustomerName { get; set; }
 
         /// <summary>
         /// The date the order was created at
@@ -50,7 +50,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Gets the external system id of the order which can be used as a reference.
         /// </summary>
         [JsonProperty(Order = 160)]
-        public string ExternalSystemId { get; set; } = string.Empty;
+        public string? ExternalSystemId { get; set; }
 
         #endregion
 
