@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Client
 {
@@ -17,20 +18,26 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<FeedbackWorkstation>> GetWorkstationsAsync()
         {
-            return await Task.FromResult(new[] { new FeedbackWorkstation { Id = Guid.NewGuid() } });
+            const string uri = "api/productionAssist/feedback/workplaces";
+
+            return await RequestEnumerable<FeedbackWorkstation>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity)
+        public async Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity)
         {
-            var request = new FeedbackRequest
+            var uri = $"api/productionAssist/feedback/workplaces/{workstationId}";
+
+            var feedbackRequest = new FeedbackRequest
             {
                 WorkstationId = workstationId,
                 ProductionEntityId = productionEntityId,
                 Quantity = quantity
             };
 
-            return Task.CompletedTask;
+            var payload = JsonConvert.SerializeObject(feedbackRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            await PostObject(new Uri(uri, UriKind.Relative), content);
         }
 
         #endregion
