@@ -27,6 +27,7 @@ namespace HomagConnect.MaterialAssist.Client
             var urls = codes
                 .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
                 .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
                 .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
 
             return urls;
@@ -175,6 +176,14 @@ namespace HomagConnect.MaterialAssist.Client
             return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
 
+        /// <inheritdoc />
+        public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workplace)
+        {
+            var url = $"{_BaseRoute}/storageLocations?workplace={workplace}";
+
+            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
+        }
+
         #endregion Read
 
         #region Update
@@ -241,7 +250,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task RemoveAllEdgebandEntities(string id, bool deleteFromInventory = false)
+        public async Task RemoveAllEdgebandEntitiesFromWorkplace(string id, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -254,7 +263,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task RemoveSingleEdgebandEntities(string id, int quantity, bool deleteFromInventory = false)
+        public async Task RemoveSingleEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -267,7 +276,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task RemoveSubsetEdgebandEntities(string id, int quantity, bool deleteFromInventory = false)
+        public async Task RemoveSubsetEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(id))
             {

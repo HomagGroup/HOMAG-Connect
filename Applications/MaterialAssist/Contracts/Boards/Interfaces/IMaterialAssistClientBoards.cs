@@ -146,7 +146,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// <param name="id"></param>
         /// <param name="deleteBoardFromInventory"></param>
         /// <returns></returns>
-        Task RemoveAllBoardEntities(string id, bool deleteBoardFromInventory = false);
+        Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false);
 
         /// <summary>
         /// Remove a single board entity / entities by its code (#). This is available for ManagementTypes GoodsInStock and Stack.
@@ -155,7 +155,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// <param name="quantity"></param>
         /// <param name="deleteBoardFromInventory"></param>
         /// <returns></returns>
-        Task RemoveSingleBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false);
+        Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false);
 
         /// <summary>
         /// Remove a subset of board entities by its code (#). This is available for ManagementTypes GoodsInStock and Stack.
@@ -164,7 +164,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// <param name="quantity"></param>
         /// <param name="deleteBoardFromInventory"></param>
         /// <returns></returns>
-        Task RemoveSubsetBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false);
+        Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false);
 
         #endregion Update
     }

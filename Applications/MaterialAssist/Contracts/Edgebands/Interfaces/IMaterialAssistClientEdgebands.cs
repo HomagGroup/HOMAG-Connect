@@ -71,6 +71,13 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <returns></returns>
         Task<IEnumerable<StorageLocation>> GetStorageLocations();
 
+        /// <summary>
+        /// Gets the available storage locations for a specific workplace.
+        /// </summary>
+        /// <param name="workplace"></param>
+        /// <returns></returns>
+        Task<IEnumerable<StorageLocation>> GetStorageLocations(string workplace);
+
         #endregion Read
 
         #region Update
@@ -107,7 +114,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <param name="id"></param>
         /// <param name="deleteFromInventory"></param>
         /// <returns></returns>
-        Task RemoveAllEdgebandEntities(string id, bool deleteFromInventory = false);
+        Task RemoveAllEdgebandEntitiesFromWorkplace(string id, bool deleteFromInventory = false);
 
         /// <summary>
         /// Remove a subset of edgeband entities from storage. Only available for ManagementTypes GoodsInStock and Stack.
@@ -116,7 +123,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <param name="quantity"></param>
         /// <param name="deleteFromInventory"></param>
         /// <returns></returns>
-        Task RemoveSubsetEdgebandEntities(string id, int quantity, bool deleteFromInventory = false);
+        Task RemoveSubsetEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false);
 
         /// <summary>
         /// Removes single edgeband entity / entities from storage. Only available for ManagementTypes GoodsInStock and Stack.
@@ -125,7 +132,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// <param name="quantity"></param>
         /// <param name="deleteFromInventory"></param>
         /// <returns></returns>
-        Task RemoveSingleEdgebandEntities(string id, int quantity, bool deleteFromInventory = false);
+        Task RemoveSingleEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false);
 
         #endregion Update
 

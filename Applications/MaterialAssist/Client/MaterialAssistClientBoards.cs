@@ -27,6 +27,7 @@ namespace HomagConnect.MaterialAssist.Client
             var urls = codes
                 .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
                 .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
                 .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
 
             return urls;
@@ -280,7 +281,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task RemoveAllBoardEntities(string id, bool deleteBoardFromInventory = false)
+        public async Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
 
@@ -288,7 +289,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task RemoveSubsetBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false)
+        public async Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
 
@@ -296,7 +297,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task RemoveSingleBoardEntities(string id, int quantity, bool deleteBoardFromInventory = false)
+        public async Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
 
