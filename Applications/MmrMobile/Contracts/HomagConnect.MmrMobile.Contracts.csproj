@@ -1,19 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
-	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageId>HomagGroup.HomagConnect.MmrMobile.Contracts</PackageId>
-	  <Title>Homag-Connect MMR Mobile Contracts</Title>
-	  <Description>Client assembly for the usage of Homag-Connect MMR Mobile routes</Description>
-	  <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
+		<LangVersion>11.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.MmrMobile.Contracts</PackageId>
+		<Title>Homag-Connect MMR Mobile Contracts</Title>
+		<Description>Client assembly for the usage of Homag-Connect MMR Mobile API</Description>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MmrMobile/Contracts</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
 
 </Project>
