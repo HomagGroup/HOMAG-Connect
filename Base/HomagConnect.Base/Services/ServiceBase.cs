@@ -133,13 +133,11 @@ namespace HomagConnect.Base.Services
 
         protected async Task<HttpResponseMessage> PatchObject(Uri uri, StringContent content = null)
         {
-            var request = new HttpRequestMessage
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), uri)
             {
-                Method = HttpMethod.Patch,
-                RequestUri = uri,
                 Content = content
             };
-
+            
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
