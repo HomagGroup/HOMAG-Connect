@@ -6,6 +6,51 @@ namespace HomagConnect.ProductionManager.Contracts
     public interface IProductionManagerClient
     {
         /// <summary>
+        /// Get the import state of an order
+        /// </summary>
+        /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
+        /// <returns></returns>
+        Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId);
+
+        /// <summary>
+        /// Get a specific order by its id
+        /// </summary>
+        Task<OrderDetails> GetOrder(Guid orderId);
+
+        /// <summary>
+        /// Get a specific order by its external system id
+        /// </summary>
+        Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId);
+
+        /// <summary>
+        /// Gets all orders for the given external system ids.
+        /// </summary>
+        Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds);
+
+        /// <summary>
+        /// Get all orders sorted by <see cref="Order.OrderDate" />.
+        /// </summary>
+        Task<IEnumerable<Order>> GetOrders(int take, int skip = 0);
+
+        /// <summary>
+        /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
+        /// </summary>
+        Task<IEnumerable<Order>> GetOrders(OrderStatus orderStatus, int take, int skip = 0);
+
+        /// <summary>
+        /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
+        /// </summary>
+        Task<IEnumerable<Order>> GetOrders(OrderStatus[] orderStatus, int take, int skip = 0);
+
+        #region Obsolete
+
+        /// <summary />
+        [Obsolete("Use GetOrders instead.", true)]
+        Task<IEnumerable<Order>> GetOrdersAsync();
+
+        #endregion
+
+        /// <summary>
         /// Import an order using a structured zip file.
         /// </summary>
         /// <param name="importOrderRequest">
@@ -18,18 +63,5 @@ namespace HomagConnect.ProductionManager.Contracts
         /// format.
         /// </param>
         Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
-
-        /// <summary>
-        /// Get the import state of an order
-        /// </summary>
-        /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
-        /// <returns></returns>
-        Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId);
-
-        /// <summary>
-        /// Get all orders the customer has access to
-        /// </summary>
-        /// <returns>The list of others</returns>
-        Task<IEnumerable<Order>> GetOrdersAsync();
     }
 }

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using HomagConnect.Base;
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Client
@@ -56,7 +60,6 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-
         public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId)
         {
             if (correlationId == Guid.Empty)
@@ -70,13 +73,71 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-
         public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             var url = $"/api/productionManager/orders";
             var orders = await RequestEnumerable<Order>(new Uri(url, UriKind.Relative));
 
             return orders;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Order>> GetOrders(int take, int skip = 0)
+        {
+            var url = $"/api/productionManager/orders?take={take}&skip={skip}";
+            var orders = await RequestEnumerable<Order>(new Uri(url, UriKind.Relative));
+
+            return orders;
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<Order>> GetOrders(OrderStatus orderStatus, int take, int skip = 0)
+        {
+            return GetOrders([orderStatus], take, skip);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Order>> GetOrders(OrderStatus[] orderStatus, int take, int skip = 0)
+        {
+            var uris = orderStatus
+                .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"/api/productionManager/orders?take={take}&skip={skip}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<Order>(uris);
+        }
+
+        /// <inheritdoc />
+        public async Task<OrderDetails> GetOrder(Guid orderId)
+        {
+            var url = $"/api/productionManager/orders/{orderId}";
+            var orders = await RequestObject<OrderDetails>(new Uri(url, UriKind.Relative));
+
+            return orders;
+        }
+
+        /// <inheritdoc />
+        public Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId)
+        {
+            return GetOrderByExternalSystemId([externalSystemId]).FirstOrDefaultAsync();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds)
+        {
+            var validExternalSystemIds = externalSystemIds
+                .Select(e => e.Trim())
+                .Where(e => !string.IsNullOrWhiteSpace(e))
+                .Distinct();
+
+            var uris = validExternalSystemIds
+                .Select(id => $"&externalSystemId={Uri.EscapeDataString(id)}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderDetails>(uris);
         }
 
         #endregion
