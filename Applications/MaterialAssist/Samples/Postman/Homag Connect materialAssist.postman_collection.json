@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "c0a1f65d-52d0-431c-945e-f0b8cb1b920f",
+		"name": "Homag Connect materialAssist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Delete a board entity",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/workplaces/boards?id=12",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"workplaces",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "12"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Delete a edgeband entity",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/workplaces/edgebands?id=9",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"workplaces",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "9"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "{{ConnectUserName}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{ConnectPassword}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
