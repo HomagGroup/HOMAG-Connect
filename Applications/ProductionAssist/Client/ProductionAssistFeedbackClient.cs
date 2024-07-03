@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
@@ -17,20 +16,25 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<FeedbackWorkstation>> GetWorkstationsAsync()
         {
-            return await Task.FromResult(new[] { new FeedbackWorkstation { Id = Guid.NewGuid() } });
+            const string uri = "api/productionAssist/feedback/workstations";
+
+            return await RequestEnumerable<FeedbackWorkstation>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity)
+        public async Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity)
         {
-            var request = new FeedbackRequest
+            var uri = $"api/productionAssist/feedback/workstations";
+
+            var feedbackRequest = new FeedbackRequest
             {
                 WorkstationId = workstationId,
                 ProductionEntityId = productionEntityId,
                 Quantity = quantity
             };
 
-            return Task.CompletedTask;
+            
+            await PostObject(new Uri(uri, UriKind.Relative), feedbackRequest);
         }
 
         #endregion
