@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.ProductionAssist.Samples.Feedback
 {
@@ -14,6 +15,8 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         public static async Task GetWorkstations(IProductionAssistFeedbackClient client)
         {
             var response = await client.GetWorkstationsAsync();
+
+            Assert.IsTrue(response.Any());
 
             response.Trace();
         }

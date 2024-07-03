@@ -1,4 +1,5 @@
-﻿using HomagConnect.ProductionAssist.Samples.Feedback;
+﻿using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.ProductionAssist.Samples.Feedback;
 
 namespace HomagConnect.ProductionAssist.Tests.Feedback
 {
@@ -6,6 +7,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
     [TestClass]
     [TestCategory("ProductionAssist")]
     [TestCategory("ProductionAssist.Feedback")]
+    [TemporaryDisabledOnServer(2024, 7, 22)]
     public class ProductionAssistFeedbackTests : ProductionAssistTestBase
     {
         /// <summary />
