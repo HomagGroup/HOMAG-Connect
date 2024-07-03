@@ -22,11 +22,11 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
             Assert.IsTrue(response.Any());
             foreach (var order in response)
             {
-                Assert.IsFalse(string.IsNullOrEmpty(order.Name));
+                Assert.IsFalse(string.IsNullOrEmpty(order.OrderName));
                 Assert.AreNotEqual(Guid.Empty, order.Id);
             }
 
-            var orderNames = response.Select(x => x.Name).ToList();
+            var orderNames = response.Select(x => x.OrderName).ToList();
             orderNames.Trace(nameof(orderNames));
         }
     }
