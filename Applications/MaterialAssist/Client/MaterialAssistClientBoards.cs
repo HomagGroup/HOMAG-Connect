@@ -66,7 +66,6 @@ namespace HomagConnect.MaterialAssist.Client
         private const string _BaseRouteMaterialManager = "api/materialManager/boards";
         private const string _Id = "Id";
         private const string _BoardCode = "boardCode";
-        private const string _BoardTypeCode = "boardTypeCode";
         private const string _StorageLocation = "storageLocation";
         private const string _DeleteFromInventory = "deleteFromInventory";
         private const string _Length = "length";
@@ -203,30 +202,19 @@ namespace HomagConnect.MaterialAssist.Client
         public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
             var url = $"{_BaseRoute}/storageLocations";
-
-            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation)
         {
             var url = $"{_BaseRoute}/storageLocations?workstation={workstation}";
-
-            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         #endregion Read
 
         #region Create
-
-        /// <inheritdoc />
-        public async Task<BoardEntity> CreateBoardEntity(string boardTypeCode, BoardEntity boardEntity)
-        {
-            var url =
-                $"{_BaseRoute}?{_BoardTypeCode}={Uri.EscapeDataString(boardTypeCode)}";
-
-            return await PostObject(new Uri(url, UriKind.Relative), boardEntity);
-        }
-
+        
         /// <inheritdoc />
         public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
         {
@@ -260,48 +248,42 @@ namespace HomagConnect.MaterialAssist.Client
         public async Task UpdateBoardEntityDimensions(string id, double length, double width)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_Width}={width}";
-
-            await PatchObject(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
         public async Task UpdateBoardEntityComments(string id, string comments)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Comments}={Uri.EscapeDataString(comments)}";
-
-            await PatchObject(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
         public async Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
-
-            await PatchObject(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
         public async Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
-
-            await PatchObject(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
         public async Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
-
-            await PatchObject(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
         public async Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
         {
             var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
-
-            await PatchObject(new Uri(url, UriKind.Relative));
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         #endregion Update

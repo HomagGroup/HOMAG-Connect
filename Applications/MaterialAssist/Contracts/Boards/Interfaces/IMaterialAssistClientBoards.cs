@@ -96,14 +96,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         #region Create
 
         /// <summary>
-        /// Create a board instance for a certain boardType.
-        /// </summary>
-        /// <param name="boardTypeCode"></param>
-        /// <param name="boardEntity"></param>
-        /// <returns></returns>
-        Task<BoardEntity> CreateBoardEntity(string boardTypeCode, BoardEntity boardEntity);
-
-        /// <summary>
         /// Creates the board type in materialManager.
         /// </summary>
         /// <returns>The created board type <see cref="BoardType" />.</returns>

@@ -139,14 +139,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         #region Create
 
         /// <summary>
-        /// Adds a new edgeband entity.
-        /// </summary>
-        /// <param name="edgebandTypeCode"></param>
-        /// <param name="edgebandEntity"></param>
-        /// <returns></returns>
-        Task<EdgebandEntity> CreateEdgebandEntity(string edgebandTypeCode, EdgebandEntity edgebandEntity);
-
-        /// <summary>
         /// Creates the edgeband type in materialManager.
         /// </summary>
         /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
