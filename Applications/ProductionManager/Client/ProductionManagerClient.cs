@@ -109,22 +109,22 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<OrderDetails> GetOrder(Guid orderId)
+        public async Task<Order> GetOrder(Guid orderId)
         {
             var url = $"/api/productionManager/orders/{orderId}";
-            var orders = await RequestObject<OrderDetails>(new Uri(url, UriKind.Relative));
+            var orders = await RequestObject<Order>(new Uri(url, UriKind.Relative));
 
             return orders;
         }
 
         /// <inheritdoc />
-        public Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId)
+        public Task<Order> GetOrderByExternalSystemId(string externalSystemId)
         {
             return GetOrderByExternalSystemId([externalSystemId]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds)
+        public async Task<IEnumerable<Order>> GetOrderByExternalSystemId(string[] externalSystemIds)
         {
             var validExternalSystemIds = externalSystemIds
                 .Select(e => e.Trim())
@@ -137,7 +137,7 @@ namespace HomagConnect.ProductionManager.Client
                 .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
                 .Select(c => new Uri(c, UriKind.Relative));
 
-            return await RequestEnumerableAsync<OrderDetails>(uris);
+            return await RequestEnumerableAsync<Order>(uris);
         }
 
         #endregion

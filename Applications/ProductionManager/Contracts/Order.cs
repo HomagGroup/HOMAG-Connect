@@ -1,12 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using System.Runtime.Serialization;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
     /// <summary>
     /// Order data
     /// </summary>
-    public class Order
+    public class Order : IExtensibleDataObject
     {
+        #region IExtensibleDataObject Members
+
+        /// <intheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
+
         #region Order Header
 
         /// <summary>
@@ -24,118 +33,142 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// The name of the customer of this order
         /// </summary>
-        [JsonProperty(Order = 120)]
+        [JsonProperty(Order = 111)]
         public string? CustomerName { get; set; }
+
+        /// <summary>
+        /// The number of the customer of this order
+        /// </summary>
+        [JsonProperty(Order = 112)]
+        public string? CustomerNumber { get; set; }
+
+        /// <summary>
+        /// The company of the customer of this order
+        /// </summary>
+        [JsonProperty(Order = 113)]
+        public string? Company { get; set; }
+
+        /// <summary>
+        /// The description of the order
+        /// </summary>
+        [JsonProperty(Order = 114)]
+        public string? OrderDescription { get; set; }
+
+        /// <summary>
+        /// The project of the order
+        /// </summary>
+        [JsonProperty(Order = 115)]
+        public string? Project { get; set; }
+
+        /// <summary>
+        /// The description of the order
+        /// </summary>
+        [JsonProperty(Order = 116)]
+        public string? PersonInCharge { get; set; }
 
         /// <summary>
         /// The date the order was created at
         /// </summary>
-        [JsonProperty(Order = 130)]
+        [JsonProperty(Order = 117)]
         public DateTimeOffset OrderDate { get; set; }
 
         /// <summary>
         /// Gets the planned delivery date of this order.
         /// </summary>
-        [JsonProperty(Order = 140)]
-
+        [JsonProperty(Order = 118)]
         public DateTimeOffset? DeliveryDatePlanned { get; set; }
-
-        /// <summary>
-        /// Gets the status of the order.
-        /// </summary>
-        [JsonProperty(Order = 150)]
-        public OrderStatus OrderStatus { get; set; }
 
         /// <summary>
         /// Gets the external system id of the order which can be used as a reference.
         /// </summary>
-        [JsonProperty(Order = 160)]
+        [JsonProperty(Order = 119)]
         public string? ExternalSystemId { get; set; }
 
         #endregion
 
         #region Production
 
-        #region Planning
+        /// <summary>
+        /// Gets the status of the order.
+        /// </summary>
+        [JsonProperty(Order = 200)]
+        public OrderStatus OrderStatus { get; set; }
+
+        /// <summary>
+        /// Gets the timestamp the order was last changed at.
+        /// </summary>
+        [JsonProperty(Order = 201)]
+        public DateTimeOffset? ChangedAt { get; set; }
+
+        #region Production
 
         /// <summary>
         /// Gets or sets the planned start date of the order.
         /// </summary>
-        [JsonProperty(Order = 200)]
-        public DateTime? StartDatePlanned { get; set; }
-
-        /// <summary>
-        /// Gets or sets the planned completion date of the order.
-        /// </summary>
-        [JsonProperty(Order = 201)]
-        public DateTime? CompletionDatePlanned { get; set; }
-
-        #endregion
-
-        #region Tracking
+        [JsonProperty(Order = 210)]
+        public DateTimeOffset? StartDatePlanned { get; set; }
 
         /// <summary>
         /// Gets or sets the start date of the order.
         /// </summary>
-        [JsonProperty(Order = 210)]
-        public DateTime? StartDate { get; set; }
+        [JsonProperty(Order = 211)]
+        public DateTimeOffset? StartDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the planned completion date of the order.
+        /// </summary>
+        [JsonProperty(Order = 220)]
+        public DateTimeOffset? CompletionDatePlanned { get; set; }
 
         /// <summary>
         /// Gets or sets the completion date of the order.
         /// </summary>
-        [JsonProperty(Order = 211)]
-        public DateTime? CompletionDate { get; set; }
+        [JsonProperty(Order = 221)]
+        public DateTimeOffset? CompletionDate { get; set; }
+
+        /// <summary>
+        /// Gets the quantity of articles in this order.
+        /// </summary>
+        [JsonProperty(Order = 230)]
+        public int? QuantityOfArticles { get; set; }
+
+        /// <summary>
+        /// Gets the quantity of parts in this order.
+        /// </summary>
+        [JsonProperty(Order = 231)]
+        public int? QuantityOfParts { get; set; }
+
+        /// <summary>
+        /// Gets the quantity of parts planned in this order.
+        /// </summary>
+        [JsonProperty(Order = 232)]
+        public int? QuantityOfPartsPlanned { get; set; }
+
+        /// <summary>
+        /// Gets the names of the lots.
+        /// </summary>
+        [JsonProperty(Order = 234)]
+        public string[]? Lots { get; set; }
 
         #endregion
 
         #endregion
 
-        #region
+        #region Address
 
-        /// <summary />
-        [Obsolete("Use OrderName instead.", true)]
-        [JsonProperty(Order = 999)]
-        public string Name
-        {
-            get
-            {
-                return OrderName;
-            }
-            set
-            {
-                OrderName = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets the address of the order.
+        /// </summary>
+        public Address? Address { get; set; }
 
-        /// <summary />
-        [JsonProperty(Order = 999)]
-        [Obsolete("Use DeliveryDatePlanned instead.", true)]
-        public DateTimeOffset? DeliveryDate
-        {
-            get
-            {
-                return DeliveryDatePlanned;
-            }
-            set
-            {
-                DeliveryDatePlanned = value;
-            }
-        }
+        #endregion
 
-        /// <summary />
-        [Obsolete("Use OrderStatus instead.", true)]
-        [JsonProperty(Order = 999)]
-        public OrderStatus State
-        {
-            get
-            {
-                return OrderStatus;
-            }
-            set
-            {
-                OrderStatus = value;
-            }
-        }
+        #region Additional data
+
+        /// <summary>
+        /// Gets or sets the notes of the order.
+        /// </summary>
+        public string? Notes { get; set; }
 
         #endregion
     }
