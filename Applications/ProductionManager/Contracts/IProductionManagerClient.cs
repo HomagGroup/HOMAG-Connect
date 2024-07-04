@@ -15,17 +15,17 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get a specific order by its id
         /// </summary>
-        Task<OrderDetails> GetOrder(Guid orderId);
+        Task<Order> GetOrder(Guid orderId);
 
         /// <summary>
         /// Get a specific order by its external system id
         /// </summary>
-        Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId);
+        Task<Order> GetOrderByExternalSystemId(string externalSystemId);
 
         /// <summary>
         /// Gets all orders for the given external system ids.
         /// </summary>
-        Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds);
+        Task<IEnumerable<Order>> GetOrderByExternalSystemId(string[] externalSystemIds);
 
         /// <summary>
         /// Get all orders sorted by <see cref="Order.OrderDate" />.
@@ -41,15 +41,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
         /// </summary>
         Task<IEnumerable<Order>> GetOrders(OrderStatus[] orderStatus, int take, int skip = 0);
-
-        #region Obsolete
-
-        /// <summary />
-        [Obsolete("Use GetOrders instead.", true)]
-        Task<IEnumerable<Order>> GetOrdersAsync();
-
-        #endregion
-
+        
         /// <summary>
         /// Import an order using a structured zip file.
         /// </summary>
