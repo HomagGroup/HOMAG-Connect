@@ -13,6 +13,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
@@ -23,7 +24,7 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    #region create
+    #region Create
 
     /// <inheritdoc />
     public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
@@ -106,7 +107,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
         }
 
         var urls = CreateUrls(codes, _BoardCode);
@@ -135,7 +136,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
         }
 
         var urls = CreateUrls(codes, _BoardCode, includingDetails: true);
@@ -260,6 +261,34 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
+
+    #region Update
+
+    public async Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PatchObject(new Uri(_BaseRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    #endregion Update
 
     #region statistics
 
