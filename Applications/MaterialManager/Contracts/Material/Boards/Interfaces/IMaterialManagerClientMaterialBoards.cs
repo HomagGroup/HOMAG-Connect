@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {
@@ -72,6 +73,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
+
+        /// <summary>
+        /// Update board type by board code.
+        /// </summary>
+        /// <param name="boardTypeUpdate"></param>
+        /// <param name="boardTypeCode"></param>
+        /// <returns></returns>
+        Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate);
 
         #region Inventory History
 
