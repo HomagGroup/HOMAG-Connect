@@ -1,14 +1,13 @@
 ﻿using HomagConnect.Base.Contracts.Converter;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.Import
+namespace HomagConnect.ProductionManager.Contracts
 {
     /// <summary>
-    /// Order State Enumeration
+    /// Order Status Enumeration
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
-    public enum OrderState
+    public enum OrderStatus
     {
         /// <summary>
         ///  After a successful import of a customer order, it receives the state "New".

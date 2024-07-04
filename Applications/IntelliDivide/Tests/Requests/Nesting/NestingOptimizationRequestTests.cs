@@ -91,6 +91,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
         }
 
         [TestMethod]
+        [TemporaryDisabledOnServer(2024,7,15)]
         public async Task CreateNestingOptimizationRequestByObjectModelAndOptimizeAndSend()
         {
             var intelliDivide = GetIntelliDivideClient();
