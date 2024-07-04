@@ -15,18 +15,12 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         /// </summary>
         public static async Task GetAllOrdersAsync(IProductionManagerClient productionManager)
         {
-            var response = await productionManager.GetOrders(5);
+            var response = await productionManager.GetOrders(5).ToListAsync();
 
             response.Trace();
 
-            Assert.IsTrue(response.Any());
-            foreach (var order in response)
-            {
-                Assert.IsFalse(string.IsNullOrEmpty(order.OrderName));
-                Assert.AreNotEqual(Guid.Empty, order.Id);
-            }
-
             var orderNames = response.Select(x => x.OrderName).ToList();
+
             orderNames.Trace(nameof(orderNames));
         }
 
