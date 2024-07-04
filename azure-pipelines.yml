@@ -155,10 +155,18 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))        
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialAssist/Contracts/**/*.nupkg" --skip-duplicate
+          displayName: "Publish HomagConnect MaterialAssist Contracts package on nuget.org"
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
+
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialAssist/Client/**/*.nupkg" --skip-duplicate
+          displayName: "Publish HomagConnect MaterialAssist Client package on nuget.org"
           condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Contracts/**/*.nupkg" --skip-duplicate
