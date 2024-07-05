@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
@@ -165,34 +166,11 @@ namespace HomagConnect.MaterialManager.Client
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
             bool includingDetails = false)
         {
-            var queryParameters = new StringBuilder("?");
-            var i = 1;
-            var urls = new List<string>();
-            var codeList = codes.ToList();
-            while (i <= codeList.Count)
-            {
-                queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
-                // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-                if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
-                {
-                    urls.Add(includingDetails
-                        ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                        : $"{_BaseRoute}{route}{queryParameters}");
-
-                    queryParameters = new StringBuilder("?");
-                }
-
-                i++;
-                if (i <= codeList.Count)
-                {
-                    queryParameters.Append('&');
-                }
-            }
-
-            urls.Add(includingDetails
-                ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                : $"{_BaseRoute}{route}{queryParameters}");
-
+            var urls = codes
+                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => includingDetails ? $"{_BaseRoute}{route}{_IncludingDetails}=true" + parameter : $"{_BaseRoute}{route}" + parameter).ToList();
             return urls;
         }
 
