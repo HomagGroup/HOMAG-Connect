@@ -5,7 +5,7 @@ To access the HOMAG ProductionAssist Feedback Client Interface, a HOMAG Connect 
 To create an instance of the client, you will need both a Subscription Id and a Authorization Key. 
 
 ```c#
-// Create new instance of the productionManager client:
+// Create new instance of the productionAssist Feedback client:
             
 var client = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
 ``` 
