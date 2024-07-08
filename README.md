@@ -16,6 +16,9 @@ The following repository contains the **HOMAG Connect Clients**,
 4. productionManager <br>
    [Documentation for productionManager Client](./Applications/ProductionManager/Readme.md) and [some samples](./Applications/ProductionManager/Samples) for the usage.
 
+5. productionAssist <br>
+   [Documentation for productionAssist Client](./Applications/ProductionAssist/Readme.md) and [some samples](./Applications/ProductionAssist/Samples) for the usage.
+
 
 With these packages you can easily integrate different workflows of HOMAG applications into your own application. For further details and prerequisites for using the Homag Connect, please see the documentation of each application.
 

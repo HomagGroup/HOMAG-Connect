@@ -14,7 +14,7 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         /// </summary>
         public static async Task GetWorkstations(IProductionAssistFeedbackClient client)
         {
-            var response = await client.GetWorkstationsAsync();
+            var response = await client.GetWorkstations();
 
             Assert.IsTrue(response.Any());
 
@@ -26,7 +26,11 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         /// </summary>
         public static async Task ReportAsFinished(IProductionAssistFeedbackClient client)
         {
-            await client.ReportAsFinishedAsync(Guid.NewGuid(), Guid.NewGuid().ToString(), 1);
+            var workstationId = Guid.NewGuid(); // should be replaced with an existing workstationId
+            var productionEntityId = Guid.NewGuid().ToString(); // should be replaced with an existing productionEntityId
+            var quantity = 1;
+
+            await client.ReportAsFinished(workstationId, productionEntityId, quantity);
         }
     }
 }
