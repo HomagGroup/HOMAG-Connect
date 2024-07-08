@@ -11,10 +11,10 @@ public interface IProductionAssistFeedbackClient
     /// Retrieve the list of configured feedback workstations.
     /// </summary>
     /// <returns></returns>
-    Task<IEnumerable<FeedbackWorkstation>> GetWorkstationsAsync();
+    Task<IEnumerable<FeedbackWorkstation>> GetWorkstations();
 
     /// <summary>
     /// Report a production entity as finished.
     /// </summary>
-    Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity);
+    Task ReportAsFinished(Guid workstationId, string productionEntityId, int quantity);
 }

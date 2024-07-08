@@ -18,9 +18,9 @@ namespace HomagConnect.ProductionAssist.Tests.Authentication
         }
 
         [TestMethod]
-        public async Task Authentication_UsingSubscriptionIdAndToken()
+        public async Task Authentication_UsingSubscriptionIdAndAuthorizationKey()
         {
-            await AuthenticationSamples.CreateProductionAssistClientUsingSubscriptionIdAndToken(SubscriptionId, AuthorizationKey);
+            await AuthenticationSamples.CreateProductionAssistClientUsingSubscriptionIdAndAuthorizationKey(SubscriptionId, AuthorizationKey);
         }
 
 #pragma warning restore S2699 // Tests should include assertions

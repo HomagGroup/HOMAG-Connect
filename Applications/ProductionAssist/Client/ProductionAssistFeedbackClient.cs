@@ -14,7 +14,7 @@ namespace HomagConnect.ProductionAssist.Client
         #region IProductionAssistFeedbackClient Members
 
         /// <inheritdoc />
-        public async Task<IEnumerable<FeedbackWorkstation>> GetWorkstationsAsync()
+        public async Task<IEnumerable<FeedbackWorkstation>> GetWorkstations()
         {
             const string uri = "api/productionAssist/feedback/workstations";
 
@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task ReportAsFinishedAsync(Guid workstationId, string productionEntityId, int quantity)
+        public async Task ReportAsFinished(Guid workstationId, string productionEntityId, int quantity)
         {
             var uri = $"api/productionAssist/feedback/workstations";
 

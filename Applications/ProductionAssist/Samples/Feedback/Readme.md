@@ -10,7 +10,7 @@ With the HOMAG Connect Client, the workstations can be retrieved from production
   var client = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
 
 // Get the data
-  var workstations = await client.GetWorkstationsAsync();
+  var workstations = await client.GetWorkstations();
 
 // Use the retrieved data
   workstations.Trace();
@@ -34,7 +34,11 @@ With the HOMAG Connect Client, a production entity can be reported as finished. 
   var client = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
 
 // Create the request
-  await client.ReportAsFinishedAsync(Guid.NewGuid(), Guid.NewGuid().ToString(), 1);
+  var workstationId = Guid.NewGuid(); // should be replaced with an existing workstationId
+  var productionEntityId = Guid.NewGuid().ToString(); // should be replaced with an existing productionEntityId
+  var quantity = 1;
+
+  await client.ReportAsFinished(workstationId, productionEntityId, quantity);
 ```
 
 The sample code can be found at [ProductionAssist - Feedback ](ProductionAssistFeedbackSamples.cs).

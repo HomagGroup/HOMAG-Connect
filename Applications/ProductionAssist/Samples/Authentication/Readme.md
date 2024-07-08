@@ -1,6 +1,6 @@
 # Authentication / Authorization
 
-To access the HOMAG ProductionAssist Feedback Client Interface, a HOMAG Connect ProductionAssist Feedback License is required.
+To access the HOMAG ProductionAssist Feedback Client Interface, a HOMAG Connect productionManager License is required.
 
 To create an instance of the client, you will need both a Subscription Id and a Authorization Key. 
 

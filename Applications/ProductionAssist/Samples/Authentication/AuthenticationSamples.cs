@@ -31,7 +31,7 @@ namespace HomagConnect.ProductionAssist.Samples.Authentication
 
             var productionAssist = new ProductionAssistFeedbackClient(httpClient);
 
-            var workstations = await productionAssist.GetWorkstationsAsync();
+            var workstations = await productionAssist.GetWorkstations();
 
             workstations.Trace();
         }
@@ -39,11 +39,11 @@ namespace HomagConnect.ProductionAssist.Samples.Authentication
         /// <summary>
         /// Create ProductionAssist client using subscription id and authorization key.
         /// </summary>
-        public static async Task CreateProductionAssistClientUsingSubscriptionIdAndToken(Guid subscriptionId, string authorizationKey)
+        public static async Task CreateProductionAssistClientUsingSubscriptionIdAndAuthorizationKey(Guid subscriptionId, string authorizationKey)
         {
-            var productionManager = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
+            var productionAssist = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
 
-            var workstations = await productionManager.GetWorkstationsAsync();
+            var workstations = await productionAssist.GetWorkstations();
 
             workstations.Trace();
         }
