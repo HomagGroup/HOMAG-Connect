@@ -170,7 +170,7 @@ namespace HomagConnect.MaterialManager.Client
                 .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
                 .Join(QueryParametersMaxLength)
                 .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => includingDetails ? $"{_BaseRoute}{route}{_IncludingDetails}=true" + parameter : $"{_BaseRoute}{route}" + parameter).ToList();
+                .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
             return urls;
         }
 
