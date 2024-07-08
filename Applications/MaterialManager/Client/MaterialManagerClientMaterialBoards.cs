@@ -53,6 +53,34 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #endregion
 
+    #region Update
+
+    public async Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PatchObject(new Uri(_BaseRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    #endregion Update
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -229,66 +257,15 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
-        var queryParameters = new StringBuilder("?");
-        var i = 1;
-        var urls = new List<string>();
-        var codeList = codes.ToList();
-        while (i <= codeList.Count)
-        {
-            queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
-            // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-            if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
-            {
-                urls.Add(includingDetails
-                    ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                    : $"{_BaseRoute}{route}{queryParameters}");
-
-                queryParameters = new StringBuilder("?");
-            }
-
-            i++;
-            if (i <= codeList.Count)
-            {
-                queryParameters.Append('&');
-            }
-        }
-
-        urls.Add(includingDetails
-            ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-            : $"{_BaseRoute}{route}{queryParameters}");
-
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}{_IncludingDetails}=true" + parameter : $"{_BaseRoute}{route}" + parameter).ToList();
         return urls;
     }
 
     #endregion
-
-    #region Update
-
-    public async Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate)
-    {
-        if (boardTypeUpdate == null)
-        {
-            throw new ArgumentNullException(nameof(boardTypeUpdate));
-        }
-
-        ValidateRequiredProperties(boardTypeUpdate);
-
-        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(_BaseRoute, UriKind.Relative), content);
-
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
-
-        if (result != null)
-        {
-            return result;
-        }
-
-        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
-    }
-
-    #endregion Update
 
     #region statistics
 
