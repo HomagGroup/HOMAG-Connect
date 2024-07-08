@@ -17,3 +17,5 @@ Once you have confirmed your license, you can create an instance of the client b
             
 var client = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
 ``` 
+
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
