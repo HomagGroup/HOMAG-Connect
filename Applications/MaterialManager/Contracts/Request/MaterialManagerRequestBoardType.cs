@@ -55,13 +55,13 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
         /// Gets or sets the material category of the board.
         /// </summary>
         [Required]
-        public BoardMaterialCategory MaterialCategory { get; set; }
+        public BoardMaterialCategory MaterialCategory { get; set; } = BoardMaterialCategory.Undefined;
 
         /// <summary>
         /// Gets or sets the coating category of the board.
         /// </summary>
         [Required]
-        public CoatingCategory CoatingCategory { get; set; }
+        public CoatingCategory CoatingCategory { get; set; } = CoatingCategory.Undefined;
 
         /// <summary>
         /// Gets or sets the grain of the board.
@@ -72,7 +72,7 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
         /// <summary>
         /// Gets or set the standard quality.
         /// </summary>
-        public StandardQuality StandardQuality { get; set; }
+        public StandardQuality StandardQuality { get; set; } = StandardQuality.FinishCut;
         
         /// <summary>
         /// Gets or sets the total quantity available warning limit.
