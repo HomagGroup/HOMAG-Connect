@@ -15,6 +15,12 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         public string? ArticleNumber { get; set; } = null;
 
         /// <summary>
+        /// Gets or sets the gtin.
+        /// </summary>
+        [StringLength(50)]
+        public string? Gtin { get; set; } = null;
+
+        /// <summary>
         /// Gets or sets the additional comments.
         /// </summary>
         [StringLength(300)]
