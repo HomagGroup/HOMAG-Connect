@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c0a1f65d-52d0-431c-945e-f0b8cb1b920f",
+		"_postman_id": "1a16c3e0-4090-41aa-a9ff-768698394942",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -62,6 +62,124 @@
 										{
 											"key": "id",
 											"value": "9"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Read",
+			"item": [
+				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Get all board entities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get board entities by ids",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?id=19",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "19"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get board entities by board code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?boardCode=MDF_Roh_19_2800_2070",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": "MDF_Roh_19_2800_2070"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get board entities by material code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?materialCode=MDF_Roh_19",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "materialCode",
+											"value": "MDF_Roh_19"
 										}
 									]
 								}
