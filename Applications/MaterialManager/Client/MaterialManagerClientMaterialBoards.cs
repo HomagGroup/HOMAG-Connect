@@ -55,7 +55,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #region Update
 
-    public async Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
     {
         if (boardTypeUpdate == null)
         {
@@ -64,9 +64,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         ValidateRequiredProperties(boardTypeUpdate);
 
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+
         var payload = JsonConvert.SerializeObject(boardTypeUpdate);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(_BaseRoute, UriKind.Relative), content);
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
