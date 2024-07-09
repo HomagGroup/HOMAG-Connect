@@ -161,6 +161,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 35)]
         public string? DecorName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the gtin.
+        /// </summary>
+        [JsonProperty(Order = 36)]
+        public string? Gtin { get; set; }
+
         #endregion
 
         #region Material Management
