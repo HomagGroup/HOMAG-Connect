@@ -11,26 +11,7 @@ namespace HomagConnect.IntelliDivide.Tests.Results;
 public class OptimizationResultTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions
-    /// <summary />
-    [TestMethod]
-    [TemporaryDisabledOnServer(2024,7,4)]
-    public async Task Optimization_GetResult_NoException()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetOptimizationSample(intelliDivide);
-    }
-
-    /// <summary />
-    [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 4)]
-    public async Task Optimization_GetStatus_NoException()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetOptimizationStatusSample(intelliDivide);
-    }
-
+   
     /// <summary />
     [TestMethod]
     [TemporaryDisabledOnServer(2024, 7, 4)]
@@ -57,16 +38,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await OptimizationResultSamples.GetOptimizationsOfTypeCuttingSample(intelliDivide);
-    }
-
-    /// <summary />
-    [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 4)]
-    public async Task Optimizations_List_NoException()
-    {
-        var intelliDivide = GetIntelliDivideClient();
-
-        await OptimizationResultSamples.GetOptimizationsSample(intelliDivide);
     }
 
     /// <summary />

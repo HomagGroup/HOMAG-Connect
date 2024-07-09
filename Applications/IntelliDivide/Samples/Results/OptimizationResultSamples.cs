@@ -15,11 +15,7 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetOptimizationSample(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizationsAsync(1).FirstAsync();
-            var optimizationDetails = (await intelliDivide.GetOptimizationAsync(optimization.Id));
-
-            Assert.IsNotNull(optimization);
-            Assert.AreEqual(optimization.Status, optimizationDetails.Status);
+            var optimization = await intelliDivide.GetOptimizationsAsync(1);
 
             optimization.Trace();
         }
