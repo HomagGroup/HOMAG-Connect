@@ -1,35 +1,77 @@
 using System.Net.Http.Headers;
 
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.IntelliDivide.Tests.Base;
 
 public class IntelliDivideTestBase : TestBase
 {
     protected override Guid UserSecretsFolder { get; set; } = new("05d68c42-49ad-4338-91d5-e80d2c675907");
-
+    
     /// <summary>
-    /// Checks if the sample material exists.
+    /// Checks if the test material codes exist.
     /// </summary>
-    protected async Task EnsureSampleMaterialExists(IEnumerable<string> materialCodes)
+    protected async Task EnsureSampleMaterialCodesExists(string sampleMaterialCodeGrainLengthwise, string sampleMaterialCodeGrainNone)
     {
-        var distinctMaterialCodes = materialCodes.Distinct().ToList();
         var materialManagerClient = GetMaterialManagerClient();
-        var boardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(distinctMaterialCodes).ToListAsync();
+        
+        IList<BoardType> boardTypesByMaterialCodes;
 
-        Assert.IsNotNull(boardTypes, "Test material missing.");
-        Assert.IsTrue(boardTypes.Any(), "Test material missing.");
-
-        foreach (var materialCode in distinctMaterialCodes)
+        try
         {
-            if (!boardTypes.Any(b => string.Equals(b.MaterialCode, materialCode, StringComparison.InvariantCultureIgnoreCase)))
+             boardTypesByMaterialCodes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(new[] { sampleMaterialCodeGrainLengthwise, sampleMaterialCodeGrainNone }).ToListAsync();
+        }
+        catch (ProblemDetailsException ex)
+        {
+            if (ex.Message.Contains("No board types found."))
             {
-                Assert.Fail($"Test material '{materialCode} is missing.");
+                boardTypesByMaterialCodes = new List<BoardType>();
             }
+            else
+            {
+                throw;
+            }
+        }
+
+        if (boardTypesByMaterialCodes.All(b => b.MaterialCode != sampleMaterialCodeGrainLengthwise))
+        {
+            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            {
+                MaterialCode = sampleMaterialCodeGrainLengthwise,
+                BoardCode = $"{sampleMaterialCodeGrainLengthwise}_2800_2070",
+                Thickness = 19.0,
+                Grain = Grain.Lengthwise,
+                Width = 2800,
+                Length = 2070,
+                Type = BoardTypeType.Board,
+                CoatingCategory = CoatingCategory.Undefined,
+                MaterialCategory = BoardMaterialCategory.Undefined
+            });
+        }
+
+        if (boardTypesByMaterialCodes.All(b => b.MaterialCode != sampleMaterialCodeGrainNone))
+        {
+            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            {
+                MaterialCode = sampleMaterialCodeGrainNone,
+                BoardCode = $"{sampleMaterialCodeGrainNone}_2800_2070",
+                Thickness = 19.0,
+                Grain = Grain.None,
+                Width = 2800,
+                Length = 2070,
+                Type = BoardTypeType.Board,
+                CoatingCategory = CoatingCategory.Undefined,
+                MaterialCategory = BoardMaterialCategory.Undefined
+            });
         }
     }
 
