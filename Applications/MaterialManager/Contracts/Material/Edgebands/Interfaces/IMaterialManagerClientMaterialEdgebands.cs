@@ -20,11 +20,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
 
         /// <summary>
-        /// Updates the requested edgeband type by its edgebandCode in materialManager.
-        /// </summary>
-        Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
-
-        /// <summary>
         /// Gets an edgeband by edgeband code.
         /// </summary>
         /// <param name="edgebandCode"></param>
@@ -69,5 +64,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
         Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
+
+        /// <summary>
+        /// Updates the requested edgeband type by its edgebandCode in materialManager.
+        /// </summary>
+        Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
     }
 }
