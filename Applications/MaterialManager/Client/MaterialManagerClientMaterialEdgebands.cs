@@ -12,6 +12,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
@@ -160,6 +161,36 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         #endregion Create
+
+        #region Update
+
+        public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate)
+        {
+            if (edgebandTypeUpdate == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandTypeUpdate));
+            }
+
+            ValidateRequiredProperties(edgebandTypeUpdate);
+
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+            var payload = JsonConvert.SerializeObject(edgebandTypeUpdate);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(edgebandCode)}");
+        }
+
+        #endregion Update
 
         #region Private Methods
 
