@@ -498,7 +498,7 @@
 					"name": "Edgebands",
 					"item": [
 						{
-							"name": "Update and edgeband type",
+							"name": "Update an edgeband type",
 							"request": {
 								"method": "PATCH",
 								"header": [],
