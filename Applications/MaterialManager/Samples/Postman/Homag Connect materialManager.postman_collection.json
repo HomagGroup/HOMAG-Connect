@@ -457,7 +457,7 @@
 					"name": "Boards",
 					"item": [
 						{
-							"name": "UpdateBoardType",
+							"name": "Update a board type",
 							"request": {
 								"method": "PATCH",
 								"header": [],
@@ -486,6 +486,47 @@
 											"key": "boardCode",
 											"value": null,
 											"description": "Required"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Update and edgeband type",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"gtin\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"airtec\": 0,\r\n  \"decorEmbossingCode\": \"string\",\r\n  \"edgebandCode\": \"string\",\r\n  \"functionLayerThickness\": 0,\r\n  \"gluingCategory\": 0,\r\n  \"height\": 999.9,\r\n  \"lasertec\": 0,\r\n  \"length\": 9999.9,\r\n  \"macroName\": \"string\",\r\n  \"materialCategory\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"thickness\": 99.9,\r\n  \"totalLengthAvailableWarningLimit\": 0,\r\n  \"totalQuantityAvailableWarningLimit\": 2147483647\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "edgebandCode",
+											"value": "",
+											"description": "required"
 										}
 									]
 								}
