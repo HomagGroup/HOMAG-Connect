@@ -12,6 +12,7 @@ Version   | Date     | Comment
 1.0.0     |07.09.2023| First Draft
 1.1.0     |27.10.2023| Add granularity for getting the data and updating the technical documentation
 1.2.0     |27.03.2024|Add endpoint for machine data
+1.3.0     |15.07.2024|Add endpoint for inventorydata
 
 ## Content table
 
@@ -210,6 +211,8 @@ GetNodeList|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`
 GetCurrentValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes/{nodeName}`| Returns for one valid machine and a set of nodes the last reported values.
 GetValuesAtTimestamp|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}?timestamp={before}`| Returns for one valid machine and a set of nodes the last reported values at a specific point in time.
 GetHistoricalValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a set of nodes all reported values during a defined timespan.
+GetAlertEventsFromMachine|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`//alerts/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a list of alerts during a defined timespan.
+GetRecentAlertEvents|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/alerts/history?daysBack&take={take}&skip0{skip}`| Returns for one valid machine and a list of alerts during a defined timespan.
 
 ## Details
 
@@ -481,6 +484,81 @@ Content-Type: application/json; charset=utf-8
     ]
 }
 ```
+
+### GetAlertEventsFromMachine / GetRecentAlertEvents
+
+#### Input
+
+Parameter    | Type     | Description
+------|----------|------
+MachineNumber    | string   | Number of the machine
+from    | DateTime   | Date in a valid ISO form and timezone. Optional, Default = now minus  2 weeks
+to    | DateTime   | Date in a valid ISO form and timezone. Optional, Default = now
+daysBack | int | Alternative to from and to. Takes always to = actual timestamp and goes back a number of days
+take    | int   | Number of rows to read. Optional, Default = 10.000
+skip    | DateTime   | Number of rows to skip. Optional, Default = 0
+
+#### Output (List of Alerts)
+
+Property          | Type     | Description
+------------------|----------|-----------------------------------------------
+startTime | DateTimeOffset | Start of the alert
+endTime |  DateTimeOffset | End of the alert
+instanceId | string |Internal Key
+machineNumber | string | formatted Homag Machinenumber0-222-33-444
+severity| int Number between 1 and 1000
+localizedSource| Dictionary | Source of the event (in multiple languages
+localizedMessage| Dictionary | Description of the event (multiple languages)
+category | string | Category of the event
+sourceClass | string | technical sourc e of the event
+sourceInstance | string | Instance of the source (may be multiple)
+sourceMessageId| int | internal MessageId
+causality | string | reason of the alter
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machinedata/machines/1234567890/alerts/history?daysBack=1
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic xxxx
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+[
+    {
+        "startTime": "2024-07-12T14:44:15.4043838+02:00",
+        "endTime": "2024-07-12T14:55:50.4438614+02:00",
+        "instanceId": "1e3a2e60-8023-4a58-9da0-c41948d34a08",
+        "machineNumber": "0-222-33-4444",
+        "severity": 1000,
+        "localizedSource": {
+            "": "Control computer (Test)"
+        },
+        "localizedMessage": {
+            "de-DE": "test pre umgebung",
+            "en-US": "test pre environment",
+            "it-IT": "test pre contexto"
+        },
+        "category": "Fault",
+        "sourceClass": "LINUXERRORPIPE",
+        "sourceInstance": "LINUXERRORPIPE_M1-C1",
+        "sourceMessageId": 1,
+        "causality": "Unknown"
+    },
+    .....
+]
+```
+
 
 ## Contribute
 
