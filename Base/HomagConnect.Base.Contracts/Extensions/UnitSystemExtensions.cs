@@ -42,7 +42,7 @@ public static class UnitSystemExtensions
 
         if (unitSystem == UnitSystem.Imperial)
         {
-            return Math.Round(Math.Round(ConvertSquareInchToSquareFoot(length.Value * width.Value) * (int)quantity, 3));
+            return Math.Round(ConvertSquareInchToSquareFoot(length.Value * width.Value) * (int)quantity, 3);
         }
 
         throw new InvalidOperationException($"{nameof(UnitSystem)} {unitSystem} is not supported");
