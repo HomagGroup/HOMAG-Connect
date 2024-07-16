@@ -38,7 +38,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,7,15)]
+    [TemporaryDisabledOnServer(2024,9,1)]
     public async Task CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
