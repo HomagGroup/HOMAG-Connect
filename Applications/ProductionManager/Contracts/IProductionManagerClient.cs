@@ -67,14 +67,14 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </param>
         /// <param name="productionEntities"></param>
         /// <returns></returns>
-        Task<EdgebandPredictionResponse> PredictProductionEntitiesListForMachine(string? machineNumber, IEnumerable<EdgebandPredictPart> productionEntities);
+        Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities, string machineNumber);
         
         
         /// <summary>
         /// Predict on subscription level or on a global model
         /// </summary>
         /// <returns></returns>
-        Task<EdgebandPredictionResponse> PredictProductionEntitiesList(IEnumerable<EdgebandPredictPart> productionEntities);
+        Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities);
 
         #endregion
     }

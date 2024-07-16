@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
-using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
@@ -73,7 +72,10 @@ namespace HomagConnect.ProductionManager.Client
             return await RequestObject<ImportOrderStateResponse>(new Uri(url, UriKind.Relative));
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             var url = $"/api/productionManager/orders";
@@ -146,35 +148,22 @@ namespace HomagConnect.ProductionManager.Client
         #region prediction
 
         /// <inhertidoc />
-        public async Task<EdgebandPredictionResponse> PredictProductionEntitiesListForMachine(string? machineNumber, IEnumerable<EdgebandPredictPart> productionEntities)
+        public async Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities, string? machineNumber)
         {
-
-            var uri = new Uri($"/api/productionManager/prediction/edgeband/machines/{machineNumber}");
+            string param = machineNumber != null ? $"?machine={machineNumber}" : string.Empty;
+            var uri = new Uri($"/api/productionManager/predict/edgebanding{param}");
             PredictionRequest request = new()
             {
                 ProductionEntities = productionEntities
             };
 
-
-            var response = await PostObject(uri, request).ConfigureAwait(true);
-            var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            var result = JsonConvert.DeserializeObject<EdgebandPredictionResponse>(rawResult, SerializerSettings.Default);
-
-            if (result == null)
-            {
-                throw new ProblemDetailsException()
-                {
-                    Title = "Invalid result from prediction process. Process returned null!"
-                };
-            }
-            return result;
+            return await PostObject<PredictionRequest, EdgebandPrediction>(uri, request).ConfigureAwait(true);
         }
 
         /// <inhertidoc />
-        public async Task<EdgebandPredictionResponse> PredictProductionEntitiesList(IEnumerable<EdgebandPredictPart> productionEntities)
+        public async Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities)
         {
-            return await PredictProductionEntitiesListForMachine(null, productionEntities);
+            return await PredictEdgebandingDuration(productionEntities, null);
         }
 
         #endregion

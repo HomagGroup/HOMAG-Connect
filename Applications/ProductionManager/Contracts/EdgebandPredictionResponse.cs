@@ -5,12 +5,12 @@ namespace HomagConnect.ProductionManager.Contracts
     /// <summary>
     /// 
     /// </summary>
-    public class EdgebandPredictionResponse : IExtensibleDataObject
+    public class EdgebandPrediction : IExtensibleDataObject
     {
         /// <summary>
         /// Predicted Timespan for the given parts
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Prediction { get; set; }
 
         /// <summary>
         /// Strategy, which has been chosen based on the data of the customer
@@ -18,14 +18,14 @@ namespace HomagConnect.ProductionManager.Contracts
         public EdgebandPredictionStrategy PredictionStrategy { get; set; }
 
         /// <summary>
-        /// PredictionTime based on the Quartile 1
+        /// plausible PredictionTime calculated on the Quartile 1
         /// </summary>
-        public TimeSpan PredictionMinValueQ1 { get; set; }
+        public TimeSpan PredictionRangeMin { get; set; }
 
         /// <summary>
-        /// PredictionTime based on the Quartile 3
+        /// plausible PredictionTime calculated on the Quartile 1
         /// </summary>
-        public TimeSpan PredictionMaxValueQ3 { get; set; }
+        public TimeSpan PredictionRangeMax { get; set; }
 
         /// <summary>
         /// PredictionsMachines (in format "x-xxx-xx-xxxx")
