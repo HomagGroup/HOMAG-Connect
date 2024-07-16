@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
@@ -138,6 +139,42 @@ namespace HomagConnect.ProductionManager.Client
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return await RequestEnumerableAsync<Order>(uris);
+        }
+
+        #endregion
+
+        #region prediction
+
+        /// <inhertidoc />
+        public async Task<EdgebandPredictionResponse> PredictProductionEntitiesListForMachine(string? machineNumber, IEnumerable<EdgebandPredictPart> productionEntities)
+        {
+
+            var uri = new Uri($"/api/productionManager/prediction/edgeband/machines/{machineNumber}");
+            PredictionRequest request = new()
+            {
+                ProductionEntities = productionEntities
+            };
+
+
+            var response = await PostObject(uri, request).ConfigureAwait(true);
+            var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            var result = JsonConvert.DeserializeObject<EdgebandPredictionResponse>(rawResult, SerializerSettings.Default);
+
+            if (result == null)
+            {
+                throw new ProblemDetailsException()
+                {
+                    Title = "Invalid result from prediction process. Process returned null!"
+                };
+            }
+            return result;
+        }
+
+        /// <inhertidoc />
+        public async Task<EdgebandPredictionResponse> PredictProductionEntitiesList(IEnumerable<EdgebandPredictPart> productionEntities)
+        {
+            return await PredictProductionEntitiesListForMachine(null, productionEntities);
         }
 
         #endregion

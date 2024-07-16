@@ -55,5 +55,27 @@ namespace HomagConnect.ProductionManager.Contracts
         /// format.
         /// </param>
         Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
+
+
+        #region production time prediction
+
+        /// <summary>
+        /// Get for a Machine
+        /// </summary>
+        /// <param name="machineNumber">
+        /// optional. If omitted, all edgeband machines of the customer are used or even a global fallback
+        /// </param>
+        /// <param name="productionEntities"></param>
+        /// <returns></returns>
+        Task<EdgebandPredictionResponse> PredictProductionEntitiesListForMachine(string? machineNumber, IEnumerable<EdgebandPredictPart> productionEntities);
+        
+        
+        /// <summary>
+        /// Predict on subscription level or on a global model
+        /// </summary>
+        /// <returns></returns>
+        Task<EdgebandPredictionResponse> PredictProductionEntitiesList(IEnumerable<EdgebandPredictPart> productionEntities);
+
+        #endregion
     }
 }
