@@ -37,12 +37,12 @@ public static class UnitSystemExtensions
 
         if (unitSystem == UnitSystem.Metric)
         {
-            return ConvertMillimeterToMeter(length.Value) * ConvertMillimeterToMeter(width.Value) * quantity;
+            return Math.Round(ConvertMillimeterToMeter(length.Value) * ConvertMillimeterToMeter(width.Value) * (int)quantity, 1);
         }
 
         if (unitSystem == UnitSystem.Imperial)
         {
-            return ConvertSquareInchToSquareFoot(length.Value * width.Value) * quantity;
+            return Math.Round(Math.Round(ConvertSquareInchToSquareFoot(length.Value * width.Value) * (int)quantity, 3));
         }
 
         throw new InvalidOperationException($"{nameof(UnitSystem)} {unitSystem} is not supported");
