@@ -167,7 +167,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <inheritdoc />
         public async Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0)
         {
-            string url = $"/api/mmr-mobile/eventdata/machines/{machineNumber}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+            string url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/alerts/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
 
             return await RequestEnumerable<AlertEvent>(new Uri(url, UriKind.Relative));
         }
