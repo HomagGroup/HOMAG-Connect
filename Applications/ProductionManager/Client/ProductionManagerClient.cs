@@ -10,6 +10,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Predict;
 
 using Newtonsoft.Json;
 
@@ -58,6 +59,8 @@ namespace HomagConnect.ProductionManager.Client
 
             return responseObject ?? new ImportOrderResponse();
         }
+
+      
 
         /// <inheritdoc />
         public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId)
@@ -148,22 +151,21 @@ namespace HomagConnect.ProductionManager.Client
         #region prediction
 
         /// <inhertidoc />
-        public async Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities, string? machineNumber)
+        public async Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest)
         {
-            string param = machineNumber != null ? $"?machine={machineNumber}" : string.Empty;
-            var uri = new Uri($"/api/productionManager/predict/edgebanding{param}");
-            PredictionRequest request = new()
+            if (edgebandingPredictionRequest == null)
             {
-                ProductionEntities = productionEntities
-            };
+                throw new ArgumentNullException(nameof(edgebandingPredictionRequest));
+            }
 
-            return await PostObject<PredictionRequest, EdgebandPrediction>(uri, request).ConfigureAwait(true);
-        }
+            if (edgebandingPredictionRequest.ProductionEntities == null || !edgebandingPredictionRequest.ProductionEntities.Any())
+            {
+                throw new ArgumentException("The production entities must not be null or empty.", nameof(edgebandingPredictionRequest));
+            }
 
-        /// <inhertidoc />
-        public async Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities)
-        {
-            return await PredictEdgebandingDuration(productionEntities, null);
+            var uri = new Uri("/api/productionManager/predict/edgebanding", UriKind.Relative);
+
+            return await PostObject<EdgebandingPredictionRequest, EdgebandingPrediction>(uri, edgebandingPredictionRequest).ConfigureAwait(true);
         }
 
         #endregion

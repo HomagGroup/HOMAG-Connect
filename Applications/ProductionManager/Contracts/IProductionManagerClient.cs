@@ -1,4 +1,5 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Predict;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -57,25 +58,14 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
 
 
-        #region production time prediction
+        #region Prediction of production durations
 
         /// <summary>
-        /// Get for a Machine
-        /// </summary>
-        /// <param name="machineNumber">
-        /// optional. If omitted, all edgeband machines of the customer are used or even a global fallback
-        /// </param>
-        /// <param name="productionEntities"></param>
-        /// <returns></returns>
-        Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities, string machineNumber);
-        
-        
-        /// <summary>
-        /// Predict on subscription level or on a global model
+        /// Predicts the edgebanding duration.
         /// </summary>
         /// <returns></returns>
-        Task<EdgebandPrediction> PredictEdgebandingDuration(IEnumerable<EdgebandPredictPart> productionEntities);
-
+        Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest);
+        
         #endregion
     }
 }
