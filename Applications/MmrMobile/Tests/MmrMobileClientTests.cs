@@ -70,7 +70,7 @@ public class MmrMobileClientTests : MmrTestBase
 
         // Act
         var machines = await client.GetMachines();
-        var result = await client.GetEventSeriesFromMachine(machines.First()?.MachineNumber ?? "123", 
+        var result = await client.GetAlertEventsFromMachine(machines.First()?.MachineNumber ?? "123", 
             DateTime.Now.AddDays(-5), DateTime.Now, 1000);
 
         // Assert

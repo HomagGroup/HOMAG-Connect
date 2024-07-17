@@ -55,7 +55,14 @@ namespace HomagConnect.MmrMobile.Contracts
         /// - end is after to-value
         /// </summary>
         /// <returns cref="AlertEvent">A list of AlertEvents</returns>
-        Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0);
+        Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0);
+
+        /// <summary>
+        /// gets recent alerts . To-date is fix to "now", From date is calculated automatically
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0);
+
         #endregion
 
         #region mmr states and counters
