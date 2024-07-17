@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
 {
@@ -63,5 +64,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
         Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
+
+        /// <summary>
+        /// Updates the requested edgeband type by its edgebandCode in materialManager.
+        /// </summary>
+        Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
     }
 }

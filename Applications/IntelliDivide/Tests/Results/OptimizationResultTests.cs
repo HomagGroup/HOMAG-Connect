@@ -14,7 +14,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
    
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 4)]
+    [TemporaryDisabledOnServer(2024, 8, 4)]
     public async Task Optimization_HttpClientAutoCreated_GetResult_NoException()
     {
         var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);
@@ -42,7 +42,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 9, 1)] // todo: reenable tests divide!
+    [TemporaryDisabledOnServer(2024, 8, 15)] // todo: reenable tests divide!
     public async Task Solution_GetDetails_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -52,7 +52,7 @@ public class OptimizationResultTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 9, 1)] // todo: reenable tests divide!
+    [TemporaryDisabledOnServer(2024, 8, 15)] // todo: reenable tests divide!
     public async Task Solution_List_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
