@@ -10,6 +10,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Predict;
 
 using Newtonsoft.Json;
 
@@ -59,6 +60,8 @@ namespace HomagConnect.ProductionManager.Client
             return responseObject ?? new ImportOrderResponse();
         }
 
+      
+
         /// <inheritdoc />
         public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId)
         {
@@ -72,7 +75,10 @@ namespace HomagConnect.ProductionManager.Client
             return await RequestObject<ImportOrderStateResponse>(new Uri(url, UriKind.Relative));
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             var url = $"/api/productionManager/orders";
@@ -138,6 +144,28 @@ namespace HomagConnect.ProductionManager.Client
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return await RequestEnumerableAsync<Order>(uris);
+        }
+
+        #endregion
+
+        #region prediction
+
+        /// <inhertidoc />
+        public async Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest)
+        {
+            if (edgebandingPredictionRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandingPredictionRequest));
+            }
+
+            if (edgebandingPredictionRequest.ProductionEntities == null || !edgebandingPredictionRequest.ProductionEntities.Any())
+            {
+                throw new ArgumentException("The production entities must not be null or empty.", nameof(edgebandingPredictionRequest));
+            }
+
+            var uri = new Uri("/api/productionManager/predict/edgebanding", UriKind.Relative);
+
+            return await PostObject<EdgebandingPredictionRequest, EdgebandingPrediction>(uri, edgebandingPredictionRequest).ConfigureAwait(true);
         }
 
         #endregion

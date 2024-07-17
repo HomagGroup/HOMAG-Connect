@@ -1,4 +1,5 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Predict;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -55,5 +56,16 @@ namespace HomagConnect.ProductionManager.Contracts
         /// format.
         /// </param>
         Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
+
+
+        #region Prediction of production durations
+
+        /// <summary>
+        /// Predicts the edgebanding duration.
+        /// </summary>
+        /// <returns></returns>
+        Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest);
+        
+        #endregion
     }
 }
