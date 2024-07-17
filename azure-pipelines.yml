@@ -48,7 +48,7 @@ stages:
     parameters:
       dependsOn: 
       - retrieve_version_info_from_git
-      fully_qualifed_package_name: HomagGroup.DigitalFactory.DigitalDevelopment.HomagConnect
+      fully_qualifed_package_name: HomagGroup.DigitalFactory.Solutions.DF-Insights
       analyze_directory: $(Build.SourcesDirectory)
       package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
 

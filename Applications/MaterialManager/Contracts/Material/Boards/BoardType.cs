@@ -77,6 +77,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 14)]
         public StandardQuality StandardQuality { get; set; }
 
+        /// <summary>
+        /// Gets or sets the material last used data.
+        /// </summary>
+        [JsonProperty(Order = 15)]
+        public DateTimeOffset? MaterialLastUsed { get; set; }
+
         #endregion
 
         #region Board type
@@ -170,6 +176,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #endregion
 
         #region Material Management
+
         /// <summary>
         /// Gets or sets the total quantity available warning limit.
         /// </summary>
