@@ -7,7 +7,7 @@ namespace HomagConnect.MmrMobile.Contracts
 {
     public class AlertEvent : IExtensibleDataObject
     {
-        public AlertEvent(IEnumerable<KeyValuePair<string, string>> localizedSource, IEnumerable<KeyValuePair<string, string>> localizedMessage)
+        public AlertEvent(Dictionary<string, string> localizedSource, Dictionary<string, string> localizedMessage)
         {
             LocalizedSource = localizedSource;
             LocalizedMessage = localizedMessage;
@@ -53,7 +53,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// - optional : customer language
         /// </summary>
         [JsonProperty(Order = 5)]
-        public IEnumerable<KeyValuePair<string,string>> LocalizedSource { get; set; }
+        public Dictionary<string, string> LocalizedSource { get; set; }
 
         /// <summary>
         /// JSON-String containing the shown error-message of the event in all available languages
@@ -61,7 +61,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// - optional : customer language
         /// </summary>
         [JsonProperty(Order = 6)]
-        public IEnumerable<KeyValuePair<string, string>> LocalizedMessage { get; set; }
+        public Dictionary<string, string> LocalizedMessage { get; set; }
 
         /// <summary>
         /// Category of the event
