@@ -46,17 +46,17 @@ namespace HomagConnect.Base.Services
         /// <summary>
         /// Creates a new instance of the service base
         /// </summary>
-        protected ServiceBase(Guid subscriptionId, string authorizationKey)
+        protected ServiceBase(Guid subscriptionOrPartnerId, string authorizationKey)
         {
-            Initialize(subscriptionId, authorizationKey, _DefaultBaseUri);
+            Initialize(subscriptionOrPartnerId, authorizationKey, _DefaultBaseUri);
         }
 
         /// <summary>
         /// Creates a new instance of the service base
         /// </summary>
-        protected ServiceBase(Guid subscriptionId, string authorizationKey, Uri baseUri)
+        protected ServiceBase(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri)
         {
-            Initialize(subscriptionId, authorizationKey, baseUri);
+            Initialize(subscriptionOrPartnerId, authorizationKey, baseUri);
         }
 
         /// <summary>
@@ -230,14 +230,14 @@ namespace HomagConnect.Base.Services
             throw new ValidationException("Required properties are missing: " + string.Join(", ", errorMessages));
         }
 
-        private void Initialize(Guid subscriptionId, string authorizationKey, Uri baseUri)
+        private void Initialize(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri)
         {
             var httpClient = new HttpClient
             {
                 BaseAddress = baseUri
             };
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{authorizationKey}")));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionOrPartnerId}:{authorizationKey}")));
 
             Initialize(httpClient);
         }

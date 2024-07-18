@@ -38,17 +38,17 @@ namespace HomagConnect.ProductionAssist.Client
         }
 
         #endregion
-
+        
         #region Constructors
 
         /// <inheritdoc />
         public ProductionAssistFeedbackClient(HttpClient client) : base(client) { }
 
         /// <inheritdoc />
-        public ProductionAssistFeedbackClient(Guid subscriptionId, string authorizationKey) : base(subscriptionId, authorizationKey) { }
+        public ProductionAssistFeedbackClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
         /// <inheritdoc />
-        public ProductionAssistFeedbackClient(Guid subscriptionId, string authorizationKey, Uri? baseUri) : base(subscriptionId, authorizationKey, baseUri) { }
+        public ProductionAssistFeedbackClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
         #endregion
     }

@@ -24,6 +24,19 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Constructors
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+    #endregion
+
     #region Create
 
     /// <inheritdoc />
@@ -94,9 +107,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #endregion
 
     #region Read
-
-    /// <inheritdoc />
-    public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
 
     /// <inheritdoc />
     public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
