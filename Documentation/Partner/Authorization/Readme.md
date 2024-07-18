@@ -26,7 +26,7 @@ var client = new ProductionManagerClient(partnerId, authorizationKey);
 
 During authentication, the system verifies if the customer has licensed the relevant add-on for the specific application and PartnerId, and grants or denies access based on this information. This ensures that only authorized users can access the integrated processes.
 
-## Example: Partner Add-On SmartWOPConnect
+## Ein Beispiel zur Umsetzung eines Partner Add-ons
 
 SmartWOP allows customers to transfer orders directly to productionManager. This eliminates the intermediate step of manually exporting and importing orders. This makes the process much smoother and less error prone.
 
