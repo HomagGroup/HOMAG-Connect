@@ -105,13 +105,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.ProductionAssist", "HomagConnect.ProductionAssist", "{D0EA0BE4-D8C8-4422-BAB4-57D60123543C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Contracts", "Applications\ProductionAssist\Contracts\HomagConnect.ProductionAssist.Contracts.csproj", "{49B6155D-81D1-4E38-9AB9-D062F9A4082C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Contracts", "Applications\ProductionAssist\Contracts\HomagConnect.ProductionAssist.Contracts.csproj", "{49B6155D-81D1-4E38-9AB9-D062F9A4082C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Client", "Applications\ProductionAssist\Client\HomagConnect.ProductionAssist.Client.csproj", "{60EA46CD-2233-4AFC-BC80-3A3D485F71DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Client", "Applications\ProductionAssist\Client\HomagConnect.ProductionAssist.Client.csproj", "{60EA46CD-2233-4AFC-BC80-3A3D485F71DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Samples", "Applications\ProductionAssist\Samples\HomagConnect.ProductionAssist.Samples.csproj", "{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Samples", "Applications\ProductionAssist\Samples\HomagConnect.ProductionAssist.Samples.csproj", "{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Tests", "Applications\ProductionAssist\Tests\HomagConnect.ProductionAssist.Tests.csproj", "{48CEB0E8-F145-4274-86AB-5DD62DCB83EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Tests", "Applications\ProductionAssist\Tests\HomagConnect.ProductionAssist.Tests.csproj", "{48CEB0E8-F145-4274-86AB-5DD62DCB83EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Partner", "Partner", "{F6E5A8CA-0849-4EA2-9B39-439B87116525}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{7DDEF0A8-91A4-4776-87F6-F99325B28088}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Partner\Authorization\Readme.md = Documentation\Partner\Authorization\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\Readme.md = Applications\Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -274,6 +288,9 @@ Global
 		{60EA46CD-2233-4AFC-BC80-3A3D485F71DA} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{48CEB0E8-F145-4274-86AB-5DD62DCB83EB} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
+		{F6E5A8CA-0849-4EA2-9B39-439B87116525} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
+		{7DDEF0A8-91A4-4776-87F6-F99325B28088} = {F6E5A8CA-0849-4EA2-9B39-439B87116525}
+		{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
