@@ -50,7 +50,7 @@ The generated Authorization Key is [inserted into smartWOP](https://docs.homag.c
 
 ![SmartWOP](Partner_Authorization-06.png "Export to productionManager")
 
-It is then used to authenticate the partner add-on in the HOMAG Connect productionManager API when exporting a project.
+It is then used to authenticate the partner add-on in the HOMAG Connect productionManager API when [exporting a project](https://docs.homag.cloud/en/smartwop/in-a-nutshell/interface-to-apps).
 
 ![SmartWOP](Partner_Authorization-07.png "Export to productionManager")
 
