@@ -8,7 +8,7 @@ HOMAG Connect APIs provide customers with the ability to seamlessly integrate HO
 var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 ``` 
 
-For more information on authentication and authorization for customers, please refer to the details provided in the [HOMAG Connect](../../Applications/IntelliDivide/Samples/Authentication) documentation.
+For more information on authentication and authorization for customers, please refer to the details provided in the [HOMAG Connect](../../../Applications/IntelliDivide/Samples/Authentication){:target="_blank"} documentation.
 
 The HOMAG Connect APIs provide Tapio partners with the ability to seamlessly integrate and streamline processes for their customers by accessing HOMAG apps. Additionally, Tapio partners can develop and offer their own add-ons to HOMAG applications on the platform. To authenticate and access the HOMAG Connect API, partners use a PartnerId provided by HOMAG and an Authorization Key, which can be created by the customer within the partner add-on.
 
@@ -27,11 +27,11 @@ During authentication, the system verifies if the customer has licensed the rele
 
 SmartWOP allows customers to transfer orders directly to productionManager. This eliminates the intermediate step of manually exporting and importing orders. This makes the process much smoother and less error prone.
 
-To use this feature, the customer must license the SmartWOPConnect productionManager add-on at [tapio Marketplace](https://customerportal.tapio.one/marketplace/ccp/v/pa/marketplace/home-view?vendorId=1022097719).
+To use this feature, the customer must license the SmartWOPConnect productionManager add-on at [tapio Marketplace](https://customerportal.tapio.one/marketplace/ccp/v/pa/marketplace/home-view?vendorId=1022097719){:target="_blank"}.
 
 ![tapio marketplace](Partner_Authorization-01.png "tapio marketplace")
 
-This add-on is then available at [my.tapio.one](https://my.tapio.one) in the HOMAG productionManager application.
+This add-on is then available at [my.tapio.one](https://my.tapio.one){:target="_blank"} in the HOMAG productionManager application.
 
 ![my.tapio.one](Partner_Authorization-02.png "my.tapio.one")
 
