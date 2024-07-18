@@ -28,8 +28,18 @@ namespace HomagConnect.MaterialManager.Client
         private const string _EdgebandCode = "edgebandCode";
         private const string _IncludingDetails = "includingDetails";
 
+        #region Constructors
+
         /// <inheritdoc />
         public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         /// <inheritdoc />
         public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)

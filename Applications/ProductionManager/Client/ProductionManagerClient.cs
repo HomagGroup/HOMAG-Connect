@@ -176,10 +176,10 @@ namespace HomagConnect.ProductionManager.Client
         public ProductionManagerClient(HttpClient client) : base(client) { }
 
         /// <inheritdoc />
-        public ProductionManagerClient(Guid subscriptionId, string authorizationKey) : base(subscriptionId, authorizationKey) { }
+        public ProductionManagerClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
         /// <inheritdoc />
-        public ProductionManagerClient(Guid subscriptionId, string authorizationKey, Uri? baseUri) : base(subscriptionId, authorizationKey, baseUri) { }
+        public ProductionManagerClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
         #endregion
     }
