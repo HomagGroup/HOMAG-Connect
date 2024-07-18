@@ -10,7 +10,7 @@ var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 
 For more information on authentication and authorization for customers, please refer to the details provided in the [HOMAG Connect](../../../Applications/IntelliDivide/Samples/Authentication) documentation.
 
-The HOMAG Connect APIs provide Tapio partners with the ability to seamlessly integrate and streamline processes for their customers by accessing HOMAG apps. Additionally, Tapio partners can develop and offer their own add-ons to HOMAG applications on the platform. To authenticate and access the HOMAG Connect API, partners use a PartnerId provided by HOMAG and an Authorization Key, which can be created by the customer within the partner add-on.
+The HOMAG Connect APIs provide [Tapio partners](https://docs.homag.cloud/en/data-exchange/in-a-nutshell/partner) with the ability to seamlessly integrate and streamline processes for their customers by accessing HOMAG apps. Additionally, Tapio partners can develop and offer their own add-ons to HOMAG applications on the platform. To authenticate and access the HOMAG Connect API, partners use a PartnerId provided by HOMAG and an Authorization Key, which can be created by the customer within the partner add-on.
 
 ```c#
 // Create new instance of the productionManager client:
