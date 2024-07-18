@@ -8,9 +8,9 @@ HOMAG Connect APIs provide customers with the ability to seamlessly integrate HO
 var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 ``` 
 
-For more information on authentication and authorization for customers, please refer to the details provided in the [HOMAG Connect intelliDivide](../../Applications/IntelliDivide/Samples/Authentication) documentation.
+For more information on authentication and authorization for customers, please refer to the details provided in the [HOMAG Connect](../../Applications/IntelliDivide/Samples/Authentication) documentation.
 
-The HOMAG Connect APIs provide Tapio partners with the ability to seamlessly integrate and streamline processes for their customers by accessing HOMAG apps. Additionally, Tapio partners can develop and offer their own add-ons to HOMAG applications on the platform. To authenticate and access the HOMAG Connect API, partners use a PartnerId and an Authorization Key, which can be created by the customer within the partner add-on.
+The HOMAG Connect APIs provide Tapio partners with the ability to seamlessly integrate and streamline processes for their customers by accessing HOMAG apps. Additionally, Tapio partners can develop and offer their own add-ons to HOMAG applications on the platform. To authenticate and access the HOMAG Connect API, partners use a PartnerId provided by HOMAG and an Authorization Key, which can be created by the customer within the partner add-on.
 
 ```c#
 // Create new instance of the productionManager client:
@@ -23,7 +23,7 @@ var client = new ProductionManagerClient(partnerId, authorizationKey);
 
 During authentication, the system verifies if the customer has licensed the relevant add-on for the specific application and PartnerId, and grants or denies access based on this information. This ensures that only authorized users can access the integrated processes.
 
-## Partner Add-On SmartWOPConnect
+## Example: Partner Add-On SmartWOPConnect
 
 SmartWOP allows customers to transfer orders directly to productionManager. This eliminates the intermediate step of manually exporting and importing orders. This makes the process much smoother and less error prone.
 
@@ -31,11 +31,11 @@ To use this feature, the customer must license the SmartWOPConnect productionMan
 
 ![tapio marketplace](Partner_Authorization-01.png "tapio marketplace")
 
-This add-on is then available at [my.tapio.one](https://my.tapio.one) in the productionManager app.
+This add-on is then available at [my.tapio.one](https://my.tapio.one) in the HOMAG productionManager application.
 
 ![my.tapio.one](Partner_Authorization-02.png "my.tapio.one")
 
-In the Authorization Keys dialog, the customer can create a new Authorization Key.
+In the Authorization Keys dialog, the customer can generate a new Authorization Key.
 
 ![SmartWOPConnect Add-on](Partner_Authorization-03.png "SmartWOPConnect Add-on")
 
@@ -45,7 +45,7 @@ In the Authorization Keys dialog, the customer can create a new Authorization Ke
 
 The generated Authorization Key gets inserted in smartWOP. 
 
-It is then used to authenticate the partner add-on in the productionManager API.
+It is then used to authenticate the partner add-on in the HOMAG Connect productionManager API.
 
 ```c#
 // Create new instance of the productionManager client:
