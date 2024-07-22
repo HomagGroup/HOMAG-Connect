@@ -116,51 +116,16 @@ namespace HomagConnect.MaterialAssist.Client
         public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntities(int take, int skip = 0)
         {
             var url = $"{_BaseRoute}?take={take}&skip={skip}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+
+            return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
         public async Task<EdgebandEntity> GetEdgebandEntityById(string id)
         {
             var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
 
-        /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode)
-        {
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCodes(IEnumerable<string> edgebandCodes)
-        {
-            if (edgebandCodes == null)
-            {
-                throw new ArgumentNullException(nameof(edgebandCodes));
-            }
-
-            var codes = edgebandCodes
-                .Where(m => !string.IsNullOrWhiteSpace(m))
-                .Distinct()
-                .OrderBy(m => m)
-                .ToList();
-
-            if (!codes.Any())
-            {
-                throw new ArgumentNullException(nameof(edgebandCodes), "At least one material code must be passed.");
-            }
-
-            var urls = CreateUrls(codes, _EdgebandCode);
-            var edgebandEntities = new List<EdgebandEntity>();
-
-            foreach (var url in urls)
-            {
-                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)));
-            }
-
-            return edgebandEntities;
+            return await RequestObject<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
@@ -179,10 +144,48 @@ namespace HomagConnect.MaterialAssist.Client
 
             if (!codes.Any())
             {
-                throw new ArgumentNullException(nameof(ids), "At least one material code must be passed.");
+                throw new ArgumentNullException(nameof(ids), "At least one id must be passed.");
             }
 
             var urls = CreateUrls(codes, _Id);
+            var edgebandEntities = new List<EdgebandEntity>();
+
+            foreach (var url in urls)
+            {
+                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)));
+            }
+
+            return edgebandEntities;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode)
+        {
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+            return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCodes(IEnumerable<string> edgebandCodes)
+        {
+            if (edgebandCodes == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes));
+            }
+
+            var codes = edgebandCodes
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes), "At least one edgeband code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode);
             var edgebandEntities = new List<EdgebandEntity>();
 
             foreach (var url in urls)

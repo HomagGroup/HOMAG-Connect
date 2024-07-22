@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1a16c3e0-4090-41aa-a9ff-768698394942",
+		"_postman_id": "cdfd7169-61b4-48f9-917c-5079a72d8e6f",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -180,6 +180,94 @@
 										{
 											"key": "materialCode",
 											"value": "MDF_Roh_19"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Get all edgeband entities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get edgeband entities by ids",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities?id=28",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "28"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get edgeband entities by edgeband code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities?edgebandCode=ABS_Chicago_Concrete_dunkelgrau_0.80_43.0_NN",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "edgebandCode",
+											"value": "ABS_Chicago_Concrete_dunkelgrau_0.80_43.0_NN"
 										}
 									]
 								}
