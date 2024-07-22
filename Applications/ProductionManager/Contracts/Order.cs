@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts
 {
     /// <summary>
-    /// Order data
-    /// </summary>
-    public class Order : IExtensibleDataObject
+        /// Order data
+        /// </summary>
+        public class Order : IExtensibleDataObject
     {
         #region IExtensibleDataObject Members
 
@@ -159,6 +159,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Gets or sets the address of the order.
         /// </summary>
+        [JsonProperty(Order = 300)]
         public Address? Address { get; set; }
 
         #endregion
@@ -168,6 +169,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Gets or sets the notes of the order.
         /// </summary>
+        [JsonProperty(Order = 400)]
         public string? Notes { get; set; }
 
         #endregion
