@@ -10,6 +10,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
 using Newtonsoft.Json;
@@ -21,8 +22,10 @@ namespace HomagConnect.ProductionManager.Client
     {
         #region IProductionManagerClient
 
+        #region Order import
+
         /// <inheritdoc />
-        public async Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile)
+        public async Task<ImportOrderResponse> ImportOrder(ImportOrderRequest importOrderRequest, FileInfo projectFile)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
 
@@ -60,10 +63,8 @@ namespace HomagConnect.ProductionManager.Client
             return responseObject ?? new ImportOrderResponse();
         }
 
-      
-
         /// <inheritdoc />
-        public async Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId)
+        public async Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
         {
             if (correlationId == Guid.Empty)
             {
@@ -75,17 +76,9 @@ namespace HomagConnect.ProductionManager.Client
             return await RequestObject<ImportOrderStateResponse>(new Uri(url, UriKind.Relative));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<Order>> GetOrdersAsync()
-        {
-            var url = $"/api/productionManager/orders";
-            var orders = await RequestEnumerable<Order>(new Uri(url, UriKind.Relative));
+        #endregion
 
-            return orders;
-        }
+        #region Order overview
 
         /// <inheritdoc />
         public async Task<IEnumerable<Order>> GetOrders(int take, int skip = 0)
@@ -114,23 +107,27 @@ namespace HomagConnect.ProductionManager.Client
             return await RequestEnumerableAsync<Order>(uris);
         }
 
+        #endregion
+
+        #region Order details
+
         /// <inheritdoc />
-        public async Task<Order> GetOrder(Guid orderId)
+        public async Task<OrderDetails> GetOrder(Guid orderId)
         {
             var url = $"/api/productionManager/orders/{orderId}";
-            var orders = await RequestObject<Order>(new Uri(url, UriKind.Relative));
+            var orders = await RequestObject<OrderDetails>(new Uri(url, UriKind.Relative));
 
             return orders;
         }
 
         /// <inheritdoc />
-        public Task<Order> GetOrderByExternalSystemId(string externalSystemId)
+        public Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId)
         {
             return GetOrderByExternalSystemId([externalSystemId]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Order>> GetOrderByExternalSystemId(string[] externalSystemIds)
+        public async Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds)
         {
             var validExternalSystemIds = externalSystemIds
                 .Select(e => e.Trim())
@@ -143,12 +140,12 @@ namespace HomagConnect.ProductionManager.Client
                 .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
                 .Select(c => new Uri(c, UriKind.Relative));
 
-            return await RequestEnumerableAsync<Order>(uris);
+            return await RequestEnumerableAsync<OrderDetails>(uris);
         }
 
         #endregion
 
-        #region prediction
+        #region Prediction
 
         /// <inhertidoc />
         public async Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest)
@@ -167,6 +164,8 @@ namespace HomagConnect.ProductionManager.Client
 
             return await PostObject<EdgebandingPredictionRequest, EdgebandingPrediction>(uri, edgebandingPredictionRequest).ConfigureAwait(true);
         }
+
+        #endregion
 
         #endregion
 

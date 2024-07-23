@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict
@@ -31,7 +30,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// Gets the predicted length of edgebands by edgeband code.
         /// </summary>
         [JsonProperty(Order = 4)]
-        public Dictionary<string, double> LengthByEdgebandCode { get; set; } = new();
+        public Dictionary<string, double> LengthByEdgebandCode { get; set; } = [];
 
         /// <summary>
         /// Machines on which the prediction is based (in format "x-xxx-xx-xxxx").

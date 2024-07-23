@@ -2,7 +2,6 @@ using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
 namespace HomagConnect.ProductionManager.Tests.Predict

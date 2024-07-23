@@ -2,7 +2,9 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.Details;
+namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+
+// Note: This is preliminary code and is subject to change
 
 /// <summary>
 /// Production entity order item.

@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
-namespace HomagConnect.ProductionManager.Contracts;
+using Newtonsoft.Json;
+
+namespace HomagConnect.ProductionManager.Contracts.Orders;
 
 /// <summary>
 /// Address data

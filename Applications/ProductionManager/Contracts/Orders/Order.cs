@@ -1,13 +1,12 @@
 ﻿using System.Runtime.Serialization;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts
+namespace HomagConnect.ProductionManager.Contracts.Orders
 {
     /// <summary>
-        /// Order data
-        /// </summary>
-        public class Order : IExtensibleDataObject
+    /// Order data
+    /// </summary>
+    public class Order : IExtensibleDataObject
     {
         #region IExtensibleDataObject Members
 

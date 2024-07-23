@@ -2,8 +2,8 @@ using FluentAssertions;
 
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.ProductionManager.Contracts;
-using HomagConnect.ProductionManager.Contracts.Details;
+using HomagConnect.ProductionManager.Contracts.Orders;
+using HomagConnect.ProductionManager.Contracts.ProductionEntity;
 using HomagConnect.ProductionManager.Samples.Orders.Actions;
 
 using Newtonsoft.Json;

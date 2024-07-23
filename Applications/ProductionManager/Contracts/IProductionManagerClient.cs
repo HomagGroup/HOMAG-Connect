@@ -1,4 +1,5 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
 namespace HomagConnect.ProductionManager.Contracts
@@ -6,27 +7,7 @@ namespace HomagConnect.ProductionManager.Contracts
     /// <summary />
     public interface IProductionManagerClient
     {
-        /// <summary>
-        /// Get the import state of an order
-        /// </summary>
-        /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
-        /// <returns></returns>
-        Task<ImportOrderStateResponse> GetImportOrderStateAsync(Guid correlationId);
-
-        /// <summary>
-        /// Get a specific order by its id
-        /// </summary>
-        Task<Order> GetOrder(Guid orderId);
-
-        /// <summary>
-        /// Get a specific order by its external system id
-        /// </summary>
-        Task<Order> GetOrderByExternalSystemId(string externalSystemId);
-
-        /// <summary>
-        /// Gets all orders for the given external system ids.
-        /// </summary>
-        Task<IEnumerable<Order>> GetOrderByExternalSystemId(string[] externalSystemIds);
+        #region Order overview
 
         /// <summary>
         /// Get all orders sorted by <see cref="Order.OrderDate" />.
@@ -42,7 +23,30 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
         /// </summary>
         Task<IEnumerable<Order>> GetOrders(OrderStatus[] orderStatus, int take, int skip = 0);
-        
+
+        #endregion
+
+        #region Order details
+
+        /// <summary>
+        /// Get a specific order by its id
+        /// </summary>
+        Task<OrderDetails> GetOrder(Guid orderId);
+
+        /// <summary>
+        /// Get a specific order by its external system id
+        /// </summary>
+        Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId);
+
+        /// <summary>
+        /// Gets all orders for the given external system ids.
+        /// </summary>
+        Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds);
+
+        #endregion
+
+        #region Order import
+
         /// <summary>
         /// Import an order using a structured zip file.
         /// </summary>
@@ -55,17 +59,25 @@ namespace HomagConnect.ProductionManager.Contracts
         ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
         /// format.
         /// </param>
-        Task<ImportOrderResponse> ImportOrderAsync(ImportOrderRequest importOrderRequest, FileInfo projectFile);
+        Task<ImportOrderResponse> ImportOrder(ImportOrderRequest importOrderRequest, FileInfo projectFile);
 
+        /// <summary>
+        /// Get the import state of an order
+        /// </summary>
+        /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
+        /// <returns></returns>
+        Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId);
 
-        #region Prediction of production durations
+        #endregion
+
+        #region Production prediction
 
         /// <summary>
         /// Predicts the edgebanding duration.
         /// </summary>
         /// <returns></returns>
         Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest);
-        
+
         #endregion
     }
 }

@@ -1,8 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Converter;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts
+namespace HomagConnect.ProductionManager.Contracts.Predict
 {
     /// <summary>
     /// Method, that was taken to predict the edgebanding duration.

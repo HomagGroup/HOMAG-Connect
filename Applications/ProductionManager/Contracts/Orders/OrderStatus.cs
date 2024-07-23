@@ -1,7 +1,8 @@
 ﻿using HomagConnect.Base.Contracts.Converter;
+
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts
+namespace HomagConnect.ProductionManager.Contracts.Orders
 {
     /// <summary>
     /// Order Status Enumeration
