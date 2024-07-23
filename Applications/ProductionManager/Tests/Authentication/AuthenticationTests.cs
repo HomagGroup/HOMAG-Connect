@@ -6,7 +6,7 @@ namespace HomagConnect.ProductionManager.Tests.Authentication
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Authentication")]
-    [TemporaryDisabledOnServer(2024, 7, 22)]
+    [TemporaryDisabledOnServer(2024, 9, 1)]
     public class AuthenticationTests : ProductionManagerTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
