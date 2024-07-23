@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
+
+using HomagConnect.Base.Contracts.AdditionalData;
 
 using JsonSubTypes;
 
@@ -93,6 +96,11 @@ public class ProductionEntity : IExtensibleDataObject
     /// </summary>
     [JsonProperty(Order = 80)]
     public string? Notes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the additional data.
+    /// </summary>
+    public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     #endregion
 
