@@ -14,7 +14,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders")]
-    [TemporaryDisabledOnServer(2024, 7, 22)]
+    [TemporaryDisabledOnServer(2024, 9, 1)]
     public class GetOrderDetailsTests : ProductionManagerTestBase
     {
         /// <summary />
@@ -130,7 +130,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders")]
-    [TemporaryDisabledOnServer(2024, 7, 22)]
+    [TemporaryDisabledOnServer(2024, 9, 1)]
     public class GetOrderTests : ProductionManagerTestBase
     {
         /// <summary />
