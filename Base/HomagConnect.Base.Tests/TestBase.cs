@@ -23,6 +23,7 @@ namespace HomagConnect.Base.Tests
         {
             DefaultValueHandling = DefaultValueHandling.Ignore,
             Formatting = Formatting.Indented
+            
         };
 
         #region Public Properties

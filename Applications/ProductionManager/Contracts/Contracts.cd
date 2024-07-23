@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="HomagConnect.ProductionManager.Contracts.Orders.Order">
+    <Position X="9.25" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>CAAiQgEwAAACAADAAADBCAAAQAAAEAAGAAAABkAAACA=</HashCode>
+      <FileName>Orders\Order.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.Orders.OrderDetails">
+    <Position X="9.25" Y="6.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Orders\OrderDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityOrderItem">
+    <Position X="19" Y="11.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAIAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionEntity\ProductionEntityOrderItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityAssemblyUnit">
+    <Position X="23.25" Y="13" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionEntity\ProductionEntityAssemblyUnit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityProductionOrder">
+    <Position X="27" Y="14.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAAAhgAAAAIAAAEBAAQAAAAQAAQIAAAABAAg=</HashCode>
+      <FileName>ProductionEntity\ProductionEntityProductionOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityResource">
+    <Position X="31.75" Y="15.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionEntity\ProductionEntityResource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntity">
+    <Position X="14.25" Y="6.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAiQAAEAAEAAAFAABAAAAAAAAAAEAAEAQQAgAAAAAA=</HashCode>
+      <FileName>ProductionEntity\ProductionEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="HomagConnect.ProductionManager.Contracts.IProductionManagerClient">
+    <Position X="0.5" Y="0.5" Width="7.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAACAAAAAgAAAAAAAAAAAAAAAAAQAAAAAg=</HashCode>
+      <FileName>IProductionManagerClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

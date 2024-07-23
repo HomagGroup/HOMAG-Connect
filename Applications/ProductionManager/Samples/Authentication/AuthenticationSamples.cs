@@ -1,17 +1,18 @@
-﻿using HomagConnect.Base.Extensions;
-using HomagConnect.ProductionManager.Client;
-
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
 
+using HomagConnect.Base.Extensions;
+using HomagConnect.ProductionManager.Client;
+
 namespace HomagConnect.ProductionManager.Samples.Authentication
-{ 
-  /// <summary>
-  /// Authentication samples.
-  /// <remarks>
-  /// <see href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/ProductionManager/Samples/Authentication" /> for further details.
-  /// </remarks>
-  /// </summary>
+{
+    /// <summary>
+    /// Authentication samples.
+    /// <remarks>
+    /// <see href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/ProductionManager/Samples/Authentication" />
+    /// for further details.
+    /// </remarks>
+    /// </summary>
     public static class AuthenticationSamples
     {
         /// <summary>
@@ -30,7 +31,7 @@ namespace HomagConnect.ProductionManager.Samples.Authentication
 
             var productionManager = new ProductionManagerClient(httpClient);
 
-            var orders = await productionManager.GetOrdersAsync();
+            var orders = await productionManager.GetOrders(1);
 
             orders.Trace();
         }
@@ -42,7 +43,7 @@ namespace HomagConnect.ProductionManager.Samples.Authentication
         {
             var productionManager = new ProductionManagerClient(subscriptionId, authorizationKey);
 
-            var orders = await productionManager.GetOrdersAsync();
+            var orders = await productionManager.GetOrders(1);
 
             orders.Trace();
         }

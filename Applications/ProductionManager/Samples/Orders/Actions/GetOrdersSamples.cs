@@ -1,7 +1,6 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HomagConnect.ProductionManager.Contracts.Orders;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 {
