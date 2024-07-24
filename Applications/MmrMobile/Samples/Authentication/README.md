@@ -1,6 +1,6 @@
 # Authorization
 
-To access the HOMAG MmrMobile Client Interface, a "HOMAG Connect MmrMobile" License is required. This license is included in the "MmrMobile licenses".
+To access the HOMAG MmrMobile Client Interface, a "HOMAG MMR Mobile advanced" License is required. 
 
 To create an instance of the client, you will need both a SubscriptionId and a AuthorizationKey.
 
