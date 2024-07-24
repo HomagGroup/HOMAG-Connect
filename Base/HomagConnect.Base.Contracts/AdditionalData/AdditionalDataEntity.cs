@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
 
 using JsonSubTypes;
 
@@ -15,6 +17,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataImage), AdditionalDataType.Image)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataTexture), AdditionalDataType.Texture)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataCNCProgram), AdditionalDataType.CNCProgram)]
+[DebuggerDisplay("Type={Type}, Name={Name}")]
 public class AdditionalDataEntity : IExtensibleDataObject
 {
     /// <summary>
@@ -33,12 +36,17 @@ public class AdditionalDataEntity : IExtensibleDataObject
     /// Previews
     /// </summary>
     [JsonProperty(Order = 2)]
-    public Dictionary<AdditionalDataPreviewSize, Uri>? PreviewUris { get; set; }
+    public Collection<AdditionalDataPreview>? Previews { get; set; }
 
     /// <summary>
     /// Gets or sets the download uri.
     /// </summary>
     public Uri? DownloadUri { get; set; }
+
+    /// <summary>
+    /// Gets or sets the download file name.
+    /// </summary>
+    public string? DownloadFileName { get; set; }
 
     #region (90) IExtensibleDataObject Members
 

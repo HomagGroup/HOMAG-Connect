@@ -11,19 +11,18 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
     public enum OrderStatus
     {
         /// <summary>
-        ///  After a successful import of a customer order, it receives the state "New".
+        /// After a successful import of a customer order, it receives the state "New".
         /// </summary>
         New,
 
         /// <summary>
-        /// ReadyForProduction
+        /// After an order has been release it receives the state "ReadyForProduction".
         /// </summary>
         ReadyForProduction,
 
         /// <summary>
         /// As soon as a production order of a sales order is in production.
         /// </summary>
-
         InProduction,
 
         /// <summary>
