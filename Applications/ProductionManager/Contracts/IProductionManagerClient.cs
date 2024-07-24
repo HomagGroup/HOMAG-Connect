@@ -51,7 +51,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Import an order using a structured zip file.
         /// </summary>
         /// <param name="importOrderRequest">
-        /// Import request based on a structured <see cref="ImportOrderRequest" />.
+        /// Import request based on a structured <see cref="Import.ImportOrderRequest" />.
         /// </param>
         /// <param name="projectFile">
         /// Structured zip file, whose format corresponds to the ImportSpecification (
@@ -59,7 +59,7 @@ namespace HomagConnect.ProductionManager.Contracts
         ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
         /// format.
         /// </param>
-        Task<ImportOrderResponse> ImportOrder(ImportOrderRequest importOrderRequest, FileInfo projectFile);
+        Task<ImportOrderResponse> ImportOrderRequest(ImportOrderRequest importOrderRequest, FileInfo projectFile);
 
         /// <summary>
         /// Get the import state of an order
@@ -67,6 +67,11 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
         /// <returns></returns>
         Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId);
+
+        /// <summary>
+        /// Wait for the import to be completed.
+        /// </summary>
+        Task<Order> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
 
         #endregion
 

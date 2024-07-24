@@ -25,7 +25,7 @@ namespace HomagConnect.ProductionManager.Client
         #region Order import
 
         /// <inheritdoc />
-        public async Task<ImportOrderResponse> ImportOrder(ImportOrderRequest importOrderRequest, FileInfo projectFile)
+        public async Task<ImportOrderResponse> ImportOrderRequest(ImportOrderRequest importOrderRequest, FileInfo projectFile)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
 
@@ -74,6 +74,47 @@ namespace HomagConnect.ProductionManager.Client
             var url = $"api/productionManager/orders/import/{correlationId}";
 
             return await RequestObject<ImportOrderStateResponse>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<Order> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration)
+        {
+            var timeout = DateTime.Now + maxDuration;
+
+            while (DateTime.Now < timeout)
+            {
+                var currentStatus = await GetImportOrderState(correlationId);
+
+                if (currentStatus.State == ImportState.Succeeded)
+                {
+                    if (currentStatus.OrderId == null)
+                    {
+                        throw new Exception("Import succeeded but no order id was returned.");
+                    }
+
+                    var orders =  await GetOrders(OrderStatus.New, 1000);
+                    var order = orders.FirstOrDefault(o => o.Id == currentStatus.OrderId);
+
+                    return order ?? throw new Exception($"Order with id {currentStatus.OrderId} not found.");
+
+                }
+                else if (currentStatus.State == ImportState.Error)
+                {
+                    throw new Exception($"Import failed: {currentStatus.ErrorDetails}");
+                }
+                else if ((currentStatus.State  == ImportState.Queued || currentStatus.State == ImportState.InProgress))
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                }
+                else 
+                {
+                    throw new NotSupportedException($"Unexpected import state: {currentStatus.State}");
+                }
+               
+                await Task.Delay(TimeSpan.FromSeconds(1));
+            }
+
+            throw new TimeoutException();
         }
 
         #endregion

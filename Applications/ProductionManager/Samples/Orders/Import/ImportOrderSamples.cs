@@ -24,11 +24,10 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
                 Action = ImportOrderRequestAction.ImportOnly
             };
 
-            var response = await productionManager.ImportOrder(request, projectFile);
+            var response = await productionManager.ImportOrderRequest(request, projectFile);
+            var orderDetails = await productionManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(1));
 
-            Assert.AreNotEqual(Guid.Empty, response.CorrelationId);
-            
-            response.Trace();
+            orderDetails.Trace();
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
                 Action = ImportOrderRequestAction.ImportOnly
             };
 
-            var importOrderJob = await productionManager.ImportOrder(request, projectFile);
+            var importOrderJob = await productionManager.ImportOrderRequest(request, projectFile);
 
             var correlationId = importOrderJob.CorrelationId;
 
