@@ -27,3 +27,8 @@ You will find several prepared powerBI files
 For a intro on how to use the MMR Mobile API with Excel please refer to [Excel](../Documentation/Excel)
 You will find prepared excel files 
 - State and counters of the machine [StatesAndCounters](StatesAndCounters/StatesAndCounters.xslx)
+
+## Postman Samples
+For postman, we provide a collection and an (empty) environment [postman data](Postman)
+Please import both files, change the variables in the environment (with your user-data) and make this environment active.
+Then you can begin to invoke the endpoints
