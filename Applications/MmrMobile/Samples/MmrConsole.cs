@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using HomagConnect.Applications.MmrMobile.Samples;
+using HomagConnect.Applications.MmrMobile.Samples.Console.AlertsEvents;
 using HomagConnect.MmrMobile.Client;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
@@ -52,10 +53,12 @@ do
                           "13. Old value of a node\n" +
                           "14. Timeline of a node\n" +
                           "--------------------------------------------------------\n" +
+                          "20. Alerts/Events\n" +
+                          "--------------------------------------------------------\n" +
                           "99. Exit\n" +
                           " ");
         choice = Console.ReadLine();
-        List<string> choices = new(["1", "2", "10", "11", "12", "13", "14", "99"]);
+        List<string> choices = new(["1", "2", "10", "11", "12", "13", "14", "20", "99"]);
         if (choices.Exists(c => c == choice))
         {
             break;
@@ -86,6 +89,9 @@ do
             break;
         case "14":
             await MachineDataSamples.GetNodeHistory(mmrMobileClient);
+            break;
+        case "20":
+            await AlertEventsSamples.GetAlerts(mmrMobileClient);
             break;
         case "99":
             break;

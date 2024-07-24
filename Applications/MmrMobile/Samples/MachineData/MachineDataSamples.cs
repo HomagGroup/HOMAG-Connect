@@ -19,12 +19,12 @@ namespace HomagConnect.Applications.MmrMobile.Samples
             {
                 foreach (var machine in machines)
                 {
-                    Console.WriteLine($"You have a machine {machine.MachineNumber} named {machine.MachineName}");
+                    System.Console.WriteLine($"You have a machine {machine.MachineNumber} named {machine.MachineName}");
                 }
             }
             else
             {
-                Console.WriteLine("No data has been found related to this subscription.");
+                System.Console.WriteLine("No data has been found related to this subscription.");
             }
         }
 
@@ -37,7 +37,7 @@ namespace HomagConnect.Applications.MmrMobile.Samples
         public static async Task GetNodeList(IMmrMobileClient mmrMobileClient)
         {
             IEnumerable<string?> machineNumbers = await GetMachineNumbers(mmrMobileClient);
-            Console.WriteLine($"Found {machineNumbers.Count()} machines");
+            System.Console.WriteLine($"Found {machineNumbers.Count()} machines");
 
             foreach (var machineNumber in machineNumbers)
             {
@@ -47,12 +47,12 @@ namespace HomagConnect.Applications.MmrMobile.Samples
                 {
                     foreach (var node in nodes.Nodes)
                     {
-                        Console.WriteLine($"machine {nodes.MachineName} has a node {node} ");
+                        System.Console.WriteLine($"machine {nodes.MachineName} has a node {node} ");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"No nodes have been found related to this machine: {machineNumber}.");
+                    System.Console.WriteLine($"No nodes have been found related to this machine: {machineNumber}.");
                 }
             }
         }
@@ -67,12 +67,12 @@ namespace HomagConnect.Applications.MmrMobile.Samples
             {
                 foreach (MmrNode node in value.Nodes)
                 {
-                    Console.WriteLine($"machine '{value.MachineName}' has the value in node '{node.Node}' : '{node.Value}' from '{node.Timestamp}' ");
+                    System.Console.WriteLine($"machine '{value.MachineName}' has the value in node '{node.Node}' : '{node.Value}' from '{node.Timestamp}' ");
                 }
             }
             else
             {
-                Console.WriteLine($"No current value has been found related to the machine '{machine}' and the node '{nodeName}'.");
+                System.Console.WriteLine($"No current value has been found related to the machine '{machine}' and the node '{nodeName}'.");
             }
         }
 
@@ -86,12 +86,12 @@ namespace HomagConnect.Applications.MmrMobile.Samples
             {
                 foreach (var node in value.Nodes)
                 {
-                    Console.WriteLine($"machine '{value.MachineName}' has the value in node '{node.Node}' : '{node.Value}' from '{node.Timestamp}' ");
+                    System.Console.WriteLine($"machine '{value.MachineName}' has the value in node '{node.Node}' : '{node.Value}' from '{node.Timestamp}' ");
                 }
             }
             else
             {
-                Console.WriteLine($"No current value has been found related to the machine '{machine}' and the node '{nodeName}'.");
+                System.Console.WriteLine($"No current value has been found related to the machine '{machine}' and the node '{nodeName}'.");
             }
         }
 
@@ -105,12 +105,12 @@ namespace HomagConnect.Applications.MmrMobile.Samples
             {
                 foreach (var node in value.Nodes)
                 {
-                    Console.WriteLine($"machine '{value.MachineName}' has the value in node '{node.Node}' : '{node.Value}' from '{node.Timestamp}' ");
+                    System.Console.WriteLine($"machine '{value.MachineName}' has the value in node '{node.Node}' : '{node.Value}' from '{node.Timestamp}' ");
                 }
             }
             else
             {
-                Console.WriteLine($"No current value has been found related to the machine '{machine}' and the node '{nodeName}'.");
+                System.Console.WriteLine($"No current value has been found related to the machine '{machine}' and the node '{nodeName}'.");
             }
         }
 

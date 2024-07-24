@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MMR Mobile", "HomagConnect.MMR Mobile", "{69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}"
 	ProjectSection(SolutionItems) = preProject
-		Applications\MmrMobile\Documentation\README.md = Applications\MmrMobile\Documentation\README.md
+		Applications\MmrMobile\README.md = Applications\MmrMobile\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base", "Base\HomagConnect.Base\HomagConnect.Base.csproj", "{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}"
