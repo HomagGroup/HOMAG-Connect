@@ -137,7 +137,13 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// Gets or sets the grain matching template.
     /// </summary>
     [JsonProperty(Order = 44)]
-    public string Template { get; set; }
+    public string? Template { get; set; }
+
+    /// <summary>
+    /// Gets or sets the label layout.
+    /// </summary>
+    [JsonProperty(Order = 45)]
+    public string? LabelLayout { get; set; }
 
     #endregion
 
