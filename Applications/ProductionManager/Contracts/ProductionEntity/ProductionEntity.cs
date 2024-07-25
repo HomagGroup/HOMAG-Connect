@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 
 using JsonSubTypes;
 
@@ -54,15 +57,37 @@ public class ProductionEntity : IExtensibleDataObject
     public string? Description { get; set; }
 
     /// <summary>
+    /// Gets or sets the group.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public string? Group { get; set; }
+
+    /// <summary>
+    /// Gets or sets the group.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public string? ArticleGroup { get; set; }
+
+    /// <summary>
+    /// Gets or sets the procurement type.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public string? ProcurementType { get; set; }
+
+    /// <summary>
     /// Gets or sets the length.
     /// </summary>
     [JsonProperty(Order = 14)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
     /// <summary>
     /// Gets or sets the width.
     /// </summary>
     [JsonProperty(Order = 15)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
     /// <summary>
