@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -89,29 +90,26 @@ namespace HomagConnect.ProductionManager.Client
                 {
                     if (currentStatus.OrderId == null)
                     {
-                        throw new Exception("Import succeeded but no order id was returned.");
+                        throw new InvalidOperationException("Import succeeded but no order id was returned.");
                     }
 
-                    var orders =  await GetOrders(OrderStatus.New, 1000);
+                    var orders = await GetOrders(OrderStatus.New, 1000); // TODO: Replace with GetOrder when available in production system.
                     var order = orders.FirstOrDefault(o => o.Id == currentStatus.OrderId);
 
-                    return order ?? throw new Exception($"Order with id {currentStatus.OrderId} not found.");
-
+                    return order ?? throw new InvalidOperationException($"Order with id '{currentStatus.OrderId}' not found.");
                 }
                 else if (currentStatus.State == ImportState.Error)
                 {
-                    throw new Exception($"Import failed: {currentStatus.ErrorDetails}");
+                    throw new ValidationException($"Import failed:{currentStatus.ErrorDetails}");
                 }
-                else if ((currentStatus.State  == ImportState.Queued || currentStatus.State == ImportState.InProgress))
+                else if (currentStatus.State is ImportState.Queued or ImportState.InProgress)
                 {
                     await Task.Delay(TimeSpan.FromSeconds(1));
                 }
-                else 
+                else
                 {
                     throw new NotSupportedException($"Unexpected import state: {currentStatus.State}");
                 }
-               
-                await Task.Delay(TimeSpan.FromSeconds(1));
             }
 
             throw new TimeoutException();
