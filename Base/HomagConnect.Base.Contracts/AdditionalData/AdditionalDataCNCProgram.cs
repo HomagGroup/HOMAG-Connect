@@ -5,7 +5,10 @@
 /// <summary>
 /// Additional data CNC program.
 /// </summary>
+#pragma warning disable S101
 public class AdditionalDataCNCProgram : AdditionalDataEntity
+#pragma warning restore S101
+
 {
     /// <inheritdoc />
     public override AdditionalDataType Type { get; set; } = AdditionalDataType.Image;

@@ -12,18 +12,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 public class ProductionEntityOrderItem : ProductionEntity
 {
     /// <summary>
-    /// Gets or sets the article number.
-    /// </summary>
-    [JsonProperty(Order = 3)]
-    public string? ArticleNumber { get; set; }
-
-    /// <summary>
-    /// Gets or sets the description.
-    /// </summary>
-    [JsonProperty(Order = 4)]
-    public string? Description { get; set; }
-
-    /// <summary>
     /// Gets or sets the order item.
     /// </summary>
     [JsonProperty(Order = 2)]

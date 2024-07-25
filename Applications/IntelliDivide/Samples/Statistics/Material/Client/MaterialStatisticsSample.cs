@@ -14,16 +14,16 @@ namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
 
             // Define the parameters:
 
-            DateTime from = DateTime.Now.AddMonths(-3);
-            DateTime to = DateTime.Now.AddDays(-1);
-            int take = 1000;
+            var from = DateTime.Now.AddMonths(-3);
+            var to = DateTime.Now.AddDays(-1);
+            const int take = 1000;
 
             // Get the data
             var materialStatistics = await client.GetMaterialStatisticsAsync(from, to, take).ToListAsync();
 
             // Use the retrieved data
-            var totalBoardsUsedInSquareMeter = materialStatistics.Sum(m => m.BoardsUsed);
-            var totalOffcutGrowthInSquareMeter = materialStatistics.Sum(m => m.OffcutsGrowth);
+            var totalBoardsUsedInSquareMeter = materialStatistics.Sum(m => m.BoardsUsedArea);
+            var totalOffcutGrowthInSquareMeter = materialStatistics.Sum(m => m.OffcutsGrowthArea);
 
             totalBoardsUsedInSquareMeter.Trace(nameof(totalBoardsUsedInSquareMeter));
             totalOffcutGrowthInSquareMeter.Trace(nameof(totalOffcutGrowthInSquareMeter));
