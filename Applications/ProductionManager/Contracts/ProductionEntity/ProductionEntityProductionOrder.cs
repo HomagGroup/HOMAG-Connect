@@ -14,7 +14,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 /// <summary>
 /// Production entity production order.
 /// </summary>
-public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProperties, IEdgebandingProperties, IDimensionsProperties, IMaterialProperties
+public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties
 {
     #region (10) Article
 

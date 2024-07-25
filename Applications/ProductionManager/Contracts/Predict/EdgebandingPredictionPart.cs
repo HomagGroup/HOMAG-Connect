@@ -12,30 +12,32 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
     /// <summary>
     /// Part for edgebanding prediction.
     /// </summary>
-    public class EdgebandingPredictionPart : IEdgebandingProperties, IDimensionsProperties
+    public class EdgebandingPredictionPart : IEdgebandingProperties, IDimensionProperties
     {
         /// <summary>
         /// Gets or sets the id of the part.
         /// </summary>
+        [JsonProperty(Order = 1)]
         public string? Id { get; set; }
 
         /// <summary>
         /// Gets or sets the quantity how often the part is needed.
         /// </summary>
         [Required]
-        [JsonProperty(Order = 13)]
+        [JsonProperty(Order = 2)]
         [Range(1, 10000)]
         public int Quantity { get; set; } = 1;
 
         #region IEdgebandingProperties Members
 
         /// <inheritdoc />
+        [JsonProperty(Order = 30)]
+        public string? EdgeDiagram { get; set; }
+
+        /// <inheritdoc />
         [JsonProperty(Order = 32)]
         [StringLength(50, MinimumLength = 1)]
         public string? EdgeBack { get; set; }
-
-        /// <inheritdoc />
-        public string? EdgeDiagram { get; set; }
 
         /// <inheritdoc />
         [JsonProperty(Order = 31)]

@@ -92,6 +92,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// <summary>
         /// Gets or sets the link to the order in productionManager.
         /// </summary>
+        [JsonProperty(Order = 120)]
         public Uri? Link { get; set; }
 
         #endregion

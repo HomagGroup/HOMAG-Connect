@@ -1,6 +1,6 @@
 ﻿namespace HomagConnect.Base.Contracts.Interfaces;
 
-public interface IDimensionsProperties : IContainsUnitSystemDependentProperties
+public interface IDimensionProperties : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the thickness of the part.
