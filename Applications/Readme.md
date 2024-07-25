@@ -1,5 +1,5 @@
 1. MMR Mobile <br> 
-   [Documentation for MMR Mobile Client](./MmrMobile/Documentation/README.md) and [some samples](./MmrMobile/Samples/) for the usage.
+   [Documentation for MMR Mobile Client](./MmrMobile/README.md) and [some samples](./MmrMobile/Samples/) for the usage.
 
 2. intelliDivide <br> 
    [Documentation for intelliDivide Client](./IntelliDivide/Readme.md) and [some samples](./IntelliDivide/Samples/Readme.md) for the usage.
