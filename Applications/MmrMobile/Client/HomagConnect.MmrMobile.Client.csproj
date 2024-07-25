@@ -5,6 +5,7 @@
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<LangVersion>latest</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
 		<PackageReadmeFile></PackageReadmeFile>
 		<Title>Homag-Connect MMR Mobile Client</Title>

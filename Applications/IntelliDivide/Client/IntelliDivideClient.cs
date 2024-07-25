@@ -481,7 +481,9 @@ namespace HomagConnect.IntelliDivide.Client
             }
 
             // ReSharper disable once MethodHasAsyncOverload
+#pragma warning disable S6966 // Awaitable method should be used
             File.WriteAllBytes(fileInfo.FullName, data);
+#pragma warning restore S6966 // Awaitable method should be used
         }
 
         /// <inheritdoc />
