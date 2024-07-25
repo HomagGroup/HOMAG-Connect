@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c74d18a7-4f3e-4a8f-a34e-927d53111971",
+		"_postman_id": "f0d3c64e-7256-4f83-aeef-a9cf4e5a1c0b",
 		"name": "HOMAG Connect MMR Mobile",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -633,6 +633,345 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "AlertEvents",
+			"item": [
+				{
+					"name": "getAlerts for woodscout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines/{{machineNumber}}/alerts/history",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines",
+								"{{machineNumber}}",
+								"alerts",
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "machineData",
+			"item": [
+				{
+					"name": "🕵️‍♂️ all my machines",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "🕵️‍♂️ nodes of a machine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines/{{machineNumber}}/nodes",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines",
+								"{{machineNumber}}",
+								"nodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "🕵️‍♂️ Single ActVal of Machine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines/{{machineNumber}}/nodes/Testname",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines",
+								"{{machineNumber}}",
+								"nodes",
+								"Testname"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "🕵️‍♂️ Multiple ActVal of Machine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines/{{machineNumber}}/nodes/Ingestion,Test.ID",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines",
+								"{{machineNumber}}",
+								"nodes",
+								"Ingestion,Test.ID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "🕵️‍♂️ Multiple PIT-Val of Machine",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines/{{machineNumber}}/nodes/Test.ID,abc?timestamp=2024-01-01T12:34:56",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines",
+								"{{machineNumber}}",
+								"nodes",
+								"Test.ID,abc"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2024-01-01T12:34:56"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "🕵️‍♂️ GetHistoryData",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "fr-FR",
+								"description": "\n",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ConnectHost}}/api/mmr-mobile/machinedata/machines/{{machineNumber}}/nodes/Test/history?to=2024-03-13T14:34:56.000Z&skip=2&take=300&from=2024-03-13T12:34:56.000Z",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"mmr-mobile",
+								"machinedata",
+								"machines",
+								"{{machineNumber}}",
+								"nodes",
+								"Test",
+								"history"
+							],
+							"query": [
+								{
+									"key": "to",
+									"value": "2024-03-13T14:34:56.000Z"
+								},
+								{
+									"key": "skip",
+									"value": "2"
+								},
+								{
+									"key": "take",
+									"value": "300"
+								},
+								{
+									"key": "from",
+									"value": "2024-03-13T12:34:56.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -640,7 +979,7 @@
 		"basic": [
 			{
 				"key": "password",
-				"value": "{{ConnectTokenFromTapio}}",
+				"value": "{{ConnectPassword}}",
 				"type": "string"
 			},
 			{

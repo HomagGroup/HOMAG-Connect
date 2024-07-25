@@ -1,5 +1,6 @@
-﻿
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+
+using HomagConnect.Base.Contracts.AdditionalData;
 
 using Newtonsoft.Json;
 
@@ -12,6 +13,12 @@ namespace HomagConnect.ProductionManager.Contracts.Orders;
 /// </summary>
 public class OrderDetails : Order
 {
+    /// <summary>
+    /// Gets or sets the additional data.
+    /// </summary>
+    [JsonProperty(Order = 401)]
+    public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
+
     /// <summary>
     /// Gets or sets the bill of materials.
     /// </summary>

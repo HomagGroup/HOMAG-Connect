@@ -3,6 +3,9 @@ using FluentAssertions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Contracts.Predict;
+using System;
+
+using HomagConnect.ProductionManager.Samples.Orders.Predict;
 
 namespace HomagConnect.ProductionManager.Tests.Predict
 {
@@ -18,36 +21,20 @@ namespace HomagConnect.ProductionManager.Tests.Predict
         public async Task Predict_Edgebanding_NoException()
         {
             var productionManager = GetProductionManagerClient();
-            var materialManager = GetMaterialManagerClient();
-            var edgebandCodes = await materialManager.Material.Edgebands.GetEdgebandTypes(2, 0).ToListAsync();
+            var anyException = false;
 
-            if (edgebandCodes == null || edgebandCodes.Count < 2)
+            EdgebandingPrediction edgebandingPrediction = null;
+            try
             {
-                Assert.Inconclusive("Not enough edgeband types found.");
+                edgebandingPrediction = await PredictParts.PredictPartsEdgebandingAsync(productionManager);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
             }
 
-            var edgebandingPredictionRequest = new EdgebandingPredictionRequest([
-                new EdgebandingPredictionPart
-                {
-                    Quantity = 10,
-                    Length = 700,
-                    Width = 300,
-                    EdgeFront = edgebandCodes[0].EdgebandCode,
-                    EdgeBack = edgebandCodes[0].EdgebandCode,
-                    EdgeLeft = edgebandCodes[0].EdgebandCode,
-                    EdgeRight = edgebandCodes[0].EdgebandCode
-                },
-                new EdgebandingPredictionPart
-                {
-                    Quantity = 5,
-                    Length = 800,
-                    Width = 200,
-                    EdgeFront = edgebandCodes[1].EdgebandCode,
-                    EdgeBack = edgebandCodes[1].EdgebandCode
-                }
-            ]);
-
-            var edgebandingPrediction = await productionManager.Predict(edgebandingPredictionRequest);
+            Assert.IsFalse(anyException);
 
             edgebandingPrediction.Should().NotBeNull();
 
