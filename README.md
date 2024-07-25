@@ -28,7 +28,7 @@ For detailed information and prerequisites for each, we recommend that you refer
 
 ## HOMAG Connect Clients for for tapio partners
 
-The HOMAG Connect Clients also offer tapio partners the opportunity to integrate and optimize processes for their customers by integrating the HOMAG applications. Please refer to the [partner documentation](./Documentation/Partner) for more information.
+The HOMAG Connect Clients also offer tapio partners the opportunity to integrate and optimize processes for their customers by integrating the HOMAG applications. Please refer to the [partner documentation](./Documentation/Partner/Authorization) for more information.
 
 # #Contribute
 
