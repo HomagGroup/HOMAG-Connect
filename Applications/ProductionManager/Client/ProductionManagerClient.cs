@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace HomagConnect.ProductionManager.Client
         #region Order import
 
         /// <inheritdoc />
-        public async Task<ImportOrderResponse> ImportOrder(ImportOrderRequest importOrderRequest, FileInfo projectFile)
+        public async Task<ImportOrderResponse> ImportOrderRequest(ImportOrderRequest importOrderRequest, FileInfo projectFile)
         {
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
 
@@ -74,6 +75,44 @@ namespace HomagConnect.ProductionManager.Client
             var url = $"api/productionManager/orders/import/{correlationId}";
 
             return await RequestObject<ImportOrderStateResponse>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<Order> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration)
+        {
+            var timeout = DateTime.Now + maxDuration;
+
+            while (DateTime.Now < timeout)
+            {
+                var currentStatus = await GetImportOrderState(correlationId);
+
+                if (currentStatus.State == ImportState.Succeeded)
+                {
+                    if (currentStatus.OrderId == null)
+                    {
+                        throw new InvalidOperationException("Import succeeded but no order id was returned.");
+                    }
+
+                    var orders = await GetOrders(OrderStatus.New, 1000); // TODO: Replace with GetOrder when available in production system.
+                    var order = orders.FirstOrDefault(o => o.Id == currentStatus.OrderId);
+
+                    return order ?? throw new InvalidOperationException($"Order with id '{currentStatus.OrderId}' not found.");
+                }
+                else if (currentStatus.State == ImportState.Error)
+                {
+                    throw new ValidationException($"Import failed:{currentStatus.ErrorDetails}");
+                }
+                else if (currentStatus.State is ImportState.Queued or ImportState.InProgress)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                }
+                else
+                {
+                    throw new NotSupportedException($"Unexpected import state: {currentStatus.State}");
+                }
+            }
+
+            throw new TimeoutException();
         }
 
         #endregion
