@@ -108,7 +108,6 @@ public class ProductionEntity : IExtensibleDataObject
     [JsonProperty(Order = 23)]
     public int Quantity { get; set; } = 1;
 
-
     #endregion
 
     #region (30) Production data
