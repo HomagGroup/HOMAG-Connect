@@ -14,21 +14,21 @@ Please proceed as follows
 - Use one of the methods of the client to fetch data (e.g. all states of the machine for the last 3 days)
 - Proceed with these data for your analysis (group and summarize per day, calculate percentages ...)
 
-Most of the function s are already used in the [MmrConsolApp](MmrConsol.cs)
+Most of the function s are already used in the [MmrConsolApp](MmrConsole.cs)
 
 ## powerBI-Samples
-For a intro on how to use the MMR Mobile API with powerBI please refer to [powerBI](../Documentation/powerBi)
+For a intro on how to use the MMR Mobile API with powerBI please refer to [powerBI](../Documentation/powerBi/README.md)
 You will find several prepared powerBI files 
-- [CompanionSpec](https://reference.opcfoundation.org/Woodworking/v100/docs/) data of the machine [StatesAndCounters](MachineData/MachineData.pbix)
-- Alerts/Events [StatesAndCounters](MachineData/Alerts.pbix)
-- State and counters of the machine [StatesAndCounters](StatesAndCounters/StatesAndCounters.pbix)
+- [CompanionSpec](https://reference.opcfoundation.org/Woodworking/v100/docs/) data of the machine [StatesAndCounters](./MachineData/MachineData.pbix)
+- Alerts/Events [StatesAndCounters](./AlertsEvents/AlertList.pbix)
+- State and counters of the machine [StatesAndCounters](./StatesAndCounters/StatesAndCounters.pbix)
 
 ## Excel Samples
-For a intro on how to use the MMR Mobile API with Excel please refer to [Excel](../Documentation/Excel)
+For a intro on how to use the MMR Mobile API with Excel please refer to [Excel](../Documentation/Excel/README.md)
 You will find prepared excel files 
-- State and counters of the machine [StatesAndCounters](StatesAndCounters/StatesAndCounters.xslx)
+- State and counters of the machine [StatesAndCounters](./StatesAndCounters/StatesAndCounters.xlsx)
 
 ## Postman Samples
-For postman, we provide a collection and an (empty) environment [postman data](Postman)
+For postman, we provide a collection and an (empty) environment [postman data](./Postman)
 Please import both files, change the variables in the environment (with your user-data) and make this environment active.
 Then you can begin to invoke the endpoints
