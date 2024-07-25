@@ -100,13 +100,14 @@ public class ProductionEntity : IExtensibleDataObject
     /// Gets or sets the status of the production entity.
     /// </summary>
     [JsonProperty(Order = 22)]
-    public ProductionEntityStatus Status { get; set; } = ProductionEntityStatus.New;
+    public ProductionEntityStatus ProductionStatus { get; set; } = ProductionEntityStatus.New;
 
     /// <summary>
     /// Gets or sets the quantity of the production entity.
     /// </summary>
     [JsonProperty(Order = 23)]
     public int Quantity { get; set; } = 1;
+
 
     #endregion
 
