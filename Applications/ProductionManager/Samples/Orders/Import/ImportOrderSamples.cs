@@ -10,10 +10,10 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
     public static class ImportOrderSamples
     {
         /// <summary>
-        /// Imports an order using a project zip file.
+        /// Imports an order using a project zip file and waits for the completion of the import operation.
         /// </summary>
         /// <param name="productionManager"></param>
-        public static async Task ImportOrderUsingProjectZipAsync(IProductionManagerClient productionManager)
+        public static async Task ImportOrderUsingProjectZipAndWaitForCompletion(IProductionManagerClient productionManager)
         {
             var projectFile = new FileInfo(@"Orders\Project.zip");
             
@@ -26,29 +26,6 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
             var orderDetails = await productionManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(1));
 
             orderDetails.Trace();
-        }
-
-        /// <summary>
-        /// Get the status of an order import operation.
-        /// </summary>
-        /// <param name="productionManager"></param>
-        public static async Task GetImportOrderStateAsync(IProductionManagerClient productionManager)
-        {
-            //First trigger an import job to get a correlation Id
-            var projectFile = new FileInfo(@"Orders\Project.zip");
-
-            var request = new ImportOrderRequest
-            {
-                Action = ImportOrderRequestAction.ImportOnly
-            };
-
-            var importOrderJob = await productionManager.ImportOrderRequest(request, projectFile);
-
-            var correlationId = importOrderJob.CorrelationId;
-
-            var response = await productionManager.GetImportOrderState(correlationId);
-
-            response.Trace();
         }
     }
 }
