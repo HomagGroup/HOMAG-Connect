@@ -13,13 +13,20 @@ namespace HomagConnect.MmrMobile.Client
 {
     public class MmrMobileClient : ServiceBase, IMmrMobileClient
     {
-        #region machinedata
-        /// <summary>
-        /// Constructor. Provide subscription and HttpClient
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="subscriptionId"></param>
+        #region Constructors
+
+        /// <inheritdoc />
         public MmrMobileClient(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
+        
+        #region machinedata
 
         /// <summary>
         /// get all machines, the customer has access to

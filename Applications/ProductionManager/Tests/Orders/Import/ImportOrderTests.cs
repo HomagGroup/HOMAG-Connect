@@ -7,7 +7,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders.Import")]
-    [TemporaryDisabledOnServer(2024, 9, 1)]
     public class ImportOrderTests : ProductionManagerTestBase
     {
         /// <summary />
@@ -19,27 +18,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
             try
             {
-                await ImportOrderSamples.ImportOrderUsingProjectZipAsync(productionManager);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                anyException = true;
-            }
-
-            Assert.IsFalse(anyException);
-        }
-
-        /// <summary />
-        [TestMethod]
-        public async Task ImportOrder_GetImportState_NoException()
-        {
-            var productionManager = GetProductionManagerClient();
-            var anyException = false;
-
-            try
-            {
-                await ImportOrderSamples.GetImportOrderStateAsync(productionManager);
+                await ImportOrderSamples.ImportOrderUsingProjectZipAndWaitForCompletion(productionManager);
             }
             catch (Exception e)
             {

@@ -2,10 +2,14 @@
 
 # HOMAG Connect
 
-The following repository contains the **HOMAG Connect Clients**, 
+HOMAG Connect provides the ability to seamlessly integrate HOMAG applications into existing business processes and systems through programmatic access.
 
-1. MMR Mobile <br> 
-   [Documentation for MMR Mobile Client](/Applications/MmrMobile/README.md) and [some samples](./Applications/MmrMobile/Samples/) for the usage.
+## HOMAG Connect Clients
+
+There are HOMAG Connect Clients available for the following applications:
+
+1. MMR Mobile<br> 
+   [Documentation for MMR Mobile Advanced Client](/Applications/MmrMobile/README.md) and [some samples](/Applications/MmrMobile/Samples/) for the usage.
 
 2. intelliDivide <br> 
    [Documentation for intelliDivide Client](/Applications/IntelliDivide/Readme.md) and [some samples](/Applications/IntelliDivide/Samples/Readme.md) for the usage.
@@ -20,61 +24,12 @@ The following repository contains the **HOMAG Connect Clients**,
    [Documentation for productionAssist Client](./Applications/ProductionAssist/Readme.md) and [some samples](./Applications/ProductionAssist/Samples) for the usage.
 
 
-With these packages you can easily integrate different workflows of HOMAG applications into your own application. For further details and prerequisites for using the Homag Connect, please see the documentation of each application.
+For detailed information and prerequisites for each, we recommend that you refer to the documentation provided for each specific application. This will ensure that you have a clear understanding of the details and requirements necessary for successful integration into your processes.
 
-## Get your personal access token for your application
-1. Get your personal access token from https://my.tapio.one
+## HOMAG Connect Clients for for tapio partners
 
-2. Choose the application you want to receive your personal access token for (MMR Mobile, materialManager etc.)
+The HOMAG Connect Clients also offer tapio partners the opportunity to integrate and optimize processes for their customers by integrating the HOMAG applications. Please refer to the [partner documentation](./Documentation/Partner/Authorization) for more information.
 
-3. Select your subscription, select **Applications**, open your **desired application** and click on the applications **'HOMAG Connect Application' Add-on**.
+# #Contribute
 
-4. Click on Authorization keys then **Edit** and click on **Add**. Insert a name for your token, confirm and copy the token to your clipboard.
-
-## Getting started
-
-1. Clone the repository.
-
-~~~bash
-git clone https://github.com/HomagGroup/HOMAG-Connect
-cd homag-connect
-~~~
-
-2. Set up your environment.
-
-    1. Copy *Applications/MmrMobile/Samples/CSharp/Tests/appsettings.json* to *Applications/MmrMobile/Samples/CSharp/Tests/appsettings.test.json*.
-
-    ~~~bash
-    cp Applications/MmrMobile/Samples/CSharp/Tests/appsettings.json Applications/MmrMobile/Samples/CSharp/Tests/appsettings.test.json
-    ~~~
-
-    2. Insert your access token and subscription Id in the *Applications/MmrMobile/Samples/CSharp/Tests/appsettings.test.json*. It should look like below.
-
-    ~~~json
-    {
-        "HomagConnect": {
-        "BaseUrl": "https://connect.homag.cloud",
-        "MmrMobile": {
-            "SubscriptionId": "", // Enter your subscriptionId for your requests
-            "Token": "" // Use your personal access token from tapio related to this application
-            }
-        }
-    }
-    ~~~
-
-3. Build the solution.
-
-~~~bash
-dotnet build
-~~~
-
-4. Run tests.
-
-~~~bash
-dotnet test
-~~~
-
-
-## Contribute
-
-If you find anything, feel free to contribute to this repository. We are happy for every improvement ❤️.
+If you find something, feel free to contribute to this repository. We appreciate every improvement ❤️.
