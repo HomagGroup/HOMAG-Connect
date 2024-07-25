@@ -2,8 +2,6 @@
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HomagConnect.ProductionManager.Samples.Orders.Import
 {
     /// <summary>
@@ -12,10 +10,10 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
     public static class ImportOrderSamples
     {
         /// <summary>
-        /// Imports an order using a project zip file.
+        /// Imports an order using a project zip file and waits for the completion of the import operation.
         /// </summary>
         /// <param name="productionManager"></param>
-        public static async Task ImportOrderUsingProjectZipAsync(IProductionManagerClient productionManager)
+        public static async Task ImportOrderUsingProjectZipAndWaitForCompletion(IProductionManagerClient productionManager)
         {
             var projectFile = new FileInfo(@"Orders\Project.zip");
             
@@ -24,34 +22,10 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
                 Action = ImportOrderRequestAction.ImportOnly
             };
 
-            var response = await productionManager.ImportOrder(request, projectFile);
+            var response = await productionManager.ImportOrderRequest(request, projectFile);
+            var orderDetails = await productionManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(1));
 
-            Assert.AreNotEqual(Guid.Empty, response.CorrelationId);
-            
-            response.Trace();
-        }
-
-        /// <summary>
-        /// Get the status of an order import operation.
-        /// </summary>
-        /// <param name="productionManager"></param>
-        public static async Task GetImportOrderStateAsync(IProductionManagerClient productionManager)
-        {
-            //First trigger an import job to get a correlation Id
-            var projectFile = new FileInfo(@"Orders\Project.zip");
-
-            var request = new ImportOrderRequest
-            {
-                Action = ImportOrderRequestAction.ImportOnly
-            };
-
-            var importOrderJob = await productionManager.ImportOrder(request, projectFile);
-
-            var correlationId = importOrderJob.CorrelationId;
-
-            var response = await productionManager.GetImportOrderState(correlationId);
-
-            response.Trace();
+            orderDetails.Trace();
         }
     }
 }
