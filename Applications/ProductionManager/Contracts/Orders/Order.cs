@@ -1,4 +1,9 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+
+using HomagConnect.Base.Contracts.AdditionalData;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders
@@ -6,6 +11,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
     /// <summary>
     /// Order data
     /// </summary>
+    [DebuggerDisplay("OrderName={OrderName}")]
     public class Order : IExtensibleDataObject
     {
         #region IExtensibleDataObject Members
@@ -170,6 +176,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 400)]
         public string? Notes { get; set; }
+
 
         #endregion
     }

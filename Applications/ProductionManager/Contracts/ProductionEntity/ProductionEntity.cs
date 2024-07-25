@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -17,6 +18,9 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(ProductionEntityOrderItem), ProductionEntityType.OrderItem)]
 [JsonSubtypes.KnownSubType(typeof(ProductionEntityProductionOrder), ProductionEntityType.ProductionOrder)]
+[JsonSubtypes.KnownSubType(typeof(ProductionEntityAssemblyUnit), ProductionEntityType.AssemblyUnit)]
+[JsonSubtypes.KnownSubType(typeof(ProductionEntityResource), ProductionEntityType.Resource)]
+[DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
 public class ProductionEntity : IExtensibleDataObject
 {
     #region (10) Article
@@ -36,6 +40,30 @@ public class ProductionEntity : IExtensibleDataObject
     /// </summary>
     [JsonProperty(Order = 21)]
     public string? Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the article number.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public string? ArticleNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the length.
+    /// </summary>
+    [JsonProperty(Order = 14)]
+    public double? Length { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width.
+    /// </summary>
+    [JsonProperty(Order = 15)]
+    public double? Width { get; set; }
 
     /// <summary>
     /// Barcode used to identify a production entity.
