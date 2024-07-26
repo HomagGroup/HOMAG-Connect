@@ -41,7 +41,7 @@ public class ProductionEntity : IExtensibleDataObject
     /// <summary>
     /// Gets or sets the id
     /// </summary>
-    [JsonProperty(Order = 21)]
+    [JsonProperty(Order = 1)]
     public string? Id { get; set; }
 
     /// <summary>
