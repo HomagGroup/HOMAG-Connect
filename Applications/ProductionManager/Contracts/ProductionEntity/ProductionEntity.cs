@@ -153,6 +153,7 @@ public class ProductionEntity : IExtensibleDataObject
     /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
+    [JsonProperty(Order = 81)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     #endregion
