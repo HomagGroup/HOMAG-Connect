@@ -141,12 +141,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         #endregion
 
         #region Obsolete Properties
-
- 
+        
         /// <summary>
         /// Gets or sets the area of parts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
-        [Obsolete("Use PartsArea instead.")]
+        [Obsolete("Use PartsArea instead.",true)]
         public double Parts
         {
             get
@@ -163,7 +162,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of offcuts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
 
-        [Obsolete("Use OffcutsProducedArea instead.")]
+        [Obsolete("Use OffcutsProducedArea instead.", true)]
         public double OffcutsProduced
         {
             get
@@ -180,7 +179,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of waste produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
 
-        [Obsolete("Use WasteArea instead.")]
+        [Obsolete("Use WasteArea instead.", true)]
         public double Waste
         {
             get
@@ -198,7 +197,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// system).
         /// </summary>
 
-        [Obsolete("Use OffcutsGrowthArea instead.")]
+        [Obsolete("Use OffcutsGrowthArea instead.", true)]
         public double OffcutsGrowth
         {
             get
@@ -215,7 +214,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of boards used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
 
-        [Obsolete("Use BoardsUsedArea instead.")]
+        [Obsolete("Use BoardsUsedArea instead.",true)]
         public double BoardsUsed
         {
             get
@@ -232,7 +231,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of offcuts used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
 
-        [Obsolete("Use OffcutsUsedArea instead.")]
+        [Obsolete("Use OffcutsUsedArea instead.", true)]
         public double OffcutsUsed
         {
             get
