@@ -42,7 +42,7 @@ public class GrainMatchTemplatePosition
             result.Column = column;
         }
 
-        if (parts.Length > 1 && int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var row))
+        if (parts.Length > 1 && int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var row))
         {
             result.Row = row;
         }
