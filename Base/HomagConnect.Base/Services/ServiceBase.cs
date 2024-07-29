@@ -9,6 +9,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts.Exceptions;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Services
@@ -44,17 +46,17 @@ namespace HomagConnect.Base.Services
         /// <summary>
         /// Creates a new instance of the service base
         /// </summary>
-        protected ServiceBase(Guid subscriptionId, string authorizationKey)
+        protected ServiceBase(Guid subscriptionOrPartnerId, string authorizationKey)
         {
-            Initialize(subscriptionId, authorizationKey, _DefaultBaseUri);
+            Initialize(subscriptionOrPartnerId, authorizationKey, _DefaultBaseUri);
         }
 
         /// <summary>
         /// Creates a new instance of the service base
         /// </summary>
-        protected ServiceBase(Guid subscriptionId, string authorizationKey, Uri baseUri)
+        protected ServiceBase(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri)
         {
-            Initialize(subscriptionId, authorizationKey, baseUri);
+            Initialize(subscriptionOrPartnerId, authorizationKey, baseUri);
         }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace HomagConnect.Base.Services
             };
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
-          await  response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
         }
 
         protected async Task<HttpResponseMessage> PostObject(Uri uri, StringContent content = null)
@@ -104,7 +106,43 @@ namespace HomagConnect.Base.Services
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-            
+
+            return response;
+        }
+
+        protected async Task<T2> PostObject<T1, T2>(Uri uri, T1 payload)
+        {
+            var response = await PostObject(uri, payload);
+            var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            T2 result = JsonConvert.DeserializeObject<T2>(rawResult, SerializerSettings.Default);
+
+            if (result == null)
+            {
+                throw new ProblemDetailsException()
+                {
+                    Title = "Invalid or no result. Process returned null!"
+                };
+            }
+
+            return result;
+        }
+
+        protected async Task<HttpResponseMessage> PostObject<T>(Uri uri, T payload)
+        {
+            var serializedPayload = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(serializedPayload, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = uri,
+                Content = content
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
             return response;
         }
 
@@ -129,6 +167,19 @@ namespace HomagConnect.Base.Services
             var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
 
             return enumerable;
+        }
+
+        protected async Task<HttpResponseMessage> PatchObject(Uri uri, StringContent content = null)
+        {
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), uri)
+            {
+                Content = content
+            };
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            return response;
         }
 
         protected async Task<T> RequestObject<T>(Uri uri)
@@ -163,7 +214,7 @@ namespace HomagConnect.Base.Services
 
             return data;
         }
-        
+
         protected static void ValidateRequiredProperties(object boardTypeRequest)
         {
             var validationResults = new List<ValidationResult>();
@@ -178,15 +229,15 @@ namespace HomagConnect.Base.Services
             var errorMessages = validationResults.Select(vr => vr.ErrorMessage);
             throw new ValidationException("Required properties are missing: " + string.Join(", ", errorMessages));
         }
-        
-        private void Initialize(Guid subscriptionId, string authorizationKey, Uri baseUri)
+
+        private void Initialize(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri)
         {
             var httpClient = new HttpClient
             {
                 BaseAddress = baseUri
             };
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionId}:{authorizationKey}")));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{subscriptionOrPartnerId}:{authorizationKey}")));
 
             Initialize(httpClient);
         }

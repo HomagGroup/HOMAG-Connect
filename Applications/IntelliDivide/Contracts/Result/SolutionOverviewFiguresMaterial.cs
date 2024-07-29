@@ -11,40 +11,22 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     public class SolutionOverviewFiguresMaterial : IExtensibleDataObject
     {
         /// <summary>
-        /// Gets large offcuts produced.
-        /// </summary>
-        [JsonProperty(Order = 12)]
-        public int LargeOffcutsProduced { get; set; }
-
-        /// <summary>
-        /// Gets large offcuts required.
-        /// </summary>
-        [JsonProperty(Order = 11)]
-        public int LargeOffcutsRequired { get; set; }
-
-        /// <summary>
-        /// Gets large offcuts in total.
+        /// Gets the total number of offcuts.
         /// </summary>
         [JsonProperty(Order = 10)]
-        public int LargeOffcutsTotal { get; set; }
+        public int OffcutsTotal { get; set; }
 
         /// <summary>
-        /// Gets small offcuts produced.
+        /// Gets offcuts produced.
         /// </summary>
-        [JsonProperty(Order = 22)]
-        public int SmallOffcutsProduced { get; set; }
+        [JsonProperty(Order = 11)]
+        public int OffcutsProduced { get; set; }
 
         /// <summary>
-        /// Gets small offcuts required.
+        /// Gets offcuts required.
         /// </summary>
-        [JsonProperty(Order = 21)]
-        public int SmallOffcutsRequired { get; set; }
-
-        /// <summary>
-        /// Gets small offcuts in total.
-        /// </summary>
-        [JsonProperty(Order = 20)]
-        public int SmallOffcutsTotal { get; set; }
+        [JsonProperty(Order = 12)]
+        public int OffcutsRequired { get; set; }
 
         /// <summary>
         /// Gets the waste in percent.

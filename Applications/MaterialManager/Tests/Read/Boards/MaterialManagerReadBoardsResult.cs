@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 7, 1)]
+        [TemporaryDisabledOnServer(2024, 8, 15)]
         public async Task GetLocations_GetResult_NoException()
 
         {
@@ -40,7 +40,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 7, 1)]
+        [TemporaryDisabledOnServer(2024, 7, 15)]
         public async Task GetThumbnails_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();

@@ -13,6 +13,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
@@ -23,7 +24,20 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    #region create
+    #region Constructors
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+    #endregion
+
+    #region Create
 
     /// <inheritdoc />
     public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
@@ -52,6 +66,36 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #endregion
 
+    #region Update
+
+    public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+
+        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    #endregion Update
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -63,9 +107,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #endregion
 
     #region Read
-
-    /// <inheritdoc />
-    public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
 
     /// <inheritdoc />
     public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
@@ -106,7 +147,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
         }
 
         var urls = CreateUrls(codes, _BoardCode);
@@ -135,7 +176,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         if (!codes.Any())
         {
-            throw new ArgumentNullException(nameof(boardCodes), "At least one board code code must be passed.");
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
         }
 
         var urls = CreateUrls(codes, _BoardCode, includingDetails: true);
@@ -228,34 +269,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
         bool includingDetails = false)
     {
-        var queryParameters = new StringBuilder("?");
-        var i = 1;
-        var urls = new List<string>();
-        var codeList = codes.ToList();
-        while (i <= codeList.Count)
-        {
-            queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
-            // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-            if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
-            {
-                urls.Add(includingDetails
-                    ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                    : $"{_BaseRoute}{route}{queryParameters}");
-
-                queryParameters = new StringBuilder("?");
-            }
-
-            i++;
-            if (i <= codeList.Count)
-            {
-                queryParameters.Append('&');
-            }
-        }
-
-        urls.Add(includingDetails
-            ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-            : $"{_BaseRoute}{route}{queryParameters}");
-
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
         return urls;
     }
 

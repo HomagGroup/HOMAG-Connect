@@ -17,9 +17,14 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
     public static class CuttingRequestUsingObjectModelSamples
     {
         /// <summary>
-        /// Gets the materials used in the samples.
+        /// Material code to be used for testing with grain lengthwise.
         /// </summary>
-        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold_Craft_Oak_19.0" };
+        public const string SampleMaterialCodeGrainLengthwise = "P2_Gold_Craft_Oak_19.0";
+
+        /// <summary>
+        /// Material code to be used for testing with grain none.
+        /// </summary>
+        public const string SampleMaterialCodeGrainNone = "P2_White_19.0";
 
         /// <summary>
         /// The sample shows how to create a cutting request using the object model with a parts referencing a grain matching

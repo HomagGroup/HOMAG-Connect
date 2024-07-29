@@ -6,11 +6,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
@@ -26,8 +28,18 @@ namespace HomagConnect.MaterialManager.Client
         private const string _EdgebandCode = "edgebandCode";
         private const string _IncludingDetails = "includingDetails";
 
+        #region Constructors
+
         /// <inheritdoc />
         public MaterialManagerClientMaterialEdgebands(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         /// <inheritdoc />
         public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
@@ -114,6 +126,26 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
+        {
+            List<Uri> requestUri =
+            [
+                new Uri(
+                    $"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}",
+                    UriKind.Relative)
+            ];
+            var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
+            return ret;
+        }
+
+        public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
+        {
+            return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
+        }
+
+        #region Create
+
+        /// <inheritdoc />
         public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest)
         {
             if (edgebandTypeRequest == null)
@@ -138,56 +170,51 @@ namespace HomagConnect.MaterialManager.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
 
-        /// <inheritdoc />
-        public async Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(DateTime from, DateTime to)
+        #endregion Create
+
+        #region Update
+
+        public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate)
         {
-            List<Uri> requestUri =
-            [
-                new Uri(
-                    $"/{_BaseStatisticsRoute}/inventory/edgebands?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}",
-                    UriKind.Relative)
-            ];
-            var ret = await RequestEnumerableAsync<EdgeInventoryHistory>(requestUri);
-            return ret;
+            if (edgebandTypeUpdate == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandTypeUpdate));
+            }
+
+            ValidateRequiredProperties(edgebandTypeUpdate);
+
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+            var payload = JsonConvert.SerializeObject(edgebandTypeUpdate);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(edgebandCode)}");
         }
 
-        public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
-        {
-            return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
-        }
+        #endregion Update
+
+        #region Private Methods
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
             bool includingDetails = false)
         {
-            var queryParameters = new StringBuilder("?");
-            var i = 1;
-            var urls = new List<string>();
-            var codeList = codes.ToList();
-            while (i <= codeList.Count)
-            {
-                queryParameters.Append($"{searchCode}={Uri.EscapeDataString(codeList[i - 1])}");
-                // To reduce the size of the URL, we are going to split the request into multiple requests. Max URL length is 2048, that´s why we are using 1900 as the limit with a little bit of added buffer.
-                if (queryParameters.Length + _BaseRoute.Length > QueryParametersMaxLength)
-                {
-                    urls.Add(includingDetails
-                        ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                        : $"{_BaseRoute}{route}{queryParameters}");
-
-                    queryParameters = new StringBuilder("?");
-                }
-
-                i++;
-                if (i <= codeList.Count)
-                {
-                    queryParameters.Append('&');
-                }
-            }
-
-            urls.Add(includingDetails
-                ? $"{_BaseRoute}{route}{queryParameters}&{_IncludingDetails}=true"
-                : $"{_BaseRoute}{route}{queryParameters}");
-
+            var urls = codes
+                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
             return urls;
         }
+
+        #endregion Private methods
     }
 }

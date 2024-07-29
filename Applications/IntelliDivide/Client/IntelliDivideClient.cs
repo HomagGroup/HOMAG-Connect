@@ -65,10 +65,10 @@ namespace HomagConnect.IntelliDivide.Client
         public IntelliDivideClient(HttpClient client) : base(client) { }
 
         /// <inheritdoc />
-        public IntelliDivideClient(Guid subscriptionId, string authorizationKey) : base(subscriptionId, authorizationKey) { }
+        public IntelliDivideClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
         /// <inheritdoc />
-        public IntelliDivideClient(Guid subscriptionId, string authorizationKey, Uri? baseUri) : base(subscriptionId, authorizationKey, baseUri) { }
+        public IntelliDivideClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
         #endregion
 
@@ -481,7 +481,9 @@ namespace HomagConnect.IntelliDivide.Client
             }
 
             // ReSharper disable once MethodHasAsyncOverload
+#pragma warning disable S6966 // Awaitable method should be used
             File.WriteAllBytes(fileInfo.FullName, data);
+#pragma warning restore S6966 // Awaitable method should be used
         }
 
         /// <inheritdoc />

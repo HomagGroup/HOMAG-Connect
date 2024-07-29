@@ -21,6 +21,30 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         private const double _LengthDimensionMinValue = 0.1;
         private const double _LengthDimensionMaxValue = 9999.9;
 
+        #region IContainsUnitSystemDependentProperties Members
+
+        /// <inheritdoc />
+        public UnitSystem UnitSystem { get; set; }
+
+        #endregion
+
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
+
+        #region BoardType properties
+
+        /// <summary>
+        /// Gets or sets the material code.
+        /// </summary>
+        [Required]
+        [StringLength(_MaterialCodeMaxLength, MinimumLength = 1)]
+        [JsonProperty(Order = 2)]
+        public string MaterialCode { get; set; } = string.Empty;
+
         /// <summary>
         /// Gets or sets the board code.
         /// </summary>
@@ -37,12 +61,6 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         public BoardTypeType BoardTypeType { get; set; }
 
         /// <summary>
-        /// Gets or sets the costs of the board. The unit depends on the settings of the subscription.
-        /// </summary>
-        [JsonProperty(Order = 6)]
-        public double? Costs { get; set; }
-
-        /// <summary>
         /// Gets or sets the length of the board. The unit depends on the settings of the subscription (metric: mm, imperial:
         /// inch).
         /// </summary>
@@ -53,12 +71,23 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         public double? Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the material code.
+        /// Gets or sets the width of the board. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
         [Required]
-        [StringLength(_MaterialCodeMaxLength, MinimumLength = 1)]
-        [JsonProperty(Order = 2)]
-        public string MaterialCode { get; set; } = string.Empty;
+        [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
+        [JsonProperty(Order = 5)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double? Width { get; set; }
+
+        /// <summary>
+        /// Gets or sets the costs of the board. The unit depends on the settings of the subscription.
+        /// </summary>
+        [JsonProperty(Order = 6)]
+        public double? Costs { get; set; }
+
+        #endregion
+
+        #region Inventory
 
         /// <summary>
         /// Gets or sets the timestamp of the inventory.
@@ -67,22 +96,79 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [JsonProperty(Order = 1)]
         public DateTimeOffset Timestamp { get; set; }
 
+        #region Quantity
+
         /// <summary>
-        /// Gets or sets the total area of boards of this type which have been allocated
+        /// Gets or sets the total quantity allocated
+        /// </summary>
+        [JsonProperty(Order = 11)]
+        public int? TotalQuantityAllocated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total quantity available
         /// </summary>
         [JsonProperty(Order = 10)]
-        public double? TotalAreaAllocated
+        public int? TotalQuantityInInventory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total quantity available
+        /// </summary>
+        [JsonProperty(Order = 12)]
+        public int? TotalQuantityAvailable
         {
             get
             {
-                return UnitSystem.CalculateArea(Length, Width, TotalQuantityAllocated);
+                if (TotalQuantityInInventory.HasValue && TotalQuantityAllocated.HasValue)
+                {
+                    return TotalQuantityInInventory.Value - TotalQuantityAllocated.Value;
+                }
+
+                return null;
             }
         }
+
+        #endregion
+
+        #region Value
+
+        /// <summary>
+        /// Gets the total value of boards of this type in inventory
+        /// </summary>
+        [JsonProperty(Order = 30)]
+        public double? TotalValueInInventory
+        {
+            get
+            {
+                if (TotalAreaInInventory.HasValue && Costs.HasValue)
+                {
+                    return Costs.Value * TotalAreaInInventory.Value;
+                }
+
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Area
 
         /// <summary>
         /// Gets or sets the total area of boards of this type
         /// </summary>
-        [JsonProperty(Order = 9)]
+        [JsonProperty(Order = 20)]
+        public double? TotalAreaInInventory
+        {
+            get
+            {
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityInInventory);
+            }
+        }
+
+        /// <summary>
+        /// Gets the total area of boards of this type
+        /// </summary>
+        [JsonProperty(Order = 20)]
+        [Obsolete]
         public double? TotalAreaInventory
         {
             get
@@ -92,37 +178,30 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         }
 
         /// <summary>
-        /// Gets or sets the total quantity allocated
+        /// Gets the total area of boards of this type which have been allocated
         /// </summary>
-        [JsonProperty(Order = 8)]
-        public int? TotalQuantityAllocated { get; set; }
+        [JsonProperty(Order = 21)]
+        public double? TotalAreaAllocated
+        {
+            get
+            {
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityAllocated);
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the total quantity available
+        /// Gets the total area of boards of this type which are available.
         /// </summary>
-        [JsonProperty(Order = 7)]
-        public int? TotalQuantityInInventory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the width of the board. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
-        /// </summary>
-        [Required]
-        [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
-        [JsonProperty(Order = 5)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? Width { get; set; }
-
-        #region IContainsUnitSystemDependentProperties Members
-
-        /// <inheritdoc />
-        public UnitSystem UnitSystem { get; set; }
+        [JsonProperty(Order = 22)]
+        public double? TotalAreaAvailable
+        {
+            get
+            {
+                return UnitSystem.CalculateArea(Length, Width, TotalQuantityAvailable);
+            }
+        }
 
         #endregion
-
-        #region IExtensibleDataObject Members
-
-        /// <inheritdoc />
-        public ExtensionDataObject? ExtensionData { get; set; }
 
         #endregion
     }

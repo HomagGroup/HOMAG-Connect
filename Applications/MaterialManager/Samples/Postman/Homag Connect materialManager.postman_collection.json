@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "86c39563-1670-4a97-8707-aef6e26ffd87",
+		"_postman_id": "b40e393c-b876-4084-95f5-8e54337452d2",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -384,6 +384,156 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "CreateBoardType",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"materialCode\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"width\": 9999.9,\r\n  \"length\": 9999.9,\r\n  \"thickness\": 19,\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"type\": \"Board\",\r\n  \"coatingCategory\": \"undefined\",\r\n  \"grain\": \"nograin\",\r\n  \"standardQuality\": \"rawcut\",\r\n  \"totalQuantityAvailableWarningLimit\": 2,\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"lockedForOptimization\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/materials/boards",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEdgebandType",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"edgebandCode\": \"string\",\r\n  \"thickness\": 1.2,\r\n  \"height\": 23,\r\n  \"length\": 150,\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"materialCategory\": \"abs\",\r\n  \"gluingCategory\": \"Zerojoint\",\r\n  \"lasertec\": 0,\r\n  \"airtec\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"functionLayerThickness\": 0,\r\n  \"macroName\": \"string\",\r\n  \"decorEmbossingCode\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"edgebands"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Update a board type",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"coatingCategory\": 0,\r\n  \"grain\": 0,\r\n  \"length\": 9999.9,\r\n  \"lockedForOptimization\": true,\r\n  \"materialCategory\": 0,\r\n  \"materialCode\": \"string\",\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"standardQuality\": 0,\r\n  \"thickness\": 0.01,\r\n  \"totalQuantityAvailableWarningLimit\": 0,\r\n  \"type\": 0,\r\n  \"width\": 9999.9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": null,
+											"description": "Required"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Update an edgeband type",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"gtin\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"airtec\": 0,\r\n  \"decorEmbossingCode\": \"string\",\r\n  \"edgebandCode\": \"string\",\r\n  \"functionLayerThickness\": 0,\r\n  \"gluingCategory\": 0,\r\n  \"height\": 999.9,\r\n  \"lasertec\": 0,\r\n  \"length\": 9999.9,\r\n  \"macroName\": \"string\",\r\n  \"materialCategory\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"thickness\": 99.9,\r\n  \"totalLengthAvailableWarningLimit\": 0,\r\n  \"totalQuantityAvailableWarningLimit\": 2147483647\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "edgebandCode",
+											"value": "",
+											"description": "required"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

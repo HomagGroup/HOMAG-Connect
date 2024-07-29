@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MMR Mobile", "HomagConnect.MMR Mobile", "{69DA6B43-F06E-40E2-BCA4-C10CE75E3BDA}"
 	ProjectSection(SolutionItems) = preProject
-		Applications\MmrMobile\Documentation\README.md = Applications\MmrMobile\Documentation\README.md
+		Applications\MmrMobile\README.md = Applications\MmrMobile\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base", "Base\HomagConnect.Base\HomagConnect.Base.csproj", "{61869BEC-389A-4F4E-8AEC-10BC15A0DEFD}"
@@ -91,15 +91,41 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionMana
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionManager.Tests", "Applications\ProductionManager\Tests\HomagConnect.ProductionManager.Tests.csproj", "{788EBDFD-D7DF-4C67-9410-5941E2840A35}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MaterialAssist", "HomagConnect.MaterialAssist", "{6742D637-7DF4-480B-88EF-141A15595673}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{074FE29B-48D9-4B4B-B948-CA48D91E0294}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Client", "Applications\MaterialAssist\Client\HomagConnect.MaterialAssist.Client.csproj", "{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Contracts", "Applications\MaterialAssist\Contracts\HomagConnect.MaterialAssist.Contracts.csproj", "{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Samples", "Applications\MaterialAssist\Samples\HomagConnect.MaterialAssist.Samples.csproj", "{E2C61168-D256-4A11-B037-DC4072560D3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Tests", "Applications\MaterialAssist\Tests\HomagConnect.MaterialAssist.Tests.csproj", "{A41CC397-9A4E-478A-9B0D-724343F017BA}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.ProductionAssist", "HomagConnect.ProductionAssist", "{D0EA0BE4-D8C8-4422-BAB4-57D60123543C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Contracts", "Applications\ProductionAssist\Contracts\HomagConnect.ProductionAssist.Contracts.csproj", "{49B6155D-81D1-4E38-9AB9-D062F9A4082C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Contracts", "Applications\ProductionAssist\Contracts\HomagConnect.ProductionAssist.Contracts.csproj", "{49B6155D-81D1-4E38-9AB9-D062F9A4082C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Client", "Applications\ProductionAssist\Client\HomagConnect.ProductionAssist.Client.csproj", "{60EA46CD-2233-4AFC-BC80-3A3D485F71DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Client", "Applications\ProductionAssist\Client\HomagConnect.ProductionAssist.Client.csproj", "{60EA46CD-2233-4AFC-BC80-3A3D485F71DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Samples", "Applications\ProductionAssist\Samples\HomagConnect.ProductionAssist.Samples.csproj", "{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Samples", "Applications\ProductionAssist\Samples\HomagConnect.ProductionAssist.Samples.csproj", "{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.ProductionAssist.Tests", "Applications\ProductionAssist\Tests\HomagConnect.ProductionAssist.Tests.csproj", "{48CEB0E8-F145-4274-86AB-5DD62DCB83EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssist.Tests", "Applications\ProductionAssist\Tests\HomagConnect.ProductionAssist.Tests.csproj", "{48CEB0E8-F145-4274-86AB-5DD62DCB83EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Partner", "Partner", "{F6E5A8CA-0849-4EA2-9B39-439B87116525}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{7DDEF0A8-91A4-4776-87F6-F99325B28088}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Partner\Authorization\Readme.md = Documentation\Partner\Authorization\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\Readme.md = Applications\Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +209,22 @@ Global
 		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{788EBDFD-D7DF-4C67-9410-5941E2840A35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2C61168-D256-4A11-B037-DC4072560D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41CC397-9A4E-478A-9B0D-724343F017BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49B6155D-81D1-4E38-9AB9-D062F9A4082C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49B6155D-81D1-4E38-9AB9-D062F9A4082C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49B6155D-81D1-4E38-9AB9-D062F9A4082C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -235,11 +277,20 @@ Global
 		{5F30EC6C-8DDD-4FEB-9E5C-029C3F581C41} = {2743D67C-5341-4B75-B517-D9067D3E3583}
 		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7} = {2743D67C-5341-4B75-B517-D9067D3E3583}
 		{788EBDFD-D7DF-4C67-9410-5941E2840A35} = {2743D67C-5341-4B75-B517-D9067D3E3583}
+		{6742D637-7DF4-480B-88EF-141A15595673} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{074FE29B-48D9-4B4B-B948-CA48D91E0294} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{E2C61168-D256-4A11-B037-DC4072560D3D} = {6742D637-7DF4-480B-88EF-141A15595673}
+		{A41CC397-9A4E-478A-9B0D-724343F017BA} = {6742D637-7DF4-480B-88EF-141A15595673}
 		{D0EA0BE4-D8C8-4422-BAB4-57D60123543C} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
 		{49B6155D-81D1-4E38-9AB9-D062F9A4082C} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{60EA46CD-2233-4AFC-BC80-3A3D485F71DA} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{48CEB0E8-F145-4274-86AB-5DD62DCB83EB} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
+		{F6E5A8CA-0849-4EA2-9B39-439B87116525} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
+		{7DDEF0A8-91A4-4776-87F6-F99325B28088} = {F6E5A8CA-0849-4EA2-9B39-439B87116525}
+		{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

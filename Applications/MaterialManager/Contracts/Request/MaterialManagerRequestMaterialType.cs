@@ -15,6 +15,12 @@ public abstract class MaterialManagerRequestMaterialType
     public string? ArticleNumber { get; set; }
 
     /// <summary>
+    /// Gets or sets the gtin.
+    /// </summary>
+    [StringLength(50)]
+    public string? Gtin { get; set; }
+
+    /// <summary>
     /// Gets or sets the additional comments.
     /// </summary>
     [StringLength(300)]

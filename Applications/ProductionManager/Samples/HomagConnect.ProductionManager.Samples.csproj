@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>11.0</LangVersion>
@@ -28,13 +28,14 @@
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
-		<PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.5.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+	  <ProjectReference Include="..\Client\HomagConnect.ProductionManager.Client.csproj" />
 	  <ProjectReference Include="..\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
 	</ItemGroup>
 

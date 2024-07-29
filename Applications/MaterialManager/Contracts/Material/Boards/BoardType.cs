@@ -77,6 +77,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 14)]
         public StandardQuality StandardQuality { get; set; }
 
+        /// <summary>
+        /// Gets or sets the material last used data.
+        /// </summary>
+        [JsonProperty(Order = 15)]
+        public DateTimeOffset? MaterialLastUsed { get; set; }
+
         #endregion
 
         #region Board type
@@ -161,9 +167,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 35)]
         public string? DecorName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the gtin.
+        /// </summary>
+        [JsonProperty(Order = 36)]
+        public string? Gtin { get; set; }
+
         #endregion
 
         #region Material Management
+
         /// <summary>
         /// Gets or sets the total quantity available warning limit.
         /// </summary>
@@ -220,6 +233,23 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
                 if (TotalQuantityInInventory != null && TotalQuantityAllocated == null)
                 {
                     return TotalQuantityInInventory;
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the total value of boards of this type in inventory
+        /// </summary>
+        [JsonProperty(Order = 53)]
+        public double? TotalValueInInventory
+        {
+            get
+            {
+                if (TotalAreaInInventory.HasValue && Costs.HasValue)
+                {
+                    return Costs.Value * TotalAreaInInventory.Value;
                 }
 
                 return null;

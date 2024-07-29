@@ -13,13 +13,20 @@ namespace HomagConnect.MmrMobile.Client
 {
     public class MmrMobileClient : ServiceBase, IMmrMobileClient
     {
-        #region machinedata
-        /// <summary>
-        /// Constructor. Provide subscription and HttpClient
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="subscriptionId"></param>
+        #region Constructors
+
+        /// <inheritdoc />
         public MmrMobileClient(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
+        
+        #region machinedata
 
         /// <summary>
         /// get all machines, the customer has access to
@@ -162,12 +169,25 @@ namespace HomagConnect.MmrMobile.Client
         }
         #endregion
 
-        #region machinedata
+        #region eventdatadata of a machine
 
         /// <inheritdoc />
-        public async Task<IEnumerable<AlertEvent>> GetEventSeriesFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0)
+        public async Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0)
         {
-            string url = $"/api/mmr-mobile/eventdata/machines/{machineNumber}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+            var url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/alerts/history" +
+                      $"?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}" +
+                      $"&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
+                      $"&take={take}&skip={skip}";
+
+            return await RequestEnumerable<AlertEvent>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0)
+        {
+            var url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/alerts/history" +
+                      $"?daysBack={daysBack}" +
+                      $"&take={take}&skip={skip}";
 
             return await RequestEnumerable<AlertEvent>(new Uri(url, UriKind.Relative));
         }

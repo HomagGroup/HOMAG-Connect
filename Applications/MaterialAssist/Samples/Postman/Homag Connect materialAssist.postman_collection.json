@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "cdfd7169-61b4-48f9-917c-5079a72d8e6f",
+		"name": "Homag Connect materialAssist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Delete a board entity",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/workplaces/boards?id=12",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"workplaces",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "12"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Delete a edgeband entity",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/workplaces/edgebands?id=9",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"workplaces",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "9"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Read",
+			"item": [
+				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Get all board entities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get board entities by ids",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?id=19",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "19"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get board entities by board code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?boardCode=MDF_Roh_19_2800_2070",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": "MDF_Roh_19_2800_2070"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get board entities by material code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?materialCode=MDF_Roh_19",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "materialCode",
+											"value": "MDF_Roh_19"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Get all edgeband entities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": null,
+											"description": "int",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get edgeband entities by ids",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities?id=28",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "28"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get edgeband entities by edgeband code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities?edgebandCode=ABS_Chicago_Concrete_dunkelgrau_0.80_43.0_NN",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "edgebandCode",
+											"value": "ABS_Chicago_Concrete_dunkelgrau_0.80_43.0_NN"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "{{ConnectUserName}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{ConnectPassword}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

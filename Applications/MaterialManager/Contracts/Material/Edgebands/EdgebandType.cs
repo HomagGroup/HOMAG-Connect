@@ -142,6 +142,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// </summary>
         public string? ArticleNumber { get; set; }
 
+        /// <summary>
+        /// Gets or sets the gtin.
+        /// </summary>
+        public string? Gtin { get; set; }
+
         #endregion
 
         #region Inventory

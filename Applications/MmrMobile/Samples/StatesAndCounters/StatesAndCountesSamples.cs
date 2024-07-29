@@ -27,11 +27,11 @@ namespace HomagConnect.Applications.MmrMobile.Samples
                     s.Key.CounterId,
                     TotalCounter = s.Sum(x => x.Value)
                 });
-                Console.WriteLine($"You produced {groupedCounter.First().TotalCounter} pieces in the last 14 days.");
+                System.Console.WriteLine($"You produced {groupedCounter.First().TotalCounter} pieces in the last 14 days.");
             }
             else
             {
-                Console.WriteLine("No data has been found related to this subscription.");
+                System.Console.WriteLine("No data has been found related to this subscription.");
             }
         }
 
@@ -46,7 +46,7 @@ namespace HomagConnect.Applications.MmrMobile.Samples
         /// <returns></returns>
         public static async Task GetStateData(IMmrMobileClient mmrMobileClient)
         {
-            var states = await mmrMobileClient.GetStateData();
+            var states = await mmrMobileClient.GetStateData(from: DateTime.Now.AddDays(-3), to: DateTime.Now );
             if (states != null)
             {
                 var groupedStates = states.GroupBy(c => new { c.StateId, c.StateTranslation }).Select(s => new
@@ -57,22 +57,22 @@ namespace HomagConnect.Applications.MmrMobile.Samples
                 }).ToArray();
 
                 var maximumWorkingHours = groupedStates.Sum(c => c.StateTime);
-                Console.WriteLine("\nYour machines have been in the following stages for this many hours:");
+                System.Console.WriteLine("\nYour machines have been in the following stages for this many hours:");
 
                 foreach (var state in groupedStates)
                 {
-                    Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime, Digits)}");
+                    System.Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime, Digits)}");
                 }
 
-                Console.WriteLine("\nSeen in percentage it would be: (out of operation excluded)");
+                System.Console.WriteLine("\nSeen in percentage it would be: (out of operation excluded)");
                 foreach (var state in groupedStates.Where(y => y.StateId != StateGroupCodes.OutOfOperation))
                 {
-                    Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime / maximumWorkingHours * percent, Digits)}%");
+                    System.Console.WriteLine($"{state.StateTranslation}: {Math.Round(state.StateTime / maximumWorkingHours * percent, Digits)}%");
                 }
             }
             else
             {
-                Console.WriteLine("No data has been found related to this subscription.");
+                System.Console.WriteLine("No data has been found related to this subscription.");
             }
         }
     }
