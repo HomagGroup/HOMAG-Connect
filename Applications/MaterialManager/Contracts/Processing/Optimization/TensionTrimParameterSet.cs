@@ -14,6 +14,12 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
+    /// Gets or sets the <see cref="IsDefault" /> which determines if the parameter set belongs to the default section.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public bool IsDefault { get; set; }
+
+    /// <summary>
     /// Gets or sets the material codes for which the <see cref="TensionTrimParameterSet" /> is valid.
     /// </summary>
     [JsonProperty(Order = 2)]
