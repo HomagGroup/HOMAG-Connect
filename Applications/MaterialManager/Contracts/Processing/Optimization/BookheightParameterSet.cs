@@ -20,6 +20,12 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
     public BookHeightParameters BookHeightParameters { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which are not manually assigned to a group.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public bool IsUnassignedMaterialsGroup { get; set; }
+
+    /// <summary>
     /// Gets or sets the material codes for which the <see cref="BookHeightParameterSet" /> is valid.
     /// </summary>
     [JsonProperty(Order = 2)]

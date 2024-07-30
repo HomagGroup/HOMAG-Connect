@@ -14,10 +14,10 @@ public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDepend
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
-    /// Gets or sets the <see cref="TrimCutParameters" />.
+    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which are not manually assigned to a group.
     /// </summary>
-    [JsonProperty(Order = 11)]
-    public TrimCutParameters Parameters { get; set; } = new();
+    [JsonProperty(Order = 4)]
+    public bool IsUnassignedMaterialsGroup { get; set; }
 
     /// <summary>
     /// Gets or sets the material codes for which the <see cref="TrimCutParameterSet" /> is valid.
@@ -40,6 +40,12 @@ public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDepend
     /// </summary>
     [JsonProperty(Order = 3)]
     public string MaterialManagerLink { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the <see cref="TrimCutParameters" />.
+    /// </summary>
+    [JsonProperty(Order = 11)]
+    public TrimCutParameters Parameters { get; set; } = new();
 
     #region IContainsUnitSystemDependentProperties Members
 
