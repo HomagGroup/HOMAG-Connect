@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 
@@ -15,6 +16,20 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}, #{Quantity}")]
     public class OptimizationRequestPart : OptimizationBasePart
     {
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public OptimizationRequestPart() { }
+
+        /// <summary>
+        /// Creates a new instance using the given <paramref name="unitSystem" />.
+        /// </summary>
+        public OptimizationRequestPart(UnitSystem unitSystem) : base(unitSystem) { }
+
+        #endregion
+
         #region (2a) Cutting
 
         /// <summary>
