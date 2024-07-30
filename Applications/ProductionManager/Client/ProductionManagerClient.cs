@@ -204,6 +204,23 @@ namespace HomagConnect.ProductionManager.Client
             return await PostObject<EdgebandingPredictionRequest, EdgebandingPrediction>(uri, edgebandingPredictionRequest).ConfigureAwait(true);
         }
 
+        public async Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest)
+        {
+            if (cuttingPredictionRequest == null)
+            {
+                throw new ArgumentNullException(nameof(cuttingPredictionRequest));
+            }
+
+            if (cuttingPredictionRequest.ProductionEntities == null || !cuttingPredictionRequest.ProductionEntities.Any())
+            {
+                throw new ArgumentException("The production entities must not be null or empty.", nameof(cuttingPredictionRequest));
+            }
+
+            var uri = new Uri("/api/productionManager/predict/cutting", UriKind.Relative);
+
+            return await PostObject<CuttingPredictionRequest, CuttingPrediction>(uri, cuttingPredictionRequest).ConfigureAwait(true);
+        }
+
         #endregion
 
         #endregion
