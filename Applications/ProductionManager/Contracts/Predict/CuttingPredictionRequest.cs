@@ -18,28 +18,28 @@ public class CuttingPredictionRequest : IExtensibleDataObject
     /// <summary>
     /// Initializes a new instance of the <see cref="CuttingPredictionRequest"/> class.
     /// </summary>
-    public CuttingPredictionRequest(IEnumerable<CuttingPredictionPart>? productionEntities):this()
+    public CuttingPredictionRequest(IEnumerable<CuttingPredictionPart>? predictionParts):this()
     {
-        ProductionEntities = productionEntities;
+        PredictionParts = predictionParts;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CuttingPredictionRequest"/> class.
     /// </summary>
-    public CuttingPredictionRequest(IEnumerable<CuttingPredictionPart>? productionEntities, string? machine) :this(productionEntities)
+    public CuttingPredictionRequest(IEnumerable<CuttingPredictionPart>? predictionParts, string? machineNumber) :this(predictionParts)
     {
-        Machine = machine;
+        MachineNumber = machineNumber;
     }
 
     /// <summary>
-    /// Machine for which the prediction should be made.
+    /// MachineNumber for which the prediction should be made.
     /// </summary>
-    public string? Machine { get; set; }
+    public string? MachineNumber { get; set; }
 
     /// <summary>
     /// List of Parts, that will be produced, and for which we need prediction
     /// </summary>
-    public IEnumerable<CuttingPredictionPart>? ProductionEntities { get; set; }
+    public IEnumerable<CuttingPredictionPart>? PredictionParts { get; set; }
 
     #region IExtensibleDataObject Members
 

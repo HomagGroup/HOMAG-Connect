@@ -111,7 +111,9 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
                 EdgeBack = productionOrder.EdgeBack,
                 EdgeFront = productionOrder.EdgeFront,
                 EdgeLeft = productionOrder.EdgeLeft,
-                EdgeRight = productionOrder.EdgeRight
+                EdgeRight = productionOrder.EdgeRight,
+
+                UnitSystem = productionOrder.UnitSystem
             };
 
             return part;

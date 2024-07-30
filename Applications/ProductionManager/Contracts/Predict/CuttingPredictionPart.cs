@@ -76,6 +76,8 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
                 Length = productionOrder.Length,
                 Width = productionOrder.Width,
                 Thickness = productionOrder.Thickness,
+
+                UnitSystem = productionOrder.UnitSystem
             };
 
             return part;
