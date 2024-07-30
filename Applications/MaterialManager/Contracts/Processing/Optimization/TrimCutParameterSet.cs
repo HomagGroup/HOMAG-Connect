@@ -14,10 +14,10 @@ public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDepend
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
-    /// Gets or sets the <see cref="IsDefault" /> which determines if the parameter set belongs to the default section.
+    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which are not manually assigned to a group.
     /// </summary>
     [JsonProperty(Order = 4)]
-    public bool IsDefault { get; set; }
+    public bool IsUnassignedMaterialsGroup { get; set; }
 
     /// <summary>
     /// Gets or sets the material codes for which the <see cref="TrimCutParameterSet" /> is valid.
