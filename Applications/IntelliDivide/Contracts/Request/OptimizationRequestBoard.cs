@@ -1,14 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
     /// <summary>
     /// Represents a board to use in an optimization.
     /// </summary>
-    public class OptimizationRequestBoard : IExtensibleDataObject
+    public class OptimizationRequestBoard : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public OptimizationRequestBoard() { }
+
+        /// <summary>
+        /// Creates a new instance using the given <paramref name="unitSystem" />.
+        /// </summary>
+        public OptimizationRequestBoard(UnitSystem unitSystem)
+        {
+            UnitSystem = unitSystem;
+        }
+
+        #endregion
+
         /// <summary>
         /// Gets or sets the board code.
         /// </summary>
@@ -32,6 +52,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Length { get; set; }
 
         /// <summary>
@@ -52,6 +73,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [Range(0.01, double.PositiveInfinity)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Thickness { get; set; }
 
         /// <summary>
@@ -64,11 +86,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Width { get; set; }
 
-        /// <summary>
-        /// <see cref="IExtensibleDataObject" /> members.
-        /// </summary>
+        #region IExtensibleDataObject Members
+
+        /// <inheritdoc />
         public ExtensionDataObject ExtensionData { get; set; }
+
+        #endregion
+
+        #region IContainsUnitSystemDependentProperties
+
+        /// <inheritdoc />
+        public UnitSystem UnitSystem { get; set; }
+
+        #endregion
     }
 }

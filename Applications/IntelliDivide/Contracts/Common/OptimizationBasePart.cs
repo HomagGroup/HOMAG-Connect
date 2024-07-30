@@ -1,7 +1,10 @@
 ﻿#nullable enable
+
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 
@@ -19,6 +22,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
 
         /// <inheritdoc cref="IExtensibleDataObject" />
         public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public OptimizationBasePart() { }
+
+        /// <summary>
+        /// Creates a new instance using the given <paramref name="unitSystem" />.
+        /// </summary>
+        public OptimizationBasePart(UnitSystem unitSystem) : this()
+        {
+            UnitSystem = unitSystem;
+        }
 
         #endregion
 
@@ -52,20 +72,19 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (2) Cutting / Nesting
 
         /// <inheritdoc />
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Thickness { get; set; }
 
-        /// <summary>
-        /// Gets or sets the length of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 21)]
         [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
 
         #endregion
@@ -160,12 +179,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the finish length.
         /// </summary>
         [JsonProperty(Order = 62)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishLength { get; set; }
 
         /// <summary>
         /// Gets or sets the finish length.
         /// </summary>
         [JsonProperty(Order = 63)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishWidth { get; set; }
 
         #endregion
@@ -185,6 +206,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <inheritdoc />
         public UnitSystem UnitSystem { get; set; }
 
-#endregion
+        #endregion
     }
 }
