@@ -9,7 +9,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
     public class CuttingPrediction : IExtensibleDataObject
     {
         /// <summary>
-        /// Predicted edgebanding duration.
+        /// Predicted duration.
         /// </summary>
         [JsonProperty(Order = 1)]
         public TimeSpan Duration { get; set; }
