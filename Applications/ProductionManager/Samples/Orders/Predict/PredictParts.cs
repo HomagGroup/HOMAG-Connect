@@ -19,8 +19,8 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Predict
         {
             var edgebandingPredictionRequest = new EdgebandingPredictionRequest
             {
-                Machine = "",
-                ProductionEntities = new List<EdgebandingPredictionPart>{
+                MachineNumber = "",
+                PredictionParts = new List<EdgebandingPredictionPart>{
                     new EdgebandingPredictionPart
                     {
                         Quantity = 10,

@@ -36,7 +36,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// Machines on which the prediction is based (in format "x-xxx-xx-xxxx").
         /// </summary>
         [JsonProperty(Order = 6)]
-        public IEnumerable<string> PredictionBase { get; set; } = [];
+        public IEnumerable<PredictionMachineData> PredictionBase { get; set; } = [];
 
         /// <summary>
         /// Method, which has been chosen to predict duration.
