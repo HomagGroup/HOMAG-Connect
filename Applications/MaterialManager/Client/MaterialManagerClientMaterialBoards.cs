@@ -279,6 +279,44 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #endregion
 
+    #region Delete
+
+    /// <inheritdoc/>
+    public async Task DeleteBoardType(string boardCode)
+    {
+        var url = $"{_BaseRoute}?{_BoardCode}={boardCode}";
+
+        await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task DeleteBoardTypes(IEnumerable<string> boardCodes)
+    {
+        if (boardCodes == null)
+        {
+            throw new ArgumentNullException(nameof(boardCodes));
+        }
+
+        var codes = boardCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).ToList();
+
+        if (!codes.Any())
+        {
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
+        }
+
+        var urls = CreateUrls(codes, _BoardCode);
+
+        foreach (var url in urls)
+        {
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+        }
+    }
+
+    #endregion Delete
+
     #region statistics
 
     /// <inheritdoc />
