@@ -284,7 +284,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc/>
     public async Task DeleteBoardType(string boardCode)
     {
-        var url = $"{_BaseRoute}?{_BoardCode}={boardCode}";
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
