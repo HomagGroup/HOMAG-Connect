@@ -1,6 +1,6 @@
 <strong>[This is preliminary documentation and is subject to change.]</strong>
 
-# Read board data
+<h1 id="readBoardData"> Read board data</h1>
 
 With the Homag Connect materialManager boards client, the board related data can be retrieved from materialManager for further programmatic evaluation.
 
@@ -23,3 +23,16 @@ var totalWidth = boardTypes.Sum(x => x.Width);
 ```
 
 As this is only one sample on how to use the client you can find further methods of the interface in [Client documentation](../../SourceCode/homagconnect.materialmanager.client.materialmanagerclientmaterialboards)
+
+
+
+<h1 id="createBoardType"> Create board type</h1>
+
+
+
+<h1 id="UpdateBoardType">Update board type</h1>
+
+
+
+<h1 id="BoardInventoryHistory"> Board inventory history</h1>
+

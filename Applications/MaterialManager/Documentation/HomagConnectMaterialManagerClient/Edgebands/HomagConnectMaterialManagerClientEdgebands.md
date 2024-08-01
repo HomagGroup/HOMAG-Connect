@@ -1,6 +1,6 @@
 <strong>[This is preliminary documentation and is subject to change.]</strong>
 
-# Read édgeband data
+<h1 id="readEdgebandData"> Read edgeband data</h1>
 
 With the Homag Connect materialManager edgebands client, the edgebands related data can be retrieved from materialManager for further programmatic evaluation.
 
@@ -23,3 +23,16 @@ var totalLength = edgebandTypes.Sum(x => x.Length);
 ```
 
 As this is only one sample on how to use the client you can find further methods of the interface in "to be added"
+
+
+
+<h1 id="createEdgebandType"> Create edgeband type</h1>
+
+
+
+<h1 id="updateEdgebandType"> Update edgeband type</h1>
+
+
+
+<h1 id="edgebandInventoryHistory"> Edgeband inventory history</h1>
+

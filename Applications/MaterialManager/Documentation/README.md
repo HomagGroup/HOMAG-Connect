@@ -11,7 +11,14 @@ The most important functions are described below. More can be found in the [Docu
 ## Table of content
 
 1. [Authorization](Authorization/Authorization.md)
-2. [Read board data](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md)
-3. [Read egdeband Data](HomagConnectMaterialManagerClient/Edgebands/HomagConnectMaterialManagerClientEdgebands.md)
-4. [Excel (analog to MmrMobile)](../../MmrMobile/Documentation/Excel/README.md)
-5. [powerBI (analog to MmrMobile)](../../MmrMobile/Documentation/powerBi/README.md)
+2. [Read board data](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#readBoardData)
+3. [Create board type](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#createBoardType)
+4. [Update board type](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#updateBoardType)
+5. [Board inventory history](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#boardInventoryHistory)
+6. [Read egdeband data](HomagConnectMaterialManagerClient/Edgebands/HomagConnectMaterialManagerClientEdgebands.md#readEdgebandData)
+7. [Create edgeband type](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#createEdgebandType)
+8. [Update edgeband type](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#updateEdgebandType)
+9. [Edgeband inventory history](HomagConnectMaterialManagerClient/Boards/HomagConnectMaterialManagerClientBoards.md#edgebandInventoryHistory)
+10. [Excel (analog to MmrMobile)](../../MmrMobile/Documentation/Excel/README.md)
+11. [powerBI (analog to MmrMobile)](../../MmrMobile/Documentation/powerBi/README.md)
+
