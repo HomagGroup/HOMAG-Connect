@@ -77,10 +77,21 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// Update board type by board code.
         /// </summary>
-        /// <param name="boardTypeUpdate"></param>
-        /// <param name="boardTypeCode"></param>
-        /// <returns></returns>
         Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate);
+
+        /// <summary>
+        /// Delete board types by board codes.
+        /// </summary>
+        Task DeleteBoardTypes(IEnumerable<string> boardCode);
+
+        /// <summary>
+        /// Delete board type by board code.
+        /// </summary>
+        /// <param name="boardCode"></param>
+        /// <returns></returns>
+        Task DeleteBoardType(string boardCode);
+
+
 
         #region Inventory History
 
