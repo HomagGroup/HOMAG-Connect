@@ -40,9 +40,9 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task DeleteBoardEntity(string id)
         {
-            var url = $"{_BaseRoute}/?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
 
-            await DeleteObject(new Uri(url, UriKind.Relative));
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -55,7 +55,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             url += boardCodes;
 
-            await DeleteObject(new Uri(url, UriKind.Relative));
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
         }
 
         #endregion Delete
