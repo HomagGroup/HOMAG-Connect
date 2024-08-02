@@ -60,12 +60,6 @@ public class ProductionEntity : IExtensibleDataObject
     /// Gets or sets the group.
     /// </summary>
     [JsonProperty(Order = 3)]
-    public string? Group { get; set; }
-
-    /// <summary>
-    /// Gets or sets the group.
-    /// </summary>
-    [JsonProperty(Order = 3)]
     public string? ArticleGroup { get; set; }
 
     /// <summary>

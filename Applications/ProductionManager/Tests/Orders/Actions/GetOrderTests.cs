@@ -33,7 +33,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                     Street = "Homagstrasse",
                     HouseNumber = "3-5",
                     PostalCode = "72296",
-                    Town = "Schopfloch",
+                    City = "Schopfloch",
                     Country = "Germany"
                 },
                 BillOfMaterials =
