@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionManager.Tests.Predict
             var productionManager = GetProductionManagerClient();
             var anyException = false;
 
-            EdgebandingPrediction edgebandingPrediction = null;
+            EdgebandingPrediction? edgebandingPrediction = null;
             try
             {
                 edgebandingPrediction = await PredictParts.PredictPartsEdgebandingAsync(productionManager);
@@ -34,6 +34,7 @@ namespace HomagConnect.ProductionManager.Tests.Predict
             }
 
             Assert.IsFalse(anyException);
+            Assert.IsNotNull(edgebandingPrediction);
 
             edgebandingPrediction.Should().NotBeNull();
 
