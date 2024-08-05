@@ -13,6 +13,11 @@ public class PredictionMachineData
     public string MachineNumber { get; set; } = string.Empty;
 
     /// <summary>
+    /// Machine name
+    /// </summary>
+    public string MachineName { get; set; } = string.Empty;
+
+    /// <summary>
     /// The minimum estimated duration calculated based on Quartile 1.
     /// </summary>
     [JsonProperty(Order = 2)]
