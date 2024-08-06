@@ -6,9 +6,6 @@
       <HashCode>CAAiQgMwAAACAADAADDBCAAAQAAAEAAGAAQARlIAACA=</HashCode>
       <FileName>Orders\Order.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Address" />
-    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.Orders.OrderDetails">
@@ -52,14 +49,6 @@
     <TypeIdentifier>
       <HashCode>AAAiQAAAAAEggAFAABAAAEBAAAAAECAEIQQAgAAAAAg=</HashCode>
       <FileName>ProductionEntity\ProductionEntity.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.Orders.Address">
-    <Position X="15.5" Y="0.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAIIAAAAAAAAEIAAAAEAAIAAAAAAAA=</HashCode>
-      <FileName>Orders\Address.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
