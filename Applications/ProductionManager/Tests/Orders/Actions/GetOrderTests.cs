@@ -1,7 +1,9 @@
 using FluentAssertions;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.ProductionEntity;
 using HomagConnect.ProductionManager.Samples.Orders.Actions;
@@ -21,6 +23,9 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
         [TestMethod]
         public void OrderDetails_Trace()
         {
+            var lot1 = new Lot { Id = Guid.NewGuid(), Name = "Lot 1" };
+            var lot2 = new Lot { Id = Guid.NewGuid(), Name = "Lot 2" };
+
             var order = new OrderDetails
             {
                 OrderName = "Mini Schrank",
@@ -28,6 +33,11 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                 CustomerNumber = "4711",
                 OrderDate = DateTime.Today,
                 DeliveryDatePlanned = DateTime.Today.AddDays(14),
+                Lots =
+                [
+                    new NamedReference<Guid>(lot1.Id, lot1.Name),
+                    new NamedReference<Guid>(lot2.Id, lot2.Name)
+                ],
                 Address = new Address
                 {
                     Street = "Homagstrasse",
@@ -48,7 +58,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                         [
                             new ProductionEntityProductionOrder
                             {
-                                Quantity = 1,
+                                Quantity = 3,
                                 Grain = Grain.None,
                                 ArticleNumber = "002",
                                 ArticleGroup = "Seite_L",
@@ -59,7 +69,12 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                                 Notes = "Egger",
                                 Material = "P2_White_19",
                                 Description = "Seite_L",
-                                CncProgramName1 = "spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr"
+                                CncProgramName1 = "spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr",
+                                Lots =
+                                [
+                                    new ProductionEntityLotReference { LotId = lot1.Id, LotName = lot1.Name, Quantity = 2 },
+                                    new ProductionEntityLotReference { LotId = lot2.Id, LotName = lot2.Name, Quantity = 1 }
+                                ]
                             },
                             new ProductionEntityProductionOrder
                             {

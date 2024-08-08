@@ -133,8 +133,13 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [JsonProperty(Order = 45)]
     public string? LabelLayout { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of lots in which the production entity is included.
+    /// </summary>
+    public ProductionEntityLotReference[]? Lots { get; set; }
+
     #endregion
-    
+
     #region (30) IEdgebandingProperties
 
     /// <inheritdoc />
