@@ -30,15 +30,18 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityProductionOrder">
-    <Position X="27" Y="14.5" Width="4" />
+    <Position X="27" Y="16.5" Width="4" />
     <TypeIdentifier>
-      <HashCode>AEAACAQAQEIDBAAAAIAAAAIAgcAAgAQAAQIAIAABQAA=</HashCode>
+      <HashCode>AEAACAQQQEIDBAAAAIAAAAIAgcAAgAQAAQIAIAABQAA=</HashCode>
       <FileName>ProductionEntity\ProductionEntityProductionOrder.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Lots" />
+    </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityResource">
-    <Position X="31.75" Y="15.25" Width="2.75" />
+    <Position X="32.75" Y="16" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>ProductionEntity\ProductionEntityResource.cs</FileName>
@@ -51,6 +54,30 @@
       <FileName>ProductionEntity\ProductionEntity.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.Lots.Lot">
+    <Position X="24.25" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAACQAAEAAAAAAAAAACAAAQAAAAAEAAAABAAAAAAAIA=</HashCode>
+      <FileName>Lots\Lot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.Lots.LotDetails">
+    <Position X="24.25" Y="4.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lots\LotDetails.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ProductionOrders" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionOrderLotReference">
+    <Position X="30.75" Y="4.75" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ProductionEntity\ProductionOrderLotReference.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="HomagConnect.ProductionManager.Contracts.IProductionManagerClient">
     <Position X="0.5" Y="0.5" Width="7.25" />
