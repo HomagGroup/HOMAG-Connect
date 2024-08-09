@@ -1,6 +1,5 @@
 using FluentAssertions;
 
-using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Contracts.Lots;
@@ -35,8 +34,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                 DeliveryDatePlanned = DateTime.Today.AddDays(14),
                 Lots =
                 [
-                    new NamedReference<Guid>(lot1.Id, lot1.Name),
-                    new NamedReference<Guid>(lot2.Id, lot2.Name)
+                    lot1, lot2
                 ],
                 Address = new Address
                 {
@@ -72,8 +70,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                                 CncProgramName1 = "spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr",
                                 Lots =
                                 [
-                                    new ProductionEntityLotReference { LotId = lot1.Id, LotName = lot1.Name, Quantity = 2 },
-                                    new ProductionEntityLotReference { LotId = lot2.Id, LotName = lot2.Name, Quantity = 1 }
+                                    new ProductionOrderLotReference( lot1, 2),
+                                    new ProductionOrderLotReference { LotId = lot2.Id, Quantity = 1 }
                                 ]
                             },
                             new ProductionEntityProductionOrder
