@@ -58,6 +58,6 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// Gets or sets the timestamp when the lot was last modified.
         /// </summary>
         [JsonProperty(Order = 40)]
-        public DateTimeOffset ChangeAt { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
     }
 }
