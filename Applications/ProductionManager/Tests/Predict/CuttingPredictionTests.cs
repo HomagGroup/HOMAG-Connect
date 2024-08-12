@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Tests.Predict
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Predict")]
     [TemporaryDisabledOnServer(2024, 9, 1)]
-    public class EdgebandingCuttingTests : ProductionManagerTestBase
+    public class CuttingPredictionTests : ProductionManagerTestBase
     {
         /// <summary />
         [TestMethod]
