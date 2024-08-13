@@ -14,6 +14,12 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
+    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which are not manually assigned to a group.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public bool IsUnassignedMaterialsGroup { get; set; }
+
+    /// <summary>
     /// Gets or sets the material codes for which the <see cref="TensionTrimParameterSet" /> is valid.
     /// </summary>
     [JsonProperty(Order = 2)]

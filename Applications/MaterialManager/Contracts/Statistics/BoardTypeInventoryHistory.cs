@@ -164,19 +164,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
             }
         }
 
-        /// <summary>
-        /// Gets the total area of boards of this type
-        /// </summary>
-        [JsonProperty(Order = 20)]
-        [Obsolete]
-        public double? TotalAreaInventory
-        {
-            get
-            {
-                return UnitSystem.CalculateArea(Length, Width, TotalQuantityInInventory);
-            }
-        }
-
+     
         /// <summary>
         /// Gets the total area of boards of this type which have been allocated
         /// </summary>

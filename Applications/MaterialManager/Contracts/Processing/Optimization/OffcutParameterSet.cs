@@ -14,13 +14,16 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
-    /// Gets or sets the name of the material group.
+    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which are not manually assigned to a group.
     /// </summary>
-    [Key]
-    [JsonProperty(Order = 1)]
-    [Required]
-    [StringLength(_MaterialGroupNameMaxLength, MinimumLength = 1)]
-    public string MaterialGroupName { get; set; } = string.Empty;
+    [JsonProperty(Order = 4)]
+    public bool IsUnassignedMaterialsGroup { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Large <see cref="OffcutParameters" />.
+    /// </summary>
+    [JsonProperty(Order = 21)]
+    public OffcutParameters LargeOffcutParameters { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the material codes for which the <see cref="OffcutParameterSet" /> is valid.
@@ -28,6 +31,15 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     [JsonProperty(Order = 2)]
     [MinLength(1)]
     public string[] MaterialCodes { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// Gets or sets the name of the material group.
+    /// </summary>
+    [Key]
+    [JsonProperty(Order = 1)]
+    [Required]
+    [StringLength(_MaterialGroupNameMaxLength, MinimumLength = 1)]
+    public string MaterialGroupName { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the <see cref="MaterialManagerLink" />.
@@ -40,12 +52,6 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     /// </summary>
     [JsonProperty(Order = 11)]
     public OffcutParameters OffcutParameters { get; set; } = new();
-
-    /// <summary>
-    /// Gets or sets the <see cref="OffcutParameters" />.
-    /// </summary>
-    [JsonProperty(Order = 21)]
-    public OffcutParameters LargeOffcutParameters { get; set; } = new();
 
     #region IContainsUnitSystemDependentProperties Members
 
@@ -125,7 +131,6 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
                     new[] { nameof(LargeOffcutParameters.Value) }));
             }
         }
-        
 
         if (LargeOffcutParameters.Enabled && !OffcutParameters.Enabled)
         {

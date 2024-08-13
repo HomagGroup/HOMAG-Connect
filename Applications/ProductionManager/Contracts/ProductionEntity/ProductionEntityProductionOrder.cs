@@ -14,7 +14,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 /// <summary>
 /// Production entity production order.
 /// </summary>
-public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties
+public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties
 {
     #region (10) Article
 
@@ -91,19 +91,8 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// <summary>
     /// Gets or sets the quantity planned.
     /// </summary>
+    [JsonProperty(Order = 23)]
     public int? QuantityPlanned { get; set; }
-
-    /// <summary>
-    /// Gets or sets the CNC program name 1.
-    /// </summary>
-    [JsonProperty(Order = 38)]
-    public string? CncProgramName1 { get; set; }
-
-    /// <summary>
-    /// Gets or sets the CNC program name 2.
-    /// </summary>
-    [JsonProperty(Order = 39)]
-    public string? CncProgramName2 { get; set; }
 
     /// <summary>
     /// Gets or sets the second cut length.
@@ -145,6 +134,12 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [JsonProperty(Order = 45)]
     public string? LabelLayout { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of lots in which the production entity is included.
+    /// </summary>
+    [JsonProperty(Order = 47)]
+    public ProductionOrderLotReference[]? Lots { get; set; }
+
     #endregion
 
     #region (30) IEdgebandingProperties
@@ -172,6 +167,22 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [JsonProperty(Order = 34)]
     [StringLength(50, MinimumLength = 1)]
     public string? EdgeRight { get; set; }
+
+    #endregion
+
+    #region (40) ICncProgramProperties
+
+    /// <summary>
+    /// Gets or sets the CNC program name 1.
+    /// </summary>
+    [JsonProperty(Order = 40)]
+    public string? CncProgramName1 { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CNC program name 2.
+    /// </summary>
+    [JsonProperty(Order = 41)]
+    public string? CncProgramName2 { get; set; }
 
     #endregion
 

@@ -19,8 +19,8 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Predict
         {
             var edgebandingPredictionRequest = new EdgebandingPredictionRequest
             {
-                Machine = "",
-                ProductionEntities = new List<EdgebandingPredictionPart>{
+                MachineNumber = "",
+                PredictionParts = new List<EdgebandingPredictionPart>{
                     new EdgebandingPredictionPart
                     {
                         Quantity = 10,
@@ -44,6 +44,42 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Predict
             };
 
             var response = await productionManager.Predict(edgebandingPredictionRequest);
+
+            Assert.IsNotNull(response);
+
+            response.Trace();
+
+            return response;
+        }
+
+        /// <summary>
+        /// Predicts a list of parts for cutting
+        /// </summary>
+        /// <param name="productionManager"></param>
+        public static async Task<CuttingPrediction> PredictPartsCuttingAsync(IProductionManagerClient productionManager)
+        {
+            var cuttingPredictionRequest = new CuttingPredictionRequest
+            {
+                MachineNumber = "",
+                PredictionParts = new List<CuttingPredictionPart>{
+                    new CuttingPredictionPart
+                    {
+                        Quantity = 10,
+                        Length = 700,
+                        Width = 300,
+                        Thickness = 18,
+                    },
+                    new CuttingPredictionPart
+                    {
+                        Quantity = 5,
+                        Length = 800,
+                        Width = 200,
+                        Thickness = 18,
+                    }
+                }
+            };
+
+            var response = await productionManager.Predict(cuttingPredictionRequest);
 
             Assert.IsNotNull(response);
 

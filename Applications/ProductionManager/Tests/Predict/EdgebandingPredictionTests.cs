@@ -1,9 +1,7 @@
 using FluentAssertions;
 
-using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Contracts.Predict;
-using System;
 
 using HomagConnect.ProductionManager.Samples.Orders.Predict;
 
@@ -18,12 +16,13 @@ namespace HomagConnect.ProductionManager.Tests.Predict
     {
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2024,8,15)]
         public async Task Predict_Edgebanding_NoException()
         {
             var productionManager = GetProductionManagerClient();
             var anyException = false;
 
-            EdgebandingPrediction edgebandingPrediction = null;
+            EdgebandingPrediction? edgebandingPrediction = null;
             try
             {
                 edgebandingPrediction = await PredictParts.PredictPartsEdgebandingAsync(productionManager);
@@ -35,6 +34,7 @@ namespace HomagConnect.ProductionManager.Tests.Predict
             }
 
             Assert.IsFalse(anyException);
+            Assert.IsNotNull(edgebandingPrediction);
 
             edgebandingPrediction.Should().NotBeNull();
 

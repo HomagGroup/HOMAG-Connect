@@ -78,10 +78,16 @@ namespace HomagConnect.ProductionManager.Contracts
         #region Production prediction
 
         /// <summary>
-        /// Predicts the edgebanding duration.
+        /// Predicts the edgebanding duration based on a list of parts and the length of edgebands
         /// </summary>
         /// <returns></returns>
         Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest);
+
+        /// <summary>
+        /// Predicts the cutting duration based on the number of parts in the request
+        /// </summary>
+        /// <returns></returns>
+        Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest);
 
         #endregion
     }

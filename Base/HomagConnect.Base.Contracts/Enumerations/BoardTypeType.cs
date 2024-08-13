@@ -1,8 +1,13 @@
-﻿namespace HomagConnect.Base.Contracts.Enumerations
+﻿using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.Base.Contracts.Enumerations
 {
     /// <summary>
     /// The type of the board type.
     /// </summary>
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum BoardTypeType
     {
         /// <summary>

@@ -1,9 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.Serialization;
 
-using HomagConnect.Base.Contracts.AdditionalData;
-
+using HomagConnect.ProductionManager.Contracts.Lots;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders
@@ -95,9 +93,17 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         [JsonProperty(Order = 120)]
         public Uri? Link { get; set; }
 
+        /// <summary>
+        /// The number of the order
+        /// </summary>
+        [JsonProperty(Order = 121)]
+        public string? OrderNumber { get; set; }
+
         #endregion
 
         #region Production
+
+        #region Order Status
 
         /// <summary>
         /// Gets the status of the order.
@@ -105,11 +111,43 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         [JsonProperty(Order = 200)]
         public OrderStatus OrderStatus { get; set; }
 
+        #endregion
+
         /// <summary>
         /// Gets the timestamp the order was last changed at.
         /// </summary>
         [JsonProperty(Order = 201)]
-        public DateTimeOffset? ChangedAt { get; set; }
+        public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
+
+        /// <summary>
+        /// Gets the timestamp the order was created at.
+        /// </summary>
+        [JsonProperty(Order = 202)]
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+
+        /// <summary>
+        /// Gets the timestamp the order was released at for production.
+        /// </summary>
+        [JsonProperty(Order = 203)]
+        public DateTimeOffset? ReleasedAt { get; set; }
+
+        /// <summary>
+        /// Gets the timestamp the order was started at, indicating the time when the first part was cut.
+        /// </summary>
+        [JsonProperty(Order = 204)]
+        public DateTimeOffset? StartedAt { get; set; }
+
+        /// <summary>
+        /// Gets the timestamp the order was completed at, indicating the time when the last part was produced.
+        /// </summary>
+        [JsonProperty(Order = 205)]
+        public DateTimeOffset? CompletedAt { get; set; }
+
+        /// <summary>
+        /// Gets the timestamp the order was archived at.
+        /// </summary>
+        [JsonProperty(Order = 206)]
+        public DateTimeOffset? ArchivedAt { get; set; }
 
         #region Production
 
@@ -159,7 +197,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// Gets the names of the lots.
         /// </summary>
         [JsonProperty(Order = 234)]
-        public string[]? Lots { get; set; }
+        public LotReference[]? Lots { get; set; }
 
         #endregion
 
@@ -182,7 +220,6 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 400)]
         public string? Notes { get; set; }
-
 
         #endregion
     }
