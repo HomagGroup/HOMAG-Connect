@@ -117,7 +117,7 @@ namespace HomagConnect.Base.Services
 
             T2 result = JsonConvert.DeserializeObject<T2>(rawResult, SerializerSettings.Default);
 
-            if (result == null)
+            if (object.Equals(result, default(T2)))
             {
                 throw new ProblemDetailsException()
                 {
