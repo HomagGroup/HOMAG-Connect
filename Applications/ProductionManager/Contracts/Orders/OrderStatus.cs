@@ -21,13 +21,21 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         ReadyForProduction,
 
         /// <summary>
-        /// As soon as a production order of a sales order is in production.
+        /// As soon as a production order of a order is in production.
         /// </summary>
         InProduction,
 
         /// <summary>
-        /// As soon as all production orders of a sales order have been completed.
+        /// As soon as all production orders have been completed, the order receives the state "Completed".
         /// </summary>
-        Finished,
+        Completed,
+
+        /// <summary>
+        /// The order has been archived.
+        /// </summary>
+        Archived,
+
+        [Obsolete("Use Completed instead", true)]
+        Finished
     }
 }
