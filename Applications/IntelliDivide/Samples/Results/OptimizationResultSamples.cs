@@ -71,8 +71,14 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetSolutionDetailsSample(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync();
+            var optimizations = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).ToListAsync();
 
+            if (optimizations == null || !optimizations.Any())
+            {
+                Assert.Inconclusive("No optimizations having the status Optimized have been found.");
+            }
+
+            var optimization = optimizations.First(o => o.Status == OptimizationStatus.Optimized);
             var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
 
             var balancedSolution = optimizationSolutions.Where(s => s.Name == SolutionName.BalancedSolution);
@@ -85,8 +91,14 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetSolutionsSample(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync(o => o.Status == OptimizationStatus.Optimized);
+            var optimizations = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).ToListAsync();
+            
+            if (optimizations == null || !optimizations.Any())
+            {
+                 Assert.Inconclusive("No optimizations having the status Optimized have been found.");
+            }
 
+            var optimization = optimizations.First(o => o.Status == OptimizationStatus.Optimized);
             var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
 
             Assert.IsNotNull(optimizationSolutions);
