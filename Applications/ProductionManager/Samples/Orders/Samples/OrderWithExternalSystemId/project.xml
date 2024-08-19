@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<orders>
+		<order>
+			<properties>
+				<param name="OrderName" value="Mini Schrank (WEB)"/>
+				<param name="CustomerName" value="Boris Wehrle"/>
+				<param name="CustomerNumber" value="4711"/>
+				<param name="OrderDate" value="2022-07-25T08:48:09.4031531+00:00"/>
+				<param name="DeliveryDate" value="2022-08-24T08:48:09.4031580+00:00"/>
+				<param name="AddressField1" value="HOMAG"/>
+				<param name="AddressField2" value="Homagstrasse 3-5"/>
+				<param name="AddressField3" value="72296 Schopfloch"/>
+				<param name="ExternalSystemId" value ="722995" />
+			</properties>
+			<images>
+				<image>
+					<properties>
+						<param name="Category" value="OverviewImage"/>
+						<param name="Description" value="Overview"/>
+						<param name="OriginalFileName" value="overview.png"/>
+						<param name="ImageLinkPicture" value="overview.png"/>
+					</properties>
+				</image>
+			</images>
+			<entities>
+				<entity>
+					<properties>
+						<param name="Typ" value="OrderItem"/>
+						<param name="OrderItemNumber" value="001"/>
+						<param name="ArticleNumber" value="U50DT"/>
+						<param name="ArticleDescription" value="Unterschrank mit Doppeltuer"/>
+						<param name="Quantity" value="1"/>
+					</properties>
+					<images>
+						<image>
+							<properties>
+								<param name="Category" value="OverviewImage"/>
+								<param name="Description" value="Overview"/>
+								<param name="OriginalFileName" value="Schrank1.JPG"/>
+								<param name="ImageLinkPicture" value="Schrank1.JPG"/>
+							</properties>
+						</image>										
+					</images>
+					<entities>						
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="0"/>
+										<param name="ArticleNumber" value="002"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Seite_L"/>
+										<param name="Barcode" value="WEBSEITEL" />
+										<param name="Length" value="576"/>
+										<param name="Width" value="461"/>
+										<param name="Thickness" value="16.6"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_White_19"/>
+										<param name="ArticleDescription" value="Seite_L"/>
+										<param name="CncProgramName1" value="spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr"/>
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="MPR"/>
+												<param name="Description" value="spl"/>
+												<param name="OriginalFileName" value="spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr"/>
+												<param name="ImageLinkPicture" value="spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr"/>
+											</properties>
+										</image>										
+									</images>
+									<entities/>
+								</entity>
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="0"/>
+										<param name="ArticleNumber" value="003"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Seite_R"/>
+										<param name="Length" value="576"/>
+										<param name="Width" value="461"/>
+										<param name="Thickness" value="16.6"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_White_19"/>
+										<param name="ArticleDescription" value="Seite_R"/>
+										<param name="Barcode" value="WEBSEITER" />
+										<param name="CncProgramName1" value="spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr"/>
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="MPR"/>
+												<param name="Description" value="spr"/>
+												<param name="OriginalFileName" value="spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr"/>
+												<param name="ImageLinkPicture" value="spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr"/>
+											</properties>
+										</image>										
+									</images>
+									<entities/>
+								</entity>
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="0"/>
+										<param name="ArticleNumber" value="004"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Boden_U"/>
+										<param name="Length" value="466.8"/>
+										<param name="Width" value="461"/>
+										<param name="Thickness" value="19.6"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_White_19"/>
+										<param name="ArticleDescription" value="Boden_U"/>
+										<param name="Barcode" value="WEBBODENU" />
+										<param name="CncProgramName1" value="bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr"/>
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="MPR"/>
+												<param name="Description" value="bsh"/>
+												<param name="OriginalFileName" value="bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr"/>
+												<param name="ImageLinkPicture" value="bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr"/>
+											</properties>
+										</image>										
+									</images>
+									<entities/>
+								</entity>
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="0"/>
+										<param name="ArticleNumber" value="005"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Boden_O"/>
+										<param name="Length" value="466.8"/>
+										<param name="Width" value="461"/>
+										<param name="Thickness" value="19.6"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_White_19"/>
+										<param name="ArticleDescription" value="Boden_O"/>
+										<param name="Barcode" value="WEBBODENO" />
+										<param name="CncProgramName1" value="tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr"/>
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="MPR"/>
+												<param name="Description" value="tsh"/>
+												<param name="OriginalFileName" value="tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr"/>
+												<param name="ImageLinkPicture" value="tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr"/>
+											</properties>
+										</image>										
+									</images>								
+									<entities/>
+								</entity>
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="0"/>
+										<param name="ArticleNumber" value="006"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Rueckwand"/>
+										<param name="Length" value="553.4"/>
+										<param name="Width" value="482.8"/>
+										<param name="Thickness" value="8.6"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_White_08"/>
+										<param name="ArticleDescription" value="Rueckwand"/>
+										<param name="Barcode" value="WEBRUECKW" />
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="OverviewImage"/>
+												<param name="Description" value="Overview"/>
+												<param name="OriginalFileName" value="AP1.JPG"/>
+												<param name="ImageLinkPicture" value="AP1.JPG"/>
+											</properties>
+										</image>										
+									</images>
+									<entities/>
+								</entity>
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="0"/>
+										<param name="ArticleNumber" value="007"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Fachboden"/>
+										<param name="Length" value="466.8"/>
+										<param name="Width" value="420.4"/>
+										<param name="Thickness" value="19.6"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_White_19"/>
+										<param name="ArticleDescription" value="Fachboden"/>
+										<param name="Barcode" value="WEBFACHBOD" />
+
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="OverviewImage"/>
+												<param name="Description" value="Overview"/>
+												<param name="OriginalFileName" value="AP1.JPG"/>
+												<param name="ImageLinkPicture" value="AP1.JPG"/>
+											</properties>
+										</image>										
+									</images>
+									<entities/>
+								</entity>
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="NoGrain"/>
+										<param name="ArticleNumber" value="008"/>
+										<param name="Typ" value="Component"/>
+										<param name="ArticleDescription" value="Frontbaugruppe"/>
+										<param name="ArticleGroup" value="doorL_01"/>
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="OverviewImage"/>
+												<param name="Description" value="Overview"/>
+												<param name="OriginalFileName" value="CompTür.JPG"/>
+												<param name="ImageLinkPicture" value="CompTür.JPG"/>
+											</properties>
+										</image>										
+									</images>
+									<entities>
+										<entity>
+											<properties>
+												<param name="Quantity" value="1"/>
+												<param name="Grain" value="NoGrain"/>
+												<param name="ArticleNumber" value="009"/>
+												<param name="Typ" value="ProductionOrder"/>
+												<param name="ArticleGroup" value="Tuer_L"/>
+												<param name="Length" value="576"/>
+												<param name="Width" value="250"/>
+												<param name="Thickness" value="19"/>
+												<param name="AdditionalComments" value="Egger"/>
+												<param name="FrontLaminate" value="U708ST9"/>
+												<param name="Material" value="P2_Grey_19"/>
+												<param name="ArticleDescription" value="Tuer_L"/>
+												<param name="Barcode" value="WEBTUERL" />
+												<param name="CncProgramName1" value="dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr"/>
+											</properties>
+											<images>
+												<image>
+													<properties>
+														<param name="Category" value="MPR"/>
+														<param name="Description" value="dl"/>
+														<param name="OriginalFileName" value="dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr"/>
+														<param name="ImageLinkPicture" value="dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr"/>
+													</properties>
+												</image>										
+											</images>
+											<entities/>
+										</entity>
+										<entity>
+											<properties>
+												<param name="Quantity" value="1"/>
+												<param name="Grain" value="NoGrain"/>
+												<param name="ArticleNumber" value="010"/>
+												<param name="Typ" value="ProductionOrder"/>
+												<param name="ArticleGroup" value="Tuer_R"/>
+												<param name="Length" value="576"/>
+												<param name="Width" value="250"/>
+												<param name="Thickness" value="19"/>
+												<param name="AdditionalComments" value="Egger"/>												
+												<param name="Material" value="P2_Grey_19"/>
+												<param name="ArticleDescription" value="Tuer_R"/>
+												<param name="Barcode" value="WEBTUERR" />
+												<param name="CncProgramName1" value="dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr"/>
+											</properties>
+											<images>
+												<image>
+													<properties>
+														<param name="Category" value="MPR"/>
+														<param name="Description" value="dr"/>
+														<param name="OriginalFileName" value="dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr"/>
+														<param name="ImageLinkPicture" value="dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr"/>
+													</properties>
+												</image>										
+											</images>
+											<entities/>
+										</entity>
+									</entities>
+								</entity>
+							</entities>
+				
+				</entity>
+				<entity>
+					<properties>
+						<param name="Typ" value="OrderItem"/>
+						<param name="OrderItemNumber" value="002"/>
+						<param name="ArticleNumber" value="AP45"/>
+						<param name="ArticleDescription" value="Arbeitsplatte 45"/>
+						<param name="Quantity" value="1"/>
+					</properties>
+					<images>
+						<image>
+							<properties>
+								<param name="Category" value="OverviewImage"/>
+								<param name="Description" value="Overview"/>
+								<param name="OriginalFileName" value="AP1.JPG"/>
+								<param name="ImageLinkPicture" value="AP1.JPG"/>
+							</properties>
+						</image>										
+					</images>
+					<entities>						
+								<entity>
+									<properties>
+										<param name="Quantity" value="1"/>
+										<param name="Grain" value="NoGrain"/>
+										<param name="ArticleNumber" value="015"/>
+										<param name="Typ" value="ProductionOrder"/>
+										<param name="ArticleGroup" value="Arbeitsplatte"/>
+										<param name="Length" value="500"/>
+										<param name="Width" value="461"/>
+										<param name="Thickness" value="19"/>
+										<param name="AdditionalComments" value="Egger"/>										
+										<param name="Material" value="P2_Grey_19"/>
+										<param name="ArticleDescription" value="Arbeitsplatte"/>
+										<param name="Barcode" value="WEBAP" />
+									</properties>
+									<images>
+										<image>
+											<properties>
+												<param name="Category" value="OverviewImage"/>
+												<param name="Description" value="Overview"/>
+												<param name="OriginalFileName" value="AP1.JPG"/>
+												<param name="ImageLinkPicture" value="AP1.JPG"/>
+											</properties>
+										</image>										
+									</images>
+									<entities/>
+								</entity>
+							
+					</entities>
+				</entity>
+			</entities>
+		</order>
+	</orders>
+</project>

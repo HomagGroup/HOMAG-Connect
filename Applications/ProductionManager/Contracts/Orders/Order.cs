@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.Serialization;
-
-using HomagConnect.ProductionManager.Contracts.Lots;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders
@@ -197,7 +195,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// Gets the names of the lots.
         /// </summary>
         [JsonProperty(Order = 234)]
-        public LotReference[]? Lots { get; set; }
+        public OrderLotReference[]? Lots { get; set; }
 
         #endregion
 
