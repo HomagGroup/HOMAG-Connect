@@ -17,8 +17,18 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientEdgebands
     {
+        #region Constructors
+
         /// <inheritdoc />
         public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #region Create
 
