@@ -69,39 +69,39 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         }
 
         /// <summary />
-public static async Task GetSolutionDetailsSample(IIntelliDivideClient intelliDivide)
-{
-    var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync();
+        public static async Task GetSolutionDetailsSample(IIntelliDivideClient intelliDivide)
+        {
+            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync();
 
-    if (optimization == null)
-    {
-        Assert.Inconclusive("No optimized having the state optimization found.");
-    }
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No optimized having the state optimization found.");
+            }
 
-    var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
+            var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
 
-    var balancedSolution = optimizationSolutions.Where(s => s.Name == SolutionName.BalancedSolution);
+            var balancedSolution = optimizationSolutions.Where(s => s.Name == SolutionName.BalancedSolution);
 
-    Assert.IsNotNull(balancedSolution);
+            Assert.IsNotNull(balancedSolution);
 
-    balancedSolution.Trace();
-}
+            balancedSolution.Trace();
+        }
 
-      /// <summary />
- public static async Task GetSolutionsSample(IIntelliDivideClient intelliDivide)
- {
-     var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync(o => o.Status == OptimizationStatus.Optimized);
+        /// <summary />
+        public static async Task GetSolutionsSample(IIntelliDivideClient intelliDivide)
+        {
+            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync(o => o.Status == OptimizationStatus.Optimized);
 
-     if (optimization == null)
-     {
-         Assert.Inconclusive("No optimized having the state optimization found.");
-     }
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No optimized having the state optimization found.");
+            }
 
-     var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
+            var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
 
-     Assert.IsNotNull(optimizationSolutions);
+            Assert.IsNotNull(optimizationSolutions);
 
-     optimizationSolutions.Trace();
- }
+            optimizationSolutions.Trace();
+        }
     }
 }
