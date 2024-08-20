@@ -9,10 +9,13 @@ namespace HomagConnect.MaterialManager.Client
     /// </summary>
     public class MaterialManagerClient : ServiceBase
     {
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="client"></param>
+
+
         public MaterialManagerClient(HttpClient client) : base(client)
         {
             Processing = new MaterialManagerClientProcessing(client);
