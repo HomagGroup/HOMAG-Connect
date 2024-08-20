@@ -1,23 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.ProductionManager.Contracts.Lots;
+using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.Lots;
+namespace HomagConnect.ProductionManager.Contracts.Orders;
 
 /// <summary>
 /// Lot reference
 /// </summary>
-public class LotReference
+public class OrderLotReference
 {
     #region Constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LotReference" /> class.
     /// </summary>
-    public LotReference() { }
+    public OrderLotReference() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LotReference" /> class.
     /// </summary>
-    public LotReference(Guid lotId, string? lotName)
+    public OrderLotReference(Guid lotId, string? lotName)
     {
         LotId = lotId;
         LotName = lotName;
@@ -38,6 +39,12 @@ public class LotReference
     public string? LotName { get; set; }
 
     /// <summary>
+    /// Gets the quantity of parts in the lot of this order.
+    /// </summary>
+    [JsonProperty(Order = 231)]
+    public int QuantityOfParts { get; set; }
+
+    /// <summary>
     /// Gets or sets the planned production start date of the lot.
     /// </summary>
     [JsonProperty(Order = 30)]
@@ -52,8 +59,8 @@ public class LotReference
     /// <summary>
     /// Converts a Lot to <see cref="LotReference" />.
     /// </summary>
-    public static implicit operator LotReference(Lot lot)
+    public static implicit operator OrderLotReference(Lot lot)
     {
-        return new LotReference(lot.Id, lot.Name);
+        return new OrderLotReference(lot.Id, lot.Name);
     }
 }
