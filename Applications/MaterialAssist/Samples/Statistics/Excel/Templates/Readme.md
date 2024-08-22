@@ -23,7 +23,7 @@ In the ribbon section data click on <strong>Refresh all</strong> to retrieve the
 
 ![alt text](Excel-Templates-Refresh-de.png)
 
-Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](..\..\..\..\AuthenticationSamples\Readme.md) for more information about how to get them.
+Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](../../../../AuthenticationSamples\Readme.md) for more information about how to get them.
 
 ![alt text](Excel-Templates-Authentication-de.png)
 
