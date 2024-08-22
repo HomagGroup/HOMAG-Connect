@@ -6,14 +6,8 @@ We have developed templates that can be used as a basis for creating your own cu
 
 ## Templates
 
-### Board disposal candidates
-
-English: [Candidates for disposal (Boards).xlsx](DisposalCandidates/Candidates%20for%20disposal%20(Boards).xlsx)<br>
-Deutsch: [Kandidaten für die Entsorgung (Platten).xlsx](DisposalCandidates/Kandidaten%20für%20die%20Entsorgung%20(Platten).xlsx)
-
-The report lists all board entities sorted by their age and the by the last used date of the material. Entities at the top of the list are candidates for disposal as the changes to use them are low. They consume only space in the storage.
-
-![alt text](Images/Candidates%20for%20disposal%20(Boards).png)
+- [Board disposal candidates](DisposalCandidates/Readme.md)<br>
+The report lists board entities by age and last use date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
 
 ## How to use the templates
 
