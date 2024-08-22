@@ -7,7 +7,7 @@ We have developed templates that can be used as a basis for creating your own cu
 ## Templates
 
 - [Board disposal candidates](DisposalCandidates/Readme.md)<br>
-The report lists board entities by age and last use date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
+The report lists board entities by age and material last used date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
 
 ## How to use the templates
 
