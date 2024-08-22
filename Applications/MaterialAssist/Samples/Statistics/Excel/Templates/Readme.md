@@ -11,16 +11,23 @@ We have developed templates that can be used as a basis for creating your own cu
 
 ## How to use the templates
 
-- Download the template you want to use.
-- Open the template in Excel.
+Download the template you want to use.
+
+![alt text](Excel-Templates-Download-de.png)
+
+Open the template in Excel and activate editing.
+
+![alt text](Excel-Templates-Activate-de.png)
 
 In the ribbon section data click on <strong>Refresh all</strong> to retrieve the data from the API.
 
-![alt text](Excel-Templates-Refresh-01-de.png)
+![alt text](Excel-Templates-Refresh-de.png)
 
-Enter Subscription Id (1) and Authentication Key (2): You can find the Subscription Id and Authentication Key on the [Authorization page](..\..\..\..\AuthenticationSamples\Readme.md). 
+Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](..\..\..\..\AuthenticationSamples\Readme.md) for more information about how to get them.
 
-Copy and paste these values into the appropriate fields.
+![alt text](Excel-Templates-Authentication-de.png)
 
-![alt text](Excel-Templates-Authentication-01-de.png)
+The excel file is now connected to your subscription and ready to use. 
+
+The authentication informationen is stored in the Excel file. When you open the file again, you can refresh the data without entering the authentication information again.
 
