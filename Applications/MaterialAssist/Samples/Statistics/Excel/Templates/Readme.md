@@ -4,7 +4,7 @@ The data retrieved from the materialManager and materialAssist API can be used t
 
 We have developed templates that can be used as a basis for creating your own customized reports.
 
-Please check the [Excel documentation](../../../../Documentation/Tools/Excel/Readme.md) for more information about how to use them.
+Please check the [Analyze data with Excel](../../../../../../Documentation/Tools/Excel/Readme.md) page for more information about how to use them.
 
 ## Templates
 
