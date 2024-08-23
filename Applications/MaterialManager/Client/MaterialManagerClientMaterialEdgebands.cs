@@ -202,6 +202,43 @@ namespace HomagConnect.MaterialManager.Client
 
         #endregion Update
 
+        #region Delete
+
+        public async Task DeleteEdgebandType(string edgebandCode)
+        {
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteEdgebandTypes(IEnumerable<string> edgebandCodes)
+        {
+            if (edgebandCodes == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes));
+            }
+
+            var codes = edgebandCodes
+                .Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!codes.Any())
+            {
+                throw new ArgumentNullException(nameof(edgebandCodes), "At least one board code must be passed.");
+            }
+
+            var urls = CreateUrls(codes, _EdgebandCode);
+
+            foreach (var url in urls)
+            {
+                await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+            }
+        }
+
+        #endregion Delete
+
         #region Private Methods
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",

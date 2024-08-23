@@ -69,5 +69,18 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// Updates the requested edgeband type by its edgebandCode in materialManager.
         /// </summary>
         Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
+
+        /// <summary>
+        /// Deletes the edgeband by its edgeband code.
+        /// </summary>
+        Task DeleteEdgebandType(string edgebandCode);
+
+        /// <summary>
+        /// Delete edgebands by edgeband codes.
+        /// </summary>
+        Task DeleteEdgebandTypes(IEnumerable<string> edgebandCodes);
+
+
+
     }
 }
