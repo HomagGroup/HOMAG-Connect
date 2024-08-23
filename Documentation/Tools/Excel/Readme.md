@@ -2,7 +2,7 @@
 
 The data retrieved from the APIs can be used to create comprehensive reports within Excel.  
 
-## How to use work with Excel templates
+## How to work with Excel templates
 
 We have created a variety of templates that serve as the basis for creating personalized reports. 
 
