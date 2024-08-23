@@ -1,16 +1,16 @@
 # Authentication / Authorization
 
-To access the HOMAG IntelliDivide Client Interface, a HOMAG Connect IntelliDivide License is required. This license is included in the IntelliDivide Advanced and Premium licenses.
+A HOMAG Connect materialManager license is required to access the HOMAG materialAssist client interface. This license can be purchased as an add-on to materialManager from tapio.
 
 To create an instance of the client, you will need both a Subscription Id and a Authorization Key. 
 
 ```c#
 // Create new instance of the intelliDivide client:
             
-var client = new IntelliDivideClient(subscriptionId, authorizationKey);
+var client = new MaterialAssistClient(subscriptionId, authorizationKey);
 ``` 
 
-Both can be obtained by subscription administrators following these steps:
+Both can be obtained by subscription administratos following these steps:
 
 - Log in to your Tapio account at https://my.tapio.one.
 
@@ -18,9 +18,9 @@ Both can be obtained by subscription administrators following these steps:
 
 ![alt text](SubscriptionId.jpg "Subscription Id")
 
-- Navigate to the intelliDivide in the applications section.
+- Navigate to the materialManager in the applications section.
 
-- Navigate to the HOMAG Connect intelliDivide details in the Add-ons section.
+- Navigate to the HOMAG Connect materialManager details in the Add-ons section.
 
 ![alt text](AuthorizationKey01.jpg)
 
