@@ -4,8 +4,6 @@ The data retrieved from the materialManager and materialAssist API can be used t
 
 We have developed templates that can be used as a basis for creating your own customized reports.
 
-## Templates
-
 - [Board disposal candidates](DisposalCandidates/Readme.md)<br>
 The report lists board entities by age and material last used date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
 
