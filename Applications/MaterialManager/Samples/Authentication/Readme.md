@@ -1,4 +1,3 @@
-<strong>[This is preliminary documentation and is subject to change.]</strong>
 # Authorization
 
 To access the HOMAG materialManager Client Interface, a HOMAG Connect materialManager License is required.
