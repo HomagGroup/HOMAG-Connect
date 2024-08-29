@@ -53,6 +53,14 @@ namespace HomagConnect.Base.Extensions
         }
 
         /// <summary>
+        /// Gets the first item in an awaited IEnumerable.
+        /// </summary>
+        public static async Task<T> FirstOrDefaultAsync<T>(this Task<IEnumerable<T>> original, Func<T, bool> predicate)
+        {
+            return (await original).FirstOrDefault(predicate);
+        }
+
+        /// <summary>
         /// Gets the first or default item in an awaited IEnumerable.
         /// </summary>
         public static async Task<T> FirstOrDefaultAsync<T>(this Task<IEnumerable<T>> original)

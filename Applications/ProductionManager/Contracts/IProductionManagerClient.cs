@@ -89,6 +89,12 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <returns></returns>
         Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest);
 
+        /// <summary>
+        /// Predicts the cutting duration based on the number of parts with CncProgramName in the request
+        /// </summary>
+        /// <returns></returns>
+        Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest);
+
         #endregion
     }
 }

@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using System.Diagnostics;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Orders;
 
@@ -26,18 +28,45 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         /// <summary />
         public static async Task GetAllOrdersHavingStatusNew(IProductionManagerClient productionManager)
         {
-            var response = await productionManager.GetOrders(OrderStatus.New,5);
-            
+            var response = await productionManager.GetOrders(OrderStatus.New, 5);
+
             response.Trace();
         }
 
         /// <summary />
         public static async Task GetAllOrdersHavingStatusNewOrInProduction(IProductionManagerClient productionManager)
         {
-            var response = await productionManager.GetOrders(new []{OrderStatus.New, OrderStatus.InProduction},5);
+            var response = await productionManager.GetOrders(new[] { OrderStatus.New, OrderStatus.InProduction }, 5);
 
             response.Trace();
         }
-     
+
+        /// <summary />
+        public static async Task GetCompletionDatesPlanned(IProductionManagerClient productionManager, string[] externalSystemIds)
+        {
+            var orders = await productionManager.GetOrderByExternalSystemId(externalSystemIds).ToListAsync();
+
+            foreach (var order in orders)
+            {
+                Trace.WriteLine($"OrderName:\t{order.OrderName}");
+                Trace.WriteLine($"ExternalSystemId:\t{order.ExternalSystemId}");
+                Trace.WriteLine($"QuantityOfParts:\t{order.QuantityOfParts}");
+                Trace.WriteLine($"CompletionDatePlanned:\t{order.CompletionDatePlanned}"); // Once all parts have been assigned to a lot, the planned completion date is provided.
+
+                if (order.Lots != null)
+                {
+                    Trace.WriteLine($"Lots:\t");
+
+                    foreach (var lot in order.Lots)
+                    {
+                        Trace.WriteLine($"\tLotName:\t{lot.LotName}");
+                        Trace.WriteLine($"\tStartDatePlanned:\t{lot.StartDatePlanned}");
+                        Trace.WriteLine($"\tCompletionDatePlanned:\t{lot.CompletionDatePlanned}");
+                    }
+                }
+
+                Trace.WriteLine("");
+            }
+        }
     }
 }

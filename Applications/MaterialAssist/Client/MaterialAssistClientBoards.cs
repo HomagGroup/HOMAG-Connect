@@ -17,8 +17,18 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientBoards : ServiceBase, IMaterialAssistClientBoards
     {
+        #region Constructors
+
         /// <inheritdoc />
         public MaterialAssistClientBoards(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #region Private methods
 
@@ -40,9 +50,9 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task DeleteBoardEntity(string id)
         {
-            var url = $"{_BaseRoute}/?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
 
-            await DeleteObject(new Uri(url, UriKind.Relative));
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -55,7 +65,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             url += boardCodes;
 
-            await DeleteObject(new Uri(url, UriKind.Relative));
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
         }
 
         #endregion Delete

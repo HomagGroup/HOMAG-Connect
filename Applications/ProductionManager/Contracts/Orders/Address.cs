@@ -37,12 +37,30 @@ public class Address : IExtensibleDataObject
     /// Gets or sets the town
     /// </summary>
     [JsonProperty(Order = 4)]
-    public string? Town { get; set; }
+    public string? City { get; set; }
 
     #region IExtensibleDataObject Members
 
     /// <inheritdoc />
     public ExtensionDataObject? ExtensionData { get; set; }
+
+    #endregion
+
+    #region Obsolete
+
+    /// <summary />
+    [Obsolete("Use City instead", true)]
+    public string? Town
+    {
+        get
+        {
+            return City;
+        }
+        set
+        {
+            City = value;
+        }
+    }
 
     #endregion
 }

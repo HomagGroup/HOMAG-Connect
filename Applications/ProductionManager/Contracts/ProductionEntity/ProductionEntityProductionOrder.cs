@@ -91,6 +91,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// <summary>
     /// Gets or sets the quantity planned.
     /// </summary>
+    [JsonProperty(Order = 23)]
     public int? QuantityPlanned { get; set; }
 
     /// <summary>
@@ -133,8 +134,14 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [JsonProperty(Order = 45)]
     public string? LabelLayout { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of lots in which the production entity is included.
+    /// </summary>
+    [JsonProperty(Order = 47)]
+    public ProductionOrderLotReference[]? Lots { get; set; }
+
     #endregion
-    
+
     #region (30) IEdgebandingProperties
 
     /// <inheritdoc />

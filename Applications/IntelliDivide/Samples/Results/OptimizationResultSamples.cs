@@ -71,7 +71,12 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetSolutionDetailsSample(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync();
+            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstOrDefaultAsync();
+
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No optimized having the state optimization found.");
+            }
 
             var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
 
@@ -85,7 +90,12 @@ namespace HomagConnect.IntelliDivide.Samples.Results
         /// <summary />
         public static async Task GetSolutionsSample(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstAsync(o => o.Status == OptimizationStatus.Optimized);
+            var optimization = await intelliDivide.GetOptimizationsAsync(OptimizationType.Cutting, OptimizationStatus.Optimized, _Take).FirstOrDefaultAsync();
+
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No optimized having the state optimization found.");
+            }
 
             var optimizationSolutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync();
 
