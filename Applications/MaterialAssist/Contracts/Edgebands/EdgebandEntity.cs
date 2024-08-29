@@ -55,6 +55,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// <summary>
         /// Gets or sets the management type (single, stack, goods in stock).
         /// </summary>
+<<<<<<< HEAD
         public ManagementType ManagementType { get; set; }
 
         /// <summary>
