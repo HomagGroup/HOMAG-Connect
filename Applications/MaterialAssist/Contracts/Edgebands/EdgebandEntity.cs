@@ -3,6 +3,7 @@
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialAssist.Contracts.Edgebands
@@ -30,7 +31,14 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         public double Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity of the edgeband entitiy.
+        /// Gets or sets the total length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
+        /// ft).
+        /// </summary>
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        public double TotalLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the quantity of the edgeband entity.
         /// </summary>
         public double Quantity { get; set; }
 
@@ -43,6 +51,11 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// Gets or set the location.
         /// </summary>
         public StorageLocation Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the management type (single, stack, goods in stock).
+        /// </summary>
+        public ManagementType Management { get; set; }
 
         /// <summary>
         /// Gets or sets the additional comments.
