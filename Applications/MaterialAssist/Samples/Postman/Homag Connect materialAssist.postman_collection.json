@@ -285,7 +285,7 @@
 					"name": "Edgebands",
 					"item": [
 						{
-							"name": "Get all edgeband entities Copy",
+							"name": "Update edgeband entity",
 							"request": {
 								"method": "PATCH",
 								"header": [],
