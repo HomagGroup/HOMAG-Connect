@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cdfd7169-61b4-48f9-917c-5079a72d8e6f",
+		"_postman_id": "a7300112-0078-4c21-87d3-dd3de61d46b4",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -268,6 +268,57 @@
 										{
 											"key": "edgebandCode",
 											"value": "ABS_Chicago_Concrete_dunkelgrau_0.80_43.0_NN"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Get all edgeband entities Copy",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"comments\": \"string\",\r\n  \"currentThickness\": 99.99,\r\n  \"length\": 9999.99,\r\n  \"quantity\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "Your edgeband id (#)",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
 										}
 									]
 								}
