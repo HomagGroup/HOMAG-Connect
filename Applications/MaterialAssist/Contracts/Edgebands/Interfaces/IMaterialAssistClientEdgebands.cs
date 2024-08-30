@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -83,21 +84,9 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         #region Update
 
         /// <summary>
-        /// Updates the edgeband entity dimensions by id (#).
+        /// Update edgeband entity.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="length"></param>
-        /// <param name="currentThickness"></param>
-        /// <returns></returns>
-        Task UpdateEdgebandEntityDimensions(string id, double length, double currentThickness);
-
-        /// <summary>
-        /// Updates the edgeband entity comments by id (#).
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="comments"></param>
-        /// <returns></returns>
-        Task UpdateEdgebandEntityComments(string id, string comments);
+        Task<EdgebandEntity> UpdateEdgebandEntity(string id, MaterialAssistUpdateEdgebandEntity updateEdgebandEntity);
 
         /// <summary>
         /// Adds the edgeband entity to storage.
