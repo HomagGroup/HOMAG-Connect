@@ -1,10 +1,12 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
+using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -225,40 +227,31 @@ namespace HomagConnect.MaterialAssist.Client
         #region Update
 
         /// <inheritdoc />
-        public async Task UpdateEdgebandEntityDimensions(string id, double length, double currentThickness)
+        public async Task<EdgebandEntity> UpdateEdgebandEntity(string id, MaterialAssistUpdateEdgebandEntity updateEdgebandEntity)
         {
-            if (string.IsNullOrEmpty(id))
+            if (updateEdgebandEntity == null)
             {
-                throw new ArgumentException("Id must not be null or empty", nameof(id));
+                throw new ArgumentNullException(nameof(updateEdgebandEntity));
+            }
+            ValidateRequiredProperties(updateEdgebandEntity);
+
+            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
+
+            var payload = JsonConvert.SerializeObject(updateEdgebandEntity);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);
+
+            if (result != null)
+            {
+                return result;
             }
 
-            if (length <= 0.1)
-            {
-                throw new ArgumentException("Length must be higher than 0.1", nameof(length));
-            }
-
-            if (currentThickness <= 0.01)
-            {
-                throw new ArgumentException("Current thickness must be higher than 0.01", nameof(currentThickness));
-            }
-
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_CurrentThickness}={currentThickness}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
-
-        /// <inheritdoc />
-        public async Task UpdateEdgebandEntityComments(string id, string comments)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentException("Id must not be null or empty", nameof(id));
-            }
-
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Comments}={comments}";
-
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
+        
         public async Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)
         {
             if (string.IsNullOrEmpty(id))

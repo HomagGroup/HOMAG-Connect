@@ -40,7 +40,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// <summary>
         /// Gets or sets the quantity of the edgeband entity.
         /// </summary>
-        public double Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Gets or sets the creation date.
