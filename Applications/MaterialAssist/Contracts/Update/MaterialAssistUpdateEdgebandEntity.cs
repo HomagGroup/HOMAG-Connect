@@ -1,6 +1,7 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialAssist.Contracts.Update
 {

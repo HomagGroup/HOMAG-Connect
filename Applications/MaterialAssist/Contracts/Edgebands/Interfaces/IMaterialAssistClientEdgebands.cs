@@ -10,6 +10,16 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
     /// </summary>
     public interface IMaterialAssistClientEdgebands
     {
+        #region Create
+
+        /// <summary>
+        /// Creates the edgeband type in materialManager.
+        /// </summary>
+        /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
+        Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
+
+        #endregion Create
+
         #region Delete
 
         /// <summary>
@@ -124,15 +134,5 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         Task RemoveSingleEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false);
 
         #endregion Update
-
-        #region Create
-
-        /// <summary>
-        /// Creates the edgeband type in materialManager.
-        /// </summary>
-        /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
-        Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
-
-        #endregion Create
     }
 }

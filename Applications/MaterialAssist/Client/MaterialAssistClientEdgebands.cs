@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -19,19 +18,6 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientEdgebands
     {
-        #region Constructors
-
-        /// <inheritdoc />
-        public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
-
-        /// <inheritdoc />
-        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
-
-        /// <inheritdoc />
-        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
-
-        #endregion
-
         #region Create
 
         /// <inheritdoc />
@@ -75,6 +61,19 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         #endregion Private methods
+
+        #region Constructors
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #region Delete
 
@@ -233,6 +232,7 @@ namespace HomagConnect.MaterialAssist.Client
             {
                 throw new ArgumentNullException(nameof(updateEdgebandEntity));
             }
+
             ValidateRequiredProperties(updateEdgebandEntity);
 
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
@@ -251,7 +251,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
-        
+
         public async Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)
         {
             if (string.IsNullOrEmpty(id))

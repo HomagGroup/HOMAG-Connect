@@ -11,10 +11,14 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
     public class EdgebandEntity
     {
         /// <summary>
-        /// Gets or sets the id (#)
+        /// Gets or sets the additional comments.
         /// </summary>
-        [Key]
-        public string Id { get; set; }
+        public string? Comments { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creation date.
+        /// </summary>
+        public DateTimeOffset? CreationDate { get; set; }
 
         /// <summary>
         /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
@@ -24,28 +28,22 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         public double CurrentThickness { get; set; }
 
         /// <summary>
+        /// Gets or sets the edgeband type.
+        /// </summary>
+        public EdgebandType EdgebandType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id (#)
+        /// </summary>
+        [Key]
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
         /// ft).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double Length { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
-        /// ft).
-        /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-        public double TotalLength { get; set; }
-
-        /// <summary>
-        /// Gets or sets the quantity of the edgeband entity.
-        /// </summary>
-        public int Quantity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the creation date.
-        /// </summary>
-        public DateTimeOffset? CreationDate { get; set; }
 
         /// <summary>
         /// Gets or set the location.
@@ -58,13 +56,16 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         public ManagementType ManagementType { get; set; }
 
         /// <summary>
-        /// Gets or sets the additional comments.
+        /// Gets or sets the quantity of the edgeband entity.
         /// </summary>
-        public string? Comments { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the edgeband type.
+        /// Gets or sets the total length of the edgeband. The unit depends on the settings of the subscription (metric: m,
+        /// imperial:
+        /// ft).
         /// </summary>
-        public EdgebandType EdgebandType { get; set; }
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        public double TotalLength { get; set; }
     }
 }
