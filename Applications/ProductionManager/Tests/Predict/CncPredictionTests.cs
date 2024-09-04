@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionManager.Tests.Predict
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Predict")]
-    [TemporaryDisabledOnServer(2024, 9, 1)]
+    [Ignore("OKR skipped")]
     public class CncPredictionTests : ProductionManagerTestBase
     {
         /// <summary />
