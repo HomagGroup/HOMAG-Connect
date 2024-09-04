@@ -10,6 +10,8 @@ using HomagConnect.IntelliDivide.Contracts.Extensions;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary />
@@ -178,6 +180,9 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             if (response.ValidationResults.Any())
             {
                 // "There are not sufficient boards available."
+                Assert.AreEqual(2, response.ValidationResults.Length);
+                Assert.IsNotNull(response.ValidationResults[0]?.ErrorMessage);
+                Assert.IsTrue(response.ValidationResults[0].ErrorMessage.Contains("There are not sufficient boards available."));
             }
         }
 
