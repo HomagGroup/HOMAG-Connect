@@ -11,12 +11,11 @@ namespace HomagConnect.ProductionManager.Tests.Predict
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Predict")]
-    [TemporaryDisabledOnServer(2024, 9, 1)]
+    [Ignore("OKR skipped")]
     public class EdgebandingPredictionTests : ProductionManagerTestBase
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2024,8,15)]
         public async Task Predict_Edgebanding_NoException()
         {
             var productionManager = GetProductionManagerClient();

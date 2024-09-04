@@ -7,7 +7,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
     [TestClass]
     [TestCategory("ProductionAssist")]
     [TestCategory("ProductionAssist.Feedback")]
-    [TemporaryDisabledOnServer(2024, 9, 1)]
+    [TemporaryDisabledOnServer(2024, 10, 1)]
     public class ProductionAssistFeedbackTests : ProductionAssistTestBase
     {
         /// <summary />
