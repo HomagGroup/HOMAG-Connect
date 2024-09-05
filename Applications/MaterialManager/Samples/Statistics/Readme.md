@@ -26,8 +26,6 @@ foreach (var history in inventoryHistory)
 
 The Homag Connect materialManager edgebands client provides a method to view the the history of the edgeband inventory. 
 
-
-
 <strong>Example:</strong>
 
 ```csharp
