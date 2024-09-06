@@ -156,12 +156,6 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public DateTimeOffset? StartDatePlanned { get; set; }
 
         /// <summary>
-        /// Gets or sets the start date of the order.
-        /// </summary>
-        [JsonProperty(Order = 211)]
-        public DateTimeOffset? StartDate { get; set; }
-
-        /// <summary>
         /// Gets or sets the planned completion date of the order.
         /// </summary>
         [JsonProperty(Order = 220)]
