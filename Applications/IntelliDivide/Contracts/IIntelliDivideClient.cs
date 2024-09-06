@@ -64,6 +64,11 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0);
 
         /// <summary>
+        /// Gets the material statistics.
+        /// </summary>
+        Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(int daysBack, int take, int skip = 0);
+
+        /// <summary>
         /// Gets the optimization having the specified optimization id.
         /// </summary>
         /// <param name="optimizationId">The id of of the optimization to get.</param>
@@ -147,6 +152,11 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets the part sizes by material statistics.
         /// </summary>
         Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to);
+
+        /// <summary>
+        /// Gets the part sizes by material statistics.
+        /// </summary>
+        Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, int daysBack);
 
         /// <summary>
         /// Gets the solution details.
