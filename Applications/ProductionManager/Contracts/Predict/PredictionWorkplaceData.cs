@@ -5,7 +5,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict;
 /// <summary>
 /// Result for one machine
 /// </summary>
-public class PredictionWorkplaceData
+public class PredictionWorkplaceData: PredictionBaseData
 {
     /// <summary>
     /// requested workplaceId
@@ -14,21 +14,8 @@ public class PredictionWorkplaceData
     public Guid WorkplaceId { get; set; }
 
     /// <summary>
-    /// The minimum estimated duration calculated based on Quartile 1.
+    /// defines the object type as the class
     /// </summary>
-    [JsonProperty(Order = 2)]
-    public TimeSpan? DurationMin { get; set; }
-
-    /// <summary>
-    /// Predicted edgebanding duration.
-    /// </summary>
-    [JsonProperty(Order = 3)]
-    public TimeSpan? Duration { get; set; }
-
-    /// <summary>
-    /// The maximum estimated duration calculated based on Quartile 3.
-    /// </summary>
-    [JsonProperty(Order = 4)]
-    public TimeSpan? DurationMax { get; set; }
+    public string DataSourceType { get; } = nameof(PredictionWorkplaceData);
 
 }

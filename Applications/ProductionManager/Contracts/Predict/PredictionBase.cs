@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Predict
 {
     /// <summary>
-    /// Cutting Prediction
+    /// Edgebanding Prediction
     /// </summary>
-    public class CoreCuttingPrediction : IExtensibleDataObject
+    public class PredictionBase : IExtensibleDataObject
     {
         /// <summary>
-        /// Predicted duration.
+        /// Predicted edgebanding duration.
         /// </summary>
         [JsonProperty(Order = 1)]
         public TimeSpan Duration { get; set; }
@@ -26,17 +26,13 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         [JsonProperty(Order = 2)]
         public TimeSpan DurationMin { get; set; }
 
-        /// <summary>
-        /// Machines on which the prediction is based (in format "x-xxx-xx-xxxx").
-        /// </summary>
-        [JsonProperty(Order = 6)]
-        public IEnumerable<PredictionWorkplaceData> PredictionBase { get; set; } = [];
 
         /// <summary>
         /// Method, which has been chosen to predict duration.
         /// </summary>
-        [JsonProperty(Order = 5)]
+        [JsonProperty(Order = 9)]
         public PredictionMethod PredictionMethod { get; set; }
+
 
         #region IExtensibleDataObject Members
 
