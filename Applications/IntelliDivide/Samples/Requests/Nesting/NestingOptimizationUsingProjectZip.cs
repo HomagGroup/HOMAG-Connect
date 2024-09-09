@@ -102,7 +102,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 
             response.Trace();
 
-            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(1));
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSettings.TimeoutDuration);
 
             Assert.IsNotNull(optimization);
             Assert.AreEqual(OptimizationStatus.Transferred, optimization.Status);
