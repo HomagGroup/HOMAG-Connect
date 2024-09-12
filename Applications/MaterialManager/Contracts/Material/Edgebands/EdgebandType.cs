@@ -146,6 +146,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// Gets or sets the gtin.
         /// </summary>
         public string? Gtin { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the id from an external system.
+        /// </summary>
+        public string? ExternalId { get; set; }
 
         #endregion
 
