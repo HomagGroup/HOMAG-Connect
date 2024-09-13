@@ -8,7 +8,7 @@
    [Documentation for materialManager Client](./MaterialManager/Documentation/README.md) and [some samples](./MaterialManager/Samples) for the usage.
 
 4. materialAssist <br>
-   [Documentation for materialAssist Client](./MaterialAssist/README.md) and [some samples](./MaterialAssist/Samples) for the usage.
+   [Documentation for materialAssist Client](./MaterialAssist/Readme.md) and [some samples](./MaterialAssist/Samples) for the usage.
 
 5. productionManager <br>
    [Documentation for productionManager Client](./ProductionManager/Readme.md) and [some samples](./ProductionManager/Samples) for the usage.
