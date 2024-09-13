@@ -1,6 +1,6 @@
 # Authentication / Authorization
 
-In order to access a HOMAG Connect application via the REST API, you need to have a licence for the relevant application and the necessary authentication details, which include the Subscription Id (username) and an Authorization Key (password).
+In order to access a HOMAG application via the respective HOMAG Connect REST API, you must have a licence for the relevant application and the necessary authentication details, which include the Subscription Id (username) and an Authorization Key (password).
 
 The license can be purchased as an Add-on to the application in the tapio Marketplace.
 
