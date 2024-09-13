@@ -18,7 +18,7 @@ There are HOMAG Connect Clients available for the following applications:
    [Documentation for materialManager Client](./Applications/MaterialManager/Documentation/README.md) and [some samples](./Applications/MaterialManager/Samples) for the usage.
 
 4. materialAssist <br>
-   [Documentation for materialManager Client](./Applications/MaterialAssist/Documentation/README.md) and [some samples](./Applications/MaterialAssist/Samples) for the usage.
+   [Documentation for materialManager Client](./Applications/MaterialAssist/README.md) and [some samples](./Applications/MaterialAssist/Samples) for the usage.
 
 5. productionManager <br>
    [Documentation for productionManager Client](./Applications/ProductionManager/Readme.md) and [some samples](./Applications/ProductionManager/Samples) for the usage.
