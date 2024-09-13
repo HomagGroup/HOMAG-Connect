@@ -10,6 +10,8 @@ using HomagConnect.IntelliDivide.Contracts.Extensions;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary />
@@ -63,7 +65,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(1));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -84,7 +86,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.EnsureSuccessStatusCode();
 
             // Wait for transferred
-            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(2));
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -95,7 +97,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromSeconds(120));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
 
             if (optimization.Status != OptimizationStatus.Optimized)
             {
@@ -113,7 +115,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = await GetSampleCuttingOptimizationByObjectModel(intelliDivide, OptimizationRequestAction.Optimize);
             var response = await intelliDivide.RequestOptimizationAsync(request);
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromSeconds(120));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
 
             if (optimization.Status != OptimizationStatus.Optimized)
             {
@@ -175,10 +177,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             response.Trace(nameof(response));
 
-            if (response.ValidationResults.Any())
-            {
-                // "There are not sufficient boards available."
-            }
+            // "There are not sufficient boards available."
+            Assert.IsTrue(response.ValidationResults.Any());
+            Assert.AreEqual(2, response.ValidationResults.Length);
+            Assert.IsNotNull(response.ValidationResults[0]?.ErrorMessage);
         }
 
         /// <summary />
@@ -224,7 +226,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
             else
             {
-                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
+                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Optimized, CommonSettings.TimeoutDuration);
 
                 var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
 
@@ -262,7 +264,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(2));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
 

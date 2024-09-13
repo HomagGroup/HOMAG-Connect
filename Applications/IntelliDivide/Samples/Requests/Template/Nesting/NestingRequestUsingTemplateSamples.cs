@@ -40,7 +40,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
 
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, TimeSpan.FromMinutes(2));
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
 
             optimization.Trace();
 

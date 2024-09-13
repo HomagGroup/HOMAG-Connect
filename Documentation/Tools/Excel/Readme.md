@@ -1,4 +1,4 @@
-﻿# Analyze data with Excel
+# Analyze data with Excel
 
 The data retrieved from the APIs can be used to create comprehensive reports within Excel.  
 
@@ -27,5 +27,3 @@ The excel file is now connected to your subscription and ready to use.
 The authentication informationen is stored in the Excel file. When you open the file again, you can refresh the data without entering the authentication information again by clicking on <strong>Refresh all</strong>.
 
 ![alt text](Images/Excel-Templates-Refresh-de.png)
-
-
