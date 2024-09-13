@@ -134,12 +134,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentic
 		Documentation\Authentication\Readme.md = Documentation\Authentication\Readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F71265AB-0375-4E28-9368-897BD5A2CA77}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{371B1C91-B9BF-4DC0-85C6-35C31C1230A0}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Tools\Excel\Readme.md = Documentation\Tools\Excel\Readme.md
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{868E6DD3-3DAC-4A8F-B827-EB85FF94EB7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
