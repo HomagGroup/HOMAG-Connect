@@ -122,16 +122,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorizat
 		Documentation\Partner\Authorization\Readme.md = Documentation\Partner\Authorization\Readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612}"
-	ProjectSection(SolutionItems) = preProject
-		Applications\Readme.md = Applications\Readme.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F71265AB-0375-4E28-9368-897BD5A2CA77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{371B1C91-B9BF-4DC0-85C6-35C31C1230A0}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Tools\Excel\Readme.md = Documentation\Tools\Excel\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{5222BE37-B31A-4FD6-8C09-B0FE368B324E}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Authentication\Readme.md = Documentation\Authentication\Readme.md
 	EndProjectSection
 EndProject
 Global
@@ -297,9 +297,9 @@ Global
 		{48CEB0E8-F145-4274-86AB-5DD62DCB83EB} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{F6E5A8CA-0849-4EA2-9B39-439B87116525} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{7DDEF0A8-91A4-4776-87F6-F99325B28088} = {F6E5A8CA-0849-4EA2-9B39-439B87116525}
-		{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{F71265AB-0375-4E28-9368-897BD5A2CA77} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{371B1C91-B9BF-4DC0-85C6-35C31C1230A0} = {F71265AB-0375-4E28-9368-897BD5A2CA77}
+		{5222BE37-B31A-4FD6-8C09-B0FE368B324E} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
