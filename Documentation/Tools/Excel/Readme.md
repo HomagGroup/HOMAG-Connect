@@ -18,7 +18,7 @@ Here are the steps for using the templates:
 
 ![alt text](Images/Excel-Templates-Activate-de.png)
 
-3. Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](../../../Authentication/Readme.md) for more information about how to get them.
+3. Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](../../Authentication/Readme.md) for more information about how to get them.
 
 ![alt text](Images/Excel-Templates-Authentication-de.png)
 
