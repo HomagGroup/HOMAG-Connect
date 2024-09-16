@@ -2,8 +2,8 @@
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting;
-using HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Nesting;
-using HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting;
+using HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel;
+using HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
@@ -22,13 +22,13 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting
             await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Nesting, TimeSpan.FromMinutes(2));
         }
 
-        private async Task EnsureImportTemplateExists(IIntelliDivideClient intelliDivide,OptimizationType optimizationType, string importTemplateName)
+        private static async Task EnsureImportTemplateExists(IIntelliDivideClient intelliDivide, OptimizationType optimizationType, string importTemplateName)
         {
-            var optimizationImportTemplates = await intelliDivide.GetImportTemplatesAsync(optimizationType).ToListAsync();  
+            var optimizationImportTemplates = await intelliDivide.GetImportTemplatesAsync(optimizationType).ToListAsync();
 
             if (optimizationImportTemplates.All(t => t.Name != importTemplateName))
             {
-               Assert.Inconclusive($"The import template '{importTemplateName}' does not exist.");
+                Assert.Inconclusive($"The import template '{importTemplateName}' does not exist.");
             }
         }
 

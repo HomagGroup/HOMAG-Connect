@@ -23,7 +23,7 @@ var request = new OptimizationRequestUsingTemplate
 The structured file is passed to intelliDivide as an `ImportFile` object. The file can be imported from a local path or a stream.
 
 ```c#
-var importFile = await ImportFile.CreateAsync(@"Requests\Template\Cutting\Kitchen.xlsx");
+var importFile = await ImportFile.CreateAsync(@"Requests\Cutting\Template\Kitchen.xlsx");
 
 var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 ```

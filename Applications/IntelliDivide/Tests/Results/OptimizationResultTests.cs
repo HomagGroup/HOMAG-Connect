@@ -14,7 +14,6 @@ public class OptimizationResultTests : IntelliDivideTestBase
    
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 8, 4)]
     public async Task Optimization_HttpClientAutoCreated_GetResult_NoException()
     {
         var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);

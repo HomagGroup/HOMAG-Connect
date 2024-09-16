@@ -1,31 +1,23 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 using HomagConnect.IntelliDivide.Contracts.Request;
 
-namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
+namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 {
     /// <summary>
     /// Cutting request samples using the object model.
     /// </summary>
     /// <remarks>
     /// <see
-    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/ObjectModel/Cutting/Readme.md" />
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Cutting/ObjectModel/Readme.md" />
     /// for further details.
     /// </remarks>
     public static class CuttingRequestUsingObjectModelSamples
     {
-        /// <summary>
-        /// Material code to be used for testing with grain lengthwise.
-        /// </summary>
-        public const string SampleMaterialCodeGrainLengthwise = "P2_Gold_Craft_Oak_19.0";
-
-        /// <summary>
-        /// Material code to be used for testing with grain none.
-        /// </summary>
-        public const string SampleMaterialCodeGrainNone = "P2_White_19.0";
-
         /// <summary>
         /// The sample shows how to create a cutting request using the object model with a parts referencing a grain matching
         /// template.
@@ -121,7 +113,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
             };
 
             request.Parts.Add(
-                new()
+                new OptimizationRequestPart
                 {
                     Description = "Part A",
                     MaterialCode = "P2_White_19.0",
@@ -130,7 +122,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
                     Quantity = 5
                 });
 
-            request.Parts.Add(new()
+            request.Parts.Add(new OptimizationRequestPart
             {
                 Description = "Part B",
                 MaterialCode = "P2_White_19.0",
@@ -148,6 +140,156 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.ObjectModel.Cutting
 
             // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+
+            optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary>
+        /// The example shows how to use the object model to create a cutting request with parts that have the required properties
+        /// set and start optimization in a single request.
+        /// </summary>
+        public static async Task CuttingRequest_ObjectModel_RequiredProperties_ImportAndOptimize(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var request = new OptimizationRequest
+            {
+                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Machine = "productionAssist Cutting",
+                Parameters = "Default",
+                Action = OptimizationRequestAction.Optimize
+            };
+
+            request.Parts.Add(
+                new OptimizationRequestPart
+                {
+                    Description = "Part A",
+                    MaterialCode = "P2_White_19.0",
+                    Length = 300,
+                    Width = 300,
+                    Quantity = 5
+                });
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = "Part B",
+                MaterialCode = "P2_White_19.0",
+                Length = 600,
+                Width = 300,
+                Quantity = 10
+            });
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+
+            // Wait for completion
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+
+            optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary>
+        /// The example shows how to use the object model to create a cutting request with parts that have the required properties
+        /// set and start optimization in two steps.
+        /// </summary>
+        public static async Task CuttingRequest_ObjectModel_RequiredProperties_ImportValidateAndOptimize(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var request = new OptimizationRequest
+            {
+                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Machine = "productionAssist Cutting",
+                Parameters = "Default",
+                Action = OptimizationRequestAction.ImportOnly
+            };
+
+            request.Parts.Add(
+                new OptimizationRequestPart
+                {
+                    Description = "Part A",
+                    MaterialCode = "P2_White_19.0",
+                    Length = 300,
+                    Width = 300,
+                    Quantity = 5
+                });
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = "Part B",
+                MaterialCode = "P2_White_19.0",
+                Length = 600,
+                Width = 300,
+                Quantity = 10
+            });
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+
+            // Validate the request
+            if (response.ValidationResults.Any())
+            {
+                throw new ValidationException(response.ValidationResults[0].ErrorMessage);
+            }
+
+            //Start the optimization
+            await intelliDivide.StartOptimizationAsync(response.OptimizationId);
+
+            // Wait for completion
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+
+            optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary>
+        /// The example shows how to use the object model to create a cutting request with parts that have the required properties,
+        /// start the optimization, and transfer the balanced solution in a single request.
+        /// </summary>
+        public static async Task CuttingRequest_ObjectModel_RequiredProperties_ImportOptimizeAndSend(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var request = new OptimizationRequest
+            {
+                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Machine = "productionAssist Cutting",
+                Parameters = "Default",
+                Action = OptimizationRequestAction.Send
+            };
+
+            request.Parts.Add(
+                new OptimizationRequestPart
+                {
+                    Description = "Part A",
+                    MaterialCode = "P2_White_19.0",
+                    Length = 300,
+                    Width = 300,
+                    Quantity = 5
+                });
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = "Part B",
+                MaterialCode = "P2_White_19.0",
+                Length = 600,
+                Width = 300,
+                Quantity = 10
+            });
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            response.Trace(nameof(response));
+
+            // Wait for completion
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }

@@ -4,7 +4,7 @@ using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
-namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
+namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
 {
     /// <summary>
     /// Nesting request samples using a structured file (Excel, CSV, PNX, ...), the referenced MPRs and a template.
@@ -17,11 +17,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
     public static class NestingRequestUsingTemplateSamples
     {
         /// <summary>
-        /// Gets the materials used in the samples.
-        /// </summary>
-        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold_Craft_Oak_19.0" };
-
-        /// <summary>
         /// The sample shows how to create a nesting request using a structured file (Excel, CSV, PNX, ...), the referenced MPRs
         /// and a template.
         /// </summary>
@@ -31,7 +26,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
             {
                 Name = "HOMAG Connect - Template_CSV_MPR_ImportAndOptimize",
                 Machine = "productionAssist Nesting",
-                Parameters = (await  intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
+                Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 ImportTemplate = "CSV-MPR template",
                 Action = OptimizationRequestAction.Optimize
             };
@@ -40,7 +35,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
 
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace();
 

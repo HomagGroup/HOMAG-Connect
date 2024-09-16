@@ -67,7 +67,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             response.Trace(nameof(response));
 
             // Optional: Wait for the optimization to complete
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -97,7 +97,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             response.Trace(nameof(response));
 
             // Optional: Wait for the optimization to be transferred
-            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -124,7 +124,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 
             response.Trace(nameof(response));
             
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
            
             if (optimization.Status != OptimizationStatus.Optimized)
             {
