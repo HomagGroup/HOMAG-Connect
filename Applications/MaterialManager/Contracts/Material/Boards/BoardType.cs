@@ -172,6 +172,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [JsonProperty(Order = 36)]
         public string? Gtin { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the id from an external system.
+        /// </summary>
+        [JsonProperty(Order = 94)]
+        public string? ExternalId { get; set; }
 
         #endregion
 

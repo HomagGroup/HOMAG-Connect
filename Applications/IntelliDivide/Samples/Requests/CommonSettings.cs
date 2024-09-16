@@ -2,6 +2,6 @@
 {
     internal class CommonSettings
     {
-        internal static TimeSpan TimeoutDuration = TimeSpan.FromMinutes(6);
+        internal static TimeSpan TimeoutDuration = TimeSpan.FromMinutes(8);
     }
 }

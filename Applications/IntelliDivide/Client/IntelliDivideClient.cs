@@ -17,11 +17,25 @@ namespace HomagConnect.IntelliDivide.Client
         #region Statistics
 
         /// <inheritdoc />
+        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(int daysBack, int take, int skip = 0)
+        {
+            var url = $"/api/intelliDivide/statistics/material?daysBack={daysBack}&take={take}&skip={skip}";
+
+            return await RequestEnumerable<MaterialEfficiency>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
         public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatisticsAsync(DateTime from, DateTime to, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}";
 
             return await RequestEnumerable<MaterialEfficiency>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatisticsAsync(IEnumerable<string> materialCodes, int daysBack)
+        {
+            return GetPartSizesByMaterialStatisticsAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now);
         }
 
         /// <inheritdoc />
