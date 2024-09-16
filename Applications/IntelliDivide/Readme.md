@@ -27,7 +27,7 @@ There are several ways to request an optimization:
 
 1. Using the Object Model ([Cutting](Samples/Requests/Cutting/ObjectModel/Readme.md) / [Nesting](Samples/Requests/Nesting/ObjectModel/Readme.md))
 2. Using a structured file (Excel, CSV, PNX, ...) and a template ([Cutting](Samples/Requests/Cutting/Template/Readme.md) / [Nesting](Samples/Requests/Nesting/Template/Readme.md))
-3. [Importing a standardized ZIP file]()
+3. Using a strcutured zip file ([Cutting](Samples/Requests/Cutting/Project/Readme.md)
 
 Please refer to the linked pages for detailed samples and explanations.
 
