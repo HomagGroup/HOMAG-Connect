@@ -25,8 +25,8 @@ For further information on how to obtain your Authorization Key and Subscription
 
 There are several ways to request an optimization:
 
-1. Using the Object Model ([Cutting](Samples/Requests/ObjectModel/Cutting/Readme.md) / [Nesting](Samples/Requests/ObjectModel/Nesting/Readme.md))
-2. Using a structured file (Excel, CSV, PNX, ...) and a template ([Cutting](Samples/Requests/Template/Cutting/Readme.md) / [Nesting](Samples/Requests/Template/Nesting/Readme.md))
+1. Using the Object Model ([Cutting](Samples/Requests/Cutting/ObjectModel/Readme.md) / [Nesting](Samples/Requests/Nesting/ObjectModel/Readme.md))
+2. Using a structured file (Excel, CSV, PNX, ...) and a template ([Cutting](Samples/Requests/Cutting/Template/Readme.md) / [Nesting](Samples/Requests/Nesting/Template/Readme.md))
 3. [Importing a standardized ZIP file]()
 
 Please refer to the linked pages for detailed samples and explanations.
