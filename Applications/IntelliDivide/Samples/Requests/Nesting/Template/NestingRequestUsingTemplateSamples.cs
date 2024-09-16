@@ -31,7 +31,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
                 Action = OptimizationRequestAction.Optimize
             };
 
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Nesting\Kitchen.zip");
+            var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\\Kitchen.zip");
 
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
@@ -58,7 +58,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
                 ImportTemplate = "CSV-MPR template"
             };
 
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Nesting\Kitchen.zip");
+            var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\Kitchen.zip");
 
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
@@ -67,7 +67,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
             optimization.Trace();
-
         }
     }
 }

@@ -7,12 +7,18 @@ using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 
+#pragma warning disable S2699 // Tests should include assertions
+
+/// <summary>
+/// The class contains tests to ensure that the cutting optimization requests samples work as expected.
+/// </summary>
 [TestClass]
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Nesting")]
 [TestCategory("IntelliDivide.Requests.Nesting.Template")]
 public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
+    /// <summary />
     [TestInitialize]
     public async Task Initialize()
     {
@@ -30,9 +36,7 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
         }
     }
 
-
-
-
+    /// <summary />
     [TestMethod]
     public async Task NestingRequest_Template_CSV_MPR_ImportOnly()
     {
@@ -41,7 +45,7 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
         await NestingRequestUsingTemplateSamples.NestingRequest_Template_CSV_MPR_ImportOnly(intelliDivide);
     }
 
-
+    /// <summary />
     [TestMethod]
     public async Task NestingRequest_Template_CSV_MPR_ImportAndOptimize()
     {
@@ -51,5 +55,4 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
         await NestingRequestUsingTemplateSamples.NestingRequest_Template_CSV_MPR_ImportAndOptimize(intelliDivide);
     }
-
 }

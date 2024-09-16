@@ -24,26 +24,14 @@
 
 	<ItemGroup>
 		<None Remove="Requests\Cutting\Project.zip" />
-		<None Remove="Requests\Nesting\Kitchen.zip" />
 		<None Remove="Requests\Nesting\nesting_project_with_mpr_files.zip" />
-		<None Remove="Requests\Nesting\PartA.mpr" />
-		<None Remove="Requests\Nesting\PartB.mpr" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="Requests\Cutting\Project\Project.zip" Pack="true">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="Requests\Nesting\Kitchen.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Requests\Nesting\ProjectZip\nesting_project_with_mpr_files.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Requests\Nesting\PartA.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Requests\Nesting\PartB.mpr">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Requests\Nesting\ObjectModel\Generic.mpr">
