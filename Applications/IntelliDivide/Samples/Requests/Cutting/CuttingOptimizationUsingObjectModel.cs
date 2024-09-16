@@ -86,7 +86,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.EnsureSuccessStatusCode();
 
             // Wait for transferred
-            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, TimeSpan.FromMinutes(2));
+            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -177,13 +177,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             response.Trace(nameof(response));
 
-            if (response.ValidationResults.Any())
-            {
-                // "There are not sufficient boards available."
-                Assert.AreEqual(2, response.ValidationResults.Length);
-                Assert.IsNotNull(response.ValidationResults[0]?.ErrorMessage);
-                Assert.IsTrue(response.ValidationResults[0].ErrorMessage.Contains("There are not sufficient boards available."));
-            }
+            // "There are not sufficient boards available."
+            Assert.IsTrue(response.ValidationResults.Any());
+            Assert.AreEqual(2, response.ValidationResults.Length);
+            Assert.IsNotNull(response.ValidationResults[0]?.ErrorMessage);
         }
 
         /// <summary />
@@ -229,7 +226,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
             else
             {
-                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
+                var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Optimized, CommonSettings.TimeoutDuration);
 
                 var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
 
