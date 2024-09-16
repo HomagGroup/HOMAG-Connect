@@ -116,12 +116,12 @@ public class IntelliDivideTestBase : TestBase
         {
             var startedOptimization = await intelliDivideClient.GetOptimizationsAsync(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
 
-            if (startedOptimization.Count <= parallelOptimizationsRunningLimit)
+            if (startedOptimization.Count < parallelOptimizationsRunningLimit)
             {
                 return;
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(5000);
         }
 
         Assert.Fail("WaitForStartedOptimizationsToComplete has timed out.");

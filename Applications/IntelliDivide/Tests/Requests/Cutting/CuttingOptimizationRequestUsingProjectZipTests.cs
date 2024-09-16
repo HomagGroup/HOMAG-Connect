@@ -26,11 +26,11 @@ public class CuttingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
-    public async Task CreatedCuttingOptimizationUsingProjectZip()
+    public async Task CuttingRequest_ProjectZip_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        await CuttingOptimizationUsingProjectZip.CreatedCuttingOptimizationUsingProjectZip(intelliDivide);
+        await CuttingOptimizationUsingProjectZip.CuttingRequest_ProjectZip_ImportOnly(intelliDivide);
     }
 }
 
