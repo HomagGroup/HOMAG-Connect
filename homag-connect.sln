@@ -92,8 +92,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionManager.Tests", "Applications\ProductionManager\Tests\HomagConnect.ProductionManager.Tests.csproj", "{788EBDFD-D7DF-4C67-9410-5941E2840A35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.MaterialAssist", "HomagConnect.MaterialAssist", "{6742D637-7DF4-480B-88EF-141A15595673}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{074FE29B-48D9-4B4B-B948-CA48D91E0294}"
+	ProjectSection(SolutionItems) = preProject
+		Applications\MaterialAssist\Readme.md = Applications\MaterialAssist\Readme.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.MaterialAssist.Client", "Applications\MaterialAssist\Client\HomagConnect.MaterialAssist.Client.csproj", "{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467}"
 EndProject
@@ -122,17 +123,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorizat
 		Documentation\Partner\Authorization\Readme.md = Documentation\Partner\Authorization\Readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612}"
-	ProjectSection(SolutionItems) = preProject
-		Applications\Readme.md = Applications\Readme.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F71265AB-0375-4E28-9368-897BD5A2CA77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{371B1C91-B9BF-4DC0-85C6-35C31C1230A0}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Tools\Excel\Readme.md = Documentation\Tools\Excel\Readme.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{5222BE37-B31A-4FD6-8C09-B0FE368B324E}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Authentication\Readme.md = Documentation\Authentication\Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{868E6DD3-3DAC-4A8F-B827-EB85FF94EB7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -285,7 +288,6 @@ Global
 		{C3B29C91-E98C-4C21-A61B-104F8BF00FD7} = {2743D67C-5341-4B75-B517-D9067D3E3583}
 		{788EBDFD-D7DF-4C67-9410-5941E2840A35} = {2743D67C-5341-4B75-B517-D9067D3E3583}
 		{6742D637-7DF4-480B-88EF-141A15595673} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
-		{074FE29B-48D9-4B4B-B948-CA48D91E0294} = {6742D637-7DF4-480B-88EF-141A15595673}
 		{0BE9D35C-91D1-42DF-8AF7-E29AED8F5467} = {6742D637-7DF4-480B-88EF-141A15595673}
 		{59B7C44F-6A02-4FFB-8E1D-A09D7F5C92F5} = {6742D637-7DF4-480B-88EF-141A15595673}
 		{E2C61168-D256-4A11-B037-DC4072560D3D} = {6742D637-7DF4-480B-88EF-141A15595673}
@@ -297,9 +299,9 @@ Global
 		{48CEB0E8-F145-4274-86AB-5DD62DCB83EB} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{F6E5A8CA-0849-4EA2-9B39-439B87116525} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{7DDEF0A8-91A4-4776-87F6-F99325B28088} = {F6E5A8CA-0849-4EA2-9B39-439B87116525}
-		{7CACE9B0-C36C-48F2-B2FE-33E49AF2C612} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{F71265AB-0375-4E28-9368-897BD5A2CA77} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{371B1C91-B9BF-4DC0-85C6-35C31C1230A0} = {F71265AB-0375-4E28-9368-897BD5A2CA77}
+		{5222BE37-B31A-4FD6-8C09-B0FE368B324E} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

@@ -1,4 +1,4 @@
-﻿# Analyze data with Excel
+# Analyze data with Excel
 
 The data retrieved from the APIs can be used to create comprehensive reports within Excel.  
 
@@ -18,15 +18,12 @@ Here are the steps for using the templates:
 
 ![alt text](Images/Excel-Templates-Activate-de.png)
 
-3. In the ribbon section data click on <strong>Refresh all</strong> to retrieve the data from the API.
-
-![alt text](Images/Excel-Templates-Refresh-de.png)
-
-4. Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](../../../Authentication/Readme.md) for more information about how to get them.
+3. Enter Subscription Id (1) and Authentication Key (2). Please check the [Authorization page](../../Authentication/Readme.md) for more information about how to get them.
 
 ![alt text](Images/Excel-Templates-Authentication-de.png)
 
 The excel file is now connected to your subscription and ready to use. 
 
-The authentication informationen is stored in the Excel file. When you open the file again, you can refresh the data without entering the authentication information again.
+The authentication informationen is stored in the Excel file. When you open the file again, you can refresh the data without entering the authentication information again by clicking on <strong>Refresh all</strong>.
 
+![alt text](Images/Excel-Templates-Refresh-de.png)
