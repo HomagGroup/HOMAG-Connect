@@ -280,7 +280,7 @@ namespace HomagConnect.MaterialAssist.Client
                 return result;
             }
 
-            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
+            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
         }
         
         /// <inheritdoc />
