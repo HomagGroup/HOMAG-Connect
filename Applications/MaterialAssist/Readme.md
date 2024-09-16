@@ -14,7 +14,7 @@ Once you have confirmed your license, you can create an instance of the client b
 ```c#
 // Create new instance of the materialAssist client:
             
-var client = new MmaterialAssist(subscriptionId, authorizationKey);
+var client = new materialAssist(subscriptionId, authorizationKey);
 ``` 
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](../../Documentation/Authentication/Readme.md) page for detailed instructions.
