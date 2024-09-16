@@ -45,29 +45,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double? LengthUsed { get; set; }
 
-        /// <summary>
-        /// Cost of edgebands per unit (meters or feet)
-        /// </summary>
-        [JsonProperty(Order = 7)]
-        public double? Costs { get; set; }
-
-        /// <summary>
-        /// Gets the total value of edgebands of this type
-        /// </summary>
-        [JsonProperty(Order = 8)]
-        public double? TotalCosts
-        {
-            get
-            {
-                if (LengthUsed.HasValue && Costs.HasValue)
-                {
-                    return Costs.Value * LengthUsed.Value;
-                }
-
-                return null;
-            }
-        }
-
         #region IContainsUnitSystemDependentProperties Members
 
         /// <inheritdoc />
