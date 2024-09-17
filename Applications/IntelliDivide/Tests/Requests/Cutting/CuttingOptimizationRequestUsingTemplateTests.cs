@@ -31,6 +31,8 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
     {
         var intelliDivide = GetIntelliDivideClient();
 
+        await EnsureImportTemplateExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingImportTemplateName);
+
         await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportOnly(intelliDivide);
     }
 
@@ -39,6 +41,8 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
     public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
+
+        await EnsureImportTemplateExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingImportTemplateName);
 
         await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportAndOptimize(intelliDivide);
     }

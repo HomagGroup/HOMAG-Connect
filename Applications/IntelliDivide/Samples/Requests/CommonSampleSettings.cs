@@ -25,5 +25,10 @@
         /// </summary>
         public const string NestingImportTemplateName = "HOMAG Connect";
 
+        /// <summary>
+        /// Nesting import template name to use in the samples.
+        /// </summary>
+        public const string CuttingImportTemplateName = "HOMAG Connect";
+
     }
 }

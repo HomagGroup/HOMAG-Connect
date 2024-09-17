@@ -26,15 +26,7 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
         await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Nesting, CommonSampleSettings.TimeoutDuration);
     }
 
-    private static async Task EnsureImportTemplateExists(IIntelliDivideClient intelliDivide, OptimizationType optimizationType, string importTemplateName)
-    {
-        var optimizationImportTemplates = await intelliDivide.GetImportTemplatesAsync(optimizationType).ToListAsync();
-
-        if (optimizationImportTemplates.All(t => t.Name != importTemplateName))
-        {
-            Assert.Inconclusive($"The import template '{importTemplateName}' does not exist.");
-        }
-    }
+  
 
     /// <summary />
     [TestMethod]

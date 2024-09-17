@@ -31,15 +31,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
             var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
             var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
-            var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, importFile.Extension)
-                .FirstAsync(i => i.Name.IndexOf("homag.cloud", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
+            
             var request = new OptimizationRequestUsingTemplate
             {
                 Name = "Sample_Template_Excel_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
-                ImportTemplate = importTemplate.Name,
+                ImportTemplate = CommonSampleSettings.CuttingImportTemplateName,
                 Action = OptimizationRequestAction.ImportOnly
             };
 
@@ -62,15 +60,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
             var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
             var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
-            var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, importFile.Extension)
-                .FirstAsync(i => i.Name.IndexOf("homag.cloud", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
+            
             var request = new OptimizationRequestUsingTemplate
             {
                 Name = "Sample_Template_Excel_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
-                ImportTemplate = importTemplate.Name,
+                ImportTemplate = CommonSampleSettings.CuttingImportTemplateName,
                 Action = OptimizationRequestAction.Optimize
             };
 

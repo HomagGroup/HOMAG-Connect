@@ -75,6 +75,16 @@ public class IntelliDivideTestBase : TestBase
         }
     }
 
+    protected static async Task EnsureImportTemplateExists(IIntelliDivideClient intelliDivide, OptimizationType optimizationType, string importTemplateName)
+    {
+        var optimizationImportTemplates = await intelliDivide.GetImportTemplatesAsync(optimizationType).ToListAsync();
+
+        if (optimizationImportTemplates.All(t => t.Name != importTemplateName))
+        {
+            Assert.Inconclusive($"The import template '{importTemplateName}' does not exist.");
+        }
+    }
+
     protected IIntelliDivideClient GetIntelliDivideClient()
     {
         Trace($"BaseUrl: {BaseUrl}");
