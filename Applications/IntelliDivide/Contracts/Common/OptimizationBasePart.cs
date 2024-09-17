@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -16,15 +17,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     /// Describes a part in context of an intelliDivide optimization.
     /// </summary>
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}")]
-    public class OptimizationBasePart : IExtensibleDataObject, IEdgebandingProperties, ILaminatingProperties, IDimensionProperties, ICncProgramProperties
+    public class OptimizationBasePart : IEdgebandingProperties, ILaminatingProperties, IDimensionProperties, ICncProgramProperties
     {
-        #region IExtensibleDataObject Members
-
-        /// <inheritdoc cref="IExtensibleDataObject" />
-        public ExtensionDataObject? ExtensionData { get; set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -198,6 +192,17 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 70)]
         public string? LabelLayout { get; set; }
+
+        #endregion
+
+        #region (8) Additional properties
+
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? ExtensionData { get; set; } = new Dictionary<string, object>();
 
         #endregion
 

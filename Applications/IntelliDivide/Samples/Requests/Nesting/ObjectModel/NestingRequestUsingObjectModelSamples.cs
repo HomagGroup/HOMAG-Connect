@@ -56,7 +56,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             });
 
             // Part B
-
             request.Parts.Add(new OptimizationRequestPart
             {
                 Description = "Part B",
@@ -72,6 +71,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             });
 
             mprFiles.Add(mpr);
+
+            request.Trace(nameof(request));
 
             // Send the request
             var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
