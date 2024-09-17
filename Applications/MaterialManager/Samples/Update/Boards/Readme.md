@@ -1,6 +1,6 @@
 <h1 id="UpdateBoardType">Update board type</h1>
 
-With the Homag Connect materialManager boards client, existing board types can be updated. 
+With the HOMAG Connect materialManager boards client, existing board types can be updated. 
 
 <strong>Example:</strong>
 

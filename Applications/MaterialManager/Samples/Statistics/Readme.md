@@ -1,6 +1,6 @@
 <h1 id="BoardInventoryHistory"> Board inventory history</h1>
 
-The Homag Connect materialManager boards client provides a method to view the the history of the board inventory. 
+The HOMAG Connect materialManager boards client provides a method to view the the history of the board inventory. 
 
 <strong>Example:</strong>
 
@@ -24,7 +24,7 @@ foreach (var history in inventoryHistory)
 
 <h1 id="edgebandInventoryHistory"> Edgeband inventory history</h1>
 
-The Homag Connect materialManager edgebands client provides a method to view the the history of the edgeband inventory. 
+The HOMAG Connect materialManager edgebands client provides a method to view the the history of the edgeband inventory. 
 
 <strong>Example:</strong>
 

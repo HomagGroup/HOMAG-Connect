@@ -1,6 +1,6 @@
 <h1 id="createBoardType"> Create board type</h1>
 
-With the Homag Connect materialManager boards client, new board types can be created.
+With the HOMAG Connect materialManager boards client, new board types can be created.
 
 <strong>Example:</strong>
 

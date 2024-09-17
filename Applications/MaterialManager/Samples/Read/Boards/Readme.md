@@ -1,6 +1,6 @@
 <h1 id="readBoardData"> Read board data</h1>
 
-With the Homag Connect materialManager boards client, the board related data can be retrieved from materialManager for further programmatic evaluation.
+With the HOMAG Connect materialManager boards client, the board related data can be retrieved from materialManager for further programmatic evaluation.
 
 <strong>Example:</strong>
 

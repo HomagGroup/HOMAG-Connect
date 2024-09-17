@@ -1,6 +1,6 @@
 <h1 id="updateEdgebandType"> Update edgeband type</h1>
 
-With the Homag Connect materialManager edgebands client, existing edgeband types can be updated. 
+With the HOMAG Connect materialManager edgebands client, existing edgeband types can be updated. 
 
 <strong>Example:</strong>
 

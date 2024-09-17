@@ -1,6 +1,6 @@
 <h1 id="createEdgebandType"> Create edgeband type</h1>
 
-With the Homag Connect materialManager edgebands client, new edgeband types can be created.
+With the HOMAG Connect materialManager edgebands client, new edgeband types can be created.
 
 <strong>Example:</strong>
 
