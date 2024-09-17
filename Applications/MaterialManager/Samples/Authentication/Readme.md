@@ -1,6 +1,6 @@
 # Authorization
 
-To access the HOMAG materialManager Client Interface, a HOMAG Connect materialManager License is required.
+To access the HOMAG materialManager Client Interface, a HOMAG Connect materialManager License is required. The license can be purchased as an Add-on to materialManager in the tapio Marketplace.
 
 To create an instance of the client, you will need both a Subscription Id and a Authorization Key. 
 
