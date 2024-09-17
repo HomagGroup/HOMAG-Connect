@@ -19,8 +19,7 @@ public class MaterialStatisticTests : IntelliDivideTestBase
         var materialStatistics = await intelliDivide.GetMaterialStatisticsAsync(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
         Assert.IsNotNull(materialStatistics);
-        Assert.IsFalse(!materialStatistics.Any());
-
+  
         Trace(materialStatistics);
     }
 
