@@ -108,9 +108,9 @@ stages:
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
-          displayName: Run Integration Tests in INT environment.   
+          displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
           env:
-            HomagConnect:BaseUrl: $(HomagConnect:BaseUrl:INT)
+            HomagConnect:BaseUrl: $(HomagConnect:BaseUrl)
             HomagConnect:SubscriptionId: $(HomagConnect:SubscriptionId)
             HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
           inputs:
