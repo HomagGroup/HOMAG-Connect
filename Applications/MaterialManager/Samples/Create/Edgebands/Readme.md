@@ -11,11 +11,13 @@ var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authoriz
 // Define the new edgeband type request:
 var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
 {
-    Code = "EB_White_1mm",
-    Description = "White Edgeband 1mm",
+    EdgebandCode = "EB_White_1mm",
+    Height = 20,
     Thickness = 1.0,
-    Width = 23.0,
-    // Add other required properties
+    Length = 23.0,
+    MaterialCategory = EdgebandMaterialCategory.Veneer,
+    GluingCategory = GluingCategory.Other,
+    // Add other properties
 };
 
 // Create the new edgeband type

@@ -11,12 +11,16 @@ var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizati
 // Define the new board type request:
 var boardTypeRequest = new MaterialManagerRequestBoardType
 {
-    Code = "BT_White_19mm",
-    Description = "White Board 19mm",
-    Thickness = 19.0,
-    Width = 2800.0,
+    MaterialCode = "BT_White_19mm_100_100",
+    BoardCode = "White Board 19mm",
     Length = 2070.0,
-    // Add other required properties
+    Width = 2800.0,
+    Thickness = 19.0,
+    Type = BoardTypeType.Board,
+    MaterialCategory = BoardMaterialCategory.Undefined,
+    CoatingCategory CoatingCategory = CoatingCategory.Undefined,
+    Grain = Grain.None,
+    // Add other properties
 };
 
 // Create the new board type
