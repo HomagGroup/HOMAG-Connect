@@ -5,6 +5,7 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Globalization;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 {
@@ -35,7 +36,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_Excel_ImportOnly",
+                Name = "Sample_Template_Excel_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
                 ImportTemplate = importTemplate.Name,
@@ -66,7 +67,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_Excel_ImportAndOptimize",
+                Name = "Sample_Template_Excel_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
                 ImportTemplate = importTemplate.Name,

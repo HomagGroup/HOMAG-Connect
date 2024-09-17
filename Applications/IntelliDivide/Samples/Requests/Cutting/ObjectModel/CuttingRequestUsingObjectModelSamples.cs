@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -27,7 +28,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_GrainMatchingTemplate_ImportOnly",
+                Name = "Sample_ObjectModel_GrainMatchingTemplate_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.ImportOnly
@@ -106,7 +107,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Name = "Sample_ObjectModel_RequiredProperties_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.ImportOnly
@@ -153,7 +154,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Name = "Sample_ObjectModel_RequiredProperties_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.Optimize
@@ -200,7 +201,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Name = "Sample_ObjectModel_RequiredProperties_ImportValidateAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.ImportOnly
@@ -256,7 +257,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Name = "Sample_ObjectModel_RequiredProperties_ImportOptimizeAndSend" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.Send

@@ -24,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         {
             var request = new OptimizationRequest
             {
-                Name = "CreateCuttingOptimizationByObjectModelWithSpecificBoards" + DateTime.Now.ToString("s", CultureInfo.InvariantCulture),
+                Name = "Sample_SpecificBoards" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.Optimize
@@ -72,6 +72,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             // Prepare the request
             var request = await GetSampleCuttingOptimizationRequest(intelliDivide, OptimizationRequestAction.Optimize);
 
+            request.Name = "Sample_SendSpecificSolution" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture);
+
             request.Trace(nameof(request));
 
             // Send the request
@@ -102,6 +104,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
         {
             // Prepare the request
             var request = await GetSampleCuttingOptimizationRequest(intelliDivide, OptimizationRequestAction.Optimize);
+
+            request.Name = "Sample_RetrieveResults" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture);
 
             request.Trace(nameof(request));
 
