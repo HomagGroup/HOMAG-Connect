@@ -50,8 +50,8 @@ public class IntelliDivideTestBase : TestBase
                 BoardCode = $"{sampleMaterialCodeGrainLengthwise}_2800_2070",
                 Thickness = 19.0,
                 Grain = Grain.Lengthwise,
-                Width = 2800,
-                Length = 2070,
+                Width = 2070,
+                Length = 2800,
                 Type = BoardTypeType.Board,
                 CoatingCategory = CoatingCategory.Undefined,
                 MaterialCategory = BoardMaterialCategory.Undefined
@@ -66,8 +66,8 @@ public class IntelliDivideTestBase : TestBase
                 BoardCode = $"{sampleMaterialCodeGrainNone}_2800_2070",
                 Thickness = 19.0,
                 Grain = Grain.None,
-                Width = 2800,
-                Length = 2070,
+                Width = 2070,
+                Length = 2800,
                 Type = BoardTypeType.Board,
                 CoatingCategory = CoatingCategory.Undefined,
                 MaterialCategory = BoardMaterialCategory.Undefined
