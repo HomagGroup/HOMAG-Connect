@@ -55,12 +55,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets or sets the quantity of parts.
         /// </summary>
         public int QuantityOfParts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the quantity of boards
-        /// </summary>
-        public int QuantityOfBoards { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the status.
         /// </summary>

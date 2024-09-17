@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the timeout duration for the samples.
         /// </summary>
-        public static TimeSpan TimeoutDuration = TimeSpan.FromMinutes(8);
+        public static TimeSpan TimeoutDuration { get; } = TimeSpan.FromMinutes(8);
 
         /// <summary>
         /// Material code to be used for testing with grain lengthwise.
@@ -19,6 +19,11 @@
         /// Material code to be used for testing with grain none.
         /// </summary>
         public const string SampleMaterialCodeGrainNone = "P2_White_19.0";
+
+        /// <summary>
+        /// Nesting import template name to use in the samples.
+        /// </summary>
+        public const string NestingImportTemplateName = "HOMAG Connect";
 
     }
 }

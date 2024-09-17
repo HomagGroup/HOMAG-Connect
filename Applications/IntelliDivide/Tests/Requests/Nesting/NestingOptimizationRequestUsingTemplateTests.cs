@@ -42,6 +42,8 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
     {
         var intelliDivide = GetIntelliDivideClient();
 
+        await EnsureImportTemplateExists(intelliDivide, OptimizationType.Nesting, CommonSampleSettings.NestingImportTemplateName);
+
         await NestingRequestUsingTemplateSamples.NestingRequest_Template_CSV_MPR_ImportOnly(intelliDivide);
     }
 
@@ -51,7 +53,7 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        await EnsureImportTemplateExists(intelliDivide, OptimizationType.Nesting, "CSV-MPR template");
+        await EnsureImportTemplateExists(intelliDivide, OptimizationType.Nesting, CommonSampleSettings.NestingImportTemplateName);
 
         await NestingRequestUsingTemplateSamples.NestingRequest_Template_CSV_MPR_ImportAndOptimize(intelliDivide);
     }

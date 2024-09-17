@@ -25,4 +25,4 @@ var response = await intelliDivide.RequestOptimizationAsync(request, projectFile
 
 The response contains the `optimizationId`, which can be used to start the optimization or to retrieve the optimization result.
 
-For a detailed example, please refer to `CuttingRequest_ProjectZip_ImportOnly` in the file [CuttingOptimizationUsingProjectZip.cs](CuttingOptimizationUsingProjectZip.cs).
+> For a detailed example, please refer to `CuttingRequest_ProjectZip_ImportOnly` in the file [CuttingOptimizationUsingProjectZip.cs](CuttingOptimizationUsingProjectZip.cs).

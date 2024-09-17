@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using System.Globalization;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -11,7 +13,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
     /// </summary>
     /// <remarks>
     /// <see
-    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Template/Nesting/Readme.md" />
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Nesting/Template/Readme.md" />
     /// for further details.
     /// </remarks>
     public static class NestingRequestUsingTemplateSamples
@@ -24,10 +26,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
         {
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_CSV_MPR_ImportAndOptimize",
+                Name = "Sample_Template_CSV_MPR_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
                 Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
-                ImportTemplate = "CSV-MPR template",
+                ImportTemplate = CommonSampleSettings.NestingImportTemplateName,
                 Action = OptimizationRequestAction.Optimize
             };
 
@@ -52,10 +54,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
         {
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_CSV_MPR_ImportOnly",
+                Name = "Sample_Template_CSV_MPR_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
                 Parameters = "Default Nesting",
-                ImportTemplate = "CSV-MPR template"
+                ImportTemplate = CommonSampleSettings.NestingImportTemplateName
             };
 
             var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\Kitchen.zip");

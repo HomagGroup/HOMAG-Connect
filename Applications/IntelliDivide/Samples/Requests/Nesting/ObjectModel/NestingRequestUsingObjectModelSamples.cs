@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Globalization;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
@@ -12,21 +14,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
     /// </summary>
     /// <remarks>
     /// <see
-    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/ObjectModel/Nesting/Readme.md" />
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Nesting/ObjectModel/Readme.md" />
     /// for further details.
     /// </remarks>
     public static class NestingRequestUsingObjectModelSamples
     {
-        /// <summary>
-        /// Sample material code to be used for testing with grain lengthwise.
-        /// </summary>
-        public const string SampleMaterialCodeGrainLengthwise = "P2_Gold_Craft_Oak_19.0";
-
-        /// <summary>
-        /// Sample material code to be used for testing with grain none.
-        /// </summary>
-        public const string SampleMaterialCodeGrainNone = "P2_White_19.0";
-
         /// <summary>
         /// The sample shows how to create a cutting request using the object model with a parts referencing a grain matching
         /// template.
@@ -38,13 +30,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_MprProgramVariables_ImportOnly",
+                Name = "Sample_ObjectModel_MprProgramVariables_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
                 Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 Action = OptimizationRequestAction.ImportOnly
             };
 
-            var mpr = await ImportFile.CreateAsync(new FileInfo(@"Requests\ObjectModel\Nesting\Generic.mpr"));
+            var mpr = await ImportFile.CreateAsync(new FileInfo(@"Requests\Nesting\ObjectModel\Generic.mpr"));
             var mprReference = mpr.Name;
 
             // Part A
@@ -103,7 +95,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_RequiredProperties_ImportOnly",
+                Name = "Sample_ObjectModel_RequiredProperties_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
                 Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
                 Action = OptimizationRequestAction.ImportOnly
@@ -111,7 +103,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Part A
 
-            var mprA = await ImportFile.CreateAsync(new FileInfo(@"Requests\ObjectModel\Nesting\PartA.mpr"));
+            var mprA = await ImportFile.CreateAsync(new FileInfo(@"Requests\Nesting\ObjectModel\PartA.mpr"));
 
             request.Parts.Add(new OptimizationRequestPart
             {
@@ -133,6 +125,78 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary />
+        public static async Task NestingRequest_ObjectModel_RequiredProperties_Optimize(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var mprFiles = new List<ImportFile>();
+
+            var machine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync();
+            var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).FirstAsync();
+
+            var request = await GetSampleNestingOptimizationByObjectModel(mprFiles);
+
+            request.Name = "Nesting Sample-Optimize" + DateTime.Now.ToString("-yyyyMMdd-HHmm", CultureInfo.InvariantCulture);
+            request.Machine = machine.Name;
+            request.Parameters = parameter.Name;
+
+            request.Action = OptimizationRequestAction.Optimize;
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles.ToArray());
+
+            response.Trace(nameof(response));
+
+            // Optional: Wait for the optimization to complete
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+
+            optimization.Trace(nameof(optimization));
+        }
+
+        internal static async Task<OptimizationRequest> GetSampleNestingOptimizationByObjectModel(List<ImportFile> mprFiles)
+        {
+            var request = new OptimizationRequest();
+
+            // Part A
+
+            var mprA = new FileInfo(@"Requests\Nesting\ObjectModel\PartA.mpr");
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = mprA.Name,
+                MprFileName = mprA.Name,
+                MaterialCode = "P2_Gold_Craft_Oak_19.0",
+                Grain = Grain.Lengthwise,
+                MprProgramVariables = new Collection<MprProgramVariable>
+                {
+                    new() { Name = "L", Value = "980" },
+                    new() { Name = "B", Value = "450" }
+                },
+                Quantity = 2
+            });
+
+            mprFiles.Add(await ImportFile.CreateAsync(mprA));
+
+            // Part B
+            var mprB = new FileInfo(@"Requests\Nesting\ObjectModel\PartB.mpr");
+
+            request.Parts.Add(new OptimizationRequestPart
+            {
+                Description = mprB.Name,
+                MprFileName = mprB.Name,
+
+                MaterialCode = "P2_White_19.0",
+                Grain = Grain.None,
+                Quantity = 5
+            });
+
+            mprFiles.Add(await ImportFile.CreateAsync(mprB));
+
+            return request;
         }
     }
 }
