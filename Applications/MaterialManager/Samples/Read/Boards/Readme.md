@@ -15,8 +15,6 @@ var boardCodes = new List<string> { "P2_Gold Craft Oak_19_2800_2070", "P2_Weiss_
 var boardTypes = client.GetBoardTypes(boardCodes);
 
 // Use the retrieved data for further processing
-var totalThickness = boardTypes.Sum(x => x.Thickness);
-var totalWidth = boardTypes.Sum(x => x.Width);
 ```
 
 
