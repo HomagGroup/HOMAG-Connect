@@ -15,7 +15,5 @@ var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_
 var edgebandTypes = client.GetEdgebandsTypes(edgebandCodes);
 
 // Use the retrieved data for further processing
-var totalThickness = edgebandTypes.Sum(x => x.Thickness);
-var totalLength = edgebandTypes.Sum(x => x.Length);
 
 ```
