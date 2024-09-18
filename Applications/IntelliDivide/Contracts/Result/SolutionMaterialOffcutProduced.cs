@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.Enumerations;
 
