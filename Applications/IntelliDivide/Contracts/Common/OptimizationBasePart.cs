@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -158,6 +159,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (6) Order
 
         /// <summary>
+        /// Gets or sets the id of the part.
+        /// </summary>
+        [JsonProperty(Order = 1)]
+        public string? Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the customer who has ordered the part.
         /// </summary>
         [JsonProperty(Order = 60)]
@@ -170,19 +177,47 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         public string? OrderName { get; set; }
 
         /// <summary>
-        /// Gets or sets the finish length.
+        /// Gets or sets the item of the order.
         /// </summary>
         [JsonProperty(Order = 62)]
+        public string OrderItem { get; set; }
+
+        /// <summary>
+        /// Gets or sets the order date.
+        /// </summary>
+        [JsonProperty(Order = 63)]
+        public DateTime OrderDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the finish length.
+        /// </summary>
+        [JsonProperty(Order = 64)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishLength { get; set; }
 
         /// <summary>
         /// Gets or sets the finish length.
         /// </summary>
-        [JsonProperty(Order = 63)]
+        [JsonProperty(Order = 65)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishWidth { get; set; }
 
+        /// <summary>
+        /// Gets or sets the second cut length.
+        /// </summary>
+        [JsonProperty(Order = 66)]
+        [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double? SecondCutLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the second cut width.
+        /// </summary>
+        [JsonProperty(Order = 67)]
+        [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double? SecondCutWidth { get; set; }
+        
         #endregion
 
         #region (7) Label
@@ -198,11 +233,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (8) Additional properties
 
         /// <summary>
+        /// Gets or sets the notes of the production entity.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        public string? Notes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lot in wich the part is contained.
+        /// </summary>
+        [JsonProperty(Order = 81)]
+        public string Lot { get; set; }
+
+        /// <summary>
         /// Gets or sets the additional properties configured in the application.
         /// </summary>
         [JsonProperty(Order = 80)]
         [JsonExtensionData]
-        public IDictionary<string, object>? ExtensionData { get; set; } = new Dictionary<string, object>();
+        public IDictionary<string, object>? AdditionalProperties { get; set; } = new Dictionary<string, object>();
 
         #endregion
 

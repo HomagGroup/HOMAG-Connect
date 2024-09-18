@@ -303,7 +303,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             // Prepare the request
             var request = new OptimizationRequest
             {
-                Name = "HOMAG Connect - ObjectModel_TypicalProperties_ImportOnly",
+                Name = "Sample_ObjectModel_TypicalProperties_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Cutting",
                 Parameters = "Default",
                 Action = OptimizationRequestAction.ImportOnly
@@ -345,6 +345,82 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary>
+        /// The sample shows how to create a cutting request with parts having all properties (incl. additional properties set).
+        /// </summary>
+        public static async Task CuttingRequest_ObjectModel_AdditionalProperties_Optimize(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var request = new OptimizationRequest
+            {
+                Name = "Sample_ObjectModel_AdditionalProperties_Optimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
+                Machine = "productionAssist Cutting",
+                Parameters = "Default",
+                Action = OptimizationRequestAction.Optimize
+            };
+
+            request.Parts.Add(
+                new OptimizationRequestPart
+                {
+                    Id = "productionRack 1004",
+                    CustomerName = "HOMAG",
+                    OrderName = "Kitchen 123",
+                    OrderDate = DateTime.Today,
+                    OrderItem = "1.1",
+
+                    Notes = "This part shows how to set all properties.",
+
+                    Description = "Side panel right",
+                    MaterialCode = "P2_Gold_Craft_Oak_19.0",
+                    Grain = Grain.Lengthwise,
+                    Length = 400,
+                    Width = 200,
+
+                    Quantity = 1,
+                    QuantityPlus = 5,
+
+                    EdgeDiagram = "011:011:000:000",
+                    EdgeFront = "PP_White_1.3_22_HM",
+                    EdgeBack = "PP_White_1.3_22_HM",
+                    EdgeLeft = "PP_White_1.3_22_HM",
+                    EdgeRight = "PP_White_1.3_22_HM",
+
+                    LaminateTop = "HPL_U961_2_0.8",
+                    LaminateBottom = "HPL_U961_2_0.8",
+
+                    FinishLength = 400,
+                    FinishWidth = 200,
+
+                    SecondCutLength = 399,
+                    SecondCutWidth = 199,
+
+                    CncProgramName1 = "SortingS1004",
+                    CncProgramName2 = "SortingS1004_2",
+
+                    LabelLayout = "Label#1",
+
+                    Lot = "Lot #1",
+
+                    AdditionalProperties = new Dictionary<string, object> { { "DeliveryRegion", "North" } }
+                });
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimizationAsync(request);
+
+            // Wait for the optimization to complete
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+
+            // Get the solutions overview
+            var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
+
+            // Get the solution details of the balanced solution
+            var balancedSolution = await intelliDivide.GetSolutionDetailsAsync(optimization.Id, solutions.First().Id);
+
+            balancedSolution.Trace(nameof(balancedSolution));
         }
     }
 }
