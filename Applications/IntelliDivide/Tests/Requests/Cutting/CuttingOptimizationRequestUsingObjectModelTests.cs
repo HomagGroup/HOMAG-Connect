@@ -35,6 +35,15 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
+    public async Task CuttingRequest_ObjectModel_AdditionalProperties_Optimize()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_AdditionalProperties_Optimize(intelliDivide);
+    }
+
+    /// <summary />
+    [TestMethod]
     public async Task CuttingRequest_ObjectModel_TypicalProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();

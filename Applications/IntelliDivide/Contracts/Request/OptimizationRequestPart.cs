@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -84,6 +85,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [JsonProperty(Order = 24)]
         public RotationAngle? AllowedRotationAngle { get; set; }
+
 
         #endregion
     }
