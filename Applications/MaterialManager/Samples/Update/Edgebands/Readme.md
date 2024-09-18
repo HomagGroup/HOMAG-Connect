@@ -11,15 +11,13 @@ var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authoriz
 // Define the edgeband type update request:
 var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
 {
-    Description = "Updated White Edgeband 1mm",
     Thickness = 1.1,
-    Width = 24.0,
-    // Add other required properties
+    // Add other properties
 };
 
 // Update the edgeband type
 var updatedEdgebandType = await client.UpdateEdgebandType("EB_White_1mm", edgebandTypeUpdate);
 
 // Use the updated edgeband type for further processing
-Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.Code}, {updatedEdgebandType.Description}");
+Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.Code}");
 ```

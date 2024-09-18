@@ -11,17 +11,14 @@ var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizati
 // Define the board type update request:
 var boardTypeUpdate = new MaterialManagerUpdateBoardType
 {
-    Description = "Updated White Board 19mm",
-    Thickness = 19.5,
-    Width = 2800.0,
     Length = 2070.0,
-    // Add other required properties
+    // Add other properties
 };
 
 // Update the board type
 var updatedBoardType = await client.UpdateBoardType("BT_White_19mm", boardTypeUpdate);
 
 // Use the updated board type for further processing
-Console.WriteLine($"Updated Board Type: {updatedBoardType.Code}, {updatedBoardType.Description}"); 
+Console.WriteLine($"Updated Board Type: {updatedBoardType.Code}"); 
 ```
 
