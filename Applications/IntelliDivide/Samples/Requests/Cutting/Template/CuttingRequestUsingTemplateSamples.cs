@@ -5,29 +5,21 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Globalization;
 
-namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
+namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 {
     /// <summary>
     /// Cutting request samples using a structured file (Excel, CSV, PNX, ...) and a template.
     /// </summary>
     /// <remarks>
     /// <see
-    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Template/Cutting/Readme.md" />
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Cutting/Template/Readme.md" />
     /// for further details.
     /// </remarks>
     public static class CuttingRequestUsingTemplateSamples
     {
-        /// <summary>
-        /// Sample material code to be used for testing with grain lengthwise.
-        /// </summary>
-        public const string SampleMaterialCodeGrainLengthwise = "P2_Gold_Craft_Oak_19.0";
-
-        /// <summary>
-        /// Sample material code to be used for testing with grain none.
-        /// </summary>
-        public const string SampleMaterialCodeGrainNone = "P2_White_19.0";
-       
+        private const string _ExcelSampleFile = @"Requests\Cutting\Template\Kitchen.xlsx";
 
         /// <summary>
         /// The sample shows how to create a cutting request using a structured file (Excel, CSV, PNX, ...) and a template.
@@ -35,19 +27,17 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
         /// </summary>
         public static async Task CuttingRequest_Template_Excel_ImportOnly(IIntelliDivideClient intelliDivide)
         {
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Cutting\Kitchen.xlsx");
+            var importFile = await ImportFile.CreateAsync(_ExcelSampleFile);
 
             var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
             var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
-            var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, importFile.Extension)
-                .FirstAsync(i => i.Name.IndexOf("homag.cloud", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
+            
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_Excel_ImportOnly",
+                Name = "Sample_Template_Excel_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
-                ImportTemplate = importTemplate.Name,
+                ImportTemplate = CommonSampleSettings.CuttingImportTemplateName,
                 Action = OptimizationRequestAction.ImportOnly
             };
 
@@ -66,19 +56,17 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
         /// </summary>
         public static async Task CuttingRequest_Template_Excel_ImportAndOptimize(IIntelliDivideClient intelliDivide)
         {
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Cutting\Kitchen.xlsx");
+            var importFile = await ImportFile.CreateAsync(_ExcelSampleFile);
 
             var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
             var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
-            var importTemplate = await intelliDivide.GetImportTemplatesAsync(optimizationMachine.OptimizationType, importFile.Extension)
-                .FirstAsync(i => i.Name.IndexOf("homag.cloud", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
+            
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_Excel_ImportAndOptimize",
+                Name = "Sample_Template_Excel_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = optimizationMachine.Name,
                 Parameters = optimizationParameter.Name,
-                ImportTemplate = importTemplate.Name,
+                ImportTemplate = CommonSampleSettings.CuttingImportTemplateName,
                 Action = OptimizationRequestAction.Optimize
             };
 
@@ -88,7 +76,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Cutting
 
             if (!response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
             {
-                var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
+                var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
                 optimization.Trace();
 
