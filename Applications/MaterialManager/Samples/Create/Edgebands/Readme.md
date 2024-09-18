@@ -24,5 +24,5 @@ var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
 var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest);
 
 // Use the created edgeband type for further processing
-Console.WriteLine($"Created Edgeband Type: {newEdgebandType.Code}, {newEdgebandType.Description}");
+Console.WriteLine($"Created Edgeband Type: {newEdgebandType.Code}");
 ```

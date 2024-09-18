@@ -27,5 +27,5 @@ var boardTypeRequest = new MaterialManagerRequestBoardType
 var newBoardType = await client.CreateBoardType(boardTypeRequest);
 
 // Use the created board type for further processing
-Console.WriteLine($"Created Board Type: {newBoardType.Code}, {newBoardType.Description}");
+Console.WriteLine($"Created Board Type: {newBoardType.Code}");
 ```
