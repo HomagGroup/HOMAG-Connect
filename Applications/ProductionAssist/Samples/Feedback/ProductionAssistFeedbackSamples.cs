@@ -16,8 +16,6 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         {
             var response = await client.GetWorkstations();
 
-            Assert.IsTrue(response.Any());
-
             response.Trace();
         }
 

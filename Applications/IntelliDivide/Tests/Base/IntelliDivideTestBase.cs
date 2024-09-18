@@ -50,8 +50,8 @@ public class IntelliDivideTestBase : TestBase
                 BoardCode = $"{sampleMaterialCodeGrainLengthwise}_2800_2070",
                 Thickness = 19.0,
                 Grain = Grain.Lengthwise,
-                Width = 2800,
-                Length = 2070,
+                Width = 2070,
+                Length = 2800,
                 Type = BoardTypeType.Board,
                 CoatingCategory = CoatingCategory.Undefined,
                 MaterialCategory = BoardMaterialCategory.Undefined
@@ -66,12 +66,22 @@ public class IntelliDivideTestBase : TestBase
                 BoardCode = $"{sampleMaterialCodeGrainNone}_2800_2070",
                 Thickness = 19.0,
                 Grain = Grain.None,
-                Width = 2800,
-                Length = 2070,
+                Width = 2070,
+                Length = 2800,
                 Type = BoardTypeType.Board,
                 CoatingCategory = CoatingCategory.Undefined,
                 MaterialCategory = BoardMaterialCategory.Undefined
             });
+        }
+    }
+
+    protected static async Task EnsureImportTemplateExists(IIntelliDivideClient intelliDivide, OptimizationType optimizationType, string importTemplateName)
+    {
+        var optimizationImportTemplates = await intelliDivide.GetImportTemplatesAsync(optimizationType).ToListAsync();
+
+        if (optimizationImportTemplates.All(t => t.Name != importTemplateName))
+        {
+            Assert.Inconclusive($"The import template '{importTemplateName}' does not exist.");
         }
     }
 
@@ -116,12 +126,12 @@ public class IntelliDivideTestBase : TestBase
         {
             var startedOptimization = await intelliDivideClient.GetOptimizationsAsync(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
 
-            if (startedOptimization.Count <= parallelOptimizationsRunningLimit)
+            if (startedOptimization.Count < parallelOptimizationsRunningLimit)
             {
                 return;
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(5000);
         }
 
         Assert.Fail("WaitForStartedOptimizationsToComplete has timed out.");

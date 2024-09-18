@@ -1,26 +1,23 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using System.Globalization;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
-namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
+namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
 {
     /// <summary>
     /// Nesting request samples using a structured file (Excel, CSV, PNX, ...), the referenced MPRs and a template.
     /// </summary>
     /// <remarks>
     /// <see
-    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Template/Nesting/Readme.md" />
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Nesting/Template/Readme.md" />
     /// for further details.
     /// </remarks>
     public static class NestingRequestUsingTemplateSamples
     {
-        /// <summary>
-        /// Gets the materials used in the samples.
-        /// </summary>
-        public static string[] SampleMaterialCodes = { "P2_White_19", "P2_Gold_Craft_Oak_19.0" };
-
         /// <summary>
         /// The sample shows how to create a nesting request using a structured file (Excel, CSV, PNX, ...), the referenced MPRs
         /// and a template.
@@ -29,18 +26,18 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
         {
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_CSV_MPR_ImportAndOptimize",
+                Name = "Sample_Template_CSV_MPR_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
-                Parameters = (await  intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
-                ImportTemplate = "CSV-MPR template",
+                Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
+                ImportTemplate = CommonSampleSettings.NestingImportTemplateName,
                 Action = OptimizationRequestAction.Optimize
             };
 
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Nesting\Kitchen.zip");
+            var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\\Kitchen.zip");
 
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace();
 
@@ -57,13 +54,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
         {
             var request = new OptimizationRequestUsingTemplate
             {
-                Name = "HOMAG Connect - Template_CSV_MPR_ImportOnly",
+                Name = "Sample_Template_CSV_MPR_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
                 Parameters = "Default Nesting",
-                ImportTemplate = "CSV-MPR template"
+                ImportTemplate = CommonSampleSettings.NestingImportTemplateName
             };
 
-            var importFile = await ImportFile.CreateAsync(@"Requests\Template\Nesting\Kitchen.zip");
+            var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\Kitchen.zip");
 
             var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
 
@@ -72,7 +69,6 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Template.Nesting
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
             optimization.Trace();
-
         }
     }
 }

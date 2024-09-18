@@ -290,7 +290,7 @@ namespace HomagConnect.IntelliDivide.Client
                 {
                     return await GetOptimizationAsync(optimizationId);
                 }
-
+                
                 if (optimizationStatus == OptimizationStatus.Started
                     && currentStatus
                         is OptimizationStatus.Started
@@ -315,12 +315,11 @@ namespace HomagConnect.IntelliDivide.Client
                 if (currentStatus
                     is OptimizationStatus.Faulted
                     or OptimizationStatus.Canceled
-                    or OptimizationStatus.Unknown
                     or OptimizationStatus.Archived)
                 {
                     // It is not possible to reach another state.
 
-                    return await GetOptimizationAsync(optimizationId);
+                    throw new InvalidOperationException($"The optimization status is '{currentStatus}'. The target status '{optimizationStatus}' can no longer be reached.");
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(1));

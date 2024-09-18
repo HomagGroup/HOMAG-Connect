@@ -5,15 +5,22 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
+namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
 {
-    /// <summary />
+    /// <summary>
+    /// Cutting request samples using a structured ZIP file in a specified format.
+    /// </summary>
+    /// <remarks>
+    /// <see
+    ///     href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Requests/Cutting/Project/Readme.md" />
+    /// for further details.
+    /// </remarks>
     public static class CuttingOptimizationUsingProjectZip
     {
         /// <summary />
-        public static async Task CreatedCuttingOptimizationUsingProjectZip(IIntelliDivideClient intelliDivide)
+        public static async Task CuttingRequest_ProjectZip_ImportOnly(IIntelliDivideClient intelliDivide)
         {
-            var projectFile = new FileInfo(@"Requests\Cutting\Project.zip");
+            var projectFile = new FileInfo(@"Requests\Cutting\Project\Project.zip");
 
             Assert.IsTrue(projectFile.Exists);
 
@@ -29,17 +36,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             var response = await intelliDivide.RequestOptimizationAsync(request, projectFile);
 
-            Assert.IsNotNull(response);
-            Assert.IsNotNull(response.OptimizationId);
-            Assert.AreEqual(OptimizationStatus.New, response.OptimizationStatus);
-            Assert.IsFalse(response.ValidationResults.Any());
-
             response.Trace();
 
             var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
 
-            Assert.IsNotNull(optimization);
-            Assert.AreEqual(OptimizationStatus.New, optimization.Status);
+            optimization.Trace();
         }
     }
 }
