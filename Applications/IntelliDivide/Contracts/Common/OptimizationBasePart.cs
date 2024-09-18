@@ -191,21 +191,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <summary>
         /// Gets or sets the finish length.
         /// </summary>
-        [JsonProperty(Order = 62)]
+        [JsonProperty(Order = 64)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishLength { get; set; }
 
         /// <summary>
         /// Gets or sets the finish length.
         /// </summary>
-        [JsonProperty(Order = 63)]
+        [JsonProperty(Order = 65)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the second cut length.
         /// </summary>
-        [JsonProperty(Order = 64)]
+        [JsonProperty(Order = 66)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? SecondCutLength { get; set; }
@@ -213,7 +213,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <summary>
         /// Gets or sets the second cut width.
         /// </summary>
-        [JsonProperty(Order = 65)]
+        [JsonProperty(Order = 67)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? SecondCutWidth { get; set; }
