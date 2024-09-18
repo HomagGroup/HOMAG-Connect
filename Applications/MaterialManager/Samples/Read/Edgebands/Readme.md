@@ -1,8 +1,6 @@
-<strong>[This is preliminary documentation and is subject to change.]</strong>
+<h1 id="readEdgebandData"> Read edgeband data</h1>
 
-# Read édgeband data
-
-With the Homag Connect materialManager edgebands client, the edgebands related data can be retrieved from materialManager for further programmatic evaluation.
+With the HOMAG Connect materialManager edgebands client, the edgebands related data can be retrieved from materialManager for further programmatic evaluation.
 
 <strong>Example:</strong>
 
@@ -17,9 +15,5 @@ var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_
 var edgebandTypes = client.GetEdgebandsTypes(edgebandCodes);
 
 // Use the retrieved data for further processing
-var totalThickness = edgebandTypes.Sum(x => x.Thickness);
-var totalLength = edgebandTypes.Sum(x => x.Length);
 
 ```
-
-As this is only one sample on how to use the client you can find further methods of the interface in "to be added"
