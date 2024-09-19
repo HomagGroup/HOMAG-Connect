@@ -20,7 +20,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
         /// <summary />
         public static async Task CuttingRequest_ProjectZip_ImportOnly(IIntelliDivideClient intelliDivide)
         {
-            var projectFile = new FileInfo(@"Requests\Cutting\Project\Project.zip");
+            var projectFile = new FileInfo(@"Data\Cutting\Project.zip");
 
             Assert.IsTrue(projectFile.Exists);
 

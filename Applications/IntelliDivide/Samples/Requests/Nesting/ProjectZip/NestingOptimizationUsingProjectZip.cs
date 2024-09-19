@@ -15,14 +15,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
     /// </remarks>
     public static class NestingOptimizationUsingProjectZip
     {
-        private const string _ProjectFile = @"Requests\Nesting\ProjectZip\Project.zip";
-
         /// <summary>
         /// The sample shows how to import a structured ZIP file for nesting optimization.
         /// </summary>
         public static async Task NestingRequest_ProjectZip_ImportOnly(IIntelliDivideClient intelliDivide)
         {
-            var projectFile = new FileInfo(_ProjectFile);
+            var projectFile = new FileInfo(@"Data\Nesting\Project.zip");
 
             var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
             var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
@@ -48,7 +46,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
         /// </summary>
         public static async Task NestingRequest_ProjectZip_Optimize(IIntelliDivideClient intelliDivide)
         {
-            var projectFile = new FileInfo(_ProjectFile);
+            var projectFile = new FileInfo(@"Data\Nesting\Project.zip");
 
             var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
             var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();

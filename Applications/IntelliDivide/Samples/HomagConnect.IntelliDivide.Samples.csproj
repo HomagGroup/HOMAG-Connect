@@ -3,7 +3,7 @@
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Samples</PackageId>
 		<PackageCopyToOutput>true</PackageCopyToOutput>
@@ -15,34 +15,40 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-		<Content Include="Requests\Cutting\Project\Project.zip" Pack="true">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-		</Content>
-		<Content Include="Requests\Nesting\ProjectZip\Project.zip">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-		</Content>
-		<Content Include="Requests\Nesting\ObjectModel\Generic.mpr">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-		</Content>
-		<Content Include="Requests\Nesting\ObjectModel\PartA.mpr">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-		</Content>
-		<Content Include="Requests\Nesting\ObjectModel\PartB.mpr">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-		</Content>
-		<Content Include="Requests\Cutting\Template\Kitchen.xlsx">
+		<Content Include="Data\Cutting\Kitchen.xlsx">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\Template\Kitchen.zip">
+		<Content Include="Data\Cutting\Project.zip">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
+		</Content>
+		<Content Include="Data\Nesting\Project.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
+		</Content>
+		<Content Include="Data\Nesting\Generic.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
+		</Content>
+		<Content Include="Data\Nesting\PartA.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
+		</Content>
+		<Content Include="Data\Nesting\PartB.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
+		</Content>
+		<Content Include="Data\Nesting\Kitchen.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
 	</ItemGroup>
 

@@ -36,7 +36,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
                 Action = OptimizationRequestAction.ImportOnly
             };
 
-            var mpr = await ImportFile.CreateAsync(new FileInfo(@"Requests\Nesting\ObjectModel\Generic.mpr"));
+            var mpr = await ImportFile.CreateAsync(new FileInfo(@"Data\Nesting\Generic.mpr"));
             var mprReference = mpr.Name;
 
             // Part A
@@ -104,7 +104,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Part A
 
-            var mprA = await ImportFile.CreateAsync(new FileInfo(@"Requests\Nesting\ObjectModel\PartA.mpr"));
+            var mprA = await ImportFile.CreateAsync(new FileInfo(@"Data\Nesting\PartA.mpr"));
 
             request.Parts.Add(new OptimizationRequestPart
             {
@@ -164,7 +164,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Part A
 
-            var mprA = new FileInfo(@"Requests\Nesting\ObjectModel\PartA.mpr");
+            var mprA = new FileInfo(@"Data\Nesting\PartA.mpr");
 
             request.Parts.Add(new OptimizationRequestPart
             {
@@ -183,7 +183,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             mprFiles.Add(await ImportFile.CreateAsync(mprA));
 
             // Part B
-            var mprB = new FileInfo(@"Requests\Nesting\ObjectModel\PartB.mpr");
+            var mprB = new FileInfo(@"Data\Nesting\PartB.mpr");
 
             request.Parts.Add(new OptimizationRequestPart
             {
