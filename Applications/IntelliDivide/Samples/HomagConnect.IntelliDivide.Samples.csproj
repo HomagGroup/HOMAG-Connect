@@ -6,6 +6,7 @@
 		<LangVersion>11.0</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Samples</PackageId>
+		<PackageCopyToOutput>true</PackageCopyToOutput>
 		<Title>Homag-Connect IntelliDivide Samples</Title>
 		<Description>Client assembly showing the usage of Homag-Connect IntelliDivide API</Description>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
