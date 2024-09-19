@@ -15,7 +15,7 @@ var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
 
 The list of solutions can be filtered by status and sorted by the main key figures.
 
-```json
+```yaml
 [
   {
     "Id": "a4efd0f4-751d-49fe-a0ee-89b5159cd04c",
@@ -37,7 +37,7 @@ The list of solutions can be filtered by status and sorted by the main key figur
           "Cycles": 1,
           "AverageBookHeight": 19.0
         },     
-        //...
+        #...
       },
       //...
   },
