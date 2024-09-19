@@ -37,7 +37,7 @@ The list of solutions can be filtered by status and sorted by the main key figur
           "Cycles": 1,
           "AverageBookHeight": 19.0
         },     
-        #...
+        //...
       },
       //...
   },
@@ -56,7 +56,7 @@ The solution details can be retrieved by the solution id.
 var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
 ``` 
 
-```json
+```yaml
 {
   "Id": "a4efd0f4-751d-49fe-a0ee-89b5159cd04c",
   "Name": "Balanced Solution",
