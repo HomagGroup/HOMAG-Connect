@@ -15,7 +15,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
     /// </remarks>
     public static class NestingOptimizationUsingProjectZip
     {
-        private const string _ProjectFile = @"Requests\Nesting\ProjectZip\nesting_project_with_mpr_files.zip";
+        private const string _ProjectFile = @"Requests\Nesting\ProjectZip\Project.zip";
 
         /// <summary>
         /// The sample shows how to import a structured ZIP file for nesting optimization.

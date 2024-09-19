@@ -15,41 +15,34 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Requests\Boards\**" />
-	  <Compile Remove="Requests\Project\**" />
-	  <EmbeddedResource Remove="Requests\Boards\**" />
-	  <EmbeddedResource Remove="Requests\Project\**" />
-	  <None Remove="Requests\Boards\**" />
-	  <None Remove="Requests\Project\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="Requests\Cutting\Project.zip" />
-		<None Remove="Requests\Nesting\nesting_project_with_mpr_files.zip" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Content Include="Requests\Cutting\Project\Project.zip" Pack="true">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
-		<Content Include="Requests\Nesting\ProjectZip\nesting_project_with_mpr_files.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Requests\Nesting\ProjectZip\Project.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
 		<Content Include="Requests\Nesting\ObjectModel\Generic.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
 		<Content Include="Requests\Nesting\ObjectModel\PartA.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
 		<Content Include="Requests\Nesting\ObjectModel\PartB.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
 		<Content Include="Requests\Cutting\Template\Kitchen.xlsx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <Pack>true</Pack>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
 		<Content Include="Requests\Nesting\Template\Kitchen.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
 	</ItemGroup>
 
