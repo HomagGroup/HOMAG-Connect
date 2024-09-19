@@ -37,14 +37,14 @@ The list of solutions can be filtered by status and sorted by the main key figur
           "Cycles": 1,
           "AverageBookHeight": 19.0
         },     
-        ...
+        //...
       },
-      ...
+      //...
   },
   {
     "Id": "5266998e-ad80-4a89-967f-74d6a45ec9b8",
     "Name": "OptimizedForOffcuts",
-    ...
+    //...
   }
 ]
 
@@ -70,7 +70,7 @@ var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, s
         "OffcutsTotal": 1,
         "OffcutsProduced": 1
       },
-      ...
+      //...
     },
     "Pattern": [
       {
@@ -94,7 +94,7 @@ var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, s
       "FinishLength": 0.0,
       "FinishWidth": 0.0
     },
-   ...
+   //...
   ],
   "Material": {
     "Boards": [
@@ -116,7 +116,7 @@ var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, s
         "Quantity": 1
       }
     ],
-    ...
+    //...
   },
   "Exports": [
     "Saw",
