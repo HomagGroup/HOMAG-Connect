@@ -22,8 +22,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
         {
             var projectFile = new FileInfo(@"Data\Nesting\Project.zip");
 
-            var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
-            var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
 
             var request = new OptimizationRequestUsingProject
             {
@@ -32,11 +32,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
                 Action = OptimizationRequestAction.ImportOnly
             };
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, projectFile);
+            var response = await intelliDivide.RequestOptimization(request, projectFile);
 
             response.Trace();
 
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace();
         }
@@ -48,8 +48,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
         {
             var projectFile = new FileInfo(@"Data\Nesting\Project.zip");
 
-            var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
-            var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
 
             var request = new OptimizationRequestUsingProject
             {
@@ -58,11 +58,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
                 Action = OptimizationRequestAction.Optimize
             };
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, projectFile);
+            var response = await intelliDivide.RequestOptimization(request, projectFile);
 
             response.Trace();
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace();
         }

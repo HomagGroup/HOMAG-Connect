@@ -23,8 +23,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
         {
             var mprFiles = new List<ImportFile>();
 
-            var machine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync(m => m.Name.Contains("CENTATEQ"));
-            var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).FirstAsync();
+            var machine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstAsync(m => m.Name.Contains("CENTATEQ"));
+            var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstAsync();
 
             var request = await NestingRequestUsingObjectModelSamples.GetSampleNestingOptimizationByObjectModel(mprFiles);
 
@@ -35,11 +35,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 
             request.Trace(nameof(request));
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles.ToArray());
+            var response = await intelliDivide.RequestOptimization(request, mprFiles.ToArray());
 
             response.Trace(nameof(response));
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             if (optimization.Status != OptimizationStatus.Optimized)
             {
@@ -48,26 +48,26 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 
             optimization.Trace(nameof(optimization));
 
-            var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
+            var solutions = await intelliDivide.GetSolution(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
             solutions.Trace(nameof(solutions));
 
-            var balancedSolutionDetails = await intelliDivide.GetSolutionDetailsAsync(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
+            var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
 
             balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
 
             // Download the zip file which contains the optimized solution
             var zipFileName = new FileInfo($"{request.Name}.zip");
-            await intelliDivide.DownloadSolutionExportAsync(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.ZIP, zipFileName);
+            await intelliDivide.DownloadSolutionExport(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.ZIP, zipFileName);
             zipFileName.FullName.Trace();
 
             // Download the zip file which contains the documentation
             var pdfFileName = new FileInfo($"{request.Name}.pdf");
-            await intelliDivide.DownloadSolutionExportAsync(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Pdf, pdfFileName);
+            await intelliDivide.DownloadSolutionExport(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.Pdf, pdfFileName);
             pdfFileName.FullName.Trace();
 
             // Download the zip file which contains the material demand
             var excelFileName = new FileInfo($"{request.Name}.xlsx");
-            await intelliDivide.DownloadSolutionExportAsync(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.MaterialDemand, excelFileName);
+            await intelliDivide.DownloadSolutionExport(optimization.Id, balancedSolutionDetails.Id, SolutionExportType.MaterialDemand, excelFileName);
             excelFileName.FullName.Trace();
         }
     }

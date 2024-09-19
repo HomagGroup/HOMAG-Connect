@@ -89,12 +89,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
         }
@@ -135,12 +135,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
         }
@@ -182,12 +182,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -229,7 +229,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             response.Trace(nameof(response));
 
@@ -240,10 +240,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             }
 
             //Start the optimization
-            await intelliDivide.StartOptimizationAsync(response.OptimizationId);
+            await intelliDivide.StartOptimization(response.OptimizationId);
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -285,12 +285,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForOptimizationStatusAsync(response.OptimizationId, OptimizationStatus.Transferred, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Transferred, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -336,13 +336,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
 
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
         }
@@ -409,16 +409,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request);
+            var response = await intelliDivide.RequestOptimization(request);
 
             // Wait for the optimization to complete
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             // Get the solutions overview
-            var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
+            var solutions = await intelliDivide.GetSolution(optimization.Id);
 
             // Get the solution details of the balanced solution
-            var balancedSolution = await intelliDivide.GetSolutionDetailsAsync(optimization.Id, solutions.First().Id);
+            var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
 
             balancedSolution.Trace(nameof(balancedSolution));
         }

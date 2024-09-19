@@ -77,7 +77,7 @@ public class IntelliDivideTestBase : TestBase
 
     protected static async Task EnsureImportTemplateExists(IIntelliDivideClient intelliDivide, OptimizationType optimizationType, string importTemplateName)
     {
-        var optimizationImportTemplates = await intelliDivide.GetImportTemplatesAsync(optimizationType).ToListAsync();
+        var optimizationImportTemplates = await intelliDivide.GetImportTemplates(optimizationType).ToListAsync();
 
         if (optimizationImportTemplates.All(t => t.Name != importTemplateName))
         {
@@ -124,7 +124,7 @@ public class IntelliDivideTestBase : TestBase
 
         while (startTime.Add(timeout) > DateTime.Now)
         {
-            var startedOptimization = await intelliDivideClient.GetOptimizationsAsync(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
+            var startedOptimization = await intelliDivideClient.GetOptimizations(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
 
             if (startedOptimization.Count < parallelOptimizationsRunningLimit)
             {

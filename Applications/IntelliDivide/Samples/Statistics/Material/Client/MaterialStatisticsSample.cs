@@ -19,7 +19,7 @@ namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
             const int take = 1000;
 
             // Get the data
-            var materialStatistics = await client.GetMaterialStatisticsAsync(from, to, take).ToListAsync();
+            var materialStatistics = await client.GetMaterialStatistics(from, to, take).ToListAsync();
 
             // Use the retrieved data
             var totalBoardsUsedInSquareMeter = materialStatistics.Sum(m => m.BoardsUsedArea);
