@@ -7,7 +7,7 @@ namespace HomagConnect.IntelliDivide.Tests.Statistics;
 [TestClass]
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Statistics")]
-public class MaterialStatisticTests : IntelliDivideTestBase
+public class StatisticTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions
     /// <summary />

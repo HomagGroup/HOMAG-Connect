@@ -5,7 +5,7 @@ using HomagConnect.IntelliDivide.Contracts.Result;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomagConnect.IntelliDivide.Samples.Results
+namespace HomagConnect.IntelliDivide.Samples.Optimizations
 {
     /// <summary />
     public static class OptimizationRetrievalSamples

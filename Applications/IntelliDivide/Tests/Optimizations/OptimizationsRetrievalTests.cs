@@ -1,5 +1,4 @@
 using HomagConnect.IntelliDivide.Client;
-using HomagConnect.IntelliDivide.Samples.Results;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Results;

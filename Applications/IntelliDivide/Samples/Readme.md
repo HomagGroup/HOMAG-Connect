@@ -15,5 +15,6 @@
 	- Using a structured zip file
 		- [Request a cutting optimization using object model](Requests/Cutting/Project/Readme.md)
 
+- [Retrieve optimization results](Optimizations/Readme.md)
 
 - [Material Statistics](Statistics/Material/Readme.md)

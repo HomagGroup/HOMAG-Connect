@@ -25,7 +25,7 @@ The structured file is passed to intelliDivide as an `ImportFile` object. The fi
 ```c#
 var importFile = await ImportFile.CreateAsync(@"Requests\Cutting\Template\Kitchen.xlsx");
 
-var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
+var response = await intelliDivide.RequestOptimization(request, importFile);
 ```
 
 The response contains the `optimizationId`, which can be used to start the optimization or to retrieve the optimization result.
