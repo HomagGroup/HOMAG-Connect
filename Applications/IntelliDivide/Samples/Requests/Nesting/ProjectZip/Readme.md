@@ -10,7 +10,7 @@ As for all optimization requests, you can specify the optimization name, the mac
 var request = new OptimizationRequestUsingProject
 {
     Name = "Sample",
-    Machine = "productionAssist Cutting",
+    Machine = "productionAssist Nesting",
     Parameters = "Default",        
 };
 ```
@@ -18,11 +18,11 @@ var request = new OptimizationRequestUsingProject
 The structured file is passed to intelliDivide as an `ImportFile` object. The file can be imported from a local path or a stream.
 
 ```c#
-var projectFile = new FileInfo(@"Requests\Cutting\Project\Project.zip");
+var projectFile = new FileInfo(@"Data\Nesting\Project.zip");
 
 var response = await intelliDivide.RequestOptimization(request, projectFile);
 ```
 
 The response contains the `optimizationId`, which can be used to start the optimization or to retrieve the optimization result.
 
-> For a detailed example, please refer to `CuttingRequest_ProjectZip_ImportOnly` in the file [CuttingOptimizationUsingProjectZip.cs](CuttingOptimizationUsingProjectZip.cs).
+> For a detailed example, please refer to `NestingRequest_ProjectZip_ImportOnly` in the file [NestingOptimizationUsingProjectZip.cs](NestingOptimizationUsingProjectZip.cs).

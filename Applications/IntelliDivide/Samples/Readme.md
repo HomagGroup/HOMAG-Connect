@@ -2,6 +2,8 @@
 
 - [Authentication / Authorization](Authentication/Readme.md)
 
+- [Access the Settings](Settings/Readme.md)
+
 - Request a optimization
 
 	- Using a Object Model
@@ -14,6 +16,7 @@
 
 	- Using a structured zip file
 		- [Request a cutting optimization using object model](Requests/Cutting/Project/Readme.md)
+		- [Request a nesting optimization using object model](Requests/Nesting/Project/Readme.md)
 
 - [Retrieve optimization results](Optimizations/Readme.md)
 

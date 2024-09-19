@@ -2,8 +2,6 @@
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HomagConnect.IntelliDivide.Samples.Settings
 {
     /// <summary />
@@ -25,7 +23,7 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task GetNestingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
             var templates = await intelliDivide.GetImportTemplates(OptimizationType.Nesting).ToListAsync();
-            
+
             templates.Trace();
         }
     }
