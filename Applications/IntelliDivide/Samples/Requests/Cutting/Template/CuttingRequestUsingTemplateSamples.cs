@@ -78,7 +78,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
                 optimization.Trace();
 
-                var recommendedSolution = await intelliDivide.GetSolution(optimization.Id).FirstAsync();
+                var recommendedSolution = await intelliDivide.GetSolutions(optimization.Id).FirstAsync();
 
                 await intelliDivide.DownloadSolutionExport(recommendedSolution, SolutionExportType.Saw, new DirectoryInfo("."));
             }

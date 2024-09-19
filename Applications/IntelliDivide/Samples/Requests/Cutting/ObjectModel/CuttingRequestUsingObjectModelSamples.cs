@@ -58,14 +58,14 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Template = new GrainMatchTemplateReference
                     {
                         Template = "2 Parts (2 x 1)",
-                        Positions = new[]
-                        {
+                        Positions =
+                        [
                             new GrainMatchTemplatePosition
                             {
                                 Column = 2,
                                 Row = 1
                             }
-                        },
+                        ],
                         Trims = GrainMatchingTemplateOptionsTrims.AllSides,
                         Dividing = GrainMatchingTemplateOptionsDividing.SeparatePattern,
                         Grain = Grain.Lengthwise,
@@ -415,7 +415,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             // Get the solutions overview
-            var solutions = await intelliDivide.GetSolution(optimization.Id);
+            var solutions = await intelliDivide.GetSolutions(optimization.Id);
 
             // Get the solution details of the balanced solution
             var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);

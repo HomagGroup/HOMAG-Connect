@@ -441,7 +441,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Solution>> GetSolution(Guid optimizationId)
+        public async Task<IEnumerable<Solution>> GetSolutions(Guid optimizationId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions";
 

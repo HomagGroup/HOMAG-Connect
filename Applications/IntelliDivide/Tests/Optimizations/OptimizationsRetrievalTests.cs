@@ -1,7 +1,8 @@
 using HomagConnect.IntelliDivide.Client;
+using HomagConnect.IntelliDivide.Samples.Optimizations;
 using HomagConnect.IntelliDivide.Tests.Base;
 
-namespace HomagConnect.IntelliDivide.Tests.Results;
+namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 
 [TestClass]
 [TestCategory("IntelliDivide")]

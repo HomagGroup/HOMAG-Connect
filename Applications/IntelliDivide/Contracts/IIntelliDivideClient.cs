@@ -180,7 +180,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets the <see cref="IEnumerable&lt;Solution&gt;" /> which have been calculated for an optimization request.
         /// </summary>
         /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>
-        Task<IEnumerable<Solution>> GetSolution(Guid optimizationId);
+        Task<IEnumerable<Solution>> GetSolutions(Guid optimizationId);
 
         /// <summary>
         /// Request an optimization based on a structured <see cref="OptimizationRequest" />.

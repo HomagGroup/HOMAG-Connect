@@ -26,7 +26,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await MachineSamples.GetCuttingMachinesSample(intelliDivide);
+            await MachineSamples.Settings_GetCuttingMachinesSample(intelliDivide);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await ParameterSamples.GetCuttingParametersSample(intelliDivide);
+            await ParameterSamples.Settings_GetCuttingParametersSample(intelliDivide);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await MachineSamples.GetMachinesSample(intelliDivide);
+            await MachineSamples.Settings_GetMachinesSample(intelliDivide);
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await MachineSamples.GetNestingMachinesSample(intelliDivide);
+            await MachineSamples.Settings_GetNestingMachinesSample(intelliDivide);
         }
 
         [TestMethod]

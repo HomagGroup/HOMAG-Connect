@@ -56,7 +56,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
 
-            var solutions = await intelliDivide.GetSolution(optimization.Id);
+            var solutions = await intelliDivide.GetSolutions(optimization.Id);
 
             var recommendedSolution = solutions.First();
             var targetDirectory = new DirectoryInfo(".");
@@ -91,7 +91,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 throw new InvalidOperationException("Optimization did not reach the state optimized.");
             }
 
-            var solutions = await intelliDivide.GetSolution(optimization.Id);
+            var solutions = await intelliDivide.GetSolutions(optimization.Id);
             var solutionToSend = solutions.First();
 
             await intelliDivide.SendSolution(optimization.Id, solutionToSend.Id);
@@ -124,7 +124,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 throw new InvalidOperationException("Optimization did not reach the state optimized.");
             }
 
-            var solutions = await intelliDivide.GetSolution(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
+            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
             solutions.Trace(nameof(solutions));
 
             var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);

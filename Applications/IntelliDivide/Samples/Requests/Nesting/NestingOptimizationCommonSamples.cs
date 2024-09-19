@@ -35,7 +35,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 
             request.Trace(nameof(request));
 
-            var response = await intelliDivide.RequestOptimization(request, mprFiles.ToArray());
+            var response = await intelliDivide.RequestOptimization(request, [.. mprFiles]);
 
             response.Trace(nameof(response));
 
@@ -48,7 +48,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 
             optimization.Trace(nameof(optimization));
 
-            var solutions = await intelliDivide.GetSolution(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
+            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
             solutions.Trace(nameof(solutions));
 
             var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);

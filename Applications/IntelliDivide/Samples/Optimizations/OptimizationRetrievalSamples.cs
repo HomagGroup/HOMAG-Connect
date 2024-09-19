@@ -26,7 +26,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         public static async Task Optimizations_GetOptimizationsWithStatusOptimized(IIntelliDivideClient intelliDivide)
         {
             var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 3).ToListAsync();
-
+            
             optimizations.Trace();
         }
 
@@ -65,7 +65,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
             }
 
             // Get the solutions including the main key figures
-            var solutions = await intelliDivide.GetSolution(optimization.Id).ToListAsync();
+            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
             solutions.Trace(nameof(solutions));
 
             // Get the details of the first solution which is the balanced solution
