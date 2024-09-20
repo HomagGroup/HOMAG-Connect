@@ -28,22 +28,22 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
             {
                 Name = "Sample_Template_CSV_MPR_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
-                Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
+                Parameters = (await intelliDivide.GetParameters(OptimizationType.Nesting).FirstAsync()).Name,
                 ImportTemplate = CommonSampleSettings.NestingImportTemplateName,
                 Action = OptimizationRequestAction.Optimize
             };
 
-            var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\\Kitchen.zip");
+            var importFile = await ImportFile.CreateAsync(@"Data\Nesting\Kitchen.zip");
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
+            var response = await intelliDivide.RequestOptimization(request, importFile);
 
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace();
 
-            var recommendedSolution = await intelliDivide.GetSolutionsAsync(optimization.Id).FirstAsync();
+            var recommendedSolution = await intelliDivide.GetSolutions(optimization.Id).FirstAsync();
 
-            await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.ZIP, new DirectoryInfo("."));
+            await intelliDivide.DownloadSolutionExport(recommendedSolution, SolutionExportType.ZIP, new DirectoryInfo("."));
         }
 
         /// <summary>
@@ -60,13 +60,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template
                 ImportTemplate = CommonSampleSettings.NestingImportTemplateName
             };
 
-            var importFile = await ImportFile.CreateAsync(@"Requests\Nesting\Template\Kitchen.zip");
+            var importFile = await ImportFile.CreateAsync(@"Data\Nesting\Kitchen.zip");
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
+            var response = await intelliDivide.RequestOptimization(request, importFile);
 
             response.Trace();
 
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace();
         }

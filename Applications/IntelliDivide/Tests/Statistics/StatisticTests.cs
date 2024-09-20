@@ -7,7 +7,7 @@ namespace HomagConnect.IntelliDivide.Tests.Statistics;
 [TestClass]
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Statistics")]
-public class MaterialStatisticTests : IntelliDivideTestBase
+public class StatisticTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions
     /// <summary />
@@ -16,7 +16,7 @@ public class MaterialStatisticTests : IntelliDivideTestBase
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var materialStatistics = await intelliDivide.GetMaterialStatisticsAsync(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
+        var materialStatistics = await intelliDivide.GetMaterialStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
         Assert.IsNotNull(materialStatistics);
   
@@ -29,7 +29,7 @@ public class MaterialStatisticTests : IntelliDivideTestBase
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var materialStatistics = await intelliDivide.GetMaterialStatisticsAsync(90, 100).ToListAsync();
+        var materialStatistics = await intelliDivide.GetMaterialStatistics(90, 100).ToListAsync();
 
         Assert.IsNotNull(materialStatistics);
         Assert.IsFalse(!materialStatistics.Any());
@@ -47,7 +47,7 @@ public class MaterialStatisticTests : IntelliDivideTestBase
         var to = DateTime.Now.AddDays(-1);
         var from = to.AddMonths(-3);
 
-        var statistics = await intelliDivide.GetPartSizesByMaterialStatisticsAsync(materialCodes, from, to);
+        var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, from, to);
 
         Trace(statistics);
     }
@@ -62,7 +62,7 @@ public class MaterialStatisticTests : IntelliDivideTestBase
         var to = DateTime.Now.AddDays(-1);
         var from = to.AddMonths(-3);
 
-        var statistics = await intelliDivide.GetPartSizesByMaterialStatisticsAsync(materialCodes, 90);
+        var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, 90);
 
         Trace(statistics);
     }
