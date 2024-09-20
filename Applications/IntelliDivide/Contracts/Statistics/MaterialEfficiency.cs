@@ -64,7 +64,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of boards used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 20)]
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter, PropertyDecimals.SquareMeterDecimals, PropertyDecimals.SquareFeetDecimals)]
         public double BoardsUsedArea { get; set; }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of offcuts used in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 22)]
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter, PropertyDecimals.SquareMeterDecimals, PropertyDecimals.SquareFeetDecimals)]
         public double OffcutsUsedArea { get; set; }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of parts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 30)]
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter, PropertyDecimals.SquareMeterDecimals, PropertyDecimals.SquareFeetDecimals)]
         public double PartsArea { get; set; }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of offcuts produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 32)]
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter, PropertyDecimals.SquareMeterDecimals, PropertyDecimals.SquareFeetDecimals)]
         public double OffcutsProducedArea { get; set; }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// system).
         /// </summary>
         [JsonProperty(Order = 34)]
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter, PropertyDecimals.SquareMeterDecimals, PropertyDecimals.SquareFeetDecimals)]
         public double OffcutsGrowthArea { get; set; }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Gets or sets the area of waste produced in m² (or ft² in subscriptions using the imperial unit system).
         /// </summary>
         [JsonProperty(Order = 36)]
-        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter, PropertyDecimals.SquareMeterDecimals, PropertyDecimals.SquareFeetDecimals)]
         public double WasteArea { get; set; }
 
         #endregion

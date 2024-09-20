@@ -42,7 +42,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         /// Total length used for edgebands of this type (meters or feet)
         /// </summary>
         [JsonProperty(Order = 6)]
-        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter, PropertyDecimals.MeterDecimals, PropertyDecimals.FeetDecimals)]
         public double? LengthUsed { get; set; }
 
         /// <summary>

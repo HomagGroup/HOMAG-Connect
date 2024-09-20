@@ -67,7 +67,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [Required]
         [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
         [JsonProperty(Order = 4)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
         public double? Length { get; set; }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [Required]
         [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
         [JsonProperty(Order = 5)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
         public double? Width { get; set; }
 
         /// <summary>

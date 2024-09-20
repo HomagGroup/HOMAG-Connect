@@ -56,7 +56,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the thickness.
         /// </summary>
         [JsonProperty(Order = 24)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
         public double? Thickness { get; set; }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [Required]
         [Range(0.1, 9999.9)]
         [JsonProperty(Order = 22)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
         public double? Width { get; set; }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [Required]
         [Range(0.1, 9999.9)]
         [JsonProperty(Order = 23)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
         public double? Length { get; set; }
 
         /// <summary>

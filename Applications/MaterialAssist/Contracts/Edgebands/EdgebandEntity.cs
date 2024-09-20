@@ -24,7 +24,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
         /// inch).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.EdgebandingThicknessMillimeterDecimals, PropertyDecimals.InchDecimals)]
         public double CurrentThickness { get; set; }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
         /// ft).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter, PropertyDecimals.MeterDecimals, PropertyDecimals.FeetDecimals)]
         public double Length { get; set; }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// imperial:
         /// ft).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter, PropertyDecimals.MeterDecimals, PropertyDecimals.FeetDecimals)]
         public double TotalLength { get; set; }
     }
 }

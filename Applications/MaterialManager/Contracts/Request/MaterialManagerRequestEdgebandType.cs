@@ -60,21 +60,21 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// <summary>
     /// Gets or sets the airtec. The unit depends on the settings of the subscription (metric: bar, imperial: psi).
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Bar)]
+    [ValueDependsOnUnitSystem(BaseUnit.Bar, PropertyDecimals.BarDecimals, PropertyDecimals.PsiDecimals)]
     [Range(0, double.PositiveInfinity)]
     public double? Airtec { get; set; }
 
     /// <summary>
     /// Gets or sets the protection film thickness.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.EdgebandingThicknessMillimeterDecimals, PropertyDecimals.InchDecimals)]
     [Range(0, double.PositiveInfinity)]
     public double? ProtectionFilmThickness { get; set; }
 
     /// <summary>
     /// Gets or sets the protection layer thickness.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.EdgebandingThicknessMillimeterDecimals, PropertyDecimals.InchDecimals)]
     [Range(0, double.PositiveInfinity)]
     public double? FunctionLayerThickness { get; set; }
 
