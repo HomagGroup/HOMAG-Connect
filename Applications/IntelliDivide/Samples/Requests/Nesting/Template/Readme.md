@@ -23,11 +23,11 @@ var request = new OptimizationRequestUsingTemplate
 The structured file is passed with the referenced MPRs as a `ZIP` package to intelliDivide as an `ImportFile` object. The file can be imported from a local path or a stream.
 
 ```c#
-var importFile = await ImportFile.CreateAsync(@"Requests\Template\Nesting\Kitchen.zip");
+var importFile = await ImportFile.CreateAsync(@"Data\Nesting\Kitchen.zip");
 
-var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
+var response = await intelliDivide.RequestOptimization(request, importFile);
 ```
 
 The response contains the `optimizationId`, which can be used to start the optimization or to retrieve the optimization result.
 
->For a detailed example, please refer to ` NestingRequest_Template_CSV_MPR_ImportOnly` in the file [NestingRequestUsingTemplateSamples.cs](NestingRequestUsingTemplateSamples.cs).
+>For a detailed example, please refer to `NestingRequest_Template_CSV_MPR_ImportOnly` in the file [NestingRequestUsingTemplateSamples.cs](NestingRequestUsingTemplateSamples.cs).

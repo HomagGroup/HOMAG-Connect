@@ -77,7 +77,7 @@ request.Action = OptimizationRequestAction.Optimize;
 The prepared request needs to be sent to intelliDivide.
 
 ```c#
-var response = await intelliDivide.RequestOptimizationAsync(request);
+var response = await intelliDivide.RequestOptimization(request);
 
 if (response.ValidationErrors.Any())
 {
@@ -100,13 +100,13 @@ If the action was set to <i> OptimizationRequestAction.Optimize</i> or <i>Optimi
 Otherwise the optimization needs to get started explicitly.
 
 ```c#
-await intelliDivide.StartOptimizationAsync(optimizationId); 
+await intelliDivide.StartOptimization(optimizationId); 
 ``` 
 
 IntelliDivide executes the optimization, and its completion can be awaited.
 
 ```c#
-var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
+var optimization = await intelliDivide.WaitForOptimizationStatus(optimizationId, OptimizationStatus.Optimized, TimeSpan.FromMinutes(5));
 ``` 
 
 ### Utilize the outcome of the optimization
@@ -116,12 +116,12 @@ var optimization = await intelliDivide.WaitForOptimizationStatusAsync(optimizati
 After the optimization is done the solutions can get retrieved. The first one is the recommended solution.
 
 ```c#
-var solutions = await intelliDivide.GetSolutionsAsync(optimization.Id);
+var solutions = await intelliDivide.GetSolutions(optimization.Id);
 
 var recommendedSolution = solutions.First();
 var targetDirectory = new DirectoryInfo(".");
 
-await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, targetDirectory);
+await intelliDivide.DownloadSolutionExport(recommendedSolution, SolutionExportType.Saw, targetDirectory);
 ``` 
 
 The downloaded saw file can get copied to the machine network share.

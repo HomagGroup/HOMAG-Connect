@@ -19,18 +19,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
     /// </remarks>
     public static class CuttingRequestUsingTemplateSamples
     {
-        private const string _ExcelSampleFile = @"Requests\Cutting\Template\Kitchen.xlsx";
-
         /// <summary>
         /// The sample shows how to create a cutting request using a structured file (Excel, CSV, PNX, ...) and a template.
         /// template.
         /// </summary>
         public static async Task CuttingRequest_Template_Excel_ImportOnly(IIntelliDivideClient intelliDivide)
         {
-            var importFile = await ImportFile.CreateAsync(_ExcelSampleFile);
+            var importFile = await ImportFile.CreateAsync(@"Data\Cutting\Kitchen.xlsx");
 
-            var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
-            var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
             
             var request = new OptimizationRequestUsingTemplate
             {
@@ -41,11 +39,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
                 Action = OptimizationRequestAction.ImportOnly
             };
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
+            var response = await intelliDivide.RequestOptimization(request, importFile);
 
             response.Trace();
 
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace();
         }
@@ -56,10 +54,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
         /// </summary>
         public static async Task CuttingRequest_Template_Excel_ImportAndOptimize(IIntelliDivideClient intelliDivide)
         {
-            var importFile = await ImportFile.CreateAsync(_ExcelSampleFile);
+            var importFile = await ImportFile.CreateAsync(@"Data\Cutting\Kitchen.xlsx");
 
-            var optimizationMachine = await intelliDivide.GetMachinesAsync(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
-            var optimizationParameter = await intelliDivide.GetParametersAsync(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
             
             var request = new OptimizationRequestUsingTemplate
             {
@@ -70,19 +68,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
                 Action = OptimizationRequestAction.Optimize
             };
 
-            var response = await intelliDivide.RequestOptimizationAsync(request, importFile);
+            var response = await intelliDivide.RequestOptimization(request, importFile);
 
             response.Trace();
 
             if (!response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
             {
-                var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+                var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
                 optimization.Trace();
 
-                var recommendedSolution = await intelliDivide.GetSolutionsAsync(optimization.Id).FirstAsync();
+                var recommendedSolution = await intelliDivide.GetSolutions(optimization.Id).FirstAsync();
 
-                await intelliDivide.DownloadSolutionExportAsync(recommendedSolution, SolutionExportType.Saw, new DirectoryInfo("."));
+                await intelliDivide.DownloadSolutionExport(recommendedSolution, SolutionExportType.Saw, new DirectoryInfo("."));
             }
             else
             {

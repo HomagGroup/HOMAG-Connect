@@ -30,7 +30,7 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
 
             var intelliDivide = new IntelliDivideClient(httpClient);
 
-            var optimizations = await intelliDivide.GetOptimizationsAsync(100);
+            var optimizations = await intelliDivide.GetOptimizations(100);
 
             optimizations.Trace();
         }
@@ -42,7 +42,7 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
         {
             var intelliDivide = new IntelliDivideClient(subscriptionId, authorizationKey);
 
-            var optimizations = await intelliDivide.GetOptimizationsAsync(100);
+            var optimizations = await intelliDivide.GetOptimizations(100);
 
             optimizations.Trace();
         }
