@@ -3,9 +3,10 @@
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Samples</PackageId>
+		<PackageCopyToOutput>true</PackageCopyToOutput>
 		<Title>Homag-Connect IntelliDivide Samples</Title>
 		<Description>Client assembly showing the usage of Homag-Connect IntelliDivide API</Description>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
@@ -14,41 +15,40 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Requests\Boards\**" />
-	  <Compile Remove="Requests\Project\**" />
-	  <EmbeddedResource Remove="Requests\Boards\**" />
-	  <EmbeddedResource Remove="Requests\Project\**" />
-	  <None Remove="Requests\Boards\**" />
-	  <None Remove="Requests\Project\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="Requests\Cutting\Project.zip" />
-		<None Remove="Requests\Nesting\nesting_project_with_mpr_files.zip" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Requests\Cutting\Project\Project.zip" Pack="true">
+		<Content Include="Data\Cutting\Kitchen.xlsx">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\ProjectZip\nesting_project_with_mpr_files.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Cutting\Project.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\ObjectModel\Generic.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\Project.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\ObjectModel\PartA.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\Generic.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\ObjectModel\PartB.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\PartA.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Cutting\Template\Kitchen.xlsx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <Pack>true</Pack>
+		<Content Include="Data\Nesting\PartB.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\Template\Kitchen.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\Kitchen.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
 	</ItemGroup>
 

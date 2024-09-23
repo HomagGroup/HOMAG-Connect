@@ -8,10 +8,10 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Settings")]
-    [TestCategory("UserTestInteractionNeeded")]
     public class SettingsTests : IntelliDivideTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
+
         [TestMethod]
         public void IntelliDivide_CheckConfiguration_ConfigValid()
         {
@@ -21,24 +21,24 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         }
 
         [TestMethod]
-        public async Task GetCuttingMachines()
+        public async Task Settings_GetCuttingMachines()
 
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await MachineSamples.GetCuttingMachinesSample(intelliDivide);
+            await MachineSamples.Settings_GetCuttingMachinesSample(intelliDivide);
         }
 
         [TestMethod]
-        public async Task GetCuttingParameters()
+        public async Task Settings_GetCuttingParameters()
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await ParameterSamples.GetCuttingParametersSample(intelliDivide);
+            await ParameterSamples.Settings_GetCuttingParametersSample(intelliDivide);
         }
 
         [TestMethod]
-        public async Task GetCuttingTemplates()
+        public async Task Settings_GetCuttingTemplates()
         {
             var intelliDivide = GetIntelliDivideClient();
 
@@ -46,23 +46,23 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         }
 
         [TestMethod]
-        public async Task GetMachines()
+        public async Task Settings_GetMachines()
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await MachineSamples.GetMachinesSample(intelliDivide);
+            await MachineSamples.Settings_GetMachinesSample(intelliDivide);
         }
 
         [TestMethod]
-        public async Task GetNestingMachines()
+        public async Task Settings_GetNestingMachines()
         {
             var intelliDivide = GetIntelliDivideClient();
 
-            await MachineSamples.GetNestingMachinesSample(intelliDivide);
+            await MachineSamples.Settings_GetNestingMachinesSample(intelliDivide);
         }
 
         [TestMethod]
-        public async Task GetNestingParameters()
+        public async Task Settings_GetNestingParameters()
         {
             var intelliDivide = GetIntelliDivideClient();
 
@@ -70,7 +70,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         }
 
         [TestMethod]
-        public async Task GetNestingTemplates()
+        public async Task Settings_GetNestingTemplates()
         {
             var intelliDivide = GetIntelliDivideClient();
 

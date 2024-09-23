@@ -36,7 +36,7 @@ var mprFiles = new List<ImportFile>();
 
 // The mpr files need to be added to the request.
 
-var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
+var response = await intelliDivide.RequestOptimization(request, mprFiles);
 ```
 
 The file types MPR, MPRX and MPRXE are supported. The name of the ImportFile must match the <i>MprFileName</i> property of the <i>OptimizationRequestPart</i>.
@@ -86,10 +86,10 @@ request.Parts.Add(new OptimizationRequestPart
 mprFiles.Add(mpr);
 
 // Send the request
-var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
+var response = await intelliDivide.RequestOptimization(request, mprFiles);
 ```
 By doing so, it becomes feasible to define one rectangular MPR and convey variables for length and width to the optimization request.
 
 The file types MPR, MPRX and MPRXE are supported. The name of the ImportFile must match the MPRFileName property of the OptimizationRequestPart.
 
-> For a detailed example, please refer to <i>NestingRequest_ObjectModel_RequiredProperties_ImportOnly</i> in the file [NestingRequestUsingObjectModelSamples.cs](NestingRequestUsingObjectModelSamples.cs).
+> For a detailed example, please refer to <i>NestingRequest_ObjectModel_MprProgramVariables_ImportOnly</i> in the file [NestingRequestUsingObjectModelSamples.cs](NestingRequestUsingObjectModelSamples.cs).

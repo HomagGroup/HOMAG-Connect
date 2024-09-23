@@ -32,11 +32,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             {
                 Name = "Sample_ObjectModel_MprProgramVariables_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
-                Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
+                Parameters = (await intelliDivide.GetParameters(OptimizationType.Nesting).FirstAsync()).Name,
                 Action = OptimizationRequestAction.ImportOnly
             };
 
-            var mpr = await ImportFile.CreateAsync(new FileInfo(@"Requests\Nesting\ObjectModel\Generic.mpr"));
+            var mpr = await ImportFile.CreateAsync(new FileInfo(@"Data\Nesting\Generic.mpr"));
             var mprReference = mpr.Name;
 
             // Part A
@@ -75,12 +75,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
+            var response = await intelliDivide.RequestOptimization(request, mprFiles);
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
         }
@@ -98,13 +98,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             {
                 Name = "Sample_ObjectModel_RequiredProperties_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
                 Machine = "productionAssist Nesting",
-                Parameters = (await intelliDivide.GetParametersAsync(OptimizationType.Nesting).FirstAsync()).Name,
+                Parameters = (await intelliDivide.GetParameters(OptimizationType.Nesting).FirstAsync()).Name,
                 Action = OptimizationRequestAction.ImportOnly
             };
 
             // Part A
 
-            var mprA = await ImportFile.CreateAsync(new FileInfo(@"Requests\Nesting\ObjectModel\PartA.mpr"));
+            var mprA = await ImportFile.CreateAsync(new FileInfo(@"Data\Nesting\PartA.mpr"));
 
             request.Parts.Add(new OptimizationRequestPart
             {
@@ -118,12 +118,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             mprFiles.Add(mprA);
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles);
+            var response = await intelliDivide.RequestOptimization(request, mprFiles);
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
-            var optimization = await intelliDivide.GetOptimizationAsync(response.OptimizationId);
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
 
             optimization.Trace(nameof(optimization));
         }
@@ -134,8 +134,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             // Prepare the request
             var mprFiles = new List<ImportFile>();
 
-            var machine = await intelliDivide.GetMachinesAsync(OptimizationType.Nesting).FirstAsync();
-            var parameter = await intelliDivide.GetParametersAsync(machine.OptimizationType).FirstAsync();
+            var machine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstAsync();
+            var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstAsync();
 
             var request = await GetSampleNestingOptimizationByObjectModel(mprFiles);
 
@@ -148,12 +148,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             request.Trace(nameof(request));
 
             // Send the request
-            var response = await intelliDivide.RequestOptimizationAsync(request, mprFiles.ToArray());
+            var response = await intelliDivide.RequestOptimization(request, mprFiles.ToArray());
 
             response.Trace(nameof(response));
 
             // Optional: Wait for the optimization to complete
-            var optimization = await intelliDivide.WaitForCompletionAsync(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
             optimization.Trace(nameof(optimization));
         }
@@ -164,7 +164,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Part A
 
-            var mprA = new FileInfo(@"Requests\Nesting\ObjectModel\PartA.mpr");
+            var mprA = new FileInfo(@"Data\Nesting\PartA.mpr");
 
             request.Parts.Add(new OptimizationRequestPart
             {
@@ -183,7 +183,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             mprFiles.Add(await ImportFile.CreateAsync(mprA));
 
             // Part B
-            var mprB = new FileInfo(@"Requests\Nesting\ObjectModel\PartB.mpr");
+            var mprB = new FileInfo(@"Data\Nesting\PartB.mpr");
 
             request.Parts.Add(new OptimizationRequestPart
             {

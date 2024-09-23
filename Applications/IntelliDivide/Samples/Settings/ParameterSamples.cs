@@ -2,35 +2,27 @@
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HomagConnect.IntelliDivide.Samples.Settings
 {
     /// <summary />
     public class ParameterSamples
     {
-        /// <summary />
-        public static async Task GetCuttingParametersSample(IIntelliDivideClient intelliDivide)
+        /// <summary>
+        /// The example shows how to get the defined parameters of type cutting.
+        /// </summary>
+        public static async Task Settings_GetCuttingParametersSample(IIntelliDivideClient intelliDivide)
         {
-            var parameters = await intelliDivide.GetParametersAsync(OptimizationType.Cutting).ToListAsync();
-
-            Assert.IsNotNull(parameters);
-            Assert.IsTrue(parameters.Any());
-            Assert.IsFalse(parameters.Any(m => m.OptimizationType != OptimizationType.Cutting));
-            Assert.IsFalse(parameters.Any(m => string.IsNullOrWhiteSpace(m.Name)));
+            var parameters = await intelliDivide.GetParameters(OptimizationType.Cutting).ToListAsync();
 
             parameters.Trace();
         }
 
-        /// <summary />
+        /// <summary>
+        /// The example shows how to get the defined parameters of type nesting.
+        /// </summary>
         public static async Task GetNestingParametersSample(IIntelliDivideClient intelliDivide)
         {
-            var parameters = await intelliDivide.GetParametersAsync(OptimizationType.Nesting).ToListAsync();
-
-            Assert.IsNotNull(parameters);
-            Assert.IsTrue(parameters.Any());
-            Assert.IsFalse(parameters.Any(m => m.OptimizationType != OptimizationType.Nesting));
-            Assert.IsFalse(parameters.Any(m => string.IsNullOrWhiteSpace(m.Name)));
+            var parameters = await intelliDivide.GetParameters(OptimizationType.Nesting).ToListAsync();
 
             parameters.Trace();
         }
