@@ -74,26 +74,26 @@ public static class UnitSystemExtensions
 
         foreach (var propertyInfo in propertyInfos)
         {
-            var valueDependsOnUnitSystemAttribute =
+            var propertyConstraints =
                 propertyInfo.GetCustomAttributes().OfType<ValueDependsOnUnitSystemAttribute>().FirstOrDefault();
 
-            if (valueDependsOnUnitSystemAttribute != null)
+            if (propertyConstraints != null)
             {
-                if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Millimeter)
+                if (propertyConstraints.BaseUnit == BaseUnit.Millimeter)
                 {
-                    SwitchBaseUnitMillimeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
+                    SwitchBaseUnitMillimeter(propertyInfo, clone, propertyConstraints);
                 }
-                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.SquareMeter)
+                else if (propertyConstraints.BaseUnit == BaseUnit.SquareMeter)
                 {
-                    SwitchBaseUnitSquareMeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
+                    SwitchBaseUnitSquareMeter(propertyInfo, clone, propertyConstraints);
                 }
-                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Meter)
+                else if (propertyConstraints.BaseUnit == BaseUnit.Meter)
                 {
-                    SwitchBaseUnitMeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
+                    SwitchBaseUnitMeter(propertyInfo, clone, propertyConstraints);
                 }
-                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Bar)
+                else if (propertyConstraints.BaseUnit == BaseUnit.Bar)
                 {
-                    SwitchBaseUnitBar(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
+                    SwitchBaseUnitBar(propertyInfo, clone, propertyConstraints);
                 }
                 else
                 {
@@ -108,41 +108,46 @@ public static class UnitSystemExtensions
     /// <summary>
     /// Converts a value in bar to psi.
     /// </summary>
-    private static double? ConvertBarToPsi(object value, int decimals)
+    private static double? ConvertBarToPsi(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value * _PsiToBarConversionFactor, decimals);
+        var result = (double)value * _PsiToBarConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
     /// Converts a value in feet to meter.
     /// </summary>
-    private static double? ConvertFeetToMeter(object value, int decimals)
+    private static double? ConvertFeetToMeter(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value / _MeterToFeetConversionFactor, decimals);
+        var result = (double)value / _MeterToFeetConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
     /// Converts a value in inch to millimeter.
     /// </summary>
-    private static double? ConvertInchToMillimeter(object value, int decimals)
+    private static double? ConvertInchToMillimeter(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value * _MillimeterToInchConversionFactor, decimals);
+        var result = (double)value * _MillimeterToInchConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
     /// Converts a value in meter to feet.
     /// </summary>
-    private static double? ConvertMeterToFeet(object value, int decimals)
+    private static double? ConvertMeterToFeet(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value * _MeterToFeetConversionFactor, decimals);
+        var result = (double)value * _MeterToFeetConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
     /// Converts a value in millimeter to inch.
     /// </summary>
-    private static double? ConvertMillimeterToInch(object value, int decimals)
+    private static double? ConvertMillimeterToInch(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value / _MillimeterToInchConversionFactor, decimals);
+        var result = (double)value / _MillimeterToInchConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
@@ -156,17 +161,19 @@ public static class UnitSystemExtensions
     /// <summary>
     /// Converts a value in psi to bar.
     /// </summary>
-    private static double? ConvertPsiToBar(object value, int decimals)
+    private static double? ConvertPsiToBar(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value / _PsiToBarConversionFactor, decimals);
+        var result = (double)value / _PsiToBarConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
     /// Converts a value in square feet to square meter.
     /// </summary>
-    private static double? ConvertSquareFeetToSquareMeter(object value, int decimals)
+    private static double? ConvertSquareFeetToSquareMeter(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value / _SquareFeetToSquareMeterConversionFactor, decimals);
+        var result = (double)value / _SquareFeetToSquareMeterConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
     /// <summary>
@@ -180,12 +187,13 @@ public static class UnitSystemExtensions
     /// <summary>
     /// Converts a value in square meter to square feet.
     /// </summary>
-    private static double? ConvertSquareMeterToSquareFeet(object value, int decimals)
+    private static double? ConvertSquareMeterToSquareFeet(object value, int decimals, bool roundValues)
     {
-        return Math.Round((double)value * _SquareFeetToSquareMeterConversionFactor, decimals);
+        var result = (double)value * _SquareFeetToSquareMeterConversionFactor;
+        return roundValues ? Math.Round(result, decimals) : result;
     }
 
-    private static void SwitchBaseUnitBar<T>(PropertyInfo propertyInfo, T clone, int metricDecimals, int imperialDecimals) where T : IContainsUnitSystemDependentProperties, new()
+    private static void SwitchBaseUnitBar<T>(PropertyInfo propertyInfo, T clone, ValueDependsOnUnitSystemAttribute propertyConstraints) where T : IContainsUnitSystemDependentProperties, new()
     {
         var value = propertyInfo.GetValue(clone);
 
@@ -193,11 +201,11 @@ public static class UnitSystemExtensions
         {
             if (clone.UnitSystem == UnitSystem.Imperial)
             {
-                propertyInfo.SetValue(clone, ConvertBarToPsi(value, imperialDecimals));
+                propertyInfo.SetValue(clone, ConvertBarToPsi(value, propertyConstraints.ImperialDecimalPrecision, propertyConstraints.RoundValues));
             }
             else if (clone.UnitSystem == UnitSystem.Metric)
             {
-                propertyInfo.SetValue(clone, ConvertPsiToBar(value, metricDecimals));
+                propertyInfo.SetValue(clone, ConvertPsiToBar(value, propertyConstraints.MetricDecimalPrecision, propertyConstraints.RoundValues));
             }
             else
             {
@@ -206,7 +214,7 @@ public static class UnitSystemExtensions
         }
     }
 
-    private static void SwitchBaseUnitMeter<T>(PropertyInfo propertyInfo, T clone, int metricDecimals, int imperialDecimals) where T : IContainsUnitSystemDependentProperties, new()
+    private static void SwitchBaseUnitMeter<T>(PropertyInfo propertyInfo, T clone, ValueDependsOnUnitSystemAttribute propertyConstraints) where T : IContainsUnitSystemDependentProperties, new()
     {
         var value = propertyInfo.GetValue(clone);
 
@@ -214,11 +222,11 @@ public static class UnitSystemExtensions
         {
             if (clone.UnitSystem == UnitSystem.Imperial)
             {
-                propertyInfo.SetValue(clone, ConvertMeterToFeet(value, imperialDecimals));
+                propertyInfo.SetValue(clone, ConvertMeterToFeet(value, propertyConstraints.ImperialDecimalPrecision, propertyConstraints.RoundValues));
             }
             else if (clone.UnitSystem == UnitSystem.Metric)
             {
-                propertyInfo.SetValue(clone, ConvertFeetToMeter(value, metricDecimals));
+                propertyInfo.SetValue(clone, ConvertFeetToMeter(value, propertyConstraints.MetricDecimalPrecision, propertyConstraints.RoundValues));
             }
             else
             {
@@ -229,8 +237,8 @@ public static class UnitSystemExtensions
 
     private static void SwitchBaseUnitMillimeter<T>(PropertyInfo propertyInfo,
         T clone,
-        int metricDecimals,
-        int imperialDecimals) where T : IContainsUnitSystemDependentProperties, new()
+        ValueDependsOnUnitSystemAttribute propertyConstraints)
+        where T : IContainsUnitSystemDependentProperties, new()
     {
         var value = propertyInfo.GetValue(clone);
 
@@ -238,11 +246,11 @@ public static class UnitSystemExtensions
         {
             if (clone.UnitSystem == UnitSystem.Imperial)
             {
-                propertyInfo.SetValue(clone, ConvertMillimeterToInch(value, imperialDecimals));
+                propertyInfo.SetValue(clone, ConvertMillimeterToInch(value, propertyConstraints.ImperialDecimalPrecision, propertyConstraints.RoundValues));
             }
             else if (clone.UnitSystem == UnitSystem.Metric)
             {
-                propertyInfo.SetValue(clone, ConvertInchToMillimeter(value, metricDecimals));
+                propertyInfo.SetValue(clone, ConvertInchToMillimeter(value, propertyConstraints.MetricDecimalPrecision, propertyConstraints.RoundValues));
             }
             else
             {
@@ -251,7 +259,7 @@ public static class UnitSystemExtensions
         }
     }
 
-    private static void SwitchBaseUnitSquareMeter<T>(PropertyInfo propertyInfo, T clone, int metricDecimals, int imperialDecimals) where T : IContainsUnitSystemDependentProperties, new()
+    private static void SwitchBaseUnitSquareMeter<T>(PropertyInfo propertyInfo, T clone, ValueDependsOnUnitSystemAttribute propertyConstraints) where T : IContainsUnitSystemDependentProperties, new()
     {
         var value = propertyInfo.GetValue(clone);
 
@@ -259,11 +267,11 @@ public static class UnitSystemExtensions
         {
             if (clone.UnitSystem == UnitSystem.Imperial)
             {
-                propertyInfo.SetValue(clone, ConvertSquareMeterToSquareFeet(value, imperialDecimals));
+                propertyInfo.SetValue(clone, ConvertSquareMeterToSquareFeet(value, propertyConstraints.ImperialDecimalPrecision, propertyConstraints.RoundValues));
             }
             else if (clone.UnitSystem == UnitSystem.Metric)
             {
-                propertyInfo.SetValue(clone, ConvertSquareFeetToSquareMeter(value, metricDecimals));
+                propertyInfo.SetValue(clone, ConvertSquareFeetToSquareMeter(value, propertyConstraints.MetricDecimalPrecision, propertyConstraints.RoundValues));
             }
             else
             {

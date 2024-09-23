@@ -16,11 +16,14 @@ public sealed class ValueDependsOnUnitSystemAttribute : Attribute
     /// Defines how many decimals after comma are shown in imperial system. Default is
     /// 3.
     /// </param>
-    public ValueDependsOnUnitSystemAttribute(BaseUnit baseUnit, int metricDecimalPrecision = DecimalPrecision.OneDecimalPlace, int imperialDecimalPrecision = DecimalPrecision.ThreeDecimalPlaces)
+    /// <param name="roundValues">Enables the values should be rounded. Default is true.</param>
+    public ValueDependsOnUnitSystemAttribute(BaseUnit baseUnit, int metricDecimalPrecision = DecimalPrecision.OneDecimalPlace, int imperialDecimalPrecision = DecimalPrecision.ThreeDecimalPlaces,
+        bool roundValues = true)
     {
         BaseUnit = baseUnit;
         MetricDecimalPrecision = metricDecimalPrecision;
         ImperialDecimalPrecision = imperialDecimalPrecision;
+        RoundValues = roundValues;
     }
 
     public BaseUnit BaseUnit { get; }
@@ -28,4 +31,6 @@ public sealed class ValueDependsOnUnitSystemAttribute : Attribute
     public int ImperialDecimalPrecision { get; }
 
     public int MetricDecimalPrecision { get; }
+
+    public bool RoundValues { get; set; }
 }
