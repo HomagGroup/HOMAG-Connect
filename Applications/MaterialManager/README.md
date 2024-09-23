@@ -24,7 +24,7 @@ For further information on how to obtain your Authorization Key and Subscription
 
 ## Further details and explanations
 
-1. [Samples](Samples/README.md)
+1. [Samples](Samples/Readme.md)
 2. [Excel (analog to MmrMobile)](../MmrMobile/Documentation/Excel/README.md)
 3. [powerBI (analog to MmrMobile)](../MmrMobile/Documentation/powerBi/README.md)
 
