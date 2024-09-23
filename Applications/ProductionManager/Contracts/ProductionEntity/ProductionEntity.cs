@@ -73,7 +73,7 @@ public class ProductionEntity : IExtensibleDataObject
     /// </summary>
     [JsonProperty(Order = 14)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class ProductionEntity : IExtensibleDataObject
     /// </summary>
     [JsonProperty(Order = 15)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
     /// <summary>

@@ -63,7 +63,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// </summary>
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// </summary>
         [JsonProperty(Order = 21)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// </summary>
         [JsonProperty(Order = 23)]
         [Range(0.1, 500)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Thickness { get; set; }
 
         #endregion

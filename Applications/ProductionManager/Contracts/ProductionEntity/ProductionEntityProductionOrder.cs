@@ -27,7 +27,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// </summary>
     [JsonProperty(Order = 16)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Thickness { get; set; }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// </summary>
     [JsonProperty(Order = 19)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? FinishLength { get; set; }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// </summary>
     [JsonProperty(Order = 20)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? FinishWidth { get; set; }
 
     #endregion
@@ -99,7 +99,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// </summary>
     [JsonProperty(Order = 40)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? SecondCutLength { get; set; }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// </summary>
     [JsonProperty(Order = 41)]
     [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? SecondCutWidth { get; set; }
 
     /// <summary>

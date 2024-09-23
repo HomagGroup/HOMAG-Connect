@@ -14,7 +14,7 @@ public class MaterialManagerUpdateEdgebandType : MaterialManagerUpdateMaterialTy
     /// <summary>
     /// Gets or sets the airtec. The unit depends on the settings of the subscription (metric: bar, imperial: psi).
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Bar, PropertyDecimals.BarDecimals, PropertyDecimals.PsiDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Bar, DecimalPrecision.ZeroDecimalPlaces, DecimalPrecision.ZeroDecimalPlaces)]
     [Range(0, double.PositiveInfinity)]
     public double? Airtec { get; set; }
 
@@ -33,7 +33,7 @@ public class MaterialManagerUpdateEdgebandType : MaterialManagerUpdateMaterialTy
     /// <summary>
     /// Gets or sets the protection layer thickness.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.EdgebandingThicknessMillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
     [Range(0, double.PositiveInfinity)]
     public double? FunctionLayerThickness { get; set; }
 
@@ -76,7 +76,7 @@ public class MaterialManagerUpdateEdgebandType : MaterialManagerUpdateMaterialTy
     /// <summary>
     /// Gets or sets the protection film thickness.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.EdgebandingThicknessMillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
     [Range(0, double.PositiveInfinity)]
     public double? ProtectionFilmThickness { get; set; }
 

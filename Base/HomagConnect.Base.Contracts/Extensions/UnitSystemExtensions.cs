@@ -49,7 +49,7 @@ public static class UnitSystemExtensions
     }
 
     /// <summary>
-    /// Converts the unit system of the object to the specified unit system. All properties that are marked with the
+    /// Converts the unit system of the object to the specified unit system. All properties that are marked with
     /// <see cref="ValueDependsOnUnitSystemAttribute" /> are handled.
     /// </summary>
     public static T SwitchUnitSystem<T>(this T o, UnitSystem unitSystem) where T : class, IContainsUnitSystemDependentProperties, new()
@@ -81,19 +81,19 @@ public static class UnitSystemExtensions
             {
                 if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Millimeter)
                 {
-                    SwitchBaseUnitMillimeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimals, valueDependsOnUnitSystemAttribute.ImperialDecimals);
+                    SwitchBaseUnitMillimeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
                 }
                 else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.SquareMeter)
                 {
-                    SwitchBaseUnitSquareMeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimals, valueDependsOnUnitSystemAttribute.ImperialDecimals);
+                    SwitchBaseUnitSquareMeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
                 }
                 else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Meter)
                 {
-                    SwitchBaseUnitMeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimals, valueDependsOnUnitSystemAttribute.ImperialDecimals);
+                    SwitchBaseUnitMeter(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
                 }
                 else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Bar)
                 {
-                    SwitchBaseUnitBar(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimals, valueDependsOnUnitSystemAttribute.ImperialDecimals);
+                    SwitchBaseUnitBar(propertyInfo, clone, valueDependsOnUnitSystemAttribute.MetricDecimalPrecision, valueDependsOnUnitSystemAttribute.ImperialDecimalPrecision);
                 }
                 else
                 {
@@ -126,9 +126,7 @@ public static class UnitSystemExtensions
     /// </summary>
     private static double? ConvertInchToMillimeter(object value, int decimals)
     {
-        
-            return Math.Round((double)value * _MillimeterToInchConversionFactor, decimals);
-        
+        return Math.Round((double)value * _MillimeterToInchConversionFactor, decimals);
     }
 
     /// <summary>
@@ -229,7 +227,10 @@ public static class UnitSystemExtensions
         }
     }
 
-    private static void SwitchBaseUnitMillimeter<T>(PropertyInfo propertyInfo, T clone, int metricDecimals, int imperialDecimals) where T : IContainsUnitSystemDependentProperties, new()
+    private static void SwitchBaseUnitMillimeter<T>(PropertyInfo propertyInfo,
+        T clone,
+        int metricDecimals,
+        int imperialDecimals) where T : IContainsUnitSystemDependentProperties, new()
     {
         var value = propertyInfo.GetValue(clone);
 

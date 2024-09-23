@@ -17,13 +17,13 @@ public class AdditionalDataTexture : AdditionalDataEntity, IContainsUnitSystemDe
     /// <summary>
     /// Gets or sets the length.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Length { get; set; }
 
     /// <summary>
     /// Gets or sets the width
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Width { get; set; }
 
 

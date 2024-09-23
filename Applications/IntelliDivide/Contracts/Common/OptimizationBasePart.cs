@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -67,19 +66,19 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (2) Cutting / Nesting
 
         /// <inheritdoc />
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.EdgebandingThicknessMillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
         public double? Thickness { get; set; }
 
         /// <inheritdoc />
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
         /// <inheritdoc />
         [JsonProperty(Order = 21)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
 
         #endregion
@@ -192,14 +191,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the finish length.
         /// </summary>
         [JsonProperty(Order = 64)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishLength { get; set; }
 
         /// <summary>
         /// Gets or sets the finish length.
         /// </summary>
         [JsonProperty(Order = 65)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? FinishWidth { get; set; }
 
         /// <summary>
@@ -207,7 +206,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 66)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? SecondCutLength { get; set; }
 
         /// <summary>
@@ -215,7 +214,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 67)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? SecondCutWidth { get; set; }
         
         #endregion

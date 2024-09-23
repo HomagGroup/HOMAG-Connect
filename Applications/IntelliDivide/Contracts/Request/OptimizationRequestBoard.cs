@@ -52,7 +52,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Length { get; set; }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [Range(0.01, double.PositiveInfinity)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Thickness { get; set; }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// </summary>
         [Required]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Width { get; set; }
 
         #region IExtensibleDataObject Members

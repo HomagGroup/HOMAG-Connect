@@ -19,13 +19,13 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// <summary>
         /// Gets or sets the length. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Length { get; set; }
 
         /// <summary>
         /// Gets or sets the width. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, PropertyDecimals.MillimeterDecimals, PropertyDecimals.InchDecimals)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Width { get; set; }
 
         /// <summary>
