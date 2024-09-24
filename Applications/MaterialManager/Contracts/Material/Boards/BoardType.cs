@@ -56,7 +56,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the thickness.
         /// </summary>
         [JsonProperty(Order = 24)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
         public double? Thickness { get; set; }
 
         /// <summary>
@@ -193,6 +193,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the total area available warning limit.
         /// </summary>
         [JsonProperty(Order = 54)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         public double? TotalAreaAvailableWarningLimit { get; set; }
 
         /// <summary>

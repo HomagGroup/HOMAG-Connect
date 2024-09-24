@@ -52,13 +52,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
         public double? Thickness { get; set; }
 
         /// <summary>
         /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial: ft).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter, DecimalPrecision.TwoDecimalPlaces, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double? Length { get; set; }
 
         /// <summary>
@@ -88,19 +88,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the airtec. The unit depends on the settings of the subscription (metric: bar, imperial: psi).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Bar, DecimalPrecision.ZeroDecimalPlaces, DecimalPrecision.ZeroDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.Bar)]
         public double? Airtec { get; set; } // TODO: Bool? No bool, here the pressure (bar) for the values is set
 
         /// <summary>
         /// Gets or sets the protection film thickness.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
         public double? ProtectionFilmThickness { get; set; }
 
         /// <summary>
         /// Gets or sets the protection layer thickness.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
         public double? FunctionLayerThickness { get; set; }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the total length available warning limit. The unit depends on the settings of the subscription (metric: m, imperial: ft).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter, DecimalPrecision.TwoDecimalPlaces, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double? TotalLengthAvailableWarningLimit { get; set; }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the total length of boards of this type which are available in the inventory.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Meter, DecimalPrecision.TwoDecimalPlaces, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double? TotalLengthAvailable { get; set; }
 
         /// <summary>

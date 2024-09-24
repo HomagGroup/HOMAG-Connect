@@ -66,7 +66,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (2) Cutting / Nesting
 
         /// <inheritdoc />
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, DecimalPrecision.TwoDecimalPlaces)]
+        [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
         public double? Thickness { get; set; }
 
         /// <inheritdoc />

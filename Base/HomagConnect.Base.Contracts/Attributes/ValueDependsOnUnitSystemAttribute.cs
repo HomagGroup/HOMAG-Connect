@@ -1,36 +1,80 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 
 namespace HomagConnect.Base.Contracts.Attributes;
 
+/// <summary>
+/// Defines the behavior of a property in different unit systems.
+/// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ValueDependsOnUnitSystemAttribute : Attribute
 {
+    private const double _MillimeterToInchConversionFactor = 0.03937008;
+
+    private const double _MeterToFeetConversionFactor = 3.2808399;
+
+    private const double _BarToPsiConversionFactor = 14.503773773;
+
+    private const double _SquareMeterToSquareFeetConversionFactor = 10.7639104;
+
     /// <summary>
     /// Attribute to define the unit system of a property.
-    /// Please pass a <see cref="metricDecimalPrecision" /> or <see cref="imperialDecimalPrecision" /> value if you want to
-    /// override the default decimals.
     /// </summary>
-    /// <param name="baseUnit">The unit system of that property.</param>
-    /// <param name="metricDecimalPrecision">Defines how many decimals after comma are shown in metric system. Default is 1.</param>
-    /// <param name="imperialDecimalPrecision">
-    /// Defines how many decimals after comma are shown in imperial system. Default is
-    /// 3.
-    /// </param>
-    /// <param name="roundValues">Enables the values should be rounded. Default is true.</param>
-    public ValueDependsOnUnitSystemAttribute(BaseUnit baseUnit, int metricDecimalPrecision = DecimalPrecision.OneDecimalPlace, int imperialDecimalPrecision = DecimalPrecision.ThreeDecimalPlaces,
-        bool roundValues = true)
+    public ValueDependsOnUnitSystemAttribute(BaseUnit baseUnit)
     {
         BaseUnit = baseUnit;
-        MetricDecimalPrecision = metricDecimalPrecision;
-        ImperialDecimalPrecision = imperialDecimalPrecision;
-        RoundValues = roundValues;
+
+        DecimalsMetric = baseUnit.GetDecimals(UnitSystem.Metric);
+        DecimalsImperial = baseUnit.GetDecimals(UnitSystem.Imperial);
+
+        if (BaseUnit is BaseUnit.MillimeterThickness or BaseUnit.Millimeter)
+        {
+            ConversionFactorMetricToImperial = _MillimeterToInchConversionFactor;
+        }
+        else if (BaseUnit == BaseUnit.Meter)
+        {
+            ConversionFactorMetricToImperial = _MeterToFeetConversionFactor;
+        }
+        else if (BaseUnit == BaseUnit.Bar)
+        {
+            ConversionFactorMetricToImperial = _BarToPsiConversionFactor;
+        }
+        else if (BaseUnit == BaseUnit.SquareMeter)
+        {
+            ConversionFactorMetricToImperial = _SquareMeterToSquareFeetConversionFactor;
+        }
+        else
+        {
+            throw new NotImplementedException($"Conversion factor for {baseUnit} is not defined.");
+        }
     }
 
+    /// <summary>
+    /// Attribute to define the unit system of a property.
+    /// </summary>
+    public ValueDependsOnUnitSystemAttribute(BaseUnit baseUnit, int decimalsMetric, int decimalsImperial) : this(baseUnit)
+    {
+        DecimalsMetric = decimalsMetric;
+        DecimalsImperial = decimalsImperial;
+    }
+
+    /// <summary>
+    /// Gets to conversion factor from the metric to the imperial unit system.
+    /// </summary>
+    public double ConversionFactorMetricToImperial { get; }
+
+    /// <summary>
+    /// Gets the base unit of the property.
+    /// </summary>
     public BaseUnit BaseUnit { get; }
 
-    public int ImperialDecimalPrecision { get; }
+    /// <summary>
+    /// Gets the number of decimals to round in the metric unit system.
+    /// </summary>
+    public int DecimalsMetric { get; }
 
-    public int MetricDecimalPrecision { get; }
-
-    public bool RoundValues { get; set; }
+    /// <summary>
+    /// Gets the number of decimals to round in the imperial unit system.
+    /// </summary>
+    public int DecimalsImperial { get; }
 }
