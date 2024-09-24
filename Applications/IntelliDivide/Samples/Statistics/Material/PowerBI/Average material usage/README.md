@@ -22,7 +22,7 @@ The materials in the diagram at the top left are sorted by total area.
 
 This means that the materials shown first in particular should have a high material utilization and be shown in green. If this is not the case, it is worth taking a closer look. Click on the material to adjust the filters accordingly. In the example, the material FUMUBI_15 is interesting. The material utilization is exceptionally low in relation to its use.
 
-![Average material usage](https://github.com/user-attachments/assets/44a23fb2-782a-4f1a-866e-afccea8fb4d9)
+![Average of yield by material sorted by parts](https://github.com/user-attachments/assets/121892d8-4dbb-4d91-9924-64f3c0046a05)
 
 There is potential for improvement if the material was used in several optimizations on the same or consecutive days. This is the case in the example on 15.03.2024. It was used in 3 optimizations, each with very poor material utilization. 
 
