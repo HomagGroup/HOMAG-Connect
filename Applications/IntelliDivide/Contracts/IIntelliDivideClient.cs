@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.DataModel;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
@@ -232,9 +233,14 @@ namespace HomagConnect.IntelliDivide.Contracts
 
         /// <summary>
         /// Waits until the optimization is reached the specified <see cref="OptimizationStatus" /> or a following state or a from
-        /// which the specified state can't get reached any more.
+        /// which the specified state can't get reached anymore.
         /// </summary>
         /// <exception cref="TimeoutException">Raised, when the specified maxDuration has been exceeded.</exception>
         Task<Optimization> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration);
+
+        /// <summary>
+        /// Gets the part properties including the additional ones.
+        /// </summary>
+        Task<IEnumerable<DataModelProperty>> GetPartProperties();
     }
 }
