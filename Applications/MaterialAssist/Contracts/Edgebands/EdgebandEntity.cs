@@ -24,7 +24,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
         /// inch).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2,3)]
         public double CurrentThickness { get; set; }
 
         /// <summary>

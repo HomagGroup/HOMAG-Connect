@@ -27,7 +27,7 @@ public sealed class ValueDependsOnUnitSystemAttribute : Attribute
         DecimalsMetric = baseUnit.GetDecimals(UnitSystem.Metric);
         DecimalsImperial = baseUnit.GetDecimals(UnitSystem.Imperial);
 
-        if (BaseUnit is BaseUnit.MillimeterThickness or BaseUnit.Millimeter)
+        if (BaseUnit == BaseUnit.Millimeter)
         {
             ConversionFactorMetricToImperial = _MillimeterToInchConversionFactor;
         }

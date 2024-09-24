@@ -67,14 +67,14 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// <summary>
     /// Gets or sets the protection film thickness.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter,2,3)]
     [Range(0, double.PositiveInfinity)]
     public double? ProtectionFilmThickness { get; set; }
 
     /// <summary>
     /// Gets or sets the protection layer thickness.
     /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.MillimeterThickness)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter,2,3)]
     [Range(0, double.PositiveInfinity)]
     public double? FunctionLayerThickness { get; set; }
 

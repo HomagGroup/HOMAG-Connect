@@ -12,10 +12,6 @@ public enum BaseUnit
     Millimeter,
 
     /// <summary />
-    [RoundingFormat(2, 3)]
-    MillimeterThickness,
-
-    /// <summary />
     [RoundingFormat(2, 2)]
     SquareMeter,
 
