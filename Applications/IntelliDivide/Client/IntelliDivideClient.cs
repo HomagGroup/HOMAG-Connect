@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base;
+using HomagConnect.Base.DataModel;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.IntelliDivide.Contracts;
@@ -326,6 +327,37 @@ namespace HomagConnect.IntelliDivide.Client
             }
 
             throw new TimeoutException();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<DataModelProperty>> GetPartProperties()
+        {
+            // Note: Sample code only. Will be replaced with a backend call.
+
+            var properties = new[]
+            {
+                new DataModelProperty
+                {
+                    Id = nameof(OptimizationBasePart.Id),
+                    Name = "Id",
+                    DataType = typeof(string)
+                },
+                new DataModelProperty
+                {
+                    Id = nameof(OptimizationBasePart.Description),
+                    Name = "Description",
+                    DataType = typeof(string)
+                },
+                new DataModelProperty
+                {
+                    Id = "DeliveryRegion",
+                    Name = "Delivery region",
+                    DataType = typeof(string),
+                    PropertyType = DataModelPropertyType.Additional
+                }
+            };
+
+            return await Task.FromResult(properties);
         }
 
         #endregion
