@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
