@@ -65,6 +65,17 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<MaterialEfficiency>> GetMaterialStatistics(DateTime from, DateTime to, int take, int skip = 0);
 
         /// <summary>
+        /// Gets the edgebands statistics.
+        /// </summary>
+        Task<IEnumerable<EdgebandUsage>> GetEdgebandStatistics(int daysBack, int take, int skip = 0);
+
+
+        /// <summary>
+        /// Gets the edgebands statistics.
+        /// </summary>
+        Task<IEnumerable<EdgebandUsage>> GetEdgebandStatistics(DateTime from, DateTime to, int take, int skip = 0);
+
+        /// <summary>
         /// Gets the material statistics.
         /// </summary>
         Task<IEnumerable<MaterialEfficiency>> GetMaterialStatistics(int daysBack, int take, int skip = 0);

@@ -37,6 +37,31 @@ public class StatisticTests : IntelliDivideTestBase
         Trace(materialStatistics);
     }
 
+    /// <summary />
+    [TestMethod]
+    public async Task Statistics_GetEdgeband_FromTo_NoException()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
+
+        Assert.IsNotNull(edgebandStatistics);
+
+        Trace(edgebandStatistics);
+    }
+
+    [TestMethod]
+    public async Task Statistics_GetEdgeband_DaysBack_NoException()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(30, 100).ToListAsync();
+
+        Assert.IsNotNull(edgebandStatistics);
+
+        Trace(edgebandStatistics);
+    }
+
     [TestMethod]
     public async Task Statistics_GetPartSizesByMaterial_NoException()
     {
