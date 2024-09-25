@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a7300112-0078-4c21-87d3-dd3de61d46b4",
+		"_postman_id": "f45a9138-a8d2-4cf4-8f55-07498c04c0ef",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,15 +17,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/workplaces/boards?id=12",
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?id=12",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"materialAssist",
-										"workplaces",
-										"boards"
+										"boardEntities"
 									],
 									"query": [
 										{
@@ -48,15 +47,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/workplaces/edgebands?id=9",
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities?id=9",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"materialAssist",
-										"workplaces",
-										"edgebands"
+										"edgebandEntities"
 									],
 									"query": [
 										{
