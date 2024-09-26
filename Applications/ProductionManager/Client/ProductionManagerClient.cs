@@ -160,21 +160,21 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId)
+        public Task<OrderDetails> GetOrder(string orderNumber)
         {
-            return GetOrderByExternalSystemId([externalSystemId]).FirstOrDefaultAsync();
+            return GetOrders([orderNumber]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds)
+        public async Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
         {
-            var validExternalSystemIds = externalSystemIds
+            var validOrderNumbers = orderNumbers
                 .Select(e => e.Trim())
                 .Where(e => !string.IsNullOrWhiteSpace(e))
                 .Distinct();
 
-            var uris = validExternalSystemIds
-                .Select(id => $"&externalSystemId={Uri.EscapeDataString(id)}")
+            var uris = orderNumbers
+                .Select(id => $"&orderNumber={Uri.EscapeDataString(id)}")
                 .Join(QueryParametersMaxLength)
                 .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
                 .Select(c => new Uri(c, UriKind.Relative));
