@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;

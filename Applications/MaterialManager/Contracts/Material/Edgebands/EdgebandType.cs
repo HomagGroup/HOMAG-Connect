@@ -52,7 +52,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
         public double? Thickness { get; set; }
 
         /// <summary>
@@ -94,13 +94,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the protection film thickness.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2,3)]
         public double? ProtectionFilmThickness { get; set; }
 
         /// <summary>
         /// Gets or sets the protection layer thickness.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter,2,3)]
         public double? FunctionLayerThickness { get; set; }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         public double? TotalLengthAvailable { get; set; }
 
         /// <summary>
-        /// Gets or sets a indication whether the <see cref="TotalQuantityAvailable" /> or <see cref="TotalLengthAvailable" /> is
+        /// Gets or sets an indication whether the <see cref="TotalQuantityAvailable" /> or <see cref="TotalLengthAvailable" /> is
         /// below the defined limit
         /// <see cref="TotalQuantityAvailableWarningLimit" />.
         /// <see cref="TotalLengthAvailableWarningLimit" />.
