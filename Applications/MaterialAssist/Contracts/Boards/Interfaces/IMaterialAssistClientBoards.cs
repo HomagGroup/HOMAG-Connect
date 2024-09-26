@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-
-using HomagConnect.MaterialAssist.Contracts.Base;
+﻿using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 

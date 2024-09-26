@@ -55,7 +55,7 @@ namespace HomagConnect.MaterialAssist.Client
                 .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
                 .Join(QueryParametersMaxLength)
                 .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+                .Select(parameter => $"{_BaseRouteMaterialAssist}{route}" + parameter).ToList();
 
             return urls;
         }
@@ -85,7 +85,7 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             await DeleteObject(new Uri(url, UriKind.Relative));
         }
@@ -93,7 +93,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task DeleteEdgebandEntity(IEnumerable<string> ids)
         {
-            var url = $"{_BaseRoute}";
+            var url = $"{_BaseRouteMaterialAssist}";
 
             var edgebandCodes = new StringBuilder("?");
             edgebandCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={Uri.EscapeDataString(id)}")));
@@ -107,15 +107,13 @@ namespace HomagConnect.MaterialAssist.Client
 
         #region Constants
 
-        private const string _BaseRoute = "api/materialAssist/edgebandEntities";
+        private const string _BaseRouteMaterialAssist = "api/materialAssist/edgebandEntities";
         private const string _BaseRouteMaterialManager = "api/materialManager/edgebands";
         private const string _Id = "Id";
         private const string _EdgebandCode = "edgebandCode";
         private const string _StorageLocation = "storageLocation";
         private const string _DeleteFromInventory = "deleteFromInventory";
         private const string _Length = "length";
-        private const string _CurrentThickness = "currentThickness";
-        private const string _Comments = "comments";
         private const string _RemovalType = "removalType";
         private const string _Quantity = "quantity";
 
@@ -126,7 +124,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntities(int take, int skip = 0)
         {
-            var url = $"{_BaseRoute}?take={take}&skip={skip}";
+            var url = $"{_BaseRouteMaterialAssist}?take={take}&skip={skip}";
 
             return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
@@ -134,7 +132,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<EdgebandEntity> GetEdgebandEntityById(string id)
         {
-            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             return await RequestObject<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
@@ -172,7 +170,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode)
         {
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 
             return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
         }
@@ -208,16 +206,16 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
+        public Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
-            var url = $"{_BaseRoute}/storageLocations";
+            var url = $"{_BaseRouteMaterialAssist}/storageLocations";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workplace)
+        public Task<IEnumerable<StorageLocation>> GetStorageLocations(string workplace)
         {
-            var url = $"{_BaseRoute}/storageLocations?workplace={workplace}";
+            var url = $"{_BaseRouteMaterialAssist}/storageLocations?workplace={workplace}";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
@@ -235,7 +233,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(updateEdgebandEntity);
 
-            var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
 
             var payload = JsonConvert.SerializeObject(updateEdgebandEntity);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -252,7 +250,7 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
-        public async Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)
+        public Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -269,46 +267,46 @@ namespace HomagConnect.MaterialAssist.Client
                 throw new ArgumentException("Length must be higher than 0.1", nameof(length));
             }
 
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/store?{_StorageLocation}={storageLocation}&{_Length}={length}";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/store?{_StorageLocation}={storageLocation}&{_Length}={length}";
 
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task RemoveAllEdgebandEntitiesFromWorkplace(string id, bool deleteFromInventory = false)
+        public Task RemoveAllEdgebandEntitiesFromWorkplace(string id, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=All";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=All";
 
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task RemoveSingleEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false)
+        public Task RemoveSingleEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Single";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Single";
 
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task RemoveSubsetEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false)
+        public Task RemoveSubsetEdgebandEntitiesFromWorkplace(string id, int quantity, bool deleteFromInventory = false)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentException("Id must not be null or empty", nameof(id));
             }
 
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Subset";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteFromInventory}&{_RemovalType}=Subset";
 
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
