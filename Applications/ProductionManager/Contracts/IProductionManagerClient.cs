@@ -34,14 +34,14 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<OrderDetails> GetOrder(Guid orderId);
 
         /// <summary>
-        /// Get a specific order by its external system id
+        /// Get a specific order by its order number.
         /// </summary>
-        Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId);
+        Task<OrderDetails> GetOrder(string orderNumber);
 
         /// <summary>
-        /// Gets all orders for the given external system ids.
+        /// Gets all orders for the given order numbers.
         /// </summary>
-        Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds);
+        Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers);
 
         #endregion
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 
 using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -106,21 +107,9 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         #region Update
 
         /// <summary>
-        /// Update board entity dimensions by its id (#).
+        /// Update board entity by its id (#).
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="length"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
-        Task UpdateBoardEntityDimensions(string id, double length, double width);
-
-        /// <summary>
-        /// Update board entity comments by its id (#).
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="comments"></param>
-        /// <returns></returns>
-        Task UpdateBoardEntityComments(string id, string comments);
+        Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity);
 
         /// <summary>
         /// Store a board by its code (#).
