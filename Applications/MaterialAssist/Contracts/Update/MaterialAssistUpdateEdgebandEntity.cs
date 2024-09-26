@@ -22,6 +22,12 @@ namespace HomagConnect.MaterialAssist.Contracts.Update
         public double? CurrentThickness { get; set; } = null;
 
         /// <summary>
+        /// Gets or sets the identifier of the edgeband entity.
+        /// </summary>
+        [StringLength(50)]
+        public string? Id { get; set; } = null;
+
+        /// <summary>
         /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
         /// ft).
         /// </summary>

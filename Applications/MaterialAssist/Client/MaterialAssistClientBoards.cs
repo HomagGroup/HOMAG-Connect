@@ -5,7 +5,6 @@ using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Boards;
 using HomagConnect.MaterialAssist.Contracts.Boards.Interfaces;
-using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
