@@ -4,14 +4,14 @@
 		<order>
 			<properties>
 				<param name="OrderName" value="Mini Schrank (WEB)"/>
+				<param name="OrderNumber" value="001"/>
 				<param name="CustomerName" value="Boris Wehrle"/>
 				<param name="CustomerNumber" value="4711"/>
 				<param name="OrderDate" value="2022-07-25T08:48:09.4031531+00:00"/>
 				<param name="DeliveryDate" value="2022-08-24T08:48:09.4031580+00:00"/>
 				<param name="AddressField1" value="HOMAG"/>
 				<param name="AddressField2" value="Homagstrasse 3-5"/>
-				<param name="AddressField3" value="72296 Schopfloch"/>
-				<param name="ExternalSystemId" value ="722995" />
+				<param name="AddressField3" value="72296 Schopfloch"/>				
 			</properties>
 			<images>
 				<image>

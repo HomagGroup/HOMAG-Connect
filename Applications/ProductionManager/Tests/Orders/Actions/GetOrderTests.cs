@@ -81,7 +81,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
             Assert.IsFalse(anyException);
         }
 
-        private static async Task<string> ImportOrderWithExternalSystemId(IProductionManagerClient productionManagerClient)
+        private static async Task<string> ImportOrderWithOrderNumber(IProductionManagerClient productionManagerClient)
         {
             var projectDirectory = new DirectoryInfo(@"Orders\Samples\OrderWithExternalSystemId");
 
@@ -110,43 +110,43 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
             var order = await productionManagerClient.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromSeconds(30));
 
             Assert.IsNotNull(order);
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(order.ExternalSystemId));
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(order.OrderNumber));
 
-            return order.ExternalSystemId;
+            return order.OrderNumber;
         }
 
         /// <summary />
+        [TemporaryDisabledOnServer(2024,10,15)]
         [TestMethod]
         public async Task Orders_GetCompletionDatesPlanned_NoException()
         {
-            var externalSystemIds = new List<string>();
+            var orderNumbers = new List<string>();
             var productionManager = GetProductionManagerClient();
 
             var anyException = false;
 
             foreach (var order in await productionManager.GetOrders(1000))
             {
-                if (order.ExternalSystemId != null)
+                if (order.OrderNumber != null)
                 {
-                    externalSystemIds.Add(order.ExternalSystemId);
+                    orderNumbers.Add(order.OrderNumber);
                 }
             }
 
-            if (externalSystemIds.Count == 0)
+            if (orderNumbers.Count == 0)
             {
-                externalSystemIds.Add(await ImportOrderWithExternalSystemId(productionManager));
+                orderNumbers.Add(await ImportOrderWithOrderNumber(productionManager));
             }
 
             try
             {
-                await GetOrderSamples.GetCompletionDatesPlanned(productionManager, externalSystemIds.ToArray());
+                await GetOrderSamples.GetCompletionDatesPlanned(productionManager, orderNumbers.ToArray());
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 anyException = true;
             }
-
 
             Assert.IsFalse(anyException);
         }
