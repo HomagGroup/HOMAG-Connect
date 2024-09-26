@@ -14,9 +14,9 @@ namespace HomagConnect.MaterialManager.Samples.Read.Boards
         public static async Task GetLocations(IMaterialManagerClientMaterialBoards materialManagerClientMaterialBoards,
             IEnumerable<string> boardCodes)
         {
-            var boardTypeInventorys = await materialManagerClientMaterialBoards.GetBoardTypesByBoardCodesIncludingDetails(boardCodes);
-            Assert.IsNotNull(boardTypeInventorys);
-            boardTypeInventorys.Select(m => m.Inventory).Trace();
+            var boardTypeInventories = await materialManagerClientMaterialBoards.GetBoardTypesByBoardCodesIncludingDetails(boardCodes);
+            Assert.IsNotNull(boardTypeInventories);
+            boardTypeInventories.Select(m => m.Inventory).Trace();
         }
 
         /// <summary />

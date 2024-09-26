@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
 {
     /// <summary>
-    /// Model for material dependent trimcut parameters.
+    /// Model for material dependent trim cut parameters.
     /// </summary>
     public class TrimCutParameters
     {

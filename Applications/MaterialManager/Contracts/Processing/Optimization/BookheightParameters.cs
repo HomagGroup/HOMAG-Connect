@@ -31,6 +31,9 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? MaximumBookHeight { get; set; }
 
+        /// <summary>
+        /// The current unit system.
+        /// </summary>
         public UnitSystem UnitSystem { get; set; }
     }
 }

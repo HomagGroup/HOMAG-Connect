@@ -1,6 +1,7 @@
 using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests;
 using HomagConnect.Base.Tests.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
@@ -10,7 +11,7 @@ namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 [TestCategory("MaterialManager")]
 [TestCategory("MaterialManager.Processing")]
 [TestCategory("MaterialManager.Processing.Optimization")]
-public class ProcessingOptimizationTests : MaterialManagerTestBase
+public class ProcessingOptimizationTests : TestBase
 {
     /// <summary />
     [TestMethod]

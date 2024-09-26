@@ -138,6 +138,7 @@ namespace HomagConnect.MaterialManager.Client
             return ret;
         }
 
+        /// <inheritdoc />
         public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
         {
             return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
@@ -174,6 +175,7 @@ namespace HomagConnect.MaterialManager.Client
 
         #region Update
 
+        /// <inheritdoc />
         public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate)
         {
             if (edgebandTypeUpdate == null)
@@ -204,6 +206,7 @@ namespace HomagConnect.MaterialManager.Client
 
         #region Delete
 
+        /// <inheritdoc />
         public async Task DeleteEdgebandType(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";

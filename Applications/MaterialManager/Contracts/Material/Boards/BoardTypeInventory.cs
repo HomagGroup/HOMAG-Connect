@@ -34,7 +34,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public int Quantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the addtional comments for the board.
+        /// Gets or sets the additional comments for the board.
         /// </summary>
         public string? AdditionalCommentsBoards { get; set; }
 
