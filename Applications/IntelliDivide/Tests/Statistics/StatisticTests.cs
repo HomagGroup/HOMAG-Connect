@@ -1,4 +1,5 @@
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -35,6 +36,35 @@ public class StatisticTests : IntelliDivideTestBase
         Assert.IsFalse(!materialStatistics.Any());
 
         Trace(materialStatistics);
+    }
+
+    /// <summary />
+    [TestMethod]
+
+    [TemporaryDisabledOnServer(2024, 11, 1)]
+    public async Task Statistics_GetEdgeband_FromTo_NoException()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
+
+        Assert.IsNotNull(edgebandStatistics);
+
+        Trace(edgebandStatistics);
+    }
+
+    [TestMethod]
+
+    [TemporaryDisabledOnServer(2024, 11, 1)]
+    public async Task Statistics_GetEdgeband_DaysBack_NoException()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(30, 100).ToListAsync();
+
+        Assert.IsNotNull(edgebandStatistics);
+
+        Trace(edgebandStatistics);
     }
 
     [TestMethod]
