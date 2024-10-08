@@ -5,6 +5,7 @@ using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
+using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -18,6 +19,21 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientEdgebands
     {
+        #region Private methods
+
+        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+        {
+            var urls = codes
+                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+
+            return urls;
+        }
+
+        #endregion Private methods
+
         #region Create
 
         /// <inheritdoc />
@@ -45,22 +61,57 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
 
-        #endregion Create
-
-        #region Private methods
-
-        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+        /// <inheritdoc />
+        public async Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistEdgebandEntity> edgebandEntitiesRequest)
         {
-            var urls = codes
-                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+            if (edgebandEntitiesRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandEntitiesRequest));
+            }
 
-            return urls;
+            ValidateRequiredProperties(edgebandEntitiesRequest);
+
+            var payload = JsonConvert.SerializeObject(edgebandEntitiesRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<ICollection<EdgebandEntity>>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
-        #endregion Private methods
+        /// <inheritdoc />
+        public async Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistEdgebandEntity edgebandEntityRequest)
+        {
+            if (edgebandEntityRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandEntityRequest));
+            }
+
+            ValidateRequiredProperties(edgebandEntityRequest);
+
+            var payload = JsonConvert.SerializeObject(edgebandEntityRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
+        }
+
+        #endregion Create
 
         #region Constructors
 

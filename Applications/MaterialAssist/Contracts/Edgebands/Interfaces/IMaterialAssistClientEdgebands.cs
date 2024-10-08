@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -17,6 +18,18 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// </summary>
         /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
+
+        /// <summary>
+        /// Creates multiple edgeband entities in materialAssist.
+        /// </summary>
+        /// <returns>The created edgeband entities <see cref="EdgebandEntity" />.</returns>
+        Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistEdgebandEntity> edgebandEntitiesRequest);
+
+        /// <summary>
+        /// Create an edgeband entity in materialAssist.
+        /// </summary>
+        /// <returns>The created edgeband entity <see cref="EdgebandEntity" />.</returns>
+        Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistEdgebandEntity edgebandEntityRequest);
 
         #endregion Create
 
