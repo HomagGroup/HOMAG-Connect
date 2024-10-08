@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f45a9138-a8d2-4cf4-8f55-07498c04c0ef",
+		"_postman_id": "60c79920-7a79-4831-be21-b6a213e4e895",
 		"name": "Homag Connect materialAssist",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28138073"
 	},
 	"item": [
 		{
@@ -280,6 +281,52 @@
 			"name": "Update",
 			"item": [
 				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Update board entity",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"string\",\r\n    \"comments\": \"string\",\r\n    \"width\": 9999.99,\r\n    \"length\": 9999.99,\r\n    \"quantity\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "Your edgeband id (#)",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Edgebands",
 					"item": [
 						{
@@ -289,7 +336,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"comments\": \"string\",\r\n  \"currentThickness\": 99.99,\r\n  \"length\": 9999.99,\r\n  \"quantity\": 100\r\n}",
+									"raw": "{\r\n  \"comments\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -315,7 +362,7 @@
 										},
 										{
 											"key": "",
-											"value": null,
+											"value": "",
 											"disabled": true
 										}
 									]

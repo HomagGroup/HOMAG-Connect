@@ -256,7 +256,7 @@ namespace HomagConnect.MaterialAssist.Client
         #region Update
 
         /// <inheritdoc />
-        public Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity)
+        public async Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity)
         {
             if (updateBoardEntity == null)
             {
@@ -265,7 +265,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(updateBoardEntity);
 
-            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             var payload = JsonConvert.SerializeObject(updateBoardEntity);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
