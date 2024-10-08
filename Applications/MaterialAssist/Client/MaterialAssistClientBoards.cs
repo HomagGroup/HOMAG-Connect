@@ -5,6 +5,7 @@ using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Boards;
 using HomagConnect.MaterialAssist.Contracts.Boards.Interfaces;
+using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -18,19 +19,6 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientBoards : ServiceBase, IMaterialAssistClientBoards
     {
-        #region Constructors
-
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(HttpClient client) : base(client) { }
-
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
-
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
-
-        #endregion
-
         #region Private methods
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
@@ -45,6 +33,19 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         #endregion Private methods
+
+        #region Constructors
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #region Delete
 
@@ -225,7 +226,7 @@ namespace HomagConnect.MaterialAssist.Client
         #endregion Read
 
         #region Create
-        
+
         /// <inheritdoc />
         public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
         {
@@ -249,6 +250,58 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+        }
+
+        public async Task<ICollection<BoardEntity>> CreateBoardEntities(ICollection<MaterialAssistRequestBoardEntity> boardEntitiesRequest)
+        {
+            {
+                if (boardEntitiesRequest == null)
+                {
+                    throw new ArgumentNullException(nameof(boardEntitiesRequest));
+                }
+
+                ValidateRequiredProperties(boardEntitiesRequest);
+
+                var payload = JsonConvert.SerializeObject(boardEntitiesRequest);
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ICollection<BoardEntity>>(responseContent);
+
+                if (result != null)
+                {
+                    return result;
+                }
+
+                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+            }
+        }
+
+        public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest)
+        {
+            {
+                if (boardEntityRequest == null)
+                {
+                    throw new ArgumentNullException(nameof(boardEntityRequest));
+                }
+
+                ValidateRequiredProperties(boardEntityRequest);
+
+                var payload = JsonConvert.SerializeObject(boardEntityRequest);
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+
+                if (result != null)
+                {
+                    return result;
+                }
+
+                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+            }
         }
 
         #endregion Create
@@ -281,7 +334,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
         }
-        
+
         /// <inheritdoc />
         public async Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
         {
