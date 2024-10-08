@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistEdgebandEntity> edgebandEntitiesRequest)
+        public async Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistRequestEdgebandEntity> edgebandEntitiesRequest)
         {
             if (edgebandEntitiesRequest == null)
             {
@@ -87,7 +87,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistEdgebandEntity edgebandEntityRequest)
+        public async Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistRequestEdgebandEntity edgebandEntityRequest)
         {
             if (edgebandEntityRequest == null)
             {

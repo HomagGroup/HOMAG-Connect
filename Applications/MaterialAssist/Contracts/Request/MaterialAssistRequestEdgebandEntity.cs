@@ -6,7 +6,7 @@ using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
 
 namespace HomagConnect.MaterialAssist.Contracts.Request
 {
-    public class MaterialAssistEdgebandEntity
+    public class MaterialAssistRequestEdgebandEntity
     {
         /// <summary>
         /// Gets or sets the additional comments.
@@ -34,6 +34,13 @@ namespace HomagConnect.MaterialAssist.Contracts.Request
         [Required]
         [StringLength(50, MinimumLength = 1)]
         public string Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the length.
+        /// </summary>
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        [Range(0.1, 9999.99)]
+        public double Length { get; set; }
 
         /// <summary>
         /// Gets or sets the management type.

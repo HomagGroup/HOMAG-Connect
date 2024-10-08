@@ -23,13 +23,13 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
         /// Creates multiple edgeband entities in materialAssist.
         /// </summary>
         /// <returns>The created edgeband entities <see cref="EdgebandEntity" />.</returns>
-        Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistEdgebandEntity> edgebandEntitiesRequest);
+        Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistRequestEdgebandEntity> edgebandEntitiesRequest);
 
         /// <summary>
         /// Create an edgeband entity in materialAssist.
         /// </summary>
         /// <returns>The created edgeband entity <see cref="EdgebandEntity" />.</returns>
-        Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistEdgebandEntity edgebandEntityRequest);
+        Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistRequestEdgebandEntity edgebandEntityRequest);
 
         #endregion Create
 
