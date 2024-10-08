@@ -5,6 +5,7 @@ using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Boards;
 using HomagConnect.MaterialAssist.Contracts.Boards.Interfaces;
+using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -255,19 +256,32 @@ namespace HomagConnect.MaterialAssist.Client
         #region Update
 
         /// <inheritdoc />
-        public Task UpdateBoardEntityDimensions(string id, double length, double width)
+        public Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity)
         {
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_Width}={width}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
+            if (updateBoardEntity == null)
+            {
+                throw new ArgumentNullException(nameof(updateBoardEntity));
+            }
 
-        /// <inheritdoc />
-        public Task UpdateBoardEntityComments(string id, string comments)
-        {
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}?{_Comments}={Uri.EscapeDataString(comments)}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
+            ValidateRequiredProperties(updateBoardEntity);
 
+            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+
+            var payload = JsonConvert.SerializeObject(updateBoardEntity);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+        }
+        
         /// <inheritdoc />
         public Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
         {

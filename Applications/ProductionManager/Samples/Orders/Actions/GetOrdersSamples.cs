@@ -42,14 +42,14 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         }
 
         /// <summary />
-        public static async Task GetCompletionDatesPlanned(IProductionManagerClient productionManager, string[] externalSystemIds)
+        public static async Task GetCompletionDatesPlanned(IProductionManagerClient productionManager, string[] orderNumbers)
         {
-            var orders = await productionManager.GetOrderByExternalSystemId(externalSystemIds).ToListAsync();
+            var orders = await productionManager.GetOrders(orderNumbers).ToListAsync();
 
             foreach (var order in orders)
             {
                 Trace.WriteLine($"OrderName:\t{order.OrderName}");
-                Trace.WriteLine($"ExternalSystemId:\t{order.ExternalSystemId}");
+                Trace.WriteLine($"OrderNumber:\t{order.OrderNumber}");
                 Trace.WriteLine($"QuantityOfParts:\t{order.QuantityOfParts}");
                 Trace.WriteLine($"CompletionDatePlanned:\t{order.CompletionDatePlanned}"); // Once all parts have been assigned to a lot, the planned completion date is provided.
 

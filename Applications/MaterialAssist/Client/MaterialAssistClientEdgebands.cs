@@ -233,7 +233,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(updateEdgebandEntity);
 
-            var url = $"{_BaseRouteMaterialAssist}?{_EdgebandCode}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             var payload = JsonConvert.SerializeObject(updateEdgebandEntity);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");

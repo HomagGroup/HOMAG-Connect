@@ -34,6 +34,22 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandUsage>> GetEdgebandStatistics(int daysBack, int take, int skip = 0)
+        {
+            var url = $"/api/intelliDivide/statistics/edgeband?daysBack={daysBack}&take={take}&skip={skip}";
+
+            return await RequestEnumerable<EdgebandUsage>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandUsage>> GetEdgebandStatistics(DateTime from, DateTime to, int take, int skip = 0)
+        {
+            var url = $"/api/intelliDivide/statistics/edgeband?from={from:s}&to={to:s}&take={take}&skip={skip}";
+
+            return await RequestEnumerable<EdgebandUsage>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
         public Task<IEnumerable<PartSizesByMaterialStatistic>> GetPartSizesByMaterialStatistics(IEnumerable<string> materialCodes, int daysBack)
         {
             return GetPartSizesByMaterialStatistics(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now);
