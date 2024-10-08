@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Request
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
         [Range(0.01, 99.99)]
-        public double CurrentThickness { get; set; }
+        public double? CurrentThickness { get; set; }
 
         /// <summary>
         /// Gets or sets the board code to which the entity should be assigned.
