@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Contracts.Base;
-using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 
-namespace HomagConnect.MaterialAssist.Contracts.Edgebands
+namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
+    /// <summary>
+    /// Describe an edgeband entity.
+    /// </summary>
     public class EdgebandEntity
     {
         /// <summary>

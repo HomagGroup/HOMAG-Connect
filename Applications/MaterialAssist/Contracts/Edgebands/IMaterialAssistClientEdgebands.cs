@@ -1,10 +1,10 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Base;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 
-namespace HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces
+namespace HomagConnect.MaterialAssist.Contracts.Edgebands
 {
     /// <summary>
     /// Interface for MaterialAssist Edgebands Client.
