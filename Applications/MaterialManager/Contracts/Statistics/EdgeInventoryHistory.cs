@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Statistics
 {
     /// <summary>
-    /// A edge inventory for statistical use.
+    /// An edge inventory for statistical use.
     /// </summary>
     public class EdgeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {

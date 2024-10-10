@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
+/// <summary>
+/// Represents a set of parameters for the book height optimization.
+/// </summary>
 public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
 {
     private const int _MaterialGroupNameMaxLength = 50;
@@ -58,21 +61,17 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
     #region IValidatableObject Members
 
     /// <inheritdoc />
-#pragma warning disable S3776 // Cognitive Complexity of methods should not be too high
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-#pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
     {
         var results = new List<ValidationResult>();
-        if (BookHeightParameters.Mode == BookHeightMode.SpecificValue
-            && BookHeightParameters.MaximumBookHeight == null)
+        if (BookHeightParameters is { Mode: BookHeightMode.SpecificValue, MaximumBookHeight: null })
         {
             results.Add(new ValidationResult(
                 $"When {nameof(BookHeightParameters)}.{nameof(BookHeightParameters.Mode)} is {nameof(BookHeightMode.SpecificValue)} , the '{nameof(BookHeightParameters)}.{nameof(BookHeightParameters.MaximumBookHeight)}' parameter must not be null.",
                 new[] { nameof(BookHeightParameters.MaximumBookHeight) }));
         }
 
-        if (BookHeightParameters.Mode == BookHeightMode.MaximumSawBladeProjectionDeduction
-            && BookHeightParameters.MaximumSawBladeProjectionDeduction == null)
+        if (BookHeightParameters is { Mode: BookHeightMode.MaximumSawBladeProjectionDeduction, MaximumSawBladeProjectionDeduction: null })
         {
             results.Add(new ValidationResult(
                 $"When {nameof(BookHeightParameters)}.{nameof(BookHeightParameters.Mode)} is {nameof(BookHeightMode.MaximumSawBladeProjectionDeduction)} , the '{nameof(BookHeightParameters)}.{nameof(BookHeightParameters.MaximumSawBladeProjectionDeduction)}' parameter must not be null.",

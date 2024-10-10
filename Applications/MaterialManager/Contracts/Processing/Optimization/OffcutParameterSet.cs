@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
+/// <summary>
+/// Represents a set of parameters for offcut optimization.
+/// </summary>
 public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
 {
     private const int _MaterialGroupNameMaxLength = 50;

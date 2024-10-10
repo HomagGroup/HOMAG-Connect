@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
+/// <summary>
+/// Represents the parameters for the trim cut optimization.
+/// </summary>
 public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
 {
     private const int _MaterialGroupNameMaxLength = 50;

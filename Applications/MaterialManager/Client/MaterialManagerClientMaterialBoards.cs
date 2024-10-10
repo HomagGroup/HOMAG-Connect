@@ -68,6 +68,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #region Update
 
+    /// <inheritdoc />
     public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
     {
         if (boardTypeUpdate == null)

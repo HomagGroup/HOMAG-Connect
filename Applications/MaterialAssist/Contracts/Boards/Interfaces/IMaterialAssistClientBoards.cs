@@ -1,5 +1,3 @@
-﻿using System.Collections.Specialized;
-
 using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;

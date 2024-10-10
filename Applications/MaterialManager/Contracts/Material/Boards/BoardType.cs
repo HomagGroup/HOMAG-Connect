@@ -303,7 +303,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Gets or sets a indication whether the <see cref="TotalQuantityAvailable" /> is below the defined limit
+        /// Gets or sets an indication whether the <see cref="TotalQuantityAvailable" /> is below the defined limit
         /// <see cref="TotalQuantityAvailableWarningLimit" />.
         /// </summary>
         [JsonProperty(Order = 55)]

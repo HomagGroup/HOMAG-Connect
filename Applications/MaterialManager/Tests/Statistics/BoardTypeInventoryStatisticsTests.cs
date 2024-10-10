@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Tests;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics
 {
@@ -6,7 +7,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Statistics.Inventory")]
-    public class BoardTypeInventoryStatisticsTests : MaterialManagerTestBase
+    public class BoardTypeInventoryStatisticsTests : TestBase
     {
         /// <summary />
         [TestMethod]
