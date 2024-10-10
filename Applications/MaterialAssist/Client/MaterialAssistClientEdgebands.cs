@@ -27,7 +27,7 @@ namespace HomagConnect.MaterialAssist.Client
                 .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
                 .Join(QueryParametersMaxLength)
                 .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+                .Select(parameter => $"{_BaseRouteMaterialAssist}{route}" + parameter).ToList();
 
             return urls;
         }
