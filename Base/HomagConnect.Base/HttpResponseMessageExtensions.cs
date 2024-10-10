@@ -93,7 +93,7 @@ namespace HomagConnect.Base
                         }
                         else
                         {
-                            exception = new InvalidOperationException($"{problemDetails.Type}: {problemDetails.Detail}", exception);
+                            exception = null;
                         }
                     }
                 }
