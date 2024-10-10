@@ -1,12 +1,10 @@
-﻿using System.Collections.Specialized;
-
-using HomagConnect.MaterialAssist.Contracts.Base;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 
-namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
+namespace HomagConnect.MaterialAssist.Contracts.Boards
 {
     public interface IMaterialAssistClientBoards
     {

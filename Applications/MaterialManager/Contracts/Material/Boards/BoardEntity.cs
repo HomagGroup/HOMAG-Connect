@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Contracts.Base;
-using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 
-namespace HomagConnect.MaterialAssist.Contracts.Boards
+namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
+    /// <summary>
+    /// Describes a board entity.
+    /// </summary>
     public class BoardEntity
     {
         /// <summary>
