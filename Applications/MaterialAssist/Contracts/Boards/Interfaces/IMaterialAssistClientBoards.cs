@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Base;
+using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -99,6 +100,18 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards.Interfaces
         /// </summary>
         /// <returns>The created board type <see cref="BoardType" />.</returns>
         Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
+
+        /// <summary>
+        /// Create multiple board entities in materialAssist.
+        /// </summary>
+        /// <returns>The created board entities <see cref="BoardEntity" />.</returns>
+        Task<ICollection<BoardEntity>> CreateBoardEntities(ICollection<MaterialAssistRequestBoardEntity> boardEntitiesRequest);
+
+        /// <summary>
+        /// Create a board entity in materialAssist.
+        /// </summary>
+        /// <returns>The created board entity <see cref="BoardEntity" />.</returns>
+        Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest);
 
         #endregion Create
 
