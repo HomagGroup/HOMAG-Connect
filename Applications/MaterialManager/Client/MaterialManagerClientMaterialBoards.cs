@@ -400,5 +400,22 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return await RequestEnumerableAsync<BoardTypeInventoryHistory>(paths.Select(c => new Uri(c, UriKind.Relative)));
     }
 
+    /// <inheritdoc />
+    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip=0)
+    {
+        var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?daysBack={daysBack}&take={take}&skip={skip}";
+
+        return await RequestEnumerable<PartHistory>(new Uri(uri, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
+    {
+        var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+
+        return await RequestEnumerable<PartHistory>(new Uri(uri, UriKind.Relative));
+    }
+
+
     #endregion
 }

@@ -125,6 +125,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack);
 
+        /// <summary>
+        /// Get the PartHistory by interval dates
+        /// </summary>
+        Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0);
+
+        /// <summary>
+        /// Get the PartHistory by a fixed number of days back
+        /// </summary>
+        Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
+
         #endregion
     }
 }
