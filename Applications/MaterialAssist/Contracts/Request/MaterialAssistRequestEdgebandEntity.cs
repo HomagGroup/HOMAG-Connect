@@ -2,7 +2,7 @@
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Contracts.Base.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Contracts.Request
 {
