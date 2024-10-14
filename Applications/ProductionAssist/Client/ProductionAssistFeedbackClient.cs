@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task ReportAsFinished(Guid workstationId, string productionEntityId, int quantity)
+        public async Task ReportAsFinished(Guid workstationId, string productionEntityId, int quantity, string publicId, string barcode)
         {
             var uri = $"api/productionAssist/feedback/workstations";
 
@@ -30,9 +30,10 @@ namespace HomagConnect.ProductionAssist.Client
             {
                 WorkstationId = workstationId,
                 ProductionEntityId = productionEntityId,
-                Quantity = quantity
+                Quantity = quantity,
+                PublicId = publicId,
+                Barcode = barcode
             };
-
             
             await PostObject(new Uri(uri, UriKind.Relative), feedbackRequest);
         }

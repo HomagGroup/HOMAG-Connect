@@ -26,9 +26,12 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         {
             var workstationId = Guid.NewGuid(); // should be replaced with an existing workstationId
             var productionEntityId = Guid.NewGuid().ToString(); // should be replaced with an existing productionEntityId
+            var publicId = "123456"; // should be replaced with an existing public id
+            var barcode = Guid.NewGuid().ToString(); // should be replaced with an existing barcode
+
             var quantity = 1;
 
-            await client.ReportAsFinished(workstationId, productionEntityId, quantity);
+            await client.ReportAsFinished(workstationId, productionEntityId, quantity, publicId, barcode);
         }
     }
 }

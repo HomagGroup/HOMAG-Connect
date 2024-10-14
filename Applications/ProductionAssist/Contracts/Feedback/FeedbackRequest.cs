@@ -19,4 +19,14 @@ public class FeedbackRequest
     /// Quantity
     /// </summary>
     public int Quantity { get; set; }
+
+    /// <summary>
+    /// Public id
+    /// </summary>
+    public string? PublicId { get; set; }
+
+    /// <summary>
+    /// Barcode
+    /// </summary>
+    public string? Barcode { get; set; }
 }
