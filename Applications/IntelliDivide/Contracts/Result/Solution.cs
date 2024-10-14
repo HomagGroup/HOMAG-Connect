@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.IntelliDivide.Contracts.Constants;
 
 using Newtonsoft.Json;
@@ -13,7 +15,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     [DebuggerDisplay("Id={Id}, OptimizationId={OptimizationId}, Name={Name}")]
-    public class Solution : IExtensibleDataObject
+    public class Solution : IExtensibleDataObject, IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// Gets or sets the unique identifier of the solution.
@@ -34,6 +36,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public Guid OptimizationId { get; set; }
 
         /// <summary>
+        /// Gets or sets the chosen algorithm.
+        /// </summary>
+        [JsonProperty(Order = 4)]
+        public Guid Algorithm { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="SolutionOverview" />.
         /// </summary>
         [JsonProperty(Order = 5)]
@@ -49,5 +57,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
+
+        #region IContainsUnitSystemDependentProperties Members
+
+        /// <inheritdoc />
+        public UnitSystem UnitSystem { get; set; }
+
+        #endregion
     }
 }
