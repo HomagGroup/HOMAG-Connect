@@ -25,7 +25,12 @@ The response is a list of [FeedbackWorkstation](../../Contracts/Feedback/Feedbac
 
 
 ### 2. ReportAsFinished
-With the HOMAG Connect Client, a production entity can be reported as finished. For this, you have to specify three parameters: workstationId, productionEntityId, quantity.
+With the HOMAG Connect Client, a production entity can be reported as finished. For this, you have to specify the following parameters:
+- workstationId
+-  productionEntityId (can be identitified by it)
+-  publicId (can be identitified by it)
+-  barcode (can be identitified by it)
+-  quantity
 
 <strong>Example:</strong>
 
@@ -35,10 +40,13 @@ With the HOMAG Connect Client, a production entity can be reported as finished. 
 
 // Create the request
   var workstationId = Guid.NewGuid(); // should be replaced with an existing workstationId
-  var productionEntityId = Guid.NewGuid().ToString(); // should be replaced with an existing productionEntityId
+  var productionEntityId = Guid.NewGuid().ToString(); // should be replaced with an existing productionEntityId, can be identitified by it
+  var publicId = "123456"; // should be replaced with an existing public id, can be identitified by it
+  var barcode = Guid.NewGuid().ToString(); // should be replaced with an existing barcode, can be identitified by it
+
   var quantity = 1;
 
-  await client.ReportAsFinished(workstationId, productionEntityId, quantity);
+  await client.ReportAsFinished(workstationId, productionEntityId, quantity, publicId, barcode);
 ```
 
 The sample code can be found at [ProductionAssist - Feedback ](ProductionAssistFeedbackSamples.cs).
