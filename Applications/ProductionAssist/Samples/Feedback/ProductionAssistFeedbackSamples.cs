@@ -25,13 +25,11 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         public static async Task ReportAsFinished(IProductionAssistFeedbackClient client)
         {
             var workstationId = Guid.NewGuid(); // should be replaced with an existing workstationId
-            var productionEntityId = Guid.NewGuid().ToString(); // should be replaced with an existing productionEntityId
-            var publicId = "123456"; // should be replaced with an existing public id
-            var barcode = Guid.NewGuid().ToString(); // should be replaced with an existing barcode
-
+            var identification = "123456"; // should be replaced with an existing id/barcode
             var quantity = 1;
+            DateTimeOffset? timespan = null;
 
-            await client.ReportAsFinished(workstationId, productionEntityId, quantity, publicId, barcode);
+            await client.ReportAsFinished(workstationId, identification, quantity, timespan);
         }
     }
 }
