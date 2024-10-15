@@ -87,5 +87,43 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Predict
 
             return response;
         }
+        /// <summary>
+        /// Predicts a list of parts for Cnc
+        /// </summary>
+        /// <param name="productionManager"></param>
+        public static async Task<CncPrediction> PredictPartsCncAsync(IProductionManagerClient productionManager)
+        {
+            var cncPredictionRequest = new CncPredictionRequest
+            {
+                MachineNumber = "",
+                PredictionParts = new List<CncPredictionPart>{
+                    new CncPredictionPart
+                    {
+                        Quantity = 10,
+                        Length = 700,
+                        Width = 300,
+                        Thickness = 18,
+                        CncProgramName1 = "a"
+                    },
+                    new CncPredictionPart
+                    {
+                        Quantity = 5,
+                        Length = 800,
+                        Width = 200,
+                        Thickness = 18,
+                        CncProgramName2 = "b"
+                    }
+                }
+            };
+
+            var response = await productionManager.Predict(cncPredictionRequest);
+
+            Assert.IsNotNull(response);
+
+            response.Trace();
+
+            return response;
+        }
+
     }
 }

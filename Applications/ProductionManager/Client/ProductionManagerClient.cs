@@ -160,21 +160,21 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId)
+        public Task<OrderDetails> GetOrder(string orderNumber)
         {
-            return GetOrderByExternalSystemId([externalSystemId]).FirstOrDefaultAsync();
+            return GetOrders([orderNumber]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds)
+        public async Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
         {
-            var validExternalSystemIds = externalSystemIds
+            var validOrderNumbers = orderNumbers
                 .Select(e => e.Trim())
                 .Where(e => !string.IsNullOrWhiteSpace(e))
                 .Distinct();
 
-            var uris = validExternalSystemIds
-                .Select(id => $"&externalSystemId={Uri.EscapeDataString(id)}")
+            var uris = orderNumbers
+                .Select(id => $"&orderNumber={Uri.EscapeDataString(id)}")
                 .Join(QueryParametersMaxLength)
                 .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
                 .Select(c => new Uri(c, UriKind.Relative));
@@ -204,6 +204,7 @@ namespace HomagConnect.ProductionManager.Client
             return await PostObject<EdgebandingPredictionRequest, EdgebandingPrediction>(uri, edgebandingPredictionRequest).ConfigureAwait(true);
         }
 
+        /// <inhertidoc />
         public async Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest)
         {
             if (cuttingPredictionRequest == null)
@@ -219,6 +220,24 @@ namespace HomagConnect.ProductionManager.Client
             var uri = new Uri("/api/productionManager/predict/cutting", UriKind.Relative);
 
             return await PostObject<CuttingPredictionRequest, CuttingPrediction>(uri, cuttingPredictionRequest).ConfigureAwait(true);
+        }
+
+        /// <inhertidoc />
+        public async Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest)
+        {
+            if (cncPredictionRequest == null)
+            {
+                throw new ArgumentNullException(nameof(cncPredictionRequest));
+            }
+
+            if (cncPredictionRequest.PredictionParts == null || !cncPredictionRequest.PredictionParts.Any())
+            {
+                throw new ArgumentException("The predictionParts must not be null or empty.", nameof(cncPredictionRequest));
+            }
+
+            var uri = new Uri("/api/productionManager/predict/cnc", UriKind.Relative);
+
+            return await PostObject<CncPredictionRequest, CncPrediction>(uri, cncPredictionRequest).ConfigureAwait(true);
         }
 
         #endregion

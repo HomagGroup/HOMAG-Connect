@@ -13,14 +13,6 @@ namespace HomagConnect.Base.Contracts.Extensions;
 /// </summary>
 public static class UnitSystemExtensions
 {
-    private const double _MeterToFeetConversionFactor = 3.280839895;
-
-    private const double _MillimeterToInchConversionFactor = 25.4;
-
-    private const double _PsiToBarConversionFactor = 14.503773773;
-
-    private const double _SquareFeetToSquareMeterConversionFactor = 10.7639104;
-
     private const int _MillimeterToMeterConversionFactor = 1000;
 
     private const int _SquareInchToSquareFootConversionFactor = 144;
@@ -37,22 +29,22 @@ public static class UnitSystemExtensions
 
         if (unitSystem == UnitSystem.Metric)
         {
-            return Math.Round(ConvertMillimeterToMeter(length.Value) * ConvertMillimeterToMeter(width.Value) * (int)quantity, 1);
+            return Math.Round(ConvertMillimeterToMeter(length.Value) * ConvertMillimeterToMeter(width.Value) * (int)quantity, BaseUnit.Meter.GetDecimals(unitSystem));
         }
 
         if (unitSystem == UnitSystem.Imperial)
         {
-            return Math.Round(ConvertSquareInchToSquareFoot(length.Value * width.Value) * (int)quantity, 3);
+            return Math.Round(ConvertSquareInchToSquareFoot(length.Value * width.Value) * (int)quantity, BaseUnit.Meter.GetDecimals(unitSystem));
         }
 
         throw new InvalidOperationException($"{nameof(UnitSystem)} {unitSystem} is not supported");
     }
 
     /// <summary>
-    /// Converts the unit system of the object to the specified unit system. All properties that are marked with the
+    /// Converts the unit system of the object to the specified unit system. All properties that are marked with
     /// <see cref="ValueDependsOnUnitSystemAttribute" /> are handled.
     /// </summary>
-    public static T SwitchUnitSystem<T>(this T o, UnitSystem unitSystem) where T : class, IContainsUnitSystemDependentProperties, new()
+    public static T SwitchUnitSystem<T>(this T o, UnitSystem unitSystem, bool applyRounding) where T : class, IContainsUnitSystemDependentProperties, new()
     {
         if (o == null)
         {
@@ -79,21 +71,9 @@ public static class UnitSystemExtensions
 
             if (valueDependsOnUnitSystemAttribute != null)
             {
-                if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Millimeter)
+                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar)
                 {
-                    SwitchBaseUnitMillimeter(propertyInfo, clone);
-                }
-                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.SquareMeter)
-                {
-                    SwitchBaseUnitSquareMeter(propertyInfo, clone);
-                }
-                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Meter)
-                {
-                    SwitchBaseUnitMeter(propertyInfo, clone);
-                }
-                else if (valueDependsOnUnitSystemAttribute.BaseUnit == BaseUnit.Bar)
-                {
-                    SwitchBaseUnitBar(propertyInfo, clone);
+                    SwitchBaseUnit(propertyInfo, clone, valueDependsOnUnitSystemAttribute, applyRounding);
                 }
                 else
                 {
@@ -106,67 +86,11 @@ public static class UnitSystemExtensions
     }
 
     /// <summary>
-    /// Converts a value in bar to psi.
-    /// </summary>
-    private static double? ConvertBarToPsi(object value)
-    {
-        return (double?)value * _PsiToBarConversionFactor;
-    }
-
-    /// <summary>
-    /// Converts a value in feet to meter.
-    /// </summary>
-    private static double? ConvertFeetToMeter(object value)
-    {
-        return (double?)value / _MeterToFeetConversionFactor;
-    }
-
-    /// <summary>
-    /// Converts a value in inch to millimeter.
-    /// </summary>
-    private static double? ConvertInchToMillimeter(object value)
-    {
-        return (double?)value * _MillimeterToInchConversionFactor;
-    }
-
-    /// <summary>
-    /// Converts a value in meter to feet.
-    /// </summary>
-    private static double? ConvertMeterToFeet(object value)
-    {
-        return (double?)value * _MeterToFeetConversionFactor;
-    }
-
-    /// <summary>
-    /// Converts a value in millimeter to inch.
-    /// </summary>
-    private static double? ConvertMillimeterToInch(object value)
-    {
-        return (double?)value / _MillimeterToInchConversionFactor;
-    }
-
-    /// <summary>
     /// Converts a value in millimeter to meter.
     /// </summary>
     private static double ConvertMillimeterToMeter(double value)
     {
         return value / _MillimeterToMeterConversionFactor;
-    }
-
-    /// <summary>
-    /// Converts a value in psi to bar.
-    /// </summary>
-    private static double? ConvertPsiToBar(object value)
-    {
-        return (double?)value / _PsiToBarConversionFactor;
-    }
-
-    /// <summary>
-    /// Converts a value in square feet to square meter.
-    /// </summary>
-    private static double? ConvertSquareFeetToSquareMeter(object value)
-    {
-        return (double?)value / _SquareFeetToSquareMeterConversionFactor;
     }
 
     /// <summary>
@@ -177,15 +101,8 @@ public static class UnitSystemExtensions
         return value / _SquareInchToSquareFootConversionFactor;
     }
 
-    /// <summary>
-    /// Converts a value in square meter to square feet.
-    /// </summary>
-    private static double? ConvertSquareMeterToSquareFeet(object value)
-    {
-        return (double?)value * _SquareFeetToSquareMeterConversionFactor;
-    }
-
-    private static void SwitchBaseUnitBar<T>(PropertyInfo propertyInfo, T clone) where T : IContainsUnitSystemDependentProperties, new()
+    private static void SwitchBaseUnit<T>(PropertyInfo propertyInfo, T clone, ValueDependsOnUnitSystemAttribute valueDependsOnUnitSystemAttribute, bool applyRounding)
+        where T : IContainsUnitSystemDependentProperties, new()
     {
         var value = propertyInfo.GetValue(clone);
 
@@ -193,74 +110,25 @@ public static class UnitSystemExtensions
         {
             if (clone.UnitSystem == UnitSystem.Imperial)
             {
-                propertyInfo.SetValue(clone, ConvertBarToPsi(value));
+                var convertedValue = (double)value * valueDependsOnUnitSystemAttribute.ConversionFactorMetricToImperial;
+
+                if (applyRounding)
+                {
+                    convertedValue = Math.Round(convertedValue, valueDependsOnUnitSystemAttribute.DecimalsImperial);
+                }
+
+                propertyInfo.SetValue(clone, convertedValue);
             }
             else if (clone.UnitSystem == UnitSystem.Metric)
             {
-                propertyInfo.SetValue(clone, ConvertPsiToBar(value));
-            }
-            else
-            {
-                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
-            }
-        }
-    }
+                var convertedValue = (double)value / valueDependsOnUnitSystemAttribute.ConversionFactorMetricToImperial;
 
-    private static void SwitchBaseUnitMeter<T>(PropertyInfo propertyInfo, T clone) where T : IContainsUnitSystemDependentProperties, new()
-    {
-        var value = propertyInfo.GetValue(clone);
+                if (applyRounding)
+                {
+                    convertedValue = Math.Round(convertedValue, valueDependsOnUnitSystemAttribute.DecimalsMetric);
+                }
 
-        if (value != null)
-        {
-            if (clone.UnitSystem == UnitSystem.Imperial)
-            {
-                propertyInfo.SetValue(clone, ConvertMeterToFeet(value));
-            }
-            else if (clone.UnitSystem == UnitSystem.Metric)
-            {
-                propertyInfo.SetValue(clone, ConvertFeetToMeter(value));
-            }
-            else
-            {
-                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
-            }
-        }
-    }
-
-    private static void SwitchBaseUnitMillimeter<T>(PropertyInfo propertyInfo, T clone) where T : IContainsUnitSystemDependentProperties, new()
-    {
-        var value = propertyInfo.GetValue(clone);
-
-        if (value != null)
-        {
-            if (clone.UnitSystem == UnitSystem.Imperial)
-            {
-                propertyInfo.SetValue(clone, ConvertMillimeterToInch(value));
-            }
-            else if (clone.UnitSystem == UnitSystem.Metric)
-            {
-                propertyInfo.SetValue(clone, ConvertInchToMillimeter(value));
-            }
-            else
-            {
-                throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
-            }
-        }
-    }
-
-    private static void SwitchBaseUnitSquareMeter<T>(PropertyInfo propertyInfo, T clone) where T : IContainsUnitSystemDependentProperties, new()
-    {
-        var value = propertyInfo.GetValue(clone);
-
-        if (value != null)
-        {
-            if (clone.UnitSystem == UnitSystem.Imperial)
-            {
-                propertyInfo.SetValue(clone, ConvertSquareMeterToSquareFeet(value));
-            }
-            else if (clone.UnitSystem == UnitSystem.Metric)
-            {
-                propertyInfo.SetValue(clone, ConvertSquareFeetToSquareMeter(value));
+                propertyInfo.SetValue(clone, convertedValue);
             }
             else
             {

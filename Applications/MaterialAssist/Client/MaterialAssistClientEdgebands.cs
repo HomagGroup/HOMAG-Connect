@@ -1,10 +1,10 @@
 ﻿using System.Text;
-
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
-using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
-using HomagConnect.MaterialAssist.Contracts.Edgebands.Interfaces;
+using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -17,8 +17,20 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientEdgebands
     {
-        /// <inheritdoc />
-        public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
+        #region Private methods
+
+        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+        {
+            var urls = codes
+                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+
+            return urls;
+        }
+
+        #endregion Private methods
 
         #region Create
 
@@ -47,22 +59,70 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
 
-        #endregion Create
-
-        #region Private methods
-
-        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+        /// <inheritdoc />
+        public async Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistRequestEdgebandEntity> edgebandEntitiesRequest)
         {
-            var urls = codes
-                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+            if (edgebandEntitiesRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandEntitiesRequest));
+            }
 
-            return urls;
+            ValidateRequiredProperties(edgebandEntitiesRequest);
+
+            var payload = JsonConvert.SerializeObject(edgebandEntitiesRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<ICollection<EdgebandEntity>>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
-        #endregion Private methods
+        /// <inheritdoc />
+        public async Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistRequestEdgebandEntity edgebandEntityRequest)
+        {
+            if (edgebandEntityRequest == null)
+            {
+                throw new ArgumentNullException(nameof(edgebandEntityRequest));
+            }
+
+            ValidateRequiredProperties(edgebandEntityRequest);
+
+            var payload = JsonConvert.SerializeObject(edgebandEntityRequest);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
+        }
+
+        #endregion Create
+
+        #region Constructors
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #region Delete
 
@@ -215,38 +275,30 @@ namespace HomagConnect.MaterialAssist.Client
         #region Update
 
         /// <inheritdoc />
-        public async Task UpdateEdgebandEntityDimensions(string id, double length, double currentThickness)
+        public async Task<EdgebandEntity> UpdateEdgebandEntity(string id, MaterialAssistUpdateEdgebandEntity updateEdgebandEntity)
         {
-            if (string.IsNullOrEmpty(id))
+            if (updateEdgebandEntity == null)
             {
-                throw new ArgumentException("Id must not be null or empty", nameof(id));
+                throw new ArgumentNullException(nameof(updateEdgebandEntity));
             }
 
-            if (length <= 0.1)
+            ValidateRequiredProperties(updateEdgebandEntity);
+
+            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+
+            var payload = JsonConvert.SerializeObject(updateEdgebandEntity);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);
+
+            if (result != null)
             {
-                throw new ArgumentException("Length must be higher than 0.1", nameof(length));
+                return result;
             }
 
-            if (currentThickness <= 0.01)
-            {
-                throw new ArgumentException("Current thickness must be higher than 0.01", nameof(currentThickness));
-            }
-
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_CurrentThickness}={currentThickness}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
-        /// <inheritdoc />
-        public async Task UpdateEdgebandEntityComments(string id, string comments)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentException("Id must not be null or empty", nameof(id));
-            }
-
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Comments}={comments}";
-
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
         public async Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)

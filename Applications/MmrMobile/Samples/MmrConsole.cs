@@ -1,11 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using HomagConnect.Applications.MmrMobile.Samples;
-using HomagConnect.Applications.MmrMobile.Samples.Console.AlertsEvents;
 using HomagConnect.MmrMobile.Client;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
 using System.Text;
+
+using HomagConnect.MmrMobile.Samples.Console.AlertsEvents;
 
 Console.WriteLine("Hello at the HOMAG MMR Mobile Client");
 

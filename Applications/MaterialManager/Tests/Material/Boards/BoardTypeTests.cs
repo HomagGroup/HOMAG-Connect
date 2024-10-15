@@ -31,14 +31,15 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
         {
             var boardTypeMetric = new BoardType
             {
-                Length = 1000,
-                Width = 600,
-                Thickness = 19
+                Length = 2800,
+                Width = 2070,
+                Thickness = 19,
+                TotalAreaAvailableWarningLimit = 60
             };
 
             Trace(boardTypeMetric);
 
-            var boardTypeImperial = boardTypeMetric.SwitchUnitSystem(UnitSystem.Imperial);
+            var boardTypeImperial = boardTypeMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
 
             Trace(boardTypeImperial);
 
@@ -47,6 +48,7 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
             Assert.AreNotEqual(boardTypeMetric.Length, boardTypeImperial.Length);
             Assert.AreNotEqual(boardTypeMetric.Width, boardTypeImperial.Width);
             Assert.AreNotEqual(boardTypeMetric.Thickness, boardTypeImperial.Thickness);
+            Assert.AreNotEqual(boardTypeMetric.TotalAreaAvailableWarningLimit, boardTypeImperial.TotalAreaAvailableWarningLimit);
         }
     }
 }

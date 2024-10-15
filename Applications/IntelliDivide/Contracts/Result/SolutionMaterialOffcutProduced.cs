@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
+using HomagConnect.Base.Contracts.Enumerations;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
@@ -39,15 +41,31 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 5)]
         public double Thickness { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the width.
         /// </summary>
         [JsonProperty(Order = 4)]
         public double Width { get; set; }
 
+        /// <summary>
+        /// Gets or sets the grain of the offcut.
+        /// </summary>
+        [JsonProperty(Order = 7)]
+        public Grain Grain { get; set; }
+
+        /// <summary>
+        /// Gets or sets the offcut ids announced in materialAssist.
+        /// </summary>
+        [JsonProperty(Order = 8)]
+        public string[] Ids { get; set; }
+
+        #region IExtensibleDataObject members
+
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
+
+        #endregion
     }
 }

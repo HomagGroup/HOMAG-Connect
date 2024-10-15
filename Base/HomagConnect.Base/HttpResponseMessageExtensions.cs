@@ -91,6 +91,10 @@ namespace HomagConnect.Base
                         {
                             exception = new ValidationException(problemDetails.Detail, exception);
                         }
+                        else
+                        {
+                            exception = null;
+                        }
                     }
                 }
 

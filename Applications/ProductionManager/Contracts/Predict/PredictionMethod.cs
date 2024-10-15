@@ -27,6 +27,18 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         MachineGroup,
 
         /// <summary>
+        /// The prediction was based on data from a single workplace. This method is selected when there is enough data for the
+        /// workplace.
+        /// </summary>
+        Workplace,
+
+        /// <summary>
+        /// The prediction was made using data from multiple workplaces in the subscription. This method is chosen when there is
+        /// insufficient data for a single workplace or when no specific machine is specified.
+        /// </summary>
+        WorkplaceGroup,
+
+        /// <summary>
         /// The prediction was made using data from multiple machine in multiple subscriptions. This method is chosen when there is
         /// insufficient data available in the current subscription.
         /// </summary>

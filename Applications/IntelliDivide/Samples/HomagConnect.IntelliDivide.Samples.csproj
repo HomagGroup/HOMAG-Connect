@@ -3,9 +3,10 @@
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Samples</PackageId>
+		<PackageCopyToOutput>true</PackageCopyToOutput>
 		<Title>Homag-Connect IntelliDivide Samples</Title>
 		<Description>Client assembly showing the usage of Homag-Connect IntelliDivide API</Description>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
@@ -14,57 +15,40 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Requests\Boards\**" />
-	  <EmbeddedResource Remove="Requests\Boards\**" />
-	  <None Remove="Requests\Boards\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="Requests\Cutting\Kitchen.xlsx" />
-		<None Remove="Requests\Cutting\Project.zip" />
-		<None Remove="Requests\Nesting\Kitchen.zip" />
-		<None Remove="Requests\Nesting\nesting_project_with_mpr_files.zip" />
-		<None Remove="Requests\Nesting\PartA.mpr" />
-		<None Remove="Requests\Nesting\PartB.mpr" />
-		<None Remove="Requests\ObjectModel\Nesting\Generic.mpr" />
-		<None Remove="Requests\Template\Cutting\Kitchen.xlsx" />
-		<None Remove="Requests\Template\Nesting\Kitchen.zip" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Requests\Cutting\Kitchen.xlsx" Pack="true">
+		<Content Include="Data\Cutting\Kitchen.xlsx">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Cutting\Project.zip" Pack="true">
+		<Content Include="Data\Cutting\Project.zip">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\Kitchen.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\Project.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\nesting_project_with_mpr_files.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\Generic.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\PartA.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\PartA.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\Nesting\PartB.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\PartB.mpr">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
-		<Content Include="Requests\ObjectModel\Nesting\Generic.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Requests\ObjectModel\Nesting\PartA.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Requests\ObjectModel\Nesting\PartB.mpr">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Requests\Template\Cutting\Kitchen.xlsx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		  <Pack>true</Pack>
-		</Content>
-		<Content Include="Requests\Template\Nesting\Kitchen.zip">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Include="Data\Nesting\Kitchen.zip">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<Pack>true</Pack>
 		</Content>
 	</ItemGroup>
 
@@ -80,11 +64,5 @@
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <Folder Include="Requests\Project\Cutting\" />
-	  <Folder Include="Requests\Project\Nesting\" />
 	</ItemGroup>
 </Project>

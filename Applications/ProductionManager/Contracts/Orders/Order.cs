@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.Serialization;
-
-using HomagConnect.ProductionManager.Contracts.Lots;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders
@@ -85,6 +83,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// Gets the external system id of the order which can be used as a reference.
         /// </summary>
         [JsonProperty(Order = 119)]
+        [Obsolete("Use OrderNumber instead", true)]
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
@@ -158,12 +157,6 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public DateTimeOffset? StartDatePlanned { get; set; }
 
         /// <summary>
-        /// Gets or sets the start date of the order.
-        /// </summary>
-        [JsonProperty(Order = 211)]
-        public DateTimeOffset? StartDate { get; set; }
-
-        /// <summary>
         /// Gets or sets the planned completion date of the order.
         /// </summary>
         [JsonProperty(Order = 220)]
@@ -197,7 +190,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// Gets the names of the lots.
         /// </summary>
         [JsonProperty(Order = 234)]
-        public LotReference[]? Lots { get; set; }
+        public OrderLotReference[]? Lots { get; set; }
 
         #endregion
 

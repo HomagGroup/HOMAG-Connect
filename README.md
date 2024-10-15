@@ -15,12 +15,15 @@ There are HOMAG Connect Clients available for the following applications:
    [Documentation for intelliDivide Client](/Applications/IntelliDivide/Readme.md) and [some samples](/Applications/IntelliDivide/Samples/Readme.md) for the usage.
 
 3. materialManager <br>
-   [Documentation for materialManager Client](./Applications/MaterialManager/Documentation/README.md) and [some samples](./Applications/MaterialManager/Samples) for the usage.
+   [Documentation for materialManager Client](./Applications/MaterialManager/README.md) and [some samples](./Applications/MaterialManager/Samples) for the usage.
 
-4. productionManager <br>
+4. materialAssist <br>
+   [Documentation for materialAssist Client](./Applications/MaterialAssist/Readme.md) and [some samples](./Applications/MaterialAssist/Samples) for the usage.
+
+5. productionManager <br>
    [Documentation for productionManager Client](./Applications/ProductionManager/Readme.md) and [some samples](./Applications/ProductionManager/Samples) for the usage.
 
-5. productionAssist <br>
+6. productionAssist <br>
    [Documentation for productionAssist Client](./Applications/ProductionAssist/Readme.md) and [some samples](./Applications/ProductionAssist/Samples) for the usage.
 
 

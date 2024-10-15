@@ -1,9 +1,11 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict
 {

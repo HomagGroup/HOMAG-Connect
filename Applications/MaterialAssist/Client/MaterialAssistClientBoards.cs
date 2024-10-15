@@ -1,10 +1,10 @@
 ﻿using System.Text;
-
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
-using HomagConnect.MaterialAssist.Contracts.Base;
 using HomagConnect.MaterialAssist.Contracts.Boards;
-using HomagConnect.MaterialAssist.Contracts.Boards.Interfaces;
+using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -17,9 +17,6 @@ namespace HomagConnect.MaterialAssist.Client
     /// </summary>
     public class MaterialAssistClientBoards : ServiceBase, IMaterialAssistClientBoards
     {
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(HttpClient client) : base(client) { }
-
         #region Private methods
 
         private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
@@ -34,6 +31,19 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         #endregion Private methods
+
+        #region Constructors
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(HttpClient client) : base(client) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+        /// <inheritdoc />
+        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #region Delete
 
@@ -214,7 +224,7 @@ namespace HomagConnect.MaterialAssist.Client
         #endregion Read
 
         #region Create
-        
+
         /// <inheritdoc />
         public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
         {
@@ -240,22 +250,87 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(BoardType)}");
         }
 
+        public async Task<ICollection<BoardEntity>> CreateBoardEntities(ICollection<MaterialAssistRequestBoardEntity> boardEntitiesRequest)
+        {
+            {
+                if (boardEntitiesRequest == null)
+                {
+                    throw new ArgumentNullException(nameof(boardEntitiesRequest));
+                }
+
+                ValidateRequiredProperties(boardEntitiesRequest);
+
+                var payload = JsonConvert.SerializeObject(boardEntitiesRequest);
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ICollection<BoardEntity>>(responseContent);
+
+                if (result != null)
+                {
+                    return result;
+                }
+
+                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+            }
+        }
+
+        public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest)
+        {
+            {
+                if (boardEntityRequest == null)
+                {
+                    throw new ArgumentNullException(nameof(boardEntityRequest));
+                }
+
+                ValidateRequiredProperties(boardEntityRequest);
+
+                var payload = JsonConvert.SerializeObject(boardEntityRequest);
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+
+                if (result != null)
+                {
+                    return result;
+                }
+
+                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+            }
+        }
+
         #endregion Create
 
         #region Update
 
         /// <inheritdoc />
-        public async Task UpdateBoardEntityDimensions(string id, double length, double width)
+        public async Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity)
         {
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Length}={length}&{_Width}={width}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
+            if (updateBoardEntity == null)
+            {
+                throw new ArgumentNullException(nameof(updateBoardEntity));
+            }
 
-        /// <inheritdoc />
-        public async Task UpdateBoardEntityComments(string id, string comments)
-        {
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}?{_Comments}={Uri.EscapeDataString(comments)}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+            ValidateRequiredProperties(updateBoardEntity);
+
+            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+
+            var payload = JsonConvert.SerializeObject(updateBoardEntity);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
         }
 
         /// <inheritdoc />

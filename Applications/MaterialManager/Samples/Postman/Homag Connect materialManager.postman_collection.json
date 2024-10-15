@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c7b21a38-f871-4c77-9ff5-9f47b5768068",
+		"_postman_id": "7054330e-849c-45e4-9a78-fbd936e537d0",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -281,7 +281,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/processing/optimization/offcuts?materialCodes=ST_Raw_16",
+									"raw": "{{ConnectHost}}/api/materialManager/processing/optimization/offcuts?materialCode=ST_Raw_16",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -294,7 +294,7 @@
 									],
 									"query": [
 										{
-											"key": "materialCodes",
+											"key": "materialCode",
 											"value": "ST_Raw_16"
 										}
 									]
@@ -541,30 +541,66 @@
 			"name": "Delete",
 			"item": [
 				{
-					"name": "Delete boards",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"boards"
-							],
-							"query": [
-								{
-									"key": "boardCode",
-									"value": ""
+					"name": "Boards",
+					"item": [
+						{
+							"name": "Delete boards",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": ""
+										}
+									]
 								}
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "Delete edgebands",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "edgebandCode",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

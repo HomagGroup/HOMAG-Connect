@@ -138,6 +138,29 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics
         [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         public double WasteArea { get; set; }
 
+        /// <summary>
+        /// Cost of edgebands per unit (meters or feet)
+        /// </summary>
+        [JsonProperty(Order = 37)]
+        public double? Costs { get; set; }
+
+        /// <summary>
+        /// Gets the total value of edgebands of this type
+        /// </summary>
+        [JsonProperty(Order = 38)]
+        public double? TotalCosts
+        {
+            get
+            {
+                if (Costs.HasValue)
+                {
+                    return Costs.Value * BoardsUsedArea + Costs.Value * OffcutsUsedArea;
+                }
+
+                return null;
+            }
+        }
+
         #endregion
     }
 }

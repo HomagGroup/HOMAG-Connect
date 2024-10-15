@@ -34,14 +34,14 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<OrderDetails> GetOrder(Guid orderId);
 
         /// <summary>
-        /// Get a specific order by its external system id
+        /// Get a specific order by its order number.
         /// </summary>
-        Task<OrderDetails> GetOrderByExternalSystemId(string externalSystemId);
+        Task<OrderDetails> GetOrder(string orderNumber);
 
         /// <summary>
-        /// Gets all orders for the given external system ids.
+        /// Gets all orders for the given order numbers.
         /// </summary>
-        Task<IEnumerable<OrderDetails>> GetOrderByExternalSystemId(string[] externalSystemIds);
+        Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers);
 
         #endregion
 
@@ -88,6 +88,12 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <returns></returns>
         Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest);
+
+        /// <summary>
+        /// Predicts the cutting duration based on the number of parts with CncProgramName in the request
+        /// </summary>
+        /// <returns></returns>
+        Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest);
 
         #endregion
     }

@@ -10,7 +10,7 @@ To create an instance of the client, you will need both a SubscriptionId and a A
 var client = new MmrMobileClient(subscriptionId, authorizationKey);
 ```
 
-Both can be obtained by subscription administratos following these steps:
+Both can be obtained by subscription administrators following these steps:
 
 - Log in to your Tapio account at <https://my.tapio.one>.
 

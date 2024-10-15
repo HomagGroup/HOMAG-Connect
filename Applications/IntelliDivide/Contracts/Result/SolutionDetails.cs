@@ -26,11 +26,5 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 20)]
         public IReadOnlyCollection<SolutionPart> Parts { get; set; } = new List<SolutionPart>();
-
-        /// <summary>
-        /// Gets or sets the patterns of the solution.
-        /// </summary>
-        //[JsonProperty(Order = 20)]
-        public IReadOnlyCollection<SolutionPattern> Patterns { get; set; } = new List<SolutionPattern>();
     }
 }
