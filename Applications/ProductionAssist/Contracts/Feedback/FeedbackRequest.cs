@@ -9,14 +9,19 @@ public class FeedbackRequest
     /// Workstation id
     /// </summary>
     public Guid WorkstationId { get; set; }
-    
+
     /// <summary>
-    /// Production entity id
+    /// Identification
     /// </summary>
-    public string? ProductionEntityId { get; set; }
+    public string Identification { get; set; }
     
     /// <summary>
     /// Quantity
     /// </summary>
     public int Quantity { get; set; }
+
+    /// <summary>
+    /// Gets or Sets the timestamp
+    /// </summary>
+    public DateTimeOffset? Timestamp { get; set; }
 }
