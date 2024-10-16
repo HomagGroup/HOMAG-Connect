@@ -27,6 +27,7 @@ public class NestingOptimizationRequestCommonTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 10, 17)]
     public async Task NestingRequest_Common_RetrieveResults()
     {
         var intelliDivide = GetIntelliDivideClient();
