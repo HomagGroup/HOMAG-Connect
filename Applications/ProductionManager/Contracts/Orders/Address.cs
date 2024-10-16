@@ -45,22 +45,4 @@ public class Address : IExtensibleDataObject
     public ExtensionDataObject? ExtensionData { get; set; }
 
     #endregion
-
-    #region Obsolete
-
-    /// <summary />
-    [Obsolete("Use City instead", true)]
-    public string? Town
-    {
-        get
-        {
-            return City;
-        }
-        set
-        {
-            City = value;
-        }
-    }
-
-    #endregion
 }

@@ -16,5 +16,5 @@ public interface IProductionAssistFeedbackClient
     /// <summary>
     /// Report a production entity as finished.
     /// </summary>
-    Task ReportAsFinished(Guid workstationId, string productionEntityId, int quantity);
+    Task ReportAsFinished(Guid workstationId, string identification, int quantity, DateTimeOffset? timestamp);
 }
