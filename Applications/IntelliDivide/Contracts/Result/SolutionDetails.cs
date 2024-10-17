@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using HomagConnect.Base.Contracts.Enumerations;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
@@ -26,5 +28,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 20)]
         public IReadOnlyCollection<SolutionPart> Parts { get; set; } = new List<SolutionPart>();
+
+        /// <summary>
+        /// Gets or sets the unit system.
+        /// </summary>
+        [JsonProperty(Order = 21)]
+        public UnitSystem UnitSystem { get; set; }
     }
 }
