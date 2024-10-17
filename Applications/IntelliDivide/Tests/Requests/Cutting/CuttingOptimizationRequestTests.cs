@@ -45,7 +45,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 10, 17)]
+    [TemporaryDisabledOnServer(2024, 10, 20)]
     public async Task CuttingRequest_Common_RetrieveResults()
     {
         var intelliDivide = GetIntelliDivideClient();
