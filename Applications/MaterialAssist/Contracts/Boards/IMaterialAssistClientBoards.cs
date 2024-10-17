@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
