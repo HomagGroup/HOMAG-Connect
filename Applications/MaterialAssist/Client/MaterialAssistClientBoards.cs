@@ -249,33 +249,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             throw new Exception($"The returned object is not of type {nameof(BoardType)}");
         }
-
-        public async Task<ICollection<BoardEntity>> CreateBoardEntities(ICollection<MaterialAssistRequestBoardEntity> boardEntitiesRequest)
-        {
-            {
-                if (boardEntitiesRequest == null)
-                {
-                    throw new ArgumentNullException(nameof(boardEntitiesRequest));
-                }
-
-                ValidateRequiredProperties(boardEntitiesRequest);
-
-                var payload = JsonConvert.SerializeObject(boardEntitiesRequest);
-                var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<ICollection<BoardEntity>>(responseContent);
-
-                if (result != null)
-                {
-                    return result;
-                }
-
-                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
-            }
-        }
-
+        
         public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest)
         {
             {
@@ -288,7 +262,7 @@ namespace HomagConnect.MaterialAssist.Client
 
                 var payload = JsonConvert.SerializeObject(boardEntityRequest);
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+                var response = await PostObject(new Uri(_BaseRouteMaterialAssist, UriKind.Relative), content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
