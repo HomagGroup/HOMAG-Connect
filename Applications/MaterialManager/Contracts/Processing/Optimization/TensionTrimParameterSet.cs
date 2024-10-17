@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
+/// <summary>
+/// Represents a set of parameters for the tension trim optimization.
+/// </summary>
 public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
 {
     private const int _MaterialGroupNameMaxLength = 50;
@@ -63,21 +66,21 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
 #pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
     {
         var results = new List<ValidationResult>();
-        if (Parameters.Enabled && Parameters.MinimumCuttingLength == null)
+        if (Parameters is { Enabled: true, MinimumCuttingLength: null })
         {
             results.Add(new ValidationResult(
                 $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumCuttingLength)}' parameter must not be null.",
                 new[] { nameof(Parameters.MinimumCuttingLength) }));
         }
 
-        if (Parameters.Enabled && Parameters.MinimumDistanceBetweenTensionTrims == null)
+        if (Parameters is { Enabled: true, MinimumDistanceBetweenTensionTrims: null })
         {
             results.Add(new ValidationResult(
                 $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumDistanceBetweenTensionTrims)}' parameter must not be null.",
                 new[] { nameof(Parameters.MinimumDistanceBetweenTensionTrims) }));
         }
 
-        if (Parameters.Enabled && Parameters.WidthIncludingSawBladeThickness == null)
+        if (Parameters is { Enabled: true, WidthIncludingSawBladeThickness: null })
         {
             results.Add(new ValidationResult(
                 $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.WidthIncludingSawBladeThickness)}' parameter must not be null.",

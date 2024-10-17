@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Tests.Attributes;
+﻿using HomagConnect.Base.Tests;
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.MaterialManager.Samples.Read.Boards;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Boards
@@ -9,7 +10,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Board.Read.Results")]
-    public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
+    public class MaterialManagerReadBoardsResult : TestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
         /// <summary>

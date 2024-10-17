@@ -25,7 +25,7 @@ namespace HomagConnect.MaterialAssist.Client
                 .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
                 .Join(QueryParametersMaxLength)
                 .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
+                .Select(parameter => $"{_BaseRouteMaterialAssist}{route}" + parameter).ToList();
 
             return urls;
         }
@@ -50,7 +50,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task DeleteBoardEntity(string id)
         {
-            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
         }
@@ -58,7 +58,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task DeleteBoardEntities(IEnumerable<string> ids)
         {
-            var url = $"{_BaseRoute}";
+            var url = $"{_BaseRouteMaterialAssist}";
 
             var boardCodes = new StringBuilder("?");
             boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={Uri.EscapeDataString(id)}")));
@@ -72,7 +72,7 @@ namespace HomagConnect.MaterialAssist.Client
 
         #region Constants
 
-        private const string _BaseRoute = "api/materialAssist/boardEntities";
+        private const string _BaseRouteMaterialAssist = "api/materialAssist/boardEntities";
         private const string _BaseRouteMaterialManager = "api/materialManager/boards";
         private const string _Id = "Id";
         private const string _BoardCode = "boardCode";
@@ -92,7 +92,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<BoardEntity>> GetBoardEntities(int take, int skip = 0)
         {
-            var url = $"{_BaseRoute}?take={take}&skip={skip}";
+            var url = $"{_BaseRouteMaterialAssist}?take={take}&skip={skip}";
 
             return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
@@ -100,7 +100,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<BoardEntity> GetBoardEntityById(string id)
         {
-            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             return await RequestObject<BoardEntity>(new Uri(url, UriKind.Relative));
         }
@@ -137,7 +137,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCode(string boardCode)
         {
-            var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
             return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
@@ -174,7 +174,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCode(string materialCode)
         {
-            var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
             return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
@@ -209,15 +209,15 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
+        public Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
-            var url = $"{_BaseRoute}/storageLocations";
+            var url = $"{_BaseRouteMaterialAssist}/storageLocations";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
-        public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation)
+        public Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation)
         {
-            var url = $"{_BaseRoute}/storageLocations?workstation={workstation}";
+            var url = $"{_BaseRouteMaterialAssist}/storageLocations?workstation={workstation}";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
@@ -316,7 +316,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(updateBoardEntity);
 
-            var url = $"{_BaseRoute}?{_Id}={Uri.EscapeDataString(id)}";
+            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
             var payload = JsonConvert.SerializeObject(updateBoardEntity);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -334,30 +334,30 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
+        public Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
         {
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false)
+        public Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false)
         {
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
+        public Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
         {
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
         /// <inheritdoc />
-        public async Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
+        public Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
         {
-            var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 
