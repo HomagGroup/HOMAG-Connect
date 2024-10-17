@@ -58,32 +58,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
-
-        /// <inheritdoc />
-        public async Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistRequestEdgebandEntity> edgebandEntitiesRequest)
-        {
-            if (edgebandEntitiesRequest == null)
-            {
-                throw new ArgumentNullException(nameof(edgebandEntitiesRequest));
-            }
-
-            ValidateRequiredProperties(edgebandEntitiesRequest);
-
-            var payload = JsonConvert.SerializeObject(edgebandEntitiesRequest);
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ICollection<EdgebandEntity>>(responseContent);
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
-        }
-
+        
         /// <inheritdoc />
         public async Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistRequestEdgebandEntity edgebandEntityRequest)
         {
@@ -96,7 +71,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             var payload = JsonConvert.SerializeObject(edgebandEntityRequest);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+            var response = await PostObject(new Uri(_BaseRouteMaterialAssist, UriKind.Relative), content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);

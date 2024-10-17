@@ -102,12 +102,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
 
         /// <summary>
-        /// Create multiple board entities in materialAssist.
-        /// </summary>
-        /// <returns>The created board entities <see cref="BoardEntity" />.</returns>
-        Task<ICollection<BoardEntity>> CreateBoardEntities(ICollection<MaterialAssistRequestBoardEntity> boardEntitiesRequest);
-
-        /// <summary>
         /// Create a board entity in materialAssist.
         /// </summary>
         /// <returns>The created board entity <see cref="BoardEntity" />.</returns>

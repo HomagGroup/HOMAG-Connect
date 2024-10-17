@@ -20,12 +20,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
 
         /// <summary>
-        /// Creates multiple edgeband entities in materialAssist.
-        /// </summary>
-        /// <returns>The created edgeband entities <see cref="EdgebandEntity" />.</returns>
-        Task<ICollection<EdgebandEntity>> CreateEdgebandEntities(ICollection<MaterialAssistRequestEdgebandEntity> edgebandEntitiesRequest);
-
-        /// <summary>
         /// Create an edgeband entity in materialAssist.
         /// </summary>
         /// <returns>The created edgeband entity <see cref="EdgebandEntity" />.</returns>
