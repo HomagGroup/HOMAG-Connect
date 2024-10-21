@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Contracts.Request
@@ -12,6 +13,12 @@ namespace HomagConnect.MaterialAssist.Contracts.Request
         [Required]
         [StringLength(50, MinimumLength = 1)]
         public string BoardCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the board type (board or offcut).
+        /// </summary>
+        [Required]
+        public BoardTypeType BoardTypeType { get; set; }
 
         /// <summary>
         /// Gets or sets the additional comments.
