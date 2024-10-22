@@ -1,5 +1,6 @@
 using FluentAssertions;
 
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -78,6 +79,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         }
 
         [TestMethod]
+        [TemporaryDisabledOnServer(2024, 12, 22)]
         public async Task Settings_GetPartProperties()
         {
             var intelliDivide = GetIntelliDivideClient();
