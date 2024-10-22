@@ -76,6 +76,14 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
 
             await ImportTemplatesSamples.GetNestingTemplatesSample(intelliDivide);
         }
+
+        [TestMethod]
+        public async Task Settings_GetPartProperties()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+
+            await GeneralSettingsSamples.GetPartPropertiesSample(intelliDivide);
+        }
     }
 
 #pragma warning restore S2699 // Tests should include assertions
