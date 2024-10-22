@@ -348,32 +348,19 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<IEnumerable<DataModelProperty>> GetPartProperties()
         {
-            // Note: Sample code only. Will be replaced with a backend call.
+            var request = new HttpRequestMessage { Method = HttpMethod.Get };
 
-            var properties = new[]
-            {
-                new DataModelProperty
-                {
-                    Id = nameof(OptimizationBasePart.Id),
-                    Name = "Id",
-                    DataType = typeof(string)
-                },
-                new DataModelProperty
-                {
-                    Id = nameof(OptimizationBasePart.Description),
-                    Name = "Description",
-                    DataType = typeof(string)
-                },
-                new DataModelProperty
-                {
-                    Id = "DeliveryRegion",
-                    Name = "Delivery region",
-                    DataType = typeof(string),
-                    PropertyType = DataModelPropertyType.Additional
-                }
-            };
+            const string uri = "api/intelliDivide/optimizations/GetPartProperties";
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+            var response = await Client.SendAsync(request);
 
-            return await Task.FromResult(properties);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            var responseObject = JsonConvert.DeserializeObject<IEnumerable<DataModelProperty>>(result);
+
+            return responseObject ?? new List<DataModelProperty>(0);
         }
 
         #endregion
