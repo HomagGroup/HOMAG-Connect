@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "048ff171-e623-4226-8876-f597dde072b8",
+		"_postman_id": "d1815cc7-6313-4aae-94a8-d36d45ee51df",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -394,14 +394,46 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities",
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/type/board",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"materialAssist",
-										"boardEntities"
+										"boardEntities",
+										"type",
+										"board"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create an offcut entity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"boardCode\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"id\": \"string\",\r\n  \"length\": 9999.9,\r\n  \"width\": 9999.9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/type/offcut",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities",
+										"type",
+										"offcut"
 									]
 								}
 							},
