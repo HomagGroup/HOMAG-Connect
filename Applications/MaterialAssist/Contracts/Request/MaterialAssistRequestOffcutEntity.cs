@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Base;
-
 namespace HomagConnect.MaterialAssist.Contracts.Request
 {
-    public class MaterialAssistRequestBoardEntity
+    public class MaterialAssistRequestOffcutEntity
     {
         /// <summary>
         /// Gets or sets the board code to which the entity should be assigned.
@@ -28,15 +25,17 @@ namespace HomagConnect.MaterialAssist.Contracts.Request
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the management type.
-        /// </summary>
-        public ManagementType? ManagementType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the quantity code.
+        /// Gets or sets the length of the newly created offcut.
         /// </summary>
         [Required]
-        [Range(1, 100)]
-        public int Quantity { get; set; }
+        [Range(0.1, 9999.9)]
+        public double Length { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the newly created offcut.
+        /// </summary>
+        [Required]
+        [Range(0.1, 9999.9)]
+        public double Width { get; set; }
     }
 }

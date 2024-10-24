@@ -1,4 +1,5 @@
 ﻿using System.Text;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -80,10 +81,11 @@ namespace HomagConnect.MaterialAssist.Client
         private const string _DeleteFromInventory = "deleteFromInventory";
         private const string _Length = "length";
         private const string _Width = "width";
-        private const string _Comments = "comments";
         private const string _RemovalType = "removalType";
         private const string _Quantity = "quantity";
         private const string _MaterialCode = "materialCode";
+        private const string _BoardEntityCreation = "/type/boardEntity";
+        private const string _OffcutEntityCreation = "/type/offcutEntity";
 
         #endregion Constants
 
@@ -249,7 +251,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             throw new Exception($"The returned object is not of type {nameof(BoardType)}");
         }
-        
+
         public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest)
         {
             {
@@ -262,7 +264,33 @@ namespace HomagConnect.MaterialAssist.Client
 
                 var payload = JsonConvert.SerializeObject(boardEntityRequest);
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await PostObject(new Uri(_BaseRouteMaterialAssist, UriKind.Relative), content);
+                var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _BoardEntityCreation, UriKind.Relative), content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+
+                if (result != null)
+                {
+                    return result;
+                }
+
+                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+            }
+        }
+
+        public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest)
+        {
+            {
+                if (offcutEntityRequest == null)
+                {
+                    throw new ArgumentNullException(nameof(offcutEntityRequest));
+                }
+
+                ValidateRequiredProperties(offcutEntityRequest);
+
+                var payload = JsonConvert.SerializeObject(offcutEntityRequest);
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _OffcutEntityCreation, UriKind.Relative), content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
