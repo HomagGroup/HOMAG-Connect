@@ -84,8 +84,8 @@ namespace HomagConnect.MaterialAssist.Client
         private const string _RemovalType = "removalType";
         private const string _Quantity = "quantity";
         private const string _MaterialCode = "materialCode";
-        private const string _BoardEntityCreation = "/type/boardEntity";
-        private const string _OffcutEntityCreation = "/type/offcutEntity";
+        private const string _BoardEntityCreation = "/type/board";
+        private const string _OffcutEntityCreation = "/type/offcut";
 
         #endregion Constants
 
