@@ -278,7 +278,7 @@ namespace HomagConnect.MaterialAssist.Client
             }
         }
 
-        public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest)
+        public async Task<BoardEntity> CreateOffcutEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest)
         {
             {
                 if (offcutEntityRequest == null)

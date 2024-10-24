@@ -112,7 +112,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// </summary>
         /// <param name="offcutEntityRequest"></param>
         /// <returns></returns>
-        Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest);
+        Task<BoardEntity> CreateOffcutEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest);
 
         #endregion Create
 
