@@ -18,10 +18,16 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public IReadOnlyCollection<SolutionExportType> Exports { get; set; } = new List<SolutionExportType>();
 
         /// <summary>
-        /// Gets ors ets the material of the solution.
+        /// Gets or sets the material of the solution.
         /// </summary>
         [JsonProperty(Order = 30)]
         public SolutionMaterial Material { get; set; } = new SolutionMaterial();
+
+        /// <summary>
+        /// Gets or sets the key figures of the solution.
+        /// </summary>
+        [JsonProperty(Order = 40)]
+        public SolutionFigures KeyFigures { get; set; } = new SolutionFigures();
 
         /// <summary>
         /// Gets or sets the parts of the solution.
