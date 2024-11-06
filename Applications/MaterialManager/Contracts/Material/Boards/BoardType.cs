@@ -128,9 +128,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public double? Costs { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the board.
+        /// Gets or sets the density of the board. The unit depends on the settings of the subscription.
         /// </summary>
         [JsonProperty(Order = 27)]
+        public double? Density { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the board.
+        /// </summary>
+        [JsonProperty(Order = 28)]
         public BoardTypeType BoardTypeType { get; set; }
 
         #endregion

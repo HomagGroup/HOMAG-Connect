@@ -46,6 +46,11 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
         public double Thickness { get; set; }
 
         /// <summary>
+        /// Gets or sets the density of the board.
+        /// </summary>
+        public double? Density { get; set; }
+        
+        /// <summary>
         /// Gets or sets the type of the board.
         /// </summary>
         [Required]

@@ -22,6 +22,11 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         public CoatingCategory? CoatingCategory { get; set; } = null;
 
         /// <summary>
+        /// Gets or sets the density of the board.
+        /// </summary>
+        public double? Density { get; set; }
+        
+        /// <summary>
         /// Gets or sets the grain of the board.
         /// </summary>
         public Grain? Grain { get; set; } = null;
