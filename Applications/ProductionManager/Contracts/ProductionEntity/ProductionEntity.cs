@@ -198,10 +198,10 @@ public class ProductionEntity : IExtensibleDataObject
     /// <summary>
     /// LaminateTopGrain: optional
     /// </summary>
-    public ProductionEntityGrain? LaminateTopGrain { get; set; }
+    public Grain? LaminateTopGrain { get; set; }
 
     /// <summary>
     /// LaminateBottomGrain: optional
     /// </summary>
-    public ProductionEntityGrain? LaminateBottomGrain { get; set; }
+    public Grain? LaminateBottomGrain { get; set; }
 }
