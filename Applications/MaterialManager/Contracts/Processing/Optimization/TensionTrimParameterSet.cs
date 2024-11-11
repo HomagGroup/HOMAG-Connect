@@ -66,25 +66,48 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
 #pragma warning restore S3776 // Cognitive Complexity of methods should not be too high
     {
         var results = new List<ValidationResult>();
-        if (Parameters is { Enabled: true, MinimumCuttingLength: null })
+        if (Parameters is { Enabled: true })
         {
-            results.Add(new ValidationResult(
-                $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumCuttingLength)}' parameter must not be null.",
-                new[] { nameof(Parameters.MinimumCuttingLength) }));
-        }
+            if (Parameters is { MinimumCuttingLength: null })
+            {
+                results.Add(new ValidationResult(
+                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumCuttingLength)}' parameter must not be null.",
+                    new[] { nameof(Parameters.MinimumCuttingLength) }));
+            }
+            if (Parameters is { MinimumDistanceBetweenTensionTrims: null })
+            {
+                results.Add(new ValidationResult(
+                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumDistanceBetweenTensionTrims)}' parameter must not be null.",
+                    new[] { nameof(Parameters.MinimumDistanceBetweenTensionTrims) }));
+            }
 
-        if (Parameters is { Enabled: true, MinimumDistanceBetweenTensionTrims: null })
-        {
-            results.Add(new ValidationResult(
-                $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.MinimumDistanceBetweenTensionTrims)}' parameter must not be null.",
-                new[] { nameof(Parameters.MinimumDistanceBetweenTensionTrims) }));
-        }
+            if (Parameters is { WidthIncludingSawBladeThickness: null })
+            {
+                results.Add(new ValidationResult(
+                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.WidthIncludingSawBladeThickness)}' parameter must not be null.",
+                    new[] { nameof(Parameters.WidthIncludingSawBladeThickness) }));
+            }
 
-        if (Parameters is { Enabled: true, WidthIncludingSawBladeThickness: null })
-        {
-            results.Add(new ValidationResult(
-                $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true, the '{nameof(Parameters)}.{nameof(Parameters.WidthIncludingSawBladeThickness)}' parameter must not be null.",
-                new[] { nameof(Parameters.WidthIncludingSawBladeThickness) }));
+            if ((Parameters is { TensionTrimType: TensionTrimType.SlotCenteredBetweenStrips } || Parameters is { TensionTrimType: TensionTrimType.BridgeCenteredBetweenStrips }) && Parameters is { SlotWidth: null })
+            {
+                results.Add(new ValidationResult(
+                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true and the {nameof(Parameters)}.{nameof(Parameters.TensionTrimType)} is SlotCenteredBetweenStrips or BridgeCenteredBetweenStrips, the '{nameof(Parameters)}.{nameof(Parameters.SlotWidth)}' parameter must not be null.",
+                    new[] { nameof(Parameters.SlotWidth) }));
+            }
+
+            if (Parameters is { TensionTrimType: TensionTrimType.SlotCenteredBetweenStrips, DistanceOfSlotFromEdge: null })
+            {
+                results.Add(new ValidationResult(
+                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true and the {nameof(Parameters)}.{nameof(Parameters.TensionTrimType)} is SlotCenteredBetweenStrips, the '{nameof(Parameters)}.{nameof(Parameters.DistanceOfSlotFromEdge)}' parameter must not be null.",
+                    new[] { nameof(Parameters.DistanceOfSlotFromEdge) }));
+            }
+
+            if (Parameters is { TensionTrimType: TensionTrimType.BridgeCenteredBetweenStrips, LengthOfTheMiddleBridge: null })
+            {
+                results.Add(new ValidationResult(
+                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true and the {nameof(Parameters)}.{nameof(Parameters.TensionTrimType)} is BridgeCenteredBetweenStrips, the '{nameof(Parameters)}.{nameof(Parameters.LengthOfTheMiddleBridge)}' parameter must not be null.",
+                    new[] { nameof(Parameters.LengthOfTheMiddleBridge) }));
+            }
         }
 
         return results;
