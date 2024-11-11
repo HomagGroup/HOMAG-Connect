@@ -159,4 +159,49 @@ public class ProductionEntity : IExtensibleDataObject
     public ExtensionDataObject? ExtensionData { get; set; }
 
     #endregion
+
+    /// <summary>
+    /// Edge Thickness Front
+    /// </summary>
+    public decimal? EdgeThicknessFront { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Back
+    /// </summary>
+    public decimal? EdgeThicknessBack { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Left
+    /// </summary>
+    public decimal? EdgeThicknessLeft { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Right
+    /// </summary>
+    public decimal? EdgeThicknessRight { get; set; }
+
+    /// <summary>
+    /// Surface Top
+    /// </summary>
+    public string? SurfaceTop { get; set; }
+
+    /// <summary>
+    /// Surface Bottom
+    /// </summary>
+    public string? SurfaceBottom { get; set; }
+
+    /// <summary>
+    /// CNC Program Name 3
+    /// </summary>
+    public string? CncProgramName3 { get; set; }
+
+    /// <summary>
+    /// LaminateTopGrain: optional
+    /// </summary>
+    public Grain? LaminateTopGrain { get; set; }
+
+    /// <summary>
+    /// LaminateBottomGrain: optional
+    /// </summary>
+    public Grain? LaminateBottomGrain { get; set; }
 }

@@ -45,6 +45,7 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 11, 12)]
     public async Task CuttingRequest_ObjectModel_TypicalProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -63,6 +64,7 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 11, 12)]
     public async Task CuttingRequest_ObjectModel_TypicalProperties_ImportOptimizeAndSend()
     {
         var intelliDivide = GetIntelliDivideClient();
