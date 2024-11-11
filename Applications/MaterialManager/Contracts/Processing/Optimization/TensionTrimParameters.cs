@@ -19,6 +19,12 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         public bool Enabled { get; set; }
 
         /// <summary>
+        /// Gets or sets the tension trim type.
+        /// </summary>
+        [JsonProperty(Order = 14)]
+        public TensionTrimType TensionTrimType { get; set; }
+
+        /// <summary>
         /// Gets or sets the width including the saw blade if the tension trim. The value is dependent on the unit system (Metric: mm, Imperial: inch).
         /// </summary>
         [JsonProperty(Order = 13)]
@@ -37,6 +43,24 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [JsonProperty(Order = 12)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
         public double? MinimumCuttingLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the slot width.
+        /// </summary>
+        [JsonProperty(Order = 15)]
+        public double? SlotWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the distance of the slot from the edge.
+        /// </summary>
+        [JsonProperty(Order = 16)]
+        public double? DistanceOfSlotFromEdge { get; set; }
+
+        /// <summary>
+        /// Gets or sets the length of the middle bridge.
+        /// </summary>
+        [JsonProperty(Order = 17)]
+        public double? LengthOfTheMiddleBridge { get; set; }
 
     }
 }
