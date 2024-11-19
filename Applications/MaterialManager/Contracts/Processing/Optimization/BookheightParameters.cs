@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// <summary>
         /// The deduction of the maximum saw blade projection.
         /// </summary>
-        [Obsolete]
+        [Obsolete("This parameter is obsolete because its mode was removed. Please see BookHeightMode for the available modes")]
         [JsonProperty(Order = 11)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? MaximumSawBladeProjectionDeduction { get; set; }

@@ -10,7 +10,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// <summary>
         /// Maximum saw blade projection deduction
         /// </summary>
-        [Obsolete]
+        [Obsolete("This mode is obsolete and was replaced with MaximumBookHeightOfMachine.")]
         MaximumSawBladeProjectionDeduction,
 
         /// <summary>
