@@ -14,9 +14,9 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         MaximumSawBladeProjectionDeduction,
 
         /// <summary>
-        /// Maximum book height
+        /// Maximum book height of the machine
         /// </summary>
-        MaximumBookHeight,
+        MaximumBookHeightOfMachine,
 
         /// <summary>
         /// Single board
