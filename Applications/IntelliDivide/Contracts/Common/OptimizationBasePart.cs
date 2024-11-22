@@ -135,6 +135,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [StringLength(100, MinimumLength = 1)]
         public string? CncProgramName2 { get; set; }
 
+        /// <summary>
+        /// Gets or sets the program name of the CNC program to execute.
+        /// </summary>
+        [JsonProperty(Order = 43)]
+        [StringLength(100, MinimumLength = 1)]
+        public string? CncProgramName3 { get; set; }
+
         #endregion
 
         #region (5) Laminating
@@ -216,7 +223,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? SecondCutWidth { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the production route.
+        /// </summary>
+        [JsonProperty(Order = 68)]
+        public string? ProductionRoute { get; set; }
+
         #endregion
 
         #region (7) Label
