@@ -1,4 +1,5 @@
-﻿using HomagConnect.IntelliDivide.Contracts.Common;
+﻿using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -35,6 +36,7 @@ public class NestingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2024, 11, 23)]
     public async Task NestingRequest_ProjectZip_Optimize()
     {
         var intelliDivide = GetIntelliDivideClient();

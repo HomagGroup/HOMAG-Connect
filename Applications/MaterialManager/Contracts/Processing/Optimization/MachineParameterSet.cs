@@ -10,20 +10,21 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
 /// <summary>
-/// Represents the parameters for the trim cut optimization.
+/// Represents the parameters for the machine optimization.
 /// </summary>
-public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class MachineParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
     /// <summary>
-    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which are not manually assigned to a group.
+    /// Gets or sets the <see cref="IsUnassignedMaterialsGroup" /> which determines if the group contains all materials which
+    /// are not manually assigned to a group.
     /// </summary>
     [JsonProperty(Order = 4)]
     public bool IsUnassignedMaterialsGroup { get; set; }
 
     /// <summary>
-    /// Gets or sets the material codes for which the <see cref="TrimCutParameterSet" /> is valid.
+    /// Gets or sets the material codes for which the <see cref="MachineParameterSet" /> is valid.
     /// </summary>
     [JsonProperty(Order = 2)]
     [MinLength(1)]
@@ -45,10 +46,10 @@ public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDepend
     public string MaterialManagerLink { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the <see cref="TrimCutParameters" />.
+    /// Gets or sets the <see cref="MachineParameters" />.
     /// </summary>
     [JsonProperty(Order = 11)]
-    public TrimCutParameters Parameters { get; set; } = new();
+    public MachineParameters Parameters { get; set; } = new();
 
     #region IContainsUnitSystemDependentProperties Members
 
