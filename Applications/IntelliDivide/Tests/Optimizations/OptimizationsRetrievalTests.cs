@@ -41,7 +41,7 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 12, 21)]
+    [TemporaryDisabledOnServer(2025, 01, 13)]
     public async Task Optimizations_GetSolutionsAndSolutionDetails()
     {
         var intelliDivide = GetIntelliDivideClient();
