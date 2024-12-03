@@ -30,9 +30,17 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// <summary>
         /// The maximum book height.
         /// </summary>
+        [Obsolete("This parameter is obsolete because its mode was removed. Please see BookHeightMode for the available modes")]
         [JsonProperty(Order = 12)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? MaximumBookHeight { get; set; }
+
+        /// <summary>
+        /// The limit of the book height.
+        /// </summary>
+        [JsonProperty(Order = 13)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double? LimitedBookHeight { get; set; }
 
         /// <summary>
         /// The current unit system.

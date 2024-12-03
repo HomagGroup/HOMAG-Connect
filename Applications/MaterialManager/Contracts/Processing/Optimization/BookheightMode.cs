@@ -26,6 +26,12 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// <summary>
         /// Specific value can be set
         /// </summary>
-        SpecificValue
+        [Obsolete("This mode is obsolete and was replaced with LimitedBookHeight.")]
+        SpecificValue,
+
+        /// <summary>
+        /// Limit of the book height can be set
+        /// </summary>
+        LimitedBookHeight
     }
 }
