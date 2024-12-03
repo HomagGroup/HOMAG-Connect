@@ -78,6 +78,13 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
                 new[] { nameof(BookHeightParameters.MaximumSawBladeProjectionDeduction) }));
         }
 
+        if (BookHeightParameters is { Mode: BookHeightMode.LimitedBookHeight, LimitedBookHeight: null })
+        {
+            results.Add(new ValidationResult(
+                $"When {nameof(BookHeightParameters)}.{nameof(BookHeightParameters.Mode)} is {nameof(BookHeightMode.LimitedBookHeight)} , the '{nameof(BookHeightParameters)}.{nameof(BookHeightParameters.LimitedBookHeight)}' parameter must not be null.",
+                new[] { nameof(BookHeightParameters.LimitedBookHeight) }));
+        }
+
         return results;
     }
 
