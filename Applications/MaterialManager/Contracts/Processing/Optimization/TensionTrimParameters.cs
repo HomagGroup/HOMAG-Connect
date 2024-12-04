@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using Newtonsoft.Json;
 
@@ -43,12 +44,6 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [JsonProperty(Order = 12)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
         public double? MinimumCuttingLength { get; set; }
-
-        /// <summary>
-        /// Gets or sets the slot width.
-        /// </summary>
-        [JsonProperty(Order = 15)]
-        public double? SlotWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the distance of the slot from the edge.
