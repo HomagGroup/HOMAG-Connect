@@ -88,13 +88,6 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
                     new[] { nameof(Parameters.WidthIncludingSawBladeThickness) }));
             }
 
-            if ((Parameters is { TensionTrimType: TensionTrimType.SlotCenteredBetweenStrips } || Parameters is { TensionTrimType: TensionTrimType.BridgeCenteredBetweenStrips }) && Parameters is { SlotWidth: null })
-            {
-                results.Add(new ValidationResult(
-                    $"When {nameof(Parameters)}.{nameof(Parameters.Enabled)} is true and the {nameof(Parameters)}.{nameof(Parameters.TensionTrimType)} is SlotCenteredBetweenStrips or BridgeCenteredBetweenStrips, the '{nameof(Parameters)}.{nameof(Parameters.SlotWidth)}' parameter must not be null.",
-                    new[] { nameof(Parameters.SlotWidth) }));
-            }
-
             if (Parameters is { TensionTrimType: TensionTrimType.SlotCenteredBetweenStrips, DistanceOfSlotFromEdge: null })
             {
                 results.Add(new ValidationResult(
