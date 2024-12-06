@@ -4,8 +4,11 @@ The data retrieved from the materialManager and materialAssist API can be used t
 
 We have developed templates that can be used as a basis for creating your own customized reports.
 
-- [Board disposal candidates](DisposalCandidates/Readme.md)<br>
+- [Board disposal candidates](DisposalCandidates/Readme_boards.md)<br>
 The report lists board entities by age and material last used date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
+
+- [Edgeband disposal candidates](DisposalCandidates/Readme_edgebands.md)<br>
+The report lists edgeband entities by age and edgeband last used date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
 
 
 Please check the [Analyze data with Excel](../../../../../../Documentation/Tools/Excel/Readme.md) page for more information about how to work with Excel templates.
