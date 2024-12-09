@@ -49,7 +49,7 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
     /// </summary>
     [JsonProperty(Order = 3)]
     [Obsolete("This parameter is obsolete and should not be used.")]
-    public string? MaterialManagerLink { get; set; } = string.Empty;
+    public string? MaterialManagerLink { get; set; }
 
     #region IContainsUnitSystemDependentProperties Members
 

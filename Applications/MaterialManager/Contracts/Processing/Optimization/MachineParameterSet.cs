@@ -44,7 +44,7 @@ public class MachineParameterSet : IValidatableObject, IContainsUnitSystemDepend
     /// </summary>
     [JsonProperty(Order = 3)]
     [Obsolete("This parameter is obsolete and should not be used.")]
-    public string? MaterialManagerLink { get; set; } = string.Empty;
+    public string? MaterialManagerLink { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="MachineParameters" />.
