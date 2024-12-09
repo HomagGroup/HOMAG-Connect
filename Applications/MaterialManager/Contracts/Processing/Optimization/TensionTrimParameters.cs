@@ -23,7 +23,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// Gets or sets the tension trim type.
         /// </summary>
         [JsonProperty(Order = 14)]
-        public TensionTrimType TensionTrimType { get; set; }
+        public TensionTrimType? TensionTrimType { get; set; }
 
         /// <summary>
         /// Gets or sets the width including the saw blade if the tension trim. The value is dependent on the unit system (Metric: mm, Imperial: inch).
