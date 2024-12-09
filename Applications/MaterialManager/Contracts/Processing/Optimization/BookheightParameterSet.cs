@@ -48,7 +48,8 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
     /// Gets or sets the <see cref="MaterialManagerLink" />.
     /// </summary>
     [JsonProperty(Order = 3)]
-    public string MaterialManagerLink { get; set; } = string.Empty;
+    [Obsolete("This parameter is obsolete and should not be used.")]
+    public string? MaterialManagerLink { get; set; } = string.Empty;
 
     #region IContainsUnitSystemDependentProperties Members
 
