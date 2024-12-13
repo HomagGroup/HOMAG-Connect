@@ -1,4 +1,4 @@
-﻿# Board disposal candidates
+﻿# Edgeband disposal candidates
 
 English: [Candidates for disposal (Edgebands).xltx](Candidates%20for%20disposal%20(Edgebands).xltx)<br>
 German: [Kandidaten für die Entsorgung (Kantenband).xltx](Kandidaten%20für%20die%20Entsorgung%20(Kantenband).xltx)<br>
