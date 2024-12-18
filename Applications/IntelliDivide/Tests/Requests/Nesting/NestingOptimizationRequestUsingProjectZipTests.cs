@@ -36,7 +36,6 @@ public class NestingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 11, 23)]
     public async Task NestingRequest_ProjectZip_Optimize()
     {
         var intelliDivide = GetIntelliDivideClient();

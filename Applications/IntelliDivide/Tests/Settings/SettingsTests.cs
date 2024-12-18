@@ -79,7 +79,6 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 12, 22)]
         public async Task Settings_GetPartProperties()
         {
             var intelliDivide = GetIntelliDivideClient();
