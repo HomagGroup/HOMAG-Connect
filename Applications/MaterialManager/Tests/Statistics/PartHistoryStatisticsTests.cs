@@ -13,7 +13,6 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
         {
             /// <summary />
             [TestMethod]
-            [TemporaryDisabledOnServer(2024, 12, 15)]
             public async Task Statistics_GetInventory_NoException()
             {
                 var materialClient = GetMaterialManagerClient();
@@ -30,12 +29,11 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             /// <summary />
             [TestMethod]
-            [TemporaryDisabledOnServer(2024, 12, 15)]
             public async Task Statistics_GetInventory_ByDays_NoException()
             {
                 var materialClient = GetMaterialManagerClient();
 
-                var statistics = await materialClient.Material.Boards.GetPartHistoryAsync(60, 0);
+                var statistics = await materialClient.Material.Boards.GetPartHistoryAsync(60, 10);
 
                 Assert.IsNotNull(statistics);
 
