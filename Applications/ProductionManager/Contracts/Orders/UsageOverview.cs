@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.Orders {
+namespace HomagConnect.ProductionManager.Contracts.Orders 
+{
   /// <summary>
   /// Holds the overview per month of the usage of the licenses
   /// </summary>
@@ -13,7 +14,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders {
       public DateTime Period { get; set; }
   
       /// <summary>
-      /// The licenses bought by the customer for the current period
+      /// The licenses owned for the current period
       /// </summary>
       [JsonProperty(Order = 2)]
       public Collection<License> Licenses { get; set; }
