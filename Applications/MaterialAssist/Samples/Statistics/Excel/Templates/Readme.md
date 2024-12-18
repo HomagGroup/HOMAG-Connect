@@ -4,12 +4,9 @@ The data retrieved from the materialManager and materialAssist API can be used t
 
 We have developed templates that can be used as a basis for creating your own customized reports.
 
-- [Board disposal candidates](DisposalCandidates/Readme_boards.md)<br>
-The report lists board entities by age and material last used date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
-
-- [Edgeband disposal candidates](DisposalCandidates/Readme_edgebands.md)<br>
-The report lists edgeband entities by age and edgeband last used date, with those at the top being potential candidates for disposal due to low likelihood of use, taking up storage space.
+The documentation of the documents can be found on https://docs.homag.cloud.
 
 
-Please check the [Analyze data with Excel](../../../../../../Documentation/Tools/Excel/Readme.md) page for more information about how to work with Excel templates.
+German: https://docs.homag.cloud/materialmanager/kurz-erklaert/auswertung-materialdaten</li>
 
+English: https://docs.homag.cloud/en/materialmanager/in-a-nutshell/analysis-of-material-data
