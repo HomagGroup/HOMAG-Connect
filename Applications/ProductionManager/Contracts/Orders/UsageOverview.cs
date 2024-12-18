@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Orders 
 {
   /// <summary>
-  /// Holds the overview per month of the usage of the licenses
+  /// Describes the overview per period of the usage of the owned licenses 
   /// </summary>
   public class UsageOverview
   {
       /// <summary>
-      /// The month of the overview
+      /// The month during which the licenses are active
       /// </summary>
       [JsonProperty(Order = 1)]
       public DateTime Period { get; set; }
