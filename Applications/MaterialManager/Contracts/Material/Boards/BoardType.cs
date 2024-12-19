@@ -131,6 +131,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the density of the board. The unit depends on the settings of the subscription.
         /// </summary>
         [JsonProperty(Order = 27)]
+        [Range(0.1, 9999.9)]
         public double? Density { get; set; }
 
         /// <summary>
