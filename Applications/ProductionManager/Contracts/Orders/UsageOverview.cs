@@ -23,7 +23,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
       /// The quantity of parts that can be released for the current period
       /// </summary>
       [JsonProperty(Order = 3)]
-      public int QuantityOfPartsCoveredByTheLicense { get; set; }
+      public int QuantityOfPartsCoveredByTheLicenses { get; set; }
   
       /// <summary>
       /// The quantity of parts that have been released for the current period
