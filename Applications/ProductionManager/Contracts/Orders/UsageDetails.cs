@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public DateTimeOffset Timestamp { get; set; }
 
         /// <summary>
-        /// Gets the external system id of the order which can be used as a reference
+        /// Number of the order
         /// </summary>
         [JsonProperty(Order = 2)]
         public string OrderNumber { get; set; }
