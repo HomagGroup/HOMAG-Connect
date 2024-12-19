@@ -41,7 +41,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public int QuantityOfParts { get; set; }
 
         /// <summary>
-        /// The order can be released or reset
+        /// The order was released or reset
         /// </summary>
         [JsonProperty(Order = 7)]
         public OrderAction Action { get; set; }
