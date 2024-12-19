@@ -11,12 +11,12 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
     {
 
         /// <summary>
-        /// The order can be released
+        /// The order was released
         /// </summary>
         Release,
 
         /// <summary>
-        /// The order can be reverted to be modified or abandoned
+        /// The release of the order was reset
         /// </summary>
         ResetRelease
     }
