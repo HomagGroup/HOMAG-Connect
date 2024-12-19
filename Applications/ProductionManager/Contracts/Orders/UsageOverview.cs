@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders 
 {
