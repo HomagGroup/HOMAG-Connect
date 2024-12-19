@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public DateTimeOffset Timestamp { get; set; }
 
         /// <summary>
-        /// Number of the order
+        /// The number of the order
         /// </summary>
         [JsonProperty(Order = 2)]
         public string OrderNumber { get; set; }
