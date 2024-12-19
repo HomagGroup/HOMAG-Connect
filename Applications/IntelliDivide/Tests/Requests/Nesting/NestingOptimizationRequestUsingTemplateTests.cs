@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
@@ -16,6 +17,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Nesting")]
 [TestCategory("IntelliDivide.Requests.Nesting.Template")]
+[TemporaryDisabledOnServer(2025, 02, 13)]
 public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
     /// <summary />

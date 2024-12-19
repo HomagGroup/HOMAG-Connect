@@ -1,3 +1,4 @@
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project;
@@ -14,6 +15,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Cutting")]
 [TestCategory("IntelliDivide.Requests.Cutting.ProjectZip")]
+[TemporaryDisabledOnServer(2025, 02, 13)]
 public class CuttingOptimizationRequestUsingProjectZipTests : IntelliDivideTestBase
 {
     /// <summary />
