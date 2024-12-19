@@ -30,4 +30,5 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
       /// </summary>
       [JsonProperty(Order = 4)]
       public int QuantityOfReleasedParts { get; set; }
+  }
 }
