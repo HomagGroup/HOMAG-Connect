@@ -45,7 +45,6 @@ public class NestingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 01, 13)]
     public async Task NestingRequest_ObjectModel_RequiredProperties_Optimize()
     {
         var intelliDivide = GetIntelliDivideClient();
