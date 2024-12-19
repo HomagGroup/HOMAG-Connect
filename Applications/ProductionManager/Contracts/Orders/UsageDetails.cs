@@ -43,13 +43,13 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// <summary>
         /// The order can be released or reset
         /// </summary>
-        [JsonProperty(Order = 8)]
+        [JsonProperty(Order = 7)]
         public OrderAction Action { get; set; }
 
         /// <summary>
         /// The user who changed the order
         /// </summary>
-        [JsonProperty(Order = 9)]
+        [JsonProperty(Order = 8)]
         public string ChangedBy { get; set; }
     }
 }
