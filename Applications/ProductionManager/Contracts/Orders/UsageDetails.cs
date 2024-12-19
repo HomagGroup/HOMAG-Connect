@@ -41,12 +41,6 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public int QuantityOfParts { get; set; }
 
         /// <summary>
-        /// Gets the quantity of articles in this order
-        /// </summary>
-        [JsonProperty(Order = 7)]
-        public int QuantityOfArticles { get; set; }
-
-        /// <summary>
         /// The order can be released or reset
         /// </summary>
         [JsonProperty(Order = 8)]
