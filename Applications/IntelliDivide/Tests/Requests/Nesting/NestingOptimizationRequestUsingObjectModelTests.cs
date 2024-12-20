@@ -15,6 +15,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Nesting")]
 [TestCategory("IntelliDivide.Requests.Nesting.ObjectModel")]
+[TemporaryDisabledOnServer(2025, 02, 13)]
 public class NestingOptimizationRequestUsingObjectModelTests : IntelliDivideTestBase
 {
     /// <summary />

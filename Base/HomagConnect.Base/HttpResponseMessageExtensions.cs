@@ -63,39 +63,46 @@ namespace HomagConnect.Base
 
                 Exception exception = null;
 
-                if (!string.IsNullOrWhiteSpace(resTxt))
+                try
                 {
-                    var problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(resTxt);
-
-                    if (problemDetails != null)
+                    if (!string.IsNullOrWhiteSpace(resTxt))
                     {
-                        exception = new ProblemDetailsException(problemDetails);
+                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(resTxt);
 
-                        if (problemDetails.Type == nameof(ArgumentOutOfRangeException))
+                        if (problemDetails != null)
                         {
-                            exception = new ArgumentOutOfRangeException(problemDetails.Detail, exception);
-                        }
-                        else if (problemDetails.Type == nameof(NotSupportedException))
-                        {
-                            exception = new NotSupportedException(problemDetails.Detail, exception);
-                        }
-                        else if (problemDetails.Type == nameof(NotImplementedException))
-                        {
-                            exception = new NotImplementedException(problemDetails.Detail, exception);
-                        }
-                        else if (problemDetails.Type == nameof(AuthenticationException))
-                        {
-                            exception = new AuthenticationException(problemDetails.Detail, exception);
-                        }
-                        else if (problemDetails.Type == nameof(ValidationException))
-                        {
-                            exception = new ValidationException(problemDetails.Detail, exception);
-                        }
-                        else
-                        {
-                            exception = null;
+                            exception = new ProblemDetailsException(problemDetails);
+
+                            if (problemDetails.Type == nameof(ArgumentOutOfRangeException))
+                            {
+                                exception = new ArgumentOutOfRangeException(problemDetails.Detail, exception);
+                            }
+                            else if (problemDetails.Type == nameof(NotSupportedException))
+                            {
+                                exception = new NotSupportedException(problemDetails.Detail, exception);
+                            }
+                            else if (problemDetails.Type == nameof(NotImplementedException))
+                            {
+                                exception = new NotImplementedException(problemDetails.Detail, exception);
+                            }
+                            else if (problemDetails.Type == nameof(AuthenticationException))
+                            {
+                                exception = new AuthenticationException(problemDetails.Detail, exception);
+                            }
+                            else if (problemDetails.Type == nameof(ValidationException))
+                            {
+                                exception = new ValidationException(problemDetails.Detail, exception);
+                            }
+                            else
+                            {
+                                exception = null;
+                            }
                         }
                     }
+                }
+                catch
+                {
+                    // If we can´t deserialize the content, we throw the exception without content
                 }
 
                 exception ??= new HttpRequestException(
