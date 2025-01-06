@@ -150,5 +150,28 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             Assert.IsFalse(anyException);
         }
+
+        /// <summary />
+        [TestMethod]
+        public async Task Orders_GetOrder_NoException()
+        {
+            // Create new instance of the ProductionManager client:
+            var productionManager = GetProductionManagerClient();
+
+            var anyException = false;
+
+            try
+            {
+                var orderId = new Guid("52962a9e-0333-49a3-a8a2-ee88b3714f0c");
+                await GetOrderSamples.GetOrder(productionManager, orderId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
     }
 }
