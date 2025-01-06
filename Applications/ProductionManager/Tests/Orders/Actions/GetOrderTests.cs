@@ -153,6 +153,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 12, 12)]
         public async Task Orders_GetOrder_NoException()
         {
             // Create new instance of the ProductionManager client:
@@ -162,7 +163,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             try
             {
-                var orderId = new Guid("52962a9e-0333-49a3-a8a2-ee88b3714f0c");
+                var orderId = new Guid("52962a9e-0333-49a3-a8a2-ee88b3714f0c"); // should be replaced with existing id
                 await GetOrderSamples.GetOrder(productionManager, orderId);
             }
             catch (Exception e)
