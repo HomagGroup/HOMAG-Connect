@@ -24,4 +24,11 @@ public class OrderDetails : Order
     /// </summary>
     [JsonProperty(Order = 500)]
     public Collection<ProductionEntity.ProductionEntity>? BillOfMaterials { get; set; }
+
+
+    /// <summary>
+    /// Custom properties
+    /// </summary>
+    [JsonProperty(Order = 600)]
+    public IDictionary<string, string>? CustomProperties { get; set; }
 }

@@ -154,9 +154,9 @@ namespace HomagConnect.ProductionManager.Client
         public async Task<OrderDetails> GetOrder(Guid orderId)
         {
             var url = $"/api/productionManager/orders/{orderId}";
-            var orders = await RequestObject<OrderDetails>(new Uri(url, UriKind.Relative));
+            var order = await RequestObject<OrderDetails>(new Uri(url, UriKind.Relative));
 
-            return orders;
+            return order;
         }
 
         /// <inheritdoc />

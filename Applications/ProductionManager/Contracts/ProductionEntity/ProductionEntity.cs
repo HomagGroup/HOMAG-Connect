@@ -204,4 +204,64 @@ public class ProductionEntity : IExtensibleDataObject
     /// LaminateBottomGrain: optional
     /// </summary>
     public Grain? LaminateBottomGrain { get; set; }
+
+    /// <summary>
+    /// Finish length
+    /// </summary>
+    public decimal? FinishLength { get; set; }
+
+    /// <summary>
+    /// Finish width
+    /// </summary>
+    public decimal? FinishWidth { get; set; }
+
+    /// <summary>
+    /// Cnc program name 1
+    /// </summary>
+    public string? CncProgramName1 { get; set; }
+
+    /// <summary>
+    /// Cnc program name 2
+    /// </summary>
+    public string? CncProgramName2 { get; set; }
+
+    /// <summary>
+    /// Label layout
+    /// </summary>
+    public string? LabelLayout { get; set; }
+
+    /// <summary>
+    /// Template
+    /// </summary>
+    public string? Template { get; set; }
+
+    /// <summary>
+    /// Laminate top
+    /// </summary>
+    public string? LaminateTop { get; set; }
+
+    /// <summary>
+    /// Laminate bottom
+    /// </summary>
+    public string? LaminateBottom { get; set; }
+
+    /// <summary>
+    /// Custom properties
+    /// </summary>
+    public IDictionary<string, string>? CustomProperties { get; set; }
+
+    /// <summary>
+    /// Grouping
+    /// </summary>
+    public string? Grouping { get; set; }
+
+    /// <summary>
+    /// 2. Cut size length
+    /// </summary>
+    public decimal? SecondCutLength { get; set; }
+
+    /// <summary>
+    /// 2. Cut size width
+    /// </summary>
+    public decimal? SecondCutWidth { get; set; }
 }

@@ -2,7 +2,7 @@
 
 With the HOMAG Connect Client, the orders can be retrieved from productionManager for further programmatic evaluation.
 
-<strong>Example:</strong>
+<strong>Example GetOrdersAsync:</strong>
 
 ```c#
  // Create new instance of the productionManager client:
@@ -28,3 +28,21 @@ var orders =  await client.GetOrdersAsync();
 The response is a list of [Order](../../../Contracts/Import/Order.cs) which exposes basic information about the order
 
 The sample code can be found at [ProductionManager - Get Orders sample ](GetOrdersSamples.cs).
+
+<strong>Example GetOrder:</strong>
+
+```c#
+ // Create new instance of the productionManager client:
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+// Get the data
+var orderId = Guid.NewGuid(); // replace with existing order id
+var order =  await client.GetOrder(orderId);
+
+// Use the retrieved data
+  order.Trace();
+
+  Assert.IsNotNull(order);
+``` 
+
+The response is [OrderDetails](../../../Contracts/Orders/OrderDetails.cs) which exposes detailed information about the order
