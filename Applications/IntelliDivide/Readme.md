@@ -128,4 +128,4 @@ The downloaded saw file can get copied to the machine network share.
 
 ## Further details and explanations
 
-For a detailed examples and explanations, please refer to [HOMAG Connect IntelliDivide Samples](Samples/Readme.md).
+For a detailed examples and explanations, please refer to [HOMAG Connect IntelliDivide Samples](Samples/CSharp/Readme.md).
