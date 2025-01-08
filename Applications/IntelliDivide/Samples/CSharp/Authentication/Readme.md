@@ -10,32 +10,7 @@ To create an instance of the client, you will need both a Subscription Id and a 
 var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 ``` 
 
-Both can be obtained by subscription administrators following these steps:
-
-- Log in to your Tapio account at https://my.tapio.one.
-
-- Copy the Subscription Id from the browser bar.
-
-![alt text](SubscriptionId.jpg "Subscription Id")
-
-- Navigate to the intelliDivide in the applications section.
-
-- Navigate to the HOMAG Connect intelliDivide details in the Add-ons section.
-
-![alt text](AuthorizationKey01.jpg)
-
-- Open the Authorization Keys dialog.
-
-![alt text](AuthorizationKey02.jpg)
-
-- Click on Add and Confirm to create a new key. 
-Enter a meaningful description for your authorization key so that you can easily identify the correct key later if you wish to revoke it.
-
-![alt text](AuthorizationKey03.jpg)
-
-- Copy the generated Authorization Key
-
-![alt text](AuthorizationKey04.jpg)
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](https://redirect.homag.cloud/homagconnect_authentication) page for detailed instructions.
 
 <strong>Note:</strong> Make sure to keep your access token confidential as it provides authorized access to the apps.
 
