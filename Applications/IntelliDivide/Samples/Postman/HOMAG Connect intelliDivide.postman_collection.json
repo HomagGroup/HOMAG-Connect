@@ -41,56 +41,6 @@
 						"description": "GetOptimizations"
 					},
 					"response": []
-				},
-				{
-					"name": "Get optimization",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/",
-							"protocol": "https",
-							"host": [
-								"connect",
-								"homag",
-								"cloud"
-							],
-							"path": [
-								"api",
-								"intelliDivide",
-								"optimizations",
-								"{{OptimizationId}}",
-								""
-							]
-						},
-						"description": "GetOptimizations"
-					},
-					"response": []
-				},
-				{
-					"name": "Get optimization status",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/state",
-							"protocol": "https",
-							"host": [
-								"connect",
-								"homag",
-								"cloud"
-							],
-							"path": [
-								"api",
-								"intelliDivide",
-								"optimizations",
-								"{{OptimizationId}}",
-								"state"
-							]
-						},
-						"description": "GetOptimizations"
-					},
-					"response": []
 				}
 			]
 		},
@@ -166,6 +116,366 @@
 										"intelliDivide",
 										"cutting",
 										"parameters"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Request",
+					"item": [
+						{
+							"name": "ObjectModel",
+							"item": [
+								{
+									"name": "RequiredProperties_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_RequiredProperties_ImportOnly\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part A\",\n      \"MaterialCode\": \"P2_White_19.0\",\n      \"Quantity\": 5,\n      \"Length\": 300.0,\n      \"Width\": 300.0\n    },\n    {\n      \"Description\": \"Part B\",\n      \"MaterialCode\": \"P2_White_19.0\",\n      \"Quantity\": 10,\n      \"Length\": 600.0,\n      \"Width\": 300.0\n    }\n  ],\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "RequiredProperties_ImportAndOptimize",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_TypicalProperties_ImportAndOptimize\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part (typical properties)\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 1,\n      \"Length\": 400.0,\n      \"Width\": 200.0,\n      \"EdgeFront\": \"PP_White_1.3_22_HM\",\n      \"EdgeBack\": \"PP_White_1.3_22_HM\",\n      \"EdgeLeft\": \"PP_White_1.3_22_HM\",\n      \"EdgeRight\": \"PP_White_1.3_22_HM\",\n      \"EdgeDiagram\": \"011:011:000:000\",\n      \"CncProgramName1\": \"SortingS1004\",\n      \"CncProgramName2\": \"SortingS1004_2\",\n      \"CustomerName\": \"HOMAG\",\n      \"OrderName\": \"Kitchen 123\"\n    }\n  ],\n  \"Action\": \"Optimize\",\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}\n",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "RequiredProperties_ImportOptimizeAndSend",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_TypicalProperties_ImportOptimizeAndSend\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part (typical properties)\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 1,\n      \"Length\": 400.0,\n      \"Width\": 200.0,\n      \"EdgeFront\": \"PP_White_1.3_22_HM\",\n      \"EdgeBack\": \"PP_White_1.3_22_HM\",\n      \"EdgeLeft\": \"PP_White_1.3_22_HM\",\n      \"EdgeRight\": \"PP_White_1.3_22_HM\",\n      \"EdgeDiagram\": \"011:011:000:000\",\n      \"CncProgramName1\": \"SortingS1004\",\n      \"CncProgramName2\": \"SortingS1004_2\",\n      \"CustomerName\": \"HOMAG\",\n      \"OrderName\": \"Kitchen 123\"\n    }\n  ],\n  \"Action\": \"Send\",\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}\n",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "TypicalProperties_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_TypicalProperties_ImportOnly\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part (typical properties)\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 1,\n      \"Length\": 400.0,\n      \"Width\": 200.0,\n      \"EdgeFront\": \"PP_White_1.3_22_HM\",\n      \"EdgeBack\": \"PP_White_1.3_22_HM\",\n      \"EdgeLeft\": \"PP_White_1.3_22_HM\",\n      \"EdgeRight\": \"PP_White_1.3_22_HM\",\n      \"EdgeDiagram\": \"011:011:000:000\",\n      \"CncProgramName1\": \"SortingS1004\",\n      \"CncProgramName2\": \"SortingS1004_2\",\n      \"CustomerName\": \"HOMAG\",\n      \"OrderName\": \"Kitchen 123\"\n    }\n  ],\n  \"Boards\": [],\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}\n",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AdditionalProperties_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_AdditionalProperties_ImportOnly\",\n  \"Parts\": [\n    {\n      \"Id\": \"productionRack 1004\",\n      \"Description\": \"Side panel right\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 1,\n      \"QuantityPlus\": 5,\n      \"Length\": 400.0,\n      \"Width\": 200.0,\n      \"EdgeFront\": \"PP_White_1.3_22_HM\",\n      \"EdgeBack\": \"PP_White_1.3_22_HM\",\n      \"EdgeLeft\": \"PP_White_1.3_22_HM\",\n      \"EdgeRight\": \"PP_White_1.3_22_HM\",\n      \"EdgeDiagram\": \"011:011:000:000\",\n      \"CncProgramName1\": \"SortingS1004\",\n      \"CncProgramName2\": \"SortingS1004_2\",\n      \"LaminateTop\": \"HPL_U961_2_0.8\",\n      \"LaminateBottom\": \"HPL_U961_2_0.8\",\n      \"CustomerName\": \"HOMAG\",\n      \"OrderName\": \"Kitchen 123\",\n      \"OrderItem\": \"1.1\",\n      \"OrderDate\": \"2025-01-08T00:00:00+01:00\",\n      \"FinishLength\": 400.0,\n      \"FinishWidth\": 200.0,\n      \"SecondCutLength\": 399.0,\n      \"SecondCutWidth\": 199.0,\n      \"LabelLayout\": \"Label#1\",\n      \"Notes\": \"This part shows how to set all properties.\",\n      \"Lot\": \"Lot #1\",\n      \"DeliveryRegion\": \"North\"\n    }\n  ],\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Results",
+					"item": [
+						{
+							"name": "Get optimization",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										""
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get optimization status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/state",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										"state"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get optimization solutions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/solutions",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										"solutions"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get optimization solutions details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/solutions/{{SolutionId}}",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										"solutions",
+										"{{SolutionId}}"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get optimization solutions exports - saw",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/solutions/{{SolutionId}}/exports/pdf",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										"solutions",
+										"{{SolutionId}}",
+										"exports",
+										"pdf"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get optimization solutions exports - pdf",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/solutions/{{SolutionId}}/exports/xlsx",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										"solutions",
+										"{{SolutionId}}",
+										"exports",
+										"xlsx"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get optimization solutions exports - xlsx",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/solutions/{{SolutionId}}/exports/pdf",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"optimizations",
+										"{{OptimizationId}}",
+										"solutions",
+										"{{SolutionId}}",
+										"exports",
+										"pdf"
 									]
 								},
 								"description": "GetOptimizations"
@@ -298,7 +608,12 @@
 	"variable": [
 		{
 			"key": "OptimizationId",
-			"value": "--- Sample optimization id ---"
+			"value": "--- Your sample optimization id ---"
+		},
+		{
+			"key": "SolutionId",
+			"value": "--- Your sample solution id ---",
+			"type": "default"
 		}
 	]
 }
