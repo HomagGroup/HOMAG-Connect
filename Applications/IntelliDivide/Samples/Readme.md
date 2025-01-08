@@ -1,23 +1,16 @@
 # HOMAG Connect IntelliDivide Samples
 
-- [Authentication / Authorization](Authentication/Readme.md)
+To access the HOMAG IntelliDivide Client Interface, a HOMAG Connect IntelliDivide License is necessary, which is included with the IntelliDivide Advanced and Premium licenses.
 
-- [Access the Settings](Settings/Readme.md)
+For authentication, you'll need to provide your Subscription ID and Authorization Key.
 
-- Request a optimization
+For detailed instructions on obtaining your Authorization Key and Subscription ID, please visit the [Authentication page](https://redirect.homag.cloud/homagconnect_authentication).
 
-	- Using a Object Model
-		- [Request a cutting optimization using object model](Requests/Cutting/ObjectModel/Readme.md)
-		- [Request a nesting optimization using object model](Requests/Nesting/ObjectModel/Readme.md)
-		
-	- Using a structured file (Excel, CSV, PNX, ...) and a template
-		- [Request a cutting optimization using a structured file and a template](Requests/Cutting/Template/Readme.md)
-		- [Request a nesting optimization using a structured file and a template](Requests/Nesting/Template/Readme.md)
+The [introduction page](../Readme.md) provides an overview about how to use the IntelliDivide Client. 
 
-	- Using a structured zip file
-		- [Request a cutting optimization using object model](Requests/Cutting/Project/Readme.md)
-		- [Request a nesting optimization using object model](Requests/Nesting/Project/Readme.md)
+The following sections provide more specific examples using different technologies:
 
-- [Retrieve optimization results](Optimizations/Readme.md)
+- [c#](CSharp/Readme.md)
+ 
+- [Postman](Postman/Readme.md)
 
-- [Material Statistics](Statistics/Material/Readme.md)

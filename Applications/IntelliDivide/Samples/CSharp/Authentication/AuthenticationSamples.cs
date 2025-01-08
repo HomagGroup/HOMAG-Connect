@@ -9,7 +9,7 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
     /// <summary>
     /// Authentication samples.
     /// <remarks>
-    /// <see href="https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Samples/Authentication" /> for further details.
+    /// <see href="https://redirect.homag.cloud/homagconnect_authentication" /> for further details.
     /// </remarks>
     /// </summary>
     public static class AuthenticationSamples

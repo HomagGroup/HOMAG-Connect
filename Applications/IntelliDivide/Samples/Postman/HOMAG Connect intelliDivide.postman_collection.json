@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "ab28a228-99db-4235-9f04-99ac34705672",
+		"name": "HOMAG Connect intelliDivide",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Overview",
+			"item": [
+				{
+					"name": "Get optimizations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"optimizations"
+							],
+							"query": [
+								{
+									"key": "take",
+									"value": "100"
+								},
+								{
+									"key": "skip",
+									"value": "0",
+									"description": "optional"
+								}
+							]
+						},
+						"description": "GetOptimizations"
+					},
+					"response": []
+				},
+				{
+					"name": "Get optimization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"optimizations",
+								"{{OptimizationId}}",
+								""
+							]
+						},
+						"description": "GetOptimizations"
+					},
+					"response": []
+				},
+				{
+					"name": "Get optimization status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/state",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"optimizations",
+								"{{OptimizationId}}",
+								"state"
+							]
+						},
+						"description": "GetOptimizations"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cutting",
+			"item": [
+				{
+					"name": "Settings",
+					"item": [
+						{
+							"name": "Get machines",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/cutting/machines",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"cutting",
+										"machines"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get import templates",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/cutting/templates",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"cutting",
+										"templates"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						},
+						{
+							"name": "Get parameter sets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/intelliDivide/cutting/parameters",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"intelliDivide",
+										"cutting",
+										"parameters"
+									]
+								},
+								"description": "GetOptimizations"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get optimizations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=cutting",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"optimizations"
+							],
+							"query": [
+								{
+									"key": "take",
+									"value": "100"
+								},
+								{
+									"key": "skip",
+									"value": "0",
+									"description": "optional"
+								},
+								{
+									"key": "optimizationType",
+									"value": "cutting"
+								}
+							]
+						},
+						"description": "GetOptimizations"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "Get material statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/statistics/material?daysBack=90&take=10000&skip=0",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"statistics",
+								"material"
+							],
+							"query": [
+								{
+									"key": "daysBack",
+									"value": "90"
+								},
+								{
+									"key": "take",
+									"value": "10000",
+									"description": "optional"
+								},
+								{
+									"key": "skip",
+									"value": "0",
+									"description": "optional"
+								}
+							]
+						},
+						"description": "GetOptimizations"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "--- Your subscription id ---",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "--- Your authorization key ---",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "OptimizationId",
+			"value": "--- Sample optimization id ---"
+		}
+	]
+}

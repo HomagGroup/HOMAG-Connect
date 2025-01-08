@@ -58,8 +58,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
-		<ProjectReference Include="..\Client\HomagConnect.IntelliDivide.Client.csproj" />
+		<ProjectReference Include="..\..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+		<ProjectReference Include="..\..\Client\HomagConnect.IntelliDivide.Client.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">

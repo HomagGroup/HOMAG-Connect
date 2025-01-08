@@ -35,7 +35,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
 		<ProjectReference Include="..\Client\HomagConnect.IntelliDivide.Client.csproj" />
-		<ProjectReference Include="..\Samples\HomagConnect.IntelliDivide.Samples.csproj" />
+		<ProjectReference Include="..\Samples\CSharp\HomagConnect.IntelliDivide.Samples.csproj" />
 	</ItemGroup>
 
 </Project>

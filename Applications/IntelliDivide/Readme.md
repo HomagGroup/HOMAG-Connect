@@ -17,7 +17,7 @@ Once you have confirmed your license, you can create an instance of the client b
 var client = new IntelliDivideClient(subscriptionId, authorizationKey);
 ``` 
 
-For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](https://redirect.homag.cloud/homagconnect_authentication) page for detailed instructions.
 
 ### Perform an optimization
 
@@ -128,4 +128,4 @@ The downloaded saw file can get copied to the machine network share.
 
 ## Further details and explanations
 
-For a detailed examples and explanations, please refer to [HOMAG Connect IntelliDivide Samples](Samples/Readme.md).
+For a detailed examples and explanations, please refer to [HOMAG Connect IntelliDivide Samples](Samples/CSharp/Readme.md).
