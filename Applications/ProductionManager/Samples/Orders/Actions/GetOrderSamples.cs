@@ -68,5 +68,28 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
                 Trace.WriteLine("");
             }
         }
+
+        /// <summary />
+        public static async Task GetOrder(IProductionManagerClient productionManager, Guid orderId)
+        {
+            var order = await productionManager.GetOrder(orderId);
+
+            Trace.WriteLine($"OrderName:\t{order.OrderName}");
+            Trace.WriteLine($"OrderNumber:\t{order.OrderNumber}");
+            Trace.WriteLine($"QuantityOfParts:\t{order.QuantityOfParts}");
+            Trace.WriteLine($"CompletionDatePlanned:\t{order.CompletionDatePlanned}"); // Once all parts have been assigned to a lot, the planned completion date is provided.
+
+            if (order.Lots != null)
+            {
+                Trace.WriteLine($"Lots:\t");
+
+                foreach (var lot in order.Lots)
+                {
+                    Trace.WriteLine($"\tLotName:\t{lot.LotName}");
+                    Trace.WriteLine($"\tStartDatePlanned:\t{lot.StartDatePlanned}");
+                    Trace.WriteLine($"\tCompletionDatePlanned:\t{lot.CompletionDatePlanned}");
+                }
+            }
+        }
     }
 }
