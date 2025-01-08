@@ -1,4 +1,4 @@
-# HOMAG Connect IntelliDivide Samples
+# HOMAG Connect IntelliDivide Samples | C#
 
 - [Authentication / Authorization](Authentication/Readme.md)
 
