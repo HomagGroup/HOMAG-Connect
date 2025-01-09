@@ -128,6 +128,43 @@
 					"name": "Request",
 					"item": [
 						{
+							"name": "Common",
+							"item": [
+								{
+									"name": "SpecificBoards",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_SpecificBoards\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part A\",\n      \"MaterialCode\": \"MDF_19.0\",\n      \"Quantity\": 1,\n      \"Length\": 800.0,\n      \"Width\": 600.0\n    }\n  ],\n  \"Action\": \"Optimize\",\n  \"Boards\": [\n    {\n      \"BoardCode\": \"MDF_19.0_2800_2070\",\n      \"Costs\": 10.0,\n      \"Length\": 2800.0,\n      \"MaterialCode\": \"MDF_19.0\",\n      \"Quantity\": 70,\n      \"Thickness\": 19.0,\n      \"Width\": 2070.0\n    }\n  ],\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}",
+													"type": "default"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "ObjectModel",
 							"item": [
 								{
@@ -285,6 +322,50 @@
 												"api",
 												"intelliDivide",
 												"optimizations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Template",
+							"item": [
+								{
+									"name": "Excel_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_Template_Excel_ImportOnly\",\n  \"ImportTemplate\": \"HOMAG Connect\",\n  \"Machine\": \"productionAssist Cutting\",\n  \"Parameters\": \"Default\"\n}",
+													"type": "default"
+												},
+												{
+													"key": "ImportFile",
+													"contentType": "Auto",
+													"type": "file",
+													"src": "Kitchen.xlsx"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations/RequestUsingTemplate",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations",
+												"RequestUsingTemplate"
 											]
 										}
 									},
@@ -613,7 +694,6 @@
 		{
 			"key": "SolutionId",
 			"value": "--- Your sample solution id ---",
-			"type": "default"
 		}
 	]
 }
