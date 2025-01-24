@@ -2,7 +2,7 @@
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions
+  Explore-GitHub-Actions:
     name: runner / linkspector
     runs-on: ubuntu-latest
     steps:
