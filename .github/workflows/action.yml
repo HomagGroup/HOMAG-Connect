@@ -1,8 +1,8 @@
-name: GitHub Actions Demo
+name: Linkspector 
 run-name: ${{ github.actor }} checking for broken links
 on: [pull_request]
 jobs:
-  check-links:
+  check-links
     name: runner / linkspector
     runs-on: ubuntu-latest
     steps:
