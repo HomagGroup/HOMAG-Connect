@@ -13,7 +13,7 @@
    [Documentation for materialAssist Client](./MaterialAssist/Readme.md) and [some samples](./MaterialAssist/Samples) for the usage.
 
 5. productionManager <br>
-   [Documentation for productionManager Client](./ProductionManager/Readme123.md) and [some samples](./ProductionManager/Samples) for the usage.
+   [Documentation for productionManager Client](./ProductionManager/Readme.md) and [some samples](./ProductionManager/Samples) for the usage.
 
 6. productionAssist <br>
    [Documentation for productionAssist Client](./Applications/ProductionAssist/Readme.md) and [some samples](./Applications/ProductionAssist/Samples) for the usage.
