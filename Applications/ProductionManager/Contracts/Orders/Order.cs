@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.Serialization;
+using HomagConnect.Base.Contracts;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders
