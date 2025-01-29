@@ -64,7 +64,7 @@ public class ItemBase
     /// <summary>
     /// Gets or sets the state of the entity.
     /// </summary>
-    public ItemState State { get; set; } = ItemState.New;
+    public OrderItemState State { get; set; } = OrderItemState.New;
 
     /// <summary>
     /// Barcode used to identify a production entity.

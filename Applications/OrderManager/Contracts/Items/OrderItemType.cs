@@ -16,5 +16,6 @@ public enum OrderItemType
 
     //Processing,
     //Packaging,
-    Price
+    Price,
+    Configuration
 }

@@ -24,22 +24,12 @@
       <HashCode>AAAiQAAAAAEggAFEABAAAEBAAAAAEAAABQQAhAAAQAg=</HashCode>
       <FileName>Items\ItemBase.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="State" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.Items.ItemComponent">
     <Position X="12.75" Y="5.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAABAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Items\ItemComponent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.OrderManager.Contracts.Items.OrderGroup">
-    <Position X="9.25" Y="5.75" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAACAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Items\OrderGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.Items.ItemResource">
@@ -75,6 +65,13 @@
     <Position X="5.25" Y="8.25" Width="3.25" />
     <TypeIdentifier />
   </Class>
+  <Class Name="HomagConnect.OrderManager.Contracts.Items.Configuration">
+    <Position X="9.25" Y="5.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Items\Configuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="HomagConnect.Base.Contracts.Interfaces.ICncProgramProperties">
     <Position X="19.5" Y="14.75" Width="3.25" />
     <TypeIdentifier />
@@ -98,7 +95,7 @@
       <FileName>OrderState.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="HomagConnect.OrderManager.Contracts.Items.ItemState">
+  <Enum Name="HomagConnect.OrderManager.Contracts.Items.OrderItemState">
     <Position X="15.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAEABA=</HashCode>
@@ -108,7 +105,7 @@
   <Enum Name="HomagConnect.OrderManager.Contracts.Items.OrderItemType">
     <Position X="15.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIQAAAAAIAAAAgAAAAAAAAAAAAABAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAIQAAAAAIAAAAgAAAAAAAAAAAgABAAAAAABA=</HashCode>
       <FileName>Items\OrderItemType.cs</FileName>
     </TypeIdentifier>
   </Enum>

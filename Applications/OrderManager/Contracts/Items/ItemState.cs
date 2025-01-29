@@ -3,7 +3,7 @@
 /// <summary>
 /// Item state.
 /// </summary>
-public enum ItemState
+public enum OrderItemState
 {
     /// <summary>
     /// Unknown
