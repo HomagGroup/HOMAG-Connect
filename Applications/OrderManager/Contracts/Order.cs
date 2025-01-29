@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 
 using HomagConnect.Base.Contracts;
@@ -26,7 +27,8 @@ namespace HomagConnect.OrderManager.Contracts
         /// Gets the status of the order.
         /// </summary>
         [JsonProperty(Order = 101)]
-        public OrderState OrderStatus { get; set; }
+        [DefaultValue(OrderState.New)]
+        public OrderState State { get; set; } = OrderState.New;
 
         /// <summary>
         /// The number of the order

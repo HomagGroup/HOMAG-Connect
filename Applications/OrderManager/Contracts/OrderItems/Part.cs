@@ -1,8 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-using System.Collections.ObjectModel;
-
-using HomagConnect.Base.Contracts.AdditionalData;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
@@ -11,9 +8,6 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// </summary>
 public class Part : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
-   
-    
-
     /// <summary>
     /// Gets or sets the article number.
     /// </summary>
@@ -53,6 +47,7 @@ public class Part : Component, ILaminatingProperties, IEdgebandingProperties, ID
     /// Gets or sets the width.
     /// </summary>
     public double? Width { get; set; }
+
     /// <summary>
     /// Gets or sets the planned end date of the  entity.
     /// </summary>
@@ -91,17 +86,17 @@ public class Part : Component, ILaminatingProperties, IEdgebandingProperties, ID
     /// <summary>
     /// Finish length
     /// </summary>
-    public decimal? FinishLength { get; set; }
+    public double? FinishLength { get; set; }
 
     /// <summary>
     /// Finish width
     /// </summary>
-    public decimal? FinishWidth { get; set; }
+    public double? FinishWidth { get; set; }
 
     /// <summary>
     /// Label layout
     /// </summary>
-    public string? LabelLayout { get; set; }
+    public double? LabelLayout { get; set; }
 
     /// <summary>
     /// Template
@@ -111,12 +106,12 @@ public class Part : Component, ILaminatingProperties, IEdgebandingProperties, ID
     /// <summary>
     /// 2. Cut size length
     /// </summary>
-    public decimal? SecondCutLength { get; set; }
+    public double? SecondCutLength { get; set; }
 
     /// <summary>
     /// 2. Cut size width
     /// </summary>
-    public decimal? SecondCutWidth { get; set; }
+    public double? SecondCutWidth { get; set; }
 
     #endregion
 
@@ -154,22 +149,22 @@ public class Part : Component, ILaminatingProperties, IEdgebandingProperties, ID
     /// <summary>
     /// Edge Thickness Front
     /// </summary>
-    public decimal? EdgeThicknessFront { get; set; }
+    public double? EdgeThicknessFront { get; set; }
 
     /// <summary>
     /// Edge Thickness Back
     /// </summary>
-    public decimal? EdgeThicknessBack { get; set; }
+    public double? EdgeThicknessBack { get; set; }
 
     /// <summary>
     /// Edge Thickness Left
     /// </summary>
-    public decimal? EdgeThicknessLeft { get; set; }
+    public double? EdgeThicknessLeft { get; set; }
 
     /// <summary>
     /// Edge Thickness Right
     /// </summary>
-    public decimal? EdgeThicknessRight { get; set; }
+    public double? EdgeThicknessRight { get; set; }
 
     #endregion
 

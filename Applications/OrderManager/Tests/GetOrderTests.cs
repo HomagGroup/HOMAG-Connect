@@ -20,7 +20,7 @@ namespace HomagConnect.OrderManager.Tests
             // Header
 
             order.OrderNumber = "736362";
-            order.OrderStatus = OrderState.New;
+            order.State = OrderState.New;
             order.OrderName = "Bedroom & bathroom 01";
             order.Project = "Single family house Müller John";
             order.PersonInCharge = "Hendrik Albers";
