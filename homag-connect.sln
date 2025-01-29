@@ -130,6 +130,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{868E6DD3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.IntelliDivide.Samples", "Applications\IntelliDivide\Samples\CSharp\HomagConnect.IntelliDivide.Samples.csproj", "{FC7B129C-B901-4231-9FC1-F2D830CFCA99}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.OrderManager", "HomagConnect.OrderManager", "{1EF75278-EABE-42DB-B673-0A432B83DFEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Contracts", "Applications\OrderManager\Contracts\HomagConnect.OrderManager.Contracts.csproj", "{44521D4B-E97A-4235-86BF-42C7363C8280}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -244,6 +248,10 @@ Global
 		{FC7B129C-B901-4231-9FC1-F2D830CFCA99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC7B129C-B901-4231-9FC1-F2D830CFCA99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC7B129C-B901-4231-9FC1-F2D830CFCA99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44521D4B-E97A-4235-86BF-42C7363C8280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44521D4B-E97A-4235-86BF-42C7363C8280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44521D4B-E97A-4235-86BF-42C7363C8280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44521D4B-E97A-4235-86BF-42C7363C8280}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -293,6 +301,8 @@ Global
 		{371B1C91-B9BF-4DC0-85C6-35C31C1230A0} = {F71265AB-0375-4E28-9368-897BD5A2CA77}
 		{5222BE37-B31A-4FD6-8C09-B0FE368B324E} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{FC7B129C-B901-4231-9FC1-F2D830CFCA99} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
+		{1EF75278-EABE-42DB-B673-0A432B83DFEF} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
+		{44521D4B-E97A-4235-86BF-42C7363C8280} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
