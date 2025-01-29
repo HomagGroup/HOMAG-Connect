@@ -14,12 +14,12 @@ namespace HomagConnect.OrderManager.Contracts.Items;
 /// Production entity
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-[JsonSubtypes.KnownSubType(typeof(ItemOrderGroup), ItemType.OrderGroup)]
-[JsonSubtypes.KnownSubType(typeof(ItemOrderItem), ItemType.OrderItem)]
-[JsonSubtypes.KnownSubType(typeof(ItemComponent), ItemType.Component)]
-[JsonSubtypes.KnownSubType(typeof(ItemPart), ItemType.Part)]
-[JsonSubtypes.KnownSubType(typeof(ItemResource), ItemType.Resource)]
-[JsonSubtypes.KnownSubType(typeof(ItemPrice), ItemType.Price)]
+[JsonSubtypes.KnownSubType(typeof(OrderGroup), OrderItemType.OrderGroup)]
+[JsonSubtypes.KnownSubType(typeof(ItemOrderItem), OrderItemType.OrderItem)]
+[JsonSubtypes.KnownSubType(typeof(ItemComponent), OrderItemType.Component)]
+[JsonSubtypes.KnownSubType(typeof(ItemPart), OrderItemType.Part)]
+[JsonSubtypes.KnownSubType(typeof(ItemResource), OrderItemType.Resource)]
+[JsonSubtypes.KnownSubType(typeof(ItemPrice), OrderItemType.Price)]
 [DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
 public class ItemBase
 {
@@ -35,7 +35,7 @@ public class ItemBase
     /// <summary>
     /// Gets or sets the type of the item entity.
     /// </summary>
-    public virtual ItemType Type { get; set; }
+    public virtual OrderItemType Type { get;  }
 
     #endregion
 

@@ -1,5 +1,6 @@
 using FluentAssertions;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Contracts.Lots;

@@ -8,7 +8,7 @@ namespace HomagConnect.OrderManager.Contracts;
 /// Order Status Enumeration
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
-public enum OrderStatus
+public enum OrderState
 {
     /// <summary>
     /// The order status is unknown. Only fallback for unknown newer states.

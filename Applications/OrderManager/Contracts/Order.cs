@@ -84,7 +84,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Gets the status of the order.
         /// </summary>
-        public OrderStatus OrderStatus { get; set; }
+        public OrderState OrderStatus { get; set; }
 
         #endregion
 
@@ -103,6 +103,11 @@ namespace HomagConnect.OrderManager.Contracts
         /// Gets the timestamp the order was last changed at.
         /// </summary>
         public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
+
+        /// <summary>
+        /// Gets the user who changed the order last.
+        /// </summary>
+        public string? ChangedBy { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was created at.
@@ -194,6 +199,8 @@ namespace HomagConnect.OrderManager.Contracts
         /// Gets or sets the items.
         /// </summary>
         public Collection<ItemBase>? Items { get; set; }
+
+      
 
         #endregion
     }

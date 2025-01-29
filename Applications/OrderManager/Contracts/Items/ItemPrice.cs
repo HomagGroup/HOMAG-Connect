@@ -2,15 +2,24 @@
 
 public class ItemPrice : ItemBase
 {
+    /// <inheritdoc />
+    public override OrderItemType Type
+    {
+        get
+        {
+            return OrderItemType.Price;
+        }
+    }
+
     /// <summary>
     /// The total price of the item
     /// </summary>
-    public decimal? TotalPrice { get; set; }
+    public double? TotalPrice { get; set; }
 
     /// <summary>
     /// The total price of one item
     /// </summary>
-    public decimal? UnitPrice { get; set; }
+    public double? UnitPrice { get; set; }
 
     /// <summary>
     /// The currency of the price

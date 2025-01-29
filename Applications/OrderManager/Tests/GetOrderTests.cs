@@ -3,6 +3,7 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.OrderManager.Contracts;
+using HomagConnect.OrderManager.Contracts.Items;
 
 namespace HomagConnect.OrderManager.Tests
 {
@@ -19,7 +20,7 @@ namespace HomagConnect.OrderManager.Tests
             // Header
 
             order.OrderNumber = "736362";
-            order.OrderStatus = OrderStatus.New;
+            order.OrderStatus = OrderState.New;
             order.OrderName = "Bedroom & bathroom 01";
             order.Project = "Single family house Müller John";
             order.PersonInCharge = "Hendrik Albers";
@@ -43,6 +44,62 @@ namespace HomagConnect.OrderManager.Tests
                     Type = AddressType.Delivery | AddressType.Billing
                 }
             });
+
+            // Customer
+
+            order.CustomerName = "Müller & Co.";
+            order.CustomerNumber = "462642";
+
+            // Details
+
+            order.QuantityOfParts = 100;
+            order.QuantityOfArticles = 10;
+            order.QuantityOfPartsPlanned = 0;
+            //order.TotalPrice = 1000;
+
+            order.CreatedAt = DateTimeOffset.Now;
+            order.ChangedAt = DateTimeOffset.Now;
+            order.ChangedBy = "Boris Wehrle";
+
+            // Order Items
+
+            order.Items = new()
+            {
+                new OrderGroup()
+                {
+                    Name = "Bedroom & bathroom 01",
+                    Source = "orderConfigurator",
+
+                    Items = new()
+                    {
+                        new ItemOrderItem
+                        {
+                            Position = "P 01.01",
+                            ArticleNumber = "67839",
+                            Quantity = 4,
+                            Description = "Cabinet left",
+                            Notes = "Lorem ipsum",
+
+                            // item.Catalog = "Catalog_name"
+                            // item.Price = 50;
+                            // item.Height
+                            // item.Width
+                        },
+                        new ItemOrderItem
+                        {
+                            Position = "P 01.02",
+                            ArticleNumber = "67840",
+                            Quantity = 6,
+                            Description = "Cabinet right",
+                            Notes = "Lorem ipsum",
+                            // item.Catalog = "Catalog_name"
+                            // item.Price = 50;
+                            // item.Height
+                            // item.Width
+                        }
+                    }
+                }
+            };
 
             order.Trace(nameof(order));
         }
