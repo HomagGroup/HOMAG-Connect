@@ -134,6 +134,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.OrderManager",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Contracts", "Applications\OrderManager\Contracts\HomagConnect.OrderManager.Contracts.csproj", "{44521D4B-E97A-4235-86BF-42C7363C8280}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Samples", "Applications\OrderManager\Samples\CSharp\HomagConnect.OrderManager.Samples.csproj", "{ACBBA578-8B7F-454C-8B17-AD045227021F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Tests", "Applications\OrderManager\Tests\HomagConnect.OrderManager.Tests.csproj", "{452A25B0-B534-4FD0-A60D-15D5028BEC87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -252,6 +256,14 @@ Global
 		{44521D4B-E97A-4235-86BF-42C7363C8280}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44521D4B-E97A-4235-86BF-42C7363C8280}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44521D4B-E97A-4235-86BF-42C7363C8280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACBBA578-8B7F-454C-8B17-AD045227021F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACBBA578-8B7F-454C-8B17-AD045227021F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACBBA578-8B7F-454C-8B17-AD045227021F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACBBA578-8B7F-454C-8B17-AD045227021F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -303,6 +315,8 @@ Global
 		{FC7B129C-B901-4231-9FC1-F2D830CFCA99} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 		{1EF75278-EABE-42DB-B673-0A432B83DFEF} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
 		{44521D4B-E97A-4235-86BF-42C7363C8280} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
+		{ACBBA578-8B7F-454C-8B17-AD045227021F} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
+		{452A25B0-B534-4FD0-A60D-15D5028BEC87} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
