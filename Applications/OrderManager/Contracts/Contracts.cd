@@ -17,13 +17,6 @@
   <Class Name="HomagConnect.Base.Contracts.Address">
     <Position X="0.5" Y="8.25" Width="4" />
     <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Type" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="HomagConnect.Base.Contracts.AddressType">
-    <Position X="5.25" Y="8.25" Width="3.25" />
-    <TypeIdentifier />
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.OrderItems.Base">
     <Position X="9.75" Y="1.25" Width="4" />
@@ -74,7 +67,7 @@
   <Class Name="HomagConnect.OrderManager.Contracts.OrderItems.Configuration">
     <Position X="18.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>OrderItems\Configuration.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -84,6 +77,10 @@
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAQAAAAAAAAA=</HashCode>
       <FileName>OrderItems\Price.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.Base.Contracts.AddressType">
+    <Position X="5.25" Y="8.25" Width="3.25" />
+    <TypeIdentifier />
   </Class>
   <Interface Name="HomagConnect.Base.Contracts.Interfaces.ICncProgramProperties">
     <Position X="9.5" Y="15.75" Width="3.25" />

@@ -1,7 +1,8 @@
-﻿using Type = HomagConnect.OrderManager.Contracts.OrderItems.Type;
+﻿namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
-namespace HomagConnect.OrderManager.Contracts.OrderItems;
-
+/// <summary>
+/// A price information.
+/// </summary>
 public class Price : Base
 {
     /// <inheritdoc cref="Base" />

@@ -1,8 +1,9 @@
-﻿using Type = HomagConnect.OrderManager.Contracts.OrderItems.Type;
+﻿namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
-namespace HomagConnect.OrderManager.Contracts.OrderItems;
-
-public class Configuration : OrderItems.Base
+/// <summary>
+/// (Software) Configuration information.
+/// </summary>
+public class Configuration : Base
 {
     /// <inheritdoc />
     public override Type Type
@@ -12,4 +13,9 @@ public class Configuration : OrderItems.Base
             return Type.Configuration;
         }
     }
+
+    /// <summary>
+    /// Contains configuration attributes.
+    /// </summary>
+    public IDictionary<string, object>? Attributes { get; set; } = new Dictionary<string, object>(StringComparer.Ordinal);
 }

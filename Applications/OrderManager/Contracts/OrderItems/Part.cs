@@ -6,7 +6,8 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// <summary>
 /// Order item part
 /// </summary>
-public class Part : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
+public class Part : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, 
+    IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
     /// <summary>
     /// Gets or sets the article number.
