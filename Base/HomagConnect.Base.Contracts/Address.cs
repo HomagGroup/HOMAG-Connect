@@ -16,31 +16,37 @@ public class Address
     /// <summary>
     /// Gets or sets the country
     /// </summary>
-    [JsonProperty(Order = 5)]
+    [JsonProperty(Order = 6)]
     public string? Country { get; set; }
 
     /// <summary>
     /// Gets or sets the house number.
     /// </summary>
-    [JsonProperty(Order = 2)]
+    [JsonProperty(Order = 3)]
     public string? HouseNumber { get; set; }
 
     /// <summary>
     /// Gets or sets the postal code.
     /// </summary>
-    [JsonProperty(Order = 3)]
+    [JsonProperty(Order = 4)]
     public string? PostalCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    [JsonProperty(Order = 1)]
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets or sets the street.
     /// </summary>
-    [JsonProperty(Order = 1)]
+    [JsonProperty(Order = 2)]
     public string? Street { get; set; }
 
     /// <summary>
     /// Gets or sets the city.
     /// </summary>
-    [JsonProperty(Order = 4)]
+    [JsonProperty(Order = 5)]
     public string? City { get; set; }
 
     /// <summary>

@@ -1,5 +1,11 @@
-﻿namespace HomagConnect.Base.Contracts;
+﻿using HomagConnect.Base.Contracts.Converter;
 
+using Newtonsoft.Json;
+
+namespace HomagConnect.Base.Contracts;
+
+[Flags]
+[JsonConverter(typeof(TolerantEnumConverter))]
 public enum AddressType
 {
     /// <summary>
@@ -10,10 +16,10 @@ public enum AddressType
     /// <summary>
     /// The address is a delivery address.
     /// </summary>
-    Delivery,
+    Delivery = 1,
 
     /// <summary>
     /// The address is a billing address.
     /// </summary>
-    Billing
+    Billing = 2
 }
