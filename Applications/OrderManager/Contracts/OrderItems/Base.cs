@@ -8,20 +8,20 @@ using JsonSubTypes;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.OrderManager.Contracts.Items;
+namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
 /// Production entity
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-[JsonSubtypes.KnownSubType(typeof(OrderGroup), OrderItemType.OrderGroup)]
-[JsonSubtypes.KnownSubType(typeof(OrderItem), OrderItemType.OrderItem)]
-[JsonSubtypes.KnownSubType(typeof(Component), OrderItemType.Component)]
-[JsonSubtypes.KnownSubType(typeof(ItemPart), OrderItemType.Part)]
-[JsonSubtypes.KnownSubType(typeof(Resource), OrderItemType.Resource)]
-[JsonSubtypes.KnownSubType(typeof(ItemPrice), OrderItemType.Price)]
+[JsonSubtypes.KnownSubType(typeof(Group), Type.Group)]
+[JsonSubtypes.KnownSubType(typeof(Position), Type.Position)]
+[JsonSubtypes.KnownSubType(typeof(Component), Type.Component)]
+[JsonSubtypes.KnownSubType(typeof(Part), Type.Part)]
+[JsonSubtypes.KnownSubType(typeof(Resource), Type.Resource)]
+[JsonSubtypes.KnownSubType(typeof(Price), Type.Price)]
 [DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
-public class OrderItemBase
+public class Base
 {
     #region JsonExtensionData Member
 
@@ -35,7 +35,7 @@ public class OrderItemBase
     /// <summary>
     /// Gets or sets the type of the item entity.
     /// </summary>
-    public virtual OrderItemType Type { get;  }
+    public virtual Type Type { get; }
 
     #endregion
 
@@ -64,7 +64,7 @@ public class OrderItemBase
     /// <summary>
     /// Gets or sets the state of the entity.
     /// </summary>
-    public OrderItemState State { get; set; } = OrderItemState.New;
+    public State State { get; set; } = State.New;
 
     /// <summary>
     /// Barcode used to identify a production entity.
@@ -133,8 +133,6 @@ public class OrderItemBase
     /// Custom properties
     /// </summary>
     public IDictionary<string, string>? CustomProperties { get; set; }
-
-
 
     /// <inheritdoc />
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;

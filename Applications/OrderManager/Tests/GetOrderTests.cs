@@ -3,7 +3,7 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.OrderManager.Contracts;
-using HomagConnect.OrderManager.Contracts.Items;
+using HomagConnect.OrderManager.Contracts.OrderItems;
 
 namespace HomagConnect.OrderManager.Tests
 {
@@ -65,16 +65,16 @@ namespace HomagConnect.OrderManager.Tests
 
             order.Items = new()
             {
-                new OrderGroup()
+                new Group()
                 {
                     Name = "Bedroom & bathroom 01",
                     Source = "orderConfigurator",
 
                     Items = new()
                     {
-                        new OrderItem
+                        new Position
                         {
-                            Position = "P 01.01",
+                            Name = "P 01.01",
                             ArticleNumber = "67839",
                             Quantity = 4,
                             Description = "Cabinet left",
@@ -85,9 +85,9 @@ namespace HomagConnect.OrderManager.Tests
                             // item.Height
                             // item.Width
                         },
-                        new OrderItem
+                        new Position
                         {
-                            Position = "P 01.02",
+                            Name = "P 01.02",
                             ArticleNumber = "67840",
                             Quantity = 6,
                             Description = "Cabinet right",

@@ -1,15 +1,13 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 
-namespace HomagConnect.OrderManager.Contracts.Items;
+namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
-public class ItemPart : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
+/// <summary>
+/// Order item part
+/// </summary>
+public class Part : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
-    /// <summary>
-    /// Grouping
-    /// </summary>
-    public string? Grouping { get; set; }
-
     #region ICuttingProperties Members
 
     /// <summary>

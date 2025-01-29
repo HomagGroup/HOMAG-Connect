@@ -1,15 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace HomagConnect.OrderManager.Contracts.Items;
+using Type = HomagConnect.OrderManager.Contracts.OrderItems.Type;
 
-public class OrderGroup : OrderItemBase
+namespace HomagConnect.OrderManager.Contracts.OrderItems;
+
+public class Group : Base
 {
-    /// <inheritdoc cref="OrderItemBase"/>
-    public override OrderItemType Type
+    /// <inheritdoc cref="Base" />
+    public override Type Type
     {
         get
         {
-            return OrderItemType.OrderGroup;
+            return Type.Group;
         }
     }
 
@@ -26,5 +28,5 @@ public class OrderGroup : OrderItemBase
     /// <summary>
     /// Gets or sets the items.
     /// </summary>
-    public Collection<OrderItemBase>? Items { get; set; }
+    public Collection<Base>? Items { get; set; }
 }

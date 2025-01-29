@@ -2,14 +2,17 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.OrderManager.Contracts.Items;
+namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
+/// <summary>
+/// Order item type.
+/// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
-public enum OrderItemType
+public enum Type
 {
     Unknown,
-    OrderGroup,
-    OrderItem,
+    Group,
+    Position,
     Component,
     Part,
     Resource,

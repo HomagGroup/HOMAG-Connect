@@ -13,62 +13,66 @@
   <Class Name="HomagConnect.Base.Contracts.Address">
     <Position X="0.5" Y="8.25" Width="4" />
     <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Type" />
-    </ShowAsAssociation>
   </Class>
-  <Class Name="HomagConnect.OrderManager.Contracts.Items.OrderItemBase">
+  <Class Name="HomagConnect.OrderManager.Contracts.Items.Base">
     <Position X="9.5" Y="0.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAiQAAAAAEggAFEABAAAEBAAAAAEAAABQQAhAAAQAg=</HashCode>
-      <FileName>Items\OrderItemBase.cs</FileName>
+      <FileName>Items\Base.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.Items.Component">
-    <Position X="12.75" Y="5.75" Width="2.5" />
+    <Position X="12.25" Y="7.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAABAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAABAAAAAAAAAAAAgIAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Items\Component.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.Items.Resource">
-    <Position X="11" Y="9" Width="2.5" />
+    <Position X="10.25" Y="10" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Items\Resource.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HomagConnect.OrderManager.Contracts.Items.ItemPrice">
+  <Class Name="HomagConnect.OrderManager.Contracts.Items.Price">
     <Position X="19" Y="5.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Items\ItemPrice.cs</FileName>
+      <FileName>Items\Price.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.Items.OrderItem">
     <Position X="16" Y="5.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Items\OrderItem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HomagConnect.OrderManager.Contracts.Items.ItemPart">
-    <Position X="15" Y="9" Width="2.75" />
+  <Class Name="HomagConnect.OrderManager.Contracts.Items.Part">
+    <Position X="15" Y="12" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>CEAACgAAEEIDBAAABIAAIABAAUgAgAQAAAIAKAABAAA=</HashCode>
-      <FileName>Items\ItemPart.cs</FileName>
+      <HashCode>CEAACAAAEEIDBAAABIAAIABAAUgAgAQAAAIAKAABAAA=</HashCode>
+      <FileName>Items\Part.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.OrderManager.Contracts.Items.Configuration">
+    <Position X="15.75" Y="7.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Items\Configuration.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.Base.Contracts.AddressType">
     <Position X="5.25" Y="8.25" Width="3.25" />
     <TypeIdentifier />
   </Class>
-  <Class Name="HomagConnect.OrderManager.Contracts.Items.Configuration">
-    <Position X="9.25" Y="5.75" Width="3" />
+  <Class Name="HomagConnect.OrderManager.Contracts.Items.Group" Collapsed="true">
+    <Position X="10" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Items\Configuration.cs</FileName>
+      <HashCode>AAAAAAAAAgAACAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Items\Group.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="HomagConnect.Base.Contracts.Interfaces.ICncProgramProperties">
@@ -94,18 +98,18 @@
       <FileName>OrderState.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="HomagConnect.OrderManager.Contracts.Items.OrderItemState">
+  <Enum Name="HomagConnect.OrderManager.Contracts.Items.State">
     <Position X="15.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAEABA=</HashCode>
-      <FileName>Items\OrderItemState.cs</FileName>
+      <FileName>Items\State.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="HomagConnect.OrderManager.Contracts.Items.OrderItemType">
+  <Enum Name="HomagConnect.OrderManager.Contracts.Items.Type">
     <Position X="15.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIQAAAAAIAAAAgAAAAAAAAAAAgABAAAAAABA=</HashCode>
-      <FileName>Items\OrderItemType.cs</FileName>
+      <HashCode>AAAAAEAAIQAAAAAIAAAAAAAAAAAAAAAAgABAAAAAABA=</HashCode>
+      <FileName>Items\Type.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
