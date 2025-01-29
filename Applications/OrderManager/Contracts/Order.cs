@@ -198,7 +198,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
-        public Collection<ItemBase>? Items { get; set; }
+        public Collection<OrderItemBase>? Items { get; set; }
 
       
 

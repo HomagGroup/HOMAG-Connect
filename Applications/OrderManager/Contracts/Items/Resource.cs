@@ -1,13 +1,13 @@
 ﻿namespace HomagConnect.OrderManager.Contracts.Items;
 
-public class Configuration : OrderItemBase
+public class Resource : Component
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="OrderItemBase"/>
     public override OrderItemType Type
     {
         get
         {
-            return OrderItemType.Configuration;
+            return OrderItemType.Resource;
         }
     }
 }

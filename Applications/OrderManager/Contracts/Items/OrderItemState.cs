@@ -1,8 +1,13 @@
-﻿namespace HomagConnect.OrderManager.Contracts.Items;
+﻿using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.OrderManager.Contracts.Items;
 
 /// <summary>
 /// Item state.
 /// </summary>
+[JsonConverter(typeof(TolerantEnumConverter))]
 public enum OrderItemState
 {
     /// <summary>

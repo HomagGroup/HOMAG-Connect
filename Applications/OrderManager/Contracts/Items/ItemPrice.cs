@@ -1,8 +1,8 @@
 ﻿namespace HomagConnect.OrderManager.Contracts.Items;
 
-public class ItemPrice : ItemBase
+public class ItemPrice : OrderItemBase
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="OrderItemBase"/>
     public override OrderItemType Type
     {
         get

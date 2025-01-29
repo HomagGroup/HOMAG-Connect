@@ -3,7 +3,7 @@ using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.OrderManager.Contracts.Items;
 
-public class ItemPart : ItemComponent, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
+public class ItemPart : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
     /// <summary>
     /// Grouping

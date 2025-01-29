@@ -1,7 +1,17 @@
 ﻿namespace HomagConnect.OrderManager.Contracts.Items;
 
-public class ItemComponent : ItemBase
+public class Component : OrderItemBase
 {
+
+    /// <inheritdoc cref="OrderItemBase"/>
+    public override OrderItemType Type
+    {
+        get
+        {
+            return OrderItemType.Component;
+        }
+    }
+
     /// <summary>
     /// Gets or sets the thickness.
     /// </summary>

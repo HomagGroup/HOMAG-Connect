@@ -15,13 +15,13 @@ namespace HomagConnect.OrderManager.Contracts.Items;
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(OrderGroup), OrderItemType.OrderGroup)]
-[JsonSubtypes.KnownSubType(typeof(ItemOrderItem), OrderItemType.OrderItem)]
-[JsonSubtypes.KnownSubType(typeof(ItemComponent), OrderItemType.Component)]
+[JsonSubtypes.KnownSubType(typeof(OrderItem), OrderItemType.OrderItem)]
+[JsonSubtypes.KnownSubType(typeof(Component), OrderItemType.Component)]
 [JsonSubtypes.KnownSubType(typeof(ItemPart), OrderItemType.Part)]
-[JsonSubtypes.KnownSubType(typeof(ItemResource), OrderItemType.Resource)]
+[JsonSubtypes.KnownSubType(typeof(Resource), OrderItemType.Resource)]
 [JsonSubtypes.KnownSubType(typeof(ItemPrice), OrderItemType.Price)]
 [DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
-public class ItemBase
+public class OrderItemBase
 {
     #region JsonExtensionData Member
 

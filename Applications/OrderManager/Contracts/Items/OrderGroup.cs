@@ -2,9 +2,9 @@
 
 namespace HomagConnect.OrderManager.Contracts.Items;
 
-public class OrderGroup : ItemBase
+public class OrderGroup : OrderItemBase
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="OrderItemBase"/>
     public override OrderItemType Type
     {
         get
@@ -26,5 +26,5 @@ public class OrderGroup : ItemBase
     /// <summary>
     /// Gets or sets the items.
     /// </summary>
-    public Collection<ItemBase>? Items { get; set; }
+    public Collection<OrderItemBase>? Items { get; set; }
 }

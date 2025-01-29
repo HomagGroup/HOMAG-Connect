@@ -72,7 +72,7 @@ namespace HomagConnect.OrderManager.Tests
 
                     Items = new()
                     {
-                        new ItemOrderItem
+                        new OrderItem
                         {
                             Position = "P 01.01",
                             ArticleNumber = "67839",
@@ -85,7 +85,7 @@ namespace HomagConnect.OrderManager.Tests
                             // item.Height
                             // item.Width
                         },
-                        new ItemOrderItem
+                        new OrderItem
                         {
                             Position = "P 01.02",
                             ArticleNumber = "67840",
