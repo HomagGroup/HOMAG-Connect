@@ -79,11 +79,9 @@ namespace HomagConnect.OrderManager.Tests
                             Quantity = 4,
                             Description = "Cabinet left",
                             Notes = "Lorem ipsum",
-
-                            // item.Catalog = "Catalog_name"
-                            // item.Price = 50;
-                            // item.Height
-                            // item.Width
+                            Length = 250,
+                            Width = 100,
+                            Height = 150
                         },
                         new Position
                         {
@@ -92,10 +90,9 @@ namespace HomagConnect.OrderManager.Tests
                             Quantity = 6,
                             Description = "Cabinet right",
                             Notes = "Lorem ipsum",
-                            // item.Catalog = "Catalog_name"
-                            // item.Price = 50;
-                            // item.Height
-                            // item.Width
+                            Length = 250,
+                            Width = 100,
+                            Height = 150
                         }
                     }
                 }

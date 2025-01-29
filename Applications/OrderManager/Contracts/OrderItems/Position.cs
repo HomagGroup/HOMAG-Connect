@@ -25,13 +25,19 @@ public class Position : Base
     /// </summary>
     [JsonProperty(Order = 2)]
     public string ArticleNumber { get; set; }
-    
+
     [JsonProperty(Order = 3)]
     public string Description { get; set; }
 
     [JsonProperty(Order = 4)]
     public int Quantity { get; set; } = 1;
 
+    [JsonProperty(Order = 5)]
+    public double? Length { get; set; }
 
-    
+    [JsonProperty(Order = 6)]
+    public double? Width { get; set; }
+
+    [JsonProperty(Order = 7)]
+    public double? Height { get; set; }
 }
