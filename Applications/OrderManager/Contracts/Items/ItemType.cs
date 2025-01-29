@@ -8,6 +8,7 @@ public enum ItemType
     Component,
     Part,
     Resource,
+
     //Processing,
     //Packaging,
     Price
