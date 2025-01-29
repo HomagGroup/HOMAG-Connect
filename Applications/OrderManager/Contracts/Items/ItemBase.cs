@@ -134,6 +134,8 @@ public class ItemBase
     /// </summary>
     public IDictionary<string, string>? CustomProperties { get; set; }
 
+
+
     /// <inheritdoc />
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 }

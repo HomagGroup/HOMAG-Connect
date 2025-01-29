@@ -24,7 +24,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 [JsonSubtypes.KnownSubType(typeof(ProductionEntityAssemblyUnit), ProductionEntityType.AssemblyUnit)]
 [JsonSubtypes.KnownSubType(typeof(ProductionEntityResource), ProductionEntityType.Resource)]
 [DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
-public class ProductionEntity : IExtensibleDataObject
+public class ProductionEntity
 {
     #region (10) Article
 
@@ -149,14 +149,13 @@ public class ProductionEntity : IExtensibleDataObject
     /// </summary>
     [JsonProperty(Order = 81)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
-
-    #endregion
-
-    #region (90) IExtensibleDataObject Members
-
-    /// <intheritdoc />
+    
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
     [JsonProperty(Order = 90)]
-    public ExtensionDataObject? ExtensionData { get; set; }
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     #endregion
 

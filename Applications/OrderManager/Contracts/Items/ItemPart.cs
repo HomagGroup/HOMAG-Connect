@@ -1,43 +1,16 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.OrderManager.Contracts.Items;
 
-public class ItemPart : ItemComponent
+public class ItemPart : ItemComponent, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
     /// <summary>
-    /// Edge Thickness Front
+    /// Grouping
     /// </summary>
-    public decimal? EdgeThicknessFront { get; set; }
+    public string? Grouping { get; set; }
 
-    /// <summary>
-    /// Edge Thickness Back
-    /// </summary>
-    public decimal? EdgeThicknessBack { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Left
-    /// </summary>
-    public decimal? EdgeThicknessLeft { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Right
-    /// </summary>
-    public decimal? EdgeThicknessRight { get; set; }
-
-    /// <summary>
-    /// Surface Top
-    /// </summary>
-    public string? SurfaceTop { get; set; }
-
-    /// <summary>
-    /// Surface Bottom
-    /// </summary>
-    public string? SurfaceBottom { get; set; }
-
-    /// <summary>
-    /// CNC Program Name 3
-    /// </summary>
-    public string? CncProgramName3 { get; set; }
+    #region ICuttingProperties Members
 
     /// <summary>
     /// Finish length
@@ -60,11 +33,6 @@ public class ItemPart : ItemComponent
     public string? Template { get; set; }
 
     /// <summary>
-    /// Grouping
-    /// </summary>
-    public string? Grouping { get; set; }
-
-    /// <summary>
     /// 2. Cut size length
     /// </summary>
     public decimal? SecondCutLength { get; set; }
@@ -73,6 +41,8 @@ public class ItemPart : ItemComponent
     /// 2. Cut size width
     /// </summary>
     public decimal? SecondCutWidth { get; set; }
+
+    #endregion
 
     #region IMaterialProperties
 
@@ -105,6 +75,26 @@ public class ItemPart : ItemComponent
     /// <inheritdoc />
     public string? EdgeRight { get; set; }
 
+    /// <summary>
+    /// Edge Thickness Front
+    /// </summary>
+    public decimal? EdgeThicknessFront { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Back
+    /// </summary>
+    public decimal? EdgeThicknessBack { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Left
+    /// </summary>
+    public decimal? EdgeThicknessLeft { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Right
+    /// </summary>
+    public decimal? EdgeThicknessRight { get; set; }
+
     #endregion
 
     #region (40) ICncProgramProperties
@@ -118,6 +108,11 @@ public class ItemPart : ItemComponent
     /// Cnc program name 2
     /// </summary>
     public string? CncProgramName2 { get; set; }
+
+    /// <summary>
+    /// CNC Program Name 3
+    /// </summary>
+    public string? CncProgramName3 { get; set; }
 
     #endregion
 
@@ -140,6 +135,16 @@ public class ItemPart : ItemComponent
     /// LaminateBottomGrain: optional
     /// </summary>
     public Grain? LaminateBottomGrain { get; set; }
+
+    /// <summary>
+    /// Surface Top
+    /// </summary>
+    public string? SurfaceTop { get; set; }
+
+    /// <summary>
+    /// Surface Bottom
+    /// </summary>
+    public string? SurfaceBottom { get; set; }
 
     #endregion
 }

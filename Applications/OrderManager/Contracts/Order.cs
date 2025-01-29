@@ -4,6 +4,7 @@ using System.Diagnostics;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.OrderManager.Contracts.Items;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts
@@ -14,13 +15,6 @@ namespace HomagConnect.OrderManager.Contracts
     [DebuggerDisplay("OrderName={OrderName}")]
     public class Order
     {
-        #region JsonExtensionData Member
-
-        [JsonExtensionData]
-        public Dictionary<string, object>? JsonExtensionData { get; set; }
-
-        #endregion
-
         #region Order Header
 
         /// <summary>
@@ -184,6 +178,13 @@ namespace HomagConnect.OrderManager.Contracts
         /// Gets or sets the additional data.
         /// </summary>
         public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
+
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 90)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         #endregion
 
