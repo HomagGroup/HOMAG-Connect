@@ -1,5 +1,8 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
+using System.Collections.ObjectModel;
+
+using HomagConnect.Base.Contracts.AdditionalData;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
@@ -8,6 +11,81 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// </summary>
 public class Part : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
+   
+    
+
+    /// <summary>
+    /// Gets or sets the article number.
+    /// </summary>
+    public string? ArticleNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the group.
+    /// </summary>
+    public string? ArticleGroup { get; set; }
+
+    /// <summary>
+    /// Gets or sets the state of the entity.
+    /// </summary>
+    public State State { get; set; } = State.New;
+
+    /// <summary>
+    /// Barcode used to identify a production entity.
+    /// </summary>
+    public string? Barcode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the quantity of the production entity.
+    /// </summary>
+    public int Quantity { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the length.
+    /// </summary>
+    public double? Length { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width.
+    /// </summary>
+    public double? Width { get; set; }
+    /// <summary>
+    /// Gets or sets the planned end date of the  entity.
+    /// </summary>
+    public DateTimeOffset? StartDatePlanned { get; set; }
+
+    /// <summary>
+    /// Gets or sets the started at date of the  entity.
+    /// </summary>
+    public DateTimeOffset? StartedAt { get; set; }
+
+    /// <summary>Gets or sets the completed date planned</summary>
+    public DateTimeOffset? CompletionDatePlanned { get; set; }
+
+    /// <summary>
+    /// Gets or sets the completed at date of the  entity.
+    /// </summary>
+    public DateTimeOffset? CompletedAt { get; set; }
+
+    /// <summary>
+    /// Gets or sets the planned delivery date of the  entity.
+    /// </summary>
+    public DateTimeOffset? DeliveryDatePlanned { get; set; }
+
+    /// <summary>
+    /// Surface Top
+    /// </summary>
+    public string? SurfaceTop { get; set; }
+
+    /// <summary>
+    /// Surface Bottom
+    /// </summary>
+    public string? SurfaceBottom { get; set; }
+
     #region ICuttingProperties Members
 
     /// <summary>
@@ -133,16 +211,6 @@ public class Part : Component, ILaminatingProperties, IEdgebandingProperties, ID
     /// LaminateBottomGrain: optional
     /// </summary>
     public Grain? LaminateBottomGrain { get; set; }
-
-    /// <summary>
-    /// Surface Top
-    /// </summary>
-    public string? SurfaceTop { get; set; }
-
-    /// <summary>
-    /// Surface Bottom
-    /// </summary>
-    public string? SurfaceBottom { get; set; }
 
     #endregion
 }

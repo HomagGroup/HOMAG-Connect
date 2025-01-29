@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 using HomagConnect.Base.Contracts.AdditionalData;
-using HomagConnect.Base.Contracts.Enumerations;
 
 using JsonSubTypes;
 
@@ -20,120 +18,42 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Part), Type.Part)]
 [JsonSubtypes.KnownSubType(typeof(Resource), Type.Resource)]
 [JsonSubtypes.KnownSubType(typeof(Price), Type.Price)]
-[DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
 public class Base
 {
-    #region JsonExtensionData Member
-
-    [JsonExtensionData]
-    public Dictionary<string, object>? JsonExtensionData { get; set; }
-
-    #endregion
-
-    #region (10) Item
-
     /// <summary>
     /// Gets or sets the type of the item entity.
     /// </summary>
+    [JsonProperty(Order = 0)]
     public virtual Type Type { get; }
-
-    #endregion
-
-    #region (20) Production
 
     /// <summary>
     /// Gets or sets the id
     /// </summary>
+    [JsonProperty(Order = 1)]
     public string? Id { get; set; }
-
-    /// <summary>
-    /// Gets or sets the article number.
-    /// </summary>
-    public string? ArticleNumber { get; set; }
-
-    /// <summary>
-    /// Gets or sets the description.
-    /// </summary>
-    public string? Description { get; set; }
-
-    /// <summary>
-    /// Gets or sets the group.
-    /// </summary>
-    public string? ArticleGroup { get; set; }
-
-    /// <summary>
-    /// Gets or sets the state of the entity.
-    /// </summary>
-    public State State { get; set; } = State.New;
-
-    /// <summary>
-    /// Barcode used to identify a production entity.
-    /// </summary>
-    public string? Barcode { get; set; }
-
-    /// <summary>
-    /// Gets or sets the quantity of the production entity.
-    /// </summary>
-    public int Quantity { get; set; } = 1;
-
-    /// <summary>
-    /// Gets or sets the length.
-    /// </summary>
-    public double? Length { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width.
-    /// </summary>
-    public double? Width { get; set; }
-
-    #endregion
-
-    #region (30) Date/Times
-
-    /// <summary>
-    /// Gets or sets the planned end date of the  entity.
-    /// </summary>
-    public DateTimeOffset? StartDatePlanned { get; set; }
-
-    /// <summary>
-    /// Gets or sets the started at date of the  entity.
-    /// </summary>
-    public DateTimeOffset? StartedAt { get; set; }
-
-    /// <summary>Gets or sets the completed date planned</summary>
-    public DateTimeOffset? CompletionDatePlanned { get; set; }
-
-    /// <summary>
-    /// Gets or sets the completed at date of the  entity.
-    /// </summary>
-    public DateTimeOffset? CompletedAt { get; set; }
-
-    /// <summary>
-    /// Gets or sets the planned delivery date of the  entity.
-    /// </summary>
-    public DateTimeOffset? DeliveryDatePlanned { get; set; }
-
-    #endregion
-
-    #region (80) Additional data
 
     /// <summary>
     /// Gets or sets the notes of the  entity.
     /// </summary>
+    [JsonProperty(Order = 990)]
     public string? Notes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the items.
+    /// </summary>
+    [JsonProperty(Order = 995)]
+    public Collection<Base>? Items { get; set; }
 
     /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
+    [JsonProperty(Order = 997)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
-    #endregion
-
     /// <summary>
-    /// Custom properties
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    public IDictionary<string, string>? CustomProperties { get; set; }
-
-    /// <inheritdoc />
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 }

@@ -162,22 +162,22 @@ public class ProductionEntity
     /// <summary>
     /// Edge Thickness Front
     /// </summary>
-    public decimal? EdgeThicknessFront { get; set; }
+    public double? EdgeThicknessFront { get; set; }
 
     /// <summary>
     /// Edge Thickness Back
     /// </summary>
-    public decimal? EdgeThicknessBack { get; set; }
+    public double? EdgeThicknessBack { get; set; }
 
     /// <summary>
     /// Edge Thickness Left
     /// </summary>
-    public decimal? EdgeThicknessLeft { get; set; }
+    public double? EdgeThicknessLeft { get; set; }
 
     /// <summary>
     /// Edge Thickness Right
     /// </summary>
-    public decimal? EdgeThicknessRight { get; set; }
+    public double? EdgeThicknessRight { get; set; }
 
     /// <summary>
     /// Surface Top
@@ -207,12 +207,12 @@ public class ProductionEntity
     /// <summary>
     /// Finish length
     /// </summary>
-    public decimal? FinishLength { get; set; }
+    public double? FinishLength { get; set; }
 
     /// <summary>
     /// Finish width
     /// </summary>
-    public decimal? FinishWidth { get; set; }
+    public double? FinishWidth { get; set; }
 
     /// <summary>
     /// Cnc program name 1
@@ -257,10 +257,10 @@ public class ProductionEntity
     /// <summary>
     /// 2. Cut size length
     /// </summary>
-    public decimal? SecondCutLength { get; set; }
+    public double? SecondCutLength { get; set; }
 
     /// <summary>
     /// 2. Cut size width
     /// </summary>
-    public decimal? SecondCutWidth { get; set; }
+    public double? SecondCutWidth { get; set; }
 }

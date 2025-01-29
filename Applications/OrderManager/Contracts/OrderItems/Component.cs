@@ -1,9 +1,15 @@
-﻿using Type = HomagConnect.OrderManager.Contracts.OrderItems.Type;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+
+using Type = HomagConnect.OrderManager.Contracts.OrderItems.Type;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 public class Component : OrderItems.Base
 {
+    /// <summary>
+    /// Gets or sets the unit system.
+    /// </summary>
+    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     /// <inheritdoc cref="Base"/>
     public override Type Type
