@@ -24,7 +24,7 @@ public class Base
     /// Gets or sets the type of the item entity.
     /// </summary>
     [JsonProperty(Order = 0)]
-    public virtual Type Type { get; }
+    public virtual Type Type { get; } = Type.Unknown;
 
     /// <summary>
     /// Gets or sets the id
