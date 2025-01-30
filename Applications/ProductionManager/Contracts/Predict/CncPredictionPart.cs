@@ -57,17 +57,21 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         #endregion
 
         #region CNC processing
+
         /// <inheritdoc />
         [JsonProperty(Order = 41)]
         [StringLength(100, MinimumLength = 1)]
         public string? CncProgramName1 { get; set; }
 
-        /// <summary>
-        /// Gets or sets the program name of the CNC program to execute.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 42)]
         [StringLength(100, MinimumLength = 1)]
         public string? CncProgramName2 { get; set; }
+
+        /// <inheritdoc />
+        [JsonProperty(Order = 42)]
+        [StringLength(100, MinimumLength = 1)]
+        public string? CncProgramName3 { get; set; }
         #endregion
 
         #region IContainsUnitSystemDependentProperties Members

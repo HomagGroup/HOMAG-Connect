@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>default</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.OrderManager.Samples</PackageId>
+		<Title>Homag-Connect OrderManager Samples</Title>
+		<Description>Samples for the usage of Homag-Connect OrderManager API</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/OrderManager/Samples/CSharp</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup Label="Package References">
+		<PackageReference Include="JsonSubTypes" Version="2.0.1" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
+	</ItemGroup>
+
+</Project>
