@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
@@ -40,4 +41,12 @@ public class Position : Base
 
     [JsonProperty(Order = 7)]
     public double? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets the state of the entity.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    [DefaultValue(State.New)]
+    public State State { get; set; } = State.New;
+
 }

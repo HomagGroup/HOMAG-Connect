@@ -1,17 +1,19 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using System.ComponentModel;
 
-using Type = HomagConnect.OrderManager.Contracts.OrderItems.Type;
+using HomagConnect.Base.Contracts.Enumerations;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
-public class Component : OrderItems.Base
+public class Component : Base
 {
     /// <summary>
     /// Gets or sets the unit system.
     /// </summary>
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
-    /// <inheritdoc cref="Base"/>
+    /// <inheritdoc cref="Base" />
     public override Type Type
     {
         get
@@ -21,11 +23,45 @@ public class Component : OrderItems.Base
     }
 
     /// <summary>
+    /// Barcode used to identify a production entity.
+    /// </summary>
+    public string? Barcode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the quantity of the production entity.
+    /// </summary>
+    [DefaultValue(1)]
+    public int Quantity { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the length.
+    /// </summary>
+    public double? Length { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width.
+    /// </summary>
+    public double? Width { get; set; }
+
+    /// <summary>
     /// Gets or sets the thickness.
     /// </summary>
     public double? Thickness { get; set; }
 
-    #region (20) Production
+    /// <summary>
+    /// Gets or sets the article number.
+    /// </summary>
+    public string? ArticleNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the group.
+    /// </summary>
+    public string? ArticleGroup { get; set; }
 
     /// <summary>
     /// Gets or sets the quantity planned.
@@ -42,5 +78,10 @@ public class Component : OrderItems.Base
     /// </summary>
     public string? ProductionOrderType { get; set; }
 
-    #endregion
+    /// <summary>
+    /// Gets or sets the state of the entity.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    [DefaultValue(State.New)]
+    public State State { get; set; } = State.New;
 }
