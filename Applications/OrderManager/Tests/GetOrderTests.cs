@@ -65,7 +65,7 @@ namespace HomagConnect.OrderManager.Tests
 
             order.Items = new()
             {
-                new Group()
+                new Group
                 {
                     Name = "Bedroom & bathroom 01",
                     Source = "orderConfigurator",
@@ -81,7 +81,16 @@ namespace HomagConnect.OrderManager.Tests
                             Notes = "Lorem ipsum",
                             Length = 250,
                             Width = 100,
-                            Height = 150
+                            Height = 150,
+                            Items = new Collection<Contracts.OrderItems.Base>
+                            {
+                                new Price
+                                {
+                                    UnitPrice = 100,
+                                    TotalPrice = 4 * 100,
+                                    Currency = "EUR"
+                                }
+                            }
                         },
                         new Position
                         {
@@ -92,9 +101,85 @@ namespace HomagConnect.OrderManager.Tests
                             Notes = "Lorem ipsum",
                             Length = 250,
                             Width = 100,
-                            Height = 150
+                            Height = 150,
+                            Items = new Collection<Contracts.OrderItems.Base>
+                            {
+                                new Price
+                                {
+                                    UnitPrice = 120,
+                                    TotalPrice = 6 * 120,
+                                    Currency = "EUR"
+                                }
+                            }
+                        },
+                        new Price
+                        {
+                            UnitPrice = 6 * 120 + 4 * 100,
+                            TotalPrice = 6 * 120 + 4 * 100,
+                            Currency = "EUR"
                         }
                     }
+                },
+                new Group
+                {
+                    Name = "Bedroom & bathroom 01",
+                    Source = "orderConfigurator",
+
+                    Items = new()
+                    {
+                        new Position
+                        {
+                            Name = "P 01.01",
+                            ArticleNumber = "67839",
+                            Quantity = 4,
+                            Description = "Cabinet left",
+                            Notes = "Lorem ipsum",
+                            Length = 250,
+                            Width = 100,
+                            Height = 150,
+                            Items = new Collection<Contracts.OrderItems.Base>
+                            {
+                                new Price
+                                {
+                                    UnitPrice = 100,
+                                    TotalPrice = 4 * 100,
+                                    Currency = "EUR"
+                                }
+                            }
+                        },
+                        new Position
+                        {
+                            Name = "P 01.02",
+                            ArticleNumber = "67840",
+                            Quantity = 6,
+                            Description = "Cabinet right",
+                            Notes = "Lorem ipsum",
+                            Length = 250,
+                            Width = 100,
+                            Height = 150,
+                            Items = new Collection<Contracts.OrderItems.Base>
+                            {
+                                new Price
+                                {
+                                    UnitPrice = 120,
+                                    TotalPrice = 6 * 120,
+                                    Currency = "EUR"
+                                }
+                            }
+                        },
+                        new Price
+                        {
+                            UnitPrice = 6 * 120 + 4 * 100,
+                            TotalPrice = 6 * 120 + 4 * 100,
+                            Currency = "EUR"
+                        }
+                    }
+                },
+                new Price
+                {
+                    UnitPrice = 2000,
+                    TotalPrice = 2000,
+                    Currency = "EUR"
                 }
             };
 

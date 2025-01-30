@@ -1,4 +1,8 @@
-﻿namespace HomagConnect.OrderManager.Contracts.OrderItems;
+﻿using System.ComponentModel;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
 /// A price information.
@@ -6,6 +10,7 @@
 public class Price : Base
 {
     /// <inheritdoc cref="Base" />
+    [JsonProperty(Order = 0)]
     public override Type Type
     {
         get
@@ -17,15 +22,18 @@ public class Price : Base
     /// <summary>
     /// The total price of the item
     /// </summary>
+    [JsonProperty(Order = 2)]
     public double? TotalPrice { get; set; }
 
     /// <summary>
     /// The total price of one item
     /// </summary>
+    [JsonProperty(Order = 1)]
     public double? UnitPrice { get; set; }
 
     /// <summary>
     /// The currency of the price
     /// </summary>
-    public string? Currency { get; set; }
+    [JsonProperty(Order = 3)]
+    public string? Currency { get; set; } = "EUR";
 }
