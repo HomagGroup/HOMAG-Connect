@@ -1,13 +1,13 @@
-﻿# HOMAG MMR Mobile advanced
+﻿# HOMAG Connect MMR Mobile
 
-HOMAG MMR Mobile advanced gives you direct access to your machine data (counters, states) from MMR Mobile. You can then conveniently integrate this into your applications.
+HOMAG Connect MMR Mobile gives you direct access to your machine data (counters, states) from MMR Mobile. You can then conveniently integrate this into your applications.
 To help you get started, we have prepared a few examples that you can find below.
 
 ## Getting started
 
 ### Authoriziation
 
-To begin using the HOMAG MMR Mobile advanced, you must first ensure that you have a valid HOMAG MMR Mobile advanced License. 
+To begin using the HOMAG Connect MMR Mobile, you must first ensure that you have a valid HOMAG Connect MMR Mobile License. 
 
 Once you have confirmed your license, you can create an instance of the client by providing your Subscription Id and Authorization Key. 
 ```c#
@@ -18,7 +18,7 @@ var client = new MmrMobileClient(subscriptionId, authorizationKey);
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authorization](./Samples/Authentication/README.md) page for detailed instructions.<br />
 For a runnable sample, please visit the [MmrConsolApp](Samples/MmrConsole.cs) page or start the C# project nearby.<br />
-For a technical description of all endpoints regarding "HOMAG MMR Mobile advanced", please visit the [Endpoints](./Client/README.md) page.
+For a technical description of all endpoints regarding "HOMAG Connect MMR Mobile", please visit the [Endpoints](./Client/README.md) page.
 
 ### Perform a query
 
@@ -52,5 +52,5 @@ var states = await mmrMobileClient.GetStateData(from: DateTime.Now.AddDays(-3), 
 
 ## Further details and explanations
 
-For a detailed examples and explanations, please refer to [HOMAG MMR Mobile advanced Samples](./Samples/README.md).
+For a detailed examples and explanations, please refer to [HOMAG Connect MMR Mobile Samples](./Samples/README.md).
 
