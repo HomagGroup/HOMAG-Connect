@@ -30,6 +30,12 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public string? ModuleId { get; set; }
 
         /// <summary>
+        /// An optional id of the group this module belongs to
+        /// </summary>
+        [JsonProperty(Order = 25)]
+        public string? GroupId { get; set; }
+
+        /// <summary>
         /// An optional position of this module (x, y, z)
         /// </summary>
         [JsonProperty(Order = 30)]

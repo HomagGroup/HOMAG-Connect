@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.OrderItems;
@@ -318,85 +319,166 @@ namespace HomagConnect.OrderManager.Tests
                 new Group()
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
-                    Notes = "This is an article group (PosGroup)",
+                    Notes = "This is a room (ONE roomle planner id)",
+                    AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
+                    {
+                        { "roomlePlannerId", "ps_4ejnf8ese0jwgmtan2ltzki0io473a8" },
+                    },
+                    AdditionalData = new ()
+                    {
+                        new AdditionalDataImage
+                        {
+                            Category = "Room plan",
+                            DownloadUri = new Uri("https://www.roomle.com/planner/room/ps_4ejnf8ese0jwgmtan2ltzki0io473a8.jpg")
+                        }
+                    },
                     Items = new()
                     {
-                        new ConfigurationPosition
+                        new ConfigurationGroup
                         {
-                            Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
-                            ArticleNumber = "LW_H1000DT",
-                            Notes = "This is a ROOT module",
-                            LibraryId = "CabinetLibrary",
-                            ModuleId = "mr_StorageunitSingle",
-                            Position = new double[] { 0, 0, 0 },
-                            Rotation = new double[] { 0, 0, 0 },
-                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
-                            {
-                                { "mod_Depth", 548 },
-                                { "mod_Height", 2000 },
-                                { "mod_Width", 1000 },
-                                { "mod_TypeElement", "TallUnit" }
-                            },
+                            Id = "0F18CBC6-52C9-4885-BCA6-BCF95F700525",
+                            Notes = "This is an article group (PosGroup)",
                             Items = new()
                             {
-                                new Configuration
+                                new ConfigurationPosition
                                 {
-                                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
-                                    Notes = "This is a SUB module",
-                                    ModuleId = "mf_Door",
+                                    Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+                                    ArticleNumber = "LW_H1000DT",
+                                    Notes = "This is a ROOT module",
+                                    LibraryId = "CabinetLibrary",
+                                    ModuleId = "mr_StorageunitSingle",
+                                    Position = new double[] { 0, 0, 0 },
+                                    Rotation = new double[] { 0, 0, 0 },
                                     Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
                                     {
-                                        { "mod_FrontHeight", 800 }
+                                        { "mod_Depth", 548 },
+                                        { "mod_Height", 2000 },
+                                        { "mod_Width", 1000 },
+                                        { "mod_TypeElement", "TallUnit" }
+                                    },
+                                    Items = new()
+                                    {
+                                        new Configuration
+                                        {
+                                            Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                                            Notes = "This is a SUB module",
+                                            ModuleId = "mf_Door",
+                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            {
+                                                { "mod_FrontHeight", 800 }
+                                            }
+                                        },
+                                        new Configuration
+                                        {
+                                            Id = "61029b65-730a-47de-9c5a-2cbc4cce3fc4",
+                                            Notes = "This is a 2nd SUB module",
+                                            ModuleId = "mf_Door",
+                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            {
+                                                { "mod_FrontHeight", 9999 }
+                                            }
+                                        }
                                     }
                                 },
-                                new Configuration
+                                new ConfigurationPosition
                                 {
-                                    Id = "61029b65-730a-47de-9c5a-2cbc4cce3fc4",
-                                    Notes = "This is a 2nd SUB module",
-                                    ModuleId = "mf_Door",
+                                    Id = "47F74A7F-999C-44C2-AF5B-709F0D25B5EA",
+                                    ArticleNumber = "LW_H1000DT",
+                                    Notes = "This is a 2nd ROOT module",
+                                    LibraryId = "CabinetLibrary",
+                                    ModuleId = "mr_StorageunitSingle",
+                                    Position = new double[] { 1000, 0, 0 },
                                     Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
                                     {
-                                        { "mod_FrontHeight", 9999 }
+                                        { "mod_Depth", 548 },
+                                        { "mod_Height", 2000 },
+                                        { "mod_Width", 1000 },
+                                        { "mod_TypeElement", "TallUnit" }
+                                    },
+                                    Items = new()
+                                    {
+                                        new Configuration
+                                        {
+                                            Id = "810BE6A4-17A2-47C1-A4C7-392ECE5FF584",
+                                            Notes = "This is a SUB module",
+                                            ModuleId = "mf_Door",
+                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            {
+                                                { "mod_FrontHeight", 800 }
+                                            }
+                                        },
+                                        new Configuration
+                                        {
+                                            Id = "1CCF8E5C-556A-4356-B254-7C597CC98538",
+                                            Notes = "This is a 2nd SUB module",
+                                            ModuleId = "mf_Door",
+                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            {
+                                                { "mod_FrontHeight", 9999 }
+                                            }
+                                        }
                                     }
                                 }
                             }
-                        },
-                        new ConfigurationPosition
+                        }
+                    }
+                },
+                new Group()
+                {
+                    Id = "4468B97A-F8C2-4456-BC56-A0C568F4470C",
+                    Notes = "This is a 2nd room (ONE roomle planner id)",
+                    AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
+                    {
+                        { "roomlePlannerId", "ps_ai687h32o22vdn7twtiqij3e810sjde" },
+                    },
+                    AdditionalData = new ()
+                    {
+                        new AdditionalDataImage
                         {
-                            Id = "47F74A7F-999C-44C2-AF5B-709F0D25B5EA",
-                            ArticleNumber = "LW_H1000DT",
-                            Notes = "This is a 2nd ROOT module",
-                            LibraryId = "CabinetLibrary",
-                            ModuleId = "mr_StorageunitSingle",
-                            Position = new double[] { 1000, 0, 0 },
-                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
-                            {
-                                { "mod_Depth", 548 },
-                                { "mod_Height", 2000 },
-                                { "mod_Width", 1000 },
-                                { "mod_TypeElement", "TallUnit" }
-                            },
+                            Category = "Room plan",
+                            DownloadUri = new Uri("https://www.roomle.com/planner/room/ps_ai687h32o22vdn7twtiqij3e810sjde.jpg")
+                        }
+                    },
+                    Items = new()
+                    {
+                        new ConfigurationGroup
+                        {
+                            Id = "61C36AB3-9406-44A6-8559-CBC132D5D8D4",
+                            Notes = "This is an article group (PosGroup)",
                             Items = new()
                             {
-                                new Configuration
+                                new ConfigurationPosition
                                 {
-                                    Id = "810BE6A4-17A2-47C1-A4C7-392ECE5FF584",
-                                    Notes = "This is a SUB module",
-                                    ModuleId = "mf_Door",
+                                    Id = "07B4A26D-AC4A-4524-99BA-6DE8FACEE41F",
+                                    ArticleNumber = "LW_H1000DT",
+                                    Notes = "This is a ROOT module",
+                                    LibraryId = "CabinetLibrary",
+                                    ModuleId = "mr_StorageunitSingle",
+                                    Position = new double[] { 0, 0, 0 },
+                                    Rotation = new double[] { 0, 0, 0 },
                                     Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
                                     {
-                                        { "mod_FrontHeight", 800 }
-                                    }
+                                        { "mod_Depth", 548 },
+                                        { "mod_Height", 1800 },
+                                        { "mod_Width", 600},
+                                        { "mod_TypeElement", "TallUnit" }
+                                    },
                                 },
-                                new Configuration
+                                new ConfigurationPosition
                                 {
-                                    Id = "1CCF8E5C-556A-4356-B254-7C597CC98538",
-                                    Notes = "This is a 2nd SUB module",
-                                    ModuleId = "mf_Door",
+                                    Id = "E02967A6-22AF-466F-B721-B4A9DC270488",
+                                    ArticleNumber = "LW_H1000DT",
+                                    Notes = "This is a 2nd ROOT module",
+                                    LibraryId = "CabinetLibrary",
+                                    ModuleId = "mr_StorageunitSingle",
+                                    Position = new double[] { 600, 0, 0 },
                                     Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
                                     {
-                                        { "mod_FrontHeight", 9999 }
-                                    }
+                                        { "mod_Depth", 548 },
+                                        { "mod_Height", 2000 },
+                                        { "mod_Width", 1000 },
+                                        { "mod_TypeElement", "TallUnit" }
+                                    },
                                 }
                             }
                         }

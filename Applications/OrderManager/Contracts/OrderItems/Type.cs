@@ -58,5 +58,10 @@ public enum Type
     /// <summary>
     /// (Software) Root configuration position.
     /// </summary>
-    ConfigurationPosition
+    ConfigurationPosition,
+
+    /// <summary>
+    /// (Software) configuration group.
+    /// </summary>
+    ConfigurationGroup,
 }
