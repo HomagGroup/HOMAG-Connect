@@ -1,11 +1,14 @@
-﻿namespace HomagConnect.OrderManager.Contracts.OrderItems;
+﻿using Newtonsoft.Json;
+
+namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
 /// A (hardware) resource.
 /// </summary>
-public class Resource : Component
+public class Resource : ComponentBase
 {
     /// <inheritdoc cref="Base" />
+    [JsonProperty(Order = 0)]
     public override Type Type
     {
         get
@@ -13,4 +16,9 @@ public class Resource : Component
             return Type.Resource;
         }
     }
+
+    /// <summary>
+    /// Gets or sets the height.
+    /// </summary>
+    public double? Height { get; set; }
 }

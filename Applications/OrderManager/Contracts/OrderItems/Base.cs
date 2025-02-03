@@ -18,13 +18,13 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Part), Type.Part)]
 [JsonSubtypes.KnownSubType(typeof(Resource), Type.Resource)]
 [JsonSubtypes.KnownSubType(typeof(Price), Type.Price)]
-public class Base
+public abstract class Base
 {
     /// <summary>
     /// Gets or sets the type of the item entity.
     /// </summary>
     [JsonProperty(Order = 0)]
-    public virtual Type Type { get; } = Type.Unknown;
+    public abstract Type Type { get; }
 
     /// <summary>
     /// Gets or sets the id

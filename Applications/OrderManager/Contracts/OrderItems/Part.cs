@@ -1,14 +1,25 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
+using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
 /// Order item part
 /// </summary>
-public class Part : Component, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, 
+public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, 
     IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
+    /// <inheritdoc cref="Base" />
+    [JsonProperty(Order = 0)]
+    public override Type Type
+    {
+        get
+        {
+            return Type.Part;
+        }
+    }
+
     /// <summary>
     /// Gets or sets the planned end date of the  entity.
     /// </summary>
@@ -41,6 +52,11 @@ public class Part : Component, ILaminatingProperties, IEdgebandingProperties, ID
     /// Surface Bottom
     /// </summary>
     public string? SurfaceBottom { get; set; }
+
+    /// <summary>
+    /// Gets or sets the thickness.
+    /// </summary>
+    public double? Thickness { get; set; }
 
     #region ICuttingProperties Members
 
