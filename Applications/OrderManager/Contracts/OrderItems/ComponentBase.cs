@@ -19,6 +19,7 @@ public abstract class ComponentBase : Base
     /// <summary>
     /// Barcode used to identify a production entity.
     /// </summary>
+    [JsonProperty(Order = 1)]
     public string? Barcode { get; set; }
 
     /// <summary>
@@ -30,11 +31,13 @@ public abstract class ComponentBase : Base
     /// <summary>
     /// Gets or sets the length.
     /// </summary>
+    [JsonProperty(Order = 10)]
     public double? Length { get; set; }
 
     /// <summary>
     /// Gets or sets the width.
     /// </summary>
+    [JsonProperty(Order = 20)]
     public double? Width { get; set; }
 
     /// <summary>
