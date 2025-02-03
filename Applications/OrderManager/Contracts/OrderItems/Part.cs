@@ -31,7 +31,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// <summary>
     /// Gets or sets the thickness.
     /// </summary>
-    [JsonProperty(Order = 30)]
+    [JsonProperty(Order = 15)]
     public double? Thickness { get; set; }
 
     #endregion

@@ -119,63 +119,63 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Gets the timestamp the order was last changed at.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 490)]
         public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// Gets the user who changed the order last.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 491)]
         public string? ChangedBy { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was created at.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 421)]
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// Gets the timestamp the order was released at for production.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 422)]
         public DateTimeOffset? ReleasedAt { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was started at, indicating the time when the first feedback was received from the
         /// production system.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 423)]
         public DateTimeOffset? StartedAt { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was completed at, indicating the time when the production system confirmed the order as
         /// completed.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 424)]
         public DateTimeOffset? CompletedAt { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was archived at.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 425)]
         public DateTimeOffset? ArchivedAt { get; set; }
 
         /// <summary>
         /// Gets the quantity of articles in this order.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 420)]
         public int? QuantityOfArticles { get; set; }
 
         /// <summary>
         /// Gets the quantity of parts in this order.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 410)]
         public int? QuantityOfParts { get; set; }
 
         /// <summary>
         /// Gets the quantity of parts planned in this order.
         /// </summary>
-        [JsonProperty(Order = 400)]
+        [JsonProperty(Order = 411)]
         public int? QuantityOfPartsPlanned { get; set; }
 
         #endregion
