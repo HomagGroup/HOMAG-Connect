@@ -19,7 +19,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// The number of parts transferred in the current period
         /// </summary>
 	[JsonProperty(Order = 2)]
-        public int? NumberOfPartsTransferred { get; set; }
+        public int? PartsTransferredQuantity { get; set; }
 
         /// <summary>
         /// The licenses owned in the current period
