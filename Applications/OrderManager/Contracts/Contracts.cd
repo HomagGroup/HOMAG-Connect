@@ -48,7 +48,7 @@
   <Class Name="HomagConnect.OrderManager.Contracts.OrderItems.Part">
     <Position X="16.5" Y="9.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>CEAASAAAEEIDBABABJAAIABAAUgAkAQAAAYAKAABAAA=</HashCode>
+      <HashCode>CEAASAAAEEIDBABABJAAIABAAUgAkAQAAQYAKAABAAA=</HashCode>
       <FileName>OrderItems\Part.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -74,23 +74,23 @@
       <FileName>OrderItems\Price.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HomagConnect.Base.Contracts.AddressType">
-    <Position X="5.25" Y="8.25" Width="3.25" />
-    <TypeIdentifier />
-  </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.OrderItems.Component">
     <Position X="13.75" Y="9.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>OrderItems\Component.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.OrderManager.Contracts.OrderItems.ComponentBase">
     <Position X="15" Y="4.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAEggAAAAAAAAEBAgIAAAAAAAQAAhAAAQAg=</HashCode>
+      <HashCode>AAAAAAAAQAEggAAAAAAAAEBAgIAAAAAAAAAAhAAAQAg=</HashCode>
       <FileName>OrderItems\ComponentBase.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.Base.Contracts.AddressType">
+    <Position X="5.25" Y="8.25" Width="3.25" />
+    <TypeIdentifier />
   </Class>
   <Interface Name="HomagConnect.Base.Contracts.Interfaces.ICncProgramProperties">
     <Position X="9.5" Y="15.75" Width="3.25" />

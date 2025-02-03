@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 
+// Note: This is preliminary code and is subject to change
+
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
