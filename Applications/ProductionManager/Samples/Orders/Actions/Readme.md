@@ -25,9 +25,9 @@ var orders =  await client.GetOrdersAsync();
   orderNames.Trace(nameof(orderNames));
 ``` 
 
-The response is a list of [Order](../../../Contracts/Import/Order.cs) which exposes basic information about the order
+The response is a list of [Order](../../../Contracts/Orders/Order.cs) which exposes basic information about the order
 
-The sample code can be found at [ProductionManager - Get Orders sample ](GetOrdersSamples.cs).
+The sample code can be found at [ProductionManager - Get Orders sample ](GetOrderSamples.cs).
 
 <strong>Example GetOrder:</strong>
 

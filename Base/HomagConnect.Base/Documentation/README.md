@@ -73,9 +73,3 @@ The main properties are:
 * operationId: An reference to our internal logging system, so we can also find the corresponding request in order to dig down the problem
 
 For more information, please refer to [RFC7807](https://tools.ietf.org/html/rfc7807).
-
-### Interface overview
-
-#### HOMAG Connect MMR Mobile interface
-Follow the [link](/Applications/MmrMobile/Documentation/README.md#homag-connect-mmr-mobile-interface-overview)
-

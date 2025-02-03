@@ -52,5 +52,5 @@ var states = await mmrMobileClient.GetStateData(from: DateTime.Now.AddDays(-3), 
 
 ## Further details and explanations
 
-For a detailed examples and explanations, please refer to [HOMAG MMR Mobile advanced Samples](./Samples/README.md).
+For a detailed examples and explanations, please refer to [HOMAG MMR Mobile advanced Samples](./Samples/readme.md).
 
