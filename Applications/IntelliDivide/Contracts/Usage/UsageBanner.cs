@@ -11,13 +11,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// <summary>
         /// The number of parts transferred in the current period
         /// </summary>
-		[JsonProperty(Order = 3)]
+	[JsonProperty(Order = 3)]
         public int NumberOfPartsTransferred { get; set; }
 
         /// <summary>
         /// The licenses owned in the current period
         /// </summary>
-		[JsonProperty(Order = 4)]
+	[JsonProperty(Order = 4)]
         public IEnumerable<LicenseDetails> Licenses { get; set; }
     }
 }
