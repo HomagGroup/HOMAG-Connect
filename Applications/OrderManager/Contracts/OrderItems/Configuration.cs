@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.Base.Contracts.Interfaces;
+using Newtonsoft.Json;
 
 // Note: This is preliminary code and is subject to change
 
@@ -7,7 +8,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// <summary>
 /// (Software) Configuration information.
 /// </summary>
-public class Configuration : Base
+public class Configuration : Base, IConfiguration
 {
     /// <inheritdoc />
     public override Type Type
@@ -19,28 +20,11 @@ public class Configuration : Base
     }
 
     /// <summary>
-    /// An optional library id
-    /// </summary>
-    [JsonProperty(Order = 10)]
-    public string? LibraryId { get; set; }
-
-    /// <summary>
     /// The id of this configuration module
     /// </summary>
     [JsonProperty(Order = 20)]
     public string? ModuleId { get; set; }
 
-    /// <summary>
-    /// An optional position of this module (x, y, z)
-    /// </summary>
-    [JsonProperty(Order = 30)]
-    public double[]? Position { get; set; }
-
-    /// <summary>
-    /// An optional rotation of this module (x, y, z)
-    /// </summary>
-    [JsonProperty(Order = 40)]
-    public double[]? Rotation { get; set; }
 
     /// <summary>
     /// Contains configuration attributes.

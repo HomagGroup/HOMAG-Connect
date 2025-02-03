@@ -53,5 +53,10 @@ public enum Type
     /// <summary>
     /// (Software) Configuration information.
     /// </summary>
-    Configuration
+    Configuration,
+
+    /// <summary>
+    /// (Software) Root configuration position.
+    /// </summary>
+    ConfigurationPosition
 }
