@@ -10,13 +10,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// <summary>
         /// The name of the license
         /// </summary>
-		[JsonProperty(Order = 1)]
+	[JsonProperty(Order = 1)]
         public string LicenseName { get; set; }
 
         /// <summary>
         /// The number of parts covered by the license
         /// </summary>
-		[JsonProperty(Order = 1)]
+	[JsonProperty(Order = 2)]
         public int NumberOfPartsCovered { get; set; }
     }
 }
