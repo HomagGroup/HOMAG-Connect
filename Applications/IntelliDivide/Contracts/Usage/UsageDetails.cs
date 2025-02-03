@@ -12,25 +12,25 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// The number of parts transferred in the job
         /// </summary>
 	[JsonProperty(Order = 1)]
-        public int NumberOfPartsTransferred { get; set; }
+        public int PartsTransferredQuantity { get; set; }
 
         /// <summary>
         /// The time when the job was transferred
         /// </summary>
 	[JsonProperty(Order = 2)]
-        public DateTimeOffset JobTransferredAt { get; set; }
+        public DateTimeOffset TransferredAt { get; set; }
 
         /// <summary>
-        /// The name of the job
+        /// The name of the optimization job
         /// </summary>
 	[JsonProperty(Order = 3)]
-        public string JobName { get; set; }
+        public string OptimizationName { get; set; }
 
         /// <summary>
         /// The user who transferred the job
         /// </summary>
 	[JsonProperty(Order = 4)]
-        public string JobTransferredBy { get; set; }
+        public string TransferredBy { get; set; }
 
         /// <summary>
         /// The name of the machine that will process the job
@@ -48,6 +48,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// The time estimation for the job to be processed
         /// </summary>
 	[JsonProperty(Order = 7)]
-        public double? PredictedProductionTimeInSec { get; set; }
+        public TimeSpan ProductionTime { get; set; }
     }
 }
