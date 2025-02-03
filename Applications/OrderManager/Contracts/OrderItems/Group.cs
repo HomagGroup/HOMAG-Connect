@@ -10,7 +10,6 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 public class Group : Base
 {
     /// <inheritdoc cref="Base" />
-    [JsonProperty(Order = 0)]
     public override Type Type
     {
         get

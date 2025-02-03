@@ -12,10 +12,9 @@ public class Position : Base
     /// Gets or sets the name.
     /// </summary>
     [JsonProperty(Order = 1)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <inheritdoc />
-    [JsonProperty(Order = 0)]
     public override Type Type
     {
         get
@@ -28,7 +27,7 @@ public class Position : Base
     /// Gets or sets the article number.
     /// </summary>
     [JsonProperty(Order = 2)]
-    public string ArticleNumber { get; set; }
+    public string? ArticleNumber { get; set; }
 
     /// <summary>
     /// Gets or sets the description.

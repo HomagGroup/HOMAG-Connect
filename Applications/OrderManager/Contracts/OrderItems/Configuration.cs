@@ -8,7 +8,6 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 public class Configuration : Base
 {
     /// <inheritdoc />
-    [JsonProperty(Order = 0)]
     public override Type Type
     {
         get

@@ -23,13 +23,13 @@ public abstract class Base
     /// <summary>
     /// Gets or sets the type of the item entity.
     /// </summary>
-    [JsonProperty(Order = 0)]
+    [JsonProperty(Order = 1)]
     public abstract Type Type { get; }
 
     /// <summary>
     /// Gets or sets the id
     /// </summary>
-    [JsonProperty(Order = 1)]
+    [JsonProperty(Order = 0)]
     public string? Id { get; set; }
 
     /// <summary>

@@ -11,7 +11,6 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
     /// <inheritdoc cref="Base" />
-    [JsonProperty(Order = 0)]
     public override Type Type
     {
         get
