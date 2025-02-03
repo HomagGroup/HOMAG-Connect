@@ -17,6 +17,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// The number of parts covered by the license
         /// </summary>
 	[JsonProperty(Order = 2)]
-        public int NumberOfPartsCovered { get; set; }
+        public int PartsCoveredQuantity { get; set; }
     }
 }
