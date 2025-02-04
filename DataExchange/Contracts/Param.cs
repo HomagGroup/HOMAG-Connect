@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace HomagConnect.DataExchange.Contracts
 {
+    /// <summary>
+    /// Data exchange param definition.
+    /// </summary>
     public class Param
     {
         [XmlAttribute("name")]

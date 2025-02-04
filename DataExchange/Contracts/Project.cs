@@ -28,7 +28,7 @@ namespace HomagConnect.DataExchange.Contracts
         /// </summary>
         public static Project Load(ZipArchive projectZip)
         {
-            var projectXmlFileName = "project.xml";
+            const string projectXmlFileName = "project.xml";
             var extractDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "Project", Guid.NewGuid().ToString()));
 
             projectZip.ExtractToDirectory(extractDirectory.FullName);
