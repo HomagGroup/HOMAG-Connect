@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project contentVersion="2">
+	<properties>
+		<param name="Name" value="Project 01" />
+	</properties>
+	<orders>
+		<order>
+			<properties>
+				<param name="OrderName" value="Schrank_Vorstellung" />
+				<param name="CustomerName" value="" />
+				<param name="CustomerNumber" value="12345" />
+				<param name="OrderDate" value="2017-03-14T14:20:20.506Z" />
+				<param name="DeliveryDate" value="2017-03-14T14:20:20.506Z" />
+				<param name="AddressField1" value="Mustermann" />
+				<param name="AddressField2" value="" />
+				<param name="AddressField3" value="" />
+				<param name="AddressField4" value="" />
+			</properties>
+			<images>
+				<image>
+					<properties>
+						<param name="Category" value="AssemblyXRayImage" />
+						<param name="Description" value="ART_XRAY" />
+						<param name="OriginalFileName" value="explosion.png" />
+						<param name="ImageLinkPicture" value="images\explosion.png" />
+					</properties>
+				</image>
+				<image>
+					<properties>
+						<param name="Category" value="AssemblyXRayImage" />
+						<param name="Description1" value="ART_XRAY-2" />
+						<param name="OriginalFileName" value="scene.png" />
+						<param name="ImageLinkPicture" value="images\scene.png" />
+					</properties>
+				</image>
+				<image>
+					<properties>
+						<param name="Category" value="AssemblyXRayImage" />
+						<param name="Description" value="ART_RENDER" />
+						<param name="OriginalFileName" value="sceneColor.png" />
+						<param name="ImageLinkPicture" value="images\sceneColor.png" />
+					</properties>
+				</image>
+			</images>
+			<entities>
+				<entity>
+					<properties>
+						<param name="Typ" value="OrderItem" />
+						<param name="Barcode" value="" />
+						<param name="OrderItemNumber" value="1" />
+						<param name="ArticleNumber" value="Schrank_Vorstellung" />
+						<param name="ArticleDescription" value="" />
+						<param name="ArticleGroup" value="Purchase part" />
+						<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+						<param name="Quantity" value="1.00000" />
+						<param name="QuantityUnit" value="pcs" />
+						<param name="Length" value="1000.00000" />
+						<param name="Width" value="450.00000" />
+						<param name="Thickness" value="600.00000" />
+						<param name="Grain" value="NoGrain" />
+					</properties>
+					<images>
+						<image>
+							<properties>
+								<param name="Category" value="AssemblyXRayImage" />
+								<param name="Description" value="ART_XRAY" />
+								<param name="OriginalFileName" value="cabinet001.png" />
+								<param name="ImageLinkPicture" value="images\cabinet001.png" />
+							</properties>
+						</image>
+						<image>
+							<properties>
+								<param name="Category" value="OverviewImage" />
+								<param name="Description" value="ART_OVERVIEW" />
+								<param name="OriginalFileName" value="cabinet001common.png" />
+								<param name="ImageLinkPicture" value="images\cabinet001common.png" />
+							</properties>
+						</image>
+						<image>
+							<properties>
+								<param name="Category" value="OverviewImage" />
+								<param name="Description" value="ART_OVERVIEW" />
+								<param name="OriginalFileName" value="cabinet001simple.png" />
+								<param name="ImageLinkPicture" value="images\cabinet001simple.png" />
+							</properties>
+						</image>
+					</images>
+					<entities>
+						<entity>
+							<properties>
+								<param name="Typ4" value="ProductionOrder4" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="40" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Categor2y" value="AboveImage2" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0040.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0040s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0040s1.mpr" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0040s2.mpr" />
+										<param name="ImageLinkBinary" value="images\0040s2.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="35" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="498.00000" />
+								<param name="Width" value="467.50000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="NoGrain" />
+								<param name="Material" value="U031_Bordeaux" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="U031_2x23" />
+								<param name="EdgeRight" value="U031_2x23" />
+								<param name="EdgeBack" value="U031_2x23" />
+								<param name="EdgeLeft" value="U031_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0035.png" />
+										<param name="ImageLinkPicture" value="images\0035.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0035s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0035s1.mpr" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0035s2.mpr" />
+										<param name="ImageLinkBinary" value="images\0035s2.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="5" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="1006.00000" />
+								<param name="Width" value="454.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+								<param name="EdgeRight" value="F04_015_2x23" />
+								<param name="EdgeBack" value="F04_015_2x23" />
+								<param name="EdgeLeft" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0005.png" />
+										<param name="ImageLinkPicture" value="images\0005.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0005s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0005s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="25" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="587.00000" />
+								<param name="Width" value="452.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+								<param name="EdgeBack" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0025.png" />
+										<param name="ImageLinkPicture" value="images\0025.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0025s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0025s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="20" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="587.00000" />
+								<param name="Width" value="452.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+								<param name="EdgeBack" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0020.png" />
+										<param name="ImageLinkPicture" value="images\0020.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0020s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0020s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="15" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="968.00000" />
+								<param name="Width" value="452.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+								<param name="EdgeBack" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0015.png" />
+										<param name="ImageLinkPicture" value="images\0015.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0015s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0015s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="10" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="521.00000" />
+								<param name="Width" value="981.00000" />
+								<param name="Thickness" value="8.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0010.png" />
+										<param name="ImageLinkPicture" value="images\0010.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0010s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0010s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="30" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="508.00000" />
+								<param name="Width" value="434.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0030.png" />
+										<param name="ImageLinkPicture" value="images\0030.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0030s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0030s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="45" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="476.50000" />
+								<param name="Width" value="408.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+								<param name="EdgeBack" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0045.png" />
+										<param name="ImageLinkPicture" value="images\0045.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0045s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0045s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+						<entity>
+							<properties>
+								<param name="Typ" value="ProductionOrder" />
+								<param name="Barcode" value="" />
+								<param name="ArticleNumber" value="50" />
+								<param name="ArticleDescription" value="Panel" />
+								<param name="ArticleGroup" value="Purchase part" />
+								<param name="StartDatePlanned" value="2020-03-11T12:28:34.694Z" />
+								<param name="Quantity" value="1.00000" />
+								<param name="QuantityUnit" value="pcs" />
+								<param name="Length" value="476.50000" />
+								<param name="Width" value="408.00000" />
+								<param name="Thickness" value="19.00000" />
+								<param name="Grain" value="Lengthwise" />
+								<param name="Material" value="F04_015_Bergahorn sepia" />
+								<param name="EdgeDiagramm" value="000:000:000:000" />
+								<param name="EdgeFront" value="F04_015_2x23" />
+								<param name="EdgeBack" value="F04_015_2x23" />
+							</properties>
+							<images>
+								<image>
+									<properties>
+										<param name="Category" value="AboveImage" />
+										<param name="Description" value="Overview" />
+										<param name="OriginalFileName" value="0050.png" />
+										<param name="ImageLinkPicture" value="images\0050.png" />
+									</properties>
+								</image>
+								<image>
+									<properties>
+										<param name="Category" value="MPR" />
+										<param name="Description" value="MPR" />
+										<param name="OriginalFileName" value="0050s1.mpr" />
+										<param name="ImageLinkBinary" value="images\0050s1.mpr" />
+									</properties>
+								</image>
+							</images>
+						</entity>
+					</entities>
+				</entity>
+			</entities>
+		</order>
+	</orders>
+</project>

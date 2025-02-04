@@ -1,0 +1,43 @@
+<Project Sdk="MSTest.Sdk/3.6.4">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	  <LangVersion>default</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseVSTest>true</UseVSTest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestData\project-01.xml" />
+    <None Remove="TestData\project-02\Cabinet xray.jpg" />
+    <None Remove="TestData\project-02\Cabinet.png" />
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+    <Content Include="TestData\project-01.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\project-02\Cabinet xray.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\project-02\Cabinet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\project-01.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Applications\ProductionManager\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
+    <ProjectReference Include="..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+    <ProjectReference Include="..\Contracts\HomagConnect.DataExchange.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
