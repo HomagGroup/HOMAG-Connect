@@ -20,6 +20,8 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Part), Type.Part)]
 [JsonSubtypes.KnownSubType(typeof(Resource), Type.Resource)]
 [JsonSubtypes.KnownSubType(typeof(Price), Type.Price)]
+[JsonSubtypes.KnownSubType(typeof(Configuration), Type.Configuration)]
+[JsonSubtypes.KnownSubType(typeof(ConfigurationPosition), Type.ConfigurationPosition)]
 public abstract class Base
 {
     /// <summary>
