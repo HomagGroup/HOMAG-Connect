@@ -86,6 +86,16 @@ namespace HomagConnect.DataExchange.Contracts
         /// <summary>
         /// Save project to project.xml file.
         /// </summary>
+        public void Save(FileInfo projectXml)
+        {
+            using var s = new FileStream(projectXml.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+
+            Save(s);
+        }
+
+        /// <summary>
+        /// Save project to project.xml file.
+        /// </summary>
         public void Save(string projectXml)
         {
             using var s = new FileStream(projectXml, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);

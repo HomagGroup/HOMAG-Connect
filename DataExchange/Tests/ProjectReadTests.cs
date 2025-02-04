@@ -6,7 +6,7 @@ using HomagConnect.DataExchange.Contracts;
 namespace HomagConnect.DataExchange.Tests
 {
     /// <summary />
-    [TestClass]
+        [TestClass]
     [TestCategory("DataExchange")]
     [TestCategory("DataExchange.Project.Read")]
     public class ProjectReadTests
