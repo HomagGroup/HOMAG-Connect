@@ -5,7 +5,7 @@ The client is also available as a NuGet package on nuget.org and can be smoothly
 
 The HOMAG materialManager Client is written in C# ([Source Code](./Client/MaterialManagerClient.cs)). It facilitates access to the materialManager REST API. The source code can be used to convert the relevant functions for integration into another programming language.
 
-The most important functions are described in the Documentation below, more can be found [here](./homagconnect.materialmanager.client.materialmanagerclient.md) and in the [Source Code](./Client/MaterialManagerClient.cs) on GitHub.
+The most important functions are described in the Documentation below, more can be found [here](./Samples/Readme.md) and in the [Source Code](./Client/MaterialManagerClient.cs) on GitHub.
 
 ## Getting started
 
