@@ -12,6 +12,6 @@ namespace HomagConnect.DataExchange.Contracts
         /// </summary>
         [XmlArray("properties")]
         [XmlArrayItem("param")]
-        public List<Param> Properties { get; } = new List<Param>();
+        public List<Param> Properties { get; } = [];
     }
 }

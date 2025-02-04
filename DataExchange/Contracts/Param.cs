@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Diagnostics;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace HomagConnect.DataExchange.Contracts
@@ -6,6 +7,7 @@ namespace HomagConnect.DataExchange.Contracts
     /// <summary>
     /// Data exchange param definition.
     /// </summary>
+     [DebuggerDisplay("{Name}: {Value}")]
     public class Param
     {
         /// <summary>

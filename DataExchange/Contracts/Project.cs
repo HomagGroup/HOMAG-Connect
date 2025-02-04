@@ -10,6 +10,8 @@ namespace HomagConnect.DataExchange.Contracts
     [XmlRoot("project")]
     public class Project : ParamBase
     {
+        private const string _ProjectXmlFileName = "project.xml";
+
         #region Load
 
         /// <summary>
@@ -28,16 +30,15 @@ namespace HomagConnect.DataExchange.Contracts
         /// </summary>
         public static Project Load(ZipArchive projectZip)
         {
-            const string projectXmlFileName = "project.xml";
             var extractDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "Project", Guid.NewGuid().ToString()));
 
             projectZip.ExtractToDirectory(extractDirectory.FullName);
 
-            var projectXml = extractDirectory.EnumerateFiles(projectXmlFileName, SearchOption.AllDirectories).FirstOrDefault();
+            var projectXml = extractDirectory.EnumerateFiles(_ProjectXmlFileName, SearchOption.AllDirectories).FirstOrDefault();
 
             if (projectXml == null)
             {
-                throw new FileNotFoundException("File not found in archive.", projectXmlFileName);
+                throw new FileNotFoundException("File not found in archive.", _ProjectXmlFileName);
             }
 
             return Load(projectXml.FullName);
@@ -91,6 +92,46 @@ namespace HomagConnect.DataExchange.Contracts
             using var s = new FileStream(projectXml.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
 
             Save(s);
+        }
+
+        /// <summary>
+        /// Save project to project.xml file.
+        /// </summary>
+        public void Save(FileInfo projectZip, Dictionary<string, string>? projectFiles)
+        {
+            using var memoryStream = new MemoryStream();
+            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            {
+                var projectXml = archive.CreateEntry(_ProjectXmlFileName);
+
+                using (var entryStream = projectXml.Open())
+                {
+                    Save(entryStream);
+                }
+
+                if (projectFiles != null)
+                {
+                    foreach (var projectFile in projectFiles)
+                    {
+                        if (!File.Exists(projectFile.Value))
+                        {
+                            throw new FileNotFoundException("File not found", projectFile.Value);
+                        }
+
+                        var entryStream = archive.CreateEntry(projectFile.Key);
+
+                        using var fileStream = new FileStream(projectFile.Value, FileMode.Open);
+                        using var es = entryStream.Open();
+                        fileStream.CopyTo(es);
+                    }
+                }
+            }
+
+            using (var fileStream = new FileStream(projectZip.FullName, FileMode.Create))
+            {
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                memoryStream.CopyTo(fileStream);
+            }
         }
 
         /// <summary>

@@ -10,11 +10,21 @@
 
   <ItemGroup>
     <None Remove="TestData\project-01.xml" />
+    <None Remove="TestData\project-02\Cabinet xray.jpg" />
+    <None Remove="TestData\project-02\Cabinet.png" />
   </ItemGroup>
+
+  
 
   <ItemGroup>
     <Content Include="TestData\project-01.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\project-02\Cabinet xray.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\project-02\Cabinet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
