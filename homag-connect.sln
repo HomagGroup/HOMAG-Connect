@@ -138,6 +138,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Tests", "Applications\OrderManager\Tests\HomagConnect.OrderManager.Tests.csproj", "{452A25B0-B534-4FD0-A60D-15D5028BEC87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Client", "Applications\OrderManager\Client\HomagConnect.OrderManager.Client.csproj", "{1F5ACB9F-7E72-41F9-8FB9-B150B93373EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -264,6 +266,10 @@ Global
 		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{452A25B0-B534-4FD0-A60D-15D5028BEC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F5ACB9F-7E72-41F9-8FB9-B150B93373EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F5ACB9F-7E72-41F9-8FB9-B150B93373EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F5ACB9F-7E72-41F9-8FB9-B150B93373EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F5ACB9F-7E72-41F9-8FB9-B150B93373EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -317,6 +323,7 @@ Global
 		{44521D4B-E97A-4235-86BF-42C7363C8280} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
 		{ACBBA578-8B7F-454C-8B17-AD045227021F} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
 		{452A25B0-B534-4FD0-A60D-15D5028BEC87} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
+		{1F5ACB9F-7E72-41F9-8FB9-B150B93373EE} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
