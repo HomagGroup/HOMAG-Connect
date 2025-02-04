@@ -8,11 +8,17 @@ namespace HomagConnect.DataExchange.Contracts
     /// </summary>
     public class Param
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [XmlAttribute("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
+        /// <summary>
+        /// Gets or set the value.
+        /// </summary>
         [XmlAttribute("value")]
-        public string Value { get; set; }
+        public string? Value { get; set; }
 
         /// <summary>
         /// Sets the value to the given object as xml string

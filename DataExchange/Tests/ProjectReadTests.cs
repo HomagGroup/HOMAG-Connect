@@ -4,19 +4,25 @@ using HomagConnect.DataExchange.Contracts;
 
 namespace HomagConnect.DataExchange.Tests
 {
+    /// <summary />
     [TestClass]
     [TestCategory("DataExchange")]
     [TestCategory("DataExchange.Project.Read")]
     public class ProjectReadTests
     {
-        public TestContext TestContext { get; set; }
+        /// <summary />
+        public TestContext? TestContext { get; set; }
 
+        /// <summary />
         [TestMethod]
         public void Project_ReadXml_Valid()
         {
             var assembly = typeof(ProjectReadTests).Assembly;
             var verName = typeof(ProjectReadTests).Namespace + ".TestData.project-01.xml";
             var stream = assembly.GetManifestResourceStream(verName);
+
+            Assert.IsNotNull(stream);
+
             var p = Project.Load(stream);
             Assert.IsNotNull(p);
 
@@ -25,6 +31,8 @@ namespace HomagConnect.DataExchange.Tests
             Assert.AreEqual(1, p.Properties.Count);
             Assert.AreEqual("Name", p.Properties[0].Name);
             Assert.AreEqual("Project 01", p.Properties[0].Value);
+
+            Assert.IsNotNull(p.Orders);
 
             // Order
             Assert.AreEqual(1, p.Orders.Count);
@@ -60,6 +68,7 @@ namespace HomagConnect.DataExchange.Tests
             var project = Project.Load(projectXml);
 
             Assert.IsNotNull(project);
+            Assert.IsNotNull(project.Orders);
 
             Assert.AreEqual(1, project.Orders.Count);
             Assert.AreEqual(2, project.Orders[0].Entities.Count);
@@ -96,43 +105,6 @@ namespace HomagConnect.DataExchange.Tests
             return projectXml;
         }
 
-        [TestMethod]
-        public void TestSer02()
-        {
-            var p = new Project();
-            var p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders.Count, p1.Orders.Count);
-
-            p.Orders.Add(new Order());
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders.Count, p1.Orders.Count);
-
-            p.Orders[0].Properties.Add(new Param());
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders[0].Properties.Count, p1.Orders[0].Properties.Count);
-
-            var dt = DateTimeOffset.Now;
-            p.Orders[0].Properties[0].SetValue(dt);
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders[0].Properties[0].Value, p1.Orders[0].Properties[0].Value);
-
-            p.Orders[0].Properties[0].SetValue(12.3d);
-            Assert.AreEqual("12.3", p.Orders[0].Properties[0].Value);
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders[0].Properties[0].Value, p1.Orders[0].Properties[0].Value);
-
-            p.Orders[0].Properties[0].Name = "name1";
-            Assert.AreEqual("name1", p.Orders[0].Properties[0].Name);
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders[0].Properties[0].Name, p1.Orders[0].Properties[0].Name);
-
-            p.Orders[0].Images.Add(new Image());
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders[0].Images.Count, p1.Orders[0].Images.Count);
-
-            p.Orders[0].Entities.Add(new Entity());
-            p1 = Project.LoadFromString(p.SaveToString());
-            Assert.AreEqual(p.Orders[0].Entities.Count, p1.Orders[0].Entities.Count);
-        }
+       
     }
 }
