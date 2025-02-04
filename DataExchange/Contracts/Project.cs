@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Xml.Serialization;
 
-namespace HomagConnect.Base.Contracts
+namespace HomagConnect.DataExchange.Contracts
 {
     [XmlRoot("project")]
     public class Project : ParamBase

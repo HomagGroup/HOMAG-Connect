@@ -3,7 +3,7 @@
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Client</PackageId>
 		<Title>Homag-Connect IntelliDivide Client</Title>

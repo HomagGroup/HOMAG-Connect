@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace HomagConnect.Base.Contracts
+namespace HomagConnect.DataExchange.Contracts
 {
     public class Param
     {

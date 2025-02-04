@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<UserSecretsId>21ec4949-1c87-4ff5-bf0e-d4093be9d990</UserSecretsId>

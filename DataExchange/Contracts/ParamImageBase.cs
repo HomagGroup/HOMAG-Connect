@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace HomagConnect.Base.Contracts
+namespace HomagConnect.DataExchange.Contracts
 {
     public abstract class ParamImageBase : ParamBase
     {

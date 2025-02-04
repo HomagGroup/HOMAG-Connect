@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
 		<Title>Homag-Connect IntelliDivide Contracts</Title>
 		<Description>Client assembly for the usage of Homag-Connect IntelliDivide API</Description>
