@@ -24,16 +24,23 @@ public class ProjectWriteTests
 
         var project = new Project();
 
-        project.Properties.Add(new Param { Name = nameof(Order.OrderNumber), Value = "101" });
-        project.Properties.Add(new Param { Name = nameof(Order.OrderName), Value = "Sample order" });
-        project.Properties.Add(new Param { Name = nameof(Order.OrderDescription), Value = "Sample order description" });
+        project.Properties.Add(new Param { Name = "Name", Value = "Project 01" });
+        project.Properties.Add(new Param { Name = "Source", Value = "smartWOP" });
 
-        project.Properties.Add(new Param { Name = nameof(Order.CustomerNumber), Value = "201" });
-        project.Properties.Add(new Param { Name = nameof(Order.CustomerName), Value = "Sample customer name" });
-        project.Properties.Add(new Param { Name = nameof(Order.Company), Value = "Sample company" });
+        var order = new Contracts.Order();
 
-        project.Properties.Add(new Param { Name = nameof(Order.OrderDate), Value = XmlConvert.ToString(DateTime.Today, XmlDateTimeSerializationMode.Utc) });
-        project.Properties.Add(new Param { Name = nameof(Order.DeliveryDatePlanned), Value = XmlConvert.ToString(DateTime.Today.AddDays(10), XmlDateTimeSerializationMode.Utc) });
+        order.Properties.Add(new Param { Name = nameof(Order.OrderNumber), Value = "101" });
+        order.Properties.Add(new Param { Name = nameof(Order.OrderName), Value = "Sample order" });
+        order.Properties.Add(new Param { Name = nameof(Order.OrderDescription), Value = "Sample order description" });
+
+        order.Properties.Add(new Param { Name = nameof(Order.CustomerNumber), Value = "201" });
+        order.Properties.Add(new Param { Name = nameof(Order.CustomerName), Value = "Sample customer name" });
+        order.Properties.Add(new Param { Name = nameof(Order.Company), Value = "Sample company" });
+
+        order.Properties.Add(new Param { Name = nameof(Order.OrderDate), Value = XmlConvert.ToString(DateTime.Today, XmlDateTimeSerializationMode.Utc) });
+        order.Properties.Add(new Param { Name = nameof(Order.DeliveryDatePlanned), Value = XmlConvert.ToString(DateTime.Today.AddDays(10), XmlDateTimeSerializationMode.Utc) });
+
+        project.Orders?.Add(order);
 
         project.Trace();
 
