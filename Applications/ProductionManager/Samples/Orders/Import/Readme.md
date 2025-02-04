@@ -44,7 +44,7 @@ After the import job is started, the response will contain a 'correlationId' whi
 var importState = await productionManager.GetImportOrderStateAsync(correlationId);
 ```
 
-The result is a [ImportOrderStateResponse](./Contracts/Import/ImportOrderStateResponse.cs) which based on the progress of the import job can retrieve a link to the newly created order and also the ID of the order.
+The result is a [ImportOrderStateResponse](../../../Contracts/Import/ImportOrderStateResponse.cs) which based on the progress of the import job can retrieve a link to the newly created order and also the ID of the order.
 In case of error during import, 'ErrorDetails' should contain some basic information why the import failed.
 
 Also the current state of the import is retrieved. The possible states are defined in [ImportState](../../../Contracts/Import/ImportState.cs).

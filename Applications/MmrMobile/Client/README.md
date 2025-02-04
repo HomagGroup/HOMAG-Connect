@@ -15,7 +15,7 @@ Version   | Date     | Comment
 ## Content table
 
 1. [TL;DR](#tldr)
-2. [HOMAG MMR Mobile advanced interface overview](#homag-connect-mmr-mobile-interface-overview)
+2. [HOMAG MMR Mobile advanced interface overview](#homag-mmr-mobile-advanced-interface-overview-machinedata)
 3. [Details](#details)
 
 ## Authorization

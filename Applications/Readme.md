@@ -16,4 +16,4 @@
    [Documentation for productionManager Client](./ProductionManager/Readme.md) and [some samples](./ProductionManager/Samples) for the usage.
 
 6. productionAssist <br>
-   [Documentation for productionAssist Client](./Applications/ProductionAssist/Readme.md) and [some samples](./Applications/ProductionAssist/Samples) for the usage.
+   [Documentation for productionAssist Client](./ProductionAssist/Readme.md) and [some samples](./ProductionAssist/Samples) for the usage.

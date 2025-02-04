@@ -2,7 +2,7 @@
 
 ## Authorization
 
-Please follow the common steps described [here](./../Authorization/README.md) to get the required subscriptionId and AuthorizationKey
+Please follow the common steps described [here](./../../../../Documentation/Authentication/Readme.md) to get the required subscriptionId and AuthorizationKey
 
 Copy and open sample excel file and apply these steps:
 
