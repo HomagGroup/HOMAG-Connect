@@ -1,4 +1,6 @@
-﻿using HomagConnect.DataExchange.Contracts;
+﻿using System.IO.Compression;
+
+using HomagConnect.DataExchange.Contracts;
 
 namespace HomagConnect.DataExchange.Tests
 {
@@ -7,8 +9,10 @@ namespace HomagConnect.DataExchange.Tests
     [TestCategory("DataExchange.Project.Read")]
     public class ProjectReadTests
     {
+        public TestContext TestContext { get; set; }
+
         [TestMethod]
-        public void TestSer01()
+        public void Project_ReadXml_Valid()
         {
             var assembly = typeof(ProjectReadTests).Assembly;
             var verName = typeof(ProjectReadTests).Namespace + ".TestData.project-01.xml";
@@ -45,6 +49,51 @@ namespace HomagConnect.DataExchange.Tests
             Assert.AreEqual(3, e.Entities[0].Images[0].Properties.Count);
             Assert.AreEqual("Categor2y", e.Entities[0].Images[0].Properties[0].Name);
             Assert.AreEqual("AboveImage2", e.Entities[0].Images[0].Properties[0].Value);
+        }
+
+        [TestMethod]
+        public void Project_ReadZIP_Valid()
+        {
+            var zipFile = new FileInfo("TestData/project-01.zip");
+            var projectXml = ExtractZipAndGetProjectXmlPath(zipFile);
+
+            var project = Project.Load(projectXml);
+
+            Assert.IsNotNull(project);
+
+            Assert.AreEqual(1, project.Orders.Count);
+            Assert.AreEqual(2, project.Orders[0].Entities.Count);
+        }
+
+
+        private FileInfo ExtractZipAndGetProjectXmlPath(FileInfo zipFile)
+        {
+            Assert.IsTrue(zipFile.Exists);
+
+            Assert.IsNotNull(TestContext);
+            Assert.IsNotNull(TestContext.TestRunDirectory);
+
+            var extractDirectory = new DirectoryInfo(Path.Combine(TestContext.TestRunDirectory, @"Temp\TestData\project-01"));
+
+            if (extractDirectory.Exists)
+            {
+                extractDirectory.Delete(true);
+            }
+
+            using var zip = ZipFile.OpenRead(zipFile.FullName);
+
+            zip.ExtractToDirectory(extractDirectory.FullName);
+
+            extractDirectory.Refresh();
+
+            var projectXml = extractDirectory.EnumerateFiles("project.xml", SearchOption.AllDirectories).FirstOrDefault();
+
+            TestContext.WriteLine("Working directory: " + extractDirectory.FullName);
+
+            Assert.IsNotNull(projectXml);
+            Assert.IsTrue(projectXml.Exists);
+
+            return projectXml;
         }
 
         [TestMethod]
