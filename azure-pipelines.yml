@@ -195,6 +195,10 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Contracts/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect OrderManager Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))  
+          
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Client/**/*.nupkg" --skip-duplicate
+          displayName: "Publish HomagConnect OrderManager Client package on nuget.org"
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
         
         

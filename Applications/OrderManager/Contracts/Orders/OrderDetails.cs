@@ -1,21 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
-
 using Newtonsoft.Json;
 
 // Note: This is preliminary code and is subject to change
 
-namespace HomagConnect.OrderManager.Contracts
+namespace HomagConnect.OrderManager.Contracts.Orders
 {
     /// <summary>
-    /// Order data
-    /// </summary>
-    [DebuggerDisplay("OrderName={OrderName}")]
-    public class Order
+        /// Order data
+        /// </summary>
+        [DebuggerDisplay("OrderName={OrderName}")]
+    public class OrderDetails
     {
         #region (100) Header
 

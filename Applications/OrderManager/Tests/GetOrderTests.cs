@@ -3,8 +3,8 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
-using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.OrderItems;
+using HomagConnect.OrderManager.Contracts.Orders;
 
 namespace HomagConnect.OrderManager.Tests
 {
@@ -16,7 +16,7 @@ namespace HomagConnect.OrderManager.Tests
         [TestMethod]
         public void GetOrder()
         {
-            var order = new Order();
+            var order = new OrderDetails();
 
             // Header
 
@@ -190,7 +190,7 @@ namespace HomagConnect.OrderManager.Tests
         [TestMethod]
         public void GetOrderWithConfig()
         {
-            var order = new Order();
+            var order = new OrderDetails();
 
             // Header
 
@@ -274,7 +274,7 @@ namespace HomagConnect.OrderManager.Tests
         [TestMethod]
         public void GetOrderWithConfig2()
         {
-            var order = new Order();
+            var order = new OrderDetails();
 
             // Header
 
@@ -492,7 +492,7 @@ namespace HomagConnect.OrderManager.Tests
         [TestMethod]
         public void GetOrderWithConfigAndParts()
         {
-            var order = new Order();
+            var order = new OrderDetails();
 
             // Header
 
