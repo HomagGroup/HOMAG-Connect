@@ -8,11 +8,11 @@ Define a new web data source.
 
 ![alt text](MaterialStatistics-Excel-01.jpg)
 
-Enter the URL for the Material Statistics API, as described on the [Material Statistics page](MaterialStatistics.md) (e.g. https://connect.homag.cloud/api/intelliDivide/statistics/material?take=1000). 
+Enter the URL for the Material Statistics API, as described on the [Material Statistics page](Readme.md) (e.g. https://connect.homag.cloud/api/intelliDivide/statistics/material?take=1000). 
 
 ![alt text](MaterialStatistics-Excel-02.jpg)
 
-Enter Subscription Id (1) and Authentication Key (2): You can find the Subscription Id and Authentication Key on the [Authorization](../../Authorization/Authorization.md) page. Copy and paste these values into the appropriate fields.
+Enter Subscription Id (1) and Authentication Key (2): You can find the Subscription Id and Authentication Key on the [Authorization](../../../../../../../Documentation/Authentication/Readme.md) page. Copy and paste these values into the appropriate fields.
 
 ![alt text](MaterialStatistics-Excel-03.jpg)
 

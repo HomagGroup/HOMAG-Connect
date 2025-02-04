@@ -16,7 +16,7 @@
 
 	- Using a structured zip file
 		- [Request a cutting optimization using object model](Requests/Cutting/Project/Readme.md)
-		- [Request a nesting optimization using object model](Requests/Nesting/Project/Readme.md)
+		- [Request a nesting optimization using object model](Requests/Nesting/ProjectZip//Readme.md)
 
 - [Retrieve optimization results](Optimizations/Readme.md)
 
