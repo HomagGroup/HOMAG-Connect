@@ -10,7 +10,7 @@ Define a new data source: In Power BI, go to the Home tab and select "Get Data".
 
 ![alt text](MaterialStatistics-PowerBI-01.jpg)
 
- Enter the URL for the Material Statistics API, as described on the [Material Statistics page](Readme.md) (e.g. https://connect.homag.cloud/api/intelliDivide/statistics/material?take=1000). 
+ Enter the URL for the Material Statistics API, as described on the [Material Statistics page](../Readme.md) (e.g. https://connect.homag.cloud/api/intelliDivide/statistics/material?take=1000). 
 
 ![alt text](MaterialStatistics-PowerBI-02.jpg)
 

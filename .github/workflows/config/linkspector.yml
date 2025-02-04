@@ -1,0 +1,8 @@
+dirs:
+- .
+ignorePatterns:
+- pattern: '^https://connect.homag.cloud/.*$'
+aliveStatusCodes:
+- 200
+- 401
+- 999
