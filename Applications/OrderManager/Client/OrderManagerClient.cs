@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -13,6 +14,7 @@ using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
+using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Client
 {
@@ -109,9 +111,42 @@ namespace HomagConnect.OrderManager.Client
         }
 
         /// <inheritdoc />
-        public Task<ImportOrderResponse> ImportOrderRequest(FileInfo projectFile)
+        public async Task<ImportOrderResponse> ImportOrderRequest(FileInfo projectFile)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            if (!projectFile.Exists)
+            {
+                throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
+            }
+
+            var fileName = projectFile.Name;
+
+            using var stream = projectFile.OpenRead();
+
+            const string uri = "api/orderManager/orders/import";
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            //var json = JsonConvert.SerializeObject(importOrderRequest, SerializerSettings.Default);
+
+            //httpContent.Add(new StringContent(json), nameof(importOrderRequest));
+
+            HttpContent streamContent = new StreamContent(stream);
+            httpContent.Add(streamContent, fileName, fileName);
+
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request);
+
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+
+            return responseObject ?? new ImportOrderResponse();
         }
 
         /// <inheritdoc />

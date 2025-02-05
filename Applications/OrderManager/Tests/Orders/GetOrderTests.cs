@@ -13,11 +13,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders")]
-    [TemporaryDisabledOnServer(2025, 03, 1)]
+   
     public sealed class GetOrderTests : OrderManagerTestBase
     {
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 03, 1)]
         public async Task Orders_GetAllOrdersHavingStatusNew_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -39,6 +40,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 03, 1)]
         public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -60,6 +62,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 03, 1)]
         public async Task Orders_GetAllOrders_NoException()
         {
             var orderManager = GetOrderManagerClient();

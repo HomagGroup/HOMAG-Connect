@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Samples.Orders.Actions;
@@ -14,7 +12,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders")]
-    [TemporaryDisabledOnServer(2024, 9, 1)]
     public class GetOrderTests : ProductionManagerTestBase
     {
         /// <summary />
@@ -140,7 +137,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             try
             {
-                await GetOrderSamples.GetCompletionDatesPlanned(productionManager, orderNumbers.ToArray());
+                await GetOrderSamples.GetCompletionDatesPlanned(productionManager, [.. orderNumbers]);
             }
             catch (Exception e)
             {
