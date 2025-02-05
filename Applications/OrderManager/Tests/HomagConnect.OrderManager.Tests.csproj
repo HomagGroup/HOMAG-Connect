@@ -7,11 +7,30 @@
 		<LangVersion>default</LangVersion>
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
+		<UserSecretsId>c3e9e88b-1b92-431e-b66e-7783c9dbac3c</UserSecretsId>
 	</PropertyGroup>
 
  	<ItemGroup>
+ 	  <None Remove="appsettings.json" />
+ 	</ItemGroup>
+
+ 	<ItemGroup>
+ 	  <Content Include="appsettings.json">
+ 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+ 	    <Generator></Generator>
+ 	  </Content>
+ 	</ItemGroup>
+
+ 	<ItemGroup>
+ 	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+ 	</ItemGroup>
+
+ 	<ItemGroup>
+ 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
  	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+ 	  <ProjectReference Include="..\Client\HomagConnect.OrderManager.Client.csproj" />
  	  <ProjectReference Include="..\Contracts\HomagConnect.OrderManager.Contracts.csproj" />
+ 	  <ProjectReference Include="..\Samples\CSharp\HomagConnect.OrderManager.Samples.csproj" />
  	</ItemGroup>
 
 </Project>

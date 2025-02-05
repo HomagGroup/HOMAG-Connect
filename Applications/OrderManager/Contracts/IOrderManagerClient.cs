@@ -46,19 +46,7 @@ namespace HomagConnect.OrderManager.Contracts
 
         #region Order import
 
-        /// <summary>
-        /// Import an order using a structured zip file.
-        /// </summary>
-        /// <param name="importOrderRequest">
-        /// Import request based on a structured <see cref="Import.ImportOrderRequest" />.
-        /// </param>
-        /// <param name="projectFile">
-        /// Structured zip file, whose format corresponds to the ImportSpecification (
-        /// <seealso
-        ///     href="https://dev.azure.com/homag-group/FOSSProjects/_git/homag-api-gateway-client?path=/Documentation/ImportSpecification.md" />
-        /// format.
-        /// </param>
-        Task<ImportOrderResponse> ImportOrderRequest(ImportOrderRequest importOrderRequest, FileInfo projectFile);
+       
 
         /// <summary>
         /// Get the import state of an order

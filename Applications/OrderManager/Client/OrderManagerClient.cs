@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
+using HomagConnect.DataExchange.Contracts;
 using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Import;
+using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 
 namespace HomagConnect.OrderManager.Client
@@ -15,32 +20,41 @@ namespace HomagConnect.OrderManager.Client
     public class OrderManagerClient : ServiceBase, IOrderManagerClient
     {
         /// <inheritdoc />
-        protected OrderManagerClient(HttpClient client) : base(client) { }
+        public OrderManagerClient(HttpClient client) : base(client) { }
 
         /// <inheritdoc />
-        protected OrderManagerClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+        public OrderManagerClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
         /// <inheritdoc />
-        protected OrderManagerClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+        public OrderManagerClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
         #region Order overview
 
         /// <inheritdoc />
-        public Task<IEnumerable<OrderOverview>> GetOrders(int take, int skip = 0)
+        public async Task<IEnumerable<OrderOverview>> GetOrders(int take, int skip = 0)
         {
-            throw new NotImplementedException();
+            var url = $"/api/orderManager/orders?take={take}&skip={skip}";
+            var orders = await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
+
+            return orders;
         }
 
         /// <inheritdoc />
         public Task<IEnumerable<OrderOverview>> GetOrders(OrderState orderState, int take, int skip = 0)
         {
-            throw new NotImplementedException();
+            return GetOrders([orderState], take, skip);
         }
 
         /// <inheritdoc />
-        public Task<IEnumerable<OrderOverview>> GetOrders(OrderState[] orderState, int take, int skip = 0)
+        public async Task<IEnumerable<OrderOverview>> GetOrders(OrderState[] orderState, int take, int skip = 0)
         {
-            throw new NotImplementedException();
+            var uris = orderState
+                .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"/api/productionManager/orders?take={take}&skip={skip}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
         #endregion
@@ -69,8 +83,33 @@ namespace HomagConnect.OrderManager.Client
 
         #region Order import
 
+        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] referencedFiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Project project, FileReference[] referencedFiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ImportOrderResponse> ImportOrderRequest(Order order, FileReference[] referencedFiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ImportOrderResponse> ImportOrderRequest(Project project, FileReference[] projectFiles)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
-        public Task<ImportOrderResponse> ImportOrderRequest(ImportOrderRequest importOrderRequest, FileInfo projectFile)
+        public Task<ImportOrderResponse> ImportOrderRequest(FileInfo projectFile)
         {
             throw new NotImplementedException();
         }
