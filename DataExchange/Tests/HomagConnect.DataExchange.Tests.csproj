@@ -38,6 +38,7 @@
     <ProjectReference Include="..\..\Applications\ProductionManager\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
     <ProjectReference Include="..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
     <ProjectReference Include="..\Contracts\HomagConnect.DataExchange.Contracts.csproj" />
+    <ProjectReference Include="..\Extensions\HomagConnect.DataExchange.Extensions.csproj" />
   </ItemGroup>
 
 </Project>
