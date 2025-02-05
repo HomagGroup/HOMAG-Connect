@@ -1,6 +1,6 @@
 ﻿using HomagConnect.DataExchange.Contracts;
 
-namespace HomagConnect.DataExchange.Extensions;
+namespace HomagConnect.DataExchange.Extensions.Wrapper;
 
 /// <summary>
 /// Order wrapper class to handle the order properties.

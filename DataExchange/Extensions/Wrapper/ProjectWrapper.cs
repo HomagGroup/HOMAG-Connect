@@ -1,9 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using HomagConnect.DataExchange.Contracts;
 
-using HomagConnect.DataExchange.Contracts;
-using HomagConnect.DataExchange.Extensions;
-
-namespace HomagConnect.DataExchange.Extensions
+namespace HomagConnect.DataExchange.Extensions.Wrapper
 {
     /// <summary>
     /// Wrapper for the Project class.
@@ -70,7 +67,7 @@ namespace HomagConnect.DataExchange.Extensions
         {
             get
             {
-                return new OrderWrapperList( Project.Orders);
+                return new OrderWrapperList(Project.Orders);
             }
         }
 
@@ -88,8 +85,4 @@ namespace HomagConnect.DataExchange.Extensions
 
         #endregion
     }
-
-    
-
-    
 }
