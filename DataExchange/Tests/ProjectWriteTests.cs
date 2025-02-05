@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-using HomagConnect.DataExchange.Extensions;
+using HomagConnect.DataExchange.Extensions.Wrapper;
 
 namespace HomagConnect.DataExchange.Tests;
 
