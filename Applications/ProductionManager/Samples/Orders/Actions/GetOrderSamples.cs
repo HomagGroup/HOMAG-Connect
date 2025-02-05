@@ -70,7 +70,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         }
 
         /// <summary />
-        public static async Task GetOrder(IProductionManagerClient productionManager, Guid orderId)
+        public static async Task<Order> GetOrder(IProductionManagerClient productionManager, Guid orderId)
         {
             var order = await productionManager.GetOrder(orderId);
 
@@ -90,6 +90,8 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
                     Trace.WriteLine($"\tCompletionDatePlanned:\t{lot.CompletionDatePlanned}");
                 }
             }
+
+            return order;
         }
     }
 }

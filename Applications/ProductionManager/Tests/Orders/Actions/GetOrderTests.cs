@@ -163,8 +163,17 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             try
             {
-                var orderId = new Guid("52962a9e-0333-49a3-a8a2-ee88b3714f0c"); // should be replaced with existing id
-                await GetOrderSamples.GetOrder(productionManager, orderId);
+                var order = await productionManager.GetOrders(1).FirstOrDefaultAsync();
+
+                if (order == null)
+                {
+                    Assert.Inconclusive("There is no order.");
+                }
+                
+                var order2 =  await GetOrderSamples.GetOrder(productionManager, order.Id);
+
+                Assert.AreEqual(order.Id, order2.Id);
+
             }
             catch (Exception e)
             {
