@@ -84,8 +84,8 @@ public class ProjectWriteTests
     private FileInfo GetFileName(string extension = ".zip", [CallerMemberName] string callerMemberName = "")
     {
         Assert.IsNotNull(TestContext);
-        Assert.IsNotNull(TestContext.TestResultsDirectory);
-        return new FileInfo(Path.Combine("", callerMemberName) + "." + extension.Trim('.'));
+        Assert.IsNotNull(TestContext.DeploymentDirectory);
+        return new FileInfo(Path.Combine(TestContext.DeploymentDirectory, callerMemberName) + "." + extension.Trim('.'));
     }
 #pragma warning restore S1199
 }
