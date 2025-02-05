@@ -1,9 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Xml;
 
-using HomagConnect.DataExchange.Contracts;
-
-using Order = HomagConnect.ProductionManager.Contracts.Orders.Order;
+using HomagConnect.DataExchange.Extensions.Wrapper;
 
 namespace HomagConnect.DataExchange.Tests;
 
@@ -24,60 +21,58 @@ public class ProjectWriteTests
 
         var testDataFolder = new DirectoryInfo(@"TestData\\project-02");
 
-        var project = new Project();
+        var project = new ProjectWrapper();
         var projectFiles = new Dictionary<string, string>();
 
-        project.Properties.Add(new Param { Name = "Name", Value = "Project 01" });
-        project.Properties.Add(new Param { Name = "Source", Value = "smartWOP" });
+        project.Name = "Project 01";
+        project.Source = "smartWOP";
 
-        var order = new Contracts.Order();
+        var order = new OrderWrapper();
 
-        order.Properties.Add(new Param { Name = nameof(Order.OrderNumber), Value = "101" });
-        order.Properties.Add(new Param { Name = nameof(Order.OrderName), Value = "Sample order" });
-        order.Properties.Add(new Param { Name = nameof(Order.OrderDescription), Value = "Sample order description" });
+        order.OrderNumber = "101";
+        order.OrderName = "Sample order";
+        order.OrderDescription = "Sample order description";
+        order.CustomerNumber = "201";
+        order.CustomerName = "Max Mustermann";
+        order.Company = "Mustermann GmbH";
+        order.OrderDate = DateTime.Today;
+        order.DeliveryDatePlanned = DateTime.Today.AddDays(10);
 
-        order.Properties.Add(new Param { Name = nameof(Order.CustomerNumber), Value = "201" });
-        order.Properties.Add(new Param { Name = nameof(Order.CustomerName), Value = "Sample customer name" });
-        order.Properties.Add(new Param { Name = nameof(Order.Company), Value = "Sample company" });
-
-        order.Properties.Add(new Param { Name = nameof(Order.OrderDate), Value = XmlConvert.ToString(DateTime.Today, XmlDateTimeSerializationMode.Utc) });
-        order.Properties.Add(new Param { Name = nameof(Order.DeliveryDatePlanned), Value = XmlConvert.ToString(DateTime.Today.AddDays(10), XmlDateTimeSerializationMode.Utc) });
+        project.Orders.Add(order);
 
         {
-            var orderImage = new Image();
+            var image = new ImageWrapper();
 
             const string name = "Cabinet";
             const string fileName = name + ".png";
             const string reference = @"images\" + fileName;
 
-            orderImage.Properties.Add(new Param { Name = "Category", Value = "Scene" });
-            orderImage.Properties.Add(new Param { Name = "Description", Value = name });
-            orderImage.Properties.Add(new Param { Name = "OriginalFileName", Value = fileName });
-            orderImage.Properties.Add(new Param { Name = "ImageLinkPicture", Value = reference });
+            image.Category = "Scene";
+            image.Description = name;
+            image.OriginalFileName = fileName;
+            image.ImageLinkPicture = reference;
 
             projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName).FullName);
 
-            order.Images.Add(orderImage);
+            order.Images.Add(image);
         }
 
         {
-            var orderImage = new Image();
+            var image = new ImageWrapper();
 
             const string name = "Cabinet xray";
             const string fileName = name + ".jpg";
             const string reference = @"images\" + fileName;
 
-            orderImage.Properties.Add(new Param { Name = "Category", Value = "AssemblyXRayImage" });
-            orderImage.Properties.Add(new Param { Name = "Description", Value = name });
-            orderImage.Properties.Add(new Param { Name = "OriginalFileName", Value = fileName });
-            orderImage.Properties.Add(new Param { Name = "ImageLinkPicture", Value = reference });
+            image.Category = "AssemblyXRayImage";
+            image.Description = name;
+            image.OriginalFileName = fileName;
+            image.ImageLinkPicture = reference;
 
             projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName).FullName);
 
-            order.Images.Add(orderImage);
+            order.Images.Add(image);
         }
-
-        project.Orders?.Add(order);
 
         var zipFile = GetFileName("zip");
 
@@ -89,8 +84,8 @@ public class ProjectWriteTests
     private FileInfo GetFileName(string extension = ".zip", [CallerMemberName] string callerMemberName = "")
     {
         Assert.IsNotNull(TestContext);
-        Assert.IsNotNull(TestContext.TestResultsDirectory);
-        return new FileInfo(Path.Combine(TestContext.TestResultsDirectory, callerMemberName) + "." + extension.Trim('.'));
+        Assert.IsNotNull(TestContext.DeploymentDirectory);
+        return new FileInfo(Path.Combine(TestContext.DeploymentDirectory, callerMemberName) + "." + extension.Trim('.'));
     }
 #pragma warning restore S1199
 }
