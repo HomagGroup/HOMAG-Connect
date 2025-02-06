@@ -3,6 +3,7 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.DataExchange.Samples;
 using HomagConnect.OrderManager.Samples;
 
@@ -16,6 +17,7 @@ namespace HomagConnect.OrderManager.Tests.Import
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders.Import")]
+    [TemporaryDisabledOnServer(2025, 03, 1)]
     public class ImportOrderTests : OrderManagerTestBase
     {
         /// <summary />
