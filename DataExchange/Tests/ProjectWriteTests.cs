@@ -1,5 +1,7 @@
 ﻿using HomagConnect.DataExchange.Samples;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.DataExchange.Tests;
 
 /// <summary />

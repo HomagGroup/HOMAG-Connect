@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.OrderManager.Contracts.Import;
+using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 
 namespace HomagConnect.OrderManager.Contracts
@@ -47,7 +48,6 @@ namespace HomagConnect.OrderManager.Contracts
 
         #region Order import
 
-
         /// <summary>
         /// Imports an order. All file references must be provided as URI.
         /// </summary>
@@ -57,7 +57,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// Imports an order. All file references must be provided either as URIs or as referenced file.
         /// </summary>
         Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] referencedFiles);
-        
+
         /// <summary>
         /// Imports a Project.zip file as an order.
         /// </summary>
@@ -74,6 +74,20 @@ namespace HomagConnect.OrderManager.Contracts
         /// Wait for the import to be completed.
         /// </summary>
         Task<OrderOverview> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
+
+        #endregion
+
+        #region Group Import
+
+        /// <summary>
+        /// Imports an group. All file references must be provided either as URIs or as referenced file.
+        /// </summary>
+        Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] referencedFiles);
+
+        /// <summary>
+        /// Imports a Project.zip file as an group.
+        /// </summary>
+        Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile);
 
         #endregion
     }

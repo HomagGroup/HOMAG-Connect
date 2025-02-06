@@ -13,6 +13,7 @@ using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Client
@@ -40,15 +41,11 @@ namespace HomagConnect.OrderManager.Client
             return orders;
         }
 
-     
-
-     
         /// <inheritdoc />
         public Task<IEnumerable<OrderOverview>> GetOrders(OrderState orderState, int take, int skip = 0)
         {
             return GetOrders([orderState], take, skip);
         }
-
 
         /// <inheritdoc />
         public async Task<IEnumerable<OrderOverview>> GetOrders(OrderState[] orderState, int take, int skip = 0)
@@ -62,7 +59,12 @@ namespace HomagConnect.OrderManager.Client
             return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
-      
+        /// <inheritdoc />
+        public Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Order details
@@ -79,33 +81,10 @@ namespace HomagConnect.OrderManager.Client
             throw new NotImplementedException();
         }
 
-       
-
-        /// <inheritdoc />
-        public Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
-        {
-            throw new NotImplementedException();
-        }
-      
-
         #endregion
 
         #region Order import
 
-        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] referencedFiles)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-       
         /// <inheritdoc />
         public async Task<ImportOrderResponse> ImportOrderRequest(FileInfo projectFile)
         {
@@ -114,10 +93,10 @@ namespace HomagConnect.OrderManager.Client
                 throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
             }
 
-            const string uri = "api/orderManager/orders/import";
+            const string uri = "api/orderManager/orders";
 
             using var stream = projectFile.OpenRead();
-            
+
             var request = new HttpRequestMessage(HttpMethod.Post, new Uri(uri, UriKind.Relative));
 
             using var requestContent = new StreamContent(stream);
@@ -128,7 +107,7 @@ namespace HomagConnect.OrderManager.Client
             using var response = await Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             response.EnsureSuccessStatusCode();
-                    
+
             var content = await response.Content.ReadAsStreamAsync();
             using var reader = new StreamReader(content);
             var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(await reader.ReadToEndAsync());
@@ -139,7 +118,7 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order)
         {
-            const string uri = "api/orderManager/orders/import";
+            const string uri = "api/orderManager/orders";
 
             var response = await PostObject(new Uri(uri, UriKind.Relative), order);
 
@@ -150,18 +129,31 @@ namespace HomagConnect.OrderManager.Client
             return responseObject ?? new ImportOrderResponse();
         }
 
-
+        /// <inheritdoc />
         public Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         public Task<OrderOverview> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration)
         {
             throw new NotImplementedException();
         }
 
-     
+        /// <inheritdoc />
+        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] referencedFiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] referencedFiles)
         {
             //var request = new HttpRequestMessage { Method = HttpMethod.Post };
@@ -201,8 +193,6 @@ namespace HomagConnect.OrderManager.Client
 
             throw new NotImplementedException();
         }
-
-       
 
         #endregion
     }

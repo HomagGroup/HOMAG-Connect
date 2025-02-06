@@ -1,8 +1,8 @@
 ﻿using HomagConnect.Base.Tests;
-using HomagConnect.Base.Tests.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics
 {
+    /// <summary />
     public class PartHistoryStatisticsTests
     {
         /// <summary />

@@ -3,6 +3,8 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.DataExchange.Contracts;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.DataExchange.Tests
 {
     /// <summary />
