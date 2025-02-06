@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
+using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -15,6 +16,7 @@ using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 
 using Newtonsoft.Json;
+using static System.Net.WebRequestMethods;
 
 namespace HomagConnect.OrderManager.Client
 {
@@ -154,44 +156,56 @@ namespace HomagConnect.OrderManager.Client
         }
 
         /// <inheritdoc />
-        public Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] referencedFiles)
+        public async Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] fileReferences)
         {
-            //var request = new HttpRequestMessage { Method = HttpMethod.Post };
+            if (fileReferences == null)
+            {
+                throw new ArgumentNullException(nameof(fileReferences));
+            }
 
-            //if (!projectFile.Exists)
-            //{
-            //    throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
-            //}
+            var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
 
-            //var fileName = projectFile.Name;
+            if (missingFile != null)
+            {
+                throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
+            }
 
-            //using var stream = projectFile.OpenRead();
+            var missingReference= fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
 
-            //const string uri = "api/orderManager/orders/import";
-            //request.RequestUri = new Uri(uri, UriKind.Relative);
+            if (missingReference != null)
+            {
+                throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+            }
+            
+            const string uri = "api/orderManager/orders";
 
-            //using var httpContent = new MultipartFormDataContent();
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+            request.RequestUri = new Uri(uri, UriKind.Relative);
 
-            ////var json = JsonConvert.SerializeObject(importOrderRequest, SerializerSettings.Default);
+            using var httpContent = new MultipartFormDataContent();
 
-            ////httpContent.Add(new StringContent(json), nameof(importOrderRequest));
+            var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
 
-            //HttpContent streamContent = new StreamContent(stream);
-            //httpContent.Add(streamContent, fileName, fileName);
+            httpContent.Add(new StringContent(json), nameof(order));
 
-            //request.Content = httpContent;
+            foreach (var fileReference in fileReferences)
+            {
+                var fileStream = fileReference.FileInfo.OpenRead();
 
-            //var response = await Client.SendAsync(request);
+                HttpContent streamContent = new StreamContent(fileStream);
+                httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+            }
 
-            //await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            request.Content = httpContent;
 
-            //var result = await response.Content.ReadAsStringAsync();
+            var response = await Client.SendAsync(request);
 
-            //var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
-            //return responseObject ?? new ImportOrderResponse();
+            var result = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
 
-            throw new NotImplementedException();
+            return responseObject ?? new ImportOrderResponse();
         }
 
         #endregion

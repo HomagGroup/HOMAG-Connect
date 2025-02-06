@@ -56,7 +56,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Imports an order. All file references must be provided either as URIs or as referenced file.
         /// </summary>
-        Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] referencedFiles);
+        Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] fileReferences);
 
         /// <summary>
         /// Imports a Project.zip file as an order.

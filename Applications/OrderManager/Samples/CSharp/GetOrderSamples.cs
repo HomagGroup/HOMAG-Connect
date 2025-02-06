@@ -214,7 +214,7 @@ namespace HomagConnect.OrderManager.Samples
                 }
             };
 
-            order.Trace(nameof(order));
+            
 
             return order;
         }
