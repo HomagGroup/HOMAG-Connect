@@ -1,4 +1,5 @@
-﻿using HomagConnect.OrderManager.Contracts.Import;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Contracts.Orders;
 
 namespace HomagConnect.OrderManager.Contracts
@@ -46,7 +47,21 @@ namespace HomagConnect.OrderManager.Contracts
 
         #region Order import
 
-       
+
+        /// <summary>
+        /// Imports an order. All file references must be provided as URI.
+        /// </summary>
+        Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order);
+
+        /// <summary>
+        /// Imports an order. All file references must be provided either as URIs or as referenced file.
+        /// </summary>
+        Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] referencedFiles);
+        
+        /// <summary>
+        /// Imports a Project.zip file as an order.
+        /// </summary>
+        Task<ImportOrderResponse> ImportOrderRequest(FileInfo projectFile);
 
         /// <summary>
         /// Get the import state of an order

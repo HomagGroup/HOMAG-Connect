@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
-using HomagConnect.DataExchange.Contracts;
 using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Contracts.OrderItems;
@@ -41,11 +40,15 @@ namespace HomagConnect.OrderManager.Client
             return orders;
         }
 
+     
+
+     
         /// <inheritdoc />
         public Task<IEnumerable<OrderOverview>> GetOrders(OrderState orderState, int take, int skip = 0)
         {
             return GetOrders([orderState], take, skip);
         }
+
 
         /// <inheritdoc />
         public async Task<IEnumerable<OrderOverview>> GetOrders(OrderState[] orderState, int take, int skip = 0)
@@ -59,6 +62,7 @@ namespace HomagConnect.OrderManager.Client
             return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
+      
         #endregion
 
         #region Order details
@@ -75,11 +79,14 @@ namespace HomagConnect.OrderManager.Client
             throw new NotImplementedException();
         }
 
+       
+
         /// <inheritdoc />
         public Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
         {
             throw new NotImplementedException();
         }
+      
 
         #endregion
 
@@ -90,57 +97,51 @@ namespace HomagConnect.OrderManager.Client
             throw new NotImplementedException();
         }
 
-        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Project project, FileReference[] referencedFiles)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ImportOrderResponse> ImportOrderRequest(Order order, FileReference[] referencedFiles)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ImportOrderResponse> ImportOrderRequest(Project project, FileReference[] projectFiles)
-        {
-            throw new NotImplementedException();
-        }
-
+        
+       
         /// <inheritdoc />
         public async Task<ImportOrderResponse> ImportOrderRequest(FileInfo projectFile)
         {
-            var request = new HttpRequestMessage { Method = HttpMethod.Post };
-
             if (!projectFile.Exists)
             {
                 throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
             }
 
-            var fileName = projectFile.Name;
+            const string uri = "api/orderManager/orders/import";
 
             using var stream = projectFile.OpenRead();
+            
+            var request = new HttpRequestMessage(HttpMethod.Post, new Uri(uri, UriKind.Relative));
 
+            using var requestContent = new StreamContent(stream);
+
+            request.Content = requestContent;
+            requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+            using var response = await Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+
+            response.EnsureSuccessStatusCode();
+                    
+            var content = await response.Content.ReadAsStreamAsync();
+            using var reader = new StreamReader(content);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(await reader.ReadToEndAsync());
+
+            return responseObject ?? new ImportOrderResponse();
+        }
+
+        /// <inheritdoc />
+        public async Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order)
+        {
             const string uri = "api/orderManager/orders/import";
-            request.RequestUri = new Uri(uri, UriKind.Relative);
 
-            using var httpContent = new MultipartFormDataContent();
-
-            //var json = JsonConvert.SerializeObject(importOrderRequest, SerializerSettings.Default);
-
-            //httpContent.Add(new StringContent(json), nameof(importOrderRequest));
-
-            HttpContent streamContent = new StreamContent(stream);
-            httpContent.Add(streamContent, fileName, fileName);
-
-            request.Content = httpContent;
-
-            var response = await Client.SendAsync(request);
-
-            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            var response = await PostObject(new Uri(uri, UriKind.Relative), order);
 
             var result = await response.Content.ReadAsStringAsync();
 
@@ -149,17 +150,59 @@ namespace HomagConnect.OrderManager.Client
             return responseObject ?? new ImportOrderResponse();
         }
 
-        /// <inheritdoc />
+
         public Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
         {
             throw new NotImplementedException();
         }
 
-        /// <inheritdoc />
         public Task<OrderOverview> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration)
         {
             throw new NotImplementedException();
         }
+
+     
+        public Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order, FileReference[] referencedFiles)
+        {
+            //var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            //if (!projectFile.Exists)
+            //{
+            //    throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
+            //}
+
+            //var fileName = projectFile.Name;
+
+            //using var stream = projectFile.OpenRead();
+
+            //const string uri = "api/orderManager/orders/import";
+            //request.RequestUri = new Uri(uri, UriKind.Relative);
+
+            //using var httpContent = new MultipartFormDataContent();
+
+            ////var json = JsonConvert.SerializeObject(importOrderRequest, SerializerSettings.Default);
+
+            ////httpContent.Add(new StringContent(json), nameof(importOrderRequest));
+
+            //HttpContent streamContent = new StreamContent(stream);
+            //httpContent.Add(streamContent, fileName, fileName);
+
+            //request.Content = httpContent;
+
+            //var response = await Client.SendAsync(request);
+
+            //await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            //var result = await response.Content.ReadAsStringAsync();
+
+            //var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+
+            //return responseObject ?? new ImportOrderResponse();
+
+            throw new NotImplementedException();
+        }
+
+       
 
         #endregion
     }

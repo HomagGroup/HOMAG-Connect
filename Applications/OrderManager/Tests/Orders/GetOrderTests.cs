@@ -8,6 +8,8 @@ using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 using HomagConnect.OrderManager.Samples;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.OrderManager.Tests.Orders
 {
     [TestClass]
