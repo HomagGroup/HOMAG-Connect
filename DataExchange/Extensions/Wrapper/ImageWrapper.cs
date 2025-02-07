@@ -69,6 +69,20 @@ public class ImageWrapper
         }
     }
 
+
+    /// <summary />
+    public string? ImageLinkBinary
+    {
+        get
+        {
+            return Image.GetPropertyValue<string>();
+        }
+        set
+        {
+            Image.SetPropertyValue(value);
+        }
+    }
+
     /// <summary>
     /// Gets the image extension
     /// </summary>

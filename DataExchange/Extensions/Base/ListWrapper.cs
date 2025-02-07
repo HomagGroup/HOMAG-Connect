@@ -104,6 +104,6 @@ public abstract class ListWrapper<T, TW> : IList<TW> where T : ParamBase
 
     /// <inheritdoc />
     public abstract TW this[int index] { get; set; }
-    
+
     #endregion
 }

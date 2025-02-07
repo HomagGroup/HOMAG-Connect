@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using System.Runtime.CompilerServices;
 
 using HomagConnect.Base.Extensions;
 using HomagConnect.DataExchange.Contracts;
@@ -19,10 +20,29 @@ namespace HomagConnect.DataExchange.Tests;
 public class ConversionTests
 {
     /// <summary />
+    public TestContext TestContext { get; set; }
+
+    /// <summary />
     [TestMethod]
-    public void Project_ConvertToOrder_AllPropertiesSet()
+    public void Convert_ProjectToOrder_ProjectHavingTypicalProperties()
     {
         var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
+
+        ConvertProjectToOrder(fileInfo);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Convert_ProjectToOrder_LargeProject()
+    {
+        var fileInfo = new FileInfo("TestData\\Kitchen.zip");
+
+        ConvertProjectToOrder(fileInfo);
+    }
+
+    /// <summary />
+    private  void ConvertProjectToOrder(FileInfo fileInfo)
+    {
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
         var project = Project.Load(zipArchive);
@@ -40,11 +60,19 @@ public class ConversionTests
             var source = projectWrapper.Orders[i];
             var target = orders[i];
 
-            source.Trace("Source");
-            target.Trace("Target");
+           TestContext.AddResultFile(source.TraceToFile("Source").FullName);
+           TestContext.AddResultFile(target.TraceToFile("Target").FullName);
+
+            if (target.AdditionalProperties is { Count: > 0 })
+            {
+                target.AdditionalProperties.Trace("Unknown properties");
+            }
 
             Assert.AreEqual(source.OrderName, target.OrderName);
             Assert.AreEqual(source.OrderNumber, target.OrderNumber);
+
+
+            
         }
     }
 }

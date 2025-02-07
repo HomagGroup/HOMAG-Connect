@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Xml;
 
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.DataExchange.Contracts;
 
 namespace HomagConnect.DataExchange.Extensions;
@@ -12,7 +13,7 @@ public static class ParamBaseExtensions
 {
     private const XmlDateTimeSerializationMode _DateTimeSerializationMode = XmlDateTimeSerializationMode.Unspecified;
 
-    internal static string ToXmlValue<T>(this T? value)
+    private static string ToXmlValue<T>(this T? value)
     {
         if (value == null)
         {
@@ -57,6 +58,46 @@ public static class ParamBaseExtensions
         if (type == typeof(DateTimeOffset) || type == typeof(DateTimeOffset?))
         {
             return Convert.ChangeType(XmlConvert.ToDateTimeOffset(value), typeof(DateTimeOffset)); // TODO: Timezone of the subscription needs to be considered. Might become a project file property.
+        }
+
+        if (type == typeof(Guid) || type == typeof(Guid?))
+        {
+            return Convert.ChangeType(XmlConvert.ToGuid(value), typeof(Guid));
+        }
+
+        if (type == typeof(int) || type == typeof(int?))
+        {
+            return Convert.ChangeType(XmlConvert.ToInt32(value), typeof(int));
+        }
+
+        if (type == typeof(double) || type == typeof(double?))
+        {
+            return Convert.ChangeType(XmlConvert.ToDouble(value), typeof(double));
+        }
+
+        if (type == typeof(bool) || type == typeof(bool?))
+        {
+            return Convert.ChangeType(XmlConvert.ToBoolean(value), typeof(bool));
+        }
+
+        if (type == typeof(Grain) || type == typeof(Grain?))
+        {
+            if (value is "" or "0" or "NoGrain" or "None")
+            {
+                return Grain.None;
+            }
+
+            if (value is "1" or "Lengthwise")
+            {
+                return Grain.Lengthwise;
+            }
+
+            if (value is "2" or "Crosswise")
+            {
+                return Grain.Crosswise;
+            }
+
+            throw new NotSupportedException("Value '" + value + "' for Grain is not supported.");
         }
 
         throw new NotSupportedException("Type " + type + " is not supported.");
