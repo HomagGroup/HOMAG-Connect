@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace HomagConnect.DataExchange.Tests
 {
     /// <summary />
-        [TestClass]
+    [TestClass]
     [TestCategory("DataExchange")]
     [TestCategory("DataExchange.Project.Read")]
     public class ProjectReadTests
@@ -68,7 +68,7 @@ namespace HomagConnect.DataExchange.Tests
             using var zip = ZipFile.OpenRead("TestData/project-01.zip");
 
             var project = Project.Load(zip);
-            
+
             Assert.IsNotNull(project);
             Assert.IsNotNull(project.Orders);
 

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
+using HomagConnect.DataExchange.Contracts;
 using HomagConnect.DataExchange.Extensions.Wrapper;
 
 namespace HomagConnect.DataExchange.Samples
@@ -35,8 +36,9 @@ namespace HomagConnect.DataExchange.Samples
             order.OrderDate = DateTime.Today;
             order.DeliveryDatePlanned = DateTime.Today.AddDays(10);
 
-            project.Orders.Add(order);
+            order.Properties.Add(new Param { Name = "MyCustomProperty", Value = "MyCustomValue" });
 
+            project.Orders.Add(order);
             {
                 var image = new ImageWrapper();
 

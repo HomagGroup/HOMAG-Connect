@@ -24,4 +24,17 @@ public class OrderWrapperList : ListWrapper<Order, OrderWrapper>
     {
         InnerList.Add(item.Order);
     }
+
+    /// <inheritdoc />
+    public override OrderWrapper this[int index]
+    {
+        get
+        {
+            return new OrderWrapper(InnerList[index]);
+        }
+        set
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
