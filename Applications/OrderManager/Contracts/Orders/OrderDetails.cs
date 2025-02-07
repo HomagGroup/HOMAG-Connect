@@ -98,7 +98,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// The company of the customer of this order
         /// </summary>
         [JsonProperty(Order = 320)]
-        public string? CustomerCompany { get; set; }
+        public string? Company { get; set; }
 
         #endregion
 
