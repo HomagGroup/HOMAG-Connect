@@ -3,192 +3,97 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
+using HomagConnect.OrderManager.Samples;
 
-namespace HomagConnect.OrderManager.Tests
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace HomagConnect.OrderManager.Tests.Orders
 {
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders")]
-    public sealed class GetOrderTests
+   
+    public sealed class GetOrderTests : OrderManagerTestBase
     {
+        /// <summary />
         [TestMethod]
-        public void GetOrder()
+        [TemporaryDisabledOnServer(2025, 03, 1)]
+        public async Task Orders_GetAllOrdersHavingStatusNew_NoException()
         {
-            var order = new OrderDetails();
+            var orderManager = GetOrderManagerClient();
 
-            // Header
+            var anyException = false;
 
-            order.OrderNumber = "736362";
-            order.State = OrderState.New;
-            order.OrderName = "Bedroom & bathroom 01";
-            order.Project = "Single family house Müller John";
-            order.PersonInCharge = "Hendrik Albers";
-            order.OrderDescription =
-                "Lorem ipsum dolor sit amet...";
-            order.OrderDate = DateTime.Today;
-            order.DeliveryDatePlanned = DateTime.Today.AddDays(14);
-
-            order.Link = new Uri($"https://orderManager.homag.cloud/#/subscriptionId/orders/{order.OrderNumber}");
-
-            // Addresses
-            order.Addresses = new Collection<Address>(new List<Address>
+            try
             {
-                new()
-                {
-                    Street = "Musterstraße",
-                    HouseNumber = "1",
-                    PostalCode = "12345",
-                    City = "Musterstadt",
-                    Country = "Deutschland",
-                    Type = AddressType.Delivery | AddressType.Billing
-                }
-            });
-
-            // Customer
-
-            order.CustomerName = "Müller & Co.";
-            order.CustomerNumber = "462642";
-
-            // Details
-
-            order.QuantityOfParts = 100;
-            order.QuantityOfArticles = 10;
-            order.QuantityOfPartsPlanned = 0;
-            //order.TotalPrice = 1000;
-
-            order.CreatedAt = DateTimeOffset.Now;
-            order.ChangedAt = DateTimeOffset.Now;
-            order.ChangedBy = "Boris Wehrle";
-
-            // Order Items
-
-            order.Items = new()
+                await GetOrderSamples.GetAllOrdersHavingStatusNew(orderManager);
+            }
+            catch (Exception e)
             {
-                new Group
-                {
-                    Name = "Bedroom & bathroom 01",
-                    Source = "orderConfigurator",
+                Console.WriteLine(e);
+                anyException = true;
+            }
 
-                    Items = new()
-                    {
-                        new Position
-                        {
-                            Name = "P 01.01",
-                            ArticleNumber = "67839",
-                            Quantity = 4,
-                            Description = "Cabinet left",
-                            Notes = "Lorem ipsum",
-                            Length = 250,
-                            Width = 100,
-                            Height = 150,
-                            Items = new Collection<Contracts.OrderItems.Base>
-                            {
-                                new Price
-                                {
-                                    UnitPrice = 100,
-                                    TotalPrice = 4 * 100,
-                                    Currency = "EUR"
-                                }
-                            }
-                        },
-                        new Position
-                        {
-                            Name = "P 01.02",
-                            ArticleNumber = "67840",
-                            Quantity = 6,
-                            Description = "Cabinet right",
-                            Notes = "Lorem ipsum",
-                            Length = 250,
-                            Width = 100,
-                            Height = 150,
-                            Items = new Collection<Contracts.OrderItems.Base>
-                            {
-                                new Price
-                                {
-                                    UnitPrice = 120,
-                                    TotalPrice = 6 * 120,
-                                    Currency = "EUR"
-                                }
-                            }
-                        },
-                        new Price
-                        {
-                            UnitPrice = 6 * 120 + 4 * 100,
-                            TotalPrice = 6 * 120 + 4 * 100,
-                            Currency = "EUR"
-                        }
-                    }
-                },
-                new Group
-                {
-                    Name = "Bedroom & bathroom 01",
-                    Source = "orderConfigurator",
+            Assert.IsFalse(anyException);
+        }
 
-                    Items = new()
-                    {
-                        new Position
-                        {
-                            Name = "P 01.01",
-                            ArticleNumber = "67839",
-                            Quantity = 4,
-                            Description = "Cabinet left",
-                            Notes = "Lorem ipsum",
-                            Length = 250,
-                            Width = 100,
-                            Height = 150,
-                            Items = new Collection<Contracts.OrderItems.Base>
-                            {
-                                new Price
-                                {
-                                    UnitPrice = 100,
-                                    TotalPrice = 4 * 100,
-                                    Currency = "EUR"
-                                }
-                            }
-                        },
-                        new Position
-                        {
-                            Name = "P 01.02",
-                            ArticleNumber = "67840",
-                            Quantity = 6,
-                            Description = "Cabinet right",
-                            Notes = "Lorem ipsum",
-                            Length = 250,
-                            Width = 100,
-                            Height = 150,
-                            Items = new Collection<Contracts.OrderItems.Base>
-                            {
-                                new Price
-                                {
-                                    UnitPrice = 120,
-                                    TotalPrice = 6 * 120,
-                                    Currency = "EUR"
-                                }
-                            }
-                        },
-                        new Price
-                        {
-                            UnitPrice = 6 * 120 + 4 * 100,
-                            TotalPrice = 6 * 120 + 4 * 100,
-                            Currency = "EUR"
-                        }
-                    }
-                },
-                new Price
-                {
-                    UnitPrice = 2000,
-                    TotalPrice = 2000,
-                    Currency = "EUR"
-                }
-            };
+        /// <summary />
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025, 03, 1)]
+        public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
+        {
+            var orderManager = GetOrderManagerClient();
 
-            order.Trace(nameof(order));
+            var anyException = false;
+
+            try
+            {
+                await GetOrderSamples.GetAllOrdersHavingStatusNewOrInProduction(orderManager);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025, 03, 1)]
+        public async Task Orders_GetAllOrders_NoException()
+        {
+            var orderManager = GetOrderManagerClient();
+
+            var anyException = false;
+
+            try
+            {
+                await GetOrderSamples.GetAllOrdersAsync(orderManager);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
         }
 
         [TestMethod]
-        public void GetOrderWithConfig()
+        public void Orders_GetSampleOrder()
+        {
+            var order = GetOrderSamples.GetSampleOrder();
+
+            Assert.IsNotNull(order);
+        }
+
+        [TestMethod]
+        public void Orders_GetSampleOrderWithConfig()
         {
             var order = new OrderDetails();
 
@@ -272,7 +177,7 @@ namespace HomagConnect.OrderManager.Tests
         }
 
         [TestMethod]
-        public void GetOrderWithConfig2()
+        public void Orders_GetSampleOrderWithConfig2()
         {
             var order = new OrderDetails();
 
@@ -324,7 +229,7 @@ namespace HomagConnect.OrderManager.Tests
                     {
                         { "roomlePlannerId", "ps_4ejnf8ese0jwgmtan2ltzki0io473a8" },
                     },
-                    AdditionalData = new ()
+                    AdditionalData = new()
                     {
                         new AdditionalDataImage
                         {
@@ -431,7 +336,7 @@ namespace HomagConnect.OrderManager.Tests
                     {
                         { "roomlePlannerId", "ps_ai687h32o22vdn7twtiqij3e810sjde" },
                     },
-                    AdditionalData = new ()
+                    AdditionalData = new()
                     {
                         new AdditionalDataImage
                         {
@@ -460,7 +365,7 @@ namespace HomagConnect.OrderManager.Tests
                                     {
                                         { "mod_Depth", 548 },
                                         { "mod_Height", 1800 },
-                                        { "mod_Width", 600},
+                                        { "mod_Width", 600 },
                                         { "mod_TypeElement", "TallUnit" }
                                     },
                                 },

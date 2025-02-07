@@ -3,6 +3,8 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.DataExchange.Contracts;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.DataExchange.Tests
 {
     /// <summary />
@@ -38,7 +40,7 @@ namespace HomagConnect.DataExchange.Tests
             // Order
             Assert.AreEqual(1, p.Orders.Count);
             Assert.AreEqual(3, p.Orders[0].Images.Count);
-            Assert.AreEqual(9, p.Orders[0].Properties.Count);
+            Assert.AreEqual(10, p.Orders[0].Properties.Count);
             Assert.AreEqual(1, p.Orders[0].Entities.Count);
 
             Assert.AreEqual(4, p.Orders[0].Images[1].Properties.Count);

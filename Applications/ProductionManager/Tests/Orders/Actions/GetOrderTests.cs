@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Samples.Orders.Actions;
@@ -14,7 +12,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders")]
-    [TemporaryDisabledOnServer(2024, 9, 1)]
     public class GetOrderTests : ProductionManagerTestBase
     {
         /// <summary />
@@ -140,7 +137,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             try
             {
-                await GetOrderSamples.GetCompletionDatesPlanned(productionManager, orderNumbers.ToArray());
+                await GetOrderSamples.GetCompletionDatesPlanned(productionManager, [.. orderNumbers]);
             }
             catch (Exception e)
             {
@@ -163,8 +160,17 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             try
             {
-                var orderId = new Guid("52962a9e-0333-49a3-a8a2-ee88b3714f0c"); // should be replaced with existing id
-                await GetOrderSamples.GetOrder(productionManager, orderId);
+                var order = await productionManager.GetOrders(1).FirstOrDefaultAsync();
+
+                if (order == null)
+                {
+                    Assert.Inconclusive("There is no order.");
+                }
+                
+                var order2 =  await GetOrderSamples.GetOrder(productionManager, order.Id);
+
+                Assert.AreEqual(order.Id, order2.Id);
+
             }
             catch (Exception e)
             {

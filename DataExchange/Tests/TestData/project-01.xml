@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project contentVersion="2">
 	<properties>
-		<param name="Name" value="Project 01" />
+		<param name="Name" value="Project 01" />		
 	</properties>
 	<orders>
 		<order>
@@ -15,6 +15,7 @@
 				<param name="AddressField2" value="" />
 				<param name="AddressField3" value="" />
 				<param name="AddressField4" value="" />
+				<param name="Source" value="Project 01" />
 			</properties>
 			<images>
 				<image>

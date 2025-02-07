@@ -93,8 +93,7 @@ namespace HomagConnect.ProductionManager.Client
                         throw new InvalidOperationException("Import succeeded but no order id was returned.");
                     }
 
-                    var orders = await GetOrders(OrderStatus.New, 1000); // TODO: Replace with GetOrder when available in production system.
-                    var order = orders.FirstOrDefault(o => o.Id == currentStatus.OrderId);
+                    var order = await GetOrder(currentStatus.OrderId.Value);
 
                     return order ?? throw new InvalidOperationException($"Order with id '{currentStatus.OrderId}' not found.");
                 }
@@ -129,9 +128,9 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public Task<IEnumerable<Order>> GetOrders(OrderStatus orderStatus, int take, int skip = 0)
+        public async Task<IEnumerable<Order>> GetOrders(OrderStatus orderStatus, int take, int skip = 0)
         {
-            return GetOrders([orderStatus], take, skip);
+            return await GetOrders([orderStatus], take, skip);
         }
 
         /// <inheritdoc />
@@ -144,6 +143,23 @@ namespace HomagConnect.ProductionManager.Client
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return await RequestEnumerableAsync<Order>(uris);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
+        {
+            var validOrderNumbers = orderNumbers
+                .Select(e => e.Trim())
+                .Where(e => !string.IsNullOrWhiteSpace(e))
+                .Distinct();
+
+            var uris = validOrderNumbers
+                .Select(id => $"&orderNumber={Uri.EscapeDataString(id)}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderDetails>(uris);
         }
 
         #endregion
@@ -163,23 +179,6 @@ namespace HomagConnect.ProductionManager.Client
         public Task<OrderDetails> GetOrder(string orderNumber)
         {
             return GetOrders([orderNumber]).FirstOrDefaultAsync();
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
-        {
-            var validOrderNumbers = orderNumbers
-                .Select(e => e.Trim())
-                .Where(e => !string.IsNullOrWhiteSpace(e))
-                .Distinct();
-
-            var uris = orderNumbers
-                .Select(id => $"&orderNumber={Uri.EscapeDataString(id)}")
-                .Join(QueryParametersMaxLength)
-                .Select(c => $"/api/productionManager/orders?" + c.Trim('&'))
-                .Select(c => new Uri(c, UriKind.Relative));
-
-            return await RequestEnumerableAsync<OrderDetails>(uris);
         }
 
         #endregion
