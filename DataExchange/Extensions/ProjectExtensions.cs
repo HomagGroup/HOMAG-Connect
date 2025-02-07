@@ -20,27 +20,29 @@ public static class ProjectExtensions
     /// </summary>
     public static IEnumerable<OrderDetails> ConvertToOrders(this Project project)
     {
+        var orders = new Collection<OrderDetails>();
+
         if (project == null)
         {
             throw new ArgumentNullException(nameof(project));
         }
 
-        if (project.Orders == null || project.Orders.Count == 0)
+        if (project.Orders is { Count: 0 })
         {
-            yield break;
-        }
-
-        foreach (var projectOrder in project.Orders)
-        {
-            if (projectOrder != null)
+            foreach (var projectOrder in project.Orders)
             {
-                var order = new OrderDetails();
+                if (projectOrder != null)
+                {
+                    var order = new OrderDetails();
 
-                MapOrder(projectOrder, order);
+                    MapOrder(projectOrder, order);
 
-                yield return order;
+                    orders.Add(order);
+                }
             }
         }
+
+        return orders;
     }
 
     private static void MapOrder(Entity entity, OrderDetails orderDetails)
@@ -83,38 +85,36 @@ public static class ProjectExtensions
 
     private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
     {
+        var entityEntityProperty = properties.FirstOrDefault(t => string.Equals(t.Name, "Type", StringComparison.InvariantCultureIgnoreCase));
+
+        if (entityEntityProperty?.Value == null)
         {
-            var entityEntityProperty = properties.FirstOrDefault(t => string.Equals(t.Name, "Type", StringComparison.InvariantCultureIgnoreCase));
-
-            if (entityEntityProperty?.Value == null)
-            {
-                throw new NotSupportedException("Type property not found");
-            }
-
-            var type = entityEntityProperty.Value;
-
-            if (string.Equals(type, "OrderItem", StringComparison.CurrentCultureIgnoreCase))
-            {
-                return new Component();
-            }
-
-            if (string.Equals(type, "Component", StringComparison.CurrentCultureIgnoreCase))
-            {
-                return new Component();
-            }
-
-            if (string.Equals(type, "ProductionOrder", StringComparison.CurrentCultureIgnoreCase))
-            {
-                return new Part();
-            }
-
-            if (string.Equals(type, "Resource", StringComparison.CurrentCultureIgnoreCase))
-            {
-                return new Resource();
-            }
-
-            throw new NotSupportedException($"Entity of type '{entityEntityProperty.Value}' not supported.");
+            throw new NotSupportedException("Type property not found");
         }
+
+        var type = entityEntityProperty.Value;
+
+        if (string.Equals(type, "OrderItem", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Component();
+        }
+
+        if (string.Equals(type, "Component", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Component();
+        }
+
+        if (string.Equals(type, "ProductionOrder", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Part();
+        }
+
+        if (string.Equals(type, "Resource", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Resource();
+        }
+
+        throw new NotSupportedException($"Entity of type '{entityEntityProperty.Value}' not supported.");
     }
 
     private static void MapEntity(Entity entity, ISupportsAdditionalData target)
@@ -175,7 +175,7 @@ public static class ProjectExtensions
 
         if (property.Value != null)
         {
-            var propertyInfo = propertyInfos.FirstOrDefault(x => x.Name == property.Name);
+            var propertyInfo = Array.Find(propertyInfos, (x) => x.Name == property.Name);
 
             if (propertyInfo == null)
             {
