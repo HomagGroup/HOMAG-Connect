@@ -69,6 +69,27 @@ public class ImageWrapper
         }
     }
 
+    /// <summary>
+    /// Gets the image extension
+    /// </summary>
+    public string Extension
+    {
+        get
+        {
+            if (OriginalFileName != null)
+            {
+                return new FileInfo(OriginalFileName).Extension.ToLowerInvariant();
+            }
+
+            if (ImageLinkPicture != null)
+            {
+                return new FileInfo(ImageLinkPicture).Extension.ToLowerInvariant();
+            }
+
+            return string.Empty;
+        }
+    }
+
     #endregion
 
     #region Constructors

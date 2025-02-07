@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 
 using JsonSubTypes;
 
@@ -18,7 +17,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataTexture), AdditionalDataType.Texture)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataCNCProgram), AdditionalDataType.CNCProgram)]
 [DebuggerDisplay("Type={Type}, Name={Name}")]
-public class AdditionalDataEntity : IExtensibleDataObject
+public class AdditionalDataEntity
 {
     /// <summary>
     /// Gets or sets the additional data type.
@@ -27,32 +26,57 @@ public class AdditionalDataEntity : IExtensibleDataObject
     public virtual AdditionalDataType Type { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional data name
+    /// Gets or sets the category.
     /// </summary>
     [JsonProperty(Order = 1)]
-    public string? Name { get; set; }
+    public string? Category { get; set; }
 
     /// <summary>
-    /// Previews
+    /// Gets or sets the additional data name
     /// </summary>
     [JsonProperty(Order = 2)]
-    public Collection<AdditionalDataPreview>? Previews { get; set; }
-
-    /// <summary>
-    /// Gets or sets the download uri.
-    /// </summary>
-    public Uri? DownloadUri { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets or sets the download file name.
     /// </summary>
+    [JsonProperty(Order = 10)]
     public string? DownloadFileName { get; set; }
 
-    #region (90) IExtensibleDataObject Members
+    /// <summary>
+    /// Gets or sets the download uri.
+    /// </summary>
+    [JsonProperty(Order = 11)]
+    public Uri? DownloadUri { get; set; }
 
-    /// <intheritdoc />
-    [JsonProperty(Order = 90)]
-    public ExtensionDataObject? ExtensionData { get; set; }
+    /// <summary>
+    /// Previews
+    /// </summary>
+    [JsonProperty(Order = 20)]
+    public Collection<AdditionalDataPreview>? Previews { get; set; }
 
-    #endregion
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 30)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="AdditionalDataEntity" /> class based on the file extension.
+    /// </summary>
+    public static AdditionalDataEntity CreateInstance(string fileExtension)
+    {
+        if (fileExtension is ".mpr" or ".mprx" or ".mprxe")
+        {
+            return new AdditionalDataCNCProgram();
+        }
+
+        if (fileExtension is ".png" or ".jpg" or ".gif" or ".bmp")
+        {
+            return new AdditionalDataImage();
+        }
+
+        return new AdditionalDataEntity();
+    }
 }
