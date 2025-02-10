@@ -7,6 +7,8 @@ using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 using Newtonsoft.Json;
 
@@ -159,6 +161,44 @@ namespace HomagConnect.IntelliDivide.Client
         {
             var url = $"/api/intelliDivide/{optimizationType}/parameters";
             return await RequestEnumerable<OptimizationParameter>(new Uri(url, UriKind.Relative));
+        }
+
+        #endregion
+
+        #region Materials
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+        {
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip), "The skip parameter must not be negative.");
+            }
+
+            if (take < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take), "The take parameter must be greater than zero.");
+            }
+
+            var url = $"api/intelliDivide/materials/boards?take={take}&skip={skip}";
+            return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
+        {
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip), "The skip parameter must not be negative.");
+            }
+
+            if (take < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take), "The take parameter must be greater than zero.");
+            }
+
+            var url = $"api/intelliDivide/materials/edgebands?take={take}&skip={skip}";
+            return await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative));
         }
 
         #endregion
