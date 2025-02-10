@@ -26,5 +26,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+	  <ProjectReference Include="..\..\MaterialManager\Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
 	</ItemGroup>
 </Project>

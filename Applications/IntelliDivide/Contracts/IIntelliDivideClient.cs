@@ -8,6 +8,8 @@ using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.IntelliDivide.Contracts
 {
@@ -253,5 +255,19 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets the part properties including the additional ones.
         /// </summary>
         Task<IEnumerable<DataModelProperty>> GetPartProperties();
+
+        #region Materials
+
+        /// <summary>
+        /// Gets the list of board types defined in materialManager.
+        /// </summary>
+        Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the list of edgeband types defined in materialManager.
+        /// </summary>
+        Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0);
+
+        #endregion
     }
 }
