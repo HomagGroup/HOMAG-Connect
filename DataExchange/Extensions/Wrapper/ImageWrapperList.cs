@@ -24,4 +24,17 @@ public class ImageWrapperList : ListWrapper<Image, ImageWrapper>
     {
         InnerList.Add(image.Image);
     }
+
+    /// <inheritdoc />
+    public override ImageWrapper this[int index]
+    {
+        get
+        {
+            return new ImageWrapper(InnerList[index]);
+        }
+        set
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

@@ -13,6 +13,7 @@ public class ProjectWriteTests
     /// <summary />
     public TestContext? TestContext { get; set; }
 
+    /// <summary />
     [TestMethod]
     public void Project_WriteZip_TypicalProperties()
     {

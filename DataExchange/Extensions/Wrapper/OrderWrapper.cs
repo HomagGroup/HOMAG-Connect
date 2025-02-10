@@ -139,6 +139,17 @@ public class OrderWrapper
         }
     }
 
+    /// <summary>
+    /// Gets the properties of the order.
+    /// </summary>
+    public List<Param> Properties
+    {
+        get
+        {
+            return Order.Properties;
+        }
+      }
+
     /// <summary />
     public IList<ImageWrapper> Images
     {

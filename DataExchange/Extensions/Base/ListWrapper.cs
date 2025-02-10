@@ -103,17 +103,7 @@ public abstract class ListWrapper<T, TW> : IList<TW> where T : ParamBase
     }
 
     /// <inheritdoc />
-    public TW this[int index]
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public abstract TW this[int index] { get; set; }
 
     #endregion
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using JsonSubTypes;
 
@@ -22,7 +23,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Price), Type.Price)]
 [JsonSubtypes.KnownSubType(typeof(Configuration), Type.Configuration)]
 [JsonSubtypes.KnownSubType(typeof(ConfigurationPosition), Type.ConfigurationPosition)]
-public abstract class Base
+public abstract class Base: ISupportsAdditionalData
 {
     /// <summary>
     /// Gets or sets the type of the item entity.

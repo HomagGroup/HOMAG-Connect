@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 using Newtonsoft.Json;
@@ -43,6 +44,34 @@ namespace HomagConnect.Base.Extensions
             Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
 
             Console.WriteLine(string.Empty);
+        }
+
+        /// <summary>
+        /// Trace an object into a file.
+        /// </summary>
+        public static FileInfo TraceToFile(this object o, string description)
+        {
+            var fileName = Path.Combine(GetTempDirectory().FullName, description) + ".json";
+
+            var fileInfo = new FileInfo(fileName);
+
+            using var writer = new StreamWriter(fileInfo.FullName);
+
+            writer.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+
+            return fileInfo;
+        }
+
+        private static DirectoryInfo GetTempDirectory([CallerMemberName] string callerMemberName = "")
+        {
+            var directoryInfo = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "HomagConnect", callerMemberName, Guid.NewGuid().ToString()));
+
+            if (!directoryInfo.Exists)
+            {
+                directoryInfo.Create();
+            }
+
+            return directoryInfo;
         }
     }
 }

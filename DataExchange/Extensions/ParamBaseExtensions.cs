@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Xml;
 
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.DataExchange.Contracts;
 
 namespace HomagConnect.DataExchange.Extensions;
@@ -11,6 +12,96 @@ namespace HomagConnect.DataExchange.Extensions;
 public static class ParamBaseExtensions
 {
     private const XmlDateTimeSerializationMode _DateTimeSerializationMode = XmlDateTimeSerializationMode.Unspecified;
+
+    private static string ToXmlValue<T>(this T? value)
+    {
+        if (value == null)
+        {
+            return string.Empty;
+        }
+
+        if (typeof(T) == typeof(string))
+        {
+            return value.ToString();
+        }
+
+        if ((typeof(T) == typeof(DateTime?)) || (typeof(T) == typeof(DateTime)))
+        {
+            return XmlConvert.ToString((DateTime)Convert.ChangeType(value, typeof(DateTime)), _DateTimeSerializationMode);
+        }
+
+        if ((typeof(T) == typeof(DateTimeOffset?)) || (typeof(T) == typeof(DateTimeOffset)))
+        {
+            return XmlConvert.ToString((DateTimeOffset)Convert.ChangeType(value, typeof(DateTimeOffset)));
+        }
+
+        throw new NotSupportedException("Type " + typeof(T) + " is not supported.");
+    }
+
+    internal static object? FromXmlValue(this string? value, Type type)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (type == typeof(string))
+        {
+            return Convert.ChangeType(value, type);
+        }
+
+        if (type == typeof(DateTime) || type == typeof(DateTime))
+        {
+            return Convert.ChangeType(XmlConvert.ToDateTime(value, _DateTimeSerializationMode), type);
+        }
+
+        if (type == typeof(DateTimeOffset) || type == typeof(DateTimeOffset?))
+        {
+            return Convert.ChangeType(XmlConvert.ToDateTimeOffset(value), typeof(DateTimeOffset)); // TODO: Timezone of the subscription needs to be considered. Might become a project file property.
+        }
+
+        if (type == typeof(Guid) || type == typeof(Guid?))
+        {
+            return Convert.ChangeType(XmlConvert.ToGuid(value), typeof(Guid));
+        }
+
+        if (type == typeof(int) || type == typeof(int?))
+        {
+            return Convert.ChangeType(XmlConvert.ToInt32(value), typeof(int));
+        }
+
+        if (type == typeof(double) || type == typeof(double?))
+        {
+            return Convert.ChangeType(XmlConvert.ToDouble(value), typeof(double));
+        }
+
+        if (type == typeof(bool) || type == typeof(bool?))
+        {
+            return Convert.ChangeType(XmlConvert.ToBoolean(value), typeof(bool));
+        }
+
+        if (type == typeof(Grain) || type == typeof(Grain?))
+        {
+            if (value is "" or "0" or "NoGrain" or "None")
+            {
+                return Grain.None;
+            }
+
+            if (value is "1" or "Lengthwise")
+            {
+                return Grain.Lengthwise;
+            }
+
+            if (value is "2" or "Crosswise")
+            {
+                return Grain.Crosswise;
+            }
+
+            throw new NotSupportedException("Value '" + value + "' for Grain is not supported.");
+        }
+
+        throw new NotSupportedException("Type " + type + " is not supported.");
+    }
 
     /// <summary>
     /// Gets the property value.
@@ -27,22 +118,14 @@ public static class ParamBaseExtensions
     {
         var property = paramBase.Properties.FirstOrDefault(x => x.Name == name);
 
-        if (property?.Value == null)
+        var value = property?.Value?.FromXmlValue(typeof(T));
+
+        if (value == null)
         {
             return default;
         }
 
-        if (typeof(T) == typeof(string))
-        {
-            return (T)Convert.ChangeType(property.Value, typeof(T));
-        }
-
-        if (typeof(T) == typeof(DateTime))
-        {
-            return (T)Convert.ChangeType(XmlConvert.ToDateTime(property.Value, _DateTimeSerializationMode), typeof(T));
-        }
-
-        throw new NotSupportedException("Type " + typeof(T) + " is not supported.");
+        return (T)value;
     }
 
     /// <summary>
@@ -54,22 +137,7 @@ public static class ParamBaseExtensions
 
         if (value != null)
         {
-            if (typeof(T) == typeof(string))
-            {
-                valueAsString = value.ToString();
-            }
-            else if (typeof(T) == typeof(DateTime))
-            {
-                valueAsString = XmlConvert.ToString((DateTime)Convert.ChangeType(value, typeof(DateTime)), _DateTimeSerializationMode);
-            }
-            else if (typeof(T) == typeof(DateTime?))
-            {
-                valueAsString = XmlConvert.ToString((DateTime)Convert.ChangeType(value, typeof(DateTime)), _DateTimeSerializationMode);
-            }
-            else
-            {
-                throw new NotSupportedException("Type " + typeof(T) + " is not supported.");
-            }
+            valueAsString = value.ToXmlValue();
         }
 
         var param = new Param { Name = name, Value = valueAsString };
