@@ -12,12 +12,6 @@ namespace HomagConnect.Base.Extensions
     /// </summary>
     public static class TraceExtensions
     {
-        private static readonly JsonSerializerSettings _JsonSerializerSettings = new()
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            Formatting = Formatting.Indented
-        };
-
         /// <summary>
         /// Trace an enumerable.
         /// </summary>
@@ -25,7 +19,7 @@ namespace HomagConnect.Base.Extensions
         {
             Console.WriteLine(description);
 
-            Console.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+            Console.WriteLine(JsonConvert.SerializeObject(enumerable, SerializerSettings.Default));
 
             Console.WriteLine(string.Empty);
         }
@@ -41,7 +35,7 @@ namespace HomagConnect.Base.Extensions
         {
             Console.WriteLine(description);
 
-            Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+            Console.WriteLine(JsonConvert.SerializeObject(o, SerializerSettings.Default));
 
             Console.WriteLine(string.Empty);
         }
@@ -57,7 +51,7 @@ namespace HomagConnect.Base.Extensions
 
             using var writer = new StreamWriter(fileInfo.FullName);
 
-            writer.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+            writer.WriteLine(JsonConvert.SerializeObject(o, SerializerSettings.Default));
 
             return fileInfo;
         }
