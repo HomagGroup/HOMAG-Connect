@@ -19,13 +19,6 @@ namespace HomagConnect.Base.Tests
     /// </summary>
     public class TestBase
     {
-        private static readonly JsonSerializerSettings _JsonSerializerSettings = new()
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            Formatting = Formatting.Indented
-            
-        };
-
         #region Public Properties
 
         /// <summary>
@@ -137,13 +130,13 @@ namespace HomagConnect.Base.Tests
             if (TestContext == null)
             {
                 Console.WriteLine(description);
-                Console.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+                Console.WriteLine(JsonConvert.SerializeObject(enumerable, SerializerSettings.Default));
                 Console.WriteLine(string.Empty);
             }
             else
             {
                 TestContext.WriteLine(description);
-                TestContext.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+                TestContext.WriteLine(JsonConvert.SerializeObject(enumerable, SerializerSettings.Default));
                 TestContext.WriteLine(string.Empty);
             }
         }
@@ -153,13 +146,13 @@ namespace HomagConnect.Base.Tests
             if (TestContext == null)
             {
                 Console.WriteLine(description);
-                Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+                Console.WriteLine(JsonConvert.SerializeObject(o, SerializerSettings.Default));
                 Console.WriteLine(string.Empty);
             }
             else
             {
                 TestContext.WriteLine(description);
-                TestContext.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+                TestContext.WriteLine(JsonConvert.SerializeObject(o, SerializerSettings.Default));
                 TestContext.WriteLine(string.Empty);
             }
         }
