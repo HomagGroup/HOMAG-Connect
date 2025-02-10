@@ -27,18 +27,15 @@ public static class ProjectExtensions
             throw new ArgumentNullException(nameof(project));
         }
 
-        if (project.Orders is { Count: 0 })
+        if (project.Orders is { Count: > 0 })
         {
             foreach (var projectOrder in project.Orders)
             {
-                if (projectOrder != null)
-                {
-                    var order = new OrderDetails();
+                var order = new OrderDetails();
 
-                    MapOrder(projectOrder, order);
+                MapOrder(projectOrder, order);
 
-                    orders.Add(order);
-                }
+                orders.Add(order);
             }
         }
 
