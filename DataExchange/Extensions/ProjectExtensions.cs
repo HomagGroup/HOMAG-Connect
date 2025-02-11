@@ -18,6 +18,33 @@ public static class ProjectExtensions
     /// <summary>
     /// Converts the project to order.
     /// </summary>
+    public static IEnumerable<Group> ConvertToGroups(this Project project)
+    {
+        var groups = new Collection<Group>();
+
+        if (project == null)
+        {
+            throw new ArgumentNullException(nameof(project));
+        }
+
+        if (project.Orders is { Count: > 0 })
+        {
+            foreach (var projectOrder in project.Orders)
+            {
+                var group = new Group();
+
+                Map(project, projectOrder, group);
+
+                groups.Add(group);
+            }
+        }
+
+        return groups;
+    }
+
+    /// <summary>
+    /// Converts the project to order.
+    /// </summary>
     public static IEnumerable<OrderDetails> ConvertToOrders(this Project project)
     {
         var orders = new Collection<OrderDetails>();
@@ -57,6 +84,40 @@ public static class ProjectExtensions
                 MapOrderItem(entityEntity, orderItem);
 
                 orderDetails.Items.Add(orderItem);
+            }
+        }
+    }
+
+    private static void Map(Project project, Order order, Group group)
+    {
+        var projectWrapper = new ProjectWrapper(project);
+        var orderWrapper = new OrderWrapper(order);
+
+        group.Name = orderWrapper.OrderName;
+        group.Quantity = orderWrapper.Quantity ?? 1;
+
+        if (!string.IsNullOrWhiteSpace(orderWrapper.Source))
+        {
+            group.Source = orderWrapper.Source;
+        }
+        else if (!string.IsNullOrWhiteSpace(projectWrapper.Source))
+        {
+            group.Source = projectWrapper.Source;
+        }
+
+        MapEntity(order, group, true);
+
+        if (order.Entities.Count > 0)
+        {
+            group.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
+
+            foreach (var entityEntity in order.Entities)
+            {
+                var orderItem = CreateInstance(entityEntity.Properties);
+
+                MapOrderItem(entityEntity, orderItem);
+
+                group.Items.Add(orderItem);
             }
         }
     }
@@ -114,7 +175,7 @@ public static class ProjectExtensions
         throw new NotSupportedException($"Entity of type '{entityEntityProperty.Value}' not supported.");
     }
 
-    private static void MapEntity(Entity entity, ISupportsAdditionalData target)
+    private static void MapEntity(Entity entity, ISupportsAdditionalData target, bool ignoreAdditionalProperties = false)
     {
         // Map properties
 
@@ -125,8 +186,11 @@ public static class ProjectExtensions
                 // TODO: Handle renamed properties (maybe on deserialization)
                 // If there is a property that is not a property of the order, add it to the additional properties.
 
-                target.AdditionalProperties ??= new Dictionary<string, object>();
-                target.AdditionalProperties.Add(property.Name, property.Value);
+                if (!ignoreAdditionalProperties)
+                {
+                    target.AdditionalProperties ??= new Dictionary<string, object>();
+                    target.AdditionalProperties.Add(property.Name, property.Value);
+                }
             }
         }
 
