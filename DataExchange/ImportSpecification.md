@@ -169,7 +169,7 @@ Here is a example of the generic structure.
 Here you see an overview of the possible elements which can be used as an entity.
 The green entities are the different types of "entities" which can be places below the order and below other entities.
 
-![project_xml.png](./assets/project_xml.png)
+![project_xml.png](./Assets/project_xml.png)
 
 ```plantuml
 @startuml 
