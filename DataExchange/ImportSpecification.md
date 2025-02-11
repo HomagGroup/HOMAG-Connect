@@ -580,13 +580,13 @@ All entities can have images or files attached.
 
 ### Examples for *productionManager*
 
-[productionManager example 1](../Samples/DefaultImport/HomagProject.zip)
-[productionManager example 2](../Samples/DefaultImport/HomagProject2.zip)
+[productionManager example 1](./Samples/Data/HomagProject.zip)
+[productionManager example 2](./Samples/Data/HomagProject2.zip)
 
 ### Examples for *intelliDivide*
 
-[intelliDivide example cutting](../Samples/DefaultImport/cutting_project.zip)
-[intelliDivide example nesting](../Samples/DefaultImport/nesting_project.zip)
+[intelliDivide example cutting](./Samples/Data/cutting_project.zip)
+[intelliDivide example nesting](./Samples/Data/nesting_project.zip)
 
 #### Cutting job example
 
@@ -816,5 +816,5 @@ All entities can have images or files attached.
                               |
  `4 Parts (4 x 1)`            |  available positions => 1.1 2.1 3.1 4.1
   
-  ![grain_templates.png](./assets/grain_templates.png)                            
+  ![grain_templates.png](./Assets/grain_templates.png)                            
   
