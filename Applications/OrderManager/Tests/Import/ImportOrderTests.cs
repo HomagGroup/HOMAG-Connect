@@ -46,6 +46,30 @@ namespace HomagConnect.OrderManager.Tests.Import
 
         /// <summary />
         [TestMethod]
+        public async Task ImportOrder_ProjectZip_LargeProject()
+        {
+            var orderManager = GetOrderManagerClient();
+            var anyException = false;
+
+            try
+            {
+                var projectZip = new FileInfo("TestData\\Kitchen.zip");
+
+                var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
+
+                importOrderResponse.Trace();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
         public async Task ImportOrder_Order_NoException()
         {
             var orderManager = GetOrderManagerClient();

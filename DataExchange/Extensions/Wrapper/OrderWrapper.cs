@@ -36,6 +36,19 @@ public class OrderWrapper
     #region Public properties
 
     /// <summary />
+    public string? Source
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
     public string? OrderName
     {
         get
@@ -47,6 +60,20 @@ public class OrderWrapper
             Order.SetPropertyValue(value);
         }
     }
+
+    /// <summary />
+    public int? Quantity
+    {
+        get
+        {
+            return Order.GetPropertyValue<int?>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
 
     /// <summary />
     public string? OrderNumber
