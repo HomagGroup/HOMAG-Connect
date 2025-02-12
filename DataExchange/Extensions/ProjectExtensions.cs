@@ -208,13 +208,13 @@ public static class ProjectExtensions
 
                     Uri? downloadUri = null;
 
-                    if (imageWrapper.ImageLinkPicture != null && !string.IsNullOrWhiteSpace(imageWrapper.ImageLinkPicture))
+                    if (imageWrapper.ImageLinkPicture != null)
                     {
-                        downloadUri = new Uri(imageWrapper.ImageLinkPicture, UriKind.RelativeOrAbsolute);
+                        downloadUri = imageWrapper.ImageLinkPicture;
                     }
-                    else if (imageWrapper.ImageLinkBinary != null && !string.IsNullOrWhiteSpace(imageWrapper.ImageLinkBinary))
+                    else if (imageWrapper.ImageLinkBinary != null)
                     {
-                        downloadUri = new Uri(imageWrapper.ImageLinkBinary, UriKind.RelativeOrAbsolute);
+                        downloadUri = imageWrapper.ImageLinkBinary;
                     }
 
                     var additionalDataEntity = AdditionalDataEntity.CreateInstance(imageWrapper.Extension);
