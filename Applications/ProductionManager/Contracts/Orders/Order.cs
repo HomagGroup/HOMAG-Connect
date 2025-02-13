@@ -149,6 +149,11 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         [JsonProperty(Order = 206)]
         public DateTimeOffset? ArchivedAt { get; set; }
 
+        /// <summary>
+        /// Gets the timestamp the order source.
+        /// </summary>
+        public string? Source { get; set; }
+
         #region Production
 
         /// <summary>
