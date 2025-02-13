@@ -40,8 +40,6 @@ public class StatisticTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-
-    [TemporaryDisabledOnServer(2024, 11, 1)]
     public async Task Statistics_GetEdgeband_FromTo_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -54,8 +52,6 @@ public class StatisticTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-
-    [TemporaryDisabledOnServer(2024, 11, 1)]
     public async Task Statistics_GetEdgeband_DaysBack_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();

@@ -41,6 +41,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
+		<ProjectReference Include="..\..\MaterialManager\Client\HomagConnect.MaterialManager.Client.csproj" />
 		<ProjectReference Include="..\Client\HomagConnect.IntelliDivide.Client.csproj" />
 		<ProjectReference Include="..\Samples\CSharp\HomagConnect.IntelliDivide.Samples.csproj" />
 	</ItemGroup>
