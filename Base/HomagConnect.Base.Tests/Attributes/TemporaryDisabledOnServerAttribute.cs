@@ -21,10 +21,10 @@ namespace HomagConnect.Base.Tests.Attributes
 
             if (disabledUntil > DateTime.Now)
             {
-                list.Add("NoServerExecute");
-                list.Add("TemporaryDisabledOnServer");
-                list.Add($"TemporaryDisabledOnServer.{owner}");
+                list.Add("TemporaryDisabled");
             }
+
+            list.Add($"TemporaryDisabled.{owner}");
 
             TestCategories = list;
         }
