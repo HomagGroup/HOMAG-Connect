@@ -14,7 +14,7 @@
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 		<PackageReference Include="MSTest.TestFramework" Version="3.7.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
