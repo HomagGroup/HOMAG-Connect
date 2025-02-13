@@ -150,7 +150,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public DateTimeOffset? ArchivedAt { get; set; }
 
         /// <summary>
-        /// Gets the timestamp the order source.
+        /// Gets the order source.
         /// </summary>
         public string? Source { get; set; }
 
