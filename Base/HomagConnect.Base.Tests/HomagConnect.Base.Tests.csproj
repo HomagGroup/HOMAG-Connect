@@ -20,15 +20,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
 	</ItemGroup>
-
-	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
-		<LangVersion>default</LangVersion>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<UserSecretsId>21ec4949-1c87-4ff5-bf0e-d4093be9d990</UserSecretsId>
-	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />
 	</ItemGroup>
