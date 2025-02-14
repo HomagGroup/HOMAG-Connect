@@ -7,7 +7,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Materials")]
-    [TemporaryDisabledOnServer(2025, 3, 1)] // Not yet on production server
+    [TemporaryDisabledOnServer(2025, 3, 1, "DF-Optimization")] // Not yet on production server
     public class MaterialsTests : IntelliDivideTestBase
     {
         [TestMethod]

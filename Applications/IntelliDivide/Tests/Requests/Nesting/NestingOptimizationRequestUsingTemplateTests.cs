@@ -17,7 +17,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Nesting")]
 [TestCategory("IntelliDivide.Requests.Nesting.Template")]
-[TemporaryDisabledOnServer(2025, 02, 13)]
+[TemporaryDisabledOnServer(2025, 02, 28, "DF-Optimization")]
 public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
     /// <summary />
