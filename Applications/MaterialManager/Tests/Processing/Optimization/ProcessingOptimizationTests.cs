@@ -11,11 +11,10 @@ namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 [TestCategory("MaterialManager")]
 [TestCategory("MaterialManager.Processing")]
 [TestCategory("MaterialManager.Processing.Optimization")]
-public class ProcessingOptimizationTests : TestBase
+public class ProcessingOptimizationTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 14)] // todo: reenable tests divide!
     public async Task OffcutParameters_RequestForMultipleMaterials_ConfigValid()
     {
         var client = GetMaterialManagerClient();
@@ -39,7 +38,6 @@ public class ProcessingOptimizationTests : TestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 14)] // todo: reenable tests divide!
     public async Task OffcutParameters_RequestForOneMaterial_ConfigValid()
     {
         var client = GetMaterialManagerClient();

@@ -25,7 +25,24 @@ public static class ParamBaseExtensions
             return value.ToString();
         }
 
-        if ((typeof(T) == typeof(DateTime?)) || (typeof(T) == typeof(DateTime)))
+        if (typeof(T) == typeof(Uri))
+        {
+            var uri = value as Uri;
+
+            if (uri != null)
+            {
+                if (uri.IsAbsoluteUri)
+                {
+                    return uri.AbsoluteUri;
+                }
+
+                return uri.OriginalString;
+            }
+
+            return string.Empty;
+        }
+
+        if (typeof(T) == typeof(DateTime?) || (typeof(T) == typeof(DateTime)))
         {
             return XmlConvert.ToString((DateTime)Convert.ChangeType(value, typeof(DateTime)), _DateTimeSerializationMode);
         }
@@ -50,7 +67,12 @@ public static class ParamBaseExtensions
             return Convert.ChangeType(value, type);
         }
 
-        if (type == typeof(DateTime) || type == typeof(DateTime))
+        if (type == typeof(Uri))
+        {
+            return new Uri(value, UriKind.RelativeOrAbsolute);
+        }
+
+        if (type == typeof(DateTime) || type == typeof(DateTime?))
         {
             return Convert.ChangeType(XmlConvert.ToDateTime(value, _DateTimeSerializationMode), type);
         }

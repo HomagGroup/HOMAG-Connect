@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.Base.Tests.Attributes
 {
@@ -13,9 +16,9 @@ namespace HomagConnect.Base.Tests.Attributes
         /// class
         /// by applying the supplied category to the test.
         /// </summary>
-        public TemporaryDisabledOnServerAttribute(int year, int month, int day)
+        public TemporaryDisabledOnServerAttribute(int year, int month, int day, string owner)
         {
-            var disabledUntil = new DateTime(year, month, day);
+            var disabledUntil = new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc);
 
             var list = new List<string>();
 
@@ -23,6 +26,8 @@ namespace HomagConnect.Base.Tests.Attributes
             {
                 list.Add("TemporaryDisabled");
             }
+
+            list.Add($"TemporaryDisabled.{owner}");
 
             TestCategories = list;
         }

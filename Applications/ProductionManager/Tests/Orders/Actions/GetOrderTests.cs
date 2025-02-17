@@ -113,7 +113,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
         }
 
         /// <summary />
-        [TemporaryDisabledOnServer(2024,10,15)]
         [TestMethod]
         public async Task Orders_GetCompletionDatesPlanned_NoException()
         {
@@ -150,7 +149,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 12, 12)]
+        [TemporaryDisabledOnServer(2025, 12, 28, "DF-Optimization")]
         public async Task Orders_GetOrder_NoException()
         {
             // Create new instance of the ProductionManager client:

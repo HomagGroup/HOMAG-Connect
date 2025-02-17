@@ -57,11 +57,11 @@ public class ImageWrapper
     }
 
     /// <summary />
-    public string? ImageLinkPicture
+    public Uri? ImageLinkPicture
     {
         get
         {
-            return Image.GetPropertyValue<string>();
+            return Image.GetPropertyValue<Uri>();
         }
         set
         {
@@ -71,11 +71,11 @@ public class ImageWrapper
 
 
     /// <summary />
-    public string? ImageLinkBinary
+    public Uri? ImageLinkBinary
     {
         get
         {
-            return Image.GetPropertyValue<string>();
+            return Image.GetPropertyValue<Uri>();
         }
         set
         {
@@ -97,7 +97,7 @@ public class ImageWrapper
 
             if (ImageLinkPicture != null)
             {
-                return new FileInfo(ImageLinkPicture).Extension.ToLowerInvariant();
+                return new FileInfo(ImageLinkPicture.AbsoluteUri).Extension.ToLowerInvariant();
             }
 
             return string.Empty;
