@@ -22,5 +22,5 @@ var boardEntityRequest = new MaterialAssistRequestBoardEntity()
 var newBoardEntity = await client.CreateBoardEntity(boardEntityRequest);
 
 // Use the created board entity for further processing
-Console.WriteLine($"Created board entity: {newBoardEntity.Code}");
+Console.WriteLine($"Created board entity: {newBoardEntity.Id}");
 ```

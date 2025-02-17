@@ -1,6 +1,6 @@
-<h1 id="updateBoardEntity"> Update board entity</h1>
+<h1 id="updateOffcutEntity"> Update offcut entity</h1>
 
-With the HOMAG Connect materialAssist board client, board entities can be updated. 
+With the HOMAG Connect materialAssist board client, offcut entities can be updated. Offcut entities are updated in the same way as board entities.
 
 <strong>Example:</strong>
 
@@ -8,7 +8,7 @@ With the HOMAG Connect materialAssist board client, board entities can be update
 // Create new instance of the materialAssist client:
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
-// Define the update board entity request:
+// Define the update offcut entity request:
 var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
 {
     Id = "42",
@@ -18,10 +18,10 @@ var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
     //add other properties
 };
 
-// Update the board entity
+// Update the offcut entity
 var updateBoardEntity = await client.UpdateBoardEntity("42", boardEntityUpdate);
 
 
-// Use the updated board entity for further processing
-Console.WriteLine($"Updated board entity: {updateBoardEntity.Id}");
+// Use the updated offcut entity for further processing
+Console.WriteLine($"Updated offcut entity: {updateBoardEntity.Code}");
 ```
