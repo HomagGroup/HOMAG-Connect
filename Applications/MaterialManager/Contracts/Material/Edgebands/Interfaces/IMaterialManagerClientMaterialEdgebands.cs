@@ -46,10 +46,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <summary>
         /// Gets all edgebands.
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <returns></returns>
         Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets all edgebands including details.
+        /// </summary>
+        Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets edgebands by edgeband codes.

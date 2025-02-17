@@ -50,6 +50,14 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesIncludingDetails(int take, int skip = 0)
+        {
+            var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
+
+            return await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
         public async Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
         {
             var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";

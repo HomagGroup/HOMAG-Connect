@@ -33,10 +33,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
 
         /// <summary>
-        /// Gets the board types paginated
+        /// Gets the board types paginated.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the board types paginated including details (inventory, allocation, images).
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types by board codes.
