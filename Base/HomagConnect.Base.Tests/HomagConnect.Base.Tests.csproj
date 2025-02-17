@@ -1,23 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<LangVersion>11.0</LangVersion>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+		<LangVersion>default</LangVersion>
 		<Nullable>enable</Nullable>
-		<UserSecretsId>21ec4949-1c87-4ff5-bf0e-d4093be9d990</UserSecretsId>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>HomagGroup.HomagConnect.Base.Tests</PackageId>
+		<Title>HomagConnect Base Tests</Title>
+		<Description>Base assembly for all Homag-Connect tests</Description>
+		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0-preview.2.24128.5" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0-preview.2.24128.5" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />		<PackageReference Include="MSTest.TestFramework" Version="3.5.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	<ItemGroup Label="Package References">
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.7.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Applications\MaterialManager\Client\HomagConnect.MaterialManager.Client.csproj" />
+		<ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />
 	</ItemGroup>
 
 </Project>

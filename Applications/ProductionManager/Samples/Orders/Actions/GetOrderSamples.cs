@@ -36,7 +36,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         /// <summary />
         public static async Task GetAllOrdersHavingStatusNewOrInProduction(IProductionManagerClient productionManager)
         {
-            var response = await productionManager.GetOrders(new[] { OrderStatus.New, OrderStatus.InProduction }, 5);
+            var response = await productionManager.GetOrders([OrderStatus.New, OrderStatus.InProduction], 5);
 
             response.Trace();
         }
@@ -70,7 +70,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         }
 
         /// <summary />
-        public static async Task GetOrder(IProductionManagerClient productionManager, Guid orderId)
+        public static async Task<Order> GetOrder(IProductionManagerClient productionManager, Guid orderId)
         {
             var order = await productionManager.GetOrder(orderId);
 
@@ -90,6 +90,8 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
                     Trace.WriteLine($"\tCompletionDatePlanned:\t{lot.CompletionDatePlanned}");
                 }
             }
+
+            return order;
         }
     }
 }

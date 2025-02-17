@@ -18,7 +18,7 @@
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="JsonSubTypes" Version="2.0.1" />
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />

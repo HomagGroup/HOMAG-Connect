@@ -1,11 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Configuration;
 using System.Globalization;
-using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
-
-using HomagConnect.MaterialManager.Client;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,13 +17,6 @@ namespace HomagConnect.Base.Tests
     /// </summary>
     public class TestBase
     {
-        private static readonly JsonSerializerSettings _JsonSerializerSettings = new()
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            Formatting = Formatting.Indented
-            
-        };
-
         #region Public Properties
 
         /// <summary>
@@ -111,39 +102,18 @@ namespace HomagConnect.Base.Tests
             throw new ConfigurationErrorsException($"Missing config setting: {key}");
         }
 
-        #region Clients
-
-        /// <summary>
-        /// Gets a new instance of the <see cref="MaterialManagerClient" />.
-        /// </summary>
-        protected MaterialManagerClient GetMaterialManagerClient()
-        {
-            Trace($"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey.Substring(0, 4)}*");
-
-            var httpClient = new HttpClient
-            {
-                BaseAddress = BaseUrl
-            };
-
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
-
-            return new MaterialManagerClient(httpClient);
-        }
-
-        #endregion
-
         protected void Trace(IEnumerable enumerable, [CallerMemberName] string description = "")
         {
             if (TestContext == null)
             {
                 Console.WriteLine(description);
-                Console.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+                Console.WriteLine(JsonConvert.SerializeObject(enumerable, SerializerSettings.Default));
                 Console.WriteLine(string.Empty);
             }
             else
             {
                 TestContext.WriteLine(description);
-                TestContext.WriteLine(JsonConvert.SerializeObject(enumerable, _JsonSerializerSettings));
+                TestContext.WriteLine(JsonConvert.SerializeObject(enumerable, SerializerSettings.Default));
                 TestContext.WriteLine(string.Empty);
             }
         }
@@ -153,13 +123,13 @@ namespace HomagConnect.Base.Tests
             if (TestContext == null)
             {
                 Console.WriteLine(description);
-                Console.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+                Console.WriteLine(JsonConvert.SerializeObject(o, SerializerSettings.Default));
                 Console.WriteLine(string.Empty);
             }
             else
             {
                 TestContext.WriteLine(description);
-                TestContext.WriteLine(JsonConvert.SerializeObject(o, _JsonSerializerSettings));
+                TestContext.WriteLine(JsonConvert.SerializeObject(o, SerializerSettings.Default));
                 TestContext.WriteLine(string.Empty);
             }
         }

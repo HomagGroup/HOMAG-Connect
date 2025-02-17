@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -14,7 +14,7 @@
 	</PropertyGroup>
 	<ItemGroup Label="Package References">
 		<PackageReference Include="JsonSubTypes" Version="2.0.1" />
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

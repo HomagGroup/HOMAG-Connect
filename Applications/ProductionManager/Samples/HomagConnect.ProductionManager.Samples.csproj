@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.ProductionManager.Samples</PackageId>
 		<Title>Homag-Connect ProductionManager Samples</Title>
@@ -75,8 +75,8 @@
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
-		<PackageReference Include="MSTest.TestFramework" Version="3.5.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.7.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>

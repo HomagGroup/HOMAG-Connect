@@ -5,7 +5,7 @@
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<LangVersion>latest</LangVersion>
+		<LangVersion>default</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.MmrMobile.Client</PackageId>
 		<PackageReadmeFile></PackageReadmeFile>
 		<Title>Homag-Connect MMR Mobile Client</Title>
@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

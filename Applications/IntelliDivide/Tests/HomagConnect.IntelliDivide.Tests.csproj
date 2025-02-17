@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<UserSecretsId>05d68c42-49ad-4338-91d5-e80d2c675907</UserSecretsId>
@@ -23,17 +23,25 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="6.12.0" />
+		<PackageReference Include="coverlet.collector" Version="6.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-		<PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.10.0" />
-		<PackageReference Include="MSTest.TestAdapter" Version="3.5.0" />
-		<PackageReference Include="MSTest.TestFramework" Version="3.5.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+		<PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.12.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.7.3" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.7.3" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
+		<ProjectReference Include="..\..\MaterialManager\Client\HomagConnect.MaterialManager.Client.csproj" />
 		<ProjectReference Include="..\Client\HomagConnect.IntelliDivide.Client.csproj" />
 		<ProjectReference Include="..\Samples\CSharp\HomagConnect.IntelliDivide.Samples.csproj" />
 	</ItemGroup>

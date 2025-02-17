@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>default</LangVersion>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.MaterialManager.Contracts</PackageId>
@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="5.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

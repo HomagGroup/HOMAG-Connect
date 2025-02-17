@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 // Note: This is preliminary code and is subject to change
@@ -13,7 +15,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// Order data
         /// </summary>
         [DebuggerDisplay("OrderName={OrderName}")]
-    public class OrderDetails
+    public class OrderDetails: ISupportsAdditionalData
     {
         #region (100) Header
 
@@ -98,7 +100,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// The company of the customer of this order
         /// </summary>
         [JsonProperty(Order = 320)]
-        public string? CustomerCompany { get; set; }
+        public string? Company { get; set; }
 
         #endregion
 

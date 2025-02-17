@@ -1,6 +1,6 @@
-﻿# HOMAG MMR Mobile advanced
+﻿# HOMAG Connect MMR Mobile
 
-HOMAG MMR Mobile advanced gives you direct access to your machine data (counters, states, PLC-Items companion Spec, Alerts) from MMR Mobile. You can then conveniently integrate this into your applications or BI-Tools.
+HOMAG Connect MMR Mobile gives you direct access to your machine data (counters, states, PLC-Items companion Spec, Alerts) from MMR Mobile. You can then conveniently integrate this into your applications or BI-Tools.
 To help you get started, we have prepared a few examples that you can find below.
 
 ## Version history
@@ -15,7 +15,7 @@ Version   | Date     | Comment
 ## Content table
 
 1. [TL;DR](#tldr)
-2. [HOMAG MMR Mobile advanced interface overview](#homag-mmr-mobile-advanced-interface-overview-machinedata)
+2. [HOMAG Connect MMR Mobile interface overview](#homag-connect-mmr-mobile-interface-overview-machinedata)
 3. [Details](#details)
 
 ## Authorization
@@ -54,7 +54,7 @@ Console.WriteLine($"You got {states.Count()} states and {counters.Count()} count
 dotnet run
 ~~~
 
-## HOMAG MMR Mobile advanced interface overview (states and counters)
+## HOMAG Connect MMR Mobile interface overview (states and counters)
 
 Name           | Method | API                                                                                                                                                                                                                                                                | Usage
 ---------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -200,11 +200,11 @@ Content-Type: application/json; charset=utf-8
 
 The default route with no timespan added will always return related data for the last 14 days.
 
-## HOMAG MMR Mobile advanced interface overview (machinedata)
+## HOMAG Connect MMR Mobile interface overview (machinedata)
 
 Name| Method | API | Usage
 --|--|---|--
-GetMachineList|GET     |`api/mmr-mobile/machinedata/machines`| Returns all machines assigned to the subscription, which have a license for the HOMAG MMR Mobile advanced Addon.
+GetMachineList|GET     |`api/mmr-mobile/machinedata/machines`| Returns all machines assigned to the subscription, which have a license for the HOMAG Connect MMR Mobile Addon.
 GetNodeList|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes`| Returns for one valid machine, which nodes are available for this machine.
 GetCurrentValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes/{nodeName}`| Returns for one valid machine and a set of nodes the last reported values.
 GetValuesAtTimestamp|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}?timestamp={before}`| Returns for one valid machine and a set of nodes the last reported values at a specific point in time.
