@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.AdditionalData;
 
 namespace HomagConnect.MaterialManager.Contracts.Request;
 
@@ -9,16 +12,15 @@ namespace HomagConnect.MaterialManager.Contracts.Request;
 public abstract class MaterialManagerRequestMaterialType
 {
     /// <summary>
+    /// Gets or sets the additional data.
+    /// </summary>
+    public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
+
+    /// <summary>
     /// Gets or sets the article number.
     /// </summary>
     [StringLength(50)]
     public string? ArticleNumber { get; set; }
-
-    /// <summary>
-    /// Gets or sets the gtin.
-    /// </summary>
-    [StringLength(50)]
-    public string? Gtin { get; set; }
 
     /// <summary>
     /// Gets or sets the additional comments.
@@ -45,6 +47,12 @@ public abstract class MaterialManagerRequestMaterialType
     public string? DecorName { get; set; }
 
     /// <summary>
+    /// Gets or sets the gtin.
+    /// </summary>
+    [StringLength(50)]
+    public string? Gtin { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the manufacturer.
     /// </summary>
     [StringLength(50)]
@@ -59,5 +67,6 @@ public abstract class MaterialManagerRequestMaterialType
     /// <summary>
     /// Gets or set the thumbnail uri.
     /// </summary>
+    [Obsolete("This parameter is obsolete. Use AdditionalData instead.")]
     public Uri? Thumbnail { get; set; }
 }
