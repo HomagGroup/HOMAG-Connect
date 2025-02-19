@@ -124,3 +124,49 @@ request.Parts.Add(
 ```
 
 > For a detailed example, please refer to <i>CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly</i> in the file [CuttingRequestUsingObjectModelSamples.cs](CuttingRequestUsingObjectModelSamples.cs).
+
+### For creating a grain match template use the following: 
+##### Parameter "GrainPattern"
+
+  GrainPattern                | Description 
+------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------
+                              | The grain match template has 12 default templates and their names are localized with the language set into Tapio account for a particular subscription
+                              | English names are: "2 Parts (2 x 1)", "2 Parts (1 x 2)", "2+1 part, longitudinal right (2 x 2)", "1+2 part, longitudinal left (2 x 2)", "2+1 part, crosswise bottom (2 x 2)",
+                              | "1+2 part, crosswise top (2 x 2)", "3 Parts (3 x 1)", "3 Parts (1 x 3)", "4 Parts (2 x 3)", "4 Parts (2 x 2)", "4 Parts (1 x 4)", "4 Parts (4 x 1)".
+                              | German names are: "2 Teile (2 x 1)", "2 Teile (1 x 2)", "2+1 Teil längs rechts (2 x 2)", "+2 Teil längs links (2 x 2)", "2+1 Teil quer unten (2 x 2)", "1+2 Teil quer oben (2 x 2)",
+                              | "3 Teile (3 x 1)", "3 Teile (1 x 3)", "4 Teile (2 x 3)", "4 Teile (2 x 2)", "4 Teile (1 x 4)", "4 Teile (4 x 1)"
+                              |
+  `value=`                    | name delimiter is ":" and into (a x b) a is the number of columns and b is the number of rows
+                              | into the example: value="2 Parts (2 x 1):1.1:1:0" => "2 Parts (2 x 1)" is the name of the grain match template, 2 columns and 1 row
+                              |                                                 => "1.1" is the position into the template
+                              |                                                 => "1" is instance of the template
+							  |                                                 => "0" is the template grain ( 0 = None; 1 = Lengthwise grain; 2 = Cross grain => similar as for the parts;) all the positions into a template instance
+							  |                                                       need to have the same grain
+                              | 
+                              | value can get also multiple positions for the template in case the parameter Quantity has a value bigger that 1 exp: value="2 Parts (2 x 1):1.1 2.1:1"
+                              |
+  `2 Parts (2 x 1)`           | available positions => 1.1 2.1 
+                              |
+  `2 Parts (1 x 2)`           |  available positions => 1.1 1.2
+                              |  
+  `2+1 part, longitudinal right (2 x 2)` |  available positions => 1.1 1.2 2.1
+                              |  
+  `1+2 part, longitudinal left (2 x 2)` |  available positions => 1.1 2.1 2.2
+                              | 
+  `2+1 part, crosswise bottom (2 x 2)` |  available positions => 1.1 1.2 2.1
+                              | 
+ `1+2 part, crosswise top (2 x 2)` |  available positions => 1.1 1.2 2.2
+                              | 
+ `3 Parts (3 x 1)`            |  available positions => 1.1 2.1 3.1
+                              |
+ `3 Parts (1 x 3)`            |  available positions => 1.1 1.2 1.3
+                              |
+ `4 Parts (2 x 3)`            |  available positions => 1.1 1.2 1.3 2.1
+                              |
+ `4 Parts (2 x 2)`            |  available positions => 1.1 1.2 2.1 2.2
+                              |
+ `4 Parts (1 x 4)`            |  available positions => 1.1 1.2 1.3 1.4
+                              |
+ `4 Parts (4 x 1)`            |  available positions => 1.1 2.1 3.1 4.1
+  
+  ![grain_templates.png](../../../../../../../DataExchange/Assets/grain_templates.png)                          
