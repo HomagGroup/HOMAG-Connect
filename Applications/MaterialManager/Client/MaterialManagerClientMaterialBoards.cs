@@ -118,6 +118,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
+
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
     public async Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
