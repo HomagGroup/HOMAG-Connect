@@ -10,11 +10,18 @@
 		<Description>Base assembly for all Homag-Connect tests</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+		<OutputType>Library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">
+		<PackageReference Include="FluentAssertions" Version="6.12.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.7.3" />
 		<PackageReference Include="MSTest.TestFramework" Version="3.7.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
@@ -22,6 +29,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<ProjectReference Include="..\..\HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj" />
 		<ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />
 	</ItemGroup>
 
