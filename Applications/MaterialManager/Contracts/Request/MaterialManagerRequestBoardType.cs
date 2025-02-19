@@ -88,7 +88,7 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     public BoardTypeType Type { get; set; } = BoardTypeType.Board;
 
     /// <summary>
-    /// Gets or sets the length of the board.
+    /// Gets or sets the width of the board.
     /// </summary>
     [Required]
     [Range(0.1, 9999.9)]

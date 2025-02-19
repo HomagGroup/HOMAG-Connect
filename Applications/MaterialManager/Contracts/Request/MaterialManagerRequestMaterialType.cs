@@ -1,5 +1,5 @@
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -14,7 +14,7 @@ public abstract class MaterialManagerRequestMaterialType
     /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
-    public Collection<AdditionalDataTexture>? AdditionalData { get; set; }
+    public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
     /// Gets or sets the article number.

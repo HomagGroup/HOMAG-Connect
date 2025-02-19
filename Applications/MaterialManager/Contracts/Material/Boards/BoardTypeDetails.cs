@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -18,7 +17,7 @@ public class BoardTypeDetails : BoardType
     /// Gets or sets the additional data.
     /// </summary>
     [JsonProperty(Order = 84)]
-    public Collection<AdditionalDataTexture>? AdditionalData { get; set; }
+    public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
     /// Gets or sets the board type allocations.

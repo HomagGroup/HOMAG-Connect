@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -15,7 +14,7 @@ public class EdgebandTypeDetails : EdgebandType
     /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
-    public Collection<AdditionalDataTexture>? AdditionalData { get; set; }
+    public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
     /// Gets or sets the list of additional images.
