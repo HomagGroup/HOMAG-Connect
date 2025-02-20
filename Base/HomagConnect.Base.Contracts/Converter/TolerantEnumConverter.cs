@@ -49,9 +49,14 @@ namespace HomagConnect.Base.Contracts.Converter
                 throw new ArgumentNullException(nameof(reader));
             }
 
-            if (reader.Value == null)
+            // Handle null values for nullable enums
+            if (reader.TokenType == JsonToken.Null)
             {
-                throw new ArgumentNullException(nameof(reader));
+                if (IsNullableType(objectType))
+                {
+                    return null;
+                }
+                throw new JsonSerializationException($"Cannot convert null value to {objectType}.");
             }
 
             var flag = IsNullableType(objectType);
@@ -82,6 +87,9 @@ namespace HomagConnect.Base.Contracts.Converter
                     return Enum.Parse(enumType, int32.ToString(CultureInfo.InvariantCulture));
                 }
             }
+
+            //I want to handle my nullable enums 
+
 
             if (flag)
             {
