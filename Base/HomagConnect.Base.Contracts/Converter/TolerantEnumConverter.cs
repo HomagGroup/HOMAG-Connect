@@ -88,9 +88,6 @@ namespace HomagConnect.Base.Contracts.Converter
                 }
             }
 
-            //I want to handle my nullable enums 
-
-
             if (flag)
             {
                 return null;
