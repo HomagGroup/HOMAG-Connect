@@ -17,6 +17,29 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions;
 [TestCategory("ProductionManager.Orders")]
 public class GetOrderDetailsTests : ProductionManagerTestBase
 {
+
+    [TestMethod]
+    public void CheckProductionEntityNullableEnumDeserialization_Success()
+    {
+        var str = JsonConvert.SerializeObject(new ProductionEntity() { LaminateTopGrain = Grain.Crosswise });
+        var obj = JsonConvert.DeserializeObject<ProductionEntity>(str);
+
+        Assert.IsNotNull(obj);
+        Assert.IsNull(obj.LaminateBottomGrain);
+        Assert.IsNotNull(obj.LaminateTopGrain);
+    }
+
+    [TestMethod]
+    public void CheckOrderEnumDeserialization_Success()
+    {
+        var str = JsonConvert.SerializeObject(new Order());
+        var obj = JsonConvert.DeserializeObject<Order>(str);
+
+        Assert.IsNotNull(obj);
+        Assert.IsNotNull(obj.OrderStatus);
+    }
+
+
     /// <summary />
     [TestMethod]
     public void OrderDetails_Trace()
