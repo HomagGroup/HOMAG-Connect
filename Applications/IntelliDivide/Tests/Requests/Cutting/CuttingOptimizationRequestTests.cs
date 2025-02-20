@@ -1,3 +1,4 @@
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
@@ -51,6 +52,21 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingOptimizationCommonSamples.CuttingRequest_RetrieveResults(intelliDivide);
+    }
+
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2025,3, 1,"DF-Foundation")]
+    public async Task BoardMaterial_GetBoardMaterialCategoryDisplayNames()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        var displayNames = await intelliDivide.GetBoardMaterialCategoryDisplayNames();
+
+        Assert.IsNotNull(displayNames);
+        Assert.IsTrue(displayNames.Any());
+
+        displayNames.Trace();
     }
 }
 

@@ -1,4 +1,7 @@
-﻿using HomagConnect.Base;
+﻿using System.Globalization;
+using System.Net.Http.Headers;
+
+using HomagConnect.Base;
 using HomagConnect.Base.DataModel;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -8,6 +11,7 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 using Newtonsoft.Json;
@@ -182,6 +186,35 @@ namespace HomagConnect.IntelliDivide.Client
 
             var url = $"api/intelliDivide/materials/boards?take={take}&skip={skip}";
             return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IDictionary<BoardMaterialCategory, string>> GetBoardMaterialCategoryDisplayNames()
+        {
+            return await GetBoardMaterialCategoryDisplayNames(CultureInfo.CurrentUICulture);
+        }
+
+        /// <inheritdoc />
+        public async Task<IDictionary<BoardMaterialCategory, string>> GetBoardMaterialCategoryDisplayNames(CultureInfo cultureInfo)
+        {
+            const string url = $"api/intelliDivide/materials/boards/materialcategories";
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.Relative)
+            };
+
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo.Name));
+
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<IDictionary<BoardMaterialCategory, string>>(result, SerializerSettings.Default);
+
+            return data ?? new Dictionary<BoardMaterialCategory, string>();
         }
 
         /// <inheritdoc />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.IntelliDivide.Contracts
@@ -262,6 +264,16 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets the list of board types defined in materialManager.
         /// </summary>
         Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the display names for the <see cref="BoardMaterialCategory"/> enumeration in the current culture.
+        /// </summary>
+        Task<IDictionary<BoardMaterialCategory, string>> GetBoardMaterialCategoryDisplayNames();
+
+        /// <summary>
+        /// Gets the display names for the <see cref="BoardMaterialCategory"/> enumeration in the specified culture.
+        /// </summary>
+        Task<IDictionary<BoardMaterialCategory, string>> GetBoardMaterialCategoryDisplayNames(CultureInfo cultureInfo);
 
         /// <summary>
         /// Gets the list of edgeband types defined in materialManager.
