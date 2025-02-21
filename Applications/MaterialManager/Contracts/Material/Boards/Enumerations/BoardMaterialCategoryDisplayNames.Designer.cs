@@ -107,6 +107,60 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aluminium-Wabenplatten.
+        /// </summary>
+        internal static string AluminumHoneycombPanels {
+            get {
+                return ResourceManager.GetString("AluminumHoneycombPanels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stab- &amp; Stäbchensperrholz (Hartholz).
+        /// </summary>
+        internal static string BlockboardAndLaminboard_HardWood {
+            get {
+                return ResourceManager.GetString("BlockboardAndLaminboard_HardWood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stab- &amp; Stäbchensperrholz (Weichholz).
+        /// </summary>
+        internal static string BlockboardAndLaminboard_SoftWood {
+            get {
+                return ResourceManager.GetString("BlockboardAndLaminboard_SoftWood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Butylkautschuk (IIR).
+        /// </summary>
+        internal static string ButylRubber_IIR {
+            get {
+                return ResourceManager.GetString("ButylRubber_IIR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kohlenstofffaserverstärkter Kunststoff (CFK).
+        /// </summary>
+        internal static string CarbonfibrereinforcedPlastics_CFK {
+            get {
+                return ResourceManager.GetString("CarbonfibrereinforcedPlastics_CFK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zementgebundene Platten.
+        /// </summary>
+        internal static string CementboundPanels {
+            get {
+                return ResourceManager.GetString("CementboundPanels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spanplatte.
         /// </summary>
         internal static string Chipboard {
@@ -121,6 +175,51 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         internal static string CompactPanels_HPL {
             get {
                 return ResourceManager.GetString("CompactPanels_HPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hartfaserplatte.
+        /// </summary>
+        internal static string HardParticleBoard {
+            get {
+                return ResourceManager.GetString("HardParticleBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hartholz quer.
+        /// </summary>
+        internal static string HardwoodCrosswise {
+            get {
+                return ResourceManager.GetString("HardwoodCrosswise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hartholz längs.
+        /// </summary>
+        internal static string HardwoodLengthwise {
+            get {
+                return ResourceManager.GetString("HardwoodLengthwise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undefiniert.
+        /// </summary>
+        internal static string Undefined {
+            get {
+                return ResourceManager.GetString("Undefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Funier.
+        /// </summary>
+        internal static string Veneer {
+            get {
+                return ResourceManager.GetString("Veneer", resourceCulture);
             }
         }
     }
