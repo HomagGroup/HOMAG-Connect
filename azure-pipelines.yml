@@ -115,6 +115,7 @@ stages:
             HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
           inputs:
             command: 'test'
+            projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
         - task: SonarQubeAnalyze@5
