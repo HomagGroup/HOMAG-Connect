@@ -10,7 +10,7 @@
 		<Description>Base assembly for all Homag-Connect tests</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
-		<IsPackable>false</IsPackable>
+		<IsPackable>true</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
