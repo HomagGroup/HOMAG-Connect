@@ -2,7 +2,8 @@ using FluentAssertions;
 
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Tests;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
@@ -13,9 +14,6 @@ namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class EdgebandTypeTests : TestBase
 {
-    /// <summary />
-    protected override Guid UserSecretsFolder { get; set; } = new("7a028258-94b9-4d79-822a-1005e4558b74");
-
     /// <summary />
     [TestMethod]
     public void EdgebandType_CheckConfiguration_ConfigValid()
@@ -38,11 +36,11 @@ public class EdgebandTypeTests : TestBase
             TotalLengthAvailableWarningLimit = 1000
         };
 
-        Trace(edgebandTypeMetric);
+        edgebandTypeMetric.Trace();
 
         var edgebandTypeImperial = edgebandTypeMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
 
-        Trace(edgebandTypeImperial);
+        edgebandTypeImperial.Trace();
 
         Assert.AreEqual(UnitSystem.Imperial, edgebandTypeImperial.UnitSystem);
 

@@ -1,8 +1,6 @@
 using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests;
-using HomagConnect.Base.Tests.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 
@@ -25,7 +23,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         offcutParameterSets.Should().NotBeNull();
         offcutParameterSets.Count.Should().BeGreaterThan(0);
 
-        Trace(offcutParameterSets);
+        offcutParameterSets.Trace();
 
         foreach (var offcutParameterSet in offcutParameterSets)
         {
@@ -50,7 +48,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         offcutParameterSet.MaterialGroupName.Should().NotBeNullOrEmpty();
         offcutParameterSet.MaterialCodes.Should().Contain(materialCode);
 
-        Trace(offcutParameterSet);
+        offcutParameterSet.Trace();
 
         if (!DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults))
         {

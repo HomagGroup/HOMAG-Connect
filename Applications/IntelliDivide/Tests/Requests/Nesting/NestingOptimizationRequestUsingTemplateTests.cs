@@ -1,6 +1,4 @@
-﻿using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.IntelliDivide.Contracts;
+﻿using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template;

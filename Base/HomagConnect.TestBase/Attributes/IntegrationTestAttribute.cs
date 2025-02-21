@@ -4,7 +4,7 @@ using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomagConnect.Base.Tests.Attributes;
+namespace HomagConnect.Base.TestBase.Attributes;
 
 /// <summary>
 /// Test Attribute to comment to link to an Area

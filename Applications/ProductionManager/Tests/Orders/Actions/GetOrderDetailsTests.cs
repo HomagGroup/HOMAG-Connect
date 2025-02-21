@@ -2,7 +2,7 @@ using FluentAssertions;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.ProductionEntity;
@@ -140,7 +140,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
             ]
         };
 
-        Trace(order);
+        order.Trace();
 
         var jsonSerializerSettings = new JsonSerializerSettings
         {

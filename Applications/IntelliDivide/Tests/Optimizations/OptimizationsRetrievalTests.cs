@@ -1,4 +1,3 @@
-using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Optimizations;
 using HomagConnect.IntelliDivide.Tests.Base;

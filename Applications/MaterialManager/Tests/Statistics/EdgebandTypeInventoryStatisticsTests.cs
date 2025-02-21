@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.MaterialManager.Tests.Statistics
+﻿using HomagConnect.Base.Extensions;
+
+namespace HomagConnect.MaterialManager.Tests.Statistics
 {
     /// <summary />
     [TestClass]
@@ -19,7 +21,7 @@
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
 
         /// <summary />
@@ -32,7 +34,7 @@
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Tests.Attributes;
+﻿using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionAssist.Samples.Authentication;
 
 namespace HomagConnect.ProductionAssist.Tests.Authentication

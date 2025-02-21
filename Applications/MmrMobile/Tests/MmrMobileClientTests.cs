@@ -1,5 +1,6 @@
 using FluentAssertions;
-using HomagConnect.Base.Tests.Attributes;
+
+using HomagConnect.Base.TestBase.Attributes;
 
 namespace HomagConnect.MmrMobile.Tests;
 

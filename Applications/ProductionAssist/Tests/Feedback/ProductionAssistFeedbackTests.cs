@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Tests.Attributes;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Samples.Feedback;
 
 namespace HomagConnect.ProductionAssist.Tests.Feedback
@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 
@@ -42,7 +42,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 

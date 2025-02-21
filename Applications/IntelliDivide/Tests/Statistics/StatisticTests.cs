@@ -1,5 +1,4 @@
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -21,7 +20,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         Assert.IsNotNull(materialStatistics);
   
-        Trace(materialStatistics);
+        materialStatistics.Trace();
     }
 
     /// <summary />
@@ -35,7 +34,7 @@ public class StatisticTests : IntelliDivideTestBase
         Assert.IsNotNull(materialStatistics);
         Assert.IsFalse(!materialStatistics.Any());
 
-        Trace(materialStatistics);
+        materialStatistics.Trace();
     }
 
     /// <summary />
@@ -48,7 +47,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         Assert.IsNotNull(edgebandStatistics);
 
-        Trace(edgebandStatistics);
+        edgebandStatistics.Trace();
     }
 
     [TestMethod]
@@ -60,7 +59,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         Assert.IsNotNull(edgebandStatistics);
 
-        Trace(edgebandStatistics);
+        edgebandStatistics.Trace();
     }
 
     [TestMethod]
@@ -75,7 +74,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, from, to);
 
-        Trace(statistics);
+        statistics.Trace();
     }
 
     [TestMethod]
@@ -90,7 +89,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, 90);
 
-        Trace(statistics);
+        statistics.Trace();
     }
 
     /// <summary />

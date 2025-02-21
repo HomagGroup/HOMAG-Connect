@@ -1,6 +1,4 @@
-﻿using HomagConnect.Base.Tests;
-using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.MaterialManager.Samples.Read.Boards;
+﻿using HomagConnect.MaterialManager.Samples.Read.Boards;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Boards
 {
