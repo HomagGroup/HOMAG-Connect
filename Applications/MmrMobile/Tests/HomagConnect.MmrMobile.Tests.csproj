@@ -35,8 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj" />
     <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
+    <ProjectReference Include="..\..\..\Base\HomagConnect.TestBase\HomagConnect.Base.TestBase.csproj" />
     <ProjectReference Include="..\Client\HomagConnect.MmrMobile.Client.csproj" />
     <ProjectReference Include="..\Contracts\HomagConnect.MmrMobile.Contracts.csproj" />
   </ItemGroup>

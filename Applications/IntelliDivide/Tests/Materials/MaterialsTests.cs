@@ -1,4 +1,5 @@
-using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Materials;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -23,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 
@@ -43,7 +44,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 

@@ -1,6 +1,5 @@
 using FluentAssertions;
 
-using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
 using HomagConnect.ProductionManager.Samples.Orders.Predict;

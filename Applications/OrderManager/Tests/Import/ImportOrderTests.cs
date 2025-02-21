@@ -3,7 +3,7 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Samples;
 using HomagConnect.OrderManager.Samples;
 

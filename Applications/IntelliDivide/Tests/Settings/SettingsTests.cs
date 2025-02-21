@@ -1,6 +1,4 @@
 using FluentAssertions;
-
-using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 

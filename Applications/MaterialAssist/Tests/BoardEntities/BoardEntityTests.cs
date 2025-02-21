@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.MaterialAssist.Tests.BoardEntities
+﻿using HomagConnect.Base.Extensions;
+
+namespace HomagConnect.MaterialAssist.Tests.BoardEntities
 {
     /// <summary />
     [TestClass]
@@ -16,7 +18,7 @@
 
             foreach (var boardType in boardTypes)
             {
-                Trace(boardType);
+                boardType.Trace();
             }
         }
     }

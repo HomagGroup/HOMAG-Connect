@@ -213,6 +213,6 @@ stages:
           displayName: "Publish HomagConnect DataExchange Extensions package on nuget.org"
           condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
         
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Tests/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Tests NuGet package on nuget.org"               
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.TestBase/**/*.nupkg" --skip-duplicate
+          displayName: "Publish HomagConnect Base Test Base NuGet package on nuget.org"               
           condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     

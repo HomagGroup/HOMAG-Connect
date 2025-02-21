@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Extensions;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics
 {
@@ -23,7 +24,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
 
         /// <summary />
@@ -38,7 +39,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
 
         /// <summary />
@@ -54,7 +55,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
 
         /// <summary />
@@ -67,7 +68,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
     }
 }
