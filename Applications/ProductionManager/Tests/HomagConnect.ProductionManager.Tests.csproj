@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\HomagConnect.TestBase\HomagConnect.Base.TestBase.csproj" />
+    <ProjectReference Include="..\..\..\Base\HomagConnect.Base.TestBase\HomagConnect.Base.TestBase.csproj" />
     <ProjectReference Include="..\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
     <ProjectReference Include="..\Samples\HomagConnect.ProductionManager.Samples.csproj" />
   </ItemGroup>
