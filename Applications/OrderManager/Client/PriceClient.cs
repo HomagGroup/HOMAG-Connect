@@ -34,7 +34,7 @@ namespace HomagConnect.OrderManager.Client
             using var response = await PostObject(new Uri("api/price/calculate", UriKind.Relative), requestContent);
             var content = await response.Content.ReadAsStringAsync();
             var responseObject = JsonConvert.DeserializeObject<PriceResponseData>(content)!;
-            return responseObject;
+            return responseObject; 
         }
     }
 }
