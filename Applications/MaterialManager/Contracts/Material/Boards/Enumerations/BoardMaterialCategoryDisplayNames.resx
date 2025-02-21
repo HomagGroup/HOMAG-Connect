@@ -169,6 +169,46 @@
     <value>Kompaktplatten (HPL)</value>
     <comment>Compact panels (HPL)</comment>
   </data>
+  <data name="CompositePanelsWithAluminum" xml:space="preserve">
+    <value>Verbundplatten mit Aluminium</value>
+    <comment>Composite panels with aluminum</comment>
+  </data>
+  <data name="CopolymerboundMineralMaterials" xml:space="preserve">
+    <value>Co-Polymer-gebundene Mineralwerkstoffe</value>
+    <comment>Co-polymer-bound mineral materials</comment>
+  </data>
+  <data name="CopperZincBrass" xml:space="preserve">
+    <value>Kupfer, Zink, Messing</value>
+    <comment>Copper, zinc, brass</comment>
+  </data>
+  <data name="FibreglassReinforcedPlastics_GFRP" xml:space="preserve">
+    <value>Glasfaserverstärkter Kunststoff (GFK)</value>
+    <comment>Fibreglass-reinforced plastics (GFRP)</comment>
+  </data>
+  <data name="Flakeboard_OSBPanel" xml:space="preserve">
+    <value>Grobspanplatte (OSB-Platte)</value>
+    <comment>Flakeboard (OSB panel)</comment>
+  </data>
+  <data name="GluedWoodPanelGluelaminatedWood_HardWood" xml:space="preserve">
+    <value>Leimholzplatte/Brettschichtholz (Hartholz)</value>
+    <comment>Glued wood panel/glue-laminated wood (hard wood)</comment>
+  </data>
+  <data name="GluedWoodPanelGluelaminatedWood_SoftWood" xml:space="preserve">
+    <value>Leimholzplatte/Brettschichtholz (Weichholz)</value>
+    <comment>Glued wood panel/glue-laminated wood (soft wood)</comment>
+  </data>
+  <data name="GypsumPlasterboard_Plasterboard" xml:space="preserve">
+    <value>Gipskartonplatten (Gipsplatten)</value>
+    <comment>Gypsum plasterboard (plasterboard)</comment>
+  </data>
+  <data name="HardFoamPanel" xml:space="preserve">
+    <value>Hartschaumplatte</value>
+    <comment>Hard foam panel</comment>
+  </data>
+  <data name="HardPaper_HP" xml:space="preserve">
+    <value>Hartpapier (HP)</value>
+    <comment>Hard paper (HP)</comment>
+  </data>
   <data name="HardParticleBoard" xml:space="preserve">
     <value>Hartfaserplatte</value>
     <comment>Hard particle board</comment>
@@ -181,6 +221,106 @@
     <value>Hartholz längs</value>
     <comment>Hardwood lengthwise</comment>
   </data>
+  <data name="HighdensityFiberboard_HDF" xml:space="preserve">
+    <value>Hochdichte Faserplatte (HDF)</value>
+    <comment>High-density fiberboard (HDF)</comment>
+  </data>
+  <data name="IntegralFoamPanel" xml:space="preserve">
+    <value>Integralschaumplatte</value>
+    <comment>Integral foam panel</comment>
+  </data>
+  <data name="Laminate" xml:space="preserve">
+    <value>Laminat</value>
+    <comment>Laminate</comment>
+  </data>
+  <data name="LaminatedFabric_HGW" xml:space="preserve">
+    <value>Hartgewebe (HGW)</value>
+    <comment>Laminated fabric (HGW)</comment>
+  </data>
+  <data name="LaminateFlooringPanels" xml:space="preserve">
+    <value>Laminatfußbodenplatten</value>
+    <comment>Laminate flooring panels</comment>
+  </data>
+  <data name="Laminate_HPL" xml:space="preserve">
+    <value>Schichtstoff (HPL)</value>
+    <comment>Laminate (HPL)</comment>
+  </data>
+  <data name="LeadAlloy" xml:space="preserve">
+    <value>Blei-Legierung</value>
+    <comment>Lead alloy</comment>
+  </data>
+  <data name="LightweightPanelWithChipboard" xml:space="preserve">
+    <value>Leichtbauplatte mit Spanplatten</value>
+    <comment>Lightweight panel with chipboard</comment>
+  </data>
+  <data name="LightweightPanelWithMdfBoards" xml:space="preserve">
+    <value>Leichtbauplatte mit MDF-Platten</value>
+    <comment>Lightweight panel with MDF boards</comment>
+  </data>
+  <data name="LowmeltingThermoplastics_PP_PA" xml:space="preserve">
+    <value>Leicht schmelzende Thermoplaste (PP, PA)</value>
+    <comment>Low-melting thermoplastics (PP, PA)</comment>
+  </data>
+  <data name="MediumdensityFiberboard_MDF" xml:space="preserve">
+    <value>Mitteldichte Faserplatte (MDF)</value>
+    <comment>Medium-density fiberboard (MDF)</comment>
+  </data>
+  <data name="NaturalRubber_NR" xml:space="preserve">
+    <value>Naturkautschuk (NR)</value>
+    <comment>Natural rubber (NR)</comment>
+  </data>
+  <data name="PhenolFormaldehyde_PF" xml:space="preserve">
+    <value>Phenolformaldehyd (PF)</value>
+    <comment>Phenol formaldehyde (PF)</comment>
+  </data>
+  <data name="PhenolicResinCoatedPlywood" xml:space="preserve">
+    <value>Siebdruckplatte</value>
+    <comment>Phenolic resin coated plywood</comment>
+  </data>
+  <data name="PlasticHoneycombPanels" xml:space="preserve">
+    <value>Kunststoff-Wabenplatten</value>
+    <comment>Plastic honeycomb panels</comment>
+  </data>
+  <data name="Plywood_MultiplexPanel" xml:space="preserve">
+    <value>Furniersperrholz (Multiplex-Platte)</value>
+    <comment>Plywood (multiplex panel)</comment>
+  </data>
+  <data name="PolyesterboundMineralMaterials" xml:space="preserve">
+    <value>Polyestergebundene Mineralwerkstoffe</value>
+    <comment>Polyester-bound mineral materials</comment>
+  </data>
+  <data name="PolyvinylCarbazole_PVK" xml:space="preserve">
+    <value>Polyvinylcarbazol (PUK)</value>
+    <comment>Polyvinyl carbazole (PVK)</comment>
+  </data>
+  <data name="SoftFiberboard" xml:space="preserve">
+    <value>Weichfaserplatte</value>
+    <comment>Soft fiberboard</comment>
+  </data>
+  <data name="SoftwoodCrosswise" xml:space="preserve">
+    <value>Weichholz quer</value>
+    <comment>Softwood crosswise</comment>
+  </data>
+  <data name="SoftwoodLengthwise" xml:space="preserve">
+    <value>Weichholz längs</value>
+    <comment>Softwood lengthwise</comment>
+  </data>
+  <data name="StyrenebutadieneRubber_SBR" xml:space="preserve">
+    <value>Styrol-Butadien-Kautschuk (SBR)</value>
+    <comment>Styrene-butadiene rubber (SBR)</comment>
+  </data>
+  <data name="Thermoplastics" xml:space="preserve">
+    <value>Thermoplaste (PE, PVC, ABS, POM, PS)</value>
+    <comment>Thermoplastics (PE, PVC, ABS, POM, PS)</comment>
+  </data>
+  <data name="ThreelayerPanelLaminatedTimberPanels_HardWood" xml:space="preserve">
+    <value>Dreischichtplatte, Brettsperrholzplatte (Hartholz)</value>
+    <comment>Three-layer panel, laminated timber panels (hard wood)</comment>
+  </data>
+  <data name="ThreelayerPanelLaminatedTimberPanels_SoftWood" xml:space="preserve">
+    <value>Dreischichtplatte, Brettsperrholzplatte (Weichholz)</value>
+    <comment>Three-layer panel, laminated timber panels (soft wood)</comment>
+  </data>
   <data name="Undefined" xml:space="preserve">
     <value>Undefiniert</value>
     <comment>Undefined</comment>
@@ -188,5 +328,9 @@
   <data name="Veneer" xml:space="preserve">
     <value>Funier</value>
     <comment>Veneer</comment>
+  </data>
+  <data name="WoodplasticComposites_WPC" xml:space="preserve">
+    <value>Wood-Plastic-Composites (WPC)</value>
+    <comment>Wood-plastic composites (WPC)</comment>
   </data>
 </root>
