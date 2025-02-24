@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -64,11 +67,62 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         throw new Exception($"The returned object is not of type {nameof(BoardType)}");
     }
 
+    /// <inheritdoc />
+    public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences)
+    {
+        if (fileReferences == null)
+        {
+            throw new ArgumentNullException(nameof(fileReferences));
+        }
+
+        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
+
+        if (missingFile != null)
+        {
+            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
+        }
+
+        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+
+        if (missingReference != null)
+        {
+            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+        }
+
+        var request = new HttpRequestMessage { Method = HttpMethod.Post };
+        request.RequestUri = new Uri(_BaseRoute, UriKind.Relative);
+
+        using var httpContent = new MultipartFormDataContent();
+
+        var json = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
+
+        httpContent.Add(new StringContent(json), nameof(boardTypeRequest));
+
+        foreach (var fileReference in fileReferences)
+        {
+            var fileStream = fileReference.FileInfo.OpenRead();
+
+            HttpContent streamContent = new StreamContent(fileStream);
+            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+        }
+
+        request.Content = httpContent;
+
+        var response = await Client.SendAsync(request);
+
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        var result = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<BoardType>(result);
+
+        return responseObject ?? new BoardType();
+    }
+
     #endregion
 
     #region Update
 
-    /// <inheritdoc />
+        /// <inheritdoc />
     public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
     {
         if (boardTypeUpdate == null)

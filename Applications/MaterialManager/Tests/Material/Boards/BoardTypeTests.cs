@@ -1,10 +1,15 @@
 using FluentAssertions;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase;
+using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Boards
 {
@@ -12,7 +17,7 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Boards")]
-    public class BoardTypeTests : TestBase
+    public class BoardTypeTests : MaterialManagerTestBase
     {
         /// <summary />
         [TestMethod]
@@ -21,6 +26,56 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
             BaseUrl.Should().NotBeNull();
             SubscriptionId.Should().NotBeEmpty();
             AuthorizationKey.Should().NotBeNullOrEmpty();
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
+        {
+            var materialManagerClient = GetMaterialManagerClient();
+
+            const string materialCode = "P2_CreateBoardTypeTest_19.0";
+            var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
+
+            await BoardType_CreateBoardType_Cleanup(materialManagerClient, materialCode);
+            
+            var boardType =  await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            {
+                MaterialCode = materialCode,
+                BoardCode = $"{materialCode}_2800_2070",
+                Thickness = 19.0,
+                Grain = Grain.Lengthwise,
+                Width = 2070,
+                Length = 2800,
+                Type = BoardTypeType.Board,
+                CoatingCategory = CoatingCategory.Undefined,
+                MaterialCategory = BoardMaterialCategory.Undefined,
+                AdditionalData = new List<AdditionalDataEntity>
+                {
+                    new AdditionalDataImage
+                    {
+                        Category = "Decor",
+                        DownloadFileName =additionalDataImage.Reference,   
+                        DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+                    }
+                }
+            }, [additionalDataImage]);
+
+            boardType.Trace();
+        }
+
+        private static async Task BoardType_CreateBoardType_Cleanup(MaterialManagerClient materialManagerClient, string materialCode)
+        {
+            var existingBoardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(new []{materialCode});
+
+            foreach (var existingBoardType in existingBoardTypes)
+            {
+                await materialManagerClient.Material.Boards.DeleteBoardType(existingBoardType.BoardCode);
+            }
+
+            existingBoardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(new[] { materialCode });
+
+            Assert.IsFalse(existingBoardTypes.Any());
         }
 
         /// <summary />
