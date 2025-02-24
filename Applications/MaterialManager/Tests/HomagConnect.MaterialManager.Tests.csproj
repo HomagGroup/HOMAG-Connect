@@ -13,12 +13,16 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Data\Red.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator></Generator>
+    </Content>
+    <Content Include="Data\Red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

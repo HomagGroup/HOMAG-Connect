@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
@@ -19,6 +20,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <returns>The created board type <see cref="BoardType" />.</returns>
         Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
+
+        /// <summary>
+        /// Creates the board type in materialManager.
+        /// </summary>
+        /// <returns>The created board type <see cref="BoardType" />.</returns>
+        Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences);
 
         /// <summary>
         /// Gets the board type by board code.
