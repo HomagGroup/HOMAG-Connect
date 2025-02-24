@@ -6,6 +6,7 @@ using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -30,6 +31,7 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025,3,15, "DF-Material")]
         public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
         {
             var materialManagerClient = GetMaterialManagerClient();
