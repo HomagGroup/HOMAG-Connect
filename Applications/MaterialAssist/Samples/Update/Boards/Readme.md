@@ -1,4 +1,4 @@
-<h1 id="updateBoardEntity"> Update board entity</h1>
+# Update board entity
 
 With the HOMAG Connect materialAssist board client, board entities can be updated. 
 

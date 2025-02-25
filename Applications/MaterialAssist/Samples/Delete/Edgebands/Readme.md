@@ -1,4 +1,4 @@
-<h1 id="deleteEdgebandEntity"> Delete edgeband entity</h1>
+# Delete edgeband entity
 
 With the HOMAG Connect materialAssist edgeband client, edgeband entities can be deleted. 
 

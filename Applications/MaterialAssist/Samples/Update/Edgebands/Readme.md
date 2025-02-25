@@ -1,4 +1,4 @@
-<h1 id="updateEdgebandEntity"> Update edgeband entity</h1>
+# Update edgeband entity
 
 With the HOMAG Connect materialAssist edgeband client, edgeband entities can be updated. 
 

@@ -1,4 +1,4 @@
-<h1 id="createEdgebandEntity"> Create edgeband entity</h1>
+# Create edgeband entity
 
 With the HOMAG Connect materialAssist edgeband client, edgeband entities can be created. 
 

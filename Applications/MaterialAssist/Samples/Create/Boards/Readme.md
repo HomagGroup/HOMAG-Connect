@@ -1,4 +1,4 @@
-<h1 id="createBoardEntity"> Create board entity</h1>
+# Create board entity
 
 With the HOMAG Connect materialAssist board client, board entities can be created. 
 

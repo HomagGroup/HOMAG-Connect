@@ -1,4 +1,4 @@
-<h1 id="createOffcutEntity"> Create offcut entity</h1>
+# Create offcut entity
 
 With the HOMAG Connect materialAssist board client, offcut entities can be created. 
 

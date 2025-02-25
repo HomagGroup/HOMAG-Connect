@@ -1,4 +1,4 @@
-<h1 id="updateOffcutEntity"> Update offcut entity</h1>
+# Update offcut entity
 
 With the HOMAG Connect materialAssist board client, offcut entities can be updated. Offcut entities are updated in the same way as board entities.
 
