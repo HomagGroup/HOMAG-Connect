@@ -109,7 +109,7 @@ stages:
             C3POWorkingFolder: '$(System.DefaultWorkingDirectory)'
             RecursiveSearch: true
             C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
-            AssemblyMaskList: '*.DisplayNames.resx'
+            AssemblyMaskList: '*DisplayNames.resx'
             C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=tb10bow -useenglish'
           condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
 
