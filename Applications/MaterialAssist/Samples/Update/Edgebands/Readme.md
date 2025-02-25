@@ -22,5 +22,5 @@ var edgebandEntityUpdate = new MaterialAssistUpdateEdgebandEntity()
 var updateEdgebandEntity = await client.UpdateEdgebandEntity("42", edgebandEntityUpdate);
 
 // Use the updated edgeband entity for further processing
-Console.WriteLine($"Updated edgeband entity: {updateEdgebandEntity.Code}");
+Console.WriteLine($"Updated edgeband entity: {updateEdgebandEntity.Id}");
 ```

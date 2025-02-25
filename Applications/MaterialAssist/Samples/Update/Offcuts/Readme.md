@@ -23,5 +23,5 @@ var updateBoardEntity = await client.UpdateBoardEntity("42", boardEntityUpdate);
 
 
 // Use the updated offcut entity for further processing
-Console.WriteLine($"Updated offcut entity: {updateBoardEntity.Code}");
+Console.WriteLine($"Updated offcut entity: {updateBoardEntity.Id}");
 ```
