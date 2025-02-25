@@ -1,6 +1,6 @@
 <h1 id="deleteBoardEntity"> Delete board entity</h1>
 
-With the HOMAG Connect materialAssist board client, board entities can be deleted. 
+With the HOMAG Connect materialAssist board client, board and offcut entities can be deleted.
 
 <strong>Example:</strong>
 
