@@ -125,48 +125,30 @@ request.Parts.Add(
 
 > For a detailed example, please refer to <i>CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly</i> in the file [CuttingRequestUsingObjectModelSamples.cs](CuttingRequestUsingObjectModelSamples.cs).
 
-### For creating a grain match template use the following: 
-##### Parameter "GrainPattern"
+### Grain matching templates  
+The grain match templates are used to ensure that the grain pattern of wood pieces aligns seamlessly across multiple parts. This technique is particularly useful for creating a visually cohesive look in items like cabinet doors, tabletops, or any project where the wood grain continuity is important.
 
-  GrainPattern                | Description 
-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------
-                              | The grain match template has 12 default templates and their names are localized with the language set into Tapio account for a particular subscription
-                              | English names are: "2 Parts (2 x 1)", "2 Parts (1 x 2)", "2+1 part, longitudinal right (2 x 2)", "1+2 part, longitudinal left (2 x 2)", "2+1 part, crosswise bottom (2 x 2)",
-                              | "1+2 part, crosswise top (2 x 2)", "3 Parts (3 x 1)", "3 Parts (1 x 3)", "4 Parts (2 x 3)", "4 Parts (2 x 2)", "4 Parts (1 x 4)", "4 Parts (4 x 1)".
-                              | German names are: "2 Teile (2 x 1)", "2 Teile (1 x 2)", "2+1 Teil längs rechts (2 x 2)", "+2 Teil längs links (2 x 2)", "2+1 Teil quer unten (2 x 2)", "1+2 Teil quer oben (2 x 2)",
-                              | "3 Teile (3 x 1)", "3 Teile (1 x 3)", "4 Teile (2 x 3)", "4 Teile (2 x 2)", "4 Teile (1 x 4)", "4 Teile (4 x 1)"
-                              |
-  `value=`                    | name delimiter is ":" and into (a x b) a is the number of columns and b is the number of rows
-                              | into the example: value="2 Parts (2 x 1):1.1:1:0" => "2 Parts (2 x 1)" is the name of the grain match template, 2 columns and 1 row
-                              |                                                 => "1.1" is the position into the template
-                              |                                                 => "1" is instance of the template
-							  |                                                 => "0" is the template grain ( 0 = None; 1 = Lengthwise grain; 2 = Cross grain => similar as for the parts;) all the positions into a template instance
-							  |                                                       need to have the same grain
-                              | 
-                              | value can get also multiple positions for the template in case the parameter Quantity has a value bigger that 1 exp: value="2 Parts (2 x 1):1.1 2.1:1"
-                              |
-  `2 Parts (2 x 1)`           | available positions => 1.1 2.1 
-                              |
-  `2 Parts (1 x 2)`           |  available positions => 1.1 1.2
-                              |  
-  `2+1 part, longitudinal right (2 x 2)` |  available positions => 1.1 1.2 2.1
-                              |  
-  `1+2 part, longitudinal left (2 x 2)` |  available positions => 1.1 2.1 2.2
-                              | 
-  `2+1 part, crosswise bottom (2 x 2)` |  available positions => 1.1 1.2 2.1
-                              | 
- `1+2 part, crosswise top (2 x 2)` |  available positions => 1.1 1.2 2.2
-                              | 
- `3 Parts (3 x 1)`            |  available positions => 1.1 2.1 3.1
-                              |
- `3 Parts (1 x 3)`            |  available positions => 1.1 1.2 1.3
-                              |
- `4 Parts (2 x 3)`            |  available positions => 1.1 1.2 1.3 2.1
-                              |
- `4 Parts (2 x 2)`            |  available positions => 1.1 1.2 2.1 2.2
-                              |
- `4 Parts (1 x 4)`            |  available positions => 1.1 1.2 1.3 1.4
-                              |
- `4 Parts (4 x 1)`            |  available positions => 1.1 2.1 3.1 4.1
+Here’s a brief overview of how it works:
+
+1. Pattern Definition: A template pattern is defined, specifying how the grain should match across the parts. This can include the arrangement and orientation of the grain.
+2. Part Assignment: Each part that needs to match the grain is assigned a position within the template. This ensures that when the parts are cut, they maintain the desired grain alignment.
+3. Cutting and Optimization: The parts are then cut according to the template, ensuring that the grain matches as specified.
+
+The grain match template currently has 12 default templates and their names are localized with the language set into Tapio account for a particular subscription. The currently 12 ava templates are visible in the image  below.
+
+The syntax used to describe a grain matching template is as follows: 
+-	The name delimiter is “:” 
+-	In (a x b) – “a” is the number of columns and “b” is the number of rows
   
+For example a value like:  “2 Parts (2 x 1):1.1:1:0” means
+-	“2 Parts (2x1)” is the name of the grain match template (2 columns, 1 row) 
+-	“:” is the delimiter 
+-	“1.1” is the position in the template 
+-	1  is the instance of the template 
+-	0 is the template grain ( where 0 = None (no grain) , 1= Lengthwise grain , 2 = Cross grain)
+  
+All the positions in a template instance need to have the same grain. 
+
+The 12 currently available templates can be viewed in the image  below.
+   
   ![grain_templates.png](../../../../../../../DataExchange/Assets/grain_templates.png)                          
