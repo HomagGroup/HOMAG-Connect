@@ -101,7 +101,6 @@ stages:
             condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - template: common-tasks/list-agent-directory/template.yml@templates
-          displayName: List agent directory before translate  
   
         - task: ResourceTranslation@3
           displayName: 'ResourceTranslation Enums'
@@ -115,7 +114,6 @@ stages:
           condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
 
         - template: common-tasks/list-agent-directory/template.yml@templates
-          displayName: List agent directory after translate  
   
         - task: DotNetCoreCLI@2
           displayName: Build projects
