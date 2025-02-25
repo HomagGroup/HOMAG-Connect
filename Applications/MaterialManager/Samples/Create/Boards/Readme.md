@@ -11,8 +11,9 @@ var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizati
 // Define the new board type request:
 var boardTypeRequest = new MaterialManagerRequestBoardType
 {
-    MaterialCode = "BT_White_19mm_100_100",
-    BoardCode = "White Board 19mm",
+    MaterialCode = "HPL_F274_9_12.0",
+    //The board code is the identifier of the board type
+    BoardCode = "HPL_F274_9_12.0_4100.0_650.0",
     Length = 2070.0,
     Width = 2800.0,
     Thickness = 19.0,
