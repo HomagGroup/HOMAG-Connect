@@ -24,6 +24,6 @@ var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
 var newEdgebandEntity = await client.CreateEdgebandEntity(edgebandEntityRequest);
 
 // Use the created edgeband entity for further processing
-Console.WriteLine($"Created edgeband entity: {newEdgebandEntity.Code}");
+Console.WriteLine($"Created edgeband entity: {newEdgebandEntity.Id}");
 ```
 
