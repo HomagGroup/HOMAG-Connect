@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -18,6 +20,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
+
+        /// <summary>
+        /// Creates the edgeband type in materialManager.
+        /// </summary>
+        /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
+        Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest, FileReference[] fileReferences);
 
         /// <summary>
         /// Gets an edgeband by edgeband code.
