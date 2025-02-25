@@ -9,4 +9,3 @@ Here you will find documentation and samples for the functionality provided by t
 6. [Delete edgeband entity](Delete/Edgebands/Readme.md)
 7. [Create offcut entity](Create/Offcuts/Readme.md)
 8. [Update offcut entity](Update/Offcuts/Readme.md)
-9. [Delete offcut entity](Delete/Offcuts/Readme.md)
