@@ -329,3 +329,16 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /XMLDoc2Mardown.bat
+
+# legacy translation process
+/MaterialManager/Contracts/Material/Boards/Enumerations/*displaynames*.xlf
+/MaterialManager/Contracts/Material/Boards/Enumerations/*displaynames*.resx
+/MaterialManager/Contracts/Edgebands/Boards/Enumerations/*displaynames*.xlf
+/MaterialManager/Contracts/Edgebands/Boards/Enumerations/*displaynames*.resx
+/Base/HomagConnect.Base.Contracts/Enumerations/*displaynames*.xlf
+/Base/HomagConnect.Base.Contracts/Enumerations/*displaynames.*.resx
+# for testing
+!/Base/HomagConnect.Base.Contracts/Enumerations/*displaynames.en.resx
+!/Base/HomagConnect.Base.Contracts/Enumerations/*displaynames.ja.resx
+c3po_err.txt
+out.dbg

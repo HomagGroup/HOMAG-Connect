@@ -100,6 +100,23 @@ stages:
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
             condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
+        - template: common-tasks/list-agent-directory/template.yml@templates
+          displayName: List agent directory before translate  
+  
+        - task: ResourceTranslation@3
+          displayName: 'ResourceTranslation Enums'
+          inputs:
+            C3POCustomFolder: true
+            C3POWorkingFolder: '$(System.DefaultWorkingDirectory)'
+            RecursiveSearch: true
+            C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+            AssemblyMaskList: '*.DisplayNames.resx'
+            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=tb10bow -useenglish'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - template: common-tasks/list-agent-directory/template.yml@templates
+          displayName: List agent directory after translate  
+  
         - task: DotNetCoreCLI@2
           displayName: Build projects
           inputs:
