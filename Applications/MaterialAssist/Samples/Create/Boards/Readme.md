@@ -12,7 +12,8 @@ var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 var boardEntityRequest = new MaterialAssistRequestBoardEntity()
 {
     Id = "42",
-    BoardCode = "White Board 19mm",
+    //The board code is the identifier of the board type
+    BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
     ManagementType = ManagementType.Single,
     Comments = "This is a comment",
     Quantity = 1
