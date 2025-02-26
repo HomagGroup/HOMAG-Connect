@@ -27,6 +27,37 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Update
+
+    /// <inheritdoc />
+    public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+
+        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    #endregion Update
+
     #region Constructors
 
     /// <inheritdoc />
@@ -119,37 +150,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
-
-    #region Update
-
-        /// <inheritdoc />
-    public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
-    {
-        if (boardTypeUpdate == null)
-        {
-            throw new ArgumentNullException(nameof(boardTypeUpdate));
-        }
-
-        ValidateRequiredProperties(boardTypeUpdate);
-
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
-
-        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
-
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
-
-        if (result != null)
-        {
-            return result;
-        }
-
-        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
-    }
-
-    #endregion Update
 
     #region Constants
 
@@ -344,7 +344,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #region Delete
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task DeleteBoardType(string boardCode)
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
@@ -352,7 +352,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task DeleteBoardTypes(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
@@ -463,7 +463,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip=0)
+    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0)
     {
         var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?daysBack={daysBack}&take={take}&skip={skip}";
 
@@ -473,11 +473,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
     {
-        var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        var uri =
+            $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
 
         return await RequestEnumerable<PartHistory>(new Uri(uri, UriKind.Relative));
     }
-
 
     #endregion
 }
