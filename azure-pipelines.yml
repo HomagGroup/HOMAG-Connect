@@ -54,7 +54,8 @@ stages:
 
   - stage: Build
     pool:
-      vmimage: 'windows-latest'
+      #vmimage: 'windows-latest'
+      name: DMG
     variables:
       BuildConfiguration: Release
     dependsOn: software_composition_analysis_stage
