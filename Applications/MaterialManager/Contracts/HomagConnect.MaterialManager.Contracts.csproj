@@ -31,10 +31,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Material\Boards\Enumerations\BoardMatCatDisplayNames.Designer.cs">
+	  <Compile Update="Material\Boards\Enumerations\BoardMCDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
-	    <DependentUpon>BoardMatCatDisplayNames.resx</DependentUpon>
+	    <DependentUpon>BoardMCDisplayNames.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Material\Boards\Enumerations\StandardQualityDisplayNames.Designer.cs">
 	    <DependentUpon>StandardQualityDisplayNames.resx</DependentUpon>
@@ -59,9 +59,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Material\Boards\Enumerations\BoardMatCatDisplayNames.resx">
+	  <EmbeddedResource Update="Material\Boards\Enumerations\BoardMCDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>BoardMatCatDisplayNames.Designer.cs</LastGenOutput>
+	    <LastGenOutput>BoardMCDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Boards\Enumerations\StandardQualityDisplayNames.resx">
 	    <LastGenOutput>StandardQualityDisplayNames.Designer.cs</LastGenOutput>
