@@ -149,12 +149,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                             Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
                             LibraryId = "CabinetLibrary",
                             ModuleId = "mr_StorageunitSingle",
-                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                            Attributes = new ()
                             {
-                                { "mod_Depth", 548 },
-                                { "mod_Height", 900 },
-                                { "mod_Width", 600 },
-                                { "color", "white" }
+                                new ConfigurationAttribute("mod_Depth", 548),
+                                new ConfigurationAttribute("mod_Height", 900),
+                                new ConfigurationAttribute("mod_Width", 600),
+                                new ConfigurationAttribute("color", "white")
                             },
                             Items = new()
                             {
@@ -162,9 +162,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 {
                                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                                     ModuleId = "mf_Door",
-                                    Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                    Attributes = new()
                                     {
-                                        { "mod_FrontHeight", 705 }
+                                        new ConfigurationAttribute("mod_FrontHeight", 705)
                                     }
                                 }
                             }
@@ -254,12 +254,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 0, 0, 0 },
                                     Rotation = new double[] { 0, 0, 0 },
-                                    Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                    Attributes = new ()
                                     {
-                                        { "mod_Depth", 548 },
-                                        { "mod_Height", 2000 },
-                                        { "mod_Width", 1000 },
-                                        { "mod_TypeElement", "TallUnit" }
+                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Height", 2000),
+                                        new ConfigurationAttribute("mod_Width", 1000),
+                                        new ConfigurationAttribute("mod_TypeElement", "TallUnit")
                                     },
                                     Items = new()
                                     {
@@ -268,9 +268,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                                             Notes = "This is a SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            Attributes = new ()
                                             {
-                                                { "mod_FrontHeight", 800 }
+                                                new ConfigurationAttribute("mod_FrontHeight", 800)
                                             }
                                         },
                                         new Configuration
@@ -278,9 +278,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "61029b65-730a-47de-9c5a-2cbc4cce3fc4",
                                             Notes = "This is a 2nd SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            Attributes = new ()
                                             {
-                                                { "mod_FrontHeight", 9999 }
+                                                new ConfigurationAttribute("mod_FrontHeight", 9999)
                                             }
                                         }
                                     }
@@ -293,12 +293,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     LibraryId = "CabinetLibrary",
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 1000, 0, 0 },
-                                    Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                    Attributes = new ()
                                     {
-                                        { "mod_Depth", 548 },
-                                        { "mod_Height", 2000 },
-                                        { "mod_Width", 1000 },
-                                        { "mod_TypeElement", "TallUnit" }
+                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Height", 2000),
+                                        new ConfigurationAttribute("mod_Width", 1000),
+                                        new ConfigurationAttribute("mod_TypeElement", "TallUnit")
                                     },
                                     Items = new()
                                     {
@@ -307,9 +307,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "810BE6A4-17A2-47C1-A4C7-392ECE5FF584",
                                             Notes = "This is a SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            Attributes = new ()
                                             {
-                                                { "mod_FrontHeight", 800 }
+                                                new ConfigurationAttribute("mod_FrontHeight", 800)
                                             }
                                         },
                                         new Configuration
@@ -317,9 +317,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "1CCF8E5C-556A-4356-B254-7C597CC98538",
                                             Notes = "This is a 2nd SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                            Attributes = new ()
                                             {
-                                                { "mod_FrontHeight", 9999 }
+                                                new ConfigurationAttribute("mod_FrontHeight", 9999)
                                             }
                                         }
                                     }
@@ -361,12 +361,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 0, 0, 0 },
                                     Rotation = new double[] { 0, 0, 0 },
-                                    Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                    Attributes = new ()
                                     {
-                                        { "mod_Depth", 548 },
-                                        { "mod_Height", 1800 },
-                                        { "mod_Width", 600 },
-                                        { "mod_TypeElement", "TallUnit" }
+                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Height", 1800),
+                                        new ConfigurationAttribute("mod_Width", 600),
+                                        new ConfigurationAttribute("mod_TypeElement", "TallUnit")
                                     },
                                 },
                                 new ConfigurationPosition
@@ -377,12 +377,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     LibraryId = "CabinetLibrary",
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 600, 0, 0 },
-                                    Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                    Attributes = new ()
                                     {
-                                        { "mod_Depth", 548 },
-                                        { "mod_Height", 2000 },
-                                        { "mod_Width", 1000 },
-                                        { "mod_TypeElement", "TallUnit" }
+                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Height", 2000),
+                                        new ConfigurationAttribute("mod_Width", 1000),
+                                        new ConfigurationAttribute("mod_TypeElement", "TallUnit")
                                     },
                                 }
                             }
@@ -451,12 +451,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                             Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
                             LibraryId = "CabinetLibrary",
                             ModuleId = "mr_StorageunitSingle",
-                            Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                            Attributes = new ()
                             {
-                                { "mod_Depth", 548 },
-                                { "mod_Height", 900 },
-                                { "mod_Width", 600 },
-                                { "color", "white" }
+                                new ConfigurationAttribute("mod_Depth", 548),
+                                new ConfigurationAttribute("mod_Height", 900),
+                                new ConfigurationAttribute("mod_Width", 600),
+                                new ConfigurationAttribute("color", "white")
                             },
                             Items = new()
                             {
@@ -474,9 +474,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 {
                                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                                     ModuleId = "mf_Door",
-                                    Attributes = new Dictionary<string, object>(StringComparer.Ordinal)
+                                    Attributes = new ()
                                     {
-                                        { "mod_FrontHeight", 705 }
+                                        new ConfigurationAttribute("mod_FrontHeight", 705)
                                     },
                                     Items = new()
                                     {
