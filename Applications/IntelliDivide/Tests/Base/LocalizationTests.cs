@@ -2,6 +2,7 @@
 
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
 namespace HomagConnect.IntelliDivide.Tests.Base
 {
@@ -30,6 +31,18 @@ namespace HomagConnect.IntelliDivide.Tests.Base
             Assert.AreEqual("縦", displayNames[Grain.Lengthwise]);
 
             displayNames.Trace();
+        }
+        [TestMethod]
+        public void Localization_BoardMatCat()
+        {
+            var displayNames = EnumExtensions.GetDisplayNames<BoardMaterialCategory>(CultureInfo.GetCultureInfo("de"));
+
+            Assert.AreEqual(54, displayNames.Count);
+            Assert.AreEqual("Acrylglas (PMMA)", displayNames[BoardMaterialCategory.AcrylicGlass_PMMA]);
+
+            displayNames = EnumExtensions.GetDisplayNames<BoardMaterialCategory>(CultureInfo.GetCultureInfo("en"));
+            displayNames.Trace();
+
         }
     }
 }
