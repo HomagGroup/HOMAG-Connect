@@ -122,7 +122,22 @@ public static class ParamBaseExtensions
             throw new NotSupportedException("Value '" + value + "' for Grain is not supported.");
         }
 
-        throw new NotSupportedException("Type " + type + " is not supported.");
+        if (type == typeof(OrderManager.Contracts.OrderItems.Type) || type == typeof(OrderManager.Contracts.OrderItems.Type?))
+        {
+            if (value.Equals("OrderItem", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return OrderManager.Contracts.OrderItems.Type.Position;
+            }
+
+            if (value.Equals("ProductionOrder", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return OrderManager.Contracts.OrderItems.Type.Part;
+            }
+
+            return Enum.ToObject(typeof(HomagConnect.OrderManager.Contracts.OrderItems.Type), value);
+        }
+
+        throw new NotSupportedException("Type " + type + ", Value, "+value +" is not supported.");
     }
 
     /// <summary>

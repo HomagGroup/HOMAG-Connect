@@ -124,3 +124,31 @@ request.Parts.Add(
 ```
 
 > For a detailed example, please refer to <i>CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly</i> in the file [CuttingRequestUsingObjectModelSamples.cs](CuttingRequestUsingObjectModelSamples.cs).
+
+### Grain matching templates  
+The grain match templates are used to ensure that the grain pattern of wood pieces aligns seamlessly across multiple parts. This technique is particularly useful for creating a visually cohesive look in items like cabinet doors, tabletops, or any project where the wood grain continuity is important.
+
+Here’s a brief overview of how it works:
+
+1. Pattern Definition: A template pattern is defined, specifying how the grain should match across the parts. This can include the arrangement and orientation of the grain.
+2. Part Assignment: Each part that needs to match the grain is assigned a position within the template. This ensures that when the parts are cut, they maintain the desired grain alignment.
+3. Cutting and Optimization: The parts are then cut according to the template, ensuring that the grain matches as specified.
+
+The grain match template currently has 12 default templates and their names are localized with the language set into Tapio account for a particular subscription. The currently 12 ava templates are visible in the image  below.
+
+The syntax used to describe a grain matching template is as follows: 
+-	The name delimiter is “:” 
+-	In (a x b) – “a” is the number of columns and “b” is the number of rows
+  
+For example a value like:  “2 Parts (2 x 1):1.1:1:0” means
+-	“2 Parts (2x1)” is the name of the grain match template (2 columns, 1 row) 
+-	“:” is the delimiter 
+-	“1.1” is the position in the template 
+-	1  is the instance of the template 
+-	0 is the template grain ( where 0 = None (no grain) , 1= Lengthwise grain , 2 = Cross grain)
+  
+All the positions in a template instance need to have the same grain. 
+
+The 12 currently available templates can be viewed in the image  below.
+   
+  ![grain_templates.png](../../../../../../../DataExchange/Assets/grain_templates.png)                          
