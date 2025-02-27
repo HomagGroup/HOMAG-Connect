@@ -1,24 +1,17 @@
-﻿using HomagConnect.Base.Tests;
-using HomagConnect.Base.Tests.Attributes;
-using HomagConnect.MaterialManager.Samples.Read.Boards;
+﻿using HomagConnect.MaterialManager.Samples.Read.Boards;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Boards
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary />
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Board.Read.Results")]
-    public class MaterialManagerReadBoardsResult : TestBase
+    public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+
+        /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 9, 15)]
         public async Task GetLocations_GetResult_NoException()
 
         {
@@ -36,12 +29,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards
             await MaterialManagerReadBoardsResults.GetMaterialCodes(materialManager.Material.Boards);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2024, 7, 15)]
         public async Task GetThumbnails_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();

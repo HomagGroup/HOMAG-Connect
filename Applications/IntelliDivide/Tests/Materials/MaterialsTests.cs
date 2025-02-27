@@ -1,4 +1,5 @@
-using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Materials;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -7,7 +8,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Materials")]
-    [TemporaryDisabledOnServer(2025, 3, 1)] // Not yet on production server
+    [TemporaryDisabledOnServer(2025, 3, 1, "DF-Optimization")] // Not yet on production server
     public class MaterialsTests : IntelliDivideTestBase
     {
         [TestMethod]
@@ -23,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 
@@ -43,7 +44,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 

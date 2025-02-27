@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 
-using HomagConnect.Base.Tests;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase;
 using HomagConnect.MaterialAssist.Client;
 
 namespace HomagConnect.MaterialAssist.Tests
@@ -9,12 +10,9 @@ namespace HomagConnect.MaterialAssist.Tests
     public class MaterialAssistTestBase : TestBase
     {
         /// <summary />
-        protected override Guid UserSecretsFolder { get; set; } = new("ef9be073-0dc1-4e86-ae1a-e07d422f31ee");
-
-        /// <summary />
         protected MaterialAssistClient GetMaterialAssistClient()
         {
-            Trace($"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey.Substring(0, 4)}*");
+            $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
 
             var httpClient = new HttpClient
             {

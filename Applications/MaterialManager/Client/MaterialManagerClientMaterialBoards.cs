@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -24,6 +27,37 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Update
+
+    /// <inheritdoc />
+    public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+
+        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    #endregion Update
+
     #region Constructors
 
     /// <inheritdoc />
@@ -64,38 +98,58 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         throw new Exception($"The returned object is not of type {nameof(BoardType)}");
     }
 
-    #endregion
-
-    #region Update
-
     /// <inheritdoc />
-    public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences)
     {
-        if (boardTypeUpdate == null)
+        if (fileReferences == null)
         {
-            throw new ArgumentNullException(nameof(boardTypeUpdate));
+            throw new ArgumentNullException(nameof(fileReferences));
         }
 
-        ValidateRequiredProperties(boardTypeUpdate);
+        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
 
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
-
-        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
-
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
-
-        if (result != null)
+        if (missingFile != null)
         {
-            return result;
+            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
         }
 
-        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+
+        if (missingReference != null)
+        {
+            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+        }
+
+        var request = new HttpRequestMessage { Method = HttpMethod.Post };
+        request.RequestUri = new Uri(_BaseRoute, UriKind.Relative);
+
+        using var httpContent = new MultipartFormDataContent();
+
+        var json = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
+
+        httpContent.Add(new StringContent(json), nameof(boardTypeRequest));
+
+        foreach (var fileReference in fileReferences)
+        {
+            var fileStream = fileReference.FileInfo.OpenRead();
+
+            HttpContent streamContent = new StreamContent(fileStream);
+            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+        }
+
+        request.Content = httpContent;
+
+        var response = await Client.SendAsync(request);
+
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        var result = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<BoardType>(result);
+
+        return responseObject ?? new BoardType();
     }
 
-    #endregion Update
+    #endregion
 
     #region Constants
 
@@ -115,6 +169,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
         return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
+
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
     /// <inheritdoc />
@@ -282,7 +344,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #region Delete
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task DeleteBoardType(string boardCode)
     {
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
@@ -290,7 +352,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task DeleteBoardTypes(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
@@ -401,7 +463,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip=0)
+    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0)
     {
         var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?daysBack={daysBack}&take={take}&skip={skip}";
 
@@ -411,11 +473,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
     {
-        var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        var uri =
+            $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
 
         return await RequestEnumerable<PartHistory>(new Uri(uri, UriKind.Relative));
     }
-
 
     #endregion
 }

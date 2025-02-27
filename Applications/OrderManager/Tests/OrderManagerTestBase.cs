@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 
-using HomagConnect.Base.Tests;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase;
 using HomagConnect.OrderManager.Client;
 using HomagConnect.OrderManager.Contracts;
 
@@ -8,13 +9,9 @@ namespace HomagConnect.OrderManager.Tests;
 
 public class OrderManagerTestBase : TestBase
 {
-    protected override Guid UserSecretsFolder { get; set; } = new("c3e9e88b-1b92-431e-b66e-7783c9dbac3c");
-
     protected IOrderManagerClient GetOrderManagerClient()
     {
-        Trace($"BaseUrl: {BaseUrl}");
-        Trace($"Subscription: {SubscriptionId}");
-        Trace($"AuthorizationKey: {AuthorizationKey[..4]}*");
+        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
 
         var httpClient = new HttpClient
         {

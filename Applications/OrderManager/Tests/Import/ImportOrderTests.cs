@@ -3,7 +3,7 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests.Attributes;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Samples;
 using HomagConnect.OrderManager.Samples;
 
@@ -17,7 +17,7 @@ namespace HomagConnect.OrderManager.Tests.Import
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders.Import")]
-    [TemporaryDisabledOnServer(2025, 03, 1)]
+    [TemporaryDisabledOnServer(2025, 03, 1, "DF-Production")]
     public class ImportOrderTests : OrderManagerTestBase
     {
         /// <summary />
@@ -30,6 +30,30 @@ namespace HomagConnect.OrderManager.Tests.Import
             try
             {
                 var projectZip = DataExchangeSamples.GetProjectHavingTypicalProperties();
+
+                var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
+
+                importOrderResponse.Trace();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_ProjectZip_LargeProject()
+        {
+            var orderManager = GetOrderManagerClient();
+            var anyException = false;
+
+            try
+            {
+                var projectZip = new FileInfo("TestData\\Kitchen.zip");
 
                 var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
 

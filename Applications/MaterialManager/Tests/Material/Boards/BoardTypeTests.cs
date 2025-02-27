@@ -1,54 +1,107 @@
 using FluentAssertions;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Tests;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 
-namespace HomagConnect.MaterialManager.Tests.Material.Boards
+namespace HomagConnect.MaterialManager.Tests.Material.Boards;
+
+/// <summary />
+[TestClass]
+[TestCategory("MaterialManager")]
+[TestCategory("MaterialManager.Boards")]
+public class BoardTypeTests : MaterialManagerTestBase
 {
     /// <summary />
-    [TestClass]
-    [TestCategory("MaterialManager")]
-    [TestCategory("MaterialManager.Boards")]
-    public class BoardTypeTests : TestBase
+    [TestMethod]
+    public void BoardType_CheckConfiguration_ConfigValid()
     {
-        /// <summary />
-        protected override Guid UserSecretsFolder { get; set; } = new("7a028258-94b9-4d79-822a-1005e4558b74");
+        BaseUrl.Should().NotBeNull();
+        SubscriptionId.Should().NotBeEmpty();
+        AuthorizationKey.Should().NotBeNullOrEmpty();
+    }
 
-        /// <summary />
-        [TestMethod]
-        public void BoardType_CheckConfiguration_ConfigValid()
-        {
-            BaseUrl.Should().NotBeNull();
-            SubscriptionId.Should().NotBeEmpty();
-            AuthorizationKey.Should().NotBeNullOrEmpty();
-        }
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
+    public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
 
-        /// <summary />
-        [TestMethod]
-        public void BoardType_SwitchUnitSystem_LengthWidthThicknessChanged()
+        const string materialCode = "P2_CreateBoardTypeTest_19.0";
+        var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
+
+        await BoardType_CreateBoardType_Cleanup(materialManagerClient, materialCode);
+
+        var boardType = await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
         {
-            var boardTypeMetric = new BoardType
+            MaterialCode = materialCode,
+            BoardCode = $"{materialCode}_2800_2070",
+            Thickness = 19.0,
+            Grain = Grain.Lengthwise,
+            Width = 2070,
+            Length = 2800,
+            Type = BoardTypeType.Board,
+            CoatingCategory = CoatingCategory.Undefined,
+            MaterialCategory = BoardMaterialCategory.Undefined,
+            AdditionalData = new List<AdditionalDataEntity>
             {
-                Length = 2800,
-                Width = 2070,
-                Thickness = 19,
-                TotalAreaAvailableWarningLimit = 60
-            };
+                new AdditionalDataImage
+                {
+                    Category = "Decor",
+                    DownloadFileName = additionalDataImage.Reference,
+                    DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+                }
+            }
+        }, [additionalDataImage]);
 
-            Trace(boardTypeMetric);
+        boardType.Trace();
+    }
 
-            var boardTypeImperial = boardTypeMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
+    /// <summary />
+    [TestMethod]
+    public void BoardType_SwitchUnitSystem_LengthWidthThicknessChanged()
+    {
+        var boardTypeMetric = new BoardType
+        {
+            Length = 2800,
+            Width = 2070,
+            Thickness = 19,
+            TotalAreaAvailableWarningLimit = 60
+        };
 
-            Trace(boardTypeImperial);
+        boardTypeMetric.Trace();
 
-            Assert.AreEqual(UnitSystem.Imperial, boardTypeImperial.UnitSystem);
+        var boardTypeImperial = boardTypeMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
 
-            Assert.AreNotEqual(boardTypeMetric.Length, boardTypeImperial.Length);
-            Assert.AreNotEqual(boardTypeMetric.Width, boardTypeImperial.Width);
-            Assert.AreNotEqual(boardTypeMetric.Thickness, boardTypeImperial.Thickness);
-            Assert.AreNotEqual(boardTypeMetric.TotalAreaAvailableWarningLimit, boardTypeImperial.TotalAreaAvailableWarningLimit);
+        boardTypeImperial.Trace();
+
+        Assert.AreEqual(UnitSystem.Imperial, boardTypeImperial.UnitSystem);
+
+        Assert.AreNotEqual(boardTypeMetric.Length, boardTypeImperial.Length);
+        Assert.AreNotEqual(boardTypeMetric.Width, boardTypeImperial.Width);
+        Assert.AreNotEqual(boardTypeMetric.Thickness, boardTypeImperial.Thickness);
+        Assert.AreNotEqual(boardTypeMetric.TotalAreaAvailableWarningLimit, boardTypeImperial.TotalAreaAvailableWarningLimit);
+    }
+
+    private static async Task BoardType_CreateBoardType_Cleanup(MaterialManagerClient materialManagerClient, string materialCode)
+    {
+        var existingBoardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode]);
+
+        foreach (var existingBoardType in existingBoardTypes)
+        {
+            await materialManagerClient.Material.Boards.DeleteBoardType(existingBoardType.BoardCode);
         }
+
+        existingBoardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode]);
+
+        Assert.IsFalse(existingBoardTypes.Any());
     }
 }

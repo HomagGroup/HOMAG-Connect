@@ -35,4 +35,10 @@ public class Price : Base
     /// </summary>
     [JsonProperty(Order = 3)]
     public string? Currency { get; set; } = "EUR";
+
+    /// <summary>
+    /// The article which is used for calculating the price
+    /// </summary>
+    [JsonProperty(Order = 10)]
+    public string? SalesArticleNumber { get; set; }
 }

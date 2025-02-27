@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Tests.Attributes;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Samples.Feedback;
 
 namespace HomagConnect.ProductionAssist.Tests.Feedback
@@ -7,7 +7,6 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
     [TestClass]
     [TestCategory("ProductionAssist")]
     [TestCategory("ProductionAssist.Feedback")]
-    [TemporaryDisabledOnServer(2024, 10, 1)]
     public class ProductionAssistFeedbackTests : ProductionAssistTestBase
     {
         /// <summary />
@@ -23,7 +22,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 
@@ -43,7 +42,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             }
             catch (Exception e)
             {
-                Trace(e);
+                e.Trace();
                 exceptionThrown = true;
             }
 

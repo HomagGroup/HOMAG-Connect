@@ -1,4 +1,3 @@
-using HomagConnect.Base.Tests.Attributes;
 using HomagConnect.ProductionManager.Samples.Orders.Import;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Import

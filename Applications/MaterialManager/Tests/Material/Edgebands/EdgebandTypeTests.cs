@@ -1,9 +1,17 @@
 using FluentAssertions;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Tests;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase;
+using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
 
@@ -11,11 +19,8 @@ namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
 [TestClass]
 [TestCategory("MaterialManager")]
 [TestCategory("MaterialManager.Edgebands")]
-public class EdgebandTypeTests : TestBase
+public class EdgebandTypeTests : MaterialManagerTestBase
 {
-    /// <summary />
-    protected override Guid UserSecretsFolder { get; set; } = new("7a028258-94b9-4d79-822a-1005e4558b74");
-
     /// <summary />
     [TestMethod]
     public void EdgebandType_CheckConfiguration_ConfigValid()
@@ -23,6 +28,40 @@ public class EdgebandTypeTests : TestBase
         BaseUrl.Should().NotBeNull();
         SubscriptionId.Should().NotBeEmpty();
         AuthorizationKey.Should().NotBeNullOrEmpty();
+    }
+
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
+    public async Task EdgebandType_CreateEdgebandTypeWithAdditionalDataImage()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+
+        const string edgebandCode = "ABS_CreateEdgebandTypeTest";
+        var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
+
+        await EdgebandType_CreateEdgebandType_Cleanup(materialManagerClient, edgebandCode);
+
+        var edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+        {
+            EdgebandCode = $"{edgebandCode}_150_1",
+            Thickness = 1.0,
+            Height = 20,
+            Length = 23.0,
+            MaterialCategory = EdgebandMaterialCategory.Veneer,
+            GluingCategory = GluingCategory.Other,
+            AdditionalData = new List<AdditionalDataEntity>
+            {
+                new AdditionalDataImage
+                {
+                    Category = "Decor",
+                    DownloadFileName = additionalDataImage.Reference,
+                    DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+                }
+            }
+        }, [additionalDataImage]);
+
+        edgebandType.Trace();
     }
 
     /// <summary />
@@ -38,11 +77,11 @@ public class EdgebandTypeTests : TestBase
             TotalLengthAvailableWarningLimit = 1000
         };
 
-        Trace(edgebandTypeMetric);
+        edgebandTypeMetric.Trace();
 
         var edgebandTypeImperial = edgebandTypeMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
 
-        Trace(edgebandTypeImperial);
+        edgebandTypeImperial.Trace();
 
         Assert.AreEqual(UnitSystem.Imperial, edgebandTypeImperial.UnitSystem);
 
@@ -51,5 +90,22 @@ public class EdgebandTypeTests : TestBase
         Assert.AreNotEqual(edgebandTypeMetric.ProtectionFilmThickness, edgebandTypeImperial.ProtectionFilmThickness);
         Assert.AreNotEqual(edgebandTypeMetric.Airtec, edgebandTypeImperial.Airtec);
         Assert.AreNotEqual(edgebandTypeMetric.TotalLengthAvailableWarningLimit, edgebandTypeImperial.TotalLengthAvailableWarningLimit);
+    }
+
+    private static async Task EdgebandType_CreateEdgebandType_Cleanup(MaterialManagerClient materialManagerClient, string edgebandCode)
+    {
+        var existingEdgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode]);
+
+        foreach (var existingEdgebandType in existingEdgebandTypes)
+        {
+            if (existingEdgebandType.EdgebandCode != null)
+            {
+                await materialManagerClient.Material.Edgebands.DeleteEdgebandType(existingEdgebandType.EdgebandCode);
+            }
+        }
+
+        existingEdgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode]);
+
+        Assert.IsFalse(existingEdgebandTypes.Any());
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
@@ -21,6 +22,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest);
 
         /// <summary>
+        /// Creates the board type in materialManager.
+        /// </summary>
+        /// <returns>The created board type <see cref="BoardType" />.</returns>
+        Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences);
+
+        /// <summary>
         /// Gets the board type by board code.
         /// </summary>
         Task<BoardType> GetBoardTypeByBoardCode(string boardCode);
@@ -33,10 +40,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
 
         /// <summary>
-        /// Gets the board types paginated
+        /// Gets the board types paginated.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the board types paginated including details (inventory, allocation, images).
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types by board codes.

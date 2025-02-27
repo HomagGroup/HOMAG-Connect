@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
+
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     /// <summary>
     /// Board material category
     /// </summary>
+    [ResourceManager(typeof(BoardMaterialCategoryDisplayNames))]
     public enum BoardMaterialCategory
     {
         // ReSharper disable InconsistentNaming

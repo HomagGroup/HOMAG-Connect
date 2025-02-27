@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Tests;
+﻿using HomagConnect.Base.Extensions;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics
 {
@@ -6,7 +6,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Statistics.Inventory")]
-    public class EdgebandTypeInventoryStatisticsTests : TestBase
+    public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
     {
         /// <summary />
         [TestMethod]
@@ -21,7 +21,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
 
         /// <summary />
@@ -34,7 +34,7 @@ namespace HomagConnect.MaterialManager.Tests.Statistics
 
             Assert.IsNotNull(statistics);
 
-            Trace(statistics);
+            statistics.Trace();
         }
-   }
+    }
 }

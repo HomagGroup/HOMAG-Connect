@@ -1,4 +1,4 @@
-<h1 id="updateEdgebandType"> Update edgeband type</h1>
+# Update edgeband type
 
 With the HOMAG Connect materialManager edgebands client, existing edgeband types can be updated. 
 

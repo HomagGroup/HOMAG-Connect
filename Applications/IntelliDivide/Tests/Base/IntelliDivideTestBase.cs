@@ -3,10 +3,11 @@ using System.Net.Http.Headers;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests;
+using HomagConnect.Base.TestBase;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -15,20 +16,19 @@ namespace HomagConnect.IntelliDivide.Tests.Base;
 
 public class IntelliDivideTestBase : TestBase
 {
-    protected override Guid UserSecretsFolder { get; set; } = new("05d68c42-49ad-4338-91d5-e80d2c675907");
-    
     /// <summary>
     /// Checks if the test material codes exist.
     /// </summary>
     protected async Task EnsureSampleMaterialCodesExists(string sampleMaterialCodeGrainLengthwise, string sampleMaterialCodeGrainNone)
     {
         var materialManagerClient = GetMaterialManagerClient();
-        
+
         IList<BoardType> boardTypesByMaterialCodes;
 
         try
         {
-             boardTypesByMaterialCodes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(new[] { sampleMaterialCodeGrainLengthwise, sampleMaterialCodeGrainNone }).ToListAsync();
+            boardTypesByMaterialCodes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(new[] { sampleMaterialCodeGrainLengthwise, sampleMaterialCodeGrainNone })
+                .ToListAsync();
         }
         catch (ProblemDetailsException ex)
         {
@@ -99,6 +99,23 @@ public class IntelliDivideTestBase : TestBase
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
         return new IntelliDivideClient(httpClient);
+    }
+
+    /// <summary>
+    /// Gets a new instance of the <see cref="MaterialManagerClient" />.
+    /// </summary>
+    protected MaterialManagerClient GetMaterialManagerClient()
+    {
+        Trace($"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey.Substring(0, 4)}*");
+
+        var httpClient = new HttpClient
+        {
+            BaseAddress = BaseUrl
+        };
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+
+        return new MaterialManagerClient(httpClient);
     }
 
     protected void Trace(string o)

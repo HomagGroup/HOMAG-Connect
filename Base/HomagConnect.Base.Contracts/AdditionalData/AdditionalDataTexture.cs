@@ -11,8 +11,10 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 /// </summary>
 public class AdditionalDataTexture : AdditionalDataEntity, IContainsUnitSystemDependentProperties
 {
-    /// <inheritdoc />
-    public override AdditionalDataType Type { get; set; } = AdditionalDataType.Texture;
+    /// <summary>
+    /// Gets or sets the grain.
+    /// </summary>
+    public Grain Grain { get; set; }
 
     /// <summary>
     /// Gets or sets the length.
@@ -20,12 +22,14 @@ public class AdditionalDataTexture : AdditionalDataEntity, IContainsUnitSystemDe
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Length { get; set; }
 
+    /// <inheritdoc />
+    public override AdditionalDataType Type { get; set; } = AdditionalDataType.Texture;
+
     /// <summary>
     /// Gets or sets the width
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Width { get; set; }
-
 
     #region IContainsUnitSystemDependentProperties Members
 

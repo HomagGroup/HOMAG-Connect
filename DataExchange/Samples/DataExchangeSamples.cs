@@ -49,7 +49,7 @@ namespace HomagConnect.DataExchange.Samples
                 image.Category = "Scene";
                 image.Description = name;
                 image.OriginalFileName = fileName;
-                image.ImageLinkPicture = reference;
+                image.ImageLinkPicture = new Uri(reference, UriKind.Relative);
 
                 projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName).FullName);
 
@@ -66,7 +66,7 @@ namespace HomagConnect.DataExchange.Samples
                 image.Category = "AssemblyXRayImage";
                 image.Description = name;
                 image.OriginalFileName = fileName;
-                image.ImageLinkPicture = reference;
+                image.ImageLinkPicture = new Uri(reference, UriKind.Relative); 
 
                 projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName).FullName);
 

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -186,13 +187,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the item of the order.
         /// </summary>
         [JsonProperty(Order = 62)]
-        public string OrderItem { get; set; }
+        public string? OrderItem { get; set; }
 
         /// <summary>
         /// Gets or sets the order date.
         /// </summary>
         [JsonProperty(Order = 63)]
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         /// <summary>
         /// Gets or sets the finish length.
@@ -254,7 +255,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the lot in wich the part is contained.
         /// </summary>
         [JsonProperty(Order = 81)]
-        public string Lot { get; set; }
+        public string? Lot { get; set; }
 
         /// <summary>
         /// Gets or sets the additional properties configured in the application.
@@ -268,7 +269,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region IContainsUnitSystemDependentProperties Members
 
         /// <inheritdoc />
-        public UnitSystem UnitSystem { get; set; }
+        [DefaultValue(UnitSystem.Metric)]
+        public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
         #endregion
     }

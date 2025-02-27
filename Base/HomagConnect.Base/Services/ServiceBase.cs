@@ -246,6 +246,10 @@ namespace HomagConnect.Base.Services
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
 
+            // Add the current culture to the accept language header
+            client.DefaultRequestHeaders.AcceptLanguage.Clear();
+            client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentCulture.Name));
+
             // Read the version file
             var assembly = typeof(ServiceBase).Assembly;
             var verName = typeof(ServiceBase).Namespace + ".versions.json";

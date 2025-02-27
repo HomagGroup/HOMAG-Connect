@@ -1,8 +1,6 @@
 using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Tests;
-using HomagConnect.Base.Tests.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 
@@ -11,11 +9,10 @@ namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 [TestCategory("MaterialManager")]
 [TestCategory("MaterialManager.Processing")]
 [TestCategory("MaterialManager.Processing.Optimization")]
-public class ProcessingOptimizationTests : TestBase
+public class ProcessingOptimizationTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 14)] // todo: reenable tests divide!
     public async Task OffcutParameters_RequestForMultipleMaterials_ConfigValid()
     {
         var client = GetMaterialManagerClient();
@@ -26,7 +23,7 @@ public class ProcessingOptimizationTests : TestBase
         offcutParameterSets.Should().NotBeNull();
         offcutParameterSets.Count.Should().BeGreaterThan(0);
 
-        Trace(offcutParameterSets);
+        offcutParameterSets.Trace();
 
         foreach (var offcutParameterSet in offcutParameterSets)
         {
@@ -39,7 +36,6 @@ public class ProcessingOptimizationTests : TestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024, 7, 14)] // todo: reenable tests divide!
     public async Task OffcutParameters_RequestForOneMaterial_ConfigValid()
     {
         var client = GetMaterialManagerClient();
@@ -52,7 +48,7 @@ public class ProcessingOptimizationTests : TestBase
         offcutParameterSet.MaterialGroupName.Should().NotBeNullOrEmpty();
         offcutParameterSet.MaterialCodes.Should().Contain(materialCode);
 
-        Trace(offcutParameterSet);
+        offcutParameterSet.Trace();
 
         if (!DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults))
         {

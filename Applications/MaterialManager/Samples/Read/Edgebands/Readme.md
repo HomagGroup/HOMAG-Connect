@@ -1,4 +1,4 @@
-<h1 id="readEdgebandData"> Read edgeband data</h1>
+# Read edgeband data
 
 With the HOMAG Connect materialManager edgebands client, the edgebands related data can be retrieved from materialManager for further programmatic evaluation.
 

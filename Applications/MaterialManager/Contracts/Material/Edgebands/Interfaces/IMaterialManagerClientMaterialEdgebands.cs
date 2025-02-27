@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -18,6 +20,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest);
+
+        /// <summary>
+        /// Creates the edgeband type in materialManager.
+        /// </summary>
+        /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
+        Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest, FileReference[] fileReferences);
 
         /// <summary>
         /// Gets an edgeband by edgeband code.
@@ -46,10 +54,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <summary>
         /// Gets all edgebands.
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <returns></returns>
         Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets all edgebands including details.
+        /// </summary>
+        Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets edgebands by edgeband codes.
