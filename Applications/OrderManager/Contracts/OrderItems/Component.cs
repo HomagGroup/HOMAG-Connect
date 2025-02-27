@@ -19,6 +19,10 @@ public class Component : ComponentBase
         {
             return Type.Component;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     /// <summary>

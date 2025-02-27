@@ -7,7 +7,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// <summary>
 /// Configuration attribute.
 /// </summary>
-public class ConfigurationAttribute : IConfigurationAttribute
+public class ConfigurationAttribute
 {
     /// <summary>
     /// Default constructor.
@@ -20,7 +20,7 @@ public class ConfigurationAttribute : IConfigurationAttribute
     /// <param name="name"></param>
     /// <param name="value"></param>
     /// <param name="isInput"></param>
-    public ConfigurationAttribute(string name, object value, bool isInput = true)
+    public ConfigurationAttribute(string name, object? value, bool? isInput = null)
     {
         Name = name;
         Value = value;
@@ -40,5 +40,5 @@ public class ConfigurationAttribute : IConfigurationAttribute
     /// <summary>
     /// The value of the attribute.
     /// </summary>
-    public object Value { get; set; } = null!;
+    public object? Value { get; set; } = null!;
 }

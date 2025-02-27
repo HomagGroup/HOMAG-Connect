@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HomagConnect.Base.Contracts.Converter
 {
@@ -9,27 +10,8 @@ namespace HomagConnect.Base.Contracts.Converter
     /// assembly versions
     /// See also: https://stackoverflow.com/questions/22752075/how-can-i-ignore-unknown-enum-values-during-json-deserialization
     /// </summary>
-    public class TolerantEnumConverter : JsonConverter
+    public class TolerantEnumConverter : StringEnumConverter
     {
-        /// <inheritdoc />
-        public override bool CanConvert(Type objectType)
-        {
-            if (IsNullableType(objectType))
-            {
-                var underlyingType = Nullable.GetUnderlyingType(objectType);
-
-                if (underlyingType != null)
-                {
-                    return underlyingType.IsEnum;
-                }
-            }
-            else
-            {
-                return objectType.IsEnum;
-            }
-
-            return false;
-        }
 
         /// <inheritdoc />
         public override object? ReadJson(
@@ -38,64 +20,20 @@ namespace HomagConnect.Base.Contracts.Converter
             object? existingValue,
             JsonSerializer serializer)
         {
-
-            if (objectType == null)
+            try
             {
-                throw new ArgumentNullException(nameof(objectType));
+                return base.ReadJson(reader, objectType, existingValue, serializer);
+            }
+            catch
+            {
+                // We use the fallback value if the enum value is unknown
             }
 
-            if (reader == null)
-            {
-                throw new ArgumentNullException(nameof(reader));
-            }
-
-            // Handle null values for nullable enums
-            if (reader.TokenType == JsonToken.Null)
-            {
-                if (IsNullableType(objectType))
-                {
-                    return null;
-                }
-                throw new JsonSerializationException($"Cannot convert null value to {objectType}.");
-            }
-
-            var flag = IsNullableType(objectType);
-            var enumType = (flag ? Nullable.GetUnderlyingType(objectType) : objectType) ?? throw new NotSupportedException();
+            var isNullable = IsNullableType(objectType);
+            var enumType = (isNullable ? Nullable.GetUnderlyingType(objectType) : objectType) ?? throw new NotSupportedException();
             var names = Enum.GetNames(enumType);
-
-            if (reader.TokenType == JsonToken.String)
-            {
-                var enumText = reader.Value.ToString();
-
-                if (!string.IsNullOrEmpty(enumText))
-                {
-                    var str = Array.Find(names, n => string.Equals(n, enumText, StringComparison.OrdinalIgnoreCase));
-
-                    if (!string.IsNullOrWhiteSpace(str))
-                    {
-                        return Enum.Parse(enumType, str);
-                    }
-                }
-            }
-            else if (reader.TokenType == JsonToken.Integer)
-            {
-                var int32 = Convert.ToInt32(reader.Value, CultureInfo.InvariantCulture);
-                var enumValues = Enum.GetValues(enumType).OfType<int>();
-
-                if (enumValues.Contains(int32))
-                {
-                    return Enum.Parse(enumType, int32.ToString(CultureInfo.InvariantCulture));
-                }
-            }
-
-            if (flag)
-            {
-                return null;
-            }
-
-            var str1 = Array.Find(names, (n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase))) ?? names[0];
-
-            return Enum.Parse(enumType, str1);
+            var enumName = Array.Find(names, (n => string.Equals(n, "Unknown", StringComparison.OrdinalIgnoreCase))) ?? names[0];
+            return Enum.Parse(enumType, enumName);
         }
 
         /// <inheritdoc />

@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.OrderManager.Contracts.OrderItems;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
-namespace HomagConnect.Base.Contracts.Interfaces
+namespace HomagConnect.OrderManager.Contracts.Interfaces
 {
     /// <summary>
     /// Basic configiration data
@@ -19,6 +20,6 @@ namespace HomagConnect.Base.Contracts.Interfaces
         /// Contains configuration attributes.
         /// </summary>
         [JsonProperty(Order = 50)]
-        Collection<IConfigurationAttribute>? Attributes { get; set; }
+        Collection<ConfigurationAttribute>? Attributes { get; set; }
     }
 }

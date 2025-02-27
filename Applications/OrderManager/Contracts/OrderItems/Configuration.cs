@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Interfaces;
+﻿using HomagConnect.OrderManager.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
@@ -18,6 +18,10 @@ public class Configuration : Base, IConfiguration
         {
             return Type.Configuration;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     /// <summary>
@@ -31,5 +35,5 @@ public class Configuration : Base, IConfiguration
     /// Contains configuration attributes.
     /// </summary>
     [JsonProperty(Order = 50)]
-    public Collection<IConfigurationAttribute>? Attributes { get; set; } = new Collection<IConfigurationAttribute>();
+    public Collection<ConfigurationAttribute>? Attributes { get; set; } = new Collection<ConfigurationAttribute>();
 }
