@@ -20,7 +20,7 @@ public class ConfigurationAttribute
     /// <param name="name"></param>
     /// <param name="value"></param>
     /// <param name="isInput"></param>
-    public ConfigurationAttribute(string name, object value, bool isInput = true)
+    public ConfigurationAttribute(string name, object? value, bool? isInput = null)
     {
         Name = name;
         Value = value;
@@ -40,5 +40,5 @@ public class ConfigurationAttribute
     /// <summary>
     /// The value of the attribute.
     /// </summary>
-    public object Value { get; set; } = null!;
+    public object? Value { get; set; } = null!;
 }
