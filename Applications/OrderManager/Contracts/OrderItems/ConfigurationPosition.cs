@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
@@ -51,6 +52,6 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         /// Contains configuration attributes.
         /// </summary>
         [JsonProperty(Order = 50)]
-        public IDictionary<string, object>? Attributes { get; set; } = new Dictionary<string, object>(StringComparer.Ordinal);
+        public Collection<IConfigurationAttribute>? Attributes { get; set; } = new Collection<IConfigurationAttribute>();
     }
 }
