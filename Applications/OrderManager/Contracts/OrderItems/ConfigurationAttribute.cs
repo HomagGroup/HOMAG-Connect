@@ -7,7 +7,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// <summary>
 /// Configuration attribute.
 /// </summary>
-public class ConfigurationAttribute : IConfigurationAttribute
+public class ConfigurationAttribute
 {
     /// <summary>
     /// Default constructor.

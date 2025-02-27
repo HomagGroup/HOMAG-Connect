@@ -22,6 +22,10 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
         {
             return Type.Part;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     #endregion

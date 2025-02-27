@@ -22,14 +22,19 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Resource), Type.Resource)]
 [JsonSubtypes.KnownSubType(typeof(Price), Type.Price)]
 [JsonSubtypes.KnownSubType(typeof(Configuration), Type.Configuration)]
+[JsonSubtypes.KnownSubType(typeof(ConfigurationGroup), Type.ConfigurationGroup)]
 [JsonSubtypes.KnownSubType(typeof(ConfigurationPosition), Type.ConfigurationPosition)]
 public abstract class Base: ISupportsAdditionalData
 {
     /// <summary>
     /// Gets or sets the type of the item entity.
     /// </summary>
+    /// <remarks>
+    /// We need to allow the *setter* here, because otherwise this property is handled 
+    /// with "JsonExtensionDataAttribute" and the type is added to this collection.
+    /// </remarks>
     [JsonProperty(Order = 1)]
-    public abstract Type Type { get; }
+    public abstract Type Type { get; set; }
 
     /// <summary>
     /// Gets or sets the id

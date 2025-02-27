@@ -18,6 +18,10 @@ public class Group : Base
         {
             return Type.Group;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     /// <summary>
