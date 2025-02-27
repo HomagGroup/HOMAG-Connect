@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     [TestClass]
     [TestCategory("ProductionManager")]
     [TestCategory("ProductionManager.Orders")]
-    public class GetOrderTests : ProductionManagerTestBase
+    public class UsageTests : ProductionManagerTestBase
     {
         /// <summary />
         [TestMethod]
