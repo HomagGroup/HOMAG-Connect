@@ -16,6 +16,10 @@ public class Price : Base
         {
             return Type.Price;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     /// <summary>

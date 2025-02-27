@@ -16,6 +16,10 @@ public class Resource : ComponentBase
         {
             return Type.Resource;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     /// <summary>

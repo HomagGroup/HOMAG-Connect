@@ -12,6 +12,10 @@
             {
                 return Type.ConfigurationGroup;
             }
+            set
+            {
+                // Ignore
+            }
         }
     }
 }
