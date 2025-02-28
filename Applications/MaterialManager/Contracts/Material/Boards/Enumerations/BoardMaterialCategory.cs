@@ -7,7 +7,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
     /// <summary>
     /// Board material category
     /// </summary>
-    [ResourceManager(typeof(BoardMCDisplayNames))]
+    [ResourceManager(typeof(BoardMaterialCategoryDisplayNames))]
     public enum BoardMaterialCategory
     {
         // ReSharper disable InconsistentNaming
