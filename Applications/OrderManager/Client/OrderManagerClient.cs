@@ -55,7 +55,7 @@ namespace HomagConnect.OrderManager.Client
             var uris = orderState
                 .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
                 .Join(QueryParametersMaxLength)
-                .Select(c => $"/api/productionManager/orders?take={take}&skip={skip}" + c)
+                .Select(c => $"/api/orderManager/orders?take={take}&skip={skip}" + c)
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return await RequestEnumerableAsync<OrderOverview>(uris);
