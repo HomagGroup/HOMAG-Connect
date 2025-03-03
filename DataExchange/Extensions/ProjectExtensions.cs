@@ -60,7 +60,7 @@ public static class ProjectExtensions
             {
                 var order = new OrderDetails();
 
-                MapOrder(projectOrder, order);
+                MapOrder(project, projectOrder, order);
 
                 orders.Add(order);
             }
@@ -69,22 +69,19 @@ public static class ProjectExtensions
         return orders;
     }
 
-    private static void MapOrder(Entity entity, OrderDetails orderDetails)
+    private static void MapOrder(Project project, Order order, OrderDetails orderDetails)
     {
-        MapEntity(entity, orderDetails);
+        MapEntity(order, orderDetails);
 
-        if (entity.Entities.Count > 0)
+        if (order.Entities.Count > 0)
         {
             orderDetails.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
 
-            foreach (var entityEntity in entity.Entities)
-            {
-                var orderItem = CreateInstance(entityEntity.Properties);
+            var group = new Group();
 
-                MapOrderItem(entityEntity, orderItem);
+            Map(project, order, group);
 
-                orderDetails.Items.Add(orderItem);
-            }
+            orderDetails.Items.Add(group);
         }
     }
 
@@ -143,7 +140,8 @@ public static class ProjectExtensions
 
     private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
     {
-        var entityEntityProperty = properties.FirstOrDefault(t => string.Equals(t.Name, "Type", StringComparison.InvariantCultureIgnoreCase));
+        var entityEntityProperty = properties.FirstOrDefault(t => string.Equals(t.Name, "Type", StringComparison.InvariantCultureIgnoreCase) ||
+                                                                  string.Equals(t.Name, "Typ", StringComparison.InvariantCultureIgnoreCase));
 
         if (entityEntityProperty?.Value == null)
         {
@@ -154,7 +152,7 @@ public static class ProjectExtensions
 
         if (string.Equals(type, "OrderItem", StringComparison.CurrentCultureIgnoreCase))
         {
-            return new Component();
+            return new Position();
         }
 
         if (string.Equals(type, "Component", StringComparison.CurrentCultureIgnoreCase))
