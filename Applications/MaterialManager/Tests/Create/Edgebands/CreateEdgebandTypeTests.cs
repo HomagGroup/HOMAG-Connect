@@ -35,7 +35,7 @@ public class CreateEdgebandTypeTests
         edgebandType.EdgebandCode = edgebandCode;
         edgebandType.Height = height;
         edgebandType.Thickness = thickness;
-        edgebandType.Length = length;
+        edgebandType.DefaultLength = length;
         return edgebandType;
     }
 }

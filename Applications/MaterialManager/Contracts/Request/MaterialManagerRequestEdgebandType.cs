@@ -25,6 +25,14 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     public string? DecorEmbossingCode { get; set; }
 
     /// <summary>
+    /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
+    /// ft).
+    /// </summary>
+    [Required]
+    [Range(0.1, 9999.9)]
+    public double DefaultLength { get; set; }
+
+    /// <summary>
     /// Gets or sets the edgeband code
     /// </summary>
     [Required]
@@ -57,14 +65,6 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// </summary>
     [Range(0, double.PositiveInfinity)]
     public double? Lasertec { get; set; }
-
-    /// <summary>
-    /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
-    /// ft).
-    /// </summary>
-    [Required]
-    [Range(0.1, 9999.9)]
-    public double Length { get; set; }
 
     /// <summary>
     /// Gets or sets the macro name.
