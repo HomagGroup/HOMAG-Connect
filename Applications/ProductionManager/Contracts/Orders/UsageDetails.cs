@@ -51,5 +51,11 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 8)]
         public string ChangedBy { get; set; }
+
+        /// <summary>
+        /// The source
+        /// </summary>
+        [JsonProperty(Order = 9)]
+        public string? Source { get; set; }
     }
 }

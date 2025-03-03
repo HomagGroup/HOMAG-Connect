@@ -23,6 +23,10 @@ public class Position : Base
         {
             return Type.Position;
         }
+        set
+        {
+            // Ignore
+        }
     }
 
     /// <summary>

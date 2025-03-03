@@ -159,4 +159,55 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
         deserialized.BillOfMaterials[0].GetType().Should().Be(order.BillOfMaterials[0].GetType());
     }
+
+    /// <summary />
+    [TestMethod]
+    public void Order_Trace()
+    {
+        var lot1 = new Lot { Id = Guid.NewGuid(), Name = "Lot 1" };
+        var lot2 = new Lot { Id = Guid.NewGuid(), Name = "Lot 2" };
+
+        var order = new Order
+        {
+            OrderName = "Mini Schrank",
+            CustomerName = "Boris Wehrle",
+            CustomerNumber = "4711",
+            OrderDate = DateTime.Today,
+            DeliveryDatePlanned = DateTime.Today.AddDays(14),
+            Lots =
+            [
+                lot1, lot2
+            ],
+            Address = new Address
+            {
+                Street = "Homagstrasse",
+                HouseNumber = "3-5",
+                PostalCode = "72296",
+                City = "Schopfloch",
+                Country = "Germany"
+            },
+            Source = "Test Source",
+            QuantityOfParts = 10,
+            QuantityOfPartsPlanned = 10
+        };
+
+        order.Trace();
+
+        var jsonSerializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            Formatting = Formatting.Indented
+        };
+
+        var serialized = JsonConvert.SerializeObject(order, jsonSerializerSettings);
+        var deserialized = JsonConvert.DeserializeObject<Order>(serialized);
+
+        Assert.IsNotNull(deserialized);
+        Assert.IsNotNull(deserialized.Source);
+
+        deserialized.Should().NotBe(null);
+        deserialized.Should().BeEquivalentTo(order);
+
+        deserialized.Address.GetType().Should().Be(order.Address.GetType());
+    }
 }
