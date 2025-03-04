@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "0975e0ee-324d-4151-a0ea-5c3d6c4d03a0",
+		"name": "Homag Connect orderManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Get orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": "0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get orders by order numbers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders?orderNumber=Your_order_number",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "orderNumber",
+									"value": "Your_order_number"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get orders by order states",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "orderState",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderState",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "skip",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": "50",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detailed order by order number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders/{{orderNumber}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders",
+								"{{orderNumber}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detailed order by order Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders/{{orderId}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Import",
+			"item": [
+				{
+					"name": "Import an order using order details",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"string\",\r\n  \"notes\": \"string\",\r\n  \"items\": [\r\n    {\r\n      \"type\": 0,\r\n      \"id\": \"string\",\r\n      \"notes\": \"string\",\r\n      \"items\": [\r\n        \"string\"\r\n      ],\r\n      \"additionalData\": [\r\n        {\r\n          \"type\": 0,\r\n          \"category\": \"string\",\r\n          \"name\": \"string\",\r\n          \"downloadFileName\": \"string\",\r\n          \"downloadUri\": \"string\",\r\n          \"previews\": [\r\n            {\r\n              \"size\": 0,\r\n              \"uri\": \"string\"\r\n            }\r\n          ],\r\n          \"additionalProperties\": {\r\n            \"additionalProp1\": \"string\",\r\n            \"additionalProp2\": \"string\",\r\n            \"additionalProp3\": \"string\"\r\n          }\r\n        }\r\n      ],\r\n      \"additionalProperties\": {\r\n        \"additionalProp1\": \"string\",\r\n        \"additionalProp2\": \"string\",\r\n        \"additionalProp3\": \"string\"\r\n      }\r\n    }\r\n  ],\r\n  \"additionalData\": [\r\n    {\r\n      \"type\": 0,\r\n      \"category\": \"string\",\r\n      \"name\": \"string\",\r\n      \"downloadFileName\": \"string\",\r\n      \"downloadUri\": \"string\",\r\n      \"previews\": [\r\n        {\r\n          \"size\": 0,\r\n          \"uri\": \"string\"\r\n        }\r\n      ],\r\n      \"additionalProperties\": {\r\n        \"additionalProp1\": \"string\",\r\n        \"additionalProp2\": \"string\",\r\n        \"additionalProp3\": \"string\"\r\n      }\r\n    }\r\n  ],\r\n  \"additionalProperties\": {\r\n    \"additionalProp1\": \"string\",\r\n    \"additionalProp2\": \"string\",\r\n    \"additionalProp3\": \"string\"\r\n  },\r\n  \"type\": 0,\r\n  \"name\": \"string\",\r\n  \"source\": \"string\",\r\n  \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders/import",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import an order using order details and referenced files",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "OrderDetails",
+									"description": "Add your OrderDetails.json here",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "ReferencedFiles",
+									"description": "Add your referenced files",
+									"type": "file",
+									"src": []
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders/import",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ImportOrderState",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders/import/{{correlationId}}",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders",
+								"import",
+								"{{correlationId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{ConnectPassword}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{ConnectUserName}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
