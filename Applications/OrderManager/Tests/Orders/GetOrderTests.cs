@@ -22,7 +22,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 03, 1, "DF-Production")]
+        [TemporaryDisabledOnServer(2025, 03, 28, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNew_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -44,7 +44,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 03, 28, "DF-Optimization")]
+        [TemporaryDisabledOnServer(2025, 03, 28, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -66,7 +66,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 03, 1, "DF-Production")]
+        [TemporaryDisabledOnServer(2025, 03, 28, "DF-Production")]
         public async Task Orders_GetAllOrders_NoException()
         {
             var orderManager = GetOrderManagerClient();

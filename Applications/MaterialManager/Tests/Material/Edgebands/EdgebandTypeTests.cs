@@ -5,10 +5,8 @@ using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -47,7 +45,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             EdgebandCode = $"{edgebandCode}_150_1",
             Thickness = 1.0,
             Height = 20,
-            Length = 23.0,
+            DefaultLength = 23.0,
             MaterialCategory = EdgebandMaterialCategory.Veneer,
             GluingCategory = GluingCategory.Other,
             AdditionalData = new List<AdditionalDataEntity>
@@ -70,7 +68,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     {
         var edgebandTypeMetric = new EdgebandType()
         {
-            Length = 150,
+            DefaultLength = 150,
             Thickness = 19,
             Airtec = 4,
             ProtectionFilmThickness = 0.1,
@@ -85,7 +83,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         Assert.AreEqual(UnitSystem.Imperial, edgebandTypeImperial.UnitSystem);
 
-        Assert.AreNotEqual(edgebandTypeMetric.Length, edgebandTypeImperial.Length);
+        Assert.AreNotEqual(edgebandTypeMetric.DefaultLength, edgebandTypeImperial.DefaultLength);
         Assert.AreNotEqual(edgebandTypeMetric.Thickness, edgebandTypeImperial.Thickness);
         Assert.AreNotEqual(edgebandTypeMetric.ProtectionFilmThickness, edgebandTypeImperial.ProtectionFilmThickness);
         Assert.AreNotEqual(edgebandTypeMetric.Airtec, edgebandTypeImperial.Airtec);

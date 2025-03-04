@@ -1,12 +1,10 @@
-﻿using HomagConnect.Base.TestBase.Attributes;
-using HomagConnect.ProductionAssist.Samples.Authentication;
+﻿using HomagConnect.ProductionAssist.Samples.Authentication;
 
 namespace HomagConnect.ProductionAssist.Tests.Authentication
 {
     [TestClass]
     [TestCategory("ProductionAssist")]
     [TestCategory("ProductionAssist.Authentication")]
-    [TemporaryDisabledOnServer(2024, 9, 1, "DF-Production")]
     public class AuthenticationTests : ProductionAssistTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions

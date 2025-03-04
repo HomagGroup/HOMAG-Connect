@@ -44,22 +44,25 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         public string? EdgebandCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
+        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
+        /// inch).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Height { get; set; }
 
         /// <summary>
-        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
+        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
+        /// inch).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
         public double? Thickness { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial: ft).
+        /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
+        /// ft).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-        public double? Length { get; set; }
+        public double? DefaultLength { get; set; }
 
         /// <summary>
         /// Gets or sets the costs of the edgeband. The unit depends on the settings of the subscription.
@@ -94,13 +97,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// <summary>
         /// Gets or sets the protection film thickness.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2,3)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
         public double? ProtectionFilmThickness { get; set; }
 
         /// <summary>
         /// Gets or sets the protection layer thickness.
         /// </summary>
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter,2,3)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
         public double? FunctionLayerThickness { get; set; }
 
         /// <summary>
@@ -146,7 +149,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         /// Gets or sets the gtin.
         /// </summary>
         public string? Gtin { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the id from an external system.
         /// </summary>
@@ -162,7 +165,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         public int? TotalQuantityAvailableWarningLimit { get; set; }
 
         /// <summary>
-        /// Gets or sets the total length available warning limit. The unit depends on the settings of the subscription (metric: m, imperial: ft).
+        /// Gets or sets the total length available warning limit. The unit depends on the settings of the subscription (metric: m,
+        /// imperial: ft).
         /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double? TotalLengthAvailableWarningLimit { get; set; }
