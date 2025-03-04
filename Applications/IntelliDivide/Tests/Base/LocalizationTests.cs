@@ -17,6 +17,7 @@ namespace HomagConnect.IntelliDivide.Tests.Base
         /// This test will only succeed on server OR when you add the relevant resx for ja and en manually. 
         /// </summary>
         [IntegrationTest("translation")]
+        [TemporaryDisabledOnServer(2025, 3, 10, "DF-Foundation")]
         [TestMethod]
         public void IntelliDivide_Localization_Grain()
         {

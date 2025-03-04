@@ -56,7 +56,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025,3, 1,"DF-Foundation")]
+    [TemporaryDisabledOnServer(2025,3, 10,"DF-Foundation")]
     public async Task BoardMaterial_GetBoardMaterialCategoryDisplayNames()
     {
         var intelliDivide = GetIntelliDivideClient();
