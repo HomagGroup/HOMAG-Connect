@@ -58,8 +58,9 @@ stages:
       #vmimage: 'windows-latest'
       name: DMG
     variables:
-      BuildConfiguration: Release
-      - group: dftranslationvariables
+      - name: BuildConfiguration
+        value: Release
+      - group: dftranslationvariables      
   
     dependsOn: software_composition_analysis_stage
     jobs:
