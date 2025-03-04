@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class BoardMaterialCategoryDisplayNames {
+    public class BoardMaterialCategoryDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations.BoardMaterial" +
@@ -52,7 +52,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Acrylic composite materials.
         /// </summary>
-        internal static string AcrylicCompositeMaterials {
+        public static string AcrylicCompositeMaterials {
             get {
                 return ResourceManager.GetString("AcrylicCompositeMaterials", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Acrylglas (PMMA).
         /// </summary>
-        internal static string AcrylicGlass_PMMA {
+        public static string AcrylicGlass_PMMA {
             get {
                 return ResourceManager.GetString("AcrylicGlass_PMMA", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Al-Mg-Cu.
         /// </summary>
-        internal static string AlMgCu {
+        public static string AlMgCu {
             get {
                 return ResourceManager.GetString("AlMgCu", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Al-Si-Legierung.
         /// </summary>
-        internal static string AlSiAlloy {
+        public static string AlSiAlloy {
             get {
                 return ResourceManager.GetString("AlSiAlloy", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Aluminium.
         /// </summary>
-        internal static string Aluminum {
+        public static string Aluminum {
             get {
                 return ResourceManager.GetString("Aluminum", resourceCulture);
             }
@@ -109,7 +109,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Aluminium-Wabenplatten.
         /// </summary>
-        internal static string AluminumHoneycombPanels {
+        public static string AluminumHoneycombPanels {
             get {
                 return ResourceManager.GetString("AluminumHoneycombPanels", resourceCulture);
             }
@@ -118,7 +118,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Stab- &amp; Stäbchensperrholz (Hartholz).
         /// </summary>
-        internal static string BlockboardAndLaminboard_HardWood {
+        public static string BlockboardAndLaminboard_HardWood {
             get {
                 return ResourceManager.GetString("BlockboardAndLaminboard_HardWood", resourceCulture);
             }
@@ -127,7 +127,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Stab- &amp; Stäbchensperrholz (Weichholz).
         /// </summary>
-        internal static string BlockboardAndLaminboard_SoftWood {
+        public static string BlockboardAndLaminboard_SoftWood {
             get {
                 return ResourceManager.GetString("BlockboardAndLaminboard_SoftWood", resourceCulture);
             }
@@ -136,7 +136,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Butylkautschuk (IIR).
         /// </summary>
-        internal static string ButylRubber_IIR {
+        public static string ButylRubber_IIR {
             get {
                 return ResourceManager.GetString("ButylRubber_IIR", resourceCulture);
             }
@@ -145,7 +145,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Kohlenstofffaserverstärkter Kunststoff (CFK).
         /// </summary>
-        internal static string CarbonfibrereinforcedPlastics_CFK {
+        public static string CarbonfibrereinforcedPlastics_CFK {
             get {
                 return ResourceManager.GetString("CarbonfibrereinforcedPlastics_CFK", resourceCulture);
             }
@@ -154,7 +154,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Zementgebundene Platten.
         /// </summary>
-        internal static string CementboundPanels {
+        public static string CementboundPanels {
             get {
                 return ResourceManager.GetString("CementboundPanels", resourceCulture);
             }
@@ -163,7 +163,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Spanplatte.
         /// </summary>
-        internal static string Chipboard {
+        public static string Chipboard {
             get {
                 return ResourceManager.GetString("Chipboard", resourceCulture);
             }
@@ -172,7 +172,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Kompaktplatten (HPL).
         /// </summary>
-        internal static string CompactPanels_HPL {
+        public static string CompactPanels_HPL {
             get {
                 return ResourceManager.GetString("CompactPanels_HPL", resourceCulture);
             }
@@ -181,7 +181,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Verbundplatten mit Aluminium.
         /// </summary>
-        internal static string CompositePanelsWithAluminum {
+        public static string CompositePanelsWithAluminum {
             get {
                 return ResourceManager.GetString("CompositePanelsWithAluminum", resourceCulture);
             }
@@ -190,7 +190,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Co-Polymer-gebundene Mineralwerkstoffe.
         /// </summary>
-        internal static string CopolymerboundMineralMaterials {
+        public static string CopolymerboundMineralMaterials {
             get {
                 return ResourceManager.GetString("CopolymerboundMineralMaterials", resourceCulture);
             }
@@ -199,7 +199,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Kupfer, Zink, Messing.
         /// </summary>
-        internal static string CopperZincBrass {
+        public static string CopperZincBrass {
             get {
                 return ResourceManager.GetString("CopperZincBrass", resourceCulture);
             }
@@ -208,7 +208,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Glasfaserverstärkter Kunststoff (GFK).
         /// </summary>
-        internal static string FibreglassReinforcedPlastics_GFRP {
+        public static string FibreglassReinforcedPlastics_GFRP {
             get {
                 return ResourceManager.GetString("FibreglassReinforcedPlastics_GFRP", resourceCulture);
             }
@@ -217,7 +217,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Grobspanplatte (OSB-Platte).
         /// </summary>
-        internal static string Flakeboard_OSBPanel {
+        public static string Flakeboard_OSBPanel {
             get {
                 return ResourceManager.GetString("Flakeboard_OSBPanel", resourceCulture);
             }
@@ -226,7 +226,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Leimholzplatte/Brettschichtholz (Hartholz).
         /// </summary>
-        internal static string GluedWoodPanelGluelaminatedWood_HardWood {
+        public static string GluedWoodPanelGluelaminatedWood_HardWood {
             get {
                 return ResourceManager.GetString("GluedWoodPanelGluelaminatedWood_HardWood", resourceCulture);
             }
@@ -235,7 +235,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Leimholzplatte/Brettschichtholz (Weichholz).
         /// </summary>
-        internal static string GluedWoodPanelGluelaminatedWood_SoftWood {
+        public static string GluedWoodPanelGluelaminatedWood_SoftWood {
             get {
                 return ResourceManager.GetString("GluedWoodPanelGluelaminatedWood_SoftWood", resourceCulture);
             }
@@ -244,7 +244,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Gipskartonplatten (Gipsplatten).
         /// </summary>
-        internal static string GypsumPlasterboard_Plasterboard {
+        public static string GypsumPlasterboard_Plasterboard {
             get {
                 return ResourceManager.GetString("GypsumPlasterboard_Plasterboard", resourceCulture);
             }
@@ -253,7 +253,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hartschaumplatte.
         /// </summary>
-        internal static string HardFoamPanel {
+        public static string HardFoamPanel {
             get {
                 return ResourceManager.GetString("HardFoamPanel", resourceCulture);
             }
@@ -262,7 +262,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hartpapier (HP).
         /// </summary>
-        internal static string HardPaper_HP {
+        public static string HardPaper_HP {
             get {
                 return ResourceManager.GetString("HardPaper_HP", resourceCulture);
             }
@@ -271,7 +271,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hartfaserplatte.
         /// </summary>
-        internal static string HardParticleBoard {
+        public static string HardParticleBoard {
             get {
                 return ResourceManager.GetString("HardParticleBoard", resourceCulture);
             }
@@ -280,7 +280,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hartholz quer.
         /// </summary>
-        internal static string HardwoodCrosswise {
+        public static string HardwoodCrosswise {
             get {
                 return ResourceManager.GetString("HardwoodCrosswise", resourceCulture);
             }
@@ -289,7 +289,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hartholz längs.
         /// </summary>
-        internal static string HardwoodLengthwise {
+        public static string HardwoodLengthwise {
             get {
                 return ResourceManager.GetString("HardwoodLengthwise", resourceCulture);
             }
@@ -298,7 +298,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hochdichte Faserplatte (HDF).
         /// </summary>
-        internal static string HighdensityFiberboard_HDF {
+        public static string HighdensityFiberboard_HDF {
             get {
                 return ResourceManager.GetString("HighdensityFiberboard_HDF", resourceCulture);
             }
@@ -307,7 +307,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Integralschaumplatte.
         /// </summary>
-        internal static string IntegralFoamPanel {
+        public static string IntegralFoamPanel {
             get {
                 return ResourceManager.GetString("IntegralFoamPanel", resourceCulture);
             }
@@ -316,7 +316,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Laminat.
         /// </summary>
-        internal static string Laminate {
+        public static string Laminate {
             get {
                 return ResourceManager.GetString("Laminate", resourceCulture);
             }
@@ -325,7 +325,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Schichtstoff (HPL).
         /// </summary>
-        internal static string Laminate_HPL {
+        public static string Laminate_HPL {
             get {
                 return ResourceManager.GetString("Laminate_HPL", resourceCulture);
             }
@@ -334,7 +334,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hartgewebe (HGW).
         /// </summary>
-        internal static string LaminatedFabric_HGW {
+        public static string LaminatedFabric_HGW {
             get {
                 return ResourceManager.GetString("LaminatedFabric_HGW", resourceCulture);
             }
@@ -343,7 +343,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Laminatfußbodenplatten.
         /// </summary>
-        internal static string LaminateFlooringPanels {
+        public static string LaminateFlooringPanels {
             get {
                 return ResourceManager.GetString("LaminateFlooringPanels", resourceCulture);
             }
@@ -352,7 +352,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Blei-Legierung.
         /// </summary>
-        internal static string LeadAlloy {
+        public static string LeadAlloy {
             get {
                 return ResourceManager.GetString("LeadAlloy", resourceCulture);
             }
@@ -361,7 +361,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Leichtbauplatte mit Spanplatten.
         /// </summary>
-        internal static string LightweightPanelWithChipboard {
+        public static string LightweightPanelWithChipboard {
             get {
                 return ResourceManager.GetString("LightweightPanelWithChipboard", resourceCulture);
             }
@@ -370,7 +370,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Leichtbauplatte mit MDF-Platten.
         /// </summary>
-        internal static string LightweightPanelWithMdfBoards {
+        public static string LightweightPanelWithMdfBoards {
             get {
                 return ResourceManager.GetString("LightweightPanelWithMdfBoards", resourceCulture);
             }
@@ -379,7 +379,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Leicht schmelzende Thermoplaste (PP, PA).
         /// </summary>
-        internal static string LowmeltingThermoplastics_PP_PA {
+        public static string LowmeltingThermoplastics_PP_PA {
             get {
                 return ResourceManager.GetString("LowmeltingThermoplastics_PP_PA", resourceCulture);
             }
@@ -388,7 +388,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Mitteldichte Faserplatte (MDF).
         /// </summary>
-        internal static string MediumdensityFiberboard_MDF {
+        public static string MediumdensityFiberboard_MDF {
             get {
                 return ResourceManager.GetString("MediumdensityFiberboard_MDF", resourceCulture);
             }
@@ -397,7 +397,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Naturkautschuk (NR).
         /// </summary>
-        internal static string NaturalRubber_NR {
+        public static string NaturalRubber_NR {
             get {
                 return ResourceManager.GetString("NaturalRubber_NR", resourceCulture);
             }
@@ -406,7 +406,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Phenolformaldehyd (PF).
         /// </summary>
-        internal static string PhenolFormaldehyde_PF {
+        public static string PhenolFormaldehyde_PF {
             get {
                 return ResourceManager.GetString("PhenolFormaldehyde_PF", resourceCulture);
             }
@@ -415,7 +415,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Siebdruckplatte.
         /// </summary>
-        internal static string PhenolicResinCoatedPlywood {
+        public static string PhenolicResinCoatedPlywood {
             get {
                 return ResourceManager.GetString("PhenolicResinCoatedPlywood", resourceCulture);
             }
@@ -424,7 +424,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Kunststoff-Wabenplatten.
         /// </summary>
-        internal static string PlasticHoneycombPanels {
+        public static string PlasticHoneycombPanels {
             get {
                 return ResourceManager.GetString("PlasticHoneycombPanels", resourceCulture);
             }
@@ -433,7 +433,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Furniersperrholz (Multiplex-Platte).
         /// </summary>
-        internal static string Plywood_MultiplexPanel {
+        public static string Plywood_MultiplexPanel {
             get {
                 return ResourceManager.GetString("Plywood_MultiplexPanel", resourceCulture);
             }
@@ -442,7 +442,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Polyestergebundene Mineralwerkstoffe.
         /// </summary>
-        internal static string PolyesterboundMineralMaterials {
+        public static string PolyesterboundMineralMaterials {
             get {
                 return ResourceManager.GetString("PolyesterboundMineralMaterials", resourceCulture);
             }
@@ -451,7 +451,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Polyvinylcarbazol (PUK).
         /// </summary>
-        internal static string PolyvinylCarbazole_PVK {
+        public static string PolyvinylCarbazole_PVK {
             get {
                 return ResourceManager.GetString("PolyvinylCarbazole_PVK", resourceCulture);
             }
@@ -460,7 +460,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Weichfaserplatte.
         /// </summary>
-        internal static string SoftFiberboard {
+        public static string SoftFiberboard {
             get {
                 return ResourceManager.GetString("SoftFiberboard", resourceCulture);
             }
@@ -469,7 +469,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Weichholz quer.
         /// </summary>
-        internal static string SoftwoodCrosswise {
+        public static string SoftwoodCrosswise {
             get {
                 return ResourceManager.GetString("SoftwoodCrosswise", resourceCulture);
             }
@@ -478,7 +478,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Weichholz längs.
         /// </summary>
-        internal static string SoftwoodLengthwise {
+        public static string SoftwoodLengthwise {
             get {
                 return ResourceManager.GetString("SoftwoodLengthwise", resourceCulture);
             }
@@ -487,7 +487,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Styrol-Butadien-Kautschuk (SBR).
         /// </summary>
-        internal static string StyrenebutadieneRubber_SBR {
+        public static string StyrenebutadieneRubber_SBR {
             get {
                 return ResourceManager.GetString("StyrenebutadieneRubber_SBR", resourceCulture);
             }
@@ -496,7 +496,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Thermoplaste (PE, PVC, ABS, POM, PS).
         /// </summary>
-        internal static string Thermoplastics {
+        public static string Thermoplastics {
             get {
                 return ResourceManager.GetString("Thermoplastics", resourceCulture);
             }
@@ -505,7 +505,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Dreischichtplatte, Brettsperrholzplatte (Hartholz).
         /// </summary>
-        internal static string ThreelayerPanelLaminatedTimberPanels_HardWood {
+        public static string ThreelayerPanelLaminatedTimberPanels_HardWood {
             get {
                 return ResourceManager.GetString("ThreelayerPanelLaminatedTimberPanels_HardWood", resourceCulture);
             }
@@ -514,7 +514,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Dreischichtplatte, Brettsperrholzplatte (Weichholz).
         /// </summary>
-        internal static string ThreelayerPanelLaminatedTimberPanels_SoftWood {
+        public static string ThreelayerPanelLaminatedTimberPanels_SoftWood {
             get {
                 return ResourceManager.GetString("ThreelayerPanelLaminatedTimberPanels_SoftWood", resourceCulture);
             }
@@ -523,7 +523,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Undefiniert.
         /// </summary>
-        internal static string Undefined {
+        public static string Undefined {
             get {
                 return ResourceManager.GetString("Undefined", resourceCulture);
             }
@@ -532,7 +532,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Funier.
         /// </summary>
-        internal static string Veneer {
+        public static string Veneer {
             get {
                 return ResourceManager.GetString("Veneer", resourceCulture);
             }
@@ -541,7 +541,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Wood-Plastic-Composites (WPC).
         /// </summary>
-        internal static string WoodplasticComposites_WPC {
+        public static string WoodplasticComposites_WPC {
             get {
                 return ResourceManager.GetString("WoodplasticComposites_WPC", resourceCulture);
             }
