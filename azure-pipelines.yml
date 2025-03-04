@@ -117,15 +117,6 @@ stages:
             C3PODisableCache: true
           condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
 
-        - template: common-tasks/list-agent-directory/template.yml@templates
-  
-        - task: DotNetCoreCLI@2
-          displayName: Build projects
-          inputs:
-            command: 'build'
-            projects: '**/*.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
-
         - task: ResourceTranslation@3
           displayName: 'ResourceTranslation Enums'
           inputs:
@@ -144,7 +135,7 @@ stages:
         - task: DotNetCoreCLI@2
           displayName: Build projects
           inputs:
-            command: 'pack'
+            command: 'build'
             projects: '**/*.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
