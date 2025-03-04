@@ -108,7 +108,7 @@ stages:
             C3POWorkingFolder: '$(Build.SourcesDirectory)'
             RecursiveSearch: true
             C3POLanguages: 'RON,ITA,DAN,NLD,CHS,FRA,POL,ESN,ENU,CES,SLK,SLV,BUL,PTG,HUN,JPN,KOR,ELL,HRV'
-            AssemblyMaskList: '*HomagConnect.MaterialManager.Contracts.dll;*HomagConnect.Base.Contracts.dll'
+            AssemblyMaskList: '*DisplayNames.resx'
             WorkingDirectoryList: '..\s\Applications'
             C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=tb10bow -useenglish'
             C3PORetryCounter: '3'
