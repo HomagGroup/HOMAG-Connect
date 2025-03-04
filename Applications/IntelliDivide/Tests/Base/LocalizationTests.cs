@@ -41,6 +41,7 @@ namespace HomagConnect.IntelliDivide.Tests.Base
             displayNames.Trace();
         }
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 3, 10, "DF-Foundation")]
         public void Localization_BoardMatCat()
         {
             var displayNames = EnumExtensions.GetDisplayNames<BoardMaterialCategory>(CultureInfo.GetCultureInfo("de"));
