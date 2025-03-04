@@ -107,22 +107,6 @@ stages:
             C3POCustomFolder: true
             C3POWorkingFolder: '$(Build.SourcesDirectory)'
             RecursiveSearch: true
-#            C3POLanguages: '$(C3PO_LANGUAGES_DIGITAL_APPS)'
-            C3POLanguages: 'ENU'
-            AssemblyMaskList: '*DisplayNames.resx'
-            WorkingDirectoryList: '..\s\Applications'
-            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=tb10bow -useenglish'
-            C3PORetryCounter: '3'
-            C3POTimeout: '240'
-            C3PODisableCache: true
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
-
-        - task: ResourceTranslation@3
-          displayName: 'ResourceTranslation Enums'
-          inputs:
-            C3POCustomFolder: true
-            C3POWorkingFolder: '$(Build.SourcesDirectory)'
-            RecursiveSearch: true
             C3POLanguages: 'RON,ITA,DAN,NLD,CHS,FRA,POL,ESN,ENU,CES,SLK,SLV,BUL,PTG,HUN,JPN,KOR,ELL,HRV'
             AssemblyMaskList: '*HomagConnect.MaterialManager.Contracts.dll;*HomagConnect.Base.Contracts.dll'
             WorkingDirectoryList: '..\s\Applications'
@@ -139,8 +123,6 @@ stages:
             projects: '**/*.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
-        - template: common-tasks/list-agent-directory/template.yml@templates
-  
         - task: DotNetCoreCLI@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
           env:
@@ -152,6 +134,8 @@ stages:
             projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
+        - template: common-tasks/list-agent-directory/template.yml@templates
+  
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
