@@ -31,11 +31,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Material\Boards\Enumerations\BoardMaterialCategoryDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>BoardMaterialCategoryDisplayNames.resx</DependentUpon>
-	  </Compile>
 	  <Compile Update="Material\Boards\Enumerations\StandardQualityDisplayNames.Designer.cs">
 	    <DependentUpon>StandardQualityDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
