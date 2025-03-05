@@ -1,6 +1,7 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
+using System.Text;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -74,6 +75,38 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<Order> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
 
         #endregion
+
+        #region Order deletion
+
+        /// <summary>
+        /// Deletes an order by its id
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task DeleteOrderByOrderId(string orderId);
+
+        /// <summary>
+        /// Deletes multiple orders by their ids
+        /// </summary>
+        /// <param name="orderIds"></param>
+        /// <returns></returns>
+        Task DeleteOrderByOrderIds(string[] orderIds);
+
+        /// <summary>
+        /// Deletes an order by its order number
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <returns></returns>
+        Task DeleteOrderByOrderNumber(string orderNumber);
+
+        /// <summary>
+        /// Deletes multiple orders by their order numbers
+        /// </summary>
+        /// <param name="orderNumbers"></param>
+        /// <returns></returns>
+        Task DeleteOrderByOrderNumbers(string[] orderNumbers);
+
+        #endregion Order deletion
 
         #region Production prediction
 

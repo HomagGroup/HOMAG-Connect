@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
@@ -15,6 +16,7 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -240,6 +242,46 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         #endregion
+
+        #region Order deletion
+
+        /// <inheritdoc />
+        public Task DeleteOrderByOrderId(string orderId)
+        {
+            var url = $"/api/productionManager/orders?orderId={Uri.EscapeDataString(orderId)}";
+            return DeleteObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public Task DeleteOrderByOrderIds(string[] orderIds)
+        {
+            var uri = new StringBuilder($"/api/productionManager/orders?orderId={Uri.EscapeDataString(orderIds[0])}");
+            for (var i = 1; i > orderIds.Length; i++)
+            {
+                uri.Append($"&orderId={Uri.EscapeDataString(orderIds[i])}");
+            }
+            return DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public Task DeleteOrderByOrderNumber(string orderNumber)
+        {
+            var url = $"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumber)}";
+            return DeleteObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public Task DeleteOrderByOrderNumbers(string[] orderNumbers)
+        {
+            var uri = new StringBuilder($"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumbers[0])}");
+            for (var i = 1; i > orderNumbers.Length; i++)
+            {
+                uri.Append($"&orderNumbers={Uri.EscapeDataString(orderNumbers[i])}");
+            }
+            return DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+        }
+
+        #endregion Order deletion
 
         #endregion
 
