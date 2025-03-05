@@ -14,9 +14,9 @@ var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
     EdgebandCode = "EB_White_1mm",
     Height = 20,
     Thickness = 1.0,
-    Length = 23.0,
+    DefaultLength = 23.0,
     MaterialCategory = EdgebandMaterialCategory.Veneer,
-    GluingCategory = GluingCategory.Other,
+    Process = Process.Other,
     // Add other properties
 };
 

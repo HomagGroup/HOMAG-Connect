@@ -47,12 +47,6 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     public double? FunctionLayerThickness { get; set; }
 
     /// <summary>
-    /// Gets or sets the gluing category.
-    /// </summary>
-    [Required]
-    public GluingCategory GluingCategory { get; set; }
-
-    /// <summary>
     /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
     /// inch).
     /// </summary>
@@ -77,6 +71,12 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// </summary>
     [Required]
     public EdgebandMaterialCategory MaterialCategory { get; set; }
+
+    /// <summary>
+    /// Gets or sets the process.
+    /// </summary>
+    [Required]
+    public Process Process { get; set; }
 
     /// <summary>
     /// Gets or sets the protection film thickness.
