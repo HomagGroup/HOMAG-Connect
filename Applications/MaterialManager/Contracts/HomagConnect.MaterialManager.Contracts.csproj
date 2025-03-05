@@ -31,17 +31,52 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Material\Boards\Enumerations\BoardMaterialCategoryDisplayNames.Designer.cs">
+	  <Compile Update="Material\Boards\Enumerations\StandardQualityDisplayNames.Designer.cs">
+	    <DependentUpon>StandardQualityDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
-	    <DependentUpon>BoardMaterialCategoryDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Material\Boards\Enumerations\CoatingCategoryDisplayNames.Designer.cs">
+	    <DependentUpon>CoatingCategoryDisplayNames.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Material\Edgebands\Enumerations\EdgebandMaterialCategoryDisplayNames.Designer.cs">
+	    <DependentUpon>EdgebandMaterialCategoryDisplayNames.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Material\Edgebands\Enumerations\GluingCategoryDisplayNames.Designer.cs">
+	    <DependentUpon>GluingCategoryDisplayNames.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Material\Boards\Enumerations\BoardMaterialCategoryDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>BoardMaterialCategoryDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\BoardMCDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>BoardMCDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\StandardQualityDisplayNames.resx">
+	    <LastGenOutput>StandardQualityDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\CoatingCategoryDisplayNames.resx">
+	    <LastGenOutput>CoatingCategoryDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Edgebands\Enumerations\EdgebandMaterialCategoryDisplayNames.resx">
+	    <LastGenOutput>EdgebandMaterialCategoryDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Edgebands\Enumerations\GluingCategoryDisplayNames.resx">
+	    <LastGenOutput>GluingCategoryDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 
