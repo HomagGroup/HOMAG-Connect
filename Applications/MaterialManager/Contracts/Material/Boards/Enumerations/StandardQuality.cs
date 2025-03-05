@@ -1,8 +1,15 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     /// <summary>
     /// The cutting standard quality.
     /// </summary>
+    [ResourceManager(typeof(StandardQualityDisplayNames))]
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum StandardQuality
     {
         /// <summary>

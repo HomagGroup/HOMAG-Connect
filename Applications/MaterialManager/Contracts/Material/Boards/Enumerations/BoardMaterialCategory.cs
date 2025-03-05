@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.Attributes;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
@@ -8,6 +9,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
     /// Board material category
     /// </summary>
     [ResourceManager(typeof(BoardMaterialCategoryDisplayNames))]
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum BoardMaterialCategory
     {
         // ReSharper disable InconsistentNaming
