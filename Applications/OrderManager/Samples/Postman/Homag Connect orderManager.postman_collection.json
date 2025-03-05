@@ -164,7 +164,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{ConnectHost}}/api/orderManager/orders",
+							"raw": "{{ConnectHost}}/api/orderManager/orders/import",
 							"host": [
 								"{{ConnectHost}}"
 							],
