@@ -21,7 +21,8 @@ trigger:
 variables:
   dotnetVersion: 8.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
-  ProjectName: HomagConnect
+  ProjectName: HomagConnect 
+
   
 stages:
   - stage: retrieve_version_info_from_git
@@ -54,9 +55,13 @@ stages:
 
   - stage: Build
     pool:
-      vmimage: 'windows-latest'
+      #vmimage: 'windows-latest'
+      name: DMG
     variables:
-      BuildConfiguration: Release
+      - name: BuildConfiguration
+        value: Release
+      - group: dftranslationvariables      
+  
     dependsOn: software_composition_analysis_stage
     jobs:
       - job: Build
@@ -100,6 +105,21 @@ stages:
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
             condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
+        - task: ResourceTranslation@3
+          displayName: 'ResourceTranslation Enums'
+          inputs:
+            C3POCustomFolder: true
+            C3POWorkingFolder: '$(Build.SourcesDirectory)'
+            RecursiveSearch: true
+            C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+            AssemblyMaskList: '*DisplayNames.resx'
+            WorkingDirectoryList: '..\s\Applications'
+            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=tb10bow -useenglish'
+            C3PORetryCounter: '3'
+            C3POTimeout: '240'
+            C3PODisableCache: true
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
         - task: DotNetCoreCLI@2
           displayName: Build projects
           inputs:
@@ -118,6 +138,8 @@ stages:
             projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
+        - template: common-tasks/list-agent-directory/template.yml@templates
+  
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
