@@ -1,11 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 {
     /// <summary>
     /// Edgeband material category.
     /// </summary>
-    public enum EdgebandMaterialCategory
+    [ResourceManager(typeof(EdgebandMaterialCategoryDisplayNames))]
+    [JsonConverter(typeof(TolerantEnumConverter))]
+     public enum EdgebandMaterialCategory
     {
         // ReSharper disable InconsistentNaming
         // ReSharper disable IdentifierTypo

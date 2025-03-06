@@ -31,6 +31,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Material\Boards\Enumerations\BoardMaterialCategoryDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>BoardMaterialCategoryDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Material\Boards\Enumerations\StandardQualityDisplayNames.Designer.cs">
 	    <DependentUpon>StandardQualityDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
@@ -46,8 +51,8 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
-	  <Compile Update="Material\Edgebands\Enumerations\GluingCategoryDisplayNames.Designer.cs">
-	    <DependentUpon>GluingCategoryDisplayNames.resx</DependentUpon>
+	  <Compile Update="Material\Edgebands\Enumerations\ProcessDisplayNames.Designer.cs">
+	    <DependentUpon>ProcessDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
@@ -74,8 +79,8 @@
 	    <LastGenOutput>EdgebandMaterialCategoryDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Material\Edgebands\Enumerations\GluingCategoryDisplayNames.resx">
-	    <LastGenOutput>GluingCategoryDisplayNames.Designer.cs</LastGenOutput>
+	  <EmbeddedResource Update="Material\Edgebands\Enumerations\ProcessDisplayNames.resx">
+	    <LastGenOutput>ProcessDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>

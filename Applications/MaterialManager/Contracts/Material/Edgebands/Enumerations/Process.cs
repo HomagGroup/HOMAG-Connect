@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 /// <summary>
 /// Process.
 /// </summary>
+[ResourceManager(typeof(ProcessDisplayNames))]
+[JsonConverter(typeof(TolerantEnumConverter))]
 public enum Process
 {
     // ReSharper disable InconsistentNaming
