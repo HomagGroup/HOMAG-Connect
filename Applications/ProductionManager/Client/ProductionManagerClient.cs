@@ -276,7 +276,7 @@ namespace HomagConnect.ProductionManager.Client
             var uri = new StringBuilder($"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumbers[0])}");
             for (var i = 1; i > orderNumbers.Length; i++)
             {
-                uri.Append($"&orderNumbers={Uri.EscapeDataString(orderNumbers[i])}");
+                uri.Append($"&orderNumber={Uri.EscapeDataString(orderNumbers[i])}");
             }
             return DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
         }
