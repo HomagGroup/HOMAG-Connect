@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "709fe00f-ba6d-4b08-b70b-d80378240b4e",
+		"name": "Homag Connect productionManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Delete by order by order Ids",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/productionManager/orders",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"productionManager",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+									"description": "Add your order id",
+									"disabled": true
+								},
+								{
+									"key": "orderId",
+									"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+									"description": "Add your order id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by order by order numbers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/productionManager/orders",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"productionManager",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "orderNumber",
+									"value": "",
+									"description": "Add your order number",
+									"disabled": true
+								},
+								{
+									"key": "orderNumber",
+									"value": "",
+									"description": "Add your order number",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{ConnectPassword}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{ConnectUserName}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
