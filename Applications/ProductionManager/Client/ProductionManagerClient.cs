@@ -256,7 +256,7 @@ namespace HomagConnect.ProductionManager.Client
         public Task DeleteOrderByOrderIds(string[] orderIds)
         {
             var uri = new StringBuilder($"/api/productionManager/orders?orderId={Uri.EscapeDataString(orderIds[0])}");
-            for (var i = 1; i > orderIds.Length; i++)
+            for (var i = 1; i < orderIds.Length; i++)
             {
                 uri.Append($"&orderId={Uri.EscapeDataString(orderIds[i])}");
             }
@@ -274,7 +274,7 @@ namespace HomagConnect.ProductionManager.Client
         public Task DeleteOrderByOrderNumbers(string[] orderNumbers)
         {
             var uri = new StringBuilder($"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumbers[0])}");
-            for (var i = 1; i > orderNumbers.Length; i++)
+            for (var i = 1; i < orderNumbers.Length; i++)
             {
                 uri.Append($"&orderNumber={Uri.EscapeDataString(orderNumbers[i])}");
             }
