@@ -102,9 +102,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<BoardEntity> GetBoardEntityById(string id)
         {
-            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
-
-            return await RequestObject<BoardEntity>(new Uri(url, UriKind.Relative));
+            return await GetBoardEntitiesByIds([id]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
