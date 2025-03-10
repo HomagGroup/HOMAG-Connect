@@ -8,7 +8,7 @@ namespace HomagConnect.Base.Contracts.Enumerations
     /// <summary>
     /// The type of the board type.
     /// </summary>
-    [ResourceManager(typeof(BoardTypeType))]
+    [ResourceManager(typeof(BoardTypeTypeDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum BoardTypeType
     {
