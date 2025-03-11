@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acrylic composite materials.
+        ///   Looks up a localized string similar to Acrylgebundene Mineralwerkstoffe.
         /// </summary>
         public static string AcrylicCompositeMaterials {
             get {

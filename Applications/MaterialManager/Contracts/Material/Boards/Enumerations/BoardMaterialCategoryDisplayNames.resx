@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcrylicCompositeMaterials" xml:space="preserve">
-    <value>Acrylic composite materials</value>
+    <value>Acrylgebundene Mineralwerkstoffe</value>
     <comment>Acrylic composite materials</comment>
   </data>
   <data name="AcrylicGlass_PMMA" xml:space="preserve">
