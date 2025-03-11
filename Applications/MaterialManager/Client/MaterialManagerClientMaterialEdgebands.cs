@@ -50,17 +50,13 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     /// <inheritdoc />
     public async Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
     {
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
-
-        return await RequestObject<EdgebandType>(new Uri(url, UriKind.Relative));
+        return await GetEdgebandTypesByEdgebandCodes([edgebandCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
     public async Task<EdgebandTypeDetails> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
     {
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}&{_IncludingDetails}=true";
-
-        return await RequestObject<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
+        return await GetEdgebandTypesByEdgebandCodesIncludingDetails([edgebandCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />

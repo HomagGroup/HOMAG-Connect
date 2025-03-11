@@ -1,4 +1,5 @@
 ﻿using System.Text;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -58,7 +59,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
         }
-        
+
         /// <inheritdoc />
         public async Task<EdgebandEntity> CreateEdgebandEntity(MaterialAssistRequestEdgebandEntity edgebandEntityRequest)
         {
@@ -156,9 +157,7 @@ namespace HomagConnect.MaterialAssist.Client
         /// <inheritdoc />
         public async Task<EdgebandEntity> GetEdgebandEntityById(string id)
         {
-            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
-
-            return await RequestObject<EdgebandEntity>(new Uri(url, UriKind.Relative));
+            return await GetEdgebandEntitiesByIds([id]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />

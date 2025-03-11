@@ -182,17 +182,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
     {
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
-
-        return await RequestObject<BoardType>(new Uri(url, UriKind.Relative));
+        return await GetBoardTypesByBoardCodes([boardCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
     public async Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
     {
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}&{_IncludingDetails}=true";
-
-        return await RequestObject<BoardTypeDetails>(new Uri(url, UriKind.Relative));
+        return await GetBoardTypesByBoardCodesIncludingDetails([boardCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
