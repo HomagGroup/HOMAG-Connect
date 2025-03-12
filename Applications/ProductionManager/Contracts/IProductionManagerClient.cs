@@ -114,28 +114,28 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="lotId"></param>
         /// <returns></returns>
-        Task DeleteOrDecomposeLotById(string lotId);
+        Task DeleteOrDecomposeLotByLotId(string lotId);
 
         /// <summary>
         /// Deletes or decomposes lots by their ids
         /// </summary>
         /// <param name="lotIds"></param>
         /// <returns></returns>
-        Task DeleteOrDecomposeLotsByIds(string[] lotIds);
+        Task DeleteOrDecomposeLotsByLotIds(string[] lotIds);
 
         /// <summary>
         /// Deletes or decomposes a lot by its name
         /// </summary>
         /// <param name="lotName"></param>
         /// <returns></returns>
-        Task DeleteOrDecomposeLotByName(string lotName);
+        Task DeleteOrDecomposeLotByLotName(string lotName);
 
         /// <summary>
         /// Deletes or decomposes lots by their names
         /// </summary>
         /// <param name="lotNames"></param>
         /// <returns></returns>
-        Task DeleteOrDecomposeLotsByNames(string[] lotNames);
+        Task DeleteOrDecomposeLotsByLotNames(string[] lotNames);
 
         #endregion
 

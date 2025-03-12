@@ -285,13 +285,13 @@ namespace HomagConnect.ProductionManager.Client
         #region Lot deletion
 
         /// <inheritdoc />
-        public async Task DeleteOrDecomposeLotById(string lotId)
+        public async Task DeleteOrDecomposeLotByLotId(string lotId)
         {
             await DeleteOrDecomposeLotsByIds([lotId]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task DeleteOrDecomposeLotsByIds(string[] lotIds)
+        public async Task DeleteOrDecomposeLotsByLotIds(string[] lotIds)
         {
             var uri = new StringBuilder($"/api/productionManager/lots?lotId={Uri.EscapeDataString(lotIds[0])}");
             for (var i = 1; i < lotIds.Length; i++)
@@ -303,13 +303,13 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public async Task DeleteOrDecomposeLotByName(string lotName)
+        public async Task DeleteOrDecomposeLotByLotName(string lotName)
         {
             await DeleteOrDecomposeLotsByNames([lotName]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task DeleteOrDecomposeLotsByNames(string[] lotNames)
+        public async Task DeleteOrDecomposeLotsByLotNames(string[] lotNames)
         {
             var uri = new StringBuilder($"/api/productionManager/lots?lotName={Uri.EscapeDataString(lotNames[0])}");
             for (var i = 1; i < lotNames.Length; i++)
