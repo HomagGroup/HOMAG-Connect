@@ -311,10 +311,10 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrDecomposeLotsByNames(string[] lotNames)
         {
-            var uri = new StringBuilder($"/api/productionManager/lots?lotNames={Uri.EscapeDataString(lotNames[0])}");
+            var uri = new StringBuilder($"/api/productionManager/lots?lotName={Uri.EscapeDataString(lotNames[0])}");
             for (var i = 1; i < lotNames.Length; i++)
             {
-                uri.Append($"&lotNames={Uri.EscapeDataString(lotNames[i])}");
+                uri.Append($"&lotName={Uri.EscapeDataString(lotNames[i])}");
             }
 
             await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
