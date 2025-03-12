@@ -16,7 +16,6 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
 using Newtonsoft.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -246,42 +245,82 @@ namespace HomagConnect.ProductionManager.Client
         #region Order deletion
 
         /// <inheritdoc />
-        public Task DeleteOrderByOrderId(string orderId)
+        public async Task DeleteOrderByOrderId(string orderId)
         {
-            var url = $"/api/productionManager/orders?orderId={Uri.EscapeDataString(orderId)}";
-            return DeleteObject(new Uri(url, UriKind.Relative));
+            await DeleteOrdersByOrderIds([orderId]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public Task DeleteOrderByOrderIds(string[] orderIds)
+        public async Task DeleteOrdersByOrderIds(string[] orderIds)
         {
             var uri = new StringBuilder($"/api/productionManager/orders?orderId={Uri.EscapeDataString(orderIds[0])}");
             for (var i = 1; i < orderIds.Length; i++)
             {
                 uri.Append($"&orderId={Uri.EscapeDataString(orderIds[i])}");
             }
-            return DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+
+            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public Task DeleteOrderByOrderNumber(string orderNumber)
+        public async Task DeleteOrderByOrderNumber(string orderNumber)
         {
-            var url = $"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumber)}";
-            return DeleteObject(new Uri(url, UriKind.Relative));
+            await DeleteOrdersByOrderNumbers([orderNumber]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public Task DeleteOrderByOrderNumbers(string[] orderNumbers)
+        public async Task DeleteOrdersByOrderNumbers(string[] orderNumbers)
         {
             var uri = new StringBuilder($"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumbers[0])}");
             for (var i = 1; i < orderNumbers.Length; i++)
             {
                 uri.Append($"&orderNumber={Uri.EscapeDataString(orderNumbers[i])}");
             }
-            return DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+
+            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
         }
 
         #endregion Order deletion
+
+        #region Lot deletion
+
+        /// <inheritdoc />
+        public async Task DeleteOrDecomposeLotById(string lotId)
+        {
+            await DeleteOrDecomposeLotsByIds([lotId]).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteOrDecomposeLotsByIds(string[] lotIds)
+        {
+            var uri = new StringBuilder($"/api/productionManager/lots?lotId={Uri.EscapeDataString(lotIds[0])}");
+            for (var i = 1; i < lotIds.Length; i++)
+            {
+                uri.Append($"&lotId={Uri.EscapeDataString(lotIds[i])}");
+            }
+
+            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteOrDecomposeLotByName(string lotName)
+        {
+            await DeleteOrDecomposeLotsByNames([lotName]).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteOrDecomposeLotsByNames(string[] lotNames)
+        {
+            var uri = new StringBuilder($"/api/productionManager/lots?lotNames={Uri.EscapeDataString(lotNames[0])}");
+            for (var i = 1; i < lotNames.Length; i++)
+            {
+                uri.Append($"&lotNames={Uri.EscapeDataString(lotNames[i])}");
+            }
+
+            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+        }
+
+        #endregion Lot deletion
 
         #endregion
 

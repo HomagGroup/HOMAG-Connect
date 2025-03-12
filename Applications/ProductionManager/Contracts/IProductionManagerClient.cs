@@ -1,7 +1,6 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
-using System.Text;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -90,7 +89,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="orderIds"></param>
         /// <returns></returns>
-        Task DeleteOrderByOrderIds(string[] orderIds);
+        Task DeleteOrdersByOrderIds(string[] orderIds);
 
         /// <summary>
         /// Deletes an order by its order number
@@ -104,9 +103,41 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="orderNumbers"></param>
         /// <returns></returns>
-        Task DeleteOrderByOrderNumbers(string[] orderNumbers);
+        Task DeleteOrdersByOrderNumbers(string[] orderNumbers);
 
         #endregion Order deletion
+
+        #region Lot deletion
+
+        /// <summary>
+        /// Deletes or decomposes a lot by its id
+        /// </summary>
+        /// <param name="lotId"></param>
+        /// <returns></returns>
+        Task DeleteOrDecomposeLotById(string lotId);
+
+        /// <summary>
+        /// Deletes or decomposes lots by their ids
+        /// </summary>
+        /// <param name="lotIds"></param>
+        /// <returns></returns>
+        Task DeleteOrDecomposeLotsByIds(string[] lotIds);
+
+        /// <summary>
+        /// Deletes or decomposes a lot by its name
+        /// </summary>
+        /// <param name="lotName"></param>
+        /// <returns></returns>
+        Task DeleteOrDecomposeLotByName(string lotName);
+
+        /// <summary>
+        /// Deletes or decomposes lots by their names
+        /// </summary>
+        /// <param name="lotNames"></param>
+        /// <returns></returns>
+        Task DeleteOrDecomposeLotsByNames(string[] lotNames);
+
+        #endregion
 
         #region Production prediction
 
