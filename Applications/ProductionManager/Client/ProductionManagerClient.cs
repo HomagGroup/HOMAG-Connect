@@ -287,7 +287,7 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrDecomposeLotByLotId(string lotId)
         {
-            await DeleteOrDecomposeLotsByIds([lotId]).ConfigureAwait(false);
+            await DeleteOrDecomposeLotsByLotIds([lotId]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -305,7 +305,7 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrDecomposeLotByLotName(string lotName)
         {
-            await DeleteOrDecomposeLotsByNames([lotName]).ConfigureAwait(false);
+            await DeleteOrDecomposeLotsByLotNames([lotName]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
