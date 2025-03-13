@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -109,9 +110,15 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     public double? FunctionLayerThickness { get; set; }
 
     /// <summary>
-    /// Gets or sets the macro name.
+    /// Gets or sets the technology macro name.
     /// </summary>
-    public string? MacroName { get; set; }
+    [StringLength(50)]
+    public string? TechnologyMacro { get; set; }
+
+    /// <summary>
+    /// Gets or sets the technology macro name by tapio machine id as the key.
+    /// </summary>
+    public IDictionary<string, string>? MachineTechnologyMacro { get; set; }
 
     #endregion
 

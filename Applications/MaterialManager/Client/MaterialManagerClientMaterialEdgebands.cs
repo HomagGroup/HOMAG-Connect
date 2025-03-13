@@ -11,6 +11,7 @@ using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
+using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -136,6 +137,25 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     public Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack)
     {
         return GetEdgebandTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<string>> GetTechnologyMacrosFromMachine(string tapioMachineId)
+    {
+        if (tapioMachineId == null)
+        {
+            throw new ArgumentNullException(nameof(tapioMachineId));
+        }
+
+        var url = $"{_BaseRoute}/macros?tapioMachineId={Uri.EscapeDataString(tapioMachineId)}";
+        return await RequestEnumerable<string>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<TapioMachine>> GetLicensedMachines()
+    {
+        const string url = $"{_BaseRoute}/machines";
+        return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
     }
 
     #region Update

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts;
+using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
@@ -50,6 +51,17 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// Get <see cref="EdgeInventoryHistory" /> inventory history for edgebands<see cref="EdgebandType" />.
         /// </summary>
         Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack);
+
+        /// <summary>
+        /// Get all technology macros for a machine.
+        /// </summary>
+        /// <param name="tapioMachineId">The machine id from tapio.</param>
+        Task<IEnumerable<string>> GetTechnologyMacrosFromMachine(string tapioMachineId);
+
+        /// <summary>
+        /// Get all <see cref="TapioMachine" /> licensed for material api. />.
+        /// </summary>
+        Task<IEnumerable<TapioMachine>> GetLicensedMachines();
 
         /// <summary>
         /// Gets all edgebands.

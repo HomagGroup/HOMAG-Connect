@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
@@ -61,10 +62,9 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     public double? Lasertec { get; set; }
 
     /// <summary>
-    /// Gets or sets the macro name.
+    /// Gets or sets the technology macro name by tapio machine id as the key.
     /// </summary>
-    [StringLength(50)]
-    public string? MacroName { get; set; }
+    public IDictionary<string, string>? MachineTechnologyMacro { get; set; }
 
     /// <summary>
     /// Gets or sets the material category.
@@ -84,6 +84,12 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
     [Range(0, double.PositiveInfinity)]
     public double? ProtectionFilmThickness { get; set; }
+
+    /// <summary>
+    /// Gets or sets the technology macro name.
+    /// </summary>
+    [StringLength(50)]
+    public string? TechnologyMacro { get; set; }
 
     /// <summary>
     /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
