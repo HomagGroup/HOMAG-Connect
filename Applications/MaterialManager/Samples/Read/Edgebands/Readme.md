@@ -55,7 +55,7 @@ public class TapioMachine
 
 Technology macros can be set explicitly for a machine when [creating](../../Create/Edgebands/Readme.md) or [updating](../../Update/Edgebands/Readme.md) an `EdgebandType`. This is required when materialManager works together with the HOMAG woodCommander Software.
 
-The `EdgebandType` and its update and reate objects contain these macro properties:
+The `EdgebandType` and its update and create objects contain these macro properties:
 
 ```csharp
     /// <summary>
