@@ -6,91 +6,190 @@
 	},
 	"item": [
 		{
-			"name": "Delete",
+			"name": "Orders",
 			"item": [
 				{
-					"name": "Delete by order by order Ids",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/productionManager/orders",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"productionManager",
-								"orders"
-							],
-							"query": [
-								{
-									"key": "orderId",
-									"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
-									"description": "Add your order id",
-									"disabled": true
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete by order by order Ids",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "orderId",
-									"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
-									"description": "Add your order id",
-									"disabled": true
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orders",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "orderId",
+											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+											"description": "Add your order id",
+											"disabled": true
+										},
+										{
+											"key": "orderId",
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Add your order id",
+											"disabled": true
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Delete by order by order numbers",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orders",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "orderNumber",
+											"value": "300",
+											"description": "Add your order number",
+											"disabled": true
+										},
+										{
+											"key": "orderNumber",
+											"value": "200",
+											"description": "Add your order number",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
+					]
+				}
+			]
+		},
+		{
+			"name": "Lots",
+			"item": [
 				{
-					"name": "Delete by order by order numbers",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/productionManager/orders",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"productionManager",
-								"orders"
-							],
-							"query": [
-								{
-									"key": "orderNumber",
-									"value": "",
-									"description": "Add your order number",
-									"disabled": true
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete or decompose lots by lot ids",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "orderNumber",
-									"value": "",
-									"description": "Add your order number",
-									"disabled": true
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/lots",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"lots"
+									],
+									"query": [
+										{
+											"key": "lotId",
+											"value": "56a48b72-1f5f-43c4-a011-e8a600154829",
+											"description": "Add your lot id",
+											"disabled": true
+										},
+										{
+											"key": "lotId",
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Add your lot id",
+											"disabled": true
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Delete or decompose lots by lot names",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/lots",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"lots"
+									],
+									"query": [
+										{
+											"key": "lotName",
+											"value": "Your_Name1",
+											"description": "Add your lot name",
+											"disabled": true
+										},
+										{
+											"key": "lotName",
+											"value": "Your_Name2",
+											"description": "Add your lot name",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
