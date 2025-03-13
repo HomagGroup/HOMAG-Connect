@@ -90,6 +90,31 @@ public class EdgebandTypeTests : MaterialManagerTestBase
         Assert.AreNotEqual(edgebandTypeMetric.TotalLengthAvailableWarningLimit, edgebandTypeImperial.TotalLengthAvailableWarningLimit);
     }
 
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
+    public async Task Machines_GetAll_ReturnsData()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+
+        var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
+
+        machines.Should().NotBeNullOrEmpty("Machines should be assigned to test subscription.");
+    }
+    
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
+    public async Task TechnologyMacros_GetByMachine_ReturnsData()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+
+        var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
+        var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(machines.First().TapioMachineId);
+        
+        macros.Should().NotBeNull();
+    }
+
     private static async Task EdgebandType_CreateEdgebandType_Cleanup(MaterialManagerClient materialManagerClient, string edgebandCode)
     {
         var existingEdgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode]);
