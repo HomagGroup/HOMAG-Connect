@@ -147,7 +147,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(tapioMachineId));
         }
 
-        var url = $"{_BaseRoute}/macros?tapioMachineId={Uri.EscapeDataString(tapioMachineId)}";
+        var url = $"{_BaseRoute}/machines/{Uri.EscapeDataString(tapioMachineId)}/macros";
         return await RequestEnumerable<string>(new Uri(url, UriKind.Relative));
     }
 
