@@ -3,7 +3,7 @@
     /// <summary>
     /// A configuration group.
     /// </summary>
-    public class ConfigurationGroup : Group
+    public class ConfigurationGroup : Base
     {
         /// <inheritdoc />
         public override Type Type

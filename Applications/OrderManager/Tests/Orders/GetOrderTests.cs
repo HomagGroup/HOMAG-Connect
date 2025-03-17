@@ -144,6 +144,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 new Group()
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
                     Items = new()
                     {
                         new ConfigurationPosition
