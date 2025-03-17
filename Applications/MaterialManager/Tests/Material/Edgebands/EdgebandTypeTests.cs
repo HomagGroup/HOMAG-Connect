@@ -30,7 +30,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
+    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
     public async Task EdgebandType_CreateEdgebandTypeWithAdditionalDataImage()
     {
         var materialManagerClient = GetMaterialManagerClient();
@@ -92,8 +92,8 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
-    public async Task Machines_GetAll_ReturnsData()
+    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
+    public async Task EdgebandType_Machines_GetAll_ReturnsData()
     {
         var materialManagerClient = GetMaterialManagerClient();
 
@@ -104,8 +104,8 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 3, 15, "DF-Material")]
-    public async Task TechnologyMacros_GetByMachine_ReturnsData()
+    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
+    public async Task EdgebandType_TechnologyMacros_GetByMachine_ReturnsData()
     {
         var materialManagerClient = GetMaterialManagerClient();
 
