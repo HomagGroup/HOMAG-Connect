@@ -144,6 +144,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 new Group()
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
                     Items = new()
                     {
                         new ConfigurationPosition
@@ -231,6 +233,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                     Notes = "This is a room (ONE roomle planner id)",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
                     AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
                     {
                         { "roomlePlannerId", "ps_4ejnf8ese0jwgmtan2ltzki0io473a8" },
@@ -338,6 +342,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 {
                     Id = "4468B97A-F8C2-4456-BC56-A0C568F4470C",
                     Notes = "This is a 2nd room (ONE roomle planner id)",
+                    Name = "Test2",
+                    Source = "OrderConfigurator",
                     AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
                     {
                         { "roomlePlannerId", "ps_ai687h32o22vdn7twtiqij3e810sjde" },
@@ -455,6 +461,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 new Group()
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
                     Items = new()
                     {
                         new ConfigurationPosition
