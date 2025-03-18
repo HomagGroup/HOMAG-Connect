@@ -38,7 +38,15 @@ namespace HomagConnect.OrderManager.Samples
         /// <summary />
         public static async Task GetAllOrdersHavingStatusNewOrInProduction(IOrderManagerClient orderManager)
         {
-            var response = await orderManager.GetOrders(new[] { OrderState.New, OrderState.InProduction }, 5);
+            var response = await orderManager.GetOrders([OrderState.New, OrderState.InProduction], 5);
+
+            response.Trace();
+        }
+
+        /// <summary />
+        public static async Task GetOrdersHavingThePassedOrderNumbers(IOrderManagerClient orderManager)
+        {
+            var response = await orderManager.GetOrders(["10000001"]);
 
             response.Trace();
         }
@@ -59,8 +67,6 @@ namespace HomagConnect.OrderManager.Samples
                 "Lorem ipsum dolor sit amet...";
             order.OrderDate = DateTime.Today;
             order.DeliveryDatePlanned = DateTime.Today.AddDays(14);
-
-            order.Link = new Uri($"https://orderManager.homag.cloud/#/subscriptionId/orders/{order.OrderNumber}");
 
             // Addresses
             order.Addresses = new Collection<Address>(new List<Address>
@@ -213,8 +219,6 @@ namespace HomagConnect.OrderManager.Samples
                     Currency = "EUR"
                 }
             };
-
-            
 
             return order;
         }

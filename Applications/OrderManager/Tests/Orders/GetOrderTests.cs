@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+
 using FluentAssertions;
+
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -10,6 +12,7 @@ using HomagConnect.OrderManager.Contracts.Orders;
 using HomagConnect.OrderManager.Samples;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Tests.Orders
@@ -17,9 +20,153 @@ namespace HomagConnect.OrderManager.Tests.Orders
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders")]
-   
     public sealed class GetOrderTests : OrderManagerTestBase
     {
+        [TestMethod]
+        public void GetOrderWithConfigAndParts()
+        {
+            var order = new OrderDetails();
+
+            // Header
+
+            order.OrderNumber = "736362";
+            order.State = OrderState.New;
+            order.OrderName = "Bedroom & bathroom 01";
+            order.Project = "Single family house Müller John";
+            order.PersonInCharge = "Joe";
+            order.OrderDescription = "Lorem ipsum dolor sit amet...";
+            order.OrderDate = DateTime.Today;
+            order.DeliveryDatePlanned = DateTime.Today.AddDays(14);
+
+            order.Link = new Uri($"https://orderManager.homag.cloud/#/subscriptionId/orders/{order.OrderNumber}");
+
+            // Addresses
+            order.Addresses = new Collection<Address>(new List<Address>
+            {
+                new()
+                {
+                    Street = "Musterstraße",
+                    HouseNumber = "1",
+                    PostalCode = "12345",
+                    City = "Musterstadt",
+                    Country = "Deutschland",
+                    Type = AddressType.Delivery | AddressType.Billing
+                }
+            });
+
+            // Customer
+
+            order.CustomerName = "Müller & Co.";
+            order.CustomerNumber = "462642";
+
+            // Details
+
+            order.CreatedAt = DateTimeOffset.Now;
+            order.ChangedAt = DateTimeOffset.Now;
+            order.ChangedBy = "Selfish";
+
+            // Order Items
+
+            order.Items = new()
+            {
+                new Group()
+                {
+                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                    Items = new()
+                    {
+                        new ConfigurationPosition
+                        {
+                            Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+                            LibraryId = "CabinetLibrary",
+                            ModuleId = "mr_StorageunitSingle",
+                            Attributes = new()
+                            {
+                                new ConfigurationAttribute("mod_Depth", 548),
+                                new ConfigurationAttribute("mod_Height", 900),
+                                new ConfigurationAttribute("mod_Width", 600),
+                                new ConfigurationAttribute("color", "white")
+                            },
+                            Items = new()
+                            {
+                                new Part
+                                {
+                                    Id = "P 01.01",
+                                    Quantity = 4,
+                                    Description = "Cabinet left",
+                                    Notes = "Lorem ipsum",
+                                    Length = 250,
+                                    Width = 100,
+                                    Thickness = 150
+                                },
+                                new Configuration
+                                {
+                                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                                    ModuleId = "mf_Door",
+                                    Attributes = new()
+                                    {
+                                        new ConfigurationAttribute("mod_FrontHeight", 705)
+                                    },
+                                    Items = new()
+                                    {
+                                        new Part
+                                        {
+                                            Id = "P 01.02",
+                                            Quantity = 6,
+                                            Description = "Front panel",
+                                            Notes = "Lorem ipsum",
+                                            Length = 250,
+                                            Width = 100,
+                                            Thickness = 16,
+                                            Items = new()
+                                            {
+                                                new Resource
+                                                {
+                                                    Id = "P 01.02.01",
+                                                    Quantity = 1,
+                                                    Description = "Hinge",
+                                                    Notes = "Lorem ipsum",
+                                                    ArticleNumber = "67840.01"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            order.Trace(nameof(order));
+
+            // Try to serialize and deserialize it
+            var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
+            var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
+            o.Should().BeEquivalentTo(order);
+        }
+
+        /// <summary />
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025, 03, 28, "DF-Production")]
+        public async Task Orders_GetAllOrders_NoException()
+        {
+            var orderManager = GetOrderManagerClient();
+
+            var anyException = false;
+
+            try
+            {
+                await GetOrderSamples.GetAllOrdersAsync(orderManager);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
         /// <summary />
         [TestMethod]
         [TemporaryDisabledOnServer(2025, 03, 28, "DF-Production")]
@@ -64,10 +211,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
             Assert.IsFalse(anyException);
         }
 
-        /// <summary />
         [TestMethod]
         [TemporaryDisabledOnServer(2025, 03, 28, "DF-Production")]
-        public async Task Orders_GetAllOrders_NoException()
+        public async Task Orders_GetOrdersHavingThePassedOrderNumbers_NoException()
         {
             var orderManager = GetOrderManagerClient();
 
@@ -75,7 +221,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
             try
             {
-                await GetOrderSamples.GetAllOrdersAsync(orderManager);
+                await GetOrderSamples.GetOrdersHavingThePassedOrderNumbers(orderManager);
             }
             catch (Exception e)
             {
@@ -151,7 +297,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                             Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
                             LibraryId = "CabinetLibrary",
                             ModuleId = "mr_StorageunitSingle",
-                            Attributes = new ()
+                            Attributes = new()
                             {
                                 new ConfigurationAttribute("mod_Depth", 548),
                                 new ConfigurationAttribute("mod_Height", 900),
@@ -260,7 +406,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 0, 0, 0 },
                                     Rotation = new double[] { 0, 0, 0 },
-                                    Attributes = new ()
+                                    Attributes = new()
                                     {
                                         new ConfigurationAttribute("mod_Depth", 548),
                                         new ConfigurationAttribute("mod_Height", 2000),
@@ -274,7 +420,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                                             Notes = "This is a SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new ()
+                                            Attributes = new()
                                             {
                                                 new ConfigurationAttribute("mod_FrontHeight", 800)
                                             }
@@ -284,7 +430,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "61029b65-730a-47de-9c5a-2cbc4cce3fc4",
                                             Notes = "This is a 2nd SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new ()
+                                            Attributes = new()
                                             {
                                                 new ConfigurationAttribute("mod_FrontHeight", 9999)
                                             }
@@ -299,7 +445,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     LibraryId = "CabinetLibrary",
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 1000, 0, 0 },
-                                    Attributes = new ()
+                                    Attributes = new()
                                     {
                                         new ConfigurationAttribute("mod_Depth", 548),
                                         new ConfigurationAttribute("mod_Height", 2000),
@@ -313,7 +459,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "810BE6A4-17A2-47C1-A4C7-392ECE5FF584",
                                             Notes = "This is a SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new ()
+                                            Attributes = new()
                                             {
                                                 new ConfigurationAttribute("mod_FrontHeight", 800)
                                             }
@@ -323,7 +469,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Id = "1CCF8E5C-556A-4356-B254-7C597CC98538",
                                             Notes = "This is a 2nd SUB module",
                                             ModuleId = "mf_Door",
-                                            Attributes = new ()
+                                            Attributes = new()
                                             {
                                                 new ConfigurationAttribute("mod_FrontHeight", 9999)
                                             }
@@ -367,7 +513,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 0, 0, 0 },
                                     Rotation = new double[] { 0, 0, 0 },
-                                    Attributes = new ()
+                                    Attributes = new()
                                     {
                                         new ConfigurationAttribute("mod_Depth", 548),
                                         new ConfigurationAttribute("mod_Height", 1800),
@@ -383,136 +529,13 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     LibraryId = "CabinetLibrary",
                                     ModuleId = "mr_StorageunitSingle",
                                     Position = new double[] { 600, 0, 0 },
-                                    Attributes = new ()
+                                    Attributes = new()
                                     {
                                         new ConfigurationAttribute("mod_Depth", 548),
                                         new ConfigurationAttribute("mod_Height", 2000),
                                         new ConfigurationAttribute("mod_Width", 1000),
                                         new ConfigurationAttribute("mod_TypeElement", "TallUnit")
                                     },
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            order.Trace(nameof(order));
-
-            // Try to serialize and deserialize it
-            var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
-            var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
-        }
-
-        [TestMethod]
-        public void GetOrderWithConfigAndParts()
-        {
-            var order = new OrderDetails();
-
-            // Header
-
-            order.OrderNumber = "736362";
-            order.State = OrderState.New;
-            order.OrderName = "Bedroom & bathroom 01";
-            order.Project = "Single family house Müller John";
-            order.PersonInCharge = "Joe";
-            order.OrderDescription = "Lorem ipsum dolor sit amet...";
-            order.OrderDate = DateTime.Today;
-            order.DeliveryDatePlanned = DateTime.Today.AddDays(14);
-
-            order.Link = new Uri($"https://orderManager.homag.cloud/#/subscriptionId/orders/{order.OrderNumber}");
-
-            // Addresses
-            order.Addresses = new Collection<Address>(new List<Address>
-            {
-                new()
-                {
-                    Street = "Musterstraße",
-                    HouseNumber = "1",
-                    PostalCode = "12345",
-                    City = "Musterstadt",
-                    Country = "Deutschland",
-                    Type = AddressType.Delivery | AddressType.Billing
-                }
-            });
-
-            // Customer
-
-            order.CustomerName = "Müller & Co.";
-            order.CustomerNumber = "462642";
-
-            // Details
-
-            order.CreatedAt = DateTimeOffset.Now;
-            order.ChangedAt = DateTimeOffset.Now;
-            order.ChangedBy = "Selfish";
-
-            // Order Items
-
-            order.Items = new()
-            {
-                new Group()
-                {
-                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
-                    Items = new()
-                    {
-                        new ConfigurationPosition
-                        {
-                            Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
-                            LibraryId = "CabinetLibrary",
-                            ModuleId = "mr_StorageunitSingle",
-                            Attributes = new ()
-                            {
-                                new ConfigurationAttribute("mod_Depth", 548),
-                                new ConfigurationAttribute("mod_Height", 900),
-                                new ConfigurationAttribute("mod_Width", 600),
-                                new ConfigurationAttribute("color", "white")
-                            },
-                            Items = new()
-                            {
-                                new Part
-                                {
-                                    Id = "P 01.01",
-                                    Quantity = 4,
-                                    Description = "Cabinet left",
-                                    Notes = "Lorem ipsum",
-                                    Length = 250,
-                                    Width = 100,
-                                    Thickness = 150
-                                },
-                                new Configuration
-                                {
-                                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
-                                    ModuleId = "mf_Door",
-                                    Attributes = new ()
-                                    {
-                                        new ConfigurationAttribute("mod_FrontHeight", 705)
-                                    },
-                                    Items = new()
-                                    {
-                                        new Part
-                                        {
-                                            Id = "P 01.02",
-                                            Quantity = 6,
-                                            Description = "Front panel",
-                                            Notes = "Lorem ipsum",
-                                            Length = 250,
-                                            Width = 100,
-                                            Thickness = 16,
-                                            Items = new()
-                                            {
-                                                new Resource
-                                                {
-                                                    Id = "P 01.02.01",
-                                                    Quantity = 1,
-                                                    Description = "Hinge",
-                                                    Notes = "Lorem ipsum",
-                                                    ArticleNumber = "67840.01"
-                                                }
-                                            }
-                                        }
-                                    }
                                 }
                             }
                         }
