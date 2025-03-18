@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -16,13 +17,15 @@ using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 
 using Newtonsoft.Json;
-using static System.Net.WebRequestMethods;
 
 namespace HomagConnect.OrderManager.Client
 {
     /// <inheritdoc cref="IOrderManagerClient" />
     public class OrderManagerClient : ServiceBase, IOrderManagerClient
     {
+        private static readonly string _BaseRoute = "api/orderManager";
+        private static readonly string _OrderRoute = $"{_BaseRoute}/orders";
+
         /// <inheritdoc />
         public OrderManagerClient(HttpClient client) : base(client) { }
 
@@ -37,16 +40,14 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<OrderOverview>> GetOrders(int take, int skip = 0)
         {
-            var url = $"/api/orderManager/orders?take={take}&skip={skip}";
-            var orders = await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
-
-            return orders;
+            var url = $"{_OrderRoute}?take={take}&skip={skip}";
+            return await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public Task<IEnumerable<OrderOverview>> GetOrders(OrderState orderState, int take, int skip = 0)
+        public async Task<IEnumerable<OrderOverview>> GetOrders(OrderState orderState, int take, int skip = 0)
         {
-            return GetOrders([orderState], take, skip);
+            return await GetOrders([orderState], take, skip);
         }
 
         /// <inheritdoc />
@@ -55,16 +56,23 @@ namespace HomagConnect.OrderManager.Client
             var uris = orderState
                 .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
                 .Join(QueryParametersMaxLength)
-                .Select(c => $"/api/orderManager/orders?take={take}&skip={skip}" + c)
+                .Select(c => $"{_OrderRoute}?take={take}&skip={skip}" + c)
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
         /// <inheritdoc />
-        public Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
+        public async Task<IEnumerable<OrderOverview>> GetOrders(string[] orderNumbers)
         {
-            throw new NotImplementedException();
+            var uris = orderNumbers
+                .Select(code => $"&orderNumber={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_OrderRoute}" + parameter)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
         #endregion
@@ -72,15 +80,17 @@ namespace HomagConnect.OrderManager.Client
         #region Order details
 
         /// <inheritdoc />
-        public Task<OrderDetails> GetOrder(Guid orderId)
+        public async Task<OrderDetails> GetOrder(Guid orderId)
         {
-            throw new NotImplementedException();
+            var uri = $"{_OrderRoute}/{orderId}";
+            return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public Task<OrderDetails> GetOrder(string orderNumber)
+        public async Task<OrderDetails> GetOrder(string orderNumber)
         {
-            throw new NotImplementedException();
+            var uri = $"{_OrderRoute}/{Uri.EscapeDataString(orderNumber)}";
+            return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 
         #endregion
@@ -95,7 +105,7 @@ namespace HomagConnect.OrderManager.Client
                 throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
             }
 
-            const string uri = "api/orderManager/orders";
+            var uri = $"{_OrderRoute}/import";
 
             using var stream = projectFile.OpenRead();
 
@@ -120,7 +130,7 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<ImportOrderResponse> ImportOrderRequest(OrderDetails order)
         {
-            const string uri = "api/orderManager/orders";
+            var uri = $"{_OrderRoute}/import";
 
             var response = await PostObject(new Uri(uri, UriKind.Relative), order);
 
@@ -132,27 +142,137 @@ namespace HomagConnect.OrderManager.Client
         }
 
         /// <inheritdoc />
-        public Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
+        public async Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
         {
-            throw new NotImplementedException();
+            var uri = $"{_OrderRoute}/import/{correlationId}";
+            return await RequestObject<ImportOrderStateResponse>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public Task<OrderOverview> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration)
+        public async Task<OrderDetails> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration)
         {
-            throw new NotImplementedException();
+            var timeout = DateTime.Now + maxDuration;
+
+            while (DateTime.Now < timeout)
+            {
+                var currentStatus = await GetImportOrderState(correlationId);
+
+                if (currentStatus.State == ImportState.Succeeded)
+                {
+                    if (currentStatus.OrderId == null)
+                    {
+                        throw new InvalidOperationException("Import succeeded but no order id was returned.");
+                    }
+
+                    var order = await GetOrder(currentStatus.OrderId.Value);
+
+                    return order ?? throw new InvalidOperationException($"Order with id '{currentStatus.OrderId}' not found.");
+                }
+
+                if (currentStatus.State == ImportState.Error)
+                {
+                    throw new ValidationException($"Import failed:{currentStatus.ErrorDetails}");
+                }
+
+                if (currentStatus.State is ImportState.Queued or ImportState.InProgress)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                }
+                else
+                {
+                    throw new NotSupportedException($"Unexpected import state: {currentStatus.State}");
+                }
+            }
+
+            throw new TimeoutException();
         }
 
         /// <inheritdoc />
-        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] referencedFiles)
+        public async Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] fileReferences)
         {
-            throw new NotImplementedException();
+            if (fileReferences == null)
+            {
+                throw new ArgumentNullException(nameof(fileReferences));
+            }
+
+            var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
+
+            if (missingFile != null)
+            {
+                throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
+            }
+
+            var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+
+            if (missingReference != null)
+            {
+                throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+            }
+
+            var uri = $"{_OrderRoute}/{orderNumber}/groups";
+
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            var json = JsonConvert.SerializeObject(group, SerializerSettings.Default);
+
+            httpContent.Add(new StringContent(json), nameof(group));
+
+            foreach (var fileReference in fileReferences)
+            {
+                var fileStream = fileReference.FileInfo.OpenRead();
+
+                HttpContent streamContent = new StreamContent(fileStream);
+                httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+            }
+
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request);
+
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+
+            return responseObject ?? new ImportOrderResponse();
         }
 
         /// <inheritdoc />
-        public Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile)
+        public async Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage { Method = HttpMethod.Put };
+
+            if (!projectFile.Exists)
+            {
+                throw new FileNotFoundException($"Project file '{projectFile.FullName}' was not found.");
+            }
+
+            var fileName = projectFile.Name;
+
+            using var stream = projectFile.OpenRead();
+
+            var uri = $"{_OrderRoute}/{orderNumber}/groups";
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            HttpContent streamContent = new StreamContent(stream);
+            httpContent.Add(streamContent, fileName, fileName);
+
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request);
+
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+
+            return responseObject ?? new ImportOrderResponse();
         }
 
         /// <inheritdoc />
@@ -170,14 +290,14 @@ namespace HomagConnect.OrderManager.Client
                 throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
             }
 
-            var missingReference= fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+            var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
 
             if (missingReference != null)
             {
                 throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
             }
-            
-            const string uri = "api/orderManager/orders";
+
+            var uri = $"{_OrderRoute}/import";
 
             var request = new HttpRequestMessage { Method = HttpMethod.Post };
             request.RequestUri = new Uri(uri, UriKind.Relative);
