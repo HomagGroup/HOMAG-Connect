@@ -26,6 +26,9 @@ There are HOMAG Connect Clients available for the following applications:
 6. productionAssist <br>
    [Documentation for productionAssist Client](./Applications/ProductionAssist/Readme.md) and [some samples](./Applications/ProductionAssist/Samples) for the usage.
 
+6. orderManager <br>
+   [Documentation for orderManager Client](./Applications/OrderManager/Readme.md) and [some samples](./Applications/OrderManager/Samples) for the usage.
+
 
 For detailed information and prerequisites for each, we recommend that you refer to the documentation provided for each specific application. This will ensure that you have a clear understanding of the details and requirements necessary for successful integration into your processes.
 
