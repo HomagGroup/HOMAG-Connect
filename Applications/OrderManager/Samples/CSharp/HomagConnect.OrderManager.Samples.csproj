@@ -31,8 +31,4 @@
 		<ProjectReference Include="..\..\Contracts\HomagConnect.OrderManager.Contracts.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Orders\Import\" />
-	</ItemGroup>
-
 </Project>
