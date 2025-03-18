@@ -9,7 +9,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
-using HomagConnect.OrderManager.Samples;
+using HomagConnect.OrderManager.Samples.Orders.Actions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -5,7 +5,7 @@ using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Samples;
-using HomagConnect.OrderManager.Samples;
+using HomagConnect.OrderManager.Samples.Orders.Actions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,54 +20,6 @@ namespace HomagConnect.OrderManager.Tests.Import
     [TemporaryDisabledOnServer(2025, 04, 1, "DF-Production")]
     public class ImportOrderTests : OrderManagerTestBase
     {
-        /// <summary />
-        [TestMethod]
-        public async Task ImportOrder_ProjectZip_NoException()
-        {
-            var orderManager = GetOrderManagerClient();
-            var anyException = false;
-
-            try
-            {
-                var projectZip = DataExchangeSamples.GetProjectHavingTypicalProperties();
-
-                var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
-
-                importOrderResponse.Trace();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                anyException = true;
-            }
-
-            Assert.IsFalse(anyException);
-        }
-
-        /// <summary />
-        [TestMethod]
-        public async Task ImportOrder_ProjectZip_LargeProject()
-        {
-            var orderManager = GetOrderManagerClient();
-            var anyException = false;
-
-            try
-            {
-                var projectZip = new FileInfo("TestData\\Kitchen.zip");
-
-                var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
-
-                importOrderResponse.Trace();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                anyException = true;
-            }
-
-            Assert.IsFalse(anyException);
-        }
-
         /// <summary />
         [TestMethod]
         public async Task ImportOrder_Order_NoException()
@@ -119,6 +71,54 @@ namespace HomagConnect.OrderManager.Tests.Import
                 referencedFiles.Add(new FileReference(reference, new FileInfo("TestData\\Cabinet.png")));
 
                 var importOrderResponse = await orderManager.ImportOrderRequest(order, referencedFiles.ToArray());
+
+                importOrderResponse.Trace();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_ProjectZip_LargeProject()
+        {
+            var orderManager = GetOrderManagerClient();
+            var anyException = false;
+
+            try
+            {
+                var projectZip = new FileInfo("TestData\\Kitchen.zip");
+
+                var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
+
+                importOrderResponse.Trace();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_ProjectZip_NoException()
+        {
+            var orderManager = GetOrderManagerClient();
+            var anyException = false;
+
+            try
+            {
+                var projectZip = DataExchangeSamples.GetProjectHavingTypicalProperties();
+
+                var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
 
                 importOrderResponse.Trace();
             }
