@@ -11,10 +11,10 @@ public class TapioMachine
     /// <summary>
     /// Gets the name of the machine.
     /// </summary>
-    public string Name { get; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets the tapio machine id of the machine.
     /// </summary>
-    public string TapioMachineId { get; } = string.Empty;
+    public string TapioMachineId { get; set; } = string.Empty;
 }
