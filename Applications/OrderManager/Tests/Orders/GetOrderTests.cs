@@ -290,6 +290,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 new Group()
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
                     Items = new()
                     {
                         new ConfigurationPosition
@@ -377,6 +379,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 {
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                     Notes = "This is a room (ONE roomle planner id)",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
                     AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
                     {
                         { "roomlePlannerId", "ps_4ejnf8ese0jwgmtan2ltzki0io473a8" },
@@ -484,6 +488,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 {
                     Id = "4468B97A-F8C2-4456-BC56-A0C568F4470C",
                     Notes = "This is a 2nd room (ONE roomle planner id)",
+                    Name = "Test2",
+                    Source = "OrderConfigurator",
                     AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
                     {
                         { "roomlePlannerId", "ps_ai687h32o22vdn7twtiqij3e810sjde" },
@@ -536,6 +542,131 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                         new ConfigurationAttribute("mod_Width", 1000),
                                         new ConfigurationAttribute("mod_TypeElement", "TallUnit")
                                     },
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            order.Trace(nameof(order));
+
+            // Try to serialize and deserialize it
+            var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
+            var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
+            o.Should().BeEquivalentTo(order);
+        }
+
+        [TestMethod]
+        public void GetOrderWithConfigAndParts()
+        {
+            var order = new OrderDetails();
+
+            // Header
+
+            order.OrderNumber = "736362";
+            order.State = OrderState.New;
+            order.OrderName = "Bedroom & bathroom 01";
+            order.Project = "Single family house Müller John";
+            order.PersonInCharge = "Joe";
+            order.OrderDescription = "Lorem ipsum dolor sit amet...";
+            order.OrderDate = DateTime.Today;
+            order.DeliveryDatePlanned = DateTime.Today.AddDays(14);
+
+            order.Link = new Uri($"https://orderManager.homag.cloud/#/subscriptionId/orders/{order.OrderNumber}");
+
+            // Addresses
+            order.Addresses = new Collection<Address>(new List<Address>
+            {
+                new()
+                {
+                    Street = "Musterstraße",
+                    HouseNumber = "1",
+                    PostalCode = "12345",
+                    City = "Musterstadt",
+                    Country = "Deutschland",
+                    Type = AddressType.Delivery | AddressType.Billing
+                }
+            });
+
+            // Customer
+
+            order.CustomerName = "Müller & Co.";
+            order.CustomerNumber = "462642";
+
+            // Details
+
+            order.CreatedAt = DateTimeOffset.Now;
+            order.ChangedAt = DateTimeOffset.Now;
+            order.ChangedBy = "Selfish";
+
+            // Order Items
+
+            order.Items = new()
+            {
+                new Group()
+                {
+                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                    Name = "Test",
+                    Source = "OrderConfigurator",
+                    Items = new()
+                    {
+                        new ConfigurationPosition
+                        {
+                            Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+                            LibraryId = "CabinetLibrary",
+                            ModuleId = "mr_StorageunitSingle",
+                            Attributes = new ()
+                            {
+                                new ConfigurationAttribute("mod_Depth", 548),
+                                new ConfigurationAttribute("mod_Height", 900),
+                                new ConfigurationAttribute("mod_Width", 600),
+                                new ConfigurationAttribute("color", "white")
+                            },
+                            Items = new()
+                            {
+                                new Part
+                                {
+                                    Id = "P 01.01",
+                                    Quantity = 4,
+                                    Description = "Cabinet left",
+                                    Notes = "Lorem ipsum",
+                                    Length = 250,
+                                    Width = 100,
+                                    Thickness = 150
+                                },
+                                new Configuration
+                                {
+                                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                                    ModuleId = "mf_Door",
+                                    Attributes = new ()
+                                    {
+                                        new ConfigurationAttribute("mod_FrontHeight", 705)
+                                    },
+                                    Items = new()
+                                    {
+                                        new Part
+                                        {
+                                            Id = "P 01.02",
+                                            Quantity = 6,
+                                            Description = "Front panel",
+                                            Notes = "Lorem ipsum",
+                                            Length = 250,
+                                            Width = 100,
+                                            Thickness = 16,
+                                            Items = new()
+                                            {
+                                                new Resource
+                                                {
+                                                    Id = "P 01.02.01",
+                                                    Quantity = 1,
+                                                    Description = "Hinge",
+                                                    Notes = "Lorem ipsum",
+                                                    ArticleNumber = "67840.01"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
