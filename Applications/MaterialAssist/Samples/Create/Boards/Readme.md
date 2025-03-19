@@ -25,3 +25,8 @@ var newBoardEntity = await client.CreateBoardEntity(boardEntityRequest);
 // Use the created board entity for further processing
 Console.WriteLine($"Created board entity: {newBoardEntity.Id}");
 ```
+When creating a board entity you have the option to choose between the management types ManagementType.Single, ManagementType.Stack and ManagementType.GoodsInStock. 
+
+By choosing ManagementType.Single there will be a new Id for every entity, while the quantity on each entity will be 1. The amount of entities created depends on the property Quantity of MaterialAssistRequestBoardEntity.
+
+When choosing ManagementType.Stack or ManagementType.GoodsInStock only one entity item will be created, which has the quanity set in the Quantity property of MaterialAssistRequestBoardEntity and a single Id.
