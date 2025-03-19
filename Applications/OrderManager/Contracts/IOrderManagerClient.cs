@@ -25,6 +25,11 @@ namespace HomagConnect.OrderManager.Contracts
         /// </summary>
         Task<IEnumerable<OrderOverview>> GetOrders(OrderState[] orderState, int take, int skip = 0);
 
+        /// <summary>
+        /// Gets all orders for the given order numbers.
+        /// </summary>
+        Task<IEnumerable<OrderOverview>> GetOrders(string[] orderNumbers);
+
         #endregion
 
         #region Order details
@@ -38,11 +43,6 @@ namespace HomagConnect.OrderManager.Contracts
         /// Get a specific order by its order number.
         /// </summary>
         Task<OrderDetails> GetOrder(string orderNumber);
-
-        /// <summary>
-        /// Gets all orders for the given order numbers.
-        /// </summary>
-        Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers);
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Wait for the import to be completed.
         /// </summary>
-        Task<OrderOverview> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
+        Task<OrderDetails> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Imports an group. All file references must be provided either as URIs or as referenced file.
         /// </summary>
-        Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] referencedFiles);
+        Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, Group group, FileReference[] fileReferences);
 
         /// <summary>
         /// Imports a Project.zip file as an group.
