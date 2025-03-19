@@ -11,3 +11,5 @@ Here you will find documentation and samples for the functionality provided by t
 8. [Get edgeband entities](Get/Edgebands/Readme.md)
 9. [Create offcut entity](Create/Offcuts/Readme.md)
 10. [Update offcut entity](Update/Offcuts/Readme.md)
+
+If you want to use postman we also provide a [postman collection](<Postman/Homag Connect materialAssist.postman_collection.json>).

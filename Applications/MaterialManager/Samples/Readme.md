@@ -10,4 +10,4 @@ Here you will find documentation and samples for the functionality provided by t
 7. [Update edgeband type](Update/Edgebands/Readme.md)
 8. [Edgeband inventory history](Statistics/Readme.md)
 
-
+If you want to use postman we also provide a [postman collection](<Postman/Homag Connect materialManager.postman_collection.json>).
