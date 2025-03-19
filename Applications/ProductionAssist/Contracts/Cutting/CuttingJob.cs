@@ -10,7 +10,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting
         /// <summary>
         /// Available boards
         /// </summary>
-        public string AvailableBoards { get; set; }
+        public int AvailableBoards { get; set; }
 
         /// <summary>
         /// Cutting job id
@@ -30,17 +30,17 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting
         /// <summary>
         /// Produced parts
         /// </summary>
-        public string ProducedParts { get; set; }
+        public int ProducedParts { get; set; }
 
         /// <summary>
         /// Required boards
         /// </summary>
-        public string RequiredBoards { get; set; }
+        public int RequiredBoards { get; set; }
 
         /// <summary>
         /// Required parts
         /// </summary>
-        public string RequiredParts { get; set; }
+        public int RequiredParts { get; set; }
 
         /// <summary>
         /// Production order id
@@ -50,6 +50,6 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting
         /// <summary>
         /// Used boards
         /// </summary>
-        public string UsedBoards { get; set; }
+        public int UsedBoards { get; set; }
     }
 }
