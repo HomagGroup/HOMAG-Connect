@@ -17,6 +17,7 @@ var boardEntityRequest = new MaterialAssistRequestOffcutEntity()
     Comments = "This is a comment",
     Length = 1000,
     Width = 50,
+    Quantity = 5,
 };
 
 // Create the offcut entity
