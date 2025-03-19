@@ -82,14 +82,14 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        Task DeleteOrderByOrderId(string orderId);
+        Task DeleteOrderByOrderId(Guid orderId);
 
         /// <summary>
         /// Deletes multiple orders by their ids
         /// </summary>
         /// <param name="orderIds"></param>
         /// <returns></returns>
-        Task DeleteOrdersByOrderIds(string[] orderIds);
+        Task DeleteOrdersByOrderIds(Guid[] orderIds);
 
         /// <summary>
         /// Deletes an order by its order number
@@ -114,14 +114,14 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="lotId"></param>
         /// <returns></returns>
-        Task DeleteOrDecomposeLotByLotId(string lotId);
+        Task DeleteOrDecomposeLotByLotId(Guid lotId);
 
         /// <summary>
         /// Deletes or decomposes lots by their ids
         /// </summary>
         /// <param name="lotIds"></param>
         /// <returns></returns>
-        Task DeleteOrDecomposeLotsByLotIds(string[] lotIds);
+        Task DeleteOrDecomposeLotsByLotIds(Guid[] lotIds);
 
         /// <summary>
         /// Deletes or decomposes a lot by its name

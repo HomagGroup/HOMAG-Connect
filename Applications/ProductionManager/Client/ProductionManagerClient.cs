@@ -245,18 +245,18 @@ namespace HomagConnect.ProductionManager.Client
         #region Order deletion
 
         /// <inheritdoc />
-        public async Task DeleteOrderByOrderId(string orderId)
+        public async Task DeleteOrderByOrderId(Guid orderId)
         {
             await DeleteOrdersByOrderIds([orderId]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task DeleteOrdersByOrderIds(string[] orderIds)
+        public async Task DeleteOrdersByOrderIds(Guid[] orderIds)
         {
-            var uri = new StringBuilder($"/api/productionManager/orders?orderId={Uri.EscapeDataString(orderIds[0])}");
+            var uri = new StringBuilder($"/api/productionManager/orders?orderId={orderIds[0]}");
             for (var i = 1; i < orderIds.Length; i++)
             {
-                uri.Append($"&orderId={Uri.EscapeDataString(orderIds[i])}");
+                uri.Append($"&orderId={orderIds[i]}");
             }
 
             await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
@@ -285,18 +285,18 @@ namespace HomagConnect.ProductionManager.Client
         #region Lot deletion
 
         /// <inheritdoc />
-        public async Task DeleteOrDecomposeLotByLotId(string lotId)
+        public async Task DeleteOrDecomposeLotByLotId(Guid lotId)
         {
             await DeleteOrDecomposeLotsByLotIds([lotId]).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task DeleteOrDecomposeLotsByLotIds(string[] lotIds)
+        public async Task DeleteOrDecomposeLotsByLotIds(Guid[] lotIds)
         {
-            var uri = new StringBuilder($"/api/productionManager/lots?lotId={Uri.EscapeDataString(lotIds[0])}");
+            var uri = new StringBuilder($"/api/productionManager/lots?lotId={lotIds[0]}");
             for (var i = 1; i < lotIds.Length; i++)
             {
-                uri.Append($"&lotId={Uri.EscapeDataString(lotIds[i])}");
+                uri.Append($"&lotId={lotIds[i]}");
             }
 
             await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
