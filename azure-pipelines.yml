@@ -140,7 +140,8 @@ stages:
             projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
-        - template: common-tasks/list-agent-directory/template.yml@templates
+        # MEND
+        # - template: common-tasks/list-agent-directory/template.yml@templates
   
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
