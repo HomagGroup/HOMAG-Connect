@@ -49,7 +49,7 @@ public class MaterialAssistRequestEdgebandEntity
     public ManagementType ManagementType { get; set; }
 
     /// <summary>
-    /// Gets or sets the quantity code.
+    /// Gets or sets the quantity.
     /// </summary>
     [Required]
     [Range(1, 100)]

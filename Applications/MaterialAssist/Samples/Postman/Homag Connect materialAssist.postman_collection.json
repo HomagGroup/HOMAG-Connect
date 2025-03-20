@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d1815cc7-6313-4aae-94a8-d36d45ee51df",
+		"_postman_id": "8cbdd284-18a4-4af9-b89e-6263b947e24b",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -416,7 +416,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"boardCode\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"id\": \"string\",\r\n  \"length\": 9999.9,\r\n  \"width\": 9999.9\r\n}",
+									"raw": "{\r\n  \"boardCode\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"id\": \"string\",\r\n  \"length\": 9999.9,\r\n  \"width\": 9999.9,\r\n  \"quantity\": 5\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
