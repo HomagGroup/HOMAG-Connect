@@ -14,10 +14,13 @@ int skip = 0;
 // Create a list to hold all board entities
 var allBoardEntities = new List<BoardEntity>();
 
+// Initialize the boardEntities variable
+List<BoardEntity> boardEntities;
+
 do
 {
     // Retrieve the next set of board entities
-    var boardEntities = await client.GetBoardEntities(take, skip);
+    boardEntities = await client.GetBoardEntities(take, skip);
 
     // Add the retrieved entities to the list
     allBoardEntities.AddRange(boardEntities);

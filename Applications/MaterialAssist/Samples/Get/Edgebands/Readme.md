@@ -14,10 +14,13 @@ int skip = 0;
 // Create a list to hold all edgeband entities
 var allEdgebandEntities = new List<EdgebandEntity>();
 
+// Initialize the edgebandEntities variable
+List<EdgebandEntity> edgebandEntities;
+
 do
 {
     // Retrieve the next set of edgeband entities
-    var edgebandEntities = await client.GetEdgebandEntities(take, skip);
+    edgebandEntities = await client.GetEdgebandEntities(take, skip);
 
     // Add the retrieved entities to the list
     allEdgebandEntities.AddRange(edgebandEntities);
