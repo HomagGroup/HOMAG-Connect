@@ -19,6 +19,10 @@ var client = new materialAssist(subscriptionId, authorizationKey);
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](../../Documentation/Authentication/Readme.md) page for detailed instructions.
 
+### Samples
+More information on how to use HOMAG Connect materialAssist is located in the [Samples](./Samples/Readme.md) page.
+
+
 
 ## Further details and explanations
 
