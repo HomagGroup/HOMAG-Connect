@@ -64,7 +64,8 @@ stages:
         value: Release
       - group: dftranslationvariables      
   
-    dependsOn: software_composition_analysis_stage
+    # MEND
+    # dependsOn: software_composition_analysis_stage
     jobs:
       - job: Build
            
