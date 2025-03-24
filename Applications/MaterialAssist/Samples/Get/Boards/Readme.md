@@ -6,7 +6,7 @@ With the HOMAG Connect materialAssist board client, you can retrieve a list of a
 ```csharp
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
-int take = 100;
+int take = 100000;
 int skip = 0;
 
 var allBoardEntities = new List<BoardEntity>();

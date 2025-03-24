@@ -6,7 +6,7 @@ With the HOMAG Connect materialAssist edgebands client, you can retrieve a list 
 ```csharp
 var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
 
-int take = 100;
+int take = 100000;
 int skip = 0;
 
 var allEdgebandEntities = new List<EdgebandEntity>();
