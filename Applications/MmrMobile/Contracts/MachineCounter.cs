@@ -13,12 +13,6 @@ namespace HomagConnect.MmrMobile.Contracts
         public double Value { get; set; }
 
         /// <summary>
-        /// Machine instance Id
-        /// </summary>
-        [JsonProperty("Instance Id")]
-        public string? InstanceId { get; set; }
-
-        /// <summary>
         /// Counter Id
         /// </summary>
         [JsonProperty("Counter Id")]

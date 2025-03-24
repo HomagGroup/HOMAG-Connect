@@ -1,27 +1,10 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace HomagConnect.MmrMobile.Contracts
 {
-    public class MachineInformation
+    public class MachineInformation: MmrMachine
     {
-        /// <summary>
-        /// Machine number
-        /// </summary>
-        [JsonProperty("Machine Number")]
-        public string? MachineNumber { get; set; }
-
-        /// <summary>
-        /// Name of the machine
-        /// </summary>
-        [JsonProperty("Machine Name")]
-        public string? MachineName { get; set; }
-
-        /// <summary>
-        /// Type of the machine (CNC, Drilling, etc.)
-        /// </summary>
-        [JsonProperty("Machine Type")]
-        public string? MachineType { get; set; }
 
         /// <summary>
         /// Timestamp of the taken data
@@ -31,6 +14,6 @@ namespace HomagConnect.MmrMobile.Contracts
         /// <summary>
         /// Shows the requested granularity
         /// </summary>
-        public string? Granularity { get; set; }
+        public Granularity? Granularity { get; set; }
     }
 }

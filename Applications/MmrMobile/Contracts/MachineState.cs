@@ -14,12 +14,6 @@ namespace HomagConnect.MmrMobile.Contracts
         public double DurationInHours { get; set; }
 
         /// <summary>
-        /// Machine instance Id
-        /// </summary>
-        [JsonProperty("Instance Id")]
-        public string? InstanceId { get; set; }
-
-        /// <summary>
         /// Detailed state Id
         /// </summary>
         [JsonProperty("Detailed State Id")]
