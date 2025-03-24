@@ -3,12 +3,13 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-resources:
-  repositories:
-  - repository: templates
-    type: git
-    name: OneHomag/SWC-DevOps-HoT
-    ref: main
+# MEND
+# resources:
+#   repositories:
+#   - repository: templates
+#     type: git
+#     name: OneHomag/SWC-DevOps-HoT
+#     ref: main
 
 trigger:
   branches:
@@ -45,13 +46,14 @@ stages:
             echo "Set version tag: $($VERSION_TAG)"
             echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
 
-  - template: software-composition-analysis/template.yml@templates
-    parameters:
-      dependsOn: 
-      - retrieve_version_info_from_git
-      fully_qualifed_package_name: HomagGroup.DigitalFactory.Solutions.DF-Insights
-      analyze_directory: $(Build.SourcesDirectory)
-      package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
+  # MEND
+  # - template: software-composition-analysis/template.yml@templates
+  #   parameters:
+  #     dependsOn: 
+  #     - retrieve_version_info_from_git
+  #     fully_qualifed_package_name: HomagGroup.DigitalFactory.Solutions.DF-Insights
+  #     analyze_directory: $(Build.SourcesDirectory)
+  #     package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
 
   - stage: Build
     pool:
@@ -62,7 +64,8 @@ stages:
         value: Release
       - group: dftranslationvariables      
   
-    dependsOn: software_composition_analysis_stage
+    # MEND
+    # dependsOn: software_composition_analysis_stage
     jobs:
       - job: Build
            
@@ -138,7 +141,8 @@ stages:
             projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
         
-        - template: common-tasks/list-agent-directory/template.yml@templates
+        # MEND
+        # - template: common-tasks/list-agent-directory/template.yml@templates
   
         - task: SonarQubeAnalyze@5
           displayName: 'Run Code Analysis'
