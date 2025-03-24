@@ -7,16 +7,13 @@ With the HOMAG Connect materialManager edgebands client, the edgebands related d
 **Example:**
 
 ```csharp
-// Create new instance of the materialManager client:
 var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
 // Define the edgebandCodes you want to retrieve data for:
 var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
 
-// Get the data
 var edgebandTypes = client.GetEdgebandTypes(edgebandCodes);
 
-// Use the retrieved data for further processing
 
 ```
 
@@ -27,10 +24,8 @@ Get the machine information of machines in tapio licensed for the materials api.
 **Example:**
 
 ```csharp
-// Create new instance of the materialManager client:
 var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
-// Get the data
 var tapioMachines = client.GetLicensedMachines();
 ```
 
@@ -78,7 +73,6 @@ With `GetTechnologyMacrosFromMachine` the available technology macro names can b
 **Example:**
 
 ```csharp
-// Create new instance of the materialManager client:
 var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
 // Get the data
