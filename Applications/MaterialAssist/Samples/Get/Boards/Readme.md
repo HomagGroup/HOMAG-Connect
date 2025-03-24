@@ -11,20 +11,20 @@ int skip = 0;
 
 var allBoardEntities = new List<BoardEntity>();
 
-List<BoardEntity> boardEntities;
+List<BoardEntity>? boardEntities;
 
 do
 {
-    boardEntities = await client.GetBoardEntities(take, skip);
+    boardEntities = await client.GetBoardEntities(take, skip) as List<BoardEntity>;
 
-    allBoardEntities.AddRange(boardEntities);
+    if (boardEntities != null) allBoardEntities.AddRange(boardEntities);
 
     skip += take;
 
-} while (boardEntities.Count == take);
+} while (boardEntities != null && boardEntities.Count == take);
 
 foreach (var boardEntity in allBoardEntities)
 {
-    Console.WriteLine($"Board entity ID: {boardEntity.Id}");
+    Console.WriteLine($@"Board entity ID: {boardEntity.Id}");
 }
 ```

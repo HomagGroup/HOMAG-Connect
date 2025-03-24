@@ -11,20 +11,23 @@ int skip = 0;
 
 var allEdgebandEntities = new List<EdgebandEntity>();
 
-List<EdgebandEntity> edgebandEntities;
+List<EdgebandEntity>? edgebandEntities;
 
 do
 {
-    edgebandEntities = await client.GetEdgebandEntities(take, skip);
+    edgebandEntities = await client.GetEdgebandEntities(take, skip) as List<EdgebandEntity>;
 
-    allEdgebandEntities.AddRange(edgebandEntities);
+    if (edgebandEntities != null)
+    {
+        allEdgebandEntities.AddRange(edgebandEntities);
+    }
 
     skip += take;
 
-} while (edgebandEntities.Count == take);
+} while (edgebandEntities != null && edgebandEntities.Count == take);
 
 foreach (var edgebandEntity in allEdgebandEntities)
 {
-    Console.WriteLine($"Edgeband entity ID: {edgebandEntity.Id}");
+    Console.WriteLine($@"Edgeband entity ID: {edgebandEntity.Id}");
 }
 ```
