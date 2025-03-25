@@ -34,5 +34,53 @@ namespace HomagConnect.MmrMobile.Contracts
         public string? InstanceId { get; set; }
 
         public ExtensionDataObject? ExtensionData { get; set; }
+
+
+        /// <summary>
+        /// Machine number
+        /// </summary>
+        [JsonProperty("MachineNumber")]
+        private string? MachineNumberObsolete
+        {
+            set
+            {
+                MachineNumber = value;
+            }
+        }
+        /// <summary>
+        /// Machine number
+        /// </summary>
+        [JsonProperty("MachineName")]
+        private string? MachineNameObsolete
+        {
+            set
+            {
+                MachineName = value;
+            }
+        }
+
+        /// <summary>
+        /// Type of the machine (CNC, Drilling, etc.)
+        /// </summary>
+        [JsonProperty("MachineType")]
+        private string? MachineTypeObsolete
+        {
+            set
+            {
+                MachineType = value;
+            }
+        }
+
+        /// <summary>
+        /// Machine instance Id
+        /// </summary>
+        [JsonProperty("InstanceId")]
+        public string? InstanceIdObsolete
+        {
+            set
+            {
+                InstanceId = value;
+            }
+        }
     }
 }
