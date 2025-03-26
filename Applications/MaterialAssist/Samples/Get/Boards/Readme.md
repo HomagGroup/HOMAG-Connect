@@ -23,6 +23,6 @@ do
 
 foreach (var boardEntity in allBoardEntities)
 {
-    Console.WriteLine($@"Board entity ID: {boardEntity.Id}");
+    Console.WriteLine($"Board entity ID: {boardEntity.Id}");
 }
 ```
