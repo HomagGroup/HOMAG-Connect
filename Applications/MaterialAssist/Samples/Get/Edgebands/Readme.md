@@ -21,7 +21,6 @@ do
 
 } while (edgebandEntities.Count == take);
 
-
 foreach (var edgebandEntity in allEdgebandEntities)
 {
     Console.WriteLine($"Edgeband entity ID: {edgebandEntity.Id}");

@@ -15,7 +15,7 @@ List<BoardEntity> boardEntities;
 
 do
 {
-    boardEntities = await client.GetBoardEntities(take, skip) as List<BoardEntity>;
+    boardEntities = await client.GetBoardEntities(take, skip).ToListAsync();
     allBoardEntities.AddRange(boardEntities);
     skip += take;
 
