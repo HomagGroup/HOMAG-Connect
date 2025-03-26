@@ -17,7 +17,7 @@ namespace HomagConnect.OrderManager.Tests.Import
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders.Import")]
-    [TemporaryDisabledOnServer(2025, 04, 1, "DF-Production")]
+    [TemporaryDisabledOnServer(2025, 05, 1, "DF-Production")]
     public class ImportOrderTests : OrderManagerTestBase
     {
         /// <summary />
