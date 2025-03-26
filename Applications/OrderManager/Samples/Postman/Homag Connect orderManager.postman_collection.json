@@ -171,7 +171,8 @@
 							"path": [
 								"api",
 								"orderManager",
-								"orders"
+								"orders",
+								"import"
 							]
 						}
 					},
@@ -203,6 +204,36 @@
 									"language": "json"
 								}
 							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/orders/import",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"orders",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import an order using Project file (.zip)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
 						},
 						"url": {
 							"raw": "{{ConnectHost}}/api/orderManager/orders/import",
