@@ -96,7 +96,7 @@ public class Position : Base
     /// Gets or sets the door direction.
     /// </summary>
     [JsonProperty(Order = 8)]
-    public string? DoorDIrection { get; set; }
+    public string? DoorDirection { get; set; }
 
     /// <summary>
     /// Gets or sets the state of the entity.
