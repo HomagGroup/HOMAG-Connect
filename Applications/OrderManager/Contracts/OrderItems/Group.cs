@@ -33,7 +33,7 @@ public class Group : Base
     /// <summary>
     /// Gets or sets the source of the group.
     /// Possible values:
-    /// * orderConfiguration
+    /// * orderConfigurator
     /// * TODO: ???
     /// </summary>
     [JsonProperty(Order = 11)]
