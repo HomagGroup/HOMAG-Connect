@@ -36,10 +36,22 @@ public class Position : Base
     public string? ArticleNumber { get; set; }
 
     /// <summary>
+    /// Gets or sets the article name.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public string? ArticleName { get; set; }
+
+    /// <summary>
     /// Gets or sets the description.
     /// </summary>
     [JsonProperty(Order = 3)]
     public string? Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the catalog.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public string? Catalog { get; set; }
 
     /// <summary>
     /// Gets or sets the quantity.
@@ -49,21 +61,42 @@ public class Position : Base
 
     /// <summary>
     /// Gets or sets the length.
+    /// TODO: Is this correct!? => Hendrik
     /// </summary>
     [JsonProperty(Order = 5)]
     public double? Length { get; set; }
 
     /// <summary>
     /// Gets or sets the width.
+    /// TODO: Is this correct!? => Hendrik
     /// </summary>
     [JsonProperty(Order = 6)]
     public double? Width { get; set; }
 
     /// <summary>
     /// Gets or sets the height.
+    /// TODO: Is this correct!? => Hendrik
     /// </summary>
     [JsonProperty(Order = 7)]
     public double? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets the front color.
+    /// </summary>
+    [JsonProperty(Order = 8)]
+    public string? FrontColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the corpus color.
+    /// </summary>
+    [JsonProperty(Order = 8)]
+    public string? CorpusColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the door direction.
+    /// </summary>
+    [JsonProperty(Order = 8)]
+    public string? DoorDIrection { get; set; }
 
     /// <summary>
     /// Gets or sets the state of the entity.
