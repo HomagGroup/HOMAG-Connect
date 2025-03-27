@@ -12,7 +12,7 @@ public class ErrorInfo : Base
     {
         get
         {
-            return Type.Group;
+            return Type.ErrorInfo;
         }
         set
         {
