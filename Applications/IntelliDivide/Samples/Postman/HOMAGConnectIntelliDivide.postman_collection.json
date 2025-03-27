@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cdc62d98-b2dc-4aaf-bd07-8645bc08152e",
+		"_postman_id": "28f0546c-aa2d-4484-a630-1dee012aa24f",
 		"name": "HOMAG Connect intelliDivide",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -654,14 +654,100 @@
 			"name": "Localizations",
 			"item": [
 				{
+					"name": "Boards",
+					"item": [
+						{
+							"name": "BoardTypeType (de)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "BoardMaterialCategory (de)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "Grain (de)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "Grain (en)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Nesting",
+					"item": [
+						{
+							"name": "RotationAngle",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Common",
+					"item": [
+						{
+							"name": "UnitSystem (de)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Edgebands",
+					"item": [
+						{
+							"name": "EdgebandMaterialCategory (de)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "EnumNames",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ConnectHost}}/api/localizations/enums/:enumTypeName/:culture",
+							"raw": "https://connect.homag.cloud/api/localizations/enums/:enumTypeName/:culture",
+							"protocol": "https",
 							"host": [
-								"{{ConnectHost}}"
+								"connect",
+								"homag",
+								"cloud"
 							],
 							"path": [
 								"api",
@@ -699,19 +785,42 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Materials",
+			"item": [
+				{
+					"name": "Boards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Edgebands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
 		"type": "basic",
 		"basic": [
 			{
-				"key": "username",
-				"value": "--- Your subscription id ---",
+				"key": "password",
+				"value": "--- Your authorization key ---",
 				"type": "string"
 			},
 			{
-				"key": "password",
-				"value": "--- Your authorization key ---",
+				"key": "username",
+				"value": "--- Your subscription id ---",
 				"type": "string"
 			}
 		]
