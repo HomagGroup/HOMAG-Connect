@@ -1,4 +1,6 @@
-﻿using HomagConnect.ProductionAssist.Contracts.Cutting.Enumerations;
+﻿using System.Runtime.Serialization;
+
+using HomagConnect.ProductionAssist.Contracts.Cutting.Enumerations;
 
 namespace HomagConnect.ProductionAssist.Contracts.Cutting
 {
@@ -7,10 +9,19 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting
     /// </summary>
     public class CuttingJob
     {
+        #region IExtensibleDataObject Members
+
+        /// <intheritdoc />
+        public ExtensionDataObject? ExtensionData { get; set; }
+
+        #endregion
+
+        #region Main data
+
         /// <summary>
-        /// Available boards
+        /// The number of boards in this cutting job
         /// </summary>
-        public int AvailableBoards { get; set; }
+        public int Boards { get; set; }
 
         /// <summary>
         /// Cutting job id
@@ -28,28 +39,20 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting
         public string Name { get; set; }
 
         /// <summary>
-        /// Produced parts
+        /// The number of parts in this cutting job
         /// </summary>
-        public int ProducedParts { get; set; }
+        public int Parts { get; set; }
 
         /// <summary>
-        /// Required boards
+        /// The number of offcuts in this cutting job
         /// </summary>
-        public int RequiredBoards { get; set; }
-
-        /// <summary>
-        /// Required parts
-        /// </summary>
-        public int RequiredParts { get; set; }
+        public int Offcuts { get; set; }
 
         /// <summary>
         /// Production order id
         /// </summary>
         public CuttingState State { get; set; }
 
-        /// <summary>
-        /// Used boards
-        /// </summary>
-        public int UsedBoards { get; set; }
+        #endregion Main data
     }
 }
