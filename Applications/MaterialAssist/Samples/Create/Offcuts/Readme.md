@@ -5,10 +5,8 @@ With the HOMAG Connect materialAssist board client, offcut entities can be creat
 <strong>Example:</strong>
 
 ```csharp
-// Create new instance of the materialAssist client:
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
-// Define the create offcut entity request:
 var boardEntityRequest = new MaterialAssistRequestOffcutEntity()
 {
     Id = "42",
@@ -20,9 +18,7 @@ var boardEntityRequest = new MaterialAssistRequestOffcutEntity()
     Quantity = 5,
 };
 
-// Create the offcut entity
 var newBoardEntity = await client.CreateOffcutEntity(boardEntityRequest);
 
-// Use the created offcut entity for further processing
 Console.WriteLine($"Created offcut entity: {newBoardEntity.Id}");
 ```

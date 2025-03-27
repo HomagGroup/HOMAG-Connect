@@ -5,10 +5,8 @@ With the HOMAG Connect materialAssist board client, board entities can be create
 <strong>Example:</strong>
 
 ```csharp
-// Create new instance of the materialAssist client:
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
-// Define the create board entity request:
 var boardEntityRequest = new MaterialAssistRequestBoardEntity()
 {
     Id = "42",
@@ -19,9 +17,12 @@ var boardEntityRequest = new MaterialAssistRequestBoardEntity()
     Quantity = 1
 };
 
-// Create the board entity
 var newBoardEntity = await client.CreateBoardEntity(boardEntityRequest);
 
-// Use the created board entity for further processing
 Console.WriteLine($"Created board entity: {newBoardEntity.Id}");
 ```
+When creating a board entity you have the option to choose between the management types `ManagementType.Single`, `ManagementType.Stack` and `ManagementType.GoodsInStock`. 
+
+When choosing `ManagementType.Single` the quantity has to be set to 1. There must be a unique id given for every single entity. 
+By choosing "ManagementType.Stack" you can add a quantity greater or euqal to 1 allowing to stack multiple entities within the same Id.
+With `ManagementType.GoodsInStock` it is possible to stack the entities within the same id and additionally, when a location is set, new `ManagementType.GoodsInStock` entities of the same material will be added to this entity id when same location is used.

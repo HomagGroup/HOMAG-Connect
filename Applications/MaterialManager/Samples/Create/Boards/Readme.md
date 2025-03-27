@@ -5,12 +5,11 @@ With the HOMAG Connect materialManager boards client, new board types can be cre
 <strong>Example:</strong>
 
 ```csharp
-// Create new instance of the materialManager client:
 var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizationKey);
 
-// Define the new board type request:
 var boardTypeRequest = new MaterialManagerRequestBoardType
 {
+    //The material code is the identifier of the material type
     MaterialCode = "HPL_F274_9_12.0",
     //The board code is the identifier of the board type
     BoardCode = "HPL_F274_9_12.0_4100.0_650.0",
@@ -21,12 +20,9 @@ var boardTypeRequest = new MaterialManagerRequestBoardType
     MaterialCategory = BoardMaterialCategory.Undefined,
     CoatingCategory CoatingCategory = CoatingCategory.Undefined,
     Grain = Grain.None,
-    // Add other properties
 };
 
-// Create the new board type
 var newBoardType = await client.CreateBoardType(boardTypeRequest);
 
-// Use the created board type for further processing
 Console.WriteLine($"Created Board Type: {newBoardType.Code}");
 ```
