@@ -244,27 +244,41 @@ UnitOfLength | enum   | mm or inch        | ID/PM
 
 The parameters of the order contains the following information:
 
-Name                   | Type                        | Description  | Scope
------------------------|-----------------------------|------------------------------------------------------|--------
-OrderName              | nvarchar(100; not null)     | The name of the order                                | PM/ID
-OrderNumber            | nvarchar(100; not null)     | The number assigned to this order                    | PM
-OrderDescription       | nvarchar(255)               | An optional description of the order                 | PM
-ProjectManager         | nvarchar(100)               | The name of the person in charge for that project    | PM
-CustomerName           | nvarchar(100)               | The name of the customer                             | PM/ID
-CustomerNumber         | nvarchar(100)               | The number assigned to that customer                 | PM
-OrderDate              | DateTimeOffset(7) not null  | Create-Date or the order import date; default: current date/time ([RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)) | PM/ID
-DeliveryDate           | DateTimeOffset(7)           | Planned delivery date. ([RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)) | PM
-AddressField1          | nvarchar(100)               |                                                      | PM
-AddressField2          | nvarchar(100)               |                                                      | PM
-AddressField3          | nvarchar(100)               |                                                      | PM
-AddressField4          | nvarchar(100)               |                                                      | PM
-AddressField5          | nvarchar(100)               |                                                      | PM
-ExternalSystemId       | nvarchar(100)               | An optional external id, which will be used in an re-import to detect the "old import" and update the already imported data | PM
-Company                | nvarchar(100)               | The name of the company                              | PM
-Project                | nvarchar(100)               | The name of the project                              | PM
-AdditionalComments     | nvarchar(100)               | Enables the user to add notes (text) as details      | PM
-StartDatePlanned       | DateTimeOffset(7)           | Planned Start Date                                   | PM
-CompletionDatePlanned  | DateTimeOffset(7)           | Completion Planned Date                              | PM
+| |Name|ID|Type |Description |Scope |
+|------------------|---------------|---------------------------|--------------------|-------------------------------------------------|-----
+**Order header (14)**|
+| |Order name     |OrderName   |Text(100; not null)| The name of the order | PM/ID
+| |Order number   | OrderNumber| Text(100; not null)     | The number assigned to this order                    | PM
+| |Customenr name |CustomerName           | Text(255)               | The name of the customer                             | PM
+| |Customer number |CustomerNumber         | Text(100)               | The number assigned to that customer                 | PM
+| |Company | Company                | Text(100)               | The name of the company                              | PM
+| |Order description | OrderDescription       | Text(255)               | An optional description of the order                 | PM
+| |Project | Project                | Text(100)               | The name of the project                              | PM
+| |Person in charge | PersonInCharge         | Text(100)               | The name of the person in charge of the project      | PM 
+| |Order date | OrderDate              | Date  | The creation date or the order import date| PM/ID
+| |Positions | OrderItems             | Text                    | The positions in the order |PM
+| |Delivery date (planned) | DeliveryDatePlanned           | Date           | The planned delivery date | PM
+| |Order item descriptions | OrderItemDescriptions|Text| Descriptions of order items| PM
+| |Start date (planned) | StartDatePlanned| Date| The planned start date | PM
+| |Completion date (planned) | CompletionDatePlanned| Date| The planned completion date| PM
+**Address (5)**|  
+| |Street|Street|Text|The name of the street |PM
+| |House number|HouseNumber|Text|The house number | PM
+| |City|City| Text|The name of the city|PM      
+| |Postal code| PostalCode|Text| The postal code| PM
+| |Country| Country|Text| The country for the address| PM
+**Production (1)**|
+| |Lots|Lots|Text|A lot is created from multiple orders |PM
+**Production (7)**|
+| |Order status|OrderStatus|Whole number|The status of the order|PM
+| |Changed |ChangedAt|Date and time| The date and time of the last change| PM
+| |Start date |StartedAt| Date| The start date | PM
+| |Completion date | CompletedAt|Date| The completion date| PM
+| |Quantity of articles| QuantityOfArticles|Whole number|The numebr of articles| PM
+| |Quantity of parts| QuantityOfParts|Whole number| The number of parts| PM
+| |Quantity planned| QuantityOfPartsPlanned| Whole number| The planned number of parts|PM
+**Additional data (1)**|
+| |Notes|Notes|Text|Notes/Comments |PM
 
 ##### Sample order
 
