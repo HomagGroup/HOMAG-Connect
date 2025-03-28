@@ -99,6 +99,8 @@ namespace HomagConnect.Base.Extensions
 
                     if (!string.IsNullOrWhiteSpace(enumDisplayName))
                     {
+                        enumDisplayName = CapitalizeFirstLetter(enumDisplayName);
+
                         return true;
                     }
                 }
@@ -110,6 +112,23 @@ namespace HomagConnect.Base.Extensions
             }
 
             return false;
+        }
+
+        private static string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+        
+            var stringArray = input.ToCharArray();
+
+            if (char.IsLower(stringArray[0]))
+            {
+                stringArray[0] = char.ToUpper(stringArray[0]);
+            }
+
+            return new string(stringArray);
         }
 
         private static ResourceManager? GetResourceManager(Type enumType)
