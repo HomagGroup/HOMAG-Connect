@@ -62,19 +62,19 @@ public class Position : Base
     /// <summary>
     /// Gets or sets the height.
     /// </summary>
-    [JsonProperty(Order = 7)]
+    [JsonProperty(Order = 5)]
     public double? Height { get; set; }
 
     /// <summary>
     /// Gets or sets the width.
     /// </summary>
-    [JsonProperty(Order = 5)]
+    [JsonProperty(Order = 6)]
     public double? Width { get; set; }
 
     /// <summary>
     /// Gets or sets the depth.
     /// </summary>
-    [JsonProperty(Order = 6)]
+    [JsonProperty(Order = 7)]
     public double? Depth { get; set; }
 
 
