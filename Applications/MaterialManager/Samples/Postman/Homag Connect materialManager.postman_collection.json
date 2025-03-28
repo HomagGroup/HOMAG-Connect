@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "598355a3-17c6-45cd-925a-f950120d5f6e",
+		"_postman_id": "1f590251-549a-4eb6-a2bc-2194e577f006",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -488,6 +488,41 @@
 					"response": []
 				},
 				{
+					"name": "CreateBoardType With AdditionalData",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "boardTypeRequest",
+									"value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 999.9,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+									"type": "text"
+								},
+								{
+									"key": "Red.png",
+									"type": "file",
+									"src": "postman-cloud:///1f00bd57-d588-4c20-a89a-f00d74f90fe0"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/materials/boards",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateEdgebandType",
 					"request": {
 						"method": "POST",
@@ -500,6 +535,41 @@
 									"language": "json"
 								}
 							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"edgebands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEdgebandType With AdditionalData",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "edgebandTypeRequest",
+									"value": "{\n  \"edgebandCode\": \"ABS_Concrete_0.80_23.0_NN_Hgc_AdditionalData\",\n  \"thickness\": 1.2,\n  \"height\": 23,\n  \"defaultLength\": 150,\n  \"articleNumber\": \"article_number\",\n  \"comments\": \"comments\",\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"materialCategory\": \"abs\",\n  \"process\": \"Zerojoint\",\n  \"lasertec\": 0,\n  \"airtec\": 0,\n  \"protectionFilmThickness\": 0,\n  \"functionLayerThickness\": 0,\n  \"technologyMacro\": \"technology_macro\",\n  \"decorEmbossingCode\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+									"type": "text"
+								},
+								{
+									"key": "Red.png",
+									"type": "file",
+									"src": "postman-cloud:///1f00bd57-d588-4c20-a89a-f00d74f90fe0"
+								}
+							]
 						},
 						"url": {
 							"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
