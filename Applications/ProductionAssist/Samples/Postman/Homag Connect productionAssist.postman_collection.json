@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "3337ec5b-524c-431d-a45d-afb72049e80d",
+		"name": "Homag Connect productionAssist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cutting",
+			"item": [
+				{
+					"name": "Read",
+					"item": [
+						{
+							"name": "Get all cutting jobs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"cutting",
+										"jobs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get cutting jobs by nesting job id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"cutting",
+										"jobs"
+									],
+									"query": [
+										{
+											"key": "cuttingJobId",
+											"value": null,
+											"description": "Cutting job id",
+											"disabled": true
+										},
+										{
+											"key": "cuttingJobId",
+											"value": null,
+											"description": "Cutting job id",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete cutting job by cutting job id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"cutting",
+										"jobs"
+									],
+									"query": [
+										{
+											"key": "cuttingJobId",
+											"value": null,
+											"description": "Cutting job id",
+											"disabled": true
+										},
+										{
+											"key": "cuttingJobId",
+											"value": null,
+											"description": "Cutting job id",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Nesting",
+			"item": [
+				{
+					"name": "Read",
+					"item": [
+						{
+							"name": "Get all nesting jobs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"nesting",
+										"jobs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get nesting jobs by nesting job id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"nesting",
+										"jobs"
+									],
+									"query": [
+										{
+											"key": "nestingJobId",
+											"value": null,
+											"description": "Nesting job id",
+											"disabled": true
+										},
+										{
+											"key": "nestingJobId",
+											"value": null,
+											"description": "Nesting job id",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete nesting job by nesting job id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"nesting",
+										"jobs"
+									],
+									"query": [
+										{
+											"key": "nestingJobId",
+											"value": null,
+											"description": "Nesting job id",
+											"disabled": true
+										},
+										{
+											"key": "nestingJobId",
+											"value": null,
+											"description": "Nesting job id",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{ConnectPassword}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{ConnectUserName}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
