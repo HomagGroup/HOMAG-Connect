@@ -28,4 +28,19 @@
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
 	  <ProjectReference Include="..\..\MaterialManager\Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Common\RotationAngleDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>RotationAngleDisplayNames.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Common\RotationAngleDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>RotationAngleDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
 </Project>
