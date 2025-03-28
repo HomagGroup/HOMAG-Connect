@@ -60,37 +60,35 @@ public class Position : Base
     public int Quantity { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the length.
-    /// TODO: Is this correct!? => Hendrik
-    /// </summary>
-    [JsonProperty(Order = 5)]
-    public double? Length { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width.
-    /// TODO: Is this correct!? => Hendrik
-    /// </summary>
-    [JsonProperty(Order = 6)]
-    public double? Width { get; set; }
-
-    /// <summary>
     /// Gets or sets the height.
-    /// TODO: Is this correct!? => Hendrik
     /// </summary>
     [JsonProperty(Order = 7)]
     public double? Height { get; set; }
 
     /// <summary>
-    /// Gets or sets the front color.
+    /// Gets or sets the width.
+    /// </summary>
+    [JsonProperty(Order = 5)]
+    public double? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the depth.
+    /// </summary>
+    [JsonProperty(Order = 6)]
+    public double? Depth { get; set; }
+
+
+    /// <summary>
+    /// Gets or sets the color.
     /// </summary>
     [JsonProperty(Order = 8)]
-    public string? FrontColor { get; set; }
+    public string? Color { get; set; }
 
     /// <summary>
     /// Gets or sets the corpus color.
     /// </summary>
     [JsonProperty(Order = 8)]
-    public string? CorpusColor { get; set; }
+    public string? CarcaseColor { get; set; }
 
     /// <summary>
     /// Gets or sets the door direction.
