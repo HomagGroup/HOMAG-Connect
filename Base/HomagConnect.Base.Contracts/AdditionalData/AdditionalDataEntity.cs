@@ -16,6 +16,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataImage), AdditionalDataType.Image)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataTexture), AdditionalDataType.Texture)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataCNCProgram), AdditionalDataType.CNCProgram)]
+[JsonSubtypes.KnownSubType(typeof(AdditionalDataThreeD), AdditionalDataType.ThreeD)]
 [DebuggerDisplay("Type={Type}, Name={Name}")]
 public class AdditionalDataEntity
 {
@@ -28,6 +29,14 @@ public class AdditionalDataEntity
     /// <summary>
     /// Gets or sets the category.
     /// </summary>
+    /// <remarks>
+    /// Possible values:
+    /// * ArticleImage (Type=Image) => per position
+    /// * RoomImage (Type=Image) => per Group
+    /// * Room3D (Type=ThreeD) => per Group
+    /// * RoomTopViewImage (Type=Image) => per Group
+    /// * Technical3D (Type=ThreeD) => per position
+    /// </remarks>
     [JsonProperty(Order = 1)]
     public string? Category { get; set; }
 

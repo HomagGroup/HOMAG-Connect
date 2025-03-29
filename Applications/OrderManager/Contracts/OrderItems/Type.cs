@@ -64,4 +64,9 @@ public enum Type
     /// (Software) configuration group.
     /// </summary>
     ConfigurationGroup,
+
+    /// <summary>
+    /// Error information.
+    /// </summary>
+    ErrorInfo,
 }
