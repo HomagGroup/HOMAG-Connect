@@ -88,6 +88,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 new ConfigurationAttribute("mod_Width", 600),
                                 new ConfigurationAttribute("color", "white")
                             },
+                            ArticleName = "Cabinet",
+                            ArticleNumber = "CAB-01",
+                            Color = "white",
+                            Catalog = "CabinetCatalog",
+                            CarcaseColor = "white",
+                            DoorDirection = "left",
                             Items = new()
                             {
                                 new Part
@@ -132,6 +138,20 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             }
                                         }
                                     }
+                                },
+                                new ErrorInfo
+                                {
+                                    Category = "Error",
+                                    Text = "Error message",
+                                },
+                                new ErrorInfo
+                                {
+                                    Category = "Warning",
+                                    Text = "Warning message",
+                                },
+                                new ErrorInfo
+                                {
+                                    Text = "Error message",
                                 }
                             }
                         }

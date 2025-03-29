@@ -134,7 +134,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                             Quantity = 4,
                             Description = "Cabinet left",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items =
@@ -154,7 +154,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                             Quantity = 6,
                             Description = "Cabinet right",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items =
@@ -188,7 +188,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                             Quantity = 4,
                             Description = "Cabinet left",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items =
@@ -208,7 +208,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                             Quantity = 6,
                             Description = "Cabinet right",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items =
