@@ -34,4 +34,8 @@
 		<ProjectReference Include="..\Contracts\HomagConnect.ProductionAssist.Contracts.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Postman\" />
+	</ItemGroup>
+
 </Project>
