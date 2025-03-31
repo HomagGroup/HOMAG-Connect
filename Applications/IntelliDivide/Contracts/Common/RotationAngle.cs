@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -8,6 +9,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     /// Provides fixed rotation angles
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
+    [ResourceManager(typeof(RotationAngleDisplayNames))]
     public enum RotationAngle
     {
         /// <summary>
