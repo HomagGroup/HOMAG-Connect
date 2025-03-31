@@ -24,6 +24,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Configuration), Type.Configuration)]
 [JsonSubtypes.KnownSubType(typeof(ConfigurationGroup), Type.ConfigurationGroup)]
 [JsonSubtypes.KnownSubType(typeof(ConfigurationPosition), Type.ConfigurationPosition)]
+[JsonSubtypes.KnownSubType(typeof(ErrorInfo), Type.ErrorInfo)]
 public abstract class Base: ISupportsAdditionalData
 {
     /// <summary>
