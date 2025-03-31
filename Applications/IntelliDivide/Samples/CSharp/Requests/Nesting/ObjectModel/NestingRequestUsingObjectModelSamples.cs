@@ -117,6 +117,8 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             mprFiles.Add(mprA);
 
+            request.Trace(nameof(request));
+
             // Send the request
             var response = await intelliDivide.RequestOptimization(request, mprFiles);
 
