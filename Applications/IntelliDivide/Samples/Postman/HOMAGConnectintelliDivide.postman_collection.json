@@ -868,7 +868,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/boardtypetype/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"boardtypetype",
+										"de"
+									]
 								}
 							},
 							"response": []
@@ -879,7 +892,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/boardmaterialcategory/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"boardmaterialcategory",
+										"de"
+									]
 								}
 							},
 							"response": []
@@ -890,7 +916,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/grain/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"grain",
+										"de"
+									]
 								}
 							},
 							"response": []
@@ -901,7 +940,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/grain/en",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"grain",
+										"en"
+									]
 								}
 							},
 							"response": []
@@ -917,7 +969,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/rotationangle/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"rotationangle",
+										"de"
+									]
 								}
 							},
 							"response": []
@@ -933,7 +998,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/UnitSystem/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"UnitSystem",
+										"de"
+									]
 								}
 							},
 							"response": []
@@ -949,7 +1027,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "https://connect.homag.cloud/api/localizations/enums/EdgebandMaterialCategory/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"EdgebandMaterialCategory",
+										"de"
+									]
 								}
 							},
 							"response": []
@@ -1015,7 +1106,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "https://connect.homag.cloud/api/intelliDivide/materials/boards",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"materials",
+								"boards"
+							]
 						}
 					},
 					"response": []
@@ -1026,7 +1129,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "https://connect.homag.cloud/api/intelliDivide/materials/edgebands",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"materials",
+								"edgebands"
+							]
 						}
 					},
 					"response": []
