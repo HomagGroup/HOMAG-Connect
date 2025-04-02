@@ -32,6 +32,9 @@ public class Group : Base
 
     /// <summary>
     /// Gets or sets the source of the group.
+    /// Possible values:
+    /// * orderConfigurator
+    /// * TODO: ???
     /// </summary>
     [JsonProperty(Order = 11)]
     public string? Source { get; set; }

@@ -116,7 +116,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
                             Quantity = 4,
                             Description = "Cabinet left",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items = new Collection<Contracts.OrderItems.Base>
@@ -136,7 +136,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
                             Quantity = 6,
                             Description = "Cabinet right",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items = new Collection<Contracts.OrderItems.Base>
@@ -171,7 +171,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
                             Quantity = 4,
                             Description = "Cabinet left",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items = new Collection<Contracts.OrderItems.Base>
@@ -191,7 +191,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
                             Quantity = 6,
                             Description = "Cabinet right",
                             Notes = "Lorem ipsum",
-                            Length = 250,
+                            Depth = 250,
                             Width = 100,
                             Height = 150,
                             Items = new Collection<Contracts.OrderItems.Base>
