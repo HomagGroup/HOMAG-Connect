@@ -567,7 +567,7 @@
 								{
 									"key": "Red.png",
 									"type": "file",
-									"src": "postman-cloud:///1f00bd57-d588-4c20-a89a-f00d74f90fe0"
+									"src": "Applications/MaterialManager/Tests/Data/Red.png"
 								}
 							]
 						},
