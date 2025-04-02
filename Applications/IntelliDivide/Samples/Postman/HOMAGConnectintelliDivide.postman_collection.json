@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "28f0546c-aa2d-4484-a630-1dee012aa24f",
+		"_postman_id": "4c51fdd9-ea18-44f6-8e2a-7f9fb378d8fb",
 		"name": "HOMAG Connect intelliDivide",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -606,6 +606,212 @@
 			]
 		},
 		{
+			"name": "Nesting",
+			"item": [
+				{
+					"name": "Request",
+					"item": [
+						{
+							"name": "ObjectModel",
+							"item": [
+								{
+									"name": "RequiredProperties_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Sample_ObjectModel_Postman_RequiredProperties_ImportOnly\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part A\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 2,\n      \"MprFileName\": \"PartA.mpr\"\n    },\n    {\n      \"Description\": \"Part B\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 3,\n      \"MprFileName\": \"PartB.mpr\"\n    }\n  ],\n  \"Machine\": \"productionAssist Nesting\",\n  \"Parameters\": \"Rectangular\"\n}",
+													"type": "default"
+												},
+												{
+													"key": "PartA.mpr",
+													"type": "file",
+													"src": "/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartA.mpr"
+												},
+												{
+													"key": "PartB.mpr",
+													"type": "file",
+													"src": "/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartB.mpr"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "MprProgramVariables_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"name\": \"Sample_ObjectModel_Postman_MprProgramVariables_ImportOnly\",\n  \"parts\": [\n    {\n      \"description\": \"Part A\",\n      \"materialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"grain\": \"Lengthwise\",\n      \"quantity\": 2,\n      \"mprFileName\": \"Generic.mpr\",\n      \"mprProgramVariables\": [\n        {\n          \"name\": \"L\",\n          \"value\": \"980.0\"\n        },\n        {\n          \"name\": \"B\",\n          \"value\": \"450.0\"\n        }\n      ]\n    },\n    {\n      \"description\": \"Part B\",\n      \"materialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"grain\": \"Lengthwise\",\n      \"quantity\": 3,\n      \"quantityPlus\": 0,\n      \"mprFileName\": \"Generic.mpr\",\n      \"mprProgramVariables\": [\n        {\n          \"name\": \"L\",\n          \"value\": \"720.0\"\n        },\n        {\n          \"name\": \"B\",\n          \"value\": \"380.0\"\n        }\n      ]\n    }\n  ],\n  \"machine\": \"productionAssist Nesting\",\n  \"parameters\": \"Rectangular\"\n}",
+													"type": "default"
+												},
+												{
+													"key": "Generic.mpr",
+													"type": "file",
+													"src": "/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/Generic.mpr"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "TypicalProperties_ImportOnly",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_TypicalProperties_ImportOnly\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part (typical properties)\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 1,\n      \"EdgeFront\": \"PP_White_1.3_22_HM\",\n      \"EdgeBack\": \"PP_White_1.3_22_HM\",\n      \"EdgeLeft\": \"PP_White_1.3_22_HM\",\n      \"EdgeRight\": \"PP_White_1.3_22_HM\",\n      \"EdgeDiagram\": \"011:011:000:000\",\n      \"CncProgramName1\": \"SortingS1004\",\n      \"CncProgramName2\": \"SortingS1004_2\",\n      \"CustomerName\": \"HOMAG\",\n      \"OrderName\": \"Kitchen 123\",\n      \"MprFileName\": \"PartA.mpr\"\n    }\n  ],\n  \"Machine\": \"productionAssist Nesting\",\n  \"Parameters\": \"Rectangular\"\n}\n",
+													"type": "default"
+												},
+												{
+													"key": "PartA.mpr",
+													"type": "file",
+													"src": "/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartA.mpr"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "TypicalProperties_Optimize",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "OptimizationRequest",
+													"value": "{\n  \"Name\": \"Postman_Sample_ObjectModel_TypicalProperties_Optimize\",\n  \"Parts\": [\n    {\n      \"Description\": \"Part (typical properties)\",\n      \"MaterialCode\": \"P2_Gold_Craft_Oak_19.0\",\n      \"Grain\": \"Lengthwise\",\n      \"Quantity\": 1,\n      \"EdgeFront\": \"PP_White_1.3_22_HM\",\n      \"EdgeBack\": \"PP_White_1.3_22_HM\",\n      \"EdgeLeft\": \"PP_White_1.3_22_HM\",\n      \"EdgeRight\": \"PP_White_1.3_22_HM\",\n      \"EdgeDiagram\": \"011:011:000:000\",\n      \"CncProgramName1\": \"SortingS1004\",\n      \"CncProgramName2\": \"SortingS1004_2\",\n      \"CustomerName\": \"HOMAG\",\n      \"OrderName\": \"Kitchen 123\",\n      \"MprFileName\": \"PartA.mpr\"\n    }\n  ],\n  \"Machine\": \"productionAssist Nesting\",\n  \"Parameters\": \"Rectangular\",\n  \"Action\": \"Optimize\"\n}\n",
+													"type": "default"
+												},
+												{
+													"key": "PartA.mpr",
+													"type": "file",
+													"src": "/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartA.mpr"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations",
+											"protocol": "https",
+											"host": [
+												"connect",
+												"homag",
+												"cloud"
+											],
+											"path": [
+												"api",
+												"intelliDivide",
+												"optimizations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get optimizations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=nesting",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"optimizations"
+							],
+							"query": [
+								{
+									"key": "take",
+									"value": "100"
+								},
+								{
+									"key": "skip",
+									"value": "0",
+									"description": "optional"
+								},
+								{
+									"key": "optimizationType",
+									"value": "nesting"
+								}
+							]
+						},
+						"description": "GetOptimizations"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Statistics",
 			"item": [
 				{
@@ -661,7 +867,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/boardtypetype/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"boardtypetype",
+										"de"
+									]
+								}
 							},
 							"response": []
 						},
@@ -670,7 +891,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/boardmaterialcategory/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"boardmaterialcategory",
+										"de"
+									]
+								}
 							},
 							"response": []
 						},
@@ -679,7 +915,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/grain/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"grain",
+										"de"
+									]
+								}
 							},
 							"response": []
 						},
@@ -688,7 +939,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/grain/en",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"grain",
+										"en"
+									]
+								}
 							},
 							"response": []
 						}
@@ -702,7 +968,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/rotationangle/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"rotationangle",
+										"de"
+									]
+								}
 							},
 							"response": []
 						}
@@ -716,7 +997,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/UnitSystem/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"UnitSystem",
+										"de"
+									]
+								}
 							},
 							"response": []
 						}
@@ -730,7 +1026,22 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": null
+								"url": {
+									"raw": "https://connect.homag.cloud/api/localizations/enums/EdgebandMaterialCategory/de",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"localizations",
+										"enums",
+										"EdgebandMaterialCategory",
+										"de"
+									]
+								}
 							},
 							"response": []
 						}
@@ -794,7 +1105,21 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/materials/boards",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"materials",
+								"boards"
+							]
+						}
 					},
 					"response": []
 				},
@@ -803,7 +1128,21 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://connect.homag.cloud/api/intelliDivide/materials/edgebands",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"intelliDivide",
+								"materials",
+								"edgebands"
+							]
+						}
 					},
 					"response": []
 				}

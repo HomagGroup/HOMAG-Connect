@@ -22,5 +22,8 @@ public enum AdditionalDataType
     Texture,
 
     /// <summary />
-    CNCProgram
+    CNCProgram,
+
+    /// <summary />
+    ThreeD
 }
