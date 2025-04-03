@@ -60,7 +60,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
 
             order.OrderNumber = "736362";
             order.State = OrderState.New;
-            order.OrderName = "Bedroom & bathroom 01";
+            order.OrderName = "Bedroom & bathroom 01b";
             order.Project = "Single family house Müller John";
             order.PersonInCharge = "Hendrik Albers";
             order.OrderDescription =

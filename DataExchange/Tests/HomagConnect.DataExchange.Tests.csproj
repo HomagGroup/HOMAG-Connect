@@ -6,6 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<UseVSTest>true</UseVSTest>
+		<UserSecretsId>f4f93bf6-1e82-46cf-aa23-b6515f0d8762</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,6 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
 		<PackageReference Include="MSTest.TestAdapter" Version="3.7.3" />
 		<PackageReference Include="MSTest.TestFramework" Version="3.7.3" />

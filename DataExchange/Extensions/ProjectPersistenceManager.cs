@@ -33,6 +33,14 @@ namespace HomagConnect.DataExchange.Extensions
         {
             var extractDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "Project", Guid.NewGuid().ToString()));
 
+            return Load(projectZipArchive, extractDirectory, migrateToLatestVersion);
+        }
+
+        /// <summary>
+        /// Load project from project.zip archive.
+        /// </summary>
+        public static Project Load(ZipArchive projectZipArchive, DirectoryInfo extractDirectory, bool migrateToLatestVersion = true)
+        {
             projectZipArchive.ExtractToDirectory(extractDirectory.FullName);
 
             var projectXml = extractDirectory.EnumerateFiles(_ProjectXmlFileName, SearchOption.AllDirectories).FirstOrDefault();
@@ -98,17 +106,17 @@ namespace HomagConnect.DataExchange.Extensions
         /// <summary>
         /// Save project to project.xml file.
         /// </summary>
-        public static void Save(this Project project, FileInfo projectXml)
+        public static void SaveToXmlFile(this Project project, FileInfo fileInfo)
         {
-            using var s = new FileStream(projectXml.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+            using var s = new FileStream(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
 
-            Save(project, s);
+            SaveToXmlStream(project, s);
         }
 
         /// <summary>
         /// Save project to project.xml file.
         /// </summary>
-        public static void Save(this Project project, FileInfo projectZip, Dictionary<string, string>? projectFiles)
+        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, DirectoryInfo projectFilesDirectory)
         {
             using var memoryStream = new MemoryStream();
             using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
@@ -117,7 +125,43 @@ namespace HomagConnect.DataExchange.Extensions
 
                 using (var entryStream = projectXml.Open())
                 {
-                    Save(project, entryStream);
+                    SaveToXmlStream(project, entryStream);
+                }
+
+                var projectFiles = projectFilesDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(f => f.Name != _ProjectXmlFileName);
+
+                foreach (var projectFile in projectFiles)
+                {
+                    var key = projectFile.FullName.Replace(projectFilesDirectory.FullName, "").Replace('\\', '/').Trim('/');
+
+                    var entryStream = archive.CreateEntry(key);
+
+                    using var fileStream = new FileStream(projectFile.FullName, FileMode.Open);
+                    using var es = entryStream.Open();
+                    fileStream.CopyTo(es);
+                }
+            }
+
+            using (var fileStream = new FileStream(fileInfo.FullName, FileMode.Create))
+            {
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                memoryStream.CopyTo(fileStream);
+            }
+        }
+
+        /// <summary>
+        /// Save project to project.xml file.
+        /// </summary>
+        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, Dictionary<string, string>? projectFiles)
+        {
+            using var memoryStream = new MemoryStream();
+            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            {
+                var projectXml = archive.CreateEntry(_ProjectXmlFileName);
+
+                using (var entryStream = projectXml.Open())
+                {
+                    SaveToXmlStream(project, entryStream);
                 }
 
                 if (projectFiles != null)
@@ -138,7 +182,7 @@ namespace HomagConnect.DataExchange.Extensions
                 }
             }
 
-            using (var fileStream = new FileStream(projectZip.FullName, FileMode.Create))
+            using (var fileStream = new FileStream(fileInfo.FullName, FileMode.Create))
             {
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 memoryStream.CopyTo(fileStream);
@@ -148,19 +192,19 @@ namespace HomagConnect.DataExchange.Extensions
         /// <summary>
         /// Save project to project.xml file.
         /// </summary>
-        public static void Save(this Project project, string projectXml)
+        public static void SaveToXmlFile(this Project project, string path)
         {
-            using var s = new FileStream(projectXml, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+            using var s = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
 
-            Save(project, s);
+            SaveToXmlStream(project, s);
         }
 
         /// <summary>
         /// Save project to project.xml stream.
         /// </summary>
-        public static void Save(this Project project, Stream projectXml)
+        public static void SaveToXmlStream(this Project project, Stream stream)
         {
-            var w = new StreamWriter(projectXml, Encoding.UTF8);
+            var w = new StreamWriter(stream, Encoding.UTF8);
             var ser = new XmlSerializer(typeof(Project));
             ser.Serialize(w, project);
         }
