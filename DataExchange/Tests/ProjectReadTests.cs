@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 
 using HomagConnect.Base.Extensions;
-using HomagConnect.DataExchange.Contracts;
+using HomagConnect.DataExchange.Extensions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,7 +26,7 @@ namespace HomagConnect.DataExchange.Tests
 
             Assert.IsNotNull(stream);
 
-            var p = Project.Load(stream);
+            var p = ProjectPersistenceManager.Load(stream);
             Assert.IsNotNull(p);
 
             // Project
@@ -67,7 +67,7 @@ namespace HomagConnect.DataExchange.Tests
         {
             using var zip = ZipFile.OpenRead("TestData/project-01.zip");
 
-            var project = Project.Load(zip);
+            var project = ProjectPersistenceManager.Load(zip);
 
             Assert.IsNotNull(project);
             Assert.IsNotNull(project.Orders);

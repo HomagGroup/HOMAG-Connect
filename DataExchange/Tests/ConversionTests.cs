@@ -1,8 +1,6 @@
 ﻿using System.IO.Compression;
-using System.Runtime.CompilerServices;
 
 using HomagConnect.Base.Extensions;
-using HomagConnect.DataExchange.Contracts;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Extensions.Wrapper;
 using HomagConnect.DataExchange.Samples;
@@ -24,29 +22,18 @@ public class ConversionTests
 
     /// <summary />
     [TestMethod]
-    public void Convert_ProjectToOrder_ProjectHavingTypicalProperties()
+    public void Convert_ProjectToGroup_LargeProject()
     {
-        var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
+        var fileInfo = new FileInfo("TestData\\Kitchen.zip");
 
-        ConvertProjectToOrder(fileInfo);
+        ConvertProjectToGroup(fileInfo);
     }
-
 
     /// <summary />
     [TestMethod]
     public void Convert_ProjectToGroup_ProjectHavingTypicalProperties()
     {
         var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
-
-        ConvertProjectToGroup(fileInfo);
-    }
-
-
-    /// <summary />
-    [TestMethod]
-    public void Convert_ProjectToGroup_LargeProject()
-    {
-        var fileInfo = new FileInfo("TestData\\Kitchen.zip");
 
         ConvertProjectToGroup(fileInfo);
     }
@@ -61,47 +48,19 @@ public class ConversionTests
     }
 
     /// <summary />
-    private  void ConvertProjectToOrder(FileInfo fileInfo)
+    [TestMethod]
+    public void Convert_ProjectToOrder_ProjectHavingTypicalProperties()
     {
-        var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
+        var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
 
-        var project = Project.Load(zipArchive);
-        var projectWrapper = new ProjectWrapper(project);
-
-        var orders = project.ConvertToOrders().ToList();
-
-        Assert.IsNotNull(project.Orders);
-        Assert.IsNotNull(orders);
-
-        Assert.AreEqual(project.Orders.Count, orders.Count);
-
-        for (var i = 0; i < projectWrapper.Orders.Count; i++)
-        {
-            var source = projectWrapper.Orders[i];
-            var target = orders[i];
-
-           TestContext.AddResultFile(source.TraceToFile("Source").FullName);
-           TestContext.AddResultFile(target.TraceToFile("Target").FullName);
-
-            if (target.AdditionalProperties is { Count: > 0 })
-            {
-                target.AdditionalProperties.Trace("Unknown properties");
-            }
-
-            Assert.AreEqual(source.OrderName, target.OrderName);
-            Assert.AreEqual(source.OrderNumber, target.OrderNumber);
-
-
-            
-        }
+        ConvertProjectToOrder(fileInfo);
     }
-
 
     private void ConvertProjectToGroup(FileInfo fileInfo)
     {
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
-        var project = Project.Load(zipArchive);
+        var project = ProjectPersistenceManager.Load(zipArchive);
         var projectWrapper = new ProjectWrapper(project);
 
         var groups = project.ConvertToGroups().ToList();
@@ -125,6 +84,39 @@ public class ConversionTests
             }
 
             Assert.AreEqual(source.OrderName, target.Name);
+        }
+    }
+
+    /// <summary />
+    private void ConvertProjectToOrder(FileInfo fileInfo)
+    {
+        var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
+
+        var project = ProjectPersistenceManager.Load(zipArchive);
+        var projectWrapper = new ProjectWrapper(project);
+
+        var orders = project.ConvertToOrders().ToList();
+
+        Assert.IsNotNull(project.Orders);
+        Assert.IsNotNull(orders);
+
+        Assert.AreEqual(project.Orders.Count, orders.Count);
+
+        for (var i = 0; i < projectWrapper.Orders.Count; i++)
+        {
+            var source = projectWrapper.Orders[i];
+            var target = orders[i];
+
+            TestContext.AddResultFile(source.TraceToFile("Source").FullName);
+            TestContext.AddResultFile(target.TraceToFile("Target").FullName);
+
+            if (target.AdditionalProperties is { Count: > 0 })
+            {
+                target.AdditionalProperties.Trace("Unknown properties");
+            }
+
+            Assert.AreEqual(source.OrderName, target.OrderName);
+            Assert.AreEqual(source.OrderNumber, target.OrderNumber);
         }
     }
 }

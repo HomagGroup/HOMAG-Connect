@@ -13,7 +13,7 @@ namespace HomagConnect.DataExchange.Extensions;
 /// <summary>
 /// Param base extensions.
 /// </summary>
-public static class ProjectExtensions
+public static class ProjectExtensionsConversion
 {
     /// <summary>
     /// Converts the project to order.
