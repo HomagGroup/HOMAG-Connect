@@ -80,7 +80,7 @@ namespace HomagConnect.DataExchange.Extensions.Wrapper
         /// </summary>
         public void Save(FileInfo projectZip, Dictionary<string, string>? projectFiles)
         {
-            Project.Save(projectZip, projectFiles);
+            Project.SaveToZipArchive(projectZip, projectFiles);
         }
 
         #endregion
