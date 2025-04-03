@@ -17,5 +17,11 @@
                 // Ignore
             }
         }
+
+        /// <summary>
+        /// Gets or sets the contour information for this group
+        /// which is the surrounding contour of the articles in this group.
+        /// </summary>
+        public string? ContourInformation { get; set; }
     }
 }

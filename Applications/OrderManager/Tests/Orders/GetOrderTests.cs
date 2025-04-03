@@ -530,6 +530,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                         {
                             Id = "61C36AB3-9406-44A6-8559-CBC132D5D8D4",
                             Notes = "This is an article group (PosGroup)",
+                            ContourInformation = "{ \"contour\": \"M 0 0 L 100 0 L 100 100 L 0 100 Z\" }",
                             Items = new()
                             {
                                 new ConfigurationPosition
