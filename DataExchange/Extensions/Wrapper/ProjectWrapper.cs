@@ -13,6 +13,18 @@ namespace HomagConnect.DataExchange.Extensions.Wrapper
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Save project to project.zip file.
+        /// </summary>
+        public void Save(FileInfo projectZip, Dictionary<string, FileInfo>? projectFiles)
+        {
+            Project.SaveToZipArchive(projectZip, projectFiles);
+        }
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -69,18 +81,6 @@ namespace HomagConnect.DataExchange.Extensions.Wrapper
             {
                 return new OrderWrapperList(Project.Orders);
             }
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Save project to project.zip file.
-        /// </summary>
-        public void Save(FileInfo projectZip, Dictionary<string, FileInfo>? projectFiles)
-        {
-            Project.SaveToZipArchive(projectZip, projectFiles);
         }
 
         #endregion

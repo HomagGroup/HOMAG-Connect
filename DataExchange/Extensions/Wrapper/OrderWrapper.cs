@@ -74,7 +74,6 @@ public class OrderWrapper
         }
     }
 
-
     /// <summary />
     public string? OrderNumber
     {
@@ -166,6 +165,88 @@ public class OrderWrapper
         }
     }
 
+    #region Address
+
+    /// <summary />
+    public string? Country
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
+    public string? HouseNumber
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
+    public string? PostalCode
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
+    public string? Name
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
+    public string? Street
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
+    public string? City
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+    #endregion
+
     /// <summary>
     /// Gets the properties of the order.
     /// </summary>
@@ -175,7 +256,7 @@ public class OrderWrapper
         {
             return Order.Properties;
         }
-      }
+    }
 
     /// <summary />
     public IList<ImageWrapper> Images
