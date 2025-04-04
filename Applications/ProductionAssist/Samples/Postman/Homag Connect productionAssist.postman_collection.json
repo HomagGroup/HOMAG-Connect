@@ -32,7 +32,7 @@
 							"response": []
 						},
 						{
-							"name": "Get cutting jobs by nesting job id",
+							"name": "Get cutting jobs by cutting job id",
 							"request": {
 								"method": "GET",
 								"header": [],

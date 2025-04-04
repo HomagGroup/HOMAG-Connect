@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Services;
-using HomagConnect.ProductionAssist.Contracts;
-using HomagConnect.ProductionAssist.Contracts.Cutting;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
-using HomagConnect.ProductionAssist.Contracts.Nesting;
+using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
 
 namespace HomagConnect.ProductionAssist.Client
 {
@@ -40,100 +37,6 @@ namespace HomagConnect.ProductionAssist.Client
 
             await PostObject(new Uri(uri, UriKind.Relative), feedbackRequest);
         }
-
-        #region Cutting
-
-        /// <inheritdoc />
-        public async Task DeleteCuttingJob(Guid cuttingJobId)
-        {
-            await DeleteCuttingJobs([cuttingJobId]);
-        }
-
-        /// <inheritdoc />
-        public async Task DeleteCuttingJobs(Guid[] cuttingJobIds)
-        {
-            var uri = $"/api/productionAssist/cutting/jobs?cuttingJobId={cuttingJobIds[0]}";
-            for (var i = 1; i < cuttingJobIds.Length; i++)
-            {
-                uri += $"&cuttingJobId={cuttingJobIds[i]}";
-            }
-
-            await DeleteObject(new Uri(uri, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<CuttingJob>> GetCuttingJobs()
-        {
-            var uri = $"/api/productionAssist/cutting/jobs";
-            return await RequestEnumerable<CuttingJob>(new Uri(uri, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<CuttingJob>> GetCuttingJobs(Guid[] cuttingJobIds)
-        {
-            var uri = $"/api/productionAssist/cutting/jobs?cuttingJobId={cuttingJobIds[0]}";
-            for (var i = 1; i < cuttingJobIds.Length; i++)
-            {
-                uri += $"&cuttingJobId={cuttingJobIds[i]}";
-            }
-
-            return await RequestEnumerable<CuttingJob>(new Uri(uri, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<CuttingJob> GetCuttingJob(Guid cuttingJobId)
-        {
-            return (await GetCuttingJobs([cuttingJobId])).FirstOrDefault();
-        }
-
-        #endregion Cutting
-
-        #region Nesting
-
-        /// <inheritdoc />
-        public async Task DeleteNestingJob(Guid nestingJobId)
-        {
-            await DeleteNestingJobs([nestingJobId]);
-        }
-
-        /// <inheritdoc />
-        public async Task DeleteNestingJobs(Guid[] nestingJobIds)
-        {
-            var uri = $"/api/productionAssist/nesting/jobs?nestingJobId={nestingJobIds[0]}";
-            for (var i = 1; i < nestingJobIds.Length; i++)
-            {
-                uri += $"&nestingJobId={nestingJobIds[i]}";
-            }
-
-            await DeleteObject(new Uri(uri, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<NestingJob>> GetNestingJobs()
-        {
-            var uri = $"/api/productionAssist/nesting/jobs";
-            return await RequestEnumerable<NestingJob>(new Uri(uri, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<NestingJob>> GetNestingJobs(Guid[] nestingJobIds)
-        {
-            var uri = $"/api/productionAssist/nesting/jobs?nestingJobId={nestingJobIds[0]}";
-            for (var i = 1; i < nestingJobIds.Length; i++)
-            {
-                uri += $"&nestingJobId={nestingJobIds[i]}";
-            }
-
-            return await RequestEnumerable<NestingJob>(new Uri(uri, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<NestingJob> GetNestingJob(Guid nestingJobId)
-        {
-            return (await GetNestingJobs([nestingJobId])).FirstOrDefault();
-        }
-
-        #endregion Nesting
 
         #endregion
 
