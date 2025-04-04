@@ -71,7 +71,7 @@ public class MaterialManagerUpdateEdgebandType : MaterialManagerUpdateMaterialTy
     /// <summary>
     /// Gets or sets the process.
     /// </summary>
-    public Process? Process { get; set; }
+    public EdgebandingProcess? Process { get; set; }
 
     /// <summary>
     /// Gets or sets the protection film thickness.
