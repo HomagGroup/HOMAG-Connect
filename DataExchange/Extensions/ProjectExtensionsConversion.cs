@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.DataExchange.Contracts;
@@ -69,20 +70,46 @@ public static class ProjectExtensionsConversion
         return orders;
     }
 
-    private static void MapOrder(Project project, Order order, OrderDetails orderDetails)
+    private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
     {
-        MapEntity(order, orderDetails);
-
-        if (order.Entities.Count > 0)
+        if (properties == null)
         {
-            orderDetails.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
-
-            var group = new Group();
-
-            Map(project, order, group);
-
-            orderDetails.Items.Add(group);
+            throw new ArgumentNullException(nameof(properties));
         }
+
+        var propertiesAsArray = properties.ToArray();
+
+        var entityEntityProperty = propertiesAsArray.FirstOrDefault(t => string.Equals(t.Name, "Type", StringComparison.InvariantCultureIgnoreCase) ||
+                                                                         string.Equals(t.Name, "Typ", StringComparison.InvariantCultureIgnoreCase));
+
+        if (entityEntityProperty?.Value == null)
+        {
+            throw new NotSupportedException("Type property not found");
+        }
+
+        var type = entityEntityProperty.Value;
+
+        if (string.Equals(type, "OrderItem", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Position();
+        }
+
+        if (string.Equals(type, "Component", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Component();
+        }
+
+        if (string.Equals(type, "ProductionOrder", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Part();
+        }
+
+        if (string.Equals(type, "Resource", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Resource();
+        }
+
+        throw new NotSupportedException($"Entity of type '{entityEntityProperty.Value}' not supported.");
     }
 
     private static void Map(Project project, Order order, Group group)
@@ -117,60 +144,6 @@ public static class ProjectExtensionsConversion
                 group.Items.Add(orderItem);
             }
         }
-    }
-
-    private static void MapOrderItem(Entity entity, OrderManager.Contracts.OrderItems.Base orderItem)
-    {
-        MapEntity(entity, orderItem);
-
-        if (entity.Entities.Count > 0)
-        {
-            orderItem.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
-
-            foreach (var entityEntity in entity.Entities)
-            {
-                var orderItemItem = CreateInstance(entityEntity.Properties);
-
-                MapOrderItem(entityEntity, orderItemItem);
-
-                orderItem.Items.Add(orderItemItem);
-            }
-        }
-    }
-
-    private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
-    {
-        var entityEntityProperty = properties.FirstOrDefault(t => string.Equals(t.Name, "Type", StringComparison.InvariantCultureIgnoreCase) ||
-                                                                  string.Equals(t.Name, "Typ", StringComparison.InvariantCultureIgnoreCase));
-
-        if (entityEntityProperty?.Value == null)
-        {
-            throw new NotSupportedException("Type property not found");
-        }
-
-        var type = entityEntityProperty.Value;
-
-        if (string.Equals(type, "OrderItem", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return new Position();
-        }
-
-        if (string.Equals(type, "Component", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return new Component();
-        }
-
-        if (string.Equals(type, "ProductionOrder", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return new Part();
-        }
-
-        if (string.Equals(type, "Resource", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return new Resource();
-        }
-
-        throw new NotSupportedException($"Entity of type '{entityEntityProperty.Value}' not supported.");
     }
 
     private static void MapEntity(Entity entity, ISupportsAdditionalData target, bool ignoreAdditionalProperties = false)
@@ -224,6 +197,110 @@ public static class ProjectExtensionsConversion
 
                     target.AdditionalData.Add(additionalDataEntity);
                 }
+            }
+        }
+    }
+
+    private static void MapOrder(Project project, Order order, OrderDetails orderDetails)
+    {
+        MapEntity(order, orderDetails);
+
+        var orderWrapper = new OrderWrapper(order);
+
+        if (orderDetails.Addresses == null || orderDetails.Addresses.Count == 0)
+        {
+            var address = new Address();
+
+            address.Type = AddressType.Delivery;
+            address.Name = orderWrapper.CustomerName;
+            address.Street = orderWrapper.Street;
+            address.HouseNumber = orderWrapper.HouseNumber;
+            address.PostalCode = orderWrapper.PostalCode;
+            address.City = orderWrapper.City;
+            address.Country = orderWrapper.Country;
+
+            orderDetails.Addresses =
+            [
+                address
+            ];
+        }
+
+        if (order.Entities.Count > 0)
+        {
+            orderDetails.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
+
+            var group = new Group();
+
+            Map(project, order, group);
+
+            orderDetails.Items.Add(group);
+        }
+    }
+
+    private static void MapOrderItem(Entity entity, OrderManager.Contracts.OrderItems.Base orderItem)
+    {
+        if (orderItem is Position position)
+        {
+            MapPosition(entity, position);
+        }
+        else
+        {
+            MapEntity(entity, orderItem);
+        }
+
+        if (entity.Entities.Count > 0)
+        {
+            orderItem.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
+
+            foreach (var entityEntity in entity.Entities)
+            {
+                var orderItemItem = CreateInstance(entityEntity.Properties);
+
+                MapOrderItem(entityEntity, orderItemItem);
+
+                orderItem.Items.Add(orderItemItem);
+            }
+        }
+    }
+
+    private static void MapPosition(Entity entity, Position position)
+    {
+        var orderItemWrapper = new OrderItemWrapper(entity);
+
+        position.Id = orderItemWrapper.OrderItemNumber;
+        position.Name = orderItemWrapper.OrderItemNumber;
+        position.ArticleNumber = orderItemWrapper.ArticleNumber;
+        position.ArticleName = orderItemWrapper.Description;
+        position.Description = orderItemWrapper.Description;
+        position.Height = orderItemWrapper.Length;
+        position.Width = orderItemWrapper.Width;
+        position.Depth = orderItemWrapper.Thickness;
+        position.Quantity = orderItemWrapper.Quantity ?? 1;
+        // position.Catalog = ?
+
+        var propertiesToIgnore = new[]
+        {
+            "Type",
+            "QuantityUnit",
+            "Barcode",
+
+            // TODO: Validate if these properties are really not needed
+
+            "ArticleGroup",
+            "StartDatePlanned",
+            "Grain"
+        };
+
+        var wrapperPropertyNames = orderItemWrapper.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(p => p.Name);
+
+        foreach (var property in entity.Properties
+                     .Where(p => !propertiesToIgnore.Any(i => string.Equals(i, p.Name, StringComparison.OrdinalIgnoreCase)))
+                     .Where(p => !wrapperPropertyNames.Any(w => string.Equals(w, p.Name, StringComparison.OrdinalIgnoreCase))))
+        {
+            if (property.Name != null && property.Value != null)
+            {
+                position.AdditionalProperties ??= new Dictionary<string, object>();
+                position.AdditionalProperties.Add(property.Name, property.Value);
             }
         }
     }

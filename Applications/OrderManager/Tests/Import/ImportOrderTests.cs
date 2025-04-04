@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO.Compression;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Samples;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
 
@@ -97,6 +99,44 @@ namespace HomagConnect.OrderManager.Tests.Import
                 var importOrderResponse = await orderManager.ImportOrderRequest(projectZip);
 
                 importOrderResponse.Trace();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                anyException = true;
+            }
+
+            Assert.IsFalse(anyException);
+        }
+
+
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_ProjectZip_Wardrobe()
+        {
+            var orderManager = GetOrderManagerClient();
+            var anyException = false;
+
+            try
+            {
+                var projectZip = new FileInfo("TestData\\Wardrobe.zip");
+
+                var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+
+                var orders = project.ConvertToOrders();
+
+                var fileReferences = (projectFiles ?? new Dictionary<string, FileInfo>()).Select(projectFile => new FileReference(projectFile.Key, projectFile.Value)).ToArray();
+
+                foreach (var order in orders)
+                {
+                    var importOrderResponse = await orderManager.ImportOrderRequest(order, fileReferences);
+
+                    importOrderResponse.Trace();
+
+                    var state = await orderManager.GetImportOrderState(importOrderResponse.CorrelationId);
+
+                    state.Trace();
+                }
             }
             catch (Exception e)
             {
