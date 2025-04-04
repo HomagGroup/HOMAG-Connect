@@ -9,8 +9,6 @@ using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
-using Process = HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations.Process;
-
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
@@ -84,7 +82,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Gets or sets the process.
     /// </summary>
-    public Process? Process { get; set; }
+    public EdgebandingProcess? Process { get; set; }
 
     /// <summary>
     /// Gets or sets the lasertec (J/cm^2).

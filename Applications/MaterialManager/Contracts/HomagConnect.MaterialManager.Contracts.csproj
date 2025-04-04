@@ -51,8 +51,8 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
-	  <Compile Update="Material\Edgebands\Enumerations\ProcessDisplayNames.Designer.cs">
-	    <DependentUpon>ProcessDisplayNames.resx</DependentUpon>
+	  <Compile Update="Material\Edgebands\Enumerations\EdgebandingProcessDisplayNames.Designer.cs">
+	    <DependentUpon>EdgebandingProcessDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
@@ -79,8 +79,8 @@
 	    <LastGenOutput>EdgebandMaterialCategoryDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Material\Edgebands\Enumerations\ProcessDisplayNames.resx">
-	    <LastGenOutput>ProcessDisplayNames.Designer.cs</LastGenOutput>
+	  <EmbeddedResource Update="Material\Edgebands\Enumerations\EdgebandingProcessDisplayNames.resx">
+	    <LastGenOutput>EdgebandingProcessDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>

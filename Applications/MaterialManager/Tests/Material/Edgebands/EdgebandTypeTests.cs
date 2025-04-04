@@ -47,7 +47,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             Height = 20,
             DefaultLength = 23.0,
             MaterialCategory = EdgebandMaterialCategory.Veneer,
-            Process = Process.Other,
+            Process = EdgebandingProcess.Other,
             AdditionalData = new List<AdditionalDataEntity>
             {
                 new AdditionalDataImage
