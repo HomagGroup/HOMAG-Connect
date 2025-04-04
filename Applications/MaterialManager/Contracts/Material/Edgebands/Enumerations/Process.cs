@@ -1,17 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 /// <summary>
 /// Process.
 /// </summary>
-[ResourceManager(typeof(EdgebandingProcessDisplayNames))]
 [JsonConverter(typeof(TolerantEnumConverter))]
-public enum EdgebandingProcess
+[Obsolete("Use EdgebandingProcess instead", true)]
+public enum Process
 {
     // ReSharper disable InconsistentNaming
     // ReSharper disable IdentifierTypo
