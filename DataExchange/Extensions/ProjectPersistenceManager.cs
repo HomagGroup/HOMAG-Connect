@@ -23,34 +23,7 @@ namespace HomagConnect.DataExchange.Extensions
             if (projectXmlFileInfo == null) throw new ArgumentNullException(nameof(projectXmlFileInfo));
             if (!projectXmlFileInfo.Exists) throw new FileNotFoundException("File not found", projectXmlFileInfo.FullName);
 
-            return Load(projectXmlFileInfo.FullName, migrateToLatestVersion);
-        }
-
-        /// <summary>
-        /// Load project from project.zip archive.
-        /// </summary>
-        public static Project Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
-        {
-            var extractDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "Project", Guid.NewGuid().ToString()));
-
-            return Load(projectZipArchive, extractDirectory, migrateToLatestVersion);
-        }
-
-        /// <summary>
-        /// Load project from project.zip archive.
-        /// </summary>
-        public static Project Load(ZipArchive projectZipArchive, DirectoryInfo extractDirectory, bool migrateToLatestVersion = true)
-        {
-            projectZipArchive.ExtractToDirectory(extractDirectory.FullName);
-
-            var projectXml = extractDirectory.EnumerateFiles(_ProjectXmlFileName, SearchOption.AllDirectories).FirstOrDefault();
-
-            if (projectXml == null)
-            {
-                throw new FileNotFoundException("File not found in archive.", _ProjectXmlFileName);
-            }
-
-            return Load(projectXml.FullName, migrateToLatestVersion);
+            return Load(projectXmlFileInfo.OpenRead(), migrateToLatestVersion);
         }
 
         /// <summary>
@@ -58,9 +31,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// </summary>
         public static Project Load(string projectXmlPath, bool migrateToLatestVersion = true)
         {
-            using var s = new FileStream(projectXmlPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-            return Load(s, migrateToLatestVersion);
+            return Load(new FileInfo(projectXmlPath), migrateToLatestVersion);
         }
 
         /// <summary>
@@ -83,11 +54,41 @@ namespace HomagConnect.DataExchange.Extensions
         }
 
         /// <summary>
+        /// Load project from project.zip archive.
+        /// </summary>
+        public static (Project Project, Dictionary<string, FileInfo>? ProjectFiles) Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
+        {
+            var projectDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+
+            projectZipArchive.ExtractToDirectory(projectDirectory.FullName);
+
+            var projectXmlFile = projectDirectory.EnumerateFiles(_ProjectXmlFileName, SearchOption.AllDirectories).FirstOrDefault();
+
+            if (projectXmlFile == null)
+            {
+                throw new FileNotFoundException("Project XML file not found in archive", _ProjectXmlFileName);
+            }
+
+            if (projectXmlFile.Directory == null)
+            {
+                throw new InvalidOperationException("Project XML file directory is null");
+            }
+
+            var project = Load(projectXmlFile, migrateToLatestVersion);
+
+            var projectFiles = projectDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories)
+                .Where(f => f.Name != _ProjectXmlFileName)
+                .ToDictionary(f => f.FullName.Replace(projectXmlFile.Directory.FullName, "").Replace('\\', '/').Trim('/'), f => f);
+
+            return (project, projectFiles);
+        }
+
+        /// <summary>
         /// Load project from project.xml string.
         /// </summary>
-        public static Project LoadFromString(string text, bool migrateToLatestVersion = true)
+        public static Project LoadFromString(string projectXml, bool migrateToLatestVersion = true)
         {
-            var r = new StringReader(text);
+            var r = new StringReader(projectXml);
             var ser = new XmlSerializer(typeof(Project));
             var o = ser.Deserialize(r);
 
@@ -116,43 +117,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// <summary>
         /// Save project to project.xml file.
         /// </summary>
-        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, DirectoryInfo projectFilesDirectory)
-        {
-            using var memoryStream = new MemoryStream();
-            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
-            {
-                var projectXml = archive.CreateEntry(_ProjectXmlFileName);
-
-                using (var entryStream = projectXml.Open())
-                {
-                    SaveToXmlStream(project, entryStream);
-                }
-
-                var projectFiles = projectFilesDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(f => f.Name != _ProjectXmlFileName);
-
-                foreach (var projectFile in projectFiles)
-                {
-                    var key = projectFile.FullName.Replace(projectFilesDirectory.FullName, "").Replace('\\', '/').Trim('/');
-
-                    var entryStream = archive.CreateEntry(key);
-
-                    using var fileStream = new FileStream(projectFile.FullName, FileMode.Open);
-                    using var es = entryStream.Open();
-                    fileStream.CopyTo(es);
-                }
-            }
-
-            using (var fileStream = new FileStream(fileInfo.FullName, FileMode.Create))
-            {
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                memoryStream.CopyTo(fileStream);
-            }
-        }
-
-        /// <summary>
-        /// Save project to project.xml file.
-        /// </summary>
-        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, Dictionary<string, string>? projectFiles)
+        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, Dictionary<string, FileInfo>? projectFiles)
         {
             using var memoryStream = new MemoryStream();
             using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
@@ -168,14 +133,16 @@ namespace HomagConnect.DataExchange.Extensions
                 {
                     foreach (var projectFile in projectFiles)
                     {
-                        if (!File.Exists(projectFile.Value))
+                        var projectFileInfo = projectFile.Value;
+
+                        if (!projectFileInfo.Exists)
                         {
-                            throw new FileNotFoundException("File not found", projectFile.Value);
+                            throw new FileNotFoundException("File not found", projectFile.Value.FullName);
                         }
 
                         var entryStream = archive.CreateEntry(projectFile.Key);
 
-                        using var fileStream = new FileStream(projectFile.Value, FileMode.Open);
+                        using var fileStream = projectFileInfo.OpenRead();
                         using var es = entryStream.Open();
                         fileStream.CopyTo(es);
                     }
