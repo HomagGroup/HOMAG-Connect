@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Services;
-using HomagConnect.ProductionAssist.Contracts.Cutting;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
 using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
 
@@ -39,7 +37,7 @@ namespace HomagConnect.ProductionAssist.Client
 
             await PostObject(new Uri(uri, UriKind.Relative), feedbackRequest);
         }
-        
+
         #endregion
 
         #region Constructors
