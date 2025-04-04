@@ -78,7 +78,7 @@ namespace HomagConnect.DataExchange.Extensions.Wrapper
         /// <summary>
         /// Save project to project.zip file.
         /// </summary>
-        public void Save(FileInfo projectZip, Dictionary<string, string>? projectFiles)
+        public void Save(FileInfo projectZip, Dictionary<string, FileInfo>? projectFiles)
         {
             Project.SaveToZipArchive(projectZip, projectFiles);
         }

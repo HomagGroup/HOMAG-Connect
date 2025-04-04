@@ -60,7 +60,7 @@ public class ConversionTests
     {
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
-        var project = ProjectPersistenceManager.Load(zipArchive);
+        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive);  
         var projectWrapper = new ProjectWrapper(project);
 
         var groups = project.ConvertToGroups().ToList();
@@ -92,7 +92,7 @@ public class ConversionTests
     {
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
-        var project = ProjectPersistenceManager.Load(zipArchive);
+        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive);
         var projectWrapper = new ProjectWrapper(project);
 
         var orders = project.ConvertToOrders().ToList();

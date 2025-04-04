@@ -67,7 +67,7 @@ namespace HomagConnect.DataExchange.Tests
         {
             using var zip = ZipFile.OpenRead("TestData/project-01.zip");
 
-            var project = ProjectPersistenceManager.Load(zip);
+            var (project, projectFiles) = ProjectPersistenceManager.Load(zip);
 
             Assert.IsNotNull(project);
             Assert.IsNotNull(project.Orders);

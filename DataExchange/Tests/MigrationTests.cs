@@ -47,7 +47,7 @@ public class MigrationTests
     {
         var fileInfo = new FileInfo("TestData\\project-01.zip");
 
-        var projectOriginal = ProjectPersistenceManager.Load(new ZipArchive(fileInfo.OpenRead(), ZipArchiveMode.Read), false);
+        var (projectOriginal, projectFilesOriginal) = ProjectPersistenceManager.Load(new ZipArchive(fileInfo.OpenRead(), ZipArchiveMode.Read), false);
 
         Assert.IsNotNull(projectOriginal.Orders);
         Assert.IsNotNull(projectOriginal.Orders[0].Properties);
@@ -56,7 +56,7 @@ public class MigrationTests
         TestContext.AddResultFile(fileInfo.FullName);
 
         var extractDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "Project", Guid.NewGuid().ToString()));
-        var projectMigrated = ProjectPersistenceManager.Load(new ZipArchive(fileInfo.OpenRead(), ZipArchiveMode.Read), extractDirectory, true);
+        var (projectMigrated, projectFilesMigrated) = ProjectPersistenceManager.Load(new ZipArchive(fileInfo.OpenRead(), ZipArchiveMode.Read),  true);
 
         Assert.IsNotNull(projectMigrated.Orders);
         Assert.IsNotNull(projectMigrated.Orders[0].Properties);
@@ -65,10 +65,8 @@ public class MigrationTests
 
         var output = new FileInfo($"project-01.migrated.{Guid.NewGuid()}.zip");
 
-        projectMigrated.SaveToZipArchive(output, extractDirectory);
-
-        var reloadedDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "Project", Guid.NewGuid().ToString()));
-        var projectReloaded = ProjectPersistenceManager.Load(new ZipArchive(output.OpenRead(), ZipArchiveMode.Read), reloadedDirectory, true);
+        projectMigrated.SaveToZipArchive(output, projectFilesMigrated);
+        var (projectReloaded, projectFilesReloaded) = ProjectPersistenceManager.Load(new ZipArchive(output.OpenRead(), ZipArchiveMode.Read), true);
 
         Assert.IsNotNull(projectReloaded.Orders);
         Assert.IsNotNull(projectReloaded.Orders[0].Properties);

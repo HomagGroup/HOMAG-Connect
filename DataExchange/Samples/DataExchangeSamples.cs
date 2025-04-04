@@ -20,7 +20,7 @@ namespace HomagConnect.DataExchange.Samples
             var testDataFolder = new DirectoryInfo(@"Data\\project-02");
 
             var project = new ProjectWrapper();
-            var projectFiles = new Dictionary<string, string>();
+            var projectFiles = new Dictionary<string, FileInfo>();
 
             project.Name = "Project 01";
             project.Source = "smartWOP";
@@ -51,7 +51,7 @@ namespace HomagConnect.DataExchange.Samples
                 image.OriginalFileName = fileName;
                 image.ImageLinkPicture = new Uri(reference, UriKind.Relative);
 
-                projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName).FullName);
+                projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName));
 
                 order.Images.Add(image);
             }
@@ -68,7 +68,7 @@ namespace HomagConnect.DataExchange.Samples
                 image.OriginalFileName = fileName;
                 image.ImageLinkPicture = new Uri(reference, UriKind.Relative); 
 
-                projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName).FullName);
+                projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName));
 
                 order.Images.Add(image);
             }
