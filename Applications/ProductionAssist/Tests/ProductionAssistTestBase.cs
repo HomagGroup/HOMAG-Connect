@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase;
 using HomagConnect.ProductionAssist.Client;
-using HomagConnect.ProductionAssist.Contracts;
+using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
 
 namespace HomagConnect.ProductionAssist.Tests
 {

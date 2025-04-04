@@ -1,6 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
-using HomagConnect.ProductionAssist.Contracts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
 
 namespace HomagConnect.ProductionAssist.Samples.Feedback
 {
