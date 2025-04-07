@@ -530,7 +530,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Funier.
+        ///   Looks up a localized string similar to Furnier.
         /// </summary>
         public static string Veneer {
             get {

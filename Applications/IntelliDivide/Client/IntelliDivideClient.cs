@@ -197,7 +197,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<IDictionary<BoardMaterialCategory, string>> GetBoardMaterialCategoryDisplayNames(CultureInfo cultureInfo)
         {
-            const string url = $"api/intelliDivide/materials/boards/materialcategories";
+            string url = $"/api/localizations/enums/{nameof(BoardMaterialCategory)}/{cultureInfo.TwoLetterISOLanguageName}";
 
             var request = new HttpRequestMessage
             {
