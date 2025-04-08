@@ -285,7 +285,11 @@ public static class ProjectExtensionsConversion
                 {
                     downloadUri = imageWrapper.ImageLinkBinary;
                 }
-
+                else if (imageWrapper.OriginalFileName != null)
+                {
+                    downloadUri = new Uri(imageWrapper.OriginalFileName, UriKind.Relative);
+                }
+                
                 var additionalDataEntity = AdditionalDataEntity.CreateInstance(imageWrapper.Extension);
 
                 additionalDataEntity.Category = imageWrapper.Category;

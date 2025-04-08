@@ -39,7 +39,7 @@ namespace HomagConnect.Base.Contracts
                 throw new FileNotFoundException("File does not exist.", FileInfo.FullName);
             }
 
-            await using var fileStream = new FileStream(FileInfo.FullName, FileMode.Open, FileAccess.Read);
+            using var fileStream = new FileStream(FileInfo.FullName, FileMode.Open, FileAccess.Read);
             var memoryStream = new MemoryStream();
             await fileStream.CopyToAsync(memoryStream);
             memoryStream.Position = 0;
