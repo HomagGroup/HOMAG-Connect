@@ -7,6 +7,8 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Samples;
+using HomagConnect.OrderManager.Contracts;
+using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,6 +46,24 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
 
             Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_OrderDetails_Wardrobe()
+        {
+            var orderManager = GetOrderManagerClient();
+
+            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
+
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+
+            foreach (var (order, fileReferences) in project.ConvertToOrders(projectFiles))
+            {
+                var importOrderResponse = await orderManager.ImportOrderRequest(order, fileReferences);
+
+                await EnsureImportOrderSucceeded(orderManager, importOrderResponse);
+            }
         }
 
         /// <summary />
@@ -109,44 +129,6 @@ namespace HomagConnect.OrderManager.Tests.Import
             Assert.IsFalse(anyException);
         }
 
-
-        /// <summary />
-        [TestMethod]
-        public async Task ImportOrder_ProjectZip_Wardrobe()
-        {
-            var orderManager = GetOrderManagerClient();
-            var anyException = false;
-
-            try
-            {
-                var projectZip = new FileInfo("TestData\\Wardrobe.zip");
-
-                var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
-
-                var orders = project.ConvertToOrders();
-
-                var fileReferences = (projectFiles ?? new Dictionary<string, FileInfo>()).Select(projectFile => new FileReference(projectFile.Key, projectFile.Value)).ToArray();
-
-                foreach (var order in orders)
-                {
-                    var importOrderResponse = await orderManager.ImportOrderRequest(order, fileReferences);
-
-                    importOrderResponse.Trace();
-
-                    var state = await orderManager.GetImportOrderState(importOrderResponse.CorrelationId);
-
-                    state.Trace();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                anyException = true;
-            }
-
-            Assert.IsFalse(anyException);
-        }
-
         /// <summary />
         [TestMethod]
         public async Task ImportOrder_ProjectZip_NoException()
@@ -169,6 +151,53 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
 
             Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_ProjectZip_Wardrobe()
+        {
+            var orderManager = GetOrderManagerClient();
+
+            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
+
+            var importOrderRequest = await orderManager.ImportOrderRequest(projectZip);
+
+            await EnsureImportOrderSucceeded(orderManager, importOrderRequest);
+        }
+
+        private static async Task EnsureImportOrderSucceeded(IOrderManagerClient orderManager, ImportOrderResponse importOrderRequest)
+        {
+            var timeout = DateTime.UtcNow.AddMinutes(3);
+
+            while (true)
+            {
+                if (DateTime.UtcNow > timeout)
+                {
+                    Assert.Fail("Timeout");
+                }
+
+                var importOrderState = await orderManager.GetImportOrderState(importOrderRequest.CorrelationId);
+
+                if (importOrderState.State is ImportState.InProgress or ImportState.Queued)
+                {
+                    await Task.Delay(1000);
+                }
+                else if (importOrderState.State is ImportState.Succeeded)
+                {
+                    importOrderState.Trace();
+                    break;
+                }
+                else if (importOrderState.State is ImportState.Error)
+                {
+                    importOrderState.Trace();
+                    Assert.Fail("Import failed");
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(nameof(importOrderState.State), importOrderState.State, @"Unknown state");
+                }
+            }
         }
     }
 }
