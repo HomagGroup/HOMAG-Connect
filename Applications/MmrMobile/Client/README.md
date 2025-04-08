@@ -294,6 +294,8 @@ Content-Type: application/json; charset=utf-8
     }
 ]
 
+```
+
 ## HOMAG Connect MMR Mobile interface overview (machinedata)
 
 Name| Method | API | Usage
