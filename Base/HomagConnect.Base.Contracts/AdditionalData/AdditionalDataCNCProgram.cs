@@ -11,5 +11,5 @@ public class AdditionalDataCNCProgram : AdditionalDataEntity
 
 {
     /// <inheritdoc />
-    public override AdditionalDataType Type { get; set; } = AdditionalDataType.Image;
+    public override AdditionalDataType Type { get; set; } = AdditionalDataType.CNCProgram;
 }
