@@ -34,7 +34,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <returns></returns>
         public async Task<IEnumerable<MmrMachine>> GetMachines()
         {
-            const string url = "/api/mmr-mobile/machinedata/machines";
+            const string url = "/api/machinedata/machines";
 
             var request = new HttpRequestMessage
             {
@@ -60,7 +60,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <returns>list of nodenames</returns>
         public async Task<MmrNodeList> GetNodesOfMachine(string machineNumber)
         {
-            var url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/nodes";
+            var url = $"/api/machinedata/machines/{machineNumber}/nodes";
 
             var request = new HttpRequestMessage
             {
@@ -88,7 +88,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
         public async Task<MmrNodeData> GetCurrentValuesFromMachine(string machineNumber, string node)
         {
-            var url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/nodes/{node}";
+            var url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}";
 
             var request = new HttpRequestMessage
             {
@@ -117,7 +117,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
         public async Task<MmrNodeData> GetPointInTimeValuesFromMachine(string machineNumber, string node, DateTime timestamp)
         {
-            string url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/nodes/{node}?timestamp={Uri.EscapeDataString(timestamp.ToString("o", CultureInfo.InvariantCulture))}";
+            string url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}?timestamp={Uri.EscapeDataString(timestamp.ToString("o", CultureInfo.InvariantCulture))}";
 
             var request = new HttpRequestMessage
             {
@@ -149,7 +149,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
         public async Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take, int skip = 0)
         {
-            string url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/nodes/{node}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+            string url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
 
             var request = new HttpRequestMessage
             {
@@ -174,7 +174,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <inheritdoc />
         public async Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0)
         {
-            var url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/alerts/history" +
+            var url = $"/api/machinedata/machines/{machineNumber}/alerts/history" +
                       $"?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}" +
                       $"&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
                       $"&take={take}&skip={skip}";
@@ -185,7 +185,7 @@ namespace HomagConnect.MmrMobile.Client
         /// <inheritdoc />
         public async Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0)
         {
-            var url = $"/api/mmr-mobile/machinedata/machines/{machineNumber}/alerts/history" +
+            var url = $"/api/machinedata/machines/{machineNumber}/alerts/history" +
                       $"?daysBack={daysBack}" +
                       $"&take={take}&skip={skip}";
 
@@ -194,12 +194,65 @@ namespace HomagConnect.MmrMobile.Client
         #endregion
 
         #region mmr states and counters
+        /// <summary>
+        /// get all machines, the customer has access to
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<MmrMachine>> GetMmrMachines()
+        {
+            const string url = "/api/mmr-mobile/machines";
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.Relative)
+            };
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+
+            HttpResponseMessage response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<IEnumerable<MmrMachine>>(result, SerializerSettings.Default);
+
+            return data ?? Array.Empty<MmrMachine>();
+        }
+
+        /// <summary>
+        /// get one machine information
+        /// </summary>
+        /// <param name="machineNumber"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<MmrMachine>> GetMmrMachine(string machineNumber)
+        {
+            string url = $"/api/mmr-mobile/machines/{machineNumber}";
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.Relative)
+            };
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+
+            HttpResponseMessage response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<IEnumerable<MmrMachine>>(result, SerializerSettings.Default);
+
+            return data ?? Array.Empty<MmrMachine>();
+        }
+
+
+
         /// <inheritdoc />
         public async Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null,
             string machineType = null, string stateId = null, string detailedStateId = null, Granularity? granularity = null)
         {
-            const string url = "/api/mmr/states";
+            const string url = "/api/mmr-mobile/states";
             string parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
             var request = new HttpRequestMessage
             {
@@ -219,7 +272,7 @@ namespace HomagConnect.MmrMobile.Client
         public async Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null)
         {
-            const string url = "/api/mmr/counters";
+            const string url = "/api/mmr-mobile/counters";
             var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
             var request = new HttpRequestMessage
             {

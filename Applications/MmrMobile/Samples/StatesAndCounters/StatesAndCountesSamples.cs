@@ -1,4 +1,6 @@
 ﻿using HomagConnect.MmrMobile.Contracts;
+using System.Diagnostics.Metrics;
+using System.Reflection.PortableExecutable;
 
 namespace HomagConnect.Applications.MmrMobile.Samples
 {
@@ -17,10 +19,30 @@ namespace HomagConnect.Applications.MmrMobile.Samples
         /// </summary>
         /// <param name="mmrMobileClient"></param>
         /// <returns></returns>
+        public static async Task GetMmrMachines(IMmrMobileClient mmrMobileClient)
+        {
+            var machines = await mmrMobileClient.GetMmrMachines();
+            if (machines != null &&  machines.Any())
+            {
+               
+                System.Console.WriteLine($"You mave {machines.Count()} machines having mmr data");
+            }
+            else
+            {
+                System.Console.WriteLine("No data has been found related to this subscription.");
+            }
+        }
+        /// <summary>
+        /// get all counters (last 14 days)
+        /// group and summarize by counterid
+        /// Write the content of the first couter to console
+        /// </summary>
+        /// <param name="mmrMobileClient"></param>
+        /// <returns></returns>
         public static async Task GetCounterData(IMmrMobileClient mmrMobileClient)
         {
             var counters = await mmrMobileClient.GetCounterData();
-            if (counters != null)
+            if (counters != null && counters.Any())
             {
                 var groupedCounter = counters.GroupBy(c => new { c.CounterId }).Select(s => new
                 {
@@ -47,7 +69,7 @@ namespace HomagConnect.Applications.MmrMobile.Samples
         public static async Task GetStateData(IMmrMobileClient mmrMobileClient)
         {
             var states = await mmrMobileClient.GetStateData(from: DateTime.Now.AddDays(-3), to: DateTime.Now );
-            if (states != null)
+            if (states != null && states.Any())
             {
                 var groupedStates = states.GroupBy(c => new { c.StateId, c.StateTranslation }).Select(s => new
                 {
