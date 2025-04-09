@@ -11,7 +11,6 @@ public class MmrMobileClientTests : MmrTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetCurrentValue()
     {
         // Arrange
@@ -27,7 +26,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetHistoricalValue()
     {
         // Arrange
@@ -44,7 +42,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetHistoricalValueFail()
     {
         // Arrange
@@ -66,7 +63,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetHistoricalEventSeries()
     {
         // Arrange
@@ -83,7 +79,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetMachinesForMmr()
     {
         // Arrange
@@ -98,7 +93,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetNodesForMachine()
     {
         // Arrange
@@ -114,7 +108,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetPointInTimeValue()
     {
         // Arrange

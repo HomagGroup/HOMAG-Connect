@@ -7,7 +7,6 @@ namespace HomagConnect.MmrMobile.Tests;
 public class GetMmrRoutes : MmrTestBase
 {
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetCounterTest()
     {
         var mmrMobileClient = GetMmrMobileClient();
@@ -18,7 +17,6 @@ public class GetMmrRoutes : MmrTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetStatesTest()
     {
         var mmrMobileClient = GetMmrMobileClient();
@@ -29,7 +27,6 @@ public class GetMmrRoutes : MmrTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetMmrMachinesTest()
     {
         var mmrMobileClient = GetMmrMobileClient();
@@ -40,7 +37,6 @@ public class GetMmrRoutes : MmrTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 4, 15, "DF-Insights")]
     public async Task GetMmrMachineTest()
     {
         var mmrMobileClient = GetMmrMobileClient();
