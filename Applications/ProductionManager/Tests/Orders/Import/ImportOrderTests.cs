@@ -1,5 +1,6 @@
 using System.IO.Compression;
 
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Samples.Orders.Import;
@@ -34,6 +35,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025,5,1, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Wardrobe()
         {
             var productionManager = GetProductionManagerClient();
