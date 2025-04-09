@@ -63,7 +63,6 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2024,8,15, "DF-Insights")]
     public async Task GetHistoricalEventSeries()
     {
         // Arrange

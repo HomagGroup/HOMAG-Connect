@@ -47,6 +47,7 @@ do
         Console.WriteLine("\nDo you want to receive an evaluation of: \n" +
                           "1. All your machines counter data for the last 14 days. \n" +
                           "2. All your machines state data for the last 14 days.\n" +
+                          "3. All your mmr machines.\n" +
                           "--------------------------------------------------------\n" +
                           "10. All your machines\n" +
                           "11. Nodes of machines\n" +
@@ -75,6 +76,9 @@ do
             break;
         case "2":
             await StatesAndCountesSamples.GetStateData(mmrMobileClient);
+            break;
+        case "3":
+            await StatesAndCountesSamples.GetMmrMachines(mmrMobileClient);
             break;
         case "10":
             await MachineDataSamples.GetMachines(mmrMobileClient);

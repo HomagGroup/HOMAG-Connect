@@ -58,8 +58,10 @@ dotnet run
 
 Name           | Method | API                                                                                                                                                                                                                                                                | Usage
 ---------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------
-GetStateData   |GET     |`api/mmr/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&detailedStateId={detailedStateId}`<br/>`&granularity={granularity}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
-GetCounterData |GET     |`api/mmr/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`<br/>`&granularity={granularity}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetStateData   |GET     |`api/mmr-mobile/`<br/>`states?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&stateId={stateId}`<br/>`&detailedStateId={detailedStateId}`<br/>`&granularity={granularity}`| Returns all state data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetCounterData |GET     |`api/mmr-mobile/`<br/>`counter?from={from}&to={to}`<br/>`&machineNumber={machineNumber}`<br/>`&instanceId={instanceId}`<br/>`&machineType={machineType}`<br/>`&counterId={counterId}`<br/>`&granularity={granularity}`                                    | Returns all counter data for the asked time window (default: 14 days) for all machines assigned to the subscription, if not asked specifically.
+GetMmrMachines |GET     |`api/mmr-mobile/`<br/>`machines`                                    | Returns a list of all machines having mmr data
+GetMmrMachine |GET     |`api/mmr-mobile/`<br/>`machines/{machineNumber}`                                    | Returns the  provided machine information
 
 ## Details
 
@@ -103,7 +105,7 @@ State             | string   | State translated into the requested language
 Request
 
 ```text
-GET /api/mmr/states
+GET /api/mmr-mobile/states
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -169,7 +171,7 @@ Counter        | string   | Counter translated into the requested language
 Request
 
 ```text
-GET /api/mmr/counters
+GET /api/mmr-mobile/counters
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -200,17 +202,111 @@ Content-Type: application/json; charset=utf-8
 
 The default route with no timespan added will always return related data for the last 14 days.
 
+### GetMmrMachines
+
+#### Input
+
+Parameter                    | Type     | Description
+-----------------------------|----------|---------------------------------------------------
+machineNumber   | string   | Number of the machine (Format: x-xxx-xx-xxxx)
+
+#### Output
+
+Property       | Type     | Description
+---------------|----------|------------------------------------------------
+Machine Number | string   | Number of the machine
+Machine Name   | string   | Name of the machine
+Machine Type   | string   | Type of machine
+Instance Id    | string   | Id of the instance
+
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machines
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+[
+    {
+        "Machine Number": "0-242-92-1234",
+        "Machine Name": "Some Machine | 0-242-92-1234",
+        "Machine Type": "CNC",
+        "Instance Id": "M1-C1",
+    }
+]
+```
+
+### GetMmrMachine
+
+#### Input
+
+Parameter                    | Type     | Description
+-----------------------------|----------|---------------------------------------------------
+
+#### Output
+
+Property       | Type     | Description
+---------------|----------|------------------------------------------------
+Machine Number | string   | Number of the machine
+Machine Name   | string   | Name of the machine
+Machine Type   | string   | Type of machine
+Instance Id    | string   | Id of the instance
+
+
+#### Example
+
+Request
+
+```text
+GET /api/mmr-mobile/machines/0-242-92-1234
+api-version: 2023-09-05
+Accept-Language: de-DE
+Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
+tracestate: someinternaltracedata
+```
+
+Response (200 OK)
+
+```text
+Content-Type: application/json; charset=utf-8
+```
+
+```json
+[
+    {
+        "Machine Number": "0-242-92-1234",
+        "Machine Name": "Some Machine | 0-242-92-1234",
+        "Machine Type": "CNC",
+        "Instance Id": "M1-C1",
+    }
+]
+
+```
+
 ## HOMAG Connect MMR Mobile interface overview (machinedata)
 
 Name| Method | API | Usage
 --|--|---|--
-GetMachineList|GET     |`api/mmr-mobile/machinedata/machines`| Returns all machines assigned to the subscription, which have a license for the HOMAG Connect MMR Mobile Addon.
-GetNodeList|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes`| Returns for one valid machine, which nodes are available for this machine.
-GetCurrentValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br/>`/nodes/{nodeName}`| Returns for one valid machine and a set of nodes the last reported values.
-GetValuesAtTimestamp|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}?timestamp={before}`| Returns for one valid machine and a set of nodes the last reported values at a specific point in time.
-GetHistoricalValues|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a set of nodes all reported values during a defined timespan.
-GetAlertEventsFromMachine|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`//alerts/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a list of alerts during a defined timespan.
-GetRecentAlertEvents|GET     |`api/mmr-mobile/machinedata/machines/{machineNumber}`<br />`/alerts/history?daysBack&take={take}&skip0{skip}`| Returns for one valid machine and a list of alerts during a defined timespan.
+GetMachineList|GET     |`api/machinedata/machines`| Returns all machines assigned to the subscription, which have a license for the HOMAG Connect MMR Mobile Addon.
+GetNodeList|GET     |`api/machinedata/machines/{machineNumber}`<br/>`/nodes`| Returns for one valid machine, which nodes are available for this machine.
+GetCurrentValues|GET     |`api/machinedata/machines/{machineNumber}`<br/>`/nodes/{nodeName}`| Returns for one valid machine and a set of nodes the last reported values.
+GetValuesAtTimestamp|GET     |`api/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}?timestamp={before}`| Returns for one valid machine and a set of nodes the last reported values at a specific point in time.
+GetHistoricalValues|GET     |`api/machinedata/machines/{machineNumber}`<br />`/nodes/{nodeName}/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a set of nodes all reported values during a defined timespan.
+GetAlertEventsFromMachine|GET     |`api/machinedata/machines/{machineNumber}`<br />`//alerts/history?from={from}&to={to}&take={take}&skip0{skip}`| Returns for one valid machine and a list of alerts during a defined timespan.
+GetRecentAlertEvents|GET     |`api/machinedata/machines/{machineNumber}`<br />`/alerts/history?daysBack&take={take}&skip0{skip}`| Returns for one valid machine and a list of alerts during a defined timespan.
 
 ## Details
 
@@ -233,7 +329,7 @@ MachineName      | string   | Name of the machine
 Request
 
 ```text
-GET /api/mmr-mobile/machinedata/machines
+GET /api/machinedata/machines
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -280,7 +376,7 @@ Nodes | string[]  | List of Node-Names
 Request
 
 ```text
-GET /api/mmr-mobile/machinedata/machines/1234567890/nodes
+GET /api/machinedata/machines/1234567890/nodes
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -332,7 +428,7 @@ Nodes | MmrNodeData[] | Structure for one Value at a specific point in time
 Request
 
 ```text
-GET /api/mmr-mobile/machinedata/machines/1234567890/nodes/Identification.Key1
+GET /api/machinedata/machines/1234567890/nodes/Identification.Key1
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -385,7 +481,7 @@ Nodes | MmrNodeData[] | Structure for one Value at a specific point in time
 Request
 
 ```text
-GET /api/mmr-mobile/machinedata/machines/1234567890/nodes/Identification.Key1?timestamp=2024-03-29T05:16:51Z
+GET /api/machinedata/machines/1234567890/nodes/Identification.Key1?timestamp=2024-03-29T05:16:51Z
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -441,7 +537,7 @@ Nodes | MmrNodeData[] | Structure for one Value at a specific point in time
 Request
 
 ```text
-GET /api/mmr-mobile/machinedata/machines/1234567890/nodes/Identification.Key1?timestamp=2024-03-29T05:16:51Z
+GET /api/machinedata/machines/1234567890/nodes/Identification.Key1?timestamp=2024-03-29T05:16:51Z
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic NjU1MDFEMDktMkJCOS00M0MyLUI5RDMtMUZCMDAwNkE3NjlFOnNkMDlzaGR1Z985OGffc2ZkZ3pz32Y5ZGhzYWZkaHNmZN92ODlwYmZkOXZiaGFmZGd2
@@ -518,7 +614,7 @@ causality | string | reason of the alter
 Request
 
 ```text
-GET /api/mmr-mobile/machinedata/machines/1234567890/alerts/history?daysBack=1
+GET /api/machinedata/machines/1234567890/alerts/history?daysBack=1
 api-version: 2023-09-05
 Accept-Language: de-DE
 Authorization: Basic xxxx

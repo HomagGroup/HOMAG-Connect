@@ -95,6 +95,20 @@ namespace HomagConnect.MmrMobile.Contracts
         /// <returns></returns>
         Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
             string? machineNumber = null, string? instanceId = null, string? machineType = null, string? counterId = null, Granularity? granularity = null);
+
+        /// <summary>
+        /// get all machines, the customer has access to
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<MmrMachine>> GetMmrMachines();
+
+        /// <summary>
+        /// get one machine information
+        /// </summary>
+        /// <param name="machineNumber"></param>
+        /// <returns></returns>
+        Task<IEnumerable<MmrMachine>> GetMmrMachine(string machineNumber);
+
         #endregion
     }
 }
