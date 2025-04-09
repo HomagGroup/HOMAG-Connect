@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "709fe00f-ba6d-4b08-b70b-d80378240b4e",
+		"_postman_id": "e2030925-2620-4662-b186-411801fe5c8b",
 		"name": "Homag Connect productionManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -68,9 +68,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders",
+									"raw": "https://connect.homag.cloud/api/productionManager/orders",
+									"protocol": "https",
 									"host": [
-										"{{ConnectHost}}"
+										"connect",
+										"homag",
+										"cloud"
 									],
 									"path": [
 										"api",
@@ -96,6 +99,101 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Import",
+					"item": [
+						{
+							"name": "Import order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ImportRequest",
+											"value": "{\n  \"action\": \"ImportOnly\"\n}",
+											"type": "default"
+										},
+										{
+											"key": "ImportFile",
+											"type": "file",
+											"src": "Wardrobe.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://connect.homag.cloud/api/productionManager/orders/import",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders",
+										"import"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import order status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://connect.homag.cloud/api/productionManager/orders/import/:correlationId",
+									"protocol": "https",
+									"host": [
+										"connect",
+										"homag",
+										"cloud"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders",
+										"import",
+										":correlationId"
+									],
+									"variable": [
+										{
+											"key": "correlationId",
+											"value": "d24ace7b-3ba6-47f3-8c0d-c1e1160c2892"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://connect.homag.cloud/api/productionManager/orders",
+							"protocol": "https",
+							"host": [
+								"connect",
+								"homag",
+								"cloud"
+							],
+							"path": [
+								"api",
+								"productionManager",
+								"orders"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -198,13 +296,13 @@
 		"type": "basic",
 		"basic": [
 			{
-				"key": "password",
-				"value": "{{ConnectPassword}}",
+				"key": "username",
+				"value": "--- Your subscription id ---",
 				"type": "string"
 			},
 			{
-				"key": "username",
-				"value": "{{ConnectUserName}}",
+				"key": "password",
+				"value": "--- Your authorization key ---",
 				"type": "string"
 			}
 		]
