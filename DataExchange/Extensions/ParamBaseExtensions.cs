@@ -62,11 +62,16 @@ public static class ParamBaseExtensions
             return null;
         }
 
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return null;
+        }
+
         if (type == typeof(string))
         {
             return Convert.ChangeType(value, type);
         }
-
+        
         if (type == typeof(Uri))
         {
             return new Uri(value, UriKind.RelativeOrAbsolute);

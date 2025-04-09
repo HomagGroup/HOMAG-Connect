@@ -1,4 +1,5 @@
-﻿using HomagConnect.DataExchange.Contracts;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.DataExchange.Contracts;
 
 namespace HomagConnect.DataExchange.Extensions.Wrapper
 {
@@ -18,7 +19,7 @@ namespace HomagConnect.DataExchange.Extensions.Wrapper
         /// <summary>
         /// Save project to project.zip file.
         /// </summary>
-        public void Save(FileInfo projectZip, Dictionary<string, FileInfo>? projectFiles)
+        public void Save(FileInfo projectZip, FileReference[] projectFiles)
         {
             Project.SaveToZipArchive(projectZip, projectFiles);
         }
