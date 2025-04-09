@@ -15,6 +15,7 @@ namespace HomagConnect.DataExchange.Extensions
     public static class ProjectPersistenceManager
     {
         private const string _ProjectXmlFileName = "project.xml";
+        private const string _ProjectZipFileName = "project.zip";
 
         #region Load
 
@@ -126,6 +127,28 @@ namespace HomagConnect.DataExchange.Extensions
             using var s = new FileStream(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
 
             SaveToXmlStream(project, s);
+        }
+
+        /// <summary>
+        /// Save project to project.xml file.
+        /// </summary>
+        public static FileInfo SaveToZipArchive(this Project project, FileReference[]? projectFiles)
+        {
+            var fileInfo = new FileInfo(Path.Combine(Path.GetTempPath(), nameof(ProjectPersistenceManager), Guid.NewGuid().ToString(), _ProjectZipFileName));
+
+            if (fileInfo.Directory == null)
+            {
+                throw new InvalidOperationException("Project zip file directory is null");
+            }
+
+            if (!fileInfo.Directory.Exists)
+            {
+                fileInfo.Directory.Create();
+            }
+
+            project.SaveToZipArchive(fileInfo, projectFiles);
+
+            return fileInfo;
         }
 
         /// <summary>
@@ -274,8 +297,9 @@ namespace HomagConnect.DataExchange.Extensions
 
         private static string TrimAdditionalDataReference(string reference)
         {
-            reference = reference.Replace("\\", "/");
             reference = reference.TrimStart('/');
+            reference = reference.TrimStart('\\');
+            reference = reference.Replace("/", "\\");
 
             return reference;
         }

@@ -7,8 +7,6 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Samples;
-using HomagConnect.OrderManager.Contracts;
-using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -46,24 +44,6 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
 
             Assert.IsFalse(anyException);
-        }
-
-        /// <summary />
-        [TestMethod]
-        public async Task ImportOrder_OrderDetails_Wardrobe()
-        {
-            var orderManager = GetOrderManagerClient();
-
-            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
-
-            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
-
-            foreach (var (order, fileReferences) in project.ConvertToOrders(projectFiles))
-            {
-                var importOrderResponse = await orderManager.ImportOrderRequest(order, fileReferences);
-
-                await EnsureImportOrderSucceeded(orderManager, importOrderResponse);
-            }
         }
 
         /// <summary />
@@ -155,49 +135,53 @@ namespace HomagConnect.OrderManager.Tests.Import
 
         /// <summary />
         [TestMethod]
-        public async Task ImportOrder_ProjectZip_Wardrobe()
+        public async Task ImportOrder_Wardrobe_OrderDetails()
         {
             var orderManager = GetOrderManagerClient();
 
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
 
-            var importOrderRequest = await orderManager.ImportOrderRequest(projectZip);
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
 
-            await EnsureImportOrderSucceeded(orderManager, importOrderRequest);
+            project.SetSource("SmartWOP");
+            project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-7));
+            project.SetDeliveryDatePlanned(DateTime.Today + TimeSpan.FromDays(14));
+            project.SetBarcodesToNull();
+
+            foreach (var (orderDetails, fileReferences) in project.ConvertToOrders(projectFiles))
+            {
+                var response = await orderManager.ImportOrderRequest(orderDetails, fileReferences);
+
+                var createdOrder = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
+
+                Assert.IsNotNull(createdOrder);
+            }
         }
 
-        private static async Task EnsureImportOrderSucceeded(IOrderManagerClient orderManager, ImportOrderResponse importOrderRequest)
+        /// <summary />
+        [TestMethod]
+        public async Task ImportOrder_Wardrobe_ProjectZip()
         {
-            var timeout = DateTime.UtcNow.AddMinutes(3);
+            var orderManager = GetOrderManagerClient();
 
-            while (true)
-            {
-                if (DateTime.UtcNow > timeout)
-                {
-                    Assert.Fail("Timeout");
-                }
+            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
 
-                var importOrderState = await orderManager.GetImportOrderState(importOrderRequest.CorrelationId);
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
 
-                if (importOrderState.State is ImportState.InProgress or ImportState.Queued)
-                {
-                    await Task.Delay(1000);
-                }
-                else if (importOrderState.State is ImportState.Succeeded)
-                {
-                    importOrderState.Trace();
-                    break;
-                }
-                else if (importOrderState.State is ImportState.Error)
-                {
-                    importOrderState.Trace();
-                    Assert.Fail("Import failed");
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(importOrderState.State), importOrderState.State, @"Unknown state");
-                }
-            }
+            project.SetSource("SmartWOP");
+            project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
+            project.SetDeliveryDatePlanned(DateTime.Today + TimeSpan.FromDays(14));
+            project.SetBarcodesToNull();
+
+            var projectZipAdjusted = project.SaveToZipArchive(projectFiles);
+
+            var response = await orderManager.ImportOrderRequest(projectZipAdjusted);
+            var order = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
+
+            Assert.IsNotNull(order);
+            Assert.IsNotNull(order.Link);
+
+            TestContext?.WriteLine(order.Link?.ToString());
         }
     }
 }
