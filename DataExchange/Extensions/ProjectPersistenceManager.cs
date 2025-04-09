@@ -2,7 +2,10 @@
 using System.Text;
 using System.Xml.Serialization;
 
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.DataExchange.Contracts;
+using HomagConnect.DataExchange.Extensions.Wrapper;
 
 namespace HomagConnect.DataExchange.Extensions
 {
@@ -56,7 +59,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// <summary>
         /// Load project from project.zip archive.
         /// </summary>
-        public static (Project Project, Dictionary<string, FileInfo>? ProjectFiles) Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
+        public static (Project Project, FileReference[] ProjectFiles) Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
         {
             var projectDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
 
@@ -75,12 +78,23 @@ namespace HomagConnect.DataExchange.Extensions
             }
 
             var project = Load(projectXmlFile, migrateToLatestVersion);
+            var projectFiles = new List<FileReference>();
+            var projectBaseDirectory = projectXmlFile.Directory.FullName;
 
-            var projectFiles = projectDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories)
-                .Where(f => f.Name != _ProjectXmlFileName)
-                .ToDictionary(f => f.FullName.Replace(projectXmlFile.Directory.FullName, "").Replace('\\', '/').Trim('/'), f => f);
+            project.TrimAdditionalDataReferences();
 
-            return (project, projectFiles);
+            foreach (var projectFile in projectDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(f => f.Name != _ProjectXmlFileName))
+            {
+                // TODO: Add only files that are referenced in the project
+
+                var reference = TrimAdditionalDataReference(projectFile.FullName.Replace(projectBaseDirectory, ""));
+
+                var fileReference = new FileReference(reference, projectFile);
+
+                projectFiles.Add(fileReference);
+            }
+
+            return (project, projectFiles.ToArray());
         }
 
         /// <summary>
@@ -117,7 +131,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// <summary>
         /// Save project to project.xml file.
         /// </summary>
-        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, Dictionary<string, FileInfo>? projectFiles)
+        public static void SaveToZipArchive(this Project project, FileInfo fileInfo, FileReference[]? projectFiles)
         {
             using var memoryStream = new MemoryStream();
             using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
@@ -133,14 +147,14 @@ namespace HomagConnect.DataExchange.Extensions
                 {
                     foreach (var projectFile in projectFiles)
                     {
-                        var projectFileInfo = projectFile.Value;
+                        var projectFileInfo = projectFile.FileInfo;
 
                         if (!projectFileInfo.Exists)
                         {
-                            throw new FileNotFoundException("File not found", projectFile.Value.FullName);
+                            throw new FileNotFoundException("File not found", projectFile.FileInfo.FullName);
                         }
 
-                        var entryStream = archive.CreateEntry(projectFile.Key);
+                        var entryStream = archive.CreateEntry(projectFile.Reference);
 
                         using var fileStream = projectFileInfo.OpenRead();
                         using var es = entryStream.Open();
@@ -186,6 +200,104 @@ namespace HomagConnect.DataExchange.Extensions
             ser.Serialize(w, project);
             w.Flush();
             return w.ToString();
+        }
+
+        #endregion
+
+        #region Private Members
+
+        /// <summary>
+        /// Trims the additional data references in the project.
+        /// </summary>
+        public static FileReference Trim(this FileReference fileReference)
+        {
+            return new FileReference(TrimAdditionalDataReference(fileReference.Reference), fileReference.FileInfo);
+        }
+
+        /// <summary>
+        /// Trims the additional data references in the project.
+        /// </summary>
+        private static void TrimAdditionalDataReferences(this Project project)
+        {
+            if (project.Orders != null)
+            {
+                foreach (var projectOrder in project.Orders)
+                {
+                    TrimAdditionalDataReferences(projectOrder);
+                }
+            }
+        }
+
+        private static void TrimAdditionalDataReferences(List<Image> images)
+        {
+            foreach (var projectOrderImage in images)
+            {
+                var imageWrapper = new ImageWrapper(projectOrderImage);
+
+                imageWrapper.ImageLinkPicture = TrimAdditionalDataReference(imageWrapper.ImageLinkPicture);
+                imageWrapper.ImageLinkBinary = TrimAdditionalDataReference(imageWrapper.ImageLinkBinary);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the additional data entity reference equals the file reference.
+        /// </summary>
+        public static bool ReferenceEquals(this AdditionalDataEntity additionalDataEntity, FileReference fileReference)
+        {
+            var additionalDataEntityReference = TrimAdditionalDataReference(additionalDataEntity.DownloadUri);
+            var fileReferenceReference = fileReference.Trim().Reference;
+
+            if (additionalDataEntityReference == null)
+            {
+                return false;
+            }
+
+            return string.Equals(additionalDataEntityReference.OriginalString, fileReferenceReference, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static Uri? TrimAdditionalDataReference(Uri? reference)
+        {
+            if (reference == null)
+            {
+                return null;
+            }
+
+            if (reference.IsAbsoluteUri)
+            {
+                return reference;
+            }
+
+            var originalString = TrimAdditionalDataReference(reference.OriginalString);
+
+            return new Uri(originalString, UriKind.Relative);
+        }
+
+        private static string TrimAdditionalDataReference(string reference)
+        {
+            reference = reference.Replace("\\", "/");
+            reference = reference.TrimStart('/');
+
+            return reference;
+        }
+
+        private static void TrimAdditionalDataReferences(Order order)
+        {
+            TrimAdditionalDataReferences(order.Images);
+
+            foreach (var projectOrderEntity in order.Entities)
+            {
+                TrimAdditionalDataReferences(projectOrderEntity);
+            }
+        }
+
+        private static void TrimAdditionalDataReferences(Entity entity)
+        {
+            TrimAdditionalDataReferences(entity.Images);
+
+            foreach (var e in entity.Entities)
+            {
+                TrimAdditionalDataReferences(e);
+            }
         }
 
         #endregion

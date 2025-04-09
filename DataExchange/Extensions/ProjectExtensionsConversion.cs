@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reflection;
 
 using HomagConnect.Base.Contracts;
@@ -41,6 +42,35 @@ public static class ProjectExtensionsConversion
         }
 
         return groups;
+    }
+
+    /// <summary>
+    /// Converts the project to order.
+    /// </summary>
+    public static IEnumerable<(OrderDetails, FileReference[])> ConvertToOrders(this Project project, FileReference[] fileReferences)
+    {
+        var orders = new Collection<(OrderDetails, FileReference[])>();
+
+        if (project == null)
+        {
+            throw new ArgumentNullException(nameof(project));
+        }
+
+        if (project.Orders is { Count: > 0 })
+        {
+            foreach (var projectOrder in project.Orders)
+            {
+                var order = new OrderDetails();
+
+                MapOrder(project, projectOrder, order);
+
+                var fileReferencesReferenced = GetReferencedFileReferences(order, fileReferences);
+
+                orders.Add(new(order, fileReferencesReferenced));
+            }
+        }
+
+        return orders;
     }
 
     /// <summary>
@@ -112,6 +142,76 @@ public static class ProjectExtensionsConversion
         throw new NotSupportedException($"Entity of type '{entityEntityProperty.Value}' not supported.");
     }
 
+    private static IEnumerable<AdditionalDataEntity> GetAdditionalDataEntities(OrderDetails orderDetails)
+    {
+        if (orderDetails.AdditionalData != null)
+        {
+            foreach (var additionalDataEntity in orderDetails.AdditionalData)
+            {
+                yield return additionalDataEntity;
+            }
+        }
+
+        if (orderDetails.Items != null)
+        {
+            foreach (var orderItem in orderDetails.Items)
+            {
+                foreach (var additionalDataEntityReference in GetAllAdditionalDataEntities(orderItem))
+                {
+                    yield return additionalDataEntityReference;
+                }
+            }
+        }
+    }
+
+    private static IEnumerable<AdditionalDataEntity> GetAllAdditionalDataEntities(OrderManager.Contracts.OrderItems.Base orderItem)
+    {
+        if (orderItem.AdditionalData != null)
+        {
+            foreach (var additionalDataEntity in orderItem.AdditionalData)
+            {
+                yield return additionalDataEntity;
+            }
+        }
+
+        if (orderItem.Items != null)
+        {
+            foreach (OrderManager.Contracts.OrderItems.Base orderItemItem in orderItem.Items)
+            {
+                foreach (var additionalDataEntityReference in GetAllAdditionalDataEntities(orderItemItem))
+                {
+                    yield return additionalDataEntityReference;
+                }
+            }
+        }
+    }
+
+    private static FileReference[] GetReferencedFileReferences(OrderDetails order, FileReference[] fileReferencesAvailable)
+    {
+        var additionalDataEntities = GetAdditionalDataEntities(order).ToList();
+
+        var fileReferencesReferenced = new List<FileReference>();
+        var fileReferencesNotReferenced = new List<FileReference>();
+
+        foreach (var fileReference in fileReferencesAvailable)
+        {
+            foreach (var additionalDataEntity in additionalDataEntities)
+            {
+                if (additionalDataEntity.ReferenceEquals(fileReference))
+                {
+                    fileReferencesReferenced.Add(fileReference);
+                    break;
+                }
+            }
+
+            fileReferencesNotReferenced.Add(fileReference);
+        }
+
+        Debug.Write(fileReferencesNotReferenced);
+
+        return fileReferencesReferenced.ToArray();
+    }
+
     private static void Map(Project project, Order order, Group group)
     {
         var projectWrapper = new ProjectWrapper(project);
@@ -169,34 +269,35 @@ public static class ProjectExtensionsConversion
 
         if (entity.Images.Count > 0)
         {
-            target.AdditionalData = new Collection<AdditionalDataEntity>();
+            target.AdditionalData = [];
 
             foreach (var projectOrderImage in entity.Images)
             {
-                if (projectOrderImage != null)
+                var imageWrapper = new ImageWrapper(projectOrderImage);
+
+                Uri? downloadUri = null;
+
+                if (imageWrapper.ImageLinkPicture != null)
                 {
-                    var imageWrapper = new ImageWrapper(projectOrderImage);
-
-                    Uri? downloadUri = null;
-
-                    if (imageWrapper.ImageLinkPicture != null)
-                    {
-                        downloadUri = imageWrapper.ImageLinkPicture;
-                    }
-                    else if (imageWrapper.ImageLinkBinary != null)
-                    {
-                        downloadUri = imageWrapper.ImageLinkBinary;
-                    }
-
-                    var additionalDataEntity = AdditionalDataEntity.CreateInstance(imageWrapper.Extension);
-
-                    additionalDataEntity.Category = imageWrapper.Category;
-                    additionalDataEntity.Name = imageWrapper.Description;
-                    additionalDataEntity.DownloadFileName = imageWrapper.OriginalFileName;
-                    additionalDataEntity.DownloadUri = downloadUri;
-
-                    target.AdditionalData.Add(additionalDataEntity);
+                    downloadUri = imageWrapper.ImageLinkPicture;
                 }
+                else if (imageWrapper.ImageLinkBinary != null)
+                {
+                    downloadUri = imageWrapper.ImageLinkBinary;
+                }
+                else if (imageWrapper.OriginalFileName != null)
+                {
+                    downloadUri = new Uri(imageWrapper.OriginalFileName, UriKind.Relative);
+                }
+                
+                var additionalDataEntity = AdditionalDataEntity.CreateInstance(imageWrapper.Extension);
+
+                additionalDataEntity.Category = imageWrapper.Category;
+                additionalDataEntity.Name = imageWrapper.Description;
+                additionalDataEntity.DownloadFileName = imageWrapper.OriginalFileName;
+                additionalDataEntity.DownloadUri = downloadUri;
+
+                target.AdditionalData.Add(additionalDataEntity);
             }
         }
     }

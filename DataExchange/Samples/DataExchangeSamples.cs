@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.DataExchange.Contracts;
 using HomagConnect.DataExchange.Extensions.Wrapper;
 
@@ -20,7 +21,7 @@ namespace HomagConnect.DataExchange.Samples
             var testDataFolder = new DirectoryInfo(@"Data\\project-02");
 
             var project = new ProjectWrapper();
-            var projectFiles = new Dictionary<string, FileInfo>();
+            var projectFiles = new List<FileReference>();
 
             project.Name = "Project 01";
             project.Source = "smartWOP";
@@ -51,7 +52,7 @@ namespace HomagConnect.DataExchange.Samples
                 image.OriginalFileName = fileName;
                 image.ImageLinkPicture = new Uri(reference, UriKind.Relative);
 
-                projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName));
+                projectFiles.Add(new FileReference(reference, new FileInfo(testDataFolder + @"\" + fileName)));
 
                 order.Images.Add(image);
             }
@@ -68,14 +69,14 @@ namespace HomagConnect.DataExchange.Samples
                 image.OriginalFileName = fileName;
                 image.ImageLinkPicture = new Uri(reference, UriKind.Relative); 
 
-                projectFiles.Add(reference, new FileInfo(testDataFolder + @"\" + fileName));
+                projectFiles.Add(new FileReference(reference, new FileInfo(testDataFolder + @"\" + fileName)));
 
                 order.Images.Add(image);
             }
 
             var zipFile = GetTempFileName();
 
-            project.Save(zipFile, projectFiles);
+            project.Save(zipFile, projectFiles.ToArray());
 
             return zipFile;
         }
