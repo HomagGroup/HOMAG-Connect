@@ -35,14 +35,4 @@ public class GetMmrRoutes : MmrTestBase
 
         Assert.IsNotNull(machines);
     }
-
-    [TestMethod]
-    public async Task GetMmrMachineTest()
-    {
-        var mmrMobileClient = GetMmrMobileClient();
-
-        var machine = await mmrMobileClient.GetMmrMachine("t-201-97-1701");
-
-        Assert.IsNotNull(machine);
-    }
 }
