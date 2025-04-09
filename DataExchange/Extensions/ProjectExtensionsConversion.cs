@@ -136,7 +136,6 @@ public static class ProjectExtensionsConversion
         foreach (var wrapperOrder in projectWrapper.Orders)
         {
             wrapperOrder.OrderDate = orderDate;
-            wrapperOrder.DeliveryDatePlanned = wrapperOrder.OrderDate + TimeSpan.FromDays(7);
         }
     }
 

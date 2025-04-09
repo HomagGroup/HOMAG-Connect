@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -60,15 +59,15 @@ namespace HomagConnect.OrderManager.Tests.Import
 
                 var reference = "images/Cabinet.png";
 
-                order.AdditionalData = new Collection<AdditionalDataEntity>
-                {
+                order.AdditionalData =
+                [
                     new AdditionalDataImage
                     {
                         Category = "Image",
                         DownloadUri = new Uri(reference, UriKind.Relative),
                         Name = "Cabinet"
                     }
-                };
+                ];
 
                 referencedFiles.Add(new FileReference(reference, new FileInfo("TestData\\Cabinet.png")));
 
