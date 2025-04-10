@@ -15,6 +15,16 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
     {
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 5, 1, "DF-Production")]
+        public async Task ImportOrder_ProjectZip_Cabinet()
+        {
+            var projectZip = new FileInfo("TestData\\Cabinet.zip");
+
+            await ImportOrder(projectZip, "Borm");
+        }
+
+        /// <summary />
+        [TestMethod]
         public async Task ImportOrder_ProjectZip_NoException()
         {
             var productionManager = GetProductionManagerClient();
@@ -35,16 +45,21 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025,5,1, "DF-Production")]
+        [TemporaryDisabledOnServer(2025, 5, 1, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Wardrobe()
+        {
+            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
+
+            await ImportOrder(projectZip, "SmartWOP");
+        }
+
+        private async Task ImportOrder(FileInfo projectZip, string source)
         {
             var productionManager = GetProductionManagerClient();
 
-            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
-
             var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
 
-            project.SetSource("SmartWOP");
+            project.SetSource(source);
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
             project.SetDeliveryDatePlanned(DateTime.Today + TimeSpan.FromDays(14));
             project.SetBarcodesToNull();

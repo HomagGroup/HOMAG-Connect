@@ -1,5 +1,6 @@
 ﻿using System.IO.Compression;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 using HomagConnect.Base.Contracts;
@@ -45,16 +46,21 @@ namespace HomagConnect.DataExchange.Extensions
         {
             projectXmlStream.Position = 0;
 
-            var r = new StreamReader(projectXmlStream, Encoding.UTF8);
-            var ser = new XmlSerializer(typeof(Project));
-            var o = ser.Deserialize(r);
+            var xmlReader = new StreamReader(projectXmlStream, Encoding.UTF8);
+            var xmlString = xmlReader.ReadToEnd();
 
-            if (o is Project project)
+            if (xmlString.Contains("HomagGroup.ProductionManager.Core.Logic.Import"))
             {
-                return migrateToLatestVersion ? project.MigrateToLatestVersion() : project;
+                // Remove declarations which are no longer valid.
+
+                xmlString = Regex.Replace(xmlString, @"\s*xsi:schemaLocation\s*=\s*""[^""]*""", string.Empty);
+                xmlString = Regex.Replace(xmlString, @"\s+xmlns=""[^""]*""", string.Empty);
+                xmlString = Regex.Replace(xmlString, @"\s+xmlns:xsi=""[^""]*""", string.Empty);
             }
 
-            throw new InvalidOperationException();
+            var project = LoadFromString(xmlString, migrateToLatestVersion);
+
+            return migrateToLatestVersion ? project.MigrateToLatestVersion() : project;
         }
 
         /// <summary>
