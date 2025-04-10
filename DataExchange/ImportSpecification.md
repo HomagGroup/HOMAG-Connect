@@ -244,41 +244,41 @@ UnitOfLength | enum   | mm or inch        | ID/PM
 
 The parameters of the order contains the following information:
 
-| |Name|ID|Type |Description |Scope |
-|------------------|---------------|---------------------------|--------------------|-------------------------------------------------|-----
+ | |ID |Type|Constraints|Description
+|------------------|--------------------|--------------------|-------------------------------------------------|-------
 **Order header (14)**|
-| |Order name     |OrderName   |Text(100; not null)| The name of the order | PM/ID
-| |Order number   | OrderNumber| Text(100; not null)     | The number assigned to this order                    | PM
-| |Customenr name |CustomerName           | Text(255)               | The name of the customer                             | PM
-| |Customer number |CustomerNumber         | Text(100)               | The number assigned to that customer                 | PM
-| |Company | Company                | Text(100)               | The name of the company                              | PM
-| |Order description | OrderDescription       | Text(255)               | An optional description of the order                 | PM
-| |Project | Project                | Text(100)               | The name of the project                              | PM
-| |Person in charge | PersonInCharge         | Text(100)               | The name of the person in charge of the project      | PM 
-| |Order date | OrderDate              | Date  | The creation date or the order import date| PM/ID
-| |Positions | OrderItems             | Text                    | The positions in the order |PM
-| |Delivery date (planned) | DeliveryDatePlanned           | Date           | The planned delivery date | PM
-| |Order item descriptions | OrderItemDescriptions|Text| Descriptions of order items| PM
-| |Start date (planned) | StartDatePlanned| Date| The planned start date | PM
-| |Completion date (planned) | CompletionDatePlanned| Date| The planned completion date| PM
+| |OrderName        |Text| (100; not null)| The name of the order
+| |OrderNumber      |Text| (100; not null)     | The number assigned to this order
+| |CustomerName     |Text|(255)               | The name of the customer                             
+| |CustomerNumber         | Text|(100)               | The number assigned to that customer                 
+| |Company                | Text|(100)               | The name of the company                               
+| |OrderDescription       | Text|(255)               | An optional description of the order                 
+| |Project                | Text|(100)               | The name of the project                              
+| |PersonInCharge         | Text|(100)               | The name of the person in charge of the project      
+| |OrderDate              | Date| | The creation date or the order import date
+| |OrderItems             | Text| | The positions in the order
+| |DeliveryDatePlanned           | Date| | The planned delivery date 
+| |OrderItemDescriptions|Text| |Descriptions of order items
+| |StartDatePlanned| Date| |The planned start date 
+| |CompletionDatePlanned| Date| |The planned completion date
 **Address (5)**|  
-| |Street|Street|Text|The name of the street |PM
-| |House number|HouseNumber|Text|The house number | PM
-| |City|City| Text|The name of the city|PM      
-| |Postal code| PostalCode|Text| The postal code| PM
-| |Country| Country|Text| The country for the address| PM
+| |Street|Text||The name of the street 
+| |HouseNumber|Text||The house number 
+| |City| Text||The name of the city      
+| |PostalCode|Text| |The postal code
+| |Country|Text| |The country for the address
 **Production (1)**|
-| |Lots|Lots|Text|A lot is created from multiple orders |PM
+| |Lots|Text||A lot is created from multiple orders
 **Production (7)**|
-| |Order status|OrderStatus|Whole number|The status of the order|PM
-| |Changed |ChangedAt|Date and time| The date and time of the last change| PM
-| |Start date |StartedAt| Date| The start date | PM
-| |Completion date | CompletedAt|Date| The completion date| PM
-| |Quantity of articles| QuantityOfArticles|Whole number|The numebr of articles| PM
-| |Quantity of parts| QuantityOfParts|Whole number| The number of parts| PM
-| |Quantity planned| QuantityOfPartsPlanned| Whole number| The planned number of parts|PM
+| |OrderStatus|Whole number||The status of the order
+| |ChangedAt|Date and time|| The date and time of the last change
+| |StartedAt| Date| |The start date 
+| |CompletedAt|Date|| The completion date
+| |QuantityOfArticles|Whole number| |The numebr of articles
+| |QuantityOfParts|Whole number| | The number of parts 
+| |QuantityOfPartsPlanned| Whole number| |The planned number of parts
 **Additional data (1)**|
-| |Notes|Notes|Text|Notes/Comments |PM
+| |Notes|Text||Notes/Comments |
 
 ##### Sample order
 
