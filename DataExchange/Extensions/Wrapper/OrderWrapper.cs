@@ -267,6 +267,15 @@ public class OrderWrapper
         }
     }
 
+    /// <summary />
+    public IList<EntityWrapper> Entities
+    {
+        get
+        {
+            return new EntityWrapperList(Order.Entities);
+        }
+    }
+
     #endregion
 
     #region Converters

@@ -100,6 +100,55 @@ public static class ProjectExtensionsConversion
         return orders;
     }
 
+    /// <summary>
+    /// Removes all barcodes from the project.
+    /// </summary>
+    public static void SetBarcodesToNull(this Project project)
+    {
+        var projectWrapper = new ProjectWrapper(project);
+
+        foreach (var wrapperOrder in projectWrapper.Orders)
+        {
+            RemoveBarcodes(wrapperOrder.Entities);
+        }
+    }
+
+    /// <summary>
+    /// Sets the delivery date planned for all orders in the project.
+    /// </summary>
+    public static void SetDeliveryDatePlanned(this Project project, DateTime deliveryDatePlanned)
+    {
+        var projectWrapper = new ProjectWrapper(project);
+
+        foreach (var wrapperOrder in projectWrapper.Orders)
+        {
+            wrapperOrder.DeliveryDatePlanned = deliveryDatePlanned;
+        }
+    }
+
+    /// <summary>
+    /// Sets the order date for all orders in the project.
+    /// </summary>
+    public static void SetOrderDate(this Project project, DateTime orderDate)
+    {
+        var projectWrapper = new ProjectWrapper(project);
+
+        foreach (var wrapperOrder in projectWrapper.Orders)
+        {
+            wrapperOrder.OrderDate = orderDate;
+        }
+    }
+
+    /// <summary>
+    /// Sets the source for the project.
+    /// </summary>
+    public static void SetSource(this Project project, string source)
+    {
+        var projectWrapper = new ProjectWrapper(project);
+
+        projectWrapper.Source = source;
+    }
+
     private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
     {
         if (properties == null)
@@ -289,7 +338,7 @@ public static class ProjectExtensionsConversion
                 {
                     downloadUri = new Uri(imageWrapper.OriginalFileName, UriKind.Relative);
                 }
-                
+
                 var additionalDataEntity = AdditionalDataEntity.CreateInstance(imageWrapper.Extension);
 
                 additionalDataEntity.Category = imageWrapper.Category;
@@ -402,6 +451,22 @@ public static class ProjectExtensionsConversion
             {
                 position.AdditionalProperties ??= new Dictionary<string, object>();
                 position.AdditionalProperties.Add(property.Name, property.Value);
+            }
+        }
+    }
+
+    private static void RemoveBarcodes(this IList<EntityWrapper>? entities)
+    {
+        if (entities != null)
+        {
+            foreach (var entity in entities)
+            {
+                if (!string.IsNullOrWhiteSpace(entity.Barcode))
+                {
+                    entity.Barcode = null;
+                }
+
+                RemoveBarcodes(entity.Entities);
             }
         }
     }

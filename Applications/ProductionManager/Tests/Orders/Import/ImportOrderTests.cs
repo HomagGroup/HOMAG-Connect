@@ -1,3 +1,8 @@
+using System.IO.Compression;
+
+using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.DataExchange.Extensions;
+using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Samples.Orders.Import;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Import
@@ -26,6 +31,33 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
             }
 
             Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025,5,1, "DF-Production")]
+        public async Task ImportOrder_ProjectZip_Wardrobe()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var projectZip = new FileInfo("TestData\\Wardrobe.zip");
+
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+
+            project.SetSource("SmartWOP");
+            project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
+            project.SetDeliveryDatePlanned(DateTime.Today + TimeSpan.FromDays(14));
+            project.SetBarcodesToNull();
+
+            var projectZipAdjusted = project.SaveToZipArchive(projectFiles);
+
+            var response = await productionManager.ImportOrderRequest(new ImportOrderRequest(), projectZipAdjusted);
+            var order = await productionManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
+
+            Assert.IsNotNull(order);
+            Assert.IsNotNull(order.Link);
+
+            TestContext?.WriteLine(order.Link?.ToString());
         }
     }
 }
