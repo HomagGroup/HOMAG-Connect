@@ -58,7 +58,7 @@ namespace HomagConnect.DataExchange.Extensions
                 xmlString = Regex.Replace(xmlString, @"\s+xmlns:xsi=""[^""]*""", string.Empty);
             }
 
-            var project = LoadFromString(xmlString);
+            var project = LoadFromString(xmlString, migrateToLatestVersion);
 
             return migrateToLatestVersion ? project.MigrateToLatestVersion() : project;
         }
