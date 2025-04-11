@@ -77,14 +77,16 @@ stages:
           displayName: Display build branch environment variable
 
         - task: PowerShell@2
-          displayName: Set version environment variable
           inputs:
-            targetType: inline
+            targetType: 'inline'
             script: |
-              git log
-              $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
-              echo "Set version tag: $($VERSION_TAG)"
-              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
+              $VERSION_TAG = git describe --tags  --match='[0-9]*'
+              # split, increment patchNr from last tag and add the build
+              $nextGitVersion = $VERSION_TAG.Replace("-",".").Split(".")
+              $nextGitVersion[2] = ($nextGitVersion[2]/1)+1
+              $nextGitVersion = $nextGitVersion[0] + "." + $nextGitVersion[1] + "." + $nextGitVersion[2] + "." + $nextGitVersion[3] 
+              "new calculated version =  $nextGitVersion"
+              Write-Host  "##vso[task.setvariable variable=VERSION_TAG]$($nextGitVersion)"
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
@@ -103,7 +105,7 @@ stages:
             SonarQube: 'SonarQube Enterprise'
             projectKey: $(ProductName).$(ProjectName)
             projectName: $(ProductName).$(ProjectName)
-            projectVersion: '$(MajorMinorBuildVersion)'
+            projectVersion: '$(VERSION_TAG)'
             extraProperties: |
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
             condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
@@ -128,7 +130,7 @@ stages:
           inputs:
             command: 'build'
             projects: '**/*.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
+            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE --property:AssemblyVersion=$(VERSION_TAG)'
 
         - task: DotNetCoreCLI@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
