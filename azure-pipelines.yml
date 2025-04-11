@@ -58,7 +58,7 @@ stages:
   - stage: Build
     pool:
       #vmimage: 'windows-latest'
-      name: DMG
+      name: Homag Windows Agents
     variables:
       - name: BuildConfiguration
         value: Release
@@ -125,7 +125,7 @@ stages:
             C3PORetryCounter: '3'
             C3POTimeout: '240'
             C3PODisableCache: true
-          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+          condition: false # and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
 
         - task: DotNetCoreCLI@2
           displayName: Build projects
