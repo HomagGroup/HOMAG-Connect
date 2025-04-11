@@ -58,7 +58,7 @@ stages:
   - stage: Build
     pool:
       #vmimage: 'windows-latest'
-      name: Homag Windows Agents
+      name: DMG
     variables:
       - name: BuildConfiguration
         value: Release
