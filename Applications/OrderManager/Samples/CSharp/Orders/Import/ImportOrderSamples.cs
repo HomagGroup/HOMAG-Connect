@@ -93,18 +93,19 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
             [
                 new()
                 {
+                    Name = "Max Mustermann",
                     Street = "Musterstraße",
                     HouseNumber = "1",
                     PostalCode = "12345",
                     City = "Musterstadt",
                     Country = "Deutschland",
-                    Type = AddressType.Delivery | AddressType.Billing
+                    Type = AddressType.Delivery
                 }
             ]);
 
             // Customer
 
-            order.CustomerName = "Müller & Co.";
+            order.Company = "Müller & Co.";
             order.CustomerNumber = "462642";
 
             // Details
