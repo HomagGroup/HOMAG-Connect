@@ -58,7 +58,7 @@ stages:
   - stage: Build
     pool:
       #vmimage: 'windows-latest'
-      name: DMG
+      name: Homag Linux Agents
     variables:
       - name: BuildConfiguration
         value: Release
@@ -77,10 +77,12 @@ stages:
           displayName: Display build branch environment variable
 
         - task: PowerShell@2
+          displayName: 'Version Tag plus buildNumber from GIT'
           inputs:
             targetType: 'inline'
             script: |
               $VERSION_TAG = git describe --tags  --match='[0-9]*'
+              "found actual git Tag =  $VERSION_TAG"
               # split, increment patchNr from last tag and add the build
               $nextGitVersion = $VERSION_TAG.Replace("-",".").Split(".")
               $nextGitVersion[2] = ($nextGitVersion[2]/1)+1
