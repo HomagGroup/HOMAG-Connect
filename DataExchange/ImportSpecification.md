@@ -247,38 +247,38 @@ The parameters of the order contains the following information:
  | |ID |Type|Constraints|Description
 |------------------|--------------------|--------------------|-------------------------------------------------|-------
 **Order header (14)**|
-| |OrderName        |Text| (100; not null)| The name of the order
-| |OrderNumber      |Text| (100; not null)     | The number assigned to this order
-| |CustomerName     |Text|(255)               | The name of the customer                             
-| |CustomerNumber         | Text|(100)               | The number assigned to that customer                 
-| |Company                | Text|(100)               | The name of the company                               
-| |OrderDescription       | Text|(255)               | An optional description of the order                 
-| |Project                | Text|(100)               | The name of the project                              
-| |PersonInCharge         | Text|(100)               | The name of the person in charge of the project      
+| |OrderName              |String| Required, Max length: 100| The name of the order
+| |OrderNumber            |String| Max length: 100     | The number assigned to this order
+| |CustomerName           |String|               | The name of the customer                             
+| |CustomerNumber         |String|               | The number assigned to that customer                 
+| |Company                |String|               | The name of the company                               
+| |OrderDescription       |String|               | An optional description of the order                 
+| |Project                |String|               | The name of the project                              
+| |PersonInCharge         |String|               | The name of the person in charge of the project      
 | |OrderDate              | Date| | The creation date or the order import date
-| |OrderItems             | Text| | The positions in the order
+| |OrderItems             | String| | The positions in the order
 | |DeliveryDatePlanned           | Date| | The planned delivery date 
-| |OrderItemDescriptions|Text| |Descriptions of order items
+| |OrderItemDescriptions|String| |Descriptions of order items
 | |StartDatePlanned| Date| |The planned start date 
 | |CompletionDatePlanned| Date| |The planned completion date
 **Address (5)**|  
-| |Street|Text||The name of the street 
-| |HouseNumber|Text||The house number 
-| |City| Text||The name of the city      
-| |PostalCode|Text| |The postal code
-| |Country|Text| |The country for the address
+| |Street      |String||The name of the street 
+| |HouseNumber |String||The house number 
+| |City        |String||The name of the city      
+| |PostalCode  |String| |The postal code
+| |Country     |String| |The country for the address
 **Production (1)**|
-| |Lots|Text||A lot is created from multiple orders
+| |Lots|String||A lot is created from multiple orders
 **Production (7)**|
-| |OrderStatus|Whole number||The status of the order
-| |ChangedAt|Date and time|| The date and time of the last change
+| |OrderStatus|Integer||The status of the order
+| |ChangedAt|Datetime|| The date and time of the last change
 | |StartedAt| Date| |The start date 
 | |CompletedAt|Date|| The completion date
-| |QuantityOfArticles|Whole number| |The numebr of articles
-| |QuantityOfParts|Whole number| | The number of parts 
-| |QuantityOfPartsPlanned| Whole number| |The planned number of parts
+| |QuantityOfArticles|Integer| |The numebr of articles
+| |QuantityOfParts|Integer| | The number of parts 
+| |QuantityOfPartsPlanned| Integer| |The planned number of parts
 **Additional data (1)**|
-| |Notes|Text||Notes/Comments |
+| |Notes|String||Notes/Comments |
 
 ##### Sample order
 
@@ -326,7 +326,7 @@ The scope defines if this parameter is used for productionManager (PM) and/or in
 
 Type                   | Description | Scope
 -----------------------|------------------------------------------------------------------|-------
-`OrderItem`            | The final article, that will be sent to the customer. Can exist only on the first/highest level of the hierarchy.<br/>If this is above a ProductionOrder, then the name of the ArticleDescription will be used as the OrderPosition in intelliDivide         | PM/ID
+`OrderItem`            | The final article, that will be sent to the customer. Can exist only on the first/highest level of the hierarchy.<br/>       | PM/ID
 `Component`            | For structuring the order. allows a hierarchical view over all entities. Can exist on every level of the hierarchy below the OrderItem and above the productionOrder|PM/ID
 `ProductionOrder`      | Defines a part, that must be produced.                           | PM/ID
 `ProductionEntityItem` | Prepared for further functionality. Actually not (yet) supported | PM
@@ -380,6 +380,63 @@ RotationAngle             | double/string            | Rotation angle of the par
 ADDINFO:&lt;any-text&gt;  | string                   | User defined fields. Any user defined field|ID
 MPR:&lt;variable-name&gt; | string                   | Any mpr variable name with its value; numbers must use "." as comma separator |ID
 GrainPattern              | string                   | Grain pattern template and positions for cutting jobs<br/>(link to documentation will follow)|PM/ID
+
+|                                                  | **ID**                | **Type** | **Constraints**                  | **Description**                                      |
+|--------------------------------------------------|-----------------------|----------|----------------------------------|------------------------------------------------------|
+| **Article (9)**                                      |                       |          |                                  |                                                      |
+|                                                  | OrderItem             | String   |                                  |                                                      |
+|                                                  | Grouping              | String   |                                  |                                                      |
+|                                                  | Article number        | String   | Required; Max length: 100        | Item or partCode                                     |
+|                                                  | Description           | String   | Required; Max length: 255        | Description                                          |
+|                                                  | Length                | Decimal  | Required; Min: 0.1 , Max: 9999.9 |                                                      |
+|                                                  | Width                 | Decimal  | Required; Min: 0.1 , Max: 9999.9 |                                                      |
+|                                                  | Thickness             | Decimal  | Required; Min: 0.1 , Max: 999.9  |                                                      |
+|                                                  | ArticleGroup          | String   |                                  | Classification for the article(bottom, top, front..) |
+|                                                  | ProcurementType       | String   |                                  |                                                      |
+| **Production (22)**                                  |                       |          |                                  |                                                      |
+|                                                  | ID                    | String   | Required                         | the ID of the part                                   |
+|                                                  | Barcode               | String   |                                  | Barcode of the part                                  |
+|                                                  | Quantity              | Integer  | Required; Min: 1, Max: 9999      |                                                      |
+|                                                  | FinishedLength        | Decimal  |                                  |                                                      |
+|                                                  | FinisedWidth          | Decimal  |                                  |                                                      |
+|                                                  | SecondCutLength       | Decimal  |                                  |                                                      |
+|                                                  | SecondCutWidth        | Decimal  |                                  |                                                      |
+|                                                  | CncProgramName1       | String   |                                  | Only CNC program name or path incl. subfolder.Recommendation: article or project name\name.mpr Example: article1\side_1.mpr      |
+|                                                  | CncProgramName2       | String   |                                  | Only CNC program name or path incl. subfolder.Recommendation: article or project name\name.mpr Example: article1\side_1.mpr    |
+|                                                  | CncProgramName3       | String   |                                  | Only CNC program name or path incl. subfolder.Recommendation: article or project name\name.mpr Example: article1\side_1.mpr        |
+|                                                  | ProductionRoute       | String   |                                  |                                                      |
+|                                                  | ProductionStatus      | Integer  |                                  |                                                      |
+|                                                  | Feedback              | Integer  |                                  |                                                      |
+|                                                  | StorageLocation       | String   |                                  | Name of the storage location                         |
+|                                                  | StartDatePlanned      | Date     |                                  | The planned start date                               |
+|                                                  | CompletionDatePlanned | Date     |                                  | The planned completion date                          |
+|                                                  | StartedAt             | Date     |                                  | The actual start date                                |
+|                                                  | CompletedAt           | Date     |                                  | The actual completion date                           |
+|                                                  | QuantityPlanned       | Integer  |                                  | The planned quantity                                 |
+|                                                  | Lots                  | String   |                                  |                                                      |
+|                                                  | LabelLayout           | String   |                                  |                                                      |
+|                                                  | Template              | String   |                                  |                                                      |
+| **Material (17)**                                    |                       |          |                                  |                                                      |
+|                                                  | Material              | String   | Required; Max length: 50         |                                                      |
+|                                                  | Grain                 | Integer  | Required                         |                                                      |
+|                                                  | EdgeDiagram           | String   |                                  |                                                      |
+|                                                  | LaminateTop           | String   |                                  |                                                      |
+|                                                  | EdgeLeft              | String   |                                  |                                                      |
+|                                                  | EdgeRight             | String   |                                  |                                                      |
+|                                                  | EdgeBack              | String   |                                  |                                                      |
+|                                                  | EdgeFront             | String   |                                  |                                                      |
+|                                                  | LaminateBottom        | String   |                                  |                                                      |
+|                                                  | EdgeThicknessFront    | Decimal  | Min: 0, Max: 999.9               |                                                      |
+|                                                  | EdgeThicknessBack     | Decimal  | Min: 0, Max: 999.9               |                                                      |
+|                                                  | EdgeThicknessLeft     | Decimal  | Min: 0, Max: 999.9               |                                                      |
+|                                                  | EdgeThicknessRight    | Decimal  | Min: 0, Max: 999.9               |                                                      |
+|                                                  | SurfaceTop            | String   |                                  |                                                      |
+|                                                  | SurfaceBottom         | String   |                                  |                                                      |
+|                                                  | LaminateTopGrain      | Integer  |                                  |                                                      |
+|                                                  | LaminateBottomGrain   | Integer  |                                  |                                                      |
+| **Additional data(1)**                               |                       |          |                                  |                                                      |
+|                                                  | Notes                 | String   |                                  |                                                      |
+
 
 ##### Sample 1
 
