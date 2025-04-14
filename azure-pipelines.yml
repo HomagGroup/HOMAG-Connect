@@ -44,7 +44,7 @@ stages:
             git log
             $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
             echo "Set version tag: $($VERSION_TAG)"
-            echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
+            echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
 
   # MEND
   # - template: software-composition-analysis/template.yml@templates
@@ -84,7 +84,7 @@ stages:
               git log
               $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
               echo "Set version tag: $($VERSION_TAG)"
-              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
+              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
@@ -121,7 +121,7 @@ stages:
             C3PORetryCounter: '3'
             C3POTimeout: '240'
             C3PODisableCache: true
-          condition:  and(succeeded(), ne(variables['Build.Reason'], 'Schedule'), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
+          condition:  and(succeeded(), ne(variables['Build.Reason'], 'Schedule'), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
 
         - task: DotNetCoreCLI@2
           displayName: Build projects
