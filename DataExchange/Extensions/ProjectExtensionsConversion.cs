@@ -278,8 +278,6 @@ public static class ProjectExtensionsConversion
             group.Source = projectWrapper.Source;
         }
 
-        MapEntity(order, group, true);
-
         if (order.Entities.Count > 0)
         {
             group.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
@@ -314,8 +312,11 @@ public static class ProjectExtensionsConversion
             }
         }
 
-        // Map images
+        MapImages(entity, target);
+    }
 
+    private static void MapImages(Entity entity, ISupportsAdditionalData target)
+    {
         if (entity.Images.Count > 0)
         {
             target.AdditionalData = [];
@@ -453,6 +454,8 @@ public static class ProjectExtensionsConversion
                 position.AdditionalProperties.Add(property.Name, property.Value);
             }
         }
+
+        MapImages(entity, position);
     }
 
     private static void RemoveBarcodes(this IList<EntityWrapper>? entities)
