@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.Reflection;
 
 using HomagConnect.Base.Contracts;
@@ -256,6 +257,8 @@ public static class ProjectExtensionsConversion
             {
                 if (additionalDataEntity.ReferenceEquals(fileReference))
                 {
+                    ThreeDsFileHandling(fileReference);
+
                     fileReferencesReferenced.Add(fileReference);
                     break;
                 }
@@ -267,6 +270,26 @@ public static class ProjectExtensionsConversion
         Debug.Write(fileReferencesNotReferenced);
 
         return fileReferencesReferenced.ToArray();
+    }
+
+    private static void ThreeDsFileHandling(FileReference fileReference)
+    {
+        // TODO: Check if the file is a 3ds file and if it is, create a zip file with the same name as the 3ds file.
+
+        if (string.Equals(Path.GetExtension(fileReference.FileInfo.FullName) , ".3ds", StringComparison.OrdinalIgnoreCase))
+        {
+            var zipFileInfo = new FileInfo(fileReference.FileInfo.FullName + ".zip");
+
+            using (var fileStream = new FileStream(zipFileInfo.FullName, FileMode.Create))
+            {
+                using (var archive = new ZipArchive(fileStream, ZipArchiveMode.Create))
+                {
+                    archive.CreateEntryFromFile(fileReference.FileInfo.FullName, fileReference.FileInfo.Name, CompressionLevel.Optimal);
+                }
+            }
+
+            fileReference.FileInfo = zipFileInfo;
+        }
     }
 
     private static void Map(Project project, Order order, Group group)
