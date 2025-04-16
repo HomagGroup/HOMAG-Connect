@@ -151,11 +151,16 @@ namespace HomagConnect.OrderManager.Tests.Import
             {
                 orderDetails.PersonInCharge = Environment.UserName;
 
+                TestContext?.AddResultFile(orderDetails.TraceToFile("Request").FullName);
+
                 var response = await orderManager.ImportOrderRequest(orderDetails, fileReferences);
 
                 var createdOrder = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
 
                 Assert.IsNotNull(createdOrder);
+
+                TestContext?.WriteLine($"Link: {createdOrder.Link}");
+                TestContext?.AddResultFile(createdOrder.TraceToFile("Result").FullName);
             }
         }
 
