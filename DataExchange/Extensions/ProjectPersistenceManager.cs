@@ -54,6 +54,7 @@ namespace HomagConnect.DataExchange.Extensions
                 // Remove declarations which are no longer valid.
 
                 xmlString = Regex.Replace(xmlString, @"\s*xsi:schemaLocation\s*=\s*""[^""]*""", string.Empty);
+                xmlString = Regex.Replace(xmlString, @"\s*xsi:noNamespaceSchemLocatition\s*=\s*""[^""]*""", string.Empty);
                 xmlString = Regex.Replace(xmlString, @"\s+xmlns=""[^""]*""", string.Empty);
                 xmlString = Regex.Replace(xmlString, @"\s+xmlns:xsi=""[^""]*""", string.Empty);
             }
@@ -67,7 +68,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// Load project from project.zip archive.
         /// </summary>
         public static (Project Project, FileReference[] ProjectFiles) Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
-        {
+        {        
             var projectDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
 
             projectZipArchive.ExtractToDirectory(projectDirectory.FullName);

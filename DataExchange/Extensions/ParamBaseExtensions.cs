@@ -139,7 +139,12 @@ public static class ParamBaseExtensions
                 return OrderManager.Contracts.OrderItems.Type.Part;
             }
 
-            return Enum.ToObject(typeof(HomagConnect.OrderManager.Contracts.OrderItems.Type), value);
+            if (Enum.TryParse(value, true, out OrderManager.Contracts.OrderItems.Type resultType)) 
+            {
+                return resultType;
+            }
+
+            return Enum.ToObject(typeof(OrderManager.Contracts.OrderItems.Type), value);
         }
 
         throw new NotSupportedException("Type " + type + ", Value, "+value +" is not supported.");
