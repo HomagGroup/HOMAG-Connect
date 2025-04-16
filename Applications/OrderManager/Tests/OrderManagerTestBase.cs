@@ -15,7 +15,8 @@ public class OrderManagerTestBase : TestBase
 
         var httpClient = new HttpClient
         {
-            BaseAddress = BaseUrl
+            BaseAddress = BaseUrl,
+            Timeout = TimeSpan.FromMinutes(5)
         };
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));

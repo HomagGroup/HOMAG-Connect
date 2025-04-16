@@ -3,6 +3,7 @@ using HomagConnect.DataExchange.Extensions.Base;
 
 namespace HomagConnect.DataExchange.Extensions.Wrapper;
 
+/// <inheritdoc />
 public class EntityWrapperList : ListWrapper<Entity, EntityWrapper>
 {
     /// <summary>
@@ -13,7 +14,18 @@ public class EntityWrapperList : ListWrapper<Entity, EntityWrapper>
     /// <inheritdoc />
     public override IEnumerator<EntityWrapper> GetEnumerator()
     {
-        return InnerList.Select(entity => new EntityWrapper(entity)).GetEnumerator();
+        return InnerList.Select(entity =>
+        {
+            var wrapper = new EntityWrapper(entity);
+
+            if (wrapper.Type == "OrderItem")
+            {
+                return new OrderItemWrapper(entity);
+            }
+
+            return wrapper;
+
+        }).GetEnumerator();
     }
 
     /// <inheritdoc />
