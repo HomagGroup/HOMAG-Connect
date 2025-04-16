@@ -147,6 +147,14 @@ public static class ProjectExtensionsConversion
         var projectWrapper = new ProjectWrapper(project);
 
         projectWrapper.Source = source;
+
+        foreach (var projectWrapperOrder in projectWrapper.Orders)
+        {
+            foreach (var orderItemWrapper in projectWrapperOrder.Entities.OfType<OrderItemWrapper>())
+            {
+                orderItemWrapper.Catalog = source;
+            }
+        }
     }
 
     private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
@@ -427,7 +435,7 @@ public static class ProjectExtensionsConversion
         position.Width = orderItemWrapper.Width;
         position.Depth = orderItemWrapper.Thickness;
         position.Quantity = orderItemWrapper.Quantity ?? 1;
-        // position.Catalog = ?
+        position.Catalog = orderItemWrapper.Catalog;
 
         var propertiesToIgnore = new[]
         {
@@ -448,7 +456,7 @@ public static class ProjectExtensionsConversion
                      .Where(p => !propertiesToIgnore.Any(i => string.Equals(i, p.Name, StringComparison.OrdinalIgnoreCase)))
                      .Where(p => !wrapperPropertyNames.Any(w => string.Equals(w, p.Name, StringComparison.OrdinalIgnoreCase))))
         {
-            if (property.Name != null && property.Value != null)
+            if (property is { Name: not null, Value: not null })
             {
                 position.AdditionalProperties ??= new Dictionary<string, object>();
                 position.AdditionalProperties.Add(property.Name, property.Value);
