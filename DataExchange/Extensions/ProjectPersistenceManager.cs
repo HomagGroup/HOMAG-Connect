@@ -68,7 +68,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// Load project from project.zip archive.
         /// </summary>
         public static (Project Project, FileReference[] ProjectFiles) Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
-        {        
+        {
             var projectDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
 
             projectZipArchive.ExtractToDirectory(projectDirectory.FullName);
