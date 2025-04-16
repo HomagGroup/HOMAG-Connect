@@ -149,6 +149,8 @@ namespace HomagConnect.OrderManager.Tests.Import
 
             foreach (var (orderDetails, fileReferences) in project.ConvertToOrders(projectFiles))
             {
+                orderDetails.PersonInCharge = Environment.UserName;
+
                 var response = await orderManager.ImportOrderRequest(orderDetails, fileReferences);
 
                 var createdOrder = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
