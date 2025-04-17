@@ -3,19 +3,10 @@
 namespace HomagConnect.DataExchange.Extensions.Wrapper;
 
 /// <summary />
-public class OrderItemWrapper
+public class OrderItemWrapper : EntityWrapper
 {
     /// <summary />
-    public OrderItemWrapper(Entity entityEntity)
-    {
-        Entity = entityEntity;
-    }
-
-    #region Private Properties
-
-    internal Entity Entity { get; set; }
-
-    #endregion
+    public OrderItemWrapper(Entity entityEntity) : base(entityEntity) { }
 
     #region Public properties
 
@@ -116,6 +107,19 @@ public class OrderItemWrapper
         get
         {
             return Entity.GetPropertyValue<int>();
+        }
+        set
+        {
+            Entity.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
+    public string? Catalog
+    {
+        get
+        {
+            return Entity.GetPropertyValue<string>();
         }
         set
         {
