@@ -30,14 +30,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// Gets the board type by board code.
         /// </summary>
-        Task<BoardType> GetBoardTypeByBoardCode(string boardCode);
+        Task<BoardType?> GetBoardTypeByBoardCode(string boardCode);
 
         /// <summary>
         /// Gets the board type by board code including details (inventory, allocation, images).
         /// </summary>
         /// <param name="boardCode"></param>
         /// <returns></returns>
-        Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
+        Task<BoardTypeDetails?> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
 
         /// <summary>
         /// Gets the board types paginated.
@@ -55,13 +55,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Gets the board types by board codes.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardType?>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types by board codes including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardTypeDetails?>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types by material code.

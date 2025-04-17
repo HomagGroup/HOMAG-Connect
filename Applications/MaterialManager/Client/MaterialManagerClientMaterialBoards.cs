@@ -180,19 +180,19 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
+    public async Task<BoardType?> GetBoardTypeByBoardCode(string boardCode)
     {
         return await GetBoardTypesByBoardCodes([boardCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
-    public async Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
+    public async Task<BoardTypeDetails?> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
     {
         return await GetBoardTypesByBoardCodesIncludingDetails([boardCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes)
+    public async Task<IEnumerable<BoardType?>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -210,18 +210,18 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         var urls = CreateUrls(codes, _BoardCode);
-        var boardTypes = new List<BoardType>();
+        var boardTypes = new List<BoardType?>();
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardType>());
         }
 
         return boardTypes;
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
+    public async Task<IEnumerable<BoardTypeDetails?>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -239,11 +239,11 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         var urls = CreateUrls(codes, _BoardCode, includingDetails: true);
-        var boardTypesDetails = new List<BoardTypeDetails>();
+        var boardTypesDetails = new List<BoardTypeDetails?>();
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardTypeDetails>());
         }
 
         return boardTypesDetails;
@@ -289,7 +289,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardType>());
         }
 
         return boardTypes;
@@ -319,7 +319,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardTypeDetails>());
         }
 
         return boardTypesDetails;

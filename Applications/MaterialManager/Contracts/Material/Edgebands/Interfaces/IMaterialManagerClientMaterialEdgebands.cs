@@ -33,14 +33,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
-        Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode);
+        Task<EdgebandType?> GetEdgebandTypeByEdgebandCode(string edgebandCode);
 
         /// <summary>
         /// Gets an edgeband by edgeband code including details.
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
-        Task<EdgebandTypeDetails> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode);
+        Task<EdgebandTypeDetails?> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode);
 
         /// <summary>
         /// Get <see cref="EdgeInventoryHistory" /> inventory history for edgebands<see cref="EdgebandType" />.
@@ -78,14 +78,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
-        Task<IEnumerable<EdgebandType>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes);
+        Task<IEnumerable<EdgebandType?>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes);
 
         /// <summary>
         /// Gets edgebands by edgeband codes including details.
         /// </summary>
         /// <param name="edgebandCodes"></param>
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
-        Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
+        Task<IEnumerable<EdgebandTypeDetails?>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
         /// <summary>
         /// Updates the requested edgeband type by its edgebandCode in materialManager.

@@ -155,13 +155,13 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<EdgebandEntity> GetEdgebandEntityById(string id)
+        public async Task<EdgebandEntity?> GetEdgebandEntityById(string id)
         {
             return await GetEdgebandEntitiesByIds([id]).FirstOrDefaultAsync();
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByIds(IEnumerable<string> ids)
+        public async Task<IEnumerable<EdgebandEntity?>> GetEdgebandEntitiesByIds(IEnumerable<string> ids)
         {
             if (ids == null)
             {
@@ -180,11 +180,11 @@ namespace HomagConnect.MaterialAssist.Client
             }
 
             var urls = CreateUrls(codes, _Id);
-            var edgebandEntities = new List<EdgebandEntity>();
+            var edgebandEntities = new List<EdgebandEntity?>();
 
             foreach (var url in urls)
             {
-                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)));
+                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandEntity>());
             }
 
             return edgebandEntities;
@@ -222,7 +222,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             foreach (var url in urls)
             {
-                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)));
+                edgebandEntities.AddRange(await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandEntity>());
             }
 
             return edgebandEntities;
