@@ -128,7 +128,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             foreach (var url in urls)
             {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)));
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardEntity>());
             }
 
             return boardEntities;
