@@ -151,7 +151,7 @@ namespace HomagConnect.Base.Services
             return (await Task.WhenAll(uris.AsParallel().Select(RequestEnumerable<T>))).SelectMany(s => s);
         }
 
-        protected async Task<IEnumerable<T>> RequestEnumerable<T>(Uri uri)
+        protected async Task<IEnumerable<T>?> RequestEnumerable<T>(Uri uri)
 
         {
             var request = new HttpRequestMessage
@@ -182,7 +182,7 @@ namespace HomagConnect.Base.Services
             return response;
         }
 
-        protected async Task<T> RequestObject<T>(Uri uri)
+        protected async Task<T?> RequestObject<T>(Uri uri)
         {
             var request = new HttpRequestMessage
             {

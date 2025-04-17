@@ -22,6 +22,6 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Interfaces
         /// </summary>
         /// <param name="materialCodes"></param>
         /// <returns></returns>
-        Task<IEnumerable<OffcutParameterSet>> GetOffcutParameterSetsAsync(ICollection<string> materialCodes);
+        Task<IEnumerable<OffcutParameterSet>?> GetOffcutParameterSetsAsync(ICollection<string> materialCodes);
     }
 }

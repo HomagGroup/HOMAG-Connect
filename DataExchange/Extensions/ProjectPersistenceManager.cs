@@ -54,6 +54,7 @@ namespace HomagConnect.DataExchange.Extensions
                 // Remove declarations which are no longer valid.
 
                 xmlString = Regex.Replace(xmlString, @"\s*xsi:schemaLocation\s*=\s*""[^""]*""", string.Empty);
+                xmlString = Regex.Replace(xmlString, @"\s*xsi:noNamespaceSchemaLocation\s*=\s*""[^""]*""", string.Empty);
                 xmlString = Regex.Replace(xmlString, @"\s+xmlns=""[^""]*""", string.Empty);
                 xmlString = Regex.Replace(xmlString, @"\s+xmlns:xsi=""[^""]*""", string.Empty);
             }

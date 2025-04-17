@@ -164,7 +164,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Read
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+    public async Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
@@ -172,7 +172,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0)
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
@@ -180,19 +180,19 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<BoardType> GetBoardTypeByBoardCode(string boardCode)
+    public async Task<BoardType?> GetBoardTypeByBoardCode(string boardCode)
     {
         return await GetBoardTypesByBoardCodes([boardCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
-    public async Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
+    public async Task<BoardTypeDetails?> GetBoardTypeByBoardCodeIncludingDetails(string boardCode)
     {
         return await GetBoardTypesByBoardCodesIncludingDetails([boardCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes)
+    public async Task<IEnumerable<BoardType?>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -210,18 +210,18 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         var urls = CreateUrls(codes, _BoardCode);
-        var boardTypes = new List<BoardType>();
+        var boardTypes = new List<BoardType?>();
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardType>());
         }
 
         return boardTypes;
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
+    public async Task<IEnumerable<BoardTypeDetails?>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes)
     {
         if (boardCodes == null)
         {
@@ -239,18 +239,18 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         var urls = CreateUrls(codes, _BoardCode, includingDetails: true);
-        var boardTypesDetails = new List<BoardTypeDetails>();
+        var boardTypesDetails = new List<BoardTypeDetails?>();
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardTypeDetails>());
         }
 
         return boardTypesDetails;
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesByMaterialCode(string materialCode)
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
@@ -258,7 +258,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
@@ -289,7 +289,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)));
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardType>());
         }
 
         return boardTypes;
@@ -319,7 +319,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)));
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardTypeDetails>());
         }
 
         return boardTypesDetails;
@@ -459,7 +459,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0)
+    public async Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(int daysBack, int take, int skip = 0)
     {
         var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?daysBack={daysBack}&take={take}&skip={skip}";
 
@@ -467,7 +467,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
+    public async Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
     {
         var uri =
             $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";

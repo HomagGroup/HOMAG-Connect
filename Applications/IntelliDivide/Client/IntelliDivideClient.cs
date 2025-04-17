@@ -24,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Client
         #region Statistics
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatistics(int daysBack, int take, int skip = 0)
+        public async Task<IEnumerable<MaterialEfficiency>?> GetMaterialStatistics(int daysBack, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/material?daysBack={daysBack}&take={take}&skip={skip}";
 
@@ -32,7 +32,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MaterialEfficiency>> GetMaterialStatistics(DateTime from, DateTime to, int take, int skip = 0)
+        public async Task<IEnumerable<MaterialEfficiency>?> GetMaterialStatistics(DateTime from, DateTime to, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/material?from={from:s}&to={to:s}&take={take}&skip={skip}";
 
@@ -40,7 +40,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandUsage>> GetEdgebandStatistics(int daysBack, int take, int skip = 0)
+        public async Task<IEnumerable<EdgebandUsage>?> GetEdgebandStatistics(int daysBack, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/edgeband?daysBack={daysBack}&take={take}&skip={skip}";
 
@@ -48,7 +48,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandUsage>> GetEdgebandStatistics(DateTime from, DateTime to, int take, int skip = 0)
+        public async Task<IEnumerable<EdgebandUsage>?> GetEdgebandStatistics(DateTime from, DateTime to, int take, int skip = 0)
         {
             var url = $"/api/intelliDivide/statistics/edgeband?from={from:s}&to={to:s}&take={take}&skip={skip}";
 
@@ -112,7 +112,7 @@ namespace HomagConnect.IntelliDivide.Client
         #region Settings (Machines, Parameters, Import templates)
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationImportTemplate>> GetImportTemplates(OptimizationType optimizationType, string fileExtension = "", string name = "")
+        public async Task<IEnumerable<OptimizationImportTemplate>?> GetImportTemplates(OptimizationType optimizationType, string fileExtension = "", string name = "")
         {
             var url = $"/api/intelliDivide/{optimizationType}/templates";
             var templates = await RequestEnumerable<OptimizationImportTemplate>(new Uri(url, UriKind.Relative));
@@ -153,7 +153,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationMachine>> GetMachines(OptimizationType optimizationType)
+        public async Task<IEnumerable<OptimizationMachine>?> GetMachines(OptimizationType optimizationType)
         {
             var url = $"/api/intelliDivide/{optimizationType}/machines";
 
@@ -161,7 +161,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OptimizationParameter>> GetParameters(OptimizationType optimizationType)
+        public async Task<IEnumerable<OptimizationParameter>?> GetParameters(OptimizationType optimizationType)
         {
             var url = $"/api/intelliDivide/{optimizationType}/parameters";
             return await RequestEnumerable<OptimizationParameter>(new Uri(url, UriKind.Relative));
@@ -172,7 +172,7 @@ namespace HomagConnect.IntelliDivide.Client
         #region Materials
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+        public async Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0)
         {
             if (skip < 0)
             {
@@ -218,7 +218,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
+        public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0)
         {
             if (skip < 0)
             {
@@ -362,13 +362,13 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<Optimization> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
+        public async Task<Optimization?> WaitForCompletion(Guid optimizationId, TimeSpan maxDuration)
         {
             return await WaitForOptimizationStatus(optimizationId, OptimizationStatus.Optimized, maxDuration);
         }
 
         /// <inheritdoc />
-        public async Task<Optimization> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration)
+        public async Task<Optimization?> WaitForOptimizationStatus(Guid optimizationId, OptimizationStatus optimizationStatus, TimeSpan maxDuration)
         {
             var timeout = DateTime.Now + maxDuration;
 
@@ -441,7 +441,7 @@ namespace HomagConnect.IntelliDivide.Client
         #region Optimzation List, Archive, Delete, Start
 
         /// <inheritdoc />
-        public async Task<Optimization> GetOptimization(Guid optimizationId)
+        public async Task<Optimization?> GetOptimization(Guid optimizationId)
         {
             if (optimizationId == Guid.Empty)
             {
@@ -454,7 +454,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&take={take}&skip={skip}";
 
@@ -462,7 +462,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, string orderBy, int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, string orderBy, int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&take={take}&skip={skip}&orderBy={orderBy}";
 
@@ -470,7 +470,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}";
 
@@ -478,7 +478,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
             int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}&orderBy={orderBy}";
@@ -487,7 +487,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizations(int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}";
 
@@ -495,7 +495,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>> GetOptimizations(string orderBy, int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(string orderBy, int take, int skip = 0)
         {
             var url = $"api/intelliDivide/optimizations?take={take}&skip={skip}&orderBy={orderBy}";
 
@@ -539,7 +539,7 @@ namespace HomagConnect.IntelliDivide.Client
         #region Solutions
 
         /// <inheritdoc />
-        public async Task<SolutionDetails> GetSolutionDetails(Guid optimizationId, Guid solutionId)
+        public async Task<SolutionDetails?> GetSolutionDetails(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}";
 
@@ -549,7 +549,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Solution>> GetSolutions(Guid optimizationId)
+        public async Task<IEnumerable<Solution>?> GetSolutions(Guid optimizationId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions";
 
@@ -608,7 +608,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId)
+        public async Task<IEnumerable<SolutionPart>?> GetSolutionProducedParts(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/parts";
 
@@ -616,7 +616,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<SolutionPattern>> GetSolutionPatterns(Guid optimizationId, Guid solutionId)
+        public async Task<IEnumerable<SolutionPattern>?> GetSolutionPatterns(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/patterns";
 
