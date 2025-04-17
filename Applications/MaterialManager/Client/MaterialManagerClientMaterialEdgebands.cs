@@ -33,7 +33,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _IncludingDetails = "includingDetails";
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
+    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
@@ -41,7 +41,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesIncludingDetails(int take, int skip = 0)
+    public async Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
@@ -140,7 +140,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<string>> GetTechnologyMacrosFromMachine(string tapioMachineId)
+    public async Task<IEnumerable<string>?> GetTechnologyMacrosFromMachine(string tapioMachineId)
     {
         if (tapioMachineId == null)
         {
@@ -152,7 +152,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<TapioMachine>> GetLicensedMachines()
+    public async Task<IEnumerable<TapioMachine>?> GetLicensedMachines()
     {
         const string url = $"{_BaseRoute}/machines";
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));

@@ -66,7 +66,7 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
+        public async Task<ImportOrderStateResponse?> GetImportOrderState(Guid correlationId)
         {
             if (correlationId == Guid.Empty)
             {
@@ -120,7 +120,7 @@ namespace HomagConnect.ProductionManager.Client
         #region Order overview
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Order>> GetOrders(int take, int skip = 0)
+        public async Task<IEnumerable<Order>?> GetOrders(int take, int skip = 0)
         {
             var url = $"/api/productionManager/orders?take={take}&skip={skip}";
             var orders = await RequestEnumerable<Order>(new Uri(url, UriKind.Relative));
@@ -168,7 +168,7 @@ namespace HomagConnect.ProductionManager.Client
         #region Order details
 
         /// <inheritdoc />
-        public async Task<OrderDetails> GetOrder(Guid orderId)
+        public async Task<OrderDetails?> GetOrder(Guid orderId)
         {
             var url = $"/api/productionManager/orders/{orderId}";
             var order = await RequestObject<OrderDetails>(new Uri(url, UriKind.Relative));

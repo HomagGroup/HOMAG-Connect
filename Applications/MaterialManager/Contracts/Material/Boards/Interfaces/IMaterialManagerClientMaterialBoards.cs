@@ -43,13 +43,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Gets the board types paginated.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+        Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types paginated including details (inventory, allocation, images).
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0);
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types by board codes.
@@ -67,13 +67,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Gets the board types by material code.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode);
+        Task<IEnumerable<BoardType>?> GetBoardTypesByMaterialCode(string materialCode);
 
         /// <summary>
         /// Gets the board types by material code including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode);
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode);
 
         /// <summary>
         /// Gets the board types by material codes.
@@ -141,12 +141,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// Get the PartHistory by interval dates
         /// </summary>
-        Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0);
+        Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0);
 
         /// <summary>
         /// Get the PartHistory by a fixed number of days back
         /// </summary>
-        Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
+        Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
 
         #endregion
     }

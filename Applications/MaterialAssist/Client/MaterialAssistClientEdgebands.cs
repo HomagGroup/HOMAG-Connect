@@ -147,7 +147,7 @@ namespace HomagConnect.MaterialAssist.Client
         #region Read
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntities(int take, int skip = 0)
+        public async Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntities(int take, int skip = 0)
         {
             var url = $"{_BaseRouteMaterialAssist}?take={take}&skip={skip}";
 
@@ -191,7 +191,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode)
+        public async Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntitiesByEdgebandCode(string edgebandCode)
         {
             var url = $"{_BaseRouteMaterialAssist}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 

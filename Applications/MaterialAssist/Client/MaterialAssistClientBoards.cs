@@ -92,7 +92,7 @@ namespace HomagConnect.MaterialAssist.Client
         #region Read
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntities(int take, int skip = 0)
+        public async Task<IEnumerable<BoardEntity>?> GetBoardEntities(int take, int skip = 0)
         {
             var url = $"{_BaseRouteMaterialAssist}?take={take}&skip={skip}";
 
@@ -100,7 +100,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<BoardEntity> GetBoardEntityById(string id)
+        public async Task<BoardEntity?> GetBoardEntityById(string id)
         {
             return await GetBoardEntitiesByIds([id]).FirstOrDefaultAsync();
         }
@@ -135,7 +135,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCode(string boardCode)
+        public async Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByBoardCode(string boardCode)
         {
             var url = $"{_BaseRouteMaterialAssist}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
@@ -172,7 +172,7 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCode(string materialCode)
+        public async Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByMaterialCode(string materialCode)
         {
             var url = $"{_BaseRouteMaterialAssist}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 

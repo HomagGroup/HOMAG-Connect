@@ -53,7 +53,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntities(int take, int skip = 0);
+        Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntities(int take, int skip = 0);
 
         /// <summary>
         /// Gets an edgeband entity by id (#).
@@ -74,7 +74,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// </summary>
         /// <param name="edgebandCode"></param>
         /// <returns></returns>
-        Task<IEnumerable<EdgebandEntity>> GetEdgebandEntitiesByEdgebandCode(string edgebandCode);
+        Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntitiesByEdgebandCode(string edgebandCode);
 
         /// <summary>
         /// Get edgeband entities by edgeband codes.

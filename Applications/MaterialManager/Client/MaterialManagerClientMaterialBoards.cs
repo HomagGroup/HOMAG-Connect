@@ -164,7 +164,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Read
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0)
+    public async Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
@@ -172,7 +172,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0)
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
@@ -250,7 +250,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode)
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesByMaterialCode(string materialCode)
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
 
@@ -258,7 +258,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode)
     {
         var url = $"{_BaseRoute}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}&{_IncludingDetails}=true";
 
@@ -459,7 +459,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0)
+    public async Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(int daysBack, int take, int skip = 0)
     {
         var uri = $"/{_BaseStatisticsRoute}/usage/boards/parthistory?daysBack={daysBack}&take={take}&skip={skip}";
 
@@ -467,7 +467,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
+    public async Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0)
     {
         var uri =
             $"/{_BaseStatisticsRoute}/usage/boards/parthistory?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";

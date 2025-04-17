@@ -56,22 +56,22 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// Get all technology macros for a machine.
         /// </summary>
         /// <param name="tapioMachineId">The machine id from tapio.</param>
-        Task<IEnumerable<string>> GetTechnologyMacrosFromMachine(string tapioMachineId);
+        Task<IEnumerable<string>?> GetTechnologyMacrosFromMachine(string tapioMachineId);
 
         /// <summary>
         /// Get all <see cref="TapioMachine" /> licensed for material api. />.
         /// </summary>
-        Task<IEnumerable<TapioMachine>> GetLicensedMachines();
+        Task<IEnumerable<TapioMachine>?> GetLicensedMachines();
 
         /// <summary>
         /// Gets all edgebands.
         /// </summary>
-        Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0);
+        Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0);
 
         /// <summary>
         /// Gets all edgebands including details.
         /// </summary>
-        Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesIncludingDetails(int take, int skip = 0);
+        Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets edgebands by edgeband codes.
