@@ -310,10 +310,7 @@ namespace HomagConnect.OrderManager.Client
 
             foreach (var fileReference in fileReferences)
             {
-                var fileStream = fileReference.FileInfo.OpenRead();
-
-                HttpContent streamContent = new StreamContent(fileStream);
-                httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+                httpContent.Add(fileReference);
             }
 
             request.Content = httpContent;

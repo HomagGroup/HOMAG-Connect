@@ -25,5 +25,11 @@ public enum AdditionalDataType
     CNCProgram,
 
     /// <summary />
-    ThreeD
+    ThreeD,
+
+    /// <summary />
+    Pdf,
+
+    /// <summary />
+    Zip
 }
