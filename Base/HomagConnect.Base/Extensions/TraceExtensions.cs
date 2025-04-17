@@ -15,7 +15,7 @@ namespace HomagConnect.Base.Extensions
         /// <summary>
         /// Trace an enumerable.
         /// </summary>
-        public static void Trace(this IEnumerable enumerable, [CallerMemberName] string description = "")
+        public static void Trace(this IEnumerable? enumerable, [CallerMemberName] string description = "")
         {
             Console.WriteLine(description);
 

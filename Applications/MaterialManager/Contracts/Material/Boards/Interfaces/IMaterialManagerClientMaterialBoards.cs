@@ -30,50 +30,50 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// Gets the board type by board code.
         /// </summary>
-        Task<BoardType> GetBoardTypeByBoardCode(string boardCode);
+        Task<BoardType?> GetBoardTypeByBoardCode(string boardCode);
 
         /// <summary>
         /// Gets the board type by board code including details (inventory, allocation, images).
         /// </summary>
         /// <param name="boardCode"></param>
         /// <returns></returns>
-        Task<BoardTypeDetails> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
+        Task<BoardTypeDetails?> GetBoardTypeByBoardCodeIncludingDetails(string boardCode);
 
         /// <summary>
         /// Gets the board types paginated.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        Task<IEnumerable<BoardType>> GetBoardTypes(int take, int skip = 0);
+        Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types paginated including details (inventory, allocation, images).
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesIncludingDetails(int take, int skip = 0);
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types by board codes.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardType>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardType?>> GetBoardTypesByBoardCodes(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types by board codes including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.MaterialCode" /> and <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
+        Task<IEnumerable<BoardTypeDetails?>> GetBoardTypesByBoardCodesIncludingDetails(IEnumerable<string> boardCodes);
 
         /// <summary>
         /// Gets the board types by material code.
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardType>> GetBoardTypesByMaterialCode(string materialCode);
+        Task<IEnumerable<BoardType>?> GetBoardTypesByMaterialCode(string materialCode);
 
         /// <summary>
         /// Gets the board types by material code including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
-        Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode);
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByMaterialCodeIncludingDetails(string materialCode);
 
         /// <summary>
         /// Gets the board types by material codes.
@@ -141,12 +141,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// Get the PartHistory by interval dates
         /// </summary>
-        Task<IEnumerable<PartHistory>> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0);
+        Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(DateTime from, DateTime to, int take, int skip = 0);
 
         /// <summary>
         /// Get the PartHistory by a fixed number of days back
         /// </summary>
-        Task<IEnumerable<PartHistory>> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
+        Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
 
         #endregion
     }

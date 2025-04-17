@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+﻿using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Samples.Helper;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
