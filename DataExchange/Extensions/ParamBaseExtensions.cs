@@ -100,7 +100,7 @@ public static class ParamBaseExtensions
             }
             catch (FormatException)
             {
-                // be more tolerant when converting a double value into an integer, to stay backward compatible
+                // For backward compability, be more tolerant when converting and and try to obtain the int value from a double value
                 var val = XmlConvert.ToDouble(value);
                 return Convert.ChangeType(Convert.ToInt32(val), typeof(int));
             }
