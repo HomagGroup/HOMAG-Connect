@@ -274,7 +274,7 @@ The parameters of the order contains the following information:
 | |ChangedAt|Datetime|| The date and time of the last change
 | |StartedAt| Date| |The start date 
 | |CompletedAt|Date|| The completion date
-| |QuantityOfArticles|Integer| |The numebr of articles
+| |QuantityOfArticles|Integer| |The number of articles
 | |QuantityOfParts|Integer| | The number of parts 
 | |QuantityOfPartsPlanned| Integer| |The planned number of parts
 **Additional data (1)**|
@@ -334,7 +334,7 @@ Type                   | Description | Scope
 
 ##### All order entity parameters
 
-The param's of the level order entity can contain the following information:
+The bill of materials contain the following information:
 
 Column                    | Type                     | Description | Scope
 --------------------------|--------------------------|-------------|-------
