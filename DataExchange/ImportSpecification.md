@@ -418,7 +418,7 @@ GrainPattern              | string                   | Grain pattern template an
 |                                                  | Template              | String   |                                  |                                                      |
 | **Material (17)**                                    |                       |          |                                  |                                                      |
 |                                                  | Material              | String   | Required; Max length: 50         |                                                      |
-|                                                  | Grain                 | Integer  | Required                         |                                                      |
+|                                                  | Grain                 | Integer  | Required                         | The grain of the material. No grain (0), Lengthwise (1) , Crosswise (2) |
 |                                                  | EdgeDiagram           | String   |                                  |                                                      |
 |                                                  | LaminateTop           | String   |                                  |                                                      |
 |                                                  | EdgeLeft              | String   |                                  |                                                      |
