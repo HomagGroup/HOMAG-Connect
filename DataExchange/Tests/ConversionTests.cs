@@ -1,6 +1,7 @@
 ﻿using System.IO.Compression;
 
 using HomagConnect.Base.Extensions;
+using HomagConnect.DataExchange.Contracts;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Extensions.Wrapper;
 using HomagConnect.DataExchange.Samples;
@@ -36,6 +37,40 @@ public class ConversionTests
         var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
 
         ConvertProjectToGroup(fileInfo);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Convert_ProjectToGroup_ProjectHavingOldPropertyTypes()
+    {
+        var quantityParam = new Param
+        {
+            Name = "Quantity",
+            Value = "1.0000" // quantity type changed from double to int
+        };
+
+        var project = new Project();
+        var order = new Order();
+        project.Orders?.Add(order);
+
+        var orderItemEntity = new Entity();
+        orderItemEntity.Properties.Add(new Param { Name = "Type", Value = "OrderItem" });
+        orderItemEntity.Properties.Add(quantityParam);
+        order.Entities.Add(orderItemEntity);
+
+        var componentEntity = new Entity();
+        componentEntity.Properties.Add(new Param { Name = "Type", Value = "Component" });
+        componentEntity.Properties.Add(quantityParam);
+        orderItemEntity.Entities.Add(componentEntity);
+
+        var boardEntity = new Entity();
+        boardEntity.Properties.Add(new Param { Name = "Type", Value = "ProductionOrder" });
+        boardEntity.Properties.Add(quantityParam);
+        componentEntity.Entities.Add(boardEntity);
+
+        var grps = project.ConvertToGroups();
+        Assert.IsNotNull(grps);
+        Assert.AreEqual(1, grps.Count());
     }
 
     /// <summary />
