@@ -349,7 +349,17 @@ public static class ProjectExtensionsConversion
                 if (!ignoreAdditionalProperties)
                 {
                     target.AdditionalProperties ??= new Dictionary<string, object>();
-                    target.AdditionalProperties.Add(property.Name, property.Value);
+
+                    target.AdditionalProperties.TryGetValue(property.Name, out var additionalProperty);
+
+                    if (additionalProperty != null)
+                    {
+                        target.AdditionalProperties[property.Name] = property.Value;
+                    }
+                    else
+                    {
+                        target.AdditionalProperties.Add(property.Name, property.Value);
+                    }
                 }
             }
         }
