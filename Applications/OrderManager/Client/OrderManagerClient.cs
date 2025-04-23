@@ -38,7 +38,7 @@ namespace HomagConnect.OrderManager.Client
         #region Order overview
 
         /// <inheritdoc />
-        public async Task<IEnumerable<OrderOverview>> GetOrders(int take, int skip = 0)
+        public async Task<IEnumerable<OrderOverview>?> GetOrders(int take, int skip = 0)
         {
             var url = $"{_OrderRoute}?take={take}&skip={skip}";
             return await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
@@ -80,14 +80,14 @@ namespace HomagConnect.OrderManager.Client
         #region Order details
 
         /// <inheritdoc />
-        public async Task<OrderDetails> GetOrder(Guid orderId)
+        public async Task<OrderDetails?> GetOrder(Guid orderId)
         {
             var uri = $"{_OrderRoute}/{orderId}";
             return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<OrderDetails> GetOrder(string orderNumber)
+        public async Task<OrderDetails?> GetOrder(string orderNumber)
         {
             var uri = $"{_OrderRoute}/{Uri.EscapeDataString(orderNumber)}";
             return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
@@ -142,7 +142,7 @@ namespace HomagConnect.OrderManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId)
+        public async Task<ImportOrderStateResponse?> GetImportOrderState(Guid correlationId)
         {
             var uri = $"{_OrderRoute}/import/{correlationId}";
             return await RequestObject<ImportOrderStateResponse>(new Uri(uri, UriKind.Relative));
@@ -310,10 +310,7 @@ namespace HomagConnect.OrderManager.Client
 
             foreach (var fileReference in fileReferences)
             {
-                var fileStream = fileReference.FileInfo.OpenRead();
-
-                HttpContent streamContent = new StreamContent(fileStream);
-                httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+                httpContent.Add(fileReference);
             }
 
             request.Content = httpContent;

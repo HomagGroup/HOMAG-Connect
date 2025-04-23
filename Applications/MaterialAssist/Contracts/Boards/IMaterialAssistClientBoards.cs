@@ -33,14 +33,14 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// Get all board entities from the inventory.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<BoardEntity>> GetBoardEntities(int take, int skip = 0);
+        Task<IEnumerable<BoardEntity>?> GetBoardEntities(int take, int skip = 0);
 
         /// <summary>
         /// Get board entity by id (#).
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<BoardEntity> GetBoardEntityById(string id);
+        Task<BoardEntity?> GetBoardEntityById(string id);
 
         /// <summary>
         /// Get board entities by id´s (#).
@@ -54,7 +54,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// </summary>
         /// <param name="boardCode"></param>
         /// <returns></returns>
-        Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCode(string boardCode);
+        Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByBoardCode(string boardCode);
 
         /// <summary>
         /// Get board entities by board codes.
@@ -68,7 +68,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// </summary>
         /// <param name="materialCode"></param>
         /// <returns></returns>
-        Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCode(string materialCode);
+        Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByMaterialCode(string materialCode);
 
         /// <summary>
         /// Get board entities by material codes.

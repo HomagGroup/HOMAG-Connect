@@ -28,6 +28,20 @@ public class EntityWrapper
     }
 
     /// <summary />
+    public string? Type
+    {
+        get
+        {
+            return Entity.GetPropertyValue<string>();
+        }
+        set
+        {
+            Entity.SetPropertyValue(value);
+        }
+    }
+
+
+    /// <summary />
     public IList<EntityWrapper> Entities
     {
         get

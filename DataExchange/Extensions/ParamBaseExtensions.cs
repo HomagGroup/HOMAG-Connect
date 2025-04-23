@@ -94,7 +94,9 @@ public static class ParamBaseExtensions
 
         if (type == typeof(int) || type == typeof(int?))
         {
-            return Convert.ChangeType(XmlConvert.ToInt32(value), typeof(int));
+            // For backward compability, be more tolerant when converting and try to also obtain the int value from a double value
+            var val = XmlConvert.ToDouble(value);
+            return Convert.ChangeType(Convert.ToInt32(val), typeof(int));
         }
 
         if (type == typeof(double) || type == typeof(double?))
@@ -139,7 +141,12 @@ public static class ParamBaseExtensions
                 return OrderManager.Contracts.OrderItems.Type.Part;
             }
 
-            return Enum.ToObject(typeof(HomagConnect.OrderManager.Contracts.OrderItems.Type), value);
+            if (Enum.TryParse(value, true, out OrderManager.Contracts.OrderItems.Type resultType)) 
+            {
+                return resultType;
+            }
+
+            return Enum.ToObject(typeof(OrderManager.Contracts.OrderItems.Type), value);
         }
 
         throw new NotSupportedException("Type " + type + ", Value, "+value +" is not supported.");

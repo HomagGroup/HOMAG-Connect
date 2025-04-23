@@ -29,7 +29,7 @@ public class BoardTypeDetails : BoardType
     /// Gets or sets the list of additional images.
     /// </summary>
     [JsonProperty(Order = 81)]
-    [Obsolete("This parameter is obsolete. Use AdditionalData instead.")]
+    [Obsolete("This parameter is obsolete. Use AdditionalData instead.", true)]
     public ICollection<ImageInformation> Images { get; set; } =
         new List<ImageInformation>();
 

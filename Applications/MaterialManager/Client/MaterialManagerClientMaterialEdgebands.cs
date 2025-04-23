@@ -33,7 +33,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _IncludingDetails = "includingDetails";
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandType>> GetEdgebandTypes(int take, int skip = 0)
+    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}";
 
@@ -41,7 +41,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesIncludingDetails(int take, int skip = 0)
+    public async Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
@@ -49,19 +49,19 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<EdgebandType> GetEdgebandTypeByEdgebandCode(string edgebandCode)
+    public async Task<EdgebandType?> GetEdgebandTypeByEdgebandCode(string edgebandCode)
     {
         return await GetEdgebandTypesByEdgebandCodes([edgebandCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
-    public async Task<EdgebandTypeDetails> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
+    public async Task<EdgebandTypeDetails?> GetEdgebandTypeByEdgebandCodeIncludingDetails(string edgebandCode)
     {
         return await GetEdgebandTypesByEdgebandCodesIncludingDetails([edgebandCode]).FirstOrDefaultAsync();
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandType>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes)
+    public async Task<IEnumerable<EdgebandType?>> GetEdgebandTypesByEdgebandCodes(IEnumerable<string> edgebandCodes)
     {
         if (edgebandCodes == null)
         {
@@ -80,18 +80,18 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         }
 
         var urls = CreateUrls(codes, _EdgebandCode);
-        var boardTypes = new List<EdgebandType>();
+        var boardTypes = new List<EdgebandType?>();
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)));
+            boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandType>());
         }
 
         return boardTypes;
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandTypeDetails>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
+    public async Task<IEnumerable<EdgebandTypeDetails?>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes)
     {
         if (edgebandCodes == null)
         {
@@ -110,11 +110,11 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         }
 
         var urls = CreateUrls(codes, _EdgebandCode, includingDetails: true);
-        var edgebandTypeDetails = new List<EdgebandTypeDetails>();
+        var edgebandTypeDetails = new List<EdgebandTypeDetails?>();
 
         foreach (var url in urls)
         {
-            edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)));
+            edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandTypeDetails>());
         }
 
         return edgebandTypeDetails;
@@ -140,7 +140,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<string>> GetTechnologyMacrosFromMachine(string tapioMachineId)
+    public async Task<IEnumerable<string>?> GetTechnologyMacrosFromMachine(string tapioMachineId)
     {
         if (tapioMachineId == null)
         {
@@ -152,7 +152,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<TapioMachine>> GetLicensedMachines()
+    public async Task<IEnumerable<TapioMachine>?> GetLicensedMachines()
     {
         const string url = $"{_BaseRoute}/machines";
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));

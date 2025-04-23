@@ -1,5 +1,6 @@
 ﻿using System;
 
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Base
@@ -7,6 +8,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
     /// <summary>
     /// Image information.
     /// </summary>
+    [Obsolete($"This class is obsolete. Use {nameof(AdditionalDataEntity)} instead.", true)]
     public class ImageInformation
     {
         /// <summary>

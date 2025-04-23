@@ -19,7 +19,7 @@ public class EdgebandTypeDetails : EdgebandType
     /// <summary>
     /// Gets or sets the list of additional images.
     /// </summary>
-    [Obsolete("This parameter is obsolete. Use AdditionalData instead.")]
+    [Obsolete("This parameter is obsolete. Use AdditionalData instead.", true)]
     public ICollection<ImageInformation> Images { get; set; } = new List<ImageInformation>();
 
     /// <summary>

@@ -38,14 +38,14 @@ namespace HomagConnect.ProductionAssist.Client
         #region Read
 
         /// <inheritdoc />
-        public async Task<IEnumerable<CuttingJob>> GetCuttingJobs()
+        public async Task<IEnumerable<CuttingJob>?> GetCuttingJobs()
         {
             var uri = $"/api/productionAssist/cutting/jobs";
             return await RequestEnumerable<CuttingJob>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<CuttingJob>> GetCuttingJobs(Guid[] cuttingJobIds)
+        public async Task<IEnumerable<CuttingJob>?> GetCuttingJobs(Guid[] cuttingJobIds)
         {
             var uri = $"/api/productionAssist/cutting/jobs?cuttingJobId={cuttingJobIds[0]}";
             for (var i = 1; i < cuttingJobIds.Length; i++)

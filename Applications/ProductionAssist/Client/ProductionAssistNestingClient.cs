@@ -38,14 +38,14 @@ namespace HomagConnect.ProductionAssist.Client
         #region Read
 
         /// <inheritdoc />
-        public async Task<IEnumerable<NestingJob>> GetNestingJobs()
+        public async Task<IEnumerable<NestingJob>?> GetNestingJobs()
         {
             var uri = $"/api/productionAssist/nesting/jobs";
             return await RequestEnumerable<NestingJob>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<NestingJob>> GetNestingJobs(Guid[] nestingJobIds)
+        public async Task<IEnumerable<NestingJob>?> GetNestingJobs(Guid[] nestingJobIds)
         {
             var uri = $"/api/productionAssist/nesting/jobs?nestingJobId={nestingJobIds[0]}";
             for (var i = 1; i < nestingJobIds.Length; i++)

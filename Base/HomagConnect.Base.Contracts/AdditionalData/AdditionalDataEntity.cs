@@ -17,14 +17,17 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataTexture), AdditionalDataType.Texture)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataCNCProgram), AdditionalDataType.CNCProgram)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataThreeD), AdditionalDataType.ThreeD)]
+[JsonSubtypes.KnownSubType(typeof(AdditionalDataPdf), AdditionalDataType.Pdf)]
+[JsonSubtypes.KnownSubType(typeof(AdditionalDataZip), AdditionalDataType.Zip)]
 [DebuggerDisplay("Type={Type}, Name={Name}")]
 public class AdditionalDataEntity
 {
     /// <summary>
-    /// Gets or sets the additional data type.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonProperty(Order = 0)]
-    public virtual AdditionalDataType Type { get; set; }
+    [JsonExtensionData]
+    [JsonProperty(Order = 30)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
     /// Gets or sets the category.
@@ -41,12 +44,6 @@ public class AdditionalDataEntity
     public string? Category { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional data name
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    public string? Name { get; set; }
-
-    /// <summary>
     /// Gets or sets the download file name.
     /// </summary>
     [JsonProperty(Order = 10)]
@@ -59,31 +56,51 @@ public class AdditionalDataEntity
     public Uri? DownloadUri { get; set; }
 
     /// <summary>
+    /// Gets or sets the additional data name
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public string? Name { get; set; }
+
+    /// <summary>
     /// Previews
     /// </summary>
     [JsonProperty(Order = 20)]
     public Collection<AdditionalDataPreview>? Previews { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional properties configured in the application.
+    /// Gets or sets the additional data type.
     /// </summary>
-    [JsonExtensionData]
-    [JsonProperty(Order = 30)]
-    public IDictionary<string, object>? AdditionalProperties { get; set; }
+    [JsonProperty(Order = 0)]
+    public virtual AdditionalDataType Type { get; set; }
 
     /// <summary>
     /// Creates a new instance of the <see cref="AdditionalDataEntity" /> class based on the file extension.
     /// </summary>
     public static AdditionalDataEntity CreateInstance(string fileExtension)
     {
+        if (fileExtension is ".png" or ".jpg" or ".gif" or ".bmp")
+        {
+            return new AdditionalDataImage();
+        }
+
         if (fileExtension is ".mpr" or ".mprx" or ".mprxe")
         {
             return new AdditionalDataCNCProgram();
         }
 
-        if (fileExtension is ".png" or ".jpg" or ".gif" or ".bmp")
+        if (fileExtension is ".3ds" or ".3ds.zip")
         {
-            return new AdditionalDataImage();
+            return new AdditionalDataThreeD();
+        }
+
+        if (fileExtension is ".pdf")
+        {
+            return new AdditionalDataPdf();
+        }
+
+        if (fileExtension is ".zip")
+        {
+            return new AdditionalDataZip();
         }
 
         return new AdditionalDataEntity();

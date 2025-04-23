@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.IO.Compression;
 using System.Reflection;
 
 using HomagConnect.Base.Contracts;
@@ -147,6 +147,14 @@ public static class ProjectExtensionsConversion
         var projectWrapper = new ProjectWrapper(project);
 
         projectWrapper.Source = source;
+
+        foreach (var projectWrapperOrder in projectWrapper.Orders)
+        {
+            foreach (var orderItemWrapper in projectWrapperOrder.Entities.OfType<OrderItemWrapper>())
+            {
+                orderItemWrapper.Catalog = source;
+            }
+        }
     }
 
     private static OrderManager.Contracts.OrderItems.Base CreateInstance(IEnumerable<Param> properties)
@@ -244,21 +252,55 @@ public static class ProjectExtensionsConversion
 
         foreach (var fileReference in fileReferencesAvailable)
         {
-            foreach (var additionalDataEntity in additionalDataEntities)
+            if (additionalDataEntities.Any(additionalDataEntity => additionalDataEntity.ReferenceEquals(fileReference)))
             {
-                if (additionalDataEntity.ReferenceEquals(fileReference))
+                fileReferencesReferenced.Add(fileReference);
+            }
+            else
+            {
+                fileReferencesNotReferenced.Add(fileReference);
+            }
+        }
+
+        return Replace3dsReferencesWithZipPackages(fileReferencesReferenced, additionalDataEntities, fileReferencesNotReferenced).ToArray();
+    }
+
+    private static List<FileReference> Replace3dsReferencesWithZipPackages(List<FileReference> fileReferencesReferenced, List<AdditionalDataEntity> additionalDataEntities, List<FileReference> fileReferencesNotReferenced)
+    {
+        const string zipExtension = ".zip";
+        const string threeDs3dsExtension = ".3ds";
+
+        foreach (var fileReference in fileReferencesReferenced.Where(f => string.Equals(Path.GetExtension(f.FileInfo.FullName), threeDs3dsExtension, StringComparison.OrdinalIgnoreCase)))
+        {
+            var zipFileInfo = new FileInfo(fileReference.FileInfo.FullName + zipExtension);
+
+            using (var fileStream = new FileStream(zipFileInfo.FullName, FileMode.Create))
+            {
+                using (var archive = new ZipArchive(fileStream, ZipArchiveMode.Create))
                 {
-                    fileReferencesReferenced.Add(fileReference);
-                    break;
+                    archive.CreateEntryFromFile(fileReference.FileInfo.FullName, fileReference.FileInfo.Name, CompressionLevel.Optimal);
+
+                    foreach (var fileReferenceNotReferenced in fileReferencesNotReferenced)
+                    {
+                        if (zipFileInfo.Directory != null && fileReferenceNotReferenced.FileInfo.FullName.StartsWith(zipFileInfo.Directory.FullName))
+                        {
+                            archive.CreateEntryFromFile(fileReferenceNotReferenced.FileInfo.FullName, fileReferenceNotReferenced.FileInfo.Name, CompressionLevel.Optimal); // TODO: Implement subfolder handling
+                        }
+                    }
                 }
             }
 
-            fileReferencesNotReferenced.Add(fileReference);
+            foreach (var fileReferenceUriAdditionalDataEntity in additionalDataEntities.Where(a => a.ReferenceEquals(fileReference)))
+            {
+                fileReferenceUriAdditionalDataEntity.DownloadFileName += zipExtension;
+                fileReferenceUriAdditionalDataEntity.DownloadUri = new Uri(fileReference.Reference + zipExtension, UriKind.RelativeOrAbsolute);
+            }
+
+            fileReference.Reference += zipExtension;
+            fileReference.FileInfo = zipFileInfo;
         }
 
-        Debug.Write(fileReferencesNotReferenced);
-
-        return fileReferencesReferenced.ToArray();
+        return fileReferencesReferenced;
     }
 
     private static void Map(Project project, Order order, Group group)
@@ -307,7 +349,17 @@ public static class ProjectExtensionsConversion
                 if (!ignoreAdditionalProperties)
                 {
                     target.AdditionalProperties ??= new Dictionary<string, object>();
-                    target.AdditionalProperties.Add(property.Name, property.Value);
+
+                    target.AdditionalProperties.TryGetValue(property.Name, out var additionalProperty);
+
+                    if (additionalProperty != null)
+                    {
+                        target.AdditionalProperties[property.Name] = property.Value;
+                    }
+                    else
+                    {
+                        target.AdditionalProperties.Add(property.Name, property.Value);
+                    }
                 }
             }
         }
@@ -427,7 +479,7 @@ public static class ProjectExtensionsConversion
         position.Width = orderItemWrapper.Width;
         position.Depth = orderItemWrapper.Thickness;
         position.Quantity = orderItemWrapper.Quantity ?? 1;
-        // position.Catalog = ?
+        position.Catalog = orderItemWrapper.Catalog;
 
         var propertiesToIgnore = new[]
         {
@@ -448,7 +500,7 @@ public static class ProjectExtensionsConversion
                      .Where(p => !propertiesToIgnore.Any(i => string.Equals(i, p.Name, StringComparison.OrdinalIgnoreCase)))
                      .Where(p => !wrapperPropertyNames.Any(w => string.Equals(w, p.Name, StringComparison.OrdinalIgnoreCase))))
         {
-            if (property.Name != null && property.Value != null)
+            if (property is { Name: not null, Value: not null })
             {
                 position.AdditionalProperties ??= new Dictionary<string, object>();
                 position.AdditionalProperties.Add(property.Name, property.Value);

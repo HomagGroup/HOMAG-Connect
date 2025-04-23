@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get all orders sorted by <see cref="Order.OrderDate" />.
         /// </summary>
-        Task<IEnumerable<Order>> GetOrders(int take, int skip = 0);
+        Task<IEnumerable<Order>?> GetOrders(int take, int skip = 0);
 
         /// <summary>
         /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
@@ -31,7 +31,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get a specific order by its id
         /// </summary>
-        Task<OrderDetails> GetOrder(Guid orderId);
+        Task<OrderDetails?> GetOrder(Guid orderId);
 
         /// <summary>
         /// Get a specific order by its order number.
@@ -66,7 +66,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="correlationId">The correlationId for the import job which was triggered when ImportOrderAsync was called</param>
         /// <returns></returns>
-        Task<ImportOrderStateResponse> GetImportOrderState(Guid correlationId);
+        Task<ImportOrderStateResponse?> GetImportOrderState(Guid correlationId);
 
         /// <summary>
         /// Wait for the import to be completed.
