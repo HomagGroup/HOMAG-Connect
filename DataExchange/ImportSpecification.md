@@ -334,7 +334,7 @@ Type                   | Description | Scope
 
 ##### All order entity parameters
 
-The bill of materials contain the following information:
+The bill of materials contains the following information:
 
 Column                    | Type                     | Description | Scope
 --------------------------|--------------------------|-------------|-------
@@ -396,7 +396,7 @@ GrainPattern              | string                   | Grain pattern template an
 | **Production (22)**                                  |                       |          |                                  |                                                      |
 |                                                  | ID                    | String   | Required                         | the ID of the part                                   |
 |                                                  | Barcode               | String   |                                  | Barcode of the part                                  |
-|                                                  | Quantity              | Integer  | Required; Min: 1, Max: 9999      | Quantity unit; default "pcs"                         |
+|                                                  | Quantity              | Integer  | Required; Min: 1, Max: 9999      | The "real" quantity. Please multiply the quantities over the complete hierarchy to get the quantity of a part. Unit / "pcs" |
 |                                                  | FinishedLength        | Decimal  |                                  | unit / mm                                            |
 |                                                  | FinisedWidth          | Decimal  |                                  | unit / mm                                            |
 |                                                  | SecondCutLength       | Decimal  |                                  | unit / mm  Second cutting length (e.g. part returns to saw from laminating) |
@@ -420,16 +420,16 @@ GrainPattern              | string                   | Grain pattern template an
 |                                                  | Material              | String   | Required; Max length: 50         |                                                      |
 |                                                  | Grain                 | Integer  | Required                         | The grain of the material. No grain (0), Lengthwise (1) , Crosswise (2) |
 |                                                  | EdgeDiagram           | String   |                                  |                                                      |
-|                                                  | LaminateTop           | String   |                                  |                                                      |
+|                                                  | LaminateTop           | String   |                                  | The type of top laminate                                                      |
 |                                                  | EdgeLeft              | String   |                                  | Edge material on the left                                                     |
 |                                                  | EdgeRight             | String   |                                  | Edge material on the right                                                     |
 |                                                  | EdgeBack              | String   |                                  | Edge material on the back                                                     |
 |                                                  | EdgeFront             | String   |                                  | Edge material on the front                                                     |
-|                                                  | LaminateBottom        | String   |                                  |                                                      |
-|                                                  | EdgeThicknessFront    | Decimal  | Min: 0, Max: 999.9               |                                                      |
-|                                                  | EdgeThicknessBack     | Decimal  | Min: 0, Max: 999.9               |                                                      |
-|                                                  | EdgeThicknessLeft     | Decimal  | Min: 0, Max: 999.9               |                                                      |
-|                                                  | EdgeThicknessRight    | Decimal  | Min: 0, Max: 999.9               |                                                      |
+|                                                  | LaminateBottom        | String   |                                  | The type of bottom laminate                             |
+|                                                  | EdgeThicknessFront    | Decimal  | Min: 0, Max: 999.9               | Thickness of edge on the front                                                      |
+|                                                  | EdgeThicknessBack     | Decimal  | Min: 0, Max: 999.9               | Thickness of edge on the back                                                    |
+|                                                  | EdgeThicknessLeft     | Decimal  | Min: 0, Max: 999.9               | Thickness of edge on the left                                                     |
+|                                                  | EdgeThicknessRight    | Decimal  | Min: 0, Max: 999.9               | Thickness of edge on the right                                                     |
 |                                                  | SurfaceTop            | String   |                                  |                                                      |
 |                                                  | SurfaceBottom         | String   |                                  |                                                      |
 |                                                  | LaminateTopGrain      | Integer  |                                  | Type of grain for top laminate                                                     |
