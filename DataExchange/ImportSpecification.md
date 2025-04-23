@@ -388,19 +388,19 @@ GrainPattern              | string                   | Grain pattern template an
 |                                                  | Grouping              | String   |                                  |                                                      |
 |                                                  | Article number        | String   | Required; Max length: 100        | Item or partCode                                     |
 |                                                  | Description           | String   | Required; Max length: 255        | Description                                          |
-|                                                  | Length                | Decimal  | Required; Min: 0.1 , Max: 9999.9 |                                                      |
-|                                                  | Width                 | Decimal  | Required; Min: 0.1 , Max: 9999.9 |                                                      |
-|                                                  | Thickness             | Decimal  | Required; Min: 0.1 , Max: 999.9  |                                                      |
+|                                                  | Length                | Decimal  | Required; Min: 0.1 , Max: 9999.9 | unit / mm                                            |
+|                                                  | Width                 | Decimal  | Required; Min: 0.1 , Max: 9999.9 | unit / mm                                            |
+|                                                  | Thickness             | Decimal  | Required; Min: 0.1 , Max: 999.9  | unit / mm                                            |
 |                                                  | ArticleGroup          | String   |                                  | Classification for the article(bottom, top, front..) |
 |                                                  | ProcurementType       | String   |                                  |                                                      |
 | **Production (22)**                                  |                       |          |                                  |                                                      |
 |                                                  | ID                    | String   | Required                         | the ID of the part                                   |
 |                                                  | Barcode               | String   |                                  | Barcode of the part                                  |
-|                                                  | Quantity              | Integer  | Required; Min: 1, Max: 9999      |                                                      |
-|                                                  | FinishedLength        | Decimal  |                                  |                                                      |
-|                                                  | FinisedWidth          | Decimal  |                                  |                                                      |
-|                                                  | SecondCutLength       | Decimal  |                                  |                                                      |
-|                                                  | SecondCutWidth        | Decimal  |                                  |                                                      |
+|                                                  | Quantity              | Integer  | Required; Min: 1, Max: 9999      | Quantity unit; default "pcs"                         |
+|                                                  | FinishedLength        | Decimal  |                                  | unit / mm                                            |
+|                                                  | FinisedWidth          | Decimal  |                                  | unit / mm                                            |
+|                                                  | SecondCutLength       | Decimal  |                                  | unit / mm  Second cutting length (e.g. part returns to saw from laminating) |
+|                                                  | SecondCutWidth        | Decimal  |                                  | unit / mm Second cutting width (e.g. part returns to saw from laminating)   |
 |                                                  | CncProgramName1       | String   |                                  | Only CNC program name or path incl. subfolder.Recommendation: article or project name\name.mpr Example: article1\side_1.mpr      |
 |                                                  | CncProgramName2       | String   |                                  | Only CNC program name or path incl. subfolder.Recommendation: article or project name\name.mpr Example: article1\side_1.mpr    |
 |                                                  | CncProgramName3       | String   |                                  | Only CNC program name or path incl. subfolder.Recommendation: article or project name\name.mpr Example: article1\side_1.mpr        |
@@ -414,17 +414,17 @@ GrainPattern              | string                   | Grain pattern template an
 |                                                  | CompletedAt           | Date     |                                  | The actual completion date                           |
 |                                                  | QuantityPlanned       | Integer  |                                  | The planned quantity                                 |
 |                                                  | Lots                  | String   |                                  |                                                      |
-|                                                  | LabelLayout           | String   |                                  |                                                      |
+|                                                  | LabelLayout           | String   |                                  | Layout name for CADmatic label generation                                                     |
 |                                                  | Template              | String   |                                  |                                                      |
 | **Material (17)**                                    |                       |          |                                  |                                                      |
 |                                                  | Material              | String   | Required; Max length: 50         |                                                      |
 |                                                  | Grain                 | Integer  | Required                         | The grain of the material. No grain (0), Lengthwise (1) , Crosswise (2) |
 |                                                  | EdgeDiagram           | String   |                                  |                                                      |
 |                                                  | LaminateTop           | String   |                                  |                                                      |
-|                                                  | EdgeLeft              | String   |                                  |                                                      |
-|                                                  | EdgeRight             | String   |                                  |                                                      |
-|                                                  | EdgeBack              | String   |                                  |                                                      |
-|                                                  | EdgeFront             | String   |                                  |                                                      |
+|                                                  | EdgeLeft              | String   |                                  | Edge material on the left                                                     |
+|                                                  | EdgeRight             | String   |                                  | Edge material on the right                                                     |
+|                                                  | EdgeBack              | String   |                                  | Edge material on the back                                                     |
+|                                                  | EdgeFront             | String   |                                  | Edge material on the front                                                     |
 |                                                  | LaminateBottom        | String   |                                  |                                                      |
 |                                                  | EdgeThicknessFront    | Decimal  | Min: 0, Max: 999.9               |                                                      |
 |                                                  | EdgeThicknessBack     | Decimal  | Min: 0, Max: 999.9               |                                                      |
@@ -432,8 +432,8 @@ GrainPattern              | string                   | Grain pattern template an
 |                                                  | EdgeThicknessRight    | Decimal  | Min: 0, Max: 999.9               |                                                      |
 |                                                  | SurfaceTop            | String   |                                  |                                                      |
 |                                                  | SurfaceBottom         | String   |                                  |                                                      |
-|                                                  | LaminateTopGrain      | Integer  |                                  |                                                      |
-|                                                  | LaminateBottomGrain   | Integer  |                                  |                                                      |
+|                                                  | LaminateTopGrain      | Integer  |                                  | Type of grain for top laminate                                                     |
+|                                                  | LaminateBottomGrain   | Integer  |                                  | Type of grain for bottom laminate                                                      |
 | **Additional data(1)**                               |                       |          |                                  |                                                      |
 |                                                  | Notes                 | String   |                                  |                                                      |
 
