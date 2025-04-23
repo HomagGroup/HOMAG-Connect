@@ -209,16 +209,19 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public Task<IEnumerable<StorageLocation>> GetStorageLocations()
+        public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
         {
-            var url = $"{_BaseRouteMaterialAssist}/storageLocations";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+            const string url = $"{_BaseRouteMaterialAssist}/storageLocations";
+
+            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
 
-        public Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation)
+        /// <inheritdoc />
+        public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstationId)
         {
-            var url = $"{_BaseRouteMaterialAssist}/storageLocations?workstation={workstation}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+            var url = $"{_BaseRouteMaterialAssist}/storageLocations?workstationId={Uri.EscapeDataString(workstationId)}";
+
+            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
 
         #endregion Read
