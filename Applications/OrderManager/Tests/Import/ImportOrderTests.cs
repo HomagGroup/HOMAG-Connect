@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System.Diagnostics;
+using System.IO.Compression;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -136,6 +137,7 @@ namespace HomagConnect.OrderManager.Tests.Import
         [TestMethod]
         public async Task ImportOrder_Wardrobe_OrderDetails()
         {
+            var stopWatch = Stopwatch.StartNew();
             var orderManager = GetOrderManagerClient();
 
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
@@ -149,18 +151,22 @@ namespace HomagConnect.OrderManager.Tests.Import
 
             foreach (var (orderDetails, fileReferences) in project.ConvertToOrders(projectFiles))
             {
+                TestContext?.WriteLine($"Stopwatch: ConvertToOrders {stopWatch.Elapsed}");
                 orderDetails.PersonInCharge = Environment.UserName;
 
                 TestContext?.AddResultFile(orderDetails.TraceToFile("Request").FullName);
 
                 var response = await orderManager.ImportOrderRequest(orderDetails, fileReferences);
+                TestContext?.WriteLine($"Stopwatch: {nameof(orderManager.ImportOrderRequest)} {stopWatch.Elapsed}");
 
                 var createdOrder = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
+                TestContext?.WriteLine($"Stopwatch: {nameof(orderManager.WaitForImportOrderCompletion)} {stopWatch.Elapsed}");
 
                 Assert.IsNotNull(createdOrder);
 
-                TestContext?.WriteLine($"Link: {createdOrder.Link}");
                 TestContext?.AddResultFile(createdOrder.TraceToFile("Result").FullName);
+
+                TestContext?.WriteLine($"Link: {createdOrder.Link}");
             }
         }
 
