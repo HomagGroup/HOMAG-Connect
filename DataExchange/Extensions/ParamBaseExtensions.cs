@@ -94,7 +94,9 @@ public static class ParamBaseExtensions
 
         if (type == typeof(int) || type == typeof(int?))
         {
-            return Convert.ChangeType(XmlConvert.ToInt32(value), typeof(int));
+            // For backward compability, be more tolerant when converting and try to also obtain the int value from a double value
+            var val = XmlConvert.ToDouble(value);
+            return Convert.ChangeType(Convert.ToInt32(val), typeof(int));
         }
 
         if (type == typeof(double) || type == typeof(double?))
