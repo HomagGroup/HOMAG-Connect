@@ -276,7 +276,7 @@ public static class ProjectExtensionsConversion
     {
         // TODO: Check if the file is a 3ds file and if it is, create a zip file with the same name as the 3ds file.
 
-        if (string.Equals(Path.GetExtension(fileReference.FileInfo.FullName) , ".3ds", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(Path.GetExtension(fileReference.FileInfo.FullName), ".3ds", StringComparison.OrdinalIgnoreCase))
         {
             var zipFileInfo = new FileInfo(fileReference.FileInfo.FullName + ".zip");
 
@@ -338,7 +338,17 @@ public static class ProjectExtensionsConversion
                 if (!ignoreAdditionalProperties)
                 {
                     target.AdditionalProperties ??= new Dictionary<string, object>();
-                    target.AdditionalProperties.Add(property.Name, property.Value);
+
+                    target.AdditionalProperties.TryGetValue(property.Name, out var additionalProperty);
+
+                    if (additionalProperty != null)
+                    {
+                        target.AdditionalProperties[property.Name] = property.Value;
+                    }
+                    else
+                    {
+                        target.AdditionalProperties.Add(property.Name, property.Value);
+                    }
                 }
             }
         }
