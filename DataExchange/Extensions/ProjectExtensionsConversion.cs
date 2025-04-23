@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO.Compression;
 using System.Reflection;
 
@@ -253,43 +252,55 @@ public static class ProjectExtensionsConversion
 
         foreach (var fileReference in fileReferencesAvailable)
         {
-            foreach (var additionalDataEntity in additionalDataEntities)
+            if (additionalDataEntities.Any(additionalDataEntity => additionalDataEntity.ReferenceEquals(fileReference)))
             {
-                if (additionalDataEntity.ReferenceEquals(fileReference))
-                {
-                    ThreeDsFileHandling(fileReference);
-
-                    fileReferencesReferenced.Add(fileReference);
-                    break;
-                }
+                fileReferencesReferenced.Add(fileReference);
             }
-
-            fileReferencesNotReferenced.Add(fileReference);
+            else
+            {
+                fileReferencesNotReferenced.Add(fileReference);
+            }
         }
 
-        Debug.Write(fileReferencesNotReferenced);
-
-        return fileReferencesReferenced.ToArray();
+        return Replace3dsReferencesWithZipPackages(fileReferencesReferenced, additionalDataEntities, fileReferencesNotReferenced).ToArray();
     }
 
-    private static void ThreeDsFileHandling(FileReference fileReference)
+    private static List<FileReference> Replace3dsReferencesWithZipPackages(List<FileReference> fileReferencesReferenced, List<AdditionalDataEntity> additionalDataEntities, List<FileReference> fileReferencesNotReferenced)
     {
-        // TODO: Check if the file is a 3ds file and if it is, create a zip file with the same name as the 3ds file.
+        const string zipExtension = ".zip";
+        const string threeDs3dsExtension = ".3ds";
 
-        if (string.Equals(Path.GetExtension(fileReference.FileInfo.FullName) , ".3ds", StringComparison.OrdinalIgnoreCase))
+        foreach (var fileReference in fileReferencesReferenced.Where(f => string.Equals(Path.GetExtension(f.FileInfo.FullName), threeDs3dsExtension, StringComparison.OrdinalIgnoreCase)))
         {
-            var zipFileInfo = new FileInfo(fileReference.FileInfo.FullName + ".zip");
+            var zipFileInfo = new FileInfo(fileReference.FileInfo.FullName + zipExtension);
 
             using (var fileStream = new FileStream(zipFileInfo.FullName, FileMode.Create))
             {
                 using (var archive = new ZipArchive(fileStream, ZipArchiveMode.Create))
                 {
                     archive.CreateEntryFromFile(fileReference.FileInfo.FullName, fileReference.FileInfo.Name, CompressionLevel.Optimal);
+
+                    foreach (var fileReferenceNotReferenced in fileReferencesNotReferenced)
+                    {
+                        if (zipFileInfo.Directory != null && fileReferenceNotReferenced.FileInfo.FullName.StartsWith(zipFileInfo.Directory.FullName))
+                        {
+                            archive.CreateEntryFromFile(fileReferenceNotReferenced.FileInfo.FullName, fileReferenceNotReferenced.FileInfo.Name, CompressionLevel.Optimal); // TODO: Implement subfolder handling
+                        }
+                    }
                 }
             }
 
+            foreach (var fileReferenceUriAdditionalDataEntity in additionalDataEntities.Where(a => a.ReferenceEquals(fileReference)))
+            {
+                fileReferenceUriAdditionalDataEntity.DownloadFileName += zipExtension;
+                fileReferenceUriAdditionalDataEntity.DownloadUri = new Uri(fileReference.Reference + zipExtension, UriKind.RelativeOrAbsolute);
+            }
+
+            fileReference.Reference += zipExtension;
             fileReference.FileInfo = zipFileInfo;
         }
+
+        return fileReferencesReferenced;
     }
 
     private static void Map(Project project, Order order, Group group)
