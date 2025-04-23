@@ -5,7 +5,6 @@ using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
-using HomagConnect.Base.Tests;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Samples;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
