@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8cbdd284-18a4-4af9-b89e-6263b947e24b",
+		"_postman_id": "7bb94ece-6280-4afe-962c-8213342fcad2",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -183,6 +183,34 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get storage locations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/storageLocations",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities",
+										"storageLocations"
+									],
+									"query": [
+										{
+											"key": "workstationId",
+											"value": "97650c9f-9dd7-4af2-bf20-b7e4dbf9c3d5",
+											"description": "int",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -266,6 +294,33 @@
 										{
 											"key": "edgebandCode",
 											"value": "ABS_Chicago_Concrete_dunkelgrau_0.80_43.0_NN"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get storage locations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/storageLocations",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities",
+										"storageLocations"
+									],
+									"query": [
+										{
+											"key": "workstationId",
+											"value": "2c1445de-ccd6-4ada-b26d-c98018f4390d",
+											"disabled": true
 										}
 									]
 								}

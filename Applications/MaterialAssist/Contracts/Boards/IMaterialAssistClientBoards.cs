@@ -84,11 +84,11 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         Task<IEnumerable<StorageLocation>> GetStorageLocations();
 
         /// <summary>
-        /// Get storage locations by workstation.
+        /// Get storage locations by workstationId.
         /// </summary>
-        /// <param name="workstation"></param>
+        /// <param name="workstationId"></param>
         /// <returns></returns>
-        Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstation);
+        Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstationId);
 
 
         #endregion Read
