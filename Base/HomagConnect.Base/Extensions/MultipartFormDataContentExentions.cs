@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -7,6 +6,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 
 using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 
 namespace HomagConnect.Base.Extensions;
 
@@ -15,32 +16,14 @@ namespace HomagConnect.Base.Extensions;
 /// </summary>
 public static class MultipartFormDataContentExtensions
 {
-    private static readonly Dictionary<string, string> _MimeTypes = new(StringComparer.InvariantCultureIgnoreCase)
-    {
-        { ".txt", "text/plain" },
-        { ".html", "text/html" },
-        { ".htm", "text/html" },
-        { ".css", "text/css" },
-        { ".js", "application/javascript" },
-        { ".json", "application/json" },
-        { ".xml", "application/xml" },
-        { ".jpg", "image/jpeg" },
-        { ".jpeg", "image/jpeg" },
-        { ".png", "image/png" },
-        { ".gif", "image/gif" },
-        { ".bmp", "image/bmp" },
-        { ".pdf", "application/pdf" },
-    };
-
     /// <summary>
     /// Adds a file reference to the <see cref="MultipartFormDataContent" />.
     /// </summary>
     public static void Add(this MultipartFormDataContent httpContent, FileReference fileReference)
     {
-        var extension = Path.GetExtension(fileReference.FileInfo.FullName);
         var fileStream = fileReference.FileInfo.OpenRead();
 
-        if (ShouldBeCompressed(extension))
+        if (ShouldBeCompressed(fileReference.FileInfo.GetExtension()))
         {
             var compressedStream = new MemoryStream();
 
@@ -62,16 +45,12 @@ public static class MultipartFormDataContentExtensions
         {
             HttpContent streamContent = new StreamContent(fileStream);
 
-            streamContent.Headers.ContentType = ResolveMediaTypeHeaderValue(extension);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(MimeTypes.GetMimeType(fileReference.FileInfo));
 
             httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
         }
     }
 
-    private static MediaTypeHeaderValue ResolveMediaTypeHeaderValue(string extension)
-    {
-        return _MimeTypes.TryGetValue(extension, out var type) ? new MediaTypeHeaderValue(type) : new MediaTypeHeaderValue("application/octet-stream");
-    }
 
     private static bool ShouldBeCompressed(string extension)
     {
@@ -84,7 +63,8 @@ public static class MultipartFormDataContentExtensions
             ".pdf",
             ".mpr",
             ".mprx",
-            ".3ds"
+            ".3ds",
+            ".glb"
         };
 
         return extensionsToCompress.Any(e => string.Equals(e, extension, StringComparison.OrdinalIgnoreCase));
