@@ -1201,6 +1201,10 @@ public static class MimeTypes
             { "zir", "application/vnd.zul" },
             { "zirz", "application/vnd.zul" },
             { "zmm", "application/vnd.handheld-entertainment+xml" },
+            
+            { "mpr", "text/plain" },
+            { "mprx", "application/xml" },
+            { "mprxe", "application/xml" }
         };
     }
 
