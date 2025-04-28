@@ -120,7 +120,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <param name="orderNumber"></param>
         /// <returns></returns>
         public Task DeleteOrdersByOrderNumber(string orderNumber);
-        
+
         #endregion Order deletion
     }
 }
