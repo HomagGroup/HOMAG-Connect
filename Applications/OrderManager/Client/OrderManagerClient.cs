@@ -325,6 +325,77 @@ namespace HomagConnect.OrderManager.Client
             return responseObject ?? new ImportOrderResponse();
         }
 
+        /// <inheritdoc />
+        public async Task DeleteOrdersByOrderIds(IEnumerable<Guid> orderIds)
+        {
+            if (orderIds == null)
+            {
+                throw new ArgumentNullException(nameof(orderIds));
+            }
+
+            var distinctOrderIds = orderIds.Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!distinctOrderIds.Any())
+            {
+                throw new ArgumentNullException(nameof(orderIds), "At least one order id must be passed.");
+            }
+
+            var uris = distinctOrderIds
+                .Select(id => $"&orderId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_OrderRoute}" + parameter)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri).ConfigureAwait(false);
+            }
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteOrdersByOrderNumbers(IEnumerable<string> orderNumbers)
+        {
+            if (orderNumbers == null)
+            {
+                throw new ArgumentNullException(nameof(orderNumbers));
+            }
+
+            var distinctOrderNumbers = orderNumbers.Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!distinctOrderNumbers.Any())
+            {
+                throw new ArgumentNullException(nameof(orderNumbers), "At least one order number must be passed.");
+            }
+
+            var uris = distinctOrderNumbers
+                .Select(number => $"&orderNumber={number}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_OrderRoute}" + parameter)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri).ConfigureAwait(false);
+            }
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteOrdersByOrderId(Guid orderId)
+        {
+            await DeleteOrdersByOrderIds([orderId]);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteOrdersByOrderNumber(string orderNumber)
+        {
+            await DeleteOrdersByOrderNumbers([orderNumber]);
+        }
+
         #endregion
     }
 }

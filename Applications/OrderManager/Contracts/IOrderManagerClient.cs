@@ -90,5 +90,37 @@ namespace HomagConnect.OrderManager.Contracts
         Task<ImportOrderResponse> AddOrUpdateGroup(string orderNumber, FileInfo projectFile);
 
         #endregion
+
+        #region Order deletion
+
+        /// <summary>
+        /// Delete orders by their order ids.
+        /// </summary>
+        /// <param name="orderIds"></param>
+        /// <returns></returns>
+        Task DeleteOrdersByOrderIds(IEnumerable<Guid> orderIds);
+
+        /// <summary>
+        /// Delete orders by their order numbers.
+        /// </summary>
+        /// <param name="orderNumbers"></param>
+        /// <returns></returns>
+        Task DeleteOrdersByOrderNumbers(IEnumerable<string> orderNumbers);
+
+        /// <summary>
+        /// Delete order its order id.
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task DeleteOrdersByOrderId(Guid orderId);
+
+        /// <summary>
+        /// Delete order its order number.
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <returns></returns>
+        Task DeleteOrdersByOrderNumber(string orderNumber);
+
+        #endregion Order deletion
     }
 }
