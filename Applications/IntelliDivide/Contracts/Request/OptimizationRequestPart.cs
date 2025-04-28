@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -17,20 +16,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}, #{Quantity}")]
     public class OptimizationRequestPart : OptimizationBasePart
     {
-        #region Constructors
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        public OptimizationRequestPart() { }
-
-        /// <summary>
-        /// Creates a new instance using the given <paramref name="unitSystem" />.
-        /// </summary>
-        public OptimizationRequestPart(UnitSystem unitSystem) : base(unitSystem) { }
-
-        #endregion
-
         #region (2a) Cutting
 
         /// <summary>
@@ -46,6 +31,20 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         {
             return $"{Description}({MaterialCode})";
         }
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public OptimizationRequestPart() { }
+
+        /// <summary>
+        /// Creates a new instance using the given <paramref name="unitSystem" />.
+        /// </summary>
+        public OptimizationRequestPart(UnitSystem unitSystem) : base(unitSystem) { }
+
+        #endregion
 
         #region (1) Required properties
 
@@ -84,8 +83,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         /// Gets or sets the allowed rotation angle.
         /// </summary>
         [JsonProperty(Order = 24)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.OptimizationRequestPart_AllowedRotationAngle))]
         public RotationAngle? AllowedRotationAngle { get; set; }
-
 
         #endregion
     }
