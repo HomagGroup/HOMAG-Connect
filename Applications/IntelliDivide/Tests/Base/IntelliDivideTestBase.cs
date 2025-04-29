@@ -85,6 +85,16 @@ public class IntelliDivideTestBase : TestBase
         }
     }
 
+    protected static async Task EnsureOptimizationParametersExists(IIntelliDivideClient intelliDivide, OptimizationType optimizationType, string optimizationParameterName)
+    {
+        var optimizationParameters = await intelliDivide.GetParameters(optimizationType).ToListAsync();
+
+        if (optimizationParameters.All(t => t.Name != optimizationParameterName))
+        {
+            Assert.Inconclusive($"The optimization parameters '{optimizationParameters}' do not exist.");
+        }
+    }
+
     protected IIntelliDivideClient GetIntelliDivideClient()
     {
         Trace($"BaseUrl: {BaseUrl}");

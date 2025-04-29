@@ -23,12 +23,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
         /// The sample shows how to create a cutting request using a structured file (Excel, CSV, PNX, ...) and a template.
         /// template.
         /// </summary>
-        public static async Task CuttingRequest_Template_Excel_ImportOnly(IIntelliDivideClient intelliDivide)
+        public static async Task CuttingRequest_Template_Excel_ImportOnly(IIntelliDivideClient intelliDivide, string? optimizationParametersName = null)
         {
             var importFile = await ImportFile.CreateAsync(@"Data\Cutting\Kitchen.xlsx");
 
             var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
-            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType)
+                .FirstAsync(p => string.IsNullOrEmpty(optimizationParametersName) || p.Name.Equals(optimizationParametersName, StringComparison.Ordinal));
             
             var request = new OptimizationRequestUsingTemplate
             {

@@ -422,5 +422,189 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             balancedSolution.Trace(nameof(balancedSolution));
         }
+
+        /// <summary>
+        /// The sample shows how to create a cutting request using the object model with parts having stacking groups set.
+        /// </summary>
+        public static async Task CuttingRequest_ObjectModel_StackingGroups_ImportOnly(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var request = new OptimizationRequest
+            {
+                Name = "Sample_ObjectModel_StackingGroups_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
+                Machine = "productionAssist Cutting",
+                Parameters = "HOMAG Connect stacking groups",
+                Action = OptimizationRequestAction.ImportOnly
+            };
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part A",
+                    MaterialCode = "OAK_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 3,
+                    StackingGroup = "A"
+                });
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part B",
+                    MaterialCode = "OAK_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 2,
+                    StackingGroup = "B"
+                });
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part C",
+                    MaterialCode = "OAK_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 3,
+                    StackingGroup = "A"
+                });
+
+            request.Boards.Add(
+                new OptimizationRequestBoard
+                {
+                    MaterialCode = "OAK_19.0",
+                    BoardCode = "OAK_19.0_2800_2070",
+                    Length = 2800,
+                    Width = 2070,
+                    Thickness = 19.0,
+                    Costs = 10,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 70,
+                });
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimization(request);
+
+            response.Trace(nameof(response));
+
+            // Retrieve the optimization
+            var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+
+            optimization.Trace(nameof(optimization));
+        }
+
+        /// <summary>
+        /// The sample shows how to create a cutting request using the object model with parts having stacking groups set.
+        /// </summary>
+        public static async Task CuttingRequest_ObjectModel_StackingGroups_Optimize(IIntelliDivideClient intelliDivide)
+        {
+            // Prepare the request
+            var request = new OptimizationRequest
+            {
+                Name = "Sample_ObjectModel_StackingGroups_Optimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
+                Machine = "productionAssist Cutting",
+                Parameters = "HOMAG Connect stacking groups",
+                Action = OptimizationRequestAction.Optimize
+            };
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part A",
+                    MaterialCode = "P2_White_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 3,
+                    StackingGroup = "A"
+                });
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part B",
+                    MaterialCode = "OAK_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 2,
+                    StackingGroup = "B"
+                });
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part C",
+                    MaterialCode = "P2_White_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 3,
+                    StackingGroup = "A"
+                });
+
+            request.Parts.Add(
+                new()
+                {
+                    Description = "Part D",
+                    MaterialCode = "OAK_19.0",
+                    Length = 800,
+                    Width = 600,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 1
+                });
+
+            request.Boards.Add(
+                new OptimizationRequestBoard
+                {
+                    MaterialCode = "OAK_19.0",
+                    BoardCode = "OAK_19.0_2800_2070",
+                    Length = 2800,
+                    Width = 2070,
+                    Thickness = 19.0,
+                    Costs = 10,
+                    Grain = Grain.Lengthwise,
+                    Quantity = 70,
+                });
+
+            request.Boards.Add(
+                new OptimizationRequestBoard
+                {
+                    MaterialCode = "P2_White_19.0",
+                    BoardCode = "P2_White_19.0_2800_2070",
+                    Length = 2800,
+                    Width = 2070,
+                    Thickness = 19.0,
+                    Costs = 10,
+                    Grain = Grain.None,
+                    Quantity = 70,
+                });
+
+            request.Trace(nameof(request));
+
+            // Send the request
+            var response = await intelliDivide.RequestOptimization(request);
+
+            response.Trace(nameof(response));
+
+            // Wait for the optimization to complete
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+
+            optimization.Trace(nameof(optimization));
+
+            // Get the solutions overview
+            var solutions = await intelliDivide.GetSolutions(optimization.Id);
+
+            // Get the solution details of the balanced solution
+            var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
+
+            balancedSolution.Trace(nameof(balancedSolution));
+        }
     }
 }

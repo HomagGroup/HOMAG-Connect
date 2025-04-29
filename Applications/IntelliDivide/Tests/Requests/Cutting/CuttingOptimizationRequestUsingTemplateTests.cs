@@ -15,7 +15,6 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Cutting")]
 [TestCategory("IntelliDivide.Requests.Cutting.Template")]
-[TemporaryDisabledOnServer(2025, 02, 28, "DF-Optimization")]
 public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
     /// <summary />
@@ -46,6 +45,18 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
         await EnsureImportTemplateExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingImportTemplateName);
 
         await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportAndOptimize(intelliDivide);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task CuttingRequest_Template_Excel_StackingGroups_ImportOnly()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await EnsureImportTemplateExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingImportTemplateName);
+        await EnsureOptimizationParametersExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingStackingOptimizationParameters);
+
+        await CuttingRequestUsingTemplateSamples.CuttingRequest_Template_Excel_ImportOnly(intelliDivide, CommonSampleSettings.CuttingStackingOptimizationParameters);
     }
 }
 

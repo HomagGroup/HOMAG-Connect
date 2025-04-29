@@ -26,9 +26,18 @@
         public const string NestingImportTemplateName = "HOMAG Connect";
 
         /// <summary>
-        /// Nesting import template name to use in the samples.
+        /// Cutting import template name to use in the samples.
         /// </summary>
         public const string CuttingImportTemplateName = "HOMAG Connect";
 
+        /// <summary>
+        /// Stacking optimization parameters name to use in the samples.
+        /// </summary>
+        public const string CuttingStackingOptimizationParameters = "HOMAG Connect stacking groups";
+
+        /// <summary>
+        /// Stacking optimization parameters name to use in the samples.
+        /// </summary>
+        public const string CuttingStackingZipFile = "Project_w_stacking.zip";
     }
 }
