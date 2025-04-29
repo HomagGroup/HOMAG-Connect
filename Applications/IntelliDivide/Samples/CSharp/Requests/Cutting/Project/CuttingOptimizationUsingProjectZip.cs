@@ -18,14 +18,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
     public static class CuttingOptimizationUsingProjectZip
     {
         /// <summary />
-        public static async Task CuttingRequest_ProjectZip_ImportOnly(IIntelliDivideClient intelliDivide)
+        public static async Task CuttingRequest_ProjectZip_ImportOnly(IIntelliDivideClient intelliDivide, string? zipFileName = null, string? optimizationParametersName = null)
         {
-            var projectFile = new FileInfo(@"Data\Cutting\Project.zip");
+            var fileName = string.IsNullOrEmpty(zipFileName) ? "Project.zip" : zipFileName;
+            var projectFile = new FileInfo(@$"Data\Cutting\{fileName}");
 
             Assert.IsTrue(projectFile.Exists);
 
             var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
-            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType)
+                .FirstAsync(p => string.IsNullOrEmpty(optimizationParametersName) || p.Name.Equals(optimizationParametersName, StringComparison.Ordinal));
 
             var request = new OptimizationRequestUsingProject
             {

@@ -233,13 +233,19 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
 
         #endregion
 
-        #region (7) Label
+        #region (7) Misc
 
         /// <summary>
         /// Gets or sets the label layout.
         /// </summary>
         [JsonProperty(Order = 70)]
         public string? LabelLayout { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stacking group value for the part.
+        /// </summary>
+        [JsonProperty(Order = 75)]
+        public string? StackingGroup { get; set; }
 
         #endregion
 

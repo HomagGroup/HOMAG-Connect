@@ -16,7 +16,6 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Cutting")]
 [TestCategory("IntelliDivide.Requests.Cutting.Common")]
-[TemporaryDisabledOnServer(2025, 03, 28, "DF-Optimization")]
 public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 {
     /// <summary />

@@ -15,7 +15,6 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 [TestCategory("IntelliDivide")]
 [TestCategory("IntelliDivide.Requests.Cutting")]
 [TestCategory("IntelliDivide.Requests.Cutting.ObjectModel")]
-[TemporaryDisabledOnServer(2025, 05, 01, "DF-Optimization")]
 public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTestBase
 {
     /// <summary />
@@ -88,6 +87,28 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
         var intelliDivide = GetIntelliDivideClient();
 
         await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_GrainMatchingTemplate_ImportOnly(intelliDivide);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task CuttingRequest_ObjectModel_StackingGroups_ImportOnly()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await EnsureOptimizationParametersExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingStackingOptimizationParameters);
+
+        await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_StackingGroups_ImportOnly(intelliDivide);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task CuttingRequest_ObjectModel_StackingGroups_Optimize()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await EnsureOptimizationParametersExists(intelliDivide, OptimizationType.Cutting, CommonSampleSettings.CuttingStackingOptimizationParameters);
+
+        await CuttingRequestUsingObjectModelSamples.CuttingRequest_ObjectModel_StackingGroups_Optimize(intelliDivide);
     }
 }
 
