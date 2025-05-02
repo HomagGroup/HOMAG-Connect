@@ -47,6 +47,10 @@ public abstract class ComponentBase : Base
 
     /// <summary>
     /// Gets or sets the procurement type.
+    /// Values:
+    /// * PTO - Purchase to order
+    /// * MTO - Make to order
+    /// * MTS - Make to stock
     /// </summary>
     [JsonProperty(Order = 18)]
     public string? ProcurementType { get; set; }
