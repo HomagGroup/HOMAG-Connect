@@ -97,6 +97,12 @@ public class Position : Base
     public string? DoorDirection { get; set; }
 
     /// <summary>
+    /// Gets or sets the procurement type.
+    /// </summary>
+    [JsonProperty(Order = 9)]
+    public string? ProcurementType { get; set; }
+
+    /// <summary>
     /// Gets or sets the state of the entity.
     /// </summary>
     [JsonProperty(Order = 2)]

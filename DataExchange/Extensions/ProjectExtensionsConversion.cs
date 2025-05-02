@@ -480,6 +480,7 @@ public static class ProjectExtensionsConversion
         position.Depth = orderItemWrapper.Thickness;
         position.Quantity = orderItemWrapper.Quantity ?? 1;
         position.Catalog = orderItemWrapper.Catalog;
+        position.ProcurementType = orderItemWrapper.ProcurementType;
 
         var propertiesToIgnore = new[]
         {

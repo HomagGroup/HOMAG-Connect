@@ -127,5 +127,18 @@ public class OrderItemWrapper : EntityWrapper
         }
     }
 
+    /// <summary />
+    public string? ProcurementType
+    {
+        get
+        {
+            return Entity.GetPropertyValue<string>();
+        }
+        set
+        {
+            Entity.SetPropertyValue(value);
+        }
+    }
+
     #endregion
 }

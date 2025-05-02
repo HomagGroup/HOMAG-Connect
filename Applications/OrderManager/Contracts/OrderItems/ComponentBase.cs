@@ -45,6 +45,12 @@ public abstract class ComponentBase : Base
     [JsonProperty(Order = 17)]
     public string? ArticleGroup { get; set; }
 
+    /// <summary>
+    /// Gets or sets the procurement type.
+    /// </summary>
+    [JsonProperty(Order = 18)]
+    public string? ProcurementType { get; set; }
+
     #endregion
 
     #region Production
