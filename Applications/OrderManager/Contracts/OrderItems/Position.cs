@@ -103,7 +103,7 @@ public class Position : Base
     /// * MTO - Make to order
     /// * MTS - Make to stock
     /// </summary>
-    [JsonProperty(Order = 8)]
+    [JsonProperty(Order = 9)]
     public string? ProcurementType { get; set; }
 
     /// <summary>
