@@ -34,11 +34,10 @@ public class AdditionalDataEntity
     /// </summary>
     /// <remarks>
     /// Possible values:
+    /// * OverviewImage (Type=Image) => per group
+    /// * AboveImage (Type=Image) => per group
+    /// * ThreeDModel (Type=ThreeD) => per group or per position
     /// * ArticleImage (Type=Image) => per position
-    /// * RoomImage (Type=Image) => per Group
-    /// * Room3D (Type=ThreeD) => per Group
-    /// * RoomTopViewImage (Type=Image) => per Group
-    /// * Technical3D (Type=ThreeD) => per position
     /// </remarks>
     [JsonProperty(Order = 1)]
     public string? Category { get; set; }
