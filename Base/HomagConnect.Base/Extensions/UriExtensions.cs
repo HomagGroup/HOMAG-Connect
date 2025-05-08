@@ -39,7 +39,8 @@ namespace HomagConnect.Base.Extensions
 
             var fileBytes = await httpClient.GetByteArrayAsync(uri);
 
-            await File.WriteAllBytesAsync(targetFileInfo.FullName, fileBytes);
+            // ReSharper disable once MethodHasAsyncOverload .Net Standard 2.0
+            File.WriteAllBytes(targetFileInfo.FullName, fileBytes);
         }
     }
 }
