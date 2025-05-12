@@ -45,7 +45,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 5, 1, "DF-Production")]
+        [TemporaryDisabledOnServer(2025, 5, 30, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Wardrobe()
         {
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
