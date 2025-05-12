@@ -213,12 +213,12 @@
 							"response": []
 						},
 						{
-							"name": "Get workstation Ids",
+							"name": "Get workstations",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/workstationIds",
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/workstations",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -226,7 +226,7 @@
 										"api",
 										"materialAssist",
 										"boardEntities",
-										"workstationIds"
+										"workstations"
 									]
 								}
 							},
@@ -348,12 +348,12 @@
 							"response": []
 						},
 						{
-							"name": "Get workstation Ids",
+							"name": "Get workstations",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/workstationIds",
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/workstations",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -361,7 +361,7 @@
 										"api",
 										"materialAssist",
 										"edgebandEntities",
-										"workstationIds"
+										"workstations"
 									]
 								}
 							},
