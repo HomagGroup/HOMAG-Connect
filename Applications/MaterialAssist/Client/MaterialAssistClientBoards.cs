@@ -224,6 +224,14 @@ namespace HomagConnect.MaterialAssist.Client
             return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
         }
 
+        /// <inheritdoc />
+        public async Task<IEnumerable<Workstation>> GetWorkstations()
+        {
+            var url = $"{_BaseRouteMaterialAssist}/workstations";
+
+            return await RequestEnumerable<Workstation>(new Uri(url, UriKind.Relative));
+        }
+
         #endregion Read
 
         #region Create

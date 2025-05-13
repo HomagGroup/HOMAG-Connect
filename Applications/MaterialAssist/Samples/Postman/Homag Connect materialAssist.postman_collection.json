@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7bb94ece-6280-4afe-962c-8213342fcad2",
+		"_postman_id": "a8378ce6-cda2-4506-877f-1ede8993473d",
 		"name": "Homag Connect materialAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -211,6 +211,26 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get workstations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/workstations",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities",
+										"workstations"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -322,6 +342,26 @@
 											"value": "2c1445de-ccd6-4ada-b26d-c98018f4390d",
 											"disabled": true
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get workstations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/workstations",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities",
+										"workstations"
 									]
 								}
 							},
