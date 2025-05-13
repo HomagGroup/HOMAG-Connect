@@ -399,7 +399,12 @@ public static class ProjectExtensionsConversion
                 additionalDataEntity.DownloadFileName = imageWrapper.OriginalFileName;
                 additionalDataEntity.DownloadUri = downloadUri;
 
-                target.AdditionalData.Add(additionalDataEntity);
+                if (additionalDataEntity.DownloadUri != null || additionalDataEntity.DownloadFileName != null)
+                {
+                    // Ignore invalid additional data entities.
+
+                    target.AdditionalData.Add(additionalDataEntity);
+                }
             }
         }
     }
