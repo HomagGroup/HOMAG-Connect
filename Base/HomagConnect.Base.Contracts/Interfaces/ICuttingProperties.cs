@@ -18,7 +18,7 @@
         /// <summary>
         /// Gets or sets the label layout.
         /// </summary>
-        public double? LabelLayout { get; set; }
+        public string? LabelLayout { get; set; }
 
         /// <summary>
         /// Gets or set the grain matching template.
