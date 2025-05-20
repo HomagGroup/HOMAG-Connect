@@ -90,7 +90,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// Label layout
     /// </summary>
     [JsonProperty(Order = 260)]
-    public double? LabelLayout { get; set; }
+    public string? LabelLayout { get; set; }
 
     /// <summary>
     /// Template
