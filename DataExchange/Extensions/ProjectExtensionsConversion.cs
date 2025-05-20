@@ -509,7 +509,11 @@ public static class ProjectExtensionsConversion
             if (property is { Name: not null, Value: not null })
             {
                 position.AdditionalProperties ??= new Dictionary<string, object>();
-                position.AdditionalProperties.Add(property.Name, property.Value);
+
+                if (!string.IsNullOrWhiteSpace(property.Value)) // Ignore empty values
+                {
+                    position.AdditionalProperties.Add(property.Name, property.Value);
+                }
             }
         }
 
