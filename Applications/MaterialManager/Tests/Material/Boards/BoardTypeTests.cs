@@ -5,7 +5,6 @@ using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -30,7 +29,6 @@ public class BoardTypeTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
     public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
     {
         var materialManagerClient = GetMaterialManagerClient();
@@ -40,10 +38,12 @@ public class BoardTypeTests : MaterialManagerTestBase
 
         await BoardType_CreateBoardType_Cleanup(materialManagerClient, materialCode);
 
+        var uniqueBoardCode = $"{materialCode}_{Guid.NewGuid().ToString("N")[..8]}";
+
         var boardType = await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
         {
             MaterialCode = materialCode,
-            BoardCode = $"{materialCode}_2800_2070",
+            BoardCode = $"{uniqueBoardCode}_2800_2070",
             Thickness = 19.0,
             Grain = Grain.Lengthwise,
             Width = 2070,

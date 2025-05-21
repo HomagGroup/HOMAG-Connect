@@ -30,7 +30,6 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
     public async Task EdgebandType_CreateEdgebandTypeWithAdditionalDataImage()
     {
         var materialManagerClient = GetMaterialManagerClient();
@@ -40,9 +39,11 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         await EdgebandType_CreateEdgebandType_Cleanup(materialManagerClient, edgebandCode);
 
+        var uniqueEdgebandCode = $"{edgebandCode}_{Guid.NewGuid().ToString("N")[..8]}";
+
         var edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
         {
-            EdgebandCode = $"{edgebandCode}_150_1",
+            EdgebandCode = $"{uniqueEdgebandCode}_150_1",
             Thickness = 1.0,
             Height = 20,
             DefaultLength = 23.0,
@@ -60,6 +61,17 @@ public class EdgebandTypeTests : MaterialManagerTestBase
         }, [additionalDataImage]);
 
         edgebandType.Trace();
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandType_Machines_GetAll_ReturnsData()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+
+        var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
+
+        machines.Should().NotBeNullOrEmpty("Machines should be assigned to test subscription.");
     }
 
     /// <summary />
@@ -92,26 +104,13 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
-    public async Task EdgebandType_Machines_GetAll_ReturnsData()
-    {
-        var materialManagerClient = GetMaterialManagerClient();
-
-        var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
-
-        machines.Should().NotBeNullOrEmpty("Machines should be assigned to test subscription.");
-    }
-    
-    /// <summary />
-    [TestMethod]
-    [TemporaryDisabledOnServer(2025, 5, 15, "DF-Material")]
     public async Task EdgebandType_TechnologyMacros_GetByMachine_ReturnsData()
     {
         var materialManagerClient = GetMaterialManagerClient();
 
         var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
         var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(machines.First().TapioMachineId);
-        
+
         macros.Should().NotBeNull();
     }
 
