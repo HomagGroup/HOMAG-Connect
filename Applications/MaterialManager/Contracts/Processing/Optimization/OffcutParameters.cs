@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
@@ -22,6 +25,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// Gets or sets the minimum area of the offcut. The value is dependent on the unit system (Metric: m², Imperial: ft²).
         /// </summary>
         [JsonProperty(Order = 13)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         public double? MinimumArea { get; set; }
 
         /// <summary>
@@ -29,6 +33,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// </summary>
         [JsonProperty(Order = 11)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? MinimumLength { get; set; }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// </summary>
         [JsonProperty(Order = 12)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? MinimumWidth { get; set; }
 
         /// <summary>
