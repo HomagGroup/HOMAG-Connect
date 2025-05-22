@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -11,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
     /// <summary>
     /// Model for material dependent tension trim parameters.
     /// </summary>
-    public class TensionTrimParameters
+    public class TensionTrimParameters : IContainsUnitSystemDependentProperties
     {
         private const double _LengthConstraintMin = 0;
         private const double _LengthConstraintMax = 9999.9;
@@ -64,6 +65,10 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [JsonProperty(Order = 17)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? LengthOfTheMiddleBridge { get; set; }
+
+        /// <inheritdoc />
+        [JsonProperty(Order = 30)]
+        public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     }
 }
