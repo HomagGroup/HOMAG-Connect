@@ -1,5 +1,4 @@
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Materials;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -8,7 +7,6 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Materials")]
-    [TemporaryDisabledOnServer(2025, 4, 5, "DF-Optimization")] // Not yet on production server
     public class MaterialsTests : IntelliDivideTestBase
     {
         [TestMethod]
