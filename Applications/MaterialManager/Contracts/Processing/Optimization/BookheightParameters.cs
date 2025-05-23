@@ -42,9 +42,8 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? LimitedBookHeight { get; set; }
 
-        /// <summary>
-        /// The current unit system.
-        /// </summary>
-        public UnitSystem UnitSystem { get; set; }
+        /// <inheritdoc />
+        [JsonProperty(Order = 30)]
+        public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
     }
 }
