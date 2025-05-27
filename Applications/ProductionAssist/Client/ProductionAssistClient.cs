@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
+using HomagConnect.ProductionAssist.Contracts;
+using HomagConnect.ProductionManager.Contracts.ProductionEntity;
 
 namespace HomagConnect.ProductionAssist.Client
 {
     /// <summary>
     /// ProductionAssistClient
     /// </summary>
-    public class ProductionAssistClient : ServiceBase
+    public class ProductionAssistClient : ServiceBase, IProductionAssistClient
     {
         /// <summary>
         /// ProductionAssistCuttingClient
@@ -52,5 +57,30 @@ namespace HomagConnect.ProductionAssist.Client
         }
 
         #endregion Constructors
+
+        /// <inheritdoc />
+        public async Task<ProductionEntity?> GetOrderItem(string identifier)
+        {
+            var orderItems = await GetOrderItems([identifier]);
+
+            return orderItems?.FirstOrDefault();
+        }
+
+        /// <inheritdoc />
+        public async Task<ProductionEntity[]?> GetOrderItems(string[] identifiers)
+        {
+            const string parameter = "identifier";
+            const string endpoint = "api/productionAssist/orderItems";
+
+        var uris = identifiers.Select(i => i.Trim())
+                .Where( i =>!string.IsNullOrWhiteSpace(i))
+                .Select(code => $"&{parameter}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return (await RequestEnumerableAsync<ProductionEntity>(uris)).ToArray();
+        }
     }
 }
