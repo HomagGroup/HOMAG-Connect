@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 /// <summary>
 /// Represents a set of parameters for the book height optimization.
 /// </summary>
-public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class BookHeightParameterSet : IValidatableObject
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
@@ -50,14 +50,6 @@ public class BookHeightParameterSet : IValidatableObject, IContainsUnitSystemDep
     [JsonProperty(Order = 3)]
     [Obsolete("This parameter is obsolete and should not be used.")]
     public string? MaterialManagerLink { get; set; }
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 30)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
 
     #region IValidatableObject Members
 
