@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 /// <summary>
 /// Represents the parameters for the machine optimization.
 /// </summary>
-public class MachineParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class MachineParameterSet : IValidatableObject
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
@@ -51,14 +51,6 @@ public class MachineParameterSet : IValidatableObject, IContainsUnitSystemDepend
     /// </summary>
     [JsonProperty(Order = 11)]
     public MachineParameters Parameters { get; set; } = new();
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 30)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
 
     #region IValidatableObject Members
 
