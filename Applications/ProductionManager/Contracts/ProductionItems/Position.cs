@@ -2,14 +2,14 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Production entity order item.
+/// Order item position.
 /// </summary>
-public class ProductionEntityOrderItem : ProductionEntity
+public class Position : ProductionItemBase
 {
     /// <summary>
     /// Gets or sets the order item.
@@ -21,9 +21,9 @@ public class ProductionEntityOrderItem : ProductionEntity
     /// Gets or sets the production entities.
     /// </summary>
     [JsonProperty(Order = 999)]
-    public Collection<ProductionEntity>? ProductionEntities { get; set; }
+    public Collection<ProductionItemBase>? ProductionEntities { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 1)]
-    public override ProductionEntityType Type { get; set; } = ProductionEntityType.OrderItem;
+    public override ProductionItemType Type { get; set; } = ProductionItemType.Position;
 }

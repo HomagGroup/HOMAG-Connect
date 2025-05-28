@@ -2,15 +2,15 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Production entity status.
+/// Production item status enumeration
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
-public enum ProductionEntityStatus
+public enum ProductionItemStatus
 {
     /// <summary>
     /// Unknown

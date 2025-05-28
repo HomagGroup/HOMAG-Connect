@@ -23,8 +23,7 @@ public class OrderDetails : Order
     /// Gets or sets the bill of materials.
     /// </summary>
     [JsonProperty(Order = 500)]
-    public Collection<ProductionEntity.ProductionEntity>? BillOfMaterials { get; set; }
-
+    public Collection<ProductionItems.ProductionItemBase>? BillOfMaterials { get; set; }
 
     /// <summary>
     /// Custom properties

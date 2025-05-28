@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.ProductionManager.Contracts.Lots;
+﻿using HomagConnect.ProductionManager.Contracts.ProductionItems;
+
+namespace HomagConnect.ProductionManager.Contracts.Lots;
 
 /// <summary>
 /// Enumeration of possible statuses of a <see cref="Lot" />.
@@ -17,14 +19,14 @@ public enum LotStatus
 
     /// <summary>
     /// Once the first <see cref="ProductionEntity" /> in a <see cref="Lot" />> achieves the status
-    /// <see cref="ProductionEntity.ProductionEntityStatus.InProduction" />, the lot will also be marked as
+    /// <see cref="ProductionItemStatus.InProduction" />, the lot will also be marked as
     /// <see cref="LotStatus.InProduction" />.
     /// </summary>
     InProduction,
 
     /// <summary>
     /// After all <see cref="ProductionEntity" /> in a <see cref="Lot" /> have achieved the status
-    /// <see cref="ProductionEntity.ProductionEntityStatus.Completed" />, the lot will also be marked as
+    /// <see cref="ProductionItemStatus.Completed" />, the lot will also be marked as
     /// <see cref="LotStatus.Completed" />.
     /// </summary>
     Completed

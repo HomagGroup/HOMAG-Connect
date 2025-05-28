@@ -7,20 +7,20 @@ using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Production entity production order.
+/// Production item representing a part in an order.
 /// </summary>
-public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties
+public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties
 {
     #region (10) Article
 
     /// <inheritdoc />
     [JsonProperty(Order = 0)]
-    public override ProductionEntityType Type { get; set; } = ProductionEntityType.ProductionOrder;
+    public override ProductionItemType Type { get; set; } = ProductionItemType.ProductionOrder;
 
     /// <summary>
     /// Gets or sets the thickness.
@@ -208,7 +208,7 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     /// Gets or set the production resources.
     /// </summary>
     [JsonProperty(Order = 60)]
-    public Collection<ProductionEntityResource>? ProductionResources { get; set; }
+    public Collection<Resource>? ProductionResources { get; set; }
 
     #endregion
 

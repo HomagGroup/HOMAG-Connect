@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Runtime.Serialization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Attributes;
@@ -11,7 +10,7 @@ using JsonSubTypes;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 // Note: This is preliminary code and is subject to change
 
@@ -19,20 +18,128 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 /// Production entity
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-[JsonSubtypes.KnownSubType(typeof(ProductionEntityOrderItem), ProductionEntityType.OrderItem)]
-[JsonSubtypes.KnownSubType(typeof(ProductionEntityProductionOrder), ProductionEntityType.ProductionOrder)]
-[JsonSubtypes.KnownSubType(typeof(ProductionEntityAssemblyUnit), ProductionEntityType.AssemblyUnit)]
-[JsonSubtypes.KnownSubType(typeof(ProductionEntityResource), ProductionEntityType.Resource)]
+[JsonSubtypes.KnownSubType(typeof(Position), ProductionItemType.Position)]
+[JsonSubtypes.KnownSubType(typeof(Part), ProductionItemType.Part)]
+[JsonSubtypes.KnownSubType(typeof(AssemblyGroup), ProductionItemType.AssemblyGroup)]
+[JsonSubtypes.KnownSubType(typeof(Resource), ProductionItemType.Resource)]
+[JsonSubtypes.KnownSubType(typeof(Position), ProductionItemType.OrderItem)]
+[JsonSubtypes.KnownSubType(typeof(Part), ProductionItemType.ProductionOrder)]
+[JsonSubtypes.KnownSubType(typeof(AssemblyGroup), ProductionItemType.AssemblyUnit)]
 [DebuggerDisplay("Id={Id}, Number={ArticleNumber}")]
-public class ProductionEntity
+public class ProductionItemBase
 {
+    /// <summary>
+    /// Cnc program name 1
+    /// </summary>
+    public string? CncProgramName1 { get; set; }
+
+    /// <summary>
+    /// Cnc program name 2
+    /// </summary>
+    public string? CncProgramName2 { get; set; }
+
+    /// <summary>
+    /// CNC Program Name 3
+    /// </summary>
+    public string? CncProgramName3 { get; set; }
+
+    /// <summary>
+    /// Custom properties
+    /// </summary>
+    public IDictionary<string, string>? CustomProperties { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Back
+    /// </summary>
+    public double? EdgeThicknessBack { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Front
+    /// </summary>
+    public double? EdgeThicknessFront { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Left
+    /// </summary>
+    public double? EdgeThicknessLeft { get; set; }
+
+    /// <summary>
+    /// Edge Thickness Right
+    /// </summary>
+    public double? EdgeThicknessRight { get; set; }
+
+    /// <summary>
+    /// Finish length
+    /// </summary>
+    public double? FinishLength { get; set; }
+
+    /// <summary>
+    /// Finish width
+    /// </summary>
+    public double? FinishWidth { get; set; }
+
+    /// <summary>
+    /// Grouping
+    /// </summary>
+    public string? Grouping { get; set; }
+
+    /// <summary>
+    /// Label layout
+    /// </summary>
+    public string? LabelLayout { get; set; }
+
+    /// <summary>
+    /// Laminate bottom
+    /// </summary>
+    public string? LaminateBottom { get; set; }
+
+    /// <summary>
+    /// LaminateBottomGrain: optional
+    /// </summary>
+    public Grain? LaminateBottomGrain { get; set; }
+
+    /// <summary>
+    /// Laminate top
+    /// </summary>
+    public string? LaminateTop { get; set; }
+
+    /// <summary>
+    /// LaminateTopGrain: optional
+    /// </summary>
+    public Grain? LaminateTopGrain { get; set; }
+
+    /// <summary>
+    /// 2. Cut size length
+    /// </summary>
+    public double? SecondCutLength { get; set; }
+
+    /// <summary>
+    /// 2. Cut size width
+    /// </summary>
+    public double? SecondCutWidth { get; set; }
+
+    /// <summary>
+    /// Surface Bottom
+    /// </summary>
+    public string? SurfaceBottom { get; set; }
+
+    /// <summary>
+    /// Surface Top
+    /// </summary>
+    public string? SurfaceTop { get; set; }
+
+    /// <summary>
+    /// Template
+    /// </summary>
+    public string? Template { get; set; }
+
     #region (10) Article
 
     /// <summary>
     /// Gets or sets the type of the production entity.
     /// </summary>
     [JsonProperty(Order = 0)]
-    public virtual ProductionEntityType Type { get; set; }
+    public virtual ProductionItemType Type { get; set; }
 
     #endregion
 
@@ -94,7 +201,7 @@ public class ProductionEntity
     /// Gets or sets the status of the production entity.
     /// </summary>
     [JsonProperty(Order = 22)]
-    public ProductionEntityStatus ProductionStatus { get; set; } = ProductionEntityStatus.New;
+    public ProductionItemStatus ProductionStatus { get; set; } = ProductionItemStatus.New;
 
     /// <summary>
     /// Gets or sets the quantity of the production entity.
@@ -149,7 +256,7 @@ public class ProductionEntity
     /// </summary>
     [JsonProperty(Order = 81)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
     /// </summary>
@@ -158,109 +265,4 @@ public class ProductionEntity
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     #endregion
-
-    /// <summary>
-    /// Edge Thickness Front
-    /// </summary>
-    public double? EdgeThicknessFront { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Back
-    /// </summary>
-    public double? EdgeThicknessBack { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Left
-    /// </summary>
-    public double? EdgeThicknessLeft { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Right
-    /// </summary>
-    public double? EdgeThicknessRight { get; set; }
-
-    /// <summary>
-    /// Surface Top
-    /// </summary>
-    public string? SurfaceTop { get; set; }
-
-    /// <summary>
-    /// Surface Bottom
-    /// </summary>
-    public string? SurfaceBottom { get; set; }
-
-    /// <summary>
-    /// CNC Program Name 3
-    /// </summary>
-    public string? CncProgramName3 { get; set; }
-
-    /// <summary>
-    /// LaminateTopGrain: optional
-    /// </summary>
-    public Grain? LaminateTopGrain { get; set; }
-
-    /// <summary>
-    /// LaminateBottomGrain: optional
-    /// </summary>
-    public Grain? LaminateBottomGrain { get; set; }
-
-    /// <summary>
-    /// Finish length
-    /// </summary>
-    public double? FinishLength { get; set; }
-
-    /// <summary>
-    /// Finish width
-    /// </summary>
-    public double? FinishWidth { get; set; }
-
-    /// <summary>
-    /// Cnc program name 1
-    /// </summary>
-    public string? CncProgramName1 { get; set; }
-
-    /// <summary>
-    /// Cnc program name 2
-    /// </summary>
-    public string? CncProgramName2 { get; set; }
-
-    /// <summary>
-    /// Label layout
-    /// </summary>
-    public string? LabelLayout { get; set; }
-
-    /// <summary>
-    /// Template
-    /// </summary>
-    public string? Template { get; set; }
-
-    /// <summary>
-    /// Laminate top
-    /// </summary>
-    public string? LaminateTop { get; set; }
-
-    /// <summary>
-    /// Laminate bottom
-    /// </summary>
-    public string? LaminateBottom { get; set; }
-
-    /// <summary>
-    /// Custom properties
-    /// </summary>
-    public IDictionary<string, string>? CustomProperties { get; set; }
-
-    /// <summary>
-    /// Grouping
-    /// </summary>
-    public string? Grouping { get; set; }
-
-    /// <summary>
-    /// 2. Cut size length
-    /// </summary>
-    public double? SecondCutLength { get; set; }
-
-    /// <summary>
-    /// 2. Cut size width
-    /// </summary>
-    public double? SecondCutWidth { get; set; }
 }

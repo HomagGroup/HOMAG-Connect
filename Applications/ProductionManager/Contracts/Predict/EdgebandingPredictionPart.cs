@@ -3,7 +3,7 @@
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
 
@@ -96,7 +96,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// Converts a production order to an edgebanding prediction part.
         /// </summary>
         /// <param name="productionOrder"></param>
-        public static implicit operator EdgebandingPredictionPart(ProductionEntityProductionOrder productionOrder)
+        public static implicit operator EdgebandingPredictionPart(Part productionOrder)
         {
             var part = new EdgebandingPredictionPart
             {
