@@ -4,7 +4,7 @@ using HomagConnect.ProductionManager.Contracts.Lots;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems
 {
     /// <summary>
     /// Production entity lot reference.

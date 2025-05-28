@@ -1,7 +1,7 @@
 ﻿using System;
 
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
-using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 namespace HomagConnect.MaterialManager.Contracts.Statistics
 {
@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
 
         public string WorkstationName { get; set; }
 
-        public ProductionEntityProductionOrder Part { get; set; }
+        public Part Part { get; set; }
 
         public BoardType BoardType { get; set; }
 
