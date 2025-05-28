@@ -208,4 +208,34 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
         deserialized.BillOfMaterials[0].GetType().Should().Be(order.BillOfMaterials[0].GetType());
     }
+
+    /// <summary />
+    [TestMethod]
+    public async Task OrderDetails_Items_NumberOfPartsEqualsItems()
+    {
+        var productionManagerClient = GetProductionManagerClient();
+
+        var orders = await productionManagerClient.GetOrders(100);
+
+        Assert.IsNotNull(orders);
+
+        var order = orders.FirstOrDefault(o => !string.IsNullOrWhiteSpace(o.OrderNumber) && o.QuantityOfParts > 0);
+
+        if (order == null)
+        {
+            Assert.Inconclusive("There is no order available in the current subscription having a order number and parts set.");
+        }
+
+        var orderNumber = order.OrderNumber;
+        Assert.IsNotNull(orderNumber);
+
+        var orderDetails = await productionManagerClient.GetOrder(orderNumber);
+        Assert.IsNotNull(orderDetails);
+
+        Assert.AreEqual(orderNumber, orderDetails.OrderNumber);
+
+        // TODO: Add items check
+
+        TestContext?.AddResultFile(orderDetails.TraceToFile(nameof(OrderDetails_Items_NumberOfPartsEqualsItems)).FullName);
+    }
 }
