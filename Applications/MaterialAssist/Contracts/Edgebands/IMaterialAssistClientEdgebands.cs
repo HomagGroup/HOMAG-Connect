@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -111,11 +112,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// <summary>
         /// Adds the edgeband entity to storage.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="storageLocation"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length);
+        Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity store);
 
         /// <summary>
         /// Removes the edgeband entity from storage. Available for all ManagementTypes.
