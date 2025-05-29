@@ -320,6 +320,12 @@ namespace HomagConnect.MaterialAssist.Client
             }
         }
 
+        [Obsolete($"This method is obsolete. Use the method with {nameof(MaterialAssistStoreEdgebandEntity)} instead.", true)]
+        public Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)
+        {
+            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+        }
+
         /// <inheritdoc />
         public Task RemoveAllEdgebandEntitiesFromWorkplace(string id, bool deleteFromInventory = false)
         {
