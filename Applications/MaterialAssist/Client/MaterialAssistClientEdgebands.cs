@@ -284,32 +284,36 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
-        public async Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity store)
+        public async Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity storeEdgebandEntity)
         {
-            if (store == null)
+            if (storeEdgebandEntity == null)
             {
-                throw new ArgumentNullException(nameof(store));
-            }
-            if (string.IsNullOrEmpty(store.Id))
-            {
-                throw new ArgumentException("Id must not be null or empty.", nameof(store.Id));
-            }
-            if (store.Length is <= 0.1 or >= 9999.99)
-            {
-                throw new ArgumentException("Length must be between 0.1 and 9999.99.", nameof(store.Length));
-            }
-            if (store.StorageLocation == null)
-            {
-                throw new ArgumentException("Storage location must be provided.", nameof(store.StorageLocation));
-            }
-            if (store.Workstation == null)
-            {
-                throw new ArgumentException("Workstation must be provided.", nameof(store.Workstation));
+                throw new ArgumentNullException(nameof(storeEdgebandEntity));
             }
 
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(store.Id)}/store";
+            if (string.IsNullOrEmpty(storeEdgebandEntity.Id))
+            {
+                throw new ArgumentException("Id must not be null or empty.", nameof(storeEdgebandEntity.Id));
+            }
 
-            var payload = JsonConvert.SerializeObject(store);
+            if (storeEdgebandEntity.Length is <= 0.1 or >= 9999.99)
+            {
+                throw new ArgumentException("Length must be between 0.1 and 9999.99.", nameof(storeEdgebandEntity.Length));
+            }
+
+            if (storeEdgebandEntity.StorageLocation == null)
+            {
+                throw new ArgumentException("Storage location must be provided.", nameof(storeEdgebandEntity.StorageLocation));
+            }
+
+            if (storeEdgebandEntity.Workstation == null)
+            {
+                throw new ArgumentException("Workstation must be provided.", nameof(storeEdgebandEntity.Workstation));
+            }
+
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(storeEdgebandEntity.Id)}/store";
+
+            var payload = JsonConvert.SerializeObject(storeEdgebandEntity);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PostObject(new Uri(url, UriKind.Relative), content).ConfigureAwait(false);
 
