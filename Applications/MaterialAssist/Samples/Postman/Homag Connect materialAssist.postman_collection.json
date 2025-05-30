@@ -463,6 +463,36 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Store edgeband entity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 141,\r\n  \"length\": 10,\r\n  \"storageLocation\": {\r\n    \"workstation\": \"aad614c4-4f2a-4f8f-b5b6-8b0024020601\",\r\n    \"barcode\": \"\",\r\n    \"name\": \"test\"\r\n  },\r\n  \"workstation\": {\r\n    \"id\": \"2c1445de-ccd6-4ada-b26d-c98018f4390d\",\r\n    \"name\": \"Kantenanleimen\",\r\n    \"workstationType\": 1\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/141/store",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"edgebandEntities",
+										"141",
+										"store"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}

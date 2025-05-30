@@ -112,7 +112,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// <summary>
         /// Adds the edgeband entity to storage.
         /// </summary>
-        Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity store);
+        Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity storeEdgebandEntity);
 
         /// <summary>
         /// Adds the edgeband entity to storage.
