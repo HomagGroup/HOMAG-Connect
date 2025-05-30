@@ -122,5 +122,21 @@ namespace HomagConnect.OrderManager.Contracts
         Task DeleteOrdersByOrderNumber(string orderNumber);
 
         #endregion Order deletion
+
+        #region Customer deletion
+        /// <summary>
+        /// Delete customers by their customer ids.
+        /// </summary>
+        /// <param name="customerIds"></param>
+        /// <returns></returns>
+        Task DeleteCustomersByCustomerIds(IEnumerable<Guid> customerIds);
+
+        /// <summary>
+        /// Delete customers by their customer number.
+        /// </summary>
+        /// <param name="customerNumbers"></param>
+        /// <returns></returns>
+        Task DeleteCustomersByCustomerNumbers(IEnumerable<string> customerNumbers);
+        #endregion
     }
 }
