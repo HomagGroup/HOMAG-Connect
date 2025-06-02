@@ -5,6 +5,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Edgebands;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -283,25 +284,49 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
+        public async Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity storeEdgebandEntity)
+        {
+            if (storeEdgebandEntity == null)
+            {
+                throw new ArgumentNullException(nameof(storeEdgebandEntity));
+            }
+
+            if (string.IsNullOrEmpty(storeEdgebandEntity.Id))
+            {
+                throw new ArgumentException("Id must not be null or empty.", nameof(storeEdgebandEntity.Id));
+            }
+
+            if (storeEdgebandEntity.Length is <= 0.1 or >= 9999.99)
+            {
+                throw new ArgumentException("Length must be between 0.1 and 9999.99.", nameof(storeEdgebandEntity.Length));
+            }
+
+            if (storeEdgebandEntity.StorageLocation == null)
+            {
+                throw new ArgumentException("Storage location must be provided.", nameof(storeEdgebandEntity.StorageLocation));
+            }
+
+            if (storeEdgebandEntity.Workstation == null)
+            {
+                throw new ArgumentException("Workstation must be provided.", nameof(storeEdgebandEntity.Workstation));
+            }
+
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(storeEdgebandEntity.Id)}/store";
+
+            var payload = JsonConvert.SerializeObject(storeEdgebandEntity);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(url, UriKind.Relative), content).ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Failed to store edgeband entity. Status: {response.StatusCode}, Response: {responseContent}");
+            }
+        }
+
+        [Obsolete($"This method is obsolete. Use the method with {nameof(MaterialAssistStoreEdgebandEntity)} instead.", true)]
         public Task StoreEdgebandEntity(string id, StorageLocation storageLocation, double length)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentException("Id must not be null or empty", nameof(id));
-            }
-
-            if (storageLocation != null)
-            {
-                throw new ArgumentException("Storage location must be provided", nameof(storageLocation));
-            }
-
-            if (length <= 0.1)
-            {
-                throw new ArgumentException("Length must be higher than 0.1", nameof(length));
-            }
-
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/store?{_StorageLocation}={storageLocation}&{_Length}={length}";
-
             throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
         }
 

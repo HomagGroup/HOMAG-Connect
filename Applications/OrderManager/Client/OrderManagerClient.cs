@@ -25,6 +25,7 @@ namespace HomagConnect.OrderManager.Client
     {
         private static readonly string _BaseRoute = "api/orderManager";
         private static readonly string _OrderRoute = $"{_BaseRoute}/orders";
+        private static readonly string _CustomerRoute = $"{_BaseRoute}/customers";
 
         /// <inheritdoc />
         public OrderManagerClient(HttpClient client) : base(client) { }
@@ -396,6 +397,67 @@ namespace HomagConnect.OrderManager.Client
             await DeleteOrdersByOrderNumbers([orderNumber]);
         }
 
+        #endregion
+
+        #region Customers deletion
+        /// <inheritdoc />
+        public async Task DeleteCustomersByCustomerIds(IEnumerable<Guid> customerIds)
+        {
+            if (customerIds == null)
+            {
+                throw new ArgumentNullException(nameof(customerIds));
+            }
+
+            var distinctCustomerIds = customerIds.Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!distinctCustomerIds.Any())
+            {
+                throw new ArgumentNullException(nameof(customerIds), "At least one order id must be passed.");
+            }
+
+            var uris = distinctCustomerIds
+                .Select(id => $"&customerId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_CustomerRoute}" + parameter)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri).ConfigureAwait(false);
+            }
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteCustomersByCustomerNumbers(IEnumerable<string> customerNumbers)
+        {
+            if (customerNumbers == null)
+            {
+                throw new ArgumentNullException(nameof(customerNumbers));
+            }
+
+            var distinctCustomerNumbers = customerNumbers.Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!distinctCustomerNumbers.Any())
+            {
+                throw new ArgumentNullException(nameof(customerNumbers), "At least one customer number must be passed.");
+            }
+
+            var uris = distinctCustomerNumbers
+                .Select(number => $"&customerNumber={number}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameter => $"{_CustomerRoute}" + parameter)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri).ConfigureAwait(false);
+            }
+        }
         #endregion
     }
 }
