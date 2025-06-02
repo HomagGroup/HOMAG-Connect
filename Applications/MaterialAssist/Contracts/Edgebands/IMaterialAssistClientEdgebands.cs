@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -107,6 +108,11 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// Update edgeband entity.
         /// </summary>
         Task<EdgebandEntity> UpdateEdgebandEntity(string id, MaterialAssistUpdateEdgebandEntity updateEdgebandEntity);
+
+        /// <summary>
+        /// Adds the edgeband entity to storage.
+        /// </summary>
+        Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity store);
 
         /// <summary>
         /// Adds the edgeband entity to storage.
