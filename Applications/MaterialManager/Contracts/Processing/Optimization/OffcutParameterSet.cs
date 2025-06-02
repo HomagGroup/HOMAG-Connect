@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 /// <summary>
 /// Represents a set of parameters for offcut optimization.
 /// </summary>
-public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class OffcutParameterSet : IValidatableObject
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
@@ -56,14 +56,6 @@ public class OffcutParameterSet : IValidatableObject, IContainsUnitSystemDepende
     /// </summary>
     [JsonProperty(Order = 11)]
     public OffcutParameters OffcutParameters { get; set; } = new();
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 30)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
 
     #region IValidatableObject Members
 

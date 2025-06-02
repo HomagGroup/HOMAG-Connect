@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 /// <summary>
 /// Represents a set of parameters for the tension trim optimization.
 /// </summary>
-public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class TensionTrimParameterSet : IValidatableObject
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
@@ -50,14 +50,6 @@ public class TensionTrimParameterSet : IValidatableObject, IContainsUnitSystemDe
     /// </summary>
     [JsonProperty(Order = 11)]
     public TensionTrimParameters Parameters { get; set; } = new();
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 30)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
 
     #region IValidatableObject Members
 

@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 /// <summary>
 /// Represents the parameters for the trim cut optimization.
 /// </summary>
-public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDependentProperties
+public class TrimCutParameterSet : IValidatableObject
 {
     private const int _MaterialGroupNameMaxLength = 50;
 
@@ -50,14 +50,6 @@ public class TrimCutParameterSet : IValidatableObject, IContainsUnitSystemDepend
     /// </summary>
     [JsonProperty(Order = 11)]
     public TrimCutParameters Parameters { get; set; } = new();
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 30)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
 
     #region IValidatableObject Members
 
