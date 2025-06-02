@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts.Orders;
 
 namespace HomagConnect.ProductionAssist.Tests;
@@ -6,6 +7,7 @@ namespace HomagConnect.ProductionAssist.Tests;
 /// <summary />
 [TestClass]
 [TestCategory("ProductionAssist")]
+[TemporaryDisabledOnServer(2025,7,1,"DF-Production")]
 public class ProductionAssistTests : ProductionAssistTestBase
 {
     /// <summary />
