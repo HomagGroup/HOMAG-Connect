@@ -1,5 +1,4 @@
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -13,7 +12,6 @@ public class StatisticTests : IntelliDivideTestBase
 #pragma warning disable S2699 // Tests should include assertions
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 05, 15, "DF-IntelliDivide")]
     public async Task Statistics_GetMaterial_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -27,7 +25,6 @@ public class StatisticTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 05, 15, "DF-IntelliDivide")]
     public async Task Statistics_GetMaterial2_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
