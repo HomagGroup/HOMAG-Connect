@@ -12,7 +12,7 @@ public class MaterialAssistStoreEdgebandEntity
     /// Gets or sets the identifier of the edgeband entity.
     /// </summary>
     [StringLength(50)]
-    public string? Id { get; set; } = null;
+    public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
@@ -20,15 +20,15 @@ public class MaterialAssistStoreEdgebandEntity
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     [Range(0.1, 9999.99)]
-    public double? Length { get; set; } = null;
+    public double Length { get; set; }
 
     /// <summary>
     /// Gets or sets the storage location of the edgeband entity.
     /// </summary>
-    public StorageLocation? StorageLocation { get; set; } = null;
+    public StorageLocation StorageLocation { get; set; }
 
     /// <summary>
     /// Gets or sets the workstation to which the storage location belongs.
     /// </summary>
-    public Workstation? Workstation { get; set; } = null;
+    public Workstation Workstation { get; set; }
 }
