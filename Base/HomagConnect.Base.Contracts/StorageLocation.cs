@@ -6,9 +6,9 @@
     public class StorageLocation
     {
         /// <summary>
-        /// Gets or sets the workstation.
+        /// Gets or sets the locationId.
         /// </summary>
-        public string Workstation { get; set; }
+        public Guid LocationId { get; set; }
 
         /// <summary>
         /// Gets or sets the barcode of the compartment.
