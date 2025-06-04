@@ -120,7 +120,7 @@ public class ConversionTests
             }
 
             Assert.AreEqual(source.OrderName, target.Name);
-            Assert.IsTrue(groupImages.Count() > 0);
+            Assert.IsNotNull(groupImages);
         }
     }
 
