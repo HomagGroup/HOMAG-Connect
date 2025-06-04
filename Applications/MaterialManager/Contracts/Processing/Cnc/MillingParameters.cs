@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
@@ -14,18 +15,21 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         /// Value of the cutting speed.
         /// </summary>
         [JsonProperty(Order = 2)]
+        [ValueDependsOnUnitSystem(BaseUnit.MeterPerMinute)]
         public double CuttingSpeed { get; set; }
 
         /// <summary>
         /// Maximal value of the cutting speed.
         /// </summary>
         [JsonProperty(Order = 4)]
+        [ValueDependsOnUnitSystem(BaseUnit.MeterPerMinute)]
         public double? CuttingSpeedMax { get; set; }
 
         /// <summary>
         /// Minimal value of the cutting speed.
         /// </summary>
         [JsonProperty(Order = 3)]
+        [ValueDependsOnUnitSystem(BaseUnit.MeterPerMinute)]
         public double? CuttingSpeedMin { get; set; }
 
         /// <summary>
@@ -38,18 +42,21 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         /// Value of the tooth feed.
         /// </summary>
         [JsonProperty(Order = 5)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double ToothFeed { get; set; }
 
         /// <summary>
         /// Maximal value of the tooth feed.
         /// </summary>
         [JsonProperty(Order = 7)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? ToothFeedMax { get; set; }
 
         /// <summary>
         /// Minimal value of the tooth feed.
         /// </summary>
         [JsonProperty(Order = 6)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? ToothFeedMin { get; set; }
 
         /// <summary>
