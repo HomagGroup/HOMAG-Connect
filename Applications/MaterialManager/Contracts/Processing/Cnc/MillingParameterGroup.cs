@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         /// </summary>
         [JsonProperty(Order = 1)]
         [Required]
-        public required string MaterialGroupName { get; set; }
+        public string MaterialGroupName { get; set; }
 
         /// <summary>
         /// The parameters of the group.
@@ -28,6 +28,6 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         /// </summary>
         [JsonProperty(Order = 2)]
         [Required]
-        public required string ToolGroupName { get; set; }
+        public string ToolGroupName { get; set; }
     }
 }

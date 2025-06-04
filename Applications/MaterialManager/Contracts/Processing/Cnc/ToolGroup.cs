@@ -16,7 +16,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         [Key]
         [JsonProperty(Order = 1)]
         [Required]
-        public required string ToolGroupName { get; set; }
+        public string ToolGroupName { get; set; }
 
         /// <summary>
         /// The toolIds contained in the toolgroup

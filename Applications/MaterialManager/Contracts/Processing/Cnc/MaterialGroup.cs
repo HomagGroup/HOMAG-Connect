@@ -22,6 +22,6 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         [Key]
         [JsonProperty(Order = 1)]
         [Required]
-        public required string MaterialGroupName { get; set; }
+        public string MaterialGroupName { get; set; }
     }
 }
