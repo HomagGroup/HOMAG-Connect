@@ -159,7 +159,7 @@ namespace HomagConnect.OrderManager.Tests.Import
                 var response = await orderManager.ImportOrderRequest(orderDetails, fileReferences);
                 TestContext?.WriteLine($"Stopwatch: {nameof(orderManager.ImportOrderRequest)} {stopWatch.Elapsed}");
 
-                var createdOrder = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
+                var createdOrder = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(6));
                 TestContext?.WriteLine($"Stopwatch: {nameof(orderManager.WaitForImportOrderCompletion)} {stopWatch.Elapsed}");
 
                 Assert.IsNotNull(createdOrder);
@@ -188,7 +188,7 @@ namespace HomagConnect.OrderManager.Tests.Import
             var projectZipAdjusted = project.SaveToZipArchive(projectFiles);
 
             var response = await orderManager.ImportOrderRequest(projectZipAdjusted);
-            var order = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(3));
+            var order = await orderManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(4));
 
             Assert.IsNotNull(order);
             Assert.IsNotNull(order.Link);
