@@ -21,5 +21,9 @@ public enum BaseUnit
 
     /// <summary />
     [RoundingFormat(2, 1)]
-    Bar
+    Bar,
+
+    /// <summary />
+    [RoundingFormat(1, 1)]
+    MeterPerSecond
 }
