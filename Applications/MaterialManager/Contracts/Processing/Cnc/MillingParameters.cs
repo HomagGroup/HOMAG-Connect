@@ -15,21 +15,21 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
         /// Value of the cutting speed.
         /// </summary>
         [JsonProperty(Order = 2)]
-        [ValueDependsOnUnitSystem(BaseUnit.MeterPerMinute)]
+        [ValueDependsOnUnitSystem(BaseUnit.MeterPerSecond)]
         public double CuttingSpeed { get; set; }
 
         /// <summary>
         /// Maximal value of the cutting speed.
         /// </summary>
         [JsonProperty(Order = 4)]
-        [ValueDependsOnUnitSystem(BaseUnit.MeterPerMinute)]
+        [ValueDependsOnUnitSystem(BaseUnit.MeterPerSecond)]
         public double? CuttingSpeedMax { get; set; }
 
         /// <summary>
         /// Minimal value of the cutting speed.
         /// </summary>
         [JsonProperty(Order = 3)]
-        [ValueDependsOnUnitSystem(BaseUnit.MeterPerMinute)]
+        [ValueDependsOnUnitSystem(BaseUnit.MeterPerSecond)]
         public double? CuttingSpeedMin { get; set; }
 
         /// <summary>
