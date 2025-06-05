@@ -95,10 +95,10 @@ public class ConversionTests
     {
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
-        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive);  
+        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive);
         var projectWrapper = new ProjectWrapper(project);
 
-        var groups = project.ConvertToGroups().ToList();
+        var groups = project.ConvertToGroups(projectFiles).ToList();
 
         Assert.IsNotNull(project.Orders);
         Assert.IsNotNull(groups);
@@ -108,7 +108,8 @@ public class ConversionTests
         for (var i = 0; i < projectWrapper.Orders.Count; i++)
         {
             var source = projectWrapper.Orders[i];
-            var target = groups[i];
+            var target = groups[i].group;
+            var groupImages = groups[i].images;
 
             TestContext.AddResultFile(source.TraceToFile("Source").FullName);
             TestContext.AddResultFile(target.TraceToFile("Target").FullName);
@@ -119,6 +120,7 @@ public class ConversionTests
             }
 
             Assert.AreEqual(source.OrderName, target.Name);
+            Assert.IsNotNull(groupImages);
         }
     }
 

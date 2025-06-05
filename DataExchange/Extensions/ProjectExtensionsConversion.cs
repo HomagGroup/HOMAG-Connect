@@ -45,6 +45,35 @@ public static class ProjectExtensionsConversion
     }
 
     /// <summary>
+    /// Converts the project to groups including the additional data.
+    /// </summary>
+    public static IEnumerable<(Group group, FileReference[] images)> ConvertToGroups(this Project project, FileReference[] fileReferences)
+    {
+        var groups = new Collection<(Group, FileReference[])>();
+
+        if (project == null)
+        {
+            throw new ArgumentNullException(nameof(project));
+        }
+
+        if (project.Orders is { Count: > 0 })
+        {
+            foreach (var projectOrder in project.Orders)
+            {
+                var group = new Group();
+
+                Map(project, projectOrder, group);
+
+                var fileReferencesReferenced = GetReferencedFileReferences(group, fileReferences);
+
+                groups.Add(new(group, fileReferencesReferenced));
+            }
+        }
+
+        return groups;
+    }
+
+    /// <summary>
     /// Converts the project to order.
     /// </summary>
     public static IEnumerable<(OrderDetails, FileReference[])> ConvertToOrders(this Project project, FileReference[] fileReferences)
@@ -221,6 +250,28 @@ public static class ProjectExtensionsConversion
         }
     }
 
+    private static IEnumerable<AdditionalDataEntity> GetAdditionalDataEntities(Group group)
+    {
+        if (group.AdditionalData != null)
+        {
+            foreach (var additionalDataEntity in group.AdditionalData)
+            {
+                yield return additionalDataEntity;
+            }
+        }
+
+        if (group.Items != null)
+        {
+            foreach (var orderItem in group.Items)
+            {
+                foreach (var additionalDataEntityReference in GetAllAdditionalDataEntities(orderItem))
+                {
+                    yield return additionalDataEntityReference;
+                }
+            }
+        }
+    }
+
     private static IEnumerable<AdditionalDataEntity> GetAllAdditionalDataEntities(OrderManager.Contracts.OrderItems.Base orderItem)
     {
         if (orderItem.AdditionalData != null)
@@ -246,6 +297,28 @@ public static class ProjectExtensionsConversion
     private static FileReference[] GetReferencedFileReferences(OrderDetails order, FileReference[] fileReferencesAvailable)
     {
         var additionalDataEntities = GetAdditionalDataEntities(order).ToList();
+
+        var fileReferencesReferenced = new List<FileReference>();
+        var fileReferencesNotReferenced = new List<FileReference>();
+
+        foreach (var fileReference in fileReferencesAvailable)
+        {
+            if (additionalDataEntities.Any(additionalDataEntity => additionalDataEntity.ReferenceEquals(fileReference)))
+            {
+                fileReferencesReferenced.Add(fileReference);
+            }
+            else
+            {
+                fileReferencesNotReferenced.Add(fileReference);
+            }
+        }
+
+        return Replace3dsReferencesWithZipPackages(fileReferencesReferenced, additionalDataEntities, fileReferencesNotReferenced).ToArray();
+    }
+
+    private static FileReference[] GetReferencedFileReferences(Group group, FileReference[] fileReferencesAvailable)
+    {
+        var additionalDataEntities = GetAdditionalDataEntities(group).ToList();
 
         var fileReferencesReferenced = new List<FileReference>();
         var fileReferencesNotReferenced = new List<FileReference>();
