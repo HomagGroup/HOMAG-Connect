@@ -7,7 +7,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Order item position.
+/// Represents a position in an order, which can contain multiple production items.
 /// </summary>
 public class Position : ProductionItemBase
 {
@@ -21,7 +21,7 @@ public class Position : ProductionItemBase
     /// Gets or sets the production entities.
     /// </summary>
     [JsonProperty(Order = 999)]
-    public Collection<ProductionItemBase>? ProductionEntities { get; set; }
+    public Collection<ProductionItemBase>? Items { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 1)]

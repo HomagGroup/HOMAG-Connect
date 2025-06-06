@@ -51,7 +51,7 @@ public static class UnitSystemExtensions
             throw new ArgumentNullException(nameof(o));
         }
 
-        var serializedObject = JsonConvert.SerializeObject(o, SerializerSettings.Default);
+        var serializedObject = JsonConvert.SerializeObject(o);
 
         var clone = JsonConvert.DeserializeObject<T>(serializedObject) ?? throw new InvalidOperationException("Failed to clone object.");
 

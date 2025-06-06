@@ -15,7 +15,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Production entity
+/// Represents a base class for production items, which can be parts, positions, assembly groups, or resources.
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(Position), ProductionItemType.Position)]
@@ -29,109 +29,9 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 public class ProductionItemBase
 {
     /// <summary>
-    /// Cnc program name 1
-    /// </summary>
-    public string? CncProgramName1 { get; set; }
-
-    /// <summary>
-    /// Cnc program name 2
-    /// </summary>
-    public string? CncProgramName2 { get; set; }
-
-    /// <summary>
-    /// CNC Program Name 3
-    /// </summary>
-    public string? CncProgramName3 { get; set; }
-
-    /// <summary>
-    /// Custom properties
-    /// </summary>
-    public IDictionary<string, string>? CustomProperties { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Back
-    /// </summary>
-    public double? EdgeThicknessBack { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Front
-    /// </summary>
-    public double? EdgeThicknessFront { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Left
-    /// </summary>
-    public double? EdgeThicknessLeft { get; set; }
-
-    /// <summary>
-    /// Edge Thickness Right
-    /// </summary>
-    public double? EdgeThicknessRight { get; set; }
-
-    /// <summary>
-    /// Finish length
-    /// </summary>
-    public double? FinishLength { get; set; }
-
-    /// <summary>
-    /// Finish width
-    /// </summary>
-    public double? FinishWidth { get; set; }
-
-    /// <summary>
     /// Grouping
     /// </summary>
     public string? Grouping { get; set; }
-
-    /// <summary>
-    /// Label layout
-    /// </summary>
-    public string? LabelLayout { get; set; }
-
-    /// <summary>
-    /// Laminate bottom
-    /// </summary>
-    public string? LaminateBottom { get; set; }
-
-    /// <summary>
-    /// LaminateBottomGrain: optional
-    /// </summary>
-    public Grain? LaminateBottomGrain { get; set; }
-
-    /// <summary>
-    /// Laminate top
-    /// </summary>
-    public string? LaminateTop { get; set; }
-
-    /// <summary>
-    /// LaminateTopGrain: optional
-    /// </summary>
-    public Grain? LaminateTopGrain { get; set; }
-
-    /// <summary>
-    /// 2. Cut size length
-    /// </summary>
-    public double? SecondCutLength { get; set; }
-
-    /// <summary>
-    /// 2. Cut size width
-    /// </summary>
-    public double? SecondCutWidth { get; set; }
-
-    /// <summary>
-    /// Surface Bottom
-    /// </summary>
-    public string? SurfaceBottom { get; set; }
-
-    /// <summary>
-    /// Surface Top
-    /// </summary>
-    public string? SurfaceTop { get; set; }
-
-    /// <summary>
-    /// Template
-    /// </summary>
-    public string? Template { get; set; }
 
     #region (10) Article
 
