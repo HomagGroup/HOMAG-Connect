@@ -3,7 +3,7 @@
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
 
@@ -86,7 +86,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
         /// Converts a production order to an cutting prediction part.
         /// </summary>
         /// <param name="productionOrder"></param>
-        public static implicit operator CncPredictionPart(ProductionEntityProductionOrder productionOrder)
+        public static implicit operator CncPredictionPart(Part productionOrder)
         {
             var part = new CncPredictionPart
             {

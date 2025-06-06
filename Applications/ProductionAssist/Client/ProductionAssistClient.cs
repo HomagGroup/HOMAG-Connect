@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts;
-using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 namespace HomagConnect.ProductionAssist.Client
 {
@@ -59,7 +59,7 @@ namespace HomagConnect.ProductionAssist.Client
         #endregion Constructors
 
         /// <inheritdoc />
-        public async Task<ProductionEntity?> GetOrderItem(string identifier)
+        public async Task<ProductionItemBase?> GetOrderItem(string identifier)
         {
             var orderItems = await GetOrderItems([identifier]);
 
@@ -67,7 +67,7 @@ namespace HomagConnect.ProductionAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<ProductionEntity[]?> GetOrderItems(string[] identifiers)
+        public async Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers)
         {
             const string parameter = "identifier";
             const string endpoint = "api/productionAssist/orderItems";
@@ -80,7 +80,7 @@ namespace HomagConnect.ProductionAssist.Client
                 .Select(p => $"{endpoint}?{p}")
                 .Select(c => new Uri(c, UriKind.Relative));
 
-            return (await RequestEnumerableAsync<ProductionEntity>(uris)).ToArray();
+            return (await RequestEnumerableAsync<ProductionItemBase>(uris)).ToArray();
         }
     }
 }

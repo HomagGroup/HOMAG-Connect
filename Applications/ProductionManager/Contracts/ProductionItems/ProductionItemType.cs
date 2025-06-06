@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 // Note: This is preliminary code and is subject to change
 
@@ -10,26 +10,32 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
 /// Production entity type enumeration
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
-public enum ProductionEntityType
+public enum ProductionItemType
 {
     /// <summary>
     /// Fallback
     /// </summary>
     Unknown,
 
-    /// <summary>
-    /// Order item
-    /// </summary>
+    /// <summary />
+    Position,
+
+    /// <summary />
+    AssemblyGroup,
+
+    /// <summary />
+    Part,
+
+    /// <summary />
+    [Obsolete("Replace with Position")]
     OrderItem,
 
-    /// <summary>
-    /// Assembly unit
-    /// </summary>
+    /// <summary />
+    [Obsolete("Replace with AssemblyGroup")]
     AssemblyUnit,
 
-    /// <summary>
-    /// Production order
-    /// </summary>
+    /// <summary />
+    [Obsolete("Replace with Part")]
     ProductionOrder,
 
     /// <summary>
