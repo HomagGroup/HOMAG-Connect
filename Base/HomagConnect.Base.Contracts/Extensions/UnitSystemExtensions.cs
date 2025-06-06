@@ -71,7 +71,7 @@ public static class UnitSystemExtensions
 
             if (valueDependsOnUnitSystemAttribute != null)
             {
-                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar)
+                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar or BaseUnit.MeterPerSecond)
                 {
                     SwitchBaseUnit(propertyInfo, clone, valueDependsOnUnitSystemAttribute, applyRounding);
                 }
