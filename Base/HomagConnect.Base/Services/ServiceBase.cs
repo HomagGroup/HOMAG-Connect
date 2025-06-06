@@ -130,7 +130,7 @@ namespace HomagConnect.Base.Services
 
         protected async Task<HttpResponseMessage> PostObject<T>(Uri uri, T payload)
         {
-            var serializedPayload = JsonConvert.SerializeObject(payload);
+            var serializedPayload = JsonConvert.SerializeObject(payload, SerializerSettings.Default);
             var content = new StringContent(serializedPayload, Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage

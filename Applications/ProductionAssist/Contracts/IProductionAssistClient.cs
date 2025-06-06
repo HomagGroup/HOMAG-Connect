@@ -1,5 +1,5 @@
 ﻿#nullable enable
-using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 namespace HomagConnect.ProductionAssist.Contracts
 {
@@ -9,15 +9,15 @@ namespace HomagConnect.ProductionAssist.Contracts
     public interface IProductionAssistClient
     {
         /// <summary>
-        /// Gets the <see cref="ProductionEntity" /> for a given <see cref="ProductionEntity.Id" /> id or
-        /// <see cref="ProductionEntity.Barcode" /> which belongs to any not archived order.
+        /// Gets the <see cref="ProductionItemBase" /> for a given <see cref="ProductionItemBase.Id" /> id or
+        /// <see cref="ProductionItemBase.Barcode" /> which belongs to any not archived order.
         /// </summary>
-        Task<ProductionEntity?> GetOrderItem(string identifier);
+        Task<ProductionItemBase?> GetOrderItem(string identifier);
 
         /// <summary>
-        /// Gets the <see cref="ProductionEntity" />s for given <see cref="ProductionEntity.Id" />s or
-        /// <see cref="ProductionEntity.Barcode" />s which belongs to any not archived order.
+        /// Gets the <see cref="ProductionItemBase" />s for given <see cref="ProductionItemBase.Id" />s or
+        /// <see cref="ProductionItemBase.Barcode" />s which belongs to any not archived order.
         /// </summary>
-        Task<ProductionEntity[]?> GetOrderItems(string[] identifiers);
+        Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers);
     }
 }

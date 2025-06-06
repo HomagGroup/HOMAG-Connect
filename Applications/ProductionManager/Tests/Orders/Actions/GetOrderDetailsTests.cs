@@ -1,5 +1,6 @@
 using FluentAssertions;
 
+using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -20,7 +21,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
     [TestMethod]
     public void CheckOrderEnumDeserialization_Success()
     {
-        var str = JsonConvert.SerializeObject(new Order());
+        var str = JsonConvert.SerializeObject(new Order(), SerializerSettings.Default); 
         var obj = JsonConvert.DeserializeObject<Order>(str);
 
         Assert.IsNotNull(obj);
