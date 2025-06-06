@@ -67,7 +67,7 @@ namespace HomagConnect.Base
                 {
                     if (!string.IsNullOrWhiteSpace(resTxt))
                     {
-                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(resTxt);
+                        var problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(resTxt, SerializerSettings.Default);
 
                         if (problemDetails != null)
                         {

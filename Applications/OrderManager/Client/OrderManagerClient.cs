@@ -123,7 +123,7 @@ namespace HomagConnect.OrderManager.Client
 
             var content = await response.Content.ReadAsStreamAsync();
             using var reader = new StreamReader(content);
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(await reader.ReadToEndAsync());
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(await reader.ReadToEndAsync(), SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }
@@ -137,7 +137,7 @@ namespace HomagConnect.OrderManager.Client
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }
@@ -236,7 +236,7 @@ namespace HomagConnect.OrderManager.Client
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }
@@ -271,7 +271,7 @@ namespace HomagConnect.OrderManager.Client
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }
@@ -321,7 +321,7 @@ namespace HomagConnect.OrderManager.Client
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }

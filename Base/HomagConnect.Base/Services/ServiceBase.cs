@@ -265,7 +265,7 @@ namespace HomagConnect.Base.Services
             }
 
             var verStr = new StreamReader(verStream);
-            var versions = JsonConvert.DeserializeObject<VersionInformation>(verStr.ReadToEnd());
+            var versions = JsonConvert.DeserializeObject<VersionInformation>(verStr.ReadToEnd(), SerializerSettings.Default);
 
             if (versions != null)
             {

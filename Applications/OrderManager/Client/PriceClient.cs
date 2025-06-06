@@ -33,7 +33,7 @@ namespace HomagConnect.OrderManager.Client
             requestContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
             using var response = await PostObject(new Uri("api/price/calculate", UriKind.Relative), requestContent);
             var content = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<PriceResponseData>(content)!;
+            var responseObject = JsonConvert.DeserializeObject<PriceResponseData>(content, SerializerSettings.Default)!;
             return responseObject; 
         }
     }

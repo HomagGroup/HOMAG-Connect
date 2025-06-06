@@ -280,7 +280,7 @@ namespace HomagConnect.IntelliDivide.Client
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new OptimizationRequestResponse();
         }
@@ -312,7 +312,7 @@ namespace HomagConnect.IntelliDivide.Client
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
             var result = await response.Content.ReadAsStringAsync();
-            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new OptimizationRequestResponse();
         }
@@ -356,7 +356,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<OptimizationRequestResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new OptimizationRequestResponse();
         }
@@ -431,7 +431,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var responseObject = JsonConvert.DeserializeObject<IEnumerable<DataModelProperty>>(result);
+            var responseObject = JsonConvert.DeserializeObject<IEnumerable<DataModelProperty>>(result, SerializerSettings.Default);
 
             return responseObject ?? new List<DataModelProperty>(0);
         }
