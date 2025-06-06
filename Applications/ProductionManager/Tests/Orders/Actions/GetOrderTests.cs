@@ -106,7 +106,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
             var order = await productionManagerClient.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromSeconds(30));
 
             Assert.IsNotNull(order);
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(order.OrderNumber));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(order.OrderNumber));
 
             return order.OrderNumber;
         }
