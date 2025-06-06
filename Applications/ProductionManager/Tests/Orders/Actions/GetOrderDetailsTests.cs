@@ -116,7 +116,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
                 City = "Schopfloch",
                 Country = "Germany"
             },
-            BillOfMaterials =
+            Items =
             [
                 new Position
                 {
@@ -124,7 +124,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
                     ArticleNumber = "U50DT",
                     Description = "Unterschrank mit Doppeltuer",
                     Quantity = 1,
-                    ProductionEntities =
+                    Items =
                     [
                         new Part
                         {
@@ -169,7 +169,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
                     ArticleNumber = "AP45",
                     Description = "Arbeitsplatte 45",
                     Quantity = 1,
-                    ProductionEntities =
+                    Items =
                     [
                         new Part
                         {
@@ -202,12 +202,12 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
         var deserialized = JsonConvert.DeserializeObject<OrderDetails>(serialized);
 
         Assert.IsNotNull(deserialized);
-        Assert.IsNotNull(deserialized.BillOfMaterials);
+        Assert.IsNotNull(deserialized.Items);
 
         deserialized.Should().NotBe(null);
         deserialized.Should().BeEquivalentTo(order);
 
-        deserialized.BillOfMaterials[0].GetType().Should().Be(order.BillOfMaterials[0].GetType());
+        deserialized.Items[0].GetType().Should().Be(order.Items[0].GetType());
     }
 
     /// <summary />
