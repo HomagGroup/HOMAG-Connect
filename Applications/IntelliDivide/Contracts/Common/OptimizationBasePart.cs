@@ -126,21 +126,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
 
         /// <inheritdoc />
         [JsonProperty(Order = 41)]
-        [StringLength(100, MinimumLength = 1)]
+        [StringLength(1000, MinimumLength = 1)]
         public string? CncProgramName1 { get; set; }
 
         /// <summary>
         /// Gets or sets the program name of the CNC program to execute.
         /// </summary>
         [JsonProperty(Order = 42)]
-        [StringLength(100, MinimumLength = 1)]
+        [StringLength(1000, MinimumLength = 1)]
         public string? CncProgramName2 { get; set; }
 
         /// <summary>
         /// Gets or sets the program name of the CNC program to execute.
         /// </summary>
         [JsonProperty(Order = 43)]
-        [StringLength(100, MinimumLength = 1)]
+        [StringLength(1000, MinimumLength = 1)]
         public string? CncProgramName3 { get; set; }
 
         #endregion
