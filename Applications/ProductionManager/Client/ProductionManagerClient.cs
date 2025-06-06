@@ -60,7 +60,7 @@ namespace HomagConnect.ProductionManager.Client
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }

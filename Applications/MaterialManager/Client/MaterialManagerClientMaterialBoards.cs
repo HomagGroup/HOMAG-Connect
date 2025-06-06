@@ -41,12 +41,12 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
 
-        var payload = JsonConvert.SerializeObject(boardTypeUpdate);
+        var payload = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
         var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
 
         if (result != null)
         {
@@ -83,12 +83,12 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         ValidateRequiredProperties(boardTypeRequest);
 
-        var payload = JsonConvert.SerializeObject(boardTypeRequest);
+        var payload = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
         var response = await PostObject(new Uri(_BaseRoute, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
 
         if (result != null)
         {
@@ -144,7 +144,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<BoardType>(result);
+        var responseObject = JsonConvert.DeserializeObject<BoardType>(result, SerializerSettings.Default);
 
         return responseObject ?? new BoardType();
     }

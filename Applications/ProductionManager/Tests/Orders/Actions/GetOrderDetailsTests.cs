@@ -22,7 +22,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
     public void CheckOrderEnumDeserialization_Success()
     {
         var str = JsonConvert.SerializeObject(new Order(), SerializerSettings.Default); 
-        var obj = JsonConvert.DeserializeObject<Order>(str);
+        var obj = JsonConvert.DeserializeObject<Order>(str, SerializerSettings.Default);
 
         Assert.IsNotNull(obj);
         Assert.IsNotNull(obj.OrderStatus);
@@ -31,8 +31,8 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
     [TestMethod]
     public void CheckProductionEntityNullableEnumDeserialization_Success()
     {
-        var str = JsonConvert.SerializeObject(new Part { LaminateTopGrain = Grain.Crosswise });
-        var obj = JsonConvert.DeserializeObject<Part>(str);
+        var str = JsonConvert.SerializeObject(new Part { LaminateTopGrain = Grain.Crosswise }, SerializerSettings.Default);
+        var obj = JsonConvert.DeserializeObject<Part>(str, SerializerSettings.Default);
 
         Assert.IsNotNull(obj);
         Assert.IsNull(obj.LaminateBottomGrain);
@@ -72,14 +72,8 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
         order.Trace();
 
-        var jsonSerializerSettings = new JsonSerializerSettings
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            Formatting = Formatting.Indented
-        };
-
-        var serialized = JsonConvert.SerializeObject(order, jsonSerializerSettings);
-        var deserialized = JsonConvert.DeserializeObject<Order>(serialized);
+        var serialized = JsonConvert.SerializeObject(order,  SerializerSettings.Default);
+        var deserialized = JsonConvert.DeserializeObject<Order>(serialized, SerializerSettings.Default);
 
         Assert.IsNotNull(deserialized);
         Assert.IsNotNull(deserialized.Source);
@@ -192,14 +186,8 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
         order.Trace();
 
-        var jsonSerializerSettings = new JsonSerializerSettings
-        {
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            Formatting = Formatting.Indented
-        };
-
-        var serialized = JsonConvert.SerializeObject(order, jsonSerializerSettings);
-        var deserialized = JsonConvert.DeserializeObject<OrderDetails>(serialized);
+        var serialized = JsonConvert.SerializeObject(order, SerializerSettings.Default);
+        var deserialized = JsonConvert.DeserializeObject<OrderDetails>(serialized, SerializerSettings.Default);
 
         Assert.IsNotNull(deserialized);
         Assert.IsNotNull(deserialized.Items);

@@ -1,5 +1,7 @@
 using HomagConnect.Base.Extensions;
 using FluentAssertions;
+
+using HomagConnect.Base;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json;
 
@@ -29,8 +31,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Usage
             order.Trace();
 
 
-            var serialized = JsonConvert.SerializeObject(order);
-            var deserialized = JsonConvert.DeserializeObject<UsageDetails>(serialized);
+            var serialized = JsonConvert.SerializeObject(order, SerializerSettings.Default);
+            var deserialized = JsonConvert.DeserializeObject<UsageDetails>(serialized, SerializerSettings.Default);
 
             Assert.IsNotNull(deserialized);
             Assert.IsNotNull(deserialized.Source);
@@ -65,8 +67,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Usage
             overview.Trace();
 
 
-            var serialized = JsonConvert.SerializeObject(overview);
-            var deserialized = JsonConvert.DeserializeObject<UsageOverview>(serialized);
+            var serialized = JsonConvert.SerializeObject(overview, SerializerSettings.Default);
+            var deserialized = JsonConvert.DeserializeObject<UsageOverview>(serialized, SerializerSettings.Default);
 
             Assert.IsNotNull(deserialized);
             Assert.IsNotNull(deserialized.Licenses);

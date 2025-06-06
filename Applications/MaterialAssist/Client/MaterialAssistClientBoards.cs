@@ -1,5 +1,6 @@
 ﻿using System.Text;
 
+using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -246,12 +247,12 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(boardTypeRequest);
 
-            var payload = JsonConvert.SerializeObject(boardTypeRequest);
+            var payload = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<BoardType>(responseContent);
+            var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
 
             if (result != null)
             {
@@ -271,12 +272,12 @@ namespace HomagConnect.MaterialAssist.Client
 
                 ValidateRequiredProperties(boardEntityRequest);
 
-                var payload = JsonConvert.SerializeObject(boardEntityRequest);
+                var payload = JsonConvert.SerializeObject(boardEntityRequest, SerializerSettings.Default);
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
                 var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _BoardEntityCreation, UriKind.Relative), content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
 
                 if (result != null)
                 {
@@ -297,12 +298,12 @@ namespace HomagConnect.MaterialAssist.Client
 
                 ValidateRequiredProperties(offcutEntityRequest);
 
-                var payload = JsonConvert.SerializeObject(offcutEntityRequest);
+                var payload = JsonConvert.SerializeObject(offcutEntityRequest, SerializerSettings.Default);
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
                 var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _OffcutEntityCreation, UriKind.Relative), content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
 
                 if (result != null)
                 {
@@ -329,12 +330,12 @@ namespace HomagConnect.MaterialAssist.Client
 
             var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
-            var payload = JsonConvert.SerializeObject(updateBoardEntity);
+            var payload = JsonConvert.SerializeObject(updateBoardEntity, SerializerSettings.Default);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent);
+            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
 
             if (result != null)
             {
