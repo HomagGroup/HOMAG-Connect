@@ -4,6 +4,7 @@ using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
@@ -200,6 +201,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2025, 07, 1, "DF-Production")]
     public async Task OrderDetails_Items_NumberOfPartsEqualsItems()
     {
         var productionManagerClient = GetProductionManagerClient();
