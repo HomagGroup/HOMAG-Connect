@@ -179,7 +179,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [JsonProperty(Order = 36)]
         public string? Gtin { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the decor top embossing.
+        /// </summary>
+        [JsonProperty(Order = 37)]
+        public string? EmbossingTop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the decor bottom embossing.
+        /// </summary>
+        [JsonProperty(Order = 38)]
+        public string? EmbossingBottom { get; set; }
+
         /// <summary>
         /// Gets or sets the id from an external system.
         /// </summary>
