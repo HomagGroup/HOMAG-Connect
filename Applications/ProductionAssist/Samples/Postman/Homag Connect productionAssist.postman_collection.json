@@ -210,6 +210,49 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "OrderItems",
+			"item": [
+				{
+					"name": "Read",
+					"item": [
+						{
+							"name": "Get order items by identifiers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionAssist/orderItems",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionAssist",
+										"orderItems"
+									],
+									"query": [
+										{
+											"key": "identifier",
+											"value": null,
+											"description": "Your order item identifier",
+											"disabled": false
+										},
+										{
+											"key": "identifier",
+											"value": null,
+											"description": "Your order item identifier",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
