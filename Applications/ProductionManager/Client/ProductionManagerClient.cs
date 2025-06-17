@@ -184,6 +184,26 @@ namespace HomagConnect.ProductionManager.Client
 
         #endregion
 
+        #region Order release
+        /// <inheritdoc />
+        public async Task ReleaseOrder(Guid orderId)
+        {
+            var url = $"/api/productionManager/orders/{orderId}/release";
+            var response = await PatchObject(new Uri(url, UriKind.Relative));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        /// <inheritdoc />
+        public async Task ResetReleaseOrder(Guid orderId)
+        {
+            var url = $"/api/productionManager/orders/{orderId}/resetRelease";
+            var response = await PatchObject(new Uri(url, UriKind.Relative));
+
+            response.EnsureSuccessStatusCode();
+        }
+        #endregion
+
         #region Prediction
 
         /// <inhertidoc />
