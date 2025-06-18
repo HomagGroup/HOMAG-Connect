@@ -12,8 +12,8 @@ namespace HomagConnect.Base.Extensions
         /// </summary>
         public static T ConvertTo<T>(this object o)
         {
-            var serializedObject = JsonConvert.SerializeObject(o);
-            return JsonConvert.DeserializeObject<T>(serializedObject);
+            var serializedObject = JsonConvert.SerializeObject(o, SerializerSettings.Default);
+            return JsonConvert.DeserializeObject<T>(serializedObject, SerializerSettings.Default);
         }
 
         /// <summary>

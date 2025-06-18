@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a4bab28f-06c9-4447-ac45-451d14e96501",
+		"_postman_id": "e3ab788c-ad4d-4532-9b47-870f712079c9",
 		"name": "Homag Connect orderManager",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18803714"
 	},
 	"item": [
 		{
@@ -198,12 +199,7 @@
 									"type": "file",
 									"src": []
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{ConnectHost}}/api/orderManager/orders/import",
@@ -307,6 +303,50 @@
 					"response": []
 				},
 				{
+					"name": "Delete customers by customers numbers",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ConnectPasswordConnect}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ConnectUserNameConnect}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/customers?customerNumber=Your_second_customer_number&customerNumber=Your_customer_number",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "customerNumber",
+									"value": "Your_second_customer_number"
+								},
+								{
+									"key": "customerNumber",
+									"value": "Your_customer_number"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete orders by order ids",
 					"request": {
 						"method": "DELETE",
@@ -329,6 +369,51 @@
 								{
 									"key": "orderId",
 									"value": "Your_second_order_id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete customers by customer ids",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ConnectPasswordConnect}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ConnectUserNameConnect}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/orderManager/customers?customerId=Your_customer_id",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"orderManager",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "Your_customer_id"
+								},
+								{
+									"key": "customerId",
+									"value": "Your_second_customer_id",
 									"disabled": true
 								}
 							]

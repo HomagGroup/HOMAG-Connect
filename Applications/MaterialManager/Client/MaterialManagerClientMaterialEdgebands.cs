@@ -172,12 +172,12 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 
-        var payload = JsonConvert.SerializeObject(edgebandTypeUpdate);
+        var payload = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
         var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+        var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
 
         if (result != null)
         {
@@ -229,12 +229,12 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         ValidateRequiredProperties(edgebandTypeRequest);
 
-        var payload = JsonConvert.SerializeObject(edgebandTypeRequest);
+        var payload = JsonConvert.SerializeObject(edgebandTypeRequest, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
         var response = await PostObject(new Uri(_BaseRoute, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+        var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
 
         if (result != null)
         {
@@ -290,7 +290,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result);
+        var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
 
         return responseObject ?? new EdgebandType();
     }

@@ -3,62 +3,25 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.Orders.Order">
     <Position X="9.25" Y="0.5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>CAAiQgMwAAACAADAADDBCAAAQAAAEAAGAAQARlIAACA=</HashCode>
+      <HashCode>CAAiQgMwAgACAADAADDBCAAAQAAAEAAGAAQARhIAACA=</HashCode>
       <FileName>Orders\Order.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.Orders.OrderDetails">
-    <Position X="9.5" Y="8.25" Width="4.25" />
+    <Position X="9.25" Y="8.25" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACAEEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Orders\OrderDetails.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityOrderItem">
-    <Position X="19" Y="11.5" Width="3.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>ProductionEntity\ProductionEntityOrderItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityAssemblyUnit">
-    <Position X="23.25" Y="13" Width="3.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>ProductionEntity\ProductionEntityAssemblyUnit.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityProductionOrder">
-    <Position X="27" Y="16.5" Width="4" />
-    <TypeIdentifier>
-      <HashCode>AEAACAQQQEIDBAAAAIAAAAIAgcAAgAQAAQIAIAABQAA=</HashCode>
-      <FileName>ProductionEntity\ProductionEntityProductionOrder.cs</FileName>
-    </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Lots" />
+      <Property Name="Items" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntityResource">
-    <Position X="32.75" Y="16" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>ProductionEntity\ProductionEntityResource.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionEntity">
-    <Position X="14.25" Y="6.75" Width="3.75" />
-    <TypeIdentifier>
-      <HashCode>AAAiQAAAAAEggAFAABAAAEBAAAAAECAEIQQAgAAAAAg=</HashCode>
-      <FileName>ProductionEntity\ProductionEntity.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.Lots.Lot">
     <Position X="24.25" Y="0.5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAACQAAEAAAAAAAAAACAAAQAAAAAEAAAABAAAAAAAIA=</HashCode>
+      <HashCode>AAACQAAEAAAAAAAAAACAAAQAAAAAEAAAABAAAAAAACA=</HashCode>
       <FileName>Lots\Lot.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -68,23 +31,87 @@
       <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Lots\LotDetails.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="ProductionOrders" />
-    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionEntity.ProductionOrderLotReference">
-    <Position X="30.75" Y="4.75" Width="5.25" />
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemBase">
+    <Position X="16.75" Y="5.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAAAAgAAAAAA=</HashCode>
-      <FileName>ProductionEntity\ProductionOrderLotReference.cs</FileName>
+      <HashCode>AAAiQgAAAAEkgAFAABAAAEBAAAAAECAAIQQAgAAAAAg=</HashCode>
+      <FileName>ProductionItems\ProductionItemBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+      <Property Name="ProductionStatus" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionItems.Position">
+    <Position X="9.5" Y="16.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAIAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionItems\Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionItems.Part">
+    <Position X="18.5" Y="16.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>CEAACAQQQEIDBAAABIAAAAIAgcgAgAQAAQIAIAABQAA=</HashCode>
+      <FileName>ProductionItems\Part.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionItems.Resource">
+    <Position X="29" Y="16.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionItems\Resource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionItems.AssemblyGroup">
+    <Position X="14.25" Y="16.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionItems\AssemblyGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="HomagConnect.ProductionManager.Contracts.IProductionManagerClient">
     <Position X="0.5" Y="0.5" Width="7.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAACACAAAAAAAAAAAAAgAAAAAAAQAAAAAg=</HashCode>
+      <HashCode>AAAAAQAAAAAgChCAAAAAABIAAAAAgQQAAAAAgAAAAAg=</HashCode>
       <FileName>IProductionManagerClient.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="HomagConnect.Base.Contracts.Interfaces.ICncProgramProperties">
+    <Position X="23.5" Y="16.25" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="HomagConnect.Base.Contracts.Interfaces.IDimensionProperties">
+    <Position X="23.5" Y="18" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="HomagConnect.Base.Contracts.Interfaces.ILaminatingProperties">
+    <Position X="23.5" Y="22.25" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="HomagConnect.Base.Contracts.Interfaces.IEdgebandingProperties">
+    <Position X="23.5" Y="20" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="HomagConnect.Base.Contracts.Interfaces.IMaterialProperties">
+    <Position X="23.5" Y="23.75" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemStatus">
+    <Position X="23.75" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAEABA=</HashCode>
+      <FileName>ProductionItems\ProductionItemStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemType">
+    <Position X="23.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAoAAAAAAAAAAAAAAAAAAABBAAAEBA=</HashCode>
+      <FileName>ProductionItems\ProductionItemType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

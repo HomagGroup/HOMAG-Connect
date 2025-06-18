@@ -1,5 +1,6 @@
 ﻿using System.Text;
 
+using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -46,12 +47,12 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(edgebandTypeRequest);
 
-            var payload = JsonConvert.SerializeObject(edgebandTypeRequest);
+            var payload = JsonConvert.SerializeObject(edgebandTypeRequest, SerializerSettings.Default);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent);
+            var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
 
             if (result != null)
             {
@@ -71,12 +72,12 @@ namespace HomagConnect.MaterialAssist.Client
 
             ValidateRequiredProperties(edgebandEntityRequest);
 
-            var payload = JsonConvert.SerializeObject(edgebandEntityRequest);
+            var payload = JsonConvert.SerializeObject(edgebandEntityRequest, SerializerSettings.Default);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PostObject(new Uri(_BaseRouteMaterialAssist, UriKind.Relative), content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);
+            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent, SerializerSettings.Default);
 
             if (result != null)
             {
@@ -269,12 +270,12 @@ namespace HomagConnect.MaterialAssist.Client
 
             var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
 
-            var payload = JsonConvert.SerializeObject(updateEdgebandEntity);
+            var payload = JsonConvert.SerializeObject(updateEdgebandEntity, SerializerSettings.Default);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent);
+            var result = JsonConvert.DeserializeObject<EdgebandEntity>(responseContent, SerializerSettings.Default);
 
             if (result != null)
             {
@@ -313,7 +314,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(storeEdgebandEntity.Id)}/store";
 
-            var payload = JsonConvert.SerializeObject(storeEdgebandEntity);
+            var payload = JsonConvert.SerializeObject(storeEdgebandEntity, SerializerSettings.Default);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await PostObject(new Uri(url, UriKind.Relative), content).ConfigureAwait(false);
 

@@ -60,7 +60,7 @@ namespace HomagConnect.ProductionManager.Client
 
             var result = await response.Content.ReadAsStringAsync();
 
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }
@@ -182,6 +182,26 @@ namespace HomagConnect.ProductionManager.Client
             return GetOrders([orderNumber]).FirstOrDefaultAsync();
         }
 
+        #endregion
+
+        #region Order release
+        /// <inheritdoc />
+        public async Task ReleaseOrder(Guid orderId)
+        {
+            var url = $"/api/productionManager/orders/{orderId}/release";
+            var response = await PatchObject(new Uri(url, UriKind.Relative));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        /// <inheritdoc />
+        public async Task ResetReleaseOrder(Guid orderId)
+        {
+            var url = $"/api/productionManager/orders/{orderId}/resetRelease";
+            var response = await PatchObject(new Uri(url, UriKind.Relative));
+
+            response.EnsureSuccessStatusCode();
+        }
         #endregion
 
         #region Prediction

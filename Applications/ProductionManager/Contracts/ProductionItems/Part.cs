@@ -7,20 +7,39 @@ using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionEntity;
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Production entity production order.
+/// Represents a part in an order, including its properties for laminating, edgebanding, dimensions, materials, and CNC
+/// programs.
 /// </summary>
-public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties
+public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties
 {
+    #region (60) Production resources
+
+    /// <summary>
+    /// Gets or set the production resources.
+    /// </summary>
+    [JsonProperty(Order = 60)]
+    public Collection<Resource>? ProductionResources { get; set; }
+
+    #endregion
+
+    #region (99) IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc />
+    [JsonProperty(Order = 999)]
+    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+
+    #endregion
+
     #region (10) Article
 
     /// <inheritdoc />
     [JsonProperty(Order = 0)]
-    public override ProductionEntityType Type { get; set; } = ProductionEntityType.ProductionOrder;
+    public override ProductionItemType Type { get; set; } = ProductionItemType.Part;
 
     /// <summary>
     /// Gets or sets the thickness.
@@ -81,6 +100,16 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? FinishWidth { get; set; }
+
+    /// <summary>
+    /// Surface Bottom
+    /// </summary>
+    public string? SurfaceBottom { get; set; }
+
+    /// <summary>
+    /// Surface Top
+    /// </summary>
+    public string? SurfaceTop { get; set; }
 
     #endregion
 
@@ -184,6 +213,12 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [JsonProperty(Order = 41)]
     public string? CncProgramName2 { get; set; }
 
+    /// <summary>
+    /// Gets or sets the CNC program name 3.
+    /// </summary>
+    [JsonProperty(Order = 42)]
+    public string? CncProgramName3 { get; set; }
+
     #endregion
 
     #region (50) ILaminatingProperties
@@ -200,23 +235,15 @@ public class ProductionEntityProductionOrder : ProductionEntity, ILaminatingProp
     [StringLength(50, MinimumLength = 1)]
     public string? LaminateBottom { get; set; }
 
-    #endregion
-
-    #region (60) Production resources
+    /// <summary>
+    /// LaminateBottomGrain: optional
+    /// </summary>
+    public Grain? LaminateBottomGrain { get; set; }
 
     /// <summary>
-    /// Gets or set the production resources.
+    /// LaminateTopGrain: optional
     /// </summary>
-    [JsonProperty(Order = 60)]
-    public Collection<ProductionEntityResource>? ProductionResources { get; set; }
-
-    #endregion
-
-    #region (99) IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 999)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+    public Grain? LaminateTopGrain { get; set; }
 
     #endregion
 }

@@ -1,4 +1,5 @@
-﻿using HomagConnect.ProductionManager.Contracts.ProductionEntity;
+﻿using HomagConnect.ProductionManager.Contracts.ProductionItems;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Lots;
@@ -12,5 +13,5 @@ public class LotDetails : Lot
     /// Gets or sets the production orders in the lot.
     /// </summary>
     [JsonProperty(Order = 50)]
-    public ProductionEntityProductionOrder[]? ProductionOrders { get; set; }
+    public Part[]? ProductionOrders { get; set; }
 }

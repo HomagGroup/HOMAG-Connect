@@ -45,7 +45,21 @@ namespace HomagConnect.ProductionManager.Contracts
 
         #endregion
 
-       
+        #region Order release
+        /// <summary>
+        /// Release order
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task ReleaseOrder(Guid orderId);
+
+        /// <summary>
+        /// Reset release order
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task ResetReleaseOrder(Guid orderId);
+        #endregion
 
         #region Order import
 
