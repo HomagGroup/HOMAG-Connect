@@ -27,7 +27,7 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// <summary>
         /// Gets or sets the address of the customer.
         /// </summary>
-        public string? CustomerNumber { get; set; }
+        public string CustomerNumber { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the contact email of the customer.
