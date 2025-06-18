@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
     /// <inheritdoc />
-    public class Material : IContainsUnitSystemDependentProperties 
+    public class Material : IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// The average costs of the material, given in the subscriptions currency / subscription unit system.
@@ -103,7 +103,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// The thickness of the material.
         /// </summary>
         [JsonProperty(Order = 3)]
-        public DoubleValue Thickness { get; set; } = new DoubleValue(null, null);
+        public DoubleValue Thickness { get; set; } = new DoubleValue(null);
 
         /// <summary>
         /// Gets or set the thumbnail uri.
