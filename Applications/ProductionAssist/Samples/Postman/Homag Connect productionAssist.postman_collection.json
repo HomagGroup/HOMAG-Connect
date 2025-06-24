@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3337ec5b-524c-431d-a45d-afb72049e80d",
+		"_postman_id": "246c04ba-e6b0-4ec9-bc8f-2cdd11a4b4f7",
 		"name": "Homag Connect productionAssist",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -37,7 +37,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs",
+									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs?cuttingJobId=4c700a43-18d6-44bc-9e33-9c1c34d56890",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -50,13 +50,12 @@
 									"query": [
 										{
 											"key": "cuttingJobId",
-											"value": null,
-											"description": "Cutting job id",
-											"disabled": true
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Cutting job id"
 										},
 										{
 											"key": "cuttingJobId",
-											"value": null,
+											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
 											"description": "Cutting job id",
 											"disabled": true
 										}
@@ -76,7 +75,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs",
+									"raw": "{{ConnectHost}}/api/productionAssist/cutting/jobs?cuttingJobId=4c700a43-18d6-44bc-9e33-9c1c34d56890",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -89,13 +88,12 @@
 									"query": [
 										{
 											"key": "cuttingJobId",
-											"value": null,
-											"description": "Cutting job id",
-											"disabled": true
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Cutting job id"
 										},
 										{
 											"key": "cuttingJobId",
-											"value": null,
+											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
 											"description": "Cutting job id",
 											"disabled": true
 										}
@@ -140,7 +138,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs",
+									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs?nestingJobId=4c700a43-18d6-44bc-9e33-9c1c34d56890",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -153,13 +151,12 @@
 									"query": [
 										{
 											"key": "nestingJobId",
-											"value": null,
-											"description": "Nesting job id",
-											"disabled": true
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Nesting job id"
 										},
 										{
 											"key": "nestingJobId",
-											"value": null,
+											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
 											"description": "Nesting job id",
 											"disabled": true
 										}
@@ -179,7 +176,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs",
+									"raw": "{{ConnectHost}}/api/productionAssist/nesting/jobs?nestingJobId=4c700a43-18d6-44bc-9e33-9c1c34d56890",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -192,13 +189,12 @@
 									"query": [
 										{
 											"key": "nestingJobId",
-											"value": null,
-											"description": "Nesting job id",
-											"disabled": true
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Nesting job id"
 										},
 										{
 											"key": "nestingJobId",
-											"value": null,
+											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
 											"description": "Nesting job id",
 											"disabled": true
 										}
@@ -212,7 +208,7 @@
 			]
 		},
 		{
-			"name": "OrderItems",
+			"name": "Order items",
 			"item": [
 				{
 					"name": "Read",
@@ -223,7 +219,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionAssist/orderItems",
+									"raw": "{{ConnectHost}}/api/productionAssist/orderItems?identifier=4c700a43-18d6-44bc-9e33-9c1c34d56890",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -235,13 +231,12 @@
 									"query": [
 										{
 											"key": "identifier",
-											"value": null,
-											"description": "Your order item identifier",
-											"disabled": false
+											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+											"description": "Your order item identifier"
 										},
 										{
 											"key": "identifier",
-											"value": null,
+											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
 											"description": "Your order item identifier",
 											"disabled": true
 										}
