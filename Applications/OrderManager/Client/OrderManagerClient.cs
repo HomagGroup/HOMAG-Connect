@@ -417,12 +417,7 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentNullException(nameof(customerIds), "At least one order id must be passed.");
             }
 
-            var uris = distinctCustomerIds
-                .Select(id => $"&customerId={id}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_CustomerRoute}" + parameter)
-                .Select(c => new Uri(c, UriKind.Relative));
+            var uris = CreateUrls(distinctCustomerIds.Select(x => x.ToString()), "customerId", _CustomerRoute);
 
             foreach (var uri in uris)
             {
@@ -447,12 +442,7 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentNullException(nameof(customerNumbers), "At least one customer number must be passed.");
             }
 
-            var uris = distinctCustomerNumbers
-                .Select(number => $"&customerNumber={number}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_CustomerRoute}" + parameter)
-                .Select(c => new Uri(c, UriKind.Relative));
+            var uris = CreateUrls(distinctCustomerNumbers, "customerNumber", _CustomerRoute);
 
             foreach (var uri in uris)
             {
@@ -466,8 +456,7 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<Customer?>> GetCustomers()
         {
-            var url = "/api/orderManager/customers";
-            var customers = await RequestEnumerable<Customer>(new Uri(url, UriKind.Relative)) ?? Array.Empty<Customer>();
+            var customers = await RequestEnumerable<Customer>(new Uri(_CustomerRoute, UriKind.Relative)) ?? Array.Empty<Customer>();
 
             return customers;
         }
@@ -479,24 +468,23 @@ namespace HomagConnect.OrderManager.Client
             {
                 throw new ArgumentNullException(nameof(customerNumbers));
             }
-            
-            var numbers = customerNumbers
+
+            var distinctCustomerNumbers = customerNumbers
                 .Where(b => !string.IsNullOrWhiteSpace(b))
                 .Distinct()
                 .OrderBy(b => b).ToList();
 
-            if (!numbers.Any())
+            if (!distinctCustomerNumbers.Any())
             {
                 throw new ArgumentNullException(nameof(customerNumbers), "At least one customer number must be passed.");
             }
 
-            var route = "/api/orderManager/customers";
-            var urls = CreateUrls(numbers, "customerNumber", route);
-            
+            var uris = CreateUrls(distinctCustomerNumbers, "customerNumber", _CustomerRoute);
+
             var customers = new List<Customer?>();
-            foreach (var url in urls)
+            foreach (var uri in uris)
             {
-                customers.AddRange(await RequestEnumerable<Customer>(new Uri(url, UriKind.Relative)) ?? Array.Empty<Customer>());
+                customers.AddRange(await RequestEnumerable<Customer>(uri) ?? Array.Empty<Customer>());
             }
 
             return customers;
@@ -510,22 +498,21 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentNullException(nameof(customerIds));
             }
 
-            var ids = customerIds
+            var distinctCustomerIds = customerIds
                 .Distinct()
                 .OrderBy(b => b).ToList();
 
-            if (!ids.Any())
+            if (!distinctCustomerIds.Any())
             {
-                throw new ArgumentNullException(nameof(customerIds), "At least one customer number must be passed.");
+                throw new ArgumentNullException(nameof(customerIds), "At least one customer id must be passed.");
             }
 
-            var route = "/api/orderManager/customers";
-            var urls = CreateUrls(ids.Select(x => x.ToString()), "customerId", route);
+            var uris = CreateUrls(distinctCustomerIds.Select(x => x.ToString()), "customerId", _CustomerRoute);
 
             var customers = new List<Customer?>();
-            foreach (var url in urls)
+            foreach (var uri in uris)
             {
-                customers.AddRange(await RequestEnumerable<Customer>(new Uri(url, UriKind.Relative)) ?? Array.Empty<Customer>());
+                customers.AddRange(await RequestEnumerable<Customer>(uri) ?? Array.Empty<Customer>());
             }
 
             return customers;
@@ -547,14 +534,16 @@ namespace HomagConnect.OrderManager.Client
         #endregion Get Customers
 
         #region Private methods
-        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
+
+        private static List<Uri> CreateUrls(IEnumerable<string> searchParams, string searchCode, string route)
         {
-            var urls = codes
-                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            var uris = searchParams
+                .Select(searchParam => $"&{searchCode}={Uri.EscapeDataString(searchParam)}")
                 .Join(QueryParametersMaxLength)
                 .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRoute}{route}" + parameter).ToList();
-            return urls;
+                .Select(parameterSet => $"{route}" + parameterSet)
+                .Select(c => new Uri(c, UriKind.Relative)).ToList();
+            return uris;
         }
 
         #endregion
