@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts;
+using HomagConnect.OrderManager.Contracts.Customers;
 using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
@@ -137,6 +138,44 @@ namespace HomagConnect.OrderManager.Contracts
         /// <param name="customerNumbers"></param>
         /// <returns></returns>
         Task DeleteCustomersByCustomerNumbers(IEnumerable<string> customerNumbers);
+        #endregion
+
+        #region Get customers
+
+        /// <summary>
+        /// Get all customers excluding additional data.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Customer?>> GetCustomers();
+
+        /// <summary>
+        /// Get customers by their customer numbers including additional data.
+        /// </summary>
+        /// <param name="customerNumbers"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Customer?>> GetCustomers(string[] customerNumbers);
+
+        /// <summary>
+        /// Get customers by their customer ids including additional data.
+        /// </summary>
+        /// <param name="customerIds"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Customer?>> GetCustomers(Guid[] customerIds);
+
+        /// <summary>
+        /// Get a specific customer by its customer number including additional data.
+        /// </summary>
+        /// <param name="customerNumber"></param>
+        /// <returns></returns>
+        Task<Customer?> GetCustomer(string customerNumber);
+
+        /// <summary>
+        /// Get a specific customer by its customer id including additional data.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        Task<Customer?> GetCustomer(Guid customerId);
+
         #endregion
     }
 }

@@ -12,6 +12,7 @@ using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.OrderManager.Contracts;
+using HomagConnect.OrderManager.Contracts.Customers;
 using HomagConnect.OrderManager.Contracts.Import;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
@@ -416,12 +417,7 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentNullException(nameof(customerIds), "At least one order id must be passed.");
             }
 
-            var uris = distinctCustomerIds
-                .Select(id => $"&customerId={id}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_CustomerRoute}" + parameter)
-                .Select(c => new Uri(c, UriKind.Relative));
+            var uris = CreateUrls(distinctCustomerIds.Select(x => x.ToString()), "customerId", _CustomerRoute);
 
             foreach (var uri in uris)
             {
@@ -446,12 +442,7 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentNullException(nameof(customerNumbers), "At least one customer number must be passed.");
             }
 
-            var uris = distinctCustomerNumbers
-                .Select(number => $"&customerNumber={number}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_CustomerRoute}" + parameter)
-                .Select(c => new Uri(c, UriKind.Relative));
+            var uris = CreateUrls(distinctCustomerNumbers, "customerNumber", _CustomerRoute);
 
             foreach (var uri in uris)
             {
@@ -459,5 +450,103 @@ namespace HomagConnect.OrderManager.Client
             }
         }
         #endregion
+
+        #region Get Customers
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Customer?>> GetCustomers()
+        {
+            var customers = await RequestEnumerable<Customer>(new Uri(_CustomerRoute, UriKind.Relative)) ?? Array.Empty<Customer>();
+
+            return customers;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Customer?>> GetCustomers(string[] customerNumbers)
+        {
+            if (customerNumbers == null)
+            {
+                throw new ArgumentNullException(nameof(customerNumbers));
+            }
+
+            var distinctCustomerNumbers = customerNumbers
+                .Where(b => !string.IsNullOrWhiteSpace(b))
+                .Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!distinctCustomerNumbers.Any())
+            {
+                throw new ArgumentNullException(nameof(customerNumbers), "At least one customer number must be passed.");
+            }
+
+            var uris = CreateUrls(distinctCustomerNumbers, "customerNumber", _CustomerRoute);
+
+            var customers = new List<Customer?>();
+            foreach (var uri in uris)
+            {
+                customers.AddRange(await RequestEnumerable<Customer>(uri) ?? Array.Empty<Customer>());
+            }
+
+            return customers;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Customer?>> GetCustomers(Guid[] customerIds)
+        {
+            if (customerIds == null)
+            {
+                throw new ArgumentNullException(nameof(customerIds));
+            }
+
+            var distinctCustomerIds = customerIds
+                .Distinct()
+                .OrderBy(b => b).ToList();
+
+            if (!distinctCustomerIds.Any())
+            {
+                throw new ArgumentNullException(nameof(customerIds), "At least one customer id must be passed.");
+            }
+
+            var uris = CreateUrls(distinctCustomerIds.Select(x => x.ToString()), "customerId", _CustomerRoute);
+
+            var customers = new List<Customer?>();
+            foreach (var uri in uris)
+            {
+                customers.AddRange(await RequestEnumerable<Customer>(uri) ?? Array.Empty<Customer>());
+            }
+
+            return customers;
+        }
+
+        /// <inheritdoc />
+        public async Task<Customer?> GetCustomer(string customerNumber)
+        {
+            return await GetCustomers([customerNumber]).FirstOrDefaultAsync();
+
+        }
+
+        /// <inheritdoc />
+        public async Task<Customer?> GetCustomer(Guid customerId)
+        {
+            return await GetCustomers([customerId]).FirstOrDefaultAsync();
+        }
+
+        #endregion Get Customers
+
+        #region Private methods
+
+        private static List<Uri> CreateUrls(IEnumerable<string> searchParams, string searchCode, string route)
+        {
+            var uris = searchParams
+                .Select(searchParam => $"&{searchCode}={Uri.EscapeDataString(searchParam)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.Remove(0, 1).Insert(0, "?"))
+                .Select(parameterSet => $"{route}" + parameterSet)
+                .Select(c => new Uri(c, UriKind.Relative)).ToList();
+            return uris;
+        }
+
+        #endregion
+
     }
 }
