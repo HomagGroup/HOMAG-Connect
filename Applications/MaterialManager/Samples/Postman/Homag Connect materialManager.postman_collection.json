@@ -376,7 +376,7 @@
 					"name": "CNC",
 					"item": [
 						{
-							"name": "Get Milling Parameter Tool Groups",
+							"name": "Get milling tool groups",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -398,7 +398,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Milling Parameter Material Groups",
+							"name": "Get milling material groups",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -420,7 +420,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Milling Parameter Parameter Groups",
+							"name": "Get milling parameter groups",
 							"request": {
 								"method": "GET",
 								"header": [],
