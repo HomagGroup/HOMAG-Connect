@@ -371,6 +371,77 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "CNC",
+					"item": [
+						{
+							"name": "Get milling tool groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/toolGroups",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"processing",
+										"cnc",
+										"milling",
+										"toolGroups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get milling material groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/materialGroups",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"processing",
+										"cnc",
+										"milling",
+										"materialGroups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get milling parameter groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/parameterGroups",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"processing",
+										"cnc",
+										"milling",
+										"parameterGroups"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
