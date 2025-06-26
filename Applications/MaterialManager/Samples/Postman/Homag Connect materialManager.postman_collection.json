@@ -186,6 +186,27 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get materials for current subscription",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"materials"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
