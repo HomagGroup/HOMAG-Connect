@@ -230,6 +230,26 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get orders details + bill of materials",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders",
+										"{{OrderId}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
