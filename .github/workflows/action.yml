@@ -14,3 +14,4 @@ jobs:
           fail_level: any
           filter_mode: nofilter
           config_file: .github/workflows/config/linkspector.yml
+          format: rdjson
