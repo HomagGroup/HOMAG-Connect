@@ -15,7 +15,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
         /// <summary>
         /// Small size.
         /// </summary
-        
         [Display(Description = "Small")]
         Small,
 

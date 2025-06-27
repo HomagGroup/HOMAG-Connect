@@ -26,7 +26,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             displayNames.Trace();
         }
 
-        /// <summary /> 
+        /// <summary />
         [TestMethod]
         public void MaterialManager_Localization_Grain()
         {
@@ -166,7 +166,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
         {
             var culture = CultureInfo.GetCultureInfo(cultureName);
             var displayNames = EnumExtensions.GetDisplayNames<ImageType>(culture);
-            
+
             foreach (ImageType value in Enum.GetValues(typeof(ImageType)))
             {
                 var expected = ImageTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
