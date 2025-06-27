@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts.Enumerations {
+namespace HomagConnect.MaterialManager.Contracts.Material.Base {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.Base.Contracts.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationTypeDisplayNames {
+    public class ImageTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationTypeDisplayNames() {
+        internal ImageTypeDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Enumerations.WorkstationTypeDisplayNames", typeof(WorkstationTypeDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Base.ImageTypeDisplayNames", typeof(ImageTypeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,56 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platten.
+        ///   Looks up a localized string similar to Drawing.
         /// </summary>
-        internal static string Boards {
+        internal static string Drawing {
             get {
-                return ResourceManager.GetString("Boards", resourceCulture);
+                return ResourceManager.GetString("Drawing", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kantenanleimen.
+        ///   Looks up a localized string similar to Label.
         /// </summary>
-        internal static string Edgebanding {
+        internal static string Label {
             get {
-                return ResourceManager.GetString("Edgebanding", resourceCulture);
+                return ResourceManager.GetString("Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Measurement.
+        /// </summary>
+        internal static string Measurement {
+            get {
+                return ResourceManager.GetString("Measurement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picture.
+        /// </summary>
+        internal static string Picture {
+            get {
+                return ResourceManager.GetString("Picture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpecSheet.
+        /// </summary>
+        internal static string SpecSheet {
+            get {
+                return ResourceManager.GetString("SpecSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture.
+        /// </summary>
+        internal static string Texture {
+            get {
+                return ResourceManager.GetString("Texture", resourceCulture);
             }
         }
     }
