@@ -18,12 +18,12 @@ The Subscription Id and Authorization Key can be obtained by subscription admini
 
 ![alt text](AuthorizationKey01.jpg)
 
-- Open the Authorization Keys dialog.
+- Click on "Create authorization key" 
 
 ![alt text](AuthorizationKey02.jpg)
 
-- Click on Add and Confirm to create a new key. 
-Enter a meaningful description for your authorization key so that you can easily identify the correct key later if you wish to revoke it.
+- Name your key(1). Enter a meaningful description for your authorization key so that you can easily identify the correct key later if you wish to revoke it.
+- And then create the key(2) . 
 
 ![alt text](AuthorizationKey03.jpg)
 
