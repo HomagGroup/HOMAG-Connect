@@ -1,10 +1,17 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
+using Newtonsoft.Json;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
 {
     /// <summary>
     /// Book height mode
     /// </summary>
+    [ResourceManager(typeof(BookHeightModeDisplayNames))]
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum BookHeightMode
     {
         /// <summary>
@@ -16,11 +23,13 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// <summary>
         /// Maximum book height of the machine
         /// </summary>
+        [Display(Description = "Maximum Book Height Of Machine")] 
         MaximumBookHeightOfMachine,
 
         /// <summary>
         /// Single board
         /// </summary>
+        [Display(Description = "Single Board")] 
         SingleBoard,
         
         /// <summary>
@@ -32,6 +41,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         /// <summary>
         /// Limit of the book height can be set
         /// </summary>
+        [Display(Description = "Limited Book Height")] 
         LimitedBookHeight
     }
 }

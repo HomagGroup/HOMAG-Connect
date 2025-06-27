@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts.Enumerations {
+namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.Base.Contracts.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationTypeDisplayNames {
+    public class BookHeightModeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationTypeDisplayNames() {
+        internal BookHeightModeDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Enumerations.WorkstationTypeDisplayNames", typeof(WorkstationTypeDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Processing.Optimization.BookHeightModeDisp" +
+                            "layNames", typeof(BookHeightModeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +62,47 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platten.
+        ///   Looks up a localized string similar to LimitedBookHeight.
         /// </summary>
-        internal static string Boards {
+        internal static string LimitedBookHeight {
             get {
-                return ResourceManager.GetString("Boards", resourceCulture);
+                return ResourceManager.GetString("LimitedBookHeight", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kantenanleimen.
+        ///   Looks up a localized string similar to MaximumBookHeightOfMachine.
         /// </summary>
-        internal static string Edgebanding {
+        internal static string MaximumBookHeightOfMachine {
             get {
-                return ResourceManager.GetString("Edgebanding", resourceCulture);
+                return ResourceManager.GetString("MaximumBookHeightOfMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MaximumSawBladeProjectionDeduction.
+        /// </summary>
+        internal static string MaximumSawBladeProjectionDeduction {
+            get {
+                return ResourceManager.GetString("MaximumSawBladeProjectionDeduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SingleBoard.
+        /// </summary>
+        internal static string SingleBoard {
+            get {
+                return ResourceManager.GetString("SingleBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpecificValue.
+        /// </summary>
+        internal static string SpecificValue {
+            get {
+                return ResourceManager.GetString("SpecificValue", resourceCulture);
             }
         }
     }

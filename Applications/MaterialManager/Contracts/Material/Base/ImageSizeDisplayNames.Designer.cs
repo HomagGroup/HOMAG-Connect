@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts.Enumerations {
+namespace HomagConnect.MaterialManager.Contracts.Material.Base {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.Base.Contracts.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationTypeDisplayNames {
+    public class ImageSizeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationTypeDisplayNames() {
+        internal ImageSizeDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Enumerations.WorkstationTypeDisplayNames", typeof(WorkstationTypeDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Base.ImageSizeDisplayNames", typeof(ImageSizeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,56 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platten.
+        ///   Looks up a localized string similar to Larger.
         /// </summary>
-        internal static string Boards {
+        internal static string Larger {
             get {
-                return ResourceManager.GetString("Boards", resourceCulture);
+                return ResourceManager.GetString("Larger", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kantenanleimen.
+        ///   Looks up a localized string similar to Medium.
         /// </summary>
-        internal static string Edgebanding {
+        internal static string Medium {
             get {
-                return ResourceManager.GetString("Edgebanding", resourceCulture);
+                return ResourceManager.GetString("Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        internal static string Original {
+            get {
+                return ResourceManager.GetString("Original", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small.
+        /// </summary>
+        internal static string Small {
+            get {
+                return ResourceManager.GetString("Small", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextureSquare.
+        /// </summary>
+        internal static string TextureSquare {
+            get {
+                return ResourceManager.GetString("TextureSquare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThumbnailSquare.
+        /// </summary>
+        internal static string ThumbnailSquare {
+            get {
+                return ResourceManager.GetString("ThumbnailSquare", resourceCulture);
             }
         }
     }

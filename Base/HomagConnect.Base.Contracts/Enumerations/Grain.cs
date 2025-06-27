@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
@@ -14,15 +16,18 @@ public enum Grain
     /// <summary>
     /// No grain.
     /// </summary>
+    [Display(Description = "None")] 
     None = 0,
 
     /// <summary>
     /// Grain along the length.
     /// </summary>
+    [Display(Description = "Lengthwise")] 
     Lengthwise = 1,
 
     /// <summary>
     /// Grain along the width.
     /// </summary>
+    [Display(Description = "Crosswise")] 
     Crosswise = 2
 }

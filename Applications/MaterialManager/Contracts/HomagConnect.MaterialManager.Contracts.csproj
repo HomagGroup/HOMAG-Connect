@@ -31,6 +31,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Material\Base\ImageSizeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ImageSizeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Material\Base\ImageTypeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ImageTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Material\Base\ManagementTypeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ManagementTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Material\Boards\Enumerations\BoardMaterialCategoryDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -56,9 +71,31 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
+	  <Compile Update="Processing\Optimization\BookHeightModeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>BookHeightModeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Processing\Optimization\TensionTrimTypeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TensionTrimTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Material\Base\ImageSizeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ImageSizeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Base\ImageTypeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ImageTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Base\ManagementTypeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ManagementTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Boards\Enumerations\BoardMaterialCategoryDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>BoardMaterialCategoryDisplayNames.Designer.cs</LastGenOutput>
@@ -82,6 +119,14 @@
 	  <EmbeddedResource Update="Material\Edgebands\Enumerations\EdgebandingProcessDisplayNames.resx">
 	    <LastGenOutput>EdgebandingProcessDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Processing\Optimization\BookHeightModeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>BookHeightModeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Processing\Optimization\TensionTrimTypeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>TensionTrimTypeDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 
