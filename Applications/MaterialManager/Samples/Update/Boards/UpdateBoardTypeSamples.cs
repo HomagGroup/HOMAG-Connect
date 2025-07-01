@@ -20,8 +20,8 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
                 Length = 2070.0,
                 // Add other properties
             };
-            var updatedBoardType = await client.UpdateBoardType("BT_White_19mm", boardTypeUpdate);
-            Console.WriteLine($"Updated Board Type: {updatedBoardType.Code}");
+            var updatedBoardType = await materialManager.UpdateBoardType("BT_White_19mm", boardTypeUpdate);
+            Console.WriteLine($"Updated Board Type: {updatedBoardType.BoardCode}");
         }
     }
 }
