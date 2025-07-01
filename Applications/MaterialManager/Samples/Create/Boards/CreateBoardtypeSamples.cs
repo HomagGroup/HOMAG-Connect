@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Samples.Create.Boards
 {
-    public class CreateBoardtypeSamples
+    public class CreateBoardTypeSamples
     {
         /// <summary>
-        /// The example shows how to get the first three optimizations.
+        /// The example shows how create a boardtype.
         /// </summary>
-        public static async Task Boards_CreateBoardtype(IMaterialManagerClientMaterialBoards materialManager)
+        public static async Task Boards_CreateBoardType(IMaterialManagerClientMaterialBoards materialManager)
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType
             {
