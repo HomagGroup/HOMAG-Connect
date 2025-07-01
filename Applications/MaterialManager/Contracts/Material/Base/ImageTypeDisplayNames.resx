@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Drawing" xml:space="preserve">
-    <value>Drawing</value>
+    <value>Zeichnung</value>
   </data>
   <data name="Label" xml:space="preserve">
-    <value>Label</value>
+    <value>Etikett</value>
   </data>
   <data name="Measurement" xml:space="preserve">
-    <value>Measurement</value>
+    <value>Maße</value>
   </data>
   <data name="Picture" xml:space="preserve">
-    <value>Picture</value>
+    <value>Bild</value>
   </data>
   <data name="SpecSheet" xml:space="preserve">
-    <value>SpecSheet</value>
+    <value>Datenblatt</value>
   </data>
   <data name="Texture" xml:space="preserve">
-    <value>Texture</value>
+    <value>Textur</value>
   </data>
 </root>

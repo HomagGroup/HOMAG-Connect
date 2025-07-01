@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BridgeCenteredBetweenStrips" xml:space="preserve">
-    <value>BridgeCenteredBetweenStrips</value>
+    <value>Steg mittig zwischen Streifen</value>
   </data>
   <data name="SimpleTensionTrim" xml:space="preserve">
-    <value>SimpleTensionTrim</value>
+    <value>Einfacher Spannungsfreischnitt</value>
   </data>
   <data name="SlotCenteredBetweenStrips" xml:space="preserve">
-    <value>SlotCenteredBetweenStrips</value>
+    <value>Schlitz mittig zwischen Streifen</value>
   </data>
 </root>

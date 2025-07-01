@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GoodsInStock" xml:space="preserve">
-    <value>GoodsInStock</value>
+    <value>Lagerware</value>
   </data>
   <data name="Single" xml:space="preserve">
-    <value>Single</value>
+    <value>Einzelmaterial</value>
   </data>
   <data name="Stack" xml:space="preserve">
-    <value>Stack</value>
+    <value>Stapel</value>
   </data>
 </root>

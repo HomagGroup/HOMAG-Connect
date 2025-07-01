@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ManagementTypeDisplayNames {
+    internal class ManagementTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Base.ManagementTypeDisplayNames", typeof(ManagementTypeDisplayNames).Assembly);
@@ -61,7 +61,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoodsInStock.
+        ///   Looks up a localized string similar to Lagerware.
         /// </summary>
         internal static string GoodsInStock {
             get {
@@ -70,7 +70,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Single.
+        ///   Looks up a localized string similar to Einzelmaterial.
         /// </summary>
         internal static string Single {
             get {
@@ -79,7 +79,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stack.
+        ///   Looks up a localized string similar to Stapel.
         /// </summary>
         internal static string Stack {
             get {

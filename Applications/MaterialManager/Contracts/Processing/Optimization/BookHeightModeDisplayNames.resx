@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LimitedBookHeight" xml:space="preserve">
-    <value>LimitedBookHeight</value>
+    <value>Begrenzte Pakethöhe</value>
   </data>
   <data name="MaximumBookHeightOfMachine" xml:space="preserve">
-    <value>MaximumBookHeightOfMachine</value>
+    <value>Maximale Pakethöhe der Maschine</value>
   </data>
   <data name="MaximumSawBladeProjectionDeduction" xml:space="preserve">
-    <value>MaximumSawBladeProjectionDeduction</value>
+    <value>Maximaler Sägeblattüberstand</value>
   </data>
   <data name="SingleBoard" xml:space="preserve">
-    <value>SingleBoard</value>
+    <value>Einzelplatte</value>
   </data>
   <data name="SpecificValue" xml:space="preserve">
-    <value>SpecificValue</value>
+    <value>Spezifischer Wert</value>
   </data>
 </root>

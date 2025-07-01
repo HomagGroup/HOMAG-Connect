@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ImageTypeDisplayNames {
+    internal class ImageTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Base.ImageTypeDisplayNames", typeof(ImageTypeDisplayNames).Assembly);
@@ -61,7 +61,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drawing.
+        ///   Looks up a localized string similar to Zeichnung.
         /// </summary>
         internal static string Drawing {
             get {
@@ -70,7 +70,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Label.
+        ///   Looks up a localized string similar to Etikett.
         /// </summary>
         internal static string Label {
             get {
@@ -79,7 +79,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Measurement.
+        ///   Looks up a localized string similar to Maße.
         /// </summary>
         internal static string Measurement {
             get {
@@ -88,7 +88,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Picture.
+        ///   Looks up a localized string similar to Bild.
         /// </summary>
         internal static string Picture {
             get {
@@ -97,7 +97,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SpecSheet.
+        ///   Looks up a localized string similar to Datenblatt.
         /// </summary>
         internal static string SpecSheet {
             get {
@@ -106,7 +106,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Texture.
+        ///   Looks up a localized string similar to Textur.
         /// </summary>
         internal static string Texture {
             get {

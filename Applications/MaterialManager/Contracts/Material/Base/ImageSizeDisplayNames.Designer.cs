@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ImageSizeDisplayNames {
+    internal class ImageSizeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Base.ImageSizeDisplayNames", typeof(ImageSizeDisplayNames).Assembly);
@@ -61,7 +61,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Larger.
+        ///   Looks up a localized string similar to Groß.
         /// </summary>
         internal static string Larger {
             get {
@@ -70,7 +70,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Medium.
+        ///   Looks up a localized string similar to Mittel.
         /// </summary>
         internal static string Medium {
             get {
@@ -88,7 +88,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Small.
+        ///   Looks up a localized string similar to Klein.
         /// </summary>
         internal static string Small {
             get {
@@ -97,7 +97,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TextureSquare.
+        ///   Looks up a localized string similar to Textur.
         /// </summary>
         internal static string TextureSquare {
             get {
@@ -106,7 +106,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ThumbnailSquare.
+        ///   Looks up a localized string similar to Vorschaubild.
         /// </summary>
         internal static string ThumbnailSquare {
             get {

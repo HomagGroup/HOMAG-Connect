@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Larger" xml:space="preserve">
-    <value>Larger</value>
+    <value>Groß</value>
   </data>
   <data name="Medium" xml:space="preserve">
-    <value>Medium</value>
+    <value>Mittel</value>
   </data>
   <data name="Original" xml:space="preserve">
     <value>Original</value>
   </data>
   <data name="Small" xml:space="preserve">
-    <value>Small</value>
+    <value>Klein</value>
   </data>
   <data name="TextureSquare" xml:space="preserve">
-    <value>TextureSquare</value>
+    <value>Textur</value>
   </data>
   <data name="ThumbnailSquare" xml:space="preserve">
-    <value>ThumbnailSquare</value>
+    <value>Vorschaubild</value>
   </data>
 </root>

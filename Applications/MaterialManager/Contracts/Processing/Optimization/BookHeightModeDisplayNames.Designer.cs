@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BookHeightModeDisplayNames {
+    internal class BookHeightModeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Processing.Optimization.BookHeightModeDisp" +
@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LimitedBookHeight.
+        ///   Looks up a localized string similar to Begrenzte Pakethöhe.
         /// </summary>
         internal static string LimitedBookHeight {
             get {
@@ -71,7 +71,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MaximumBookHeightOfMachine.
+        ///   Looks up a localized string similar to Maximale Pakethöhe der Maschine.
         /// </summary>
         internal static string MaximumBookHeightOfMachine {
             get {
@@ -80,7 +80,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MaximumSawBladeProjectionDeduction.
+        ///   Looks up a localized string similar to Maximaler Sägeblattüberstand.
         /// </summary>
         internal static string MaximumSawBladeProjectionDeduction {
             get {
@@ -89,7 +89,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SingleBoard.
+        ///   Looks up a localized string similar to Einzelplatte.
         /// </summary>
         internal static string SingleBoard {
             get {
@@ -98,7 +98,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SpecificValue.
+        ///   Looks up a localized string similar to Spezifischer Wert.
         /// </summary>
         internal static string SpecificValue {
             get {

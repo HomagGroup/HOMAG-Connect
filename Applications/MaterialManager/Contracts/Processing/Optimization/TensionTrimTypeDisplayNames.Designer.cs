@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class TensionTrimTypeDisplayNames {
+    internal class TensionTrimTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Processing.Optimization.TensionTrimTypeDis" +
@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BridgeCenteredBetweenStrips.
+        ///   Looks up a localized string similar to Steg mittig zwischen Streifen.
         /// </summary>
         internal static string BridgeCenteredBetweenStrips {
             get {
@@ -71,7 +71,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SimpleTensionTrim.
+        ///   Looks up a localized string similar to Einfacher Spannungsfreischnitt.
         /// </summary>
         internal static string SimpleTensionTrim {
             get {
@@ -80,7 +80,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SlotCenteredBetweenStrips.
+        ///   Looks up a localized string similar to Schlitz mittig zwischen Streifen.
         /// </summary>
         internal static string SlotCenteredBetweenStrips {
             get {
