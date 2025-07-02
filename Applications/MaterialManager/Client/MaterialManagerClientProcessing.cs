@@ -16,6 +16,7 @@ public class MaterialManagerClientProcessing : ServiceBase
     public MaterialManagerClientProcessing(HttpClient client) : base(client)
     {
         Optimization = new MaterialManagerClientProcessingOptimization(client);
+        Cnc = new MaterialManagerClientProcessingCnc(client);
     }
 
     /// <summary>
@@ -23,5 +24,10 @@ public class MaterialManagerClientProcessing : ServiceBase
     /// </summary>
     public MaterialManagerClientProcessingOptimization Optimization { get; }
 
-    
+    /// <summary>
+    /// 
+    /// </summary>
+    public MaterialManagerClientProcessingCnc Cnc { get; }
+
+
 }
