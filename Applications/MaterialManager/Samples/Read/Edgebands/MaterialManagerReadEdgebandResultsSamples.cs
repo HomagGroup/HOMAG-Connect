@@ -19,14 +19,14 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         {
             // Define the edgebandCode you want to retrieve data for (string):
             var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
-            var edgebandType = materialManager.GetEdgebandTypeByEdgebandCode(edgebandCode);
+            var edgebandType = await materialManager.GetEdgebandTypeByEdgebandCode(edgebandCode);
         }
 
         public static async Task Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             // Define the edgebandCode you want to retrieve data for (string):
             var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
-            var edgebandType = materialManager.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgebandCode);
+            var edgebandType = await materialManager.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgebandCode);
         }
 
         /// <summary>
@@ -34,14 +34,13 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         /// </summary>
         public static async Task Edgebands_GetEdgebandTypes(IMaterialManagerClientMaterialEdgebands materialManager)
         {
-            // parameter is described as int take
-            // (was ist parameter take???)
-            var tapioMachines = materialManager.GetEdgebandTypes(6);
+            // parameter int take
+            var tapioMachines = await materialManager.GetEdgebandTypes(6);
         }
         public static async Task Edgebands_GetEdgebandTypesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
         {
-            // parameter is described as int take
-            var tapioMachines = materialManager.GetEdgebandTypesIncludingDetails(6);
+            // parameter int take
+            var tapioMachines = await materialManager.GetEdgebandTypesIncludingDetails(6);
         }
 
         /// <summary>
@@ -51,13 +50,13 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         {
             //Define the edgebandCodes you want to retrieve data for in a list
             var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
-            var tapioMachines = materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
+            var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
         }
         public static async Task Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
             var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
-            var tapioMachines = materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
+            var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
         }
 
         /// <summary>
@@ -66,8 +65,8 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         public static async Task Edgebands_GetEdgebandTypeInventoryHistoryAsync(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             // time can be "int daysBack" or a timespan with "Datetime from, Datetime to"
-            var edgebandTypesHistory = materialManager.GetEdgebandTypeInventoryHistoryAsync(10);
-            var edgebandTypesHistory2 = materialManager.GetEdgebandTypeInventoryHistoryAsync("Datetime from, Datetime to");
+            var edgebandTypesHistory = await materialManager.GetEdgebandTypeInventoryHistoryAsync(10);
+            var edgebandTypesHistory2 = await materialManager.GetEdgebandTypeInventoryHistoryAsync(new DateTime(2025,06,01), new DateTime(2025, 06, 30));
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         /// </summary>
         public static async Task Edgebands_GetTechnologyMacrosFromMachine(IMaterialManagerClientMaterialEdgebands materialManager)
         {
-            var technologyMacros = materialManager.GetTechnologyMacrosFromMachine("tapioMachineId");
+            var technologyMacros = await materialManager.GetTechnologyMacrosFromMachine("tapioMachineId");
         }
 
         /// <summary>
@@ -83,7 +82,7 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         /// </summary>
         public static async Task Edgebands_GetLicensedMachines(IMaterialManagerClientMaterialEdgebands materialManager)
         {
-            var tapioMachines = materialManager.GetLicensedMachines();
+            var tapioMachines = await materialManager.GetLicensedMachines();
         }
     }
 }
