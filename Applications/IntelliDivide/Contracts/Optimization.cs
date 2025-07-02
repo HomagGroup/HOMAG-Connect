@@ -68,6 +68,11 @@ namespace HomagConnect.IntelliDivide.Contracts
         public double Waste { get; set; }
 
         /// <summary>
+        /// Gets or sets the id of the transferred solution, if any.
+        /// </summary>
+        public Guid? TransferredSolutionId { get; set; }
+
+        /// <summary>
         /// Gets or sets validation messages
         /// </summary>
         public OptimizationValidationResult[] ValidationResults { get; set; } = Array.Empty<OptimizationValidationResult>();
