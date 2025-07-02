@@ -53,8 +53,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (CoatingCategory value in Enum.GetValues(typeof(CoatingCategory)))
             {
                 var expected = CoatingCategoryDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -73,8 +72,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (EdgebandingProcess value in Enum.GetValues(typeof(EdgebandingProcess)))
             {
                 var expected = EdgebandingProcessDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
 
         }
@@ -94,8 +92,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (WorkstationType value in Enum.GetValues(typeof(WorkstationType)))
             {
                 var expected = WorkstationTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
 
         }
@@ -115,8 +112,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (BoardTypeType value in Enum.GetValues(typeof(BoardTypeType)))
             {
                 var expected = BoardTypeTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
 
         }
@@ -136,8 +132,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (BookHeightMode value in Enum.GetValues(typeof(BookHeightMode)))
             {
                 var expected = BookHeightModeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -156,8 +151,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (ImageSize value in Enum.GetValues(typeof(ImageSize)))
             {
                 var expected = ImageSizeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -176,8 +170,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (ImageType value in Enum.GetValues(typeof(ImageType)))
             {
                 var expected = ImageTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -196,8 +189,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (ManagementType value in Enum.GetValues(typeof(ManagementType)))
             {
                 var expected = ManagementTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -216,8 +208,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (StandardQuality value in Enum.GetValues(typeof(StandardQuality)))
             {
                 var expected = StandardQualityDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -236,8 +227,7 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (EdgebandMaterialCategory value in Enum.GetValues(typeof(EdgebandMaterialCategory)))
             {
                 var expected = EdgebandMaterialCategoryDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
         }
 
@@ -256,11 +246,18 @@ namespace HomagConnect.MaterialManager.Tests.Material
             foreach (TensionTrimType value in Enum.GetValues(typeof(TensionTrimType)))
             {
                 var expected = TensionTrimTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
-                Assert.IsNotNull(expected);
-                Assert.AreEqual(expected.ToLower(), displayNames[value].ToLower(), $"Mismatch for {value} in culture {cultureName}");
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
 
         }
+
+        private static string CapitalizeFirstLetter(string? input)
+        {
+            if (string.IsNullOrEmpty(input)) return "";
+            if (input.Length == 1) return input.ToUpper();
+            return char.ToUpper(input[0]) + input.Substring(1);
+        }
+
 
     }
 }
