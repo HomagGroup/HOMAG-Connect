@@ -87,6 +87,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
     }
 
+    [Ignore("Disabled until required changes are on PRD")]
     [TestMethod]
     public async Task MaterialAssist_EdgebandEntities_GetStorageLocations()
     {
@@ -100,6 +101,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
     }
 
+    [Ignore("Disabled until required changes are on PRD")]
     [TestMethod]
     public async Task MaterialAssist_EdgebandEntities_GetStorageLocationsByWorkstationId()
     {
@@ -122,6 +124,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
     }
 
+    [Ignore("Disabled until required changes are on PRD")]
     [TestMethod]
     public async Task MaterialAssist_EdgebandEntities_GetWorkstations()
     {
