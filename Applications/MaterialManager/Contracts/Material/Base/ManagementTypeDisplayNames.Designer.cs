@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts.Enumerations {
+namespace HomagConnect.MaterialManager.Contracts.Material.Base {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.Base.Contracts.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationTypeDisplayNames {
+    public class ManagementTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationTypeDisplayNames() {
+        internal ManagementTypeDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Enumerations.WorkstationTypeDisplayNames", typeof(WorkstationTypeDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Base.ManagementTypeDisplayNames", typeof(ManagementTypeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,29 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platten.
+        ///   Looks up a localized string similar to Lagerware.
         /// </summary>
-        internal static string Boards {
+        internal static string GoodsInStock {
             get {
-                return ResourceManager.GetString("Boards", resourceCulture);
+                return ResourceManager.GetString("GoodsInStock", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kantenanleimen.
+        ///   Looks up a localized string similar to Einzelmaterial.
         /// </summary>
-        internal static string Edgebanding {
+        internal static string Single {
             get {
-                return ResourceManager.GetString("Edgebanding", resourceCulture);
+                return ResourceManager.GetString("Single", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stapel.
+        /// </summary>
+        internal static string Stack {
+            get {
+                return ResourceManager.GetString("Stack", resourceCulture);
             }
         }
     }

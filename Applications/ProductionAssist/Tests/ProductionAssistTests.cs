@@ -7,7 +7,7 @@ namespace HomagConnect.ProductionAssist.Tests;
 /// <summary />
 [TestClass]
 [TestCategory("ProductionAssist")]
-[TemporaryDisabledOnServer(2025,7,1,"DF-Production")]
+[TemporaryDisabledOnServer(2025,8,1,"DF-Production")]
 public class ProductionAssistTests : ProductionAssistTestBase
 {
     /// <summary />

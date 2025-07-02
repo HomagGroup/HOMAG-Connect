@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts.Enumerations {
+namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.Base.Contracts.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationTypeDisplayNames {
+    public class TensionTrimTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationTypeDisplayNames() {
+        internal TensionTrimTypeDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Enumerations.WorkstationTypeDisplayNames", typeof(WorkstationTypeDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Processing.Optimization.TensionTrimTypeDis" +
+                            "playNames", typeof(TensionTrimTypeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +62,29 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platten.
+        ///   Looks up a localized string similar to Steg mittig zwischen Streifen.
         /// </summary>
-        internal static string Boards {
+        internal static string BridgeCenteredBetweenStrips {
             get {
-                return ResourceManager.GetString("Boards", resourceCulture);
+                return ResourceManager.GetString("BridgeCenteredBetweenStrips", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kantenanleimen.
+        ///   Looks up a localized string similar to Einfacher Spannungsfreischnitt.
         /// </summary>
-        internal static string Edgebanding {
+        internal static string SimpleTensionTrim {
             get {
-                return ResourceManager.GetString("Edgebanding", resourceCulture);
+                return ResourceManager.GetString("SimpleTensionTrim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schlitz mittig zwischen Streifen.
+        /// </summary>
+        internal static string SlotCenteredBetweenStrips {
+            get {
+                return ResourceManager.GetString("SlotCenteredBetweenStrips", resourceCulture);
             }
         }
     }
