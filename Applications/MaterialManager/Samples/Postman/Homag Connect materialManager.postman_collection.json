@@ -557,7 +557,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"materialCode\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"width\": 9999.9,\r\n  \"length\": 9999.9,\r\n  \"thickness\": 19,\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"type\": \"Board\",\r\n  \"coatingCategory\": \"undefined\",\r\n  \"grain\": \"nograin\",\r\n  \"standardQuality\": \"rawcut\",\r\n  \"totalQuantityAvailableWarningLimit\": 2,\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"lockedForOptimization\": true\r\n}",
+							"raw": "{\r\n  \"materialCode\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"width\": 9999.9,\r\n  \"length\": 9999.9,\r\n  \"thickness\": 19,\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"type\": \"Board\",\r\n  \"coatingCategory\": \"undefined\",\r\n  \"grain\": \"nograin\",\r\n  \"standardQuality\": \"rawcut\",\r\n  \"totalQuantityAvailableWarningLimit\": 2,\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"lockedForOptimization\": true,\r\n  \"embossingTop\": \"string\",\r\n  \"embossingBottom\": \"string\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -589,7 +589,7 @@
 							"formdata": [
 								{
 									"key": "boardTypeRequest",
-									"value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 999.9,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+									"value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 999.9,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"embossingTop\": \"string\",\n  \"embossingBottom\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
 									"type": "text"
 								},
 								{

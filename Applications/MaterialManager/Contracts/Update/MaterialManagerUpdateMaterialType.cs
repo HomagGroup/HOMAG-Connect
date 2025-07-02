@@ -40,17 +40,7 @@ public class MaterialManagerUpdateMaterialType
     [StringLength(50)]
     public string? DecorCode { get; set; } = null;
 
-    /// <summary>
-    /// Gets or sets the decor top embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingTop { get; set; } = null;
-
-    /// <summary>
-    /// Gets or sets the decor bottom embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingBottom { get; set; } = null;
+   
 
     /// <summary>
     /// Gets or sets the decor name.
