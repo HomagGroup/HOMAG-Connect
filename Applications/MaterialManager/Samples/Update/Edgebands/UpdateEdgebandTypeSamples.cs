@@ -20,14 +20,14 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
                 Thickness = 1.1,
                 // Add other properties
             };
-            var updatedEdgebandType = await client.UpdateEdgebandType("EB_White_1mm", edgebandTypeUpdate);
-            Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.Code}");
+            var updatedEdgebandType = await materialManager.UpdateEdgebandType("EB_White_1mm", edgebandTypeUpdate);
+            Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.EdgebandCode}");
         }
 
         /// <summary>
         /// The example shows how update a edgeband with technology macro.
         /// </summary>
-        public static async Task Edgebands_UpdateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_UpdateEdgebandTypeMacro(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
             {
@@ -38,7 +38,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
                 // other properties
             };
 
-            var updatedEdgebandType = await client.UpdateEdgebandType("ABS_White_1mm", edgebandTypeUpdate);
+            var updatedEdgebandType = await materialManager.UpdateEdgebandType("ABS_White_1mm", edgebandTypeUpdate);
         }
     }
 }

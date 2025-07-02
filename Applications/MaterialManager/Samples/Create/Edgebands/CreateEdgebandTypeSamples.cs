@@ -33,7 +33,7 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
         /// <summary>
         /// The example shows how to create a edgeband type with technology macro.
         /// </summary>
-        public static async Task Edgeband_CreateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgeband_CreateEdgebandTypeMacro(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {
@@ -53,5 +53,4 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
             newEdgebandType.Trace();
         }
     }
-
 }
