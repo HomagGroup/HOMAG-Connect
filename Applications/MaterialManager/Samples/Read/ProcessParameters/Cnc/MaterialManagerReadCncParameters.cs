@@ -3,7 +3,7 @@ using HomagConnect.MaterialManager.Samples.Helper;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomagConnect.MaterialManager.Samples.Read.Process_parameters
+namespace HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc
 {
     /// <summary>
     /// Sample methods to read CNC process parameter data using the materialManager CNC client.

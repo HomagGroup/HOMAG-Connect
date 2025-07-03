@@ -1,6 +1,6 @@
-﻿using HomagConnect.MaterialManager.Samples.Read.Process_parameters;
+﻿using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
 
-namespace HomagConnect.MaterialManager.Tests.Read.Process_parameters.Cnc
+namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 {
     /// <summary />
     [TestClass]
