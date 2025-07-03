@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
 
 namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 {
@@ -11,7 +12,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 #pragma warning disable S2699 // Tests should include assertions
 
         /// <summary />
-        //[TestMethod] Disabled until the API is available
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 3, "DF-Material")]
         public async Task GetMillingParameterToolGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -19,7 +21,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
         }
 
         /// <summary />
-        //[TestMethod]Disabled until the API is available
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 3, "DF-Material")]
         public async Task GetMillingParameterMaterialGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -27,7 +30,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
         }
 
         /// <summary />
-        //[TestMethod]Disabled until the API is available
+        [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 3, "DF-Material")]
         public async Task GetMillingParameterGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
