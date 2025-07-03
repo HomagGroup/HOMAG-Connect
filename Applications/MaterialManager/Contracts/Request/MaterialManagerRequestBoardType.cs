@@ -93,4 +93,16 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     [Required]
     [Range(0.1, 9999.9)]
     public double Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the decor top embossing.
+    /// </summary>
+    [StringLength(50)]
+    public string? EmbossingTop { get; set; }
+
+    /// <summary>
+    /// Gets or sets the decor bottom embossing.
+    /// </summary>
+    [StringLength(50)]
+    public string? EmbossingBottom { get; set; }
 }

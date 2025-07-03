@@ -40,6 +40,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public SolutionOverview Overview { get; set; } = new SolutionOverview();
 
         /// <summary>
+        /// Gets or sets a flag indicating whether this solution was the one transferred to or not.
+        /// </summary>
+        [JsonProperty(Order = 15)]
+        public bool WasTransferred { get; set; }
+
+        /// <summary>
         /// Gets or sets the total score of the solution. The <see cref="SolutionName.BalancedSolution" /> has typically the
         /// highest score. The solutions are listed in the app sorted by the score (highest first).
         /// </summary>

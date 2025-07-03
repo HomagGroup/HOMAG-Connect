@@ -336,6 +336,18 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return urls;
     }
 
+    /// <summary>
+    /// Gets a paginated list of materials.
+    /// </summary>
+    /// <param name="take">The number of materials to return.</param>
+    /// <param name="skip">The number of materials to skip.</param>
+    /// <returns>A collection of <see cref="Material"/>.</returns>
+    public async Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}/materials?take={take}&skip={skip}";
+        return await RequestEnumerable<Material>(new Uri(url, UriKind.Relative));
+    }
+
     #endregion
 
     #region Delete
