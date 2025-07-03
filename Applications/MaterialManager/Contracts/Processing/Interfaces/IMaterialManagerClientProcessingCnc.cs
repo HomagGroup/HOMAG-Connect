@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using HomagConnect.MaterialManager.Contracts.Processing.Cnc;
-using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
 namespace HomagConnect.MaterialManager.Contracts.Processing.Interfaces
 {
@@ -12,9 +11,9 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Interfaces
     public interface IMaterialManagerClientProcessingCnc
     {
         /// <summary>
-        /// Gets the milling parameter tool groups for the current subscription.
+        /// Gets the milling parameter parameter groups for the current subscription.
         /// </summary>
-        Task<IEnumerable<ToolGroup>?> GetMillingParameterToolGroups();
+        Task<IEnumerable<MillingParameterGroup>?> GetMillingParameterGroups();
 
         /// <summary>
         /// Gets the milling parameter material groups for the current subscription.
@@ -22,8 +21,8 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Interfaces
         Task<IEnumerable<MaterialGroup>?> GetMillingParameterMaterialGroups();
 
         /// <summary>
-        /// Gets the milling parameter parameter groups for the current subscription.
+        /// Gets the milling parameter tool groups for the current subscription.
         /// </summary>
-        Task<IEnumerable<MillingParameterGroup>?> GetMillingParameterGroups();
+        Task<IEnumerable<ToolGroup>?> GetMillingParameterToolGroups();
     }
 }
