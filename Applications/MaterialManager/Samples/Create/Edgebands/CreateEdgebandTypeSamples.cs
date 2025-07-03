@@ -2,11 +2,6 @@
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
 {
@@ -15,7 +10,7 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
         /// <summary>
         /// The example shows how to create a edgeband type.
         /// </summary>
-        public static async Task Edgeband_CreateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_CreateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {
@@ -33,7 +28,7 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
         /// <summary>
         /// The example shows how to create a edgeband type with technology macro.
         /// </summary>
-        public static async Task Edgeband_CreateEdgebandTypeMacro(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_CreateEdgebandTypeMacro(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {

@@ -1,12 +1,4 @@
-﻿using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 
 namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
 {
@@ -49,13 +41,13 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         public static async Task Edgebands_GetEdgebandTypesByEdgebandCodes(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
-            var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
+            var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
             var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
         }
         public static async Task Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
-            var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
+            var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
             var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
         }
 

@@ -1,10 +1,5 @@
 ﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Update;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
 {

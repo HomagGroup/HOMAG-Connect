@@ -3,11 +3,6 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Samples.Create.Boards
 {
