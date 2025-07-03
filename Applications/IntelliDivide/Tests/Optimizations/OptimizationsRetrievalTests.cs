@@ -55,6 +55,15 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
         await OptimizationRetrievalSamples.Optimizations_ArchiveAndDelete(intelliDivide);
     }
+    
+    /// <summary />
+    [TestMethod]
+    public async Task Optimizations_GetExportsForSolution()
+    {
+        var intelliDivide = GetIntelliDivideClient();
+
+        await OptimizationRetrievalSamples.Optimizations_GetExportsForSolution(intelliDivide);
+    }
 
 #pragma warning restore S2699 // Tests should include assertions
 }
