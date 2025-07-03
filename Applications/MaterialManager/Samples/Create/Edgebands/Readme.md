@@ -16,7 +16,7 @@ var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
     Thickness = 1.0,
     DefaultLength = 23.0,
     MaterialCategory = EdgebandMaterialCategory.Veneer,
-    Process = Process.Other,
+    Process = EdgebandingProcess.Other,
 };
 
 var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest);
@@ -29,14 +29,14 @@ Console.WriteLine($"Created Edgeband Type: {newEdgebandType.Code}");
 ```csharp
 var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
-var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
+var edgebandTypeUpdate = new MaterialManagerRequestEdgebandType
 {
     EdgebandCode = "EB_White_1mm",
     Height = 20,
     Thickness = 1.0,
     DefaultLength = 23.0,
     MaterialCategory = EdgebandMaterialCategory.Veneer,
-    Process = Process.Other,    
+    Process = EdgebandingProcess.Other,    
     MachineTechnologyMacro = new Dictionary<string, string>
     {
         { "hg0000000000", "ABS_1.00_RM_HM"}

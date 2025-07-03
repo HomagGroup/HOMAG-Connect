@@ -4,17 +4,68 @@ With the HOMAG Connect materialManager edgebands client, the edgebands related d
 
 ## GetEdgebandTypes
 
-**Example:**
+**Examples:**
 
 ```csharp
 var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
-// Define the edgebandCodes you want to retrieve data for:
+// Define the edgebandCode you want to retrieve data for (string):
+var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
+
+var edgebandType = client.GetEdgebandTypeByEdgebandCode(edgebandCode);
+```
+
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+// Define the edgebandCode you want to retrieve data for including details(string):
+var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
+
+var edgebandType = client.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgebandCode);
+```
+
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+var tapioMachines = client.GetEdgebandTypes();
+```
+
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+var tapioMachines = client.GetEdgebandTypesIncludingDetails();
+```
+
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+//Define the edgebandCodes you want to retrieve data for in a list
 var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
 
-var edgebandTypes = client.GetEdgebandTypes(edgebandCodes);
+var tapioMachines = materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
+```
 
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
+//Define the edgebandCodes you want to retrieve data for including details in a list
+var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ACR_Buche_mit_Silberstreifen_2.00_43.0_HM" };
+
+var tapioMachines = materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
+```
+
+## GetInventoryHistory
+
+Get the inventory history for edgebands.
+
+**Example:**
+
+```csharp
+// time can be "int daysBack" or a timespan with "Datetime from, Datetime to"
+
+var edgebandTypesHistory = materialManager.GetEdgebandTypeInventoryHistoryAsync(10);
+
+var edgebandTypesHistory2 = materialManager.GetEdgebandTypeInventoryHistoryAsync("Datetime from, Datetime to");
 ```
 
 ## GetLicensedMachines
