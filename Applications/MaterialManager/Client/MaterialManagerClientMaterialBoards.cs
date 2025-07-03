@@ -27,19 +27,6 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
-    #region Constructors
-
-    /// <inheritdoc />
-    public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
-
-    /// <inheritdoc />
-    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
-
-    /// <inheritdoc />
-    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
-
-    #endregion
-    
     #region Update
 
     /// <inheritdoc />
@@ -70,6 +57,19 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion Update
+
+    #region Constructors
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(HttpClient client) : base(client) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+    #endregion
 
     #region Create
 
@@ -341,7 +341,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// </summary>
     /// <param name="take">The number of materials to return.</param>
     /// <param name="skip">The number of materials to skip.</param>
-    /// <returns>A collection of <see cref="Material"/>.</returns>
+    /// <returns>A collection of <see cref="Material" />.</returns>
     public async Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}/materials?take={take}&skip={skip}";

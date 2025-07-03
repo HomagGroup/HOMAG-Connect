@@ -22,8 +22,10 @@ public class MaterialManagerClientProcessingCnc : ServiceBase, IMaterialManagerC
 
     /// <inheritdoc />
     public MaterialManagerClientProcessingCnc(HttpClient client) : base(client) { }
+
     /// <inheritdoc />
     public MaterialManagerClientProcessingCnc(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
     /// <inheritdoc />
     public MaterialManagerClientProcessingCnc(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 

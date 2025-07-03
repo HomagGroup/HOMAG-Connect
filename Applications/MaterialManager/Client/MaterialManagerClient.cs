@@ -10,7 +10,6 @@ namespace HomagConnect.MaterialManager.Client
     /// </summary>
     public class MaterialManagerClient : ServiceBase
     {
-
         /// <inheritdoc />
         public MaterialManagerClient(HttpClient client) : base(client)
         {

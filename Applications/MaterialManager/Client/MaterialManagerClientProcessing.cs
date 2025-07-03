@@ -6,7 +6,6 @@ using HomagConnect.Base.Services;
 namespace HomagConnect.MaterialManager.Client;
 
 /// <summary>
-/// 
 /// </summary>
 public class MaterialManagerClientProcessing : ServiceBase
 {
@@ -32,14 +31,12 @@ public class MaterialManagerClientProcessing : ServiceBase
     }
 
     /// <summary>
-    /// Client for managing optimization processing.
-    /// </summary>
-    public MaterialManagerClientProcessingOptimization Optimization { get; }
-
-    /// <summary>
     /// Client for managing CNC processing.
     /// </summary>
     public MaterialManagerClientProcessingCnc Cnc { get; }
 
-
+    /// <summary>
+    /// Client for managing optimization processing.
+    /// </summary>
+    public MaterialManagerClientProcessingOptimization Optimization { get; }
 }
