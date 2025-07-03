@@ -11,7 +11,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 #pragma warning disable S2699 // Tests should include assertions
 
         /// <summary />
-        [TestMethod]
+        //[TestMethod] Disabled until the API is available
         public async Task GetMillingParameterToolGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
         }
 
         /// <summary />
-        [TestMethod]
+        //[TestMethod]Disabled until the API is available
         public async Task GetMillingParameterMaterialGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -27,7 +27,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
         }
 
         /// <summary />
-        [TestMethod]
+        //[TestMethod]Disabled until the API is available
         public async Task GetMillingParameterGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
