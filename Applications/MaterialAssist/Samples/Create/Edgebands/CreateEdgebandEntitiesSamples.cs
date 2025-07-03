@@ -1,6 +1,7 @@
 ﻿using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
 {
@@ -20,6 +21,17 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
             };
             var newEdgebandEntity = await materialAssist.CreateEdgebandEntity(edgebandEntityRequest);
             Console.WriteLine($"Created edgeband entity: {newEdgebandEntity.Id}");
+        }
+
+        public static async Task Edgebands_CreateEdgebandType(MaterialAssistClientEdgebands materialAssist)
+        {
+            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType() 
+            {
+                // was kann man hier reinschreiben?
+                EdgebandCode = "White Edgeband 19mm",
+                Comments = "This is a comment",
+            };
+            var newEdgebandEntity = await materialAssist.CreateEdgebandType(edgebandTypeRequest); 
         }
     }
 }

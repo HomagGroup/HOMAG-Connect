@@ -1,6 +1,7 @@
 ﻿using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Samples.Create.Boards
 {
@@ -23,17 +24,13 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
 
         public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist)
         {
-            var boardTypeRequest = new MaterialAssistRequestBoardEntity()
+            var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
-                Id = "42",
-                //The board code is the identifier of the board type
+                // was kann man noch reinschreiben?
                 BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-                ManagementType = ManagementType.Single,
                 Comments = "This is a comment",
-                Quantity = 1
             };
-            var newBoardEntity = await materialAssist.CreateBoardEntity(boardTypeRequest);
-            Console.WriteLine($"Created board entity: {newBoardEntity.Id}");
+            var newBoardEntity = await materialAssist.CreateBoardType(boardTypeRequest);
         }
     }
 }
