@@ -41,18 +41,6 @@ public abstract class MaterialManagerRequestMaterialType
     public string? DecorCode { get; set; }
 
     /// <summary>
-    /// Gets or sets the decor top embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingTop { get; set; }
-
-    /// <summary>
-    /// Gets or sets the decor bottom embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingBottom { get; set; }
-
-    /// <summary>
     /// Gets or sets the decor name.
     /// </summary>
     [StringLength(50)]

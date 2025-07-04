@@ -29,7 +29,6 @@ public class BoardTypeTests : MaterialManagerTestBase
     }
 
     /// <summary />
-    [TemporaryDisabledOnServer(2025, 06, 5, "DF-MaterialManager")]
     [TestMethod]
     public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
     {

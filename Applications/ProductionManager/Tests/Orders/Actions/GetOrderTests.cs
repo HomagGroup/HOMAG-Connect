@@ -2,6 +2,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Samples.Orders.Actions;
 using System.IO.Compression;
 
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 
@@ -15,6 +16,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     {
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrders_NoException()
         {
             // Create new instance of the ProductionManager client:
@@ -37,6 +39,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNew_NoException()
         {
             var productionManager = GetProductionManagerClient();
@@ -58,6 +61,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
         {
             var productionManager = GetProductionManagerClient();
@@ -113,6 +117,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 01, "DF-Production")]
         public async Task Orders_GetCompletionDatesPlanned_NoException()
         {
             var orderNumbers = new List<string>();
@@ -148,6 +153,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetOrder_NoException()
         {
             // Create new instance of the ProductionManager client:

@@ -16,6 +16,15 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientProcessingOptimization : ServiceBase, IMaterialManagerClientProcessingOptimization
 {
+    /// <inheritdoc />
+    public MaterialManagerClientProcessingOptimization(HttpClient client) : base(client) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientProcessingOptimization(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+    /// <inheritdoc />
+    public MaterialManagerClientProcessingOptimization(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/processing/optimization";
@@ -23,9 +32,6 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase, IMateria
     private const string _MaterialCode = "materialCode";
 
     #endregion Constants
-
-    /// <inheritdoc />
-    public MaterialManagerClientProcessingOptimization(HttpClient client) : base(client) { }
 
     #region Offcuts
 
