@@ -1,3 +1,4 @@
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Optimizations;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -58,6 +59,7 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
     
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2025, 7, 15, "DF-Optimization")]
     public async Task Optimizations_GetExportsForSolution()
     {
         var intelliDivide = GetIntelliDivideClient();
