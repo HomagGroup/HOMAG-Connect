@@ -1,4 +1,5 @@
 # HOMAG Connect materialAssist Samples
+
 Here you will find documentation and samples for the functionality provided by the HOMAG Connect materialManager Client:
 
 1. [Create board entity](Create/Boards/Readme.md)
@@ -13,6 +14,6 @@ Here you will find documentation and samples for the functionality provided by t
 10. [Update offcut entity](Update/Offcuts/Readme.md)
 11. [Get edgeband workstations](Get/Edgebands/Workstations/Readme.md)
 12. [Get edgeband storage locations](Get/Edgebands/StorageLocations/Readme.md)
-13. [Store edgeband entity](Update/Edgebands/Store/Readme.md)]
+13. [Store edgeband entity](Update/Edgebands/Store/Readme.md)
 
 If you want to use postman we also provide a [postman collection](<Postman/Homag Connect materialAssist.postman_collection.json>).
