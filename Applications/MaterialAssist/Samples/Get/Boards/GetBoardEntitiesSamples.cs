@@ -21,6 +21,7 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
                 boardEntities = (List<BoardEntity>)await materialAssist.GetBoardEntities(take, skip).ToListAsync();
                 allBoardEntities.AddRange(boardEntities);
                 skip += take;
+                // different as in the readme.md 
 
             } while (boardEntities.Count == take);
 

@@ -1,6 +1,6 @@
 # Create edgeband entity
 
-With the HOMAG Connect materialAssist edgeband client, edgeband entities can be created. 
+With the HOMAG Connect materialAssist edgeband client, edgeband entities and types can be created. 
 
 <strong>Example:</strong>
 
@@ -27,3 +27,17 @@ When creating a edgeband entity you have the option to choose between the manage
 When choosing `ManagementType.Single` the quantity has to be set to 1. There must be a unique id given for every single entity. 
 By choosing `ManagementType.Stack` you can add a quantity greater or euqal to 1 allowing to stack multiple entities within the same Id.
 With `ManagementType.GoodsInStock` it is possible to stack the entities within the same id and additionally, when a location is set, new `ManagementType.GoodsInStock` entities of the same edgeband type will be added to this entity id when same location is used.
+
+
+<strong>Example:</strong>
+
+```csharp
+var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
+var edgebandTypeRequest = new MaterialManagerRequestEdgebandType() 
+{
+    EdgebandCode = "White Edgeband 19mm",
+    Comments = "This is a comment",
+    // other values
+};
+var newEdgebandEntity = await client.CreateEdgebandType(edgebandTypeRequest); 
+```

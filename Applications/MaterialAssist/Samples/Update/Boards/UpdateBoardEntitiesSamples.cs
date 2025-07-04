@@ -18,14 +18,19 @@ namespace HomagConnect.MaterialAssist.Samples.Update.Boards
             var updateBoardEntity = await materialAssist.UpdateBoardEntity("42", boardEntityUpdate);
             Console.WriteLine($"Updated board entity: {updateBoardEntity.Id}");
         }
-        /*
+        
         public static async Task Boards_StoreBoardEntity(MaterialAssistClientBoards materialAssist)
         {
+            var storageLocation = new StorageLocation()
+            {
+                Barcode = "string",
+                LocationId = "string",
+                Name = "string",
+            };
             //string id, int length, int width, StorageLocation storageLocation
-            var storeBoardEntity = await materialAssist.StoreBoardEntity("id", 100, 100, new StorageLocation); // was muss hinten dran?
+            await materialAssist.StoreBoardEntity("42", 10, 10, storageLocation);
         }
-        */
-
+        
         public static async Task Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
         {
             // string id, bool deleteBoardFromInventory = false

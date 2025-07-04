@@ -27,9 +27,9 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType() 
             {
-                // was kann man hier reinschreiben?
                 EdgebandCode = "White Edgeband 19mm",
                 Comments = "This is a comment",
+                // other values
             };
             var newEdgebandEntity = await materialAssist.CreateEdgebandType(edgebandTypeRequest); 
         }

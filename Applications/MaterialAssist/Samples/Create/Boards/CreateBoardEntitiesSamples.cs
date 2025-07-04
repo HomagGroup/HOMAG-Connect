@@ -26,8 +26,9 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
-                // was kann man noch reinschreiben?
                 BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
+                Length = 10,
+                Width = 5,
                 Comments = "This is a comment",
             };
             var newBoardEntity = await materialAssist.CreateBoardType(boardTypeRequest);
