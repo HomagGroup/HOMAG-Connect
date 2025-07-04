@@ -4,11 +4,12 @@ With the HOMAG Connect materialAssist edgeband client, you can retrieve a list o
 The list contains all storage locations configured for the existing edgeband workstations.
 A call can be made to retrieve the storage locations for a specific workstation.
 
-<strong>Example:</strong>
+**Example:**
 
 ```csharp
 var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
 
+// Get all storage locations
 var storageLocations = await client.GetStorageLocations().ConfigureAwait(false);
 foreach (var storageLocation in storageLocations)
 {
@@ -33,4 +34,3 @@ foreach (var storageLocation in workstationStorageLocations)
 	Console.WriteLine($"Workstation Storage Location ID: {storageLocation.LocationId}, Name: {storageLocation.Name}");
 }
 ```
-
