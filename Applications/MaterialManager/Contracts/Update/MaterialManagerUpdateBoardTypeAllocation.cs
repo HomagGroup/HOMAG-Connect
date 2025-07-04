@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
+
+namespace HomagConnect.MaterialManager.Contracts.Update
+{
+    /// <summary>
+    /// Update object to create an Allocation in materialManager.
+    /// </summary>
+    public class MaterialManagerUpdateBoardTypeAllocation
+    {
+        private const string _DefaultSource = "materialManager";
+
+        /// <summary>
+        /// Gets or sets the allocation name.
+        /// </summary>
+        [Required]
+        public string AllocationName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allocation name.
+        /// </summary>
+        public ICollection<BoardTypeAllocationDetails>? AllocationDetails { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the allocation type.
+        /// </summary>
+        public AllocationType? AllocationType { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the allocation comments.
+        /// </summary>
+        public string? Comments { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the allocation created by.
+        /// </summary>
+        public string? CreatedBy { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the allocation creation date.
+        /// </summary>
+        public DateTimeOffset? CreationDate { get; set; } = null;
+
+
+        /// <summary>
+        ///  Gets or sets source of the allocation.
+        /// </summary>
+        public string? Source { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the allocation workstation.
+        /// </summary>
+        public string? Workstation { get; set; } = null;
+
+    }
+
+    
+}
