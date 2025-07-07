@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
@@ -17,22 +19,7 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// Gets or sets the allocation name.
         /// </summary>
         [Required]
-        public string AllocationName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the allocation name.
-        /// </summary>
-        public ICollection<BoardTypeAllocationDetails>? AllocationDetails { get; set; } = null;
-
-        /// <summary>
-        /// Gets or sets the allocation type.
-        /// </summary>
-        public AllocationType? AllocationType { get; set; } = null;
-
-        /// <summary>
-        /// Gets or sets the allocation comments.
-        /// </summary>
-        public string? Comments { get; set; } = null;
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the allocation created by.
@@ -44,6 +31,10 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// </summary>
         public DateTimeOffset? CreationDate { get; set; } = null;
 
+        /// <summary>
+        /// Gets or sets the allocation comments.
+        /// </summary>
+        public string? Comments { get; set; } = null;
 
         /// <summary>
         ///  Gets or sets source of the allocation.
@@ -51,9 +42,30 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         public string? Source { get; set; } = null;
 
         /// <summary>
+        /// Gets or sets the allocation type.
+        /// </summary>
+        public AllocationType? AllocationType { get; set; } = null;
+
+        /// <summary>
         /// Gets or sets the allocation workstation.
         /// </summary>
         public string? Workstation { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets AdditionalData.
+        /// </summary>
+        public AdditionalDataEntity? AdditionalData { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the boardType code.
+        /// </summary>
+        
+        public string? BoardTypeCode { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the quantity.
+        /// </summary>
+        public int? Quantity { get; set; } = null;
 
     }
 
