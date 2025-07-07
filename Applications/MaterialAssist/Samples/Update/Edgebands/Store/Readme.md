@@ -9,7 +9,7 @@ To store an edgeband entity, you need to specify the type of entity (Single, Sta
 - **Store Edgeband Entity of type Stack**: Stores a Stack to the desired location. The stored length cannot be specified.
 - **Store Edgeband Entity of type GoodsInStock**: Stores a GoodsInStock to the desired location. The stored length cannot be specified.
 
-<strong>Example:</strong>
+**Example:**
 
 ```csharp
 var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
