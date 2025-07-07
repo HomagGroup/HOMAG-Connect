@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 namespace HomagConnect.MaterialManager.Contracts.Update
 {
@@ -13,8 +11,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
     /// </summary>
     public class MaterialManagerUpdateBoardTypeAllocation
     {
-        private const string _DefaultSource = "materialManager";
-
         /// <summary>
         /// Gets or sets the allocation name.
         /// </summary>
@@ -50,11 +46,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// Gets or sets the allocation workstation.
         /// </summary>
         public string? Workstation { get; set; } = null;
-
-        /// <summary>
-        /// Gets or sets AdditionalData.
-        /// </summary>
-        public AdditionalDataEntity? AdditionalData { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the boardType code.

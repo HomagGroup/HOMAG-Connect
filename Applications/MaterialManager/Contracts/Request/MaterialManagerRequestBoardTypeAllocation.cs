@@ -11,8 +11,6 @@ namespace HomagConnect.MaterialManager.Contracts.Request
     /// </summary>
     public class MaterialManagerRequestBoardTypeAllocation
     {
-        private const string _DefaultSource = "materialManager";
-
         /// <summary>
         /// Gets or sets the allocation name.
         /// </summary>
@@ -39,7 +37,7 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// <summary>
         ///  Gets or sets source of the allocation.
         /// </summary>
-        public string Source { get; set; } = _DefaultSource;
+        public string Source { get; set; }
 
         /// <summary>
         /// Gets or sets the allocation type.
@@ -51,11 +49,6 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// Gets or sets the allocation workstation.
         /// </summary>
         public string? Workstation { get; set; }
-
-        /// <summary>
-        /// Gets or sets AdditionalData.
-        /// </summary>
-        public AdditionalDataEntity AdditionalData { get; set; }
 
         /// <summary>
         /// Gets or sets the boardType code.
