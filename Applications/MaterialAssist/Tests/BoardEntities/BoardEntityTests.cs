@@ -1,25 +1,23 @@
 ﻿using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
-namespace HomagConnect.MaterialAssist.Tests.BoardEntities
+namespace HomagConnect.MaterialAssist.Tests.BoardEntities;
+
+[TestClass]
+[TestCategory("MaterialAssist")]
+[TestCategory("MaterialAssist.Boards")]
+public class BoardEntityTests : MaterialAssistTestBase
 {
-    /// <summary />
-    [TestClass]
-    [TestCategory("MaterialAssist")]
-    [TestCategory("MaterialAssist.Boards")]
-    public class BoardEntityTests : MaterialAssistTestBase
+    [TestMethod]
+    public async Task MaterialAssist_BoardEntities_List()
     {
-        /// <summary />
-        [TestMethod]
-        public async Task MaterialAssist_BoardEntities_List()
+        var client = GetMaterialAssistClient().Boards;
+
+        var boardEntities = await client.GetBoardEntities(5).ConfigureAwait(false) ?? new List<BoardEntity>();
+
+        foreach (var boardEntity in boardEntities)
         {
-            var client = GetMaterialAssistClient().Boards;
-
-            var boardTypes = await client.GetBoardEntities(5);
-
-            foreach (var boardType in boardTypes)
-            {
-                boardType.Trace();
-            }
+            boardEntity.Trace();
         }
     }
 }

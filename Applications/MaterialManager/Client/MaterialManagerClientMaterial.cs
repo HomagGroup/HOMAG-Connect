@@ -27,7 +27,7 @@ public class MaterialManagerClientMaterial : ServiceBase
     }
 
     /// <inheritdoc />
-    public MaterialManagerClientMaterial(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri)
+    public MaterialManagerClientMaterial(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri)
     {
         Boards = new MaterialManagerClientMaterialBoards(subscriptionOrPartnerId, authorizationKey, baseUri);
         Edgebands = new MaterialManagerClientMaterialEdgebands(subscriptionOrPartnerId, authorizationKey, baseUri);

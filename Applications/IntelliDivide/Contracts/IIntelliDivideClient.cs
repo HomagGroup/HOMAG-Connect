@@ -193,6 +193,13 @@ namespace HomagConnect.IntelliDivide.Contracts
         Task<IEnumerable<SolutionPart>> GetSolutionProducedParts(Guid optimizationId, Guid solutionId);
 
         /// <summary>
+        /// Returns a list of available exports for the solution.
+        /// </summary>
+        /// <param name="optimizationId">The optimization id</param>
+        /// <param name="solutionId">The solution id</param>
+        Task<IEnumerable<SolutionExportType>?> GetSolutionAvailableExports(Guid optimizationId, Guid solutionId);
+
+        /// <summary>
         /// Gets the <see cref="IEnumerable&lt;Solution&gt;" /> which have been calculated for an optimization request.
         /// </summary>
         /// <returns>Solutions if the optimization has been optimized successfully, otherwise an empty list.</returns>

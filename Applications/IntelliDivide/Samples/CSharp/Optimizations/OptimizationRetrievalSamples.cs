@@ -104,5 +104,24 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             await intelliDivide.DeleteOptimization(optimization.Id);
         }
+
+        /// <summary>
+        /// The example shows how to get a list of the available exports for a solution of an optimization.
+        /// </summary>
+        public static async Task Optimizations_GetExportsForSolution(IIntelliDivideClient intelliDivide)
+        {
+            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstOrDefaultAsync();
+
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No optimized having the state optimization found.");
+            }
+
+            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+
+            var exports = await intelliDivide.GetSolutionAvailableExports(optimization.Id, solutions.First().Id);
+            
+            exports.Trace();
+        }
     }
 }
