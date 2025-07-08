@@ -32,7 +32,8 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// <summary>
         /// Gets or sets the allocation workstation.
         /// </summary>
-        public string? Workstation { get; set; }
+        [Required]
+        public string Workstation { get; set; }
 
         /// <summary>
         /// Gets or sets the boardType code.
