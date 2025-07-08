@@ -1,12 +1,11 @@
 ﻿using HomagConnect.Base.Contracts.AdditionalData;
-using HomagConnect.Base.Contracts.Enumerations;
 using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Base
 {
-    public abstract class Allocation : IExtensibleDataObject
+    public abstract class Allocation
     {
         public string Name { get; set; }
 
@@ -18,18 +17,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
 
         public string Source { get; set; }
 
-        public AllocationType AllocationType { get; set; }
-
         public string Workstation { get; set; }
         
         public AdditionalDataEntity AdditionalData { get; set; }
 
-        #region IExtensibleDataObject Members
-
-        /// <inheritdoc />
         [JsonExtensionData]
-        public ExtensionDataObject? ExtensionData { get; set; }
-
-        #endregion
+        public IDictionary<string, object>? AdditionalProperties { get; set; } = new Dictionary<string, object>();
     }
 }

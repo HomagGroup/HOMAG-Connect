@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.AdditionalData;
-using HomagConnect.Base.Contracts.Enumerations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Update
 {
@@ -23,11 +19,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         public string? CreatedBy { get; set; } = null;
 
         /// <summary>
-        /// Gets or sets the allocation creation date.
-        /// </summary>
-        public DateTimeOffset? CreationDate { get; set; } = null;
-
-        /// <summary>
         /// Gets or sets the allocation comments.
         /// </summary>
         public string? Comments { get; set; } = null;
@@ -36,11 +27,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         ///  Gets or sets source of the allocation.
         /// </summary>
         public string? Source { get; set; } = null;
-
-        /// <summary>
-        /// Gets or sets the allocation type.
-        /// </summary>
-        public AllocationType? AllocationType { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the allocation workstation.

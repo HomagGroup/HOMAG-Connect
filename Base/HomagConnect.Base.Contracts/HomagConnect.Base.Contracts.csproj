@@ -21,11 +21,6 @@
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Enumerations\AllocationTypeDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>AllocationTypeDisplayNames.resx</DependentUpon>
-	  </Compile>
 	  <Compile Update="Enumerations\WorkstationTypeDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -53,10 +48,6 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Update="Enumerations\AllocationTypeDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>AllocationTypeDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Enumerations\WorkstationTypeDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>WorkstationTypeDisplayNames.Designer.cs</LastGenOutput>
