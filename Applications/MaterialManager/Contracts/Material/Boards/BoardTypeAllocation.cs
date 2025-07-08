@@ -8,11 +8,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     public class BoardTypeAllocation : Allocation
     {
         /// <summary>
+        /// BoardTypeCode of the allocation.
         /// </summary>
-        public string BoardTypeCode { get; set; }
+        public string BoardTypeCode { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the quantity.
+        /// Quantity of the allocation.
         /// </summary>
         public int Quantity { get; set; }
     }

@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// Gets or sets the allocation name.
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the quantity.

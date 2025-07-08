@@ -5,22 +5,46 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
+    /// <summary>
+    /// Edgeband type allocation.
+    /// </summary>
     public class EdgebandTypeAllocation : Allocation, IContainsUnitSystemDependentProperties
     {
+        /// <summary>
+        /// AllocatedLength of the edgeband type allocation.
+        /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double AllocatedLength { get; set; }
 
-        public string Customer { get; set; }
+        /// <summary>
+        /// Customer of the edgeband type allocation.
+        /// </summary>
+        public string Customer { get; set; } = string.Empty;
 
-        public string EdgebandTypeCode { get; set; }
+        /// <summary>
+        /// EdgebandTypeCode of the edgeband type allocation.
+        /// </summary>
+        public string EdgebandTypeCode { get; set; } = string.Empty;
 
-        public string Order { get; set; }
+        /// <summary>
+        /// Order of the edgeband type allocation.
+        /// </summary>
+        public string Order { get; set; } = string.Empty;
 
-        public string Project { get; set; }
+        /// <summary>
+        /// Project of the edgeband type allocation.
+        /// </summary>
+        public string Project { get; set; } = string.Empty;
 
+        /// <summary>
+        /// UsedLength of the edgeband type allocation.
+        /// </summary>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double UsedLength { get; set; }
 
+        /// <summary>
+        /// UnitSystem of the edgeband type allocation.
+        /// </summary>
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
     }
 }

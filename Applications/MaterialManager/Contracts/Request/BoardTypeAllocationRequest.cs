@@ -11,7 +11,7 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// Gets or sets the boardType code.
         /// </summary>
         [Required]
-        public string BoardTypeCode { get; set; }
+        public string BoardTypeCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the allocation comments.
@@ -22,13 +22,13 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// Gets or sets the allocation created by.
         /// </summary>
         [Required]
-        public string CreatedBy { get; set; }
+        public string CreatedBy { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the allocation name.
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the quantity.
@@ -39,12 +39,12 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// <summary>
         /// Gets or sets source of the allocation.
         /// </summary>
-        public string Source { get; set; }
+        public string Source { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the allocation workstation.
         /// </summary>
         [Required]
-        public string Workstation { get; set; }
+        public string Workstation { get; set; } = string.Empty;
     }
 }
