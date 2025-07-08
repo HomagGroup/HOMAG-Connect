@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Offcuts
                 BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
                 Comments = "This is a comment",
                 Length = 1000,
-                Width = 50,
+                Width = 500,
                 Quantity = 5,
             };
             var newBoardEntity = await materialAssist.CreateOffcutEntity(boardEntityRequest);

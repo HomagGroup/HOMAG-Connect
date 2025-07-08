@@ -8,13 +8,13 @@ It is possible to delete one item or a list of items.
 ```csharp
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
-await client.DeleteBoardEntity("id");
+await client.DeleteBoardEntity("42");
 ```
 
 ```csharp
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
         
-List<string> ids = ["id", "id", "id"];
+List<string> ids = ["42", "50", "23"];
 
 await client.DeleteBoardEntities(ids);
 ```

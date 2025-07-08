@@ -8,13 +8,13 @@ It is possible to delete one item or a list of items.
 ```csharp
 var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
 
-await client.DeleteEdgebandEntity("id");
+await client.DeleteEdgebandEntity("42");
 ```
 
 ```csharp
 var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
 
-List<string> ids = ["id", "id", "id"];
+List<string> ids = ["42", "50", "23"];
 
 await client.DeleteEdgebandEntity(ids);
 ```
