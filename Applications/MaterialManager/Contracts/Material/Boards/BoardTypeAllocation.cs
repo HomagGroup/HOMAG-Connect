@@ -1,23 +1,19 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-using HomagConnect.MaterialManager.Contracts.Material.Base;
+﻿using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
     /// <summary>
     /// A board type allocation.
     /// </summary>
-    public class BoardTypeAllocation: Allocation
+    public class BoardTypeAllocation : Allocation
     {
+        /// <summary>
+        /// </summary>
+        public string BoardTypeCode { get; set; }
+
         /// <summary>
         /// Gets or sets the quantity.
         /// </summary>
         public int Quantity { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string BoardTypeCode { get; set; }
     }
 }

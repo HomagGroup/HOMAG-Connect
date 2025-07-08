@@ -7,16 +7,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     public class EdgebandTypeAllocation : Allocation, IContainsUnitSystemDependentProperties
     {
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        public double AllocatedLength { get; set; }
+
         public string Customer { get; set; }
-
-        public string Project { get; set; }
-
-        public string Order { get; set; }
 
         public string EdgebandTypeCode { get; set; }
 
-        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-        public double AllocatedLength { get; set; }
+        public string Order { get; set; }
+
+        public string Project { get; set; }
 
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double UsedLength { get; set; }
