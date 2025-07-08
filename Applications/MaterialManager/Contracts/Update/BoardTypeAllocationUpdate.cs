@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 
-namespace HomagConnect.MaterialManager.Contracts.Request
+namespace HomagConnect.MaterialManager.Contracts.Update
 {
     /// <summary>
-    /// Request object to create an Allocation in materialManager.
+    /// Update object to create an Allocation in materialManager.
     /// </summary>
-    public class MaterialManagerRequestBoardTypeAllocation
+    public class BoardTypeAllocationUpdate
     {
         /// <summary>
         /// Gets or sets the allocation name.
@@ -20,46 +20,45 @@ namespace HomagConnect.MaterialManager.Contracts.Request
         /// <summary>
         /// Gets or sets the allocation created by.
         /// </summary>
-        [Required]
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the allocation creation date.
         /// </summary>
-        [Required]
-        public DateTimeOffset CreationDate { get; set; }
+        public DateTimeOffset? CreationDate { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the allocation comments.
         /// </summary>
-        public string? Comments { get; set; }
+        public string? Comments { get; set; } = null;
 
         /// <summary>
         ///  Gets or sets source of the allocation.
         /// </summary>
-        public string Source { get; set; }
+        public string? Source { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the allocation type.
         /// </summary>
-        [Required]
-        public AllocationType AllocationType { get; set; }
+        public AllocationType? AllocationType { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the allocation workstation.
         /// </summary>
-        public string? Workstation { get; set; }
+        public string? Workstation { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the boardType code.
         /// </summary>
-        [Required]
-        public string BoardTypeCode { get; set; }
+        
+        public string? BoardTypeCode { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the quantity.
         /// </summary>
-        [Required]
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; } = null;
+
     }
+
+    
 }

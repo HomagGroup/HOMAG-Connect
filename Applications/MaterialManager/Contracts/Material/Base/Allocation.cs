@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
+using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
 
@@ -11,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
 
         public string CreatedBy { get; set; }
 
-        public DateTimeOffset? CreationDate { get; set; }
+        public DateTimeOffset? CreatedAt { get; set; }
 
         public string Comments { get; set; }
 
@@ -26,6 +27,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
         #region IExtensibleDataObject Members
 
         /// <inheritdoc />
+        [JsonExtensionData]
         public ExtensionDataObject? ExtensionData { get; set; }
 
         #endregion
