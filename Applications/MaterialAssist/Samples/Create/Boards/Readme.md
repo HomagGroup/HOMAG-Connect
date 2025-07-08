@@ -34,11 +34,15 @@ var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
  var boardTypeRequest = new MaterialManagerRequestBoardType()
 {
-    BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-    Length = 10,
-    Width = 5,
-    Comments = "This is a comment",
-    // other values
+    BoardCode = "RP_EG_H3303_ST10_19",
+    CoatingCategory = CoatingCategory.MelamineThermoset,
+    Grain = Grain.Lengthwise, 
+    Length = 2800.0,
+    Width = 2070.0,
+    MaterialCategory = BoardMaterialCategory.Chipboard,
+    MaterialCode = "EG_H3303_ST10_19",
+    Thickness = 19,
+    Type = BoardTypeType.Board,
 };
 var newBoardEntity = await client.CreateBoardType(boardTypeRequest);
 

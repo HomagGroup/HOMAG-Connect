@@ -1,6 +1,7 @@
 ﻿using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
@@ -27,9 +28,12 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType() 
             {
-                EdgebandCode = "White Edgeband 19mm",
-                Comments = "This is a comment",
-                // other values
+                EdgebandCode = "EB_White_1mm",
+                Height = 20,
+                Thickness = 1.0,
+                DefaultLength = 23.0,
+                MaterialCategory = EdgebandMaterialCategory.Veneer,
+                Process = EdgebandingProcess.Other,
             };
             var newEdgebandEntity = await materialAssist.CreateEdgebandType(edgebandTypeRequest); 
         }

@@ -35,9 +35,12 @@ With `ManagementType.GoodsInStock` it is possible to stack the entities within t
 var client = new MaterialAssistClientEdgebands(subscriptionId, authorizationKey);
 var edgebandTypeRequest = new MaterialManagerRequestEdgebandType() 
 {
-    EdgebandCode = "White Edgeband 19mm",
-    Comments = "This is a comment",
-    // other values
+    EdgebandCode = "EB_White_1mm",
+    Height = 20,
+    Thickness = 1.0,
+    DefaultLength = 23.0,
+    MaterialCategory = EdgebandMaterialCategory.Veneer,
+    Process = EdgebandingProcess.Other,
 };
 var newEdgebandEntity = await client.CreateEdgebandType(edgebandTypeRequest); 
 ```
