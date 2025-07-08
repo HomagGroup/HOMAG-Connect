@@ -23,30 +23,28 @@ namespace HomagConnect.MaterialAssist.Samples.Update.Boards
         {
             var storageLocation = new StorageLocation()
             {
-                Barcode = "string",
-                LocationId = "string",
-                Name = "string",
+                Name = "Compartment 02",
             };
             //string id, int length, int width, StorageLocation storageLocation
-            await materialAssist.StoreBoardEntity("42", 10, 10, storageLocation);
+            await materialAssist.StoreBoardEntity("42", 350, 835, storageLocation);
         }
         
         public static async Task Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
         {
             // string id, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveAllBoardEntitiesFromWorkplace("id");
+            await materialAssist.RemoveAllBoardEntitiesFromWorkplace("42");
         }
 
         public static async Task Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("id", 10);
+            await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("42", 3);
         }
 
         public static async Task Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("id", 10);
+            await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("42", 2);
         }
         
     }

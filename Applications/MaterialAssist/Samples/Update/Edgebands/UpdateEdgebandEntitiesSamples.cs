@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialAssist.Client;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 
@@ -25,7 +26,10 @@ namespace HomagConnect.MaterialAssist.Samples.Update.Edgebands
             {
                 Id = "42",
                 Length = 100,
-                // other values
+                StorageLocation = new StorageLocation()
+                {
+                    Name = "Compartment 02",
+                },
             };
             await materialAssist.StoreEdgebandEntity(edgebandEntityStore);
         }
@@ -33,19 +37,19 @@ namespace HomagConnect.MaterialAssist.Samples.Update.Edgebands
         public static async Task Edgebands_RemoveAllEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
         {
             // string id, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveAllEdgebandEntitiesFromWorkplace("id");
+            await materialAssist.RemoveAllEdgebandEntitiesFromWorkplace("42");
         }
 
         public static async Task Edgebands_RemoveSubsetEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSubsetEdgebandEntitiesFromWorkplace("id", 10);
+            await materialAssist.RemoveSubsetEdgebandEntitiesFromWorkplace("42", 2);
         }
 
         public static async Task Edgebands_RemoveSingleEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSingleEdgebandEntitiesFromWorkplace("id", 10);
+            await materialAssist.RemoveSingleEdgebandEntitiesFromWorkplace("42", 1);
         }
     }
 }

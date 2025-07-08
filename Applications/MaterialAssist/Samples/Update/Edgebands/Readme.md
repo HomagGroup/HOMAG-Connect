@@ -28,7 +28,10 @@ var edgebandEntityStore = new MaterialAssistStoreEdgebandEntity()
 {
     Id = "42",
     Length = 100,
-    // other values
+    StorageLocation = new StorageLocation()
+    {
+        Name = "Compartment 02",
+    },
 };
 
 await client.StoreEdgebandEntity(edgebandEntityStore);
@@ -38,11 +41,11 @@ await client.StoreEdgebandEntity(edgebandEntityStore);
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
 // string id, bool deleteBoardFromInventory = false
-await client.RemoveAllEdgebandEntitiesFromWorkplace("id");
+await client.RemoveAllEdgebandEntitiesFromWorkplace("42");
        
 //string id, int quantity, bool deleteBoardFromInventory = false
-await client.RemoveSubsetEdgebandEntitiesFromWorkplace("id", 10);
+await client.RemoveSubsetEdgebandEntitiesFromWorkplace("42", 2);
         
 //string id, int quantity, bool deleteBoardFromInventory = false
-await client.RemoveSingleEdgebandEntitiesFromWorkplace("id", 10);
+await client.RemoveSingleEdgebandEntitiesFromWorkplace("42", 1);
 ```

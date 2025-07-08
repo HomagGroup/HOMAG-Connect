@@ -26,24 +26,22 @@ var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
 var storageLocation = new StorageLocation()
 {
-    Barcode = "string",
-    LocationId = "string",
-    Name = "string",
+    Name = "Compartment 02",
 };
 
 //string id, int length, int width, StorageLocation storageLocation
-await client.StoreBoardEntity("42", 10, 10, storageLocation);
+await client.StoreBoardEntity("42", 350, 835, storageLocation);
 ```
 
 ```csharp
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
 // string id, bool deleteBoardFromInventory = false
-await client.RemoveAllBoardEntitiesFromWorkplace("id");
+await client.RemoveAllBoardEntitiesFromWorkplace("42");
        
 //string id, int quantity, bool deleteBoardFromInventory = false
-await client.RemoveSubsetBoardEntitiesFromWorkplace("id", 10);
+await client.RemoveSubsetBoardEntitiesFromWorkplace("42", 3);
         
 //string id, int quantity, bool deleteBoardFromInventory = false
-await client.RemoveSingleBoardEntitiesFromWorkplace("id", 10);
+await client.RemoveSingleBoardEntitiesFromWorkplace("42", 2);
 ```
