@@ -28,6 +28,18 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences);
 
         /// <summary>
+        /// Delete board type by board code.
+        /// </summary>
+        /// <param name="boardCode"></param>
+        /// <returns></returns>
+        Task DeleteBoardType(string boardCode);
+
+        /// <summary>
+        /// Delete board types by board codes.
+        /// </summary>
+        Task DeleteBoardTypes(IEnumerable<string> boardCode);
+
+        /// <summary>
         /// Gets the board type by board code.
         /// </summary>
         Task<BoardType?> GetBoardTypeByBoardCode(string boardCode);
@@ -44,12 +56,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0);
-
-        /// <summary>
-        /// Gets the board types paginated including details (inventory, allocation, images).
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
-        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0);
 
         /// <summary>
         /// Gets the board types by board codes.
@@ -88,23 +94,23 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<IEnumerable<BoardTypeDetails>> GetBoardTypesByMaterialCodesIncludingDetails(IEnumerable<string> materialCodes);
 
         /// <summary>
+        /// Gets the board types paginated including details (inventory, allocation, images).
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets a paginated list of materials.
+        /// </summary>
+        /// <param name="take">The number of materials to return.</param>
+        /// <param name="skip">The number of materials to skip.</param>
+        /// <returns>A collection of <see cref="Material" />.</returns>
+        Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0);
+
+        /// <summary>
         /// Update board type by board code.
         /// </summary>
         Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate);
-
-        /// <summary>
-        /// Delete board types by board codes.
-        /// </summary>
-        Task DeleteBoardTypes(IEnumerable<string> boardCode);
-
-        /// <summary>
-        /// Delete board type by board code.
-        /// </summary>
-        /// <param name="boardCode"></param>
-        /// <returns></returns>
-        Task DeleteBoardType(string boardCode);
-
-
 
         #region Inventory History
 

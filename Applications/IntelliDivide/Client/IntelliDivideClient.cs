@@ -608,6 +608,14 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<SolutionExportType>?> GetSolutionAvailableExports(Guid optimizationId, Guid solutionId)
+        {
+            var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/exports";
+
+            return await RequestEnumerable<SolutionExportType>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
         public async Task<IEnumerable<SolutionPart>?> GetSolutionProducedParts(Guid optimizationId, Guid solutionId)
         {
             var url = $"/api/intelliDivide/optimizations/{optimizationId}/solutions/{solutionId}/parts";

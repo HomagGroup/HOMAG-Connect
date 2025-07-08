@@ -67,7 +67,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
     /// <inheritdoc />
-    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+    public MaterialManagerClientMaterialBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
     #endregion
 
@@ -334,6 +334,18 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .Select(x => x.Remove(0, 1).Insert(0, "?"))
             .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
         return urls;
+    }
+
+    /// <summary>
+    /// Gets a paginated list of materials.
+    /// </summary>
+    /// <param name="take">The number of materials to return.</param>
+    /// <param name="skip">The number of materials to skip.</param>
+    /// <returns>A collection of <see cref="Material" />.</returns>
+    public async Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}/materials?take={take}&skip={skip}";
+        return await RequestEnumerable<Material>(new Uri(url, UriKind.Relative));
     }
 
     #endregion

@@ -213,7 +213,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
     /// <inheritdoc />
-    public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+    public MaterialManagerClientMaterialEdgebands(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
     #endregion
 
