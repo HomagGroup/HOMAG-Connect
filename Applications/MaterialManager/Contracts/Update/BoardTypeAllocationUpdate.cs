@@ -14,11 +14,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the allocation created by.
-        /// </summary>
-        public string? CreatedBy { get; set; } = null;
-
-        /// <summary>
         /// Gets or sets the allocation comments.
         /// </summary>
         public string? Comments { get; set; } = null;
