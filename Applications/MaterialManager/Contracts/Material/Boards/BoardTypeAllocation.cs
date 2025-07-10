@@ -1,4 +1,6 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Base;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
@@ -10,7 +12,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// BoardTypeCode of the allocation.
         /// </summary>
-        public string BoardTypeCode { get; set; } = string.Empty;
+        [Required]
+        public string BoardCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Quantity of the allocation.
