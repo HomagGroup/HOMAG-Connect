@@ -27,7 +27,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             {
                 Id = "50",
                 //The board code is the identifier of the board type
-                BoardCode = "XEG_U156_ST02_08_2070_444.2",
+                BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Stack,
                 Comments = "This is a comment",
                 Quantity = 5
