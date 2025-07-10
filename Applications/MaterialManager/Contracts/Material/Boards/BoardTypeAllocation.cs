@@ -10,7 +10,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     public class BoardTypeAllocation : Allocation
     {
         /// <summary>
-        /// BoardTypeCode of the allocation.
+        /// BoardCode of the allocation.
         /// </summary>
         [Required]
         public string BoardCode { get; set; } = string.Empty;

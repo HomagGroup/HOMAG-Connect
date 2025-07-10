@@ -49,7 +49,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
         public string Source { get; set; } = string.Empty;
 
         /// <summary>
-        /// Name of the allocation.
+        /// Workstation of the allocation.
         /// </summary>
         public string Workstation { get; set; } = string.Empty;
     }
