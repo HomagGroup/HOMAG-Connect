@@ -24,7 +24,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         public string Customer { get; set; } = string.Empty;
 
         /// <summary>
-        /// EdgebandTypeCode of the edgeband type allocation.
+        /// EdgebandCode of the edgeband type allocation.
         /// </summary>
         [Required]
         public string EdgebandCode { get; set; } = string.Empty;
