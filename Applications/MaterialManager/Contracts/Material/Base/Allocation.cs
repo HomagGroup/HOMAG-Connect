@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 
@@ -41,6 +42,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
         /// <summary>
         /// Name of the allocation.
         /// </summary>
+        [Required]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
