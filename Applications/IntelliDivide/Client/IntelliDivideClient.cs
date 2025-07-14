@@ -480,7 +480,7 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, string machine, int take, int skip = 0)
         {
-            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&machine={machine}&take={take}&skip={skip}";
+            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&machine={Uri.EscapeDataString(machine)}&take={take}&skip={skip}";
 
             return await RequestEnumerable<Optimization>(new Uri(url, UriKind.Relative));
         }
