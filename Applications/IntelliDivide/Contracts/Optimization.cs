@@ -75,6 +75,6 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Gets or sets validation messages
         /// </summary>
-        public OptimizationValidationResult[] ValidationResults { get; set; } = Array.Empty<OptimizationValidationResult>();
+        public OptimizationValidationResult[] ValidationResults { get; set; }
     }
 }
