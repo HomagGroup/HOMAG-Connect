@@ -70,7 +70,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Gets or sets the id of the transferred solution, if any.
         /// </summary>
-        public Guid? TransferredSolutionId { get; set; }
+        public Guid? SelectedSolutionId { get; set; }
 
         /// <summary>
         /// Gets or sets validation messages
