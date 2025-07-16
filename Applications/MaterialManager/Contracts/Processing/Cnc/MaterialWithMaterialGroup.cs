@@ -10,11 +10,11 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Cnc
     public class MaterialWithMaterialGroup : Material.Boards.Material
     {
         /// <summary>
-        /// The name of the MaterialGroup, unique per subscription
+        /// The name of the MaterialGroup for milling parameters, unique per subscription
         /// </summary>
         [Key]
         [JsonProperty(Order = 90)]
         [Required]
-        public string MaterialGroupName { get; set; }
+        public string MillingMaterialGroupName { get; set; }
     }
 }
