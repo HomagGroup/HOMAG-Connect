@@ -14,6 +14,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialBoard), BoardTypeType.Board)]
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialOffcut), BoardTypeType.Offcut)]
+[JsonSubtypes.KnownSubType(typeof(SolutionMateriaTemplate), BoardTypeType.Template)]
 public class SolutionMaterialBoardBase : IExtensibleDataObject
 {
     /// <summary>

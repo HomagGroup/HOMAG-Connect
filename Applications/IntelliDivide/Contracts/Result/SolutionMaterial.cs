@@ -35,6 +35,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 3)]
         public IReadOnlyCollection<SolutionMaterialOffcutProduced> OffcutsProduced { get; set; }
 
+        /// <summary>
+        /// Gets or sets the templates used in the solution.
+        /// </summary>
+        [JsonProperty(Order = 5)]
+        public IReadOnlyCollection<SolutionMateriaTemplate> Templates { get; set; }
+
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
