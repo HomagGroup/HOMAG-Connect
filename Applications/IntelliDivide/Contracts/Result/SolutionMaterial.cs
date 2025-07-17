@@ -39,7 +39,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the templates used in the solution.
         /// </summary>
         [JsonProperty(Order = 5)]
-        public IReadOnlyCollection<SolutionMateriaTemplate> Templates { get; set; }
+        public IReadOnlyCollection<SolutionMaterialTemplate> Templates { get; set; }
 
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
