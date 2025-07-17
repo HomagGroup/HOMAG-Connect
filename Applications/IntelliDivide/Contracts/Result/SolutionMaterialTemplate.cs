@@ -8,7 +8,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// Describes the material used in the solution.
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionMateriaTemplate : SolutionMaterialBoardBase
+    public class SolutionMaterialTemplate : SolutionMaterialBoardBase
     {
         /// <inheritdoc />
         public override BoardTypeType Type { get; set; } = BoardTypeType.Template;
