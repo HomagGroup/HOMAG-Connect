@@ -8,7 +8,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
     public class CreateLotResponse
     {
         /// <summary>
-        /// Gets or sets the correlation id for the import job
+        /// Gets or sets the newly created lot id
         /// </summary>
         [JsonProperty(Order = 1)]
         public Guid LotId { get; set; }
