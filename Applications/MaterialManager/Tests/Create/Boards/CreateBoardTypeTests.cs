@@ -54,14 +54,14 @@ public class CreateBoardTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task BoardsCreateBoardType()
     {
-        var boardsClient = GetMaterialManagerClient();
-        await CreateBoardTypeSamples.Boards_CreateBoardType(boardsClient.Material.Boards);
+        var materialManagerClient = GetMaterialManagerClient();
+        await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards);
     }
     
     [TestCleanup]
     public async Task Cleanup()
     {
-        var boardsClient = GetMaterialManagerClient();
-        await boardsClient.Material.Boards.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
+        var materialManagerClient = GetMaterialManagerClient();
+        await materialManagerClient.Material.Boards.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
     }
 }

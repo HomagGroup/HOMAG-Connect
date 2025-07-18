@@ -12,10 +12,10 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
         {
             var boardTypeUpdate = new MaterialManagerUpdateBoardType
             {
-                Length = 2070.0,
+                Length = 500.0,
                 // Add other properties
             };
-            var updatedBoardType = await materialManager.UpdateBoardType("BT_White_19mm", boardTypeUpdate);
+            var updatedBoardType = await materialManager.UpdateBoardType("HPL_F274_9_12.0_4100.0_650.0", boardTypeUpdate);
             Console.WriteLine($"Updated Board Type: {updatedBoardType.BoardCode}");
         }
     }
