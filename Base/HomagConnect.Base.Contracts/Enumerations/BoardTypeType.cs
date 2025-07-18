@@ -20,6 +20,11 @@ namespace HomagConnect.Base.Contracts.Enumerations
         /// <summary>
         /// The board is an offcut.
         /// </summary>
-        Offcut
+        Offcut,
+
+        /// <summary>
+        /// The board is a Template.
+        /// </summary>
+        Template
     }
 }
