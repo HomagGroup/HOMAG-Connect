@@ -79,7 +79,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Template.
+        ///   Looks up a localized string similar to Schablone.
         /// </summary>
         public static string Template {
             get {
