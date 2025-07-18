@@ -123,4 +123,7 @@
   <data name="Offcut" xml:space="preserve">
     <value>Rest</value>
   </data>
+  <data name="Template" xml:space="preserve">
+    <value>Template</value>
+  </data>
 </root>

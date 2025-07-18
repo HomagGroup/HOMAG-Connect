@@ -77,5 +77,14 @@ namespace HomagConnect.Base.Contracts.Enumerations {
                 return ResourceManager.GetString("Offcut", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template.
+        /// </summary>
+        public static string Template {
+            get {
+                return ResourceManager.GetString("Template", resourceCulture);
+            }
+        }
     }
 }
