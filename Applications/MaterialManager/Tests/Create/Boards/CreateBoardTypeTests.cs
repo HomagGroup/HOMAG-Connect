@@ -1,15 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using FluentAssertions;
-
+﻿using FluentAssertions;
+using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
+using HomagConnect.MaterialManager.Samples.Create.Boards;
+using System.ComponentModel.DataAnnotations;
+using HomagConnect.MaterialManager.Tests;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.Base.Contracts.Exceptions;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
 namespace HomagConnect.MaterialManager.Tests.Create.Boards;
 
 /// <summary />
 [TestClass]
-public class CreateBoardTypeTests
+public class CreateBoardTypeTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
@@ -41,5 +47,21 @@ public class CreateBoardTypeTests
         boardType.Width = width;
         boardType.Thickness = thickness;
         return boardType;
+    }
+
+    /// <summary /> 
+   
+    [TestMethod]
+    public async Task BoardsCreateBoardType()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+        await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards);
+    }
+    
+    [TestCleanup]
+    public async Task Cleanup()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+        await materialManagerClient.Material.Boards.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
     }
 }
