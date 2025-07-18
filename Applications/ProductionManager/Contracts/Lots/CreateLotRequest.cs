@@ -29,6 +29,6 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// Gets or sets the part ids which will be added in the lot.
         /// </summary>
         [JsonProperty(Order = 4)]
-        public IEnumerable<Guid> PartIds { get; set; } = [];
+        public IEnumerable<string> PartIds { get; set; } = [];
     }
 }
