@@ -1,4 +1,5 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -153,6 +154,15 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <returns></returns>
         Task DeleteOrDecomposeLotsByLotNames(string[] lotNames);
 
+        #endregion
+
+        #region
+        /// <summary>
+        /// Creates a new lot based on the given request
+        /// </summary>
+        /// <param name="createLotRequest"></param>
+        /// <returns></returns>
+        Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest);
         #endregion
 
         #region Production prediction

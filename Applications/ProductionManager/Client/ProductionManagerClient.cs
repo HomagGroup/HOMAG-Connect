@@ -12,6 +12,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -341,6 +342,21 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         #endregion Lot deletion
+
+        #region Lot creation
+       
+        /// <inheritdoc />
+        public async Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest)
+        {
+            const string uri = "api/productionManager/lots/add";
+
+            var response = await PostObject(new Uri(uri, UriKind.Relative), createLotRequest);
+            var result = await response.Content.ReadAsStringAsync();
+
+            var responseObject = JsonConvert.DeserializeObject<CreateLotResponse>(result, SerializerSettings.Default);
+            return responseObject ?? new CreateLotResponse();
+        }
+        #endregion
 
         #endregion
 
