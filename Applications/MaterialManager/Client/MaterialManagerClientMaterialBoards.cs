@@ -65,7 +65,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         if (boardTypeAllocationUpdate == null)
             throw new ArgumentNullException(nameof(boardTypeAllocationUpdate));
 
-        // Validate required properties if needed (e.g., Name)
         if (string.IsNullOrWhiteSpace(boardTypeAllocationUpdate.Name))
             throw new ArgumentException("The allocation update must have a valid Name.", nameof(boardTypeAllocationUpdate));
 
@@ -74,7 +73,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var payload = JsonConvert.SerializeObject(boardTypeAllocationUpdate, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-        // PATCH is typically used for updates
         var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
