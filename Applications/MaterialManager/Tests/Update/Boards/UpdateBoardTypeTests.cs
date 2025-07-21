@@ -16,7 +16,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
     public class UpdateBoardTypeTests : MaterialManagerTestBase
     {
         /// <summary />
-        [TestInitialize]
+        [ClassInitialize]
         public async Task Initialize()
         {
             var materialManagerClient = GetMaterialManagerClient();
@@ -44,7 +44,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
             await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards);
         }
         
-        [TestCleanup]
+        [ClassCleanup]
         public async Task Cleanup()
         {
             var materialManagerClient = GetMaterialManagerClient();

@@ -58,7 +58,7 @@ public class CreateBoardTypeTests : MaterialManagerTestBase
         await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards);
     }
     
-    [TestCleanup]
+    [ClassCleanup]
     public async Task Cleanup()
     {
         var materialManagerClient = GetMaterialManagerClient();

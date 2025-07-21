@@ -48,7 +48,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
         await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands);
     }
 
-    [TestCleanup]
+    [ClassCleanup]
     public async Task Cleanup()
     {
         var materialManagerClient = GetMaterialManagerClient();

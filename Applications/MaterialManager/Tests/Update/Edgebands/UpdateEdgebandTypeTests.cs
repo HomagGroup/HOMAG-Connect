@@ -15,7 +15,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
     public class UpdateEdgebandTypeTests : MaterialManagerTestBase
     {
         /// <summary />
-        [TestInitialize]
+        [ClassInitialize]
         public async Task Initialize()
         {
             var materialManagerClient = GetMaterialManagerClient();
@@ -38,7 +38,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
             await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands);
         }
         
-        [TestCleanup]
+        [ClassCleanup]
         public async Task Cleanup()
         {
             var materialManagerClient = GetMaterialManagerClient();
