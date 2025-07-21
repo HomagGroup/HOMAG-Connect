@@ -36,7 +36,7 @@ var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
 { 
     Id = "50",
     //The board code is the identifier of the board type
-    BoardCode = "XEG_U156_ST02_08_2070_444.2",
+    BoardCode = "EG_U156_ST02_08_2070_444.2",
     ManagementType = ManagementType.Stack,
     Comments = "This is a comment",
     Quantity = 5
@@ -56,7 +56,7 @@ var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
 {
     Id = "23",
     //The board code is the identifier of the board type
-    BoardCode = "RP_EG_H3303_ST10_19",
+    BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
     ManagementType = ManagementType.GoodsInStock,
     Comments = "This is a comment",
     Quantity = 5
@@ -75,7 +75,7 @@ var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
 
  var boardTypeRequest = new MaterialManagerRequestBoardType()
 {
-    BoardCode = "RP_EG_H3303_ST10_19",
+    BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
     CoatingCategory = CoatingCategory.MelamineThermoset,
     Grain = Grain.Lengthwise, 
     Length = 2800.0,

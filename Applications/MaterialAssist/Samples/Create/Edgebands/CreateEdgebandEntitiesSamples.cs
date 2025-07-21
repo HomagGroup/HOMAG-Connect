@@ -18,7 +18,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
                 Comments = "This is a comment",
                 Quantity = 1,
                 Length = 1000,
-                CurrentThickness = 19
+                CurrentThickness = 1.0
             };
             var newEdgebandEntity = await materialAssist.CreateEdgebandEntity(edgebandEntityRequest);
             Console.WriteLine($"Created edgeband entity: {newEdgebandEntity.Id}");
@@ -31,7 +31,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
                 EdgebandCode = "EB_White_1mm",
                 Height = 20,
                 Thickness = 1.0,
-                DefaultLength = 23.0,
+                DefaultLength = 50.0,
                 MaterialCategory = EdgebandMaterialCategory.Veneer,
                 Process = EdgebandingProcess.Other,
             };
