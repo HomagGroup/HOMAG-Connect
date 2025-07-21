@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -22,9 +24,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
         public string Customer { get; set; } = string.Empty;
 
         /// <summary>
-        /// EdgebandTypeCode of the edgeband type allocation.
+        /// EdgebandCode of the edgeband type allocation.
         /// </summary>
-        public string EdgebandTypeCode { get; set; } = string.Empty;
+        [Required]
+        public string EdgebandCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Order of the edgeband type allocation.
