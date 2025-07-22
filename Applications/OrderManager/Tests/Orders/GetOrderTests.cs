@@ -213,6 +213,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
         {
             var orderManager = GetOrderManagerClient();
