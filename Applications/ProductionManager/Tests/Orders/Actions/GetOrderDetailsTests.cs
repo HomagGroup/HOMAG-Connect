@@ -201,7 +201,7 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 07, 10, "DF-Production")]
+    [TemporaryDisabledOnServer(2025, 07, 14, "DF-Production")]
     public async Task OrderDetails_Items_NumberOfPartsEqualsItems()
     {
         var productionManagerClient = GetProductionManagerClient();
