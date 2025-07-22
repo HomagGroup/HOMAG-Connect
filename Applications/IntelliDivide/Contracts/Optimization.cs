@@ -49,7 +49,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <summary>
         /// Gets or sets the estimated production time.
         /// </summary>
-        public TimeSpan ProductionTime { get; set; }
+        public TimeSpan? ProductionTime { get; set; }
 
         /// <summary>
         /// Gets or sets the quantity of parts.
@@ -65,7 +65,7 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets or sets the waste.
         /// </summary>
         [DefaultValue(0.0)]
-        public double Waste { get; set; }
+        public double? Waste { get; set; }
 
         /// <summary>
         /// Gets or sets the id of the transferred solution, if any.
