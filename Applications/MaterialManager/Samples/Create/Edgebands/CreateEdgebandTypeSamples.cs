@@ -10,11 +10,11 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
         /// <summary>
         /// The example shows how to create a edgeband type.
         /// </summary>
-        public static async Task Edgebands_CreateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_CreateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {
-                EdgebandCode = "EB_White_1mm",
+                EdgebandCode = edgebandCode,
                 Height = 20,
                 Thickness = 1.0,
                 DefaultLength = 23.0,

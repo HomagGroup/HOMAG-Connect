@@ -55,7 +55,9 @@ public class CreateBoardTypeTests : MaterialManagerTestBase
     public async Task BoardsCreateBoardType()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards);
+        var materialCode = "HPL_F274_9_12.0";
+        var boardCode = "HPL_F274_9_12.0_4100.0_650.0";
+        await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards, materialCode, boardCode);
     }
     
     [ClassCleanup]

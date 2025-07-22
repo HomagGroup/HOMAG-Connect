@@ -35,7 +35,8 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         public async Task EdgebandsUpdateEdgebandType()
         {
             var materialManagerClient = GetMaterialManagerClient();
-            await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands);
+            var edgebandCode = "EB_White_1mm";
+            await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
         }
         
         [ClassCleanup]

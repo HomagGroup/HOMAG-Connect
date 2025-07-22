@@ -45,7 +45,8 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     public async Task BoardsCreateBoardType()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands);
+        var edgebandCode = "EB_White_1mm";
+        await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
     }
 
     [ClassCleanup]

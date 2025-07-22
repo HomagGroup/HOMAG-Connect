@@ -41,7 +41,8 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
         public async Task BoardsUpdateBoardType()
         {
             var materialManagerClient = GetMaterialManagerClient();
-            await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards);
+            var boardCode = "HPL_F274_9_12.0_4100.0_650.0"; 
+            await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode);
         }
         
         [ClassCleanup]
