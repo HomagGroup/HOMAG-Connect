@@ -68,7 +68,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         if (string.IsNullOrWhiteSpace(boardTypeAllocationUpdate.Name))
             throw new ArgumentException("The allocation update must have a valid Name.", nameof(boardTypeAllocationUpdate));
 
-        var url = $"{_BaseRoute}/allocations?allocationName={Uri.EscapeDataString(allocationName)}";
+        var url = $"{_BoardTypeAllocationsRoute}?allocationName={Uri.EscapeDataString(allocationName)}";
 
         var payload = JsonConvert.SerializeObject(boardTypeAllocationUpdate, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -177,25 +177,26 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<BoardTypeAllocation> CreateBoardTypeAllocation(BoardTypeAllocationRequest boardTypeAllocationRequest)
     {
-        var request = new HttpRequestMessage { Method = HttpMethod.Post };
-        request.RequestUri = new Uri(_BaseRoute, UriKind.Relative);
+        if (boardTypeAllocationRequest == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeAllocationRequest));
+        }
 
-        using var httpContent = new MultipartFormDataContent();
+        ValidateRequiredProperties(boardTypeAllocationRequest);
 
-        var json = JsonConvert.SerializeObject(boardTypeAllocationRequest, SerializerSettings.Default);
+        var payload = JsonConvert.SerializeObject(boardTypeAllocationRequest, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_BoardTypeAllocationsRoute, UriKind.Relative), content);
 
-        httpContent.Add(new StringContent(json), nameof(boardTypeAllocationRequest));
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardTypeAllocation>(responseContent, SerializerSettings.Default);
 
-        request.Content = httpContent;
+        if (result != null)
+        {
+            return result;
+        }
 
-        var response = await Client.SendAsync(request);
-
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-
-        var result = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<BoardTypeAllocation>(result, SerializerSettings.Default);
-
-        return responseObject ?? new BoardTypeAllocation();
+        throw new Exception($"The returned object is not of type {nameof(BoardTypeAllocation)}");
     }
 
     #endregion
@@ -203,6 +204,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
+    private const string _BoardTypeAllocationsRoute = _BaseRoute + "/allocations";
     private const string _BaseStatisticsRoute = "api/materialManager/statistics";
     private const string _MaterialCode = "materialCode";
     private const string _BoardCode = "boardCode";
@@ -400,8 +402,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(int take, int skip = 0)
     {
-        var url = $"{_BaseRoute}/allocations?take={take}&skip={skip}";
-        return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
+        var url = $"{_BoardTypeAllocationsRoute}?take={take}&skip={skip}";
+        var result = await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
+        return result ?? [];
     }
 
     /// <inheritdoc />
@@ -428,8 +431,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             query.Append($"&allocationName={Uri.EscapeDataString(name)}");
         }
 
-        var url = $"{_BaseRoute}/allocations{query}";
-        return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
+        var url = $"{_BoardTypeAllocationsRoute}/byNames{query}";
+        var result = await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
+        return result ?? [];
     }
 
     /// <inheritdoc />
@@ -441,7 +445,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         if (take > 1000)
             throw new ArgumentException("The maximum value for 'take' is 1000.", nameof(take));
 
-        var url = $"{_BaseRoute}/allocations/search?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
+        var url = $"{_BoardTypeAllocationsRoute}/search?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
         return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
     }
 
@@ -505,7 +509,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             query.Append($"allocationName={Uri.EscapeDataString(name)}");
         }
 
-        var url = $"{_BaseRoute}/allocations{query}";
+        var url = $"{_BoardTypeAllocationsRoute}{query}";
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
