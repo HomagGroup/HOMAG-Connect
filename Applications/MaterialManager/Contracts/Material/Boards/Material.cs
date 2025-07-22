@@ -37,7 +37,7 @@ public class Material : IContainsUnitSystemDependentProperties
     /// The coating category of the material.
     /// </summary>
     [JsonProperty(Order = 5)]
-    public CoatingCategory Coating { get; set; }
+    public CoatingCategory CoatingCategory { get; set; }
 
     /// <summary>
     /// The material code.
