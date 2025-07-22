@@ -143,6 +143,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0);
 
         /// <summary>
+        /// Gets the materials by material codes.
+        /// </summary>
+        /// <param name="materialCodes">A collection of material codes.</param>
+        /// <returns>A collection of <see cref="Material"/> objects.</returns>
+        Task<IEnumerable<Material>?> GetMaterialsByMaterialCodes(IEnumerable<string> materialCodes);
+
+        /// <summary>
         /// Update board type by board code.
         /// </summary>
         Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate);
