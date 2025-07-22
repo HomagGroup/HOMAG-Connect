@@ -336,16 +336,41 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return urls;
     }
 
-    /// <summary>
-    /// Gets a paginated list of materials.
-    /// </summary>
-    /// <param name="take">The number of materials to return.</param>
-    /// <param name="skip">The number of materials to skip.</param>
-    /// <returns>A collection of <see cref="Material" />.</returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}/materials?take={take}&skip={skip}";
         return await RequestEnumerable<Material>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<Material>?> GetMaterialsByMaterialCodes(IEnumerable<string> materialCodes)
+    {
+        if (materialCodes == null)
+        {
+            throw new ArgumentNullException(nameof(materialCodes));
+        }
+
+        var codes = materialCodes
+            .Where(m => !string.IsNullOrWhiteSpace(m))
+            .Distinct()
+            .OrderBy(m => m)
+            .ToList();
+
+        if (!codes.Any())
+        {
+            throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
+        }
+
+        var urls = CreateUrls(codes, _MaterialCode, route: "/materials");
+        var materials = new List<Material>();
+
+        foreach (var url in urls)
+        {
+            materials.AddRange(await RequestEnumerable<Material>(new Uri(url, UriKind.Relative)) ?? []);
+        }
+
+        return materials;
     }
 
     #endregion
