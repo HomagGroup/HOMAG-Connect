@@ -6,14 +6,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Contracts.Request;
 
-public class MaterialAssistRequestEdgebandEntity
+public class MaterialAssistRequestEdgebandEntity : MaterialAssistRequestBase
 {
-    /// <summary>
-    /// Gets or sets the additional comments.
-    /// </summary>
-    [StringLength(300)]
-    public string? Comments { get; set; }
-
     /// <summary>
     /// Gets or sets the current thickness.
     /// </summary>
@@ -26,14 +20,7 @@ public class MaterialAssistRequestEdgebandEntity
     /// </summary>
     [Required]
     [StringLength(50, MinimumLength = 1)]
-    public string EdgebandCode { get; set; }
-
-    /// <summary>
-    /// Gets or sets the custom id.
-    /// </summary>
-    [Required]
-    [StringLength(50, MinimumLength = 1)]
-    public string Id { get; set; }
+    public string EdgebandCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the length.
@@ -47,11 +34,4 @@ public class MaterialAssistRequestEdgebandEntity
     /// </summary>
     [Required]
     public ManagementType ManagementType { get; set; }
-
-    /// <summary>
-    /// Gets or sets the quantity.
-    /// </summary>
-    [Required]
-    [Range(1, 100)]
-    public int Quantity { get; set; }
 }
