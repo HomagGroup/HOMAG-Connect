@@ -24,6 +24,4 @@ public class MaterialAssistRequestOffcutEntity : MaterialAssistRequestBase
     [Required]
     [Range(0.1, 9999.9)]
     public double Width { get; set; }
-
-    s
 }
