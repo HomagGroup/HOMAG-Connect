@@ -4,15 +4,13 @@ namespace HomagConnect.MaterialAssist.Samples.Delete.Edgebands
 {
     public class DeleteEdgebandEntitiesSamples
     {
-        // Funktion für eine Id und mehrere Ids heißt gleich ???
-        public static async Task Edgebands_DeleteEdgebandEntity(MaterialAssistClientEdgebands materialAssist)
+        public static async Task Edgebands_DeleteEdgebandEntity(MaterialAssistClientEdgebands materialAssist, string id)
         {
-            await materialAssist.DeleteEdgebandEntity("42");
+            await materialAssist.DeleteEdgebandEntity(id);
         }
 
-        public static async Task Edgebands_DeleteEdgebandEntities(MaterialAssistClientEdgebands materialAssist)
+        public static async Task Edgebands_DeleteEdgebandEntities(MaterialAssistClientEdgebands materialAssist, List<string> ids)
         {
-            List<string> ids = ["42", "50", "23"];
             await materialAssist.DeleteEdgebandEntity(ids);
         }
     }
