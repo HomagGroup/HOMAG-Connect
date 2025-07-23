@@ -403,7 +403,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
                     Lot = "Lot #1",
 
-                    AdditionalProperties = new Dictionary<string, object> { { "DeliveryRegion", "North" }, {"Priority", 1} }
+                    AdditionalProperties = new Dictionary<string, object> { { "DeliveryRegion", "North" } }
                 });
 
             request.Trace(nameof(request));
