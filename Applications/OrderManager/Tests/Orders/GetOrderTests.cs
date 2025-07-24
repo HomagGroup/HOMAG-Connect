@@ -6,7 +6,6 @@ using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
@@ -169,7 +168,6 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrders_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -191,7 +189,6 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNew_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -213,7 +210,6 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
         {
             var orderManager = GetOrderManagerClient();
@@ -234,7 +230,6 @@ namespace HomagConnect.OrderManager.Tests.Orders
         }
 
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetOrdersHavingThePassedOrderNumbers_NoException()
         {
             var orderManager = GetOrderManagerClient();

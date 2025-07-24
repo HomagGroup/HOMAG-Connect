@@ -13,7 +13,7 @@ public class EntityWrapper
     #endregion
 
     #region Public Properties
-
+    
     /// <summary />
     public string? Barcode
     {

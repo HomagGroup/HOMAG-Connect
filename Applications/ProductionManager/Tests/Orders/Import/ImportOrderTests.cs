@@ -15,7 +15,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 5, 1, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Cabinet()
         {
             var projectZip = new FileInfo("TestData\\Cabinet.zip");
@@ -32,7 +31,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
             try
             {
-                await ImportOrderSamples.ImportOrderUsingProjectZipAndWaitForCompletion(productionManager);
+                var order = await ImportOrderSamples.ImportOrderUsingProjectZipAndWaitForCompletion(productionManager);
+                await productionManager.DeleteOrderByOrderId(order.Id);
             }
             catch (Exception e)
             {
@@ -45,7 +45,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 5, 30, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Wardrobe()
         {
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
@@ -59,7 +58,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
             var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
 
-            project.SetSource(source);
+            //project.SetSource(source);
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
             project.SetDeliveryDatePlanned(DateTime.Today + TimeSpan.FromDays(14));
             project.SetBarcodesToNull();
@@ -73,6 +72,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
             Assert.IsNotNull(order.Link);
 
             TestContext?.WriteLine(order.Link?.ToString());
+
+            await productionManager.DeleteOrderByOrderId(order.Id);
         }
     }
 }

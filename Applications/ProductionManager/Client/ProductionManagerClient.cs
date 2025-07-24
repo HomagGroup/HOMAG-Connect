@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,9 +58,12 @@ namespace HomagConnect.ProductionManager.Client
 
             var response = await Client.SendAsync(request);
 
-            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            var result = await response.Content.ReadAsStringAsync();
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new ValidationException(result);
+            }
 
             var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
