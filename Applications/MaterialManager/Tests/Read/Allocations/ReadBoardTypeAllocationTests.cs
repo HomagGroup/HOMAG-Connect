@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
@@ -17,6 +18,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// GetBoardTypeAllocations_NoException
     /// </summary>
+    [TemporaryDisabledOnServer(2025,8,10,"DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     public async Task GetBoardTypeAllocations_NoException()
     {
@@ -31,6 +33,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// GetBoardTypeAllocationsByNames_ReturnsAllocations
     /// </summary>
     /// <param name="allocationName"></param>
+    [TemporaryDisabledOnServer(2025,8,10,"DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow("AllocationName")]
     public async Task GetBoardTypeAllocationsByNames_ReturnsAllocations(string allocationName)
@@ -48,6 +51,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// SearchBoardTypeAllocation_ReturnsAllocations
     /// </summary>
     /// <param name="search"></param>
+    [TemporaryDisabledOnServer(2025, 8, 10, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow("name")]
     public async Task SearchBoardTypeAllocation_ReturnsAllocations(string search)

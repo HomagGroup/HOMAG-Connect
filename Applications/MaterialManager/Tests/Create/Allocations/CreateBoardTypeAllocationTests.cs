@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using FluentAssertions;
-
+﻿using FluentAssertions;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
+using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.TestBase.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 
@@ -36,6 +36,7 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// BoardTypeAllocationCreation_ValidRequest_CreatesAllocation
     /// </summary>
+    [TemporaryDisabledOnServer(2025, 8, 10, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow("TestBoardCode", "comments", "createdBy", "Test_Allocation", 1, "source", "workstation")]
     public async Task BoardTypeAllocationCreation_ValidRequest_CreatesAllocation(string boardCode, string comments, string createdBy,
