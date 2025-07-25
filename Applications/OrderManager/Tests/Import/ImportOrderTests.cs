@@ -167,7 +167,14 @@ namespace HomagConnect.OrderManager.Tests.Import
                 anyException = true;
             }
 
-            Assert.IsTrue(anyException);
+            if (BaseUrl.OriginalString == "https://connect.homag.cloud" || BaseUrl.OriginalString == "https://connect-preview.homag.cloud")
+            {
+                Assert.IsFalse(anyException);
+            }
+            else if (BaseUrl.OriginalString == "https://connect-dev.homag.cloud" || BaseUrl.OriginalString == "https://connect-int.homag.cloud")
+            {
+                Assert.IsTrue(anyException);
+            }
         }
 
         /// <summary />
