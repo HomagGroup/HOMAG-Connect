@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using FluentAssertions;
-
+﻿using FluentAssertions;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
+using HomagConnect.MaterialManager.Samples.Create.Boards;
+using HomagConnect.MaterialManager.Samples.Create.Edgebands;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Tests.Create.Edgebands;
 
 /// <summary />
 [TestClass]
-public class CreateEdgebandTypeTests
+public class CreateEdgebandTypeTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
@@ -38,4 +38,22 @@ public class CreateEdgebandTypeTests
         edgebandType.DefaultLength = length;
         return edgebandType;
     }
+
+    /// <summary /> 
+
+    [TestMethod]
+    public async Task BoardsCreateBoardType()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+        var edgebandCode = "EB_White_1mm";
+        await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
+    }
+
+    [ClassCleanup]
+    public async Task Cleanup()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm");
+    }
 }
+
