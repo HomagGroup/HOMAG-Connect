@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 {
-    internal class UpdateBoardsTests
+    public class UpdateBoardsTests
     {
     }
 }
