@@ -52,6 +52,17 @@ public static class ParamBaseExtensions
             return XmlConvert.ToString((DateTimeOffset)Convert.ChangeType(value, typeof(DateTimeOffset)));
         }
 
+        if ((typeof(T) == typeof(int?)) || (typeof(T) == typeof(int)))
+        {
+            return XmlConvert.ToString((int)Convert.ChangeType(value, typeof(int)));
+        }
+
+        if ((typeof(T) == typeof(double?)) || (typeof(T) == typeof(double)))
+        {
+            return XmlConvert.ToString((double)Convert.ChangeType(value, typeof(double)));
+        }
+
+
         throw new NotSupportedException("Type " + typeof(T) + " is not supported.");
     }
 

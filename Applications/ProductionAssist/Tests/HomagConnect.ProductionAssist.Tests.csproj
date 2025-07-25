@@ -12,12 +12,16 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Orders\Project.zip" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    <Generator></Generator>
+	  </Content>
+	  <Content Include="Orders\Project.zip">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
 
