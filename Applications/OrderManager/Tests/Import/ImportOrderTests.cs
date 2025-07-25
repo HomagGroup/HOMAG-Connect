@@ -42,7 +42,7 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                TestContext?.WriteLine(e.Message);
                 anyException = true;
             }
 
@@ -85,7 +85,7 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                TestContext?.WriteLine(e.Message);
                 anyException = true;
             }
 
@@ -113,7 +113,7 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                TestContext?.WriteLine(e.Message);
                 anyException = true;
             }
 
@@ -163,7 +163,7 @@ namespace HomagConnect.OrderManager.Tests.Import
             }
             catch (ValidationException e)
             {
-                Console.WriteLine(e);
+                TestContext?.WriteLine("Expected excpetion: " + e.Message);
                 anyException = true;
             }
 
