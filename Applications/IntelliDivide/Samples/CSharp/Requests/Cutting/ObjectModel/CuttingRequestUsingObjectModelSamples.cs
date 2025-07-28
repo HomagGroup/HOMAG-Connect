@@ -234,7 +234,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             response.Trace(nameof(response));
 
             // Validate the request
-            if (response.ValidationResults.Any())
+            if (response.ValidationResults != null && response.ValidationResults.Any())
             {
                 throw new ValidationException(response.ValidationResults[0].ErrorMessage);
             }
