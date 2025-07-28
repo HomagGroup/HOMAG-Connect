@@ -20,7 +20,7 @@ public static class OptimizationRequestResponseExtensions
     {
         if (response.OptimizationStatus is OptimizationStatus.Faulted)
         {
-            if (response.ValidationResults != null && response.ValidationResults is { Length: > 0 })
+            if (response.ValidationResults is { Length: > 0 })
             {
                 throw new ValidationException(response.ValidationResults[0].ErrorMessage);
             }
@@ -42,7 +42,7 @@ public static class OptimizationRequestResponseExtensions
 
         if (response.OptimizationStatus is OptimizationStatus.Faulted)
         {
-            if (response.ValidationResults != null && response.ValidationResults is { Length: > 0 })
+            if (response.ValidationResults is { Length: > 0 })
             {
                 throw new ValidationException(response.ValidationResults[0].ErrorMessage);
             }
