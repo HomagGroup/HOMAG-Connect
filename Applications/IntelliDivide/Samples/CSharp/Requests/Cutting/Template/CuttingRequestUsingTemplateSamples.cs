@@ -73,7 +73,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
             response.Trace();
 
-            if (!response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
+            if (response.ValidationResults != null && !response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
             {
                 var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 
