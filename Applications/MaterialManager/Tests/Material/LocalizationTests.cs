@@ -9,6 +9,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
+using MaterialType = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
+
 namespace HomagConnect.MaterialManager.Tests.Material
 {
     /// <summary />
@@ -16,6 +18,30 @@ namespace HomagConnect.MaterialManager.Tests.Material
     [TestCategory("MaterialManager")]
     public class LocalizationTests
     {
+        /// <summary>
+        /// </summary>
+        /// <param name="cultureName"></param>
+        [DataRow("de")]
+        [DataRow("en")]
+        [TestMethod]
+        public void MaterialManager_Localization_BoardEntity(string cultureName)
+        {
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+
+            var boardEntity = new BoardEntity();
+            var propertyDisplayNames = boardEntity.GetPropertyDisplayNames(culture);
+
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Id), culture), propertyDisplayNames[nameof(BoardEntity.Id)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Length), culture), propertyDisplayNames[nameof(BoardEntity.Length)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Width), culture), propertyDisplayNames[nameof(BoardEntity.Width)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Quantity), culture), propertyDisplayNames[nameof(BoardEntity.Quantity)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_ManagementType), culture), propertyDisplayNames[nameof(BoardEntity.ManagementType)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Comments), culture), propertyDisplayNames[nameof(BoardEntity.Comments)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_CreationDate), culture), propertyDisplayNames[nameof(BoardEntity.CreationDate)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Location), culture), propertyDisplayNames[nameof(BoardEntity.Location)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_BoardType), culture), propertyDisplayNames[nameof(BoardEntity.BoardType)]);
+        }
+
         /// <summary />
         [TestMethod]
         public void MaterialManager_Localization_BoardMaterialCategory()
@@ -86,6 +112,31 @@ namespace HomagConnect.MaterialManager.Tests.Material
             Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Thumbnail), culture), propertyDisplayNames[nameof(BoardType.Thumbnail)]);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="cultureName"></param>
+        [DataRow("de")]
+        [DataRow("en")]
+        [TestMethod]
+        public void MaterialManager_Localization_BoardTypeAllocation(string cultureName)
+        {
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+
+            var allocation = new BoardTypeAllocation();
+            var propertyDisplayNames = allocation.GetPropertyDisplayNames(culture);
+
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeAllocationProperties_BoardCode), culture), propertyDisplayNames[nameof(BoardTypeAllocation.BoardCode)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeAllocationProperties_Quantity), culture), propertyDisplayNames[nameof(BoardTypeAllocation.Quantity)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_AdditionalData), culture), propertyDisplayNames[nameof(BoardTypeAllocation.AdditionalData)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_AdditionalProperties), culture),
+                propertyDisplayNames[nameof(BoardTypeAllocation.AdditionalProperties)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Comments), culture), propertyDisplayNames[nameof(BoardTypeAllocation.Comments)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_CreatedAt), culture), propertyDisplayNames[nameof(BoardTypeAllocation.CreatedAt)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_CreatedBy), culture), propertyDisplayNames[nameof(BoardTypeAllocation.CreatedBy)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Name), culture), propertyDisplayNames[nameof(BoardTypeAllocation.Name)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Source), culture), propertyDisplayNames[nameof(BoardTypeAllocation.Source)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Workstation), culture), propertyDisplayNames[nameof(BoardTypeAllocation.Workstation)]);
+        }
 
         /// <summary>
         /// </summary>
@@ -93,23 +144,40 @@ namespace HomagConnect.MaterialManager.Tests.Material
         [DataRow("de")]
         [DataRow("en")]
         [TestMethod]
-        public void MaterialManager_Localization_BoardEntity(string cultureName)
+        public void MaterialManager_Localization_BoardTypeDetails(string cultureName)
         {
             var culture = CultureInfo.GetCultureInfo(cultureName);
 
-            var boardEntity = new BoardEntity();
-            var propertyDisplayNames = boardEntity.GetPropertyDisplayNames(culture);
+            var details = new BoardTypeDetails();
+            var propertyDisplayNames = details.GetPropertyDisplayNames(culture);
 
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Id), culture), propertyDisplayNames[nameof(BoardEntity.Id)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Length), culture), propertyDisplayNames[nameof(BoardEntity.Length)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Width), culture), propertyDisplayNames[nameof(BoardEntity.Width)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Quantity), culture), propertyDisplayNames[nameof(BoardEntity.Quantity)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_ManagementType), culture), propertyDisplayNames[nameof(BoardEntity.ManagementType)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Comments), culture), propertyDisplayNames[nameof(BoardEntity.Comments)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_CreationDate), culture), propertyDisplayNames[nameof(BoardEntity.CreationDate)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Location), culture), propertyDisplayNames[nameof(BoardEntity.Location)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_BoardType), culture), propertyDisplayNames[nameof(BoardEntity.BoardType)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeDetailsProperties_AdditionalData), culture), propertyDisplayNames[nameof(BoardTypeDetails.AdditionalData)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeDetailsProperties_Allocations), culture), propertyDisplayNames[nameof(BoardTypeDetails.Allocations)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeDetailsProperties_Inventory), culture), propertyDisplayNames[nameof(BoardTypeDetails.Inventory)]);
+        }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="cultureName"></param>
+        [DataRow("de")]
+        [DataRow("en")]
+        [TestMethod]
+        public void MaterialManager_Localization_BoardTypeInventory(string cultureName)
+        {
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+
+            var inventory = new BoardTypeInventory();
+            var propertyDisplayNames = inventory.GetPropertyDisplayNames(culture);
+
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_OrderNumber), culture), propertyDisplayNames[nameof(BoardTypeInventory.OrderNumber)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Code), culture), propertyDisplayNames[nameof(BoardTypeInventory.Code)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Location), culture), propertyDisplayNames[nameof(BoardTypeInventory.Location)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Workstation), culture), propertyDisplayNames[nameof(BoardTypeInventory.Workstation)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Quantity), culture), propertyDisplayNames[nameof(BoardTypeInventory.Quantity)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_AdditionalCommentsBoards), culture),
+                propertyDisplayNames[nameof(BoardTypeInventory.AdditionalCommentsBoards)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_CreationDate), culture), propertyDisplayNames[nameof(BoardTypeInventory.CreationDate)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_ExtensionData), culture), propertyDisplayNames[nameof(BoardTypeInventory.ExtensionData)]);
         }
 
         /// <summary>
@@ -274,6 +342,41 @@ namespace HomagConnect.MaterialManager.Tests.Material
                 var expected = ManagementTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
                 Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="cultureName"></param>
+        [DataRow("de")]
+        [DataRow("en")]
+        [TestMethod]
+        public void MaterialManager_Localization_Material(string cultureName)
+        {
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+
+            var material = new MaterialType();
+            var propertyDisplayNames = material.GetPropertyDisplayNames(culture);
+
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_AdditionalData), culture), propertyDisplayNames[nameof(MaterialType.AdditionalData)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_AverageCosts), culture), propertyDisplayNames[nameof(MaterialType.AverageCosts)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_BoardParameterForOptimization), culture),
+                propertyDisplayNames[nameof(MaterialType.BoardParameterForOptimization)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_CoatingCategory), culture), propertyDisplayNames[nameof(MaterialType.CoatingCategory)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Code), culture), propertyDisplayNames[nameof(MaterialType.Code)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_DecorCode), culture), propertyDisplayNames[nameof(MaterialType.DecorCode)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_DecorName), culture), propertyDisplayNames[nameof(MaterialType.DecorName)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Density), culture), propertyDisplayNames[nameof(MaterialType.Density)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_HasGrain), culture), propertyDisplayNames[nameof(MaterialType.HasGrain)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Manufacturer), culture), propertyDisplayNames[nameof(MaterialType.Manufacturer)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_MasterDataComments), culture), propertyDisplayNames[nameof(MaterialType.MasterDataComments)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_MaterialCategory), culture), propertyDisplayNames[nameof(MaterialType.MaterialCategory)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_MaterialParameterForOptimization), culture),
+                propertyDisplayNames[nameof(MaterialType.MaterialParameterForOptimization)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_ProductName), culture), propertyDisplayNames[nameof(MaterialType.ProductName)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_StandardQuality), culture), propertyDisplayNames[nameof(MaterialType.StandardQuality)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Thickness), culture), propertyDisplayNames[nameof(MaterialType.Thickness)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Thumbnail), culture), propertyDisplayNames[nameof(MaterialType.Thumbnail)]);
+            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_UnitSystem), culture), propertyDisplayNames[nameof(MaterialType.UnitSystem)]);
         }
 
         /// <summary>

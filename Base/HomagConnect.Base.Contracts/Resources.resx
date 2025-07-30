@@ -262,6 +262,131 @@
   <data name="BoardEntityProperties_BoardType" xml:space="preserve">
     <value>Plattentyp</value>
   </data>
+  <data name="BoardTypeAllocationProperties_BoardCode" xml:space="preserve">
+    <value>Plattencode</value>
+  </data>
+  <data name="BoardTypeAllocationProperties_Quantity" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+
+	<!-- Allocation properties -->
+	<data name="AllocationProperties_AdditionalData" xml:space="preserve">
+    <value>Zusätzliche Daten</value>
+  </data>
+	<data name="AllocationProperties_AdditionalProperties" xml:space="preserve">
+    <value>Zusätzliche Eigenschaften</value>
+  </data>
+	<data name="AllocationProperties_Comments" xml:space="preserve">
+    <value>Kommentare</value>
+  </data>
+	<data name="AllocationProperties_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+	<data name="AllocationProperties_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+	<data name="AllocationProperties_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+	<data name="AllocationProperties_Source" xml:space="preserve">
+    <value>Quelle</value>
+  </data>
+	<data name="AllocationProperties_Workstation" xml:space="preserve">
+    <value>Arbeitsplatz</value>
+  </data>
+
+	<!-- BoardTypeDetails properties -->
+	<data name="BoardTypeDetailsProperties_AdditionalData" xml:space="preserve">
+    <value>Zusätzliche Daten</value>
+  </data>
+	<data name="BoardTypeDetailsProperties_Allocations" xml:space="preserve">
+    <value>Zuweisungen</value>
+  </data>
+	<data name="BoardTypeDetailsProperties_Inventory" xml:space="preserve">
+    <value>Inventar</value>
+  </data>
+
+	<!-- BoardTypeInventory properties -->
+	<data name="BoardTypeInventoryProperties_OrderNumber" xml:space="preserve">
+    <value>Auftragsnummer</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_Code" xml:space="preserve">
+    <value>Plattencode</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_Location" xml:space="preserve">
+    <value>Lagerort</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_Workstation" xml:space="preserve">
+    <value>Arbeitsplatz</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_Quantity" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_AdditionalCommentsBoards" xml:space="preserve">
+    <value>Zusätzliche Kommentare</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_CreationDate" xml:space="preserve">
+    <value>Erstellungsdatum</value>
+  </data>
+	<data name="BoardTypeInventoryProperties_ExtensionData" xml:space="preserve">
+    <value>Erweiterungsdaten</value>
+  </data>
+
+	<!-- Material properties -->
+  <data name="MaterialProperties_AdditionalData" xml:space="preserve">
+    <value>Zusätzliche Daten</value>
+  </data>
+	<data name="MaterialProperties_AverageCosts" xml:space="preserve">
+    <value>Durchschnittskosten</value>
+  </data>
+	<data name="MaterialProperties_BoardParameterForOptimization" xml:space="preserve">
+    <value>Plattenparameter für Optimierung</value>
+  </data>
+	<data name="MaterialProperties_CoatingCategory" xml:space="preserve">
+    <value>Beschichtungskategorie</value>
+  </data>
+	<data name="MaterialProperties_Code" xml:space="preserve">
+    <value>Materialcode</value>
+  </data>
+	<data name="MaterialProperties_DecorCode" xml:space="preserve">
+    <value>Dekorcode</value>
+  </data>
+	<data name="MaterialProperties_DecorName" xml:space="preserve">
+    <value>Dekorname</value>
+  </data>
+	<data name="MaterialProperties_Density" xml:space="preserve">
+    <value>Dichte</value>
+  </data>
+	<data name="MaterialProperties_HasGrain" xml:space="preserve">
+    <value>Mit Maserung</value>
+  </data>
+	<data name="MaterialProperties_Manufacturer" xml:space="preserve">
+    <value>Hersteller</value>
+  </data>
+	<data name="MaterialProperties_MasterDataComments" xml:space="preserve">
+    <value>Stammdaten-Kommentare</value>
+  </data>
+	<data name="MaterialProperties_MaterialCategory" xml:space="preserve">
+    <value>Materialkategorie</value>
+  </data>
+	<data name="MaterialProperties_MaterialParameterForOptimization" xml:space="preserve">
+    <value>Materialparameter für Optimierung</value>
+  </data>
+	<data name="MaterialProperties_ProductName" xml:space="preserve">
+    <value>Produktname</value>
+  </data>
+	<data name="MaterialProperties_StandardQuality" xml:space="preserve">
+    <value>Standardqualität</value>
+  </data>
+	<data name="MaterialProperties_Thickness" xml:space="preserve">
+    <value>Dicke</value>
+  </data>
+	<data name="MaterialProperties_Thumbnail" xml:space="preserve">
+    <value>Thumbnail</value>
+  </data>
+	<data name="MaterialProperties_UnitSystem" xml:space="preserve">
+    <value>Einheitensystem</value>
+  </data>
   <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
     <value>Belag unten</value>
   </data>

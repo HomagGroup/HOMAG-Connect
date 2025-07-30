@@ -61,6 +61,78 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zusätzliche Daten.
+        /// </summary>
+        public static string AllocationProperties_AdditionalData {
+            get {
+                return ResourceManager.GetString("AllocationProperties_AdditionalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zusätzliche Eigenschaften.
+        /// </summary>
+        public static string AllocationProperties_AdditionalProperties {
+            get {
+                return ResourceManager.GetString("AllocationProperties_AdditionalProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kommentare.
+        /// </summary>
+        public static string AllocationProperties_Comments {
+            get {
+                return ResourceManager.GetString("AllocationProperties_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstellt am.
+        /// </summary>
+        public static string AllocationProperties_CreatedAt {
+            get {
+                return ResourceManager.GetString("AllocationProperties_CreatedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstellt von.
+        /// </summary>
+        public static string AllocationProperties_CreatedBy {
+            get {
+                return ResourceManager.GetString("AllocationProperties_CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string AllocationProperties_Name {
+            get {
+                return ResourceManager.GetString("AllocationProperties_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quelle.
+        /// </summary>
+        public static string AllocationProperties_Source {
+            get {
+                return ResourceManager.GetString("AllocationProperties_Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arbeitsplatz.
+        /// </summary>
+        public static string AllocationProperties_Workstation {
+            get {
+                return ResourceManager.GetString("AllocationProperties_Workstation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plattentyp.
         /// </summary>
         public static string BoardEntityProperties_BoardType {
@@ -138,6 +210,123 @@ namespace HomagConnect.Base.Contracts {
         public static string BoardEntityProperties_Width {
             get {
                 return ResourceManager.GetString("BoardEntityProperties_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattencode.
+        /// </summary>
+        public static string BoardTypeAllocationProperties_BoardCode {
+            get {
+                return ResourceManager.GetString("BoardTypeAllocationProperties_BoardCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menge.
+        /// </summary>
+        public static string BoardTypeAllocationProperties_Quantity {
+            get {
+                return ResourceManager.GetString("BoardTypeAllocationProperties_Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zusätzliche Daten.
+        /// </summary>
+        public static string BoardTypeDetailsProperties_AdditionalData {
+            get {
+                return ResourceManager.GetString("BoardTypeDetailsProperties_AdditionalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zuweisungen.
+        /// </summary>
+        public static string BoardTypeDetailsProperties_Allocations {
+            get {
+                return ResourceManager.GetString("BoardTypeDetailsProperties_Allocations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventar.
+        /// </summary>
+        public static string BoardTypeDetailsProperties_Inventory {
+            get {
+                return ResourceManager.GetString("BoardTypeDetailsProperties_Inventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zusätzliche Kommentare.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_AdditionalCommentsBoards {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_AdditionalCommentsBoards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattencode.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_Code {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstellungsdatum.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_CreationDate {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_CreationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erweiterungsdaten.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_ExtensionData {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_ExtensionData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lagerort.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_Location {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auftragsnummer.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_OrderNumber {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_OrderNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menge.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_Quantity {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arbeitsplatz.
+        /// </summary>
+        public static string BoardTypeInventoryProperties_Workstation {
+            get {
+                return ResourceManager.GetString("BoardTypeInventoryProperties_Workstation", resourceCulture);
             }
         }
         
@@ -507,6 +696,168 @@ namespace HomagConnect.Base.Contracts {
         public static string ILaminatingProperties_LaminateTop {
             get {
                 return ResourceManager.GetString("ILaminatingProperties_LaminateTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zusätzliche Daten.
+        /// </summary>
+        public static string MaterialProperties_AdditionalData {
+            get {
+                return ResourceManager.GetString("MaterialProperties_AdditionalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Durchschnittskosten.
+        /// </summary>
+        public static string MaterialProperties_AverageCosts {
+            get {
+                return ResourceManager.GetString("MaterialProperties_AverageCosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattenparameter für Optimierung.
+        /// </summary>
+        public static string MaterialProperties_BoardParameterForOptimization {
+            get {
+                return ResourceManager.GetString("MaterialProperties_BoardParameterForOptimization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschichtungskategorie.
+        /// </summary>
+        public static string MaterialProperties_CoatingCategory {
+            get {
+                return ResourceManager.GetString("MaterialProperties_CoatingCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materialcode.
+        /// </summary>
+        public static string MaterialProperties_Code {
+            get {
+                return ResourceManager.GetString("MaterialProperties_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dekorcode.
+        /// </summary>
+        public static string MaterialProperties_DecorCode {
+            get {
+                return ResourceManager.GetString("MaterialProperties_DecorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dekorname.
+        /// </summary>
+        public static string MaterialProperties_DecorName {
+            get {
+                return ResourceManager.GetString("MaterialProperties_DecorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dichte.
+        /// </summary>
+        public static string MaterialProperties_Density {
+            get {
+                return ResourceManager.GetString("MaterialProperties_Density", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mit Maserung.
+        /// </summary>
+        public static string MaterialProperties_HasGrain {
+            get {
+                return ResourceManager.GetString("MaterialProperties_HasGrain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hersteller.
+        /// </summary>
+        public static string MaterialProperties_Manufacturer {
+            get {
+                return ResourceManager.GetString("MaterialProperties_Manufacturer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stammdaten-Kommentare.
+        /// </summary>
+        public static string MaterialProperties_MasterDataComments {
+            get {
+                return ResourceManager.GetString("MaterialProperties_MasterDataComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materialkategorie.
+        /// </summary>
+        public static string MaterialProperties_MaterialCategory {
+            get {
+                return ResourceManager.GetString("MaterialProperties_MaterialCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materialparameter für Optimierung.
+        /// </summary>
+        public static string MaterialProperties_MaterialParameterForOptimization {
+            get {
+                return ResourceManager.GetString("MaterialProperties_MaterialParameterForOptimization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produktname.
+        /// </summary>
+        public static string MaterialProperties_ProductName {
+            get {
+                return ResourceManager.GetString("MaterialProperties_ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standardqualität.
+        /// </summary>
+        public static string MaterialProperties_StandardQuality {
+            get {
+                return ResourceManager.GetString("MaterialProperties_StandardQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dicke.
+        /// </summary>
+        public static string MaterialProperties_Thickness {
+            get {
+                return ResourceManager.GetString("MaterialProperties_Thickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thumbnail.
+        /// </summary>
+        public static string MaterialProperties_Thumbnail {
+            get {
+                return ResourceManager.GetString("MaterialProperties_Thumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Einheitensystem.
+        /// </summary>
+        public static string MaterialProperties_UnitSystem {
+            get {
+                return ResourceManager.GetString("MaterialProperties_UnitSystem", resourceCulture);
             }
         }
     }
