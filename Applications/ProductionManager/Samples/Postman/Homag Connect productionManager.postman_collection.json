@@ -344,6 +344,40 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "Create lot",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Test Lot Homag Connect\",\r\n  \"startDatePlanned\": \"2025-07-23T08:51:21.8052452+00:00\",\r\n  \"completionDatePlanned\": \"2025-07-24T08:51:21.8052452+00:00\",\r\n  \"partIds\": [\r\n    \"1000868\"\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/lots/add",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"lots",
+										"add"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
