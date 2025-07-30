@@ -34,7 +34,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         public async Task Cleanup()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntity(MaterialAssistClient, "22");
+            await MaterialAssistClient.DeleteBoardEntity("22");
         }
 
     }

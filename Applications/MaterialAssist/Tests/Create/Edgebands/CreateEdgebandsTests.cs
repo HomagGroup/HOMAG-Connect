@@ -2,6 +2,7 @@
 using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
             await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, id);
         }
 
-        /*
+        
         [TestMethod]
         public async Task EdgebandsCreateEdgebandType()
         {
@@ -27,14 +28,16 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
             var edgebandCode = "White Edgeband 1mm";
             await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandType(MaterialAssistClient, edgebandCode);
         }
-        */
+
 
         [ClassCleanup]
         public async Task Cleanup ()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, "42");
-        }
+            await MaterialAssistClient.DeleteEdgebandEntity("42");
 
+            var MaterialManagerClient = GetMaterialManagerClient();
+            await MaterialManagerClient.Material.Edgebands.DeleteEdgebandType("White Edgeband 1mm");
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
             await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, idSingle, idStack, idGoodsInStock);
         }
 
-        /*
+        
         [TestMethod]
         public async Task BoardsCreateBoardType()
         {
@@ -29,13 +29,16 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
             var boardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0";
             await CreateBoardEntitySample.Boards_CreateBoardType(MaterialAssistClient, boardCode);
         }
-        */
+        
 
         [ClassCleanup]
         public async Task Cleanup()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntities(MaterialAssistClient, ["42", "50", "23"]);
+            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
+
+            var MaterialManagerClient = GetMaterialManagerClient();
+            await MaterialManagerClient.Material.Boards.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
         }
     }
 }

@@ -49,11 +49,11 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             Console.WriteLine($"Created board entity: {newBoardEntityGoodsInStock.Id}");
         }
 
-        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist, string boardCode)
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
-                BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
+                BoardCode = boardCode,
                 CoatingCategory = CoatingCategory.MelamineThermoset,
                 Grain = Grain.Lengthwise, 
                 Length = 2800.0,

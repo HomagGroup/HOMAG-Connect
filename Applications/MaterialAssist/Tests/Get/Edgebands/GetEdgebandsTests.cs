@@ -1,8 +1,10 @@
-﻿using HomagConnect.MaterialAssist.Samples.Create.Boards;
+﻿using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Samples.Create.Boards;
 using HomagConnect.MaterialAssist.Samples.Create.Edgebands;
 using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
 using HomagConnect.MaterialAssist.Samples.Get.Boards;
 using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,38 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         public async Task Initialize()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "42");
-            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "50");
-            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "23");
+            var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
+            {
+                Id = "42",
+                EdgebandCode = "White Edgeband 19mm",
+                ManagementType = ManagementType.Single,
+                Quantity = 1,
+                Length = 1000,
+                CurrentThickness = 1.0
+            };
+            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
+
+            var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
+            {
+                Id = "50",
+                EdgebandCode = "White Edgeband 19mm",
+                ManagementType = ManagementType.Single,
+                Quantity = 1,
+                Length = 1000,
+                CurrentThickness = 1.0
+            };
+            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
+
+            var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
+            {
+                Id = "23",
+                EdgebandCode = "White Edgeband 19mm",
+                ManagementType = ManagementType.Single,
+                Quantity = 1,
+                Length = 1000,
+                CurrentThickness = 1.0
+            };
+            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
         }
 
         [TestMethod]
@@ -76,9 +107,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         public async Task Cleanup()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, "42");
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, "50");
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, "23");
+            await MaterialAssistClient.DeleteEdgebandEntity(["42", "50", "23"]);
         }
     }
 }
