@@ -61,6 +61,87 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plattentyp.
+        /// </summary>
+        public static string BoardEntityProperties_BoardType {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_BoardType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kommentare.
+        /// </summary>
+        public static string BoardEntityProperties_Comments {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstellungsdatum.
+        /// </summary>
+        public static string BoardEntityProperties_CreationDate {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_CreationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string BoardEntityProperties_Id {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Länge.
+        /// </summary>
+        public static string BoardEntityProperties_Length {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lagerort.
+        /// </summary>
+        public static string BoardEntityProperties_Location {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwaltungstyp.
+        /// </summary>
+        public static string BoardEntityProperties_ManagementType {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_ManagementType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menge.
+        /// </summary>
+        public static string BoardEntityProperties_Quantity {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breite.
+        /// </summary>
+        public static string BoardEntityProperties_Width {
+            get {
+                return ResourceManager.GetString("BoardEntityProperties_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artikelnummer.
         /// </summary>
         public static string BoardTypeProperties_ArticleNumber {
