@@ -8,14 +8,14 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
         /// <summary>
         /// The example shows how update a edgeband.
         /// </summary>
-        public static async Task Edgebands_UpdateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_UpdateEdgebandType(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
         {
             var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
             {
                 Thickness = 1.1,
                 // Add other properties
             };
-            var updatedEdgebandType = await materialManager.UpdateEdgebandType("EB_White_1mm", edgebandTypeUpdate);
+            var updatedEdgebandType = await materialManager.UpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
             Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.EdgebandCode}");
         }
 
