@@ -61,6 +61,357 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artikelnummer.
+        /// </summary>
+        public static string BoardTypeProperties_ArticleNumber {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_ArticleNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattencode.
+        /// </summary>
+        public static string BoardTypeProperties_BoardCode {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_BoardCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BoardTypeType.
+        /// </summary>
+        public static string BoardTypeProperties_BoardTypeType {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_BoardTypeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoatingCategory.
+        /// </summary>
+        public static string BoardTypeProperties_CoatingCategory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_CoatingCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kommentare.
+        /// </summary>
+        public static string BoardTypeProperties_Comments {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Costs.
+        /// </summary>
+        public static string BoardTypeProperties_Costs {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Costs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dekorcode.
+        /// </summary>
+        public static string BoardTypeProperties_DecorCode {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_DecorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dekorname.
+        /// </summary>
+        public static string BoardTypeProperties_DecorName {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_DecorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dichte.
+        /// </summary>
+        public static string BoardTypeProperties_Density {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Density", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prägung unten.
+        /// </summary>
+        public static string BoardTypeProperties_EmbossingBottom {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_EmbossingBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prägung oben.
+        /// </summary>
+        public static string BoardTypeProperties_EmbossingTop {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_EmbossingTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExtensionData.
+        /// </summary>
+        public static string BoardTypeProperties_ExtensionData {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_ExtensionData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ExternalId.
+        /// </summary>
+        public static string BoardTypeProperties_ExternalId {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_ExternalId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maserung.
+        /// </summary>
+        public static string BoardTypeProperties_Grain {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Grain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GTIN.
+        /// </summary>
+        public static string BoardTypeProperties_Gtin {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Gtin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InsufficientInventory.
+        /// </summary>
+        public static string BoardTypeProperties_InsufficientInventory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_InsufficientInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zuletzt verwendet.
+        /// </summary>
+        public static string BoardTypeProperties_LastUsed {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_LastUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Länge.
+        /// </summary>
+        public static string BoardTypeProperties_Length {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LockedForOptimization.
+        /// </summary>
+        public static string BoardTypeProperties_LockedForOptimization {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_LockedForOptimization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ManufacturerName.
+        /// </summary>
+        public static string BoardTypeProperties_ManufacturerName {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_ManufacturerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materialkategorie.
+        /// </summary>
+        public static string BoardTypeProperties_MaterialCategory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_MaterialCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materialcode.
+        /// </summary>
+        public static string BoardTypeProperties_MaterialCode {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_MaterialCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material zuletzt verwendet.
+        /// </summary>
+        public static string BoardTypeProperties_MaterialLastUsed {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_MaterialLastUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gegen unendlich optimieren.
+        /// </summary>
+        public static string BoardTypeProperties_OptimizeAgainstInfinite {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_OptimizeAgainstInfinite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produktname.
+        /// </summary>
+        public static string BoardTypeProperties_ProductName {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to StandardQuality.
+        /// </summary>
+        public static string BoardTypeProperties_StandardQuality {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_StandardQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dicke.
+        /// </summary>
+        public static string BoardTypeProperties_Thickness {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Thickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thumbnail.
+        /// </summary>
+        public static string BoardTypeProperties_Thumbnail {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Thumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalAreaAllocated.
+        /// </summary>
+        public static string BoardTypeProperties_TotalAreaAllocated {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalAreaAllocated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalAreaAvailable.
+        /// </summary>
+        public static string BoardTypeProperties_TotalAreaAvailable {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalAreaAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalAreaAvailableWarningLimit.
+        /// </summary>
+        public static string BoardTypeProperties_TotalAreaAvailableWarningLimit {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalAreaAvailableWarningLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalAreaInInventory.
+        /// </summary>
+        public static string BoardTypeProperties_TotalAreaInInventory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalAreaInInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalQuantityAllocated.
+        /// </summary>
+        public static string BoardTypeProperties_TotalQuantityAllocated {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalQuantityAllocated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalQuantityAvailable.
+        /// </summary>
+        public static string BoardTypeProperties_TotalQuantityAvailable {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalQuantityAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalQuantityAvailableWarningLimit.
+        /// </summary>
+        public static string BoardTypeProperties_TotalQuantityAvailableWarningLimit {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalQuantityAvailableWarningLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalQuantityInInventory.
+        /// </summary>
+        public static string BoardTypeProperties_TotalQuantityInInventory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalQuantityInInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TotalValueInInventory.
+        /// </summary>
+        public static string BoardTypeProperties_TotalValueInInventory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalValueInInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnitSystem.
+        /// </summary>
+        public static string BoardTypeProperties_UnitSystem {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_UnitSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string BoardTypeProperties_Width {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Belag unten.
         /// </summary>
         public static string ILaminatingProperties_LaminateBottom {
