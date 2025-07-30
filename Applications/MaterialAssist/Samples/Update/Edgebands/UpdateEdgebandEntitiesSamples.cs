@@ -43,13 +43,13 @@ namespace HomagConnect.MaterialAssist.Samples.Update.Edgebands
         public static async Task Edgebands_RemoveSubsetEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSubsetEdgebandEntitiesFromWorkplace("42", 2);
+            await materialAssist.RemoveSubsetEdgebandEntitiesFromWorkplace("50", 1);
         }
 
         public static async Task Edgebands_RemoveSingleEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSingleEdgebandEntitiesFromWorkplace("42", 1);
+            await materialAssist.RemoveSingleEdgebandEntitiesFromWorkplace("23", 1);
         }
     }
 }

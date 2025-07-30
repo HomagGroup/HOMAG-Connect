@@ -27,10 +27,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
         {
             var importFile = await ImportFile.CreateAsync(@"Data\Cutting\Kitchen.xlsx");
 
-            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstOrDefaultAsync(m => m.Name == "productionAssist Cutting");
+            if (optimizationMachine == null)
+            {
+                Assert.Inconclusive("The machine is not available.");
+            }
+
             var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType)
-                .FirstAsync(p => string.IsNullOrEmpty(optimizationParametersName) || p.Name.Equals(optimizationParametersName, StringComparison.Ordinal));
-            
+                .FirstOrDefaultAsync(p => string.IsNullOrEmpty(optimizationParametersName) || p.Name.Equals(optimizationParametersName, StringComparison.Ordinal));
+            if (optimizationParameter == null)
+            {
+                Assert.Inconclusive("The optimizing parameter is not available.");
+            }
+
             var request = new OptimizationRequestUsingTemplate
             {
                 Name = "Sample_Template_Excel_ImportOnly" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
@@ -57,9 +66,18 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
         {
             var importFile = await ImportFile.CreateAsync(@"Data\Cutting\Kitchen.xlsx");
 
-            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
-            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
-            
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstOrDefaultAsync(m => m.Name == "productionAssist Cutting");
+            if (optimizationMachine == null)
+            {
+                Assert.Inconclusive("The machine is not available.");
+            }
+
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstOrDefaultAsync();
+            if (optimizationParameter == null)
+            {
+                Assert.Inconclusive("The optimizing parameter is not available.");
+            }
+
             var request = new OptimizationRequestUsingTemplate
             {
                 Name = "Sample_Template_Excel_ImportAndOptimize" + DateTime.Now.ToString("_yyyyMMdd-HHmm", CultureInfo.InvariantCulture),
@@ -73,7 +91,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
 
             response.Trace();
 
-            if (!response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
+            if (response.ValidationResults != null && !response.ValidationResults.Any() && response.OptimizationStatus is OptimizationStatus.New or OptimizationStatus.Started or OptimizationStatus.Optimized)
             {
                 var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
 

@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Base\HomagConnect.Base.TestBase\HomagConnect.Base.TestBase.csproj" />
+    <ProjectReference Include="..\..\MaterialManager\Client\HomagConnect.MaterialManager.Client.csproj" />
     <ProjectReference Include="..\Client\HomagConnect.MaterialAssist.Client.csproj" />
     <ProjectReference Include="..\Samples\HomagConnect.MaterialAssist.Samples.csproj" />
   </ItemGroup>

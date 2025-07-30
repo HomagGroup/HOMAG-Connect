@@ -29,15 +29,14 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
         }
 
         // GetById
-        public static async Task Boards_GetBoardEntityById(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_GetBoardEntityById(MaterialAssistClientBoards materialAssist, string id)
         {
-            var boardEntity = await materialAssist.GetBoardEntityById("42");
+            var boardEntity = await materialAssist.GetBoardEntityById(id);
             Console.WriteLine(boardEntity);
         }
 
-        public static async Task Boards_GetBoardEntitiesById(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_GetBoardEntitiesById(MaterialAssistClientBoards materialAssist, List<string> ids)
         {
-            List<string> ids = ["42", "50", "23"];
             var boardEntities = await materialAssist.GetBoardEntitiesByIds(ids);
             foreach (var boardEntity in boardEntities)
             {
@@ -46,15 +45,14 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
         }
 
         // GetByBoardCode
-        public static async Task Boards_GetBoardEntitiesByBoardCode(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_GetBoardEntitiesByBoardCode(MaterialAssistClientBoards materialAssist, string boardCode)
         {
-            var boardEntity = await materialAssist.GetBoardEntitiesByBoardCode("MDF_H3171_12_11.6_2800.0_1310.0");
+            var boardEntity = await materialAssist.GetBoardEntitiesByBoardCode(boardCode);
             Console.WriteLine(boardEntity);
         }
 
-        public static async Task Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClientBoards materialAssist, List<string> allBoardCodes)
         {
-            List<string> allBoardCodes = ["MDF_H3171_12_11.6_2800.0_1310.0", "RP_EG_H3303_ST10_19", "XEG_U156_ST02_08_2070_444.2"];
             var allBoardEntities = await materialAssist.GetBoardEntitiesByBoardCodes(allBoardCodes);
             foreach (var boardEntity in allBoardEntities)
             {
@@ -63,15 +61,14 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
         }
 
         // GetByMaterialCode
-        public static async Task Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClientBoards materialAssist, string materialCode)
         {
-            var boardEntity = await materialAssist.GetBoardEntitiesByMaterialCode("EG_H3303_ST10_19");
+            var boardEntity = await materialAssist.GetBoardEntitiesByMaterialCode(materialCode);
             Console.WriteLine(boardEntity);
         }
 
-        public static async Task Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClientBoards materialAssist, List<string> allMaterialCodes)
         {
-            List<string> allMaterialCodes = ["EG_H3303_ST10_19", "EG_U156_ST02_08", "EG_U702_PM_19"];
             var allBoardEntities = await materialAssist.GetBoardEntitiesByMaterialCodes(allMaterialCodes);
             foreach (var boardEntity in allBoardEntities)
             {

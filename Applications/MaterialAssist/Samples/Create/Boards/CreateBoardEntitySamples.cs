@@ -4,16 +4,17 @@ using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
+using System;
 
 namespace HomagConnect.MaterialAssist.Samples.Create.Boards
 {
     public class CreateBoardEntitySample
     {
-        public static async Task Boards_CreateBoardEntity(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_CreateBoardEntity(MaterialAssistClientBoards materialAssist, string idSingle, string idStack, string idGoodsInStock)
         {
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
-                Id = "42",
+                Id = idSingle,
                 //The board code is the identifier of the board type
                 BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Single,
@@ -25,7 +26,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
 
             var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
             {
-                Id = "50",
+                Id = idStack,
                 //The board code is the identifier of the board type
                 BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Stack,
@@ -37,7 +38,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
 
             var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
             {
-                Id = "23",
+                Id = idGoodsInStock,
                 //The board code is the identifier of the board type
                 BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
                 ManagementType = ManagementType.GoodsInStock,
@@ -48,11 +49,11 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             Console.WriteLine($"Created board entity: {newBoardEntityGoodsInStock.Id}");
         }
 
-        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist)
+        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist, string boardCode)
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
-                BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
+                BoardCode = boardCode,
                 CoatingCategory = CoatingCategory.MelamineThermoset,
                 Grain = Grain.Lengthwise, 
                 Length = 2800.0,

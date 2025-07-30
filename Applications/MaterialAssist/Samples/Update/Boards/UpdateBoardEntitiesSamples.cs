@@ -37,14 +37,14 @@ namespace HomagConnect.MaterialAssist.Samples.Update.Boards
 
         public static async Task Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
         {
-            //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("42", 3);
+            //string id, int quantity,Boards_RemoveSubsetBoardEntitiesFromWorkplace bool deleteBoardFromInventory = false
+            await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("50", 3);
         }
 
         public static async Task Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
         {
             //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("42", 2);
+            await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("23", 2);
         }
         
     }
