@@ -11,16 +11,16 @@ namespace HomagConnect.MaterialManager.Samples.Create.Boards
         /// <summary>
         /// The example shows how create a boardtype.
         /// </summary>
-        public static async Task Boards_CreateBoardType(IMaterialManagerClientMaterialBoards materialManager)
+        public static async Task Boards_CreateBoardType(IMaterialManagerClientMaterialBoards materialManager, string materialCode, string boardCode)
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType
             {
                 //The material code is the identifier of the material type
-                MaterialCode = "HPL_F274_9_12.0",
+                MaterialCode = materialCode,
                 //The board code is the identifier of the board type
-                BoardCode = "HPL_F274_9_12.0_4100.0_650.0",
-                Length = 2070.0,
-                Width = 2800.0,
+                BoardCode = boardCode,
+                Length = 4100.0,
+                Width = 650.0,
                 Thickness = 19.0,
                 Type = BoardTypeType.Board,
                 MaterialCategory = BoardMaterialCategory.Undefined,

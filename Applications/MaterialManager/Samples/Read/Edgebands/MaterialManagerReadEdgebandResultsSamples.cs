@@ -7,17 +7,15 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         /// <summary>
         /// Get edgebands by edgeband code.
         /// </summary>
-        public static async Task Edgebands_GetEdgebandTypeByEdgebandCode(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_GetEdgebandTypeByEdgebandCode(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
         {
             // Define the edgebandCode you want to retrieve data for (string):
-            var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
             var edgebandType = await materialManager.GetEdgebandTypeByEdgebandCode(edgebandCode);
         }
 
-        public static async Task Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
         {
             // Define the edgebandCode you want to retrieve data for (string):
-            var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
             var edgebandType = await materialManager.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgebandCode);
         }
 
@@ -38,16 +36,14 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         /// <summary>
         /// Get edgebands by edgeband codes in a list.
         /// </summary>
-        public static async Task Edgebands_GetEdgebandTypesByEdgebandCodes(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_GetEdgebandTypesByEdgebandCodes(IMaterialManagerClientMaterialEdgebands materialManager, List<string> edgebandCodes)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
-            var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
             var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
         }
-        public static async Task Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager, List<string> edgebandCodes)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
-            var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
             var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
         }
 
