@@ -7,6 +7,8 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 {
     /// <summary>
@@ -140,7 +142,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var request = new OptimizationRequest();
 
             var machine = await intelliDivide.GetMachine("productionAssist Cutting");
-            var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstAsync();
+            if (machine == null)
+            {
+                Assert.Inconclusive("The machine is not available.");
+            }
+
+            var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstOrDefaultAsync();
+            if (parameter == null)
+            {
+                Assert.Inconclusive("There is no optimizing parameter available.");
+            }
 
             request.Name = optimizationName + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);
             request.Machine = machine.Name;
