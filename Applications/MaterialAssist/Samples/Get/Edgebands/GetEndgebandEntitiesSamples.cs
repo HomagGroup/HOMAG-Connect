@@ -53,7 +53,7 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
 
         public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCodes(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> allEdgebandCodes = ["White Edgeband 19mm", "ABS_Schwarz_2_23_HM"]; // ABS noch create
+            List<string> allEdgebandCodes = ["White Edgeband 19mm", "ABS_Schwarz_2_23_HM"];
             var allEdgebandEntities = await materialAssist.GetEdgebandEntitiesByEdgebandCodes(allEdgebandCodes);
             foreach (var edgebandEntity in allEdgebandEntities)
             {

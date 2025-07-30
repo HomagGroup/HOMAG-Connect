@@ -57,43 +57,37 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
         public async Task BoardsGetBoardEntityById()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var id = "42";
-            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(MaterialAssistClient, id);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(MaterialAssistClient, "42");
         }
 
         public async Task BoardsGetBoardEntitiesById()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            List<string> ids = ["42", "50", "23"];
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(MaterialAssistClient, ids);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(MaterialAssistClient, ["42", "50", "23"]);
         }
 
         public async Task BoardsGetBoardEntitiesByBoardCode()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var boardCode = "MDF_H3171_12_11.6_2800.0_1310.0"; 
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(MaterialAssistClient, boardCode);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(MaterialAssistClient, "MDF_H3171_12_11.6_2800.0_1310.0");
         }
 
         public async Task BoardsGetBoardEntitiesByBoardCodes()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            List<string> allBoardCodes = ["MDF_H3171_12_11.6_2800.0_1310.0", "RP_EG_H3303_ST10_19_2800.0_2070.0"];
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClient, allBoardCodes);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClient, ["MDF_H3171_12_11.6_2800.0_1310.0", "RP_EG_H3303_ST10_19_2800.0_2070.0"]);
         }
 
         public async Task BoardsGetBoardEntitiesByMaterialCode()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var materialCode = "EG_H3303_ST10_19"; 
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClient, materialCode);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClient, "EG_H3303_ST10_19");
         }
 
         public async Task BoardsGetBoardEntitiesByMaterialCodes()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            List<string> allMaterialCodes = ["EG_H3303_ST10_19"];
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClient, allMaterialCodes);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClient, ["EG_H3303_ST10_19"]);
         }
 
         public async Task BoardsGetStorageLocations()

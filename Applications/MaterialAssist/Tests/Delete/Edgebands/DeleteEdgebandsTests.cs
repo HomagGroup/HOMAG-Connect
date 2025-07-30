@@ -54,16 +54,14 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
         public async Task EdgebandsDeleteEdgebandEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            var EdgebadId = "42"; 
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, EdgebadId);
+            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, "42");
         }
 
         [TestMethod]
         public async Task EdgebandsDeleteEdgebandEntities()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            List<string> EdgebandIds = ["50", "23"]; 
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(MaterialAssistClient, EdgebandIds);
+            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(MaterialAssistClient, ["50", "23"]);
         }
 
     }

@@ -15,10 +15,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         public async Task BoardsCreateBoardEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var idSingle = "42";
-            var idStack = "50";
-            var idGoodsInStock = "23";
-            await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, idSingle, idStack, idGoodsInStock);
+            await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "42", "50", "23");
         }
 
         
