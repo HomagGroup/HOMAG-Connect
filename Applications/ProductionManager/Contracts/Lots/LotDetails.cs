@@ -11,5 +11,5 @@ public class LotDetails : Lot
     /// Gets or sets the part Ids related to the requested lot.
     /// </summary>
     [JsonProperty(Order = 50)]
-    public Guid PartIds { get; set; }
+    public List<Guid> PartIds { get; set; } = [];
 }
