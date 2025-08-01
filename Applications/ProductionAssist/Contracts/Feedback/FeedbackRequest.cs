@@ -28,5 +28,5 @@ public class FeedbackRequest
     /// <summary>
     /// Gets or Sets the source
     /// </summary>
-    public string Source { get; set; }
+    public string? Source { get; set; } = null;
 }
