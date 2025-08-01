@@ -1,6 +1,6 @@
-using System.IO.Compression;
-
 using FluentAssertions;
+using HomagConnect.Base.TestBase.Attributes;
+using System.IO.Compression;
 
 namespace HomagConnect.MmrMobile.Tests;
 
@@ -125,6 +125,7 @@ public class MmrMobileClientTests : MmrTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2025, 09, 1, "DF-Production")] // not yet on PRE
     public async Task UploadProductionProtocol()
     {
         var rnd = new Random(Guid.NewGuid().GetHashCode());
