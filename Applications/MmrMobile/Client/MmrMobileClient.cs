@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace HomagConnect.MmrMobile.Client
         public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
         #endregion
-        
+
         #region machinedata
 
         /// <summary>
@@ -167,6 +168,29 @@ namespace HomagConnect.MmrMobile.Client
 
             return data ?? new MmrNodeData { MachineNumber = machineNumber };
         }
+
+
+        /// <inheritdoc />
+        public async Task UploadProductionProtocol(Stream file, string machine)
+        {
+            if (file == null)
+                throw new ArgumentNullException(nameof(file));
+            if (machine == null)
+                throw new ArgumentNullException(nameof(machine));
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            const string uri = "/api/machinedata/upload/productionProtocol/saw";
+            request.RequestUri = new Uri(uri, UriKind.Relative);
+            request.Headers.Add("MachineId",machine);
+
+            request.Content = new StreamContent(file);
+
+            var response = await Client.SendAsync(request);
+
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        }
+
         #endregion
 
         #region eventdatadata of a machine
@@ -210,7 +234,7 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Clear();
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
-            HttpResponseMessage response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -236,7 +260,7 @@ namespace HomagConnect.MmrMobile.Client
             request.Headers.AcceptLanguage.Clear();
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
 
-            HttpResponseMessage response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
