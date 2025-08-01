@@ -24,4 +24,9 @@ public class FeedbackRequest
     /// Gets or Sets the timestamp
     /// </summary>
     public DateTimeOffset? Timestamp { get; set; }
+
+    /// <summary>
+    /// Gets or Sets the source
+    /// </summary>
+    public string Source { get; set; }
 }
