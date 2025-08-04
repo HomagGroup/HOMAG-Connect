@@ -3,6 +3,8 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
 {
     /// <summary>
@@ -48,8 +50,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
         {
             var projectFile = new FileInfo(@"Data\Nesting\Project.zip");
 
-            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstAsync(m => m.Name == "productionAssist Nesting");
-            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstAsync();
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstOrDefaultAsync(m => m.Name == "productionAssist Nesting");
+            if (optimizationMachine == null)
+            {
+                Assert.Inconclusive("The machine is not available.");
+            }
+            var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstOrDefaultAsync();
+            if (optimizationParameter == null)
+            {
+                Assert.Inconclusive("There is no optimizing parameter available.");
+            }
 
             var request = new OptimizationRequestUsingProject
             {
