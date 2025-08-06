@@ -40,7 +40,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #region IExtensibleDataObject Members
 
         /// <inheritdoc />
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ExtensionData))]
         public ExtensionDataObject? ExtensionData { get; set; }
 
         #endregion
@@ -219,7 +218,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Gets or sets the id from an external system.
         /// </summary>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ExternalId))]
         [JsonProperty(Order = 94)]
         public string? ExternalId { get; set; }
 
@@ -300,7 +298,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Gets the total value of boards of this type in inventory
         /// </summary>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalValueInInventory))]
         [JsonProperty(Order = 53)]
         public double? TotalValueInInventory
         {
@@ -380,7 +377,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Gets or set the thumbnail uri.
         /// </summary>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Thumbnail))]
         [JsonProperty(Order = 3)]
         public Uri? Thumbnail { get; set; }
 

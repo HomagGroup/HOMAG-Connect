@@ -124,9 +124,6 @@
   <data name="BoardTypeProperties_UnitSystem" xml:space="preserve">
     <value>UnitSystem</value>
   </data>
-  <data name="BoardTypeProperties_ExtensionData" xml:space="preserve">
-    <value>ExtensionData</value>
-  </data>
 	<data name="BoardTypeProperties_MaterialCode" xml:space="preserve">
     <value>Materialcode</value>
   </data>
@@ -134,13 +131,13 @@
     <value>Dicke</value>
   </data>
 	<data name="BoardTypeProperties_MaterialCategory" xml:space="preserve">
-    <value>Materialkategorie</value>
+    <value>Kategorie</value>
   </data>
 	<data name="BoardTypeProperties_CoatingCategory" xml:space="preserve">
-    <value>CoatingCategory</value>
+    <value>Beschichtung</value>
   </data>
 	<data name="BoardTypeProperties_StandardQuality" xml:space="preserve">
-    <value>StandardQuality</value>
+    <value>Standardqualität</value>
   </data>
 	<data name="BoardTypeProperties_MaterialLastUsed" xml:space="preserve">
     <value>Material zuletzt verwendet</value>
@@ -149,7 +146,7 @@
     <value>Plattencode</value>
   </data>
 	<data name="BoardTypeProperties_Width" xml:space="preserve">
-    <value>Width</value>
+    <value>Breite</value>
   </data>
 	<data name="BoardTypeProperties_Length" xml:space="preserve">
     <value>Länge</value>
@@ -158,16 +155,16 @@
     <value>Maserung</value>
   </data>
 	<data name="BoardTypeProperties_Costs" xml:space="preserve">
-    <value>Costs</value>
+    <value>Kosten</value>
   </data>
 	<data name="BoardTypeProperties_Density" xml:space="preserve">
     <value>Dichte</value>
   </data>
 	<data name="BoardTypeProperties_BoardTypeType" xml:space="preserve">
-    <value>BoardTypeType</value>
+    <value>Typ</value>
   </data>
 	<data name="BoardTypeProperties_ManufacturerName" xml:space="preserve">
-    <value>ManufacturerName</value>
+    <value>Hersteller</value>
   </data>
 	<data name="BoardTypeProperties_ProductName" xml:space="preserve">
     <value>Produktname</value>
@@ -190,53 +187,41 @@
 	<data name="BoardTypeProperties_EmbossingBottom" xml:space="preserve">
     <value>Prägung unten</value>
   </data>
-	<data name="BoardTypeProperties_ExternalId" xml:space="preserve">
-    <value>ExternalId</value>
-  </data>
 	<data name="BoardTypeProperties_TotalQuantityAvailableWarningLimit" xml:space="preserve">
-    <value>TotalQuantityAvailableWarningLimit</value>
+    <value>Mindestbestand</value>
   </data>
 	<data name="BoardTypeProperties_TotalAreaAvailableWarningLimit" xml:space="preserve">
-    <value>TotalAreaAvailableWarningLimit</value>
+    <value>Mindestbestand</value>
   </data>
 	<data name="BoardTypeProperties_OptimizeAgainstInfinite" xml:space="preserve">
     <value>Gegen unendlich optimieren</value>
   </data>
 	<data name="BoardTypeProperties_LockedForOptimization" xml:space="preserve">
-    <value>LockedForOptimization</value>
+    <value>Plattentyp für Optimierung gesperrt</value>
   </data>
 	<data name="BoardTypeProperties_TotalQuantityInInventory" xml:space="preserve">
-    <value>TotalQuantityInInventory</value>
+    <value>Anzahl</value>
   </data>
 	<data name="BoardTypeProperties_TotalQuantityAllocated" xml:space="preserve">
-    <value>TotalQuantityAllocated</value>
+    <value>Reserviert</value>
   </data>
 	<data name="BoardTypeProperties_TotalQuantityAvailable" xml:space="preserve">
-    <value>TotalQuantityAvailable</value>
-  </data>
-	<data name="BoardTypeProperties_TotalValueInInventory" xml:space="preserve">
-    <value>TotalValueInInventory</value>
+    <value>Verfügbar</value>
   </data>
 	<data name="BoardTypeProperties_TotalAreaInInventory" xml:space="preserve">
-    <value>TotalAreaInInventory</value>
+    <value>Gesamtfläche</value>
   </data>
 	<data name="BoardTypeProperties_TotalAreaAllocated" xml:space="preserve">
-    <value>TotalAreaAllocated</value>
+    <value>Reserviert</value>
   </data>
 	<data name="BoardTypeProperties_TotalAreaAvailable" xml:space="preserve">
-    <value>TotalAreaAvailable</value>
+    <value>Verfügbar</value>
   </data>
 	<data name="BoardTypeProperties_InsufficientInventory" xml:space="preserve">
-    <value>InsufficientInventory</value>
+    <value>Mindestbestand unterschritten</value>
   </data>
 	<data name="BoardTypeProperties_Comments" xml:space="preserve">
-    <value>Kommentare</value>
-  </data>
-	<data name="BoardTypeProperties_Thumbnail" xml:space="preserve">
-    <value>Thumbnail</value>
-  </data>
-  <data name="BoardEntityProperties_Id" xml:space="preserve">
-    <value>ID</value>
+    <value>Anmerkungen (Stammdaten)</value>
   </data>
   <data name="BoardEntityProperties_Length" xml:space="preserve">
     <value>Länge</value>
@@ -245,19 +230,19 @@
     <value>Breite</value>
   </data>
   <data name="BoardEntityProperties_Quantity" xml:space="preserve">
-    <value>Menge</value>
+    <value>Anzahl</value>
   </data>
   <data name="BoardEntityProperties_ManagementType" xml:space="preserve">
     <value>Verwaltungstyp</value>
   </data>
   <data name="BoardEntityProperties_Comments" xml:space="preserve">
-    <value>Kommentare</value>
+    <value>Anmerkungen (Platte)</value>
   </data>
   <data name="BoardEntityProperties_CreationDate" xml:space="preserve">
     <value>Erstellungsdatum</value>
   </data>
   <data name="BoardEntityProperties_Location" xml:space="preserve">
-    <value>Lagerort</value>
+    <value>Lagerplatz</value>
   </data>
   <data name="BoardEntityProperties_BoardType" xml:space="preserve">
     <value>Plattentyp</value>
@@ -266,15 +251,15 @@
     <value>Plattencode</value>
   </data>
   <data name="BoardTypeAllocationProperties_Quantity" xml:space="preserve">
-    <value>Menge</value>
+    <value>Anzahl</value>
   </data>
 
 	<!-- Allocation properties -->
 	<data name="AllocationProperties_AdditionalData" xml:space="preserve">
-    <value>Zusätzliche Daten</value>
+    <value>Zusatzdaten</value>
   </data>
 	<data name="AllocationProperties_AdditionalProperties" xml:space="preserve">
-    <value>Zusätzliche Eigenschaften</value>
+    <value>Zusatzdaten</value>
   </data>
 	<data name="AllocationProperties_Comments" xml:space="preserve">
     <value>Kommentare</value>
@@ -297,44 +282,38 @@
 
 	<!-- BoardTypeDetails properties -->
 	<data name="BoardTypeDetailsProperties_AdditionalData" xml:space="preserve">
-    <value>Zusätzliche Daten</value>
+    <value>Zusatzdaten</value>
   </data>
 	<data name="BoardTypeDetailsProperties_Allocations" xml:space="preserve">
-    <value>Zuweisungen</value>
+    <value>Reservierung</value>
   </data>
 	<data name="BoardTypeDetailsProperties_Inventory" xml:space="preserve">
-    <value>Inventar</value>
+    <value>Bestand</value>
   </data>
 
 	<!-- BoardTypeInventory properties -->
-	<data name="BoardTypeInventoryProperties_OrderNumber" xml:space="preserve">
-    <value>Auftragsnummer</value>
-  </data>
 	<data name="BoardTypeInventoryProperties_Code" xml:space="preserve">
     <value>Plattencode</value>
   </data>
 	<data name="BoardTypeInventoryProperties_Location" xml:space="preserve">
-    <value>Lagerort</value>
+    <value>Lagerplatz</value>
   </data>
 	<data name="BoardTypeInventoryProperties_Workstation" xml:space="preserve">
     <value>Arbeitsplatz</value>
   </data>
 	<data name="BoardTypeInventoryProperties_Quantity" xml:space="preserve">
-    <value>Menge</value>
+    <value>Anzahl</value>
   </data>
 	<data name="BoardTypeInventoryProperties_AdditionalCommentsBoards" xml:space="preserve">
-    <value>Zusätzliche Kommentare</value>
+    <value>Anmerkung (Platte)</value>
   </data>
 	<data name="BoardTypeInventoryProperties_CreationDate" xml:space="preserve">
     <value>Erstellungsdatum</value>
   </data>
-	<data name="BoardTypeInventoryProperties_ExtensionData" xml:space="preserve">
-    <value>Erweiterungsdaten</value>
-  </data>
 
 	<!-- Material properties -->
   <data name="MaterialProperties_AdditionalData" xml:space="preserve">
-    <value>Zusätzliche Daten</value>
+    <value>Zusatzdaten</value>
   </data>
 	<data name="MaterialProperties_AverageCosts" xml:space="preserve">
     <value>Durchschnittskosten</value>
@@ -343,7 +322,7 @@
     <value>Plattenparameter für Optimierung</value>
   </data>
 	<data name="MaterialProperties_CoatingCategory" xml:space="preserve">
-    <value>Beschichtungskategorie</value>
+    <value>Beschichtung</value>
   </data>
 	<data name="MaterialProperties_Code" xml:space="preserve">
     <value>Materialcode</value>
@@ -357,20 +336,17 @@
 	<data name="MaterialProperties_Density" xml:space="preserve">
     <value>Dichte</value>
   </data>
-	<data name="MaterialProperties_HasGrain" xml:space="preserve">
-    <value>Mit Maserung</value>
-  </data>
 	<data name="MaterialProperties_Manufacturer" xml:space="preserve">
     <value>Hersteller</value>
   </data>
 	<data name="MaterialProperties_MasterDataComments" xml:space="preserve">
-    <value>Stammdaten-Kommentare</value>
+    <value>Anmerkungen (Stammdaten)</value>
   </data>
 	<data name="MaterialProperties_MaterialCategory" xml:space="preserve">
-    <value>Materialkategorie</value>
+    <value>Kategorie</value>
   </data>
 	<data name="MaterialProperties_MaterialParameterForOptimization" xml:space="preserve">
-    <value>Materialparameter für Optimierung</value>
+    <value>Materialparametergruppe für Optimierung</value>
   </data>
 	<data name="MaterialProperties_ProductName" xml:space="preserve">
     <value>Produktname</value>
@@ -380,12 +356,6 @@
   </data>
 	<data name="MaterialProperties_Thickness" xml:space="preserve">
     <value>Dicke</value>
-  </data>
-	<data name="MaterialProperties_Thumbnail" xml:space="preserve">
-    <value>Thumbnail</value>
-  </data>
-	<data name="MaterialProperties_UnitSystem" xml:space="preserve">
-    <value>Einheitensystem</value>
   </data>
   <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
     <value>Belag unten</value>

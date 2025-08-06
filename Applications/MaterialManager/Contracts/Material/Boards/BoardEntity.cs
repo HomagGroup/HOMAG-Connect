@@ -34,7 +34,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Gets or sets the id (#)
         /// </summary>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardEntityProperties_Id))]
         [Key]
         public string Id { get; set; }
 

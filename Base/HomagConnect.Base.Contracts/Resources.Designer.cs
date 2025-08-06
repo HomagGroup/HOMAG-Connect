@@ -61,7 +61,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zusätzliche Daten.
+        ///   Looks up a localized string similar to Zusatzdaten.
         /// </summary>
         public static string AllocationProperties_AdditionalData {
             get {
@@ -70,7 +70,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zusätzliche Eigenschaften.
+        ///   Looks up a localized string similar to Zusatzdaten.
         /// </summary>
         public static string AllocationProperties_AdditionalProperties {
             get {
@@ -142,7 +142,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kommentare.
+        ///   Looks up a localized string similar to Anmerkungen (Platte).
         /// </summary>
         public static string BoardEntityProperties_Comments {
             get {
@@ -160,15 +160,6 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID.
-        /// </summary>
-        public static string BoardEntityProperties_Id {
-            get {
-                return ResourceManager.GetString("BoardEntityProperties_Id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Länge.
         /// </summary>
         public static string BoardEntityProperties_Length {
@@ -178,7 +169,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lagerort.
+        ///   Looks up a localized string similar to Lagerplatz.
         /// </summary>
         public static string BoardEntityProperties_Location {
             get {
@@ -196,7 +187,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Menge.
+        ///   Looks up a localized string similar to Anzahl.
         /// </summary>
         public static string BoardEntityProperties_Quantity {
             get {
@@ -223,7 +214,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Menge.
+        ///   Looks up a localized string similar to Anzahl.
         /// </summary>
         public static string BoardTypeAllocationProperties_Quantity {
             get {
@@ -232,7 +223,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zusätzliche Daten.
+        ///   Looks up a localized string similar to Zusatzdaten.
         /// </summary>
         public static string BoardTypeDetailsProperties_AdditionalData {
             get {
@@ -241,7 +232,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zuweisungen.
+        ///   Looks up a localized string similar to Reservierung.
         /// </summary>
         public static string BoardTypeDetailsProperties_Allocations {
             get {
@@ -250,7 +241,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inventar.
+        ///   Looks up a localized string similar to Bestand.
         /// </summary>
         public static string BoardTypeDetailsProperties_Inventory {
             get {
@@ -259,7 +250,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zusätzliche Kommentare.
+        ///   Looks up a localized string similar to Anmerkung (Platte).
         /// </summary>
         public static string BoardTypeInventoryProperties_AdditionalCommentsBoards {
             get {
@@ -286,16 +277,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erweiterungsdaten.
-        /// </summary>
-        public static string BoardTypeInventoryProperties_ExtensionData {
-            get {
-                return ResourceManager.GetString("BoardTypeInventoryProperties_ExtensionData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lagerort.
+        ///   Looks up a localized string similar to Lagerplatz.
         /// </summary>
         public static string BoardTypeInventoryProperties_Location {
             get {
@@ -304,16 +286,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auftragsnummer.
-        /// </summary>
-        public static string BoardTypeInventoryProperties_OrderNumber {
-            get {
-                return ResourceManager.GetString("BoardTypeInventoryProperties_OrderNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menge.
+        ///   Looks up a localized string similar to Anzahl.
         /// </summary>
         public static string BoardTypeInventoryProperties_Quantity {
             get {
@@ -349,7 +322,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BoardTypeType.
+        ///   Looks up a localized string similar to Typ.
         /// </summary>
         public static string BoardTypeProperties_BoardTypeType {
             get {
@@ -358,7 +331,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CoatingCategory.
+        ///   Looks up a localized string similar to Beschichtung.
         /// </summary>
         public static string BoardTypeProperties_CoatingCategory {
             get {
@@ -367,7 +340,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kommentare.
+        ///   Looks up a localized string similar to Anmerkungen (Stammdaten).
         /// </summary>
         public static string BoardTypeProperties_Comments {
             get {
@@ -376,7 +349,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Costs.
+        ///   Looks up a localized string similar to Kosten.
         /// </summary>
         public static string BoardTypeProperties_Costs {
             get {
@@ -430,24 +403,6 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ExtensionData.
-        /// </summary>
-        public static string BoardTypeProperties_ExtensionData {
-            get {
-                return ResourceManager.GetString("BoardTypeProperties_ExtensionData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ExternalId.
-        /// </summary>
-        public static string BoardTypeProperties_ExternalId {
-            get {
-                return ResourceManager.GetString("BoardTypeProperties_ExternalId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Maserung.
         /// </summary>
         public static string BoardTypeProperties_Grain {
@@ -466,7 +421,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to InsufficientInventory.
+        ///   Looks up a localized string similar to Mindestbestand unterschritten.
         /// </summary>
         public static string BoardTypeProperties_InsufficientInventory {
             get {
@@ -493,7 +448,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LockedForOptimization.
+        ///   Looks up a localized string similar to Plattentyp für Optimierung gesperrt.
         /// </summary>
         public static string BoardTypeProperties_LockedForOptimization {
             get {
@@ -502,7 +457,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ManufacturerName.
+        ///   Looks up a localized string similar to Hersteller.
         /// </summary>
         public static string BoardTypeProperties_ManufacturerName {
             get {
@@ -511,7 +466,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Materialkategorie.
+        ///   Looks up a localized string similar to Kategorie.
         /// </summary>
         public static string BoardTypeProperties_MaterialCategory {
             get {
@@ -556,7 +511,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StandardQuality.
+        ///   Looks up a localized string similar to Standardqualität.
         /// </summary>
         public static string BoardTypeProperties_StandardQuality {
             get {
@@ -574,16 +529,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thumbnail.
-        /// </summary>
-        public static string BoardTypeProperties_Thumbnail {
-            get {
-                return ResourceManager.GetString("BoardTypeProperties_Thumbnail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TotalAreaAllocated.
+        ///   Looks up a localized string similar to Reserviert.
         /// </summary>
         public static string BoardTypeProperties_TotalAreaAllocated {
             get {
@@ -592,7 +538,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalAreaAvailable.
+        ///   Looks up a localized string similar to Verfügbar.
         /// </summary>
         public static string BoardTypeProperties_TotalAreaAvailable {
             get {
@@ -601,7 +547,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalAreaAvailableWarningLimit.
+        ///   Looks up a localized string similar to Mindestbestand.
         /// </summary>
         public static string BoardTypeProperties_TotalAreaAvailableWarningLimit {
             get {
@@ -610,7 +556,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalAreaInInventory.
+        ///   Looks up a localized string similar to Gesamtfläche.
         /// </summary>
         public static string BoardTypeProperties_TotalAreaInInventory {
             get {
@@ -619,7 +565,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalQuantityAllocated.
+        ///   Looks up a localized string similar to Reserviert.
         /// </summary>
         public static string BoardTypeProperties_TotalQuantityAllocated {
             get {
@@ -628,7 +574,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalQuantityAvailable.
+        ///   Looks up a localized string similar to Verfügbar.
         /// </summary>
         public static string BoardTypeProperties_TotalQuantityAvailable {
             get {
@@ -637,7 +583,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalQuantityAvailableWarningLimit.
+        ///   Looks up a localized string similar to Mindestbestand.
         /// </summary>
         public static string BoardTypeProperties_TotalQuantityAvailableWarningLimit {
             get {
@@ -646,20 +592,11 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TotalQuantityInInventory.
+        ///   Looks up a localized string similar to Anzahl.
         /// </summary>
         public static string BoardTypeProperties_TotalQuantityInInventory {
             get {
                 return ResourceManager.GetString("BoardTypeProperties_TotalQuantityInInventory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TotalValueInInventory.
-        /// </summary>
-        public static string BoardTypeProperties_TotalValueInInventory {
-            get {
-                return ResourceManager.GetString("BoardTypeProperties_TotalValueInInventory", resourceCulture);
             }
         }
         
@@ -673,7 +610,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Width.
+        ///   Looks up a localized string similar to Breite.
         /// </summary>
         public static string BoardTypeProperties_Width {
             get {
@@ -700,7 +637,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zusätzliche Daten.
+        ///   Looks up a localized string similar to Zusatzdaten.
         /// </summary>
         public static string MaterialProperties_AdditionalData {
             get {
@@ -727,7 +664,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beschichtungskategorie.
+        ///   Looks up a localized string similar to Beschichtung.
         /// </summary>
         public static string MaterialProperties_CoatingCategory {
             get {
@@ -772,15 +709,6 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mit Maserung.
-        /// </summary>
-        public static string MaterialProperties_HasGrain {
-            get {
-                return ResourceManager.GetString("MaterialProperties_HasGrain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hersteller.
         /// </summary>
         public static string MaterialProperties_Manufacturer {
@@ -790,7 +718,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stammdaten-Kommentare.
+        ///   Looks up a localized string similar to Anmerkungen (Stammdaten).
         /// </summary>
         public static string MaterialProperties_MasterDataComments {
             get {
@@ -799,7 +727,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Materialkategorie.
+        ///   Looks up a localized string similar to Kategorie.
         /// </summary>
         public static string MaterialProperties_MaterialCategory {
             get {
@@ -808,7 +736,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Materialparameter für Optimierung.
+        ///   Looks up a localized string similar to Materialparametergruppe für Optimierung.
         /// </summary>
         public static string MaterialProperties_MaterialParameterForOptimization {
             get {
@@ -840,24 +768,6 @@ namespace HomagConnect.Base.Contracts {
         public static string MaterialProperties_Thickness {
             get {
                 return ResourceManager.GetString("MaterialProperties_Thickness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Thumbnail.
-        /// </summary>
-        public static string MaterialProperties_Thumbnail {
-            get {
-                return ResourceManager.GetString("MaterialProperties_Thumbnail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Einheitensystem.
-        /// </summary>
-        public static string MaterialProperties_UnitSystem {
-            get {
-                return ResourceManager.GetString("MaterialProperties_UnitSystem", resourceCulture);
             }
         }
     }

@@ -77,7 +77,6 @@ public class Material : IContainsUnitSystemDependentProperties
     /// <summary>
     /// Gets or sets a value indicating whether the object has a grain.
     /// </summary>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_HasGrain))]
     [JsonProperty(Order = 4)]
     public bool HasGrain { get; set; }
 
@@ -133,14 +132,12 @@ public class Material : IContainsUnitSystemDependentProperties
     /// <summary>
     /// Gets or set the thumbnail uri.
     /// </summary>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_Thumbnail))]
     [JsonProperty(Order = 7)]
     public Uri? Thumbnail { get; set; }
 
     /// <summary>
     /// The unit system used for the material properties.
     /// </summary>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_UnitSystem))]
     [JsonProperty(Order = 50)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 }

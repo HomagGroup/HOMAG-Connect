@@ -38,7 +38,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Gets or sets the order number.
         /// </summary>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeInventoryProperties_OrderNumber))]
         public string? OrderNumber { get; set; }
 
         /// <summary>
@@ -56,7 +55,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #region IExtensibleDataObject Members
 
         /// <inheritdoc />
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeInventoryProperties_ExtensionData))]
         public ExtensionDataObject? ExtensionData { get; set; }
 
         #endregion
