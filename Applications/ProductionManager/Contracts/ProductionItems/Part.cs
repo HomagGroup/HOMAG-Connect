@@ -197,6 +197,38 @@ public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingPrope
     [StringLength(50, MinimumLength = 1)]
     public string? EdgeRight { get; set; }
 
+    /// <summary>
+    /// Gets or sets the edge back thickness.
+    /// </summary>
+    [JsonProperty(Order = 35)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    public double? EdgeThicknessBack { get; set; }
+
+    /// <summary>
+    /// Gets or sets the edge front thickness.
+    /// </summary>
+    [JsonProperty(Order = 36)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    public double? EdgeThicknessFront { get; set; }
+
+    /// <summary>
+    /// Gets or sets the edge left thickness.
+    /// </summary>
+    [JsonProperty(Order = 37)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    public double? EdgeThicknessLeft { get; set; }
+
+    /// <summary>
+    /// Gets or sets the edge right thickness.
+    /// </summary>
+    [JsonProperty(Order = 38)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    public double? EdgeThicknessRight { get; set; }
+
     #endregion
 
     #region (40) ICncProgramProperties

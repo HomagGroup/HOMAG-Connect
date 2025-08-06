@@ -27,8 +27,9 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
             var identification = "123456"; // should be replaced with an existing id/barcode
             var quantity = 1;
             DateTimeOffset? timespan = null;
+            var source = "HomagConnect User"; // should be replaced with an existing userName/tapio userName/partner name
 
-            await client.ReportAsFinished(workstationId, identification, quantity, timespan);
+            await client.ReportAsFinished(workstationId, identification, quantity, timespan, source);
         }
     }
 }

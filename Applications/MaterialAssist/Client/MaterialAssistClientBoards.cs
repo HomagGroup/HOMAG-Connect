@@ -87,6 +87,7 @@ namespace HomagConnect.MaterialAssist.Client
         private const string _MaterialCode = "materialCode";
         private const string _BoardEntityCreation = "/type/board";
         private const string _OffcutEntityCreation = "/type/offcut";
+        private const string _TemplateEntityCreation = "/type/template";
 
         #endregion Constants
 
@@ -312,6 +313,30 @@ namespace HomagConnect.MaterialAssist.Client
 
                 throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
             }
+        }
+
+        public async Task<BoardEntity> CreateTemplateEntity(MaterialAssistRequestTemplateEntity templateEntityRequest)
+        {
+            if (templateEntityRequest == null)
+            {
+                throw new ArgumentNullException(nameof(templateEntityRequest));
+            }
+
+            ValidateRequiredProperties(templateEntityRequest);
+
+            var payload = JsonConvert.SerializeObject(templateEntityRequest, SerializerSettings.Default);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _TemplateEntityCreation, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
         }
 
         #endregion Create
