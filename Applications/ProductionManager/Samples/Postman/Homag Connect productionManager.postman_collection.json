@@ -363,7 +363,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots/add",
+									"raw": "{{ConnectHost}}/api/productionManager/lots",
 									"host": [
 										"{{ConnectHost}}"
 									],
