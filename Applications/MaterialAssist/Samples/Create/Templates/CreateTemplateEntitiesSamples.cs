@@ -1,33 +1,13 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Client;
+﻿using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Samples.Create.Templates
 {
     public class CreateTemplateEntitiesSamples
     {
-        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist)
-        {
-            var boardTypeRequest = new MaterialManagerRequestBoardType
-            {
-                BoardCode = "TEG_H3303_ST10_19_1200.0_460.0",
-                CoatingCategory = CoatingCategory.MelamineThermoset,
-                Grain = Grain.Lengthwise,
-                Length = 1200.0,
-                Width = 460.0,
-                MaterialCategory = BoardMaterialCategory.Chipboard,
-                MaterialCode = "EG_H3303_ST10_19",
-                Thickness = 19,
-                Type = BoardTypeType.Template,
-            };
-            var newBoardType = await materialAssist.CreateBoardType(boardTypeRequest);
-        }
-
         public static async Task Boards_CreateTemplateEntity(MaterialAssistClientBoards materialAssist)
         {
-            var boardEntityRequest = new MaterialAssistRequestTemplateEntity
+            var templateEntityRequest = new MaterialAssistRequestTemplateEntity
             {
                 Id = "42",
                 //The board code is the identifier of the board type
@@ -37,8 +17,8 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Templates
                 Width = 500,
                 Quantity = 5,
             };
-            var newBoardEntity = await materialAssist.CreateTemplateEntity(boardEntityRequest);
-            Console.WriteLine($"Created template entity: {newBoardEntity.Id}");
+            var newTemplateEntity = await materialAssist.CreateTemplateEntity(templateEntityRequest);
+            Console.WriteLine($@"Created template entity: {newTemplateEntity.Id}");
         }
     }
 }
