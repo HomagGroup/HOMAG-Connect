@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "a8378ce6-cda2-4506-877f-1ede8993473d",
+		"_postman_id": "44950612-27b7-474b-86c2-9df2ae9df728",
 		"name": "Homag Connect materialAssist",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"		
 	},
 	"item": [
 		{
@@ -384,7 +384,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n    \"comments\": \"string\",\r\n    \"width\": 9999.99,\r\n    \"length\": 9999.99,\r\n    \"quantity\": 100\r\n}",
+									"raw": "{\r\n    \"id\": \"0123\",\r\n    \"comments\": \"comments changed\",\r\n    \"width\": 2070.0,\r\n    \"length\": 2800.0\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -392,7 +392,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities",
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities?id=0123",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -412,6 +412,10 @@
 											"key": "",
 											"value": null,
 											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": "0123"
 										}
 									]
 								}
@@ -430,7 +434,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"comments\": \"string\"\r\n}",
+									"raw": "{\r\n  \"comments\": \"comment\",\r\n  \"currentThickness\": 2.00,\r\n  \"edgebandCode\": \"ABS_Jet_black_0.80_43.0_NN\",\r\n  \"id\": \"0123\",\r\n  \"length\": 150.00,\r\n  \"managementType\": 0\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -438,7 +442,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities",
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities?id=0123",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -458,6 +462,10 @@
 											"key": "",
 											"value": "",
 											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": "0123"
 										}
 									]
 								}
@@ -471,7 +479,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": 141,\r\n  \"length\": 10,\r\n  \"storageLocation\": {\r\n    \"locationId\": \"aad614c4-4f2a-4f8f-b5b6-8b0024020601\",\r\n    \"barcode\": \"\",\r\n    \"name\": \"test\"\r\n  },\r\n  \"workstation\": {\r\n    \"id\": \"2c1445de-ccd6-4ada-b26d-c98018f4390d\",\r\n    \"name\": \"Kantenanleimen\",\r\n    \"workstationType\": 1\r\n  }\r\n}",
+									"raw": "{\r\n  \"id\": \"123\",\r\n  \"length\": 10,\r\n  \"storageLocation\": {\r\n    \"locationId\": \"aad614c4-4f2a-4f8f-b5b6-8b0024020601\",\r\n    \"barcode\": \"\",\r\n    \"name\": \"test\"\r\n  },\r\n  \"workstation\": {\r\n    \"id\": \"2c1445de-ccd6-4ada-b26d-c98018f4390d\",\r\n    \"name\": \"Kantenanleimen\",\r\n    \"workstationType\": 1\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -479,7 +487,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/141/store",
+									"raw": "{{ConnectHost}}/api/materialAssist/edgebandEntities/123/store",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -487,7 +495,7 @@
 										"api",
 										"materialAssist",
 										"edgebandEntities",
-										"141",
+										"123",
 										"store"
 									]
 								}
@@ -511,7 +519,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"boardCode\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"id\": \"string\",\r\n  \"managementType\": 0,\r\n  \"quantity\": 100\r\n}",
+									"raw": "{\r\n  \"boardCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",\r\n  \"id\": \"0123\",\r\n  \"managementType\": \"Single\",\r\n  \"quantity\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -576,7 +584,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"comments\": \"string\",\r\n  \"currentThickness\": 99.99,\r\n  \"edgebandCode\": \"string\",\r\n  \"id\": \"string\",\r\n  \"length\": 9999.99,\r\n  \"managementType\": 0,\r\n  \"quantity\": 100\r\n}",
+									"raw": "{\r\n  \"comments\": \"comment\",\r\n  \"currentThickness\": 2.20,\r\n  \"edgebandCode\": \"ABS_Jet_black_0.80_43.0_NN\",\r\n  \"id\": \"0123\",\r\n  \"length\": 150.00,\r\n  \"managementType\": 0,\r\n  \"quantity\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
