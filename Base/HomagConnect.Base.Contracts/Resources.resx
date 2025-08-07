@@ -117,12 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
+
   <data name="BoardTypeProperties_LastUsed" xml:space="preserve">
     <value>Zuletzt verwendet</value>
-  </data>
-  <data name="BoardTypeProperties_UnitSystem" xml:space="preserve">
-    <value>UnitSystem</value>
   </data>
 	<data name="BoardTypeProperties_MaterialCode" xml:space="preserve">
     <value>Materialcode</value>
@@ -271,7 +268,7 @@
     <value>Erstellt von</value>
   </data>
 	<data name="AllocationProperties_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Reservierung</value>
   </data>
 	<data name="AllocationProperties_Source" xml:space="preserve">
     <value>Quelle</value>
@@ -357,10 +354,5 @@
 	<data name="MaterialProperties_Thickness" xml:space="preserve">
     <value>Dicke</value>
   </data>
-  <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
-    <value>Belag unten</value>
-  </data>
-  <data name="ILaminatingProperties_LaminateTop" xml:space="preserve">
-    <value>Belag oben</value>
-  </data>
+ 
 </root>

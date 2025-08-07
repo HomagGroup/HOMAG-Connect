@@ -106,7 +106,7 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Reservierung.
         /// </summary>
         public static string AllocationProperties_Name {
             get {
@@ -601,38 +601,11 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UnitSystem.
-        /// </summary>
-        public static string BoardTypeProperties_UnitSystem {
-            get {
-                return ResourceManager.GetString("BoardTypeProperties_UnitSystem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Breite.
         /// </summary>
         public static string BoardTypeProperties_Width {
             get {
                 return ResourceManager.GetString("BoardTypeProperties_Width", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Belag unten.
-        /// </summary>
-        public static string ILaminatingProperties_LaminateBottom {
-            get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateBottom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Belag oben.
-        /// </summary>
-        public static string ILaminatingProperties_LaminateTop {
-            get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateTop", resourceCulture);
             }
         }
         

@@ -32,7 +32,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #region IContainsUnitSystemDependentProperties Members
 
         /// <inheritdoc />
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_UnitSystem))]
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
         #endregion

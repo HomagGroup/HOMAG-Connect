@@ -67,7 +67,6 @@ namespace HomagConnect.MaterialManager.Tests.Material
             var propertyDisplayNames = boardType.GetPropertyDisplayNames(culture);
             Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_ArticleNumber), culture), propertyDisplayNames[nameof(BoardType.ArticleNumber)]);
             Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_LastUsed), culture), propertyDisplayNames[nameof(BoardType.LastUsed)]);
-            Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_UnitSystem), culture), propertyDisplayNames[nameof(BoardType.UnitSystem)]);
             Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_MaterialCode), culture), propertyDisplayNames[nameof(BoardType.MaterialCode)]);
             Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Thickness), culture), propertyDisplayNames[nameof(BoardType.Thickness)]);
             Assert.AreEqual(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_MaterialCategory), culture), propertyDisplayNames[nameof(BoardType.MaterialCategory)]);
