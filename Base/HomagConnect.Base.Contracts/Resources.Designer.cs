@@ -610,6 +610,24 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Belag unten.
+        /// </summary>
+        public static string ILaminatingProperties_LaminateBottom {
+            get {
+                return ResourceManager.GetString("ILaminatingProperties_LaminateBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belag oben.
+        /// </summary>
+        public static string ILaminatingProperties_LaminateTop {
+            get {
+                return ResourceManager.GetString("ILaminatingProperties_LaminateTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zusatzdaten.
         /// </summary>
         public static string MaterialProperties_AdditionalData {
