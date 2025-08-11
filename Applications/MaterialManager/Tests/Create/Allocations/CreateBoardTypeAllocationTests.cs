@@ -17,6 +17,7 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     protected MaterialManagerClientMaterialBoards MaterialManagerClientMaterialBoards { get; private set; } = null!;
 
     /// <summary />
+    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow(null, "comments", "createdBy", "name", 1000, "source", "workstation")] //boardCode not set
     [DataRow("boardCode", "comments", null, "name", 1000, "source", "workstation")] //createdBy not set
@@ -36,7 +37,7 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// BoardTypeAllocationCreation_ValidRequest_CreatesAllocation
     /// </summary>
-    [TemporaryDisabledOnServer(2025, 8, 10, "DF-Material | Enable this once GW goes to prod | Peter")]
+    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow("TestBoardCode", "comments", "createdBy", "Test_Allocation", 1, "source", "workstation")]
     public async Task BoardTypeAllocationCreation_ValidRequest_CreatesAllocation(string boardCode, string comments, string createdBy,
