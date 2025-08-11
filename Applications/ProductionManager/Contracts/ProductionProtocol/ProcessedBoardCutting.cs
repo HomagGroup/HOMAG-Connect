@@ -1,60 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
-
-using Newtonsoft.Json;
+﻿using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
 /// <summary>
-/// Represents a processed board in a production protocol, including its material code, dimensions and unit system.
+/// Represents a processed board in a production protocol for cutting machines.
 /// </summary>
-public class ProcessedBoardCutting : ProcessedItem, IContainsUnitSystemDependentProperties
+public class ProcessedBoardCutting : ProcessedBoard
 {
-    /// <summary>
-    /// Gets or sets the board code.
-    /// </summary>
-    public string? BoardCode { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width.
-    /// </summary>
-    [JsonProperty(Order = 15)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    public double? Length { get; set; }
-
     /// <inheritdoc />
     public override MachineType MachineType { get; set; } = MachineType.Cutting;
 
     /// <summary>
-    /// Gets or sets the material code.
+    /// Gets or sets the name of optimization (aka run, job, etc.).
     /// </summary>
-    public string? MaterialCode { get; set; }
+    public string? OptimizationName { get; set; }
 
     /// <summary>
-    /// Gets or sets number of boards together.
+    /// Gets or sets the pattern cycle.
     /// </summary>
-    public int Quantity { get; set; } = 1;
+    public int? PatternCycle { get; set; }
 
     /// <summary>
-    /// Gets or sets the thickness.
+    /// Gets or sets the pattern name.
     /// </summary>
-    [JsonProperty(Order = 16)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    public double? Thickness { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width.
-    /// </summary>
-    [JsonProperty(Order = 15)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    public double? Width { get; set; }
-
-    /// <inheritdoc />
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+    public string? PatternName { get; set; }
 }
