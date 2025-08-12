@@ -372,7 +372,7 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest)
         {
-            const string uri = "api/productionManager/lots/add";
+            const string uri = "api/productionManager/lots";
 
             var response = await PostObject(new Uri(uri, UriKind.Relative), createLotRequest);
             var result = await response.Content.ReadAsStringAsync();
