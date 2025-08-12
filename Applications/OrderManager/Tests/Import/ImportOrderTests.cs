@@ -140,9 +140,10 @@ namespace HomagConnect.OrderManager.Tests.Import
             var stopWatch = Stopwatch.StartNew();
             var orderManager = GetOrderManagerClient();
 
+            using var projectDirectory = TempDirectory.Create();
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
 
-            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()), projectDirectory.DirectoryInfo);
 
             project.SetSource("SmartWOP");
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-7));
@@ -178,7 +179,8 @@ namespace HomagConnect.OrderManager.Tests.Import
 
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
 
-            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+            var projectDirectory = TempDirectory.Create();
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()), projectDirectory.DirectoryInfo);
 
             project.SetSource("SmartWOP");
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
