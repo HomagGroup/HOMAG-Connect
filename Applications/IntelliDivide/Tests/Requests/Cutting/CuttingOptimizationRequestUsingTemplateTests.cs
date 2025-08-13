@@ -38,7 +38,7 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 08, 15, "DF-Optimization")]
+    [TemporaryDisabledOnServer(2025,10,1, "DF-Optimization")]
     public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
