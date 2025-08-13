@@ -10,6 +10,9 @@ using HomagConnect.DataExchange.Extensions.Wrapper;
 
 namespace HomagConnect.DataExchange.Extensions
 {
+    using System;
+    using System.IO;
+
     /// <summary>
     /// Provides methods to load and save project data.
     /// </summary>
@@ -67,10 +70,8 @@ namespace HomagConnect.DataExchange.Extensions
         /// <summary>
         /// Load project from project.zip archive.
         /// </summary>
-        public static (Project Project, FileReference[] ProjectFiles) Load(ZipArchive projectZipArchive, bool migrateToLatestVersion = true)
+        public static (Project Project, FileReference[] ProjectFiles) Load(ZipArchive projectZipArchive, DirectoryInfo projectDirectory, bool migrateToLatestVersion = true)
         {
-            var projectDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
-
             projectZipArchive.ExtractToDirectory(projectDirectory.FullName);
 
             var projectXmlFile = projectDirectory.EnumerateFiles(_ProjectXmlFileName, SearchOption.AllDirectories).FirstOrDefault();
