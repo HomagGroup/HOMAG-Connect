@@ -8,7 +8,13 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 public class ProcessedBoardCutting : ProcessedBoard
 {
     /// <inheritdoc />
-    public override MachineType MachineType { get; set; } = MachineType.Cutting;
+    public override MachineType MachineType
+    {
+        get
+        {
+            return MachineType.Cutting;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the name of optimization (aka run, job, etc.).

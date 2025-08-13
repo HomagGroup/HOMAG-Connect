@@ -7,6 +7,15 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </summary>
 public class ProcessedPartCnc : ProcessedPart
 {
+    /// <inheritdoc />
+    public override MachineType MachineType
+    {
+        get
+        {
+            return MachineType.Cnc;
+        }
+    }
+
     /// <summary>
     /// Gets or sets the duration of the CNC program execution for this part.
     /// </summary>
@@ -16,7 +25,4 @@ public class ProcessedPartCnc : ProcessedPart
     /// Gets or sets the name of the CNC program executed for this part.
     /// </summary>
     public string? ProgramName { get; set; }
-
-    /// <inheritdoc />
-    public override MachineType MachineType { get; set; } = MachineType.Cnc;
 }

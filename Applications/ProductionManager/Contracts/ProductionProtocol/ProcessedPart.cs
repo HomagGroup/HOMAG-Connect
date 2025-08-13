@@ -25,6 +25,15 @@ public class ProcessedPart : ProcessedItem, IContainsUnitSystemDependentProperti
     [JsonProperty(Order = 1)]
     public string? Id { get; set; }
 
+    /// <inheritdoc />
+    public override ProcessedItemType ItemType
+    {
+        get
+        {
+            return ProcessedItemType.Part;
+        }
+    }
+
     /// <summary>
     /// Gets or sets the length.
     /// </summary>
