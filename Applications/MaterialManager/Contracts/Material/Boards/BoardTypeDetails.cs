@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
@@ -16,12 +18,14 @@ public class BoardTypeDetails : BoardType
     /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeDetailsProperties_AdditionalData))]
     [JsonProperty(Order = 84)]
     public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
     /// Gets or sets the board type allocations.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeDetailsProperties_Allocations))]
     [JsonProperty(Order = 83)]
     public ICollection<BoardTypeAllocation> Allocations { get; set; } = new List<BoardTypeAllocation>();
 
@@ -36,6 +40,7 @@ public class BoardTypeDetails : BoardType
     /// <summary>
     /// Gets or sets the board type inventory.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeDetailsProperties_Inventory))]
     [JsonProperty(Order = 82)]
     public ICollection<BoardTypeInventory> Inventory { get; set; } = new List<BoardTypeInventory>();
 }

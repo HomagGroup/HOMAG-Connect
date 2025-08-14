@@ -24,7 +24,6 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// <returns></returns>
         Task DeleteBoardEntities(IEnumerable<string> ids);
 
-
         #endregion Delete
 
         #region Read
@@ -115,6 +114,13 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// <param name="offcutEntityRequest"></param>
         /// <returns></returns>
         Task<BoardEntity> CreateOffcutEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest);
+
+        /// <summary>
+        /// Create a template entity in materialAssist.
+        /// </summary>
+        /// <param name="templateEntityRequest"></param>
+        /// <returns></returns>
+        Task<BoardEntity> CreateTemplateEntity(MaterialAssistRequestTemplateEntity templateEntityRequest);
 
         #endregion Create
 

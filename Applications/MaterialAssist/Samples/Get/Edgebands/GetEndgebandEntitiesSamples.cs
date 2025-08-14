@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
 
         public static async Task Edgebands_GetEdgebandEntitiesByIds(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> ids = ["42", "50", "23"];
+            List<string> ids = ["42"];
             var edgebandEntities = await materialAssist.GetEdgebandEntitiesByIds(ids);
             foreach (var edgebandEntity in edgebandEntities)
             {
@@ -47,13 +47,13 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
         // GetByEdgebandCode
         public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCode(MaterialAssistClientEdgebands materialAssist)
         {
-            var edgebandEntity = await materialAssist.GetEdgebandEntitiesByEdgebandCode("RAUKANTEX COLOR 22/1,3");
+            var edgebandEntity = await materialAssist.GetEdgebandEntitiesByEdgebandCode("White Edgeband 19mm");
             Console.WriteLine(edgebandEntity);
         }
 
         public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCodes(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> allEdgebandCodes = ["RAUKANTEX COLOR 22/1,3", "RAUKANTEX dekor pro 23 x 1,4", "ABS_Schwarz_2_23_HM"];
+            List<string> allEdgebandCodes = ["White Edgeband 19mm", "ABS_Schwarz_2_23_HM"];
             var allEdgebandEntities = await materialAssist.GetEdgebandEntitiesByEdgebandCodes(allEdgebandCodes);
             foreach (var edgebandEntity in allEdgebandEntities)
             {

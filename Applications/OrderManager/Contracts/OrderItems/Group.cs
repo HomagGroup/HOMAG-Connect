@@ -45,4 +45,13 @@ public class Group : Base
     [DefaultValue(1)]
     [JsonProperty(Order = 13)]
     public int Quantity { get; set; } = 1;
+
+    /// <summary>
+    /// An optional definition of the room information.
+    /// This can also be mutiple rooms.
+    /// The data structure is sperately defined.
+    /// The position of each ConfigurationPosition must match 
+    /// with the corrdinate system of the room data.
+    /// </summary>
+    public string? RoomInformation { get; set; }
 }

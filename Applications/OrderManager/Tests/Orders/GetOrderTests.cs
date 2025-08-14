@@ -73,84 +73,101 @@ namespace HomagConnect.OrderManager.Tests.Orders
                     Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                     Name = "Test",
                     Source = "OrderConfigurator",
+                    RoomInformation = "...",
                     Items = new()
                     {
-                        new ConfigurationPosition
+                        new ConfigurationGroup
                         {
-                            Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
-                            LibraryId = "CabinetLibrary",
-                            ModuleId = "mr_StorageunitSingle",
-                            Attributes = new()
-                            {
-                                new ConfigurationAttribute("mod_Depth", 548),
-                                new ConfigurationAttribute("mod_Height", 900),
-                                new ConfigurationAttribute("mod_Width", 600),
-                                new ConfigurationAttribute("color", "white")
-                            },
-                            ArticleName = "Cabinet",
-                            ArticleNumber = "CAB-01",
-                            Color = "white",
-                            Catalog = "CabinetCatalog",
-                            CarcaseColor = "white",
-                            DoorDirection = "left",
+                            Id = "18BC8A58-1CBA-4FA4-B205-8E940831F90B",
+                            ContourInformation = "...",  // countout information for THIS group
                             Items = new()
                             {
-                                new Part
+                                new ConfigurationPosition
                                 {
-                                    Id = "P 01.01",
-                                    Quantity = 4,
-                                    Description = "Cabinet left",
-                                    Notes = "Lorem ipsum",
-                                    Length = 250,
-                                    Width = 100,
-                                    Thickness = 150
-                                },
-                                new Configuration
-                                {
-                                    Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
-                                    ModuleId = "mf_Door",
+                                    Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+                                    LibraryId = "CabinetLibrary",
+                                    ModuleId = "mr_StorageunitSingle",
                                     Attributes = new()
                                     {
-                                        new ConfigurationAttribute("mod_FrontHeight", 705)
+                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Height", 900),
+                                        new ConfigurationAttribute("mod_Width", 600),
+                                        new ConfigurationAttribute("color", "white")
                                     },
+                                    ArticleName = "Cabinet",
+                                    ArticleNumber = "CAB-01",
+                                    Color = "white",
+                                    Catalog = "CabinetCatalog",
+                                    CarcaseColor = "white",
+                                    DoorDirection = "left",
                                     Items = new()
                                     {
                                         new Part
                                         {
-                                            Id = "P 01.02",
-                                            Quantity = 6,
-                                            Description = "Front panel",
+                                            Id = "P 01.01",
+                                            Quantity = 4,
+                                            Description = "Cabinet left",
                                             Notes = "Lorem ipsum",
                                             Length = 250,
                                             Width = 100,
-                                            Thickness = 16,
+                                            Thickness = 150
+                                        },
+                                        new Configuration
+                                        {
+                                            Id = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                                            ModuleId = "mf_Door",
+                                            Attributes = new()
+                                            {
+                                                new ConfigurationAttribute("mod_FrontHeight", 705)
+                                            },
                                             Items = new()
                                             {
-                                                new Resource
+                                                new Part
                                                 {
-                                                    Id = "P 01.02.01",
-                                                    Quantity = 1,
-                                                    Description = "Hinge",
+                                                    Id = "P 01.02",
+                                                    Quantity = 6,
+                                                    Description = "Front panel",
                                                     Notes = "Lorem ipsum",
-                                                    ArticleNumber = "67840.01"
+                                                    Length = 250,
+                                                    Width = 100,
+                                                    Thickness = 16,
+                                                    Items = new()
+                                                    {
+                                                        new Resource
+                                                        {
+                                                            Id = "P 01.02.01",
+                                                            Quantity = 1,
+                                                            Description = "Hinge",
+                                                            Notes = "Lorem ipsum",
+                                                            ArticleNumber = "67840.01"
+                                                        }
+                                                    }
                                                 }
                                             }
+                                        },
+                                        new Price
+                                        {
+                                            UnitPrice = 999.98,
+                                            TotalPrice = 999.98,
+                                            Currency = "EUR",
+                                            SalesArticleNumber = "CAB-01",
+                                            Notes = "This is the price for the cabinet"
+                                        },
+                                        new ErrorInfo
+                                        {
+                                            Category = "Error",
+                                            Text = "Error message",
+                                        },
+                                        new ErrorInfo
+                                        {
+                                            Category = "Warning",
+                                            Text = "Warning message",
+                                        },
+                                        new ErrorInfo
+                                        {
+                                            Text = "Error message",
                                         }
                                     }
-                                },
-                                new ErrorInfo
-                                {
-                                    Category = "Error",
-                                    Text = "Error message",
-                                },
-                                new ErrorInfo
-                                {
-                                    Category = "Warning",
-                                    Text = "Warning message",
-                                },
-                                new ErrorInfo
-                                {
-                                    Text = "Error message",
                                 }
                             }
                         }

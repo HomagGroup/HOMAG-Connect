@@ -65,9 +65,11 @@ namespace HomagConnect.DataExchange.Tests
         [TestMethod]
         public void Project_ReadZip_Valid()
         {
+            using var projectDirectory = DisposableTempDirectory.Create();
+
             using var zip = ZipFile.OpenRead("TestData/project-01.zip");
 
-            var (project, projectFiles) = ProjectPersistenceManager.Load(zip);
+            var (project, projectFiles) = ProjectPersistenceManager.Load(zip, projectDirectory.DirectoryInfo);
 
             Assert.IsNotNull(project);
             Assert.IsNotNull(project.Orders);

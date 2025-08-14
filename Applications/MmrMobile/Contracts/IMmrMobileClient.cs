@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace HomagConnect.MmrMobile.Contracts
@@ -44,6 +45,13 @@ namespace HomagConnect.MmrMobile.Contracts
         /// </summary>
         /// <returns></returns>
         Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take , int skip = 0);
+
+/// <summary>
+/// upload a zip-file for a specific machine.
+/// </summary>
+/// <returns></returns>
+        Task UploadProductionProtocol(Stream file, string machine);
+
         #endregion
 
         #region eventdata

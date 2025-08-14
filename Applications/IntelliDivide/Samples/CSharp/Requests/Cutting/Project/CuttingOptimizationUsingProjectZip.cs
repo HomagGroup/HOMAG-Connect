@@ -25,9 +25,18 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
 
             Assert.IsTrue(projectFile.Exists);
 
-            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstAsync(m => m.Name == "productionAssist Cutting");
+            var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Cutting).FirstOrDefaultAsync(m => m.Name == "productionAssist Cutting");
+            if (optimizationMachine == null)
+            {
+                Assert.Inconclusive("The machine is not available.");
+            }
+
             var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType)
-                .FirstAsync(p => string.IsNullOrEmpty(optimizationParametersName) || p.Name.Equals(optimizationParametersName, StringComparison.Ordinal));
+                .FirstOrDefaultAsync(p => string.IsNullOrEmpty(optimizationParametersName) || p.Name.Equals(optimizationParametersName, StringComparison.Ordinal));
+            if (optimizationParameter == null)
+            {
+                Assert.Inconclusive("The optimizing parameter is not available.");
+            }
 
             var request = new OptimizationRequestUsingProject
             {
