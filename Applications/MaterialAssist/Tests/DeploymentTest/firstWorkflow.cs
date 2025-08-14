@@ -120,6 +120,7 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 Quantity = 5
             };
             await MaterialAssistClient.CreateBoardEntity(boardEntityRequest);
+            Assert.IsNotNull(await MaterialAssistClient.GetBoardEntityById(boardEntityRequest.Id));
 
             var boardEntityRequest2 = new MaterialAssistRequestBoardEntity()
             {
@@ -129,6 +130,7 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 Quantity = 10
             };
             await MaterialAssistClient.CreateBoardEntity(boardEntityRequest2);
+            Assert.IsNotNull(await MaterialAssistClient.GetBoardEntityById(boardEntityRequest2.Id));
 
             var boardEntityRequest3 = new MaterialAssistRequestBoardEntity()
             {
@@ -138,6 +140,7 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 Quantity = 2
             };
             await MaterialAssistClient.CreateBoardEntity(boardEntityRequest3);
+            Assert.IsNotNull(await MaterialAssistClient.GetBoardEntityById(boardEntityRequest3.Id));
         }
 
         [TestMethod]
@@ -154,6 +157,7 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 CurrentThickness = 1.0
             };
             await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
+            Assert.IsNotNull(await MaterialAssistClient.GetEdgebandEntityById(edgebandEntityRequest.Id));
 
             var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
             {
@@ -165,6 +169,8 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 CurrentThickness = 16.5
             };
             await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
+            Assert.IsNotNull(await MaterialAssistClient.GetEdgebandEntityById(edgebandEntityRequest2.Id));
+
             var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = "63",
@@ -175,6 +181,7 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 CurrentThickness = 1.0
             };
             await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
+            Assert.IsNotNull(await MaterialAssistClient.GetEdgebandEntityById(edgebandEntityRequest3.Id));
         }
 
         [ClassCleanup]
@@ -185,23 +192,43 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
 
             //board entities
             await MaterialAssistClient.Boards.DeleteBoardEntity("42");
+            Assert.IsNull(await MaterialAssistClient.Boards.GetBoardEntityById("42"));
+
             await MaterialAssistClient.Boards.DeleteBoardEntity("22");
+            Assert.IsNull(await MaterialAssistClient.Boards.GetBoardEntityById("22"));
+
             await MaterialAssistClient.Boards.DeleteBoardEntity("37");
+            Assert.IsNull(await MaterialAssistClient.Boards.GetBoardEntityById("37"));
 
             //edgeband entities
             await MaterialAssistClient.Edgebands.DeleteEdgebandEntity("18");
+            Assert.IsNull(await MaterialAssistClient.Edgebands.GetEdgebandEntityById("18"));
+
             await MaterialAssistClient.Edgebands.DeleteEdgebandEntity("59");
+            Assert.IsNull(await MaterialAssistClient.Edgebands.GetEdgebandEntityById("59"));
+
             await MaterialAssistClient.Edgebands.DeleteEdgebandEntity("63");
+            Assert.IsNull(await MaterialAssistClient.Edgebands.GetEdgebandEntityById("63"));
 
             //board types
             await MaterialManagerClient.Boards.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
+            Assert.IsNull(await MaterialManagerClient.Boards.GetBoardTypeByBoardCode("HPL_F274_9_12.0_4100.0_650.0"));
+
             await MaterialManagerClient.Boards.DeleteBoardType("P2_F204_75_38.0_4100.0_600.0");
+            Assert.IsNull(await MaterialManagerClient.Boards.GetBoardTypeByBoardCode("P2_F204_75_38.0_4100.0_600.0"));
+
             await MaterialManagerClient.Boards.DeleteBoardType("HPL_Natural_Carini_Walnut_4.0_2790.0_2060.0");
+            Assert.IsNull(await MaterialManagerClient.Boards.GetBoardTypeByBoardCode("HPL_Natural_Carini_Walnut_4.0_2790.0_2060.0"));
 
             //edgeband types
             await MaterialManagerClient.Edgebands.DeleteEdgebandType("ABS_Multiplex schwarz_1.00_23.0_NN");
+            Assert.IsNull(await MaterialManagerClient.Edgebands.GetEdgebandTypeByEdgebandCode("ABS_Multiplex schwarz_1.00_23.0_NN"));
+
             await MaterialManagerClient.Edgebands.DeleteEdgebandType("NN_Schwarz_16.50_24.5_HM");
+            Assert.IsNull(await MaterialManagerClient.Edgebands.GetEdgebandTypeByEdgebandCode("NN_Schwarz_16.50_24.5_HM"));
+
             await MaterialManagerClient.Edgebands.DeleteEdgebandType("ABS_A_Dash_of_Freedom_1.00_100.0_HM");
+            Assert.IsNull(await MaterialManagerClient.Edgebands.GetEdgebandTypeByEdgebandCode("ABS_A_Dash_of_Freedom_1.00_100.0_HM"));
         }
     }
 }
