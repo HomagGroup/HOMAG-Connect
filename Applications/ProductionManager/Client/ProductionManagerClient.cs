@@ -12,8 +12,10 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
 
@@ -165,6 +167,27 @@ namespace HomagConnect.ProductionManager.Client
 
         #endregion
 
+        #region Order item
+
+        /// <inheritdoc />
+        public async Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers)
+        {
+            const string parameter = "identifier";
+            const string endpoint = "api/productionManager/orderItems";
+
+            var uris = identifiers.Select(i => i.Trim())
+                .Where(i => !string.IsNullOrWhiteSpace(i))
+                .Select(code => $"&{parameter}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return (await RequestEnumerableAsync<ProductionItemBase>(uris)).ToArray();
+        }
+
+        #endregion
+
         #region Order details
 
         /// <inheritdoc />
@@ -185,6 +208,7 @@ namespace HomagConnect.ProductionManager.Client
         #endregion
 
         #region Order release
+
         /// <inheritdoc />
         public async Task ReleaseOrder(Guid orderId)
         {
@@ -202,6 +226,7 @@ namespace HomagConnect.ProductionManager.Client
 
             response.EnsureSuccessStatusCode();
         }
+
         #endregion
 
         #region Prediction
@@ -341,6 +366,44 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         #endregion Lot deletion
+
+        #region Lot creation
+
+        /// <inheritdoc />
+        public async Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest)
+        {
+            const string uri = "api/productionManager/lots";
+
+            var response = await PostObject(new Uri(uri, UriKind.Relative), createLotRequest);
+            var result = await response.Content.ReadAsStringAsync();
+
+            var responseObject = JsonConvert.DeserializeObject<CreateLotResponse>(result, SerializerSettings.Default);
+            return responseObject ?? new CreateLotResponse();
+        }
+
+        #endregion
+
+        #region Lot overview
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Lot>?> GetLots(int take, int skip = 0)
+        {
+            var url = $"/api/productionManager/lots?take={take}&skip={skip}";
+            var lots = await RequestEnumerable<Lot>(new Uri(url, UriKind.Relative));
+
+            return lots;
+        }
+
+        /// <inheritdoc />
+        public async Task<LotDetails?> GetLotDetails(string identifier)
+        {
+            var url = $"/api/productionManager/lots/{Uri.EscapeDataString(identifier)}";
+            var lotDetail = await RequestObject<LotDetails>(new Uri(url, UriKind.Relative));
+
+            return lotDetail;
+        }
+
+        #endregion
 
         #endregion
 

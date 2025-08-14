@@ -1,5 +1,6 @@
 using System.IO.Compression;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.ProductionManager.Contracts.Import;
@@ -57,7 +58,9 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
         {
             var productionManager = GetProductionManagerClient();
 
-            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+            using var tempDirectory = DisposableTempDirectory.Create();
+
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()), tempDirectory.DirectoryInfo);
 
             project.SetSource(source);
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));

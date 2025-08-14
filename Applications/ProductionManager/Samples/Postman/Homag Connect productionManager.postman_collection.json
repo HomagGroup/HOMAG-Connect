@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "894cd9f6-ac6f-44ee-a156-27f973af9272",
+		"_postman_id": "228f2e8f-b756-4c11-9ac1-f758ad6c533d",
 		"name": "Homag Connect productionManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -337,6 +337,139 @@
 											"value": "Your_Name2",
 											"description": "Add your lot name",
 											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "Create lot",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Test Lot Homag Connect\",\r\n  \"startDatePlanned\": \"2025-07-23T08:51:21.8052452+00:00\",\r\n  \"completionDatePlanned\": \"2025-07-24T08:51:21.8052452+00:00\",\r\n  \"partIds\": [\r\n    \"1000868\"\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/lots",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"lots",
+										"add"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Read",
+					"item": [
+						{
+							"name": "Get lots",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/lots",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"lots"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": null,
+											"description": "Take value",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": null,
+											"description": "Skip value",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get lot details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/lots/{{identifier}}",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"lots",
+										"{{identifier}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Order items",
+			"item": [
+				{
+					"name": "Read",
+					"item": [
+						{
+							"name": "Get order items by identifiers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orderItems?identifier=10697510&identifier=10697516",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orderItems"
+									],
+									"query": [
+										{
+											"key": "identifier",
+											"value": "10697510",
+											"description": "Your public id or barcode"
+										},
+										{
+											"key": "identifier",
+											"value": "10697516",
+											"description": "Your public id or barcode"
 										}
 									]
 								}

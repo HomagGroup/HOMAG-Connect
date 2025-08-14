@@ -7,6 +7,8 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 {
     /// <summary>
@@ -136,8 +138,17 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             // Prepare the request
             var mprFiles = new List<ImportFile>();
 
-            var machine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstAsync();
-            var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstAsync();
+            var machine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstOrDefaultAsync();
+            if (machine == null)
+            {
+                Assert.Inconclusive("There is no Nesting machine available.");
+            }
+
+            var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstOrDefaultAsync();
+            if (parameter == null)
+            {
+                Assert.Inconclusive("There is no optimizing parameter available.");
+            }
 
             var request = await GetSampleNestingOptimizationByObjectModel(mprFiles);
 

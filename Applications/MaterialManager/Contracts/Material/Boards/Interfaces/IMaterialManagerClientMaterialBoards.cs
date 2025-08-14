@@ -28,6 +28,41 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences);
 
         /// <summary>
+        /// Creates the board type allocation in materialManager.
+        /// </summary>
+        /// <returns>The created board type allocation <see cref="BoardTypeAllocation" />.</returns>
+        Task<BoardTypeAllocation> CreateBoardTypeAllocation(BoardTypeAllocationRequest boardTypeAllocationRequest);
+
+        /// <summary>
+        /// Gets the board type allocations paginated.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the board type allocations paginated by allocation name.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocationsByAllocationNames(IEnumerable<string> allocationNames, int take, int skip = 0);
+
+        /// <summary>
+        /// Search the board type allocations.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeAllocation>?> SearchBoardTypeAllocations(string search, int take, int skip = 0);
+
+        /// <summary>
+        /// Updates the board type allocation in materialManager.
+        /// </summary>
+        /// <returns>The updated board type allocation <see cref="BoardTypeAllocation" />.</returns>
+        Task<IEnumerable<BoardTypeAllocation>?> UpdateBoardTypeAllocation(string allocationName, BoardTypeAllocationUpdate boardTypeAllocationUpdate);
+
+        /// <summary>
+        /// Deletes board type allocations by allocation names.
+        /// </summary>
+        Task DeleteBoardTypeAllocations(IEnumerable<string> allocationNames);
+
+        /// <summary>
         /// Delete board type by board code.
         /// </summary>
         /// <param name="boardCode"></param>
@@ -106,6 +141,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <param name="skip">The number of materials to skip.</param>
         /// <returns>A collection of <see cref="Material" />.</returns>
         Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the materials by material codes.
+        /// </summary>
+        /// <param name="materialCodes">A collection of material codes.</param>
+        /// <returns>A collection of <see cref="Material"/> objects.</returns>
+        Task<IEnumerable<Material>?> GetMaterialsByMaterialCodes(IEnumerable<string> materialCodes);
 
         /// <summary>
         /// Update board type by board code.

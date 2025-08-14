@@ -37,5 +37,10 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// The optimization result has been downloaded or transferred to machine.
         /// </summary>
         Transferred,
+
+        /// <summary>
+        /// Download of SAW-File to machine pending or in progress.
+        /// </summary>
+        Transferring = 9,
     }
 }

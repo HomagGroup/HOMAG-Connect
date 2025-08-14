@@ -1,6 +1,8 @@
 ﻿using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -26,6 +28,15 @@ namespace HomagConnect.ProductionManager.Contracts
 
         #endregion
 
+        #region Order items
+
+        /// <summary>
+        /// Get order item by its identifier (public id or id)
+        /// </summary>
+        public Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers);
+
+        #endregion
+
         #region Order details
 
         /// <summary>
@@ -46,6 +57,7 @@ namespace HomagConnect.ProductionManager.Contracts
         #endregion
 
         #region Order release
+
         /// <summary>
         /// Release order
         /// </summary>
@@ -59,6 +71,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="orderId"></param>
         /// <returns></returns>
         Task ResetReleaseOrder(Guid orderId);
+
         #endregion
 
         #region Order import
@@ -152,6 +165,36 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="lotNames"></param>
         /// <returns></returns>
         Task DeleteOrDecomposeLotsByLotNames(string[] lotNames);
+
+        #endregion
+
+        #region Lot creation
+
+        /// <summary>
+        /// Creates a new lot based on the given request
+        /// </summary>
+        /// <param name="createLotRequest"></param>
+        /// <returns></returns>
+        Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest);
+
+        #endregion
+
+        #region Lot overview
+
+        /// <summary>
+        /// Get all lots
+        /// </summary>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
+        /// <returns></returns>
+        public Task<IEnumerable<Lot>?> GetLots(int take, int skip = 0);
+
+        /// <summary>
+        /// Get a single lot details by its identifier (public id or id)
+        /// </summary>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public Task<LotDetails?> GetLotDetails(string identifier);
 
         #endregion
 

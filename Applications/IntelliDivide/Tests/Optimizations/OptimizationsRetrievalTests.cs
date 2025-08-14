@@ -59,7 +59,6 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
     
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 7, 15, "DF-Optimization")]
     public async Task Optimizations_GetExportsForSolution()
     {
         var intelliDivide = GetIntelliDivideClient();
