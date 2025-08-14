@@ -1,5 +1,7 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
@@ -182,6 +184,86 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
             };
             await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
             Assert.IsNotNull(await MaterialAssistClient.GetEdgebandEntityById(edgebandEntityRequest3.Id));
+        }
+
+        [TestMethod]
+        public async Task updateStorageLocationBoards()
+        {
+            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+
+            var storageLocation = new StorageLocation()
+            {
+                Name = "001",
+            };
+            await MaterialAssistClient.StoreBoardEntity("42", 4100, 650, storageLocation);
+            var boardEntity = await MaterialAssistClient.GetBoardEntityById("42");
+            Assert.IsNotNull(boardEntity.Location);
+            Assert.AreEqual("001", boardEntity.Location.Name);
+
+            var storageLocation2 = new StorageLocation()
+            {
+                Name = "002",
+            };
+            await MaterialAssistClient.StoreBoardEntity("22", 4100, 600, storageLocation2);
+            var boardEntity2 = await MaterialAssistClient.GetBoardEntityById("22");
+            Assert.IsNotNull(boardEntity2.Location);
+            Assert.AreEqual("002", boardEntity2.Location.Name);
+
+            var storageLocation3 = new StorageLocation()
+            {
+                Name = "003",
+            };
+            await MaterialAssistClient.StoreBoardEntity("37", 2790, 2060, storageLocation3);
+            var boardEntity3 = await MaterialAssistClient.GetBoardEntityById("37");
+            Assert.IsNotNull(boardEntity3.Location);
+            Assert.AreEqual("003", boardEntity3.Location.Name);
+        }
+
+        [TestMethod]
+        public async Task updateStorageLocationEdgebands()
+        {
+            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
+            var edgebandEntityStore = new MaterialAssistStoreEdgebandEntity()
+            {
+                Id = "18",
+                Length = 75,
+                StorageLocation = new StorageLocation()
+                {
+                    LocationId = "001-01",
+                },
+            };
+            await MaterialAssistClient.StoreEdgebandEntity(edgebandEntityStore);
+            var edgebandEntity = await MaterialAssistClient.GetEdgebandEntityById("18");
+            Assert.IsNotNull(edgebandEntity.Location);
+            Assert.AreEqual("001-01", edgebandEntity.Location.LocationId);
+
+            var edgebandEntityStore2 = new MaterialAssistStoreEdgebandEntity()
+            {
+                Id = "59",
+                Length = 75,
+                StorageLocation = new StorageLocation()
+                {
+                    Name = "Location2",
+                },
+            };
+            await MaterialAssistClient.StoreEdgebandEntity(edgebandEntityStore2);
+            var edgebandEntity2 = await MaterialAssistClient.GetEdgebandEntityById("59");
+            Assert.IsNotNull(edgebandEntity2.Location);
+            Assert.AreEqual("Location2", edgebandEntity2.Location.Name);
+
+            var edgebandEntityStore3 = new MaterialAssistStoreEdgebandEntity()
+            {
+                Id = "63",
+                Length = 225,
+                StorageLocation = new StorageLocation()
+                {
+                    Name = "Lager1",
+                },
+            };
+            await MaterialAssistClient.StoreEdgebandEntity(edgebandEntityStore3);
+            var edgebandEntity3 = await MaterialAssistClient.GetEdgebandEntityById("63");
+            Assert.IsNotNull(edgebandEntity3.Location);
+            Assert.AreEqual("Lager1", edgebandEntity3.Location.Name);
         }
 
         [ClassCleanup]
