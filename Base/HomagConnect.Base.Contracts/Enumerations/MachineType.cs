@@ -1,8 +1,13 @@
-﻿namespace HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.Base.Contracts.Enumerations;
 
 /// <summary>
 /// Represents the type of machine used in the production process.
 /// </summary>
+[JsonConverter(typeof(TolerantEnumConverter))]
 public enum MachineType
 {
     /// <summary>

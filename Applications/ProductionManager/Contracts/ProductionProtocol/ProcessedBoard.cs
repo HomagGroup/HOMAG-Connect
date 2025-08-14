@@ -22,6 +22,15 @@ public class ProcessedBoard : ProcessedItem, IContainsUnitSystemDependentPropert
     /// Gets or sets the board type.
     /// </summary>
     public BoardTypeType? BoardType { get; set; } = BoardTypeType.Board;
+    
+    /// <inheritdoc />
+    public override ProcessedItemType ItemType
+    {
+        get
+        {
+            return ProcessedItemType.Board;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the width.
