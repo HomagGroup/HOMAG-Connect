@@ -338,11 +338,60 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
             Assert.AreEqual(EdgebandingProcess.HotmeltGlue, updatedEdgebandType3.Process);
         }
 
+        [TestMethod]
+        public async Task allocateBoards()
+            {
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
+
+            var boardTypeAllocationRequest = new BoardTypeAllocationRequest
+            {
+                BoardTypeCode = "HPL_F274_9_12.0_4100.0_650.0",
+                CreatedBy = "DeploymentTest",
+                Name = "DeploymentTestAllocation",
+                Quantity = 2,
+                };
+            await MaterialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest);
+
+            var boardTypeAllocationRequest2 = new BoardTypeAllocationRequest
+            {
+                BoardTypeCode = "P2_F204_75_38.0_4100.0_600.0",
+                CreatedBy = "DeploymentTest",
+                Name = "DeploymentTestAllocation2",
+                Quantity = 3,
+            };
+            await MaterialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest2);
+
+            var boardTypeAllocationRequest3 = new BoardTypeAllocationRequest
+            {
+                BoardTypeCode = "HPL_Natural_Carini_Walnut_4.0_2790.0_2060.0",
+                CreatedBy = "DeploymentTest",
+                Name = "DeploymentTestAllocation3",
+                Quantity = 2,
+            };
+            await MaterialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest3);
+
+            var allAllocationNames = await MaterialManagerClient.GetBoardTypeAllocations(1000);
+            Assert.IsNotNull(allAllocationNames);
+            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation"));
+            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation2"));
+            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation3"));
+        }
+
+        //allocation for edgebands not implemented yet
+
         [ClassCleanup]
         public async Task Cleanup()
         {
             var MaterialManagerClient = GetMaterialManagerClient().Material;
             var MaterialAssistClient = GetMaterialAssistClient();
+
+            //board type allocations
+            await MaterialManagerClient.Boards.DeleteBoardTypeAllocations(new List<string>
+            {
+                "DeploymentTestAllocation",
+                "DeploymentTestAllocation2",
+                "DeploymentTestAllocation3"
+            });
 
             //board entities
             await MaterialAssistClient.Boards.DeleteBoardEntity("42");
