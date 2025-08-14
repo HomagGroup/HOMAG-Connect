@@ -6,6 +6,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
+using HomagConnect.MaterialManager.Contracts.Update;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 Width = 2060.0,
                 Thickness = 4.0,
                 Type = BoardTypeType.Board,
-                MaterialCategory = BoardMaterialCategory.CompactPanels_HPL,
+                MaterialCategory = BoardMaterialCategory.Undefined,
                 CoatingCategory = CoatingCategory.Undefined,
                 Grain = Grain.None,
             };
@@ -103,8 +104,8 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
                 Height = 100.0,
                 Thickness = 1.0,
                 DefaultLength = 225.0,
-                MaterialCategory = EdgebandMaterialCategory.ABS,
-                Process = EdgebandingProcess.HotmeltGlue,
+                MaterialCategory = EdgebandMaterialCategory.PVC,
+                Process = EdgebandingProcess.Other,
             };
             await MaterialManagerClient.CreateEdgebandType(edgebandTypeRequest3);
             Assert.IsNotNull(await MaterialManagerClient.GetEdgebandTypeByEdgebandCode(edgebandTypeRequest3.EdgebandCode));
@@ -264,6 +265,77 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
             var edgebandEntity3 = await MaterialAssistClient.GetEdgebandEntityById("63");
             Assert.IsNotNull(edgebandEntity3.Location);
             Assert.AreEqual("Lager1", edgebandEntity3.Location.Name);
+        }
+
+        [TestMethod]
+        public async Task getAndUpdateBoardTypes()
+        {
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
+            var boardType1 = await MaterialManagerClient.GetBoardTypeByBoardCodeIncludingDetails("HPL_F274_9_12.0_4100.0_650.0");
+            
+            var boardTypeUpdate = new MaterialManagerUpdateBoardType
+            {
+                Thickness = 19.5,
+            };
+            await MaterialManagerClient.UpdateBoardType("HPL_F274_9_12.0_4100.0_650.0", boardTypeUpdate);
+            var updatedBoardType1 = await MaterialManagerClient.GetBoardTypeByBoardCodeIncludingDetails("HPL_F274_9_12.0_4100.0_650.0");
+            Assert.AreEqual(19.5, updatedBoardType1.Thickness);
+
+            var boardType2 = await MaterialManagerClient.GetBoardTypeByBoardCodeIncludingDetails("P2_F204_75_38.0_4100.0_600.0");
+            var boardTypeUpdate2 = new MaterialManagerUpdateBoardType
+            {
+                BoardCode = "P2_F204_75_38.0_4200.0_610.0",
+                Length = 4200.0,
+                Width = 610.0,
+            };
+            await MaterialManagerClient.UpdateBoardType("P2_F204_75_38.0_4100.0_600.0", boardTypeUpdate2);
+            var updatedBoardType2 = await MaterialManagerClient.GetBoardTypeByBoardCodeIncludingDetails("P2_F204_75_38.0_4200.0_610.0");
+            Assert.AreEqual(4200.0, updatedBoardType2.Length);
+            Assert.AreEqual(610.0, updatedBoardType2.Width);
+
+            var boardType3 = await MaterialManagerClient.GetBoardTypeByBoardCodeIncludingDetails("HPL_Natural_Carini_Walnut_4.0_2790.0_2060.0");
+            var boardTypeUpdate3 = new MaterialManagerUpdateBoardType
+            {
+                MaterialCategory = BoardMaterialCategory.CompactPanels_HPL,
+            };
+            await MaterialManagerClient.UpdateBoardType("HPL_Natural_Carini_Walnut_4.0_2790.0_2060.0", boardTypeUpdate3);
+            var updatedBoardType3 = await MaterialManagerClient.GetBoardTypeByBoardCodeIncludingDetails("HPL_Natural_Carini_Walnut_4.0_2790.0_2060.0");
+            Assert.AreEqual(BoardMaterialCategory.CompactPanels_HPL, updatedBoardType3.MaterialCategory);
+        }
+
+        [TestMethod]
+        public async Task getAndUpdateEdgebandTypes()
+        {
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+            var edgebandType1 = await MaterialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_Multiplex schwarz_1.00_23.0_NN");
+            var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
+            {
+                EdgebandCode = "ABS_Multiplex schwarz_1.2_23.0_NN",
+                Thickness = 1.2,
+            };
+            await MaterialManagerClient.UpdateEdgebandType("ABS_Multiplex schwarz_1.00_23.0_NN", edgebandTypeUpdate);
+            var updatedEdgebandType1 = await MaterialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_Multiplex schwarz_1.2_23.0_NN");
+            Assert.AreEqual(1.2, updatedEdgebandType1.Thickness);
+
+            var edgebandType2 = await MaterialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("NN_Schwarz_16.50_24.5_HM");
+            var edgebandTypeUpdate2 = new MaterialManagerUpdateEdgebandType
+            {
+                DefaultLength = 75.0,
+            };
+            await MaterialManagerClient.UpdateEdgebandType("NN_Schwarz_16.50_24.5_HM", edgebandTypeUpdate2);
+            var updatedEdgebandType2 = await MaterialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("NN_Schwarz_16.50_24.5_HM");
+            Assert.AreEqual(75.0, updatedEdgebandType2.DefaultLength);
+
+            var edgebandType3 = await MaterialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_A_Dash_of_Freedom_1.00_100.0_HM");
+            var edgebandTypeUpdate3 = new MaterialManagerUpdateEdgebandType
+            {
+                MaterialCategory = EdgebandMaterialCategory.ABS,
+                Process = EdgebandingProcess.HotmeltGlue,
+            };
+            await MaterialManagerClient.UpdateEdgebandType("ABS_A_Dash_of_Freedom_1.00_100.0_HM", edgebandTypeUpdate3);
+            var updatedEdgebandType3 = await MaterialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_A_Dash_of_Freedom_1.00_100.0_HM");
+            Assert.AreEqual(EdgebandMaterialCategory.ABS, updatedEdgebandType3.MaterialCategory);
+            Assert.AreEqual(EdgebandingProcess.HotmeltGlue, updatedEdgebandType3.Process);
         }
 
         [ClassCleanup]
