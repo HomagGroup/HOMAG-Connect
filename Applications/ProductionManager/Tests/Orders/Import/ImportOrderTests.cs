@@ -1,5 +1,6 @@
 using System.IO.Compression;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.ProductionManager.Contracts.Import;
@@ -15,7 +16,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 5, 1, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Cabinet()
         {
             var projectZip = new FileInfo("TestData\\Cabinet.zip");
@@ -32,7 +32,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
             try
             {
-                await ImportOrderSamples.ImportOrderUsingProjectZipAndWaitForCompletion(productionManager);
+                var order = await ImportOrderSamples.ImportOrderUsingProjectZipAndWaitForCompletion(productionManager);
+                await productionManager.DeleteOrderByOrderId(order.Id);
             }
             catch (Exception e)
             {
@@ -45,7 +46,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 5, 30, "DF-Production")]
         public async Task ImportOrder_ProjectZip_Wardrobe()
         {
             var projectZip = new FileInfo("TestData\\Wardrobe.zip");
@@ -57,9 +57,11 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
         {
             var productionManager = GetProductionManagerClient();
 
-            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()));
+            using var tempDirectory = DisposableTempDirectory.Create();
 
-            project.SetSource(source);
+            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()), tempDirectory.DirectoryInfo);
+
+            //project.SetSource(source);
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
             project.SetDeliveryDatePlanned(DateTime.Today + TimeSpan.FromDays(14));
             project.SetBarcodesToNull();
@@ -73,6 +75,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
             Assert.IsNotNull(order.Link);
 
             TestContext?.WriteLine(order.Link?.ToString());
+
+            await productionManager.DeleteOrderByOrderId(order.Id);
         }
     }
 }

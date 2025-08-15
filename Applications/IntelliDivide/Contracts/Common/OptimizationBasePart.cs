@@ -20,6 +20,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}")]
     public class OptimizationBasePart : IEdgebandingProperties, ILaminatingProperties, IDimensionProperties, ICncProgramProperties
     {
+        #region Constants
+
+        /// <summary>
+        /// Destacking destination value which indicates that the destination should get calculated automatically.
+        /// </summary>
+        private const int _AutomaticCalculation = -1;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -241,11 +250,31 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonProperty(Order = 70)]
         public string? LabelLayout { get; set; }
 
+        /// <summary />
+        [Obsolete("Replaced by DestackingGroup ", true)]
+        public string? StackingGroup
+        {
+            get
+            {
+                return DestackingGroup;
+            }
+            set
+            {
+                DestackingGroup = value;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the stacking group value for the part.
         /// </summary>
         [JsonProperty(Order = 75)]
-        public string? StackingGroup { get; set; }
+        public string? DestackingGroup { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the destination for the destacking of the part.
+        /// </summary>
+        [JsonProperty(Order = 75)]
+        public int? DestackingDestination { get; set; } = _AutomaticCalculation;
 
         #endregion
 
