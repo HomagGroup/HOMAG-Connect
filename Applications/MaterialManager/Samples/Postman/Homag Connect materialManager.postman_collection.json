@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "945de830-c6ce-404b-aa2a-23ef96904be6",
+		"_postman_id": "083752da-00cf-430a-b4aa-abe776a9022f",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,7 +52,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=\"Test\"&includingDetails=true&take&skip",
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=P2_White_15.0&includingDetails=true&take&skip",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -65,7 +65,7 @@
 									"query": [
 										{
 											"key": "materialCode",
-											"value": "\"Test\""
+											"value": "P2_White_15.0"
 										},
 										{
 											"key": "includingDetails",
@@ -91,7 +91,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=\"Test\"&includingDetails=true&take&skip",
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=P2_White_15.0_2800.0_2070.0&includingDetails=true&take&skip",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -104,47 +104,11 @@
 									"query": [
 										{
 											"key": "boardCode",
-											"value": "\"Test\""
+											"value": "P2_White_15.0_2800.0_2070.0"
 										},
 										{
 											"key": "includingDetails",
 											"value": "true"
-										},
-										{
-											"key": "take",
-											"value": null,
-											"description": "Max. 1000 boards at once"
-										},
-										{
-											"key": "skip",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get materialCodes with thumbnail",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materialCodes?search=\"Test\"&take&skip",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"materialCodes"
-									],
-									"query": [
-										{
-											"key": "search",
-											"value": "\"Test\""
 										},
 										{
 											"key": "take",
@@ -166,21 +130,21 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/inventory?boardCode=\"Test\"",
+									"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?boardCode=P2_White_15.0_2800.0_2070.0",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"materialManager",
-										"materials",
-										"boards",
-										"inventory"
+										"statistics",
+										"inventory",
+										"boards"
 									],
 									"query": [
 										{
 											"key": "boardCode",
-											"value": "\"Test\""
+											"value": "P2_White_15.0_2800.0_2070.0"
 										}
 									]
 								}
@@ -203,33 +167,6 @@
 										"materials",
 										"boards",
 										"materials"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get materials by material code for current subscription",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials?materialCode=HPL_Grey_0.8",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"materials"
-									],
-									"query": [
-										{
-											"key": "materialCode",
-											"value": "HPL_Grey_0.8"
-										}
 									]
 								}
 							},
