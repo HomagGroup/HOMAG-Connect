@@ -299,6 +299,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; } = new Dictionary<string, object>();
 
+        /// <summary>
+        /// Gets or sets the article number.
+        /// </summary>
+        [JsonProperty(Order = 19)]
+        public string? ArticleNumber { get; set; }
+
         #endregion
 
         #region IContainsUnitSystemDependentProperties Members
