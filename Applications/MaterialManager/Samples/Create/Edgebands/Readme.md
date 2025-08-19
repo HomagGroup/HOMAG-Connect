@@ -48,3 +48,33 @@ var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest);
 ```
 
 Available technology macro names and machines can be requested within the same client.
+
+## CreateEdgebandType with additional data
+It is also possible to attatch additional data, like a image, to a board type at creation.
+
+<strong>Example:</strong>
+
+```csharp
+
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+{
+    EdgebandCode = "EB_White_1mm",
+    Height = 20,
+    Thickness = 1.0,
+    DefaultLength = 23.0,
+    MaterialCategory = EdgebandMaterialCategory.Veneer,
+    Process = EdgebandingProcess.Other,
+};
+
+var fileReferences = new FileReference[]
+{
+    //The path of the file on the local machine
+    new FileReference("EdgebandPicture", @"C:\Users\Admin\Documents\EB_White_1mm.png")
+};
+
+var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest, fileReferences);
+
+Console.WriteLine($"Created Edgeband Type: {newEdgebandType.Code}");
+```
