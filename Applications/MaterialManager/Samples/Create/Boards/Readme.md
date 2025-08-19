@@ -49,10 +49,10 @@ var boardTypeRequest = new MaterialManagerRequestBoardType
     Grain = Grain.None,
 };
 
+var testFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
 var fileReferences = new FileReference[]
 {
-    //The path of the file on the local machine
-    new FileReference("BoardPicture", @"C:\Users\Admin\Documents\HPL_F274_9_12.0.png")
+    new FileReference("BoardPicture", testFilePath)
 };
 
 var newBoardType = await client.CreateBoardType(boardTypeRequest, fileReferences);

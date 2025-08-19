@@ -68,10 +68,10 @@ var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
     Process = EdgebandingProcess.Other,
 };
 
+var testFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
 var fileReferences = new FileReference[]
 {
-    //The path of the file on the local machine
-    new FileReference("EdgebandPicture", @"C:\Users\Admin\Documents\EB_White_1mm.png")
+    new FileReference("EdgebandPicture", testFilePath)
 };
 
 var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest, fileReferences);
