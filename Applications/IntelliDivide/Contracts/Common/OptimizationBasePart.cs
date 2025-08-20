@@ -265,7 +265,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the destination for the destacking of the part.
         /// </summary>
         [JsonProperty(Order = 75)]
-        public int? DestackingDestination { get; set; }
+        public string? DestackingDestination { get; set; }
 
         #endregion
 
