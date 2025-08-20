@@ -565,7 +565,7 @@
 							"response": []
 						},
 						{
-							"name": "Create an offcut entity template",
+							"name": "Create a template entity",
 							"request": {
 								"method": "POST",
 								"header": [],
