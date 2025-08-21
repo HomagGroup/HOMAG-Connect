@@ -185,5 +185,35 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
             Assert.IsFalse(anyException);
         }
+
+        /// <summary />
+        [TestMethod]
+        public async Task Orders_GetOrderDetails_NoException()
+        {
+            // Create new instance of the ProductionManager client:
+            var productionManager = GetProductionManagerClient();
+
+            Assert.IsNotNull(productionManager);
+
+            var orders = await productionManager.GetOrders(1);
+
+            Assert.IsNotNull(orders);
+
+            var order = orders.FirstOrDefault();
+            
+            if (order == null)
+            {
+                Assert.Inconclusive("There is no order.");
+            }
+
+            var orderDetails = await productionManager.GetOrder(order.Id);
+
+            Assert.IsNotNull(orderDetails);
+            Assert.AreEqual(order.Id, orderDetails.Id);
+
+            var fileInfo = orderDetails.TraceToFile("orderDetails");
+
+            TestContext?.AddResultFile(fileInfo.FullName);
+        }
     }
 }
