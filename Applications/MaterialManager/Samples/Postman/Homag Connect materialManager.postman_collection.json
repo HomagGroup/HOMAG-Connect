@@ -1023,6 +1023,38 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Delete board type allocations",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationNames=Q3-2025-Allocation",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "allocationNames",
+											"value": "Q3-2025-Allocation"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
