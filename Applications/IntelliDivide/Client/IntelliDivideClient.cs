@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Net.Http.Headers;
-
-using HomagConnect.Base;
+﻿using HomagConnect.Base;
 using HomagConnect.Base.DataModel;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -13,8 +10,10 @@ using HomagConnect.IntelliDivide.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
-
 using Newtonsoft.Json;
+using System.Globalization;
+using System.Net.Http.Headers;
+using System.Security.Authentication;
 
 namespace HomagConnect.IntelliDivide.Client
 {
@@ -146,10 +145,37 @@ namespace HomagConnect.IntelliDivide.Client
         /// <inheritdoc />
         public async Task<IEnumerable<OptimizationMachine>> GetMachines()
         {
-            var cuttingMachines = await GetMachines(OptimizationType.Cutting);
-            var nestingMachines = await GetMachines(OptimizationType.Nesting);
+            var optimizationMachines = new List<OptimizationMachine>();
 
-            return cuttingMachines.Union(nestingMachines).OrderBy(m => m.Name);
+            try
+            {
+                var cuttingMachines = await GetMachines(OptimizationType.Cutting);
+
+                if (cuttingMachines != null)
+                {
+                    optimizationMachines.AddRange(cuttingMachines);
+                }
+            }
+            catch (AuthenticationException)
+            {
+                
+            }
+
+            try
+            {
+                var nestingMachines = await GetMachines(OptimizationType.Nesting);
+
+                if (nestingMachines != null)
+                {
+                    optimizationMachines.AddRange(nestingMachines);
+                }
+            }
+            catch (AuthenticationException)
+            {
+
+            }
+
+            return optimizationMachines.OrderBy(m => m.Name);
         }
 
         /// <inheritdoc />
