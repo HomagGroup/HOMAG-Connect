@@ -93,9 +93,11 @@ public class ConversionTests
 
     private void ConvertProjectToGroup(FileInfo fileInfo)
     {
+        using var tempDirectory = DisposableTempDirectory.Create();
+
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
-        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive);
+        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive, tempDirectory.DirectoryInfo);
         var projectWrapper = new ProjectWrapper(project);
 
         var groups = project.ConvertToGroups(projectFiles).ToList();
@@ -127,9 +129,10 @@ public class ConversionTests
     /// <summary />
     private void ConvertProjectToOrder(FileInfo fileInfo)
     {
+        using var tempDirectory = DisposableTempDirectory.Create();
         var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
-        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive);
+        var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive, tempDirectory.DirectoryInfo);
         var projectWrapper = new ProjectWrapper(project);
 
         var orders = project.ConvertToOrders().ToList();

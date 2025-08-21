@@ -13,7 +13,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
         /// Imports an order using a project zip file and waits for the completion of the import operation.
         /// </summary>
         /// <param name="productionManager"></param>
-        public static async Task ImportOrderUsingProjectZipAndWaitForCompletion(IProductionManagerClient productionManager)
+        public static async Task<Contracts.Orders.Order> ImportOrderUsingProjectZipAndWaitForCompletion(IProductionManagerClient productionManager)
         {
             var projectFile = new FileInfo(@"Orders\Project.zip");
             
@@ -26,6 +26,8 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Import
             var orderDetails = await productionManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(1));
 
             orderDetails.Trace();
+
+            return orderDetails;
         }
     }
 }

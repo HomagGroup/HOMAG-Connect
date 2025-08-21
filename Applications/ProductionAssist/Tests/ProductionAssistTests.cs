@@ -1,5 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Orders;
 
 namespace HomagConnect.ProductionAssist.Tests;
@@ -7,37 +7,36 @@ namespace HomagConnect.ProductionAssist.Tests;
 /// <summary />
 [TestClass]
 [TestCategory("ProductionAssist")]
-[TemporaryDisabledOnServer(2025,9,1,"DF-Production")]
 public class ProductionAssistTests : ProductionAssistTestBase
 {
     /// <summary />
     [TestMethod]
     public async Task ProductionAssist_GetOrderItem_NoException()
     {
-        // Assert.Inconclusive("Implementation not ready");
-
         var exceptionThrown = false;
         var productionAssist = GetProductionAssistClient();
         var productionManager = GetProductionManagerClient();
 
         try
         {
-            var orders = await productionManager.GetOrders(OrderStatus.New, 1).ToListAsync();
+            var projectFile = new FileInfo(@"Orders\Project.zip");
 
-            Assert.IsNotNull(orders);
-
-            if (!orders.Any())
+            var request = new ImportOrderRequest
             {
-                Assert.Inconclusive("No orders found. Please create a new order before running this test.");
-            }
+                Action = ImportOrderRequestAction.ImportOnly
+            };
 
-            //var orderItemId = "11119218"; // Get a valid order item id or barcode from orderManager
-            const string orderItemId = "1e101d0c-b8f4-4f74-9ce7-4400ec0c9623"; // Get a valid order item id or barcode from orderManager
+            var response = await productionManager.ImportOrderRequest(request, projectFile);
+            var orderDetails = await productionManager.WaitForImportOrderCompletion(response.CorrelationId, TimeSpan.FromMinutes(1));
+
+            var orderItemId = "WEBSEITEL";
 
             var orderItem = await productionAssist.GetOrderItem(orderItemId);
 
             Assert.IsNotNull(orderItem);
-            Assert.AreEqual(orderItemId, orderItem.Id);
+            Assert.AreEqual(orderItemId, orderItem.Barcode);
+
+            await productionManager.DeleteOrderByOrderId(orderDetails.Id);
         }
         catch (Exception e)
         {
