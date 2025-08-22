@@ -53,6 +53,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 4)]
         public int Quantity { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the generated nesting program for the pattern.
+        /// </summary>
+        public string ProgramName { get; set; }
+
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
