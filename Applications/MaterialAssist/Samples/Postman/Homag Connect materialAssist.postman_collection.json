@@ -571,6 +571,36 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Create a template entity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"boardCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"string\",\r\n  \"id\": \"1234\",\r\n  \"length\": 123,\r\n  \"width\": 123,\r\n  \"quantity\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/type/template",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialAssist",
+										"boardEntities",
+										"type",
+										"template"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
