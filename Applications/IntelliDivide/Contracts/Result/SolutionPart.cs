@@ -1,8 +1,8 @@
-﻿using System;
-
-using HomagConnect.IntelliDivide.Contracts.Common;
-
+﻿using HomagConnect.IntelliDivide.Contracts.Common;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -35,5 +35,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 12)]
         public int QuantityTotal { get; set; }
+        
+        /// <summary>
+        /// Gets the list of patterns in which the part is contained including the quantity of the part in the pattern.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        public Collection<PatternReference> PatternReferences { get; set; } 
     }
 }

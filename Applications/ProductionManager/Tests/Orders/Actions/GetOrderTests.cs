@@ -16,7 +16,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
     {
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrders_NoException()
         {
             // Create new instance of the ProductionManager client:
@@ -39,7 +38,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNew_NoException()
         {
             var productionManager = GetProductionManagerClient();
@@ -61,7 +59,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetAllOrdersHavingStatusNewOrInProduction_NoException()
         {
             var productionManager = GetProductionManagerClient();
@@ -117,7 +114,6 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 01, "DF-Production")]
         public async Task Orders_GetCompletionDatesPlanned_NoException()
         {
             var orderNumbers = new List<string>();
@@ -133,9 +129,11 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                 }
             }
 
+            var orderNumberToDelete = "";
             if (orderNumbers.Count == 0)
             {
-                orderNumbers.Add(await ImportOrderWithOrderNumber(productionManager));
+                orderNumberToDelete = await ImportOrderWithOrderNumber(productionManager);
+                orderNumbers.Add(orderNumberToDelete);
             }
 
             try
@@ -148,12 +146,16 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
                 anyException = true;
             }
 
+            if (!string.IsNullOrEmpty(orderNumberToDelete))
+            {
+                await productionManager.DeleteOrderByOrderNumber(orderNumberToDelete);
+            }
+
             Assert.IsFalse(anyException);
         }
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 08, 1, "DF-Production")]
         public async Task Orders_GetOrder_NoException()
         {
             // Create new instance of the ProductionManager client:
@@ -182,6 +184,36 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
             }
 
             Assert.IsFalse(anyException);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public async Task Orders_GetOrderDetails_NoException()
+        {
+            // Create new instance of the ProductionManager client:
+            var productionManager = GetProductionManagerClient();
+
+            Assert.IsNotNull(productionManager);
+
+            var orders = await productionManager.GetOrders(1);
+
+            Assert.IsNotNull(orders);
+
+            var order = orders.FirstOrDefault();
+            
+            if (order == null)
+            {
+                Assert.Inconclusive("There is no order.");
+            }
+
+            var orderDetails = await productionManager.GetOrder(order.Id);
+
+            Assert.IsNotNull(orderDetails);
+            Assert.AreEqual(order.Id, orderDetails.Id);
+
+            var fileInfo = orderDetails.TraceToFile("orderDetails");
+
+            TestContext?.AddResultFile(fileInfo.FullName);
         }
     }
 }

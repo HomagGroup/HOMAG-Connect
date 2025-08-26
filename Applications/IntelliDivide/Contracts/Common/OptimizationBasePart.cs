@@ -241,11 +241,31 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonProperty(Order = 70)]
         public string? LabelLayout { get; set; }
 
+        /// <summary />
+        [Obsolete("Replaced by DestackingGroup ", true)]
+        public string? StackingGroup
+        {
+            get
+            {
+                return DestackingGroup;
+            }
+            set
+            {
+                DestackingGroup = value;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the stacking group value for the part.
         /// </summary>
         [JsonProperty(Order = 75)]
-        public string? StackingGroup { get; set; }
+        public string? DestackingGroup { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the destination for the destacking of the part.
+        /// </summary>
+        [JsonProperty(Order = 75)]
+        public string? DestackingDestination { get; set; }
 
         #endregion
 
@@ -269,6 +289,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonProperty(Order = 80)]
         [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; } = new Dictionary<string, object>();
+
+        /// <summary>
+        /// Gets or sets the article number.
+        /// </summary>
+        [JsonProperty(Order = 19)]
+        public string? ArticleNumber { get; set; }
 
         #endregion
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
 
@@ -57,9 +59,12 @@ namespace HomagConnect.ProductionManager.Client
 
             var response = await Client.SendAsync(request);
 
-            await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            var result = await response.Content.ReadAsStringAsync();
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new ValidationException(result);
+            }
 
             var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
@@ -166,6 +171,27 @@ namespace HomagConnect.ProductionManager.Client
 
         #endregion
 
+        #region Order item
+
+        /// <inheritdoc />
+        public async Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers)
+        {
+            const string parameter = "identifier";
+            const string endpoint = "api/productionManager/orderItems";
+
+            var uris = identifiers.Select(i => i.Trim())
+                .Where(i => !string.IsNullOrWhiteSpace(i))
+                .Select(code => $"&{parameter}={Uri.EscapeDataString(code)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return (await RequestEnumerableAsync<ProductionItemBase>(uris)).ToArray();
+        }
+
+        #endregion
+
         #region Order details
 
         /// <inheritdoc />
@@ -186,6 +212,7 @@ namespace HomagConnect.ProductionManager.Client
         #endregion
 
         #region Order release
+
         /// <inheritdoc />
         public async Task ReleaseOrder(Guid orderId)
         {
@@ -203,6 +230,7 @@ namespace HomagConnect.ProductionManager.Client
 
             response.EnsureSuccessStatusCode();
         }
+
         #endregion
 
         #region Prediction
@@ -344,7 +372,7 @@ namespace HomagConnect.ProductionManager.Client
         #endregion Lot deletion
 
         #region Lot creation
-       
+
         /// <inheritdoc />
         public async Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest)
         {
@@ -356,6 +384,29 @@ namespace HomagConnect.ProductionManager.Client
             var responseObject = JsonConvert.DeserializeObject<CreateLotResponse>(result, SerializerSettings.Default);
             return responseObject ?? new CreateLotResponse();
         }
+
+        #endregion
+
+        #region Lot overview
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Lot>?> GetLots(int take, int skip = 0)
+        {
+            var url = $"/api/productionManager/lots?take={take}&skip={skip}";
+            var lots = await RequestEnumerable<Lot>(new Uri(url, UriKind.Relative));
+
+            return lots;
+        }
+
+        /// <inheritdoc />
+        public async Task<LotDetails?> GetLotDetails(string identifier)
+        {
+            var url = $"/api/productionManager/lots/{Uri.EscapeDataString(identifier)}";
+            var lotDetail = await RequestObject<LotDetails>(new Uri(url, UriKind.Relative));
+
+            return lotDetail;
+        }
+
         #endregion
 
         #endregion

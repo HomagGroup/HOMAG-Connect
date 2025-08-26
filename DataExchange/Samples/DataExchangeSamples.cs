@@ -16,7 +16,7 @@ namespace HomagConnect.DataExchange.Samples
         /// Provides a sample project.zip file with typical properties.
         /// </summary>
         /// <returns></returns>
-        public static FileInfo GetProjectHavingTypicalProperties()
+        public static FileInfo GetProjectHavingTypicalProperties(bool withCustomProperty = true, bool withParts = false)
         {
             var testDataFolder = new DirectoryInfo(@"Data\\project-02");
 
@@ -37,7 +37,32 @@ namespace HomagConnect.DataExchange.Samples
             order.OrderDate = DateTime.Today;
             order.DeliveryDatePlanned = DateTime.Today.AddDays(10);
 
-            order.Properties.Add(new Param { Name = "MyCustomProperty", Value = "MyCustomValue" });
+            if (withCustomProperty)
+            {
+                order.Properties.Add(new Param { Name = "MyCustomProperty", Value = "MyCustomValue" });
+            }
+
+            if (withParts)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var entity = new Entity
+                    {
+                        Properties =
+                        {
+                            new Param { Name = "ArticleNumber", Value = $"Test-{i}" },
+                            new Param { Name = "Quantity", Value = "1" },
+                            new Param { Name = "Typ", Value = "ProductionOrder" },
+                            new Param { Name = "Material", Value = "Oak_MDF_Raw" },
+                            new Param { Name = "Length", Value = "800" },
+                            new Param { Name = "Width", Value = "800" },
+                            new Param { Name = "Thickness", Value = "19" },
+                        }
+                    };
+                    order.Entities.Add(new EntityWrapper(entity));
+                }
+            }
+
 
             project.Orders.Add(order);
             {
