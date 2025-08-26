@@ -1,6 +1,10 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿#nullable enable
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.IntelliDivide.Contracts.Result;
+
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Events;
 
@@ -15,22 +19,30 @@ public class SolutionTransferredEvent : AppEvent
     /// <summary>
     /// Gets or sets the name of the algorithm used for the solution.
     /// </summary>
-    public string AlgorithmName { get; set; }
+    [JsonProperty(Order = 10)]
+    [Required]
+    public string? AlgorithmName { get; set; }
 
     /// <summary>
     /// Gets or sets the settings of the algorithm used for the solution.
     /// </summary>
-    public string AlgorithmSettings { get; set; }
+    [JsonProperty(Order = 11)]
+    [Required]
+    public string? AlgorithmSettings { get; set; }
 
     /// <summary>
     /// Gets or sets the solution details which have been transferred.
     /// </summary>
-    public SolutionDetails SolutionDetails { get; set; }
+    [JsonProperty(Order = 13)]
+    [Required]
+    public SolutionDetails? SolutionDetails { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the user who transferred the solution.
     /// </summary>
-    public string TransferredBy { get; set; }
+    [JsonProperty(Order = 12)]
+    [Required]
+    public string? TransferredBy { get; set; }
 
     #region Constants
 
