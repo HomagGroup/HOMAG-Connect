@@ -171,6 +171,33 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get materials by material code for current subscription",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials?materialCode=HPL_Grey_0.8",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"materials"
+									],
+									"query": [
+										{
+											"key": "materialCode",
+											"value": "HPL_Grey_0.8"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
