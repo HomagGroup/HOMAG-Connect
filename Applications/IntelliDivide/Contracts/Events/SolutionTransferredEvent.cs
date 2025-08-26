@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Events;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Events;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Events;
@@ -30,7 +31,6 @@ public class SolutionTransferredEvent : AppEvent
     /// Gets or sets the name of the user who transferred the solution.
     /// </summary>
     public string TransferredBy { get; set; }
-
 
     #region Constants
 

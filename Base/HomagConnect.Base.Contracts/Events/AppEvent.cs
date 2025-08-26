@@ -17,6 +17,12 @@ public class AppEvent
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
+    /// Gets or sets the unique identifier of the event.
+    /// </summary>
+    [JsonProperty(Order = 0)]
+    public Guid Id { get; set; } = Guid.NewGuid();
+
+    /// <summary>
     /// Get or sets the key of the event.
     /// </summary>
     [JsonProperty(Order = 4)]

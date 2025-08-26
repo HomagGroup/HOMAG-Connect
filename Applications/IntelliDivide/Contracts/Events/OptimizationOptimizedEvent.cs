@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Events;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Events;
 
 namespace HomagConnect.IntelliDivide.Contracts.Events;
 
