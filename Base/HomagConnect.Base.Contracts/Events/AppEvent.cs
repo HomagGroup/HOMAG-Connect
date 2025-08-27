@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
+
 using Newtonsoft.Json;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -18,6 +20,19 @@ public class AppEvent
     {
         Id = Guid.NewGuid();
         Timestamp = DateTimeOffset.Now;
+
+        if (GetType() != typeof(AppEvent))
+        {
+            var appEventAttribute = this.GetType().GetCustomAttributes(typeof(AppEventAttribute), false).OfType<AppEventAttribute>().FirstOrDefault();
+
+            if (appEventAttribute == null)
+            {
+                throw new ArgumentNullException("AppEventAttribute missing on type " + GetType());
+            }
+
+            Provider = appEventAttribute.Provider;
+            Key = appEventAttribute.Key;
+        }
     }
 
     /// <summary>
@@ -55,26 +70,26 @@ public class AppEvent
     /// </summary>
     [JsonProperty(Order = 4)]
     [Required]
-    public virtual string? Key { get; private set; }
+    public string Key { get; private set; }
 
     /// <summary>
     /// Gets or sets the provider of the event.
     /// </summary>
     [JsonProperty(Order = 3)]
     [Required]
-    public virtual string? Provider { get; private set; }
+    public string Provider { get; private set; }
 
     /// <summary>
     /// Gets or sets the subscription ID of the event.
     /// </summary>
     [JsonProperty(Order = 2)]
     [Required]
-    public Guid? SubscriptionId { get; set; }
+    public Guid SubscriptionId { get; set; }
 
     /// <summary>
     /// Gets or sets the time offset of the event.
     /// </summary>
     [JsonProperty(Order = 1)]
     [Required]
-    public DateTimeOffset? Timestamp { get; set; }
+    public DateTimeOffset Timestamp { get; set; }
 }

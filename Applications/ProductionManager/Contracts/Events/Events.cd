@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="HomagConnect.Base.Contracts.Events.AppEvent">
+    <Position X="5.25" Y="1.75" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.Events.OrderReleasedEvent">
+    <Position X="3.25" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\OrderReleasedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.Events.OrderReleaseResetEvent">
+    <Position X="7.25" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\OrderReleasedResetEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

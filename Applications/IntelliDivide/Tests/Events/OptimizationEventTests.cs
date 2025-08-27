@@ -34,7 +34,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    public async Task SolutionTransferredEvent_SerializeDeserialize_PropertiesEqual()
+    public async Task SolutionTransferred_SerializeDeserialize_PropertiesEqual()
     {
         var solutionDetails = await GetSampleSolutionDetails();
 
