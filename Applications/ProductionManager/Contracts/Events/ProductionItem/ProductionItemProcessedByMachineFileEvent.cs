@@ -26,18 +26,18 @@ public class ProductionItemProcessedByMachineFileEvent : AppEvent
     /// Gets or sets the file content.
     /// </summary>
     [Required]
-    [JsonProperty(Order = 11)]
+    [JsonProperty(Order = 20)]
     public string FileContent { get; set; }
 
     /// <summary>
     /// Gets or sets the file name.
     /// </summary>
-    [JsonProperty(Order = 12)]
+    [JsonProperty(Order = 15)]
     public string? FileName { get; set; }
 
     /// <summary>
     /// Gets or sets the mapping between column names and their corresponding values.
     /// </summary>
-    [JsonProperty(Order = 13)]
+    [JsonProperty(Order = 30)]
     public Dictionary<int, string>? ColumnMapping { get; set; }
 }
