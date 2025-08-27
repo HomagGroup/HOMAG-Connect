@@ -51,6 +51,16 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>BoardMaterialCategoryDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Material\Boards\Enumerations\ImportModeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ImportModeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Material\Boards\Enumerations\InventoryTypeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>InventoryTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Material\Boards\Enumerations\StandardQualityDisplayNames.Designer.cs">
 	    <DependentUpon>StandardQualityDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
@@ -103,6 +113,14 @@
 	  <EmbeddedResource Update="Material\Boards\Enumerations\BoardMCDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>BoardMCDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\ImportModeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ImportModeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\InventoryTypeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>InventoryTypeDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Boards\Enumerations\StandardQualityDisplayNames.resx">
 	    <LastGenOutput>StandardQualityDisplayNames.Designer.cs</LastGenOutput>
