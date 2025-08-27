@@ -6,13 +6,19 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
 namespace HomagConnect.MaterialManager.Contracts.Request
 {
-    internal class ImportInventoryRequest
+    /// <summary>
+    /// Request object for importing inventory into materialManager
+    /// </summary>
+    public class ImportInventoryRequest
     {
         /// <summary>
         /// List of allocations on material types
         /// </summary>
         public IEnumerable<BoardTypeAllocation> Allocations { get; set; } = new List<BoardTypeAllocation>();
 
+        /// <summary>
+        /// The mode of the import.
+        /// </summary>
         public ImportMode ImportMode { get; set; }
 
         /// <summary>
