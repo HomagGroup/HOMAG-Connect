@@ -313,6 +313,15 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Barcode.
+        /// </summary>
+        public static string BoardTypeProperties_Barcode {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_Barcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plattencode.
         /// </summary>
         public static string BoardTypeProperties_BoardCode {

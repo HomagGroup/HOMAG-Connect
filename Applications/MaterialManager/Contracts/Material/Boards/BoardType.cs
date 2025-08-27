@@ -361,6 +361,30 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 55)]
         public bool? InsufficientInventory { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Barcode.
+        /// </summary>
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Barcode))]
+        [StringLength(50, MinimumLength = 1)]
+        [JsonProperty(Order = 56)]
+        public string Barcode { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the MaterialParameterForOptimization.
+        /// </summary>
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_MaterialParameterForOptimization))]
+        [StringLength(300)]
+        [JsonProperty(Order = 57)]
+        public string MaterialParameterForOptimization { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the MaterialParameterForOptimization.
+        /// </summary>
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_BoardParameterForOptimization))]
+        [StringLength(300)]
+        [JsonProperty(Order = 58)]
+        public string BoardParameterForOptimization { get; set; } = string.Empty;
+
         #endregion
 
         #region Additional data
