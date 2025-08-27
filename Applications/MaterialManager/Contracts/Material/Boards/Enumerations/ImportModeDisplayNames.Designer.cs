@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ImportModeDisplayNames {
+    internal class ImportModeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations.ImportModeDis" +
@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full.
+        ///   Looks up a localized string similar to Vollständig.
         /// </summary>
         internal static string Full {
             get {
@@ -71,7 +71,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Partial.
+        ///   Looks up a localized string similar to Teilweise.
         /// </summary>
         internal static string Partial {
             get {

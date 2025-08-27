@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Boards" xml:space="preserve">
-    <value>Boards</value>
+    <value>Platten</value>
   </data>
   <data name="Edgebands" xml:space="preserve">
-    <value>Edgebands</value>
+    <value>Kantenbänder</value>
   </data>
 </root>
