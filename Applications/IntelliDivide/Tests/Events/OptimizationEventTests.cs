@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Events;
+﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
@@ -6,16 +7,14 @@ using HomagConnect.IntelliDivide.Contracts.Events;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
 
-using Microsoft.Extensions.Hosting;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Tests.Events;
 
 /// <summary />
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Optimizations")]
+[TestCategory("Events")]
+[TestCategory("IntelliDivide.Events")]
 public class OptimizationEventTests : IntelliDivideTestBase
 {
     /// <summary />
@@ -30,7 +29,6 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
         derivedTypes.Trace();
     }
-
 
     /// <summary />
     [TestMethod]
@@ -51,14 +49,14 @@ public class OptimizationEventTests : IntelliDivideTestBase
         TestContext?.AddResultFile(solutionTransferredEvent.TraceToFile("solutionTransferredEvent").FullName);
 
         // Serialize and deserialize again as base type
-        var solutionTransferredEventSerialized = JsonConvert.SerializeObject(solutionTransferredEvent);
-        var appEvent = JsonConvert.DeserializeObject<AppEvent>(solutionTransferredEventSerialized);
+        var solutionTransferredEventSerialized = JsonConvert.SerializeObject(solutionTransferredEvent, SerializerSettings.Default);
+        var appEvent = JsonConvert.DeserializeObject<AppEvent>(solutionTransferredEventSerialized, SerializerSettings.Default);
         Assert.IsNotNull(appEvent);
         TestContext?.AddResultFile(appEvent.TraceToFile("appEvent").FullName);
 
         // Serialize base type and deserialize again as derived type
-        var appEventSerialized = JsonConvert.SerializeObject(solutionTransferredEvent);
-        var solutionTransferredEventDeserialized = JsonConvert.DeserializeObject<SolutionTransferredEvent>(appEventSerialized);
+        var appEventSerialized = JsonConvert.SerializeObject(solutionTransferredEvent, SerializerSettings.Default);
+        var solutionTransferredEventDeserialized = JsonConvert.DeserializeObject<SolutionTransferredEvent>(appEventSerialized, SerializerSettings.Default);
         Assert.IsNotNull(solutionTransferredEventDeserialized);
         TestContext?.AddResultFile(solutionTransferredEventDeserialized.TraceToFile("solutionTransferredEventDeserialized").FullName);
 
@@ -74,14 +72,14 @@ public class OptimizationEventTests : IntelliDivideTestBase
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting,OptimizationStatus.Optimized, 1);
+        var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1);
 
         if (optimizations == null)
         {
             Assert.Inconclusive("No optimizations found.");
         }
 
-       var optimization = optimizations.FirstOrDefault();
+        var optimization = optimizations.FirstOrDefault();
 
         if (optimization == null)
         {
