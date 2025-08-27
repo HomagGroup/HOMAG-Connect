@@ -58,6 +58,9 @@ It is also possible to attatch additional data, like a image, to a board type at
 
 var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
 
+var imageFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
+var additionalDataImage = new FileReference("Red.png", imageFilePath);
+
 var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
 {
     EdgebandCode = "EB_White_1mm",
@@ -66,15 +69,18 @@ var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
     DefaultLength = 23.0,
     MaterialCategory = EdgebandMaterialCategory.Veneer,
     Process = EdgebandingProcess.Other,
+    AdditionalData = new List<AdditionalDataEntity>
+    {
+        new AdditionalDataImage
+        {
+            Category = "Decor",
+            DownloadFileName = additionalDataImage.Reference,
+            DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+        }
+    }
 };
 
-var testFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
-var fileReferences = new FileReference[]
-{
-    new FileReference("EdgebandPicture", testFilePath)
-};
-
-var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest, fileReferences);
+var newEdgebandType = await client.CreateEdgebandType(edgebandTypeRequest, new[] { additionalDataImage });
 
 Console.WriteLine($"Created Edgeband Type: {newEdgebandType.Code}");
 ```
