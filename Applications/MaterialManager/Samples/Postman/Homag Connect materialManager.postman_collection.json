@@ -171,6 +171,33 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get materials by material code for current subscription",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials?materialCode=HPL_Grey_0.8",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"materials"
+									],
+									"query": [
+										{
+											"key": "materialCode",
+											"value": "HPL_Grey_0.8"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -312,6 +339,100 @@
 											"key": "skip",
 											"value": "",
 											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Get all board type allocations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?take=10&skip=0",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all board type allocations by names",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/byNames?allocationNames=Kitchen",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations",
+										"byNames"
+									],
+									"query": [
+										{
+											"key": "allocationNames",
+											"value": "Kitchen"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all board type allocations search",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/search?search=Kitchen",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations",
+										"search"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "Kitchen"
 										}
 									]
 								}
@@ -544,6 +665,36 @@
 					"response": []
 				},
 				{
+					"name": "CreateBoardTypeAllocation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",\r\n  \"createdBy\": \"user\",\r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"boards",
+								"allocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateBoardType With AdditionalData",
 					"request": {
 						"method": "POST",
@@ -728,6 +879,47 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Update a board type allocation",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",  \r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationName=Q3-2025-Allocation",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "allocationName",
+											"value": "Q3-2025-Allocation"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -788,6 +980,38 @@
 										{
 											"key": "edgebandCode",
 											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Delete board type allocations",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationNames=Q3-2025-Allocation",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "allocationNames",
+											"value": "Q3-2025-Allocation"
 										}
 									]
 								}
