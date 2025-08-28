@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -8,10 +9,12 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Contracts.Events;
 
+// Note: This is preliminary code and is subject to change
+
 /// <summary>
 /// Represents a base class for application events.
 /// </summary>
-public class AppEvent
+public class AppEvent : IAppEvent
 {
     /// <summary>
     /// Creates a new instance of the <see cref="AppEvent" /> class.
@@ -30,24 +33,9 @@ public class AppEvent
                 throw new ArgumentNullException("AppEventAttribute missing on type " + GetType());
             }
 
-            Provider = appEventAttribute.Provider;
             Key = appEventAttribute.Key;
         }
     }
-
-    /// <summary>
-    /// Gets or sets the additional properties configured in the application.
-    /// </summary>
-    [JsonProperty(Order = 90)]
-    [JsonExtensionData]
-    public IDictionary<string, object> CustomProperties { get; set; }
-
-    /// <summary>
-    /// Gets or sets the unique identifier of the event.
-    /// </summary>
-    [JsonProperty(Order = 0)]
-    [Required]
-    public Guid Id { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether the current event instance is valid.
@@ -66,25 +54,32 @@ public class AppEvent
     }
 
     /// <summary>
-    /// Get or sets the key of the event.
-    /// </summary>
-    [JsonProperty(Order = 4)]
-    [Required]
-    public string Key { get; private set; }
-
-    /// <summary>
-    /// Gets or sets the provider of the event.
-    /// </summary>
-    [JsonProperty(Order = 3)]
-    [Required]
-    public string Provider { get; private set; }
-
-    /// <summary>
     /// Gets or sets the subscription ID of the event.
     /// </summary>
     [JsonProperty(Order = 2)]
     [Required]
     public Guid SubscriptionId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonProperty(Order = 90)]
+    [JsonExtensionData]
+    public IDictionary<string, object> CustomProperties { get; set; }
+
+    /// <summary>
+    /// Gets or sets the unique identifier of the event.
+    /// </summary>
+    [JsonProperty(Order = 0)]
+    [Required]
+    public Guid Id { get; private set; }
+
+    /// <summary>
+    /// Get or sets the key of the event.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    [Required]
+    public string Key { get; private set; }
 
     /// <summary>
     /// Gets or sets the time offset of the event.

@@ -10,7 +10,7 @@ namespace HomagConnect.ProductionManager.Contracts.Events.ProductionItem;
 /// <summary>
 /// Gets or sets an event that occurs when an order has been released.
 /// </summary>
-[AppEvent(nameof(ProductionManager), nameof(ProductionItemProcessedEvent))]
+[AppEvent("ProductionItemProcessed")]
 public class ProductionItemProcessedEvent : AppEvent
 {
     /// <summary>

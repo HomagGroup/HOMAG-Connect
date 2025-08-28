@@ -37,9 +37,15 @@ public class ProductionEventsTests : ProductionManagerTestBase
         productionItemProcessedByMachineFileEvent.MachineNumber = "0-250-743-491";
         productionItemProcessedByMachineFileEvent.FileContent = @"20250124144140,PNL,9999,9999,1,1,1,1,XYZ789,,,,,2,1,,,,,,,,,,,,,,,C:\MACHINE1\Control\c1\data\cnc\mp4\LL_TEMPLATES\T2.mprx,XYZ789";
         productionItemProcessedByMachineFileEvent.FileName = "CNC1_20250124144140.hol";
-        productionItemProcessedByMachineFileEvent.ColumnMapping = new Dictionary<int, string>
+        productionItemProcessedByMachineFileEvent.ColumnMapping = new Dictionary<string, Dictionary<int, string>>
         {
-            { 31, "PartId" }
+            {
+                "PNL",
+                new Dictionary<int, string>
+                {
+                    { 31, "PartId" }
+                }
+            }
         };
 
         Assert.IsTrue(productionItemProcessedByMachineFileEvent.IsValid);

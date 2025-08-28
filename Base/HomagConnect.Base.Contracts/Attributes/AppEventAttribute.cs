@@ -8,9 +8,8 @@ public class AppEventAttribute : Attribute
     /// <summary>
     /// Creates a new instance of the <see cref="AppEventAttribute" /> class.
     /// </summary>
-    public AppEventAttribute(string provider, string key)
+    public AppEventAttribute(string key)
     {
-        Provider = provider;
         Key = key;
     }
 
@@ -18,9 +17,4 @@ public class AppEventAttribute : Attribute
     /// Gets or sets the key of the event.
     /// </summary>
     public string Key { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name of the service provider.
-    /// </summary>
-    public string Provider { get; set; }
 }

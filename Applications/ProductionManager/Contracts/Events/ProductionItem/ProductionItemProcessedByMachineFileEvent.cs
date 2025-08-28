@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.Events.ProductionItem;
 /// <summary>
 /// Gets or sets an event that occurs when a machine has processed a file-based input.
 /// </summary>
-[AppEvent(nameof(ProductionManager), nameof(ProductionItemProcessedByMachineFileEvent))]
+[AppEvent("ProductionItemProcessedByMachineFileEvent")]
 public class ProductionItemProcessedByMachineFileEvent : AppEvent
 {
     /// <summary>
@@ -39,5 +39,5 @@ public class ProductionItemProcessedByMachineFileEvent : AppEvent
     /// Gets or sets the mapping between column names and their corresponding values.
     /// </summary>
     [JsonProperty(Order = 30)]
-    public Dictionary<int, string>? ColumnMapping { get; set; }
+    public Dictionary<string, Dictionary<int, string>>? ColumnMapping { get; set; }
 }

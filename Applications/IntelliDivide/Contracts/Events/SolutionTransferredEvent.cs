@@ -17,7 +17,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Events;
 /// <summary>
 /// Represents an event that occurs when a solution has been transferred.
 /// </summary>
-[AppEvent(nameof(IntelliDivide), nameof(SolutionTransferredEvent))]
+[AppEvent("SolutionTransferred")]
 public class SolutionTransferredEvent : AppEvent
 {
     /// <summary>

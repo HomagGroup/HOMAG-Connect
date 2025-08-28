@@ -14,7 +14,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Events;
 /// <summary>
 /// Represents an event that occurs when an optimization process has been successfully completed.
 /// </summary>
-[AppEvent(nameof(IntelliDivide), nameof(OptimizationOptimizedEvent))]
+[AppEvent("OptimizationOptimizedEvent")]
 public class OptimizationOptimizedEvent : AppEvent
 {
     /// <summary>

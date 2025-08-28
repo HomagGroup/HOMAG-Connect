@@ -4,6 +4,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Events;
+using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -21,7 +22,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
     [TestMethod]
     public void Events_ListIntelliDivideEvents()
     {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        var assemblies = new[] { typeof(OptimizationRequest).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
         Assert.IsNotNull(derivedTypes);
