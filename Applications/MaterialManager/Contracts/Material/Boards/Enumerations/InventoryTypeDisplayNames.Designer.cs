@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Boards.
+        ///   Looks up a localized string similar to Platten.
         /// </summary>
         internal static string Boards {
             get {
@@ -71,7 +71,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edgebands.
+        ///   Looks up a localized string similar to Kantenbänder.
         /// </summary>
         internal static string Edgebands {
             get {

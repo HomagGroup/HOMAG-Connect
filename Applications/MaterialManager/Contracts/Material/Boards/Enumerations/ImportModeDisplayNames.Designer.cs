@@ -62,7 +62,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full.
+        ///   Looks up a localized string similar to Vollständig.
         /// </summary>
         internal static string Full {
             get {
@@ -71,7 +71,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Partial.
+        ///   Looks up a localized string similar to Teilweise.
         /// </summary>
         internal static string Partial {
             get {
