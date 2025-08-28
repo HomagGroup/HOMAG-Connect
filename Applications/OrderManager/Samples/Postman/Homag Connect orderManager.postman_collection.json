@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e8214ab5-a4c9-4b03-ad75-afe052fbf0f8",
+		"_postman_id": "a712a58b-78c5-43a0-84f6-270217ebdbc1",
 		"name": "Homag Connect orderManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -129,6 +129,13 @@
 										"orderManager",
 										"orders",
 										"{{orderNumber}}"
+									],
+									"query": [
+										{
+											"key": "configurationData",
+											"value": "true",
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -149,6 +156,13 @@
 										"orderManager",
 										"orders",
 										"{{orderId}}"
+									],
+									"query": [
+										{
+											"key": "configurationData",
+											"value": "true",
+											"disabled": true
+										}
 									]
 								}
 							},
