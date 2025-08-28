@@ -285,6 +285,7 @@ namespace HomagConnect.MaterialAssist.Client
             throw new Exception($"The returned object is not of type {nameof(EdgebandEntity)}");
         }
 
+        /// <inheritdoc />
         public async Task StoreEdgebandEntity(MaterialAssistStoreEdgebandEntity storeEdgebandEntity)
         {
             if (storeEdgebandEntity == null)
@@ -295,11 +296,6 @@ namespace HomagConnect.MaterialAssist.Client
             if (string.IsNullOrEmpty(storeEdgebandEntity.Id))
             {
                 throw new ArgumentException("Id must not be null or empty.", nameof(storeEdgebandEntity.Id));
-            }
-
-            if (storeEdgebandEntity.Length is <= 0.1 or >= 9999.99)
-            {
-                throw new ArgumentException("Length must be between 0.1 and 9999.99.", nameof(storeEdgebandEntity.Length));
             }
 
             if (storeEdgebandEntity.StorageLocation == null)

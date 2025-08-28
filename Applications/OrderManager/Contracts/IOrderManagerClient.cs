@@ -38,12 +38,12 @@ namespace HomagConnect.OrderManager.Contracts
         /// <summary>
         /// Get a specific order by its id
         /// </summary>
-        Task<OrderDetails?> GetOrder(Guid orderId);
+        Task<OrderDetails?> GetOrder(Guid orderId, bool configurationData = false);
 
         /// <summary>
         /// Get a specific order by its order number.
         /// </summary>
-        Task<OrderDetails?> GetOrder(string orderNumber);
+        Task<OrderDetails?> GetOrder(string orderNumber, bool configurationData = false);
 
         #endregion
 

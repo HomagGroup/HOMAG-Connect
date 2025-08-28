@@ -216,6 +216,9 @@
   <data name="BoardTypeProperties_InsufficientInventory" xml:space="preserve">
     <value>Mindestbestand unterschritten</value>
   </data>
+  <data name="BoardTypeProperties_Barcode" xml:space="preserve">
+    <value>Barcode</value>
+  </data>
   <data name="BoardTypeProperties_Comments" xml:space="preserve">
     <value>Anmerkungen (Stammdaten)</value>
   </data>

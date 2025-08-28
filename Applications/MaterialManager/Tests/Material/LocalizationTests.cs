@@ -337,6 +337,44 @@ namespace HomagConnect.MaterialManager.Tests.Material
         }
 
         /// <summary>
+        /// Tests the localization of the ImportMode enumeration for a given culture.
+        /// </summary>
+        /// <param name="cultureName">The name of the culture to test (e.g., "de" or "en").</param>
+        [DataRow("de")]
+        [DataRow("en")]
+        [TestMethod]
+        public void MaterialManager_Localization_ImportMode(string cultureName)
+        {
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+            var displayNames = EnumExtensions.GetDisplayNames<ImportMode>(culture);
+
+            foreach (ImportMode value in Enum.GetValues(typeof(ImportMode)))
+            {
+                var expected = ImportModeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
+            }
+        }
+
+        /// <summary>
+        /// Tests the localization of the InventoryType enumeration for a given culture.
+        /// </summary>
+        /// <param name="cultureName">The name of the culture to test (e.g., "de" or "en").</param>
+        [DataRow("de")]
+        [DataRow("en")]
+        [TestMethod]
+        public void MaterialManager_Localization_InventoryType(string cultureName)
+        {
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+            var displayNames = EnumExtensions.GetDisplayNames<InventoryType>(culture);
+
+            foreach (InventoryType value in Enum.GetValues(typeof(InventoryType)))
+            {
+                var expected = InventoryTypeDisplayNames.ResourceManager.GetString(value.ToString(), culture);
+                Assert.AreEqual(CapitalizeFirstLetter(expected), displayNames[value], $"Mismatch for {value} in culture {cultureName}");
+            }
+        }
+
+        /// <summary>
         /// </summary>
         /// <param name="cultureName"></param>
         [DataRow("de")]
