@@ -12,7 +12,7 @@ public class ProductionAssistTests : ProductionAssistTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 8, 28, "DF-Production")]
+    [TemporaryDisabledOnServer(2025, 8, 29, "DF-Production")]
     public async Task ProductionAssist_GetOrderItem_NoException()
     {
         var exceptionThrown = false;
