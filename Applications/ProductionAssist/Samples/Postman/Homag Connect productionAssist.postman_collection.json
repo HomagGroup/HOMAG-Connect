@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "246c04ba-e6b0-4ec9-bc8f-2cdd11a4b4f7",
+		"_postman_id": "a736c840-b19a-4fe8-af1c-d79f67610d50",
 		"name": "Homag Connect productionAssist",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18803714"
 	},
 	"item": [
 		{
@@ -246,6 +247,55 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Feedback",
+			"item": [
+				{
+					"name": "FeedbackPart",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ConnectPasswordConnect}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ConnectUserNameConnect}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workstationId\": \"a5efff15-46f6-499e-be89-3a12036d5a1e\",\r\n    \"identification\": \"1234\",\r\n    \"timestamp\": \"2025-07-24T08:51:21.8052452+00:00\",\r\n    \"quantity\": \"1\",\r\n    \"source\": \"Fabian Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/productionAssist/feedback/workstations",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"productionAssist",
+								"feedback",
+								"workstations"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
