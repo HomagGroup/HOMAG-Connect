@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 
-using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
