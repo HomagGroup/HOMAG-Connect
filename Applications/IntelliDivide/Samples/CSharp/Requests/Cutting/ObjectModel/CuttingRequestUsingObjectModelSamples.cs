@@ -582,7 +582,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 2070,
                     Thickness = 19.0,
                     Costs = 10,
-                    Grain = Grain.None,
+                    Grain = Grain.Lengthwise,
                     Quantity = 70,
                 });
 
