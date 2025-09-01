@@ -27,6 +27,35 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Import
+
+    /// <inheritdoc />
+    public async Task<string> ImportInventory(string subscriptionId, ImportInventoryRequest data, bool fullImport)
+    {
+        if (data == null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
+
+        ValidateRequiredProperties(data);
+
+        var payload = JsonConvert.SerializeObject(data, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_ImportInventoryRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<string>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(ImportInventoryRequest)}");
+    }
+
+    #endregion
+
     #region Update
 
     /// <inheritdoc />
@@ -209,6 +238,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _MaterialCode = "materialCode";
     private const string _BoardCode = "boardCode";
     private const string _IncludingDetails = "includingDetails";
+    private const string _ImportInventoryRoute = "api/materialManager/importInventory";
 
     #endregion
 
