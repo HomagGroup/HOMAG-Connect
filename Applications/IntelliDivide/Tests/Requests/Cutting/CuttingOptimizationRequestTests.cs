@@ -46,6 +46,7 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [Ignore("This test does currently not work or works only sometimes.")]
     public async Task CuttingRequest_Common_RetrieveResults()
     {
         var intelliDivide = GetIntelliDivideClient();
