@@ -15,6 +15,10 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
 {
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
+
     public class CreateUpdateAllocateBoards : MaterialAssistTestBase
     {
         [TestMethod]
@@ -28,7 +32,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
                 BoardCode = "HPL_F274_9_12.0_4100.0_650.0",
                 Length = 4100.0,
                 Width = 650.0,
-                Thickness = 19.0,
+                Thickness = 12.0,
                 Type = BoardTypeType.Board,
                 MaterialCategory = BoardMaterialCategory.Undefined,
                 CoatingCategory = CoatingCategory.Undefined,
@@ -69,7 +73,6 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
             Assert.IsNotNull(await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest3.BoardCode));
         }
 
-        [TestMethod]
         public async Task CreateBoardEntities()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
@@ -104,7 +107,6 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
             Assert.IsNotNull(await materialAssistClient.GetBoardEntityById(boardEntityRequest3.Id));
         }
 
-        [TestMethod]
         public async Task UpdateStorageLocationBoards()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
@@ -137,7 +139,6 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
             Assert.AreEqual("003", boardEntity3.Location.Name);
         }
 
-        [TestMethod]
         public async Task GetAndUpdateBoardTypes()
         {
             var materialManagerClient = GetMaterialManagerClient().Material.Boards;
@@ -173,7 +174,6 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
             Assert.AreEqual(BoardMaterialCategory.CompactPanels_HPL, updatedBoardType3.MaterialCategory);
         }
 
-        [TestMethod]
         public async Task AllocateBoards()
             {
             var materialManagerClient = GetMaterialManagerClient().Material.Boards;

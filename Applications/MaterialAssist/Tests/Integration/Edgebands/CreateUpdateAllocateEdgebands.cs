@@ -15,6 +15,10 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
 {
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Edgebands")]
+
     public class CreateUpdateAllocateEdgebands : MaterialAssistTestBase
     {
         [TestMethod]
@@ -59,7 +63,6 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
             Assert.IsNotNull(await materialManagerClient.GetEdgebandTypeByEdgebandCode(edgebandTypeRequest3.EdgebandCode));
         }
 
-        [TestMethod]
         public async Task CreateEdgebandEntities()
         {
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
@@ -100,7 +103,6 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
             Assert.IsNotNull(await materialAssistClient.GetEdgebandEntityById(edgebandEntityRequest3.Id));
         }
 
-        [TestMethod]
         public async Task UpdateStorageLocationEdgebands()
         {
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
@@ -147,7 +149,6 @@ namespace HomagConnect.MaterialAssist.Tests.DeploymentTest
             Assert.AreEqual("Lager1", edgebandEntity3.Location.Name);
         }
 
-        [TestMethod]
         public async Task GetAndUpdateEdgebandTypes()
         {
             var materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
