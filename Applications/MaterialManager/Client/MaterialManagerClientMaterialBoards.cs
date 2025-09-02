@@ -238,7 +238,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _MaterialCode = "materialCode";
     private const string _BoardCode = "boardCode";
     private const string _IncludingDetails = "includingDetails";
-    private const string _ImportInventoryRoute = "api/materialManager/importInventory";
+    private const string _GatewayMaterialRoutePrefix = "api/gw/materials";
+    private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
+    private const string _DeleteBoardTypesByCodesRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
 
     #endregion
 
@@ -567,6 +569,21 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var url = $"{_BoardTypeAllocationsRoute}{query}";
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteBoardTypesByCodes(StorageImportFilter filter)
+    {
+        if (filter == null)
+        {
+            throw new ArgumentNullException(nameof(filter));
+        }
+
+        ValidateRequiredProperties(filter);
+
+        var payload = JsonConvert.SerializeObject(filter, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        await PostObject(new Uri(_DeleteBoardTypesByCodesRoute, UriKind.Relative), content);
     }
 
     #endregion Delete
