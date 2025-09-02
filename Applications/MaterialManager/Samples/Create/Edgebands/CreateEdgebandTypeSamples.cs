@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
@@ -29,8 +30,13 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
         /// <summary>
         /// The example shows how to create an edgeband type with additional data (e.g., a picture).
         /// </summary>
-        public static async Task Edgebands_CreateEdgebandType_AdditionalData(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
+        public static async Task Edgebands_CreateEdgebandType_AdditionalData(
+            IMaterialManagerClientMaterialEdgebands materialManager,
+            string edgebandCode)
         {
+            var imageFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
+            var additionalDataImage = new FileReference("Red.png", imageFilePath);
+
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {
                 EdgebandCode = edgebandCode,
@@ -39,16 +45,18 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
                 DefaultLength = 23.0,
                 MaterialCategory = EdgebandMaterialCategory.Veneer,
                 Process = EdgebandingProcess.Other,
+                AdditionalData = new List<AdditionalDataEntity>
+                {
+                    new AdditionalDataImage
+                    {
+                        Category = "Decor",
+                        DownloadFileName = additionalDataImage.Reference,
+                        DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+                    }
+                }
             };
 
-            // Use a relative path and ensure the file is copied to the output directory
-            var testFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
-            var fileReferences = new FileReference[]
-            {
-                new FileReference("EdgebandPicture", testFilePath)
-            };
-
-            var newEdgebandType = await materialManager.CreateEdgebandType(edgebandTypeRequest, fileReferences);
+            var newEdgebandType = await materialManager.CreateEdgebandType(edgebandTypeRequest, new[] { additionalDataImage });
             newEdgebandType.Trace();
         }
 
