@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
 {
     [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Edgebands")]
     public class CreateEdgebandsTests : MaterialAssistTestBase
     {
         [TestMethod]

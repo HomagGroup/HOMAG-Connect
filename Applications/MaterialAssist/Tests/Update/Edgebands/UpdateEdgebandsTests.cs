@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
 {
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Edgebands")]
     public class UpdateEdgebandsTests : MaterialAssistTestBase
     {
 

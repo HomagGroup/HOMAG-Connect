@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
 {
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
     public class DeleteBoardsTests : MaterialAssistTestBase
     {
         [ClassInitialize]
