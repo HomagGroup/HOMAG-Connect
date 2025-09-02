@@ -30,7 +30,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Import
 
     /// <inheritdoc />
-    public async Task<string> ImportInventory(string subscriptionId, ImportInventoryRequest data, bool fullImport)
+    public async Task<string> ImportInventory(ImportInventoryRequest data)
     {
         if (data == null)
         {
