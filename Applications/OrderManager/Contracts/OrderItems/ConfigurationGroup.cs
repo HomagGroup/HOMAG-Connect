@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.OrderManager.Contracts.OrderItems
+﻿using Newtonsoft.Json;
+
+namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
     /// <summary>
     /// A configuration group.
@@ -23,5 +25,17 @@
         /// which is the surrounding contour of the articles in this group.
         /// </summary>
         public string? ContourInformation { get; set; }
+
+        /// <summary>
+        /// The position of this group inside the room (x, y, z)
+        /// </summary>
+        [JsonProperty(Order = 30)]
+        public double[]? Position { get; set; }
+
+        /// <summary>
+        /// The rotation of this group inside the room (x, y, z)
+        /// </summary>
+        [JsonProperty(Order = 40)]
+        public double[]? Rotation { get; set; }
     }
 }
