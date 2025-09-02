@@ -9,6 +9,9 @@ namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 
 /// <summary />
 [TestClass]
+[TestCategory("MaterialManager")]
+[TestCategory("MaterialManager.Boards")]
+
 public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>

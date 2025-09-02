@@ -13,6 +13,9 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
 {
     /// <summary />
     [TestClass]
+    [TestCategory("MaterialManager")]
+    [TestCategory("MaterialManager.Boards")]
+
     public class UpdateBoardTypeTests : MaterialManagerTestBase
     {
         /// <summary />
