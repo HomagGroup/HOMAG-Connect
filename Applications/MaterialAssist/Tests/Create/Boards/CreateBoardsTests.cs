@@ -1,10 +1,4 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Boards;
-using HomagConnect.MaterialAssist.Samples.Delete.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
 {
@@ -13,31 +7,48 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
     [TestCategory("MaterialAssist.Boards")]
     public class CreateBoardsTests : MaterialAssistTestBase
     {
+        [ClassInitialize]
+        public static async Task Initialize(TestContext context)
+        {
+            var test = new CreateBoardsTests();
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+            Assert.IsNotNull(await MaterialManagerClient.GetBoardTypesByBoardCodes(["MDF_H3171_12_11.6_2800.0_1310.0"]));
+        }
+
         [TestMethod]
         public async Task BoardsCreateBoardEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
             await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "42", "50", "23");
+            Assert.IsNotNull(await MaterialAssistClient.GetBoardEntityById("42"));
+            Assert.IsNotNull(await MaterialAssistClient.GetBoardEntityById("50"));
+            Assert.IsNotNull(await MaterialAssistClient.GetBoardEntityById("23"));
         }
 
-        
         [TestMethod]
         public async Task BoardsCreateBoardType()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
             var boardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0";
             await CreateBoardEntitySample.Boards_CreateBoardType(MaterialAssistClient, boardCode);
+            Assert.IsNotNull(await MaterialManagerClient.GetBoardTypeByBoardCode(boardCode));
         }
         
-
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
+            var test = new CreateBoardsTests();
+            var MaterialAssistClient = test.GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
 
-            var MaterialManagerClient = GetMaterialManagerClient();
-            await MaterialManagerClient.Material.Boards.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
+            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
+            Assert.IsNull(await MaterialAssistClient.GetBoardEntityById("42"));
+            Assert.IsNull(await MaterialAssistClient.GetBoardEntityById("50"));
+            Assert.IsNull(await MaterialAssistClient.GetBoardEntityById("23"));
+
+            await MaterialManagerClient.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
+            Assert.IsNull(await MaterialManagerClient.GetBoardTypeByBoardCode("RP_EG_H3303_ST10_19_2800.0_2070.0"));
         }
     }
 }

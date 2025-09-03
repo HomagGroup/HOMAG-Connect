@@ -28,6 +28,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
         {
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType() 
             {
+                // "White Edgeband 1mm"
                 EdgebandCode = edgebandCode,
                 Height = 20,
                 Thickness = 1.0,

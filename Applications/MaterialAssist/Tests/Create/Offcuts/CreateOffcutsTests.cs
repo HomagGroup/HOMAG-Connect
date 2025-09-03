@@ -13,6 +13,14 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
     [TestCategory("MaterialAssist.Boards")]
     public class CreateOffcutsTests : MaterialAssistTestBase
     {
+        [ClassInitialize]
+        public static async Task Initialize(TestContext context)
+        {
+            var test = new CreateOffcutsTests();
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+            Assert.IsNotNull(await MaterialManagerClient.GetBoardTypeByBoardCode("EG_H3303_ST10_19_1200.0_460.0"));
+        }
+
         [TestMethod]
         public async Task BoardsCreateOffcutEntity()
         {
@@ -20,7 +28,6 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
             await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(MaterialAssistClient, "22");
         }
 
-        
         [TestMethod]
         public async Task BoardsCreateBoardType()
         {
@@ -29,17 +36,18 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
             var materialCode = "EG_H3303_ST10_19";
             await CreateOffcutEntitiesSamples.Boards_CreateBoardType(MaterialAssistClient, boardCode, materialCode);
         }
-        
 
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var test = new CreateOffcutsTests();
+            var MaterialAssistClient = test.GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+
             await MaterialAssistClient.DeleteBoardEntity("22");
-
-            var MaterialManagerClient = GetMaterialManagerClient();
-            await MaterialManagerClient.Material.Boards.DeleteBoardType("XEG_H3303_ST10_19_1200.0_460.0");
+            Assert.IsNull(await MaterialAssistClient.GetBoardEntityById("22"));
+            await MaterialManagerClient.DeleteBoardType("XEG_H3303_ST10_19_1200.0_460.0");
+            Assert.IsNull(await MaterialManagerClient.GetBoardTypeByBoardCode("XEG_H3303_ST10_19_1200.0_460.0"));
         }
-
     }
 }
