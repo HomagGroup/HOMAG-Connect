@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = id,
-                EdgebandCode = "White Edgeband 19mm",
+                EdgebandCode = "White Edgeband 1mm",
                 ManagementType = ManagementType.Single,
                 Comments = "This is a comment",
                 Quantity = 1,

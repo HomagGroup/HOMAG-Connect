@@ -1,10 +1,4 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
-using HomagConnect.MaterialAssist.Samples.Delete.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
 {
@@ -13,12 +7,13 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
     [TestCategory("MaterialAssist.Boards")]
     public class CreateOffcutsTests : MaterialAssistTestBase
     {
-        [ClassInitialize]
-        public static async Task Initialize(TestContext context)
+        [TestMethod]
+        public async Task BoardsCreateBoardType()
         {
-            var test = new CreateOffcutsTests();
-            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
-            //Assert.IsNotNull(await MaterialManagerClient.GetBoardTypeByBoardCode("EG_H3303_ST10_19_1200.0_460.0"));
+            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var boardCode = "XEG_H3303_ST10_19_1200.0_460.0";
+            var materialCode = "EG_H3303_ST10_19";
+            await CreateOffcutEntitiesSamples.Boards_CreateOffcutType(MaterialAssistClient, boardCode, materialCode);
         }
 
         [TestMethod]
@@ -26,15 +21,6 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
             await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(MaterialAssistClient, "22");
-        }
-
-        [TestMethod]
-        public async Task BoardsCreateBoardType()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var boardCode = "XEG_H3303_ST10_19_1200.0_460.0";
-            var materialCode = "EG_H3303_ST10_19";
-            await CreateOffcutEntitiesSamples.Boards_CreateBoardType(MaterialAssistClient, boardCode, materialCode);
         }
 
         [ClassCleanup]
@@ -45,9 +31,20 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
             var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
 
             await MaterialAssistClient.DeleteBoardEntity("22");
-            //Assert.IsNull(await MaterialAssistClient.GetBoardEntityById("22"));
+            try
+            {
+                await MaterialAssistClient.GetBoardEntityById("22");
+                throw new Exception("Offcut entity was not deleted. Cleanup failed");
+            }
+            catch {/* Expected exception */}
+
             await MaterialManagerClient.DeleteBoardType("XEG_H3303_ST10_19_1200.0_460.0");
-            //Assert.IsNull(await MaterialManagerClient.GetBoardTypeByBoardCode("XEG_H3303_ST10_19_1200.0_460.0"));
+            try
+            {
+                await MaterialManagerClient.GetBoardTypeByBoardCode("XEG_H3303_ST10_19_1200.0_460.0");
+                throw new Exception("Offcut type was not deleted. Cleanup failed");
+            }
+            catch {/* Expected exception */}
         }
     }
 }
