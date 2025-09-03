@@ -199,7 +199,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// /// Import storage inventory
         /// </summary>
-        Task<string> ImportInventory(string subscriptionId, ImportInventoryRequest data, bool fullImport);
+        Task<string> ImportInventory(ImportInventoryRequest data);
 
         /// <summary>
         /// Delete board type
