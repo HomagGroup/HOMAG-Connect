@@ -37,8 +37,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(data));
         }
 
-        ValidateRequiredProperties(data);
-
         var payload = JsonConvert.SerializeObject(data, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
         var response = await PostObject(new Uri(_ImportInventoryRoute, UriKind.Relative), content);
