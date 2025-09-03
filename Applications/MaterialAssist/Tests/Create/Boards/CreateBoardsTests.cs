@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
 {
     [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
     public class CreateBoardsTests : MaterialAssistTestBase
     {
         [TestMethod]

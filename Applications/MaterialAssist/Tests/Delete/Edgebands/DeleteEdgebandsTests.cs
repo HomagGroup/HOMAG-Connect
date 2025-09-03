@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
 {
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Edgebands")]
     public class DeleteEdgebandsTests : MaterialAssistTestBase
     {
         [ClassInitialize]

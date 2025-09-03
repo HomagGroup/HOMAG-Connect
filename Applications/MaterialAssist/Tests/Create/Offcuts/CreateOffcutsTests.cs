@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
 {
     [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
     public class CreateOffcutsTests : MaterialAssistTestBase
     {
         [TestMethod]
