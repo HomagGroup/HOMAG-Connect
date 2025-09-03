@@ -39,8 +39,11 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
                 Grain = Grain.None,
             };
             await materialManagerClient.CreateBoardType(boardTypeRequest);
-            Assert.IsNotNull(await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest.BoardCode));
-        
+            var boardTypeResponse = await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest.BoardCode);
+            Assert.IsNotNull(boardTypeResponse);
+            Assert.AreEqual(4100.0, boardTypeResponse.Length);
+            Assert.AreEqual(650.0, boardTypeResponse.Width);
+            Assert.AreEqual(12.0, boardTypeResponse.Thickness);
 
             var boardTypeRequest2 = new MaterialManagerRequestBoardType
             {
@@ -55,7 +58,11 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
                 Grain = Grain.None,
             };
             await materialManagerClient.CreateBoardType(boardTypeRequest2);
-            Assert.IsNotNull(await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest2.BoardCode));
+            var boardTypeResponse2 = await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest2.BoardCode);
+            Assert.IsNotNull(boardTypeResponse2);
+            Assert.AreEqual(4100.0, boardTypeRequest2.Length);
+            Assert.AreEqual(650.0, boardTypeResponse2.Width);
+            Assert.AreEqual(38.0, boardTypeResponse2.Thickness);
 
             var boardTypeRequest3 = new MaterialManagerRequestBoardType
             {
@@ -70,7 +77,11 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
                 Grain = Grain.None,
             };
             await materialManagerClient.CreateBoardType(boardTypeRequest3);
-            Assert.IsNotNull(await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest3.BoardCode));
+            var boardTypeResponse3 = await materialManagerClient.GetBoardTypeByBoardCode(boardTypeRequest3.BoardCode);
+            Assert.IsNotNull(boardTypeResponse3);
+            Assert.AreEqual(2790.0, boardTypeRequest3.Length);
+            Assert.AreEqual(2060.0, boardTypeResponse3.Width);
+            Assert.AreEqual(4.0, boardTypeResponse3.Thickness);
         }
 
         public async Task CreateBoardEntities()
@@ -89,7 +100,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
             var boardEntityRequest2 = new MaterialAssistRequestBoardEntity()
             {
                 Id = "22",
-                BoardCode = "HP2_F204_75_38.0_4100.0_600.0",
+                BoardCode = "P2_F204_75_38.0_4100.0_600.0",
                 ManagementType = ManagementType.Stack,
                 Quantity = 10
             };
