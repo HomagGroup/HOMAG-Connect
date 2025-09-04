@@ -83,16 +83,16 @@ namespace HomagConnect.OrderManager.Client
         #region Order details
 
         /// <inheritdoc />
-        public async Task<OrderDetails?> GetOrder(Guid orderId)
+        public async Task<OrderDetails?> GetOrder(Guid orderId, bool configurationData = false)
         {
-            var uri = $"{_OrderRoute}/{orderId}";
+            var uri = $"{_OrderRoute}/{orderId}?configurationData={configurationData}";
             return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<OrderDetails?> GetOrder(string orderNumber)
+        public async Task<OrderDetails?> GetOrder(string orderNumber, bool configurationData = false)
         {
-            var uri = $"{_OrderRoute}/{Uri.EscapeDataString(orderNumber)}";
+            var uri = $"{_OrderRoute}/{Uri.EscapeDataString(orderNumber)}?configurationData={configurationData}";
             return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 

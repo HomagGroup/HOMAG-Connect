@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
+using HomagConnect.ProductionManager.Contracts;
 
 namespace HomagConnect.ProductionAssist.Samples.Feedback
 {
@@ -23,8 +24,8 @@ namespace HomagConnect.ProductionAssist.Samples.Feedback
         /// </summary>
         public static async Task ReportAsFinished(IProductionAssistFeedbackClient client)
         {
-            var workstationId = Guid.NewGuid(); // should be replaced with an existing workstationId
-            var identification = "123456"; // should be replaced with an existing id/barcode
+            var workstationId = Guid.Empty; // should be replaced with an existing workstationId
+            var identification = ""; // should be replaced with an existing id/barcode
             var quantity = 1;
             DateTimeOffset? timespan = null;
             var source = "HomagConnect User"; // should be replaced with an existing userName/tapio userName/partner name

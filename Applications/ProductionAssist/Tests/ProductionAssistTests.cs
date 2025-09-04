@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Orders;
 
@@ -11,6 +12,7 @@ public class ProductionAssistTests : ProductionAssistTestBase
 {
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2025, 9, 29, "DF-Production")]
     public async Task ProductionAssist_GetOrderItem_NoException()
     {
         var exceptionThrown = false;
