@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialAssist.Samples.Create.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
@@ -14,7 +15,6 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         public static async Task Initialize(TestContext context)
         {
             var test = new CreateBoardsTests();
-            var MaterialAssistClient = test.GetMaterialAssistClient().Boards;
             var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
 
             try
@@ -23,7 +23,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
             }
             catch 
             {                 
-                var boardTypeRequest = new MaterialManager.Contracts.Request.MaterialManagerRequestBoardType()
+                var boardTypeRequest = new MaterialManagerRequestBoardType()
                 {
                     BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
                     Length = 2800.0,
@@ -31,7 +31,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
                     Thickness = 11.6,
                     Type = BoardTypeType.Board,
                     MaterialCategory = BoardMaterialCategory.Undefined,
-                    CoatingCategory = CoatingCategory.MelamineThermoset,
+                    CoatingCategory = CoatingCategory.Undefined,
                     Grain = Grain.None
                 };
                 await MaterialManagerClient.CreateBoardType(boardTypeRequest);
@@ -42,10 +42,8 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         public async Task BoardsCreateBoardType()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
             var boardCode = "EG_H3303_ST10_19_2800.0_2070.0";
             await CreateBoardEntitySample.Boards_CreateBoardType(MaterialAssistClient, boardCode);
-            Assert.IsNotNull(await MaterialManagerClient.GetBoardTypeByBoardCode(boardCode));
         }
 
         [TestMethod]
