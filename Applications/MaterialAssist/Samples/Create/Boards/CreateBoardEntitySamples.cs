@@ -40,7 +40,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             {
                 Id = idGoodsInStock,
                 //The board code is the identifier of the board type
-                BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
+                BoardCode = "EG_H3303_ST10_19_2800.0_2070.0",
                 ManagementType = ManagementType.GoodsInStock,
                 Comments = "This is a comment",
                 Quantity = 5
@@ -53,6 +53,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
+                // "RP_EG_H3303_ST10_19_2800.0_2070.0"
                 BoardCode = boardCode,
                 CoatingCategory = CoatingCategory.MelamineThermoset,
                 Grain = Grain.Lengthwise, 

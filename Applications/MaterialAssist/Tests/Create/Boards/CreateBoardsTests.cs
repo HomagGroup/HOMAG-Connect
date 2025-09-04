@@ -1,16 +1,51 @@
-﻿using HomagConnect.MaterialAssist.Samples.Create.Boards;
-using HomagConnect.MaterialAssist.Samples.Delete.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialAssist.Samples.Create.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
 {
     [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
     public class CreateBoardsTests : MaterialAssistTestBase
     {
+        [ClassInitialize]
+        public static async Task Initialize(TestContext context)
+        {
+            var test = new CreateBoardsTests();
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+
+            try
+            {
+                await MaterialManagerClient.GetBoardTypeByBoardCode("MDF_H3171_12_11.6_2800.0_1310.0");
+            }
+            catch 
+            {                 
+                var boardTypeRequest = new MaterialManagerRequestBoardType()
+                {
+                    BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
+                    Length = 2800.0,
+                    Width = 1310.0,
+                    Thickness = 11.6,
+                    Type = BoardTypeType.Board,
+                    MaterialCategory = BoardMaterialCategory.Undefined,
+                    CoatingCategory = CoatingCategory.Undefined,
+                    Grain = Grain.None
+                };
+                await MaterialManagerClient.CreateBoardType(boardTypeRequest);
+            }
+        }
+
+        [TestMethod]
+        public async Task BoardsCreateBoardType()
+        {
+            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var boardCode = "EG_H3303_ST10_19_2800.0_2070.0";
+            await CreateBoardEntitySample.Boards_CreateBoardType(MaterialAssistClient, boardCode);
+        }
+
         [TestMethod]
         public async Task BoardsCreateBoardEntity()
         {
@@ -18,24 +53,28 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
             await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "42", "50", "23");
         }
 
-        
-        [TestMethod]
-        public async Task BoardsCreateBoardType()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var boardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0";
-            await CreateBoardEntitySample.Boards_CreateBoardType(MaterialAssistClient, boardCode);
-        }
-        
-
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
+            var test = new CreateBoardsTests();
+            var MaterialAssistClient = test.GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
 
-            var MaterialManagerClient = GetMaterialManagerClient();
-            await MaterialManagerClient.Material.Boards.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
+            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
+            try
+            {
+                await MaterialAssistClient.GetBoardEntityById("42");
+                throw new Exception("Board entity was not deleted. Cleanup failed");
+            }
+            catch {/* Expected exception */}
+
+            await MaterialManagerClient.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
+            try
+            {
+                await MaterialManagerClient.GetBoardTypeByBoardCode("RP_EG_H3303_ST10_19_2800.0_2070.0");
+                throw new Exception("Board type was not deleted. Cleanup failed");
+            }
+            catch {/* Expected exception */}
         }
     }
 }

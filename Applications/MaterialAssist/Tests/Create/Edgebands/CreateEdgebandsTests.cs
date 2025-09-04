@@ -1,24 +1,12 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Edgebands;
-using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
 {
     [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Edgebands")]
     public class CreateEdgebandsTests : MaterialAssistTestBase
     {
-        [TestMethod]
-        public async Task EdgebandsCreateEdgebandEntity()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "42");
-        }
-        
         [TestMethod]
         public async Task EdgebandsCreateEdgebandType()
         {
@@ -26,14 +14,35 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
             await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandType(MaterialAssistClient, "White Edgeband 1mm");
         }
 
-        [ClassCleanup]
-        public async Task Cleanup ()
+        [TestMethod]
+        public async Task EdgebandsCreateEdgebandEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await MaterialAssistClient.DeleteEdgebandEntity("42");
+            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "42");
+        }
 
-            var MaterialManagerClient = GetMaterialManagerClient();
-            await MaterialManagerClient.Material.Edgebands.DeleteEdgebandType("White Edgeband 1mm");
+        [ClassCleanup]
+        public static async Task Cleanup()
+        {
+            var test = new CreateEdgebandsTests();
+            var MaterialAssistClient = test.GetMaterialAssistClient().Edgebands;
+            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Edgebands;
+
+            await MaterialAssistClient.DeleteEdgebandEntity("42");
+            try
+            {
+                await MaterialAssistClient.GetEdgebandEntityById("42");
+                throw new Exception("Edgeband entity was not deleted. Cleanup failed");
+            }
+            catch {/* Expected exception */}
+
+            await MaterialManagerClient.DeleteEdgebandType("White Edgeband 1mm");
+            try
+            {
+                await MaterialManagerClient.GetEdgebandTypeByEdgebandCode("White Edgeband 1mm");
+                throw new Exception("Edgeband type was not deleted. Cleanup failed");
+            }
+            catch {/* Expected exception */}
         }
     }
 }

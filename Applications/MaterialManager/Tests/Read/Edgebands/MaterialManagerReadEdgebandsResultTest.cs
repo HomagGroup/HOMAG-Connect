@@ -12,19 +12,22 @@ namespace HomagConnect.MaterialManager.Tests.Read.Edgebands;
 
 // <summary />
 [TestClass]
+[TestCategory("MaterialManager")]
+[TestCategory("MaterialManager.Edgebands")]
 public class ReadEdgebandTypeTests : MaterialManagerTestBase
 {
     /// <summary />
     [ClassInitialize]
-    public async Task Initialize()
+    public static async Task Initialize(TestContext testContext)
     {
-        var materialManagerClient = GetMaterialManagerClient();
+        var test = new ReadEdgebandTypeTests();
+        var materialManagerClient = test.GetMaterialManagerClient();
         var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
         {
             EdgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM",
             Height = 100,
             Thickness = 1.0,
-            DefaultLength = 75.0,
+            DefaultLength = 100.0,
             MaterialCategory = EdgebandMaterialCategory.ABS,
             Process = EdgebandingProcess.Other,
         };
@@ -77,7 +80,6 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCodes);
     }
     
-    
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypeInventoryHistoryAsync()
     {
@@ -95,10 +97,10 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     }
 
     [ClassCleanup]
-    public async Task Cleanup()
+    public static async Task Cleanup()
     {
-        var materialManagerClient = GetMaterialManagerClient();
+        var test = new ReadEdgebandTypeTests();
+        var materialManagerClient = test.GetMaterialManagerClient();
         await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_Abruzzo_colore_1.00_100.0_HM");
     }
-
 }

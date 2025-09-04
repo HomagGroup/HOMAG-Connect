@@ -21,10 +21,9 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Offcuts
                 Quantity = 1,
             };
             var newBoardEntity = await materialAssist.CreateOffcutEntity(boardEntityRequest);
-            Console.WriteLine($"Created offcut entity: {newBoardEntity.Id}");
         }
 
-        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist, string boardCode, string materialCode)
+        public static async Task Boards_CreateOffcutType(MaterialAssistClientBoards materialAssist, string boardCode, string materialCode)
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
