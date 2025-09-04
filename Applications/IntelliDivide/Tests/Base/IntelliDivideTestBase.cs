@@ -16,7 +16,7 @@ namespace HomagConnect.IntelliDivide.Tests.Base;
 
 public class IntelliDivideTestBase : TestBase
 {
-    private static bool _ParallelJobsStuck = false;
+    private static bool _ParallelJobsStuck;
 
     /// <summary>
     /// Checks if the test material codes exist.
