@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 using Newtonsoft.Json;
 

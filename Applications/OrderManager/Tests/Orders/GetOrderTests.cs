@@ -80,6 +80,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                         {
                             Id = "18BC8A58-1CBA-4FA4-B205-8E940831F90B",
                             ContourInformation = "...",  // countout information for THIS group
+                            Position = new double[] { 1, 2, 3 }, // position of THIS group in the room
+                            Rotation = new double[] { 0, 90, 0 }, // rotation of THIS group in the room
                             Items = new()
                             {
                                 new ConfigurationPosition
@@ -543,6 +545,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                             Id = "61C36AB3-9406-44A6-8559-CBC132D5D8D4",
                             Notes = "This is an article group (PosGroup)",
                             ContourInformation = "{ \"contour\": \"M 0 0 L 100 0 L 100 100 L 0 100 Z\" }",
+                            Position = new double[] { 1, 2, 3 }, // position of THIS group in the room
+                            Rotation = new double[] { 0, 90, 0 }, // rotation of THIS group in the room
                             Items = new()
                             {
                                 new ConfigurationPosition

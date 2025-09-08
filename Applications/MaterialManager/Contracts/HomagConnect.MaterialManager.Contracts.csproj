@@ -51,6 +51,16 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>BoardMaterialCategoryDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Material\Boards\Enumerations\ImportModeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ImportModeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Material\Boards\Enumerations\InventoryTypeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>InventoryTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Material\Boards\Enumerations\StandardQualityDisplayNames.Designer.cs">
 	    <DependentUpon>StandardQualityDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
@@ -60,6 +70,11 @@
 	    <DependentUpon>CoatingCategoryDisplayNames.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Material\Boards\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Material\Edgebands\Enumerations\EdgebandMaterialCategoryDisplayNames.Designer.cs">
 	    <DependentUpon>EdgebandMaterialCategoryDisplayNames.resx</DependentUpon>
@@ -104,6 +119,14 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>BoardMCDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\ImportModeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ImportModeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Enumerations\InventoryTypeDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>InventoryTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Boards\Enumerations\StandardQualityDisplayNames.resx">
 	    <LastGenOutput>StandardQualityDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
@@ -111,6 +134,10 @@
 	  <EmbeddedResource Update="Material\Boards\Enumerations\CoatingCategoryDisplayNames.resx">
 	    <LastGenOutput>CoatingCategoryDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Material\Boards\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Edgebands\Enumerations\EdgebandMaterialCategoryDisplayNames.resx">
 	    <LastGenOutput>EdgebandMaterialCategoryDisplayNames.Designer.cs</LastGenOutput>
