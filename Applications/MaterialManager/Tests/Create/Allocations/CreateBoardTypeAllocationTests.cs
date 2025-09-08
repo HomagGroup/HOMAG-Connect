@@ -72,10 +72,10 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
 
     private async Task BoardType_CreateBoardTypeAllocation_Cleanup(string name)
     {
-        var allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 1000);
+        var allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100, 0);
         if (allocations != null && allocations.Any())
             await MaterialManagerClientMaterialBoards.DeleteBoardTypeAllocations(allocations.Select(a => a.Name));
-        allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 1000);
+        allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100, 0);
         Assert.IsFalse(allocations != null && allocations.Any());
     }
 
