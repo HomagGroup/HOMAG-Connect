@@ -20,8 +20,8 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [ClassInitialize]
     public static async Task Initialize(TestContext testContext)
     {
-        var test = new ReadEdgebandTypeTests();
-        var materialManagerClient = test.GetMaterialManagerClient();
+        var classInstance = new ReadEdgebandTypeTests();
+        var materialManagerClient = classInstance.GetMaterialManagerClient();
         var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
         {
             EdgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM",
@@ -99,8 +99,8 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [ClassCleanup]
     public static async Task Cleanup()
     {
-        var test = new ReadEdgebandTypeTests();
-        var materialManagerClient = test.GetMaterialManagerClient();
+        var classInstance = new ReadEdgebandTypeTests();
+        var materialManagerClient = classInstance.GetMaterialManagerClient();
         await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_Abruzzo_colore_1.00_100.0_HM");
     }
 }

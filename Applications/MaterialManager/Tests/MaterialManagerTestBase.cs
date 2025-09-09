@@ -30,6 +30,19 @@ public class MaterialManagerTestBase : TestBase
         return new MaterialManagerClient(httpClient);
     }
 
+    protected async Task BoardsDeleteTestData(string boardCode)
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+        try
+        {
+            await materialManagerClient.Material.Boards.DeleteBoardType(boardCode);
+        }
+        catch 
+        {
+            
+        }
+    }
+
     protected async Task EnsureSampleMaterialCodeExist(string materialCode)
     {
         var materialManagerClient = GetMaterialManagerClient();

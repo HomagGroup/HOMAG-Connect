@@ -15,7 +15,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         public static async Task Initialize(TestContext context)
         {
             var test = new CreateBoardsTests();
-            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
 
             try
             {

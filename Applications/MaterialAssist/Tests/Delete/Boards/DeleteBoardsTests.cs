@@ -1,6 +1,7 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Create.Boards;
 using HomagConnect.MaterialAssist.Samples.Delete.Boards;
+using HomagConnect.MaterialAssist.Tests.Create.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using System;
 using System.Collections;
@@ -20,6 +21,8 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
         public async Task Initialize()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
+
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
                 Id = "42",

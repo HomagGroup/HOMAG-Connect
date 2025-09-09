@@ -26,9 +26,8 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         [ClassCleanup]
         public static async Task Cleanup()
         {
-            var test = new CreateOffcutsTests();
-            var MaterialAssistClient = test.GetMaterialAssistClient().Boards;
-            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
 
             await MaterialAssistClient.DeleteBoardEntity("22");
             try

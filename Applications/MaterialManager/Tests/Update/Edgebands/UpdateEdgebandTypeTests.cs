@@ -20,8 +20,8 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         [ClassInitialize]
         public static async Task Initialize(TestContext testContext)
         {
-            var test = new UpdateEdgebandTypeTests();
-            var materialManagerClient = test.GetMaterialManagerClient();
+            var classInstance = new UpdateEdgebandTypeTests();
+            var materialManagerClient = classInstance.GetMaterialManagerClient();
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {
                 EdgebandCode = "EB_White_1mm",
@@ -45,8 +45,8 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         [ClassCleanup]
         public static async Task Cleanup()
         {
-            var test = new UpdateEdgebandTypeTests();
-            var materialManagerClient = test.GetMaterialManagerClient();
+            var classInstance = new UpdateEdgebandTypeTests();
+            var materialManagerClient = classInstance.GetMaterialManagerClient();
             await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm");
         }
     }

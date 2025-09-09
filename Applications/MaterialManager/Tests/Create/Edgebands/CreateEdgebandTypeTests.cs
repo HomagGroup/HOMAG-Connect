@@ -28,8 +28,8 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     [ClassCleanup]
     public static async Task Cleanup()
     {
-        var test = new CreateEdgebandTypeTests();
-        var materialManagerClient = test.GetMaterialManagerClient();
+        var classInstance = new CreateEdgebandTypeTests();
+        var materialManagerClient = classInstance.GetMaterialManagerClient();
         await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm");
         await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
     }
