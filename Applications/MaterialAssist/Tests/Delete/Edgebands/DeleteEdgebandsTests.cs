@@ -16,9 +16,10 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
     public class DeleteEdgebandsTests : MaterialAssistTestBase
     {
         [ClassInitialize]
-        public async Task Initialie()
+        public static async Task Initialie(TestContext testContext)
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
+            var classInstance = new DeleteEdgebandsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = "42",
@@ -52,7 +53,7 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
             };
             await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
         }
-        
+
         [TestMethod]
         public async Task EdgebandsDeleteEdgebandEntity()
         {

@@ -14,28 +14,21 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         [ClassInitialize]
         public static async Task Initialize(TestContext context)
         {
-            var test = new CreateBoardsTests();
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
-
-            try
+            var classInstance = new CreateBoardsTests();
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
+                        
+            var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
-                await MaterialManagerClient.GetBoardTypeByBoardCode("MDF_H3171_12_11.6_2800.0_1310.0");
-            }
-            catch 
-            {                 
-                var boardTypeRequest = new MaterialManagerRequestBoardType()
-                {
-                    BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-                    Length = 2800.0,
-                    Width = 1310.0,
-                    Thickness = 11.6,
-                    Type = BoardTypeType.Board,
-                    MaterialCategory = BoardMaterialCategory.Undefined,
-                    CoatingCategory = CoatingCategory.Undefined,
-                    Grain = Grain.None
-                };
-                await MaterialManagerClient.CreateBoardType(boardTypeRequest);
-            }
+                BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
+                Length = 2800.0,
+                Width = 1310.0,
+                Thickness = 11.6,
+                Type = BoardTypeType.Board,
+                MaterialCategory = BoardMaterialCategory.Undefined,
+                CoatingCategory = CoatingCategory.Undefined,
+                Grain = Grain.None
+            };
+            await MaterialManagerClient.CreateBoardType(boardTypeRequest);
         }
 
         [TestMethod]
@@ -56,25 +49,15 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         [ClassCleanup]
         public static async Task Cleanup()
         {
-            var test = new CreateBoardsTests();
-            var MaterialAssistClient = test.GetMaterialAssistClient().Boards;
-            var MaterialManagerClient = test.GetMaterialManagerClient().Material.Boards;
+            var classInstance = new CreateBoardsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
 
             await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
-            try
-            {
-                await MaterialAssistClient.GetBoardEntityById("42");
-                throw new Exception("Board entity was not deleted. Cleanup failed");
-            }
-            catch {/* Expected exception */}
-
-            await MaterialManagerClient.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
-            try
-            {
-                await MaterialManagerClient.GetBoardTypeByBoardCode("RP_EG_H3303_ST10_19_2800.0_2070.0");
-                throw new Exception("Board type was not deleted. Cleanup failed");
-            }
-            catch {/* Expected exception */}
+            
+            await MaterialManagerClient.DeleteBoardType("EG_H3303_ST10_19_2800.0_2070.0");
+            await MaterialManagerClient.DeleteBoardType("MDF_H3171_12_11.6_2800.0_1310.0");
+            
         }
     }
 }

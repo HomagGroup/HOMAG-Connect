@@ -26,24 +26,12 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         [ClassCleanup]
         public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
+            var classInstance = new CreateOffcutsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
 
             await MaterialAssistClient.DeleteBoardEntity("22");
-            try
-            {
-                await MaterialAssistClient.GetBoardEntityById("22");
-                throw new Exception("Offcut entity was not deleted. Cleanup failed");
-            }
-            catch {/* Expected exception */}
-
             await MaterialManagerClient.DeleteBoardType("XEG_H3303_ST10_19_1200.0_460.0");
-            try
-            {
-                await MaterialManagerClient.GetBoardTypeByBoardCode("XEG_H3303_ST10_19_1200.0_460.0");
-                throw new Exception("Offcut type was not deleted. Cleanup failed");
-            }
-            catch {/* Expected exception */}
         }
     }
 }

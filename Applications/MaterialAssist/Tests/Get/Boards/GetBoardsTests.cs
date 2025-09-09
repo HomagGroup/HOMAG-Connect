@@ -18,9 +18,10 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
     public class GetBoardsTests : MaterialAssistTestBase
     {
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var classInstance = new GetBoardsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
                 Id = "42",
@@ -106,9 +107,10 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
         }
 
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var classInstance = new GetBoardsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
             await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
         }
     }

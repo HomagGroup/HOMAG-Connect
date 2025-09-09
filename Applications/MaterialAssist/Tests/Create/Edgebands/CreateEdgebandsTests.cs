@@ -22,10 +22,11 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
         }
 
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+            var classInstance = new CreateEdgebandsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
 
             await MaterialAssistClient.DeleteEdgebandEntity("42");
             try

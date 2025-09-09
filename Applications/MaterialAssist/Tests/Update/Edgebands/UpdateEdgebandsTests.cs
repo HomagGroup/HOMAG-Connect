@@ -1,5 +1,6 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Update.Edgebands;
+using HomagConnect.MaterialAssist.Tests.Update.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
@@ -10,9 +11,10 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
     public class UpdateEdgebandsTests : MaterialAssistTestBase
     {
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
+            var classInstance = new UpdateEdgebandsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             await MaterialAssistClient.DeleteEdgebandEntity(["42", "50", "23"]);
         }
 
@@ -52,9 +54,10 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
         }
 
         [ClassInitialize]
-        public async Task Initialie()
+        public static async Task Initialie(TestContext testContext)
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
+            var classInstance = new UpdateEdgebandsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = "42",

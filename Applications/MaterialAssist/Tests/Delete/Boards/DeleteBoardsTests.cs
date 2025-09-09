@@ -18,10 +18,11 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
     public class DeleteBoardsTests : MaterialAssistTestBase
     {
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
+            var classInstance = new DeleteBoardsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
 
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {

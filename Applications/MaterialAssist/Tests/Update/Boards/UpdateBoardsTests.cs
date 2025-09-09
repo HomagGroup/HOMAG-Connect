@@ -1,5 +1,6 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Update.Boards;
+using HomagConnect.MaterialAssist.Tests.Get.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Update.Boards
@@ -46,16 +47,18 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
         }
 
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var classInstance = new UpdateBoardsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
             await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
         }
 
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
+            var classInstance = new UpdateBoardsTests();
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
                 Id = "42",
