@@ -37,7 +37,7 @@ namespace HomagConnect.ProductionManager.Contracts.Import
         /// Ges or sets the TemplateId of the import template.
         /// </summary>
         [Required]
-        public Guid TemplateId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Ges or sets the name of the import template.
