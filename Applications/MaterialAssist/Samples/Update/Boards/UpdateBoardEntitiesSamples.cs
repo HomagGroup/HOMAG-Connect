@@ -10,19 +10,19 @@ public class UpdateBoardEntitiesSamples
     public static async Task Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
     {
         // string id, bool deleteBoardFromInventory = false
-        await materialAssist.RemoveAllBoardEntitiesFromWorkplace("42");
+        await materialAssist.RemoveAllBoardEntitiesFromWorkplace("40");
     }
 
     public static async Task Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
     {
         //string id, int quantity, bool deleteBoardFromInventory = false
-        await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("23", 2);
+        await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("41", 2);
     }
 
     public static async Task Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
     {
         //string id, int quantity,Boards_RemoveSubsetBoardEntitiesFromWorkplace bool deleteBoardFromInventory = false
-        await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("50", 3);
+        await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("42", 3);
     }
 
     public static async Task Boards_StoreBoardEntity(MaterialAssistClientBoards materialAssist)

@@ -10,26 +10,26 @@ public class UpdateEdgebandEntitiesSamples
     public static async Task Edgebands_RemoveAllEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
     {
         // string id, bool deleteBoardFromInventory = false
-        await materialAssist.RemoveAllEdgebandEntitiesFromWorkplace("42");
+        await materialAssist.RemoveAllEdgebandEntitiesFromWorkplace("43");
     }
 
     public static async Task Edgebands_RemoveSingleEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
     {
         //string id, int quantity, bool deleteBoardFromInventory = false
-        await materialAssist.RemoveSingleEdgebandEntitiesFromWorkplace("23", 1);
+        await materialAssist.RemoveSingleEdgebandEntitiesFromWorkplace("44", 1);
     }
 
     public static async Task Edgebands_RemoveSubsetEdgebandEntitiesFromWorkplace(MaterialAssistClientEdgebands materialAssist)
     {
         //string id, int quantity, bool deleteBoardFromInventory = false
-        await materialAssist.RemoveSubsetEdgebandEntitiesFromWorkplace("50", 1);
+        await materialAssist.RemoveSubsetEdgebandEntitiesFromWorkplace("45", 1);
     }
 
     public static async Task Edgebands_StoreEdgebandEntity(MaterialAssistClientEdgebands materialAssist)
     {
         var edgebandEntityStore = new MaterialAssistStoreEdgebandEntity()
         {
-            Id = "42",
+            Id = "43",
             Length = 100,
             StorageLocation = new StorageLocation()
             {
@@ -43,12 +43,12 @@ public class UpdateEdgebandEntitiesSamples
     {
         var edgebandEntityUpdate = new MaterialAssistUpdateEdgebandEntity()
         {
-            Id = "42",
+            Id = "43",
             Length = 100,
             Comments = "This is a comment",
             Quantity = 1,
         };
-        var updateEdgebandEntity = await materialAssist.UpdateEdgebandEntity("42", edgebandEntityUpdate);
+        var updateEdgebandEntity = await materialAssist.UpdateEdgebandEntity("43", edgebandEntityUpdate);
         Console.WriteLine($"Updated edgeband entity: {updateEdgebandEntity.Id}");
     }
 }

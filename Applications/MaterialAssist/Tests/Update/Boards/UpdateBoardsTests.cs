@@ -18,7 +18,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
-                Id = "42",
+                Id = "40",
                 BoardCode = "Test_Data_MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Single,
                 Quantity = 1
@@ -27,7 +27,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 
             var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
             {
-                Id = "50",
+                Id = "41",
                 BoardCode = "Test_Data_MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Stack,
                 Quantity = 5
@@ -36,7 +36,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 
             var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
             {
-                Id = "28",
+                Id = "42",
                 BoardCode = "Test_Data_MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.GoodsInStock,
                 Quantity = 5
@@ -84,7 +84,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
         {
             var classInstance = new UpdateBoardsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "28"]);
+            await MaterialAssistClient.DeleteBoardEntities(["40", "41", "42"]);
         }
     }
 }

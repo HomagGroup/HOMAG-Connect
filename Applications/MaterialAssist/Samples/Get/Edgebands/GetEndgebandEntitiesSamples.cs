@@ -30,13 +30,13 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
         // GetById
         public static async Task Edgebands_GetEdgebandEntityById(MaterialAssistClientEdgebands materialAssist)
         {
-            var edgebandEntity = await materialAssist.GetEdgebandEntityById("42");
+            var edgebandEntity = await materialAssist.GetEdgebandEntityById("33");
             Console.WriteLine(edgebandEntity);
         }
 
         public static async Task Edgebands_GetEdgebandEntitiesByIds(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> ids = ["42", "50", "23"];
+            List<string> ids = ["33", "34", "35"];
             var edgebandEntities = await materialAssist.GetEdgebandEntitiesByIds(ids);
             foreach (var edgebandEntity in edgebandEntities)
             {

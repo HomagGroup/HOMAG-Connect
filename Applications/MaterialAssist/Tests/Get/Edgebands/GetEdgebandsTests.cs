@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
 
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
-                Id = "42",
+                Id = "33",
                 EdgebandCode = "Test_Data_ABS_White_1mm",
                 ManagementType = ManagementType.Single,
                 Quantity = 1,
@@ -28,7 +28,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
 
             var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
             {
-                Id = "50",
+                Id = "34",
                 EdgebandCode = "Test_Data_ABS_White_1mm",
                 ManagementType = ManagementType.Single,
                 Quantity = 1,
@@ -39,7 +39,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
 
             var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
             {
-                Id = "23",
+                Id = "35",
                 EdgebandCode = "Test_Data_ABS_White_1mm",
                 ManagementType = ManagementType.Single,
                 Quantity = 1,
@@ -104,7 +104,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         {
             var classInstance = new GetEdgebandsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-            await MaterialAssistClient.DeleteEdgebandEntity(["42", "50", "23"]);
+            await MaterialAssistClient.DeleteEdgebandEntity(["30", "31", "32"]);
         }
     }
 }
