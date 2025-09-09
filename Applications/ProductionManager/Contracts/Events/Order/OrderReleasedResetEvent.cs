@@ -10,8 +10,8 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Order;
 /// <summary>
 /// Gets or sets an event that occurs when an order has been released.
 /// </summary>
-[AppEvent("ResetOrderRelease")]
-public class ResetOrderReleaseEvent : AppEvent
+[AppEvent("ResetOrderReleased")]
+public class ResetOrderReleasedEvent : AppEvent
 {
     /// <summary>
     /// Gets or sets the order id that has been released.
