@@ -16,6 +16,8 @@ namespace HomagConnect.IntelliDivide.Tests.Base;
 
 public class IntelliDivideTestBase : TestBase
 {
+    private static bool _ParallelJobsStuck;
+
     /// <summary>
     /// Checks if the test material codes exist.
     /// </summary>
@@ -91,7 +93,7 @@ public class IntelliDivideTestBase : TestBase
 
         if (optimizationParameters.All(t => t.Name != optimizationParameterName))
         {
-            Assert.Inconclusive($"The optimization parameters '{optimizationParameters}' do not exist.");
+            Assert.Inconclusive($"The optimization parameters '{optimizationParameterName}' do not exist.");
         }
     }
 
@@ -145,6 +147,11 @@ public class IntelliDivideTestBase : TestBase
     /// </summary>
     protected async Task WaitForParallelRunningOptimizationsWithinLimit(OptimizationType optimizationType, TimeSpan timeout)
     {
+        if (_ParallelJobsStuck)
+        {
+            Assert.Fail($"Subscription {SubscriptionId.ToString()} has too many parallel optimizations running slow.");
+        }
+
         var startTime = DateTime.Now;
         const int parallelOptimizationsRunningLimit = 2;
         var intelliDivideClient = GetIntelliDivideClient();
@@ -152,6 +159,10 @@ public class IntelliDivideTestBase : TestBase
         while (startTime.Add(timeout) > DateTime.Now)
         {
             var startedOptimization = await intelliDivideClient.GetOptimizations(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
+            if (startedOptimization == null)
+            {
+                return;
+            }
 
             if (startedOptimization.Count < parallelOptimizationsRunningLimit)
             {
@@ -161,6 +172,7 @@ public class IntelliDivideTestBase : TestBase
             await Task.Delay(5000);
         }
 
-        Assert.Fail("WaitForStartedOptimizationsToComplete has timed out.");
+        _ParallelJobsStuck = true;
+        Assert.Fail($"Subscription {SubscriptionId.ToString()} has too many parallel optimizations running slow.");
     }
 }
