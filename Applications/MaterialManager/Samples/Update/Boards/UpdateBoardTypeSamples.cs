@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
         {
             var boardTypeUpdate = new MaterialManagerUpdateBoardType
             {
-                CoatingCategory = CoatingCategory.Veneer,
+                Thickness = 12.5,
                 // Add other properties
             };
             var updatedBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate);

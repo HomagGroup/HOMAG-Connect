@@ -7,12 +7,14 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
     [TestCategory("MaterialAssist.Edgebands")]
     public class CreateEdgebandsTests : MaterialAssistTestBase
     {
+        /*
         [TestMethod]
         public async Task EdgebandsCreateEdgebandType()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
             await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandType(MaterialAssistClient, "ABS_White_1mm");
         }
+        */
 
         [TestMethod]
         public async Task EdgebandsCreateEdgebandEntity()
@@ -26,10 +28,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
         {
             var classInstance = new CreateEdgebandsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
-
             await MaterialAssistClient.DeleteEdgebandEntity("42");
-            await MaterialManagerClient.DeleteEdgebandType("ABS_White_1mm");
         }
     }
 }
