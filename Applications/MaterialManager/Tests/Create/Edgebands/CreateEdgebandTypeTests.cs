@@ -2,9 +2,7 @@
 
 using FluentAssertions;
 
-using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Samples.Create.Edgebands;
 
