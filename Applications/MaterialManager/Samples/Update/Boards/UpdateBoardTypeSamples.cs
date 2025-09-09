@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+﻿using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialManager.Samples.Update.Boards
@@ -12,7 +13,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
         {
             var boardTypeUpdate = new MaterialManagerUpdateBoardType
             {
-                Length = 500.0,
+                CoatingCategory = CoatingCategory.Veneer,
                 // Add other properties
             };
             var updatedBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate);

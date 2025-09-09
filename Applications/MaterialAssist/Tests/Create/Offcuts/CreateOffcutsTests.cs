@@ -11,7 +11,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         public async Task BoardsCreateBoardType()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var boardCode = "XEG_H3303_ST10_19_1200.0_460.0";
+            var boardCode = "XEG_H3303_ST10_19_1000.0_500.0";
             var materialCode = "EG_H3303_ST10_19";
             await CreateOffcutEntitiesSamples.Boards_CreateOffcutType(MaterialAssistClient, boardCode, materialCode);
         }
@@ -31,7 +31,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
 
             await MaterialAssistClient.DeleteBoardEntity("22");
-            await MaterialManagerClient.DeleteBoardType("XEG_H3303_ST10_19_1200.0_460.0");
+            await MaterialManagerClient.DeleteBoardType("XEG_H3303_ST10_19_1000.0_500.0");
         }
     }
 }

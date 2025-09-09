@@ -19,6 +19,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
                         
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
+                MaterialCode = "MDF_H3171_12_11.6",
                 BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
                 Length = 2800.0,
                 Width = 1310.0,

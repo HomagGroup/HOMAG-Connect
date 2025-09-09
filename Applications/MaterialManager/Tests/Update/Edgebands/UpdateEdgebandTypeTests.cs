@@ -24,7 +24,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
             var materialManagerClient = classInstance.GetMaterialManagerClient();
             var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
             {
-                EdgebandCode = "EB_White_1mm",
+                EdgebandCode = "ABS_White_1mm",
                 Height = 20,
                 Thickness = 1.0,
                 DefaultLength = 23.0,
@@ -38,7 +38,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         public async Task EdgebandsUpdateEdgebandType()
         {
             var materialManagerClient = GetMaterialManagerClient();
-            var edgebandCode = "EB_White_1mm";
+            var edgebandCode = "ABS_White_1mm";
             await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
         }
         
@@ -47,7 +47,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         {
             var classInstance = new UpdateEdgebandTypeTests();
             var materialManagerClient = classInstance.GetMaterialManagerClient();
-            await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm");
+            await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_White_1mm");
         }
     }
 }
