@@ -43,8 +43,8 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     {
         await BoardType_CreateBoardTypeAllocation_Cleanup(name);
 
-        var materials = await MaterialManagerClientMaterialBoards.GetMaterials(1);
-        var boardCode = materials!.FirstOrDefault()!.Code;
+        var materials = await MaterialManagerClientMaterialBoards.GetBoardTypes(1);
+        var boardCode = materials!.FirstOrDefault()!.BoardCode;
         var requestBoardTypeAllocation = CreateBoardTypeAllocationRequest(boardCode, comments, createdBy,
             name, quantity, source, workstation);
 
@@ -58,6 +58,8 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
         allocationResult.Quantity.Should().Be(quantity);
         allocationResult.Source.Should().Be(source);
         allocationResult.Workstation.Should().Be(workstation);
+
+        await BoardType_CreateBoardTypeAllocation_Cleanup(name);
     }
 
     /// <summary>
