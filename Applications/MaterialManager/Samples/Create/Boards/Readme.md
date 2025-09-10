@@ -34,6 +34,9 @@ It is also possible to attatch additional data, like a image, to a board type at
 ```csharp
 var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizationKey);
 
+var imageFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
+var additionalDataImage = new FileReference("Red.png", imageFilePath);
+
 var boardTypeRequest = new MaterialManagerRequestBoardType
 {
     //The material code is the identifier of the material type
@@ -47,16 +50,18 @@ var boardTypeRequest = new MaterialManagerRequestBoardType
     MaterialCategory = BoardMaterialCategory.Undefined,
     CoatingCategory CoatingCategory = CoatingCategory.Undefined,
     Grain = Grain.None,
+    AdditionalData = new List<AdditionalDataEntity>
+    {
+        new AdditionalDataImage
+        {
+            Category = "Decor",
+            DownloadFileName = additionalDataImage.Reference,
+            DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+        }
+    }
 };
 
-var testFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Red.png");
-var fileReferences = new FileReference[]
-{
-    new FileReference("BoardPicture", testFilePath)
-};
-
-var newBoardType = await client.CreateBoardType(boardTypeRequest, fileReferences);
+var newBoardType = await client.CreateBoardType(boardTypeRequest,  new[] { additionalDataImage });
 
 Console.WriteLine($"Created Board Type: {newBoardType.Code}");
 ```
-
