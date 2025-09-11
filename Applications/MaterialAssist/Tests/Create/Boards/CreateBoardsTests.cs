@@ -11,18 +11,17 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         public async Task BoardsCreateBoardEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "10", "11", "12");
+            await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "13", "14", "15");
         }
 
-        [ClassCleanup]
-        public static async Task Cleanup()
+        [TestCleanup]
+        public async Task Cleanup()
         {
-            var classInstance = new CreateBoardsTests();
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
+            var MaterialAssistClient = GetMaterialAssistClient().Boards;
 
-            await MaterialAssistClient.DeleteBoardEntity("10");
-            await MaterialAssistClient.DeleteBoardEntity("11");
-            await MaterialAssistClient.DeleteBoardEntity("12");
+            await MaterialAssistClient.DeleteBoardEntity("13");
+            await MaterialAssistClient.DeleteBoardEntity("14");
+            await MaterialAssistClient.DeleteBoardEntity("15");
         }
     }
 }
