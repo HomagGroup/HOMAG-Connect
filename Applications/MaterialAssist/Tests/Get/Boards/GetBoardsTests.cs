@@ -99,6 +99,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
             await GetBoardEntitiesSamples.Boards_GetStorageLocations(MaterialAssistClient);
         }
 
+
         [TestMethod]
         public async Task BoardsGetWorkstations()
         {
