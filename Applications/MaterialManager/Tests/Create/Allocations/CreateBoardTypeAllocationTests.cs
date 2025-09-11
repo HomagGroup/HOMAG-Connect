@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+﻿using System.ComponentModel.DataAnnotations;
+
+using FluentAssertions;
+
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
-using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.TestBase.Attributes;
 
 namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 
@@ -18,7 +18,6 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     protected MaterialManagerClientMaterialBoards MaterialManagerClientMaterialBoards { get; private set; } = null!;
 
     /// <summary />
-    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow(null, "comments", "createdBy", "name", 1000, "source", "workstation")] //boardCode not set
     [DataRow("boardCode", "comments", null, "name", 1000, "source", "workstation")] //createdBy not set
@@ -38,25 +37,30 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// BoardTypeAllocationCreation_ValidRequest_CreatesAllocation
     /// </summary>
-    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
-    [DataRow("TestBoardCode", "comments", "createdBy", "Test_Allocation", 1, "source", "workstation")]
-    public async Task BoardTypeAllocationCreation_ValidRequest_CreatesAllocation(string boardCode, string comments, string createdBy,
+    [DataRow("comments", "createdBy", "Test_Allocation", 1, "source", "workstation")]
+    public async Task BoardTypeAllocationCreation_ValidRequest_CreatesAllocation(string comments, string createdBy,
         string name, int quantity, string source, string workstation)
     {
         await BoardType_CreateBoardTypeAllocation_Cleanup(name);
+
+        var materials = await MaterialManagerClientMaterialBoards.GetBoardTypes(1);
+        var boardCode = materials!.FirstOrDefault()!.BoardCode;
         var requestBoardTypeAllocation = CreateBoardTypeAllocationRequest(boardCode, comments, createdBy,
             name, quantity, source, workstation);
+
         var allocationResult = await MaterialManagerClientMaterialBoards.CreateBoardTypeAllocation(requestBoardTypeAllocation);
+
         allocationResult.Should().NotBeNull();
-        //To-do Uncomment once allocation repository is implemented
-        //allocationResult.BoardCode.Should().Be(boardCode);
-        //allocationResult.Comments.Should().Be(comments);
-        //allocationResult.CreatedBy.Should().Be(createdBy);
-        //allocationResult.Name.Should().Be(name);
-        //allocationResult.Quantity.Should().Be(quantity);
-        //allocationResult.Source.Should().Be(source);
-        //allocationResult.Workstation.Should().Be(workstation);
+        allocationResult.BoardCode.Should().Be(boardCode);
+        allocationResult.Comments.Should().Be(comments);
+        allocationResult.CreatedBy.Should().Be(createdBy);
+        allocationResult.Name.Should().Be(name);
+        allocationResult.Quantity.Should().Be(quantity);
+        allocationResult.Source.Should().Be(source);
+        allocationResult.Workstation.Should().Be(workstation);
+
+        await BoardType_CreateBoardTypeAllocation_Cleanup(name);
     }
 
     /// <summary>
@@ -71,10 +75,10 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
 
     private async Task BoardType_CreateBoardTypeAllocation_Cleanup(string name)
     {
-        var allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 1000);
-        if (allocations != null && allocations.Any())
+        var allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100);
+        if (allocations is { } nonNull && nonNull.Any())
             await MaterialManagerClientMaterialBoards.DeleteBoardTypeAllocations(allocations.Select(a => a.Name));
-        allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 1000);
+        allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100);
         Assert.IsFalse(allocations != null && allocations.Any());
     }
 
