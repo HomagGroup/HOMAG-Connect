@@ -13,22 +13,23 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
 {
     /// <summary />
     [TestClass]
+    [TestCategory("MaterialManager")]
+    [TestCategory("MaterialManager.Boards")]
     public class UpdateBoardTypeTests : MaterialManagerTestBase
     {
         /// <summary />
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var materialManagerClient = GetMaterialManagerClient();
+            var classInstance = new UpdateBoardTypeTests();
+            var materialManagerClient = classInstance.GetMaterialManagerClient();
             var boardTypeRequest = new MaterialManagerRequestBoardType
             {
-                //The material code is the identifier of the material type
                 MaterialCode = "HPL_F274_9_12.0",
-                //The board code is the identifier of the board type
                 BoardCode = "HPL_F274_9_12.0_4100.0_650.0",
                 Length = 4100.0,
                 Width = 650.0,
-                Thickness = 19.0,
+                Thickness = 12.0,
                 Type = BoardTypeType.Board,
                 MaterialCategory = BoardMaterialCategory.Undefined,
                 CoatingCategory = CoatingCategory.Undefined,
@@ -46,9 +47,10 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
         }
         
         [ClassCleanup]
-        public async Task Cleanup()
+        public static async Task Cleanup()
         {
-            var materialManagerClient = GetMaterialManagerClient();
+            var classInstance = new UpdateBoardTypeTests();
+            var materialManagerClient = classInstance.GetMaterialManagerClient();
             await materialManagerClient.Material.Boards.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
         }
     }

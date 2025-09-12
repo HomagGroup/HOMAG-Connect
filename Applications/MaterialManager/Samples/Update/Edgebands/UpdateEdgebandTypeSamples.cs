@@ -16,7 +16,6 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
                 // Add other properties
             };
             var updatedEdgebandType = await materialManager.UpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
-            Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.EdgebandCode}");
         }
 
         /// <summary>
