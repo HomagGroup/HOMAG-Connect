@@ -9,6 +9,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
     [TestCategory("MaterialAssist.Edgebands")]
     public class UpdateEdgebandsTests : MaterialAssistTestBase
     {
+        /* Functions are not implemented yet, but the structure is ready for future implementation.
         [ClassInitialize]
         public static async Task Initialie(TestContext testContext)
         {
@@ -91,5 +92,6 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             await MaterialAssistClient.DeleteEdgebandEntity(["43", "44", "45"]);
         }
+        */
     }
 }
