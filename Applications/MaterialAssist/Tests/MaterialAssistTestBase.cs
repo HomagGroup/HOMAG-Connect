@@ -5,7 +5,6 @@ using HomagConnect.Base.TestBase;
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialManager.Client;
 
-
 namespace HomagConnect.MaterialAssist.Tests
 {
     /// <summary />
@@ -26,7 +25,6 @@ namespace HomagConnect.MaterialAssist.Tests
             return new MaterialAssistClient(httpClient);
         }
 
-
         protected MaterialManagerClient GetMaterialManagerClient()
         {
             $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
@@ -40,6 +38,5 @@ namespace HomagConnect.MaterialAssist.Tests
 
             return new MaterialManagerClient(httpClient);
         }
-        
     }
 }

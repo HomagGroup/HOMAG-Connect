@@ -9,7 +9,9 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
     [TestCategory("MaterialAssist.Edgebands")]
     public class UpdateEdgebandsTests : MaterialAssistTestBase
     {
-        /* Functions are not implemented yet, but the structure is ready for future implementation.
+        /* feature not ready yet
+          
+         
         [ClassInitialize]
         public static async Task Initialie(TestContext testContext)
         {

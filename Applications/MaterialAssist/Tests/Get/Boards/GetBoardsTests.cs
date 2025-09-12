@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
 
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
-                Id = "30",
+                Id = "31111",
                 BoardCode = "Test_Data_MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Single,
                 Quantity = 1
@@ -26,7 +26,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
 
             var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
             {
-                Id = "31",
+                Id = "31112",
                 BoardCode = "Test_Data_MDF_H3171_12_11.6_2800.0_1310.0",
                 ManagementType = ManagementType.Stack,
                 Quantity = 5
@@ -35,7 +35,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
 
             var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
             {
-                Id = "32",
+                Id = "31113",
                 BoardCode = "Test_Data_EG_H3303_ST10_19_2800.0_2070.0",
                 ManagementType = ManagementType.GoodsInStock,
                 Quantity = 5
@@ -54,14 +54,14 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
         public async Task BoardsGetBoardEntityById()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(MaterialAssistClient, "30");
+            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(MaterialAssistClient, "31111");
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesById()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(MaterialAssistClient, ["30", "31", "32"]);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(MaterialAssistClient, ["31111", "31112", "31113"]);
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
         {
             var classInstance = new GetBoardsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["30", "31", "32"]);
+            await MaterialAssistClient.DeleteBoardEntities(["31111", "31112", "31113"]);
         }
     }
 }

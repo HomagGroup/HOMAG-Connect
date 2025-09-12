@@ -11,14 +11,14 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         public async Task BoardsCreateOffcutEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(MaterialAssistClient, "12");
+            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(MaterialAssistClient, "11114");
         }
 
         [TestCleanup]
         public async Task Cleanup()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntity("12");
+            await MaterialAssistClient.DeleteBoardEntity("11114");
         }
     }
 }
