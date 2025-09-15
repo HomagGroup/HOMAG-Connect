@@ -483,7 +483,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var query = new StringBuilder($"?take={take}&skip={skip}");
         foreach (var name in names)
         {
-            query.Append($"&allocationName={Uri.EscapeDataString(name)}");
+            query.Append($"&allocationNames={Uri.EscapeDataString(name)}");
         }
 
         var url = $"{_BoardTypeAllocationsRoute}/byNames{query}";
@@ -561,7 +561,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         foreach (var name in names)
         {
             query.Append(query.Length == 0 ? "?" : "&");
-            query.Append($"allocationName={Uri.EscapeDataString(name)}");
+            query.Append($"allocationNames={Uri.EscapeDataString(name)}");
         }
 
         var url = $"{_BoardTypeAllocationsRoute}{query}";
