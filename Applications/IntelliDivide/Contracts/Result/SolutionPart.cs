@@ -37,11 +37,10 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public int QuantityTotal { get; set; }
         
         /// <summary>
-        /// Gets a path that can be used to uniquely identify the part in the zip file.
-        /// <remarks>Only useful for Nesting optimizations.</remarks>
+        /// Gets or sets the name of the generated nesting program for the part.
         /// </summary>
         [JsonProperty(Order = 70)]
-        public string ZipIdentifier { get; set; }
+        public string ProgramName { get; set; }
 
         /// <summary>
         /// Gets the list of patterns in which the part is contained including the quantity of the part in the pattern.
