@@ -24,7 +24,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         var materialManagerClient = classInstance.GetMaterialManagerClient();
         var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
         {
-            EdgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM",
+            EdgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM",
             Height = 100,
             Thickness = 1.0,
             DefaultLength = 100.0,
@@ -32,13 +32,24 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
             Process = EdgebandingProcess.Other,
         };
         var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
+
+        var edgebandTypeRequest2 = new MaterialManagerRequestEdgebandType
+        {
+            EdgebandCode = "Test_Data_ABS_Black_1.20_23.0_ZJ",
+            Height = 100,
+            Thickness = 1.2,
+            DefaultLength = 100.0,
+            MaterialCategory = EdgebandMaterialCategory.ABS,
+            Process = EdgebandingProcess.Other,
+        };
+        var newEdgebandType2 = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest2);
     }
 
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypeByEdgebandCode()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
+        var edgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM";
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCode(materialManagerClient.Material.Edgebands, edgebandCode);
     }
 
@@ -46,7 +57,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypeByEdgebandCodeIncludingDetails()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
+        var edgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM";
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCode);
     }
 
@@ -68,7 +79,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodes()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
+        var edgebandCodes = new List<string> { "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", "Test_Data_ABS_Black_1.20_23.0_ZJ" };
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodes(materialManagerClient.Material.Edgebands, edgebandCodes);
     }
 
@@ -76,7 +87,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodesIncludingDetails()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
+        var edgebandCodes = new List<string> { "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", "Test_Data_ABS_Black_1.20_23.0_ZJ" };
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCodes);
     }
     
@@ -101,6 +112,6 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     {
         var classInstance = new ReadEdgebandTypeTests();
         var materialManagerClient = classInstance.GetMaterialManagerClient();
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_Abruzzo_colore_1.00_100.0_HM");
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM");
     }
 }

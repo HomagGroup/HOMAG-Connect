@@ -1,6 +1,8 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
 {
@@ -13,42 +15,68 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new GetEdgebandsTests();
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
+
+            try
+            {
+                var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+                {
+                    EdgebandCode = "Test_Data_ABS_White_1mm",
+                    Height = 20,
+                    Thickness = 1.0,
+                    DefaultLength = 23.0,
+                    MaterialCategory = EdgebandMaterialCategory.Veneer,
+                    Process = EdgebandingProcess.Other,
+                };
+                await MaterialManagerClient.CreateEdgebandType(edgebandTypeRequest);
+            }
+            catch { }
+
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-
-            var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
+            try
             {
-                Id = "33",
-                EdgebandCode = "Test_Data_ABS_White_1mm",
-                ManagementType = ManagementType.Single,
-                Quantity = 1,
-                Length = 50,
-                CurrentThickness = 1.0
-            };
-            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
-
-            var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
+                var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
+                {
+                    Id = "33",
+                    EdgebandCode = "Test_Data_ABS_White_1mm",
+                    ManagementType = ManagementType.Single,
+                    Quantity = 1,
+                    Length = 50,
+                    CurrentThickness = 1.0
+                };
+                await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
+            }
+            catch { }
+            try
             {
-                Id = "34",
-                EdgebandCode = "Test_Data_ABS_White_1mm",
-                ManagementType = ManagementType.Single,
-                Quantity = 1,
-                Length = 50,
-                CurrentThickness = 1.0
-            };
-            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
-
-            var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
+                var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
+                {
+                    Id = "34",
+                    EdgebandCode = "Test_Data_ABS_White_1mm",
+                    ManagementType = ManagementType.Single,
+                    Quantity = 1,
+                    Length = 50,
+                    CurrentThickness = 1.0
+                };
+                await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
+            }
+            catch { }
+            try
             {
-                Id = "35",
-                EdgebandCode = "Test_Data_ABS_White_1mm",
-                ManagementType = ManagementType.Single,
-                Quantity = 1,
-                Length = 50,
-                CurrentThickness = 1.0
-            };
-            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
+                var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
+                {
+                    Id = "35",
+                    EdgebandCode = "Test_Data_ABS_White_1mm",
+                    ManagementType = ManagementType.Single,
+                    Quantity = 1,
+                    Length = 50,
+                    CurrentThickness = 1.0
+                };
+                await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
+            }
+            catch { }
         }
-
+           
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntities()
         {
@@ -98,13 +126,15 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
             await GetEndgebandEntitiesSamples.Edgebands_GetWorkstations(MaterialAssistClient);
         }
 
-
         [ClassCleanup]
         public static async Task Cleanup()
         {
             var classInstance = new GetEdgebandsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             await MaterialAssistClient.DeleteEdgebandEntity(["33", "34", "35"]);
+
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
+            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
         }
     }
 }

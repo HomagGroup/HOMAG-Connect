@@ -29,7 +29,7 @@ public class UpdateBoardEntitiesSamples
     {
         var boardEntityStore = new MaterialAssistStoreBoardEntity()
         {
-            Id = "41113",
+            Id = "41111",
             Length = 100,
             Width = 70,
             StorageLocation = new StorageLocation()
@@ -44,7 +44,7 @@ public class UpdateBoardEntitiesSamples
     {
         var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
         {
-            Id = "41113",
+            Id = "41111",
             Length = 100,
             Width = 70,
             Comments = "This is a comment",

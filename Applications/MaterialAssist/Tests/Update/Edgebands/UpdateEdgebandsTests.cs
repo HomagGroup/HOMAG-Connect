@@ -16,8 +16,24 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
         public static async Task Initialie(TestContext testContext)
         {
             var classInstance = new UpdateEdgebandsTests();
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
 
+            try
+            {
+                var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+                {
+                    EdgebandCode = "Test_Data_ABS_White_1mm",
+                    Height = 20,
+                    Thickness = 1.0,
+                    DefaultLength = 23.0,
+                    MaterialCategory = EdgebandMaterialCategory.Veneer,
+                    Process = EdgebandingProcess.Other,
+                };
+                await MaterialManagerClient.CreateEdgebandType(edgebandTypeRequest);
+            }
+            catch { }
+
+            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = "43",
@@ -93,6 +109,9 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
             var classInstance = new UpdateEdgebandsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             await MaterialAssistClient.DeleteEdgebandEntity(["43", "44", "45"]);
+
+            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
+            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
         }
         */
     }

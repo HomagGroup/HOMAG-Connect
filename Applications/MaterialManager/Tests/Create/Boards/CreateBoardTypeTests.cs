@@ -19,8 +19,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
         public async Task BoardsCreateBoardType()
         {
             var materialManagerClient = GetMaterialManagerClient();
-            var materialCode = "HPL_F274_9_12.0";
-            var boardCode = "HPL_F274_9_12.0_4100.0_650.0";
+            var materialCode = "Test_Data_HPL_F274_9_12.0";
+            var boardCode = "Test_Data_HPL_F274_9_12.0_4100.0_650.0";
             await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards, materialCode, boardCode);
         }
 
@@ -28,8 +28,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
         public async Task BoardsCreateBoardType_AdditionalData()
         {
             var materialManagerClient = GetMaterialManagerClient();
-            var materialCode = "HPL_F274_9_12.01";
-            var boardCode = "HPL_F274_9_12.0_4100.0_650.01";
+            var materialCode = "Test_Data_HPL_F274_9_12.0";
+            var boardCode = "Test_Data_HPL_F274_9_12.0_4100.0_650.01";
             await CreateBoardTypeSamples.Boards_CreateBoardType_AdditionalData(materialManagerClient.Material.Boards, materialCode, boardCode);
         }
 
@@ -58,8 +58,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
         {
             var classInstance = new CreateBoardTypeTests();
             var materialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            await materialManagerClient.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
-            await materialManagerClient.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.01");
+            await materialManagerClient.DeleteBoardType("Test_Data_HPL_F274_9_12.0_4100.0_650.0");
+            await materialManagerClient.DeleteBoardType("Test_Data_HPL_F274_9_12.0_4100.0_650.01");
         }
 
         private static MaterialManagerRequestBoardType CreateBoardTypeRequest(string materialCode, string boardCode, double length, double width,

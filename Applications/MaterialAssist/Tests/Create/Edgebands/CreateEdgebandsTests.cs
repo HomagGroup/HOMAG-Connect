@@ -9,37 +9,43 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
     [TestCategory("MaterialAssist.Edgebands")]
     public class CreateEdgebandsTests : MaterialAssistTestBase
     {
+        [TestInitialize]
+        public async Task Initialize()
+        {
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+
+            try
+            {
+                var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+                {
+                    EdgebandCode = "Test_Data_ABS_White_1mm",
+                    Height = 20,
+                    Thickness = 1.0,
+                    DefaultLength = 23.0,
+                    MaterialCategory = EdgebandMaterialCategory.Veneer,
+                    Process = EdgebandingProcess.Other,
+                };
+                await MaterialManagerClient.CreateEdgebandType(edgebandTypeRequest);
+            }
+            catch { }
+        
+        }
+
         [TestMethod]
         public async Task EdgebandsCreateEdgebandEntity()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
             await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "16");
         }
-        /*
-        [TestMethod]
-        public async Task create()
-        {
-            var client = GetMaterialManagerClient().Material.Edgebands;
-            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
-            {
-                EdgebandCode = "ABS_White_2mm",
-                Height = 20,
-                Thickness = 1.0,
-                DefaultLength = 23.0,
-                MaterialCategory = EdgebandMaterialCategory.Veneer,
-                Process = EdgebandingProcess.Other,
-            };
-            await client.CreateEdgebandType(edgebandTypeRequest);
-        }
-        */
+        
         [TestCleanup]
         public async Task Cleanup()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
             await MaterialAssistClient.DeleteEdgebandEntity("16");
-            /*
-            var client = GetMaterialManagerClient().Material.Edgebands;
-            await client.DeleteEdgebandType("ABS_White_2mm");*/
+            
+            var MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
         }
     }
 }
