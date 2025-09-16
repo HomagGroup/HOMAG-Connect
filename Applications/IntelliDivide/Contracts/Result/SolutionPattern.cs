@@ -58,6 +58,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         public string ProgramName { get; set; }
 
+        /// <summary>
+        /// Gets a path that can be used to uniquely identify the pattern in the zip file.
+        /// <remarks>Only useful for Nesting optimizations.</remarks>
+        /// </summary>
+        [JsonProperty(Order = 70)]
+        public string ZipIdentifier { get; set; }
+
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
         public ExtensionDataObject ExtensionData { get; set; }
