@@ -134,7 +134,11 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
             await MaterialAssistClient.DeleteEdgebandEntity(["33", "34", "35"]);
 
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
-            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
+            try
+            {
+                await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
+            }
+            catch { }
         }
     }
 }
