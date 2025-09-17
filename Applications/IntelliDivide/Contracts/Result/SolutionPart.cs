@@ -37,6 +37,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public int QuantityTotal { get; set; }
         
         /// <summary>
+        /// Gets or sets the name of the generated nesting program for the part.
+        /// </summary>
+        [JsonProperty(Order = 70)]
+        public string ProgramName { get; set; }
+
+        /// <summary>
         /// Gets the list of patterns in which the part is contained including the quantity of the part in the pattern.
         /// </summary>
         [JsonProperty(Order = 80)]
