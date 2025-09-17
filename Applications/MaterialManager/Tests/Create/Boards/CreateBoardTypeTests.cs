@@ -19,8 +19,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
         public async Task BoardsCreateBoardType()
         {
             var materialManagerClient = GetMaterialManagerClient();
-            var materialCode = "Test_Data_HPL_F274_9_12.0";
-            var boardCode = "Test_Data_HPL_F274_9_12.0_4100.0_650.0";
+            var materialCode = "Test_Data_HPL_F274_9_12.5";
+            var boardCode = "Test_Data_HPL_F274_9_12.5_4100.0_650.0";
             await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards, materialCode, boardCode);
         }
 
@@ -58,7 +58,7 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
         {
             var classInstance = new CreateBoardTypeTests();
             var materialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            await materialManagerClient.DeleteBoardType("Test_Data_HPL_F274_9_12.0_4100.0_650.0");
+            await materialManagerClient.DeleteBoardType("Test_Data_HPL_F274_9_12.5_4100.0_650.0");
             await materialManagerClient.DeleteBoardType("Test_Data_HPL_F274_9_12.0_4100.0_650.01");
         }
 
