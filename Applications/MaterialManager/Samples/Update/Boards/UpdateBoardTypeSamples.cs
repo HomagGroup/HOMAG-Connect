@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
         {
             var boardTypeUpdate = new MaterialManagerUpdateBoardType
             {
-                Thickness = 12.5,
+                Thickness = 15.0,
                 // Add other properties
             };
             var updatedBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate);

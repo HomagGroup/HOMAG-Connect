@@ -16,35 +16,8 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     {
         var classInstance = new ReadEdgebandTypeTests();
         var materialManagerClient = classInstance.GetMaterialManagerClient();
-        try 
-        {
-            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
-            {
-                EdgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM",
-                Height = 100,
-                Thickness = 1.0,
-                DefaultLength = 100.0,
-                MaterialCategory = EdgebandMaterialCategory.ABS,
-                Process = EdgebandingProcess.Other,
-            };
-            var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
-        }
-        catch { }
-
-        try 
-        {
-            var edgebandTypeRequest2 = new MaterialManagerRequestEdgebandType
-            {
-                EdgebandCode = "Test_Data_ABS_Black_1.20_23.0_ZJ",
-                Height = 100,
-                Thickness = 1.2,
-                DefaultLength = 100.0,
-                MaterialCategory = EdgebandMaterialCategory.ABS,
-                Process = EdgebandingProcess.Other,
-            };
-            var newEdgebandType2 = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest2);
-        }
-        catch { }
+        await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", 1.0, 100.0);
+        await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_Black_1.20_23.0_ZJ", 1.2, 23.0);
     }
 
     [TestMethod]
