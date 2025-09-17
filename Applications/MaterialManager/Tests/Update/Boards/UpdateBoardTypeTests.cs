@@ -1,13 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Create.Boards;
 using HomagConnect.MaterialManager.Samples.Update.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Boards
 {

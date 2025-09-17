@@ -1,12 +1,6 @@
 ﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Create.Boards;
 using HomagConnect.MaterialManager.Samples.Read.Edgebands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Edgebands;
 
@@ -22,27 +16,35 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     {
         var classInstance = new ReadEdgebandTypeTests();
         var materialManagerClient = classInstance.GetMaterialManagerClient();
-        var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+        try 
         {
-            EdgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM",
-            Height = 100,
-            Thickness = 1.0,
-            DefaultLength = 100.0,
-            MaterialCategory = EdgebandMaterialCategory.ABS,
-            Process = EdgebandingProcess.Other,
-        };
-        var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
+            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+            {
+                EdgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM",
+                Height = 100,
+                Thickness = 1.0,
+                DefaultLength = 100.0,
+                MaterialCategory = EdgebandMaterialCategory.ABS,
+                Process = EdgebandingProcess.Other,
+            };
+            var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
+        }
+        catch { }
 
-        var edgebandTypeRequest2 = new MaterialManagerRequestEdgebandType
+        try 
         {
-            EdgebandCode = "Test_Data_ABS_Black_1.20_23.0_ZJ",
-            Height = 100,
-            Thickness = 1.2,
-            DefaultLength = 100.0,
-            MaterialCategory = EdgebandMaterialCategory.ABS,
-            Process = EdgebandingProcess.Other,
-        };
-        var newEdgebandType2 = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest2);
+            var edgebandTypeRequest2 = new MaterialManagerRequestEdgebandType
+            {
+                EdgebandCode = "Test_Data_ABS_Black_1.20_23.0_ZJ",
+                Height = 100,
+                Thickness = 1.2,
+                DefaultLength = 100.0,
+                MaterialCategory = EdgebandMaterialCategory.ABS,
+                Process = EdgebandingProcess.Other,
+            };
+            var newEdgebandType2 = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest2);
+        }
+        catch { }
     }
 
     [TestMethod]

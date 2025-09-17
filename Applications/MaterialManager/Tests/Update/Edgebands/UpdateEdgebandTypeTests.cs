@@ -1,12 +1,6 @@
 ﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Create.Edgebands;
 using HomagConnect.MaterialManager.Samples.Update.Edgebands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
 {
@@ -22,16 +16,20 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         {
             var classInstance = new UpdateEdgebandTypeTests();
             var materialManagerClient = classInstance.GetMaterialManagerClient();
-            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+            try
             {
-                EdgebandCode = "Test_Data_ABS_White_2mm",
-                Height = 20,
-                Thickness = 1.0,
-                DefaultLength = 23.0,
-                MaterialCategory = EdgebandMaterialCategory.Veneer,
-                Process = EdgebandingProcess.Other,
-            };
-            var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
+                var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+                {
+                    EdgebandCode = "Test_Data_ABS_White_2mm",
+                    Height = 20,
+                    Thickness = 1.0,
+                    DefaultLength = 23.0,
+                    MaterialCategory = EdgebandMaterialCategory.Veneer,
+                    Process = EdgebandingProcess.Other,
+                };
+                var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
+            }
+            catch { }
         }
 
         [TestMethod]
