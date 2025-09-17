@@ -113,5 +113,6 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         var classInstance = new ReadEdgebandTypeTests();
         var materialManagerClient = classInstance.GetMaterialManagerClient();
         await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM");
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_Black_1.20_23.0_ZJ");
     }
 }

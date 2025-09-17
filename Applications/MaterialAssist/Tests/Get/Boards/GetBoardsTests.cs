@@ -154,8 +154,17 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
             await MaterialAssistClient.DeleteBoardEntities(["31111", "31112", "31113"]);
 
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            await MaterialManagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_11.6_2800.0_1310.0");
-            await MaterialManagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800.0_2070.0");
+            try
+            {
+                await MaterialManagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_11.6_2800.0_1310.0");
+            }
+            catch { }
+
+            try
+            {
+                await MaterialManagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800.0_2070.0");
+            }
+            catch { }
         }
     }
 }

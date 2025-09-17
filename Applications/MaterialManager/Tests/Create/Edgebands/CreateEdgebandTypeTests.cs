@@ -23,15 +23,6 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
         await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
     }
 
-    [ClassCleanup]
-    public static async Task Cleanup()
-    {
-        var classInstance = new CreateEdgebandTypeTests();
-        var materialManagerClient = classInstance.GetMaterialManagerClient();
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_White_3mm");
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
-    }
-
     /// <summary />
     [TestMethod]
     [DataRow(null, 20, 1.2, 150)] // EdgebandCode not set
@@ -58,6 +49,15 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
 
         await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType_AdditionalData(
             materialManagerClient.Material.Edgebands, edgebandCode);
+    }
+
+    [ClassCleanup]
+    public static async Task Cleanup()
+    {
+        var classInstance = new CreateEdgebandTypeTests();
+        var materialManagerClient = classInstance.GetMaterialManagerClient();
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_White_3mm");
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
     }
 
     private static MaterialManagerRequestEdgebandType CreateEdgebandTypeRequest(string edgebandCode, double height, double thickness, double length)
