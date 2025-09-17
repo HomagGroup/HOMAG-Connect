@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 
@@ -10,8 +9,8 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Order;
 /// <summary>
 /// Gets or sets an event that occurs when an order has been released.
 /// </summary>
-[AppEvent("OrderReleaseReset")]
-public class OrderReleaseResetEvent : AppEvent
+[AppEvent("OrderResetRelease")]
+public class OrderResetReleaseEvent : AppEvent
 {
     /// <summary>
     /// Gets or sets the order id that has been released.
