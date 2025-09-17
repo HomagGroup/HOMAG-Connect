@@ -131,7 +131,9 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         {
             var classInstance = new GetEdgebandsTests();
             var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-            await MaterialAssistClient.DeleteEdgebandEntity(["33", "34", "35"]);
+            await MaterialAssistClient.DeleteEdgebandEntity("33");
+            await MaterialAssistClient.DeleteEdgebandEntity("34");
+            await MaterialAssistClient.DeleteEdgebandEntity("35");
 
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
             try
