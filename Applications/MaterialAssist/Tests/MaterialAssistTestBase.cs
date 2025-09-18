@@ -119,7 +119,7 @@ namespace HomagConnect.MaterialAssist.Tests
             return new MaterialManagerClient(httpClient);
         }
 
-        protected async Task EnsureBoardTypeExists(string materialCode, double length = 2800.0, double width = 2070.0)
+        protected async Task EnsureBoardTypeExists(string materialCode, double length = 2800, double width = 2070)
         {
             var materialManagerClient = GetMaterialManagerClient();
 

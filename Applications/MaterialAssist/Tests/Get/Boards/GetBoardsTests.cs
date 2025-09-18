@@ -26,7 +26,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
                 var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
                 {
                     Id = "31111",
-                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800.0_2070.0",
+                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
                     ManagementType = ManagementType.Single,
                     Quantity = 1
                 };
@@ -38,7 +38,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
                 var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
                 {
                     Id = "31112",
-                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800.0_2070.0",
+                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
                     ManagementType = ManagementType.Stack,
                     Quantity = 5
                 };
@@ -50,7 +50,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
                 var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
                 {
                     Id = "31113",
-                    BoardCode = "Test_Data_EG_H3303_ST10_19_2800.0_2070.0",
+                    BoardCode = "Test_Data_EG_H3303_ST10_19_2800_2070",
                     ManagementType = ManagementType.GoodsInStock,
                     Quantity = 5
                 };
@@ -84,14 +84,14 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
         public async Task BoardsGetBoardEntitiesByBoardCode()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(MaterialAssistClient, "Test_Data_MDF_H3171_12_19.0_2800.0_2070.0");
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(MaterialAssistClient, "Test_Data_MDF_H3171_12_19.0_2800_2070");
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesByBoardCodes()
         {
             var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClient, ["Test_Data_MDF_H3171_12_19.0_2800.0_2070.0", "Test_Data_EG_H3303_ST10_19_2800.0_2070.0"]);
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClient, ["Test_Data_MDF_H3171_12_19.0_2800_2070", "Test_Data_EG_H3303_ST10_19_2800_2070"]);
         }
 
         [TestMethod]
@@ -133,8 +133,8 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
             await MaterialAssistClient.DeleteBoardEntity("31113");
 
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            await MaterialManagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_19.0_2800.0_2070.0");
-            await MaterialManagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800.0_2070.0");
+            await MaterialManagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_19.0_2800_2070");
+            await MaterialManagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800_2070");
         }
     }
 }

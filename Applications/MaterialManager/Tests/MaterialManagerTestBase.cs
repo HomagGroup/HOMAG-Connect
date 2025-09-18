@@ -32,7 +32,7 @@ public class MaterialManagerTestBase : TestBase
         return new MaterialManagerClient(httpClient);
     }
 
-    protected async Task EnsureBoardTypeExist(string materialCode)
+    protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800.0, double width = 2070.0)
     {
         var materialManagerClient = GetMaterialManagerClient();
 
@@ -60,11 +60,11 @@ public class MaterialManagerTestBase : TestBase
             await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
             {
                 MaterialCode = materialCode,
-                BoardCode = $"{materialCode}_2800_2070",
+                BoardCode = $"{materialCode}_{length}_{width}",
                 Thickness = 19.0,
                 Grain = Grain.None,
-                Width = 2070,
-                Length = 2800,
+                Width = width,
+                Length = length,
                 Type = BoardTypeType.Board,
                 CoatingCategory = CoatingCategory.Undefined,
                 MaterialCategory = BoardMaterialCategory.Undefined

@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         [TestInitialize]
         public async Task Initialize()
         {
-            await EnsureBoardTypeExists("XTest_Data_EG_H3303_ST10_19", 1000.0, 500.0);
+            await EnsureBoardTypeExists("XTest_Data_EG_H3303_ST10_19", 1000, 500);
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
             await MaterialAssistClient.DeleteBoardEntity("11114");
 
             var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
-            await MaterialManagerClient.DeleteBoardType("XTest_Data_EG_H3303_ST10_19_1000.0_500.0");
+            await MaterialManagerClient.DeleteBoardType("XTest_Data_EG_H3303_ST10_19_1000_500");
         }
     }
 }
