@@ -12,23 +12,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
         [TestInitialize]
         public async Task Initialize()
         {
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
-
-            try
-            {
-                var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
-                {
-                    EdgebandCode = "Test_Data_ABS_White_1mm",
-                    Height = 20,
-                    Thickness = 1.0,
-                    DefaultLength = 23.0,
-                    MaterialCategory = EdgebandMaterialCategory.Veneer,
-                    Process = EdgebandingProcess.Other,
-                };
-                await MaterialManagerClient.CreateEdgebandType(edgebandTypeRequest);
-            }
-            catch { }
-        
+            await EnsureEdgebandTypeExists("Test_Data_ABS_White_1mm");
         }
 
         [TestMethod]
