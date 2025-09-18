@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "228f2e8f-b756-4c11-9ac1-f758ad6c533d",
+		"_postman_id": "461077c0-8052-402b-8ce9-32aea76005e1",
 		"name": "Homag Connect productionManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -128,6 +128,65 @@
 										"productionManager",
 										"orders",
 										"import"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import parts via template",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/DH10KTR/Downloads/Import-Excel-English-Part-List-pM.xlsx"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orders/import/templates{{templateId}}",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders",
+										"import",
+										"templates{{templateId}}"
+									],
+									"query": [
+										{
+											"key": "orderName",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get import templates",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orders/import/templates",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders",
+										"import",
+										"templates"
 									]
 								}
 							},
@@ -363,7 +422,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots",
+									"raw": "{{ConnectHost}}/api/productionManager/lots/add",
 									"host": [
 										"{{ConnectHost}}"
 									],
