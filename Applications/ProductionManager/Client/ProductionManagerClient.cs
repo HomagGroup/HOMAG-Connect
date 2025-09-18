@@ -121,6 +121,41 @@ namespace HomagConnect.ProductionManager.Client
             throw new TimeoutException();
         }
 
+        /// <inheritdoc />
+        public async Task<ImportOrderStateResponse> ImportViaTemplateAsync(string templateId, FileInfo importFile, string? orderName = null)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            var requestUri = $"api/productionManager/orders/import/templates/{templateId}";
+
+            if (!string.IsNullOrEmpty(orderName))
+            {
+                requestUri += $"?orderName={Uri.EscapeDataString(orderName)}";
+            }
+
+            if (!importFile.Exists)
+            {
+                throw new FileNotFoundException($"Project file '{importFile.FullName}' was not found.");
+            }
+
+            var fileName = importFile.Name;
+
+            using var stream = importFile.OpenRead();
+            request.RequestUri = new Uri(requestUri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            HttpContent streamContent = new StreamContent(stream);
+            httpContent.Add(streamContent, fileName, fileName);
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderStateResponse>(result, SerializerSettings.Default);
+            return responseObject ?? new ImportOrderStateResponse();
+        }
+
         #endregion
 
         #region Order overview
@@ -167,6 +202,13 @@ namespace HomagConnect.ProductionManager.Client
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return await RequestEnumerableAsync<OrderDetails>(uris);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<ImportTemplate>?> GetImportTemplates()
+        {
+            var url = "/api/productionManager/orders/import/templates";
+            return await RequestEnumerable<ImportTemplate>(new Uri(url, UriKind.Relative));
         }
 
         #endregion
