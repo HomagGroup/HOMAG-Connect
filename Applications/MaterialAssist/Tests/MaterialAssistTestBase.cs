@@ -33,6 +33,7 @@ namespace HomagConnect.MaterialAssist.Tests
             return new MaterialAssistClient(httpClient);
         }
 
+        /*
         protected async Task EnsureBoardEntityExist(string id, string boardCode, ManagementType managementType = ManagementType.Single, Int32 quantity = 1)
         {
             var materialAssistClient = GetMaterialAssistClient();
@@ -102,6 +103,7 @@ namespace HomagConnect.MaterialAssist.Tests
                 });
             }
         }
+        */
 
         protected MaterialManagerClient GetMaterialManagerClient()
         {
