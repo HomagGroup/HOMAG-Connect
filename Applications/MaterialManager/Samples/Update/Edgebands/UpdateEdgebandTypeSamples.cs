@@ -12,11 +12,10 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
         {
             var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
             {
-                Thickness = 1.1,
+                Thickness = 2.0,
                 // Add other properties
             };
             var updatedEdgebandType = await materialManager.UpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
-            Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.EdgebandCode}");
         }
 
         /// <summary>

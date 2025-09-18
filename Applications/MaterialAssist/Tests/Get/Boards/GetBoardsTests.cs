@@ -1,112 +1,135 @@
-﻿using HomagConnect.Base.TestBase;
+﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialAssist.Contracts.Request;
-using HomagConnect.MaterialAssist.Samples.Create.Boards;
-using HomagConnect.MaterialAssist.Samples.Delete.Boards;
 using HomagConnect.MaterialAssist.Samples.Get.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Get.Boards
 {
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
     public class GetBoardsTests : MaterialAssistTestBase
     {
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
-            {
-                Id = "42",
-                BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-                ManagementType = ManagementType.Single,
-                Quantity = 1
-            };
-            var newBoardEntitySingle = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestSingle);
+            var classInstance = new GetBoardsTests();
 
-            var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
-            {
-                Id = "50",
-                BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-                ManagementType = ManagementType.Stack,
-                Quantity = 5
-            };
-            var newBoardEntityStack = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestStack);
+            await classInstance.EnsureBoardTypeExists("Test_Data_MDF_H3171_12_19.0");
+            await classInstance.EnsureBoardTypeExists("Test_Data_EG_H3303_ST10_19");
 
-            var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
+            // TODO: Ensure entity exists
+            var materialAssistClient = classInstance.GetMaterialAssistClient().Boards;
+            try
             {
-                Id = "23",
-                BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
-                ManagementType = ManagementType.GoodsInStock,
-                Quantity = 5
-            };
-            var newBoardEntityGoodsInStock = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
+                var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
+                {
+                    Id = "31111",
+                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
+                    ManagementType = ManagementType.Single,
+                    Quantity = 1
+                };
+                var newBoardEntitySingle = await materialAssistClient.CreateBoardEntity(boardEntityRequestSingle);
+            }
+            catch { }
+            try
+            {
+                var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
+                {
+                    Id = "31112",
+                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
+                    ManagementType = ManagementType.Stack,
+                    Quantity = 5
+                };
+                var newBoardEntityStack = await materialAssistClient.CreateBoardEntity(boardEntityRequestStack);
+            }
+            catch { }
+            try
+            {
+                var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
+                {
+                    Id = "31113",
+                    BoardCode = "Test_Data_EG_H3303_ST10_19_2800_2070",
+                    ManagementType = ManagementType.GoodsInStock,
+                    Quantity = 5
+                };
+                var newBoardEntityGoodsInStock = await materialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
+            }
+            catch { }
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntities()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntities(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntities(materialAssistClient);
+            // TODO: Add asserts
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntityById()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(MaterialAssistClient, "42");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(materialAssistClient, "31111");
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetBoardEntitiesById()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(MaterialAssistClient, ["42", "50", "23"]);
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(materialAssistClient, ["31111", "31112", "31113"]);
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetBoardEntitiesByBoardCode()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(MaterialAssistClient, "MDF_H3171_12_11.6_2800.0_1310.0");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(materialAssistClient, "Test_Data_MDF_H3171_12_19.0_2800_2070");
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetBoardEntitiesByBoardCodes()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClient, ["MDF_H3171_12_11.6_2800.0_1310.0", "RP_EG_H3303_ST10_19_2800.0_2070.0"]);
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(materialAssistClient, ["Test_Data_MDF_H3171_12_19.0_2800_2070", "Test_Data_EG_H3303_ST10_19_2800_2070"]);
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetBoardEntitiesByMaterialCode()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClient, "EG_H3303_ST10_19");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(materialAssistClient, "Test_Data_EG_H3303_ST10_19");
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetBoardEntitiesByMaterialCodes()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClient, ["EG_H3303_ST10_19"]);
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(materialAssistClient, ["Test_Data_EG_H3303_ST10_19", "Test_Data_MDF_H3171_12_19.0"]);
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetStorageLocations()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetStorageLocations(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetStorageLocations(materialAssistClient);
+            // TODO: Add asserts
         }
 
+        [TestMethod]
         public async Task BoardsGetWorkstations()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetWorkstations(MaterialAssistClient);
-        }
-
-        [ClassCleanup]
-        public async Task Cleanup()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetWorkstations(materialAssistClient);
+            // TODO: Add asserts
         }
     }
 }

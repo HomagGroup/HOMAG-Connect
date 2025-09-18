@@ -18,9 +18,9 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
             {
                 EdgebandCode = edgebandCode,
                 Height = 20,
-                Thickness = 1.0,
+                Thickness = 3.0,
                 DefaultLength = 23.0,
-                MaterialCategory = EdgebandMaterialCategory.Veneer,
+                MaterialCategory = EdgebandMaterialCategory.ABS,
                 Process = EdgebandingProcess.Other,
             };
             var newEdgebandType = await materialManager.CreateEdgebandType(edgebandTypeRequest);

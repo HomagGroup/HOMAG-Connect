@@ -30,13 +30,13 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
         // GetById
         public static async Task Edgebands_GetEdgebandEntityById(MaterialAssistClientEdgebands materialAssist)
         {
-            var edgebandEntity = await materialAssist.GetEdgebandEntityById("42");
+            var edgebandEntity = await materialAssist.GetEdgebandEntityById("33");
             Console.WriteLine(edgebandEntity);
         }
 
         public static async Task Edgebands_GetEdgebandEntitiesByIds(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> ids = ["42"];
+            List<string> ids = ["33", "34", "35"];
             var edgebandEntities = await materialAssist.GetEdgebandEntitiesByIds(ids);
             foreach (var edgebandEntity in edgebandEntities)
             {
@@ -47,13 +47,13 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
         // GetByEdgebandCode
         public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCode(MaterialAssistClientEdgebands materialAssist)
         {
-            var edgebandEntity = await materialAssist.GetEdgebandEntitiesByEdgebandCode("White Edgeband 19mm");
+            var edgebandEntity = await materialAssist.GetEdgebandEntitiesByEdgebandCode("Test_Data_ABS_White_1mm");
             Console.WriteLine(edgebandEntity);
         }
 
         public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCodes(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> allEdgebandCodes = ["White Edgeband 19mm", "ABS_Schwarz_2_23_HM"];
+            List<string> allEdgebandCodes = ["Test_Data_ABS_White_1mm"];
             var allEdgebandEntities = await materialAssist.GetEdgebandEntitiesByEdgebandCodes(allEdgebandCodes);
             foreach (var edgebandEntity in allEdgebandEntities)
             {
