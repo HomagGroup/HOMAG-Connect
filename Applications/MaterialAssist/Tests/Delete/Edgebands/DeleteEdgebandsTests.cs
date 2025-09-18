@@ -1,8 +1,6 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
 {
@@ -17,7 +15,8 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
             var classInstance = new DeleteEdgebandsTests();
             await classInstance.EnsureEdgebandTypeExists("Test_Data_ABS_White_1mm");
 
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
+            // TODO: Ensure entity exists
+            var materialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = "23",
@@ -27,7 +26,7 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
                 Length = 50,
                 CurrentThickness = 1.0
             };
-            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
+            await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
 
             var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
             {
@@ -38,7 +37,7 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
                 Length = 50,
                 CurrentThickness = 1.0
             };
-            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
+            await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
 
             var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
             {
@@ -49,29 +48,21 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
                 Length = 50,
                 CurrentThickness = 1.0
             };
-            await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
+            await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
         }
 
         [TestMethod]
         public async Task EdgebandsDeleteEdgebandEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(MaterialAssistClient, "23");
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(materialAssistClient, "23");
         }
 
         [TestMethod]
         public async Task EdgebandsDeleteEdgebandEntities()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(MaterialAssistClient, ["24", "25"]);
-        }
-
-        [ClassCleanup]
-        public static async Task Cleanup()
-        {
-            var classInstance = new DeleteEdgebandsTests();
-            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
-            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(materialAssistClient, ["24", "25"]);
         }
     }
 }

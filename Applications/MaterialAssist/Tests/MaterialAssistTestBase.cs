@@ -4,9 +4,7 @@ using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase;
 using HomagConnect.MaterialAssist.Client;
-using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
@@ -33,6 +31,7 @@ namespace HomagConnect.MaterialAssist.Tests
             return new MaterialAssistClient(httpClient);
         }
 
+        // TODO: re-enable later
         /*
         protected async Task EnsureBoardEntityExist(string id, string boardCode, ManagementType managementType = ManagementType.Single, Int32 quantity = 1)
         {
@@ -123,7 +122,7 @@ namespace HomagConnect.MaterialAssist.Tests
         {
             var materialManagerClient = GetMaterialManagerClient();
 
-            IList<BoardType> boardTypes;
+            IList<BoardType>? boardTypes;
 
             try
             {
@@ -142,7 +141,7 @@ namespace HomagConnect.MaterialAssist.Tests
                 }
             }
 
-            if (boardTypes.All(b => b.MaterialCode != materialCode))
+            if (boardTypes != null && boardTypes.All(b => b.MaterialCode != materialCode))
             {
                 await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
                 {
@@ -163,18 +162,18 @@ namespace HomagConnect.MaterialAssist.Tests
         {
             var materialManagerClient = GetMaterialManagerClient();
 
-            IList<EdgebandType> endgebandTypes;
+            IList<EdgebandType?>? edgebandTypes;
 
             try
             {
-                endgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes(new[] { edgebandCode })
+                edgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes(new[] { edgebandCode })
                     .ToListAsync();
             }
             catch (ProblemDetailsException ex)
             {
                 if (ex.Message.Contains("No edgeband types found."))
                 {
-                    endgebandTypes = new List<EdgebandType>();
+                    edgebandTypes = new List<EdgebandType?>();
                 }
                 else
                 {
@@ -182,7 +181,7 @@ namespace HomagConnect.MaterialAssist.Tests
                 }
             }
 
-            if (endgebandTypes.All(b => b.EdgebandCode != edgebandCode))
+            if (edgebandTypes != null && edgebandTypes.All(b => b?.EdgebandCode != edgebandCode))
             {
                 await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
                 {

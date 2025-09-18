@@ -1,8 +1,6 @@
 ﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
 {
@@ -17,7 +15,8 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
             var classInstance = new GetEdgebandsTests();
             await classInstance.EnsureEdgebandTypeExists("Test_Data_ABS_White_1mm");
 
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
+            // TODO: Ensure entity exists
+            var materialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
             try
             {
                 var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
@@ -29,7 +28,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
                     Length = 50,
                     CurrentThickness = 1.0
                 };
-                await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
+                await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
             }
             catch { }
             try
@@ -43,7 +42,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
                     Length = 50,
                     CurrentThickness = 1.0
                 };
-                await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
+                await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
             }
             catch { }
             try
@@ -57,7 +56,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
                     Length = 50,
                     CurrentThickness = 1.0
                 };
-                await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
+                await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
             }
             catch { }
         }
@@ -65,63 +64,51 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntities()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntities(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntities(materialAssistClient);
         }
 
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntityById()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntityById(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntityById(materialAssistClient);
         }
 
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntitiesByIds()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByIds(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByIds(materialAssistClient);
         }
 
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntitiesByEdgebandCode()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCode(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCode(materialAssistClient);
         }
 
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntitiesByEdgebandCodes()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCodes(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCodes(materialAssistClient);
         }
 
         [TestMethod]
         public async Task EdgebandsGetStorageLocations()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetStorageLocations(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetStorageLocations(materialAssistClient);
         }
 
         [TestMethod]
         public async Task EdgebandsGetWorkstations()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await GetEndgebandEntitiesSamples.Edgebands_GetWorkstations(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await GetEndgebandEntitiesSamples.Edgebands_GetWorkstations(materialAssistClient);
         }
-
-        [ClassCleanup]
-        public static async Task Cleanup()
-        {
-            var classInstance = new GetEdgebandsTests();
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-            await MaterialAssistClient.DeleteEdgebandEntity("33");
-            await MaterialAssistClient.DeleteEdgebandEntity("34");
-            await MaterialAssistClient.DeleteEdgebandEntity("35");
-
-            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
-            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
-        }
+        // TODO: Add asserts
     }
 }

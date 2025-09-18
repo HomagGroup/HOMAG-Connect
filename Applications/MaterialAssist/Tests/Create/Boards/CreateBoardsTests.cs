@@ -1,7 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Samples.Create.Boards;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
+﻿using HomagConnect.MaterialAssist.Samples.Create.Boards;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
 {
@@ -13,6 +10,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         [TestInitialize]
         public async Task Initialize()
         {
+            // TODO: use valid names
             await EnsureBoardTypeExists("Test_Data_MDF_H3171_12_19.0");
             await EnsureBoardTypeExists("Test_Data_EG_H3303_ST10_19");
         }
@@ -20,21 +18,17 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         [TestMethod]
         public async Task BoardsCreateBoardEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "11111", "11112", "11113");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await CreateBoardEntitySample.Boards_CreateBoardEntity(materialAssistClient, "11111", "11112", "11113");
         }
 
         [TestCleanup]
         public async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntity("11111");
-            await MaterialAssistClient.DeleteBoardEntity("11112");
-            await MaterialAssistClient.DeleteBoardEntity("11113");
-
-            var MaterialMnagerClient = GetMaterialManagerClient().Material.Boards;
-            await MaterialMnagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_19.0_2800_2070");
-            await MaterialMnagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800_2070");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await materialAssistClient.DeleteBoardEntity("11111");
+            await materialAssistClient.DeleteBoardEntity("11112");
+            await materialAssistClient.DeleteBoardEntity("11113");
         }
     }
 }

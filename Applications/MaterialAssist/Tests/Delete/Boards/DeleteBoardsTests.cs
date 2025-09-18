@@ -1,9 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Contracts.Request;
+﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Samples.Delete.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
 {
@@ -16,11 +13,11 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
         public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new DeleteBoardsTests();
-
             await classInstance.EnsureBoardTypeExists("Test_Data_MDF_H3171_12_19.0");
             await classInstance.EnsureBoardTypeExists("Test_Data_EG_H3303_ST10_19");
 
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
+            // TODO: Ensure entity exists
+            var materialAssistClient = classInstance.GetMaterialAssistClient().Boards;
             var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
             {
                 Id = "21111",
@@ -28,7 +25,7 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
                 ManagementType = ManagementType.Single,
                 Quantity = 1
             };
-            var newBoardEntitySingle = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestSingle);
+            await materialAssistClient.CreateBoardEntity(boardEntityRequestSingle);
 
             var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
             {
@@ -37,7 +34,7 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
                 ManagementType = ManagementType.Stack,
                 Quantity = 5
             };
-            var newBoardEntityStack = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestStack);
+            await materialAssistClient.CreateBoardEntity(boardEntityRequestStack);
 
             var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
             {
@@ -46,30 +43,21 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Boards
                 ManagementType = ManagementType.GoodsInStock,
                 Quantity = 5
             };
-            var newBoardEntityGoodsInStock = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
+            await materialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
         }
 
         [TestMethod]
-        public async Task BoardsGetBoardEntity()
+        public async Task BoardsDeleteBoardEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntity(MaterialAssistClient, "21111");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntity(materialAssistClient, "21111");
         }
 
         [TestMethod]
-        public async Task BoardsGetBoardEntities()
+        public async Task BoardsDeleteBoardEntities()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntities(MaterialAssistClient, ["21112", "21113"]);
-        }
-
-        [ClassCleanup]
-        public static async Task Cleanup()
-        {
-            var classInstance = new DeleteBoardsTests();
-            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            await MaterialManagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_19.0_2800_2070");
-            await MaterialManagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800_2070");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntities(materialAssistClient, ["21112", "21113"]);
         }
     }
 }

@@ -12,24 +12,22 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
         [TestInitialize]
         public async Task Initialize()
         {
+            // TODO: use valid names
             await EnsureEdgebandTypeExists("Test_Data_ABS_White_1mm");
         }
 
         [TestMethod]
         public async Task EdgebandsCreateEdgebandEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(MaterialAssistClient, "16");
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(materialAssistClient, "16");
         }
         
         [TestCleanup]
         public async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await MaterialAssistClient.DeleteEdgebandEntity("16");
-            
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
-            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await materialAssistClient.DeleteEdgebandEntity("16");
         }
     }
 }

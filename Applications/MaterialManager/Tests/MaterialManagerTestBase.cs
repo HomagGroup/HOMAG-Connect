@@ -34,33 +34,29 @@ public class MaterialManagerTestBase : TestBase
 
     protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800.0, double width = 2070.0)
     {
+        var boardCode = $"{materialCode}_{length}_{width}";
         var materialManagerClient = GetMaterialManagerClient();
 
-        IList<BoardType> boardTypes;
+        BoardType? boardType = null;
 
         try
         {
-            boardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes(new[] { materialCode })
-                .ToListAsync();
+            boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
         }
         catch (ProblemDetailsException ex)
         {
-            if (ex.Message.Contains("No board types found."))
-            {
-                boardTypes = new List<BoardType>();
-            }
-            else
+            if (!ex.Message.Contains("No board types found."))
             {
                 throw;
             }
         }
 
-        if (boardTypes.All(b => b.MaterialCode != materialCode))
+        if (boardType == null)
         {
             await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
             {
                 MaterialCode = materialCode,
-                BoardCode = $"{materialCode}_{length}_{width}",
+                BoardCode = boardCode,
                 Thickness = 19.0,
                 Grain = Grain.None,
                 Width = width,
@@ -76,26 +72,21 @@ public class MaterialManagerTestBase : TestBase
     {
         var materialManagerClient = GetMaterialManagerClient();
 
-        IList<EdgebandType> endgebandTypes;
+        EdgebandType? edgebandType = null;
 
         try
         {
-            endgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes(new[] { edgebandCode })
-                .ToListAsync();
+            edgebandType = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
         }
         catch (ProblemDetailsException ex)
         {
-            if (ex.Message.Contains("No edgeband types found."))
-            {
-                endgebandTypes = new List<EdgebandType>();
-            }
-            else
+            if (!ex.Message.Contains("No edgeband types found."))
             {
                 throw;
             }
         }
 
-        if (endgebandTypes.All(b => b.EdgebandCode != edgebandCode))
+        if (edgebandType == null)
         {
             await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
             {

@@ -13,24 +13,22 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         [TestInitialize]
         public async Task Initialize()
         {
+            // TODO: use valid names
             await EnsureBoardTypeExists("XTest_Data_EG_H3303_ST10_19", 1000, 500);
         }
 
         [TestMethod]
         public async Task BoardsCreateOffcutEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(MaterialAssistClient, "11114");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(materialAssistClient, "11114");
         }
 
         [TestCleanup]
         public async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntity("11114");
-
-            var MaterialManagerClient = GetMaterialManagerClient().Material.Boards;
-            await MaterialManagerClient.DeleteBoardType("XTest_Data_EG_H3303_ST10_19_1000_500");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await materialAssistClient.DeleteBoardEntity("11114");
         }
     }
 }

@@ -15,7 +15,6 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public static async Task Initialize(TestContext testContext)
     {
         var classInstance = new ReadEdgebandTypeTests();
-        var materialManagerClient = classInstance.GetMaterialManagerClient();
         await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", 1.0, 100.0);
         await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_Black_1.20_23.0_ZJ", 1.2, 23.0);
     }
@@ -73,21 +72,11 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeInventoryHistoryAsync(materialManagerClient.Material.Edgebands);
     }
     
-    //Edgebands_GetTechnologyMacrosFromMachine missing, no valid argument
-
     [TestMethod]
     public async Task EdgebandsGetLicensedMachines()
     {
         var materialManagerClient = GetMaterialManagerClient();
         await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetLicensedMachines(materialManagerClient.Material.Edgebands);
     }
-
-    [ClassCleanup]
-    public static async Task Cleanup()
-    {
-        var classInstance = new ReadEdgebandTypeTests();
-        var materialManagerClient = classInstance.GetMaterialManagerClient();
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM");
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_Black_1.20_23.0_ZJ");
-    }
+    // TODO: Add asserts
 }

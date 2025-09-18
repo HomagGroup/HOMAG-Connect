@@ -9,15 +9,13 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
     [TestCategory("MaterialAssist.Edgebands")]
     public class UpdateEdgebandsTests : MaterialAssistTestBase
     {
-        /* feature not ready yet
-          
-         
         [ClassInitialize]
-        public static async Task Initialie(TestContext testContext)
+        public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new UpdateEdgebandsTests();
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
 
+            // TODO: ensure data is there
             try
             {
                 var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
@@ -67,52 +65,12 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
             };
             await MaterialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
         }
-
-        [TestMethod]
-        public async Task EdgebandsRemoveAllEdgebandEntitiesFromWorkplace()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await UpdateEdgebandEntitiesSamples.Edgebands_RemoveAllEdgebandEntitiesFromWorkplace(MaterialAssistClient);
-        }
-
-        [TestMethod]
-        public async Task EdgebandsRemoveSingleEdgebandEntitiesFromWorkplace()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await UpdateEdgebandEntitiesSamples.Edgebands_RemoveSingleEdgebandEntitiesFromWorkplace(MaterialAssistClient);
-        }
-
-        [TestMethod]
-        public async Task EdgebandsRemoveSubsetEdgebandEntitiesFromWorkplace()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await UpdateEdgebandEntitiesSamples.Edgebands_RemoveSubsetEdgebandEntitiesFromWorkplace(MaterialAssistClient);
-        }
-
-        [TestMethod]
-        public async Task EdgebandsStoreEdgebandEntities()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await UpdateEdgebandEntitiesSamples.Edgebands_StoreEdgebandEntity(MaterialAssistClient);
-        }
-
+        
         [TestMethod]
         public async Task EdgebandsUpdateEdgebandEntities()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Edgebands;
-            await UpdateEdgebandEntitiesSamples.Edgebands_UpdateEdgebandEntity(MaterialAssistClient);
+            var materialAssistClient = GetMaterialAssistClient().Edgebands;
+            await UpdateEdgebandEntitiesSamples.Edgebands_UpdateEdgebandEntity(materialAssistClient);
         }
-
-        [ClassCleanup]
-        public static async Task Cleanup()
-        {
-            var classInstance = new UpdateEdgebandsTests();
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-            await MaterialAssistClient.DeleteEdgebandEntity(["43", "44", "45"]);
-
-            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Edgebands;
-            await MaterialManagerClient.DeleteEdgebandType("Test_Data_ABS_White_1mm");
-        }
-        */
     }
 }

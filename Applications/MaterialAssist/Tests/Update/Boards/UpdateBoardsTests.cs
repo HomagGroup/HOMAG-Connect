@@ -13,12 +13,10 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 
     public class UpdateBoardsTests : MaterialAssistTestBase
     {
-        /*
-         feature not ready yet
-
         [ClassInitialize]
         public static async Task Initialize(TestContext testContext)
         {
+            // TODO: Ensure data is there
             var classInstance = new UpdateBoardsTests();
             var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
             try
@@ -89,62 +87,13 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
             var newBoardEntityGoodsInStock = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
         }
         
-         
-        [TestMethod]
-        public async Task BoardsRemoveAllBoardEntitiesFromWorkplace()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await UpdateBoardEntitiesSamples.Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClient);
-        }
-
-        [TestMethod]
-        public async Task BoardsRemoveSingleBoardEntitiesFromWorkplace()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await UpdateBoardEntitiesSamples.Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClient);
-        }
-
-        [TestMethod]
-        public async Task BoardsRemoveSubsetBoardEntitiesFromWorkplace()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await UpdateBoardEntitiesSamples.Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClient);
-        }
-
-        [TestMethod]
-        public async Task BoardsStoreBoardEntity()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await UpdateBoardEntitiesSamples.Boards_StoreBoardEntity(MaterialAssistClient);
-        }
-        
-
         [TestMethod]
         public async Task BoardsUpdateBoardEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(MaterialAssistClient);
+            // TODO: Update random value
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(materialAssistClient);
+            // TODO: Add asserts
         }
-
-        [ClassCleanup]
-        public static async Task Cleanup()
-        {
-            var classInstance = new UpdateBoardsTests();
-            var MaterialAssistClient = classInstance.GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["41111", "41112", "41113"]);
-
-            var MaterialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            try
-            {
-                await MaterialManagerClient.DeleteBoardType("Test_Data_MDF_H3171_12_11.6_2800.0_1310.0");
-            }
-            catch { }
-            try
-            {
-                await MaterialManagerClient.DeleteBoardType("Test_Data_EG_H3303_ST10_19_2800.0_2070.0");
-            }
-            catch { }
-        }
-        */
     }
 }
