@@ -149,7 +149,7 @@
 									]
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/import/templates{{templateId}}",
+									"raw": "{{ConnectHost}}/api/productionManager/orders/import/templates/{{templateId}}",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -158,7 +158,8 @@
 										"productionManager",
 										"orders",
 										"import",
-										"templates{{templateId}}"
+										"templates",
+										"{{templateId}}"
 									],
 									"query": [
 										{
@@ -422,15 +423,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots/add",
+									"raw": "{{ConnectHost}}/api/productionManager/lots",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"productionManager",
-										"lots",
-										"add"
+										"lots"
 									]
 								}
 							},
