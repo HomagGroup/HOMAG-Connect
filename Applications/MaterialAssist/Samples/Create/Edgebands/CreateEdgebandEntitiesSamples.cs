@@ -13,15 +13,14 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Edgebands
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
                 Id = id,
-                EdgebandCode = "White Edgeband 19mm",
+                EdgebandCode = "ABS_White_1mm",
                 ManagementType = ManagementType.Single,
                 Comments = "This is a comment",
                 Quantity = 1,
-                Length = 1000,
+                Length = 50,
                 CurrentThickness = 1.0
             };
             var newEdgebandEntity = await materialAssist.CreateEdgebandEntity(edgebandEntityRequest);
-            Console.WriteLine($"Created edgeband entity: {newEdgebandEntity.Id}");
         }
 
         public static async Task Edgebands_CreateEdgebandType(MaterialAssistClientEdgebands materialAssist, string edgebandCode)

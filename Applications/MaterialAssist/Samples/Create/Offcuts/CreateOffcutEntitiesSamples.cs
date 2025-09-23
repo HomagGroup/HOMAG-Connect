@@ -14,25 +14,24 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Offcuts
             {
                 Id = id,
                 //The board code is the identifier of the board type
-                BoardCode = "XEG_H3303_ST10_19_1000.0_500.0",
+                BoardCode = "XEG_H3303_ST10_19_1000_500",
                 Comments = "This is a comment",
-                Length = 1000,
-                Width = 500,
+                Length = 1000.0,
+                Width = 500.0,
                 Quantity = 1,
             };
             var newBoardEntity = await materialAssist.CreateOffcutEntity(boardEntityRequest);
-            Console.WriteLine($"Created offcut entity: {newBoardEntity.Id}");
         }
 
-        public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist, string boardCode, string materialCode)
+        public static async Task Boards_CreateOffcutType(MaterialAssistClientBoards materialAssist, string boardCode, string materialCode)
         {
             var boardTypeRequest = new MaterialManagerRequestBoardType()
             {
                 BoardCode = boardCode,
                 CoatingCategory = CoatingCategory.MelamineThermoset,
                 Grain = Grain.Lengthwise,
-                Length = 1200.0,
-                Width = 460.0,
+                Length = 1000.0,
+                Width = 500.0,
                 MaterialCategory = BoardMaterialCategory.Chipboard,
                 MaterialCode = materialCode,
                 Thickness = 19,
