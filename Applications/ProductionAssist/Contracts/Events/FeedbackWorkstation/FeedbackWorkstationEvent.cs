@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
     /// <summary>
     /// 
     /// </summary>
-    [AppEvent("WorkstationFeedback")]
+    [AppEvent("FeedbackWorkstation")]
     public abstract class FeedbackWorkstationEvent : AppEvent
     {
         /// <summary>
@@ -32,12 +32,6 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
         /// </summary>
         [Required]
         public virtual WorkstationType WorkstationType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Part Identification that was confirmed
-        /// </summary>
-        [Required]
-        public string? Identification { get; set; }
 
         /// <summary>
         /// 
@@ -66,6 +60,11 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
         /// <summary>
         /// 
         /// </summary>
-        public string OrderName { get; set; }
+        public string? OrderName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Material { get; set; }
     }
 }

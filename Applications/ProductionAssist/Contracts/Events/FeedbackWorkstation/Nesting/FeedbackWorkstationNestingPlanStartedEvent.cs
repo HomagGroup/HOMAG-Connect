@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Nes
     /// <summary>
     /// Gets or sets an event that occurs when a Nesting or nesting plan has been started or finished.
     /// </summary>
-    [AppEvent("WorkstationFeedbackNestingPlanStarted")]
+    [AppEvent("FeedbackWorkstationNestingPlanStarted")]
     public class FeedbackWorkstationNestingPlanStartedEvent : FeedbackWorkstationCuttingPlanStartedEvent
     {
         /// <summary>

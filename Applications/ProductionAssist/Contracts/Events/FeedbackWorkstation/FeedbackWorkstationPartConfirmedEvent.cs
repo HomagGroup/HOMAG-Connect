@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
@@ -8,13 +9,19 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
     /// <summary>
     /// 
     /// </summary>
-    [AppEvent("WorkstationFeedback")]
+    [AppEvent("FeedbackWorkstationPartConfirmed")]
     public class FeedbackWorkstationPartConfirmedEvent : FeedbackWorkstationEvent
     {
         /// <summary>
         /// 
         /// </summary>
         public override PartProcessedAction PartProcessedAction => PartProcessedAction.PartConfirmed;
+
+        /// <summary>
+        /// Gets or sets the Part Identification that was confirmed
+        /// </summary>
+        [Required]
+        public string? Identification { get; set; }
 
         /// <summary>
         /// Gets or sets the account which truggered the processing
@@ -35,13 +42,5 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
         /// 
         /// </summary>
         public string Description { get; set; }
-
-        #region Optional
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Material { get; set; }
-        #endregion
     }
 }

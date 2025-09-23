@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace  HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
+namespace  HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting
 {
     /// <summary>
     /// Gests or sets an event that occurs when a manual feedback is registered on one workplace for a ProductionItem
@@ -18,5 +18,12 @@ namespace  HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
         /// 
         /// </summary>
         public override WorkstationType WorkstationType => WorkstationType.Cutting;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override PartProcessedAction PartProcessedAction => PartProcessedAction.PartConfirmed;
+
+
     }
 }

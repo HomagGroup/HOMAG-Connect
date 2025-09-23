@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cut
     /// <summary>
     /// Gets or sets an event that occurs when a Cutting or nesting plan has been started or finished.
     /// </summary>
-    [AppEvent("WorkstationFeedbackCuttingPlanStarted")]
+    [AppEvent("FeedbackWorkstationCuttingPlanStarted")]
     public class FeedbackWorkstationCuttingPlanStartedEvent : FeedbackWorkstationEvent
     {
         /// <summary>
@@ -32,21 +32,15 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cut
         public Guid JobId { get; set; }
 
         /// <summary>        
-        /// Gets or sets the Pattern of the Cutting plan
+        /// Gets or sets the PatternName of the Cutting plan
         /// </summary>
         [Required]
-        public string Pattern { get; set; }
+        public string PatternName { get; set; }
 
         /// <summary>       
-        /// Gets or sets the PatternIndex of the Cutting plan
+        /// Gets or sets the PatternCycle of the Cutting plan
         /// </summary>
-        public int PatternIndex { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Material of the Cutting plan 
-        /// </summary>
-        [Required]
-        public string Material { get; set; }
+        public int PatternCycle { get; set; }
 
         /// <summary>
         /// Gets or sets the BoardCode of the Cutting plan 
