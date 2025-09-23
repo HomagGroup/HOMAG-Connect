@@ -1,7 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
 {

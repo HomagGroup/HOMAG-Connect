@@ -23,7 +23,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands
             {
                 return random.NextDouble() * (max - min) + min;
             }
-            double length = RandomBetween(50.0, 100.0);
+            double length = Math.Round(RandomBetween(50.0, 100.0), 2);
 
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
             await UpdateEdgebandEntitiesSamples.Edgebands_UpdateEdgebandEntity(materialAssistClient, length);

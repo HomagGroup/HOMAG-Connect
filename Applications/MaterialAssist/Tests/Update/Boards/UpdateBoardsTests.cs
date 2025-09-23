@@ -1,5 +1,4 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Update.Boards;
-using Newtonsoft.Json.Linq;
 
 namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 { 
@@ -14,7 +13,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
         {
             var classInstance = new UpdateBoardsTests();
             await classInstance.EnsureBoardTypeExist("MDF_H3171_12_19.0");
-            await classInstance.EnsureBoardEntityExist("41111", "MDF_H3171_12_19.0_2800_2070");
+            await classInstance.EnsureBoardEntityExist("834", "MDF_H3171_12_19.0_2800_2070");
         }
         
         [TestMethod]
@@ -33,7 +32,7 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
             var materialAssistClient = GetMaterialAssistClient().Boards;
             await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(materialAssistClient, length, width);
 
-            var checkBoardEntity = await materialAssistClient.GetBoardEntityById("41111");
+            var checkBoardEntity = await materialAssistClient.GetBoardEntityById("834");
             Assert.AreEqual(length, checkBoardEntity.Length);
             Assert.AreEqual(width, checkBoardEntity.Width);
         }

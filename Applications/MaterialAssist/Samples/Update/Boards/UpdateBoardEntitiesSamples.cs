@@ -44,12 +44,12 @@ public class UpdateBoardEntitiesSamples
     {
         var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
         {
-            Id = "41111",
+            Id = "834",
             Length = randomLength,
             Width = randomWidth,
             Comments = "This is a comment",
         };
-        var updateBoardEntity = await materialAssist.UpdateBoardEntity("41111", boardEntityUpdate);
+        var updateBoardEntity = await materialAssist.UpdateBoardEntity("834", boardEntityUpdate);
         Console.WriteLine($"Updated board entity: {updateBoardEntity.Id}");
     }
 }

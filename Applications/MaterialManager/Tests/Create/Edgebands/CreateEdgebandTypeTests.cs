@@ -19,7 +19,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     public async Task BoardsCreateBoardType()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "Test_Data_ABS_White_3mm";
+        var edgebandCode = "ABS_White_3mm";
         await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
     }
 
@@ -56,7 +56,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     {
         var classInstance = new CreateEdgebandTypeTests();
         var materialManagerClient = classInstance.GetMaterialManagerClient();
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_White_3mm");
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_White_3mm");
         await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
     }
 

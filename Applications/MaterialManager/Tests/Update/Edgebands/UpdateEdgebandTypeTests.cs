@@ -1,6 +1,4 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Update.Edgebands;
+﻿using HomagConnect.MaterialManager.Samples.Update.Edgebands;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
 {
@@ -15,7 +13,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new UpdateEdgebandTypeTests();
-            await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_White_2mm", 2, 23);
+            await classInstance.EnsureEdgebandTypeExist("ABS_White_2mm", 2, 23);
         }
 
         [TestMethod]
@@ -26,10 +24,10 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
             {
                 return random.NextDouble() * (max - min) + min;
             }
-            double value = RandomBetween(50.0, 100.0);
+            double value = Math.Round(RandomBetween(50.0, 100.0), 2);
 
             var materialManagerClient = GetMaterialManagerClient();
-            var edgebandCode = "Test_Data_ABS_White_2mm";
+            var edgebandCode = "ABS_White_2mm";
             await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode, value);
 
             var checkEdgeband = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);

@@ -1,6 +1,4 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Read.Edgebands;
+﻿using HomagConnect.MaterialManager.Samples.Read.Edgebands;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Edgebands;
 
@@ -15,15 +13,15 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public static async Task Initialize(TestContext testContext)
     {
         var classInstance = new ReadEdgebandTypeTests();
-        await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", 1.0, 100.0);
-        await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_Black_1.20_23.0_ZJ", 1.2, 23.0);
+        await classInstance.EnsureEdgebandTypeExist("ABS_Abruzzo_colore_1.00_100.0_HM", 1.0, 100.0);
+        await classInstance.EnsureEdgebandTypeExist("ABS_Black_1.20_23.0_ZJ", 1.2, 23.0);
     }
 
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypeByEdgebandCode()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM";
+        var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
         var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCode(materialManagerClient.Material.Edgebands, edgebandCode);
         Assert.AreEqual(edgebandCode, result.EdgebandCode);
     }
@@ -32,7 +30,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypeByEdgebandCodeIncludingDetails()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM";
+        var edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
         var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCode);
         Assert.AreEqual(edgebandCode, result.EdgebandCode);
     }
@@ -57,22 +55,22 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodes()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCodes = new List<string> { "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", "Test_Data_ABS_Black_1.20_23.0_ZJ" };
+        var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
         var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodes(materialManagerClient.Material.Edgebands, edgebandCodes);
         Assert.AreEqual(2, result.Count());
-        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM"));
-        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Black_1.20_23.0_ZJ"));
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "ABS_Abruzzo_colore_1.00_100.0_HM"));
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "ABS_Black_1.20_23.0_ZJ"));
     }
 
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodesIncludingDetails()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCodes = new List<string> { "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", "Test_Data_ABS_Black_1.20_23.0_ZJ" };
+        var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
         var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCodes);
         Assert.AreEqual(2, result.Count());
-        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM"));
-        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Black_1.20_23.0_ZJ"));
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "ABS_Abruzzo_colore_1.00_100.0_HM"));
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "ABS_Black_1.20_23.0_ZJ"));
     }
     
     [TestMethod]

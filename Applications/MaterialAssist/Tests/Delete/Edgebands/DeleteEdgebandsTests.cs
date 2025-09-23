@@ -1,6 +1,4 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Request;
-using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
-using HomagConnect.MaterialManager.Contracts.Material.Base;
+﻿using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
 {

@@ -1,8 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
+﻿using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
 {
