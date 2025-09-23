@@ -1,23 +1,20 @@
 ﻿using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting
 {
     /// <summary>
     /// Gets or sets an event that occurs when a Cutting or nesting plan has been started or finished.
     /// </summary>
-    [AppEvent("FeedbackWorkstationCuttingPlanFinished")]
-    public class FeedbackWorkstationCuttingPlanFinishedEvent : FeedbackWorkstationEvent
+    [AppEvent("FeedbackWorkstationDividingPlanStarted")]
+    public class FeedbackWorkstationDividingPlanStartedEvent : AppEvent
     {
         /// <summary>
-        /// 
+        /// Gets or sets the WorkstationId
         /// </summary>
-        public override WorkstationType WorkstationType => WorkstationType.Cutting;
+        [Required]
+        public Guid WorkstationId { get; set; }
 
 
         /// <summary>
