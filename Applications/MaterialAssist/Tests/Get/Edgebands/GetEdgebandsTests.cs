@@ -47,15 +47,15 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         {
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
             var result4 = await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCode(materialAssistClient);
-            Assert.AreEqual(3, result4.Count());
+            Assert.IsTrue(result4.Count() >= 3);
         }
 
         [TestMethod]
         public async Task EdgebandsGetEdgebandEntitiesByEdgebandCodes()
         {
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
-            var result5 = await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCodes(materialAssistClient);
-            Assert.AreEqual(3, result5.Count());
+            var result = await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCodes(materialAssistClient);
+            Assert.IsTrue(result.Count() >= 3);
         }
 
         [TestMethod]

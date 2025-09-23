@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
 {
@@ -20,6 +21,21 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
             await CreateBoardEntitySample.Boards_CreateBoardEntity(materialAssistClient, "11111", "11112", "11113");
+            
+            var boardEntity1 = await materialAssistClient.GetBoardEntityById("11111");
+            Assert.AreEqual("11111", boardEntity1.Id);
+            Assert.AreEqual(ManagementType.Single, boardEntity1.ManagementType);
+            Assert.AreEqual(1, boardEntity1.Quantity);
+
+            var boardEntity2 = await materialAssistClient.GetBoardEntityById("11112");
+            Assert.AreEqual("11112", boardEntity2.Id);
+            Assert.AreEqual(ManagementType.Stack, boardEntity2.ManagementType);
+            Assert.AreEqual(5, boardEntity2.Quantity);
+
+            var boardEntity3 = await materialAssistClient.GetBoardEntityById("11113");
+            Assert.AreEqual("11113", boardEntity3.Id);
+            Assert.AreEqual(ManagementType.GoodsInStock, boardEntity3.ManagementType);
+            Assert.AreEqual(5, boardEntity3.Quantity);
         }
 
         [TestCleanup]

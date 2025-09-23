@@ -33,24 +33,24 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     {
         var materialManagerClient = GetMaterialManagerClient();
         var edgebandCode = "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM";
-        var result1 = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCode);
-        Assert.AreEqual(edgebandCode, result1.EdgebandCode);
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCode);
+        Assert.AreEqual(edgebandCode, result.EdgebandCode);
     }
 
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypes()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var result2 = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypes(materialManagerClient.Material.Edgebands);
-        Assert.IsTrue(result2.Count() >= 2);
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypes(materialManagerClient.Material.Edgebands);
+        Assert.IsTrue(result.Count() >= 2);
     }
 
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypesIncludingDetails()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var result3 = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesIncludingDetails(materialManagerClient.Material.Edgebands);
-        Assert.IsTrue(result3.Count() >= 2);
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesIncludingDetails(materialManagerClient.Material.Edgebands);
+        Assert.IsTrue(result.Count() >= 2);
     }
 
     [TestMethod]
@@ -58,10 +58,10 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     {
         var materialManagerClient = GetMaterialManagerClient();
         var edgebandCodes = new List<string> { "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", "Test_Data_ABS_Black_1.20_23.0_ZJ" };
-        var result4 = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodes(materialManagerClient.Material.Edgebands, edgebandCodes);
-        Assert.AreEqual(2, result4.Count());
-        Assert.IsTrue(result4.Any(e => e.EdgebandCode == "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM"));
-        Assert.IsTrue(result4.Any(e => e.EdgebandCode == "Test_Data_ABS_Black_1.20_23.0_ZJ"));
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodes(materialManagerClient.Material.Edgebands, edgebandCodes);
+        Assert.AreEqual(2, result.Count());
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM"));
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Black_1.20_23.0_ZJ"));
     }
 
     [TestMethod]
@@ -69,10 +69,10 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     {
         var materialManagerClient = GetMaterialManagerClient();
         var edgebandCodes = new List<string> { "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM", "Test_Data_ABS_Black_1.20_23.0_ZJ" };
-        var result5 = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCodes);
-        Assert.AreEqual(2, result5.Count());
-        Assert.IsTrue(result5.Any(e => e.EdgebandCode == "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM"));
-        Assert.IsTrue(result5.Any(e => e.EdgebandCode == "Test_Data_ABS_Black_1.20_23.0_ZJ"));
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(materialManagerClient.Material.Edgebands, edgebandCodes);
+        Assert.AreEqual(2, result.Count());
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Abruzzo_colore_1.00_100.0_HM"));
+        Assert.IsTrue(result.Any(e => e.EdgebandCode == "Test_Data_ABS_Black_1.20_23.0_ZJ"));
     }
     
     [TestMethod]

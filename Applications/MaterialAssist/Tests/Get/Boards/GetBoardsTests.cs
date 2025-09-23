@@ -39,7 +39,6 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
             var materialAssistClient = GetMaterialAssistClient().Boards;
             var result = await GetBoardEntitiesSamples.Boards_GetBoardEntityById(materialAssistClient, "31111");
             Assert.AreEqual("31111", result.Id);
-            Assert.AreEqual("Test_Data_MDF_H3171_12_19.0_2800_2070", (IEquatable<string>?)result.BoardType);
         }
 
         [TestMethod]

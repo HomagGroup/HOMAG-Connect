@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 
@@ -21,6 +22,11 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
         {
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
             await CreateEdgebandEntitiesSamples.Edgebands_CreateEdgebandEntity(materialAssistClient, "16");
+
+            var edgebandEntity = await materialAssistClient.GetEdgebandEntityById("16");
+            Assert.AreEqual("16", edgebandEntity.Id);
+            Assert.AreEqual(ManagementType.Single, edgebandEntity.ManagementType);
+            Assert.AreEqual(1, edgebandEntity.Quantity);
         }
         
         [TestCleanup]
