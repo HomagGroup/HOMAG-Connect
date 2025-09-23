@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Update.Boards;
+using Newtonsoft.Json.Linq;
 
 namespace HomagConnect.MaterialAssist.Tests.Update.Boards
 { 
@@ -26,8 +27,8 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
                 return random.NextDouble() * (max - min) + min;
             }
 
-            double length = RandomBetween(100.0, 2000.0);
-            double width = RandomBetween(100.0, 2000.0);
+            double length = Math.Round(RandomBetween(100.0, 2000.0), 5); 
+            double width = Math.Round(RandomBetween(100.0, 2000.0), 5);
 
             var materialAssistClient = GetMaterialAssistClient().Boards;
             await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(materialAssistClient, length, width);

@@ -46,7 +46,6 @@ public class UpdateEdgebandEntitiesSamples
             Id = "43",
             Length = randomlength,
             Comments = "This is a comment",
-            Quantity = 1,
         };
         var updateEdgebandEntity = await materialAssist.UpdateEdgebandEntity("43", edgebandEntityUpdate);
         Console.WriteLine($"Updated edgeband entity: {updateEdgebandEntity.Id}");
