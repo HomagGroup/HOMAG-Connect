@@ -109,13 +109,14 @@ namespace HomagConnect.MaterialAssist.Tests
 
         protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070, bool offcut = false)
         {
+            string boardCode;
             if (offcut)
             {
-                var boardCode = $"X{materialCode}_{length}_{width}";
+                boardCode = $"X{materialCode}_{length}_{width}";
             }
             else
             {
-                var boardCode = $"{materialCode}_{length}_{width}";
+                boardCode = $"{materialCode}_{length}_{width}";
             }
 
             var materialManagerClient = GetMaterialManagerClient();
