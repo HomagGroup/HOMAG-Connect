@@ -32,9 +32,9 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
             var materialAssistClient = GetMaterialAssistClient().Boards;
             await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(materialAssistClient, length, width);
 
-            var checkBoardEntity = await materialAssistClient.GetBoardEntityById("834");
-            Assert.AreEqual(length, checkBoardEntity.Length);
-            Assert.AreEqual(width, checkBoardEntity.Width);
+            var boardEntity = await materialAssistClient.GetBoardEntityById("834");
+            Assert.AreEqual(length, boardEntity.Length);
+            Assert.AreEqual(width, boardEntity.Width);
         }
     }
 }
