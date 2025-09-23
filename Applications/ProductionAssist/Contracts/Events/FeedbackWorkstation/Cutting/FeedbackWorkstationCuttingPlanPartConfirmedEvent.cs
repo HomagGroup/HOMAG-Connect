@@ -21,16 +21,14 @@ namespace  HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cu
         public override WorkstationType WorkstationType => WorkstationType.Cutting;
 
         /// <summary>
-        /// Gets or sets the JobName 
+        /// The OptimizationId
         /// </summary>
-        [Required]
-        public string JobName { get; set; }
+        public Guid OptimizationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the JobId 
+        /// The OptimizationName 
         /// </summary>
-        [Required]
-        public Guid JobId { get; set; }
+        public string OptimizationName { get; set; }
 
         /// <summary>        
         /// Gets or sets the PatternName 

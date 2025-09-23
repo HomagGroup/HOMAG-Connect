@@ -20,16 +20,14 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cut
         public override WorkstationType WorkstationType => WorkstationType.Cutting;
 
         /// <summary>
-        /// Gets or sets the JobName the Dividing plan is part of
+        /// The OptimizationId
         /// </summary>
-        [Required]
-        public string JobName { get; set; }
+        public Guid OptimizationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the JobId the Dividing plan is part of
+        /// The OptimizationName 
         /// </summary>
-        [Required]
-        public Guid JobId { get; set; }
+        public string OptimizationName { get; set; }
 
         /// <summary>        
         /// Gets or sets the PatternName of the Cutting plan

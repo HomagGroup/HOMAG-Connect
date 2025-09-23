@@ -15,16 +15,15 @@ namespace  HomagConnect.MaterialManager.Contracts.Events
     [AppEvent("FeedbackWorkstationCuttingPlanBoardConfirmed")]
     public class FeedbackWorkstationCuttingPlanBoardConfirmedEvent : AppEvent
     {
+        /// <summary>
+        /// The OptimizationId in which the board was used
+        /// </summary>
+        public Guid OptimizationId { get; set; }
 
         /// <summary>
-        /// The JobId in which the board was used
+        /// The OptimizationName in which the board was used
         /// </summary>
-        public Guid JobId { get; set; }
-
-        /// <summary>
-        /// The JobName in which the board was used
-        /// </summary>
-        public string JobName { get; set; }
+        public string OptimizationName { get; set; }
 
         /// <summary>
         /// The WorkplaceId from which the part was confirmed
@@ -42,14 +41,14 @@ namespace  HomagConnect.MaterialManager.Contracts.Events
         public WorkstationType WorkstationType => WorkstationType.Cutting;
 
         /// <summary>
-        /// PatternIndex (i.e. 1)
+        /// PatternCycle
         /// </summary>
-        public int PatternIndex { get; set; }
+        public int PatternCycle { get; set; }
 
         /// <summary>
-        /// The pattern id (i.e. 00001) for which the Board was confirmed
+        /// The pattern (i.e. 00001) for which the Board was confirmed
         /// </summary>
-        public string? Pattern { get; set; }
+        public string PatternName { get; set; }
 
         /// <summary>
         /// The BoardType object
