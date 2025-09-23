@@ -1,7 +1,6 @@
 ﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
-using HomagConnect.ProductionAssist.Contracts.Events.Feedback;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
