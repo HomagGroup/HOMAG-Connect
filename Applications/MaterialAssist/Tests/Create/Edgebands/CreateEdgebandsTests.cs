@@ -24,6 +24,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
             Assert.AreEqual("16", edgebandEntity.Id);
             Assert.AreEqual(ManagementType.Single, edgebandEntity.ManagementType);
             Assert.AreEqual(1, edgebandEntity.Quantity);
+            Assert.AreEqual(50, edgebandEntity.Length);
         }
         
         [TestCleanup]

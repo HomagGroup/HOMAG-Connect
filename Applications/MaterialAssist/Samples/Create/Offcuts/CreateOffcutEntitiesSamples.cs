@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Offcuts
             {
                 Id = id,
                 //The board code is the identifier of the board type
-                BoardCode = "XTest_Data_EG_H3303_ST10_19_1000_500",
+                BoardCode = "EG_H3303_ST10_19_1000_500",
                 Comments = "This is a comment",
                 Length = 1000.0,
                 Width = 500.0,

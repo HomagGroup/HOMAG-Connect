@@ -16,7 +16,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             {
                 Id = idSingle,
                 //The board code is the identifier of the board type
-                BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
+                BoardCode = "MDF_H3171_12_19.0_2800_2070",
                 ManagementType = ManagementType.Single,
                 Comments = "This is a comment",
                 Quantity = 1
@@ -27,7 +27,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             {
                 Id = idStack,
                 //The board code is the identifier of the board type
-                BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
+                BoardCode = "MDF_H3171_12_19.0_2800_2070",
                 ManagementType = ManagementType.Stack,
                 Comments = "This is a comment",
                 Quantity = 5
@@ -38,7 +38,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             {
                 Id = idGoodsInStock,
                 //The board code is the identifier of the board type
-                BoardCode = "Test_Data_EG_H3303_ST10_19_2800_2070",
+                BoardCode = "EG_H3303_ST10_19_2800_2070",
                 ManagementType = ManagementType.GoodsInStock,
                 Comments = "This is a comment",
                 Quantity = 5
