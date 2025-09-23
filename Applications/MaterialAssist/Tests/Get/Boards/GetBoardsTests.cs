@@ -17,103 +17,81 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
         {
             var classInstance = new GetBoardsTests();
 
-            await classInstance.EnsureBoardTypeExists("Test_Data_MDF_H3171_12_19.0");
-            await classInstance.EnsureBoardTypeExists("Test_Data_EG_H3303_ST10_19");
+            await classInstance.EnsureBoardTypeExist("Test_Data_MDF_H3171_12_19.0");
+            await classInstance.EnsureBoardTypeExist("Test_Data_EG_H3303_ST10_19");
 
-            // TODO: Ensure entity exists
-            var materialAssistClient = classInstance.GetMaterialAssistClient().Boards;
-            try
-            {
-                var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
-                {
-                    Id = "31111",
-                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
-                    ManagementType = ManagementType.Single,
-                    Quantity = 1
-                };
-                var newBoardEntitySingle = await materialAssistClient.CreateBoardEntity(boardEntityRequestSingle);
-            }
-            catch { }
-            try
-            {
-                var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
-                {
-                    Id = "31112",
-                    BoardCode = "Test_Data_MDF_H3171_12_19.0_2800_2070",
-                    ManagementType = ManagementType.Stack,
-                    Quantity = 5
-                };
-                var newBoardEntityStack = await materialAssistClient.CreateBoardEntity(boardEntityRequestStack);
-            }
-            catch { }
-            try
-            {
-                var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
-                {
-                    Id = "31113",
-                    BoardCode = "Test_Data_EG_H3303_ST10_19_2800_2070",
-                    ManagementType = ManagementType.GoodsInStock,
-                    Quantity = 5
-                };
-                var newBoardEntityGoodsInStock = await materialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
-            }
-            catch { }
+            await classInstance.EnsureBoardEntityExist("31111", "Test_Data_MDF_H3171_12_19.0_2800_2070");
+            await classInstance.EnsureBoardEntityExist("31112", "Test_Data_MDF_H3171_12_19.0_2800_2070", ManagementType.Stack, 5);
+            await classInstance.EnsureBoardEntityExist("31113", "Test_Data_EG_H3303_ST10_19_2800_2070", ManagementType.GoodsInStock, 5);
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntities()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntities(materialAssistClient);
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntities(materialAssistClient);
+            Assert.IsTrue(result.Count >= 3);
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntityById()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntityById(materialAssistClient, "31111");
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntityById(materialAssistClient, "31111");
+            Assert.AreEqual("31111", result.Id);
+            Assert.AreEqual("Test_Data_MDF_H3171_12_19.0_2800_2070", (IEquatable<string>?)result.BoardType);
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesById()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(materialAssistClient, ["31111", "31112", "31113"]);
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntitiesById(materialAssistClient, ["31111", "31112", "31113"]);
+            Assert.AreEqual(3, result.Count());
+            Assert.IsTrue(result.Any(be => be.Id == "31111"));
+            Assert.IsTrue(result.Any(be => be.Id == "31112"));
+            Assert.IsTrue(result.Any(be => be.Id == "31113"));
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesByBoardCode()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(materialAssistClient, "Test_Data_MDF_H3171_12_19.0_2800_2070");
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(materialAssistClient, "Test_Data_MDF_H3171_12_19.0_2800_2070");
+            Assert.IsTrue(result.Count() >= 2);
+            Assert.IsTrue(result.Any(be => be.Id == "31111"));
+            Assert.IsTrue(result.Any(be => be.Id == "31112"));
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesByBoardCodes()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(materialAssistClient, ["Test_Data_MDF_H3171_12_19.0_2800_2070", "Test_Data_EG_H3303_ST10_19_2800_2070"]);
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(materialAssistClient, ["Test_Data_MDF_H3171_12_19.0_2800_2070", "Test_Data_EG_H3303_ST10_19_2800_2070"]);
+            Assert.IsTrue(result.Count() >= 3);
+            Assert.IsTrue(result.Any(be => be.Id == "31111"));
+            Assert.IsTrue(result.Any(be => be.Id == "31112"));
+            Assert.IsTrue(result.Any(be => be.Id == "31113"));
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesByMaterialCode()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(materialAssistClient, "Test_Data_EG_H3303_ST10_19");
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(materialAssistClient, "Test_Data_EG_H3303_ST10_19");
+            Assert.IsTrue(result.Count() >= 1);
+            Assert.IsTrue(result.Any(be => be.Id == "31113"));
         }
 
         [TestMethod]
         public async Task BoardsGetBoardEntitiesByMaterialCodes()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(materialAssistClient, ["Test_Data_EG_H3303_ST10_19", "Test_Data_MDF_H3171_12_19.0"]);
-            // TODO: Add asserts
+            var result = await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(materialAssistClient, ["Test_Data_EG_H3303_ST10_19", "Test_Data_MDF_H3171_12_19.0"]);
+            Assert.IsTrue(result.Count() >= 3);
+            Assert.IsTrue(result.Any(be => be.Id == "31111"));
+            Assert.IsTrue(result.Any(be => be.Id == "31112"));
+            Assert.IsTrue(result.Any(be => be.Id == "31113"));
         }
 
         [TestMethod]
@@ -122,6 +100,13 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Boards
             var materialAssistClient = GetMaterialAssistClient().Boards;
             await GetBoardEntitiesSamples.Boards_GetStorageLocations(materialAssistClient);
             // TODO: Add asserts
+        }
+
+        [TestMethod]
+        public async Task BoardsGetStorageLocation()
+        {
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await GetBoardEntitiesSamples.Boards_GetStorageLocation(materialAssistClient);
         }
 
         [TestMethod]

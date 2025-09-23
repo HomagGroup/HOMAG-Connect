@@ -32,7 +32,7 @@ public class MaterialManagerTestBase : TestBase
         return new MaterialManagerClient(httpClient);
     }
 
-    protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800.0, double width = 2070.0)
+    protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070)
     {
         var boardCode = $"{materialCode}_{length}_{width}";
         var materialManagerClient = GetMaterialManagerClient();

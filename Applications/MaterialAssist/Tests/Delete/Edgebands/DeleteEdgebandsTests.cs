@@ -13,42 +13,11 @@ namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
         public static async Task Initialie(TestContext testContext)
         {
             var classInstance = new DeleteEdgebandsTests();
-            await classInstance.EnsureEdgebandTypeExists("Test_Data_ABS_White_1mm");
+            await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_White_1mm");
 
-            // TODO: Ensure entity exists
-            var materialAssistClient = classInstance.GetMaterialAssistClient().Edgebands;
-            var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
-            {
-                Id = "23",
-                EdgebandCode = "Test_Data_ABS_White_1mm",
-                ManagementType = ManagementType.Single,
-                Quantity = 1,
-                Length = 50,
-                CurrentThickness = 1.0
-            };
-            await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
-
-            var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
-            {
-                Id = "24",
-                EdgebandCode = "Test_Data_ABS_White_1mm",
-                ManagementType = ManagementType.Single,
-                Quantity = 1,
-                Length = 50,
-                CurrentThickness = 1.0
-            };
-            await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest2);
-
-            var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
-            {
-                Id = "25",
-                EdgebandCode = "Test_Data_ABS_White_1mm",
-                ManagementType = ManagementType.Single,
-                Quantity = 1,
-                Length = 50,
-                CurrentThickness = 1.0
-            };
-            await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
+            await classInstance.EnsureEdgebandEntityExist("23", "Test_Data_ABS_White_1mm");
+            await classInstance.EnsureEdgebandEntityExist("24", "Test_Data_ABS_White_1mm");
+            await classInstance.EnsureEdgebandEntityExist("25", "Test_Data_ABS_White_1mm");
         }
 
         [TestMethod]

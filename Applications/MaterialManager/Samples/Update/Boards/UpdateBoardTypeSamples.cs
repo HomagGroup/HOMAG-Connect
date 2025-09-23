@@ -9,11 +9,11 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
         /// <summary>
         /// The example shows how update a boardtype.
         /// </summary>
-        public static async Task Boards_UpdateBoardType(IMaterialManagerClientMaterialBoards materialManager, string boardCode)
+        public static async Task Boards_UpdateBoardType(IMaterialManagerClientMaterialBoards materialManager, string boardCode, double value)
         {
             var boardTypeUpdate = new MaterialManagerUpdateBoardType
             {
-                Thickness = 15.0,
+                Thickness = value,
                 // Add other properties
             };
             var updatedBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate);

@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialManager.Samples.Update.Boards;
+using System;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Boards
 {
@@ -12,18 +13,26 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
         [ClassInitialize]
         public static async Task Initialize(TestContext testContext)
         {
-            //TODO: check for the exact board type
             var classInstance = new UpdateBoardTypeTests();
-            await classInstance.EnsureBoardTypeExist("Test_Data_HPL_F274_9_15.0");
+            await classInstance.EnsureBoardTypeExist("Test_Data_HPL_F274_9_19.0");
         }
 
         [TestMethod]
         public async Task BoardsUpdateBoardType()
         {
-            // TODO: update a random value and assert
+            Random random = new Random();
+            double RandomBetween(double min, double max)
+            {
+                return random.NextDouble() * (max - min) + min;
+            }
+            double value = RandomBetween(5.0, 25.0);
+
             var materialManagerClient = GetMaterialManagerClient();
-            var boardCode = "Test_Data_HPL_F274_9_15.0_2800.0_2070.0"; 
-            await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode);
+            var boardCode = "Test_Data_HPL_F274_9_19.0_2800_2070"; 
+            await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode, value);
+
+            var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
+            Assert.AreEqual(value, checkBoard.Thickness);
         }
     }
 }

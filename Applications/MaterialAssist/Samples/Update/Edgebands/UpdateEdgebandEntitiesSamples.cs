@@ -39,12 +39,12 @@ public class UpdateEdgebandEntitiesSamples
         await materialAssist.StoreEdgebandEntity(edgebandEntityStore);
     }
 
-    public static async Task Edgebands_UpdateEdgebandEntity(MaterialAssistClientEdgebands materialAssist)
+    public static async Task Edgebands_UpdateEdgebandEntity(MaterialAssistClientEdgebands materialAssist, double randomlength)
     {
         var edgebandEntityUpdate = new MaterialAssistUpdateEdgebandEntity()
         {
             Id = "43",
-            Length = 100,
+            Length = randomlength,
             Comments = "This is a comment",
             Quantity = 1,
         };

@@ -15,23 +15,25 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
         public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new UpdateEdgebandTypeTests();
-            await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_White_2mm", 1, 23);
+            await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_White_2mm", 2, 23);
         }
 
         [TestMethod]
         public async Task EdgebandsUpdateEdgebandType()
         {
+            Random random = new Random();
+            double RandomBetween(double min, double max)
+            {
+                return random.NextDouble() * (max - min) + min;
+            }
+            double value = RandomBetween(50.0, 100.0);
+
             var materialManagerClient = GetMaterialManagerClient();
             var edgebandCode = "Test_Data_ABS_White_2mm";
-            await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
-        }
-        
-        [ClassCleanup]
-        public static async Task Cleanup()
-        {
-            var classInstance = new UpdateEdgebandTypeTests();
-            var materialManagerClient = classInstance.GetMaterialManagerClient();
-            await materialManagerClient.Material.Edgebands.DeleteEdgebandType("Test_Data_ABS_White_2mm");
+            await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode, value);
+
+            var checkEdgeband = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
+            Assert.AreEqual(value, checkEdgeband.DefaultLength);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands
         public async Task Initialize()
         {
             // TODO: use valid names
-            await EnsureEdgebandTypeExists("Test_Data_ABS_White_1mm");
+            await EnsureEdgebandTypeExist("Test_Data_ABS_White_1mm");
         }
 
         [TestMethod]

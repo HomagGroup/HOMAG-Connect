@@ -40,17 +40,17 @@ public class UpdateBoardEntitiesSamples
         await materialAssist.StoreBoardEntity(boardEntityStore);
     }
 
-    public static async Task Boards_UpdateBoardEntity(MaterialAssistClientBoards materialAssist)
+    public static async Task Boards_UpdateBoardEntity(MaterialAssistClientBoards materialAssist, double randomLength, double radomWidth)
     {
         var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
         {
             Id = "41111",
-            Length = 100,
-            Width = 70,
+            Length = randomLength,
+            Width = randomLength,
             Comments = "This is a comment",
             Quantity = 1,
         };
-        var updateBoardEntity = await materialAssist.UpdateBoardEntity("41113", boardEntityUpdate);
+        var updateBoardEntity = await materialAssist.UpdateBoardEntity("41111", boardEntityUpdate);
         Console.WriteLine($"Updated board entity: {updateBoardEntity.Id}");
     }
 }
