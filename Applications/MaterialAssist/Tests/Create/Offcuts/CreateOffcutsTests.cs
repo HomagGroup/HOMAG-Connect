@@ -14,8 +14,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
         [TestInitialize]
         public async Task Initialize()
         {
-            // TODO: use valid names
-            await EnsureBoardTypeExist("Test_Data_EG_H3303_ST10_19", 1000, 500, true);
+            await EnsureBoardTypeExist("EG_H3303_ST10_19", 1000, 500, true);
         }
 
         [TestMethod]

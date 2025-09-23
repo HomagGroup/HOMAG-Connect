@@ -11,11 +11,11 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands
         public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new GetEdgebandsTests();
-            await classInstance.EnsureEdgebandTypeExist("Test_Data_ABS_White_1mm");
+            await classInstance.EnsureEdgebandTypeExist("ABS_White_1mm");
 
-            await classInstance.EnsureEdgebandEntityExist("33", "Test_Data_ABS_White_1mm");
-            await classInstance.EnsureEdgebandEntityExist("34", "Test_Data_ABS_White_1mm");
-            await classInstance.EnsureEdgebandEntityExist("35", "Test_Data_ABS_White_1mm");
+            await classInstance.EnsureEdgebandEntityExist("33", "ABS_White_1mm");
+            await classInstance.EnsureEdgebandEntityExist("34", "ABS_White_1mm");
+            await classInstance.EnsureEdgebandEntityExist("35", "ABS_White_1mm");
         }
            
         [TestMethod]

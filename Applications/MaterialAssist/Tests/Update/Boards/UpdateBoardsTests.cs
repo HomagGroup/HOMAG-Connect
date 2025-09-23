@@ -13,8 +13,8 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
         public static async Task Initialize(TestContext testContext)
         {
             var classInstance = new UpdateBoardsTests();
-            await classInstance.EnsureBoardTypeExist("Test_Data_MDF_H3171_12_19.0");
-            await classInstance.EnsureBoardEntityExist("41111", "Test_Data_MDF_H3171_12_19.0_2800_2070");
+            await classInstance.EnsureBoardTypeExist("MDF_H3171_12_19.0");
+            await classInstance.EnsureBoardEntityExist("41111", "MDF_H3171_12_19.0_2800_2070");
         }
         
         [TestMethod]
@@ -27,8 +27,8 @@ namespace HomagConnect.MaterialAssist.Tests.Update.Boards
                 return random.NextDouble() * (max - min) + min;
             }
 
-            double length = Math.Round(RandomBetween(100.0, 2000.0), 5); 
-            double width = Math.Round(RandomBetween(100.0, 2000.0), 5);
+            double length = Math.Round(RandomBetween(100.0, 2000.0), 2); 
+            double width = Math.Round(RandomBetween(100.0, 2000.0), 2);
 
             var materialAssistClient = GetMaterialAssistClient().Boards;
             await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(materialAssistClient, length, width);

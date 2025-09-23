@@ -11,9 +11,8 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
         [TestInitialize]
         public async Task Initialize()
         {
-            // TODO: use valid names
-            await EnsureBoardTypeExist("Test_Data_MDF_H3171_12_19.0");
-            await EnsureBoardTypeExist("Test_Data_EG_H3303_ST10_19");
+            await EnsureBoardTypeExist("MDF_H3171_12_19.0");
+            await EnsureBoardTypeExist("EG_H3303_ST10_19");
         }
 
         [TestMethod]
