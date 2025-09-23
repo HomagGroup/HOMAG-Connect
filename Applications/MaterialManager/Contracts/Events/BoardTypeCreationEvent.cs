@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace  HomagConnect.MaterialManager.Contracts.Events
 {
     /// <summary>
-    /// Gests or sets an event that occurs when a Board is confirmed to be used in productionAssist
+    /// Gests or sets an event that occurs when a BoardType is created
     /// </summary>
     [AppEvent("BoardTypeCreation")]
     public class BoardTypeCreationEvent : AppEvent
