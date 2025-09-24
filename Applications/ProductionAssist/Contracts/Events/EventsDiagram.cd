@@ -1,17 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting.FeedbackWorkstationDividingPlanFinishedEvent">
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting.CycleStartedEvent">
     <Position X="8.5" Y="3.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAABEAAAAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\Dividing\FeedbackWorkstationDividingPlanFinishedEvent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting.FeedbackWorkstationDividingPlanStartedEvent">
-    <Position X="0.5" Y="3.5" Width="3.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAABEAAAAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\Dividing\FeedbackWorkstationDividingPlanStartedEvent.cs</FileName>
+      <HashCode>AAAAAAAAAAQAIAAAABAAAAAAAAAAQAAABEAAAAAAAAA=</HashCode>
+      <FileName>Events\FeedbackWorkstation\Dividing\CycleStartedEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.FeedbackWorkstationPartConfirmedEvent">

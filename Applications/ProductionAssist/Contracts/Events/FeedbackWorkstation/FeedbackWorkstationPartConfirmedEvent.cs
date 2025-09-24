@@ -23,8 +23,8 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
         public string Identification { get; set; }
 
         /// <summary>
-        /// 
+        /// The quantity if the Parts confirmed
         /// </summary>
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

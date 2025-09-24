@@ -7,8 +7,8 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cut
     /// <summary>
     /// Gets or sets an event that occurs when a Cutting or nesting plan has been started or finished.
     /// </summary>
-    [AppEvent("FeedbackWorkstationDividingPlanFinished")]
-    public class FeedbackWorkstationDividingPlanFinishedEvent : AppEvent
+    [AppEvent("CycleCompleted")]
+    public class CycleCompletedEvent : AppEvent
     {
         /// <summary>
         /// Gets or sets the WorkstationId
