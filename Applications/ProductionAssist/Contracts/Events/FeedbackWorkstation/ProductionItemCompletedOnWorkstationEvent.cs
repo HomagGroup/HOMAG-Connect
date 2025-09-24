@@ -17,10 +17,10 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
         public Guid WorkstationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the Part Identification that was confirmed
+        /// Gets or sets the Part Identifier that was confirmed
         /// </summary>
         [Required]
-        public string Identification { get; set; }
+        public string Identifier { get; set; }
 
         /// <summary>
         /// The quantity if the Parts confirmed
