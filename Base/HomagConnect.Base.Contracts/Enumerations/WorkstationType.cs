@@ -20,5 +20,5 @@ public enum WorkstationType
     /// <summary>
     /// The workstation is an Edgebanding one
     /// </summary>
-    Edgebanding,
+    Edgebanding
 }
