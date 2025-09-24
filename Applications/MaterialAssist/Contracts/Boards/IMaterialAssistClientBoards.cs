@@ -1,5 +1,6 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -130,6 +131,11 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// Update board entity by its id (#).
         /// </summary>
         Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity);
+
+        /// <summary>
+        /// Store a board entity.
+        /// </summary>
+        Task StoreBoardEntity(MaterialAssistStoreBoardEntity storeBoardEntity);
 
         /// <summary>
         /// Store a board by its code (#).

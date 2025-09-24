@@ -1,12 +1,4 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Create.Edgebands;
-using HomagConnect.MaterialManager.Samples.Update.Edgebands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HomagConnect.MaterialManager.Samples.Update.Edgebands;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
 {
@@ -19,34 +11,28 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
     {
         /// <summary />
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var materialManagerClient = GetMaterialManagerClient();
-            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
-            {
-                EdgebandCode = "EB_White_1mm",
-                Height = 20,
-                Thickness = 1.0,
-                DefaultLength = 23.0,
-                MaterialCategory = EdgebandMaterialCategory.Veneer,
-                Process = EdgebandingProcess.Other,
-            };
-            var newEdgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(edgebandTypeRequest);
+            var classInstance = new UpdateEdgebandTypeTests();
+            await classInstance.EnsureEdgebandTypeExist("ABS_White_2mm", 2, 23);
         }
 
         [TestMethod]
         public async Task EdgebandsUpdateEdgebandType()
         {
+            Random random = new Random();
+            double RandomBetween(double min, double max)
+            {
+                return random.NextDouble() * (max - min) + min;
+            }
+            double value = Math.Round(RandomBetween(50.0, 100.0), 2);
+
             var materialManagerClient = GetMaterialManagerClient();
-            var edgebandCode = "EB_White_1mm";
-            await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
-        }
-        
-        [ClassCleanup]
-        public async Task Cleanup()
-        {
-            var materialManagerClient = GetMaterialManagerClient();
-            await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm");
+            var edgebandCode = "ABS_White_2mm";
+            await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode, value);
+
+            var checkEdgeband = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
+            Assert.AreEqual(value, checkEdgeband.DefaultLength);
         }
     }
 }

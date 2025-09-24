@@ -8,7 +8,7 @@ Version | Date       | Comment
 1.0     | 17.07.2020 | Add 3 missing fields (ProcurementType (Dispositionsart), ProductionRoute (Fertigungsweg) and AdditionalComments. Extended supported filetypes for images
 1.1     | 28.07.2020 | Add new field CncProgramName2
 1.2     | 17.11.2020 | Formatting issues
-1.3     | 20.11.2020 | Added ExternalId for each entity and order 
+1.3     | 20.11.2020 | Added ExternalId for each entity and order
 1.4     | 26.11.2020 | Comment on quantity. Always use the multiplied value over the hierarcchy
 1.5     | 22.01.2021 | Extended import with intelliDivide specific fields/properties<br/>Renamed "Typ" to "Type" (both are supported in productionManager)<br/>Renamed "EdgeDiagramm" to "EdgeDiagram" (both are supported in productionManager)
 1.6     | 25.01.2021 | Small clarifications and spelling corrections
@@ -27,7 +27,7 @@ Version | Date       | Comment
 2.12    | 01.02.2023 | RotationAngle clarification for ID nesting
 2.13    | 28.02.2023 | Added 5 missing fields (Company, Project, Customer number, Notes and Person in charge)
 2.14    | 06.03.2023 | Changed ExternalId to ExternalSystemId
-2.15    | 17.03.2023 | Added Grain Pattern Template for parts only for cutting 
+2.15    | 17.03.2023 | Added Grain Pattern Template for parts only for cutting
 2.16    | 30.06.2023 | Grain Pattern Template for cutting documentation
 2.17    | 30.06.2023 | Grain Pattern Template adjustments related to the grain set available for templates
 2.18    | 19.01.2024 | Updated description of CncProgramName1 and CncProgramName2
@@ -157,7 +157,7 @@ Here is a example of the generic structure.
           </entities>
         </entity>
       </entities>
-    </material>  
+    </material>
   </materials>
 </project>
 ```
@@ -172,7 +172,7 @@ The green entities are the different types of "entities" which can be places bel
 ![project_xml.png](./Assets/project_xml.png)
 
 ```plantuml
-@startuml 
+@startuml
 class Project
 class Order #red
 class Component #lightgreen
@@ -182,7 +182,7 @@ class Resource #lightgreen
 
 
 Project "1" -- "*" Order
-Order "1" -- "*" OrderItem 
+Order "1" -- "*" OrderItem
 OrderItem "0..1" -- "*" Component
 Order "0..1" -- "*" Component
 Component "0..1" -- "*" Component
@@ -210,14 +210,14 @@ BoardType "1" -- "*" BoardInstance
 'EdgebandType "1" -- "*" Edgeband
 'Edgeband "1" -- "*" EdgebandInstance
 
- 
- note right of Component 
+
+ note right of Component
     german: **Baugruppe**
  end note
- note right of OrderItem 
+ note right of OrderItem
     german: **Kundenauftragsposition**
  end note
- note left of ProductionOrder 
+ note left of ProductionOrder
     german: **Fertigungsauftrag**
  end note
 @enduml
@@ -227,9 +227,9 @@ All components elements can have properties and images (which also includes all 
 
 #### Valid parameters of a "project"
 
-In the case of intelliDivide, the project corresponds to an optimization job. 
-ONE project/import is used for ONE optimization order. 
-Later version: We might create two intelliDivide jobs out of this, if we have different kind of production orders (cutting/nesting). 
+In the case of intelliDivide, the project corresponds to an optimization job.
+ONE project/import is used for ONE optimization order.
+Later version: We might create two intelliDivide jobs out of this, if we have different kind of production orders (cutting/nesting).
 In case of the productionManger only the parameter 'UnitofLength' is valid.
 
 Name         | Type   | Description       | Scope
@@ -262,7 +262,7 @@ AddressField5          | nvarchar(100)               |                          
 ExternalSystemId       | nvarchar(100)               | An optional external id, which will be used in an re-import to detect the "old import" and update the already imported data | PM
 Company                | nvarchar(100)               | The name of the company                              | PM
 Project                | nvarchar(100)               | The name of the project                              | PM
-AdditionalComments     | nvarchar(100)               | Enables the user to add notes (text) as details      | PM
+AdditionalComments     | nvarchar(100)               | Enables the user to add notes (text) as details      | PM/ID
 StartDatePlanned       | DateTimeOffset(7)           | Planned Start Date                                   | PM
 CompletionDatePlanned  | DateTimeOffset(7)           | Completion Planned Date                              | PM
 
@@ -313,7 +313,7 @@ The scope defines if this parameter is used for productionManager (PM) and/or in
 Type                   | Description | Scope
 -----------------------|------------------------------------------------------------------|-------
 `OrderItem`            | The final article, that will be sent to the customer. Can exist only on the first/highest level of the hierarchy.<br/>If this is above a ProductionOrder, then the name of the ArticleDescription will be used as the OrderPosition in intelliDivide         | PM/ID
-`Component`            | For structuring the order. allows a hierarchical view over all entities. Can exist on every level of the hierarchy below the OrderItem and above the productionOrder|PM/ID
+`Component`            | For structuring the order. allows a hierarchical view over all entities. Can exist on every level of the hierarchy below the OrderItem and above the productionOrder|PM
 `ProductionOrder`      | Defines a part, that must be produced.                           | PM/ID
 `ProductionEntityItem` | Prepared for further functionality. Actually not (yet) supported | PM
 `Resource`             | Resources                                                        | PM
@@ -338,7 +338,7 @@ MaximumQuantity           | decimal(15,5)            | Maximum quantity|PM/ID
 Hinge                     | nvarchar(100)            |            |PM
 Length                    | decimal(15,5)            | unit / mm  |PM/ID
 Width                     | decimal(15,5)            | unit / mm  |PM/ID
-Thickness                 | decimal(15,5)            | unit / mm  |PM
+Thickness                 | decimal(15,5)            | unit / mm<br/>Used in intelliDivide if imported material doesn't exist in materialManager. |PM/ID
 Grain                     | string/<br/>integer      | NoGrain (0)<br/>Lengthwise (1)<br/>Crosswise (2)|PM/ID
 Material                  | nvarchar(255)            |            |PM/ID
 SecondCutLength           | decimal                  | unit / mm<br/>Second cutting length  (e.g. part returns to saw from laminating)|PM/ID
@@ -775,7 +775,7 @@ All entities can have images or files attached.
 
 ##### Parameter "GrainPattern"
 
-  GrainPattern                | Description 
+  GrainPattern                | Description
 ------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------
                               | The grain match template has 12 default templates and their names are localized with the language set into Tapio account for a particular subscription
                               | English names are: "2 Parts (2 x 1)", "2 Parts (1 x 2)", "2+1 part, longitudinal right (2 x 2)", "1+2 part, longitudinal left (2 x 2)", "2+1 part, crosswise bottom (2 x 2)",
@@ -789,21 +789,21 @@ All entities can have images or files attached.
                               |                                                 => "1" is instance of the template
 							  |                                                 => "0" is the template grain ( 0 = None; 1 = Lengthwise grain; 2 = Cross grain => similar as for the parts;) all the positions into a template instance
 							  |                                                       need to have the same grain
-                              | 
+                              |
                               | value can get also multiple positions for the template in case the parameter Quantity has a value bigger that 1 exp: value="2 Parts (2 x 1):1.1 2.1:1"
                               |
-  `2 Parts (2 x 1)`           | available positions => 1.1 2.1 
+  `2 Parts (2 x 1)`           | available positions => 1.1 2.1
                               |
   `2 Parts (1 x 2)`           |  available positions => 1.1 1.2
-                              |  
+                              |
   `2+1 part, longitudinal right (2 x 2)` |  available positions => 1.1 1.2 2.1
-                              |  
+                              |
   `1+2 part, longitudinal left (2 x 2)` |  available positions => 1.1 2.1 2.2
-                              | 
+                              |
   `2+1 part, crosswise bottom (2 x 2)` |  available positions => 1.1 1.2 2.1
-                              | 
+                              |
  `1+2 part, crosswise top (2 x 2)` |  available positions => 1.1 1.2 2.2
-                              | 
+                              |
  `3 Parts (3 x 1)`            |  available positions => 1.1 2.1 3.1
                               |
  `3 Parts (1 x 3)`            |  available positions => 1.1 1.2 1.3
@@ -815,6 +815,6 @@ All entities can have images or files attached.
  `4 Parts (1 x 4)`            |  available positions => 1.1 1.2 1.3 1.4
                               |
  `4 Parts (4 x 1)`            |  available positions => 1.1 2.1 3.1 4.1
-  
-  ![grain_templates.png](./Assets/grain_templates.png)                            
-  
+
+  ![grain_templates.png](./Assets/grain_templates.png)
+

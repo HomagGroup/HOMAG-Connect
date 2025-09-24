@@ -97,7 +97,7 @@ stages:
           inputs:
             command: 'restore'
 
-        - task: SonarQubePrepare@5
+        - task: SonarQubePrepare@7
           displayName: 'Prepare analysis on SonarQube'
           inputs:
             SonarQube: 'SonarQube Enterprise'
@@ -106,7 +106,7 @@ stages:
             projectVersion: '$(MajorMinorBuildVersion)'
             extraProperties: |
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
-            condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - task: ResourceTranslation@3
           displayName: 'ResourceTranslation'
@@ -117,7 +117,7 @@ stages:
             C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
             AssemblyMaskList: '*.resx'
             WorkingDirectoryList: '..\s'
-            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=tb10bow -useenglish'
+            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
             C3PORetryCounter: '3'
             C3POTimeout: '240'
             C3PODisableCache: true
@@ -144,11 +144,11 @@ stages:
         # MEND
         # - template: common-tasks/list-agent-directory/template.yml@templates
   
-        - task: SonarQubeAnalyze@5
+        - task: SonarQubeAnalyze@7
           displayName: 'Run Code Analysis'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
-        - task: SonarQubePublish@5
+        - task: SonarQubePublish@7
           displayName: 'Publish Quality Gate Result'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))          
 

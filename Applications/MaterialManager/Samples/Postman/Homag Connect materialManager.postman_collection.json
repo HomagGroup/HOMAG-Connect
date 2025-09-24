@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "945de830-c6ce-404b-aa2a-23ef96904be6",
+		"_postman_id": "083752da-00cf-430a-b4aa-abe776a9022f",
 		"name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,7 +52,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=\"Test\"&includingDetails=true&take&skip",
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=P2_White_15.0&includingDetails=true&take&skip",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -65,7 +65,7 @@
 									"query": [
 										{
 											"key": "materialCode",
-											"value": "\"Test\""
+											"value": "P2_White_15.0"
 										},
 										{
 											"key": "includingDetails",
@@ -91,7 +91,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=\"Test\"&includingDetails=true&take&skip",
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=P2_White_15.0_2800.0_2070.0&includingDetails=true&take&skip",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -104,47 +104,11 @@
 									"query": [
 										{
 											"key": "boardCode",
-											"value": "\"Test\""
+											"value": "P2_White_15.0_2800.0_2070.0"
 										},
 										{
 											"key": "includingDetails",
 											"value": "true"
-										},
-										{
-											"key": "take",
-											"value": null,
-											"description": "Max. 1000 boards at once"
-										},
-										{
-											"key": "skip",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get materialCodes with thumbnail",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materialCodes?search=\"Test\"&take&skip",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"materialCodes"
-									],
-									"query": [
-										{
-											"key": "search",
-											"value": "\"Test\""
 										},
 										{
 											"key": "take",
@@ -166,21 +130,21 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/inventory?boardCode=\"Test\"",
+									"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?boardCode=P2_White_15.0_2800.0_2070.0",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"materialManager",
-										"materials",
-										"boards",
-										"inventory"
+										"statistics",
+										"inventory",
+										"boards"
 									],
 									"query": [
 										{
 											"key": "boardCode",
-											"value": "\"Test\""
+											"value": "P2_White_15.0_2800.0_2070.0"
 										}
 									]
 								}
@@ -375,6 +339,100 @@
 											"key": "skip",
 											"value": "",
 											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Get all board type allocations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?take=10&skip=0",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "take",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "skip",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all board type allocations by names",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/byNames?allocationNames=Kitchen",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations",
+										"byNames"
+									],
+									"query": [
+										{
+											"key": "allocationNames",
+											"value": "Kitchen"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all board type allocations search",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/search?search=Kitchen",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations",
+										"search"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "Kitchen"
 										}
 									]
 								}
@@ -607,6 +665,36 @@
 					"response": []
 				},
 				{
+					"name": "CreateBoardTypeAllocation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",\r\n  \"createdBy\": \"user\",\r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"boards",
+								"allocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateBoardType With AdditionalData",
 					"request": {
 						"method": "POST",
@@ -791,6 +879,47 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Update a board type allocation",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",  \r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationName=Q3-2025-Allocation",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "allocationName",
+											"value": "Q3-2025-Allocation"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -851,6 +980,38 @@
 										{
 											"key": "edgebandCode",
 											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BoardTypeAllocations",
+					"item": [
+						{
+							"name": "Delete board type allocations",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationNames=Q3-2025-Allocation",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "allocationNames",
+											"value": "Q3-2025-Allocation"
 										}
 									]
 								}

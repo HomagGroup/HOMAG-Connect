@@ -6,6 +6,7 @@ using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialAssist.Contracts.Boards;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -371,6 +372,42 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
+        public async Task StoreBoardEntity(MaterialAssistStoreBoardEntity storeBoardEntity)
+        {
+            if (storeBoardEntity == null)
+            {
+                throw new ArgumentNullException(nameof(storeBoardEntity));
+            }
+
+            if (string.IsNullOrEmpty(storeBoardEntity.Id))
+            {
+                throw new ArgumentException("Id must not be null or empty.", nameof(storeBoardEntity.Id));
+            }
+
+            if (storeBoardEntity.StorageLocation == null)
+            {
+                throw new ArgumentException("Storage location must be provided.", nameof(storeBoardEntity.StorageLocation));
+            }
+
+            if (storeBoardEntity.Workstation == null)
+            {
+                throw new ArgumentException("Workstation must be provided.", nameof(storeBoardEntity.Workstation));
+            }
+
+            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(storeBoardEntity.Id)}/store";
+
+            var payload = JsonConvert.SerializeObject(storeBoardEntity, SerializerSettings.Default);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(url, UriKind.Relative), content).ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Failed to store board entity. Status: {response.StatusCode}, Response: {responseContent}");
+            }
+        }
+
+        [Obsolete($"This method is obsolete. Use the method with {nameof(MaterialAssistStoreBoardEntity)} instead.", true)]
         public Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
         {
             var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";

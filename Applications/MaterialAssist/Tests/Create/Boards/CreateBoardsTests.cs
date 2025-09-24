@@ -1,10 +1,5 @@
 ﻿using HomagConnect.MaterialAssist.Samples.Create.Boards;
-using HomagConnect.MaterialAssist.Samples.Delete.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards
 {
@@ -13,31 +8,42 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards
     [TestCategory("MaterialAssist.Boards")]
     public class CreateBoardsTests : MaterialAssistTestBase
     {
+        [TestInitialize]
+        public async Task Initialize()
+        {
+            await EnsureBoardTypeExist("MDF_H3171_12_19.0");
+            await EnsureBoardTypeExist("EG_H3303_ST10_19");
+        }
+
         [TestMethod]
         public async Task BoardsCreateBoardEntity()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await CreateBoardEntitySample.Boards_CreateBoardEntity(MaterialAssistClient, "42", "50", "23");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await CreateBoardEntitySample.Boards_CreateBoardEntity(materialAssistClient, "11111", "11112", "11113");
+            
+            var boardEntity1 = await materialAssistClient.GetBoardEntityById("11111");
+            Assert.AreEqual("11111", boardEntity1.Id);
+            Assert.AreEqual(ManagementType.Single, boardEntity1.ManagementType);
+            Assert.AreEqual(1, boardEntity1.Quantity);
+
+            var boardEntity2 = await materialAssistClient.GetBoardEntityById("11112");
+            Assert.AreEqual("11112", boardEntity2.Id);
+            Assert.AreEqual(ManagementType.Stack, boardEntity2.ManagementType);
+            Assert.AreEqual(5, boardEntity2.Quantity);
+
+            var boardEntity3 = await materialAssistClient.GetBoardEntityById("11113");
+            Assert.AreEqual("11113", boardEntity3.Id);
+            Assert.AreEqual(ManagementType.GoodsInStock, boardEntity3.ManagementType);
+            Assert.AreEqual(5, boardEntity3.Quantity);
         }
 
-        
-        [TestMethod]
-        public async Task BoardsCreateBoardType()
-        {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            var boardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0";
-            await CreateBoardEntitySample.Boards_CreateBoardType(MaterialAssistClient, boardCode);
-        }
-        
-
-        [ClassCleanup]
+        [TestCleanup]
         public async Task Cleanup()
         {
-            var MaterialAssistClient = GetMaterialAssistClient().Boards;
-            await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
-
-            var MaterialManagerClient = GetMaterialManagerClient();
-            await MaterialManagerClient.Material.Boards.DeleteBoardType("RP_EG_H3303_ST10_19_2800.0_2070.0");
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await materialAssistClient.DeleteBoardEntity("11111");
+            await materialAssistClient.DeleteBoardEntity("11112");
+            await materialAssistClient.DeleteBoardEntity("11113");
         }
     }
 }

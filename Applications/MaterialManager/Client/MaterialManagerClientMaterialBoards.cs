@@ -27,6 +27,33 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Import
+
+    /// <inheritdoc />
+    public async Task<string> ImportInventory(ImportInventoryRequest data)
+    {
+        if (data == null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
+
+        var payload = JsonConvert.SerializeObject(data, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_ImportInventoryRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<string>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(ImportInventoryRequest)}");
+    }
+
+    #endregion
+
     #region Update
 
     /// <inheritdoc />
@@ -209,6 +236,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _MaterialCode = "materialCode";
     private const string _BoardCode = "boardCode";
     private const string _IncludingDetails = "includingDetails";
+    private const string _GatewayMaterialRoutePrefix = "api/gw/materials";
+    private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
+    private const string _DeleteBoardTypesByCodesRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
 
     #endregion
 
@@ -453,7 +483,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var query = new StringBuilder($"?take={take}&skip={skip}");
         foreach (var name in names)
         {
-            query.Append($"&allocationName={Uri.EscapeDataString(name)}");
+            query.Append($"&allocationNames={Uri.EscapeDataString(name)}");
         }
 
         var url = $"{_BoardTypeAllocationsRoute}/byNames{query}";
@@ -531,12 +561,27 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         foreach (var name in names)
         {
             query.Append(query.Length == 0 ? "?" : "&");
-            query.Append($"allocationName={Uri.EscapeDataString(name)}");
+            query.Append($"allocationNames={Uri.EscapeDataString(name)}");
         }
 
         var url = $"{_BoardTypeAllocationsRoute}{query}";
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteBoardTypesByCodes(StorageImportFilter filter)
+    {
+        if (filter == null)
+        {
+            throw new ArgumentNullException(nameof(filter));
+        }
+
+        ValidateRequiredProperties(filter);
+
+        var payload = JsonConvert.SerializeObject(filter, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        await PostObject(new Uri(_DeleteBoardTypesByCodesRoute, UriKind.Relative), content);
     }
 
     #endregion Delete

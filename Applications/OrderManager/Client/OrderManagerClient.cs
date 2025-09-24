@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -82,16 +83,16 @@ namespace HomagConnect.OrderManager.Client
         #region Order details
 
         /// <inheritdoc />
-        public async Task<OrderDetails?> GetOrder(Guid orderId)
+        public async Task<OrderDetails?> GetOrder(Guid orderId, bool configurationData = false)
         {
-            var uri = $"{_OrderRoute}/{orderId}";
+            var uri = $"{_OrderRoute}/{orderId}?configurationData={configurationData}";
             return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<OrderDetails?> GetOrder(string orderNumber)
+        public async Task<OrderDetails?> GetOrder(string orderNumber, bool configurationData = false)
         {
-            var uri = $"{_OrderRoute}/{Uri.EscapeDataString(orderNumber)}";
+            var uri = $"{_OrderRoute}/{Uri.EscapeDataString(orderNumber)}?configurationData={configurationData}";
             return await RequestObject<OrderDetails>(new Uri(uri, UriKind.Relative));
         }
 
@@ -120,11 +121,14 @@ namespace HomagConnect.OrderManager.Client
 
             using var response = await Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
-            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            var content = await response.Content.ReadAsStreamAsync();
-            using var reader = new StreamReader(content);
-            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(await reader.ReadToEndAsync(), SerializerSettings.Default);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new ValidationException(result);
+            }
+
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderResponse>(result, SerializerSettings.Default);
 
             return responseObject ?? new ImportOrderResponse();
         }

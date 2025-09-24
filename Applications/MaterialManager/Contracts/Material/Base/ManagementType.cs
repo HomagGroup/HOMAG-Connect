@@ -12,10 +12,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Base
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum ManagementType
     {
+        /// <summary>
+        /// Single
+        /// </summary>
         [Display(Description = "Single")]
         Single,
+        /// <summary>
+        /// Stack
+        /// </summary>
         [Display(Description = "Stack")]
         Stack,
+        /// <summary>
+        /// GoodsInStock
+        /// </summary>
         [Display(Description = "Goods in stock")]
         GoodsInStock
     }

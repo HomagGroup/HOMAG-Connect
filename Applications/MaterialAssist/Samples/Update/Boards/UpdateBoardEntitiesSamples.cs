@@ -1,51 +1,53 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialAssist.Client;
+using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 
-namespace HomagConnect.MaterialAssist.Samples.Update.Boards
+namespace HomagConnect.MaterialAssist.Samples.Update.Boards;
+
+public class UpdateBoardEntitiesSamples
 {
-    public class UpdateBoardEntitiesSamples
+    public static async Task Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
     {
-        public static async Task Boards_UpdateBoardEntity(MaterialAssistClientBoards materialAssist)
+        // string id, bool deleteBoardFromInventory = false
+        await materialAssist.RemoveAllBoardEntitiesFromWorkplace("41111");
+    }
+
+    public static async Task Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
+    {
+        //string id, int quantity, bool deleteBoardFromInventory = false
+        await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("41112", 2);
+    }
+
+    public static async Task Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
+    {
+        //string id, int quantity,Boards_RemoveSubsetBoardEntitiesFromWorkplace bool deleteBoardFromInventory = false
+        await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("41113", 3);
+    }
+
+    public static async Task Boards_StoreBoardEntity(MaterialAssistClientBoards materialAssist)
+    {
+        var boardEntityStore = new MaterialAssistStoreBoardEntity()
         {
-            var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
-            {
-                Id = "42",
-                Length = 100,
-                Comments = "This is a comment",
-                Quantity = 1,
-            };
-            var updateBoardEntity = await materialAssist.UpdateBoardEntity("42", boardEntityUpdate);
-            Console.WriteLine($"Updated board entity: {updateBoardEntity.Id}");
-        }
-        
-        public static async Task Boards_StoreBoardEntity(MaterialAssistClientBoards materialAssist)
-        {
-            var storageLocation = new StorageLocation()
+            Id = "41111",
+            Length = 100,
+            Width = 70,
+            StorageLocation = new StorageLocation()
             {
                 Name = "Compartment 02",
-            };
-            //string id, int length, int width, StorageLocation storageLocation
-            await materialAssist.StoreBoardEntity("42", 350, 835, storageLocation);
-        }
-        
-        public static async Task Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
-        {
-            // string id, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveAllBoardEntitiesFromWorkplace("42");
-        }
+            },
+        };
+        await materialAssist.StoreBoardEntity(boardEntityStore);
+    }
 
-        public static async Task Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
+    public static async Task Boards_UpdateBoardEntity(MaterialAssistClientBoards materialAssist, double randomLength, double randomWidth)
+    {
+        var boardEntityUpdate = new MaterialAssistUpdateBoardEntity()
         {
-            //string id, int quantity,Boards_RemoveSubsetBoardEntitiesFromWorkplace bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSubsetBoardEntitiesFromWorkplace("50", 3);
-        }
-
-        public static async Task Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClientBoards materialAssist)
-        {
-            //string id, int quantity, bool deleteBoardFromInventory = false
-            await materialAssist.RemoveSingleBoardEntitiesFromWorkplace("23", 2);
-        }
-        
+            Length = randomLength,
+            Width = randomWidth,
+            Comments = "This is a comment",
+        };
+        var updateBoardEntity = await materialAssist.UpdateBoardEntity("834", boardEntityUpdate);
     }
 }

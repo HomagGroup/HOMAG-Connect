@@ -42,6 +42,12 @@ public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingPrope
     public override ProductionItemType Type { get; set; } = ProductionItemType.Part;
 
     /// <summary>
+    /// Gets or sets the orderItem description.
+    /// </summary>
+    [JsonProperty(Order = 15)]
+    public string? OrderItemDescription { get; set; }
+
+    /// <summary>
     /// Gets or sets the thickness.
     /// </summary>
     [JsonProperty(Order = 16)]

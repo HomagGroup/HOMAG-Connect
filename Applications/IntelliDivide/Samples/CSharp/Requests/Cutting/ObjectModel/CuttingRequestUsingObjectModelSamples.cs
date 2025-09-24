@@ -446,7 +446,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 600,
                     Grain = Grain.Lengthwise,
                     Quantity = 3,
-                    StackingGroup = "A"
+                    DestackingGroup = "A"
                 });
 
             request.Parts.Add(
@@ -458,7 +458,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 600,
                     Grain = Grain.Lengthwise,
                     Quantity = 2,
-                    StackingGroup = "B"
+                    DestackingGroup = "B"
                 });
 
             request.Parts.Add(
@@ -470,7 +470,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 600,
                     Grain = Grain.Lengthwise,
                     Quantity = 3,
-                    StackingGroup = "A"
+                    DestackingGroup = "A"
                 });
 
             request.Boards.Add(
@@ -522,7 +522,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 600,
                     Grain = Grain.Lengthwise,
                     Quantity = 3,
-                    StackingGroup = "A"
+                    DestackingGroup = "A"
                 });
 
             request.Parts.Add(
@@ -534,7 +534,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 600,
                     Grain = Grain.Lengthwise,
                     Quantity = 2,
-                    StackingGroup = "B"
+                    DestackingGroup = "B"
                 });
 
             request.Parts.Add(
@@ -546,7 +546,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 600,
                     Grain = Grain.Lengthwise,
                     Quantity = 3,
-                    StackingGroup = "A"
+                    DestackingGroup = "A"
                 });
 
             request.Parts.Add(
@@ -582,7 +582,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                     Width = 2070,
                     Thickness = 19.0,
                     Costs = 10,
-                    Grain = Grain.None,
+                    Grain = Grain.Lengthwise,
                     Quantity = 70,
                 });
 
