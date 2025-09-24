@@ -52,6 +52,18 @@ public class ProductionItemBase
     public string? Id { get; set; }
 
     /// <summary>
+    /// Gets the identifier, which is either the barcode (if available) or the id.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public string? Identifier
+    {
+        get
+        {
+            return !string.IsNullOrWhiteSpace(Barcode) ? Barcode : Id;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the article number.
     /// </summary>
     [JsonProperty(Order = 3)]

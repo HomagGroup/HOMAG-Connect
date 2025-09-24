@@ -8,6 +8,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 /// <summary>
 /// </summary>
 [TestClass]
+[TestCategory("MaterialManager")]
 public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>
