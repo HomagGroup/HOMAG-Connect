@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation
 {
     /// <summary>
-    /// Gets or sets an event that occurs when a part has been confirmed
+    /// Gets or sets an event that occurs when a ProductionItem has been confirmed
     /// </summary>
     [AppEvent("ProductionItemCompletedOnWorkstation")]
     public class ProductionItemCompletedOnWorkstationEvent : AppEvent
