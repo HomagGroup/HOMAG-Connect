@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting
 {
+#pragma warning disable CS8618
     /// <summary>
     /// Gets or sets an event that occurs when a Cutting or nesting plan has been started or finished.
     /// </summary>
@@ -42,7 +43,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cut
         /// <summary>
         /// Gets or sets the BoardEntityId used in this cycle
         /// </summary>
-        [Required]
         public string? BoardEntityId { get; set; }
     }
+#pragma warning restore  CS8618
 }

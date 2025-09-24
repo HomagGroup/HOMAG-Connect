@@ -7,11 +7,11 @@
       <FileName>Events\FeedbackWorkstation\Dividing\CycleStartedEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.FeedbackWorkstationPartConfirmedEvent">
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.ProductionItemCompletedOnWorkstationEvent">
     <Position X="5" Y="3.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAABAAAgAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\FeedbackWorkstationPartConfirmedEvent.cs</FileName>
+      <FileName>Events\FeedbackWorkstation\ProductionItemCompletedOnWorkstationEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.Base.Contracts.Events.AppEvent">
