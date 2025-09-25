@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts.Cutting;
 using HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces;
@@ -24,13 +25,19 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public async Task DeleteCuttingJobs(Guid[] cuttingJobIds)
         {
-            var uri = $"/api/productionAssist/cutting/jobs?cuttingJobId={cuttingJobIds[0]}";
-            for (var i = 1; i < cuttingJobIds.Length; i++)
-            {
-                uri += $"&cuttingJobId={cuttingJobIds[i]}";
-            }
+            var endpoint = "/api/productionAssist/cutting/jobs";
 
-            await DeleteObject(new Uri(uri, UriKind.Relative));
+            var uris = cuttingJobIds
+                .Select(id => $"&cuttingJobId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri);
+            }
         }
 
         #endregion Delete
@@ -47,13 +54,16 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<CuttingJob>?> GetCuttingJobs(Guid[] cuttingJobIds)
         {
-            var uri = $"/api/productionAssist/cutting/jobs?cuttingJobId={cuttingJobIds[0]}";
-            for (var i = 1; i < cuttingJobIds.Length; i++)
-            {
-                uri += $"&cuttingJobId={cuttingJobIds[i]}";
-            }
+            var endpoint = "/api/productionAssist/cutting/jobs";
 
-            return await RequestEnumerable<CuttingJob>(new Uri(uri, UriKind.Relative));
+            var uris = cuttingJobIds
+                .Select(id => $"&cuttingJobId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<CuttingJob>(uris);
         }
 
         /// <inheritdoc />

@@ -6,7 +6,7 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
 {
     public class GetEndgebandEntitiesSamples
     {
-        public static async Task Edgebands_GetEdgebandEntities(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<IList<EdgebandEntity>> Edgebands_GetEdgebandEntities(MaterialAssistClientEdgebands materialAssist)
         {
             int take = 100000;
             int skip = 0;
@@ -21,61 +21,50 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Edgebands
 
             } while (edgebandEntities.Count == take);
 
-            foreach (var edgebandEntity in allEdgebandEntities)
-            {
-                Console.WriteLine($"Edgeband entity ID: {edgebandEntity.Id}");
-            }
+            return edgebandEntities;
         }
 
         // GetById
-        public static async Task Edgebands_GetEdgebandEntityById(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<EdgebandEntity?> Edgebands_GetEdgebandEntityById(MaterialAssistClientEdgebands materialAssist)
         {
-            var edgebandEntity = await materialAssist.GetEdgebandEntityById("42");
-            Console.WriteLine(edgebandEntity);
+            var edgebandEntity = await materialAssist.GetEdgebandEntityById("33");
+            return edgebandEntity;
         }
 
-        public static async Task Edgebands_GetEdgebandEntitiesByIds(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<IEnumerable<EdgebandEntity?>> Edgebands_GetEdgebandEntitiesByIds(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> ids = ["42"];
+            List<string> ids = ["33", "34", "35"];
             var edgebandEntities = await materialAssist.GetEdgebandEntitiesByIds(ids);
-            foreach (var edgebandEntity in edgebandEntities)
-            {
-                Console.WriteLine(edgebandEntity);
-            }
+            return edgebandEntities;
         }
 
         // GetByEdgebandCode
-        public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCode(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<IEnumerable<EdgebandEntity>?> Edgebands_GetEdgebandEntitiesByEdgebandCode(MaterialAssistClientEdgebands materialAssist)
         {
-            var edgebandEntity = await materialAssist.GetEdgebandEntitiesByEdgebandCode("White Edgeband 19mm");
-            Console.WriteLine(edgebandEntity);
+            var edgebandEntity = await materialAssist.GetEdgebandEntitiesByEdgebandCode("ABS_White_1mm");
+            return edgebandEntity;
         }
 
-        public static async Task Edgebands_GetEdgebandEntitiesByEdgebandCodes(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<IEnumerable<EdgebandEntity>> Edgebands_GetEdgebandEntitiesByEdgebandCodes(MaterialAssistClientEdgebands materialAssist)
         {
-            List<string> allEdgebandCodes = ["White Edgeband 19mm", "ABS_Schwarz_2_23_HM"];
+            List<string> allEdgebandCodes = ["ABS_White_1mm"];
             var allEdgebandEntities = await materialAssist.GetEdgebandEntitiesByEdgebandCodes(allEdgebandCodes);
-            foreach (var edgebandEntity in allEdgebandEntities)
-            {
-                Console.WriteLine(edgebandEntity);
-            }
+            return allEdgebandEntities;
         }
 
         // GetStorageLocations
-        public static async Task Edgebands_GetStorageLocations(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<IEnumerable<Base.Contracts.StorageLocation>> Edgebands_GetStorageLocations(MaterialAssistClientEdgebands materialAssist)
         {
             var allStorageLocations = await materialAssist.GetStorageLocations();
             var storageLocation = await materialAssist.GetStorageLocations("Compartment 02");
-
-            Console.WriteLine(allStorageLocations);
-            Console.WriteLine(storageLocation);
+            return storageLocation;
         }
 
         // GetWorkstations
-        public static async Task Edgebands_GetWorkstations(MaterialAssistClientEdgebands materialAssist)
+        public static async Task<IEnumerable<Base.Contracts.Workstation>> Edgebands_GetWorkstations(MaterialAssistClientEdgebands materialAssist)
         {
             var workstations = await materialAssist.GetWorkstations();
-            Console.WriteLine(workstations);
+            return workstations;
         }
     }
 }

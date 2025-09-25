@@ -7,7 +7,7 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
     public class GetBoardEntitiesSamples
     {
         // GetAllEntities
-        public static async Task Boards_GetBoardEntities(MaterialAssistClientBoards materialAssist)
+        public static async Task<IList<BoardEntity>> Boards_GetBoardEntities(MaterialAssistClientBoards materialAssist)
         {
             int take = 100000;
             int skip = 0;
@@ -21,76 +21,66 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
                 boardEntities = await materialAssist.GetBoardEntities(take, skip).ToListAsync();
 
             } while (boardEntities.Count == take);
-
-            foreach (var boardEntity in allBoardEntities)
-            {
-                Console.WriteLine($"Board entity ID: {boardEntity.Id}");
-            }
+            return boardEntities;
         }
 
         // GetById
-        public static async Task Boards_GetBoardEntityById(MaterialAssistClientBoards materialAssist, string id)
+        public static async Task<BoardEntity?> Boards_GetBoardEntityById(MaterialAssistClientBoards materialAssist, string id)
         {
             var boardEntity = await materialAssist.GetBoardEntityById(id);
-            Console.WriteLine(boardEntity);
+            return boardEntity;
         }
 
-        public static async Task Boards_GetBoardEntitiesById(MaterialAssistClientBoards materialAssist, List<string> ids)
+        public static async Task<IEnumerable<BoardEntity>> Boards_GetBoardEntitiesById(MaterialAssistClientBoards materialAssist, List<string> ids)
         {
             var boardEntities = await materialAssist.GetBoardEntitiesByIds(ids);
-            foreach (var boardEntity in boardEntities)
-            {
-                Console.WriteLine(boardEntity);
-            }
+            return boardEntities;
         }
 
         // GetByBoardCode
-        public static async Task Boards_GetBoardEntitiesByBoardCode(MaterialAssistClientBoards materialAssist, string boardCode)
+        public static async Task<IEnumerable<BoardEntity>?> Boards_GetBoardEntitiesByBoardCode(MaterialAssistClientBoards materialAssist, string boardCode)
         {
             var boardEntity = await materialAssist.GetBoardEntitiesByBoardCode(boardCode);
-            Console.WriteLine(boardEntity);
+            return boardEntity;
         }
 
-        public static async Task Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClientBoards materialAssist, List<string> allBoardCodes)
+        public static async Task<IEnumerable<BoardEntity>> Boards_GetBoardEntitiesByBoardCodes(MaterialAssistClientBoards materialAssist, List<string> allBoardCodes)
         {
             var allBoardEntities = await materialAssist.GetBoardEntitiesByBoardCodes(allBoardCodes);
-            foreach (var boardEntity in allBoardEntities)
-            {
-                Console.WriteLine(boardEntity);
-            }
+            return allBoardEntities;
         }
 
         // GetByMaterialCode
-        public static async Task Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClientBoards materialAssist, string materialCode)
+        public static async Task<IEnumerable<BoardEntity>?> Boards_GetBoardEntitiesByMaterialCode(MaterialAssistClientBoards materialAssist, string materialCode)
         {
             var boardEntity = await materialAssist.GetBoardEntitiesByMaterialCode(materialCode);
-            Console.WriteLine(boardEntity);
+            return boardEntity;
         }
 
-        public static async Task Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClientBoards materialAssist, List<string> allMaterialCodes)
+        public static async Task<IEnumerable<BoardEntity>> Boards_GetBoardEntitiesByMaterialCodes(MaterialAssistClientBoards materialAssist, List<string> allMaterialCodes)
         {
             var allBoardEntities = await materialAssist.GetBoardEntitiesByMaterialCodes(allMaterialCodes);
-            foreach (var boardEntity in allBoardEntities)
-            {
-                Console.WriteLine(boardEntity);
-            }
+            return allBoardEntities;
         }
 
         // GetStorageLocations
-        public static async Task Boards_GetStorageLocations(MaterialAssistClientBoards materialAssist)
+        public static async Task<IEnumerable<Base.Contracts.StorageLocation>> Boards_GetStorageLocations(MaterialAssistClientBoards materialAssist)
         {
             var allStorageLocations= await materialAssist.GetStorageLocations();
-            var storageLocation = await materialAssist.GetStorageLocations("Compartment 02");
+            return allStorageLocations;
+        }
 
-            Console.WriteLine(allStorageLocations);
-            Console.WriteLine(storageLocation);
+        public static async Task<IEnumerable<Base.Contracts.StorageLocation>> Boards_GetStorageLocation(MaterialAssistClientBoards materialAssist)
+        {
+            var storageLocation = await materialAssist.GetStorageLocations("Compartment 02");
+            return storageLocation;
         }
 
         // GetWorkstations
-        public static async Task Boards_GetWorkstations(MaterialAssistClientBoards materialAssist)
+        public static async Task<IEnumerable<Base.Contracts.Workstation>> Boards_GetWorkstations(MaterialAssistClientBoards materialAssist)
         {
             var workstations = await materialAssist.GetWorkstations();
-            Console.WriteLine(workstations);
+            return workstations;
         }
     }
 }

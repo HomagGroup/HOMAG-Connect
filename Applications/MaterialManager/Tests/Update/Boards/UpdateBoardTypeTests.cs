@@ -1,55 +1,37 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Samples.Create.Boards;
-using HomagConnect.MaterialManager.Samples.Update.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HomagConnect.MaterialManager.Samples.Update.Boards;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Boards
 {
     /// <summary />
     [TestClass]
+    [TestCategory("MaterialManager")]
+    [TestCategory("MaterialManager.Boards")]
     public class UpdateBoardTypeTests : MaterialManagerTestBase
     {
         /// <summary />
         [ClassInitialize]
-        public async Task Initialize()
+        public static async Task Initialize(TestContext testContext)
         {
-            var materialManagerClient = GetMaterialManagerClient();
-            var boardTypeRequest = new MaterialManagerRequestBoardType
-            {
-                //The material code is the identifier of the material type
-                MaterialCode = "HPL_F274_9_12.0",
-                //The board code is the identifier of the board type
-                BoardCode = "HPL_F274_9_12.0_4100.0_650.0",
-                Length = 4100.0,
-                Width = 650.0,
-                Thickness = 19.0,
-                Type = BoardTypeType.Board,
-                MaterialCategory = BoardMaterialCategory.Undefined,
-                CoatingCategory = CoatingCategory.Undefined,
-                Grain = Grain.None,
-            };
-            var result = await materialManagerClient.Material.Boards.CreateBoardType(boardTypeRequest);
+            var classInstance = new UpdateBoardTypeTests();
+            await classInstance.EnsureBoardTypeExist("HPL_F274_9_19.0");
         }
 
         [TestMethod]
         public async Task BoardsUpdateBoardType()
         {
+            Random random = new Random();
+            double RandomBetween(double min, double max)
+            {
+                return random.NextDouble() * (max - min) + min;
+            }
+            double value = Math.Round(RandomBetween(5.0, 25.0),2);
+
             var materialManagerClient = GetMaterialManagerClient();
-            var boardCode = "HPL_F274_9_12.0_4100.0_650.0"; 
-            await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode);
-        }
-        
-        [ClassCleanup]
-        public async Task Cleanup()
-        {
-            var materialManagerClient = GetMaterialManagerClient();
-            await materialManagerClient.Material.Boards.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.0");
+            var boardCode = "HPL_F274_9_19.0_2800_2070"; 
+            await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode, value);
+
+            var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
+            Assert.AreEqual(value, checkBoard.Thickness);
         }
     }
 }
