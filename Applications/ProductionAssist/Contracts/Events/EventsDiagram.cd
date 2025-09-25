@@ -1,23 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting.CycleStartedEvent">
-    <Position X="8.5" Y="3.5" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAIAAAABAAAAAAAAAAQAAABEAAAAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\Dividing\CycleStartedEvent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.ProductionItemCompletedOnWorkstationEvent">
-    <Position X="5" Y="3.5" Width="3.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAABAAAgAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\ProductionItemCompletedOnWorkstationEvent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="HomagConnect.Base.Contracts.Events.AppEvent">
-    <Position X="5.75" Y="0.5" Width="1.75" />
+    <Position X="5.75" Y="0.5" Width="2.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.WorkstationEvent">
+    <Position X="5.75" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Events\WorkstationEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleCompletedEvent">
+    <Position X="3.25" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Dividing\CycleCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleStartedEvent">
+    <Position X="0.5" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Dividing\CycleStartedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Feedback.ProductionItemCompletedEvent">
+    <Position X="7.75" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAA=</HashCode>
+      <FileName>Events\Feedback\ProductionItemCompletedEvent.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
