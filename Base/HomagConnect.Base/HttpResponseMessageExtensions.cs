@@ -73,29 +73,32 @@ namespace HomagConnect.Base
                         {
                             exception = new ProblemDetailsException(problemDetails);
 
-                            if (problemDetails.Type == nameof(ArgumentOutOfRangeException))
+                            if (problemDetails.Type != nameof(ProblemDetailsException))
                             {
-                                exception = new ArgumentOutOfRangeException(problemDetails.Detail, exception);
-                            }
-                            else if (problemDetails.Type == nameof(NotSupportedException))
-                            {
-                                exception = new NotSupportedException(problemDetails.Detail, exception);
-                            }
-                            else if (problemDetails.Type == nameof(NotImplementedException))
-                            {
-                                exception = new NotImplementedException(problemDetails.Detail, exception);
-                            }
-                            else if (problemDetails.Type == nameof(AuthenticationException))
-                            {
-                                exception = new AuthenticationException(problemDetails.Detail, exception);
-                            }
-                            else if (problemDetails.Type == nameof(ValidationException))
-                            {
-                                exception = new ValidationException(problemDetails.Detail, exception);
-                            }
-                            else
-                            {
-                                exception = null;
+                                if (problemDetails.Type == nameof(ArgumentOutOfRangeException))
+                                {
+                                    exception = new ArgumentOutOfRangeException(problemDetails.Detail, exception);
+                                }
+                                else if (problemDetails.Type == nameof(NotSupportedException))
+                                {
+                                    exception = new NotSupportedException(problemDetails.Detail, exception);
+                                }
+                                else if (problemDetails.Type == nameof(NotImplementedException))
+                                {
+                                    exception = new NotImplementedException(problemDetails.Detail, exception);
+                                }
+                                else if (problemDetails.Type == nameof(AuthenticationException))
+                                {
+                                    exception = new AuthenticationException(problemDetails.Detail, exception);
+                                }
+                                else if (problemDetails.Type == nameof(ValidationException))
+                                {
+                                    exception = new ValidationException(problemDetails.Detail, exception);
+                                }
+                                else
+                                {
+                                    exception = null;
+                                }
                             }
                         }
                     }
