@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts.Nesting;
 using HomagConnect.ProductionAssist.Contracts.Nesting.Interfaces;
@@ -24,13 +25,19 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public async Task DeleteNestingJobs(Guid[] nestingJobIds)
         {
-            var uri = $"/api/productionAssist/nesting/jobs?nestingJobId={nestingJobIds[0]}";
-            for (var i = 1; i < nestingJobIds.Length; i++)
-            {
-                uri += $"&nestingJobId={nestingJobIds[i]}";
-            }
+            var endpoint = "/api/productionAssist/nesting/jobs";
 
-            await DeleteObject(new Uri(uri, UriKind.Relative));
+            var uris = nestingJobIds
+                .Select(id => $"&nestingJobId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri);
+            }
         }
 
         #endregion Delete
@@ -47,13 +54,16 @@ namespace HomagConnect.ProductionAssist.Client
         /// <inheritdoc />
         public async Task<IEnumerable<NestingJob>?> GetNestingJobs(Guid[] nestingJobIds)
         {
-            var uri = $"/api/productionAssist/nesting/jobs?nestingJobId={nestingJobIds[0]}";
-            for (var i = 1; i < nestingJobIds.Length; i++)
-            {
-                uri += $"&nestingJobId={nestingJobIds[i]}";
-            }
+            var endpoint = "/api/productionAssist/nesting/jobs";
 
-            return await RequestEnumerable<NestingJob>(new Uri(uri, UriKind.Relative));
+            var uris = nestingJobIds
+                .Select(id => $"&nestingJobId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return (await RequestEnumerableAsync<NestingJob>(uris)).ToArray();
         }
 
         /// <inheritdoc />
