@@ -63,7 +63,7 @@ namespace HomagConnect.ProductionAssist.Client
                 .Select(p => $"{endpoint}?{p}")
                 .Select(c => new Uri(c, UriKind.Relative));
 
-            return (await RequestEnumerableAsync<NestingJob>(uris)).ToArray();
+            return await RequestEnumerableAsync<NestingJob>(uris);
         }
 
         /// <inheritdoc />
