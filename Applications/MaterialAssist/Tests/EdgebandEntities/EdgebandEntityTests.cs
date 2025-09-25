@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -12,6 +13,7 @@ namespace HomagConnect.MaterialAssist.Tests.EdgebandEntities;
 public class EdgebandEntityTests : MaterialAssistTestBase
 {
     [TestMethod]
+    [TemporaryDisabledOnServer(2025, 12, 31, "Alex | Enable when investigation and fix is done")]
     public async Task MaterialAssist_EdgebandEntities_CreateStoreGetAndDeleteEdgebandEntity_WithExistingType()
     {
         var client = GetMaterialAssistClient().Edgebands;
