@@ -6,7 +6,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
 
-namespace HomagConnect.MaterialAssist.Tests.Integration.Boards
+namespace HomagConnect.MaterialAssist.Tests.Integration
 {
     [TestClass]
     [TestCategory("MaterialAssist")]
