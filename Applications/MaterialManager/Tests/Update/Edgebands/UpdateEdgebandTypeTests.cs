@@ -6,6 +6,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands
     [TestClass]
     [TestCategory("MaterialManager")]
     [TestCategory("MaterialManager.Edgebands")]
+
     public class UpdateEdgebandTypeTests : MaterialManagerTestBase
     {
         /// <summary />
