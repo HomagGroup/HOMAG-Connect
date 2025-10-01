@@ -1,16 +1,17 @@
 ﻿using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
-using HomagConnect.MaterialAssist.Contracts.Events.Boards;
-using HomagConnect.MaterialAssist.Tests;
+using HomagConnect.MaterialManager.Contracts.Events.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Tests;
 
 using Newtonsoft.Json;
 
+/// <inheritdoc />
 [TestClass]
 [TestCategory("MaterialAssist")]
 [TestCategory("MaterialAssist.Events")]
-public class BoardEventTests : MaterialAssistTestBase
+public class BoardEventTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
