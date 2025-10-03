@@ -24,7 +24,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// <summary>
         /// Customer of the edgeband type allocation.
         /// </summary>
-        [Required]
         public string Customer { get; set; } = string.Empty;
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// <summary>
         /// Project of the edgeband type allocation.
         /// </summary>
-        [Required]
         public string Project { get; set; } = string.Empty;
 
         /// <summary>
