@@ -10,6 +10,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Edgebands;
 
 /// <summary />
 [TestClass]
+[TestCategory("MaterialManager")]
+[TestCategory("MaterialManager.Edgebands")]
 public class CreateEdgebandTypeTests : MaterialManagerTestBase
 {
     /// <summary />
@@ -17,16 +19,8 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     public async Task BoardsCreateBoardType()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "EB_White_1mm";
+        var edgebandCode = "ABS_White_3mm";
         await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
-    }
-
-    [ClassCleanup]
-    public async Task Cleanup()
-    {
-        var materialManagerClient = GetMaterialManagerClient();
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm");
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
     }
 
     /// <summary />
@@ -55,6 +49,15 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
 
         await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType_AdditionalData(
             materialManagerClient.Material.Edgebands, edgebandCode);
+    }
+
+    [ClassCleanup]
+    public static async Task Cleanup()
+    {
+        var classInstance = new CreateEdgebandTypeTests();
+        var materialManagerClient = classInstance.GetMaterialManagerClient();
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_White_3mm");
+        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
     }
 
     private static MaterialManagerRequestEdgebandType CreateEdgebandTypeRequest(string edgebandCode, double height, double thickness, double length)

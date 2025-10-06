@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
@@ -121,6 +120,41 @@ namespace HomagConnect.ProductionManager.Client
             throw new TimeoutException();
         }
 
+        /// <inheritdoc />
+        public async Task<ImportOrderStateResponse> ImportViaTemplateAsync(string templateId, FileInfo importFile, string? orderName = null)
+        {
+            var request = new HttpRequestMessage { Method = HttpMethod.Post };
+
+            var requestUri = $"api/productionManager/orders/import/templates/{templateId}";
+
+            if (!string.IsNullOrEmpty(orderName))
+            {
+                requestUri += $"?orderName={Uri.EscapeDataString(orderName)}";
+            }
+
+            if (!importFile.Exists)
+            {
+                throw new FileNotFoundException($"Project file '{importFile.FullName}' was not found.");
+            }
+
+            var fileName = importFile.Name;
+
+            using var stream = importFile.OpenRead();
+            request.RequestUri = new Uri(requestUri, UriKind.Relative);
+
+            using var httpContent = new MultipartFormDataContent();
+
+            HttpContent streamContent = new StreamContent(stream);
+            httpContent.Add(streamContent, fileName, fileName);
+            request.Content = httpContent;
+
+            var response = await Client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseObject = JsonConvert.DeserializeObject<ImportOrderStateResponse>(result, SerializerSettings.Default);
+            return responseObject ?? new ImportOrderStateResponse();
+        }
+
         #endregion
 
         #region Order overview
@@ -169,6 +203,13 @@ namespace HomagConnect.ProductionManager.Client
             return await RequestEnumerableAsync<OrderDetails>(uris);
         }
 
+        /// <inheritdoc />
+        public async Task<IEnumerable<ImportTemplate>?> GetImportTemplates()
+        {
+            var url = "/api/productionManager/orders/import/templates";
+            return await RequestEnumerable<ImportTemplate>(new Uri(url, UriKind.Relative));
+        }
+
         #endregion
 
         #region Order item
@@ -177,7 +218,7 @@ namespace HomagConnect.ProductionManager.Client
         public async Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers)
         {
             const string parameter = "identifier";
-            const string endpoint = "api/productionManager/orderItems";
+            const string endpoint = "/api/productionManager/orderItems";
 
             var uris = identifiers.Select(i => i.Trim())
                 .Where(i => !string.IsNullOrWhiteSpace(i))
@@ -302,13 +343,19 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrdersByOrderIds(Guid[] orderIds)
         {
-            var uri = new StringBuilder($"/api/productionManager/orders?orderId={orderIds[0]}");
-            for (var i = 1; i < orderIds.Length; i++)
-            {
-                uri.Append($"&orderId={orderIds[i]}");
-            }
+            var endpoint = "/api/productionManager/orders";
 
-            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+            var uris = orderIds
+                .Select(id => $"&orderId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri);
+            }
         }
 
         /// <inheritdoc />
@@ -320,13 +367,20 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrdersByOrderNumbers(string[] orderNumbers)
         {
-            var uri = new StringBuilder($"/api/productionManager/orders?orderNumber={Uri.EscapeDataString(orderNumbers[0])}");
-            for (var i = 1; i < orderNumbers.Length; i++)
-            {
-                uri.Append($"&orderNumber={Uri.EscapeDataString(orderNumbers[i])}");
-            }
+            const string endpoint = "/api/productionManager/orders";
 
-            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+            var uris = orderNumbers.Select(i => i.Trim())
+                .Where(i => !string.IsNullOrWhiteSpace(i))
+                .Select(orderNumber => $"&orderNumber={Uri.EscapeDataString(orderNumber)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri);
+            }
         }
 
         #endregion Order deletion
@@ -342,13 +396,19 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrDecomposeLotsByLotIds(Guid[] lotIds)
         {
-            var uri = new StringBuilder($"/api/productionManager/lots?lotId={lotIds[0]}");
-            for (var i = 1; i < lotIds.Length; i++)
-            {
-                uri.Append($"&lotId={lotIds[i]}");
-            }
+            var endpoint = "/api/productionManager/lots";
 
-            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+            var uris = lotIds
+                .Select(id => $"&lotId={id}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri);
+            }
         }
 
         /// <inheritdoc />
@@ -360,13 +420,20 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task DeleteOrDecomposeLotsByLotNames(string[] lotNames)
         {
-            var uri = new StringBuilder($"/api/productionManager/lots?lotName={Uri.EscapeDataString(lotNames[0])}");
-            for (var i = 1; i < lotNames.Length; i++)
-            {
-                uri.Append($"&lotName={Uri.EscapeDataString(lotNames[i])}");
-            }
+            var endpoint = "/api/productionManager/lots";
 
-            await DeleteObject(new Uri(uri.ToString(), UriKind.Relative));
+            var uris = lotNames.Select(i => i.Trim())
+                .Where(i => !string.IsNullOrWhiteSpace(i))
+                .Select(lotName => $"&lotName={Uri.EscapeDataString(lotName)}")
+                .Join(QueryParametersMaxLength)
+                .Select(x => x.TrimStart('&'))
+                .Select(p => $"{endpoint}?{p}")
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            foreach (var uri in uris)
+            {
+                await DeleteObject(uri);
+            }
         }
 
         #endregion Lot deletion

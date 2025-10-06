@@ -7,44 +7,50 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         /// <summary>
         /// Get edgebands by edgeband code.
         /// </summary>
-        public static async Task Edgebands_GetEdgebandTypeByEdgebandCode(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
+        public static async Task<Contracts.Material.Edgebands.EdgebandType?> Edgebands_GetEdgebandTypeByEdgebandCode(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
         {
             // Define the edgebandCode you want to retrieve data for (string):
             var edgebandType = await materialManager.GetEdgebandTypeByEdgebandCode(edgebandCode);
+            return edgebandType;
         }
 
-        public static async Task Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
+        public static async Task<Contracts.Material.Edgebands.EdgebandTypeDetails?> Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager, string edgebandCode)
         {
             // Define the edgebandCode you want to retrieve data for (string):
             var edgebandType = await materialManager.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgebandCode);
+            return edgebandType;
         }
 
         /// <summary>
         /// Get all edgebands.
         /// </summary>
-        public static async Task Edgebands_GetEdgebandTypes(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task<IEnumerable<Contracts.Material.Edgebands.EdgebandType>?> Edgebands_GetEdgebandTypes(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             // parameter int take
-            var tapioMachines = await materialManager.GetEdgebandTypes(6);
+            var allEdgebands = await materialManager.GetEdgebandTypes(6);
+            return allEdgebands;
         }
-        public static async Task Edgebands_GetEdgebandTypesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
+        public static async Task<IEnumerable<Contracts.Material.Edgebands.EdgebandTypeDetails>?> Edgebands_GetEdgebandTypesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             // parameter int take
-            var tapioMachines = await materialManager.GetEdgebandTypesIncludingDetails(6);
+            var allEdgebandsDetails = await materialManager.GetEdgebandTypesIncludingDetails(6);
+            return allEdgebandsDetails;
         }
 
         /// <summary>
         /// Get edgebands by edgeband codes in a list.
         /// </summary>
-        public static async Task Edgebands_GetEdgebandTypesByEdgebandCodes(IMaterialManagerClientMaterialEdgebands materialManager, List<string> edgebandCodes)
+        public static async Task<IEnumerable<Contracts.Material.Edgebands.EdgebandType?>> Edgebands_GetEdgebandTypesByEdgebandCodes(IMaterialManagerClientMaterialEdgebands materialManager, List<string> edgebandCodes)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
-            var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
+            var edgebands = await materialManager.GetEdgebandTypesByEdgebandCodes(edgebandCodes);
+            return edgebands;
         }
-        public static async Task Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager, List<string> edgebandCodes)
+        public static async Task<IEnumerable<Contracts.Material.Edgebands.EdgebandTypeDetails?>> Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(IMaterialManagerClientMaterialEdgebands materialManager, List<string> edgebandCodes)
         {
             //Define the edgebandCodes you want to retrieve data for in a list
-            var tapioMachines = await materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
+            var edgebandsDetails = await materialManager.GetEdgebandTypesByEdgebandCodesIncludingDetails(edgebandCodes);
+            return edgebandsDetails;
         }
 
         /// <summary>

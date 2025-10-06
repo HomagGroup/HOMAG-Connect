@@ -1,82 +1,40 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Request;
-using HomagConnect.MaterialAssist.Samples.Update.Boards;
-using HomagConnect.MaterialManager.Contracts.Material.Base;
+﻿using HomagConnect.MaterialAssist.Samples.Update.Boards;
 
-namespace HomagConnect.MaterialAssist.Tests.Update.Boards;
+namespace HomagConnect.MaterialAssist.Tests.Update.Boards
+{ 
+    [TestClass]
+    [TestCategory("MaterialAssist")]
+    [TestCategory("MaterialAssist.Boards")]
 
-public class UpdateBoardsTests : MaterialAssistTestBase
-{
-    [TestMethod]
-    public async Task BoardsRemoveAllBoardEntitiesFromWorkplace()
+    public class UpdateBoardsTests : MaterialAssistTestBase
     {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        await UpdateBoardEntitiesSamples.Boards_RemoveAllBoardEntitiesFromWorkplace(MaterialAssistClient);
-    }
-
-    [TestMethod]
-    public async Task BoardsRemoveSingleBoardEntitiesFromWorkplace()
-    {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        await UpdateBoardEntitiesSamples.Boards_RemoveSingleBoardEntitiesFromWorkplace(MaterialAssistClient);
-    }
-
-    [TestMethod]
-    public async Task BoardsRemoveSubsetBoardEntitiesFromWorkplace()
-    {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        await UpdateBoardEntitiesSamples.Boards_RemoveSubsetBoardEntitiesFromWorkplace(MaterialAssistClient);
-    }
-
-    [TestMethod]
-    public async Task BoardsStoreBoardEntity()
-    {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        await UpdateBoardEntitiesSamples.Boards_StoreBoardEntity(MaterialAssistClient);
-    }
-
-    [TestMethod]
-    public async Task BoardsUpdateBoardEntity()
-    {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(MaterialAssistClient);
-    }
-
-    [ClassCleanup]
-    public async Task Cleanup()
-    {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        await MaterialAssistClient.DeleteBoardEntities(["42", "50", "23"]);
-    }
-
-    [ClassInitialize]
-    public async Task Initialize()
-    {
-        var MaterialAssistClient = GetMaterialAssistClient().Boards;
-        var boardEntityRequestSingle = new MaterialAssistRequestBoardEntity()
+        [ClassInitialize]
+        public static async Task Initialize(TestContext testContext)
         {
-            Id = "42",
-            BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-            ManagementType = ManagementType.Single,
-            Quantity = 1
-        };
-        var newBoardEntitySingle = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestSingle);
-
-        var boardEntityRequestStack = new MaterialAssistRequestBoardEntity()
+            var classInstance = new UpdateBoardsTests();
+            await classInstance.EnsureBoardTypeExist("MDF_H3171_12_19.0");
+            await classInstance.EnsureBoardEntityExist("834", "MDF_H3171_12_19.0_2800_2070");
+        }
+        
+        [TestMethod]
+        public async Task BoardsUpdateBoardEntity()
         {
-            Id = "50",
-            BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0",
-            ManagementType = ManagementType.Stack,
-            Quantity = 5
-        };
-        var newBoardEntityStack = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestStack);
+            Random random = new Random();
 
-        var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity()
-        {
-            Id = "23",
-            BoardCode = "RP_EG_H3303_ST10_19_2800.0_2070.0",
-            ManagementType = ManagementType.GoodsInStock,
-            Quantity = 5
-        };
-        var newBoardEntityGoodsInStock = await MaterialAssistClient.CreateBoardEntity(boardEntityRequestGoodsInStock);
+            double RandomBetween(double min, double max)
+            {
+                return random.NextDouble() * (max - min) + min;
+            }
+
+            double length = Math.Round(RandomBetween(100.0, 2000.0), 2); 
+            double width = Math.Round(RandomBetween(100.0, 2000.0), 2);
+
+            var materialAssistClient = GetMaterialAssistClient().Boards;
+            await UpdateBoardEntitiesSamples.Boards_UpdateBoardEntity(materialAssistClient, length, width);
+
+            var boardEntity = await materialAssistClient.GetBoardEntityById("834");
+            Assert.AreEqual(length, boardEntity.Length);
+            Assert.AreEqual(width, boardEntity.Width);
+        }
     }
 }

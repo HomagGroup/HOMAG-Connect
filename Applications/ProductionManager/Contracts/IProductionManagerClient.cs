@@ -54,6 +54,12 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers);
 
+        /// <summary>
+        /// Get available import templates for parts
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ImportTemplate>?> GetImportTemplates();
+
         #endregion
 
         #region Order release
@@ -101,6 +107,12 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Wait for the import to be completed.
         /// </summary>
         Task<Order> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
+
+        /// <summary>
+        /// Importing part data via template to an existing order or create a new order
+        /// </summary>
+        /// <returns></returns>
+        Task<ImportOrderStateResponse> ImportViaTemplateAsync(string templateId, FileInfo importFile, string? orderName = null);
 
         #endregion
 
