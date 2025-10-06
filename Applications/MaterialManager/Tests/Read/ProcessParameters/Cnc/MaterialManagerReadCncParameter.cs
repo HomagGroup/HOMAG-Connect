@@ -1,5 +1,4 @@
-﻿using HomagConnect.Base.TestBase.Attributes;
-using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
+﻿using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
 
 namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 {
@@ -13,7 +12,6 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 11, 01, "DF-Material")]
         public async Task GetMillingParameterToolGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -22,7 +20,6 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 11, 01, "DF-Material")]
         public async Task GetMillingParameterMaterialGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
@@ -31,7 +28,6 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
 
         /// <summary />
         [TestMethod]
-        [TemporaryDisabledOnServer(2025, 11, 01, "DF-Material")]
         public async Task GetMillingParameterGroups_GetResult_NoException()
         {
             var materialManager = GetMaterialManagerClient();
