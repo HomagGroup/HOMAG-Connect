@@ -18,41 +18,24 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
         public async Task Initialize()
         {
             await EnsureEdgebandTypeExist("ABS_A_Dash_of_Freedom_1.00_100.0_HM", 1, 225);
+            await EnsureEdgebandTypeExist("ABS_Multiplex_schwarz_1.00_23.0_NN", 1, 75);
+            await EnsureEdgebandTypeExist("NN_Schwarz_16.50_24.5_HM", 16.5, 50);
         }
 
         [TestMethod]
         public async Task Edgebands_CreateUpdateStore()
         {
-            // create edgeband types
-            var materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
-            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
-            {
-                EdgebandCode = "ABS_Multiplex_schwarz_1.00_23.0_NN",
-                Height = 23.0,
-                Thickness = 1.0,
-                DefaultLength = 75.0,
-                MaterialCategory = EdgebandMaterialCategory.ABS,
-                Process = EdgebandingProcess.Other,
-            };
-            await materialManagerClient.CreateEdgebandType(edgebandTypeRequest);
-
-            var edgebandTypeRequest2 = new MaterialManagerRequestEdgebandType
-            {
-                EdgebandCode = "NN_Schwarz_16.50_24.5_HM",
-                Height = 24.5,
-                Thickness = 16.5,
-                DefaultLength = 50.0,
-                MaterialCategory = EdgebandMaterialCategory.Others,
-                Process = EdgebandingProcess.HotmeltGlue,
-            };
-            await materialManagerClient.CreateEdgebandType(edgebandTypeRequest2);
+            // edgeband data
+            var edgeband1 = new { id = "87", edgebandCode = "ABS_Multiplex_schwarz_1.00_23.0_NN" };
+            var edgeband2 = new { id = "88", edgebandCode = "NN_Schwarz_16.50_24.5_HM" };
+            var edgeband3 = new { id = "89", edgebandCode = "ABS_A_Dash_of_Freedom_1.00_100.0_HM" };
 
             // create edgeband entities
             var materialAssistClient = GetMaterialAssistClient().Edgebands;
             var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity()
             {
-                Id = "87",
-                EdgebandCode = "ABS_Multiplex_schwarz_1.00_23.0_NN",
+                Id = edgeband1.id,
+                EdgebandCode = edgeband1.edgebandCode,
                 ManagementType = ManagementType.Single,
                 Quantity = 1,
                 Length = 75.0,
@@ -62,8 +45,8 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
 
             var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
             {
-                Id = "88",
-                EdgebandCode = "NN_Schwarz_16.50_24.5_HM",
+                Id = edgeband2.id,
+                EdgebandCode = edgeband2.edgebandCode,
                 ManagementType = ManagementType.Stack,
                 Quantity = 5,
                 Length = 75.0,
@@ -73,8 +56,8 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
 
             var edgebandEntityRequest3 = new MaterialAssistRequestEdgebandEntity()
             {
-                Id = "89",
-                EdgebandCode = "ABS_A_Dash_of_Freedom_1.00_100.0_HM",
+                Id = edgeband3.id,
+                EdgebandCode = edgeband3.edgebandCode,
                 ManagementType = ManagementType.GoodsInStock,
                 Quantity = 3,
                 Length = 225.0,
@@ -82,86 +65,90 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             };
             await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
 
-            /*StatusCode: 500, ReasonPhrase: 'Internal Server Error'
+            /* StatusCode: 500, ReasonPhrase: 'Internal Server Error'
+
+            // needed for storing
+            // Get the first workstation
+            var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
+            var firstWorkstation = workstations.FirstOrDefault();
+            if (firstWorkstation == null)
+            {
+                Assert.Inconclusive("No workstations found.");
+                return;
+            }
+            // Get the first storage location for the workstation
+            var storageLocations = await materialAssistClient.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+            var firstStorageLocation = storageLocations.FirstOrDefault();
+            if (firstStorageLocation == null)
+            {
+                Assert.Inconclusive("No storage locations found for the workstation.");
+                return;
+            }
+            
             // store edgeband entities
             var edgebandEntityStore = new MaterialAssistStoreEdgebandEntity()
             {
-                Id = "87",
+                Id = edgeband1.id,
                 Length = 75,
-                StorageLocation = new StorageLocation() 
-                { 
-                    LocationId = "001-01",
-                    Name = "",
-                    Barcode = ""
-                },
-                Workstation = new Workstation() { Name = "WS-01" },
+                Workstation = firstWorkstation,
+                StorageLocation = firstStorageLocation
             };
             await materialAssistClient.StoreEdgebandEntity(edgebandEntityStore);
-            var edgebandEntity = await materialAssistClient.GetEdgebandEntityById("87");
-            Assert.AreEqual("001-01", edgebandEntity.Location.LocationId);
+            var edgebandEntity = await materialAssistClient.GetEdgebandEntityById(edgeband1.id);
 
             var edgebandEntityStore2 = new MaterialAssistStoreEdgebandEntity()
             {
-                Id = "88",
+                Id = edgeband2.id,
                 Length = 75,
-                StorageLocation = new StorageLocation() 
-                { 
-                    Name = "Location2",
-                    LocationId = "",
-                    Barcode = ""
-                },
-                Workstation = new Workstation() { Name = "WS-01" },
+                Workstation = firstWorkstation,
+                StorageLocation = firstStorageLocation
             };
             await materialAssistClient.StoreEdgebandEntity(edgebandEntityStore2);
-            var edgebandEntity2 = await materialAssistClient.GetEdgebandEntityById("88");
-            Assert.AreEqual("Location2", edgebandEntity2.Location.Name);
+            var edgebandEntity2 = await materialAssistClient.GetEdgebandEntityById(edgeband2.id);
 
             var edgebandEntityStore3 = new MaterialAssistStoreEdgebandEntity()
             {
-                Id = "89",
+                Id = edgeband3.id,
                 Length = 225,
-                StorageLocation = new StorageLocation()
-                { 
-                    Name = "Lager1",
-                    LocationId = "",
-                    Barcode = ""
-                },
-                Workstation = new Workstation(){ Name = "WS-01" },
+                Workstation = firstWorkstation,
+                StorageLocation = firstStorageLocation
             };
             await materialAssistClient.StoreEdgebandEntity(edgebandEntityStore3);
-            var edgebandEntity3 = await materialAssistClient.GetEdgebandEntityById("89");
-            Assert.AreEqual("Lager1", edgebandEntity3.Location.Name);
+            var edgebandEntity3 = await materialAssistClient.GetEdgebandEntityById(edgeband3.id);
             */
+            
 
             // update edgeband types
-            var edgebandType1 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_Multiplex_schwarz_1.00_23.0_NN");
+            var materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+            var edgebandType1 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgeband1.edgebandCode);
             var edgebandTypeUpdate = new MaterialManagerUpdateEdgebandType
             {
                 EdgebandCode = "ABS_Multiplex_schwarz_1.2_23.0_NN",
                 Thickness = 1.2,
             };
-            await materialManagerClient.UpdateEdgebandType("ABS_Multiplex_schwarz_1.00_23.0_NN", edgebandTypeUpdate);
-            var updatedEdgebandType1 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_Multiplex_schwarz_1.2_23.0_NN");
+            await materialManagerClient.UpdateEdgebandType(edgeband1.edgebandCode, edgebandTypeUpdate);
+            var updatedEdgeband1 = new { id = "87", edgebandCode = "ABS_Multiplex_schwarz_1.2_23.0_NN" };
+            var updatedEdgebandType1 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails(updatedEdgeband1.edgebandCode);
             Assert.AreEqual(1.2, updatedEdgebandType1.Thickness);
 
-            var edgebandType2 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("NN_Schwarz_16.50_24.5_HM");
+            var edgebandType2 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgeband2.edgebandCode);
             var edgebandTypeUpdate2 = new MaterialManagerUpdateEdgebandType
             {
                 DefaultLength = 75.0,
             };
-            await materialManagerClient.UpdateEdgebandType("NN_Schwarz_16.50_24.5_HM", edgebandTypeUpdate2);
-            var updatedEdgebandType2 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("NN_Schwarz_16.50_24.5_HM");
+            await materialManagerClient.UpdateEdgebandType(edgeband2.edgebandCode, edgebandTypeUpdate2);
+            var updatedEdgebandType2 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgeband2.edgebandCode);
             Assert.AreEqual(75.0, updatedEdgebandType2.DefaultLength);
 
-            var edgebandType3 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_A_Dash_of_Freedom_1.00_100.0_HM");
+            var edgebandType3 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgeband3.edgebandCode);
             var edgebandTypeUpdate3 = new MaterialManagerUpdateEdgebandType
             {
                 DefaultLength = 100.0,
                 MaterialCategory = EdgebandMaterialCategory.ABS,
                 Process = EdgebandingProcess.HotmeltGlue,
             };
-            await materialManagerClient.UpdateEdgebandType("ABS_A_Dash_of_Freedom_1.00_100.0_HM", edgebandTypeUpdate3);
-            var updatedEdgebandType3 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails("ABS_A_Dash_of_Freedom_1.00_100.0_HM");
+            await materialManagerClient.UpdateEdgebandType(edgeband3.edgebandCode, edgebandTypeUpdate3);
+            var updatedEdgebandType3 = await materialManagerClient.GetEdgebandTypeByEdgebandCodeIncludingDetails(edgeband3.edgebandCode);
             Assert.AreEqual(EdgebandMaterialCategory.ABS, updatedEdgebandType3.MaterialCategory);
             Assert.AreEqual(EdgebandingProcess.HotmeltGlue, updatedEdgebandType3.Process);
         }
