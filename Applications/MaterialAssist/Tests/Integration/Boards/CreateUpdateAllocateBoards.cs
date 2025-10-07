@@ -98,7 +98,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             var boardTypeAllocationRequest = new BoardTypeAllocationRequest
             {
                 BoardTypeCode = board1.boardCode,
-                CreatedBy = "DeploymentTest",
+                CreatedBy = "Boards_CreateUpdateAllocate",
                 Name = "DeploymentTestAllocation1",
                 Quantity = 1,
                 Source = "HOMAG Connect",
@@ -109,7 +109,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             var boardTypeAllocationRequest2 = new BoardTypeAllocationRequest
             {
                 BoardTypeCode = updatedBoard2.boardCode,
-                CreatedBy = "DeploymentTest",
+                CreatedBy = "Boards_CreateUpdateAllocate",
                 Name = "DeploymentTestAllocation2",
                 Quantity = 1,
                 Source = "HOMAG Connect",
@@ -120,7 +120,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             var boardTypeAllocationRequest3 = new BoardTypeAllocationRequest
             {
                 BoardTypeCode = board3.boardCode,
-                CreatedBy = "DeploymentTest",
+                CreatedBy = "Boards_CreateUpdateAllocate",
                 Name = "DeploymentTestAllocation3",
                 Quantity = 2,
                 Source = "HOMAG Connect",
@@ -194,9 +194,9 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
         public async Task Cleanup()
         {
             var materialAssistClient = GetMaterialAssistClient().Boards;
-            await materialAssistClient.DeleteBoardEntity("93");
             await materialAssistClient.DeleteBoardEntity("91");
             await materialAssistClient.DeleteBoardEntity("92");
+            await materialAssistClient.DeleteBoardEntity("93");
             var materialManagerClient = GetMaterialManagerClient().Material;
             await materialManagerClient.Boards.DeleteBoardType("HPL_F274_9_12.0_2800_2070");
             await materialManagerClient.Boards.DeleteBoardType("P2_F204_75_38.0_4200_610");
