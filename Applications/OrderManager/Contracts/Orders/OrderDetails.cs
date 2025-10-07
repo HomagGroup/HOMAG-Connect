@@ -178,6 +178,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         [JsonProperty(Order = 411)]
         public int? QuantityOfPartsPlanned { get; set; }
 
+        /// <summary>
+        /// Gets the total price in this order.
+        /// </summary>
+        [JsonProperty(Order = 412)]
+        public decimal? TotalPrice { get; set; }
+
         #endregion
 
         #region (600) Additional Data
