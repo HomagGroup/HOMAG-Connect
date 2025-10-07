@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
         [TestInitialize]
         public  async Task ClassInit()
         {
-            await EnsureBoardTypeExist("HPL_F274_9_19.0");
+            await EnsureBoardTypeExist("HPL_F274_9_12.0");
             await EnsureBoardTypeExist("P2_F204_75_38.0", 4100, 600);
             await EnsureBoardTypeExist("HPL_Natural_4.0", 2790, 2060);
         }
@@ -26,9 +26,9 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
         public async Task Boards_CreateUpdateAllocate()
         {
             // board data
-            var board1 = new { id = "93", boardCode = "HPL_F274_9_19.0_2800_2070" };
-            var board2 = new { id = "91", boardCode = "P2_F204_75_38.0_4100_600" };
-            var board3 = new { id = "92", boardCode = "HPL_Natural_4.0_2790_2060" };
+            var board1 = new { id = "91", boardCode = "HPL_F274_9_12.0_2800_2070" };
+            var board2 = new { id = "92", boardCode = "P2_F204_75_38.0_4100_600" };
+            var board3 = new { id = "93", boardCode = "HPL_Natural_4.0_2790_2060" };
 
             // create board entities
             var materialAssistClient = GetMaterialAssistClient().Boards;
@@ -69,8 +69,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
                 Thickness = 12.0,
             };
             await materialManagerClient.UpdateBoardType(board1.boardCode, boardTypeUpdate);
-            var updatedBoard1 = new { id = "93", boardCode = "HPL_F274_9_12.0_2800_2070" };
-            var updatedBoardType1 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(updatedBoard1.boardCode);
+            var updatedBoardType1 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
             Assert.AreEqual(12.0, updatedBoardType1.Thickness);
 
             var boardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board2.boardCode);
@@ -81,7 +80,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
                 Width = 610.0,
             };
             await materialManagerClient.UpdateBoardType(board2.boardCode, boardTypeUpdate2);
-            var updatedBoard2 = new { id = "91", boardCode = "P2_F204_75_38.0_4200_610" };
+            var updatedBoard2 = new { id = "92", boardCode = "P2_F204_75_38.0_4200_610" };
             var updatedBoardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(updatedBoard2.boardCode);
             Assert.AreEqual(4200.0, updatedBoardType2.Length);
             Assert.AreEqual(610.0, updatedBoardType2.Width);
@@ -98,7 +97,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             // create board type allocations
             var boardTypeAllocationRequest = new BoardTypeAllocationRequest
             {
-                BoardTypeCode = updatedBoard1.boardCode,
+                BoardTypeCode = board1.boardCode,
                 CreatedBy = "DeploymentTest",
                 Name = "DeploymentTestAllocation",
                 Quantity = 1,
