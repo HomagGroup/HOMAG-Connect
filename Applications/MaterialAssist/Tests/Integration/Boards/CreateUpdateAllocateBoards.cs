@@ -99,7 +99,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             {
                 BoardTypeCode = board1.boardCode,
                 CreatedBy = "DeploymentTest",
-                Name = "DeploymentTestAllocation",
+                Name = "DeploymentTestAllocation1",
                 Quantity = 1,
                 Source = "HOMAG Connect",
                 Workstation = "001"
@@ -110,7 +110,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             {
                 BoardTypeCode = updatedBoard2.boardCode,
                 CreatedBy = "DeploymentTest",
-                Name = "2DeploymentTestAllocation2",
+                Name = "DeploymentTestAllocation2",
                 Quantity = 1,
                 Source = "HOMAG Connect",
                 Workstation = "001"
@@ -121,7 +121,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             {
                 BoardTypeCode = board3.boardCode,
                 CreatedBy = "DeploymentTest",
-                Name = "3DeploymentTestAllocation3",
+                Name = "DeploymentTestAllocation3",
                 Quantity = 2,
                 Source = "HOMAG Connect",
                 Workstation = "001"
@@ -130,9 +130,9 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
 
             var allAllocationNames = await materialManagerClient.GetBoardTypeAllocations(1000);
             Assert.IsNotNull(allAllocationNames);
-            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation"));
-            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "2DeploymentTestAllocation2"));
-            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "3DeploymentTestAllocation3"));
+            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation1"));
+            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation2"));
+            Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation3"));
 
             /*StatusCode: 500, ReasonPhrase: 'Internal Server Error'
              
