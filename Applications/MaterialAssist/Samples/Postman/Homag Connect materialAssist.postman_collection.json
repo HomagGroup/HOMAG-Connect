@@ -437,9 +437,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{ConnectedHostLocalHost}}/api/materialAssist/boardEntities/123/store",
+									"raw": "{{ConnectHost}}/api/materialAssist/boardEntities/123/store",
 									"host": [
-										"{{ConnectedHostLocalHost}}"
+										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
