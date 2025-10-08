@@ -1,5 +1,6 @@
-﻿using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
+﻿using FluentAssertions;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -13,23 +14,13 @@ namespace HomagConnect.MaterialAssist.Tests.BoardEntities;
 public class BoardEntityTests : MaterialAssistTestBase
 {
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 12, 31, "Alex | Enable when storing functionality reaches PRD")]
-    public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_WithExistingType()
+    public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_GoodsInStock()
     {
-        var client = GetMaterialAssistClient().Boards;
+        var clientMaterialAssist = GetMaterialAssistClient().Boards;
+        var clientMaterialManager = GetMaterialManagerClient().Material.Boards;
 
-        // Try to get an existing board entity to use its BoardCode as parent
-        var existingEntities = await client.GetBoardEntities(1).ConfigureAwait(false);
-        var existingEntity = existingEntities?.FirstOrDefault();
-
-        if (existingEntity == null)
-        {
-            Assert.Inconclusive("No existing board entities found to use as parent type.");
-            return;
-        }
-
-        // Get the first workstation
-        var workstations = await client.GetWorkstations().ConfigureAwait(false);
+        // 1. Check for workstation and storage location first
+        var workstations = await clientMaterialAssist.GetWorkstations().ConfigureAwait(false);
         var firstWorkstation = workstations.FirstOrDefault();
         if (firstWorkstation == null)
         {
@@ -37,8 +28,7 @@ public class BoardEntityTests : MaterialAssistTestBase
             return;
         }
 
-        // Get the first storage location for the workstation
-        var storageLocations = await client.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+        var storageLocations = await clientMaterialAssist.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
         var firstStorageLocation = storageLocations.FirstOrDefault();
         if (firstStorageLocation == null)
         {
@@ -46,21 +36,28 @@ public class BoardEntityTests : MaterialAssistTestBase
             return;
         }
 
-        // Create a new board entity with the same BoardCode as the existing one
+        // 2. Create a unique board type and board code (max 50 chars)
+        var guidPart = Guid.NewGuid().ToString("N")[..8];
+        var materialCode = $"TS_BT_{guidPart}";
+        const double length = 2800, width = 2070;
+        await EnsureBoardTypeExist(materialCode);
+        var boardCode = $"{materialCode}_{length}_{width}";
+
+        // 3. Create a new board entity with the new type
+        var boardEntityId = $"Code_{guidPart}";
         var boardEntityRequest = new MaterialAssistRequestBoardEntity
         {
-            Id = Guid.NewGuid().ToString(),
-            BoardCode = existingEntity.BoardType.BoardCode!,
-            ManagementType = ManagementType.Single,
-            Comments = "Created for StoreBoardEntity test (with existing type)",
-            Quantity = 1
+            Id = boardEntityId,
+            BoardCode = boardCode,
+            ManagementType = ManagementType.GoodsInStock,
+            Comments = "Created for StoreBoardEntity test (GoodsInStock)",
+            Quantity = 3
         };
-
-        var createdBoardEntity = await client.CreateBoardEntity(boardEntityRequest).ConfigureAwait(false);
+        var createdBoardEntity = await clientMaterialAssist.CreateBoardEntity(boardEntityRequest).ConfigureAwait(false);
 
         try
         {
-            // Prepare the store entity using the created board entity's ID
+            // 4. Store the entity
             var storeBoardEntity = new MaterialAssistStoreBoardEntity
             {
                 Id = createdBoardEntity.Id,
@@ -69,22 +66,239 @@ public class BoardEntityTests : MaterialAssistTestBase
                 Workstation = firstWorkstation,
                 StorageLocation = firstStorageLocation
             };
+            await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
 
-            // Store the entity
-            await client.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
+            // 5. Retrieve and assert
+            var found = await clientMaterialAssist.GetBoardEntityById(createdBoardEntity.Id).ConfigureAwait(false);
 
-            // Retrieve the entity again by BoardCode
-            var entitiesByCode = await client.GetBoardEntitiesByBoardCode(boardEntityRequest.BoardCode).ConfigureAwait(false);
-            var found = entitiesByCode?.FirstOrDefault(e => e.Id == createdBoardEntity.Id);
-
-            Assert.IsNotNull(found, "Stored board entity was not found by code.");
-            Assert.AreEqual(storeBoardEntity.Length, found.Length, "Stored length does not match.");
-            Assert.AreEqual(storeBoardEntity.Width, found.Width, "Stored width does not match.");
+            found.Should().NotBeNull("Stored board entity was not found by code.");
+            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
+            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
+            found.Quantity.Should().Be(3, "Stored quantity does not match for GoodsInStock.");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
         }
         finally
         {
-            // Clean up: delete the created board entity
-            await client.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
+            // 6. Clean up: delete the created board entity and type
+            await clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
+            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+        }
+    }
+
+    [TestMethod]
+    public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Offcut()
+    {
+        var clientMaterialAssist = GetMaterialAssistClient().Boards;
+        var clientMaterialManager = GetMaterialManagerClient().Material.Boards;
+
+        // 1. Check for workstation and storage location first
+        var workstations = await clientMaterialAssist.GetWorkstations().ConfigureAwait(false);
+        var firstWorkstation = workstations.FirstOrDefault();
+        if (firstWorkstation == null)
+        {
+            Assert.Inconclusive("No workstations found.");
+            return;
+        }
+
+        var storageLocations = await clientMaterialAssist.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+        var firstStorageLocation = storageLocations.FirstOrDefault();
+        if (firstStorageLocation == null)
+        {
+            Assert.Inconclusive("No storage locations found for the workstation.");
+            return;
+        }
+
+        // 2. Create a unique offcut board type and board code (max 50 chars)
+        var guidPart = Guid.NewGuid().ToString("N")[..8];
+        var materialCode = $"TS_BT_{guidPart}";
+        const double length = 2800, width = 2070;
+        await EnsureBoardTypeExist(materialCode);
+        var boardCode = $"{materialCode}_{length}_{width}";
+
+        // 3. Create a new offcut board entity
+        var boardEntityId = $"Code_{guidPart}";
+        const double lengthOffcut = 500, widthOffcut = 300;
+        var offcutEntityRequest = new MaterialAssistRequestOffcutEntity
+        {
+            Id = boardEntityId,
+            BoardCode = boardCode,
+            Length = lengthOffcut,
+            Width = widthOffcut,
+            Quantity = 1
+        };
+        var createdOffcutEntity = await clientMaterialAssist.CreateOffcutEntity(offcutEntityRequest).ConfigureAwait(false);
+
+        try
+        {
+            // 4. Store the entity
+            var storeBoardEntity = new MaterialAssistStoreBoardEntity
+            {
+                Id = createdOffcutEntity.Id,
+                Length = createdOffcutEntity.Length,
+                Width = createdOffcutEntity.Width,
+                Workstation = firstWorkstation,
+                StorageLocation = firstStorageLocation
+            };
+            await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
+
+            // 5. Retrieve and assert
+            var found = await clientMaterialAssist.GetBoardEntityById(createdOffcutEntity.Id).ConfigureAwait(false);
+
+            found.Should().NotBeNull("Stored offcut entity was not found by code.");
+            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
+            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
+            found.Quantity.Should().Be(1, "Stored quantity does not match for GoodsInStock.");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+        }
+        finally
+        {
+            // 6. Clean up: delete the created offcut entity and type
+            await clientMaterialAssist.DeleteBoardEntity(createdOffcutEntity.Id).ConfigureAwait(false);
+            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+        }
+    }
+
+    [TestMethod]
+    public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Single()
+    {
+        var clientMaterialAssist = GetMaterialAssistClient().Boards;
+        var clientMaterialManager = GetMaterialManagerClient().Material.Boards;
+
+        // 1. Check for workstation and storage location first
+        var workstations = await clientMaterialAssist.GetWorkstations().ConfigureAwait(false);
+        var firstWorkstation = workstations.FirstOrDefault();
+        if (firstWorkstation == null)
+        {
+            Assert.Inconclusive("No workstations found.");
+            return;
+        }
+
+        var storageLocations = await clientMaterialAssist.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+        var firstStorageLocation = storageLocations.FirstOrDefault();
+        if (firstStorageLocation == null)
+        {
+            Assert.Inconclusive("No storage locations found for the workstation.");
+            return;
+        }
+
+        // 2. Create a unique board type and board code (max 50 chars)
+        var guidPart = Guid.NewGuid().ToString("N")[..8];
+        var materialCode = $"TS_BT_{guidPart}";
+        const double length = 2800, width = 2070;
+        await EnsureBoardTypeExist(materialCode);
+        var boardCode = $"{materialCode}_{length}_{width}";
+
+        // 3. Create a new board entity with the new type
+        var boardEntityId = $"Code_{guidPart}";
+        var boardEntityRequest = new MaterialAssistRequestBoardEntity
+        {
+            Id = boardEntityId,
+            BoardCode = boardCode,
+            ManagementType = ManagementType.Single,
+            Comments = "Created for StoreBoardEntity test (Single)",
+            Quantity = 1
+        };
+        var createdBoardEntity = await clientMaterialAssist.CreateBoardEntity(boardEntityRequest).ConfigureAwait(false);
+
+        try
+        {
+            // 4. Store the entity
+            var storeBoardEntity = new MaterialAssistStoreBoardEntity
+            {
+                Id = createdBoardEntity.Id,
+                Length = createdBoardEntity.Length,
+                Width = createdBoardEntity.Width,
+                Workstation = firstWorkstation,
+                StorageLocation = firstStorageLocation
+            };
+            await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
+
+            // 5. Retrieve and assert
+            var found = await clientMaterialAssist.GetBoardEntityById(createdBoardEntity.Id).ConfigureAwait(false);
+
+            found.Should().NotBeNull("Stored board entity was not found by code.");
+            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
+            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
+            found.Quantity.Should().Be(1, "Stored quantity does not match for GoodsInStock.");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+        }
+        finally
+        {
+            // 6. Clean up: delete the created board entity and type
+            await clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
+            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+        }
+    }
+
+    [TestMethod]
+    public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Stack()
+    {
+        var clientMaterialAssist = GetMaterialAssistClient().Boards;
+        var clientMaterialManager = GetMaterialManagerClient().Material.Boards;
+
+        // 1. Check for workstation and storage location first
+        var workstations = await clientMaterialAssist.GetWorkstations().ConfigureAwait(false);
+        var firstWorkstation = workstations.FirstOrDefault();
+        if (firstWorkstation == null)
+        {
+            Assert.Inconclusive("No workstations found.");
+            return;
+        }
+
+        var storageLocations = await clientMaterialAssist.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+        var firstStorageLocation = storageLocations.FirstOrDefault();
+        if (firstStorageLocation == null)
+        {
+            Assert.Inconclusive("No storage locations found for the workstation.");
+            return;
+        }
+
+        // 2. Create a unique board type and board code (max 50 chars)
+        var guidPart = Guid.NewGuid().ToString("N")[..8];
+        var materialCode = $"TS_BT_{guidPart}";
+        const double length = 2800, width = 2070;
+        await EnsureBoardTypeExist(materialCode);
+        var boardCode = $"{materialCode}_{length}_{width}";
+
+        // 3. Create a new board entity with the new type
+        var boardEntityId = $"Code_{guidPart}";
+        var boardEntityRequest = new MaterialAssistRequestBoardEntity
+        {
+            Id = boardEntityId,
+            BoardCode = boardCode,
+            ManagementType = ManagementType.Stack,
+            Comments = "Created for StoreBoardEntity test (Stack)",
+            Quantity = 3
+        };
+        var createdBoardEntity = await clientMaterialAssist.CreateBoardEntity(boardEntityRequest).ConfigureAwait(false);
+
+        try
+        {
+            // 4. Store the entity
+            var storeBoardEntity = new MaterialAssistStoreBoardEntity
+            {
+                Id = createdBoardEntity.Id,
+                Length = createdBoardEntity.Length,
+                Width = createdBoardEntity.Width,
+                Workstation = firstWorkstation,
+                StorageLocation = firstStorageLocation
+            };
+            await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
+
+            // 5. Retrieve and assert
+            var found = await clientMaterialAssist.GetBoardEntityById(createdBoardEntity.Id).ConfigureAwait(false);
+
+            found.Should().NotBeNull("Stored board entity was not found by code.");
+            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
+            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
+            found.Quantity.Should().Be(3, "Stored quantity does not match for GoodsInStock.");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+        }
+        finally
+        {
+            // 6. Clean up: delete the created board entity and type
+            await clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
+            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
         }
     }
 
@@ -110,7 +324,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         var firstWorkstation = workstations.FirstOrDefault();
         if (firstWorkstation == null)
         {
-            Console.WriteLine("No workstations found.");
+            Console.WriteLine(@"No workstations found.");
             return;
         }
 
