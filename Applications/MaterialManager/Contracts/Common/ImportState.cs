@@ -12,6 +12,11 @@ namespace HomagConnect.MaterialManager.Contracts.Common;
 public enum ImportState
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    Unknown = 0,
+    
+    /// <summary>
     /// Queued
     /// </summary>
     Queued,
