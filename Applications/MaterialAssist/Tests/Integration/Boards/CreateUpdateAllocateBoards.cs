@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
         {
             await EnsureBoardTypeExist("HPL_F274_9_12.0");
             await EnsureBoardTypeExist("P2_F204_75_38.0", 4100, 600);
-            await EnsureBoardTypeExist("HPL_Natural_4.0", 2790, 2060);
+            await EnsureBoardTypeExist("HPL_Natural_4.0", 2790, 2060, 4);
         }
 
         [TestMethod]
@@ -61,38 +61,91 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
 
             // update board types
             var materialManagerClient = GetMaterialManagerClient().Material.Boards;
-            var boardType1 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
 
+            await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
             var boardTypeUpdate = new MaterialManagerUpdateBoardType
             {
-                BoardCode = "HPL_F274_9_12.0_2800_2070",
                 Thickness = 12.0,
             };
             await materialManagerClient.UpdateBoardType(board1.boardCode, boardTypeUpdate);
             var updatedBoardType1 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
             Assert.AreEqual(12.0, updatedBoardType1.Thickness);
 
-            var boardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board2.boardCode);
+            await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board2.boardCode);
             var boardTypeUpdate2 = new MaterialManagerUpdateBoardType
             {
                 BoardCode = "P2_F204_75_38.0_4200_610",
                 Length = 4200.0,
                 Width = 610.0,
+                Thickness = 38.0
             };
             await materialManagerClient.UpdateBoardType(board2.boardCode, boardTypeUpdate2);
             var updatedBoard2 = new { id = "92", boardCode = "P2_F204_75_38.0_4200_610" };
             var updatedBoardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(updatedBoard2.boardCode);
             Assert.AreEqual(4200.0, updatedBoardType2.Length);
             Assert.AreEqual(610.0, updatedBoardType2.Width);
+            Assert.AreEqual(38.0, updatedBoardType2.Thickness);
 
-            var boardType3 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
+            await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
             var boardTypeUpdate3 = new MaterialManagerUpdateBoardType
             {
+                Thickness = 4.0,
                 MaterialCategory = BoardMaterialCategory.CompactPanels_HPL,
             };
             await materialManagerClient.UpdateBoardType(board3.boardCode, boardTypeUpdate3);
             var updatedBoardType3 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
             Assert.AreEqual(BoardMaterialCategory.CompactPanels_HPL, updatedBoardType3.MaterialCategory);
+            // needed for storing
+            // Get the first workstation
+            var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
+            var firstWorkstation = workstations.FirstOrDefault();
+            if (firstWorkstation == null)
+            {
+                Assert.Inconclusive("No workstations found.");
+                return;
+            }
+            // Get the first storage location for the workstation
+            var storageLocations = await materialAssistClient.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+            var firstStorageLocation = storageLocations.FirstOrDefault();
+            if (firstStorageLocation == null)
+            {
+                Assert.Inconclusive("No storage locations found for the workstation.");
+                return;
+            }
+
+            // store board entities
+            var storeBoardEntity = new MaterialAssistStoreBoardEntity()
+            {
+                Id = "board1.id",
+                Length = 2800,
+                Width = 2070,
+                StorageLocation = firstStorageLocation,
+                Workstation = firstWorkstation
+            };
+            await materialAssistClient.StoreBoardEntity(storeBoardEntity);
+            var boardEntity = await materialAssistClient.GetBoardEntityById("93");
+
+            var storeBoardEntity2 = new MaterialAssistStoreBoardEntity()
+            {
+                Id = "board2.id",
+                Length = 4100,
+                Width = 600,
+                StorageLocation = firstStorageLocation,
+                Workstation = firstWorkstation
+            };
+            await materialAssistClient.StoreBoardEntity(storeBoardEntity2);
+            var boardEntity2 = await materialAssistClient.GetBoardEntityById("91");
+
+            var storeBoardEntity3 = new MaterialAssistStoreBoardEntity()
+            {
+                Id = "board3.id",
+                Length = 2790,
+                Width = 2060,
+                StorageLocation = firstStorageLocation,
+                Workstation = firstWorkstation
+            };
+            await materialAssistClient.StoreBoardEntity(storeBoardEntity3);
+            var boardEntity3 = await materialAssistClient.GetBoardEntityById("92");
 
             // create board type allocations
             var boardTypeAllocationRequest = new BoardTypeAllocationRequest
@@ -128,66 +181,12 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             };
             await materialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest3);
 
+            // website von automation sieht anders aus als dev testing, Funktion möglich?
             var allAllocationNames = await materialManagerClient.GetBoardTypeAllocations(1000);
             Assert.IsNotNull(allAllocationNames);
             Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation1"));
             Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation2"));
             Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation3"));
-
-            /*StatusCode: 500, ReasonPhrase: 'Internal Server Error'
-             
-            // needed for storing
-            // Get the first workstation
-            var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
-            var firstWorkstation = workstations.FirstOrDefault();
-            if (firstWorkstation == null)
-            {
-                Assert.Inconclusive("No workstations found.");
-                return;
-            }
-            // Get the first storage location for the workstation
-            var storageLocations = await materialAssistClient.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
-            var firstStorageLocation = storageLocations.FirstOrDefault();
-            if (firstStorageLocation == null)
-            {
-                Assert.Inconclusive("No storage locations found for the workstation.");
-                return;
-            }
-
-            // store board entities
-            var storeBoardEntity = new MaterialAssistStoreBoardEntity()
-            {
-                Id = "93",
-                Length = 2800,
-                Width = 2070,
-                StorageLocation = firstStorageLocation,
-                Workstation = firstWorkstation
-            };
-            await materialAssistClient.StoreBoardEntity(storeBoardEntity);
-            var boardEntity = await materialAssistClient.GetBoardEntityById("93");
-
-            var storeBoardEntity2 = new MaterialAssistStoreBoardEntity()
-            {
-                Id = "91",
-                Length = 4100,
-                Width = 600,
-                StorageLocation = firstStorageLocation,
-                Workstation = firstWorkstation
-            };
-            await materialAssistClient.StoreBoardEntity(storeBoardEntity2);
-            var boardEntity2 = await materialAssistClient.GetBoardEntityById("91");
-
-            var storeBoardEntity3 = new MaterialAssistStoreBoardEntity()
-            {
-                Id = "92",
-                Length = 2790,
-                Width = 2060,
-                StorageLocation = firstStorageLocation,
-                Workstation = firstWorkstation
-            };
-            await materialAssistClient.StoreBoardEntity(storeBoardEntity3);
-            var boardEntity3 = await materialAssistClient.GetBoardEntityById("92");
-            */
         }
 
         [TestCleanup]

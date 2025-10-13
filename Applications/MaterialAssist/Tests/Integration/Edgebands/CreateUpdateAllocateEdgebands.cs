@@ -65,8 +65,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             };
             await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest3);
 
-            /* StatusCode: 500, ReasonPhrase: 'Internal Server Error'
-
+            
             // needed for storing
             // Get the first workstation
             var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
@@ -115,8 +114,6 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             };
             await materialAssistClient.StoreEdgebandEntity(edgebandEntityStore3);
             var edgebandEntity3 = await materialAssistClient.GetEdgebandEntityById(edgeband3.id);
-            */
-            
 
             // update edgeband types
             var materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
