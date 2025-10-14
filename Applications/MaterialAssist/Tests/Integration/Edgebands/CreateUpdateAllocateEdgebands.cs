@@ -1,9 +1,7 @@
-﻿using HomagConnect.Base.Contracts;
-using HomagConnect.MaterialAssist.Contracts.Request;
+﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
-using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration

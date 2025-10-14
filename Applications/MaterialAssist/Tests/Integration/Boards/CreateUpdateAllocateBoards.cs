@@ -1,5 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.MaterialAssist.Contracts.Request;
+﻿using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -12,21 +11,21 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
     [TestCategory("MaterialAssist")]
     [TestCategory("MaterialAssist.Boards")]
 
-    public class CreateUpdateAllocateBoards : MaterialAssistTestBase
+    public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
     {
         [TestInitialize]
-        public  async Task ClassInit()
+        public  async Task Initialize()
         {
-            await EnsureBoardTypeExist("HPL_F274_9_12.0");
+            await EnsureBoardTypeExist("HPL_Anthracite_Marble_12.0");
             await EnsureBoardTypeExist("P2_F204_75_38.0", 4100, 600);
             await EnsureBoardTypeExist("HPL_Natural_4.0", 2790, 2060, 4);
         }
 
         [TestMethod]
-        public async Task Boards_CreateUpdateAllocate()
+        public async Task Boards_CreateUpdateStoreAllocate()
         {
             // board data
-            var board1 = new { id = "91", boardCode = "HPL_F274_9_12.0_2800_2070" };
+            var board1 = new { id = "91", boardCode = "HPL_Anthracite_Marble_12.0_2800_2070" };
             var board2 = new { id = "92", boardCode = "P2_F204_75_38.0_4100_600" };
             var board3 = new { id = "93", boardCode = "HPL_Natural_4.0_2790_2060" };
 
@@ -95,6 +94,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             await materialManagerClient.UpdateBoardType(board3.boardCode, boardTypeUpdate3);
             var updatedBoardType3 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
             Assert.AreEqual(BoardMaterialCategory.CompactPanels_HPL, updatedBoardType3.MaterialCategory);
+
             // needed for storing
             // Get the first workstation
             var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
@@ -181,7 +181,6 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             };
             await materialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest3);
 
-            // website von automation sieht anders aus als dev testing, Funktion möglich?
             var allAllocationNames = await materialManagerClient.GetBoardTypeAllocations(1000);
             Assert.IsNotNull(allAllocationNames);
             Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation1"));
@@ -197,7 +196,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             await materialAssistClient.DeleteBoardEntity("92");
             await materialAssistClient.DeleteBoardEntity("93");
             var materialManagerClient = GetMaterialManagerClient().Material;
-            await materialManagerClient.Boards.DeleteBoardType("HPL_F274_9_12.0_2800_2070");
+            await materialManagerClient.Boards.DeleteBoardType("HPL_Anthracite_Marble_12.0_2800_2070");
             await materialManagerClient.Boards.DeleteBoardType("P2_F204_75_38.0_4200_610");
             await materialManagerClient.Boards.DeleteBoardType("HPL_Natural_4.0_2790_2060");
         }
