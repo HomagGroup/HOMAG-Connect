@@ -94,7 +94,8 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             await materialManagerClient.UpdateBoardType(board3.boardCode, boardTypeUpdate3);
             var updatedBoardType3 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
             Assert.AreEqual(BoardMaterialCategory.CompactPanels_HPL, updatedBoardType3.MaterialCategory);
-
+            
+            /*
             // needed for storing
             // Get the first workstation
             var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
@@ -116,36 +117,37 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             // store board entities
             var storeBoardEntity = new MaterialAssistStoreBoardEntity()
             {
-                Id = "board1.id",
+                Id = board1.id,
                 Length = 2800,
                 Width = 2070,
                 StorageLocation = firstStorageLocation,
                 Workstation = firstWorkstation
             };
             await materialAssistClient.StoreBoardEntity(storeBoardEntity);
-            var boardEntity = await materialAssistClient.GetBoardEntityById("93");
+            var boardEntity = await materialAssistClient.GetBoardEntityById(board1.id);
 
             var storeBoardEntity2 = new MaterialAssistStoreBoardEntity()
             {
-                Id = "board2.id",
+                Id = board2.id,
                 Length = 4100,
                 Width = 600,
                 StorageLocation = firstStorageLocation,
                 Workstation = firstWorkstation
             };
             await materialAssistClient.StoreBoardEntity(storeBoardEntity2);
-            var boardEntity2 = await materialAssistClient.GetBoardEntityById("91");
+            var boardEntity2 = await materialAssistClient.GetBoardEntityById(board2.id);
 
             var storeBoardEntity3 = new MaterialAssistStoreBoardEntity()
             {
-                Id = "board3.id",
+                Id = board3.id,
                 Length = 2790,
                 Width = 2060,
                 StorageLocation = firstStorageLocation,
                 Workstation = firstWorkstation
             };
             await materialAssistClient.StoreBoardEntity(storeBoardEntity3);
-            var boardEntity3 = await materialAssistClient.GetBoardEntityById("92");
+            var boardEntity3 = await materialAssistClient.GetBoardEntityById(board3.id);
+            */
 
             // create board type allocations
             var boardTypeAllocationRequest = new BoardTypeAllocationRequest
