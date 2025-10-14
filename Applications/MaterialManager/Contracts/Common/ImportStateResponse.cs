@@ -7,9 +7,18 @@ namespace HomagConnect.MaterialManager.Contracts.Common;
 /// </summary>
 public class ImportStateResponse
 {
-    string CorrelationId { get; set; } = string.Empty;
+    /// <summary>
+    /// Correlation id of the import process.
+    /// </summary>
+    public string CorrelationId { get; set; } = string.Empty;
     
-    ImportState ImportState { get; set; }
+    /// <summary>
+    /// State of the import process.
+    /// </summary>
+    public ImportState ImportState { get; set; }
     
-    DateTimeOffset? ImportSuccessTime { get; set; }
+    /// <summary>
+    /// The time when the import process was finished sucessfully.
+    /// </summary>
+    public DateTimeOffset? ImportSuccessTime { get; set; }
 }
