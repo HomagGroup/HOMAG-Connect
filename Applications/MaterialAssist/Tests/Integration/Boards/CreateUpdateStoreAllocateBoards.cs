@@ -183,7 +183,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration
             };
             await materialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest3);
 
-            var allAllocationNames = await materialManagerClient.GetBoardTypeAllocations(1000);
+            var allAllocationNames = await materialManagerClient.GetBoardTypeAllocationsByAllocationNames(new List<string> { "DeploymentTestAllocation1", "DeploymentTestAllocation2", "DeploymentTestAllocation3" }, 1000);
             Assert.IsNotNull(allAllocationNames);
             Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation1"));
             Assert.IsTrue(allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation2"));
