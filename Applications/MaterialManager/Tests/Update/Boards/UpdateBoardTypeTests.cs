@@ -32,7 +32,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards
             await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode, value);
 
             var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
-            Assert.AreEqual(value, checkBoard.Thickness);
+            Assert.AreEqual(value, checkBoard.Costs);
         }
     }
 }
