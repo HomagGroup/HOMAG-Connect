@@ -107,7 +107,7 @@ namespace HomagConnect.MaterialAssist.Tests
             return new MaterialManagerClient(httpClient);
         }
 
-        protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070, bool offcut = false)
+        protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070, double thickness = 19.0, bool offcut = false)
         {
             string boardCode;
             if (offcut)
@@ -141,7 +141,7 @@ namespace HomagConnect.MaterialAssist.Tests
                 {
                     MaterialCode = materialCode,
                     BoardCode = boardCode,
-                    Thickness = 19.0,
+                    Thickness = thickness,
                     Grain = Grain.None,
                     Width = width,
                     Length = length,
