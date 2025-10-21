@@ -1,7 +1,8 @@
 ﻿# Store Board Entity
 
 With the HOMAG Connect materialAssist board client, you can store board entities.
-To store a board entity, you need to specify the type of entity (Single, Stack, or GoodsInStock), the workstation, and the storage location where the entity will be stored.
+To store a board entity, you need to specify the id, the length, the width, the workstation, and the storage location where the entity will be stored.
+The length and width are only required when storing a Single board entity.
 
 ## Scenarios
 

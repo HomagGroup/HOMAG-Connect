@@ -1,7 +1,8 @@
 ﻿# Store Edgeband Entity
 
 With the HOMAG Connect materialAssist edgeband client, you can store edgeband entities.
-To store an edgeband entity, you need to specify the type of entity (Single, Stack, or GoodsInStock), the workstation, and the storage location where the entity will be stored.
+To store an edgeband entity, you need to specify the id, the legth, the workstation, and the storage location where the entity will be stored.
+The length is only required when storing a Single edgeband entity.
 
 ## Scenarios
 
