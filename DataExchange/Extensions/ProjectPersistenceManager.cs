@@ -216,7 +216,7 @@ namespace HomagConnect.DataExchange.Extensions
         /// </summary>
         public static void SaveToXmlStream(this Project project, Stream stream)
         {
-            var w = new StreamWriter(stream, Encoding.UTF8);
+            using var w = new StreamWriter(stream, Encoding.UTF8);
             var ser = new XmlSerializer(typeof(Project));
             ser.Serialize(w, project);
         }

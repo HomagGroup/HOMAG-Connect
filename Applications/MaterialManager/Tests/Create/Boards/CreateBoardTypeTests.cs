@@ -6,6 +6,7 @@ using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Samples.Create.Boards;
 
+
 namespace HomagConnect.MaterialManager.Tests.Create.Boards
 {
     /// <summary />
