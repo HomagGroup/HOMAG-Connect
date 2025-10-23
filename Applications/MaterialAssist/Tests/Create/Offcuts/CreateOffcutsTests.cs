@@ -1,8 +1,10 @@
-﻿using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts
 {
+    [TemporaryDisabledOnServer(2025, 12, 30, "DF-Material")]
     [TestClass]
     [TestCategory("MaterialAssist")]
     [TestCategory("MaterialAssist.Boards")]

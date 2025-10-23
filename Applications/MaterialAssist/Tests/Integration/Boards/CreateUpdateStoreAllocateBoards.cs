@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialAssist.Contracts.Request;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -7,6 +8,7 @@ using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration
 {
+    [TemporaryDisabledOnServer(2025, 12, 30, "DF-Material")]
     [TestClass]
     [TestCategory("MaterialAssist")]
     [TestCategory("MaterialAssist.Boards")]

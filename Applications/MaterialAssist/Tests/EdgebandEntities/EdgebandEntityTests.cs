@@ -1,5 +1,6 @@
-﻿using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
+﻿using FluentAssertions;
+
+using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -13,23 +14,13 @@ namespace HomagConnect.MaterialAssist.Tests.EdgebandEntities;
 public class EdgebandEntityTests : MaterialAssistTestBase
 {
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 12, 31, "Alex | Enable when investigation and fix is done")]
-    public async Task MaterialAssist_EdgebandEntities_CreateStoreGetAndDeleteEdgebandEntity_WithExistingType()
+    public async Task MaterialAssist_EdgebandEntities_CreateStoreGetAndDeleteEdgebandEntity()
     {
-        var client = GetMaterialAssistClient().Edgebands;
+        var clientMaterialAssist = GetMaterialAssistClient().Edgebands;
+        var clientMaterialManager = GetMaterialManagerClient().Material.Edgebands;
 
-        // Try to get an existing edgeband entity to use its EdgebandCode as parent
-        var existingEntities = await client.GetEdgebandEntities(1).ConfigureAwait(false);
-        var existingEntity = existingEntities?.FirstOrDefault();
-
-        if (existingEntity == null)
-        {
-            Assert.Inconclusive("No existing edgeband entities found to use as parent type.");
-            return;
-        }
-
-        // Get the first workstation
-        var workstations = await client.GetWorkstations().ConfigureAwait(false);
+        // 1. Get the first workstation and storage location
+        var workstations = await clientMaterialAssist.GetWorkstations().ConfigureAwait(false);
         var firstWorkstation = workstations.FirstOrDefault();
         if (firstWorkstation == null)
         {
@@ -37,8 +28,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
             return;
         }
 
-        // Get the first storage location for the workstation
-        var storageLocations = await client.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
+        var storageLocations = await clientMaterialAssist.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
         var firstStorageLocation = storageLocations.FirstOrDefault();
         if (firstStorageLocation == null)
         {
@@ -46,23 +36,29 @@ public class EdgebandEntityTests : MaterialAssistTestBase
             return;
         }
 
-        // Create a new edgeband entity with the same EdgebandCode as the existing one
+        // 2. Create a unique edgeband type with a shortened code (max 50 chars)
+        var guidPart = Guid.NewGuid().ToString("N")[..8];
+        var edgebandCode = $"TS_ET_{guidPart}";
+        await EnsureEdgebandTypeExist(edgebandCode, thickness: 1.2, length: 50);
+
+        // 3. Create a new edgeband entity with the new type
+        var edgebandEntityId = $"Code_{guidPart}";
         var edgebandEntityRequest = new MaterialAssistRequestEdgebandEntity
         {
-            Id = Guid.NewGuid().ToString(),
-            EdgebandCode = existingEntity.EdgebandType.EdgebandCode!,
+            Id = edgebandEntityId,
+            EdgebandCode = edgebandCode,
             ManagementType = ManagementType.Single,
-            Comments = "Created for StoreEdgebandEntity test (with existing type)",
+            Comments = "Created for StoreEdgebandEntity test (with new type)",
             Quantity = 1,
             Length = 20,
-            CurrentThickness = existingEntity.CurrentThickness
+            CurrentThickness = 1.2
         };
 
-        var createdEdgebandEntity = await client.CreateEdgebandEntity(edgebandEntityRequest).ConfigureAwait(false);
+        var createdEdgebandEntity = await clientMaterialAssist.CreateEdgebandEntity(edgebandEntityRequest).ConfigureAwait(false);
 
         try
         {
-            // Prepare the store entity using the created edgeband entity's ID
+            // 4. Store the entity
             var storeEdgebandEntity = new MaterialAssistStoreEdgebandEntity
             {
                 Id = createdEdgebandEntity.Id,
@@ -70,21 +66,21 @@ public class EdgebandEntityTests : MaterialAssistTestBase
                 Workstation = firstWorkstation,
                 StorageLocation = firstStorageLocation
             };
+            await clientMaterialAssist.StoreEdgebandEntity(storeEdgebandEntity).ConfigureAwait(false);
 
-            // Store the entity
-            await client.StoreEdgebandEntity(storeEdgebandEntity).ConfigureAwait(false);
+            // 5. Retrieve and assert
+            var found = await clientMaterialAssist.GetEdgebandEntityById(createdEdgebandEntity.Id).ConfigureAwait(false);
 
-            // Retrieve the entity again by EdgebandCode
-            var entitiesByCode = await client.GetEdgebandEntitiesByEdgebandCode(edgebandEntityRequest.EdgebandCode).ConfigureAwait(false);
-            var found = entitiesByCode?.FirstOrDefault(e => e.Id == createdEdgebandEntity.Id);
-
-            Assert.IsNotNull(found, "Stored edgeband entity was not found by code.");
-            Assert.AreEqual(storeEdgebandEntity.Length, found.Length, "Stored length does not match.");
+            found.Should().NotBeNull("Stored edgeband entity was not found by code.");
+            found!.Length.Should().Be(storeEdgebandEntity.Length, "Stored length does not match.");
+            found.Quantity.Should().Be(1, "Stored quantity does not match for GoodsInStock.");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
         }
         finally
         {
-            // Clean up: delete the created edgeband entity
-            await client.DeleteEdgebandEntity(createdEdgebandEntity.Id).ConfigureAwait(false);
+            // 6. Clean up: delete the created edgeband entity and type
+            await clientMaterialAssist.DeleteEdgebandEntity(createdEdgebandEntity.Id).ConfigureAwait(false);
+            await clientMaterialManager.DeleteEdgebandType(edgebandCode).ConfigureAwait(false);
         }
     }
 
@@ -110,7 +106,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         var firstWorkstation = workstations.FirstOrDefault();
         if (firstWorkstation == null)
         {
-            Console.WriteLine("No workstations found.");
+            Console.WriteLine(@"No workstations found.");
             return;
         }
 

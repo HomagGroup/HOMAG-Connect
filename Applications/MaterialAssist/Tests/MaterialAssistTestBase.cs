@@ -110,13 +110,17 @@ namespace HomagConnect.MaterialAssist.Tests
         protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070, double thickness = 19.0, bool offcut = false)
         {
             string boardCode;
+            BoardTypeType boardTypeType;
+
             if (offcut)
             {
                 boardCode = $"X{materialCode}_{length}_{width}";
+                boardTypeType = BoardTypeType.Offcut;
             }
             else
             {
                 boardCode = $"{materialCode}_{length}_{width}";
+                boardTypeType = BoardTypeType.Board;
             }
 
             var materialManagerClient = GetMaterialManagerClient();
@@ -145,7 +149,7 @@ namespace HomagConnect.MaterialAssist.Tests
                     Grain = Grain.None,
                     Width = width,
                     Length = length,
-                    Type = BoardTypeType.Board,
+                    Type = boardTypeType,
                     CoatingCategory = CoatingCategory.Undefined,
                     MaterialCategory = BoardMaterialCategory.Undefined
                 });
