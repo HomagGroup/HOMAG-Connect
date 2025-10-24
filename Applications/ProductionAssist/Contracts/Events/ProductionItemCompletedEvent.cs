@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionAssist.Contracts.Events.Feedback
+namespace HomagConnect.ProductionAssist.Contracts.Events
 {
     /// <summary>
     /// Gets triggered when a ProductionItem has been completed on a Workstation.
