@@ -41,6 +41,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         var guidPart = Guid.NewGuid().ToString("N")[..8];
         var edgebandCode = $"TS_ET_{guidPart}";
         await EnsureEdgebandTypeExist(edgebandCode, thickness: 1.2, length: 50);
+        await WaitForEdgebandTypeAvailableAsync(edgebandCode);
 
         // 3. Create a new edgeband entity with the new type
         var edgebandEntityId = $"Code_{guidPart}";
@@ -165,6 +166,34 @@ public class EdgebandEntityTests : MaterialAssistTestBase
                 break;
             await Task.Delay(delayMs);
         }
+
         return found;
+    }
+
+    private async Task WaitForEdgebandTypeAvailableAsync(
+        string edgebandCode,
+        int maxAttempts = 5,
+        int initialDelayMs = 100,
+        int maxTotalWaitMs = 10000)
+    {
+        var clientMaterialManager = GetMaterialManagerClient().Material.Edgebands;
+        var delayMs = initialDelayMs;
+        var totalWaited = 0;
+
+        for (var attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            var edgebandTypes = await clientMaterialManager.GetEdgebandTypesByEdgebandCodes([edgebandCode]).ConfigureAwait(false);
+            if (edgebandTypes?.Any(et => et.EdgebandCode == edgebandCode) == true)
+                return;
+
+            if (totalWaited >= maxTotalWaitMs)
+                break;
+
+            await Task.Delay(delayMs);
+            totalWaited += delayMs;
+            delayMs = Math.Min(delayMs * 2, maxTotalWaitMs - totalWaited);
+        }
+
+        Assert.Inconclusive($"Edgeband type '{edgebandCode}' was not available after waiting {totalWaited} ms.");
     }
 }

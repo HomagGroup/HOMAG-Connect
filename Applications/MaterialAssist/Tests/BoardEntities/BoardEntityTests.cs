@@ -43,6 +43,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         const double length = 2800, width = 2070;
         await EnsureBoardTypeExist(materialCode);
         var boardCode = $"{materialCode}_{length}_{width}";
+        await WaitForBoardTypeAvailableAsync(boardCode);
 
         // 3. Create a new board entity with the new type
         var boardEntityId = $"Code_{guidPart}";
@@ -119,6 +120,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         const double length = 2800, width = 2070;
         await EnsureBoardTypeExist(materialCode);
         var boardCode = $"{materialCode}_{length}_{width}";
+        await WaitForBoardTypeAvailableAsync(boardCode);
 
         // 3. Create a new offcut board entity
         var boardEntityId = $"Code_{guidPart}";
@@ -196,6 +198,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         const double length = 2800, width = 2070;
         await EnsureBoardTypeExist(materialCode);
         var boardCode = $"{materialCode}_{length}_{width}";
+        await WaitForBoardTypeAvailableAsync(boardCode);
 
         // 3. Create a new board entity with the new type
         var boardEntityId = $"Code_{guidPart}";
@@ -272,6 +275,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         const double length = 2800, width = 2070;
         await EnsureBoardTypeExist(materialCode);
         var boardCode = $"{materialCode}_{length}_{width}";
+        await WaitForBoardTypeAvailableAsync(boardCode);
 
         // 3. Create a new board entity with the new type
         var boardEntityId = $"Code_{guidPart}";
@@ -395,6 +399,34 @@ public class BoardEntityTests : MaterialAssistTestBase
                 break;
             await Task.Delay(delayMs);
         }
+
         return found;
+    }
+
+    private async Task WaitForBoardTypeAvailableAsync(
+        string boardCode,
+        int maxAttempts = 5,
+        int initialDelayMs = 100,
+        int maxTotalWaitMs = 10000)
+    {
+        var clientMaterialManager = GetMaterialManagerClient().Material.Boards;
+        var delayMs = initialDelayMs;
+        var totalWaited = 0;
+
+        for (var attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            var boardTypes = await clientMaterialManager.GetBoardTypesByBoardCodes([boardCode]).ConfigureAwait(false);
+            if (boardTypes?.Any(bt => bt.BoardCode == boardCode) == true)
+                return;
+
+            if (totalWaited >= maxTotalWaitMs)
+                break;
+
+            await Task.Delay(delayMs);
+            totalWaited += delayMs;
+            delayMs = Math.Min(delayMs * 2, maxTotalWaitMs - totalWaited);
+        }
+
+        Assert.Inconclusive($"Board type '{boardCode}' was not available after waiting {totalWaited} ms.");
     }
 }
