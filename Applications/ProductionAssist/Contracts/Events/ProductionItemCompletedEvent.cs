@@ -1,16 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
-
-<<<<<<< TODO: Unmerged change from project 'HomagConnect.ProductionAssist.Contracts (netstandard2.0)', Before:
-=======
-using HomagConnect.ProductionAssist;
-using HomagConnect.ProductionAssist.Contracts;
-using HomagConnect.ProductionAssist.Contracts.Events;
-using HomagConnect.ProductionAssist.Contracts.Events;
-using HomagConnect.ProductionAssist.Contracts.Events.Feedback;
->>>>>>> After
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events
