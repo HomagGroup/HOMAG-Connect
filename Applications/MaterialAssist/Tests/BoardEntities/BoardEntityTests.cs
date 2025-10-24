@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -69,7 +70,11 @@ public class BoardEntityTests : MaterialAssistTestBase
             await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
 
             // 5. Retrieve and assert
-            var found = await clientMaterialAssist.GetBoardEntityById(createdBoardEntity.Id).ConfigureAwait(false);
+            var found = await WaitForBoardEntityLocationAsync(
+                clientMaterialAssist,
+                createdBoardEntity.Id,
+                firstStorageLocation.LocationId
+            );
 
             found.Should().NotBeNull("Stored board entity was not found by code.");
             found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
@@ -142,7 +147,11 @@ public class BoardEntityTests : MaterialAssistTestBase
             await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
 
             // 5. Retrieve and assert
-            var found = await clientMaterialAssist.GetBoardEntityById(createdOffcutEntity.Id).ConfigureAwait(false);
+            var found = await WaitForBoardEntityLocationAsync(
+                clientMaterialAssist,
+                createdOffcutEntity.Id,
+                firstStorageLocation.LocationId
+            );
 
             found.Should().NotBeNull("Stored offcut entity was not found by code.");
             found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
@@ -214,7 +223,11 @@ public class BoardEntityTests : MaterialAssistTestBase
             await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
 
             // 5. Retrieve and assert
-            var found = await clientMaterialAssist.GetBoardEntityById(createdBoardEntity.Id).ConfigureAwait(false);
+            var found = await WaitForBoardEntityLocationAsync(
+                clientMaterialAssist,
+                createdBoardEntity.Id,
+                firstStorageLocation.LocationId
+            );
 
             found.Should().NotBeNull("Stored board entity was not found by code.");
             found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
@@ -286,7 +299,11 @@ public class BoardEntityTests : MaterialAssistTestBase
             await clientMaterialAssist.StoreBoardEntity(storeBoardEntity).ConfigureAwait(false);
 
             // 5. Retrieve and assert
-            var found = await clientMaterialAssist.GetBoardEntityById(createdBoardEntity.Id).ConfigureAwait(false);
+            var found = await WaitForBoardEntityLocationAsync(
+                clientMaterialAssist,
+                createdBoardEntity.Id,
+                firstStorageLocation.LocationId
+            );
 
             found.Should().NotBeNull("Stored board entity was not found by code.");
             found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
@@ -361,5 +378,23 @@ public class BoardEntityTests : MaterialAssistTestBase
         {
             boardEntity.Trace();
         }
+    }
+
+    private async Task<BoardEntity?> WaitForBoardEntityLocationAsync(
+        MaterialAssistClientBoards client,
+        string entityId,
+        string expectedLocationId,
+        int maxAttempts = 5,
+        int delayMs = 200)
+    {
+        BoardEntity? found = null;
+        for (var attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            found = await client.GetBoardEntityById(entityId).ConfigureAwait(false);
+            if (found?.Location?.LocationId == expectedLocationId)
+                break;
+            await Task.Delay(delayMs);
+        }
+        return found;
     }
 }
