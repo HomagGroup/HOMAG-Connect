@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events

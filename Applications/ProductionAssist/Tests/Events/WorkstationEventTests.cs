@@ -90,6 +90,40 @@ public class WorkstationEventTests : ProductionAssistTestBase
     }
 
     [TestMethod]
+    public void Events_ProductionItemCompletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        // Arrange
+        var evt = new ProductionItemCompletedEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            WorkstationId = Guid.NewGuid(),
+            Identifier = "ProdItem-42",
+            Quantity = 5
+        };
+
+        // Act
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        // Deserialize as ProductionItemCompletedEvent
+        var deserializedTyped = JsonConvert.DeserializeObject<ProductionItemCompletedEvent>(json, SerializerSettings.Default);
+
+        // Deserialize as AppEvent
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        // Assert
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
+        Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);
+
+        Assert.IsNotNull(deserializedBase);
+        Assert.IsNotNull(deserializedBase.CustomProperties);
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("identifier"));
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("quantity"));
+        Assert.AreEqual("ProdItem-42", deserializedBase.CustomProperties["identifier"].ToString());
+        Assert.AreEqual(5, Convert.ToInt32(deserializedBase.CustomProperties["quantity"]));
+    }
+
+    [TestMethod]
     public void Events_ProductionItemPickedFromShelfEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         var evt = new ProductionItemPickedFromShelfEvent
