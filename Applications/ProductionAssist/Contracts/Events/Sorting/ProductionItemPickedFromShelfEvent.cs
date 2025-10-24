@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.ProductionAssist.Contracts.Events.Feedback;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events.Sorting
 {
