@@ -2,7 +2,6 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts.Events;
 using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
-using HomagConnect.ProductionAssist.Contracts.Events.Feedback;
 
 namespace HomagConnect.ProductionAssist.Tests.Events;
 
