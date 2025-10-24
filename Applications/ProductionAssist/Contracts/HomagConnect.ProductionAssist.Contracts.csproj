@@ -15,6 +15,15 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Events\Sorting\ProductionItemPickedFromShelfEvent.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Events\Sorting\ProductionItemPickedFromShelfEvent.cs" />
+	  <None Include="Events\Sorting\ProductionItemPlacedInShelfEvent.cs" />
+	</ItemGroup>
+
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
