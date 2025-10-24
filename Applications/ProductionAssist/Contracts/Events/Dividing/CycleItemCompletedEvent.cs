@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.ProductionAssist.Contracts.Events.Dividing
 {
     /// <summary>
-    /// Event that occurs when a cycle has been completed on a dividing (Cutting or Nesting) workstation.
+    /// Event that occurs when a part is confirmed in production Assist in the manual feedback for a dividing cycle (cutting / nesting).
     /// </summary>
     [AppEvent(nameof(ProductionAssist) + "." + nameof(Dividing) + "." + nameof(CycleItemCompletedEvent))]
-    public class CycleItemCompletedEvent : WorkstationEvent
+    public class CycleItemCompletedEvent : ProductionItemCompletedEvent
     {
         /// <summary>
         /// Gets or sets the Identifier of the Optimization that was processed.
