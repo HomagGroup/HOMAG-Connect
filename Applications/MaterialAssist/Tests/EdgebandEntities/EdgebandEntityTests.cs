@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -69,7 +70,11 @@ public class EdgebandEntityTests : MaterialAssistTestBase
             await clientMaterialAssist.StoreEdgebandEntity(storeEdgebandEntity).ConfigureAwait(false);
 
             // 5. Retrieve and assert
-            var found = await clientMaterialAssist.GetEdgebandEntityById(createdEdgebandEntity.Id).ConfigureAwait(false);
+            var found = await WaitForEdgebandEntityLocationAsync(
+                clientMaterialAssist,
+                createdEdgebandEntity.Id,
+                firstStorageLocation.LocationId
+            );
 
             found.Should().NotBeNull("Stored edgeband entity was not found by code.");
             found!.Length.Should().Be(storeEdgebandEntity.Length, "Stored length does not match.");
@@ -143,5 +148,23 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         {
             edgebandEntity.Trace();
         }
+    }
+
+    private async Task<EdgebandEntity?> WaitForEdgebandEntityLocationAsync(
+        MaterialAssistClientEdgebands client,
+        string entityId,
+        string expectedLocationId,
+        int maxAttempts = 5,
+        int delayMs = 200)
+    {
+        EdgebandEntity? found = null;
+        for (var attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            found = await client.GetEdgebandEntityById(entityId).ConfigureAwait(false);
+            if (found?.Location?.LocationId == expectedLocationId)
+                break;
+            await Task.Delay(delayMs);
+        }
+        return found;
     }
 }
