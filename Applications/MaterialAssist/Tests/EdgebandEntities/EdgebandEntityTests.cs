@@ -85,8 +85,12 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         finally
         {
             // 6. Clean up: delete the created edgeband entity and type
-            await clientMaterialAssist.DeleteEdgebandEntity(createdEdgebandEntity.Id).ConfigureAwait(false);
-            await clientMaterialManager.DeleteEdgebandType(edgebandCode).ConfigureAwait(false);
+            await CleanupAsync(
+                [
+                    () => clientMaterialAssist.DeleteEdgebandEntity(createdEdgebandEntity.Id),
+                    () => clientMaterialManager.DeleteEdgebandType(edgebandCode)
+                ]
+            );
         }
     }
 
@@ -195,5 +199,21 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
 
         Assert.Inconclusive($"Edgeband type '{edgebandCode}' was not available after waiting {totalWaited} ms.");
+    }
+
+    private static async Task CleanupAsync(
+        IEnumerable<Func<Task>> cleanupActions)
+    {
+        foreach (var action in cleanupActions)
+        {
+            try
+            {
+                await action().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                // Ignore
+            }
+        }
     }
 }

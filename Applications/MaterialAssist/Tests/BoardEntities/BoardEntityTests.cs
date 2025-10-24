@@ -86,8 +86,12 @@ public class BoardEntityTests : MaterialAssistTestBase
         finally
         {
             // 6. Clean up: delete the created board entity and type
-            await clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
-            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+            await CleanupAsync(
+                [
+                    () => clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id),
+                    () => clientMaterialManager.DeleteBoardType(boardCode)
+                ]
+            );
         }
     }
 
@@ -164,8 +168,12 @@ public class BoardEntityTests : MaterialAssistTestBase
         finally
         {
             // 6. Clean up: delete the created offcut entity and type
-            await clientMaterialAssist.DeleteBoardEntity(createdOffcutEntity.Id).ConfigureAwait(false);
-            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+            await CleanupAsync(
+                [
+                    () => clientMaterialAssist.DeleteBoardEntity(createdOffcutEntity.Id),
+                    () => clientMaterialManager.DeleteBoardType(boardCode)
+                ]
+            );
         }
     }
 
@@ -241,8 +249,12 @@ public class BoardEntityTests : MaterialAssistTestBase
         finally
         {
             // 6. Clean up: delete the created board entity and type
-            await clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
-            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+            await CleanupAsync(
+                [
+                    () => clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id),
+                    () => clientMaterialManager.DeleteBoardType(boardCode)
+                ]
+            );
         }
     }
 
@@ -318,8 +330,12 @@ public class BoardEntityTests : MaterialAssistTestBase
         finally
         {
             // 6. Clean up: delete the created board entity and type
-            await clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id).ConfigureAwait(false);
-            await clientMaterialManager.DeleteBoardType(boardCode).ConfigureAwait(false);
+            await CleanupAsync(
+                [
+                    () => clientMaterialAssist.DeleteBoardEntity(createdBoardEntity.Id),
+                    () => clientMaterialManager.DeleteBoardType(boardCode)
+                ]
+            );
         }
     }
 
@@ -428,5 +444,21 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
 
         Assert.Inconclusive($"Board type '{boardCode}' was not available after waiting {totalWaited} ms.");
+    }
+
+    private static async Task CleanupAsync(
+        IEnumerable<Func<Task>> cleanupActions)
+    {
+        foreach (var action in cleanupActions)
+        {
+            try
+            {
+                await action().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                // Ignore
+            }
+        }
     }
 }
