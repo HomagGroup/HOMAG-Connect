@@ -161,6 +161,18 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [StringLength(50, MinimumLength = 1)]
         public string? LaminateBottom { get; set; }
 
+        /// <summary>
+        /// Gets or sets the grain of the laminate which was applied on the top.
+        /// </summary>
+        [JsonProperty(Order = 53)]
+        public Grain? LaminateTopGrain { get; set; }
+
+        /// <summary>
+        /// Gets or sets the grain of the laminate which was applied on the bottom.
+        /// </summary>
+        [JsonProperty(Order = 54)]
+        public Grain? LaminateBottomGrain { get; set; }
+
         #endregion
 
         #region (6) Order
