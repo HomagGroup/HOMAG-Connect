@@ -10,8 +10,9 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// Represents a processed item in a production protocol.
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedPartCutting), nameof(ProcessedPartCutting))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedBoardCutting), nameof(ProcessedBoardCutting))]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPartDividing), nameof(ProcessedPartDividing))]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPartEdgebanding), nameof(ProcessedPartEdgebanding))]
+[JsonSubtypes.KnownSubType(typeof(ProcessedBoardDividing), nameof(ProcessedBoardDividing))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartCnc), nameof(ProcessedPartCnc))]
 public class ProcessedItem
 {

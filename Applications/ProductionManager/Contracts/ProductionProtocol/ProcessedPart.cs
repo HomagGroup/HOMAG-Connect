@@ -13,17 +13,18 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </summary>
 public class ProcessedPart : ProcessedItem, IContainsUnitSystemDependentProperties
 {
-    /// <summary>
-    /// Gets or sets the description.
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    public string? Description { get; set; }
 
     /// <summary>
     /// Gets or sets the id
     /// </summary>
     [JsonProperty(Order = 1)]
     public string? Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public string? Description { get; set; }
 
     /// <inheritdoc />
     public override ProcessedItemType ItemType
@@ -43,15 +44,12 @@ public class ProcessedPart : ProcessedItem, IContainsUnitSystemDependentProperti
     public double? Length { get; set; }
 
     /// <summary>
-    /// Gets or sets the material code.
+    /// Gets or sets the width.
     /// </summary>
-    public string? MaterialCode { get; set; }
-
-    /// <summary>
-    /// Gets or sets the quantity processed.
-    /// </summary>
-    [JsonProperty(Order = 23)]
-    public int? Quantity { get; set; }
+    [JsonProperty(Order = 15)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    public double? Width { get; set; }
 
     /// <summary>
     /// Gets or sets the thickness.
@@ -62,13 +60,36 @@ public class ProcessedPart : ProcessedItem, IContainsUnitSystemDependentProperti
     public double? Thickness { get; set; }
 
     /// <summary>
-    /// Gets or sets the width.
+    /// Gets or sets the quantity processed.
     /// </summary>
-    [JsonProperty(Order = 15)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    public double? Width { get; set; }
+    [JsonProperty(Order = 17)]
+    public int? Quantity { get; set; }
+
+    /// <summary>
+    /// Gets or sets the material code.
+    /// </summary>
+    [JsonProperty(Order = 18)]
+    public string? MaterialCode { get; set; }
 
     /// <inheritdoc />
+    [JsonProperty(Order = 19)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+
+    /// <summary>
+    /// Gets or sets the name of the Order in which the part was defined.
+    /// </summary>
+    [JsonProperty(Order = 21)]
+    public string? OrderName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the OrderId in which the part was defined.
+    /// </summary>
+    [JsonProperty(Order = 22)]
+    public Guid? OrderId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Customer name.
+    /// </summary>
+    [JsonProperty(Order = 23)]
+    public string? CustomerName { get; set; }
 }
