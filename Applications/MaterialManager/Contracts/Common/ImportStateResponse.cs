@@ -18,7 +18,7 @@ public class ImportStateResponse
     public ImportState ImportState { get; set; }
     
     /// <summary>
-    /// The time when the import process was finished sucessfully.
+    /// The time when the import process was finished successfully.
     /// </summary>
     public DateTimeOffset? ImportSuccessTime { get; set; }
 }
