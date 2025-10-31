@@ -94,10 +94,4 @@ public class ProcessedPart : ProcessedItem, IContainsUnitSystemDependentProperti
     [JsonProperty(Order = 23)]
     public string? CustomerName { get; set; }
 
-    /// <summary>
-    /// Gets or sets the ProductionItemType such as Part, Position, Assembly, etc
-    /// </summary>
-    [JsonProperty(Order = 50)]
-    public ProductionItemType ProductionItemType { get; set; } = ProductionItemType.Part;
-
 }

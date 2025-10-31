@@ -47,7 +47,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPartCutting.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPartCutting.MachineType, MachineType.Cutting);
-            Assert.AreEqual(processedPartCutting.ProductionItemType, ProductionItemType.Part);
         }
 
         /// <summary />
@@ -78,7 +77,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPart.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedPart.ProductionItemType, ProductionItemType.Part);
         }
 
         /// <summary />
@@ -94,8 +92,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Width = 600,
                 MaterialCode = "P2_Gold_Craft_Oak_19.0",
                 Quantity = 2,
-                OrderName = "TestOrder",
-                ProductionItemType = ProductionItemType.Position
+                OrderName = "TestOrder"
             };
 
             TestContext.AddResultFile(processedPart.TraceToFile("processedPart").FullName);
@@ -110,7 +107,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPart.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedPart.ProductionItemType, ProductionItemType.Position);
         }
 
         /// <summary />
@@ -143,7 +139,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPartNesting.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPartNesting.MachineType, MachineType.Nesting);
-            Assert.AreEqual(processedPartNesting.ProductionItemType, ProductionItemType.Part);
         }
 
         /// <summary />
@@ -206,7 +201,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartCnc.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPartCnc.MachineType, MachineType.Cnc);
             Assert.AreEqual(processedPartCnc.Preview, processedPartDeserialized.Preview);
-            Assert.AreEqual(processedPartCnc.ProductionItemType, ProductionItemType.Part);
         }
         
         /// <summary />
@@ -244,7 +238,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartEdgebanding.OrderName, processedPartDeserialized.OrderName);
             Assert.AreEqual(processedPartEdgebanding.EdgeBack, processedPartDeserialized.EdgeBack);
             Assert.AreEqual(processedPartEdgebanding.MachineType, MachineType.Edgebanding);
-            Assert.AreEqual(processedPartEdgebanding.ProductionItemType, ProductionItemType.Part);
         }
     }
 }
