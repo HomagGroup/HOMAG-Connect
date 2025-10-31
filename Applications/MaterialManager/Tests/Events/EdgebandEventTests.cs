@@ -16,23 +16,68 @@ public class EdgebandEventTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    public void Events_EdgebandTypeCreatedEvent_SerializeDeserialize()
+    public void Events_EdgebandTypeDeletedEvent_SerializeDeserialize()
     {
-        var edgebandTypeCreatedEvent = new EdgebandTypeCreatedEvent();
+        var edgebandTypeDeletedEvent = new EdgebandTypeDeletedEvent();
 
-        edgebandTypeCreatedEvent.SubscriptionId = Guid.NewGuid();
-        edgebandTypeCreatedEvent.EdgebandType = new EdgebandType();
+        edgebandTypeDeletedEvent.SubscriptionId = Guid.NewGuid();
+        edgebandTypeDeletedEvent.EdgebandCode = "EDGE-DEL-123";
 
-        edgebandTypeCreatedEvent.Trace();
+        edgebandTypeDeletedEvent.Trace();
 
-        Assert.IsTrue(edgebandTypeCreatedEvent.IsValid);
+        Assert.IsTrue(edgebandTypeDeletedEvent.IsValid);
 
-        TestContext?.AddResultFile(edgebandTypeCreatedEvent.TraceToFile("edgebandTypeCreatedEvent").FullName);
+        TestContext?.AddResultFile(edgebandTypeDeletedEvent.TraceToFile("edgebandTypeDeletedEvent").FullName);
     }
 
     /// <summary />
     [TestMethod]
-    public void Events_EdgebandTypeCreatedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    public void Events_EdgebandTypeDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        // Arrange
+        var edgebandCode = "EDGE-DEL-123";
+        var evt = new EdgebandTypeDeletedEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            EdgebandCode = edgebandCode
+        };
+
+        // Act
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        var deserializedTyped = JsonConvert.DeserializeObject<EdgebandTypeDeletedEvent>(json, SerializerSettings.Default);
+
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        // Assert
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(edgebandCode, deserializedTyped.EdgebandCode);
+
+        Assert.IsNotNull(deserializedBase);
+        Assert.IsNotNull(deserializedBase.CustomProperties);
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("edgebandCode"));
+        Assert.AreEqual(edgebandCode, deserializedBase.CustomProperties["edgebandCode"].ToString());
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_EdgebandTypeUpsertedEvent_SerializeDeserialize()
+    {
+        var edgebandTypeUpsertedEvent = new EdgebandTypeUpsertedEvent();
+
+        edgebandTypeUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        edgebandTypeUpsertedEvent.EdgebandType = new EdgebandType();
+
+        edgebandTypeUpsertedEvent.Trace();
+
+        Assert.IsTrue(edgebandTypeUpsertedEvent.IsValid);
+
+        TestContext?.AddResultFile(edgebandTypeUpsertedEvent.TraceToFile("edgebandTypeUpsertedEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_EdgebandTypeUpsertedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         // Arrange
         var edgebandType = new EdgebandType
@@ -42,7 +87,7 @@ public class EdgebandEventTests : MaterialManagerTestBase
             // Add other properties as needed
         };
 
-        var evt = new EdgebandTypeCreatedEvent
+        var evt = new EdgebandTypeUpsertedEvent
         {
             SubscriptionId = Guid.NewGuid(),
             EdgebandType = edgebandType
@@ -51,7 +96,7 @@ public class EdgebandEventTests : MaterialManagerTestBase
         // Act
         var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
 
-        var deserializedTyped = JsonConvert.DeserializeObject<EdgebandTypeCreatedEvent>(json, SerializerSettings.Default);
+        var deserializedTyped = JsonConvert.DeserializeObject<EdgebandTypeUpsertedEvent>(json, SerializerSettings.Default);
 
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
@@ -78,13 +123,14 @@ public class EdgebandEventTests : MaterialManagerTestBase
     [TestMethod]
     public void Events_ListMaterialEdgebandEvents()
     {
-        var assemblies = new[] { typeof(EdgebandTypeCreatedEvent).Assembly };
+        var assemblies = new[] { typeof(EdgebandTypeUpsertedEvent).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
         Assert.IsNotNull(derivedTypes);
         Assert.IsTrue(derivedTypes.Length > 0);
 
-        Assert.IsTrue(derivedTypes.Any(t => t == typeof(EdgebandTypeCreatedEvent)), "EdgebandTypeCreatedEvent should be present in derived event types.");
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(EdgebandTypeUpsertedEvent)), "EdgebandTypeUpsertedEvent should be present in derived event types.");
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(EdgebandTypeDeletedEvent)), "EdgebandTypeDeletedEvent should be present in derived event types.");
 
         derivedTypes.Trace();
     }

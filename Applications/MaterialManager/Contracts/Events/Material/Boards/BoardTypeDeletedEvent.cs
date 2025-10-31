@@ -2,7 +2,6 @@
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 using Newtonsoft.Json;
 
@@ -11,16 +10,16 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
 {
     /// <summary>
-    /// Event that occurs when a board entity has been created.
+    /// Event that occurs when a board type has been deleted.
     /// </summary>
-    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(BoardTypeCreatedEvent))]
-    public class BoardTypeCreatedEvent : AppEvent
+    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(BoardTypeDeletedEvent))]
+    public class BoardTypeDeletedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the BoardType that has been created.
+        /// Gets or sets the BoardCode that has been deleted.
         /// </summary>
         [Required]
         [JsonProperty(Order = 20)]
-        public BoardType BoardType { get; set; }
+        public string BoardCode { get; set; }
     }
 }

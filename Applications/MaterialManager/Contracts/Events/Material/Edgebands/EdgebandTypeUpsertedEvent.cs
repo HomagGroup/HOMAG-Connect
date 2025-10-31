@@ -2,8 +2,6 @@
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
-using HomagConnect.MaterialManager.Contracts.Events.Material.Boards;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 using Newtonsoft.Json;
@@ -13,13 +11,13 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Events.Material.Edgebands
 {
     /// <summary>
-    /// Event that occurs when a board entity has been created.
+    /// Event that occurs when a edgeband type has been created or updated.
     /// </summary>
-    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(EdgebandTypeCreatedEvent))]
-    public class EdgebandTypeCreatedEvent : AppEvent
+    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(EdgebandTypeUpsertedEvent))]
+    public class EdgebandTypeUpsertedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the EdgebandType that has been created.
+        /// Gets or sets the EdgebandType that has been created or updated.
         /// </summary>
         [Required]
         [JsonProperty(Order = 20)]

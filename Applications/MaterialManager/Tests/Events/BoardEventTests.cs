@@ -1,13 +1,14 @@
-﻿using HomagConnect.Base;
-using HomagConnect.Base;
+﻿using System.Diagnostics;
+
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Events.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
-using HomagConnect.MaterialManager.Tests;
 
 using Newtonsoft.Json;
+
+namespace HomagConnect.MaterialManager.Tests.Events;
 
 /// <inheritdoc />
 [TestClass]
@@ -69,6 +70,7 @@ public class BoardEventTests : MaterialManagerTestBase
 
         // deserialized back to BoardEntity
         var boardEntityJson = deserializedBase.CustomProperties["boardEntity"].ToString();
+        Debug.Assert(boardEntityJson != null, nameof(boardEntityJson) + " != null");
         var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson, SerializerSettings.Default);
         Assert.IsNotNull(boardEntityFromCustom);
         Assert.AreEqual(boardEntity.Id, boardEntityFromCustom.Id);
@@ -76,39 +78,68 @@ public class BoardEventTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    public void Events_ListMaterialEvents()
+    public void Events_BoardTypeDeletedEvent_SerializeDeserialize()
     {
-        var assemblies = new[] { typeof(BoardEntityCreatedEvent).Assembly };
-        var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
+        var boardTypeDeletedEvent = new BoardTypeDeletedEvent();
 
-        Assert.IsNotNull(derivedTypes);
-        Assert.IsTrue(derivedTypes.Length > 0);
+        boardTypeDeletedEvent.SubscriptionId = Guid.NewGuid();
+        boardTypeDeletedEvent.BoardCode = "CODE-DEL-123";
 
-        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityCreatedEvent)), "BoardEntityCreatedEvent should be present in derived event types.");
-        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeCreatedEvent)), "BoardTypeCreatedEvent should be present in derived event types.");
+        boardTypeDeletedEvent.Trace();
 
-        derivedTypes.Trace();
+        Assert.IsTrue(boardTypeDeletedEvent.IsValid);
+
+        TestContext?.AddResultFile(boardTypeDeletedEvent.TraceToFile("boardTypeDeletedEvent").FullName);
     }
 
     /// <summary />
     [TestMethod]
-    public void Events_BoardTypeCreatedEvent_SerializeDeserialize()
+    public void Events_BoardTypeDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
-        var boardTypeCreatedEvent = new BoardTypeCreatedEvent();
+        // Arrange
+        var boardCode = "CODE-DEL-123";
+        var evt = new BoardTypeDeletedEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            BoardCode = boardCode
+        };
 
-        boardTypeCreatedEvent.SubscriptionId = Guid.NewGuid();
-        boardTypeCreatedEvent.BoardType = new BoardType();
+        // Act
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
 
-        boardTypeCreatedEvent.Trace();
+        var deserializedTyped = JsonConvert.DeserializeObject<BoardTypeDeletedEvent>(json, SerializerSettings.Default);
 
-        Assert.IsTrue(boardTypeCreatedEvent.IsValid);
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
-        TestContext?.AddResultFile(boardTypeCreatedEvent.TraceToFile("boardTypeCreatedEvent").FullName);
+        // Assert
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(boardCode, deserializedTyped.BoardCode);
+
+        Assert.IsNotNull(deserializedBase);
+        Assert.IsNotNull(deserializedBase.CustomProperties);
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("boardCode"));
+        Assert.AreEqual(boardCode, deserializedBase.CustomProperties["boardCode"].ToString());
     }
 
     /// <summary />
     [TestMethod]
-    public void Events_BoardTypeCreatedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    public void Events_BoardTypeUpsertedEvent_SerializeDeserialize()
+    {
+        var boardTypeUpsertedEvent = new BoardTypeUpsertedEvent();
+
+        boardTypeUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        boardTypeUpsertedEvent.BoardType = new BoardType();
+
+        boardTypeUpsertedEvent.Trace();
+
+        Assert.IsTrue(boardTypeUpsertedEvent.IsValid);
+
+        TestContext?.AddResultFile(boardTypeUpsertedEvent.TraceToFile("boardTypeUpsertedEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_BoardTypeUpsertedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         // Arrange
         var boardType = new BoardType
@@ -120,7 +151,7 @@ public class BoardEventTests : MaterialManagerTestBase
             MaterialCode = "MAT-001"
         };
 
-        var evt = new BoardTypeCreatedEvent
+        var evt = new BoardTypeUpsertedEvent
         {
             SubscriptionId = Guid.NewGuid(),
             BoardType = boardType
@@ -129,7 +160,7 @@ public class BoardEventTests : MaterialManagerTestBase
         // Act
         var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
 
-        var deserializedTyped = JsonConvert.DeserializeObject<BoardTypeCreatedEvent>(json, SerializerSettings.Default);
+        var deserializedTyped = JsonConvert.DeserializeObject<BoardTypeUpsertedEvent>(json, SerializerSettings.Default);
 
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
@@ -144,8 +175,26 @@ public class BoardEventTests : MaterialManagerTestBase
 
         // deserialized back to BoardType
         var boardTypeJson = deserializedBase.CustomProperties["boardType"].ToString();
+        Debug.Assert(boardTypeJson != null, nameof(boardTypeJson) + " != null");
         var boardTypeFromCustom = JsonConvert.DeserializeObject<BoardType>(boardTypeJson, SerializerSettings.Default);
         Assert.IsNotNull(boardTypeFromCustom);
         Assert.AreEqual(boardType.BoardCode, boardTypeFromCustom.BoardCode);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_ListMaterialEvents()
+    {
+        var assemblies = new[] { typeof(BoardEntityCreatedEvent).Assembly };
+        var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
+
+        Assert.IsNotNull(derivedTypes);
+        Assert.IsTrue(derivedTypes.Length > 0);
+
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityCreatedEvent)), "BoardEntityCreatedEvent should be present in derived event types.");
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeUpsertedEvent)), "BoardTypeUpsertedEvent should be present in derived event types.");
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeDeletedEvent)), "BoardTypeDeletedEvent should be present in derived event types.");
+
+        derivedTypes.Trace();
     }
 }
