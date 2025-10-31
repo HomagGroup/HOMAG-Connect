@@ -3,6 +3,7 @@
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
 
@@ -92,4 +93,10 @@ public class ProcessedPart : ProcessedItem, IContainsUnitSystemDependentProperti
     /// </summary>
     [JsonProperty(Order = 23)]
     public string? CustomerName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ProductionItemType such as Part, Position, Assembly, etc
+    /// </summary>
+    public ProductionItemType ProductionItemType { get; set; } = ProductionItemType.Part;
+
 }

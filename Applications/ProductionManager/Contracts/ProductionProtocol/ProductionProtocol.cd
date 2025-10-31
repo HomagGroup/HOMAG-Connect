@@ -44,5 +44,18 @@
       <FileName>ProductionProtocol\ProcessedPartDividing.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedBoardDividing">
+    <Position X="15" Y="8.75" Width="3.25" />
+    <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedBoard" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.625" Y="7.521" />
+        <Point X="16.625" Y="8.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAQAAAAkCAAAAAAAA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedBoardDividing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
