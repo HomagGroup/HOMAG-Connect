@@ -14,6 +14,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartEdgebanding), nameof(ProcessedPartEdgebanding))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedBoardDividing), nameof(ProcessedBoardDividing))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartCnc), nameof(ProcessedPartCnc))]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPart), nameof(ProcessedPart))]
 public class ProcessedItem
 {
     /// <summary>
