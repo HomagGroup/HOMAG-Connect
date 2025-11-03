@@ -1,5 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
+﻿using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 

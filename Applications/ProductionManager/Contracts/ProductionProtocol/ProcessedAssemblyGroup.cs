@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using HomagConnect.ProductionManager.Contracts.ProductionItems;
+﻿using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
 {
