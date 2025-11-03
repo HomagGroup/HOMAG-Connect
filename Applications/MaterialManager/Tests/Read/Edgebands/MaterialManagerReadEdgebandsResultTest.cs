@@ -6,6 +6,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Edgebands;
 [TestClass]
 [TestCategory("MaterialManager")]
 [TestCategory("MaterialManager.Edgebands")]
+
 public class ReadEdgebandTypeTests : MaterialManagerTestBase
 {
     /// <summary />
