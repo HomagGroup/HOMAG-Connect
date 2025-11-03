@@ -21,17 +21,7 @@ public enum MachineType
     Cutting,
 
     /// <summary>
-    /// Cutting machine (e.g. CENTATEQ)
-    /// </summary>
-    Nesting,
-
-    /// <summary>
     /// CNC machine (e.g. CENTATEQ)
     /// </summary>
-    Cnc,
-
-    /// <summary>
-    /// Edgeband machine (e.g. EDGETEQ)
-    /// </summary>
-    Edgebanding
+    Cnc
 }
