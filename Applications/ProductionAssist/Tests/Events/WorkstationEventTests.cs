@@ -1,8 +1,11 @@
-﻿using HomagConnect.Base.Contracts.Events;
+﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts.Events;
 using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
-using HomagConnect.ProductionAssist.Contracts.Events.Feedback;
+using HomagConnect.ProductionAssist.Contracts.Events.Sorting;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Tests.Events;
 
@@ -84,5 +87,95 @@ public class WorkstationEventTests : ProductionAssistTestBase
         Assert.IsTrue(productionItemCompletedEvent.IsValid);
 
         TestContext?.AddResultFile(productionItemCompletedEvent.TraceToFile(nameof(productionItemCompletedEvent)).FullName);
+    }
+
+    [TestMethod]
+    public void Events_ProductionItemCompletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        // Arrange
+        var evt = new ProductionItemCompletedEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            WorkstationId = Guid.NewGuid(),
+            Identifier = "ProdItem-42",
+            Quantity = 5
+        };
+
+        // Act
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        // Deserialize as ProductionItemCompletedEvent
+        var deserializedTyped = JsonConvert.DeserializeObject<ProductionItemCompletedEvent>(json, SerializerSettings.Default);
+
+        // Deserialize as AppEvent
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        // Assert
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
+        Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);
+
+        Assert.IsNotNull(deserializedBase);
+        Assert.IsNotNull(deserializedBase.CustomProperties);
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("identifier"));
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("quantity"));
+        Assert.AreEqual("ProdItem-42", deserializedBase.CustomProperties["identifier"].ToString());
+        Assert.AreEqual(5, Convert.ToInt32(deserializedBase.CustomProperties["quantity"]));
+    }
+
+    [TestMethod]
+    public void Events_ProductionItemPickedFromShelfEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        var evt = new ProductionItemPickedFromShelfEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            WorkstationId = Guid.NewGuid(),
+            Identifier = "ProdItem-200",
+            Quantity = 2
+        };
+
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        var deserializedTyped = JsonConvert.DeserializeObject<ProductionItemPickedFromShelfEvent>(json, SerializerSettings.Default);
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
+        Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);
+
+        Assert.IsNotNull(deserializedBase);
+        Assert.IsNotNull(deserializedBase.CustomProperties);
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("identifier"));
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("quantity"));
+        Assert.AreEqual("ProdItem-200", deserializedBase.CustomProperties["identifier"].ToString());
+        Assert.AreEqual(2, Convert.ToInt32(deserializedBase.CustomProperties["quantity"]));
+    }
+
+    [TestMethod]
+    public void Events_ProductionItemPlacedInShelfEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        var evt = new ProductionItemPlacedInShelfEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            WorkstationId = Guid.NewGuid(),
+            Identifier = "ProdItem-100",
+            Quantity = 3
+        };
+
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        var deserializedTyped = JsonConvert.DeserializeObject<ProductionItemPlacedInShelfEvent>(json, SerializerSettings.Default);
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
+        Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);
+
+        Assert.IsNotNull(deserializedBase);
+        Assert.IsNotNull(deserializedBase.CustomProperties);
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("identifier"));
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("quantity"));
+        Assert.AreEqual("ProdItem-100", deserializedBase.CustomProperties["identifier"].ToString());
+        Assert.AreEqual(3, Convert.ToInt32(deserializedBase.CustomProperties["quantity"]));
     }
 }

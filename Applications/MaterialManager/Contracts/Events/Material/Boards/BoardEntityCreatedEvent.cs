@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
     /// <summary>
     /// Event that occurs when a board entity has been created.
     /// </summary>
-    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + nameof(Boards) + "." + nameof(BoardEntityCreatedEvent))]
+    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(BoardEntityCreatedEvent))]
     public class BoardEntityCreatedEvent : AppEvent
     {
         /// <summary>
