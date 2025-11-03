@@ -207,7 +207,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 OrderId = Guid.NewGuid()
             };
 
-            TestContext.AddResultFile(processedPosition.TraceToFile("ProcessedPartEdgebanding").FullName);
+            TestContext.AddResultFile(processedPosition.TraceToFile("processedPosition").FullName);
 
             var processedPartEdgebandingSerialized = JsonConvert.SerializeObject(processedPosition, SerializerSettings.Default);
             var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartEdgebandingSerialized);
@@ -215,7 +215,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.IsNotNull(processedItemDeserialized);
             Assert.AreEqual(processedPosition.GetType(), processedItemDeserialized.GetType());
 
-            var processedPartDeserialized = processedItemDeserialized as ProcessedPartEdgebanding;
+            var processedPartDeserialized = processedItemDeserialized as ProcessedPosition;
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPosition.Timestamp, processedPartDeserialized.Timestamp);
@@ -242,13 +242,13 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             TestContext.AddResultFile(processedAssemblyGroup.TraceToFile("ProcessedPartEdgebanding").FullName);
 
-            var processedPartEdgebandingSerialized = JsonConvert.SerializeObject(processedAssemblyGroup, SerializerSettings.Default);
-            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartEdgebandingSerialized);
+            var processedAssemblyGroupSerialized = JsonConvert.SerializeObject(processedAssemblyGroup, SerializerSettings.Default);
+            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedAssemblyGroupSerialized);
 
             Assert.IsNotNull(processedItemDeserialized);
             Assert.AreEqual(processedAssemblyGroup.GetType(), processedItemDeserialized.GetType());
 
-            var processedPartDeserialized = processedItemDeserialized as ProcessedPartEdgebanding;
+            var processedPartDeserialized = processedItemDeserialized as ProcessedAssemblyGroup;
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedAssemblyGroup.Timestamp, processedPartDeserialized.Timestamp);
