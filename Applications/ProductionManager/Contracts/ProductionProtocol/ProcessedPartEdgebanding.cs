@@ -1,4 +1,6 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
@@ -11,18 +13,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// This class extends <see cref="ProcessedPart" /> to include additional properties specific to the
 /// edgebanding process. It provides details such as the EdgeBack, EdgeFront, EdgeLeft and EdgeRight
 /// </remarks>
-public class ProcessedPartEdgebanding : ProcessedPart
+public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
 {
-
-    /// <inheritdoc />
-    public override MachineType MachineType
-    {
-        get
-        {
-            return MachineType.Edgebanding;
-        }
-    }
-
     /// <summary>
     /// Gets or sets the EdgeFront
     /// </summary>
@@ -46,4 +38,10 @@ public class ProcessedPartEdgebanding : ProcessedPart
     /// </summary>
     [JsonProperty(Order = 35)]
     public string? EdgeRight { get; set; }
+
+    /// <summary>
+    /// Gets or sets how the edgebands should be applied
+    /// </summary>
+    [JsonProperty(Order = 36)]
+    public string? EdgeDiagram { get; set; }
 }

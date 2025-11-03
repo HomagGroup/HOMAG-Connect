@@ -21,6 +21,16 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         Part,
 
         /// <summary>
+        /// Processed item is a grouping of parts called Position.
+        /// </summary>
+        Position,
+
+        /// <summary>
+        /// Processed item is a grouping of parts called AssemblyGroup.
+        /// </summary>
+        AssemblyGroup,
+
+        /// <summary>
         /// Processed item is a board or offcut.
         /// </summary>
         Board

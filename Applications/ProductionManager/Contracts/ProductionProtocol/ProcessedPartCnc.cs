@@ -1,4 +1,6 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
@@ -8,15 +10,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </summary>
 public class ProcessedPartCnc : ProcessedPart
 {
-    /// <inheritdoc />
-    public override MachineType MachineType
-    {
-        get
-        {
-            return MachineType.Cnc;
-        }
-    }
-
     /// <summary>
     /// Gets or sets the duration of the CNC program execution for this part.
     /// </summary>

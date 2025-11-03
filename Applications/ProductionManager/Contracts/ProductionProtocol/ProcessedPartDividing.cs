@@ -14,23 +14,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </remarks>
 public class ProcessedPartDividing : ProcessedPart
 {
-    private readonly MachineType _machineType;
-
-    /// <summary>
-    /// Initiantes the MachineType for the dividing process. Allowed types are Cutting and Nesting
-    /// </summary>
-    /// <param name="machineType"></param>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public ProcessedPartDividing(MachineType machineType = MachineType.Cutting)
-    {
-        if (machineType != MachineType.Cutting && machineType != MachineType.Nesting)
-            throw new ArgumentOutOfRangeException(nameof(machineType), "MachineType must be Cutting or Nesting.");
-
-        _machineType = machineType;
-    }
-
-    public override MachineType MachineType => _machineType;
-
     /// <summary>
     /// Gets or sets the id of the BoardEntity used
     /// </summary>
