@@ -1,5 +1,4 @@
 ﻿using HomagConnect.Base;
-using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
@@ -76,7 +75,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPart.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedPart.ProductionItemType, ProductionItemType.Part);
+            Assert.AreEqual(processedPart.ItemType, ProductionItemType.Part);
         }
 
         /// <summary />
@@ -110,7 +109,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPartNesting.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPartNesting.OptimizationName, processedPartDeserialized.OptimizationName);
-            Assert.AreEqual(processedPartNesting.ProductionItemType, ProductionItemType.Part);
+            Assert.AreEqual(processedPartNesting.ItemType, ProductionItemType.Part);
         }
 
 
@@ -152,7 +151,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartCnc.CompletedAt, processedPartDeserialized.CompletedAt);
             Assert.AreEqual(processedPartCnc.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPartCnc.Preview, processedPartDeserialized.Preview);
-            Assert.AreEqual(processedPartCnc.ProductionItemType, ProductionItemType.Part);
+            Assert.AreEqual(processedPartCnc.ItemType, ProductionItemType.Part);
         }
         
         /// <summary />
@@ -189,7 +188,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartEdgebanding.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPartEdgebanding.OrderName, processedPartDeserialized.OrderName);
             Assert.AreEqual(processedPartEdgebanding.EdgeBack, processedPartDeserialized.EdgeBack);
-            Assert.AreEqual(processedPartEdgebanding.ProductionItemType, ProductionItemType.Part);
+            Assert.AreEqual(processedPartEdgebanding.ItemType, ProductionItemType.Part);
         }
 
         /// <summary />
@@ -221,8 +220,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPosition.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPosition.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPosition.OrderName, processedPartDeserialized.OrderName);
-            Assert.AreEqual(processedPosition.ProductionItemType, ProductionItemType.Position);
-            Assert.AreEqual(processedPosition.ItemType, ProcessedItemType.Position);
+            Assert.AreEqual(processedPosition.ItemType, ProductionItemType.Position);
         }
 
         /// <summary />
@@ -254,8 +252,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedAssemblyGroup.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedAssemblyGroup.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedAssemblyGroup.OrderName, processedPartDeserialized.OrderName);
-            Assert.AreEqual(processedAssemblyGroup.ProductionItemType, ProductionItemType.AssemblyGroup);
-            Assert.AreEqual(processedAssemblyGroup.ItemType, ProcessedItemType.AssemblyGroup);
+            Assert.AreEqual(processedAssemblyGroup.ItemType, ProductionItemType.AssemblyGroup);
         }
     }
 }

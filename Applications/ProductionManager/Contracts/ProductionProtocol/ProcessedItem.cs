@@ -12,7 +12,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartDividing), nameof(ProcessedPartDividing))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartEdgebanding), nameof(ProcessedPartEdgebanding))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedBoardDividing), nameof(ProcessedBoardDividing))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartCnc), nameof(ProcessedPartCnc))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPart), nameof(ProcessedPart))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPosition), nameof(ProcessedPosition))]
@@ -61,19 +60,7 @@ public class ProcessedItem
     /// Gets or sets the item type of the processed item.
     /// </summary>
     [JsonProperty(Order = 5)]
-    public virtual ProcessedItemType ItemType
-    {
-        get
-        {
-            return ProcessedItemType.Unknown;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the item type of the processed item.
-    /// </summary>
-    [JsonProperty(Order = 6)]
-    public virtual ProductionItemType ProductionItemType
+    public virtual ProductionItemType ItemType
     {
         get
         {
