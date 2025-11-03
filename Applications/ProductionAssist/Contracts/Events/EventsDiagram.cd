@@ -1,23 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.Cutting.CycleStartedEvent">
-    <Position X="8.5" Y="3.5" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAIAAAABAAAAAAAAAAQAAABEAAAAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\Dividing\CycleStartedEvent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.FeedbackWorkstation.ProductionItemCompletedOnWorkstationEvent">
-    <Position X="5" Y="3.5" Width="3.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAABAAAgAAAAAA=</HashCode>
-      <FileName>Events\FeedbackWorkstation\ProductionItemCompletedOnWorkstationEvent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="HomagConnect.Base.Contracts.Events.AppEvent">
     <Position X="5.75" Y="0.5" Width="1.75" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedEvent">
+    <Position X="8.25" Y="5.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAA=</HashCode>
+      <FileName>Events\ProductionItemCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.WorkstationEvent">
+    <Position X="5.25" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Events\WorkstationEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleItemCompletedEvent">
+    <Position X="3.25" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Dividing\CycleItemCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleCompletedEvent">
+    <Position X="0.5" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Dividing\CycleCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleStartedEvent">
+    <Position X="3.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Dividing\CycleStartedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Sorting.ProductionItemPickedFromShelfEvent">
+    <Position X="8.75" Y="8.5" Width="2.75" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedEvent" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="7.175" />
+        <Point X="10" Y="7.53" />
+        <Point X="9.938" Y="7.53" />
+        <Point X="9.938" Y="8.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Sorting\ProductionItemPickedFromShelfEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Sorting.ProductionItemPlacedInShelfEvent">
+    <Position X="13" Y="8.75" Width="2.5" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedEvent" ManuallyRouted="true">
+      <Path>
+        <Point X="10" Y="7.175" />
+        <Point X="10" Y="8.291" />
+        <Point X="14.25" Y="8.291" />
+        <Point X="14.25" Y="8.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Sorting\ProductionItemPlacedInShelfEvent.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
