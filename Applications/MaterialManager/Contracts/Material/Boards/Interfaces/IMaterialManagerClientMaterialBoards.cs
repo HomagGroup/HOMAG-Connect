@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -196,15 +197,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
 
+        #endregion
+
+        #region Storage Import
+        
         /// <summary>
         /// /// Import storage inventory
         /// </summary>
         Task<string> ImportInventory(ImportInventoryRequest data);
-
+        
         /// <summary>
-        /// Delete board type
+        /// Get import state by correlation id
         /// </summary>
-        Task DeleteBoardTypesByCodes(StorageImportFilter filter);
+        Task<ImportStateResponse> GetImportState(string correlationId);
 
         #endregion
     }
