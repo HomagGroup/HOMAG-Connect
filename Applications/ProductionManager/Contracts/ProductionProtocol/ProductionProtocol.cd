@@ -1,48 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartCutting">
-    <Position X="2.5" Y="9" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAQAAAAkAAAAAAAAA=</HashCode>
-      <FileName>ProductionProtocol\ProcessedPartCutting.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartCnc">
-    <Position X="6.75" Y="9" Width="3.5" />
+    <Position X="6.75" Y="11.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgEAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAIAABAAAAAAAAAAAAAAAAUAAAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPartCnc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPart">
-    <Position X="5" Y="4.75" Width="3.5" />
+    <Position X="10" Y="8" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAhAAAAgAAAAEBAAAAAAAAAAAAAgAAAQAA=</HashCode>
+      <HashCode>AEAAAAAAAAABAAAAAAAAAEBAAAAAAAAAAAAAAAABQgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPart.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItem">
-    <Position X="8.25" Y="0.75" Width="3.5" />
+    <Position X="10" Y="0.75" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEgQEAAAAAAACAAIAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAEgAEAAAAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedItem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedBoardCutting">
-    <Position X="11.25" Y="9" Width="3.25" />
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartEdgebanding">
+    <Position X="10.5" Y="11.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAQAAAAkAAAAAAAAA=</HashCode>
-      <FileName>ProductionProtocol\ProcessedBoardCutting.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedBoard">
-    <Position X="11.25" Y="4.75" Width="3.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAAgBAAAEBAAAAAAAAAAAAAgAAAQAA=</HashCode>
-      <FileName>ProductionProtocol\ProcessedBoard.cs</FileName>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAQAAAAQAAAIAAAAAAAA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedPartEdgebanding.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartDividing">
+    <Position X="14.25" Y="11.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAABAAAAAAAAAAQAAAAEAAAAAAAAA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedPartDividing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedAssemblyGroup">
+    <Position X="15" Y="8" Width="3.25" />
+    <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem" ManuallyRouted="true">
+      <Path>
+        <Point X="11.75" Y="6.194" />
+        <Point X="11.75" Y="6.895" />
+        <Point X="16.625" Y="6.895" />
+        <Point X="16.625" Y="8" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedAssemblyGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem">
+    <Position X="10.25" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAAAAgAAAAAABAAAAAQAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedOrderItem.cs</FileName>
+      <NewMemberFileName>ProductionProtocol\ProcessedPosition.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPosition">
+    <Position X="19.25" Y="8" Width="2.75" />
+    <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem" ManuallyRouted="true">
+      <Path>
+        <Point X="11.75" Y="6.194" />
+        <Point X="11.75" Y="6.907" />
+        <Point X="20.625" Y="6.907" />
+        <Point X="20.625" Y="8" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedPosition.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

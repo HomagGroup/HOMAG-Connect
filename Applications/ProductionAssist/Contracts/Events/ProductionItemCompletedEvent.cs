@@ -8,7 +8,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events
     /// <summary>
     /// Gets triggered when a ProductionItem has been completed on a Workstation.
     /// </summary>
-    [AppEvent(nameof(ProductionAssist) + "." + nameof(Feedback) + "." + nameof(ProductionItemCompletedEvent))]
+    [AppEvent(nameof(ProductionAssist) + "." + nameof(ProductionItemCompletedEvent))]
     public class ProductionItemCompletedEvent : WorkstationEvent
     {
         /// <summary>
