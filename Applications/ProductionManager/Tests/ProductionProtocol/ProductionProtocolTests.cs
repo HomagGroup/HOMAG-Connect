@@ -51,7 +51,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
         [TestMethod]
         public void ProductionProtocol_Base_Part_Serialization()
         {
-            var processedPart = new ProcessedPart
+            var processedBasePart = new ProcessedPart
             {
                 Timestamp = DateTimeOffset.Now,
                 SubscriptionId = Guid.NewGuid(),
@@ -63,19 +63,19 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 OrderName = "TestOrder",
             };
 
-            TestContext.AddResultFile(processedPart.TraceToFile("processedPart").FullName);
+            TestContext.AddResultFile(processedBasePart.TraceToFile("processedBasePart").FullName);
 
-            var processedPartSerialized = JsonConvert.SerializeObject(processedPart, SerializerSettings.Default);
+            var processedPartSerialized = JsonConvert.SerializeObject(processedBasePart, SerializerSettings.Default);
             var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartSerialized);
 
             Assert.IsNotNull(processedItemDeserialized);
-            Assert.AreEqual(processedPart.GetType(), processedItemDeserialized.GetType());
+            Assert.AreEqual(processedBasePart.GetType(), processedItemDeserialized.GetType());
 
             var processedPartDeserialized = processedItemDeserialized as ProcessedPart;
 
             Assert.IsNotNull(processedPartDeserialized);
-            Assert.AreEqual(processedPart.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedPart.ItemType, ProductionItemType.Part);
+            Assert.AreEqual(processedBasePart.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(processedBasePart.ItemType, ProductionItemType.Part);
         }
 
         /// <summary />

@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         {
             get
             {
-                return ProductionItemType.AssemblyGroup;
+                return ProductionItemType.Position;
             }
         }
     }

@@ -19,7 +19,7 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     {
         get
         {
-            return ProductionItemType.AssemblyGroup;
+            return ProductionItemType.Part;
         }
     }
 
