@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
 /// <summary>
-/// Represents a processed part that includes cutting-specific details, such as optimization name, pattern information,
+/// Represents a processed part that includes edgebanding-specific details, such as optimization name, pattern information,
 /// and board-related data.
 /// </summary>
 /// <remarks>
