@@ -1,14 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.Attributes;
+﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialManager.Contracts.Update
 {
     /// <summary>
     /// Update object to create an Allocation in materialManager.
     /// </summary>
-    public class EdgebandTypeAllocationUpdate
+    public class EdgebandTypeAllocationUpdate : EdgebandTypeAllocationRequestBase
     {
         /// <summary>
         /// Gets or sets the allocation allocated length.
@@ -20,28 +19,6 @@ namespace HomagConnect.MaterialManager.Contracts.Update
         /// Gets or sets the allocation comments.
         /// </summary>
         public string? Comments { get; set; }
-
-        /// <summary>
-        /// Customer of the edgeband type allocation.
-        /// </summary>
-        public string Customer { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the allocation edgeband code.
-        /// </summary>
-        [Required]
-        public string EdgebandCode { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Order of the edgeband type allocation.
-        /// </summary>
-        [Required]
-        public string Order { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Project of the edgeband type allocation.
-        /// </summary>
-        public string Project { get; set; } = string.Empty;
 
         /// <summary>
         /// UsedLength of the edgeband type allocation.

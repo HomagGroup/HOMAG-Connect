@@ -5,7 +5,6 @@ using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -23,9 +22,12 @@ public class BoardTypeTests : MaterialManagerTestBase
     [TestMethod]
     public void BoardType_CheckConfiguration_ConfigValid()
     {
-        BaseUrl.Should().NotBeNull();
-        SubscriptionId.Should().NotBeEmpty();
-        AuthorizationKey.Should().NotBeNullOrEmpty();
+        BaseUrl.Should().NotBeNull(
+            "because BaseUrl should be configured for MaterialManager tests");
+        SubscriptionId.Should().NotBeEmpty(
+            "because SubscriptionId should be configured for MaterialManager tests");
+        AuthorizationKey.Should().NotBeNullOrEmpty(
+            "because AuthorizationKey should be configured for MaterialManager tests");
     }
 
     /// <summary />
@@ -40,11 +42,12 @@ public class BoardTypeTests : MaterialManagerTestBase
         await BoardType_CreateBoardType_Cleanup(materialManagerClient, materialCode);
 
         var uniqueBoardCode = $"{materialCode}_{Guid.NewGuid().ToString("N")[..8]}";
+        var fullBoardCode = $"{uniqueBoardCode}_2800_2070";
 
         var boardType = await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
         {
             MaterialCode = materialCode,
-            BoardCode = $"{uniqueBoardCode}_2800_2070",
+            BoardCode = fullBoardCode,
             Thickness = 19.0,
             Grain = Grain.Lengthwise,
             Width = 2070,
@@ -62,6 +65,13 @@ public class BoardTypeTests : MaterialManagerTestBase
                 }
             }
         }, [additionalDataImage]);
+
+        boardType.Should().NotBeNull(
+            $"because board type with board code '{fullBoardCode}' should be created successfully");
+        boardType.BoardCode.Should().Be(fullBoardCode,
+            $"because created board type should have board code '{fullBoardCode}'");
+        boardType.MaterialCode.Should().Be(materialCode,
+            $"because created board type should have material code '{materialCode}'");
 
         boardType.Trace();
     }
@@ -84,25 +94,31 @@ public class BoardTypeTests : MaterialManagerTestBase
 
         boardTypeImperial.Trace();
 
-        Assert.AreEqual(UnitSystem.Imperial, boardTypeImperial.UnitSystem);
+        boardTypeImperial.UnitSystem.Should().Be(UnitSystem.Imperial,
+            "because board type was switched to Imperial unit system");
 
-        Assert.AreNotEqual(boardTypeMetric.Length, boardTypeImperial.Length);
-        Assert.AreNotEqual(boardTypeMetric.Width, boardTypeImperial.Width);
-        Assert.AreNotEqual(boardTypeMetric.Thickness, boardTypeImperial.Thickness);
-        Assert.AreNotEqual(boardTypeMetric.TotalAreaAvailableWarningLimit, boardTypeImperial.TotalAreaAvailableWarningLimit);
+        boardTypeImperial.Length.Should().NotBe(boardTypeMetric.Length,
+            "because length should be converted from metric to imperial units");
+        boardTypeImperial.Width.Should().NotBe(boardTypeMetric.Width,
+            "because width should be converted from metric to imperial units");
+        boardTypeImperial.Thickness.Should().NotBe(boardTypeMetric.Thickness,
+            "because thickness should be converted from metric to imperial units");
+        boardTypeImperial.TotalAreaAvailableWarningLimit.Should().NotBe(boardTypeMetric.TotalAreaAvailableWarningLimit,
+            "because total area warning limit should be converted from metric to imperial units");
     }
 
     private static async Task BoardType_CreateBoardType_Cleanup(MaterialManagerClient materialManagerClient, string materialCode)
     {
-        var existingBoardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode]);
+        var existingBoardTypes = (await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode])).ToArray();
 
         foreach (var existingBoardType in existingBoardTypes)
         {
             await materialManagerClient.Material.Boards.DeleteBoardType(existingBoardType.BoardCode);
         }
 
-        existingBoardTypes = await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode]);
+        existingBoardTypes = (await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode])).ToArray();
 
-        Assert.IsFalse(existingBoardTypes.Any());
+        existingBoardTypes.Should().BeEmpty(
+            $"because all board types with material code '{materialCode}' should be deleted during cleanup");
     }
 }

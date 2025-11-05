@@ -12,6 +12,7 @@ using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
+using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -50,6 +51,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         throw new Exception($"The returned object is not of type {nameof(ImportInventoryRequest)}");
+    }
+
+    /// <inheritdoc />
+    public async Task<ImportStateResponse> GetImportState(string correlationId)
+    {
+        var url = $"{_ImportInventoryRoute}/{Uri.EscapeDataString(correlationId)}";
+        return await RequestObject<ImportStateResponse>(new Uri(url, UriKind.Relative)) ?? new ImportStateResponse();
     }
 
     #endregion
@@ -238,7 +246,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _IncludingDetails = "includingDetails";
     private const string _GatewayMaterialRoutePrefix = "api/gw/materials";
     private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
-    private const string _DeleteBoardTypesByCodesRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
 
     #endregion
 
@@ -568,22 +575,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
-
-    /// <inheritdoc />
-    public async Task DeleteBoardTypesByCodes(StorageImportFilter filter)
-    {
-        if (filter == null)
-        {
-            throw new ArgumentNullException(nameof(filter));
-        }
-
-        ValidateRequiredProperties(filter);
-
-        var payload = JsonConvert.SerializeObject(filter, SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        await PostObject(new Uri(_DeleteBoardTypesByCodesRoute, UriKind.Relative), content);
-    }
-
+    
     #endregion Delete
 
     #region statistics

@@ -89,6 +89,27 @@ public class WorkstationEventTests : ProductionAssistTestBase
         TestContext?.AddResultFile(productionItemCompletedEvent.TraceToFile(nameof(productionItemCompletedEvent)).FullName);
     }
 
+
+    /// <summary />
+    [TestMethod]
+    public void Events_ProductionItemCompletedByParentEvent_SerializeDeserialize()
+    {
+        var productionItemCompletedEvent = new ProductionItemCompletedByParentEvent();
+
+        productionItemCompletedEvent.SubscriptionId = Guid.NewGuid();
+        productionItemCompletedEvent.WorkstationId = Guid.NewGuid();
+
+        productionItemCompletedEvent.Identifier = "ProdItem-11";
+        productionItemCompletedEvent.ParentIdentifier = "ProdItem-01";
+        productionItemCompletedEvent.Quantity = 10;
+
+        productionItemCompletedEvent.Trace();
+
+        Assert.IsTrue(productionItemCompletedEvent.IsValid);
+
+        TestContext?.AddResultFile(productionItemCompletedEvent.TraceToFile(nameof(productionItemCompletedEvent)).FullName);
+    }
+
     [TestMethod]
     public void Events_ProductionItemCompletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {

@@ -77,11 +77,16 @@ public class BoardEntityTests : MaterialAssistTestBase
                 firstStorageLocation.LocationId
             );
 
-            found.Should().NotBeNull("Stored board entity was not found by code.");
-            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
-            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
-            found.Quantity.Should().Be(3, "Stored quantity does not match for GoodsInStock.");
-            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+            found.Should().NotBeNull(
+                $"because board entity with ID '{createdBoardEntity.Id}' should be stored and retrievable from storage location '{firstStorageLocation.LocationId}'");
+            found!.Length.Should().Be(storeBoardEntity.Length,
+                $"because board entity '{createdBoardEntity.Id}' was stored with length {storeBoardEntity.Length}");
+            found.Width.Should().Be(storeBoardEntity.Width,
+                $"because board entity '{createdBoardEntity.Id}' was stored with width {storeBoardEntity.Width}");
+            found.Quantity.Should().Be(3,
+                $"because board entity '{createdBoardEntity.Id}' with ManagementType.GoodsInStock was created with quantity 3");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId,
+                $"because board entity '{createdBoardEntity.Id}' was stored in storage location '{firstStorageLocation.LocationId}'");
         }
         finally
         {
@@ -159,11 +164,16 @@ public class BoardEntityTests : MaterialAssistTestBase
                 firstStorageLocation.LocationId
             );
 
-            found.Should().NotBeNull("Stored offcut entity was not found by code.");
-            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
-            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
-            found.Quantity.Should().Be(1, "Stored quantity does not match for GoodsInStock.");
-            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+            found.Should().NotBeNull(
+                $"because offcut entity with ID '{createdOffcutEntity.Id}' should be stored and retrievable from storage location '{firstStorageLocation.LocationId}'");
+            found!.Length.Should().Be(storeBoardEntity.Length,
+                $"because offcut entity '{createdOffcutEntity.Id}' was stored with length {storeBoardEntity.Length} (offcut dimension: {lengthOffcut})");
+            found.Width.Should().Be(storeBoardEntity.Width,
+                $"because offcut entity '{createdOffcutEntity.Id}' was stored with width {storeBoardEntity.Width} (offcut dimension: {widthOffcut})");
+            found.Quantity.Should().Be(1,
+                $"because offcut entity '{createdOffcutEntity.Id}' was created with quantity 1");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId,
+                $"because offcut entity '{createdOffcutEntity.Id}' was stored in storage location '{firstStorageLocation.LocationId}'");
         }
         finally
         {
@@ -240,11 +250,16 @@ public class BoardEntityTests : MaterialAssistTestBase
                 firstStorageLocation.LocationId
             );
 
-            found.Should().NotBeNull("Stored board entity was not found by code.");
-            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
-            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
-            found.Quantity.Should().Be(1, "Stored quantity does not match for GoodsInStock.");
-            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+            found.Should().NotBeNull(
+                $"because board entity with ID '{createdBoardEntity.Id}' should be stored and retrievable from storage location '{firstStorageLocation.LocationId}'");
+            found!.Length.Should().Be(storeBoardEntity.Length,
+                $"because board entity '{createdBoardEntity.Id}' was stored with length {storeBoardEntity.Length}");
+            found.Width.Should().Be(storeBoardEntity.Width,
+                $"because board entity '{createdBoardEntity.Id}' was stored with width {storeBoardEntity.Width}");
+            found.Quantity.Should().Be(1,
+                $"because board entity '{createdBoardEntity.Id}' with ManagementType.Single must have quantity 1");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId,
+                $"because board entity '{createdBoardEntity.Id}' was stored in storage location '{firstStorageLocation.LocationId}'");
         }
         finally
         {
@@ -321,11 +336,16 @@ public class BoardEntityTests : MaterialAssistTestBase
                 firstStorageLocation.LocationId
             );
 
-            found.Should().NotBeNull("Stored board entity was not found by code.");
-            found!.Length.Should().Be(storeBoardEntity.Length, "Stored length does not match.");
-            found.Width.Should().Be(storeBoardEntity.Width, "Stored width does not match.");
-            found.Quantity.Should().Be(3, "Stored quantity does not match for GoodsInStock.");
-            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+            found.Should().NotBeNull(
+                $"because board entity with ID '{createdBoardEntity.Id}' should be stored and retrievable from storage location '{firstStorageLocation.LocationId}'");
+            found!.Length.Should().Be(storeBoardEntity.Length,
+                $"because board entity '{createdBoardEntity.Id}' was stored with length {storeBoardEntity.Length}");
+            found.Width.Should().Be(storeBoardEntity.Width,
+                $"because board entity '{createdBoardEntity.Id}' was stored with width {storeBoardEntity.Width}");
+            found.Quantity.Should().Be(3,
+                $"because board entity '{createdBoardEntity.Id}' with ManagementType.Stack was created with quantity 3");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId,
+                $"because board entity '{createdBoardEntity.Id}' was stored in storage location '{firstStorageLocation.LocationId}'");
         }
         finally
         {
@@ -344,7 +364,10 @@ public class BoardEntityTests : MaterialAssistTestBase
     {
         var client = GetMaterialAssistClient().Boards;
 
-        var storageLocations = await client.GetStorageLocations().ConfigureAwait(false);
+        var storageLocations = (await client.GetStorageLocations().ConfigureAwait(false)).ToArray();
+
+        storageLocations.Should().NotBeNull(
+            "because GetStorageLocations should return a collection of all available storage locations");
 
         foreach (var storageLocation in storageLocations)
         {
@@ -361,12 +384,15 @@ public class BoardEntityTests : MaterialAssistTestBase
         var firstWorkstation = workstations.FirstOrDefault();
         if (firstWorkstation == null)
         {
-            Console.WriteLine(@"No workstations found.");
+            Assert.Inconclusive("No workstations found to test GetStorageLocationsByWorkstationId.");
             return;
         }
 
         var workstationId = firstWorkstation.Id.ToString();
-        var storageLocations = await client.GetStorageLocations(workstationId).ConfigureAwait(false);
+        var storageLocations = (await client.GetStorageLocations(workstationId).ConfigureAwait(false)).ToArray();
+
+        storageLocations.Should().NotBeNull(
+            $"because GetStorageLocations should return a collection of storage locations for workstation '{firstWorkstation.Name}' (ID: {workstationId})");
 
         foreach (var storageLocation in storageLocations)
         {
@@ -379,7 +405,10 @@ public class BoardEntityTests : MaterialAssistTestBase
     {
         var client = GetMaterialAssistClient().Boards;
 
-        var workstations = await client.GetWorkstations().ConfigureAwait(false);
+        var workstations = (await client.GetWorkstations().ConfigureAwait(false)).ToArray();
+
+        workstations.Should().NotBeNull(
+            "because GetWorkstations should return a collection of all available workstations");
 
         foreach (var workstation in workstations)
         {
@@ -392,11 +421,30 @@ public class BoardEntityTests : MaterialAssistTestBase
     {
         var client = GetMaterialAssistClient().Boards;
 
-        var boardEntities = await client.GetBoardEntities(5).ConfigureAwait(false) ?? new List<BoardEntity>();
+        var boardEntities = (await client.GetBoardEntities(5).ConfigureAwait(false) ?? new List<BoardEntity>()).ToArray();
+
+        boardEntities.Should().NotBeNull(
+            "because GetBoardEntities should return a collection (empty or populated) of board entities");
 
         foreach (var boardEntity in boardEntities)
         {
             boardEntity.Trace();
+        }
+    }
+
+    private static async Task CleanupAsync(
+        IEnumerable<Func<Task>> cleanupActions)
+    {
+        foreach (var action in cleanupActions)
+        {
+            try
+            {
+                await action().ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                // Ignore cleanup exceptions to prevent test failures during cleanup
+            }
         }
     }
 
@@ -411,7 +459,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         for (var attempt = 0; attempt < maxAttempts; attempt++)
         {
             found = await client.GetBoardEntityById(entityId).ConfigureAwait(false);
-            if (found?.Location?.LocationId == expectedLocationId)
+            if (found?.Location.LocationId == expectedLocationId)
                 break;
             await Task.Delay(delayMs);
         }
@@ -432,7 +480,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         for (var attempt = 0; attempt < maxAttempts; attempt++)
         {
             var boardTypes = await clientMaterialManager.GetBoardTypesByBoardCodes([boardCode]).ConfigureAwait(false);
-            if (boardTypes?.Any(bt => bt.BoardCode == boardCode) == true)
+            if (boardTypes.Any(bt => bt?.BoardCode == boardCode))
                 return;
 
             if (totalWaited >= maxTotalWaitMs)
@@ -444,21 +492,5 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
 
         Assert.Inconclusive($"Board type '{boardCode}' was not available after waiting {totalWaited} ms.");
-    }
-
-    private static async Task CleanupAsync(
-        IEnumerable<Func<Task>> cleanupActions)
-    {
-        foreach (var action in cleanupActions)
-        {
-            try
-            {
-                await action().ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                // Ignore
-            }
-        }
     }
 }

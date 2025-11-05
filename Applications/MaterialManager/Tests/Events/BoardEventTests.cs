@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+﻿using FluentAssertions;
 
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Events;
@@ -27,7 +28,8 @@ public class BoardEventTests : MaterialManagerTestBase
 
         boardEntityCreatedEvent.Trace();
 
-        Assert.IsTrue(boardEntityCreatedEvent.IsValid);
+        boardEntityCreatedEvent.IsValid.Should().BeTrue(
+            "because BoardEntityCreatedEvent should be valid after setting required properties");
 
         TestContext?.AddResultFile(boardEntityCreatedEvent.TraceToFile("boardEntityCreatedEvent").FullName);
     }
@@ -60,20 +62,32 @@ public class BoardEventTests : MaterialManagerTestBase
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
         // Assert
-        Assert.IsNotNull(deserializedTyped);
-        Assert.IsNotNull(deserializedTyped.BoardEntity);
-        Assert.AreEqual(boardEntity.Id, deserializedTyped.BoardEntity.Id);
+        deserializedTyped.Should().NotBeNull(
+            "because BoardEntityCreatedEvent should be successfully deserialized from JSON");
+        deserializedTyped!.BoardEntity.Should().NotBeNull(
+            "because BoardEntity property should be included in the serialized event");
+        deserializedTyped.BoardEntity.Id.Should().Be(boardEntity.Id,
+            $"because deserialized BoardEntity should have ID '{boardEntity.Id}'");
 
-        Assert.IsNotNull(deserializedBase);
-        Assert.IsNotNull(deserializedBase.CustomProperties);
-        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("boardEntity"));
+        deserializedBase.Should().NotBeNull(
+            "because AppEvent should be successfully deserialized from JSON");
+        deserializedBase!.CustomProperties.Should().NotBeNull(
+            "because CustomProperties should contain event-specific data");
+        deserializedBase.CustomProperties.Should().ContainKey("boardEntity",
+            "because boardEntity should be stored in CustomProperties when deserialized as AppEvent");
 
         // deserialized back to BoardEntity
         var boardEntityJson = deserializedBase.CustomProperties["boardEntity"].ToString();
-        Debug.Assert(boardEntityJson != null, nameof(boardEntityJson) + " != null");
-        var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson, SerializerSettings.Default);
-        Assert.IsNotNull(boardEntityFromCustom);
-        Assert.AreEqual(boardEntity.Id, boardEntityFromCustom.Id);
+
+        boardEntityJson.Should().NotBeNull(
+            "because boardEntity value in CustomProperties should not be null after serialization");
+
+        var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson!, SerializerSettings.Default);
+
+        boardEntityFromCustom.Should().NotBeNull(
+            "because boardEntity from CustomProperties should deserialize back to BoardEntity");
+        boardEntityFromCustom!.Id.Should().Be(boardEntity.Id,
+            $"because BoardEntity deserialized from CustomProperties should have ID '{boardEntity.Id}'");
     }
 
     /// <summary />
@@ -188,8 +202,10 @@ public class BoardEventTests : MaterialManagerTestBase
         var assemblies = new[] { typeof(BoardEntityCreatedEvent).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
-        Assert.IsNotNull(derivedTypes);
-        Assert.IsTrue(derivedTypes.Length > 0);
+        derivedTypes.Should().NotBeNull(
+            "because FindDerivedTypes should return a collection of derived types");
+        derivedTypes.Should().NotBeEmpty(
+            "because there should be at least one type derived from AppEvent in the MaterialManager assembly");
 
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityCreatedEvent)), "BoardEntityCreatedEvent should be present in derived event types.");
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeUpsertedEvent)), "BoardTypeUpsertedEvent should be present in derived event types.");

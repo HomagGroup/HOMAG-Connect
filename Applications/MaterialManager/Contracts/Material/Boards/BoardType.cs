@@ -364,7 +364,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the Barcode.
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Barcode))]
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(50)]
         [JsonProperty(Order = 56)]
         public string Barcode { get; set; } = string.Empty;
 
