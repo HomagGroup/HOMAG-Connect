@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Nodes;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
 using HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations;
 using HomagConnect.ProductionAssist.Samples.Feedback;
@@ -69,7 +67,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             Assert.AreEqual(name, workstation?.DisplayName);
 
             // new properties should have default enum values
-            Assert.AreEqual(default(WorkstationType), workstation.Type);
+            Assert.AreEqual(default(WorkstationGroup), workstation.Type);
             Assert.AreEqual(default(WorkstationCategory), workstation.Category);
         }
 

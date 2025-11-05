@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations
     /// This enum is store in the database in PM-Core / so the order is important
     /// </remarks>
     [JsonConverter(typeof(TolerantEnumConverter))]
-    public enum WorkstationType
+    public enum WorkstationGroup
     { 
         /// <summary>
         /// None

@@ -25,7 +25,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Feedback
         /// <summary>
         /// Gets or sets the tapio machine ID
         /// </summary>
-        public WorkstationType Type { get; set; } = WorkstationType.None;
+        public WorkstationGroup Type { get; set; } = WorkstationGroup.None;
 
         /// <summary>
         /// Gets or sets the tapio machine ID
