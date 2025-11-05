@@ -179,10 +179,7 @@ public static class ProjectExtensionsConversion
 
         foreach (var projectWrapperOrder in projectWrapper.Orders)
         {
-            foreach (var orderItemWrapper in projectWrapperOrder.Entities.OfType<OrderItemWrapper>())
-            {
-                orderItemWrapper.Catalog = source;
-            }
+            projectWrapperOrder.Source = source;
         }
     }
 
