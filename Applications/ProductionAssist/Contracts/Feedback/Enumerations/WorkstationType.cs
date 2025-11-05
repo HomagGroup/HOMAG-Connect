@@ -8,7 +8,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations
     /// 
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
-    public enum WorkstationCategory
+    public enum WorkstationType
     { 
         /// <summary>
         /// None

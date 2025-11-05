@@ -67,8 +67,8 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             Assert.AreEqual(name, workstation?.DisplayName);
 
             // new properties should have default enum values
-            Assert.AreEqual(default(WorkstationGroup), workstation.Type);
-            Assert.AreEqual(default(WorkstationCategory), workstation.Category);
+            Assert.AreEqual(default(WorkstationGroup), workstation.Group);
+            Assert.AreEqual(default(WorkstationType), workstation.Type);
         }
 
     }
