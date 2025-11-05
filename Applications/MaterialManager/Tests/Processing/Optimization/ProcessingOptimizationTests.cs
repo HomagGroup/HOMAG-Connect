@@ -1,6 +1,7 @@
 using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
 namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 
@@ -18,19 +19,22 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         var client = GetMaterialManagerClient();
         var materialCodes = new[] { "P2_Gold_Craft_Oak_19.0", "P2_White_19.0", "MDF_19.0", "VP_Fichte_19.0", "HPL_F638_10.0" };
 
-        var offcutParameterSets = await client.Processing.Optimization.GetOffcutParameterSetsAsync(materialCodes).ToListAsync();
+        var offcutParameterSets = (await client.Processing.Optimization.GetOffcutParameterSetsAsync(materialCodes).ConfigureAwait(false) ?? Array.Empty<OffcutParameterSet>()).ToList();
 
-        offcutParameterSets.Should().NotBeNull();
-        offcutParameterSets.Count.Should().BeGreaterThan(0);
+        offcutParameterSets.Should().NotBeNull(
+            "because GetOffcutParameterSetsAsync should return a collection of offcut parameter sets");
+        offcutParameterSets.Should().HaveCountGreaterThan(0,
+            $"because offcut parameter sets should exist for the requested material codes: {string.Join(", ", materialCodes)}");
 
         offcutParameterSets.Trace();
 
         foreach (var offcutParameterSet in offcutParameterSets)
         {
-            if (!DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults))
-            {
-                Assert.Fail(validationResults[0].ErrorMessage);
-            }
+            var isValid = DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults);
+
+            isValid.Should().BeTrue(
+                $"because offcut parameter set for material group '{offcutParameterSet.MaterialGroupName}' should be valid, " +
+                $"but validation failed with: {(validationResults.Any() ? validationResults[0].ErrorMessage : "unknown error")}");
         }
     }
 
@@ -43,16 +47,20 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
 
         var offcutParameterSet = await client.Processing.Optimization.GetOffcutParameterSetAsync(materialCode);
 
-        offcutParameterSet.Should().NotBeNull();
+        offcutParameterSet.Should().NotBeNull(
+            $"because offcut parameter set should be retrieved for material code '{materialCode}'");
 
-        offcutParameterSet.MaterialGroupName.Should().NotBeNullOrEmpty();
-        offcutParameterSet.MaterialCodes.Should().Contain(materialCode);
+        offcutParameterSet.MaterialGroupName.Should().NotBeNullOrEmpty(
+            $"because offcut parameter set for material code '{materialCode}' should have a material group name");
+        offcutParameterSet.MaterialCodes.Should().Contain(materialCode,
+            $"because offcut parameter set should contain the requested material code '{materialCode}'");
 
         offcutParameterSet.Trace();
 
-        if (!DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults))
-        {
-            Assert.Fail(validationResults[0].ErrorMessage);
-        }
+        var isValid = DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults);
+
+        isValid.Should().BeTrue(
+            $"because offcut parameter set for material code '{materialCode}' should be valid, " +
+            $"but validation failed with: {(validationResults.Any() ? validationResults[0].ErrorMessage : "unknown error")}");
     }
 }

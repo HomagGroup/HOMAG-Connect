@@ -2,6 +2,7 @@
 
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 
@@ -19,15 +20,16 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// GetBoardTypeAllocations_NoException
     /// </summary>
-    [TemporaryDisabledOnServer(2025,10,01,"DF-Material | Enable this once GW goes to prod | Peter")]
+    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     public async Task GetBoardTypeAllocations_NoException()
     {
         // Act
-        var allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocations(2, 2);
+        var allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocations(2, 2) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
+
         // Assert
-        Assert.IsNotNull(allocations);
-        //To-do check more once allocation repository is implemented
+        allocations.Should().NotBeNull(
+            "because GetBoardTypeAllocations should return a collection of board type allocations");
     }
 
     /// <summary>
@@ -40,9 +42,11 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     public async Task GetBoardTypeAllocationsByNames_ReturnsAllocations(string allocationName)
     {
         // Act
-        var allocations = await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames(new List<string> { allocationName }, 1);
+        var allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames(new List<string> { allocationName }, 1) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
+
         // Assert
-        allocations.Should().NotBeNull();
+        allocations.Should().NotBeNull(
+            $"because GetBoardTypeAllocationsByAllocationNames should return a collection for allocation name '{allocationName}'");
         // To-do check more once allocation repository is implemented
         //allocations.Should().NotBeEmpty();
         //allocations.Should().Contain(a => a.Name.Equals(allocationName));
@@ -58,9 +62,11 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     public async Task SearchBoardTypeAllocation_ReturnsAllocations(string search)
     {
         // Act
-        var allocations = await MaterialManagerClientMaterialBoards.SearchBoardTypeAllocations(search, 1);
+        var allocations = (await MaterialManagerClientMaterialBoards.SearchBoardTypeAllocations(search, 1) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
+
         // Assert
-        allocations.Should().NotBeNull();
+        allocations.Should().NotBeNull(
+            $"because SearchBoardTypeAllocations should return a collection for search term '{search}'");
         // To-do check more once allocation repository is implemented
         //allocations.Should().NotBeEmpty();
         //allocations.Should().Contain(a => a.Name.Equals(search));

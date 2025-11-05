@@ -1,39 +1,48 @@
-﻿using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
+﻿using FluentAssertions;
 
-namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc
+using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
+
+namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc;
+
+/// <summary />
+[TestClass]
+[TestCategory("MaterialManager")]
+[TestCategory("MaterialManager.Cnc.Read.Parameters")]
+public class MaterialManagerReadCncParameter : MaterialManagerTestBase
 {
     /// <summary />
-    [TestClass]
-    [TestCategory("MaterialManager")]
-    [TestCategory("MaterialManager.Cnc.Read.Parameters")]
-    public class MaterialManagerReadCncParameter : MaterialManagerTestBase
+    [TestMethod]
+    public async Task GetMillingParameterToolGroups_GetResult_NoException()
     {
-#pragma warning disable S2699 // Tests should include assertions
+        var materialManager = GetMaterialManagerClient();
 
-        /// <summary />
-        [TestMethod]
-        public async Task GetMillingParameterToolGroups_GetResult_NoException()
-        {
-            var materialManager = GetMaterialManagerClient();
-            await MaterialManagerReadCncParameters.GetMillingParameterToolGroups(materialManager.Processing.Cnc);
-        }
+        var act = async () => await MaterialManagerReadCncParameters.GetMillingParameterToolGroups(materialManager.Processing.Cnc);
 
-        /// <summary />
-        [TestMethod]
-        public async Task GetMillingParameterMaterialGroups_GetResult_NoException()
-        {
-            var materialManager = GetMaterialManagerClient();
-            await MaterialManagerReadCncParameters.GetMillingParameterMaterialGroups(materialManager.Processing.Cnc);
-        }
+        await act.Should().NotThrowAsync(
+            "because GetMillingParameterToolGroups should retrieve milling parameter tool groups successfully");
+    }
 
-        /// <summary />
-        [TestMethod]
-        public async Task GetMillingParameterGroups_GetResult_NoException()
-        {
-            var materialManager = GetMaterialManagerClient();
-            await MaterialManagerReadCncParameters.GetMillingParameterGroups(materialManager.Processing.Cnc);
-        }
+    /// <summary />
+    [TestMethod]
+    public async Task GetMillingParameterMaterialGroups_GetResult_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
 
-#pragma warning restore S2699 // Tests should include assertions
+        var act = async () => await MaterialManagerReadCncParameters.GetMillingParameterMaterialGroups(materialManager.Processing.Cnc);
+
+        await act.Should().NotThrowAsync(
+            "because GetMillingParameterMaterialGroups should retrieve milling parameter material groups successfully");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task GetMillingParameterGroups_GetResult_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
+
+        var act = async () => await MaterialManagerReadCncParameters.GetMillingParameterGroups(materialManager.Processing.Cnc);
+
+        await act.Should().NotThrowAsync(
+            "because GetMillingParameterGroups should retrieve milling parameter groups successfully");
     }
 }
