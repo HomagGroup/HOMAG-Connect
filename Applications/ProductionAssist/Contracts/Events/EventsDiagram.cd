@@ -1,36 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="HomagConnect.Base.Contracts.Events.AppEvent">
-    <Position X="5.75" Y="0.5" Width="2.5" />
+    <Position X="6.25" Y="0.5" Width="2.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionAssist.Contracts.Events.WorkstationEvent">
-    <Position X="5.75" Y="3.75" Width="2.5" />
+    <Position X="6.25" Y="3.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
       <FileName>Events\WorkstationEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleCompletedEvent">
-    <Position X="3.25" Y="6.25" Width="2.5" />
+    <Position X="3.5" Y="6" Width="2.5" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.WorkstationEvent" ManuallyRouted="true">
+      <Path>
+        <Point X="7.5" Y="4.733" />
+        <Point X="7.5" Y="5.157" />
+        <Point X="4.75" Y="5.157" />
+        <Point X="4.75" Y="6" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
       <FileName>Events\Dividing\CycleCompletedEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleStartedEvent">
-    <Position X="0.5" Y="6.25" Width="2.5" />
+    <Position X="0.5" Y="6" Width="2.5" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.WorkstationEvent" ManuallyRouted="true">
+      <Path>
+        <Point X="7.5" Y="4.733" />
+        <Point X="7.5" Y="5.166" />
+        <Point X="1.75" Y="5.166" />
+        <Point X="1.75" Y="6" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
       <FileName>Events\Dividing\CycleStartedEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Feedback.ProductionItemCompletedEvent">
-    <Position X="7.75" Y="6.25" Width="2.5" />
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Dividing.CycleItemCompletedEvent">
+    <Position X="6" Y="8.25" Width="2.25" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedEvent" ManuallyRouted="true">
+      <Path>
+        <Point X="13.875" Y="6.925" />
+        <Point X="13.875" Y="7.836" />
+        <Point X="7.125" Y="7.836" />
+        <Point X="7.125" Y="8.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Dividing\CycleItemCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedByParentEvent">
+    <Position X="9.75" Y="8.25" Width="3" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedEvent" ManuallyRouted="true">
+      <Path>
+        <Point X="13.875" Y="6.925" />
+        <Point X="13.875" Y="7.859" />
+        <Point X="11.25" Y="7.859" />
+        <Point X="11.25" Y="8.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\ProductionItemCompletedByParentEvent.cs</FileName>
+      <NewMemberFileName>Events\ProductionItemCompletedEvent.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.ProductionItemCompletedEvent">
+    <Position X="12.75" Y="5.5" Width="2.25" />
+    <InheritanceLine Type="HomagConnect.ProductionAssist.Contracts.Events.WorkstationEvent" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="4.733" />
+        <Point X="7.5" Y="5.125" />
+        <Point X="13.938" Y="5.125" />
+        <Point X="13.938" Y="5.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAA=</HashCode>
-      <FileName>Events\Feedback\ProductionItemCompletedEvent.cs</FileName>
+      <FileName>Events\ProductionItemCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Sorting.ProductionItemPlacedInShelfEvent" Collapsed="true">
+    <Position X="16.5" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Sorting\ProductionItemPlacedInShelfEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionAssist.Contracts.Events.Sorting.ProductionItemPickedFromShelfEvent" Collapsed="true">
+    <Position X="19" Y="8.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Sorting\ProductionItemPickedFromShelfEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
