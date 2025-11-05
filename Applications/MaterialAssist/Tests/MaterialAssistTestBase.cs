@@ -13,179 +13,178 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 
-namespace HomagConnect.MaterialAssist.Tests
+namespace HomagConnect.MaterialAssist.Tests;
+
+/// <summary />
+public class MaterialAssistTestBase : TestBase
 {
     /// <summary />
-    public class MaterialAssistTestBase : TestBase
+    protected MaterialAssistClient GetMaterialAssistClient()
     {
-        /// <summary />
-        protected MaterialAssistClient GetMaterialAssistClient()
+        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
+
+        var httpClient = new HttpClient
         {
-            $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
+            BaseAddress = BaseUrl
+        };
 
-            var httpClient = new HttpClient
-            {
-                BaseAddress = BaseUrl
-            };
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
-
-            return new MaterialAssistClient(httpClient);
-        }
+        return new MaterialAssistClient(httpClient);
+    }
         
-        protected async Task EnsureBoardEntityExist(string id, string boardCode, ManagementType managementType = ManagementType.Single, Int32 quantity = 1)
+    protected async Task EnsureBoardEntityExist(string id, string boardCode, ManagementType managementType = ManagementType.Single, Int32 quantity = 1)
+    {
+        var materialAssistClient = GetMaterialAssistClient();
+
+        BoardEntity? boardEntity = null;
+
+        try
         {
-            var materialAssistClient = GetMaterialAssistClient();
-
-            BoardEntity? boardEntity = null;
-
-            try
-            {
-                boardEntity = await materialAssistClient.Boards.GetBoardEntityById(id);
-            }
-            catch (ProblemDetailsException ex)
-            {
-                if (ex.Message.Contains("No board entity found."))
-                { 
-                    throw;
-                }
-            }
-
-            if (boardEntity == null)
-            {
-                await materialAssistClient.Boards.CreateBoardEntity(new MaterialAssistRequestBoardEntity
-                {
-                    Id = id,
-                    BoardCode = boardCode,
-                    ManagementType = managementType,
-                    Quantity = quantity
-                });
+            boardEntity = await materialAssistClient.Boards.GetBoardEntityById(id);
+        }
+        catch (ProblemDetailsException ex)
+        {
+            if (ex.Message.Contains("No board entity found."))
+            { 
+                throw;
             }
         }
 
-        protected async Task EnsureEdgebandEntityExist(string id, string edgebandCode, ManagementType managementType = ManagementType.Single, Int32 quantity = 1)
+        if (boardEntity == null)
         {
-            var materialAssistClient = GetMaterialAssistClient();
-
-            EdgebandEntity? edgebandEntity = null;
-
-            try
+            await materialAssistClient.Boards.CreateBoardEntity(new MaterialAssistRequestBoardEntity
             {
-                edgebandEntity = await materialAssistClient.Edgebands.GetEdgebandEntityById(id);
-            }
-            catch (ProblemDetailsException ex)
-            {
-                if (ex.Message.Contains("No edgeband entity found."))
-                {
-                    throw;
-                }
-            }
+                Id = id,
+                BoardCode = boardCode,
+                ManagementType = managementType,
+                Quantity = quantity
+            });
+        }
+    }
 
-            if (edgebandEntity == null)
+    protected async Task EnsureEdgebandEntityExist(string id, string edgebandCode, ManagementType managementType = ManagementType.Single, Int32 quantity = 1)
+    {
+        var materialAssistClient = GetMaterialAssistClient();
+
+        EdgebandEntity? edgebandEntity = null;
+
+        try
+        {
+            edgebandEntity = await materialAssistClient.Edgebands.GetEdgebandEntityById(id);
+        }
+        catch (ProblemDetailsException ex)
+        {
+            if (ex.Message.Contains("No edgeband entity found."))
             {
-                await materialAssistClient.Edgebands.CreateEdgebandEntity(new MaterialAssistRequestEdgebandEntity
-                {
-                    Id = id,
-                    EdgebandCode = edgebandCode,
-                    ManagementType = managementType,
-                    Quantity = quantity
-                });
+                throw;
             }
         }
 
-        protected MaterialManagerClient GetMaterialManagerClient()
+        if (edgebandEntity == null)
         {
-            $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
-
-            var httpClient = new HttpClient
+            await materialAssistClient.Edgebands.CreateEdgebandEntity(new MaterialAssistRequestEdgebandEntity
             {
-                BaseAddress = BaseUrl
-            };
+                Id = id,
+                EdgebandCode = edgebandCode,
+                ManagementType = managementType,
+                Quantity = quantity
+            });
+        }
+    }
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+    protected MaterialManagerClient GetMaterialManagerClient()
+    {
+        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
 
-            return new MaterialManagerClient(httpClient);
+        var httpClient = new HttpClient
+        {
+            BaseAddress = BaseUrl
+        };
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+
+        return new MaterialManagerClient(httpClient);
+    }
+
+    protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070, double thickness = 19.0, bool offcut = false)
+    {
+        string boardCode;
+        BoardTypeType boardTypeType;
+
+        if (offcut)
+        {
+            boardCode = $"X{materialCode}_{length}_{width}";
+            boardTypeType = BoardTypeType.Offcut;
+        }
+        else
+        {
+            boardCode = $"{materialCode}_{length}_{width}";
+            boardTypeType = BoardTypeType.Board;
         }
 
-        protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070, double thickness = 19.0, bool offcut = false)
+        var materialManagerClient = GetMaterialManagerClient();
+
+        BoardType? boardType = null;
+
+        try
         {
-            string boardCode;
-            BoardTypeType boardTypeType;
-
-            if (offcut)
+            boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
+        }
+        catch (ProblemDetailsException ex)
+        {
+            if (!ex.Message.Contains("No board types found."))
             {
-                boardCode = $"X{materialCode}_{length}_{width}";
-                boardTypeType = BoardTypeType.Offcut;
-            }
-            else
-            {
-                boardCode = $"{materialCode}_{length}_{width}";
-                boardTypeType = BoardTypeType.Board;
-            }
-
-            var materialManagerClient = GetMaterialManagerClient();
-
-            BoardType? boardType = null;
-
-            try
-            {
-                boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
-            }
-            catch (ProblemDetailsException ex)
-            {
-                if (!ex.Message.Contains("No board types found."))
-                {
-                    throw;
-                }
-            }
-
-            if (boardType == null)
-            {
-                await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
-                {
-                    MaterialCode = materialCode,
-                    BoardCode = boardCode,
-                    Thickness = thickness,
-                    Grain = Grain.None,
-                    Width = width,
-                    Length = length,
-                    Type = boardTypeType,
-                    CoatingCategory = CoatingCategory.Undefined,
-                    MaterialCategory = BoardMaterialCategory.Undefined
-                });
+                throw;
             }
         }
 
-        protected async Task EnsureEdgebandTypeExist(string edgebandCode, double thickness = 1.0, double length = 23.0)
+        if (boardType == null)
         {
-            var materialManagerClient = GetMaterialManagerClient();
-
-            EdgebandType? edgebandType = null;
-
-            try
+            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
             {
-                edgebandType = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
-            }
-            catch (ProblemDetailsException ex)
-            {
-                if (!ex.Message.Contains("No edgeband types found."))
-                {
-                    throw;
-                }
-            }
+                MaterialCode = materialCode,
+                BoardCode = boardCode,
+                Thickness = thickness,
+                Grain = Grain.None,
+                Width = width,
+                Length = length,
+                Type = boardTypeType,
+                CoatingCategory = CoatingCategory.Undefined,
+                MaterialCategory = BoardMaterialCategory.Undefined
+            });
+        }
+    }
 
-            if (edgebandType == null)
+    protected async Task EnsureEdgebandTypeExist(string edgebandCode, double thickness = 1.0, double length = 23.0)
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+
+        EdgebandType? edgebandType = null;
+
+        try
+        {
+            edgebandType = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
+        }
+        catch (ProblemDetailsException ex)
+        {
+            if (!ex.Message.Contains("No edgeband types found."))
             {
-                await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
-                {
-                    EdgebandCode = edgebandCode,
-                    Height = 20,
-                    Thickness = thickness,
-                    DefaultLength = length,
-                    MaterialCategory = EdgebandMaterialCategory.ABS,
-                    Process = EdgebandingProcess.Other,
-                });
+                throw;
             }
+        }
+
+        if (edgebandType == null)
+        {
+            await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+            {
+                EdgebandCode = edgebandCode,
+                Height = 20,
+                Thickness = thickness,
+                DefaultLength = length,
+                MaterialCategory = EdgebandMaterialCategory.ABS,
+                Process = EdgebandingProcess.Other,
+            });
         }
     }
 }
