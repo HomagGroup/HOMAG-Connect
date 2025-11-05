@@ -1,35 +1,44 @@
-﻿using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
+﻿using FluentAssertions;
 
-namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands
+using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
+
+namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands;
+
+[TestClass]
+[TestCategory("MaterialAssist")]
+[TestCategory("MaterialAssist.Edgebands")]
+public class DeleteEdgebandsTests : MaterialAssistTestBase
 {
-    [TestClass]
-    [TestCategory("MaterialAssist")]
-    [TestCategory("MaterialAssist.Edgebands")]
-    public class DeleteEdgebandsTests : MaterialAssistTestBase
+    [ClassInitialize]
+    public static async Task Initialize(TestContext testContext)
     {
-        [ClassInitialize]
-        public static async Task Initialie(TestContext testContext)
-        {
-            var classInstance = new DeleteEdgebandsTests();
-            await classInstance.EnsureEdgebandTypeExist("ABS_White_1mm");
+        var classInstance = new DeleteEdgebandsTests();
+        await classInstance.EnsureEdgebandTypeExist("ABS_White_1mm");
 
-            await classInstance.EnsureEdgebandEntityExist("23", "ABS_White_1mm");
-            await classInstance.EnsureEdgebandEntityExist("24", "ABS_White_1mm");
-            await classInstance.EnsureEdgebandEntityExist("25", "ABS_White_1mm");
-        }
+        await classInstance.EnsureEdgebandEntityExist("23", "ABS_White_1mm");
+        await classInstance.EnsureEdgebandEntityExist("24", "ABS_White_1mm");
+        await classInstance.EnsureEdgebandEntityExist("25", "ABS_White_1mm");
+    }
 
-        [TestMethod]
-        public async Task EdgebandsDeleteEdgebandEntity()
-        {
-            var materialAssistClient = GetMaterialAssistClient().Edgebands;
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(materialAssistClient, "23");
-        }
+    [TestMethod]
+    public async Task EdgebandsDeleteEdgebandEntity()
+    {
+        var materialAssistClient = GetMaterialAssistClient().Edgebands;
 
-        [TestMethod]
-        public async Task EdgebandsDeleteEdgebandEntities()
-        {
-            var materialAssistClient = GetMaterialAssistClient().Edgebands;
-            await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(materialAssistClient, ["24", "25"]);
-        }
+        var act = async () => await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(materialAssistClient, "23");
+
+        await act.Should().NotThrowAsync(
+            "because deleting edgeband entity '23' should complete successfully without errors");
+    }
+
+    [TestMethod]
+    public async Task EdgebandsDeleteEdgebandEntities()
+    {
+        var materialAssistClient = GetMaterialAssistClient().Edgebands;
+
+        var act = async () => await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(materialAssistClient, ["24", "25"]);
+
+        await act.Should().NotThrowAsync(
+            "because deleting edgeband entities '24' and '25' should complete successfully without errors");
     }
 }
