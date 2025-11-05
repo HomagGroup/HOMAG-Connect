@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.ProductionAssist.Contracts.Feedback
+﻿using HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations;
+
+namespace HomagConnect.ProductionAssist.Contracts.Feedback
 {
     /// <summary>
     /// Feedback Workstation
@@ -19,5 +21,15 @@
         /// Gets or sets the tapio machine ID
         /// </summary>
         public string? AssignedTapioMachineId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tapio machine ID
+        /// </summary>
+        public WorkstationType Group { get; set; } = WorkstationType.None;
+
+        /// <summary>
+        /// Gets or sets the tapio machine ID
+        /// </summary>
+        public WorkstationCategory Category { get; set; } = WorkstationCategory.None;
     }
 }
