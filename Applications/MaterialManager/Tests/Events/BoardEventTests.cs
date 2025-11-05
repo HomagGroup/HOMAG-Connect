@@ -18,24 +18,24 @@ public class BoardEventTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    public void Events_BoardEntityCreatedEvent_SerializeDeserialize()
+    public void Events_BoardEntityUpsertedEvent_SerializeDeserialize()
     {
-        var boardEntityCreatedEvent = new BoardEntityCreatedEvent();
+        var boardEntityUpsertedEvent = new BoardEntityUpsertedEvent();
 
-        boardEntityCreatedEvent.SubscriptionId = Guid.NewGuid();
-        boardEntityCreatedEvent.BoardEntity = new BoardEntity();
+        boardEntityUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        boardEntityUpsertedEvent.BoardEntity = new BoardEntity();
 
-        boardEntityCreatedEvent.Trace();
+        boardEntityUpsertedEvent.Trace();
 
-        boardEntityCreatedEvent.IsValid.Should().BeTrue(
-            "because BoardEntityCreatedEvent should be valid after setting required properties");
+        boardEntityUpsertedEvent.IsValid.Should().BeTrue(
+            "because BoardEntityUpsertedEvent should be valid after setting required properties");
 
-        TestContext?.AddResultFile(boardEntityCreatedEvent.TraceToFile("boardEntityCreatedEvent").FullName);
+        TestContext?.AddResultFile(boardEntityUpsertedEvent.TraceToFile("boardEntityUpsertedEvent").FullName);
     }
 
     /// <summary />
     [TestMethod]
-    public void Events_BoardEntityCreatedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    public void Events_BoardEntityUpsertedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         // Arrange
         var boardEntity = new BoardEntity
@@ -47,7 +47,7 @@ public class BoardEventTests : MaterialManagerTestBase
             Comments = "Test board"
         };
 
-        var evt = new BoardEntityCreatedEvent
+        var evt = new BoardEntityUpsertedEvent
         {
             SubscriptionId = Guid.NewGuid(),
             BoardEntity = boardEntity
@@ -56,13 +56,13 @@ public class BoardEventTests : MaterialManagerTestBase
         // Act
         var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
 
-        var deserializedTyped = JsonConvert.DeserializeObject<BoardEntityCreatedEvent>(json, SerializerSettings.Default);
+        var deserializedTyped = JsonConvert.DeserializeObject<BoardEntityUpsertedEvent>(json, SerializerSettings.Default);
 
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
         // Assert
         deserializedTyped.Should().NotBeNull(
-            "because BoardEntityCreatedEvent should be successfully deserialized from JSON");
+            "because BoardEntityUpserted should be successfully deserialized from JSON");
         deserializedTyped!.BoardEntity.Should().NotBeNull(
             "because BoardEntity property should be included in the serialized event");
         deserializedTyped.BoardEntity.Id.Should().Be(boardEntity.Id,
@@ -93,7 +93,7 @@ public class BoardEventTests : MaterialManagerTestBase
     [TestMethod]
     public void Events_ListMaterialAssistEvents()
     {
-        var assemblies = new[] { typeof(BoardEntityCreatedEvent).Assembly };
+        var assemblies = new[] { typeof(BoardEntityUpsertedEvent).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
         derivedTypes.Should().NotBeNull(
