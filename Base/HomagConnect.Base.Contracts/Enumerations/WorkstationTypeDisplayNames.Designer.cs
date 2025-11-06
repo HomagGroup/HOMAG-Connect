@@ -277,6 +277,15 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verpacken.
         /// </summary>
         internal static string Packing {

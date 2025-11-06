@@ -189,6 +189,9 @@
   <data name="Nesting" xml:space="preserve">
     <value>Nesting</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="Packing" xml:space="preserve">
     <value>Verpacken</value>
   </data>
