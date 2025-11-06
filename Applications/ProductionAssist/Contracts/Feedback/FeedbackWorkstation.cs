@@ -1,35 +1,10 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
-
-namespace HomagConnect.ProductionAssist.Contracts.Feedback
+﻿namespace HomagConnect.ProductionAssist.Contracts.Feedback
 {
     /// <summary>
     /// Feedback Workstation
     /// </summary>
-    public class FeedbackWorkstation
+    public class FeedbackWorkstation : Workstation
     {
-        /// <summary>
-        /// Gets or sets the Workstation Id
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the display name
-        /// </summary>
-        public string? DisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tapio machine ID
-        /// </summary>
-        public string? AssignedTapioMachineId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tapio machine ID
-        /// </summary>
-        public WorkstationGroup Group { get; set; } = WorkstationGroup.None;
-
-        /// <summary>
-        /// Gets or sets the tapio machine ID
-        /// </summary>
-        public WorkstationType Type { get; set; } = WorkstationType.None;
+        
     }
 }
