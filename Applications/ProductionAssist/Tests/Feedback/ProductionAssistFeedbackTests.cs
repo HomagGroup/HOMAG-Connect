@@ -1,6 +1,6 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
-using HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations;
 using HomagConnect.ProductionAssist.Samples.Feedback;
 
 using Newtonsoft.Json;

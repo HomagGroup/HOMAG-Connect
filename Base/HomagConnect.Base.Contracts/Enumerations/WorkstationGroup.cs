@@ -2,19 +2,16 @@
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations
+namespace HomagConnect.Base.Contracts.Enumerations
 {
     /// <summary>
-    /// Workplace Production Group (Used for shared work load over workplaces)
+    /// The workstation group (Used for shared work load over workplaces)
     /// </summary>
-    /// <remarks>
-    /// This enum is store in the database in PM-Core / so the order is important
-    /// </remarks>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum WorkstationGroup
     { 
         /// <summary>
-        /// None
+        /// None - this is the default
         /// </summary>
         None,
 

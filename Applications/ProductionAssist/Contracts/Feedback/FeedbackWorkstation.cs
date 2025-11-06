@@ -1,4 +1,4 @@
-﻿using HomagConnect.ProductionAssist.Contracts.Feedback.Enumerations;
+﻿using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.ProductionAssist.Contracts.Feedback
 {
