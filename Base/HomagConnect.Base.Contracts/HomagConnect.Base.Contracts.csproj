@@ -21,10 +21,10 @@
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Enumerations\WorkstationGroupDisplayName.Designer.cs">
+	  <Compile Update="Enumerations\WorkstationGroupDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
-	    <DependentUpon>WorkstationGroupDisplayName.resx</DependentUpon>
+	    <DependentUpon>WorkstationGroupDisplayNames.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Enumerations\WorkstationTypeDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
@@ -53,9 +53,9 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Update="Enumerations\WorkstationGroupDisplayName.resx">
+	  <EmbeddedResource Update="Enumerations\WorkstationGroupDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>WorkstationGroupDisplayName.Designer.cs</LastGenOutput>
+	    <LastGenOutput>WorkstationGroupDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Enumerations\WorkstationTypeDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>

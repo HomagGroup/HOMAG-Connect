@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -7,6 +8,7 @@ namespace HomagConnect.Base.Contracts.Enumerations
     /// <summary>
     /// The workstation group (Used for shared work load over workplaces)
     /// </summary>
+    [ResourceManager(typeof(WorkstationGroupDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum WorkstationGroup
     { 
@@ -98,6 +100,6 @@ namespace HomagConnect.Base.Contracts.Enumerations
         /// <summary>
         /// Boards
         /// </summary>
-        Boards,
+        Boards
     }
 }
