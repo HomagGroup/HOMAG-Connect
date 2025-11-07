@@ -12,6 +12,7 @@ using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
+using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -30,7 +31,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Import
 
     /// <inheritdoc />
-    public async Task<string> ImportInventory(ImportInventoryRequest data)
+    public async Task<ImportInventoryResponse> ImportInventory(ImportInventoryRequest data)
     {
         if (data == null)
         {
@@ -42,7 +43,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var response = await PostObject(new Uri(_ImportInventoryRoute, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<string>(responseContent, SerializerSettings.Default);
+        var result = JsonConvert.DeserializeObject<ImportInventoryResponse>(responseContent, SerializerSettings.Default);
 
         if (result != null)
         {

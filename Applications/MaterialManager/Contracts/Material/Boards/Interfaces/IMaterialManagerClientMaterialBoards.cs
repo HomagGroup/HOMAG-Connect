@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -199,7 +200,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// /// Import storage inventory
         /// </summary>
-        Task<string> ImportInventory(ImportInventoryRequest data);
+        Task<ImportInventoryResponse> ImportInventory(ImportInventoryRequest data);
 
         /// <summary>
         /// Delete board type
