@@ -1,43 +1,49 @@
-﻿using HomagConnect.MaterialManager.Samples.Read.Boards;
+﻿using FluentAssertions;
 
-namespace HomagConnect.MaterialManager.Tests.Read.Boards
+using HomagConnect.MaterialManager.Samples.Read.Boards;
+
+namespace HomagConnect.MaterialManager.Tests.Read.Boards;
+
+/// <summary />
+[TestClass]
+[TestCategory("MaterialManager")]
+[TestCategory("MaterialManager.Board.Read.Results")]
+public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
 {
     /// <summary />
-    [TestClass]
-    [TestCategory("MaterialManager")]
-    [TestCategory("MaterialManager.Board.Read.Results")]
-    public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
+    [TestMethod]
+    public async Task GetLocations_GetResult_NoException()
     {
-#pragma warning disable S2699 // Tests should include assertions
+        var materialManager = GetMaterialManagerClient();
+        var boardCodes = new[] { "P2_Graphitschwarz_19.0_2800_2070", "P2_Lichtgrau_19_2800_2070" };
 
-        /// <summary />
-        [TestMethod]
-        public async Task GetLocations_GetResult_NoException()
+        var act = async () => await MaterialManagerReadBoardsResults.GetLocations(materialManager.Material.Boards, boardCodes);
 
-        {
-            var materialManager = GetMaterialManagerClient();
+        await act.Should().NotThrowAsync(
+            $"because GetLocations should retrieve locations for board codes '{string.Join(", ", boardCodes)}' successfully");
+    }
 
-            await MaterialManagerReadBoardsResults.GetLocations(materialManager.Material.Boards, ["P2_Graphitschwarz_19.0_2800_2070", "P2_Lichtgrau_19_2800_2070"]);
-        }
+    /// <summary />
+    [TestMethod]
+    public async Task GetMaterialCodes_GetResult_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
 
-        /// <summary />
-        [TestMethod]
-        public async Task GetMaterialCodes_GetResult_NoException()
-        {
-            var materialManager = GetMaterialManagerClient();
+        var act = async () => await MaterialManagerReadBoardsResults.GetMaterialCodes(materialManager.Material.Boards);
 
-            await MaterialManagerReadBoardsResults.GetMaterialCodes(materialManager.Material.Boards);
-        }
+        await act.Should().NotThrowAsync(
+            "because GetMaterialCodes should retrieve material codes successfully");
+    }
 
-        /// <summary />
-        [TestMethod]
-        public async Task GetThumbnails_GetResult_NoException()
-        {
-            var materialManager = GetMaterialManagerClient();
+    /// <summary />
+    [TestMethod]
+    public async Task GetThumbnails_GetResult_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
 
-            await MaterialManagerReadBoardsResults.GetThumbnails(materialManager.Material.Boards);
-        }
+        var act = async () => await MaterialManagerReadBoardsResults.GetThumbnails(materialManager.Material.Boards);
 
-#pragma warning restore S2699 // Tests should include assertions
+        await act.Should().NotThrowAsync(
+            "because GetThumbnails should retrieve thumbnails successfully");
     }
 }

@@ -63,7 +63,7 @@ public class MaterialManagerUpdateMaterialType
     /// <summary>
     /// Gets or sets the name of the product.
     /// </summary>
-    [StringLength(50)]
+    [StringLength(200)]
     public string? ProductName { get; set; } = null;
 
     /// <summary>

@@ -1,13 +1,14 @@
-﻿using HomagConnect.Base;
-using HomagConnect.Base;
+﻿using FluentAssertions;
+
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Events.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
-using HomagConnect.MaterialManager.Tests;
 
 using Newtonsoft.Json;
+
+namespace HomagConnect.MaterialManager.Tests.Events;
 
 /// <inheritdoc />
 [TestClass]
@@ -17,23 +18,24 @@ public class BoardEventTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    public void Events_BoardEntityCreatedEvent_SerializeDeserialize()
+    public void Events_BoardEntityUpsertedEvent_SerializeDeserialize()
     {
-        var boardEntityCreatedEvent = new BoardEntityCreatedEvent();
+        var boardEntityUpsertedEvent = new BoardEntityUpsertedEvent();
 
-        boardEntityCreatedEvent.SubscriptionId = Guid.NewGuid();
-        boardEntityCreatedEvent.BoardEntity = new BoardEntity();
+        boardEntityUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        boardEntityUpsertedEvent.BoardEntity = new BoardEntity();
 
-        boardEntityCreatedEvent.Trace();
+        boardEntityUpsertedEvent.Trace();
 
-        Assert.IsTrue(boardEntityCreatedEvent.IsValid);
+        boardEntityUpsertedEvent.IsValid.Should().BeTrue(
+            "because BoardEntityUpsertedEvent should be valid after setting required properties");
 
-        TestContext?.AddResultFile(boardEntityCreatedEvent.TraceToFile("boardEntityCreatedEvent").FullName);
+        TestContext?.AddResultFile(boardEntityUpsertedEvent.TraceToFile("boardEntityUpsertedEvent").FullName);
     }
 
     /// <summary />
     [TestMethod]
-    public void Events_BoardEntityCreatedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    public void Events_BoardEntityUpsertedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         // Arrange
         var boardEntity = new BoardEntity
@@ -45,7 +47,7 @@ public class BoardEventTests : MaterialManagerTestBase
             Comments = "Test board"
         };
 
-        var evt = new BoardEntityCreatedEvent
+        var evt = new BoardEntityUpsertedEvent
         {
             SubscriptionId = Guid.NewGuid(),
             BoardEntity = boardEntity
@@ -54,35 +56,50 @@ public class BoardEventTests : MaterialManagerTestBase
         // Act
         var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
 
-        var deserializedTyped = JsonConvert.DeserializeObject<BoardEntityCreatedEvent>(json, SerializerSettings.Default);
+        var deserializedTyped = JsonConvert.DeserializeObject<BoardEntityUpsertedEvent>(json, SerializerSettings.Default);
 
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
         // Assert
-        Assert.IsNotNull(deserializedTyped);
-        Assert.IsNotNull(deserializedTyped.BoardEntity);
-        Assert.AreEqual(boardEntity.Id, deserializedTyped.BoardEntity.Id);
+        deserializedTyped.Should().NotBeNull(
+            "because BoardEntityUpserted should be successfully deserialized from JSON");
+        deserializedTyped!.BoardEntity.Should().NotBeNull(
+            "because BoardEntity property should be included in the serialized event");
+        deserializedTyped.BoardEntity.Id.Should().Be(boardEntity.Id,
+            $"because deserialized BoardEntity should have ID '{boardEntity.Id}'");
 
-        Assert.IsNotNull(deserializedBase);
-        Assert.IsNotNull(deserializedBase.CustomProperties);
-        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("boardEntity"));
+        deserializedBase.Should().NotBeNull(
+            "because AppEvent should be successfully deserialized from JSON");
+        deserializedBase!.CustomProperties.Should().NotBeNull(
+            "because CustomProperties should contain event-specific data");
+        deserializedBase.CustomProperties.Should().ContainKey("boardEntity",
+            "because boardEntity should be stored in CustomProperties when deserialized as AppEvent");
 
         // deserialized back to BoardEntity
         var boardEntityJson = deserializedBase.CustomProperties["boardEntity"].ToString();
-        var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson, SerializerSettings.Default);
-        Assert.IsNotNull(boardEntityFromCustom);
-        Assert.AreEqual(boardEntity.Id, boardEntityFromCustom.Id);
+
+        boardEntityJson.Should().NotBeNull(
+            "because boardEntity value in CustomProperties should not be null after serialization");
+
+        var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson!, SerializerSettings.Default);
+
+        boardEntityFromCustom.Should().NotBeNull(
+            "because boardEntity from CustomProperties should deserialize back to BoardEntity");
+        boardEntityFromCustom!.Id.Should().Be(boardEntity.Id,
+            $"because BoardEntity deserialized from CustomProperties should have ID '{boardEntity.Id}'");
     }
 
     /// <summary />
     [TestMethod]
     public void Events_ListMaterialAssistEvents()
     {
-        var assemblies = new[] { typeof(BoardEntityCreatedEvent).Assembly };
+        var assemblies = new[] { typeof(BoardEntityUpsertedEvent).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
-        Assert.IsNotNull(derivedTypes);
-        Assert.IsTrue(derivedTypes.Length > 0);
+        derivedTypes.Should().NotBeNull(
+            "because FindDerivedTypes should return a collection of derived types");
+        derivedTypes.Should().NotBeEmpty(
+            "because there should be at least one type derived from AppEvent in the MaterialManager assembly");
 
         derivedTypes.Trace();
     }

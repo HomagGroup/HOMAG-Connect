@@ -8,11 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts.Enumerations
-{
+namespace HomagConnect.Base.Contracts.Enumerations {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,71 +22,329 @@ namespace HomagConnect.Base.Contracts.Enumerations
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationTypeDisplayNames
-    {
-
+    public class WorkstationTypeDisplayNames {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationTypeDisplayNames()
-        {
+        internal WorkstationTypeDisplayNames() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if (object.ReferenceEquals(resourceMan, null))
-                {
+        public static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Enumerations.WorkstationTypeDisplayNames", typeof(WorkstationTypeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Montieren.
+        /// </summary>
+        internal static string Assembly {
+            get {
+                return ResourceManager.GetString("Assembly", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Platten.
         /// </summary>
-        internal static string Boards
-        {
-            get
-            {
+        internal static string Boards {
+            get {
                 return ResourceManager.GetString("Boards", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CNC.
+        /// </summary>
+        internal static string CNC {
+            get {
+                return ResourceManager.GetString("CNC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sägen.
+        /// </summary>
+        internal static string Cutting {
+            get {
+                return ResourceManager.GetString("Cutting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bohren.
+        /// </summary>
+        internal static string Drilling {
+            get {
+                return ResourceManager.GetString("Drilling", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Kantenanleimen.
         /// </summary>
-        internal static string Edgebanding
-        {
-            get
-            {
+        internal static string Edgebanding {
+            get {
                 return ResourceManager.GetString("Edgebanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Montieren.
+        /// </summary>
+        internal static string FeedbackAssembly {
+            get {
+                return ResourceManager.GetString("FeedbackAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatisches Sortieren.
+        /// </summary>
+        internal static string FeedbackAutomaticSorting {
+            get {
+                return ResourceManager.GetString("FeedbackAutomaticSorting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CNC.
+        /// </summary>
+        internal static string FeedbackCNC {
+            get {
+                return ResourceManager.GetString("FeedbackCNC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sägen.
+        /// </summary>
+        internal static string FeedbackCutting {
+            get {
+                return ResourceManager.GetString("FeedbackCutting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bohren.
+        /// </summary>
+        internal static string FeedbackDrilling {
+            get {
+                return ResourceManager.GetString("FeedbackDrilling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kantenanleimen.
+        /// </summary>
+        internal static string FeedbackEdgebanding {
+            get {
+                return ResourceManager.GetString("FeedbackEdgebanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschläge setzen.
+        /// </summary>
+        internal static string FeedbackInsertFittings {
+            get {
+                return ResourceManager.GetString("FeedbackInsertFittings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laminieren.
+        /// </summary>
+        internal static string FeedbackLaminating {
+            get {
+                return ResourceManager.GetString("FeedbackLaminating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hobeln.
+        /// </summary>
+        internal static string FeedbackMoulding {
+            get {
+                return ResourceManager.GetString("FeedbackMoulding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nesting.
+        /// </summary>
+        internal static string FeedbackNesting {
+            get {
+                return ResourceManager.GetString("FeedbackNesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verpacken.
+        /// </summary>
+        internal static string FeedbackPacking {
+            get {
+                return ResourceManager.GetString("FeedbackPacking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vormontieren.
+        /// </summary>
+        internal static string FeedbackPreassembly {
+            get {
+                return ResourceManager.GetString("FeedbackPreassembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Walzenbeschichtung.
+        /// </summary>
+        internal static string FeedbackRollerCoating {
+            get {
+                return ResourceManager.GetString("FeedbackRollerCoating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schleifen.
+        /// </summary>
+        internal static string FeedbackSanding {
+            get {
+                return ResourceManager.GetString("FeedbackSanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versand.
+        /// </summary>
+        internal static string FeedbackShipping {
+            get {
+                return ResourceManager.GetString("FeedbackShipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sortieren.
+        /// </summary>
+        internal static string FeedbackSorting {
+            get {
+                return ResourceManager.GetString("FeedbackSorting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lackieren.
+        /// </summary>
+        internal static string FeedbackSprayCoating {
+            get {
+                return ResourceManager.GetString("FeedbackSprayCoating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nesting.
+        /// </summary>
+        internal static string Nesting {
+            get {
+                return ResourceManager.GetString("Nesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verpacken.
+        /// </summary>
+        internal static string Packing {
+            get {
+                return ResourceManager.GetString("Packing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vormontieren.
+        /// </summary>
+        internal static string Preassembly {
+            get {
+                return ResourceManager.GetString("Preassembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nachfertigung.
+        /// </summary>
+        internal static string Rework {
+            get {
+                return ResourceManager.GetString("Rework", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versand.
+        /// </summary>
+        internal static string Shipping {
+            get {
+                return ResourceManager.GetString("Shipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sortieren vor Montage.
+        /// </summary>
+        internal static string Sorting {
+            get {
+                return ResourceManager.GetString("Sorting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sortieren nach Aufteilen.
+        /// </summary>
+        internal static string SortingAfterCutting {
+            get {
+                return ResourceManager.GetString("SortingAfterCutting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lagern.
+        /// </summary>
+        internal static string Storage {
+            get {
+                return ResourceManager.GetString("Storage", resourceCulture);
             }
         }
     }

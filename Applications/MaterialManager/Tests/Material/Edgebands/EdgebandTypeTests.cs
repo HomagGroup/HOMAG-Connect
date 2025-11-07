@@ -5,7 +5,6 @@ using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
@@ -23,9 +22,12 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public void EdgebandType_CheckConfiguration_ConfigValid()
     {
-        BaseUrl.Should().NotBeNull();
-        SubscriptionId.Should().NotBeEmpty();
-        AuthorizationKey.Should().NotBeNullOrEmpty();
+        BaseUrl.Should().NotBeNull(
+            "because BaseUrl should be configured for MaterialManager tests");
+        SubscriptionId.Should().NotBeEmpty(
+            "because SubscriptionId should be configured for MaterialManager tests");
+        AuthorizationKey.Should().NotBeNullOrEmpty(
+            "because AuthorizationKey should be configured for MaterialManager tests");
     }
 
     /// <summary />
@@ -40,10 +42,11 @@ public class EdgebandTypeTests : MaterialManagerTestBase
         await EdgebandType_CreateEdgebandType_Cleanup(materialManagerClient, edgebandCode);
 
         var uniqueEdgebandCode = $"{edgebandCode}_{Guid.NewGuid().ToString("N")[..8]}";
+        var fullEdgebandCode = $"{uniqueEdgebandCode}_150_1";
 
         var edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
         {
-            EdgebandCode = $"{uniqueEdgebandCode}_150_1",
+            EdgebandCode = fullEdgebandCode,
             Thickness = 1.0,
             Height = 20,
             DefaultLength = 23.0,
@@ -60,6 +63,15 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             }
         }, [additionalDataImage]);
 
+        edgebandType.Should().NotBeNull(
+            $"because edgeband type with edgeband code '{fullEdgebandCode}' should be created successfully");
+        edgebandType.EdgebandCode.Should().Be(fullEdgebandCode,
+            $"because created edgeband type should have edgeband code '{fullEdgebandCode}'");
+        edgebandType.Thickness.Should().Be(1.0,
+            "because created edgeband type should have thickness 1.0");
+        edgebandType.Height.Should().Be(20,
+            "because created edgeband type should have height 20");
+
         edgebandType.Trace();
     }
 
@@ -69,9 +81,10 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     {
         var materialManagerClient = GetMaterialManagerClient();
 
-        var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
+        var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines()).ToArray();
 
-        machines.Should().NotBeNullOrEmpty("Machines should be assigned to test subscription.");
+        machines.Should().NotBeNullOrEmpty(
+            "because machines should be assigned to test subscription");
     }
 
     /// <summary />
@@ -93,13 +106,19 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         edgebandTypeImperial.Trace();
 
-        Assert.AreEqual(UnitSystem.Imperial, edgebandTypeImperial.UnitSystem);
+        edgebandTypeImperial.UnitSystem.Should().Be(UnitSystem.Imperial,
+            "because edgeband type was switched to Imperial unit system");
 
-        Assert.AreNotEqual(edgebandTypeMetric.DefaultLength, edgebandTypeImperial.DefaultLength);
-        Assert.AreNotEqual(edgebandTypeMetric.Thickness, edgebandTypeImperial.Thickness);
-        Assert.AreNotEqual(edgebandTypeMetric.ProtectionFilmThickness, edgebandTypeImperial.ProtectionFilmThickness);
-        Assert.AreNotEqual(edgebandTypeMetric.Airtec, edgebandTypeImperial.Airtec);
-        Assert.AreNotEqual(edgebandTypeMetric.TotalLengthAvailableWarningLimit, edgebandTypeImperial.TotalLengthAvailableWarningLimit);
+        edgebandTypeImperial.DefaultLength.Should().NotBe(edgebandTypeMetric.DefaultLength,
+            "because default length should be converted from metric to imperial units");
+        edgebandTypeImperial.Thickness.Should().NotBe(edgebandTypeMetric.Thickness,
+            "because thickness should be converted from metric to imperial units");
+        edgebandTypeImperial.ProtectionFilmThickness.Should().NotBe(edgebandTypeMetric.ProtectionFilmThickness,
+            "because protection film thickness should be converted from metric to imperial units");
+        edgebandTypeImperial.Airtec.Should().NotBe(edgebandTypeMetric.Airtec,
+            "because airtec should be converted from metric to imperial units");
+        edgebandTypeImperial.TotalLengthAvailableWarningLimit.Should().NotBe(edgebandTypeMetric.TotalLengthAvailableWarningLimit,
+            "because total length warning limit should be converted from metric to imperial units");
     }
 
     /// <summary />
@@ -108,15 +127,21 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     {
         var materialManagerClient = GetMaterialManagerClient();
 
-        var machines = await materialManagerClient.Material.Edgebands.GetLicensedMachines();
-        var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(machines.First().TapioMachineId);
+        var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines()).ToArray();
 
-        macros.Should().NotBeNull();
+        machines.Should().NotBeNullOrEmpty(
+            "because at least one licensed machine should be available to retrieve technology macros");
+
+        var firstMachine = machines.First();
+        var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(firstMachine.TapioMachineId);
+
+        macros.Should().NotBeNull(
+            $"because technology macros should be retrievable for machine '{firstMachine.TapioMachineId}'");
     }
 
     private static async Task EdgebandType_CreateEdgebandType_Cleanup(MaterialManagerClient materialManagerClient, string edgebandCode)
     {
-        var existingEdgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode]);
+        var existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
         foreach (var existingEdgebandType in existingEdgebandTypes)
         {
@@ -126,8 +151,9 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             }
         }
 
-        existingEdgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode]);
+        existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
-        Assert.IsFalse(existingEdgebandTypes.Any());
+        existingEdgebandTypes.Should().BeEmpty(
+            $"because all edgeband types with edgeband code '{edgebandCode}' should be deleted during cleanup");
     }
 }

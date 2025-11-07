@@ -9,7 +9,7 @@ public interface IProductionAssistFeedbackClient
     /// Retrieve the list of configured feedback workstations.
     /// </summary>
     /// <returns></returns>
-    Task<IEnumerable<FeedbackWorkstation>> GetWorkstations();
+    Task<IEnumerable<Workstation>> GetWorkstations();
 
     /// <summary>
     /// Report a production entity as finished.

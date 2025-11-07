@@ -197,15 +197,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         Task<IEnumerable<PartHistory>?> GetPartHistoryAsync(int daysBack, int take, int skip = 0);
 
+        #endregion
+
+        #region Storage Import
+        
         /// <summary>
         /// /// Import storage inventory
         /// </summary>
         Task<ImportInventoryResponse> ImportInventory(ImportInventoryRequest data);
 
         /// <summary>
-        /// Delete board type
+        /// Get import state by correlation id
         /// </summary>
-        Task DeleteBoardTypesByCodes(StorageImportFilter filter);
+        Task<ImportStateResponse> GetImportState(string correlationId);
 
         #endregion
     }

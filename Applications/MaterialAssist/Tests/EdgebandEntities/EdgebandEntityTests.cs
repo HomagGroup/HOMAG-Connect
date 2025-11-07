@@ -77,10 +77,14 @@ public class EdgebandEntityTests : MaterialAssistTestBase
                 firstStorageLocation.LocationId
             );
 
-            found.Should().NotBeNull("Stored edgeband entity was not found by code.");
-            found!.Length.Should().Be(storeEdgebandEntity.Length, "Stored length does not match.");
-            found.Quantity.Should().Be(1, "Stored quantity does not match for GoodsInStock.");
-            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId, "Not stored in the specified location.");
+            found.Should().NotBeNull(
+                $"because edgeband entity with ID '{createdEdgebandEntity.Id}' should be stored and retrievable from storage location '{firstStorageLocation.LocationId}'");
+            found!.Length.Should().Be(storeEdgebandEntity.Length,
+                $"because edgeband entity '{createdEdgebandEntity.Id}' was stored with length {storeEdgebandEntity.Length}");
+            found.Quantity.Should().Be(1,
+                $"because edgeband entity '{createdEdgebandEntity.Id}' with ManagementType.Single must have quantity 1");
+            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId,
+                $"because edgeband entity '{createdEdgebandEntity.Id}' was stored in storage location '{firstStorageLocation.LocationId}'");
         }
         finally
         {
@@ -99,7 +103,10 @@ public class EdgebandEntityTests : MaterialAssistTestBase
     {
         var client = GetMaterialAssistClient().Edgebands;
 
-        var storageLocations = await client.GetStorageLocations().ConfigureAwait(false);
+        var storageLocations = (await client.GetStorageLocations().ConfigureAwait(false)).ToArray();
+
+        storageLocations.Should().NotBeNull(
+            "because GetStorageLocations should return a collection of all available storage locations");
 
         foreach (var storageLocation in storageLocations)
         {
@@ -116,12 +123,15 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         var firstWorkstation = workstations.FirstOrDefault();
         if (firstWorkstation == null)
         {
-            Console.WriteLine(@"No workstations found.");
+            Assert.Inconclusive("No workstations found to test GetStorageLocationsByWorkstationId.");
             return;
         }
 
         var workstationId = firstWorkstation.Id.ToString();
-        var storageLocations = await client.GetStorageLocations(workstationId).ConfigureAwait(false);
+        var storageLocations = (await client.GetStorageLocations(workstationId).ConfigureAwait(false)).ToArray();
+
+        storageLocations.Should().NotBeNull(
+            $"because GetStorageLocations should return a collection of storage locations for workstation '{firstWorkstation.Name}' (ID: {workstationId})");
 
         foreach (var storageLocation in storageLocations)
         {
@@ -134,7 +144,10 @@ public class EdgebandEntityTests : MaterialAssistTestBase
     {
         var client = GetMaterialAssistClient().Edgebands;
 
-        var workstations = await client.GetWorkstations().ConfigureAwait(false);
+        var workstations = (await client.GetWorkstations().ConfigureAwait(false)).ToArray();
+
+        workstations.Should().NotBeNull(
+            "because GetWorkstations should return a collection of all available workstations");
 
         foreach (var workstation in workstations)
         {
@@ -147,11 +160,30 @@ public class EdgebandEntityTests : MaterialAssistTestBase
     {
         var client = GetMaterialAssistClient().Edgebands;
 
-        var edgebandEntities = await client.GetEdgebandEntities(5).ConfigureAwait(false) ?? new List<EdgebandEntity>();
+        var edgebandEntities = (await client.GetEdgebandEntities(5).ConfigureAwait(false) ?? new List<EdgebandEntity>()).ToArray();
+
+        edgebandEntities.Should().NotBeNull(
+            "because GetEdgebandEntities should return a collection (empty or populated) of edgeband entities");
 
         foreach (var edgebandEntity in edgebandEntities)
         {
             edgebandEntity.Trace();
+        }
+    }
+
+    private static async Task CleanupAsync(
+        IEnumerable<Func<Task>> cleanupActions)
+    {
+        foreach (var action in cleanupActions)
+        {
+            try
+            {
+                await action().ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                // Ignore cleanup exceptions to prevent test failures during cleanup
+            }
         }
     }
 
@@ -166,7 +198,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         for (var attempt = 0; attempt < maxAttempts; attempt++)
         {
             found = await client.GetEdgebandEntityById(entityId).ConfigureAwait(false);
-            if (found?.Location?.LocationId == expectedLocationId)
+            if (found?.Location.LocationId == expectedLocationId)
                 break;
             await Task.Delay(delayMs);
         }
@@ -187,7 +219,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         for (var attempt = 0; attempt < maxAttempts; attempt++)
         {
             var edgebandTypes = await clientMaterialManager.GetEdgebandTypesByEdgebandCodes([edgebandCode]).ConfigureAwait(false);
-            if (edgebandTypes?.Any(et => et.EdgebandCode == edgebandCode) == true)
+            if (edgebandTypes.Any(et => et?.EdgebandCode == edgebandCode))
                 return;
 
             if (totalWaited >= maxTotalWaitMs)
@@ -199,21 +231,5 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
 
         Assert.Inconclusive($"Edgeband type '{edgebandCode}' was not available after waiting {totalWaited} ms.");
-    }
-
-    private static async Task CleanupAsync(
-        IEnumerable<Func<Task>> cleanupActions)
-    {
-        foreach (var action in cleanupActions)
-        {
-            try
-            {
-                await action().ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                // Ignore
-            }
-        }
     }
 }
