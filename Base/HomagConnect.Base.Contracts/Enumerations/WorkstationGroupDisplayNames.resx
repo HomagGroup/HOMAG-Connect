@@ -126,73 +126,19 @@
   <data name="CNC" xml:space="preserve">
     <value>CNC</value>
   </data>
-  <data name="Cutting" xml:space="preserve">
-    <value>Sägen</value>
-  </data>
-  <data name="Drilling" xml:space="preserve">
-    <value>Bohren</value>
+  <data name="Dividing" xml:space="preserve">
+    <value>Aufteilen</value>
   </data>
   <data name="Edgebanding" xml:space="preserve">
     <value>Kantenanleimen</value>
   </data>
-  <data name="FeedbackAssembly" xml:space="preserve">
-    <value>Montieren</value>
-  </data>
-  <data name="FeedbackAutomaticSorting" xml:space="preserve">
-    <value>Automatisches Sortieren</value>
-  </data>
-  <data name="FeedbackCNC" xml:space="preserve">
-    <value>CNC</value>
-  </data>
-  <data name="FeedbackCutting" xml:space="preserve">
-    <value>Sägen</value>
-  </data>
-  <data name="FeedbackDrilling" xml:space="preserve">
-    <value>Bohren</value>
-  </data>
-  <data name="FeedbackEdgebanding" xml:space="preserve">
-    <value>Kantenanleimen</value>
-  </data>
-  <data name="FeedbackInsertFittings" xml:space="preserve">
-    <value>Beschläge setzen</value>
-  </data>
-  <data name="FeedbackLaminating" xml:space="preserve">
+  <data name="Laminating" xml:space="preserve">
     <value>Laminieren</value>
   </data>
-  <data name="FeedbackMoulding" xml:space="preserve">
+  <data name="Moulding" xml:space="preserve">
     <value>Hobeln</value>
   </data>
-  <data name="FeedbackNesting" xml:space="preserve">
-    <value>Nesting</value>
-  </data>
-  <data name="FeedbackPacking" xml:space="preserve">
-    <value>Verpacken</value>
-  </data>
-  <data name="FeedbackPreassembly" xml:space="preserve">
-    <value>Vormontieren</value>
-  </data>
-  <data name="FeedbackRollerCoating" xml:space="preserve">
-    <value>Walzenbeschichtung</value>
-  </data>
-  <data name="FeedbackSanding" xml:space="preserve">
-    <value>Schleifen</value>
-  </data>
-  <data name="FeedbackShipping" xml:space="preserve">
-    <value>Versand</value>
-  </data>
-  <data name="FeedbackSorting" xml:space="preserve">
-    <value>Sortieren</value>
-  </data>
-  <data name="FeedbackSprayCoating" xml:space="preserve">
-    <value>Lackieren</value>
-  </data>
-  <data name="Nesting" xml:space="preserve">
-    <value>Nesting</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="Packing" xml:space="preserve">
+  <data name="Packaging" xml:space="preserve">
     <value>Verpacken</value>
   </data>
   <data name="Preassembly" xml:space="preserve">
@@ -201,16 +147,22 @@
   <data name="Rework" xml:space="preserve">
     <value>Nachfertigung</value>
   </data>
+  <data name="RollerCoating" xml:space="preserve">
+    <value>Walzenbeschichtung</value>
+  </data>
+  <data name="Sanding" xml:space="preserve">
+    <value>Schleifen</value>
+  </data>
   <data name="Shipping" xml:space="preserve">
     <value>Versand</value>
   </data>
   <data name="Sorting" xml:space="preserve">
-    <value>Sortieren vor Montage</value>
+    <value>Sortieren</value>
   </data>
   <data name="SortingAfterCutting" xml:space="preserve">
     <value>Sortieren nach Aufteilen</value>
   </data>
-  <data name="Storage" xml:space="preserve">
-    <value>Lagern</value>
+  <data name="SprayCoating" xml:space="preserve">
+    <value>Lackieren</value>
   </data>
 </root>

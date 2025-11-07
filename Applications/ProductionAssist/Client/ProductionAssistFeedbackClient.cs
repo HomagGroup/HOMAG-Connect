@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using HomagConnect.Base.Services;
+﻿using HomagConnect.Base.Services;
+using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
 using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace HomagConnect.ProductionAssist.Client
 {
@@ -15,11 +16,13 @@ namespace HomagConnect.ProductionAssist.Client
         #region IProductionAssistFeedbackClient Members
 
         /// <inheritdoc />
-        public async Task<IEnumerable<FeedbackWorkstation>?> GetWorkstations()
+        public async Task<IEnumerable<Workstation>?> GetWorkstations()
         {
             const string uri = "api/productionAssist/feedback/workstations";
 
-            return await RequestEnumerable<FeedbackWorkstation>(new Uri(uri, UriKind.Relative));
+            var feedbackStations = await RequestEnumerable<FeedbackWorkstation>(new Uri(uri, UriKind.Relative));
+
+            return feedbackStations?.Cast<Workstation>() ?? [];
         }
 
         /// <inheritdoc />
