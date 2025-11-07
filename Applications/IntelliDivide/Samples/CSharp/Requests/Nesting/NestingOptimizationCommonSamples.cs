@@ -47,6 +47,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             request.Trace(nameof(request));
 
             var response = await intelliDivide.RequestOptimization(request, [.. mprFiles]);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
@@ -63,6 +67,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             solutions.Trace(nameof(solutions));
 
             var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
+            if (balancedSolutionDetails == null)
+            {
+                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
 
             balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
 

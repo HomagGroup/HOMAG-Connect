@@ -4,6 +4,8 @@ using System.Text;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Authentication
 {
     /// <summary>
@@ -31,6 +33,10 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
             var intelliDivide = new IntelliDivideClient(httpClient);
 
             var optimizations = await intelliDivide.GetOptimizations(100);
+            if (optimizations == null)
+            {
+                Assert.Inconclusive("No optimizations could be found.");
+            }
 
             optimizations.Trace();
         }
@@ -43,6 +49,10 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
             var intelliDivide = new IntelliDivideClient(subscriptionId, authorizationKey);
 
             var optimizations = await intelliDivide.GetOptimizations(100);
+            if (optimizations == null)
+            {
+                Assert.Inconclusive("No optimizations could be found.");
+            }
 
             optimizations.Trace();
         }

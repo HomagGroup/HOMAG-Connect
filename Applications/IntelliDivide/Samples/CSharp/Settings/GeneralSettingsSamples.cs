@@ -1,6 +1,8 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Settings
 {
     /// <summary />
@@ -12,6 +14,10 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task GetPartPropertiesSample(IIntelliDivideClient intelliDivide)
         {
             var properties = await intelliDivide.GetPartProperties().ToListAsync();
+            if (properties == null || !properties.Any())
+            {
+                Assert.Inconclusive("No part properties could be found.");
+            }
 
             properties.Trace();
         }

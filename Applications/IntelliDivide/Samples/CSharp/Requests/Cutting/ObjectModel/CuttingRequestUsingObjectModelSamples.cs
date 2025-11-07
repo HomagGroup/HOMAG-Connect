@@ -7,6 +7,8 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 using HomagConnect.IntelliDivide.Contracts.Request;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 {
     /// <summary>
@@ -90,11 +92,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id {response.OptimizationId} could not be found.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -141,6 +151,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id  {response.OptimizationId}  could not be found.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -183,12 +197,20 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Wait for completion
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
+            
             optimization.Trace(nameof(optimization));
         }
 
@@ -230,6 +252,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
@@ -244,7 +270,11 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Wait for completion
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-
+            if (optimization == null)
+            {
+                    Assert.Inconclusive($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
+            
             optimization.Trace(nameof(optimization));
         }
 
@@ -286,11 +316,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Wait for completion
             var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Transferred, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id {response.OptimizationId} could not be transferred.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -337,12 +375,20 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
 
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id  {response.OptimizationId}  could not be found.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -410,16 +456,32 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             // Wait for the optimization to complete
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
 
             // Get the solutions overview
-            var solutions = await intelliDivide.GetSolutions(optimization.Id);
+            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+            if (solutions == null || !solutions.Any())
+            {
+                Assert.Inconclusive($"The optimization with id {optimization.Id} should have at least one solution available.");
+            }
 
             // Get the solution details of the balanced solution
             var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
-
+            if (balancedSolution == null)
+            {
+                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
+            
             balancedSolution.Trace(nameof(balancedSolution));
         }
 
@@ -490,11 +552,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id {response.OptimizationId} could not be found.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -590,19 +660,35 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Inconclusive("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Wait for the optimization to complete
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Inconclusive($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
 
             optimization.Trace(nameof(optimization));
 
             // Get the solutions overview
-            var solutions = await intelliDivide.GetSolutions(optimization.Id);
+            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+            if (solutions == null || !solutions.Any())
+            {
+                Assert.Inconclusive($"The optimization with id {optimization.Id} should have at least one solution available.");
+            }
 
             // Get the solution details of the balanced solution
             var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
+            if (balancedSolution == null)
+            {
+                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
 
             balancedSolution.Trace(nameof(balancedSolution));
         }

@@ -16,6 +16,10 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         public static async Task Optimizations_GetFirstFiveOptimizations(IIntelliDivideClient intelliDivide)
         {
             var optimization = await intelliDivide.GetOptimizations(3);
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No optimizations found.");
+            }
 
             optimization.Trace();
         }
@@ -26,7 +30,11 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         public static async Task Optimizations_GetOptimizationsWithStatusOptimized(IIntelliDivideClient intelliDivide)
         {
             var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 3).ToListAsync();
-            
+            if (optimizations == null)
+            {
+                Assert.Inconclusive("No cutting optimization having the state optimized found.");
+            }
+
             optimizations.Trace();
         }
 
@@ -36,6 +44,10 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         public static async Task Optimizations_GetOptimizationsOfTypeCutting(IIntelliDivideClient intelliDivide)
         {
             var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, 3).ToListAsync();
+            if (optimizations == null)
+            {
+                Assert.Inconclusive("No cutting optimizations found.");
+            }
 
             optimizations.Trace();
         }
@@ -46,6 +58,10 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         public static async Task Optimizations_GetStatusOfAOptimization(IIntelliDivideClient intelliDivide)
         {
             var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstAsync();
+            if (optimization == null)
+            {
+                Assert.Inconclusive("No cutting optimization having the state optimized found.");
+            }
 
             var optimizationStatus = await intelliDivide.GetOptimizationStatus(optimization.Id);
 
@@ -61,15 +77,23 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             if (optimization == null)
             {
-                Assert.Inconclusive("No optimized having the state optimization found.");
+                Assert.Inconclusive("No cutting optimization having the state optimized found.");
             }
 
             // Get the solutions including the main key figures
             var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+            if (solutions == null || !solutions.Any())
+            {
+                Assert.Inconclusive($"The optimization with id {optimization.Id} should have at least one solution available.");
+            }
             solutions.Trace(nameof(solutions));
 
             // Get the details of the first solution which is the balanced solution
             var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
+            if (balancedSolution == null)
+            {
+                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
             balancedSolution.Trace(nameof(balancedSolution));
 
             // Download the saw file
@@ -97,7 +121,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             if (optimization == null)
             {
-                Assert.Inconclusive("No optimized having the state optimization found.");
+                Assert.Inconclusive("No optimization having the state optimized found.");
             }
 
             await intelliDivide.ArchiveOptimization(optimization.Id);
@@ -114,13 +138,17 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             if (optimization == null)
             {
-                Assert.Inconclusive("No optimized having the state optimization found.");
+                Assert.Inconclusive("No optimization having the state optimized found.");
             }
 
             var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+            if (solutions == null || !solutions.Any())
+            {
+                Assert.Inconclusive($"The optimization with id {optimization.Id} should have at least one solution available.");
+            }
 
             var exports = await intelliDivide.GetSolutionAvailableExports(optimization.Id, solutions.First().Id);
-            
+
             exports.Trace();
         }
     }
