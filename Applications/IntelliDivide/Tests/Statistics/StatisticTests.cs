@@ -21,7 +21,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var materialStatistics = await intelliDivide.GetMaterialStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
-        materialStatistics.Should().NotBeNull("Material statistics should not be available in the given time period.");
+        materialStatistics.Should().NotBeNull("Material statistics should be found in the given time period.");
   
         materialStatistics.Trace();
     }
