@@ -260,10 +260,24 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>?> GetBoardTypes(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?dateTimeOffset={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?dateTimeOffset={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}&{_IncludingDetails}=true";
         return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
@@ -432,6 +446,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<Material>?> GetMaterials(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}/materials?dateTimeOffset={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        return await RequestEnumerable<Material>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
     public async Task<IEnumerable<Material>?> GetMaterialsByMaterialCodes(IEnumerable<string> materialCodes)
     {
         if (materialCodes == null)
@@ -467,6 +488,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var url = $"{_BoardTypeAllocationsRoute}?take={take}&skip={skip}";
         var result = await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
         return result ?? [];
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BoardTypeAllocationsRoute}?dateTimeOffset={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative)) ?? [];
     }
 
     /// <inheritdoc />

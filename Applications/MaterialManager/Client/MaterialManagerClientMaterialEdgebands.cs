@@ -41,10 +41,24 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?take={take}&skip={skip}&changedSince={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}";
+        return await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
     public async Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
+        return await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true&changedSince={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}";
         return await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
     }
 

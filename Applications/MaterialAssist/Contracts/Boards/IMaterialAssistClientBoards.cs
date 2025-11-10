@@ -32,8 +32,12 @@ namespace HomagConnect.MaterialAssist.Contracts.Boards
         /// <summary>
         /// Get all board entities from the inventory.
         /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<BoardEntity>?> GetBoardEntities(int take, int skip = 0);
+        
+        /// <summary>
+        /// Get only the board entities from the inventory changed since a specific date.
+        /// </summary>
+        Task<IEnumerable<BoardEntity>?> GetBoardEntities(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
         /// Get board entity by id (#).

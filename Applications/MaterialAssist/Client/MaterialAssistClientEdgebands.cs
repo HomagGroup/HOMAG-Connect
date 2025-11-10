@@ -157,6 +157,13 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntities(DateTimeOffset changedSince, int take, int skip = 0)
+        {
+            var url = $"{_BaseRouteMaterialAssist}?changedSince={Uri.EscapeDataString(changedSince.ToString("o"))}&take={take}&skip={skip}";
+            return await RequestEnumerable<EdgebandEntity>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
         public async Task<EdgebandEntity?> GetEdgebandEntityById(string id)
         {
             return await GetEdgebandEntitiesByIds([id]).FirstOrDefaultAsync();
