@@ -14,9 +14,9 @@ namespace HomagConnect.IntelliDivide.Samples.Materials
         public static async Task Materials_GetBoardTypes(IIntelliDivideClient intelliDivide)
         {
             var boardTypes = await intelliDivide.GetBoardTypes(1000).ToListAsync();
-            if (boardTypes == null || !boardTypes.Any())
+            if (boardTypes == null || boardTypes.Count <= 0)
             {
-                Assert.Inconclusive("No board types could be found.");
+                Assert.Fail("No board types could be found.");
             }
 
             boardTypes.Trace();
@@ -28,9 +28,9 @@ namespace HomagConnect.IntelliDivide.Samples.Materials
         public static async Task Materials_GetEdgebandTypes(IIntelliDivideClient intelliDivide)
         {
             var edgebandTypes = await intelliDivide.GetEdgebandTypes(1000).ToListAsync();
-            if (edgebandTypes == null || !edgebandTypes.Any())
+            if (edgebandTypes == null || edgebandTypes.Count <= 0)
             {
-                Assert.Inconclusive("Nod edge band types could be found.");
+                Assert.Fail("Nod edge band types could be found.");
             }
 
             edgebandTypes.Trace();

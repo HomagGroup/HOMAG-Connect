@@ -48,7 +48,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
             var response = await intelliDivide.RequestOptimization(request, projectFile);
             if (response == null)
             {
-                Assert.Inconclusive("The request did not send a response.");
+                Assert.Fail("The request did not send a response.");
             }
 
             response.Trace();
@@ -56,7 +56,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
             if (optimization == null)
             {
-                Assert.Inconclusive($"The optimization with id {response.OptimizationId} could not be found.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be found.");
             }
 
             optimization.Trace();

@@ -14,9 +14,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task GetPartPropertiesSample(IIntelliDivideClient intelliDivide)
         {
             var properties = await intelliDivide.GetPartProperties().ToListAsync();
-            if (properties == null || !properties.Any())
+            if (properties == null || properties.Count <= 0)
             {
-                Assert.Inconclusive("No part properties could be found.");
+                Assert.Fail("No part properties could be found.");
             }
 
             properties.Trace();

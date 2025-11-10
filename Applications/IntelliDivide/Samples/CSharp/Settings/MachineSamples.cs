@@ -15,9 +15,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task Settings_GetCuttingMachinesSample(IIntelliDivideClient intelliDivide)
         {
             var machines = await intelliDivide.GetMachines(OptimizationType.Cutting).ToListAsync();
-            if (machines == null || !machines.Any())
+            if (machines == null || machines.Count <= 0)
             {
-                Assert.Inconclusive("No cutting machines could be found.");
+                Assert.Fail("No cutting machines could be found.");
             }
 
             machines.Trace();
@@ -29,9 +29,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task Settings_GetMachinesSample(IIntelliDivideClient intelliDivide)
         {
             var machines = await intelliDivide.GetMachines().ToListAsync();
-            if (machines == null || !machines.Any())
+            if (machines == null || machines.Count <= 0)
             {
-                Assert.Inconclusive("No machines could be found.");
+                Assert.Fail("No machines could be found.");
             }
 
             machines.Trace();
@@ -45,9 +45,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
             const OptimizationType optimizationType = OptimizationType.Nesting;
 
             var machines = await intelliDivide.GetMachines(optimizationType).ToListAsync();
-            if (machines == null || !machines.Any())
+            if (machines == null || machines.Count <= 0)
             {
-                Assert.Inconclusive("No nesting machines could be found.");
+                Assert.Fail("No nesting machines could be found.");
             }
 
             machines.Trace();

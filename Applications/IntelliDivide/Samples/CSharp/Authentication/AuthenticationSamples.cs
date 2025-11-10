@@ -35,7 +35,7 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
             var optimizations = await intelliDivide.GetOptimizations(100);
             if (optimizations == null)
             {
-                Assert.Inconclusive("No optimizations could be found.");
+                Assert.Fail("No optimizations could be found.");
             }
 
             optimizations.Trace();
@@ -51,7 +51,7 @@ namespace HomagConnect.IntelliDivide.Samples.Authentication
             var optimizations = await intelliDivide.GetOptimizations(100);
             if (optimizations == null)
             {
-                Assert.Inconclusive("No optimizations could be found.");
+                Assert.Fail("No optimizations could be found.");
             }
 
             optimizations.Trace();

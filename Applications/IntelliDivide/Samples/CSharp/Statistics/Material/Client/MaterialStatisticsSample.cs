@@ -21,10 +21,10 @@ namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
             const int take = 1000;
 
             // Get the data
-            var materialStatistics = await client.GetMaterialStatistics(from, to, take)!.ToListAsync();
-            if (materialStatistics == null || !materialStatistics.Any())
+            var materialStatistics = await client.GetMaterialStatistics(from, to, take).ToListAsync();
+            if (materialStatistics == null || materialStatistics.Count <= 0)
             {
-                Assert.Inconclusive("No material statistics could be found.");
+                Assert.Fail("No material statistics could be found.");
             }
 
             // Use the retrieved data

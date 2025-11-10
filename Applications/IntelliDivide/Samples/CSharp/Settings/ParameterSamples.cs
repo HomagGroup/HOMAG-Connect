@@ -15,9 +15,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task Settings_GetCuttingParametersSample(IIntelliDivideClient intelliDivide)
         {
             var parameters = await intelliDivide.GetParameters(OptimizationType.Cutting).ToListAsync();
-            if (parameters == null || !parameters.Any())
+            if (parameters == null || parameters.Count <= 0)
             {
-                Assert.Inconclusive("No cutting parameters could be found.");
+                Assert.Fail("No cutting parameters could be found.");
             }
 
             parameters.Trace();
@@ -29,9 +29,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task GetNestingParametersSample(IIntelliDivideClient intelliDivide)
         {
             var parameters = await intelliDivide.GetParameters(OptimizationType.Nesting).ToListAsync();
-            if (parameters == null || !parameters.Any())
+            if (parameters == null || parameters.Count <= 0)
             {
-                Assert.Inconclusive("No nesting parameters could be found.");
+                Assert.Fail("No nesting parameters could be found.");
             }
 
             parameters.Trace();

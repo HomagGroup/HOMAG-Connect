@@ -15,9 +15,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task GetCuttingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
             var templates = await intelliDivide.GetImportTemplates(OptimizationType.Cutting).ToListAsync();
-            if (templates == null || !templates.Any())
+            if (templates == null || templates.Count <= 0)
             {
-                Assert.Inconclusive("No cutting import templates could be found.");
+                Assert.Fail("No cutting import templates could be found.");
             }
 
             templates.Trace();
@@ -29,9 +29,9 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         public static async Task GetNestingTemplatesSample(IIntelliDivideClient intelliDivide)
         {
             var templates = await intelliDivide.GetImportTemplates(OptimizationType.Nesting).ToListAsync();
-            if (templates == null || !templates.Any())
+            if (templates == null || templates.Count <= 0)
             {
-                Assert.Inconclusive("No nesting import templates could be found.");
+                Assert.Fail("No nesting import templates could be found.");
             }
 
             templates.Trace();

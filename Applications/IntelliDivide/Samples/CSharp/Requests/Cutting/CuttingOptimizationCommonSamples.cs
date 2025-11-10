@@ -56,25 +56,25 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var response = await intelliDivide.RequestOptimization(request);
             if (response == null)
             {
-                Assert.Inconclusive("The request did not send a response.");
+                Assert.Fail("The request did not send a response.");
             }
 
             var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Inconclusive($"The optimization with id {response.OptimizationId} could not be optimized.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
-            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+            var solutions = await intelliDivide.GetSolutions(optimization.Id);
             if (solutions == null || !solutions.Any())
             {
-                Assert.Inconclusive($"The optimization with id {optimization.Id} should have at least one solution available.");
+                Assert.Fail($"The optimization with id {optimization.Id} should have at least one solution available.");
             }
 
             var recommendedSolution = solutions.First();
             if (recommendedSolution == null)
             {
-                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
             }
 
             var targetDirectory = new DirectoryInfo(".");
@@ -98,7 +98,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var response = await intelliDivide.RequestOptimization(request);
             if (response == null)
             {
-                Assert.Inconclusive("The request did not send a response.");
+                Assert.Fail("The request did not send a response.");
             }
 
             response.Trace(nameof(response));
@@ -107,7 +107,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Inconclusive($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
             }
 
             optimization.Trace(nameof(optimization));
@@ -117,16 +117,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 throw new InvalidOperationException("Optimization did not reach the state optimized.");
             }
 
-            var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
+            var solutions = await intelliDivide.GetSolutions(optimization.Id);
             if (solutions == null || !solutions.Any())
             {
-                Assert.Inconclusive($"The optimization with id {optimization.Id} should have at least one solution available.");
+                Assert.Fail($"The optimization with id {optimization.Id} should have at least one solution available.");
             }
 
             var solutionToSend = solutions.First();
             if (solutionToSend == null)
             {
-                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
             }
 
             await intelliDivide.SendSolution(optimization.Id, solutionToSend.Id);
@@ -148,7 +148,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var response = await intelliDivide.RequestOptimization(request);
             if (response == null)
             {
-                Assert.Inconclusive("The request did not send a response.");
+                Assert.Fail("The request did not send a response.");
             }
 
             response.Trace(nameof(response));
@@ -157,7 +157,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Inconclusive($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
             }
 
             optimization.Trace(nameof(optimization));
@@ -173,7 +173,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
             if(balancedSolutionDetails == null)
             {
-                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
             }
 
             balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
@@ -190,13 +190,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var machine = await intelliDivide.GetMachine("productionAssist Cutting");
             if (machine == null)
             {
-                Assert.Inconclusive("The machine is not available.");
+                Assert.Fail("The machine is not available.");
             }
 
             var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstOrDefaultAsync();
             if (parameter == null)
             {
-                Assert.Inconclusive("There is no optimizing parameter available.");
+                Assert.Fail("There is no optimizing parameter available.");
             }
 
             request.Name = optimizationName + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);

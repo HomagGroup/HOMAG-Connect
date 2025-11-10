@@ -28,13 +28,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             var machine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstOrDefaultAsync(m => m.Name.Contains("CENTATEQ"));
             if (machine == null)
             {
-                Assert.Inconclusive("There is no CENTATEQ machine available.");
+                Assert.Fail("There is no CENTATEQ machine available.");
             }
 
             var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstOrDefaultAsync();
             if (parameter == null)
             {
-                Assert.Inconclusive("There is no Nesting optimizing parameter available.");
+                Assert.Fail("There is no Nesting optimizing parameter available.");
             }
 
             var request = await NestingRequestUsingObjectModelSamples.GetSampleNestingOptimizationByObjectModel(mprFiles);
@@ -49,7 +49,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             var response = await intelliDivide.RequestOptimization(request, [.. mprFiles]);
             if (response == null)
             {
-                Assert.Inconclusive("The request did not send a response.");
+                Assert.Fail("The request did not send a response.");
             }
 
             response.Trace(nameof(response));
@@ -69,7 +69,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
             if (balancedSolutionDetails == null)
             {
-                Assert.Inconclusive($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
             }
 
             balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
