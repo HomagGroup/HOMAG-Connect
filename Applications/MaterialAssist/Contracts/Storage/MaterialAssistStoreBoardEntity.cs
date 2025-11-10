@@ -18,7 +18,7 @@ public class MaterialAssistStoreBoardEntity
     /// Gets or sets the length. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 9999.99)]
+    [Range(0.1, 19999.99)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class MaterialAssistStoreBoardEntity
     /// Gets or sets the width. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 9999.99)]
+    [Range(0.1, 19999.99)]
     public double? Width { get; set; }
 
     /// <summary>

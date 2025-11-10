@@ -23,7 +23,7 @@ public class MaterialAssistUpdateBoardEntity
     /// Only available for single boards
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 9999.99)]
+    [Range(0.1, 19999.99)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -36,6 +36,6 @@ public class MaterialAssistUpdateBoardEntity
     /// Only available for single boards
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 9999.99)]
+    [Range(0.1, 19999.99)]
     public double? Width { get; set; }
 }

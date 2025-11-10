@@ -34,7 +34,7 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// <summary>
     /// Gets or sets the length of the board.
     /// </summary>
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double? Length { get; set; } = null;
 
     /// <summary>
@@ -82,7 +82,7 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// <summary>
     /// Gets or sets the length of the board.
     /// </summary>
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double? Width { get; set; } = null;
 
     /// <summary>
