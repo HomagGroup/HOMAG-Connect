@@ -138,6 +138,9 @@
   <data name="Moulding" xml:space="preserve">
     <value>Hobeln</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
   <data name="Packaging" xml:space="preserve">
     <value>Verpacken</value>
   </data>
