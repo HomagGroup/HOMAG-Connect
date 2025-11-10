@@ -54,12 +54,29 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 });
 
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
+            }
 
             var solutions = await intelliDivide.GetSolutions(optimization.Id);
+            if (solutions == null || !solutions.Any())
+            {
+                Assert.Fail($"The optimization with id {optimization.Id} should have at least one solution available.");
+            }
 
             var recommendedSolution = solutions.First();
+            if (recommendedSolution == null)
+            {
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
+
             var targetDirectory = new DirectoryInfo(".");
 
             await intelliDivide.DownloadSolutionExport(recommendedSolution, SolutionExportType.Saw, targetDirectory);
@@ -79,11 +96,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Wait for completion
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
 
             optimization.Trace(nameof(optimization));
 
@@ -93,7 +118,16 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             }
 
             var solutions = await intelliDivide.GetSolutions(optimization.Id);
+            if (solutions == null || !solutions.Any())
+            {
+                Assert.Fail($"The optimization with id {optimization.Id} should have at least one solution available.");
+            }
+
             var solutionToSend = solutions.First();
+            if (solutionToSend == null)
+            {
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
 
             await intelliDivide.SendSolution(optimization.Id, solutionToSend.Id);
         }
@@ -112,11 +146,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Wait for completion
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
 
             optimization.Trace(nameof(optimization));
 
@@ -129,6 +171,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             solutions.Trace(nameof(solutions));
 
             var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
+            if(balancedSolutionDetails == null)
+            {
+                Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
+            }
 
             balancedSolutionDetails.Trace(nameof(balancedSolutionDetails));
 
@@ -144,13 +190,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             var machine = await intelliDivide.GetMachine("productionAssist Cutting");
             if (machine == null)
             {
-                Assert.Inconclusive("The machine is not available.");
+                Assert.Fail("The machine is not available.");
             }
 
             var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstOrDefaultAsync();
             if (parameter == null)
             {
-                Assert.Inconclusive("There is no optimizing parameter available.");
+                Assert.Fail("There is no optimizing parameter available.");
             }
 
             request.Name = optimizationName + DateTime.Now.ToString("s", CultureInfo.InvariantCulture);
