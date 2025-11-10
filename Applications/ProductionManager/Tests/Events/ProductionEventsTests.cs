@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
+using HomagConnect.ProductionManager.Contracts.Events.Order;
 using HomagConnect.ProductionManager.Contracts.Events.ProductionItem;
 using HomagConnect.ProductionManager.Contracts.Orders;
 
@@ -71,4 +72,26 @@ public class ProductionEventsTests : ProductionManagerTestBase
         Assert.AreEqual(productionItemProcessedByMachineFileEvent.MachineNumber, productionItemProcessedByMachineFileEventDeserialized.MachineNumber);
         Assert.AreEqual(productionItemProcessedByMachineFileEvent.FileContent, productionItemProcessedByMachineFileEventDeserialized.FileContent);
     }
+
+    [TestMethod]
+    public void OrderReleased_Serialization()
+    {
+        var completedAt = DateTimeOffset.Now;
+        var orderReleased = new OrderReleasedEvent
+        {
+            Timestamp = completedAt,
+            SubscriptionId = Guid.NewGuid(),
+            OrderDetails = new OrderDetails{ OrderName = "TestOrder"}
+           
+        };
+
+        TestContext.AddResultFile(orderReleased.TraceToFile("OrderReleasedEvent").FullName);
+
+        var orderReleasedSerialized = JsonConvert.SerializeObject(orderReleased, SerializerSettings.Default);
+        var orderReleasedDeserialized = JsonConvert.DeserializeObject<AppEvent>(orderReleasedSerialized);
+
+        Assert.IsNotNull(orderReleasedDeserialized);
+        Assert.AreEqual(orderReleased.Key, orderReleasedDeserialized.Key);
+    }
+
 }
