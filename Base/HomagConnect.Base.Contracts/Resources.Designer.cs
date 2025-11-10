@@ -70,11 +70,29 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Belag unten Maserung.
+        /// </summary>
+        public static string ILaminatingProperties_LaminateBottomGrain {
+            get {
+                return ResourceManager.GetString("ILaminatingProperties_LaminateBottomGrain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Belag oben.
         /// </summary>
         public static string ILaminatingProperties_LaminateTop {
             get {
                 return ResourceManager.GetString("ILaminatingProperties_LaminateTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belag oben Maserung.
+        /// </summary>
+        public static string ILaminatingProperties_LaminateTopGrain {
+            get {
+                return ResourceManager.GetString("ILaminatingProperties_LaminateTopGrain", resourceCulture);
             }
         }
     }

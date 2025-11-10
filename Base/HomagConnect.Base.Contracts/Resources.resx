@@ -120,7 +120,13 @@
   <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
     <value>Belag unten</value>
   </data>
+  <data name="ILaminatingProperties_LaminateBottomGrain" xml:space="preserve">
+    <value>Belag unten Maserung</value>
+  </data>
   <data name="ILaminatingProperties_LaminateTop" xml:space="preserve">
     <value>Belag oben</value>
+  </data>
+  <data name="ILaminatingProperties_LaminateTopGrain" xml:space="preserve">
+    <value>Belag oben Maserung</value>
   </data>
 </root>
