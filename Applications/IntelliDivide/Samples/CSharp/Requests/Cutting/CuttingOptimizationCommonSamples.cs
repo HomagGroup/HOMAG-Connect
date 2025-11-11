@@ -59,28 +59,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 Assert.Fail("The request did not send a response.");
             }
 
-            Optimization optimization = null;
-            const int maxRetries = 5;
-            int retryCount = 0;
-
-            while (retryCount < maxRetries)
+            var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
             {
-                try
-                {
-                    optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
-                    if (optimization != null)
-                    {
-                        break;
-                    }
-                }
-                catch
-                {
-                    retryCount++;
-                    if (retryCount == maxRetries)
-                    {
-                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized after {maxRetries} attempts.");
-                    }
-                }
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
             var solutions = await intelliDivide.GetSolutions(optimization!.Id);
@@ -122,30 +104,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            Optimization optimization = null;
-            const int maxRetries = 5;
-            int retryCount = 0;
-
-            while (retryCount < maxRetries)
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
             {
-                try
-                {
-                    optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-                    if (optimization != null)
-                    {
-                        break;
-                    }
-                }
-                catch
-                {
-                    retryCount++;
-                    if (retryCount == maxRetries)
-                    {
-                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be completed after {maxRetries} attempts.");
-                    }
-                }
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
-
+            
             optimization!.Trace(nameof(optimization));
 
             if (optimization!.Status != OptimizationStatus.Optimized)
@@ -190,28 +154,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            Optimization optimization = null;
-            const int maxRetries = 5;
-            int retryCount = 0;
-
-            while (retryCount < maxRetries)
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
             {
-                try
-                {
-                    optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-                    if (optimization != null)
-                    {
-                        break;
-                    }
-                }
-                catch
-                {
-                    retryCount++;
-                    if (retryCount == maxRetries)
-                    {
-                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be completed after {maxRetries} attempts.");
-                    }
-                }
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
             optimization.Trace(nameof(optimization));

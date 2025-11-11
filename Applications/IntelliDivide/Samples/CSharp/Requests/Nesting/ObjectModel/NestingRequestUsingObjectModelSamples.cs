@@ -186,28 +186,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             response.Trace(nameof(response));
 
             // Optional: Wait for the optimization to complete
-            Optimization optimization = null;
-            const int maxRetries = 5;
-            int retryCount = 0;
-
-            while (retryCount < maxRetries)
+            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
             {
-                try
-                {
-                    optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-                    if (optimization != null)
-                    {
-                        break;
-                    }
-                }
-                catch
-                {
-                    retryCount++;
-                    if (retryCount == maxRetries)
-                    {
-                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be completed after {maxRetries} attempts.");
-                    }
-                }
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
             optimization.Trace(nameof(optimization));
