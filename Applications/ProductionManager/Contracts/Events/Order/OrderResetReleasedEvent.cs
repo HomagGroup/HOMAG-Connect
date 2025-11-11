@@ -17,4 +17,10 @@ public class OrderResetReleasedEvent : AppEvent
     /// </summary>
     [Required]
     public Guid OrderId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the email of the person that reset the release of the order
+    /// </summary>
+    [Required]
+    public string ReleasedBy { get; set; }
 }

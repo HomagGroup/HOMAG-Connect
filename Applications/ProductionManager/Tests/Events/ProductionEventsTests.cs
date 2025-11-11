@@ -81,7 +81,8 @@ public class ProductionEventsTests : ProductionManagerTestBase
         {
             Timestamp = completedAt,
             SubscriptionId = Guid.NewGuid(),
-            OrderDetails = new OrderDetails{ OrderName = "TestOrder"}
+            OrderDetails = new OrderDetails{ OrderName = "TestOrder"},
+            ReleasedBy = "t@t.com"
            
         };
 

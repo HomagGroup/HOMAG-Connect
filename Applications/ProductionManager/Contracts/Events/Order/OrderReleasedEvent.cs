@@ -20,4 +20,10 @@ public class OrderReleasedEvent : AppEvent
     /// </summary>
     [Required]
     public OrderDetails OrderDetails { get; set; }
+
+    /// <summary>
+    /// Gets or sets the email of the person that released the order
+    /// </summary>
+    [Required]
+    public string ReleasedBy { get; set; }
 }
