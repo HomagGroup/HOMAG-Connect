@@ -277,7 +277,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to None.
+        ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
         internal static string None {
             get {
