@@ -324,10 +324,10 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Transferred, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be transferred.");
             }
 
             optimization!.Trace(nameof(optimization));
