@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         private const int _BoardCodeMaxLength = 50;
         private const int _MaterialCodeMaxLength = 50;
         private const double _LengthDimensionMinValue = 0.1;
-        private const double _LengthDimensionMaxValue = 9999.9;
+        private const double _LengthDimensionMaxValue = 19999.9;
 
         #region IContainsUnitSystemDependentProperties Members
 
