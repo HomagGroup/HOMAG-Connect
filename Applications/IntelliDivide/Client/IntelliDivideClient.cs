@@ -462,6 +462,8 @@ namespace HomagConnect.IntelliDivide.Client
                         throw new InvalidOperationException("The optimization status could not be retrieved.");
                     }
                 }
+
+                await Task.Delay(200);
             }
 
             throw new InvalidOperationException("The optimization status could not be retrieved.");
