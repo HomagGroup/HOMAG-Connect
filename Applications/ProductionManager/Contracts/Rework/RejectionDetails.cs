@@ -10,9 +10,9 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     public class RejectionDetails
     {
         /// <summary>
-        /// Additional data.
+        /// Attachments.
         /// </summary>
-        public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
+        public Collection<AdditionalDataEntity>? Attachments { get; set; }
 
         /// <summary>
         /// Rejected by user
