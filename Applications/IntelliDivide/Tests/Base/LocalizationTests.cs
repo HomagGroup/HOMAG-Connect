@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
+using FluentAssertions;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.Base.Extensions;
@@ -24,18 +26,18 @@ namespace HomagConnect.IntelliDivide.Tests.Base
         {
             var displayNames = EnumExtensions.GetDisplayNames<Grain>(CultureInfo.GetCultureInfo("de"));
 
-            Assert.AreEqual(3, displayNames.Count);
-            Assert.AreEqual("Keine", displayNames[Grain.None]);
+            displayNames.Count.Should().Be(3, "There are 3 types of grain available.");
+            displayNames[Grain.None].Should().Be("Keine", "The German display name for Grain.None is 'Keine'.");
 
             displayNames = EnumExtensions.GetDisplayNames<Grain>(CultureInfo.GetCultureInfo("en"));
-            displayNames.Trace();
-
-            Assert.AreEqual(3, displayNames.Count);
 
             displayNames.Trace();
+            displayNames.Count.Should().Be(3, "There are 3 types of grain available.");
+            displayNames.Trace();
+
             displayNames = EnumExtensions.GetDisplayNames<Grain>(CultureInfo.GetCultureInfo("ja"));
 
-            Assert.AreEqual(3, displayNames.Count);
+            displayNames.Count.Should().Be(3, "There are 3 types of grain available.");
 
             displayNames.Trace();
         }
@@ -52,27 +54,26 @@ namespace HomagConnect.IntelliDivide.Tests.Base
 
             var propertyDisplayNames = part.GetPropertyDisplayNames(culture);
 
-            Assert.IsTrue(propertyDisplayNames.Count > 0);
-            Assert.IsTrue(propertyDisplayNames.ContainsKey(nameof(part.LaminateTop)));
-            Assert.IsTrue(propertyDisplayNames.ContainsKey(nameof(part.LaminateBottom)));
-            Assert.IsTrue(propertyDisplayNames.ContainsKey(nameof(part.AllowedRotationAngle)));
+            propertyDisplayNames.Count.Should().BeGreaterThan(0, "There should be a display name for part properties in the given culture.");
+            propertyDisplayNames.Should().ContainKey(nameof(part.LaminateTop), "The property LaminateTop should have a display name in the given culture.");
+            propertyDisplayNames.Should().ContainKey(nameof(part.LaminateBottom), "The property LaminateBottom should have a display name in the given culture.");
+            propertyDisplayNames.Should().ContainKey(nameof(part.AllowedRotationAngle), "The property AllowedRotationAngle should have a display name in the given culture.");
 
             // Attribute defined on interface
-
-            Assert.AreEqual(@"Belag oben", propertyDisplayNames[nameof(part.LaminateTop)]);
-            Assert.AreEqual(@"Belag unten", propertyDisplayNames[nameof(part.LaminateBottom)]);
+            propertyDisplayNames[nameof(part.LaminateTop)].Should().Be(@"Belag oben", "That is the translation for LaminateTop in the given culture.");
+            propertyDisplayNames[nameof(part.LaminateBottom)].Should().Be(@"Belag unten", "That is the translation for LaminateBottom in the given culture.");
 
             // Attribute defined on class
-            Assert.AreEqual(@"Drehwinkel", propertyDisplayNames[nameof(part.AllowedRotationAngle)]);
+            propertyDisplayNames[nameof(part.AllowedRotationAngle)].Should().Be(@"Drehwinkel", "That is the translation for AllowedRotationAngle in the given culture.");
 
             var laminateTopDisplayName = part.GetPropertyDisplayName(nameof(ILaminatingProperties.LaminateTop), culture);
-            Assert.AreEqual(@"Belag oben", laminateTopDisplayName);
+            laminateTopDisplayName.Should().Be(@"Belag oben", "That is the translation for LaminateTop in the given culture.");
 
             var laminateBottomDisplayName = part.GetPropertyDisplayName(nameof(ILaminatingProperties.LaminateBottom), culture);
-            Assert.AreEqual(@"Belag unten", laminateBottomDisplayName);
+            laminateBottomDisplayName.Should().Be(@"Belag unten", "That is the translation for LaminateBottom in the given culture.");
 
             var allowedRotationAngle = part.GetPropertyDisplayName(nameof(OptimizationRequestPart.AllowedRotationAngle), culture);
-            Assert.AreEqual(@"Drehwinkel", allowedRotationAngle);
+            allowedRotationAngle.Should().Be(@"Drehwinkel", "That is the translation for AllowedRotationAngle in the given culture.");
 
             propertyDisplayNames.Trace();
         }
@@ -82,9 +83,8 @@ namespace HomagConnect.IntelliDivide.Tests.Base
         {
             var displayNames = EnumExtensions.GetDisplayNames<BoardMaterialCategory>(CultureInfo.GetCultureInfo("de"));
 
-            Assert.IsTrue(displayNames.Count > 0);
-
-            Assert.AreEqual("Acrylglas (PMMA)", displayNames[BoardMaterialCategory.AcrylicGlass_PMMA]);
+            displayNames.Count.Should().BeGreaterThan(0, "There should be at least one display name for BoardMaterialCategory in the given culture.");
+            displayNames[BoardMaterialCategory.AcrylicGlass_PMMA].Should().Be("Acrylglas (PMMA)", "That is the translation for AcrylicGlass_PMMA in the given culture.");
 
             displayNames = EnumExtensions.GetDisplayNames<BoardMaterialCategory>(CultureInfo.GetCultureInfo("en"));
             displayNames.Trace();

@@ -78,11 +78,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request, mprFiles);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be found.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -123,11 +131,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request, mprFiles);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Retrieve the optimization
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be found.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
@@ -141,13 +157,13 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
             var machine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstOrDefaultAsync();
             if (machine == null)
             {
-                Assert.Inconclusive("There is no Nesting machine available.");
+                Assert.Fail("There is no Nesting machine available.");
             }
 
             var parameter = await intelliDivide.GetParameters(machine.OptimizationType).FirstOrDefaultAsync();
             if (parameter == null)
             {
-                Assert.Inconclusive("There is no optimizing parameter available.");
+                Assert.Fail("There is no optimizing parameter available.");
             }
 
             var request = await GetSampleNestingOptimizationByObjectModel(mprFiles);
@@ -162,11 +178,19 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel
 
             // Send the request
             var response = await intelliDivide.RequestOptimization(request, mprFiles.ToArray());
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace(nameof(response));
 
             // Optional: Wait for the optimization to complete
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+            }
 
             optimization.Trace(nameof(optimization));
         }
