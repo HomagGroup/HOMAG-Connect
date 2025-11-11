@@ -12,12 +12,18 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Order;
 /// <summary>
 /// Gets or sets an event that occurs when an order has been released.
 /// </summary>
-[AppEvent("OrderRelease")]
-public class OrderReleaseEvent : AppEvent
+[AppEvent(nameof(ProductionManager) + "." + nameof(Order) + "." + nameof(OrderReleasedEvent))]
+public class OrderReleasedEvent : AppEvent
 {
     /// <summary>
     /// Gets or sets the order that has been released.
     /// </summary>
     [Required]
     public OrderDetails OrderDetails { get; set; }
+
+    /// <summary>
+    /// Gets or sets the email of the person that released the order
+    /// </summary>
+    [Required]
+    public string ReleasedBy { get; set; }
 }
