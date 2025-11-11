@@ -10,7 +10,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     public class RejectionDetails
     {
         /// <summary>
-        /// Gets or sets the additional data.
+        /// Additional data.
         /// </summary>
         public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
@@ -20,8 +20,13 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? RejectedBy { get; set; }
 
         /// <summary>
-        /// Gets or sets the date and time when the item was rejected.
+        /// Date and time when the item was rejected.
         /// </summary>
         public DateTimeOffset? RejectedOn { get; set; }
+
+        /// <summary>
+        /// Rejection comment
+        /// </summary>
+        public string? Comment { get; set; }
     }
 }
