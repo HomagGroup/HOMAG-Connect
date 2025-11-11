@@ -59,13 +59,31 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
                 Assert.Fail("The request did not send a response.");
             }
 
-            var optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
-            if (optimization == null)
+            Optimization optimization = null;
+            const int maxRetries = 5;
+            int retryCount = 0;
+
+            while (retryCount < maxRetries)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
+                try
+                {
+                    optimization = await intelliDivide.WaitForOptimizationStatus(response.OptimizationId, OptimizationStatus.Optimized, CommonSampleSettings.TimeoutDuration);
+                    if (optimization != null)
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    retryCount++;
+                    if (retryCount == maxRetries)
+                    {
+                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized after {maxRetries} attempts.");
+                    }
+                }
             }
 
-            var solutions = await intelliDivide.GetSolutions(optimization.Id);
+            var solutions = await intelliDivide.GetSolutions(optimization!.Id);
             if (solutions == null || !solutions.Any())
             {
                 Assert.Fail($"The optimization with id {optimization.Id} should have at least one solution available.");
@@ -104,15 +122,33 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-            if (optimization == null)
+            Optimization optimization = null;
+            const int maxRetries = 5;
+            int retryCount = 0;
+
+            while (retryCount < maxRetries)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                try
+                {
+                    optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+                    if (optimization != null)
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    retryCount++;
+                    if (retryCount == maxRetries)
+                    {
+                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be completed after {maxRetries} attempts.");
+                    }
+                }
             }
 
-            optimization.Trace(nameof(optimization));
+            optimization!.Trace(nameof(optimization));
 
-            if (optimization.Status != OptimizationStatus.Optimized)
+            if (optimization!.Status != OptimizationStatus.Optimized)
             {
                 throw new InvalidOperationException("Optimization did not reach the state optimized.");
             }
@@ -154,10 +190,28 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting
             response.Trace(nameof(response));
 
             // Wait for completion
-            var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
-            if (optimization == null)
+            Optimization optimization = null;
+            const int maxRetries = 5;
+            int retryCount = 0;
+
+            while (retryCount < maxRetries)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                try
+                {
+                    optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+                    if (optimization != null)
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    retryCount++;
+                    if (retryCount == maxRetries)
+                    {
+                        Assert.Fail($"The optimization with id {response.OptimizationId} could not be completed after {maxRetries} attempts.");
+                    }
+                }
             }
 
             optimization.Trace(nameof(optimization));
