@@ -171,6 +171,22 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
     }
 
+    [TestMethod]
+    public async Task MaterialAssist_EdgebandEntities_ChangedSince()
+    {
+        var client = GetMaterialAssistClient().Edgebands;
+
+        var edgebandEntities = (await client.GetEdgebandEntities(DateTimeOffset.UtcNow.AddDays(-2), 5).ConfigureAwait(false) ?? new List<EdgebandEntity>()).ToArray();
+
+        edgebandEntities.Should().NotBeNull(
+            "because GetEdgebandEntities should return a collection (empty or populated) of edgeband entities");
+
+        foreach (var edgebandEntity in edgebandEntities)
+        {
+            edgebandEntity.Trace();
+        }
+    }
+    
     private static async Task CleanupAsync(
         IEnumerable<Func<Task>> cleanupActions)
     {

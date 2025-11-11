@@ -432,6 +432,22 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
     }
 
+    [TestMethod]
+    public async Task MaterialAssist_BoardEntities_ChangedSince()
+    {
+        var client = GetMaterialAssistClient().Boards;
+
+        var boardEntities = (await client.GetBoardEntities(DateTimeOffset.UtcNow.AddDays(-2), 5).ConfigureAwait(false) ?? new List<BoardEntity>()).ToArray();
+
+        boardEntities.Should().NotBeNull(
+            "because GetBoardEntities should return a collection (empty or populated) of board entities");
+
+        foreach (var boardEntity in boardEntities)
+        {
+            boardEntity.Trace();
+        }
+    }
+
     private static async Task CleanupAsync(
         IEnumerable<Func<Task>> cleanupActions)
     {
