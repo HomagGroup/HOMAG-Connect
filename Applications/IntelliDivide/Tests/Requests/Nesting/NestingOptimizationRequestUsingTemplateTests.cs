@@ -24,8 +24,6 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
         await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Nesting, CommonSampleSettings.TimeoutDuration);
     }
 
-  
-
     /// <summary />
     [TestMethod]
     public async Task NestingRequest_Template_CSV_MPR_ImportOnly()

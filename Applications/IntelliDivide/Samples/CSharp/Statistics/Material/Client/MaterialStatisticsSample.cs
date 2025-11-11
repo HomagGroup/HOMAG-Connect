@@ -1,6 +1,8 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
 {
     /// <summary />
@@ -20,6 +22,10 @@ namespace HomagConnect.IntelliDivide.Samples.Statistics.Material.Client
 
             // Get the data
             var materialStatistics = await client.GetMaterialStatistics(from, to, take).ToListAsync();
+            if (materialStatistics == null || materialStatistics.Count <= 0)
+            {
+                Assert.Fail("No material statistics could be found.");
+            }
 
             // Use the retrieved data
             var totalBoardsUsedInSquareMeter = materialStatistics.Sum(m => m.BoardsUsedArea);

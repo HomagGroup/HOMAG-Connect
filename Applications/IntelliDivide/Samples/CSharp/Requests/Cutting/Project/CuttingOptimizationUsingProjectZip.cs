@@ -46,10 +46,18 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project
             };
 
             var response = await intelliDivide.RequestOptimization(request, projectFile);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace();
 
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be found.");
+            }
 
             optimization.Trace();
         }
