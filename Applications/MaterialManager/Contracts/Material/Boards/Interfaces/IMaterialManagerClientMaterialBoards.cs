@@ -204,8 +204,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// /// Import storage inventory
         /// </summary>
-        Task<string> ImportInventory(ImportInventoryRequest data);
-        
+        Task<ImportInventoryResponse> ImportInventory(ImportInventoryRequest data);
+
         /// <summary>
         /// Get import state by correlation id
         /// </summary>
