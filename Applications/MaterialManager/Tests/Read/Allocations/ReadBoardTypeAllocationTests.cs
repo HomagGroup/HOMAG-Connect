@@ -31,6 +31,21 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
         allocations.Should().NotBeNull(
             "because GetBoardTypeAllocations should return a collection of board type allocations");
     }
+    
+    /// <summary>
+    /// GetBoardTypeAllocations_NoException
+    /// </summary>
+    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
+    [TestMethod]
+    public async Task GetBoardTypeAllocations_ChangedSince_NoException()
+    {
+        // Act
+        var allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocations(DateTimeOffset.UtcNow.AddDays(-2), 2, 2) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
+
+        // Assert
+        allocations.Should().NotBeNull(
+            "because GetBoardTypeAllocations should return a collection of board type allocations");
+    }
 
     /// <summary>
     /// GetBoardTypeAllocationsByNames_ReturnsAllocations

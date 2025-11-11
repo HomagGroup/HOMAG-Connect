@@ -51,10 +51,12 @@ namespace HomagConnect.MaterialAssist.Contracts.Edgebands
         /// <summary>
         /// Gets all edgeband entities.
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <returns></returns>
         Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntities(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets only the edgeband entities changed since the given date.
+        /// </summary>
+        Task<IEnumerable<EdgebandEntity>?> GetEdgebandEntities(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
         /// Gets an edgeband entity by id (#).

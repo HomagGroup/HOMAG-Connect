@@ -56,6 +56,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(int take, int skip = 0);
+        
+        /// <summary>
+        /// Gets only the board type allocations changed since a specific date.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
         /// Gets the board type allocations paginated by allocation name.
@@ -67,7 +73,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Gets the board type by board code.
         /// </summary>
         Task<BoardType?> GetBoardTypeByBoardCode(string boardCode);
-
+        
         /// <summary>
         /// Gets the board type by board code including details (inventory, allocation, images).
         /// </summary>
@@ -81,6 +87,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardType>?> GetBoardTypes(int take, int skip = 0);
 
+        /// <summary>
+        /// Gets only the board types changed since a specific date.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardType>?> GetBoardTypes(DateTimeOffset changedSince, int take, int skip = 0);
+        
         /// <summary>
         /// Gets the board types by board codes.
         /// </summary>
@@ -122,6 +134,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0);
+        
+        /// <summary>
+        /// Gets only the board types changed since a specific date including details (inventory, allocation, images).
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
         /// Gets a paginated list of materials.
@@ -130,6 +148,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <param name="skip">The number of materials to skip.</param>
         /// <returns>A collection of <see cref="Material" />.</returns>
         Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0);
+        
+        /// <summary>
+        /// Gets only the materials changed since a specific date.
+        /// </summary>
+        /// <param name="changedSince">The date to filter the materials.</param>
+        /// <param name="take">The number of materials to return.</param>
+        /// <param name="skip">The number of materials to skip.</param>
+        /// <returns>A collection of <see cref="Material" />.</returns>
+        Task<IEnumerable<Material>?> GetMaterials(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
         /// Gets the materials by material codes.
