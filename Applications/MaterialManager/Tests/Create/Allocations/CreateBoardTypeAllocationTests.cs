@@ -98,10 +98,14 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
         if (allocations.Length > 0)
         {
             await MaterialManagerClientMaterialBoards.DeleteBoardTypeAllocations(allocations.Select(a => a.Name));
+            allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100)).ToArray();
         }
 
-        allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100)).ToArray();
-
+        if (allocations.Length > 0)
+        {
+            await MaterialManagerClientMaterialBoards.DeleteBoardTypeAllocations(allocations.Select(a => a.Name));
+            allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames([name], 100)).ToArray();
+        }
         allocations.Should().BeEmpty(
             $"because board type allocation '{name}' should be deleted during cleanup");
     }
