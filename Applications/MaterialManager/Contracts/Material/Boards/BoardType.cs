@@ -108,7 +108,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Width))]
         [Required]
-        [Range(0.1, 9999.9)]
+        [Range(0.1, 19999.9)]
         [JsonProperty(Order = 22)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
@@ -119,7 +119,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Length))]
         [Required]
-        [Range(0.1, 9999.9)]
+        [Range(0.1, 19999.9)]
         [JsonProperty(Order = 23)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }

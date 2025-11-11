@@ -15,13 +15,13 @@ public class MaterialAssistRequestOffcutEntity : MaterialAssistRequestBase
     /// Gets or sets the length of the newly created offcut.
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double Length { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the newly created offcut.
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double Width { get; set; }
 }

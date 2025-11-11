@@ -38,7 +38,7 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// Gets or sets the length of the board.
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double Length { get; set; }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// Gets or sets the width of the board.
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double Width { get; set; }
 
     /// <summary>
