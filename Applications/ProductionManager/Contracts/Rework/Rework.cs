@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-using HomagConnect.Base.Contracts.AdditionalData;
-
-namespace HomagConnect.ProductionManager.Contracts.Rework
+﻿namespace HomagConnect.ProductionManager.Contracts.Rework
 {
     /// <summary>
     /// Rework class
@@ -18,6 +14,11 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// Rework category
         /// </summary>
         public ReworkCategory Category { get; set; }
+
+        /// <summary>
+        /// Creation details if available
+        /// </summary>
+        public CreationDetails? CreationDetails { get; set; }
 
         /// <summary>
         /// Description of the rework
@@ -58,10 +59,5 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// Rework state
         /// </summary>
         public ReworkState State { get; set; }
-
-        /// <summary>
-        /// Attachments.
-        /// </summary>
-        public Collection<AdditionalDataEntity>? Attachments { get; set; }
     }
 }
