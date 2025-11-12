@@ -208,9 +208,9 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
-            
+
             optimization.Trace(nameof(optimization));
         }
 
@@ -272,9 +272,9 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                    Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
-            
+
             optimization.Trace(nameof(optimization));
         }
 
@@ -330,7 +330,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
                 Assert.Fail($"The optimization with id {response.OptimizationId} could not be transferred.");
             }
 
-            optimization.Trace(nameof(optimization));
+            optimization!.Trace(nameof(optimization));
         }
 
         /// <summary>
@@ -465,7 +465,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
             // Get the solutions overview
@@ -671,7 +671,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
             optimization.Trace(nameof(optimization));

@@ -400,7 +400,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             while (DateTime.Now < timeout)
             {
-                var currentStatus = await GetOptimizationStatus(optimizationId);
+                var currentStatus = await GetOptimizationStatusWithRetry(optimizationId);
 
                 if (currentStatus == optimizationStatus)
                 {
@@ -442,6 +442,31 @@ namespace HomagConnect.IntelliDivide.Client
             }
 
             throw new TimeoutException();
+        }
+
+        private async Task<OptimizationStatus> GetOptimizationStatusWithRetry(Guid optimizationId)
+        {
+            var retryCount = 0;
+            const int maxRetries = 5;
+            while (retryCount < maxRetries)
+            {
+                try
+                {
+                    return await GetOptimizationStatus(optimizationId);
+                }
+                catch
+                {
+                    retryCount++;
+                    if (retryCount == maxRetries)
+                    {
+                        throw new InvalidOperationException("The optimization status could not be retrieved.");
+                    }
+                }
+
+                await Task.Delay(200);
+            }
+
+            throw new InvalidOperationException("The optimization status could not be retrieved.");
         }
 
         /// <inheritdoc />
