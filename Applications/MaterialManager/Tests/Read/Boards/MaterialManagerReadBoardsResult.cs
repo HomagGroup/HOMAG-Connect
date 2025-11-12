@@ -22,7 +22,7 @@ public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
         await act.Should().NotThrowAsync(
             $"because GetLocations should retrieve locations for board codes '{string.Join(", ", boardCodes)}' successfully");
     }
-
+    
     /// <summary />
     [TestMethod]
     public async Task GetMaterialCodes_GetResult_NoException()
@@ -45,5 +45,14 @@ public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
 
         await act.Should().NotThrowAsync(
             "because GetThumbnails should retrieve thumbnails successfully");
+    }
+    
+    /// <summary />
+    [TestMethod]
+    public async Task GetBoardTypes_ChangedSince_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
+        var result = await materialManager.Material.Boards.GetBoardTypes(DateTimeOffset.UtcNow.AddDays(-2), 2);
+        Assert.IsNotNull(result, "because GetBoardTypes should return a result for changed since filter");
     }
 }

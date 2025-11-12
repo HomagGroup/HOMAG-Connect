@@ -63,7 +63,16 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         result.Should().HaveCountGreaterOrEqualTo(2,
             "because at least 2 edgeband types (ABS_Abruzzo_colore_1.00_100.0_HM, ABS_Black_1.20_23.0_ZJ) should exist");
     }
-
+    
+    /// <summary />
+    [TestMethod]
+    public async Task GetEdgebandTypes_ChangedSince_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
+        var result = await materialManager.Material.Edgebands.GetEdgebandTypes(DateTimeOffset.UtcNow.AddDays(-2), 2);
+        Assert.IsNotNull(result, "because GetEdgebandTypes should return a result for changed since filter");
+    }
+    
     /// <summary />
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodes()
