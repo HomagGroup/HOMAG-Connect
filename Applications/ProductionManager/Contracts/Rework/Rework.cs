@@ -16,6 +16,11 @@
         public ReworkCategory Category { get; set; }
 
         /// <summary>
+        /// Creation details if available
+        /// </summary>
+        public CreationDetails? CreationDetails { get; set; }
+
+        /// <summary>
         /// Description of the rework
         /// </summary>
         public string? Description { get; set; }
