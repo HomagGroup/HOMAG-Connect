@@ -87,7 +87,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
             if (optimization == null)
             {
-                Assert.Fail($"The optimization with id {response.OptimizationId} wasn't completed.");
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
             }
 
             optimization.Trace();

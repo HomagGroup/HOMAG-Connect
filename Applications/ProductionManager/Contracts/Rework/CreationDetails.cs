@@ -5,27 +5,17 @@ using HomagConnect.Base.Contracts.AdditionalData;
 namespace HomagConnect.ProductionManager.Contracts.Rework
 {
     /// <summary>
-    /// Rejection details
+    /// Creation details
     /// </summary>
-    public class RejectionDetails
+    public class CreationDetails
     {
         /// <summary>
-        /// Attachments
+        /// Attachments.
         /// </summary>
         public Collection<AdditionalDataEntity>? Attachments { get; set; }
 
         /// <summary>
-        /// Rejected by user
-        /// </summary>
-        public string? RejectedBy { get; set; }
-
-        /// <summary>
-        /// Date and time when the item was rejected
-        /// </summary>
-        public DateTimeOffset? RejectedOn { get; set; }
-
-        /// <summary>
-        /// Rejection comment
+        /// Creation comment.
         /// </summary>
         public string? Comment { get; set; }
     }
