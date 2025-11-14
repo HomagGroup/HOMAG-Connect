@@ -21,6 +21,12 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.Dividing
         public string? BoardEntityId { get; set; }
 
         /// <summary>
+        /// Gets or sets BoardCode used for the current cycle
+        /// </summary>
+        [JsonProperty(Order = 31)]
+        public string? BoardCode { get; set; }
+
+        /// <summary>
         /// Gets or sets the Identifier of the Optimization that was processed.
         /// </summary>
         [Required]

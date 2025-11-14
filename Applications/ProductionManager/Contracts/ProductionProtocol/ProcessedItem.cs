@@ -42,7 +42,7 @@ public class ProcessedItem
     /// Gets or sets the source of the processing information.
     /// </summary>
     [JsonProperty(Order = 2)]
-    public string? Source { get; set; }
+    public string? From { get; set; }
 
     /// <summary>
     /// Gets or sets the subscription identifier associated with the processed item.
