@@ -4,12 +4,13 @@ With the HOMAG Connect materialManager boards client, the board related data can
 
 <strong>Example:</strong>
 
+
 ```csharp
 var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizationKey);
-var taken = 10; // Number of board types to retrieve
-var skip = 0; // Number of board types to skip
 
-var boardTypeAllocations = client.GetBoardTypeAllocations(taken, skip);
+// Define the boardCodes you want to retrieve data for:
+var boardCodes = new List<string> { "P2_Gold Craft Oak_19_2800_2070", "P2_Weiss_19_2800_2070" };
+
+var boardTypes = client.GetBoardTypes(boardCodes);
 ```
-
 
