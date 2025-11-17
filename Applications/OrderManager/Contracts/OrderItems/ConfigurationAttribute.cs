@@ -33,6 +33,16 @@ public class ConfigurationAttribute
     public string Name { get; set; } = null!;
 
     /// <summary>
+    /// An optional localized display name of the attribute.
+    /// </summary>
+    public string? DisplayName { get; set; }
+
+    /// <summary>
+    /// Specifies if this is a main attribute for the configuration.
+    /// </summary>
+    public bool? IsMain { get; set; }
+
+    /// <summary>
     /// Defines if the attribute is an input value or an output value.
     /// </summary>
     public bool? IsInput { get; set; }

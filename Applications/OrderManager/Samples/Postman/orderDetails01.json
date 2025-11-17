@@ -1,0 +1,70 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "state": "New",
+  "orderNumber": "736362",
+  "orderName": "Bedroom & bathroom 01",
+  "orderDescription": "Lorem ipsum dolor sit amet...",
+  "project": "Single family house Müller John",
+  "personInCharge": "Joe",
+  "orderDate": "2025-11-06T00:00:00+01:00",
+  "deliveryDatePlanned": "2025-11-20T00:00:00+01:00",
+  "link": "https://orderManager.homag.cloud/#/subscriptionId/orders/736362",
+  "addresses": [
+    {
+      "type": "Delivery, Billing",
+      "street": "Musterstraße",
+      "houseNumber": "1",
+      "postalCode": "12345",
+      "city": "Musterstadt",
+      "country": "Deutschland"
+    }
+  ],
+  "customerName": "Müller & Co.",
+  "customerNumber": "462642",
+  "createdAt": "2025-11-06T15:46:47.9020493+01:00",
+  "changedAt": "2025-11-06T15:46:47.9020828+01:00",
+  "changedBy": "Selfish",
+  "items": [
+    {
+      "roomInformation": "...",
+      "id": "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+      "type": "Group",
+      "name": "Test",
+      "source": "OrderConfigurator",
+      "quantity": 1,
+      "items": [
+        {
+          "contourInformation": "...",
+          "id": "18BC8A58-1CBA-4FA4-B205-8E940831F90B",
+          "type": "ConfigurationGroup",
+          "position": [
+            1.0,
+            2.0,
+            3.0
+          ],
+          "rotation": [
+            0.0,
+            90.0,
+            0.0
+          ],
+          "items": [
+            {
+              "id": "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+              "type": "ConfigurationPosition",
+              "items": [
+                {
+                  "type": "Price",
+                  "id": "TOTAL",
+                  "unitPrice": 999.98,
+                  "totalPrice": 999.98,
+                  "currency": "EUR",
+                  "notes": "This is the price for the cabinet"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
