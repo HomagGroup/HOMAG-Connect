@@ -19,5 +19,11 @@ namespace HomagConnect.ProductionAssist.Contracts
         /// <see cref="ProductionItemBase.Barcode" />s which belongs to any not archived order.
         /// </summary>
         Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers);
+
+        /// <summary>
+        /// Retrieve the list all workstations.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Workstation>?> GetWorkstations();
     }
 }

@@ -15,26 +15,6 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
     {
         /// <summary />
         [TestMethod]
-        public async Task Feedback_GetWorkstations_NoException()
-        {
-            var exceptionThrown = false;
-            var client = GetProductionAssistFeedbackClient();
-
-            try
-            {
-                await ProductionAssistFeedbackSamples.GetWorkstations(client);
-            }
-            catch (Exception e)
-            {
-                e.Trace();
-                exceptionThrown = true;
-            }
-
-            Assert.IsFalse(exceptionThrown);
-        }
-
-        /// <summary />
-        [TestMethod]
         public async Task Feedback_ReportAsFinished_NoException()
         {
             var client = GetProductionAssistFeedbackClient();

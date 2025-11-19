@@ -27,11 +27,11 @@ namespace HomagConnect.ProductionAssist.Samples.Authentication
 
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authenticationHeaderValue);
 
-            var productionAssist = new ProductionAssistFeedbackClient(httpClient);
+            var productionAssist = new ProductionAssistCuttingClient(httpClient);
 
-            var workstations = await productionAssist.GetWorkstations();
+            var cuttingJobs = await productionAssist.GetCuttingJobs();
 
-            workstations.Trace();
+            cuttingJobs.Trace();
         }
 
         /// <summary>
@@ -39,11 +39,11 @@ namespace HomagConnect.ProductionAssist.Samples.Authentication
         /// </summary>
         public static async Task CreateProductionAssistClientUsingSubscriptionIdAndAuthorizationKey(Guid subscriptionId, string authorizationKey)
         {
-            var productionAssist = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey);
+            var productionAssist = new ProductionAssistCuttingClient(subscriptionId, authorizationKey);
 
-            var workstations = await productionAssist.GetWorkstations();
+            var cuttingJobs = await productionAssist.GetCuttingJobs();
 
-            workstations.Trace();
+            cuttingJobs.Trace();
         }
     }
 

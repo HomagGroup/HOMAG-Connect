@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -81,6 +82,14 @@ namespace HomagConnect.ProductionAssist.Client
                 .Select(c => new Uri(c, UriKind.Relative));
 
             return (await RequestEnumerableAsync<ProductionItemBase>(uris)).ToArray();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Workstation>?> GetWorkstations()
+        {
+            const string uri = "api/productionAssist/workstations";
+
+            return (await RequestEnumerable<Workstation>(new Uri(uri, UriKind.Relative)));
         }
     }
 }
