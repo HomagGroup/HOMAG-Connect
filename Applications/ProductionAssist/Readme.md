@@ -21,7 +21,7 @@ var client = new ProductionAssistClient(subscriptionId, authorizationKey);
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
 
 ## Further details and explanations
-1. [Samples](Samples/Readme.md)
+1. For detailed examples and explanations, please refer to [Samples](Samples/Readme.md)
 
 # HOMAG productionAssist Feedback Client
 
@@ -42,5 +42,6 @@ var client = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey
 ``` 
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
+
 
 
