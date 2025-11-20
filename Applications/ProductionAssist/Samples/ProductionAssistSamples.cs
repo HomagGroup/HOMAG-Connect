@@ -1,7 +1,7 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionAssist.Contracts;
 
-namespace HomagConnect.ProductionAssist.Samples.Feedback
+namespace HomagConnect.ProductionAssist.Samples
 {
     /// <summary>
     /// ProductionAssist samples.
