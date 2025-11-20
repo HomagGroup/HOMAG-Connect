@@ -20,6 +20,9 @@ var client = new ProductionAssistClient(subscriptionId, authorizationKey);
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
 
+## Further details and explanations
+1. [Samples](Samples/Readme.md)
+
 # HOMAG productionAssist Feedback Client
 
 The HOMAG productionAssist Feedback Client streamlines the process of accessing the productionAssist Feedback REST API. It's available as a NuGet package on [nuget.org](https://www.nuget.org/packages/HomagGroup.HomagConnect.ProductionAssist.Client) and can be smoothly integrated into .NET applications. 
@@ -39,4 +42,5 @@ var client = new ProductionAssistFeedbackClient(subscriptionId, authorizationKey
 ``` 
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
+
 
