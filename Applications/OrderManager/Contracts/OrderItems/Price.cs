@@ -46,7 +46,7 @@ public class Price : Base
     /// <example>
     /// Total, GrossTotal, NetTotal, Shipping, Discount, Tax, SubTotal, etc.
     /// </example>
-    public string? PriceType { get; set; }
+    public PriceType? PriceType { get; set; }
 
     /// <summary>
     /// The article which is used for calculating the price

@@ -149,7 +149,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                         },
                                         new Price
                                         {
-                                            PriceType = "Total",
+                                            PriceType = PriceType.Total,
                                             UnitPrice = 999.98,
                                             TotalPrice = 999.98,
                                             Currency = "EUR",
@@ -190,7 +190,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                         },
                                         new Price
                                         {
-                                            PriceType = "Total",
+                                            PriceType = PriceType.Total,
                                             UnitPrice = 1299.98,
                                             TotalPrice = 1299.98,
                                             Currency = "EUR",
@@ -203,7 +203,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                         },
                         new Price
                         {
-                            PriceType = "Total",
+                            PriceType = PriceType.Total,
                             UnitPrice = 999.98,
                             TotalPrice = 999.98,
                             Currency = "EUR",
@@ -212,32 +212,32 @@ namespace HomagConnect.OrderManager.Tests.Orders
                 },
                 new Price
                 {
-                    PriceType = "GrossTotal",
+                    PriceType = PriceType.GrossTotal,
                     TotalPrice = 989.82,
                     Currency = "EUR",
                     Items = new()
                     {
                         new Price
                         {
-                            PriceType = "SubTotal",
+                            PriceType = PriceType.SubTotal,
                             TotalPrice = 539.82,
                             Currency = "EUR",
                         },
                         new Price
                         {
-                            PriceType = "Tax",
+                            PriceType = PriceType.Tax,
                             TotalPrice = 160.16,
                             Currency = "EUR",
                         },
                         new Price
                         {
-                            PriceType = "Shipping",
+                            PriceType = PriceType.Shipping,
                             TotalPrice = 150.00,
                             Currency = "EUR",
                         },
                         new Price
                         {
-                            PriceType = "NetTotal",
+                            PriceType = PriceType.NetTotal,
                             TotalPrice = 839.82,
                             Currency = "EUR",
                         }
