@@ -143,6 +143,9 @@ public class BoardEntityTests : MaterialAssistTestBase
             Quantity = 1
         };
         var createdOffcutEntity = await clientMaterialAssist.CreateOffcutEntity(offcutEntityRequest).ConfigureAwait(false);
+        
+        var offcutBoardCode = $"X{materialCode}_{lengthOffcut:0.0}_{widthOffcut:0.0}";
+        await WaitForBoardTypeAvailableAsync(offcutBoardCode);
 
         try
         {
@@ -177,9 +180,10 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
         finally
         {
-            // 6. Clean up: delete the created offcut entity and type
+            // 6. Clean up: delete the created offcut entity, parent board type, and auto-created offcut board type
             await CleanupAsync(
                 [
+                    () => clientMaterialManager.DeleteBoardType(offcutBoardCode),
                     () => clientMaterialAssist.DeleteBoardEntity(createdOffcutEntity.Id),
                     () => clientMaterialManager.DeleteBoardType(boardCode)
                 ]

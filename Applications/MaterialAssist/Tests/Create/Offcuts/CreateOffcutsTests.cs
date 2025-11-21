@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
 
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts;
 
-[TemporaryDisabledOnServer(2025, 12, 30, "DF-Material")]
 [TestClass]
 [TestCategory("MaterialAssist")]
 [TestCategory("MaterialAssist.Boards")]
@@ -16,6 +16,7 @@ public class CreateOffcutsTests : MaterialAssistTestBase
     public async Task BoardsCreateOffcutEntity()
     {
         var materialAssistClient = GetMaterialAssistClient().Boards;
+
         await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(materialAssistClient, "11114");
 
         var offcutEntity = await materialAssistClient.GetBoardEntityById("11114");
@@ -24,6 +25,8 @@ public class CreateOffcutsTests : MaterialAssistTestBase
             "because offcut entity with ID '11114' should be created successfully");
         offcutEntity!.Id.Should().Be("11114",
             "because we created offcut entity with ID '11114'");
+        offcutEntity.BoardType.BoardTypeType.Should().Be(BoardTypeType.Offcut,
+            "because entity '11114' was created as an offcut");
         offcutEntity.ManagementType.Should().Be(ManagementType.Single,
             "because offcut entity '11114' was created with ManagementType.Single");
         offcutEntity.Quantity.Should().Be(1,
@@ -38,12 +41,43 @@ public class CreateOffcutsTests : MaterialAssistTestBase
     public async Task Cleanup()
     {
         var materialAssistClient = GetMaterialAssistClient().Boards;
-        await materialAssistClient.DeleteBoardEntity("11114");
+        var materialManagerClient = GetMaterialManagerClient().Material.Boards;
+
+        // Clean up board entity
+        try
+        {
+            await materialAssistClient.DeleteBoardEntity("11114");
+        }
+        catch
+        {
+            // Ignore cleanup errors if entity doesn't exist
+        }
+
+        // Clean up parent board type (the regular board type created in Initialize)
+        try
+        {
+            await materialManagerClient.DeleteBoardType("EG_H3303_ST10_19_2800_2070");
+        }
+        catch
+        {
+            // Ignore cleanup errors if board type doesn't exist
+        }
+
+        // Clean up offcut board type (automatically created when offcut entity is created)
+        try
+        {
+            await materialManagerClient.DeleteBoardType("XEG_H3303_ST10_19_1000.0_500.0");
+        }
+        catch
+        {
+            // Ignore cleanup errors if board type doesn't exist
+        }
     }
 
     [TestInitialize]
     public async Task Initialize()
     {
-        await EnsureBoardTypeExist("EG_H3303_ST10_19", 1000, 500, 19, true);
+        // Create a regular board type (not an offcut type) that the offcut entity will reference
+        await EnsureBoardTypeExist("EG_H3303_ST10_19");
     }
 }
