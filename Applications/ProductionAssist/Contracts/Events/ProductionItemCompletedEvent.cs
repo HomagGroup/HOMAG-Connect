@@ -25,5 +25,13 @@ namespace HomagConnect.ProductionAssist.Contracts.Events
         [DefaultValue(1)]
         [JsonProperty(Order = 21)]
         public int Quantity { get; set; } = 1;
+
+
+        /// <summary>
+        /// Gets or sets the Source - person or program that triggered the feedback pf the item
+        /// </summary>
+        [Required]
+        [JsonProperty(Order = 22)]
+        public string? Source { get; set; } = null;
     }
 }
