@@ -16,6 +16,7 @@ using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
+using HomagConnect.ProductionManager.Contracts.Rework;
 
 using Newtonsoft.Json;
 
@@ -475,6 +476,19 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         #endregion
+
+        #region Rework
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Rework>?> GetCompletedReworks()
+        {
+            var url = $"/api/productionManager/orders/reworks?completed={true}";
+            var completedReworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
+
+            return completedReworks;
+        }
+
+        #endregion Rework
 
         #endregion
 

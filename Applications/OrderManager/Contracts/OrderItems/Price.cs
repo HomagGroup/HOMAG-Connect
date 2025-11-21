@@ -41,6 +41,14 @@ public class Price : Base
     public string? Currency { get; set; } = "EUR";
 
     /// <summary>
+    /// An optional type of the price
+    /// </summary>
+    /// <example>
+    /// Total, GrossTotal, NetTotal, Shipping, Discount, Tax, SubTotal, etc.
+    /// </example>
+    public PriceType? PriceType { get; set; }
+
+    /// <summary>
     /// The article which is used for calculating the price
     /// </summary>
     [JsonProperty(Order = 10)]

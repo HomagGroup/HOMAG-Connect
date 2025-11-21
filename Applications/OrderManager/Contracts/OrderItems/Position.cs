@@ -107,10 +107,16 @@ public class Position : Base
     public string? ProcurementType { get; set; }
 
     /// <summary>
+    /// Gets or sets the type of position associated with the current instance.
+    /// Default is <seealso cref="PositionType.Standard"/>, if not specified.
+    /// </summary>
+    [JsonProperty(Order = 10)]
+    public PositionType? PositionType { get; set; }
+
+    /// <summary>
     /// Gets or sets the state of the entity.
     /// </summary>
     [JsonProperty(Order = 2)]
     [DefaultValue(State.New)]
     public State State { get; set; } = State.New;
-
 }
