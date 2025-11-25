@@ -92,12 +92,5 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 
             return order;
         }
-
-        /// <summary />
-        public static async Task GetOrderItem(IProductionManagerClient productionManager, string [] identifiers)
-        {
-            var response = await productionManager.GetOrderItems(identifiers);
-            response.Trace();
-        }
     }
 }
