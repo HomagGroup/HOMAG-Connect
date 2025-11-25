@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Client;
 

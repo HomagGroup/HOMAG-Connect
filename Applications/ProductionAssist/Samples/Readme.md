@@ -1,10 +1,14 @@
 # HOMAG Connect ProductionAssist Samples
 
-- [Authentication / Authorization](Authentication/Readme.md)
+- [Authentication / Authorization](CSharp/Authentication/Readme.md)
 
 - Workstations
-	- [Get workstations](Workstations/Readme.md)  	
+	- [Get workstations](CSharp/Workstations/Readme.md)
+
+- Order Items
+	- [Get order Items](CSharp/OrderItems/Readme.md)  	  
   
 - Feedback	
-  	- [Report production entity as finished](Feedback/Readme.md)
+  	- [Report production entity as finished](CSharp/Feedback/Readme.md)
+
 
