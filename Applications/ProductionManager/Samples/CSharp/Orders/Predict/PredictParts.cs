@@ -1,7 +1,6 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Predict;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Predict

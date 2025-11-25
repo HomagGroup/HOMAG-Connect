@@ -1,5 +1,4 @@
 using System.Diagnostics;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 

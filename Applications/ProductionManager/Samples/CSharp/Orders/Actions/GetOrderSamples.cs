@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Orders;
@@ -92,6 +91,13 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
             }
 
             return order;
+        }
+
+        /// <summary />
+        public static async Task GetOrderItem(IProductionManagerClient productionManager, string [] identifiers)
+        {
+            var response = await productionManager.GetOrderItems(identifiers);
+            response.Trace();
         }
     }
 }
