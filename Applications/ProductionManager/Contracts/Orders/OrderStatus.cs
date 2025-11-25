@@ -36,6 +36,12 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         Archived,
 
         [Obsolete("Use Completed instead", true)]
-        Finished
+        Finished,
+
+        /// <summary>
+        /// After a successful import of a customer order, but not all blob operations are finished it receives the state "New (in
+        /// calculation)
+        /// </summary>
+        NewCalculating
     }
 }
