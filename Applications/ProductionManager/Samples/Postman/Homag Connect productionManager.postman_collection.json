@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "461077c0-8052-402b-8ce9-32aea76005e1",
+		"_postman_id": "3b84065b-dc68-4dd5-afa2-3a0431eb7292",
 		"name": "Homag Connect productionManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -529,6 +529,42 @@
 											"key": "identifier",
 											"value": "10697516",
 											"description": "Your public id or barcode"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Rework",
+			"item": [
+				{
+					"name": "Read",
+					"item": [
+						{
+							"name": "Get completed reworks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/orders/reworks?completed=true",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"orders",
+										"reworks"
+									],
+									"query": [
+										{
+											"key": "completed",
+											"value": "true"
 										}
 									]
 								}

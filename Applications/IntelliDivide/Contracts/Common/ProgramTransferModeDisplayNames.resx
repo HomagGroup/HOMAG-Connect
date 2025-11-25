@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
-    <value>Belag unten</value>
+  <data name="FileAgent" xml:space="preserve">
+    <value>HOMAG File Agent</value>
   </data>
-  <data name="ILaminatingProperties_LaminateBottomGrain" xml:space="preserve">
-    <value>Belag unten Maserung</value>
+  <data name="MachineConnection" xml:space="preserve">
+    <value>Mit Maschine verbunden</value>
   </data>
-  <data name="ILaminatingProperties_LaminateTop" xml:space="preserve">
-    <value>Belag oben</value>
+  <data name="ManualDownload" xml:space="preserve">
+    <value>Herunterladen</value>
   </data>
-  <data name="ILaminatingProperties_LaminateTopGrain" xml:space="preserve">
-    <value>Belag oben Maserung</value>
+  <data name="ProductionAssist" xml:space="preserve">
+    <value>Mit productionAssist verbunden</value>
   </data>
 </root>

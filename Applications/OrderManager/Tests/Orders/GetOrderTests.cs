@@ -149,6 +149,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                         },
                                         new Price
                                         {
+                                            PriceType = PriceType.Total,
                                             UnitPrice = 999.98,
                                             TotalPrice = 999.98,
                                             Currency = "EUR",
@@ -170,11 +171,79 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Text = "Error message",
                                         }
                                     }
+                                },
+                                new Position
+                                {
+                                    Id = "47F74A7F-999C-44C2-AF5B-709F0D25B5EA",
+                                    PositionType = PositionType.MaterialAndProcessing,
+                                    Items = new()
+                                    {
+                                        new Part
+                                        {
+                                            Id = "P 02.01",
+                                            Quantity = 2,
+                                            Description = "Cabinet right",
+                                            Notes = "Lorem ipsum",
+                                            Length = 300,
+                                            Width = 120,
+                                            Thickness = 180
+                                        },
+                                        new Price
+                                        {
+                                            PriceType = PriceType.Total,
+                                            UnitPrice = 1299.98,
+                                            TotalPrice = 1299.98,
+                                            Currency = "EUR",
+                                            SalesArticleNumber = "CAB-02",
+                                            Notes = "This is the price for the cabinet"
+                                        }
+                                    }
                                 }
                             }
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.Total,
+                            UnitPrice = 999.98,
+                            TotalPrice = 999.98,
+                            Currency = "EUR",
+                        },
+                    }
+                },
+                new Price
+                {
+                    PriceType = PriceType.GrossTotal,
+                    TotalPrice = 989.82,
+                    Currency = "EUR",
+                    Items = new()
+                    {
+                        new Price
+                        {
+                            PriceType = PriceType.SubTotal,
+                            TotalPrice = 539.82,
+                            Currency = "EUR",
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.Tax,
+                            TotalPrice = 160.16,
+                            Currency = "EUR",
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.Shipping,
+                            TotalPrice = 150.00,
+                            Currency = "EUR",
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.NetTotal,
+                            TotalPrice = 839.82,
+                            Currency = "EUR",
                         }
                     }
-                }
+                },
+
             };
 
             order.Trace(nameof(order));

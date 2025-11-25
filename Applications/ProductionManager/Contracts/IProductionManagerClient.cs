@@ -210,6 +210,16 @@ namespace HomagConnect.ProductionManager.Contracts
 
         #endregion
 
+        #region Rework
+
+        /// <summary>
+        /// Get completed reworks
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Rework.Rework>?> GetCompletedReworks();
+
+        #endregion Rework
+
         #region Production prediction
 
         /// <summary>

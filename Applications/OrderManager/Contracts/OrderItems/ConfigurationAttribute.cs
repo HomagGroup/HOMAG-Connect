@@ -38,6 +38,11 @@ public class ConfigurationAttribute
     public string? DisplayName { get; set; }
 
     /// <summary>
+    /// An optional localized category of the attribute.
+    /// </summary>
+    public string? Category { get; set; }
+
+    /// <summary>
     /// Specifies if this is a main attribute for the configuration.
     /// </summary>
     public bool? IsMain { get; set; }
@@ -51,4 +56,9 @@ public class ConfigurationAttribute
     /// The value of the attribute.
     /// </summary>
     public object? Value { get; set; } = null!;
+
+    /// <summary>
+    /// An optional localized display value of the attribute (NOT used for numbers).
+    /// </summary>
+    public string? DisplayValue { get; set; }
 }
