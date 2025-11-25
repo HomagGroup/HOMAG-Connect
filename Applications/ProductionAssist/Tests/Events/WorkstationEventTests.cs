@@ -35,6 +35,26 @@ public class WorkstationEventTests : ProductionAssistTestBase
 
         TestContext?.AddResultFile(cycleCompletedEvent.TraceToFile("cycleCompletedEvent").FullName);
     }
+    
+    /// <summary />
+    [TestMethod]
+    public void Events_CycleItemCompleted_SerializeDeserialize()
+    {
+        var cycleItemCompletedEvent = new CycleItemCompletedEvent();
+
+        cycleItemCompletedEvent.SubscriptionId = Guid.NewGuid();
+        cycleItemCompletedEvent.WorkstationId = Guid.NewGuid();
+
+        cycleItemCompletedEvent.OptimizationId = Guid.NewGuid();
+        cycleItemCompletedEvent.PatternName = "0001";
+        cycleItemCompletedEvent.PatternCycle = 1;
+        cycleItemCompletedEvent.Identifier = "I0012";
+        cycleItemCompletedEvent.Trace();
+
+        Assert.IsTrue(cycleItemCompletedEvent.IsValid);
+
+        TestContext?.AddResultFile(cycleItemCompletedEvent.TraceToFile("cycleItemCompletedEvent").FullName);
+    }
 
     /// <summary />
     [TestMethod]
@@ -74,19 +94,19 @@ public class WorkstationEventTests : ProductionAssistTestBase
     [TestMethod]
     public void Events_ProductionItemCompletedEvent_SerializeDeserialize()
     {
-        var productionItemCompletedEvent = new ProductionItemCompletedEvent();
+        var pice = new ProductionItemCompletedEvent();
 
-        productionItemCompletedEvent.SubscriptionId = Guid.NewGuid();
-        productionItemCompletedEvent.WorkstationId = Guid.NewGuid();
+        pice.SubscriptionId = Guid.NewGuid();
+        pice.WorkstationId = Guid.NewGuid();
 
-        productionItemCompletedEvent.Identifier = "ProdItem-01";
-        productionItemCompletedEvent.Quantity = 10;
+        pice.Identifier = "ProdItem-01";
+        pice.Quantity = 10;
 
-        productionItemCompletedEvent.Trace();
+        pice.Trace();
 
-        Assert.IsTrue(productionItemCompletedEvent.IsValid);
+        Assert.IsTrue(pice.IsValid);
 
-        TestContext?.AddResultFile(productionItemCompletedEvent.TraceToFile(nameof(productionItemCompletedEvent)).FullName);
+        TestContext?.AddResultFile(pice.TraceToFile("ProductionItemCompletedEventSample").FullName);
     }
 
 
@@ -94,20 +114,20 @@ public class WorkstationEventTests : ProductionAssistTestBase
     [TestMethod]
     public void Events_ProductionItemCompletedByParentEvent_SerializeDeserialize()
     {
-        var productionItemCompletedEvent = new ProductionItemCompletedByParentEvent();
+        var productionItemCompletedEvent2 = new ProductionItemCompletedByParentEvent();
 
-        productionItemCompletedEvent.SubscriptionId = Guid.NewGuid();
-        productionItemCompletedEvent.WorkstationId = Guid.NewGuid();
+        productionItemCompletedEvent2.SubscriptionId = Guid.NewGuid();
+        productionItemCompletedEvent2.WorkstationId = Guid.NewGuid();
 
-        productionItemCompletedEvent.Identifier = "ProdItem-11";
-        productionItemCompletedEvent.ParentIdentifier = "ProdItem-01";
-        productionItemCompletedEvent.Quantity = 10;
+        productionItemCompletedEvent2.Identifier = "ProdItem-11";
+        productionItemCompletedEvent2.ParentIdentifier = "ProdItem-01";
+        productionItemCompletedEvent2.Quantity = 10;
 
-        productionItemCompletedEvent.Trace();
+        productionItemCompletedEvent2.Trace();
 
-        Assert.IsTrue(productionItemCompletedEvent.IsValid);
+        Assert.IsTrue(productionItemCompletedEvent2.IsValid);
 
-        TestContext?.AddResultFile(productionItemCompletedEvent.TraceToFile(nameof(productionItemCompletedEvent)).FullName);
+        TestContext?.AddResultFile(productionItemCompletedEvent2.TraceToFile(nameof(productionItemCompletedEvent2)).FullName);
     }
 
     [TestMethod]
@@ -132,6 +152,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
         // Assert
+        Assert.IsTrue(evt.IsValid);
         Assert.IsNotNull(deserializedTyped);
         Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
         Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);
@@ -160,6 +181,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         var deserializedTyped = JsonConvert.DeserializeObject<ProductionItemPickedFromShelfEvent>(json, SerializerSettings.Default);
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
+        Assert.IsTrue(evt.IsValid);
         Assert.IsNotNull(deserializedTyped);
         Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
         Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);
@@ -188,6 +210,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         var deserializedTyped = JsonConvert.DeserializeObject<ProductionItemPlacedInShelfEvent>(json, SerializerSettings.Default);
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
+        Assert.IsTrue(evt.IsValid);
         Assert.IsNotNull(deserializedTyped);
         Assert.AreEqual(evt.Identifier, deserializedTyped.Identifier);
         Assert.AreEqual(evt.Quantity, deserializedTyped.Quantity);

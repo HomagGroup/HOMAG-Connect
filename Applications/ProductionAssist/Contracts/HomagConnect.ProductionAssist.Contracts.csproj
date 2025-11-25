@@ -15,15 +15,12 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <None Include="Events\Sorting\ProductionItemPickedFromShelfEvent.cs" />
-	  <None Include="Events\Sorting\ProductionItemPlacedInShelfEvent.cs" />
-	</ItemGroup>
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
