@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionAssist.Samples.OrderItems
         /// <summary>
         /// Sample showing how to retrieve order items.
         /// </summary>
-        public static async Task GetOrderItemsWorkstations(IProductionAssistClient client)
+        public static async Task GetOrderItems(IProductionAssistClient client)
         {
             var identifiers =new string[]
             {
