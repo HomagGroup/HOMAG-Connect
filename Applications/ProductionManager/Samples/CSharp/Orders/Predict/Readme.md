@@ -49,4 +49,4 @@ In case of error during import, 'ErrorDetails' should contain some basic informa
 
 Also the current state of the import is retrieved. The possible states are defined in [ImportState](../../../../Contracts/Import/ImportState.cs).
 
-> For a detailed example on how to use the outcome of import job, please refer to <i>GetImportOrderStateAsync</i> in the file [ImportOrdersSamples.cs](../../../Samples/Orders/Import//ImportOrderSamples.cs).
+> For a detailed example on how to use the outcome of import job, please refer to <i>GetImportOrderStateAsync</i> in the file [ImportOrdersSamples.cs](../../../Samples/Orders/Import/ImportOrderSamples.cs).
