@@ -1,7 +1,7 @@
 # Access data using the HOMAG Connect Client
 
-### 1. Get Workstations
-With the HOMAG Connect Client, the orderItems can be retrieved from productionAssist for further programmatic evaluation.
+### 1. Get Order Items
+With the HOMAG Connect Client, the order items can be retrieved from productionAssist for further programmatic evaluation.
 
 <strong>Example:</strong>
 
@@ -21,5 +21,5 @@ With the HOMAG Connect Client, the orderItems can be retrieved from productionAs
   response.Trace();
 ``` 
 
-The response is a list of [Workstation](../../Contracts/Workstation.cs) which exposes basic information about the workstation
-The sample code can be found at [ProductionAssist Samples ](../../Samples/ProductionAssistSamples.cs).
+The response is a list of [ProductionItemBase](../../../../ProductionManager/Contracts/ProductionItems/ProductionItemBase.cs) which exposes basic information about the workstation
+The sample code can be found at [ProductionAssist Order Item Samples ](ProductionAssistOrderItemSamples.cs).
