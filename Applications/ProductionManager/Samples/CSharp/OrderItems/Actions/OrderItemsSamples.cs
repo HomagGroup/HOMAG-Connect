@@ -11,8 +11,11 @@ namespace HomagConnect.ProductionManager.Samples.OrderItems.Actions
         /// <summary />
         public static async Task GetOrderItem(IProductionManagerClient productionManager, string[] identifiers)
         {
-            var response = await productionManager.GetOrderItems(identifiers);
-            response.Trace();
+            //Get the data
+            var orderItems = await productionManager.GetOrderItems(identifiers);
+            
+            //Use the retrieved data
+            orderItems.Trace();
         }
     }
 }
