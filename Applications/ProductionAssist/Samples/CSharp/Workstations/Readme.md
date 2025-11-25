@@ -21,5 +21,5 @@ With the HOMAG Connect Client, the workstations can be retrieved from production
   workstationsNames.Trace(nameof(workstationsNames));
 ``` 
 
-The response is a list of [Workstation](../../Contracts/Workstation.cs) which exposes basic information about the workstation
+The response is a list of [Workstation](../../../Contracts/Workstation.cs) which exposes basic information about the workstation
 The sample code can be found at [ProductionAssist Samples ](../../../Samples/CSharp/ProductionAssistSamples.cs).
