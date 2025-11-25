@@ -25,7 +25,7 @@ var orders =  await client.GetOrdersAsync();
   orderNames.Trace(nameof(orderNames));
 ``` 
 
-The response is a list of [Order](../../../Contracts/Orders/Order.cs) which exposes basic information about the order
+The response is a list of [Order](../../../../Contracts/Orders/Order.cs) which exposes basic information about the order
 
 The sample code can be found at [ProductionManager - Get Orders sample ](GetOrderSamples.cs).
 
@@ -45,4 +45,4 @@ var order =  await client.GetOrder(orderId);
   Assert.IsNotNull(order);
 ``` 
 
-The response is [OrderDetails](../../../Contracts/Orders/OrderDetails.cs) which exposes detailed information about the order
+The response is [OrderDetails](../../../../Contracts/Orders/OrderDetails.cs) which exposes detailed information about the order

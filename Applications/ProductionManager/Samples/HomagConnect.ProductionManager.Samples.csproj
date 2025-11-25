@@ -16,60 +16,60 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Orders\Project.zip" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\AP1.JPG" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\CompCar.JPG" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\CompTür.JPG" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\overview.png" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\project.xml" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\Schrank1.JPG" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr" />
-	  <None Remove="Orders\Samples\OrderWithExternalSystemId\tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr" />
+	  <None Remove="CSharp\Orders\Project.zip" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\AP1.JPG" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\CompCar.JPG" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\CompTür.JPG" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\overview.png" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\project.xml" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\Schrank1.JPG" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr" />
+	  <None Remove="CSharp\Orders\Samples\OrderWithExternalSystemId\tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Orders\Project.zip">
+	  <Content Include="CSharp\Orders\Project.zip">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    <Pack>true</Pack>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\AP1.JPG">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\AP1.JPG">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\bsh_01_94dc1500-7696-478b-89e1-d2b27e71f825.mpr">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\CompCar.JPG">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\CompCar.JPG">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\CompTür.JPG">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\CompTür.JPG">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\dl_01_481cfc87-4ba6-4192-a4e3-8c402f614782.mpr">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\dr_01_4be975c7-24d7-46f8-ad76-9a823316fccf.mpr">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\overview.png">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\overview.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\project.xml">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\project.xml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\Schrank1.JPG">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\Schrank1.JPG">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\spl_01_b5c3fb76-f85e-439c-aa0b-889564249101.mpr">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\spr_01_6e459307-7e7d-43e1-af97-3d6bd04932a4.mpr">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Orders\Samples\OrderWithExternalSystemId\tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr">
+	  <Content Include="CSharp\Orders\Samples\OrderWithExternalSystemId\tsh_01_e33a59d9-e216-47cc-908f-18fab7b76d9b.mpr">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
