@@ -76,4 +76,4 @@ In case of error during import, 'ErrorDetails' should contain some basic informa
 
 ## Further details and explanations
 
-For a detailed examples and explanations, please refer to [HOMAG Connect ProductionManager Samples](Samples/CSharp/Readme.md).
+For a detailed examples and explanations, please refer to [HOMAG Connect ProductionManager Samples](Samples/Readme.md).
