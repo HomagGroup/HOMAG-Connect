@@ -21,5 +21,5 @@ With the HOMAG Connect Client, the orderItems can be retrieved from productionAs
   response.Trace();
 ``` 
 
-The response is a list of [Workstation](../../Contracts/Workstation.cs) which exposes basic information about the workstation
-The sample code can be found at [ProductionAssist Samples ](../../Samples/ProductionAssistSamples.cs).
+The response is a list of [Workstation](../../Contracts/ProductionItemBase.cs) which exposes basic information about the workstation
+The sample code can be found at [ProductionAssist Samples ](ProductionAssistOrderItemSamples.cs).
