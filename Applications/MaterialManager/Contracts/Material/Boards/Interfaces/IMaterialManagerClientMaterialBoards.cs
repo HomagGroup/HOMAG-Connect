@@ -56,7 +56,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(int take, int skip = 0);
-        
+
         /// <summary>
         /// Gets only the board type allocations changed since a specific date.
         /// </summary>
@@ -73,7 +73,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Gets the board type by board code.
         /// </summary>
         Task<BoardType?> GetBoardTypeByBoardCode(string boardCode);
-        
+
         /// <summary>
         /// Gets the board type by board code including details (inventory, allocation, images).
         /// </summary>
@@ -92,7 +92,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardType>?> GetBoardTypes(DateTimeOffset changedSince, int take, int skip = 0);
-        
+
         /// <summary>
         /// Gets the board types by board codes.
         /// </summary>
@@ -134,7 +134,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0);
-        
+
         /// <summary>
         /// Gets only the board types changed since a specific date including details (inventory, allocation, images).
         /// </summary>
@@ -148,7 +148,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <param name="skip">The number of materials to skip.</param>
         /// <returns>A collection of <see cref="Material" />.</returns>
         Task<IEnumerable<Material>?> GetMaterials(int take, int skip = 0);
-        
+
         /// <summary>
         /// Gets only the materials changed since a specific date.
         /// </summary>
@@ -175,6 +175,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// Update board type by board code.
         /// </summary>
         Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate);
+
+        /// <summary>
+        /// Update board type by board code with file references.
+        /// </summary>
+        Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate, FileReference[] fileReferences);
 
         /// <summary>
         /// Updates the board type allocation in materialManager.
@@ -227,7 +232,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         #endregion
 
         #region Storage Import
-        
+
         /// <summary>
         /// /// Import storage inventory
         /// </summary>
