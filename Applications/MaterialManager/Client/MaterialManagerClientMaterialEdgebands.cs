@@ -172,6 +172,21 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
     }
 
+    #region Private Methods
+
+    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+        bool includingDetails = false)
+    {
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
+        return urls;
+    }
+
+    #endregion Private methods
+
     #region Update
 
     /// <inheritdoc />
@@ -201,22 +216,67 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         throw new Exception($"The returned object is not of type {nameof(edgebandCode)}");
     }
 
-    #endregion Update
-
-    #region Private Methods
-
-    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-        bool includingDetails = false)
+    /// <inheritdoc />
+    public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate, FileReference[] fileReferences)
     {
-        var urls = codes
-            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-            .Join(QueryParametersMaxLength)
-            .Select(x => x.Remove(0, 1).Insert(0, "?"))
-            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
-        return urls;
+        if (edgebandTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeUpdate));
+        }
+
+        ValidateRequiredProperties(edgebandTypeUpdate);
+
+        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+        if (fileReferences == null)
+        {
+            throw new ArgumentNullException(nameof(fileReferences));
+        }
+
+        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
+
+        if (missingFile != null)
+        {
+            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
+        }
+
+        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+
+        if (missingReference != null)
+        {
+            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+        }
+
+        var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
+        request.RequestUri = new Uri(url, UriKind.Relative);
+
+        using var httpContent = new MultipartFormDataContent();
+
+        var json = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
+
+        httpContent.Add(new StringContent(json), nameof(edgebandTypeUpdate));
+
+        foreach (var fileReference in fileReferences)
+        {
+            var fileStream = fileReference.FileInfo.OpenRead();
+
+            HttpContent streamContent = new StreamContent(fileStream);
+            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+        }
+
+        request.Content = httpContent;
+
+        var response = await Client.SendAsync(request);
+
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        var result = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
+
+        return responseObject ?? new EdgebandType();
     }
 
-    #endregion Private methods
+    #endregion Update
 
     #region Constructors
 

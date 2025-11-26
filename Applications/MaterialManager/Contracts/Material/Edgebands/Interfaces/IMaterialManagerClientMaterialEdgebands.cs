@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialManager.Contracts.Common;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -27,6 +26,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <returns>The created edgeband type <see cref="EdgebandType" />.</returns>
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest, FileReference[] fileReferences);
+
+        /// <summary>
+        /// Deletes the edgeband by its edgeband code.
+        /// </summary>
+        Task DeleteEdgebandType(string edgebandCode);
+
+        /// <summary>
+        /// Delete edgebands by edgeband codes.
+        /// </summary>
+        Task DeleteEdgebandTypes(IEnumerable<string> edgebandCodes);
 
         /// <summary>
         /// Gets an edgeband by edgeband code.
@@ -53,35 +62,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<IEnumerable<EdgeInventoryHistory>> GetEdgebandTypeInventoryHistoryAsync(int daysBack);
 
         /// <summary>
-        /// Get all technology macros for a machine.
-        /// </summary>
-        /// <param name="tapioMachineId">The machine id from tapio.</param>
-        Task<IEnumerable<string>?> GetTechnologyMacrosFromMachine(string tapioMachineId);
-
-        /// <summary>
-        /// Get all <see cref="TapioMachine" /> licensed for material api. />.
-        /// </summary>
-        Task<IEnumerable<TapioMachine>?> GetLicensedMachines();
-
-        /// <summary>
         /// Gets all edgebands.
         /// </summary>
         Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0);
-        
+
         /// <summary>
         /// Gets only the edgeband types changed since the given date.
         /// </summary>
         Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(DateTimeOffset changedSince, int take, int skip = 0);
-
-        /// <summary>
-        /// Gets all edgebands including details.
-        /// </summary>
-        Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0);
-        
-        /// <summary>
-        /// Gets only the edgeband types changed since the given date including details.
-        /// </summary>
-        Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
         /// Gets edgebands by edgeband codes.
@@ -98,21 +86,34 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<IEnumerable<EdgebandTypeDetails?>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
         /// <summary>
+        /// Gets all edgebands including details.
+        /// </summary>
+        Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0);
+
+        /// <summary>
+        /// Gets only the edgeband types changed since the given date including details.
+        /// </summary>
+        Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0);
+
+        /// <summary>
+        /// Get all <see cref="TapioMachine" /> licensed for material api. />.
+        /// </summary>
+        Task<IEnumerable<TapioMachine>?> GetLicensedMachines();
+
+        /// <summary>
+        /// Get all technology macros for a machine.
+        /// </summary>
+        /// <param name="tapioMachineId">The machine id from tapio.</param>
+        Task<IEnumerable<string>?> GetTechnologyMacrosFromMachine(string tapioMachineId);
+
+        /// <summary>
         /// Updates the requested edgeband type by its edgebandCode in materialManager.
         /// </summary>
         Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
 
         /// <summary>
-        /// Deletes the edgeband by its edgeband code.
+        /// Updates the requested edgeband type by its edgebandCode in materialManager with image.
         /// </summary>
-        Task DeleteEdgebandType(string edgebandCode);
-
-        /// <summary>
-        /// Delete edgebands by edgeband codes.
-        /// </summary>
-        Task DeleteEdgebandTypes(IEnumerable<string> edgebandCodes);
-
-
-
+        Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate, FileReference[] fileReferences);
     }
 }
