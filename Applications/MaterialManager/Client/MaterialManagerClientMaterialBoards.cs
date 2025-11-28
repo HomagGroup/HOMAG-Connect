@@ -21,6 +21,8 @@ using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
+// ReSharper disable LocalizableElement
+
 namespace HomagConnect.MaterialManager.Client;
 
 /// <summary>
@@ -89,6 +91,65 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    /// <inheritdoc />
+    public async Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate, FileReference[] fileReferences)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardTypeCode)}";
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        if (fileReferences == null)
+        {
+            throw new ArgumentNullException(nameof(fileReferences));
+        }
+
+        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
+
+        if (missingFile != null)
+        {
+            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
+        }
+
+        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+
+        if (missingReference != null)
+        {
+            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+        }
+
+        var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
+        request.RequestUri = new Uri(url, UriKind.Relative);
+
+        using var httpContent = new MultipartFormDataContent();
+
+        var json = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
+
+        httpContent.Add(new StringContent(json), nameof(boardTypeUpdate));
+
+        foreach (var fileReference in fileReferences)
+        {
+            var fileStream = fileReference.FileInfo.OpenRead();
+
+            HttpContent streamContent = new StreamContent(fileStream);
+            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+        }
+
+        request.Content = httpContent;
+
+        var response = await Client.SendAsync(request);
+
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        var result = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<BoardType>(result, SerializerSettings.Default);
+
+        return responseObject ?? new BoardType();
     }
 
     /// <inheritdoc />
@@ -316,7 +377,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardType>());
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return boardTypes;
@@ -345,7 +406,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardTypeDetails>());
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return boardTypesDetails;
@@ -391,7 +452,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardType>());
+            boardTypes.AddRange(await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return boardTypes;
@@ -421,7 +482,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         foreach (var url in urls)
         {
-            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardTypeDetails>());
+            boardTypesDetails.AddRange(await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return boardTypesDetails;
@@ -603,7 +664,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
-    
+
     #endregion Delete
 
     #region statistics
