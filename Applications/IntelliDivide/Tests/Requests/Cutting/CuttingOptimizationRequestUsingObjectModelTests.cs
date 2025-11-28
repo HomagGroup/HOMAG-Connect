@@ -1,3 +1,4 @@
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting.ObjectModel;
@@ -71,6 +72,7 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2025, 12, 05, "DF-Optimization")]
     public async Task CuttingRequest_ObjectModel_TypicalProperties_ImportValidateAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
