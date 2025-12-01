@@ -43,6 +43,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
         solutionTransferredEvent.SubscriptionId = SubscriptionId;
         solutionTransferredEvent.AlgorithmName = "APS";
+        solutionTransferredEvent.OptimizationName = "Optimization 01";
         solutionTransferredEvent.AlgorithmSettings = "01";
         solutionTransferredEvent.TransferredBy = "Test.SolutionTransferred@homag.com";
         solutionTransferredEvent.MachineDisplayName = "My Sawteq 0101";

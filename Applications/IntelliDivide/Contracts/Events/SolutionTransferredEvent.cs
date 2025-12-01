@@ -20,6 +20,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Events;
 public class SolutionTransferredEvent : AppEvent
 {
     /// <summary>
+    /// Gets or sets the name of the optimization.
+    /// </summary>
+    [JsonProperty(Order = 9)]
+    [Required]
+    public string OptimizationName { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the algorithm used for the solution.
     /// </summary>
     [JsonProperty(Order = 10)]
