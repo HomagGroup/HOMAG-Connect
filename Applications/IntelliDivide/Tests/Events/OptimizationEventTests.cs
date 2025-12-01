@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 
 using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
@@ -43,7 +44,10 @@ public class OptimizationEventTests : IntelliDivideTestBase
         solutionTransferredEvent.SubscriptionId = SubscriptionId;
         solutionTransferredEvent.AlgorithmName = "APS";
         solutionTransferredEvent.AlgorithmSettings = "01";
-        solutionTransferredEvent.TransferredBy = "Max.Mustermann@homag.com";
+        solutionTransferredEvent.TransferredBy = "Test.SolutionTransferred@homag.com";
+        solutionTransferredEvent.MachineDisplayName = "My Sawteq 0101";
+        solutionTransferredEvent.MachineType = MachineType.Cutting;
+        solutionTransferredEvent.SolutionExportUri = new Uri("https://www.google.com");
         solutionTransferredEvent.SolutionDetails = solutionDetails;
 
         solutionTransferredEvent.IsValid.Should().BeTrue("The given event should be valid.");
@@ -92,7 +96,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
         solutions.Should().NotBeNull($"Solutions should not be null for {optimization.Id}.");
 
-        var solution = solutions.First();
+        var solution = solutions!.First();
 
         var solutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solution.Id);
 
