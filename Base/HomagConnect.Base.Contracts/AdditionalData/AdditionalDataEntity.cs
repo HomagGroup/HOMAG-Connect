@@ -38,6 +38,7 @@ public class AdditionalDataEntity
     /// * AboveImage (Type=Image) => per group
     /// * ThreeDModel (Type=ThreeD) => per group or per position
     /// * ArticleImage (Type=Image) => per position
+    /// * AttributeValueImage (Type=Image) => per ConfigurationAttribute
     /// </remarks>
     [JsonProperty(Order = 1)]
     public string? Category { get; set; }
