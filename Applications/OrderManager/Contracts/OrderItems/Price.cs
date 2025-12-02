@@ -47,10 +47,4 @@ public class Price : Base
     /// Total, GrossTotal, NetTotal, Shipping, Discount, Tax, SubTotal, etc.
     /// </example>
     public PriceType? PriceType { get; set; }
-
-    /// <summary>
-    /// The article which is used for calculating the price
-    /// </summary>
-    [JsonProperty(Order = 10)]
-    public string? SalesArticleNumber { get; set; }
 }
