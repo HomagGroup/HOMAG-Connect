@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialAssist.Samples.Create.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
@@ -10,6 +10,8 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Boards;
 [TestCategory("MaterialAssist.Boards")]
 public class CreateBoardsTests : MaterialAssistTestBase
 {
+
+    [TemporaryDisabledOnServer(2025, 12, 5, "DF-Material")]
     [TestMethod]
     public async Task BoardsCreateBoardEntity()
     {
