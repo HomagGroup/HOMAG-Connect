@@ -46,5 +46,6 @@ public class Price : Base
     /// <example>
     /// Total, GrossTotal, NetTotal, Shipping, Discount, Tax, SubTotal, etc.
     /// </example>
+    [JsonProperty(Order = 1)]
     public PriceType? PriceType { get; set; }
 }
