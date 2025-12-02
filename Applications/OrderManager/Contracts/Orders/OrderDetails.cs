@@ -39,7 +39,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public string? OrderNumber { get; set; }
 
         /// <summary>
-        /// The external number of the order
+        /// The order number from the preceding system
         /// </summary>
         [JsonProperty(Order = 111)]
         public string? OrderNumberExternal { get; set; }
