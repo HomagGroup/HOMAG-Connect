@@ -21,4 +21,9 @@ public enum PositionType
     /// A position representing a material and processing item
     /// </summary>
     MaterialAndProcessing,
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the price has been generated.
+    /// </summary>
+    PriceGenerated,
 }

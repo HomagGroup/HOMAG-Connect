@@ -87,11 +87,22 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 new ConfigurationPosition
                                 {
                                     Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+                                    PositionNumber = "001",
                                     LibraryId = "CabinetLibrary",
                                     ModuleId = "mr_StorageunitSingle",
                                     Attributes = new()
                                     {
-                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Depth", 548)
+                                        {
+                                            AdditionalData = new()
+                                            {
+                                                new AdditionalDataImage
+                                                {
+                                                    Category = "AttributeValueImage",
+                                                    DownloadUri = new Uri("https://example.com/attribute-value-image.jpg")
+                                                }
+                                            }
+                                        },
                                         new ConfigurationAttribute("mod_Height", 900),
                                         new ConfigurationAttribute("mod_Width", 600),
                                         new ConfigurationAttribute("color", "white")
@@ -150,10 +161,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                         new Price
                                         {
                                             PriceType = PriceType.Total,
-                                            UnitPrice = 999.98,
                                             TotalPrice = 999.98,
                                             Currency = "EUR",
-                                            SalesArticleNumber = "CAB-01",
                                             Notes = "This is the price for the cabinet"
                                         },
                                         new ErrorInfo
@@ -176,6 +185,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 {
                                     Id = "47F74A7F-999C-44C2-AF5B-709F0D25B5EA",
                                     PositionType = PositionType.MaterialAndProcessing,
+                                    IsHidden = true,
                                     Items = new()
                                     {
                                         new Part
@@ -194,10 +204,16 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             UnitPrice = 1299.98,
                                             TotalPrice = 1299.98,
                                             Currency = "EUR",
-                                            SalesArticleNumber = "CAB-02",
                                             Notes = "This is the price for the cabinet"
                                         }
                                     }
+                                },
+                                new ConfigurationPosition
+                                {
+                                    Id = "E02967A6-22AF-466F-B721-B4A9DC270489",
+                                    LinkedConfigurationId = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                                    PositionType = PositionType.PriceGenerated,
+                                    PositionNumber = "001.001"
                                 }
                             }
                         },
