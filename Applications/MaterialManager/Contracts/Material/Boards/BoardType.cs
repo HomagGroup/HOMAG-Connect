@@ -143,7 +143,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Density))]
         [JsonProperty(Order = 27)]
-        [Range(0.1, 9999.9)]
+        [Range(0.1, 999999.9)]
         public double? Density { get; set; }
 
         /// <summary>
