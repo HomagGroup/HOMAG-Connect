@@ -32,6 +32,6 @@ public enum BaseUnit
     EuroPerSquareMeter,
 
     /// <summary />
-    [RoundingFormat(1,1)]
+    [RoundingFormat(1, 1)]
     KilogramPerCubicMeter
 }
