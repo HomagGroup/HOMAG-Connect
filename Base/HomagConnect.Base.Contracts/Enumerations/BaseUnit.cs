@@ -28,10 +28,6 @@ public enum BaseUnit
     MeterPerSecond,
 
     /// <summary />
-    [RoundingFormat(2, 2)]
-    EuroPerSquareMeter,
-
-    /// <summary />
     [RoundingFormat(1, 1)]
     KilogramPerCubicMeter
 }

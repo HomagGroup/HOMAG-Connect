@@ -85,7 +85,8 @@ public class BoardTypeTests : MaterialManagerTestBase
             Length = 2800,
             Width = 2070,
             Thickness = 19,
-            TotalAreaAvailableWarningLimit = 60
+            TotalAreaAvailableWarningLimit = 60,
+            Density = 420
         };
 
         boardTypeMetric.Trace();
@@ -105,6 +106,8 @@ public class BoardTypeTests : MaterialManagerTestBase
             "because thickness should be converted from metric to imperial units");
         boardTypeImperial.TotalAreaAvailableWarningLimit.Should().NotBe(boardTypeMetric.TotalAreaAvailableWarningLimit,
             "because total area warning limit should be converted from metric to imperial units");
+        boardTypeImperial.Density.Should().NotBe(boardTypeMetric.Density,
+            "because length should be converted from metric to imperial units");
     }
 
     private static async Task BoardType_CreateBoardType_Cleanup(MaterialManagerClient materialManagerClient, string materialCode)

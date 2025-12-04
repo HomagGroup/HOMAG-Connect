@@ -137,7 +137,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Costs))]
         [JsonProperty(Order = 26)]
-        [ValueDependsOnUnitSystem(BaseUnit.EuroPerSquareMeter)]
         public double? Costs { get; set; }
 
         /// <summary>
