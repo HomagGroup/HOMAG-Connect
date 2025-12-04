@@ -133,7 +133,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
         /// <summary>
         /// Gets or sets the costs of the board. The unit depends on the settings of the subscription.
-        /// (metric: €/m², imperial: $/ft²).
+        /// (metric: amount/m², imperial: amount/ft²).
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Costs))]
         [JsonProperty(Order = 26)]
