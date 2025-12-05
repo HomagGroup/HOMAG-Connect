@@ -19,6 +19,7 @@ using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
+// ReSharper disable LocalizableElement
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -98,7 +99,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandType>());
+            boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return boardTypes;
@@ -128,7 +129,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         foreach (var url in urls)
         {
-            edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandTypeDetails>());
+            edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return edgebandTypeDetails;
@@ -307,6 +308,30 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
 
         return responseObject ?? new EdgebandType();
+    }
+
+    public async Task<EdgebandTypeAllocation> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest edgebandTypeAllocationRequest)
+    {
+        if (edgebandTypeAllocationRequest == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeAllocationRequest));
+        }
+
+        ValidateRequiredProperties(edgebandTypeAllocationRequest);
+
+        var payload = JsonConvert.SerializeObject(edgebandTypeAllocationRequest, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_BaseRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<EdgebandTypeAllocation>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(EdgebandTypeAllocation)}");
     }
 
     #endregion Create

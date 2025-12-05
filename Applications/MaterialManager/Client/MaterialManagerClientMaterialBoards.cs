@@ -706,4 +706,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
+
+    public async Task<object> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest requestEdgebandTypeAllocation)
+    {
+        throw new NotImplementedException();
+    }
 }

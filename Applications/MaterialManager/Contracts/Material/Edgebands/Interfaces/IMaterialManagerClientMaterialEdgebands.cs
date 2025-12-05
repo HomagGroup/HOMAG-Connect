@@ -29,6 +29,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest, FileReference[] fileReferences);
 
         /// <summary>
+        /// Creates the edgeband type allocation in materialManager.
+        /// </summary>
+        /// <param name="edgebandTypeAllocationRequest"></param>
+        /// <returns></returns>
+        Task<EdgebandTypeAllocation> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest edgebandTypeAllocationRequest)
+
+        /// <summary>
         /// Gets an edgeband by edgeband code.
         /// </summary>
         /// <param name="edgebandCode"></param>
