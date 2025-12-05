@@ -27,9 +27,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         }
         catch (Exception)
         {
-            await Cleanup();
-            await Task.Delay(1000);
-            await CreateBoardEntitySample.Boards_CreateBoardEntity(_MaterialAssistClientBoards, _SingleCode, _StackCode, _GoodsInStockCode);
+            // do nothing, the entities might already exist
         }
 
         // Verify Single board entity
@@ -41,7 +39,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         boardEntity1.ManagementType.Should().Be(ManagementType.Single,
             $"because board entity '{_SingleCode}' was created with ManagementType.Single");
         boardEntity1.Quantity.Should().Be(1,
-            $"because Single management type must have quantity of 1");
+            "because Single management type must have quantity of 1");
 
         // Verify Stack board entity
         var boardEntity2 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_StackCode);
@@ -52,7 +50,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         boardEntity2.ManagementType.Should().Be(ManagementType.Stack,
             $"because board entity '{_StackCode}' was created with ManagementType.Stack");
         boardEntity2.Quantity.Should().Be(5,
-            $"because Stack management type was created with quantity of 5");
+            "because Stack management type was created with quantity of 5");
 
         // Verify GoodsInStock board entity
         var boardEntity3 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_GoodsInStockCode);
@@ -63,7 +61,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         boardEntity3.ManagementType.Should().Be(ManagementType.GoodsInStock,
             $"because board entity '{_GoodsInStockCode}' was created with ManagementType.GoodsInStock");
         boardEntity3.Quantity.Should().Be(5,
-            $"because GoodsInStock management type was created with quantity of 5");
+            "because GoodsInStock management type was created with quantity of 5");
     }
 
     [TestCleanup]
