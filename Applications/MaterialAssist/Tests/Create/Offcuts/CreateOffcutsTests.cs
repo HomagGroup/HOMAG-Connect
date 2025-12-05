@@ -28,7 +28,6 @@ public class CreateOffcutsTests : MaterialAssistTestBase
         {
             // do nothing, the entity might already exist
         }
-        
 
         var offcutEntity = await _MaterialAssistClientBoards.GetBoardEntityByCode(_OffcutEntityId);
 

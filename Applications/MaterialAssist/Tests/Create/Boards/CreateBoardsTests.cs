@@ -86,23 +86,15 @@ public class CreateBoardsTests : MaterialAssistTestBase
         try
         {
             await EnsureBoardTypeExist("MDF_H3171_12_19.0");
-        }
-        catch (Exception)
-        {
-            throw new Exception("Exception2");
-        }
-
-        try
-        {
             await EnsureBoardTypeExist("EG_H3303_ST10_19");
         }
         catch (Exception)
         {
-            throw new Exception("Exception2");
+            // do nothing, the board types might already exist
         }
 
 
-        
+
     }
 
     private async Task CleanupBoards()

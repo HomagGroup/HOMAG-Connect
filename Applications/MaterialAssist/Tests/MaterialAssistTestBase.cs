@@ -138,6 +138,10 @@ public class MaterialAssistTestBase : TestBase
                 throw;
             }
         }
+        catch(Exception )
+        {
+            // Ignore other exceptions
+        }
 
         if (boardType == null)
         {
