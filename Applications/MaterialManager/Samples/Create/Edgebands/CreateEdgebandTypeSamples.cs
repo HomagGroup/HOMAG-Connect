@@ -7,6 +7,9 @@ using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
 {
+    /// <summary>
+    /// Create edgeband type samples.
+    /// </summary>
     public class CreateEdgebandTypeSamples
     {
         /// <summary>
