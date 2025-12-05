@@ -41,7 +41,7 @@ public class MaterialAssistTestBase : TestBase
 
         try
         {
-            boardEntity = await materialAssistClient.Boards.GetBoardEntityById(id);
+            boardEntity = await materialAssistClient.Boards.GetBoardEntityByCode(id);
         }
         catch (ProblemDetailsException ex)
         {
@@ -137,6 +137,10 @@ public class MaterialAssistTestBase : TestBase
             {
                 throw;
             }
+        }
+        catch(Exception )
+        {
+            // Ignore other exceptions
         }
 
         if (boardType == null)

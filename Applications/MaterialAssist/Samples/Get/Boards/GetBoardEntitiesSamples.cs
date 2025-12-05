@@ -9,31 +9,20 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
         // GetAllEntities
         public static async Task<IList<BoardEntity>> Boards_GetBoardEntities(MaterialAssistClientBoards materialAssist)
         {
-            int take = 100000;
-            int skip = 0;
-
-            var allBoardEntities = new List<BoardEntity>();
-
-            IList<BoardEntity> boardEntities;
-
-            do
-            {
-                boardEntities = await materialAssist.GetBoardEntities(take, skip).ToListAsync();
-
-            } while (boardEntities.Count == take);
-            return boardEntities;
+            var result = await materialAssist.GetBoardEntities(100000, 0);
+            return result != null? result.ToList() : [];
         }
 
         // GetById
-        public static async Task<BoardEntity?> Boards_GetBoardEntityById(MaterialAssistClientBoards materialAssist, string id)
+        public static async Task<BoardEntity?> Boards_GetBoardEntityByCode(MaterialAssistClientBoards materialAssist, string code)
         {
-            var boardEntity = await materialAssist.GetBoardEntityById(id);
+            var boardEntity = await materialAssist.GetBoardEntityByCode(code);
             return boardEntity;
         }
 
-        public static async Task<IEnumerable<BoardEntity>> Boards_GetBoardEntitiesById(MaterialAssistClientBoards materialAssist, List<string> ids)
+        public static async Task<IEnumerable<BoardEntity>> Boards_GetBoardEntitiesByCodes(MaterialAssistClientBoards materialAssist, List<string> codes)
         {
-            var boardEntities = await materialAssist.GetBoardEntitiesByIds(ids);
+            var boardEntities = await materialAssist.GetBoardEntitiesByCodes(codes);
             return boardEntities;
         }
 
