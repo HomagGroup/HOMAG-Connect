@@ -80,7 +80,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         }
         catch (Exception )
         {
-            throw new Exception("WTF1");
+            throw new Exception("Exception1");
         }
 
         try
@@ -89,7 +89,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         }
         catch (Exception)
         {
-            throw new Exception("WTF2");
+            throw new Exception("Exception2");
         }
 
         try
@@ -98,7 +98,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         }
         catch (Exception)
         {
-            throw new Exception("WTF2");
+            throw new Exception("Exception2");
         }
 
 
