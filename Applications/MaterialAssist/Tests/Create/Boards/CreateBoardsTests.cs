@@ -21,8 +21,6 @@ public class CreateBoardsTests : MaterialAssistTestBase
     [TestMethod]
     public async Task BoardsCreateBoardEntity()
     {
-        await CreateBoardEntitySample.Boards_CreateBoardEntity(_MaterialAssistClientBoards, _SingleCode, _StackCode, _GoodsInStockCode);
-
         try
         {
             await CreateBoardEntitySample.Boards_CreateBoardEntity(_MaterialAssistClientBoards, _SingleCode, _StackCode, _GoodsInStockCode);
