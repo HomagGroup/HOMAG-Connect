@@ -28,6 +28,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         catch (Exception)
         {
             // do nothing, the entities might already exist
+            var x = 5;
         }
 
         // Verify Single board entity
@@ -73,9 +74,35 @@ public class CreateBoardsTests : MaterialAssistTestBase
     [TestInitialize]
     public async Task Initialize()
     {
-        _MaterialAssistClientBoards = GetMaterialAssistClient().Boards;
-        await EnsureBoardTypeExist("MDF_H3171_12_19.0");
-        await EnsureBoardTypeExist("EG_H3303_ST10_19");
+        try
+        {
+            _MaterialAssistClientBoards = GetMaterialAssistClient().Boards;
+        }
+        catch (Exception )
+        {
+            throw new Exception("WTF1");
+        }
+
+        try
+        {
+            await EnsureBoardTypeExist("MDF_H3171_12_19.0");
+        }
+        catch (Exception)
+        {
+            throw new Exception("WTF2");
+        }
+
+        try
+        {
+            await EnsureBoardTypeExist("EG_H3303_ST10_19");
+        }
+        catch (Exception)
+        {
+            throw new Exception("WTF2");
+        }
+
+
+        
     }
 
     private async Task CleanupBoards()

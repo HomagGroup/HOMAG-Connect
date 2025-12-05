@@ -20,7 +20,15 @@ public class CreateOffcutsTests : MaterialAssistTestBase
     [TestMethod]
     public async Task BoardsCreateOffcutEntity()
     {
-        await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(_MaterialAssistClientBoards, _OffcutEntityId);
+        try
+        {
+            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(_MaterialAssistClientBoards, _OffcutEntityId);
+        }
+        catch (Exception )
+        {
+            // do nothing, the entity might already exist
+        }
+        
 
         var offcutEntity = await _MaterialAssistClientBoards.GetBoardEntityByCode(_OffcutEntityId);
 
