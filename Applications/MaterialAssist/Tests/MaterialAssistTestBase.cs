@@ -145,18 +145,25 @@ public class MaterialAssistTestBase : TestBase
 
         if (boardType == null)
         {
-            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            try
             {
-                MaterialCode = materialCode,
-                BoardCode = boardCode,
-                Thickness = thickness,
-                Grain = Grain.None,
-                Width = width,
-                Length = length,
-                Type = boardTypeType,
-                CoatingCategory = CoatingCategory.Undefined,
-                MaterialCategory = BoardMaterialCategory.Undefined
-            });
+                await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+                {
+                    MaterialCode = materialCode,
+                    BoardCode = boardCode,
+                    Thickness = thickness,
+                    Grain = Grain.None,
+                    Width = width,
+                    Length = length,
+                    Type = boardTypeType,
+                    CoatingCategory = CoatingCategory.Undefined,
+                    MaterialCategory = BoardMaterialCategory.Undefined
+                });
+            }
+            catch (Exception)
+            {
+                //ignore if already exists
+            }
         }
     }
 
