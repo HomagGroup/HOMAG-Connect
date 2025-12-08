@@ -73,6 +73,20 @@ public class CreateBoardsTests : MaterialAssistTestBase
 
     private async Task CleanupBoards()
     {
-        await _MaterialAssistClientBoards.DeleteBoardEntities([_SingleCode, _StackCode, _GoodsInStockCode]);
+        await DeleteBoard(_SingleCode);
+        await DeleteBoard(_StackCode);
+        await DeleteBoard(_GoodsInStockCode);
+    }
+
+    private async Task DeleteBoard(string code)
+    {
+        try
+        {
+            await _MaterialAssistClientBoards.DeleteBoardEntity(code);
+        }
+        catch (Exception )
+        {
+            // ignored if the board entity does not exist
+        }
     }
 }
