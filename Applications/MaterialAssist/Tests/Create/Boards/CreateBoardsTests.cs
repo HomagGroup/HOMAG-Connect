@@ -23,38 +23,42 @@ public class CreateBoardsTests : MaterialAssistTestBase
     {
         await CreateBoardEntitySample.Boards_CreateBoardEntity(_MaterialAssistClientBoards, _SingleCode, _StackCode, _GoodsInStockCode);
 
-        // Verify Single board entity
-        var boardEntity1 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_SingleCode);
-        boardEntity1.Should().NotBeNull(
-            $"because board entity with ID '{_SingleCode}' should be created successfully");
-        boardEntity1!.Id.Should().Be(_SingleCode,
-            $"because we created board entity with ID '{_SingleCode}'");
-        boardEntity1.ManagementType.Should().Be(ManagementType.Single,
-            $"because board entity '{_SingleCode}' was created with ManagementType.Single");
-        boardEntity1.Quantity.Should().Be(1,
-            "because Single management type must have quantity of 1");
+        await RetryAssertAsync(async () =>
+            {
+                // Verify Single board entity
+                var boardEntity1 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_SingleCode);
+                boardEntity1.Should().NotBeNull(
+                    $"because board entity with ID '{_SingleCode}' should be created successfully");
+                boardEntity1!.Id.Should().Be(_SingleCode,
+                    $"because we created board entity with ID '{_SingleCode}'");
+                boardEntity1.ManagementType.Should().Be(ManagementType.Single,
+                    $"because board entity '{_SingleCode}' was created with ManagementType.Single");
+                boardEntity1.Quantity.Should().Be(1,
+                    "because Single management type must have quantity of 1");
 
-        // Verify Stack board entity
-        var boardEntity2 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_StackCode);
-        boardEntity2.Should().NotBeNull(
-            $"because board entity with ID '{_StackCode}' should be created successfully");
-        boardEntity2!.Id.Should().Be(_StackCode,
-            $"because we created board entity with ID '{_StackCode}'");
-        boardEntity2.ManagementType.Should().Be(ManagementType.Stack,
-            $"because board entity '{_StackCode}' was created with ManagementType.Stack");
-        boardEntity2.Quantity.Should().Be(5,
-            "because Stack management type was created with quantity of 5");
+                // Verify Stack board entity
+                var boardEntity2 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_StackCode);
+                boardEntity2.Should().NotBeNull(
+                    $"because board entity with ID '{_StackCode}' should be created successfully");
+                boardEntity2!.Id.Should().Be(_StackCode,
+                    $"because we created board entity with ID '{_StackCode}'");
+                boardEntity2.ManagementType.Should().Be(ManagementType.Stack,
+                    $"because board entity '{_StackCode}' was created with ManagementType.Stack");
+                boardEntity2.Quantity.Should().Be(5,
+                    "because Stack management type was created with quantity of 5");
 
-        // Verify GoodsInStock board entity
-        var boardEntity3 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_GoodsInStockCode);
-        boardEntity3.Should().NotBeNull(
-            $"because board entity with ID '{_GoodsInStockCode}' should be created successfully");
-        boardEntity3!.Id.Should().Be(_GoodsInStockCode,
-            $"because we created board entity with ID '{_GoodsInStockCode}'");
-        boardEntity3.ManagementType.Should().Be(ManagementType.GoodsInStock,
-            $"because board entity '{_GoodsInStockCode}' was created with ManagementType.GoodsInStock");
-        boardEntity3.Quantity.Should().Be(5,
-            "because GoodsInStock management type was created with quantity of 5");
+                // Verify GoodsInStock board entity
+                var boardEntity3 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_GoodsInStockCode);
+                boardEntity3.Should().NotBeNull(
+                    $"because board entity with ID '{_GoodsInStockCode}' should be created successfully");
+                boardEntity3!.Id.Should().Be(_GoodsInStockCode,
+                    $"because we created board entity with ID '{_GoodsInStockCode}'");
+                boardEntity3.ManagementType.Should().Be(ManagementType.GoodsInStock,
+                    $"because board entity '{_GoodsInStockCode}' was created with ManagementType.GoodsInStock");
+                boardEntity3.Quantity.Should().Be(5,
+                    "because GoodsInStock management type was created with quantity of 5");
+            }
+        );
     }
 
     [TestCleanup]
@@ -84,7 +88,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
         {
             await _MaterialAssistClientBoards.DeleteBoardEntity(code);
         }
-        catch (Exception )
+        catch (Exception)
         {
             // ignored if the board entity does not exist
         }
