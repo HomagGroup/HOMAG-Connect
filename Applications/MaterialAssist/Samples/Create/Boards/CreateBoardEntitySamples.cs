@@ -20,7 +20,14 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
                 Comments = "This is a comment",
                 Quantity = 1
             };
-            await materialAssist.CreateBoardEntity(boardEntityRequestSingle);
+            try
+            {
+                await materialAssist.CreateBoardEntity(boardEntityRequestSingle);
+            }
+            catch (Exception)
+            {
+                // ignored if the board type already exists
+            }
 
             var boardEntityRequestStack = new MaterialAssistRequestBoardEntity
             {
@@ -31,7 +38,14 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
                 Comments = "This is a comment",
                 Quantity = 5
             };
-            await materialAssist.CreateBoardEntity(boardEntityRequestStack);
+            try
+            {
+                await materialAssist.CreateBoardEntity(boardEntityRequestStack);
+            }
+            catch (Exception)
+            {
+                // ignored if the board type already exists
+            }
 
             var boardEntityRequestGoodsInStock = new MaterialAssistRequestBoardEntity
             {
@@ -42,7 +56,14 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
                 Comments = "This is a comment",
                 Quantity = 5
             };
-            await materialAssist.CreateBoardEntity(boardEntityRequestGoodsInStock);
+            try
+            {
+                await materialAssist.CreateBoardEntity(boardEntityRequestGoodsInStock);
+            }
+            catch (Exception)
+            {
+                // ignored if the board type already exists
+            }
         }
 
         public static async Task Boards_CreateBoardType(MaterialAssistClientBoards materialAssist, string boardCode)
