@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialManager.Contracts.Common;
+using HomagConnect.MaterialManager.Contracts.Delete;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
@@ -33,7 +34,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <param name="edgebandTypeAllocationRequest"></param>
         /// <returns></returns>
-        Task<EdgebandTypeAllocation> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest edgebandTypeAllocationRequest)
+        Task<EdgebandTypeAllocation> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest edgebandTypeAllocationRequest);
 
         /// <summary>
         /// Gets an edgeband by edgeband code.
@@ -105,9 +106,41 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<IEnumerable<EdgebandTypeDetails?>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
         /// <summary>
+        /// Gets the edgeband type allocation from materialManager.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="customer"></param>
+        /// <param name="project"></param>
+        /// <param name="edgebandCode"></param>
+        /// <returns></returns>
+        Task<EdgebandTypeAllocation> GetEdgebandTypeAllocation(string order, string customer, string project, string edgebandCode);
+
+        /// <summary>
+        /// Gets all edgeband type allocations from materialManager.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<EdgebandTypeAllocation>> GetEdgebandTypeAllocations();
+
+        /// <summary>
+        /// Gets all edgeband type allocations changed since the given date from materialManager.
+        /// </summary>
+        /// <param name="changedSince"></param>
+        /// <returns></returns>
+        Task<IEnumerable<EdgebandTypeAllocation>> GetEdgebandTypeAllocations(DateTimeOffset changedSince);
+
+
+
+        /// <summary>
         /// Updates the requested edgeband type by its edgebandCode in materialManager.
         /// </summary>
         Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
+
+        /// <summary>
+        /// Updates the requested edgeband type allocation in materialManager.
+        /// </summary>
+        /// <param name="edgebandTypeAllocationUpdate"></param>
+        /// <returns></returns>
+        Task<EdgebandTypeAllocation> UpdateEdgebandTypeAllocation(EdgebandTypeAllocationUpdate edgebandTypeAllocationUpdate);
 
         /// <summary>
         /// Deletes the edgeband by its edgeband code.
@@ -118,6 +151,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// Delete edgebands by edgeband codes.
         /// </summary>
         Task DeleteEdgebandTypes(IEnumerable<string> edgebandCodes);
+
+        /// <summary>
+        /// Deletes the edgeband type allocation in materialManager.
+        /// </summary>
+        /// <param name="edgebandTypeAllocationDelete"></param>
+        /// <returns></returns>
+        Task DeleteEdgebandTypeAllocation(EdgebandTypeAllocationDelete edgebandTypeAllocationDelete);
+
 
 
 

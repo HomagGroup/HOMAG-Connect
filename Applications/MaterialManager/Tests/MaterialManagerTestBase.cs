@@ -16,6 +16,11 @@ namespace HomagConnect.MaterialManager.Tests;
 public class MaterialManagerTestBase : TestBase
 {
     /// <summary>
+    /// Edgeband code used for testing.
+    /// </summary>
+    protected const string EdgebandCode = "ABS_White_2mm";
+
+    /// <summary>
     /// Gets a new instance of the <see cref="MaterialManagerClient" />.
     /// </summary>
     protected MaterialManagerClient GetMaterialManagerClient()
@@ -32,6 +37,12 @@ public class MaterialManagerTestBase : TestBase
         return new MaterialManagerClient(httpClient);
     }
 
+    /// <summary>
+    /// Ensures that a board type with the given material code exists.
+    /// </summary>
+    /// <param name="materialCode"></param>
+    /// <param name="length"></param>
+    /// <param name="width"></param>
     protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070)
     {
         var boardCode = $"{materialCode}_{length}_{width}";
@@ -68,6 +79,12 @@ public class MaterialManagerTestBase : TestBase
         }
     }
 
+    /// <summary>
+    /// Ensures that an edgeband type with the given edgeband code exists.
+    /// </summary>
+    /// <param name="edgebandCode"></param>
+    /// <param name="thickness"></param>
+    /// <param name="length"></param>
     protected async Task EnsureEdgebandTypeExist(string edgebandCode, double thickness = 1.0, double length = 23.0)
     {
         var materialManagerClient = GetMaterialManagerClient();

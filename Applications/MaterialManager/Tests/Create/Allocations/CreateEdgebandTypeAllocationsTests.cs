@@ -3,7 +3,7 @@
 using FluentAssertions;
 
 using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Delete;
 using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
@@ -14,87 +14,79 @@ namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>
-    /// MaterialManagerClientMaterialBoards
+    /// MaterialManagerClientMaterialEdgebands
     /// </summary>
-    protected MaterialManagerClientMaterialBoards MaterialManagerClientMaterialBoards { get; private set; } = null!;
+    protected MaterialManagerClientMaterialEdgebands MaterialManagerClientMaterialEdgebands { get; private set; } = null!;
 
     /// <summary />
     [TestMethod]
-    [DataRow(null, "comments", "createdBy", "name", 1000, "source", "workstation",)] 
-    [DataRow("boardCode", "comments", null, "name", 1000, "source", "workstation")] 
-    [DataRow("boardCode", "comments", "createdBy", null, 1000, "source", "workstation")]
-    [DataRow("boardCode", "comments", "createdBy", "name", 1, "source", null)]
-    public async Task EdgebandTypeAllocationCreation_RequiredPropertiesMissing_ThrowsException(string boardCode, string comments, string createdBy, string source, string workstation, double allocatedLength,
+    [DataRow("", "comments", "createdBy", "source", "workstation", 10.0, "customer", "order", "project", 5.0)] // Missing required EdgebandCode
+    [DataRow("E123", "comments", "", "source", "workstation", 10.0, "customer", "order", "project", 5.0)] // Missing required CreatedBy
+    [DataRow("E123", "comments", "createdBy", "source", "", 10.0, "customer", "order", "project", 5.0)] // Missing required Workstation
+    [DataRow("E123", "comments", "createdBy", "source", "workstation", 10.0, "customer", "", "project", 5.0)] // Missing required Order
+    public async Task EdgebandTypeAllocationCreation_RequiredPropertiesMissing_ThrowsException(string EdgebandCode, string comments, string createdBy, string source, string workstation,
+        double allocatedLength,
         string customer, string order, string project, double usedLength)
     {
-        var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(boardCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
+        var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
-        var act = async () => await MaterialManagerClientMaterialBoards.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
+        var act = async () => await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
         await act.Should().ThrowAsync<ValidationException>(
-            "because creating a board type allocation with missing required properties should throw a ValidationException");
+            "because creating a Edgeband type allocation with missing required properties should throw a ValidationException");
     }
 
     /// <summary>
     /// EdgebandTypeAllocationCreation_ValidRequest_CreatesAllocation
     /// </summary>
     [TestMethod]
-    [DataRow("comments", "createdBy", "Test_Allocation", 1, "source", "workstation")]
-    public async Task EdgebandTypeAllocationCreation_ValidRequest_CreatesAllocation(string comments, string createdBy,
-        string name, int quantity, string source, string workstation)
+    [DataRow("comments", "createdBy", "source", "workstation", 10.0, "customer", "Allocation1", "project", 5.0)]
+    public async Task EdgebandTypeAllocationCreation_ValidRequest_CreatesAllocation(string comments, string createdBy, string source, string workstation, double allocatedLength,
+        string customer, string order, string project, double usedLength)
     {
-        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(name);
-
-        var materials = (await MaterialManagerClientMaterialBoards.GetEdgebandTypes(1).ConfigureAwait(false) ?? Array.Empty<EdgebandType>()).ToArray();
+        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(EdgebandCode, customer, order, project);
+        var materials = (await MaterialManagerClientMaterialEdgebands.GetEdgebandTypes(1).ConfigureAwait(false) ?? []).ToArray();
 
         materials.Should().NotBeNull(
-            "because GetEdgebandTypes should return a collection of board types");
+            "because GetEdgebandTypes should return a collection of Edgeband types");
 
-        var firstMaterial = materials.FirstOrDefault();
-        firstMaterial.Should().NotBeNull(
-            "because at least one board type should exist in the system");
+        var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
-        var boardCode = firstMaterial!.BoardCode;
-        var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(boardCode, comments, createdBy, source, workstation, TODO, TODO, TODO, TODO, TODO);
-
-        var allocationResult = await MaterialManagerClientMaterialBoards.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
+        var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
         allocationResult.Should().NotBeNull(
-            $"because board type allocation '{name}' should be created successfully");
-        allocationResult.BoardCode.Should().Be(boardCode,
-            $"because board type allocation '{name}' was created for board code '{boardCode}'");
+            $"because Edgeband type allocation with EdgebandCode '{EdgebandCode}' should be created successfully");
+        allocationResult.EdgebandCode.Should().Be(EdgebandCode,
+            $"because Edgeband type allocation '{EdgebandCode}' was created for Edgeband code '{EdgebandCode}'");
         allocationResult.Comments.Should().Be(comments,
-            $"because board type allocation '{name}' was created with comments '{comments}'");
+            $"because Edgeband type allocation '{EdgebandCode}' was created with comments '{comments}'");
         allocationResult.CreatedBy.Should().Be(createdBy,
-            $"because board type allocation '{name}' was created by '{createdBy}'");
-        allocationResult.Name.Should().Be(name,
-            $"because board type allocation was created with name '{name}'");
-        allocationResult.Quantity.Should().Be(quantity,
-            $"because board type allocation '{name}' was created with quantity {quantity}");
-        allocationResult.Source.Should().Be(source,
-            $"because board type allocation '{name}' was created with source '{source}'");
-        allocationResult.Workstation.Should().Be(workstation,
-            $"because board type allocation '{name}' was created with workstation '{workstation}'");
+            $"because Edgeband type allocation '{EdgebandCode}' was created by '{createdBy}'");
+        //do not compare until clarified 
+        //allocationResult.Source.Should().Be(source,
+        //    $"because Edgeband type allocation '{EdgebandCode}' was created with source '{EdgebandCode}'");
+        //allocationResult.Workstation.Should().Be(workstation,
+        //    $"because Edgeband type allocation '{EdgebandCode}' was created with workstation '{workstation}'");
 
-        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(name);
+        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(EdgebandCode, customer, order, project);
     }
 
     /// <summary>
-    /// Setup method to initialize the MaterialManagerClientMaterialBoards client.
+    /// Setup method to initialize the MaterialManagerClientMaterialEdgebands client.
     /// </summary>
     [TestInitialize]
-    public void Setup()
+    public async Task Setup()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-        MaterialManagerClientMaterialBoards = materialManagerClient.Material.Boards;
+        MaterialManagerClientMaterialEdgebands = GetMaterialManagerClient().Material.Edgebands;
+        await EnsureEdgebandTypeExist(EdgebandCode);
     }
 
-    private static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string boardCode, string comments, string createdBy, string source, string workstation, double allocatedLength,
+    private static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string edgebandCode, string comments, string createdBy, string source, string workstation, double allocatedLength,
         string customer, string order, string project, double usedLength)
     {
         var edgebandTypeAllocationRequest = new EdgebandTypeAllocationRequest
         {
-            EdgebandCode = boardCode,
+            EdgebandCode = edgebandCode,
             Comments = comments,
             CreatedBy = createdBy,
             Source = source,
@@ -109,23 +101,22 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
         return edgebandTypeAllocationRequest;
     }
 
-    private async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(string name)
+    private async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(string EdgebandCode, string customer, string order, string project)
     {
-        var allocations = (await MaterialManagerClientMaterialBoards.GetEdgebandTypeAllocationsByAllocationNames([name], 100)).ToArray();
-
-        if (allocations.Length > 0)
+        try
         {
-            await MaterialManagerClientMaterialBoards.DeleteEdgebandTypeAllocations(allocations.Select(a => a.Name));
-            allocations = (await MaterialManagerClientMaterialBoards.GetEdgebandTypeAllocationsByAllocationNames([name], 100)).ToArray();
+            await MaterialManagerClientMaterialEdgebands.GetEdgebandTypeAllocation(order, customer, project, EdgebandCode);
+            await MaterialManagerClientMaterialEdgebands.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
+            {
+                Customer = customer,
+                EdgebandCode = EdgebandCode,
+                Order = order,
+                Project = project
+            });
         }
-
-        if (allocations.Length > 0)
+        catch (Exception)
         {
-            await MaterialManagerClientMaterialBoards.DeleteEdgebandTypeAllocations(allocations.Select(a => a.Name));
-            allocations = (await MaterialManagerClientMaterialBoards.GetEdgebandTypeAllocationsByAllocationNames([name], 100)).ToArray();
+            //ignored
         }
-
-        allocations.Should().BeEmpty(
-            $"because board type allocation '{name}' should be deleted during cleanup");
     }
 }

@@ -15,6 +15,7 @@ using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -707,8 +708,5 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #endregion
 
-    public async Task<object> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest requestEdgebandTypeAllocation)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
