@@ -116,24 +116,24 @@ namespace HomagConnect.MaterialAssist.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByCodes(IEnumerable<string> codeList)
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByCodes(IEnumerable<string> codes)
         {
-            if (codeList == null)
+            if (codes == null)
             {
-                throw new ArgumentNullException(nameof(codeList));
+                throw new ArgumentNullException(nameof(codes));
             }
 
-            var codes = codeList
+            var filteredCodes = codes
                 .Where(b => !string.IsNullOrWhiteSpace(b))
                 .Distinct()
                 .OrderBy(b => b).ToList();
 
-            if (!codes.Any())
+            if (!filteredCodes.Any())
             {
-                throw new ArgumentNullException(nameof(codeList), "At least one id must be passed.");
+                throw new ArgumentNullException(nameof(codes), "At least one id must be passed.");
             }
 
-            var urls = CreateUrls(codes, _Id);
+            var urls = CreateUrls(filteredCodes, _Id);
             var boardEntities = new List<BoardEntity>();
 
             foreach (var url in urls)

@@ -33,11 +33,11 @@ foreach (var boardEntity in allBoardEntities)
 
 var client = new MaterialAssistClientBoards(subscriptionId, authorizationKey);
         
-var boardEntity = await client.GetBoardEntityById("42");
+var boardEntity = await client.GetBoardEntityByCode("42");
 Console.WriteLine(boardEntity);
         
-List<string> ids = ["42", "50", "23"];
-var boardEntities = await client.GetBoardEntitiesByIds(ids);
+List<string> codes = ["42", "50", "23"];
+var boardEntities = await client.GetBoardEntitiesByCodes(codes);
 foreach (var boardEntity in boardEntities)
 {
     Console.WriteLine(boardEntity);

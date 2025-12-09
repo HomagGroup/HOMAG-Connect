@@ -118,7 +118,7 @@ public class GetBoardsTests : MaterialAssistTestBase
     }
 
     [TestMethod]
-    public async Task BoardsGetBoardEntityById()
+    public async Task BoardsGetBoardEntityByCode()
     {
         var result = await GetBoardEntitiesSamples.Boards_GetBoardEntityByCode(_MaterialAssistClientBoards, _SingleCode);
 
