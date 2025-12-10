@@ -21,10 +21,11 @@ public class CreateBoardsTests : MaterialAssistTestBase
     [TestMethod]
     public async Task BoardsCreateBoardEntity()
     {
-        await CreateBoardEntitySample.Boards_CreateBoardEntity(_MaterialAssistClientBoards, _SingleCode, _StackCode, _GoodsInStockCode);
-
         await RetryAssertAsync(async () =>
             {
+
+                await CreateBoardEntitySample.Boards_CreateBoardEntity(_MaterialAssistClientBoards, _SingleCode, _StackCode, _GoodsInStockCode);
+
                 // Verify Single board entity
                 var boardEntity1 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_SingleCode);
                 boardEntity1.Should().NotBeNull(
