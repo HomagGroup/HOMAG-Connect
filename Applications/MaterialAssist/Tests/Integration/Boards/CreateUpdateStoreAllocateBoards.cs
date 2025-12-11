@@ -111,61 +111,7 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
             $"because board type with board code '{board3.boardCode}' should exist after update");
         updatedBoardType3!.MaterialCategory.Should().Be(BoardMaterialCategory.CompactPanels_HPL,
             $"because board type '{board3.boardCode}' was updated to material category CompactPanels_HPL");
-
-        /*
-        // needed for storing
-        // Get the first workstation
-        var workstations = await materialAssistClient.GetWorkstations().ConfigureAwait(false);
-        var firstWorkstation = workstations.FirstOrDefault();
-        if (firstWorkstation == null)
-        {
-            Assert.Inconclusive("No workstations found.");
-            return;
-        }
-        // Get the first storage location for the workstation
-        var storageLocations = await materialAssistClient.GetStorageLocations(firstWorkstation.Id.ToString()).ConfigureAwait(false);
-        var firstStorageLocation = storageLocations.FirstOrDefault();
-        if (firstStorageLocation == null)
-        {
-            Assert.Inconclusive("No storage locations found for the workstation.");
-            return;
-        }
-
-        // store board entities
-        var storeBoardEntity = new MaterialAssistStoreBoardEntity()
-        {
-            Id = board1.id,
-            Length = 2800,
-            Width = 2070,
-            StorageLocation = firstStorageLocation,
-            Workstation = firstWorkstation
-        };
-        await materialAssistClient.StoreBoardEntity(storeBoardEntity);
-        var boardEntity = await materialAssistClient.GetBoardEntityById(board1.id);
-
-        var storeBoardEntity2 = new MaterialAssistStoreBoardEntity()
-        {
-            Id = board2.id,
-            Length = 4100,
-            Width = 600,
-            StorageLocation = firstStorageLocation,
-            Workstation = firstWorkstation
-        };
-        await materialAssistClient.StoreBoardEntity(storeBoardEntity2);
-        var boardEntity2 = await materialAssistClient.GetBoardEntityById(board2.id);
-
-        var storeBoardEntity3 = new MaterialAssistStoreBoardEntity()
-        {
-            Id = board3.id,
-            Length = 2790,
-            Width = 2060,
-            StorageLocation = firstStorageLocation,
-            Workstation = firstWorkstation
-        };
-        await materialAssistClient.StoreBoardEntity(storeBoardEntity3);
-        var boardEntity3 = await materialAssistClient.GetBoardEntityById(board3.id);
-        */
-
+        
         // create board type allocations
         var boardTypeAllocationRequest = new BoardTypeAllocationRequest
         {

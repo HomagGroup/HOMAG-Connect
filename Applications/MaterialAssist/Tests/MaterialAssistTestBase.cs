@@ -41,7 +41,7 @@ public class MaterialAssistTestBase : TestBase
 
         try
         {
-            boardEntity = await materialAssistClient.Boards.GetBoardEntityById(id);
+            boardEntity = await materialAssistClient.Boards.GetBoardEntityByCode(id);
         }
         catch (ProblemDetailsException ex)
         {
@@ -138,21 +138,32 @@ public class MaterialAssistTestBase : TestBase
                 throw;
             }
         }
+        catch(Exception )
+        {
+            // Ignore other exceptions
+        }
 
         if (boardType == null)
         {
-            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            try
             {
-                MaterialCode = materialCode,
-                BoardCode = boardCode,
-                Thickness = thickness,
-                Grain = Grain.None,
-                Width = width,
-                Length = length,
-                Type = boardTypeType,
-                CoatingCategory = CoatingCategory.Undefined,
-                MaterialCategory = BoardMaterialCategory.Undefined
-            });
+                await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+                {
+                    MaterialCode = materialCode,
+                    BoardCode = boardCode,
+                    Thickness = thickness,
+                    Grain = Grain.None,
+                    Width = width,
+                    Length = length,
+                    Type = boardTypeType,
+                    CoatingCategory = CoatingCategory.Undefined,
+                    MaterialCategory = BoardMaterialCategory.Undefined
+                });
+            }
+            catch (Exception)
+            {
+                //ignore if already exists
+            }
         }
     }
 

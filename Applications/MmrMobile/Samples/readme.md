@@ -10,7 +10,7 @@ Please proceed as follows
 - Create a MmrMobileClient with the 3 required Informations
   -	SubscriptionId (from Tapio, See the URL in browser)
   - AuthorizationKey (from Tapio, Your private key to access your data) --> keep it confidential!
-  - Base-URL : https://connect.homag.cloud for production system
+  - Base-URL : https://docs.homag.cloud/datenaustausch/homag-connect/connect-api for production system
 - Use one of the methods of the client to fetch data (e.g. all states of the machine for the last 3 days)
 - Proceed with these data for your analysis (group and summarize per day, calculate percentages ...)
 
