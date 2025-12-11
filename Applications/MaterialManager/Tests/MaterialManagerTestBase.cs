@@ -152,6 +152,14 @@ public class MaterialManagerTestBase : TestBase
         return edgebandTypeAllocationRequest;
     }
 
+    /// <summary>
+    /// Edgeband cleanup after creating an edgeband type allocation.
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="edgebandCode"></param>
+    /// <param name="customer"></param>
+    /// <param name="order"></param>
+    /// <param name="project"></param>
     protected async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands client, string edgebandCode, string customer, string order, string project)
     {
         try
