@@ -440,6 +440,72 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "EdgebandTypeAllocations",
+					"item": [
+						{
+							"name": "Get edgeband type allocation by properties",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations?order=Kitchen Job&project=Project&customer=Customer&edgebandCode=ABS_Bronze_0.80_28.0_HM",
+									"host": [
+										"{{ConnectHostINT}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "Kitchen Job"
+										},
+										{
+											"key": "project",
+											"value": "Project"
+										},
+										{
+											"key": "customer",
+											"value": "Customer"
+										},
+										{
+											"key": "edgebandCode",
+											"value": "ABS_Bronze_0.80_28.0_HM"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all edgeband type allocations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations/getall",
+									"host": [
+										"{{ConnectHostINT}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands",
+										"allocations",
+										"getall"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -695,6 +761,36 @@
 					"response": []
 				},
 				{
+					"name": "CreateEdgebandTypeAllocation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"allocatedLength\": 1,\r\n  \"comments\": \"comment\",\r\n  \"createdBy\": \"createdBy\",\r\n  \"customer\": \"customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"order\",\r\n  \"project\": \"project\",\r\n  \"source\": \"MaterialManager\",\r\n  \"usedLength\": 0,\r\n  \"workstation\": \"workstation\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
+							"host": [
+								"{{ConnectHostINT}}"
+							],
+							"path": [
+								"api",
+								"materialManager",
+								"materials",
+								"edgebands",
+								"allocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateBoardType With AdditionalData",
 					"request": {
 						"method": "POST",
@@ -920,6 +1016,49 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "EdgebandTypeAllocations",
+					"item": [
+						{
+							"name": "Update edgeband type allocation",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"allocatedLength\": 1,\r\n  \"comments\": \"comment\",\r\n  \"createdBy\": \"createdBy\",\r\n  \"customer\": \"customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"order\",\r\n  \"project\": \"project\",\r\n  \"source\": \"MaterialManager\",\r\n  \"usedLength\": 0,\r\n  \"workstation\": \"workstation\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
+									"host": [
+										"{{ConnectHostINT}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "",
+											"description": "int",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -1012,6 +1151,49 @@
 										{
 											"key": "allocationNames",
 											"value": "Q3-2025-Allocation"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EdgebandTypeAllocations",
+					"item": [
+						{
+							"name": "Delete by properties",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n  \"customer\": \"Customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"Order\",\r\n  \"project\": \"Project\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
+									"host": [
+										"{{ConnectHostINT}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands",
+										"allocations"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "",
+											"description": "int",
+											"disabled": true
 										}
 									]
 								}
