@@ -4,6 +4,7 @@ using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase;
 using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Delete;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
@@ -114,6 +115,59 @@ public class MaterialManagerTestBase : TestBase
                 MaterialCategory = EdgebandMaterialCategory.ABS,
                 Process = EdgebandingProcess.Other,
             });
+        }
+    }
+
+    /// <summary>
+    /// Create a EdgebandTypeAllocationRequest instance.
+    /// </summary>
+    /// <param name="edgebandCode"></param>
+    /// <param name="comments"></param>
+    /// <param name="createdBy"></param>
+    /// <param name="source"></param>
+    /// <param name="workstation"></param>
+    /// <param name="allocatedLength"></param>
+    /// <param name="customer"></param>
+    /// <param name="order"></param>
+    /// <param name="project"></param>
+    /// <param name="usedLength"></param>
+    /// <returns></returns>
+    protected static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string edgebandCode, string comments, string createdBy, string source, string workstation, double allocatedLength,
+        string customer, string order, string project, double usedLength)
+    {
+        var edgebandTypeAllocationRequest = new EdgebandTypeAllocationRequest
+        {
+            EdgebandCode = edgebandCode,
+            Comments = comments,
+            CreatedBy = createdBy,
+            Source = source,
+            Workstation = workstation,
+            AllocatedLength = allocatedLength,
+            Customer = customer,
+            Order = order,
+            Project = project,
+            UsedLength = usedLength
+        };
+
+        return edgebandTypeAllocationRequest;
+    }
+
+    protected async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands client, string edgebandCode, string customer, string order, string project)
+    {
+        try
+        {
+            await client.GetEdgebandTypeAllocation(order, customer, project, edgebandCode);
+            await client.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
+            {
+                Customer = customer,
+                EdgebandCode = edgebandCode,
+                Order = order,
+                Project = project
+            });
+        }
+        catch (Exception)
+        {
+            //ignored
         }
     }
 }

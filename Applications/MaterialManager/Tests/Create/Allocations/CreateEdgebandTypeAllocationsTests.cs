@@ -44,12 +44,8 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
     public async Task EdgebandTypeAllocationCreation_ValidRequest_CreatesAllocation(string comments, string createdBy, string source, string workstation, double allocatedLength,
         string customer, string order, string project, double usedLength)
     {
-        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(EdgebandCode, customer, order, project);
-        var materials = (await MaterialManagerClientMaterialEdgebands.GetEdgebandTypes(1).ConfigureAwait(false) ?? []).ToArray();
-
-        materials.Should().NotBeNull(
-            "because GetEdgebandTypes should return a collection of Edgeband types");
-
+        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);
+        
         var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
         var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
@@ -68,7 +64,7 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
         //allocationResult.Workstation.Should().Be(workstation,
         //    $"because Edgeband type allocation '{EdgebandCode}' was created with workstation '{workstation}'");
 
-        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(EdgebandCode, customer, order, project);
+        await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);
     }
 
     /// <summary>
@@ -81,42 +77,5 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
         await EnsureEdgebandTypeExist(EdgebandCode);
     }
 
-    private static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string edgebandCode, string comments, string createdBy, string source, string workstation, double allocatedLength,
-        string customer, string order, string project, double usedLength)
-    {
-        var edgebandTypeAllocationRequest = new EdgebandTypeAllocationRequest
-        {
-            EdgebandCode = edgebandCode,
-            Comments = comments,
-            CreatedBy = createdBy,
-            Source = source,
-            Workstation = workstation,
-            AllocatedLength = allocatedLength,
-            Customer = customer,
-            Order = order,
-            Project = project,
-            UsedLength = usedLength
-        };
-
-        return edgebandTypeAllocationRequest;
-    }
-
-    private async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(string EdgebandCode, string customer, string order, string project)
-    {
-        try
-        {
-            await MaterialManagerClientMaterialEdgebands.GetEdgebandTypeAllocation(order, customer, project, EdgebandCode);
-            await MaterialManagerClientMaterialEdgebands.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
-            {
-                Customer = customer,
-                EdgebandCode = EdgebandCode,
-                Order = order,
-                Project = project
-            });
-        }
-        catch (Exception)
-        {
-            //ignored
-        }
-    }
+    
 }
