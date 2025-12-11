@@ -51,7 +51,7 @@ namespace HomagConnect.MaterialAssist.Samples.Create.Boards
             {
                 Id = idGoodsInStock,
                 //The board code is the identifier of the board type
-                BoardCode = "EG_H3303_ST10_19_2800_2070",
+                BoardCode = "EG_H3303_ST10_19.0_2800_2070",
                 ManagementType = ManagementType.GoodsInStock,
                 Comments = "This is a comment",
                 Quantity = 5

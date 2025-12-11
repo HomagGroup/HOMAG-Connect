@@ -59,7 +59,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
                 boardEntity3.Quantity.Should().Be(5,
                     "because GoodsInStock management type was created with quantity of 5");
             }
-        );
+        ,delayMs:5000);
     }
 
     [TestCleanup]
@@ -73,7 +73,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
     {
         _MaterialAssistClientBoards = GetMaterialAssistClient().Boards;
         await EnsureBoardTypeExist("MDF_H3171_12_19.0");
-        await EnsureBoardTypeExist("EG_H3303_ST10_19");
+        await EnsureBoardTypeExist("EG_H3303_ST10_19.0");
     }
 
     private async Task CleanupBoards()
