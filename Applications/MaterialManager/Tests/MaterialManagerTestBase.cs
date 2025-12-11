@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
@@ -22,20 +23,65 @@ public class MaterialManagerTestBase : TestBase
     protected const string EdgebandCode = "ABS_White_2mm";
 
     /// <summary>
-    /// Gets a new instance of the <see cref="MaterialManagerClient" />.
+    /// Create a EdgebandTypeAllocationRequest instance.
     /// </summary>
-    protected MaterialManagerClient GetMaterialManagerClient()
+    /// <param name="edgebandCode"></param>
+    /// <param name="comments"></param>
+    /// <param name="createdBy"></param>
+    /// <param name="source"></param>
+    /// <param name="workstation"></param>
+    /// <param name="allocatedLength"></param>
+    /// <param name="customer"></param>
+    /// <param name="order"></param>
+    /// <param name="project"></param>
+    /// <param name="usedLength"></param>
+    /// <returns></returns>
+    protected static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string edgebandCode, string comments, string createdBy, string source, string workstation,
+        double allocatedLength,
+        string customer, string order, string project, double usedLength)
     {
-        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
-
-        var httpClient = new HttpClient
+        var edgebandTypeAllocationRequest = new EdgebandTypeAllocationRequest
         {
-            BaseAddress = BaseUrl
+            EdgebandCode = edgebandCode,
+            Comments = comments,
+            CreatedBy = createdBy,
+            Source = source,
+            Workstation = workstation,
+            AllocatedLength = allocatedLength,
+            Customer = customer,
+            Order = order,
+            Project = project,
+            UsedLength = usedLength
         };
 
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+        return edgebandTypeAllocationRequest;
+    }
 
-        return new MaterialManagerClient(httpClient);
+    /// <summary>
+    /// Edgeband cleanup after creating an edgeband type allocation.
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="edgebandCode"></param>
+    /// <param name="customer"></param>
+    /// <param name="order"></param>
+    /// <param name="project"></param>
+    protected async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands client, string edgebandCode, string customer, string order, string project)
+    {
+        try
+        {
+            await client.GetEdgebandTypeAllocation(order, customer, project, edgebandCode);
+            await client.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
+            {
+                Customer = customer,
+                EdgebandCode = edgebandCode,
+                Order = order,
+                Project = project
+            });
+        }
+        catch (Exception)
+        {
+            //ignored
+        }
     }
 
     /// <summary>
@@ -119,63 +165,19 @@ public class MaterialManagerTestBase : TestBase
     }
 
     /// <summary>
-    /// Create a EdgebandTypeAllocationRequest instance.
+    /// Gets a new instance of the <see cref="MaterialManagerClient" />.
     /// </summary>
-    /// <param name="edgebandCode"></param>
-    /// <param name="comments"></param>
-    /// <param name="createdBy"></param>
-    /// <param name="source"></param>
-    /// <param name="workstation"></param>
-    /// <param name="allocatedLength"></param>
-    /// <param name="customer"></param>
-    /// <param name="order"></param>
-    /// <param name="project"></param>
-    /// <param name="usedLength"></param>
-    /// <returns></returns>
-    protected static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string edgebandCode, string comments, string createdBy, string source, string workstation, double allocatedLength,
-        string customer, string order, string project, double usedLength)
+    protected MaterialManagerClient GetMaterialManagerClient()
     {
-        var edgebandTypeAllocationRequest = new EdgebandTypeAllocationRequest
+        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
+
+        var httpClient = new HttpClient
         {
-            EdgebandCode = edgebandCode,
-            Comments = comments,
-            CreatedBy = createdBy,
-            Source = source,
-            Workstation = workstation,
-            AllocatedLength = allocatedLength,
-            Customer = customer,
-            Order = order,
-            Project = project,
-            UsedLength = usedLength
+            BaseAddress = BaseUrl
         };
 
-        return edgebandTypeAllocationRequest;
-    }
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
-    /// <summary>
-    /// Edgeband cleanup after creating an edgeband type allocation.
-    /// </summary>
-    /// <param name="client"></param>
-    /// <param name="edgebandCode"></param>
-    /// <param name="customer"></param>
-    /// <param name="order"></param>
-    /// <param name="project"></param>
-    protected async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands client, string edgebandCode, string customer, string order, string project)
-    {
-        try
-        {
-            await client.GetEdgebandTypeAllocation(order, customer, project, edgebandCode);
-            await client.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
-            {
-                Customer = customer,
-                EdgebandCode = edgebandCode,
-                Order = order,
-                Project = project
-            });
-        }
-        catch (Exception)
-        {
-            //ignored
-        }
+        return new MaterialManagerClient(httpClient);
     }
 }

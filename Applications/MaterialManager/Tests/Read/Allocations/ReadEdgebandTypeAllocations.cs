@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 
@@ -18,27 +16,13 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
     protected MaterialManagerClientMaterialEdgebands MaterialManagerClientMaterialEdgebandTypes { get; private set; } = null!;
 
     /// <summary>
-    /// GetEdgebandTypeTypeAllocations_NoException
-    /// </summary>
-    [TestMethod]
-    public async Task GetEdgebandTypeTypeAllocations_NoException()
-    {
-        // Act
-        var allocations = await MaterialManagerClientMaterialEdgebandTypes.GetEdgebandTypeAllocations() ;
-
-        // Assert
-        allocations.Should().NotBeNull(
-            "because GetEdgebandTypeTypeAllocations should return a collection of board type allocations");
-    }
-
-    /// <summary>
     /// GetEdgebandTypeAllocation returns expected allocation for given order, customer, project, and edgebandCode
     /// </summary>
     [TestMethod]
     public async Task GetEdgebandTypeAllocation_ReturnsExpectedAllocation()
     {
         // Arrange
-     
+
         const string edgebandCode = "ABS_White_2mm";
         const string order = "TestOrder123";
         const string customer = "TestCustomerABC";
@@ -75,7 +59,19 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
         await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebandTypes, edgebandCode, customer, order, project);
     }
 
+    /// <summary>
+    /// GetEdgebandTypeTypeAllocations_NoException
+    /// </summary>
+    [TestMethod]
+    public async Task GetEdgebandTypeTypeAllocations_NoException()
+    {
+        // Act
+        var allocations = await MaterialManagerClientMaterialEdgebandTypes.GetEdgebandTypeAllocations();
 
+        // Assert
+        allocations.Should().NotBeNull(
+            "because GetEdgebandTypeTypeAllocations should return a collection of board type allocations");
+    }
 
     /// <summary>
     /// Setup method to initialize the MaterialManagerClientMaterialEdgebandTypes client.

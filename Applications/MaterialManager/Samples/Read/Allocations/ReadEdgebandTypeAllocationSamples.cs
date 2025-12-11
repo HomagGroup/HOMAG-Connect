@@ -22,7 +22,7 @@ namespace HomagConnect.MaterialManager.Samples.Read.Allocations
         {
             var result = await materialManager.GetEdgebandTypeAllocation(
                 order: "Order", customer: "Customer", project: "Project", edgebandCode: "ABS_White_2mm"
-                );
+            );
             result.Trace();
         }
     }

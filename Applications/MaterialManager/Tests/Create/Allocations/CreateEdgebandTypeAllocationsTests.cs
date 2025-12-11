@@ -3,8 +3,6 @@
 using FluentAssertions;
 
 using HomagConnect.MaterialManager.Client;
-using HomagConnect.MaterialManager.Contracts.Delete;
-using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 
@@ -24,11 +22,11 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
     [DataRow("E123", "comments", "", "source", "workstation", 10.0, "customer", "order", "project", 5.0)] // Missing required CreatedBy
     [DataRow("E123", "comments", "createdBy", "source", "", 10.0, "customer", "order", "project", 5.0)] // Missing required Workstation
     [DataRow("E123", "comments", "createdBy", "source", "workstation", 10.0, "customer", "", "project", 5.0)] // Missing required Order
-    public async Task EdgebandTypeAllocationCreation_RequiredPropertiesMissing_ThrowsException(string EdgebandCode, string comments, string createdBy, string source, string workstation,
+    public async Task EdgebandTypeAllocationCreation_RequiredPropertiesMissing_ThrowsException(string edgebandCode, string comments, string createdBy, string source, string workstation,
         double allocatedLength,
         string customer, string order, string project, double usedLength)
     {
-        var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
+        var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(edgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
         var act = async () => await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
@@ -45,7 +43,7 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
         string customer, string order, string project, double usedLength)
     {
         await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);
-        
+
         var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
         var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
@@ -76,6 +74,4 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
         MaterialManagerClientMaterialEdgebands = GetMaterialManagerClient().Material.Edgebands;
         await EnsureEdgebandTypeExist(EdgebandCode);
     }
-
-    
 }

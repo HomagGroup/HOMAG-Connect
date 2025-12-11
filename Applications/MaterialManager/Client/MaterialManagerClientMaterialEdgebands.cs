@@ -20,6 +20,7 @@ using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
+
 // ReSharper disable LocalizableElement
 
 namespace HomagConnect.MaterialManager.Client;
@@ -36,11 +37,23 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _EdgebandCode = "edgebandCode";
     private const string _IncludingDetails = "includingDetails";
 
+    #region Private Methods
+
+    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+        bool includingDetails = false)
+    {
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
+        return urls;
+    }
+
+    #endregion Private methods
+
     #region Get
 
-    
-
-    
     /// <inheritdoc />
     public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0)
     {
@@ -222,7 +235,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         const string url = $"{_BaseRoute}/machines";
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
     }
-    
+
     #endregion Get
 
     #region Update
@@ -279,21 +292,6 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     #endregion Update
-
-    #region Private Methods
-
-    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-        bool includingDetails = false)
-    {
-        var urls = codes
-            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-            .Join(QueryParametersMaxLength)
-            .Select(x => x.Remove(0, 1).Insert(0, "?"))
-            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
-        return urls;
-    }
-
-    #endregion Private methods
 
     #region Constructors
 
