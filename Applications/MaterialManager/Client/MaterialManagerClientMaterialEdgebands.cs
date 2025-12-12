@@ -160,13 +160,24 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     public async Task<EdgebandTypeAllocation> GetEdgebandTypeAllocation(string order, string customer, string project, string edgebandCode)
     {
         if (string.IsNullOrWhiteSpace(order))
+        {
             throw new ArgumentException("Order must not be null or empty.", nameof(order));
+        }
+
         if (string.IsNullOrWhiteSpace(customer))
+        {
             throw new ArgumentException("Customer must not be null or empty.", nameof(customer));
+        }
+
         if (string.IsNullOrWhiteSpace(project))
+        {
             throw new ArgumentException("Project must not be null or empty.", nameof(project));
+        }
+
         if (string.IsNullOrWhiteSpace(edgebandCode))
+        {
             throw new ArgumentException("EdgebandCode must not be null or empty.", nameof(edgebandCode));
+        }
 
         // Build the query string for the allocation
         var url = $"{_EdgebandTypeAllocations}?" +
@@ -177,7 +188,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         var response = await RequestObject<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
         if (response != null)
+        {
             return response;
+        }
 
         throw new Exception("EdgebandTypeAllocation not found for the specified parameters.");
     }
@@ -271,7 +284,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     public async Task<EdgebandTypeAllocation> UpdateEdgebandTypeAllocation(EdgebandTypeAllocationUpdate edgebandTypeAllocationUpdate)
     {
         if (edgebandTypeAllocationUpdate == null)
+        {
             throw new ArgumentNullException(nameof(edgebandTypeAllocationUpdate));
+        }
 
         ValidateRequiredProperties(edgebandTypeAllocationUpdate);
 
@@ -286,7 +301,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         var result = JsonConvert.DeserializeObject<EdgebandTypeAllocation>(responseContent, SerializerSettings.Default);
 
         if (result != null)
+        {
             return result;
+        }
 
         throw new Exception($"The returned object is not of type {nameof(EdgebandTypeAllocation)}");
     }
@@ -451,7 +468,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     public async Task DeleteEdgebandTypeAllocation(EdgebandTypeAllocationDelete edgebandTypeAllocationDelete)
     {
         if (edgebandTypeAllocationDelete == null)
+        {
             throw new ArgumentNullException(nameof(edgebandTypeAllocationDelete));
+        }
 
         // The endpoint for deleting allocations is assumed to be /allocations
         var url = $"{_EdgebandTypeAllocations}";
