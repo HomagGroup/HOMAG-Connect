@@ -20,7 +20,6 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// GetBoardTypeAllocations_NoException
     /// </summary>
-    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     public async Task GetBoardTypeAllocations_NoException()
     {
@@ -35,7 +34,6 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// <summary>
     /// GetBoardTypeAllocations_NoException
     /// </summary>
-    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     public async Task GetBoardTypeAllocations_ChangedSince_NoException()
     {
@@ -51,7 +49,6 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// GetBoardTypeAllocationsByNames_ReturnsAllocations
     /// </summary>
     /// <param name="allocationName"></param>
-    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow("AllocationName")]
     public async Task GetBoardTypeAllocationsByNames_ReturnsAllocations(string allocationName)
@@ -71,7 +68,6 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
     /// SearchBoardTypeAllocation_ReturnsAllocations
     /// </summary>
     /// <param name="search"></param>
-    [TemporaryDisabledOnServer(2025, 10, 01, "DF-Material | Enable this once GW goes to prod | Peter")]
     [TestMethod]
     [DataRow("name")]
     public async Task SearchBoardTypeAllocation_ReturnsAllocations(string search)

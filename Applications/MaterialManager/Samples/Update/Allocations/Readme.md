@@ -21,3 +21,27 @@ var newBoardTypeAllocation = await client.UpdateBoardTypeAllocation(boardTypeAll
 
 Console.WriteLine($"Created Board Type: {newBoardTypeAllocation.Name}");
 ```
+
+
+# Update Edgeband Type Allocations
+
+With the HOMAG Connect materialManager edgebands client, edgeband type allocations can be updated.
+
+<strong>Example:</strong>
+
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+ var edgebandTypeAllocationUpdate = new EdgebandTypeAllocationUpdate
+ {
+    AllocatedLength = 5,
+    Customer = "customer",
+    EdgebandCode = "ABS_White_2mm",
+    Order = "order01",
+    Project = "project02",
+ };
+
+ var result = await client.UpdateEdgebandTypeAllocation(edgebandTypeAllocationUpdate);
+
+Console.WriteLine($"Created Edgeband Type Allocation: {edgebandTypeAllocationUpdate.Order}");
+```
