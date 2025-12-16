@@ -34,7 +34,6 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
             string customer, string order, string project, double usedLength)
         {
             // Arrange
-            //create an allocation to update
             await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);
 
             var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
@@ -42,8 +41,6 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
             var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
             // Act
-            // update the allocation
-
             await MaterialManagerClientMaterialEdgebands.UpdateEdgebandTypeAllocation(new EdgebandTypeAllocationUpdate
             {
                 AllocatedLength = 5,
@@ -53,9 +50,12 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
                 Project = project,
             });
 
-            var result = await MaterialManagerClientMaterialEdgebands.GetEdgebandTypeAllocation(order, customer, project, EdgebandCode);
-            //Assert
-            result.AllocatedLength.Should().Be(5);
+            // Assert
+            await RetryAssertAsync(async () =>
+            {
+                var result = await MaterialManagerClientMaterialEdgebands.GetEdgebandTypeAllocation(order, customer, project, EdgebandCode);
+                result.AllocatedLength.Should().Be(5);
+            });
 
             await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);
         }
