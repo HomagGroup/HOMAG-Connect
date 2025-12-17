@@ -38,7 +38,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
 
             var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
-            var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
+            await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
             // Act
             await MaterialManagerClientMaterialEdgebands.UpdateEdgebandTypeAllocation(new EdgebandTypeAllocationUpdate

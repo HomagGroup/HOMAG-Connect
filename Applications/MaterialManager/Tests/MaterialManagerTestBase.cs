@@ -69,7 +69,6 @@ public class MaterialManagerTestBase : TestBase
     {
         try
         {
-            await client.GetEdgebandTypeAllocation(order, customer, project, edgebandCode);
             await client.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
             {
                 Customer = customer,
