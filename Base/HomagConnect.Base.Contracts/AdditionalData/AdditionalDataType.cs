@@ -1,4 +1,7 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -10,6 +13,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 /// Gets or sets the additional data type.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
+[ResourceManager(typeof(AdditionalDataTypeDisplayNames))]
 public enum AdditionalDataType
 {
     /// <summary />
@@ -20,6 +24,10 @@ public enum AdditionalDataType
 
     /// <summary />
     Texture,
+
+    /// <summary />
+    [Display(Description = "Surface texture")]
+    SurfaceTexture,
 
     /// <summary />
     CNCProgram,
