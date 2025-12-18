@@ -18,6 +18,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// <summary>
         /// Acrylic composite materials.
         /// </summary>
+        [TypicalDensity(500)]
         [Display(Description = "Acrylic composite materials")]
         AcrylicCompositeMaterials,
 
@@ -84,6 +85,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// <summary>
         /// Chipboard.
         /// </summary>
+        [TypicalDensity(650)]
         [Display(Description = "Chipboard")]
         Chipboard,
 
@@ -234,6 +236,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// <summary>
         /// Medium-density fiberboard (MDF).
         /// </summary>
+        [TypicalDensity(700)]
         [Display(Description = "Medium-density fiberboard (MDF)")]
         MediumdensityFiberboard_MDF,
 
@@ -342,4 +345,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         // ReSharper restore IdentifierTypo
         // ReSharper restore InconsistentNaming
     }
+
+    
 }

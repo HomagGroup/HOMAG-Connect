@@ -5,6 +5,7 @@ using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -28,6 +29,77 @@ public class BoardTypeTests : MaterialManagerTestBase
             "because SubscriptionId should be configured for MaterialManager tests");
         AuthorizationKey.Should().NotBeNullOrEmpty(
             "because AuthorizationKey should be configured for MaterialManager tests");
+    }
+
+    /// <summary />
+    [TestMethod]
+    [UnitTest("MaterialManager.Boards")]
+    public void BoardType_Density_ReturnsSpecificWhenSet()
+    {
+        // Arrange
+        var boardType = new BoardType
+        {
+            MaterialCategory = BoardMaterialCategory.Chipboard,
+            Density = 485.9
+        };
+
+        // Assert
+        boardType.DensityOrCategoryTypical.Should().Be(485.9, "because specific density is set");
+    }
+
+    /// <summary />
+    [TestMethod]
+    [UnitTest("MaterialManager.Boards")]
+    public void BoardType_Density_ReturnsCategoryTypicalWhenSpecificMissing()
+    {
+        // Arrange
+        var boardType = new BoardType
+        {
+            MaterialCategory = BoardMaterialCategory.Chipboard,
+            Density = null
+        };
+
+        // Assert
+        boardType.DensityOrCategoryTypical.Should().Be(650, "because typical density should be returned when specific density is not set");
+    }
+
+    /// <summary />
+    [TestMethod]
+    [UnitTest("MaterialManager.Boards")]
+    public void BoardType_Density_ReturnsNullWhenNoCategoryTypical()
+    {
+        // Arrange
+        var boardType = new BoardType
+        {
+            MaterialCategory = BoardMaterialCategory.AlMgCu,
+            Density = null
+        };
+
+        // Assert
+        boardType.DensityOrCategoryTypical.Should().BeNull("because AlMgCu category does not have a typical density");
+    }
+
+    /// <summary />
+    [TestMethod]
+    [UnitTest("MaterialManager.Boards")]
+    public void BoardType_Density_ConvertsOnUnitSwitch()
+    {
+        // Arrange
+        var boardType = new BoardType
+        {
+            MaterialCategory = BoardMaterialCategory.MediumdensityFiberboard_MDF,
+            Density = null
+        };
+
+        // Assert metric typical first
+        boardType.DensityOrCategoryTypical.Should().Be(700, "because MDF typical density should be used in metric");
+
+        // Act
+        var boardTypeImperial = boardType.SwitchUnitSystem(UnitSystem.Imperial, true);
+
+        // Assert converted value is in a reasonable lb/ft³ range (~43.7)
+        boardTypeImperial.DensityOrCategoryTypical.Should().BeGreaterThan(40).And.BeLessThan(50,
+            "because MDF typical density should be converted to imperial units");
     }
 
     /// <summary />
