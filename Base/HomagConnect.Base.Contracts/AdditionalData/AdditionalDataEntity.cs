@@ -19,6 +19,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataThreeD), AdditionalDataType.ThreeD)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataPdf), AdditionalDataType.Pdf)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataZip), AdditionalDataType.Zip)]
+[JsonSubtypes.KnownSubType(typeof(AdditionalDataSurfaceTexture), AdditionalDataType.SurfaceTexture)]
 [DebuggerDisplay("Type={Type}, Name={Name}")]
 public class AdditionalDataEntity
 {
