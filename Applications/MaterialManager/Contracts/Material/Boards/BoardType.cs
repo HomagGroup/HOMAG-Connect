@@ -150,6 +150,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public double? Density { get; set; }
 
         /// <summary>
+        /// Gets the specific density or the typical density based on the material category if no specific density is set.
+        /// </summary>
+        [JsonProperty(Order = 28)]
+        [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
+        public double? DensityOrCategoryTypical
+        {
+            get
+            {
+                return Density ?? (MaterialCategory != BoardMaterialCategory.Undefined ? MaterialCategory.GetTypicalDensity(UnitSystem) : null);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the type of the board.
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_BoardTypeType))]
