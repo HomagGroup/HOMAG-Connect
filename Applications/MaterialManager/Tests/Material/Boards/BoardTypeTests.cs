@@ -71,12 +71,12 @@ public class BoardTypeTests : MaterialManagerTestBase
         // Arrange
         var boardType = new BoardType
         {
-            MaterialCategory = BoardMaterialCategory.AlMgCu,
+            MaterialCategory = BoardMaterialCategory.Undefined,
             Density = null
         };
 
         // Assert
-        boardType.DensityOrCategoryTypical.Should().BeNull("because AlMgCu category does not have a typical density");
+        boardType.DensityOrCategoryTypical.Should().BeNull("because Undefined category does not have a typical density");
     }
 
     /// <summary />
