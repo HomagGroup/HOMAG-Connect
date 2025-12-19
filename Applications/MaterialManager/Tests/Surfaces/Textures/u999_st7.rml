@@ -1,0 +1,119 @@
+{
+  "material": {
+    "externalIdentifier": "u999_st7",
+    "version": 0,
+    "id": "egger:u999_st7",
+    "shading": {
+      "version": "2.0.0",
+      "alpha": 1.0,
+      "alphaCutoff": 0,
+      "alphaMode": "OPAQUE",
+      "basecolor": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "transmission": 0.0,
+      "transmissionIOR": 1.45,
+      "metallic": 0.0,
+      "roughness": 0.38,
+      "doubleSided": true,
+      "occlusion": 0,
+      "emissiveColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0
+      },
+      "emissiveIntensity": 1.0,
+      "clearcoatIntensity": 0.0,
+      "clearcoatRoughness": 0.0,
+      "clearcoatNormalScale": 0.0,
+      "sheenColor": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "sheenIntensity": 0.0,
+      "sheenRoughness": 0.65,
+      "normalScale": 1.0,
+      "thicknessFactor": 0.0,
+      "attenuationColor": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "attenuationDistance": 0.0
+    },
+    "thumbnail": "https://catalog.roomle.com/xxx/materials/u999_st7/thumbnail.png",
+
+    "textureObjects": [
+      {
+        "id": 49123,
+        "material": "egger:u999_st7",
+        "image": "https://catalog.roomle.com/xxxxtextures/49124/image.png",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 200,
+        "mmWidth": 200,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-18T00:28:14.000Z",
+        "updated": "2025-02-18T00:28:14.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 200,
+          "mmWidth": 200,
+          "tileable": true,
+          "mapping": "RGBA"
+        },
+        "mapping": "RGBA",
+        "url": "https://catalog.roomle.com/xxx/textures/49123/image.png",
+        "assets": {}
+      },
+      {
+        "id": 49124,
+        "material": "egger:u999_st7",
+        "image": "https://catalog.roomle.com/xxx/textures/49124/image.png",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 200,
+        "mmWidth": 200,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-18T00:28:14.000Z",
+        "updated": "2025-02-18T00:28:14.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 200,
+          "mmWidth": 200,
+          "tileable": true,
+          "mapping": "XYZ"
+        },
+        "mapping": "XYZ",
+        "url": "https://catalog.roomle.com/xxx/textures/49124/image.png",
+        "assets": {}
+      }
+    ],
+    "textures": [
+      49123,
+      49124
+    ],
+    "tags": [
+      "egger_root"
+    ],
+    "label": "EGGER U999 ST7",
+    "language": "en",
+    "catalog": "egger",
+    "links": {
+      "textures": "/materials/egger:u999_st7/textures"
+    },
+    "hidden": false,
+    "visibilityStatus": 0,
+    "active": true,
+    "created": "2025-02-18T00:28:05.000Z",
+    "updated": "2025-02-20T14:27:34.000Z",
+    "additionalInfos": []
+  }
+}
