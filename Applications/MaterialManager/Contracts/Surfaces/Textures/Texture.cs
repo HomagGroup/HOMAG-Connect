@@ -52,7 +52,8 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures
         [JsonProperty(Order = 1)]
         [StringLength(50, MinimumLength = 1)]
         [Display(ResourceType = typeof(TextureDisplayNames), Name = nameof(TextureDisplayNames.Id))]
-        public Guid Id { get; set; }
+        [Key]
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the last modified date of the texture file.

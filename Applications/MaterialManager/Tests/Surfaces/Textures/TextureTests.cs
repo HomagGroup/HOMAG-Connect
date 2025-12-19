@@ -27,7 +27,7 @@ public class TextureTests
         const string baseUrl = "https://materialmanager.homag.cloud/cdn/textures/{subscriptionId}";
         var texture = new Texture
         {
-            Id = Guid.NewGuid(),
+            Id = "egger:u999_st7",
             Catalog = "egger",
             DecorCode = "U999",
             Embossing = "ST7",
