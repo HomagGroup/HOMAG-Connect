@@ -67,7 +67,7 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures
         /// </summary>
         /// <param name="materials">The Roomle materials collection.</param>
         /// <param name="fileReferences">Optional files to associate (e.g., thumbnails, textures).</param>
-        /// <returns>The resulting texture.</returns>
-        Task<Texture> ImportOrUpdate(MaterialDefinitionsRoomle materials, params FileReference[] fileReferences);
+        /// <returns>The resulting textures.</returns>
+        Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials, params FileReference[] fileReferences); 
     }
 }

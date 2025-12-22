@@ -1,0 +1,210 @@
+{
+  "material": {
+    "externalIdentifier": "f187_st9",
+    "version": 0,
+    "id": "egger:f187_st9",
+    "shading": {
+      "version": "2.0.0",
+      "alpha": 1.0,
+      "alphaCutoff": 0,
+      "alphaMode": "OPAQUE",
+      "basecolor": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "transmission": 0.0,
+      "transmissionIOR": 1.5,
+      "metallic": 0,
+      "roughness": 1.0,
+      "doubleSided": true,
+      "occlusion": 0,
+      "emissiveColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0
+      },
+      "emissiveIntensity": 1.0,
+      "clearcoatIntensity": 0.0,
+      "clearcoatRoughness": 0.0,
+      "clearcoatNormalScale": 0.0,
+      "sheenColor": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "sheenIntensity": 0.0,
+      "sheenRoughness": 0.65,
+      "normalScale": 1.0,
+      "thicknessFactor": 0.0,
+      "attenuationColor": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "attenuationDistance": 0.0
+    },
+    "thumbnail": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/materials/f187_st9/thumbnail.png?marker=1740061496",
+    "embeddedTextures": [
+      {
+        "id": 48421,
+        "material": "egger:f187_st9",
+        "image": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48421/image.png?marker=1739836796",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 1300,
+        "mmWidth": 1300,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-17T23:59:56.000Z",
+        "updated": "2025-02-17T23:59:56.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 1300,
+          "mmWidth": 1300,
+          "tileable": true,
+          "mapping": "RGBA"
+        },
+        "mapping": "RGBA",
+        "url": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48421/image.png?marker=1739836796",
+        "assets": {}
+      },
+      {
+        "id": 48422,
+        "material": "egger:f187_st9",
+        "image": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48422/image.png?marker=1739836796",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 1300,
+        "mmWidth": 1300,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-17T23:59:56.000Z",
+        "updated": "2025-02-17T23:59:56.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 1300,
+          "mmWidth": 1300,
+          "tileable": true,
+          "mapping": "XYZ"
+        },
+        "mapping": "XYZ",
+        "url": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48422/image.png?marker=1739836796",
+        "assets": {}
+      },
+      {
+        "id": 48423,
+        "material": "egger:f187_st9",
+        "image": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48423/image.png?marker=1739836796",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 1300,
+        "mmWidth": 1300,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-17T23:59:56.000Z",
+        "updated": "2025-02-17T23:59:56.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 1300,
+          "mmWidth": 1300,
+          "tileable": true,
+          "mapping": "ORM"
+        },
+        "mapping": "ORM",
+        "url": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48423/image.png?marker=1739836796",
+        "assets": {}
+      }
+    ],
+    "textureObjects": [
+      {
+        "id": 48421,
+        "material": "egger:f187_st9",
+        "image": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48421/image.png?marker=1739836796",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 1300,
+        "mmWidth": 1300,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-17T23:59:56.000Z",
+        "updated": "2025-02-17T23:59:56.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 1300,
+          "mmWidth": 1300,
+          "tileable": true,
+          "mapping": "RGBA"
+        },
+        "mapping": "RGBA",
+        "url": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48421/image.png?marker=1739836796",
+        "assets": {}
+      },
+      {
+        "id": 48422,
+        "material": "egger:f187_st9",
+        "image": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48422/image.png?marker=1739836796",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 1300,
+        "mmWidth": 1300,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-17T23:59:56.000Z",
+        "updated": "2025-02-17T23:59:56.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 1300,
+          "mmWidth": 1300,
+          "tileable": true,
+          "mapping": "XYZ"
+        },
+        "mapping": "XYZ",
+        "url": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48422/image.png?marker=1739836796",
+        "assets": {}
+      },
+      {
+        "id": 48423,
+        "material": "egger:f187_st9",
+        "image": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48423/image.png?marker=1739836796",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 1300,
+        "mmWidth": 1300,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2025-02-17T23:59:56.000Z",
+        "updated": "2025-02-17T23:59:56.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 1300,
+          "mmWidth": 1300,
+          "tileable": true,
+          "mapping": "ORM"
+        },
+        "mapping": "ORM",
+        "url": "https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/48423/image.png?marker=1739836796",
+        "assets": {}
+      }
+    ],
+    "textures": [ 48421, 48422, 48423 ],
+    "tags": [ "egger_root" ],
+    "label": "EGGER F187 ST9",
+    "language": "de",
+    "catalog": "egger",
+    "links": {
+      "textures": "/materials/egger:f187_st9/textures"
+    },
+    "hidden": false,
+    "visibilityStatus": 0,
+    "active": true,
+    "created": "2025-02-17T23:59:40.000Z",
+    "updated": "2025-02-20T14:24:56.000Z"
+  }
+}
