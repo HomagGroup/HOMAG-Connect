@@ -72,7 +72,7 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures
 
         /// <inheritdoc />
         [JsonProperty(Order = 80)]
-        public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
+        public Collection<AdditionalDataEntity>? AdditionalData { get; set; } 
 
         /// <inheritdoc />
         [JsonProperty(Order = 90)]
