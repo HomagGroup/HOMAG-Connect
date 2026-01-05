@@ -51,7 +51,7 @@ public class ProductionAssistTests : ProductionAssistTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2025, 12, 30, "DF-Production")]
+    [TemporaryDisabledOnServer(2026, 01, 31, "DF-Production")]
     public async Task ProductionAssist_GetWorkstations_NoException()
     {
         var exceptionThrown = false;
