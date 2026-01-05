@@ -16,9 +16,9 @@
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="System.Linq.Async" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
