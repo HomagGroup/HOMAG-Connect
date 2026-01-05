@@ -20,7 +20,7 @@ trigger:
     - '*'
 
 variables:
-  dotnetVersion: 8.0.x
+  dotnetVersion: 10.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect 
 
