@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.UserSecrets;
@@ -165,6 +166,32 @@ namespace HomagConnect.Base.TestBase
             config = Configuration[key];
 
             return config ?? null;
+        }
+
+        public static async Task RetryAssertAsync(
+            Func<Task> assertion,
+            int maxAttempts = 5,
+            int delayMs = 1000)
+        {
+            Exception? lastException = null;
+            for (var attempt = 1; attempt <= maxAttempts; attempt++)
+            {
+                try
+                {
+                    await assertion();
+                    return; // Success
+                }
+                catch (Exception ex)
+                {
+                    lastException = ex;
+                    if (attempt < maxAttempts)
+                    {
+                        await Task.Delay(delayMs);
+                    }
+                }
+            }
+
+            Assert.Fail($"Assertion failed after {maxAttempts} attempts. Last error: {lastException?.Message}");
         }
     }
 }

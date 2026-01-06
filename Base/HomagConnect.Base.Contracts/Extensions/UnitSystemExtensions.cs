@@ -71,7 +71,7 @@ public static class UnitSystemExtensions
 
             if (valueDependsOnUnitSystemAttribute != null)
             {
-                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar or BaseUnit.MeterPerSecond)
+                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar or BaseUnit.MeterPerSecond or BaseUnit.KilogramPerCubicMeter)
                 {
                     SwitchBaseUnit(propertyInfo, clone, valueDependsOnUnitSystemAttribute, applyRounding);
                 }
@@ -117,7 +117,10 @@ public static class UnitSystemExtensions
                     convertedValue = Math.Round(convertedValue, valueDependsOnUnitSystemAttribute.DecimalsImperial);
                 }
 
-                propertyInfo.SetValue(clone, convertedValue);
+                if (propertyInfo.CanWrite)
+                {
+                    propertyInfo.SetValue(clone, convertedValue);
+                }
             }
             else if (clone.UnitSystem == UnitSystem.Metric)
             {
@@ -128,7 +131,10 @@ public static class UnitSystemExtensions
                     convertedValue = Math.Round(convertedValue, valueDependsOnUnitSystemAttribute.DecimalsMetric);
                 }
 
-                propertyInfo.SetValue(clone, convertedValue);
+                if (propertyInfo.CanWrite)
+                {
+                    propertyInfo.SetValue(clone, convertedValue);
+                }
             }
             else
             {

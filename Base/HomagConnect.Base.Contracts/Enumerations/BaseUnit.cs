@@ -25,5 +25,9 @@ public enum BaseUnit
 
     /// <summary />
     [RoundingFormat(1, 1)]
-    MeterPerSecond
+    MeterPerSecond,
+
+    /// <summary />
+    [RoundingFormat(1, 1)]
+    KilogramPerCubicMeter
 }

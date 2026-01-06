@@ -99,6 +99,12 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         [JsonProperty(Order = 121)]
         public string? OrderNumber { get; set; }
 
+        /// <summary>
+        /// The order number from the preceding system
+        /// </summary>
+        [JsonProperty(Order = 122)]
+        public string? OrderNumberExternal { get; set; }
+
         #endregion
 
         #region Production

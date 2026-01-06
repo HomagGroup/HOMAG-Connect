@@ -470,7 +470,7 @@ public class BoardEntityTests : MaterialAssistTestBase
 
     private async Task<BoardEntity?> WaitForBoardEntityLocationAsync(
         MaterialAssistClientBoards client,
-        string entityId,
+        string entityCode,
         string expectedLocationId,
         int maxAttempts = 5,
         int delayMs = 200)
@@ -478,7 +478,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         BoardEntity? found = null;
         for (var attempt = 0; attempt < maxAttempts; attempt++)
         {
-            found = await client.GetBoardEntityById(entityId).ConfigureAwait(false);
+            found = await client.GetBoardEntityByCode(entityCode).ConfigureAwait(false);
             if (found?.Location.LocationId == expectedLocationId)
                 break;
             await Task.Delay(delayMs);

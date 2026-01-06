@@ -12,6 +12,7 @@ using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Common;
+using HomagConnect.MaterialManager.Contracts.Delete;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -19,6 +20,8 @@ using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
+
+// ReSharper disable LocalizableElement
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -28,9 +31,28 @@ namespace HomagConnect.MaterialManager.Client;
 public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialManagerClientMaterialEdgebands
 {
     private const string _BaseRoute = "api/materialManager/materials/edgebands";
+    private const string _EdgebandTypeAllocations = _BaseRoute + "/allocations";
+
     private const string _BaseStatisticsRoute = "api/materialManager/statistics";
     private const string _EdgebandCode = "edgebandCode";
     private const string _IncludingDetails = "includingDetails";
+
+    #region Private Methods
+
+    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+        bool includingDetails = false)
+    {
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
+        return urls;
+    }
+
+    #endregion Private methods
+
+    #region Get
 
     /// <inheritdoc />
     public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypes(int take, int skip = 0)
@@ -98,7 +120,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         foreach (var url in urls)
         {
-            boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandType>());
+            boardTypes.AddRange(await RequestEnumerable<EdgebandType>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return boardTypes;
@@ -128,10 +150,65 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         foreach (var url in urls)
         {
-            edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)) ?? Array.Empty<EdgebandTypeDetails>());
+            edgebandTypeDetails.AddRange(await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative)) ?? []);
         }
 
         return edgebandTypeDetails;
+    }
+
+    /// <inheritdoc />
+    public async Task<EdgebandTypeAllocation> GetEdgebandTypeAllocation(string order, string customer, string project, string edgebandCode)
+    {
+        if (string.IsNullOrWhiteSpace(order))
+        {
+            throw new ArgumentException("Order must not be null or empty.", nameof(order));
+        }
+
+        if (string.IsNullOrWhiteSpace(customer))
+        {
+            throw new ArgumentException("Customer must not be null or empty.", nameof(customer));
+        }
+
+        if (string.IsNullOrWhiteSpace(project))
+        {
+            throw new ArgumentException("Project must not be null or empty.", nameof(project));
+        }
+
+        if (string.IsNullOrWhiteSpace(edgebandCode))
+        {
+            throw new ArgumentException("EdgebandCode must not be null or empty.", nameof(edgebandCode));
+        }
+
+        // Build the query string for the allocation
+        var url = $"{_EdgebandTypeAllocations}?" +
+                  $"order={Uri.EscapeDataString(order)}" +
+                  $"&customer={Uri.EscapeDataString(customer)}" +
+                  $"&project={Uri.EscapeDataString(project)}" +
+                  $"&edgebandCode={Uri.EscapeDataString(edgebandCode)}";
+
+        var response = await RequestObject<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        if (response != null)
+        {
+            return response;
+        }
+
+        throw new Exception("EdgebandTypeAllocation not found for the specified parameters.");
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandTypeAllocation>> GetEdgebandTypeAllocations()
+    {
+        var url = $"{_EdgebandTypeAllocations}/getall";
+        var result = await RequestEnumerable<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        return result ?? [];
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandTypeAllocation>> GetEdgebandTypeAllocations(DateTimeOffset changedSince)
+    {
+        var url = $"{_EdgebandTypeAllocations}?changedSince={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}";
+        var result = await RequestEnumerable<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        return result ?? [];
     }
 
     /// <inheritdoc />
@@ -172,21 +249,6 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
     }
 
-    #region Private Methods
-
-    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-        bool includingDetails = false)
-    {
-        var urls = codes
-            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-            .Join(QueryParametersMaxLength)
-            .Select(x => x.Remove(0, 1).Insert(0, "?"))
-            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
-        return urls;
-    }
-
-    #endregion Private methods
-
     #region Update
 
     /// <inheritdoc />
@@ -216,64 +278,19 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         throw new Exception($"The returned object is not of type {nameof(edgebandCode)}");
     }
 
-    /// <inheritdoc />
-    public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate, FileReference[] fileReferences)
+    #endregion Update
+
+    #region Private Methods
+
+    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
+        bool includingDetails = false)
     {
-        if (edgebandTypeUpdate == null)
-        {
-            throw new ArgumentNullException(nameof(edgebandTypeUpdate));
-        }
-
-        ValidateRequiredProperties(edgebandTypeUpdate);
-
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
-
-        if (fileReferences == null)
-        {
-            throw new ArgumentNullException(nameof(fileReferences));
-        }
-
-        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
-
-        if (missingFile != null)
-        {
-            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
-        }
-
-        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
-
-        if (missingReference != null)
-        {
-            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
-        }
-
-        var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
-        request.RequestUri = new Uri(url, UriKind.Relative);
-
-        using var httpContent = new MultipartFormDataContent();
-
-        var json = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
-
-        httpContent.Add(new StringContent(json), nameof(edgebandTypeUpdate));
-
-        foreach (var fileReference in fileReferences)
-        {
-            var fileStream = fileReference.FileInfo.OpenRead();
-
-            HttpContent streamContent = new StreamContent(fileStream);
-            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
-        }
-
-        request.Content = httpContent;
-
-        var response = await Client.SendAsync(request);
-
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-
-        var result = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
-
-        return responseObject ?? new EdgebandType();
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
+        return urls;
     }
 
     #endregion Update
@@ -369,6 +386,31 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return responseObject ?? new EdgebandType();
     }
 
+    /// <inheritdoc />
+    public async Task<EdgebandTypeAllocation> CreateEdgebandTypeAllocation(EdgebandTypeAllocationRequest edgebandTypeAllocationRequest)
+    {
+        if (edgebandTypeAllocationRequest == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeAllocationRequest));
+        }
+
+        ValidateRequiredProperties(edgebandTypeAllocationRequest);
+
+        var payload = JsonConvert.SerializeObject(edgebandTypeAllocationRequest, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_EdgebandTypeAllocations, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<EdgebandTypeAllocation>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(EdgebandTypeAllocation)}");
+    }
+
     #endregion Create
 
     #region Delete
@@ -405,6 +447,30 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         {
             await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
         }
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteEdgebandTypeAllocation(EdgebandTypeAllocationDelete edgebandTypeAllocationDelete)
+    {
+        if (edgebandTypeAllocationDelete == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeAllocationDelete));
+        }
+
+        // The endpoint for deleting allocations is assumed to be /allocations
+        var url = $"{_EdgebandTypeAllocations}";
+
+        var payload = JsonConvert.SerializeObject(edgebandTypeAllocationDelete, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+        // Typically, delete with body uses HttpMethod.Delete and content
+        var request = new HttpRequestMessage(HttpMethod.Delete, new Uri(url, UriKind.Relative))
+        {
+            Content = content
+        };
+
+        var response = await Client.SendAsync(request);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
     }
 
     #endregion Delete

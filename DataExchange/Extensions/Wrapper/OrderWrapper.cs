@@ -88,6 +88,20 @@ public class OrderWrapper
     }
 
     /// <summary />
+    public string? OrderNumberExternal
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
+
+    /// <summary />
     public DateTime? DeliveryDatePlanned
     {
         get

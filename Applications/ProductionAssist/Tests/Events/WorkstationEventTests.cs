@@ -1,6 +1,9 @@
 ﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Events.Material.Enums;
+using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Events;
 using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
 using HomagConnect.ProductionAssist.Contracts.Events.Sorting;
@@ -55,6 +58,50 @@ public class WorkstationEventTests : ProductionAssistTestBase
 
         TestContext?.AddResultFile(cycleItemCompletedEvent.TraceToFile("cycleItemCompletedEvent").FullName);
     }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_WorkstationUpsertedEventCreated_SerializeDeserialize()
+    {
+        var workstationUpsertedEvent = new WorkstationUpsertedEvent();
+
+        workstationUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        workstationUpsertedEvent.Workstation = new Workstation 
+        { 
+            Id = Guid.NewGuid(),
+            DisplayName = "TestMachine",
+            Type = WorkstationType.Cutting,
+        };
+        workstationUpsertedEvent.Trace();
+
+        Assert.IsTrue(workstationUpsertedEvent.IsValid);
+        Assert.AreEqual(workstationUpsertedEvent.Action, UpsertAction.Created);
+
+        TestContext?.AddResultFile(workstationUpsertedEvent.TraceToFile("workstationUpsertedEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_WorkstationUpsertedEventUpdated_SerializeDeserialize()
+    {
+        var workstationUpsertedEvent = new WorkstationUpsertedEvent();
+
+        workstationUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        workstationUpsertedEvent.Workstation = new Workstation
+        {
+            Id = Guid.NewGuid(),
+            DisplayName = "TestMachine",
+            Type = WorkstationType.Cutting,
+        };
+        workstationUpsertedEvent.Action = UpsertAction.Updated;
+        workstationUpsertedEvent.Trace();
+
+        Assert.IsTrue(workstationUpsertedEvent.IsValid);
+        Assert.AreEqual(workstationUpsertedEvent.Action, UpsertAction.Updated);
+
+        TestContext?.AddResultFile(workstationUpsertedEvent.TraceToFile("workstationUpsertedEvent").FullName);
+    }
+
 
     /// <summary />
     [TestMethod]

@@ -46,3 +46,38 @@ var order =  await client.GetOrder(orderId);
 ``` 
 
 The response is [OrderDetails](../../../../Contracts/Orders/OrderDetails.cs) which exposes detailed information about the order
+
+<strong>Example ReleaseOrder :</strong>
+
+```c#
+ // Create new instance of the productionManager client:
+ var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+ Guid? orderId = null; // set existing order id
+ if (orderId == null)
+ {
+     throw new ArgumentNullException("No order id set");
+ }
+
+ await productionManagerClient.ReleaseOrder(orderId.Value);
+``` 
+
+The sample code can be found at [ProductionManager - Release Orders sample ](ReleaseOrderSamples.cs).
+
+<strong>Example ResetReleaseOrder :</strong>
+
+```c#
+ // Create new instance of the productionManager client:
+ var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+ Guid? orderId = null; // set existing order id
+ if (orderId == null)
+ {
+     throw new ArgumentNullException("No order id set");
+ }
+
+ await productionManagerClient.ResetReleaseOrder(orderId.Value);
+``` 
+
+The sample code can be found at [ProductionManager - Release Orders sample ](ReleaseOrderSamples.cs).
+

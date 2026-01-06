@@ -54,7 +54,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public string MaterialCode { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the thickness.
+        /// Gets or sets the thickness. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Thickness))]
         [JsonProperty(Order = 24)]
@@ -133,6 +133,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
         /// <summary>
         /// Gets or sets the costs of the board. The unit depends on the settings of the subscription.
+        /// (metric: amount/m², imperial: amount/ft²).
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Costs))]
         [JsonProperty(Order = 26)]
@@ -140,11 +141,26 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
         /// <summary>
         /// Gets or sets the density of the board. The unit depends on the settings of the subscription.
+        /// (metric: kg/m³, imperial: lb/ft³).
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Density))]
         [JsonProperty(Order = 27)]
-        [Range(0.1, 9999.9)]
+        [Range(0.1, 999999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
         public double? Density { get; set; }
+
+        /// <summary>
+        /// Gets the specific density or the typical density based on the material category if no specific density is set.
+        /// </summary>
+        [JsonProperty(Order = 28)]
+        [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
+        public double? DensityOrCategoryTypical
+        {
+            get
+            {
+                return Density ?? (MaterialCategory != BoardMaterialCategory.Undefined ? MaterialCategory.GetTypicalDensity(UnitSystem) : null);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the type of the board.
@@ -231,7 +247,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public int? TotalQuantityAvailableWarningLimit { get; set; }
 
         /// <summary>
-        /// Gets or sets the total area available warning limit.
+        /// Gets or sets the total area available warning limit. The unit depends on the settings of the subscription
+        /// (metric: m², imperial: ft²).
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalAreaAvailableWarningLimit))]
         [JsonProperty(Order = 54)]
@@ -316,6 +333,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalAreaInInventory))]
         [JsonProperty(Order = 56)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         public double? TotalAreaInInventory
         {
             get
@@ -330,6 +348,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalAreaAllocated))]
         [JsonProperty(Order = 57)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         public double? TotalAreaAllocated
         {
             get
@@ -344,6 +363,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalAreaAvailable))]
         [JsonProperty(Order = 58)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         public double? TotalAreaAvailable
         {
             get

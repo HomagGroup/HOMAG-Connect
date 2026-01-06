@@ -48,6 +48,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         /// <remarks>
         /// This is used to reflect a position for a sub-article
         /// </remarks>
+        [JsonProperty(Order = 20)]
         public string? LinkedConfigurationId { get; set; }
 
         /// <summary>
