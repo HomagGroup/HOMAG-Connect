@@ -282,21 +282,6 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
     #endregion Update
 
-    #region Private Methods
-
-    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-        bool includingDetails = false)
-    {
-        var urls = codes
-            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-            .Join(QueryParametersMaxLength)
-            .Select(x => x.Remove(0, 1).Insert(0, "?"))
-            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
-        return urls;
-    }
-
-    #endregion Update
-
     #region Constructors
 
     /// <inheritdoc />
