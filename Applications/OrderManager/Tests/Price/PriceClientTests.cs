@@ -55,7 +55,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
             Assert.IsNotNull(res);
             Assert.IsNotNull(res.OrderData);
             res.LibraryId.ShouldBe("libId");
-            res.OrderData.ShouldBe(requestData.OrderData);
+            res.OrderData.ShouldBeEquivalentTo(requestData.OrderData);
         }
     }
 }
