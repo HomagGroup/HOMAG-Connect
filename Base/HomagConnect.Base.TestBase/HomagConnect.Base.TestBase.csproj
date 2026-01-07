@@ -31,4 +31,8 @@
 	  <ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Assertions\" />
+	</ItemGroup>
+
 </Project>

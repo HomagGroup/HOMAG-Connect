@@ -36,7 +36,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- Replace FluentAssertions with Shouldly -->
 		<PackageReference Include="Shouldly" Version="4.2.1" />
 		<PackageReference Include="coverlet.collector" Version="6.0.4">
 			<PrivateAssets>all</PrivateAssets>

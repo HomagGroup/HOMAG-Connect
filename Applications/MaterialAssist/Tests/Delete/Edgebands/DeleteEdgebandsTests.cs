@@ -1,6 +1,5 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
+﻿using HomagConnect.MaterialAssist.Samples.Delete.Edgebands;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Edgebands;
 
@@ -27,7 +26,7 @@ public class DeleteEdgebandsTests : MaterialAssistTestBase
 
         var act = async () => await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntity(materialAssistClient, "23");
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because deleting edgeband entity '23' should complete successfully without errors");
     }
 
@@ -38,7 +37,7 @@ public class DeleteEdgebandsTests : MaterialAssistTestBase
 
         var act = async () => await DeleteEdgebandEntitiesSamples.Edgebands_DeleteEdgebandEntities(materialAssistClient, ["24", "25"]);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because deleting edgeband entities '24' and '25' should complete successfully without errors");
     }
 }

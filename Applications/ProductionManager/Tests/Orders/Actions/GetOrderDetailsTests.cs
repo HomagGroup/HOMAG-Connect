@@ -1,5 +1,3 @@
-using FluentAssertions;
-
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -9,6 +7,7 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
+using Shouldly;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Actions;
 
@@ -78,10 +77,11 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
         Assert.IsNotNull(deserialized);
         Assert.IsNotNull(deserialized.Source);
 
-        deserialized.Should().NotBe(null);
-        deserialized.Should().BeEquivalentTo(order);
+        // Equality checks via JSON serialization to avoid deep equivalence dependency
+        JsonConvert.SerializeObject(deserialized, SerializerSettings.Default)
+            .ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
 
-        deserialized.Address.GetType().Should().Be(order.Address.GetType());
+        deserialized.Address.GetType().ShouldBe(order.Address.GetType());
     }
 
     /// <summary />
@@ -192,10 +192,10 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
         Assert.IsNotNull(deserialized);
         Assert.IsNotNull(deserialized.Items);
 
-        deserialized.Should().NotBe(null);
-        deserialized.Should().BeEquivalentTo(order);
+        JsonConvert.SerializeObject(deserialized, SerializerSettings.Default)
+            .ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
 
-        deserialized.Items[0].GetType().Should().Be(order.Items[0].GetType());
+        deserialized.Items[0].GetType().ShouldBe(order.Items[0].GetType());
     }
 
     /// <summary />

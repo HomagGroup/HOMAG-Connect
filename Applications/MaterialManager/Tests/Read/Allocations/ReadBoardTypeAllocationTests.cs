@@ -1,8 +1,7 @@
-﻿using FluentAssertions;
-
-using HomagConnect.Base.TestBase.Attributes;
+﻿using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 
@@ -27,7 +26,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
         var allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocations(2, 2) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
 
         // Assert
-        allocations.Should().NotBeNull(
+        allocations.ShouldNotBeNull(
             "because GetBoardTypeAllocations should return a collection of board type allocations");
     }
     
@@ -41,7 +40,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
         var allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocations(DateTimeOffset.UtcNow.AddDays(-2), 2, 2) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
 
         // Assert
-        allocations.Should().NotBeNull(
+        allocations.ShouldNotBeNull(
             "because GetBoardTypeAllocations should return a collection of board type allocations");
     }
 
@@ -57,7 +56,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
         var allocations = (await MaterialManagerClientMaterialBoards.GetBoardTypeAllocationsByAllocationNames(new List<string> { allocationName }, 1) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
 
         // Assert
-        allocations.Should().NotBeNull(
+        allocations.ShouldNotBeNull(
             $"because GetBoardTypeAllocationsByAllocationNames should return a collection for allocation name '{allocationName}'");
         // To-do check more once allocation repository is implemented
         //allocations.Should().NotBeEmpty();
@@ -76,7 +75,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
         var allocations = (await MaterialManagerClientMaterialBoards.SearchBoardTypeAllocations(search, 1) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
 
         // Assert
-        allocations.Should().NotBeNull(
+        allocations.ShouldNotBeNull(
             $"because SearchBoardTypeAllocations should return a collection for search term '{search}'");
         // To-do check more once allocation repository is implemented
         //allocations.Should().NotBeEmpty();
