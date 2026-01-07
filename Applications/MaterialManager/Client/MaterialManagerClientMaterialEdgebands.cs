@@ -249,6 +249,8 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
     }
 
+    #endregion Get
+
     #region Update
 
     /// <inheritdoc />
