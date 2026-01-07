@@ -61,7 +61,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
             $"because GetBoardTypeAllocationsByAllocationNames should return a collection for allocation name '{allocationName}'");
         // To-do check more once allocation repository is implemented
         //allocations.Should().NotBeEmpty();
-        //allocations.Should().Contain(a => a.Name.Equals(allocationName));
+        //allocations.ShouldContain(a => a.Name.Equals(allocationName));
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
             $"because SearchBoardTypeAllocations should return a collection for search term '{search}'");
         // To-do check more once allocation repository is implemented
         //allocations.Should().NotBeEmpty();
-        //allocations.Should().Contain(a => a.Name.Equals(search));
+        //allocations.ShouldContain(a => a.Name.Equals(search));
     }
 
     /// <summary>

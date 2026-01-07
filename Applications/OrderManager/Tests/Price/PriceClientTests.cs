@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using HomagConnect.Base.Tests;
 using HomagConnect.OrderManager.Client;
 using HomagConnect.OrderManager.Contracts.Orders;
@@ -25,7 +25,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
             {
                 var data = await TestApplication.GetBodyAsAsync<PriceRequestData>(ctx)!;
 
-                data.LibraryId.Should().BeNull();
+                data.LibraryId.ShouldBeNull();
                 var responseData = new PriceResponseData
                 {
                     LibraryId = "libId",
@@ -54,8 +54,8 @@ namespace HomagConnect.OrderManager.Tests.Orders
             // Assert
             Assert.IsNotNull(res);
             Assert.IsNotNull(res.OrderData);
-            res.LibraryId.Should().Be("libId");
-            res.OrderData.Should().BeEquivalentTo(requestData.OrderData);
+            res.LibraryId.ShouldBe("libId");
+            res.OrderData.ShouldBe(requestData.OrderData);
         }
     }
 }
