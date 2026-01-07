@@ -61,6 +61,11 @@ public class ProductionItemBase
         {
             return !string.IsNullOrWhiteSpace(Barcode) ? Barcode : Id;
         }
+        // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Needed for serialization. Do nothing. If removed the property is added to AdditionalProperties on deserialization.
+        }
     }
 
     /// <summary>

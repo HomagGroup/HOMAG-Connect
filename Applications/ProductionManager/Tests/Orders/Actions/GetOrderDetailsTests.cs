@@ -76,10 +76,8 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
 
         Assert.IsNotNull(deserialized);
         Assert.IsNotNull(deserialized.Source);
-
-        // Equality checks via JSON serialization to avoid deep equivalence dependency
-        JsonConvert.SerializeObject(deserialized, SerializerSettings.Default)
-            .ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
+        
+        deserialized.ShouldBeEquivalentTo(order);
 
         deserialized.Address.GetType().ShouldBe(order.Address.GetType());
     }
@@ -189,11 +187,14 @@ public class GetOrderDetailsTests : ProductionManagerTestBase
         var serialized = JsonConvert.SerializeObject(order, SerializerSettings.Default);
         var deserialized = JsonConvert.DeserializeObject<OrderDetails>(serialized, SerializerSettings.Default);
 
+        TestContext.AddResultFile(order.TraceToFile(nameof(order)).FullName);
+        TestContext.AddResultFile(deserialized.TraceToFile(nameof(deserialized)).FullName);
+
+
         Assert.IsNotNull(deserialized);
         Assert.IsNotNull(deserialized.Items);
 
-        JsonConvert.SerializeObject(deserialized, SerializerSettings.Default)
-            .ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
+        deserialized.ShouldBeEquivalentTo(order);
 
         deserialized.Items[0].GetType().ShouldBe(order.Items[0].GetType());
     }
