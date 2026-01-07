@@ -124,7 +124,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template
             }
             else
             {
-                throw new InternalTestFailureException();
+                Assert.Fail("The optimization request was not successful.");
             }
         }
     }

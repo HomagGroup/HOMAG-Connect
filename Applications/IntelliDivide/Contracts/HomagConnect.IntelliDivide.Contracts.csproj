@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<LangVersion>default</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
@@ -15,12 +15,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
