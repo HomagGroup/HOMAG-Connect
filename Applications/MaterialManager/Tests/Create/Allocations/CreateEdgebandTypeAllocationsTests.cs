@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.MaterialManager.Client;
 
@@ -30,7 +30,7 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
-        await act.Should().ThrowAsync<ValidationException>(
+        await Should.ThrowAsync<ValidationException>(act,
             "because creating a Edgeband type allocation with missing required properties should throw a ValidationException");
     }
 
@@ -48,18 +48,18 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
 
         var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
 
-        allocationResult.Should().NotBeNull(
+        allocationResult.ShouldNotBeNull(
             $"because Edgeband type allocation with EdgebandCode '{EdgebandCode}' should be created successfully");
-        allocationResult.Comments.Should().Be(comments,
+        allocationResult!.Comments.ShouldBe(comments,
             $"because Edgeband type allocation '{EdgebandCode}' was created with comments '{comments}'");
         //do not compare until clarified 
-        //allocationResult.CreatedBy.Should().Be(createdBy,
+        //allocationResult.CreatedBy.ShouldBe(createdBy,
         //    $"because Edgeband type allocation '{EdgebandCode}' was created by '{createdBy}'");
-        //allocationResult.EdgebandCode.Should().Be(EdgebandCode,
+        //allocationResult.EdgebandCode.ShouldBe(EdgebandCode,
         //$"because Edgeband type allocation '{EdgebandCode}' was created for Edgeband code '{EdgebandCode}'");
-        //allocationResult.Source.Should().Be(source,
+        //allocationResult.Source.ShouldBe(source,
         //    $"because Edgeband type allocation '{EdgebandCode}' was created with source '{EdgebandCode}'");
-        //allocationResult.Workstation.Should().Be(workstation,
+        //allocationResult.Workstation.ShouldBe(workstation,
         //    $"because Edgeband type allocation '{EdgebandCode}' was created with workstation '{workstation}'");
 
         await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialManager.Samples.Read.ProcessParameters.Cnc;
 
@@ -18,7 +18,7 @@ public class MaterialManagerReadCncParameter : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerReadCncParameters.GetMillingParameterToolGroups(materialManager.Processing.Cnc);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetMillingParameterToolGroups should retrieve milling parameter tool groups successfully");
     }
 
@@ -30,7 +30,7 @@ public class MaterialManagerReadCncParameter : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerReadCncParameters.GetMillingParameterMaterialGroups(materialManager.Processing.Cnc);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetMillingParameterMaterialGroups should retrieve milling parameter material groups successfully");
     }
 
@@ -42,7 +42,7 @@ public class MaterialManagerReadCncParameter : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerReadCncParameters.GetMillingParameterGroups(materialManager.Processing.Cnc);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetMillingParameterGroups should retrieve milling parameter groups successfully");
     }
 }

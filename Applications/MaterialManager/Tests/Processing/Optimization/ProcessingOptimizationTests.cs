@@ -1,7 +1,7 @@
-using FluentAssertions;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
+
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 
@@ -21,9 +21,9 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
 
         var offcutParameterSets = (await client.Processing.Optimization.GetOffcutParameterSetsAsync(materialCodes).ConfigureAwait(false) ?? Array.Empty<OffcutParameterSet>()).ToList();
 
-        offcutParameterSets.Should().NotBeNull(
+        offcutParameterSets.ShouldNotBeNull(
             "because GetOffcutParameterSetsAsync should return a collection of offcut parameter sets");
-        offcutParameterSets.Should().HaveCountGreaterThan(0,
+        offcutParameterSets.Count.ShouldBeGreaterThan(0,
             $"because offcut parameter sets should exist for the requested material codes: {string.Join(", ", materialCodes)}");
 
         offcutParameterSets.Trace();
@@ -32,7 +32,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         {
             var isValid = DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults);
 
-            isValid.Should().BeTrue(
+            isValid.ShouldBeTrue(
                 $"because offcut parameter set for material group '{offcutParameterSet.MaterialGroupName}' should be valid, " +
                 $"but validation failed with: {(validationResults.Any() ? validationResults[0].ErrorMessage : "unknown error")}");
         }
@@ -47,19 +47,19 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
 
         var offcutParameterSet = await client.Processing.Optimization.GetOffcutParameterSetAsync(materialCode);
 
-        offcutParameterSet.Should().NotBeNull(
+        offcutParameterSet.ShouldNotBeNull(
             $"because offcut parameter set should be retrieved for material code '{materialCode}'");
 
-        offcutParameterSet.MaterialGroupName.Should().NotBeNullOrEmpty(
+        offcutParameterSet!.MaterialGroupName.ShouldNotBeNullOrEmpty(
             $"because offcut parameter set for material code '{materialCode}' should have a material group name");
-        offcutParameterSet.MaterialCodes.Should().Contain(materialCode,
+        offcutParameterSet.MaterialCodes.ShouldContain(materialCode,
             $"because offcut parameter set should contain the requested material code '{materialCode}'");
 
         offcutParameterSet.Trace();
 
         var isValid = DataAnnotationsValidator.TryValidateObjectRecursive(offcutParameterSet, out var validationResults);
 
-        isValid.Should().BeTrue(
+        isValid.ShouldBeTrue(
             $"because offcut parameter set for material code '{materialCode}' should be valid, " +
             $"but validation failed with: {(validationResults.Any() ? validationResults[0].ErrorMessage : "unknown error")}");
     }

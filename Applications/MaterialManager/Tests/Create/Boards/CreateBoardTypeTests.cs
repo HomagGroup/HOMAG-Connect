@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using FluentAssertions;
+﻿using Shouldly;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -51,7 +50,7 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
 
             var act = async () => await boardsClient.CreateBoardType(requestBoardType);
 
-            await act.Should().ThrowAsync<ValidationException>();
+            await Should.ThrowAsync<ValidationException>(act);
         }
 
         [ClassCleanup]

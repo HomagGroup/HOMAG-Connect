@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialAssist.Samples.Update.Boards;
 
@@ -26,11 +26,11 @@ public class UpdateBoardsTests : MaterialAssistTestBase
 
         var boardEntity = await materialAssistClient.GetBoardEntityByCode("834");
 
-        boardEntity.Should().NotBeNull(
+        boardEntity.ShouldNotBeNull(
             $"because board entity '{_BoardEntityCode}' should exist after update");
-        boardEntity!.Length.Should().Be(length,
+        Assert.AreEqual(length, boardEntity!.Length, 0.0001,
             $"because board entity '{_BoardEntityCode}' was updated to length {length}");
-        boardEntity.Width.Should().Be(width,
+        Assert.AreEqual(width, boardEntity.Width, 0.0001,
             $"because board entity '{_BoardEntityCode}' was updated to width {width}");
         return;
 

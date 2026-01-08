@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialAssist.Samples.Create.Edgebands;
+﻿using HomagConnect.MaterialAssist.Samples.Create.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands;
 
@@ -25,15 +24,15 @@ public class CreateEdgebandsTests : MaterialAssistTestBase
 
         var edgebandEntity = await materialAssistClient.GetEdgebandEntityById("16");
 
-        edgebandEntity.Should().NotBeNull(
+        edgebandEntity.ShouldNotBeNull(
             "because edgeband entity with ID '16' should be created successfully");
-        edgebandEntity!.Id.Should().Be("16",
+        edgebandEntity!.Id.ShouldBe("16",
             "because we created edgeband entity with ID '16'");
-        edgebandEntity.ManagementType.Should().Be(ManagementType.Single,
+        edgebandEntity.ManagementType.ShouldBe(ManagementType.Single,
             "because edgeband entity '16' was created with ManagementType.Single");
-        edgebandEntity.Quantity.Should().Be(1,
+        edgebandEntity.Quantity.ShouldBe(1,
             "because Single management type must have quantity of 1");
-        edgebandEntity.Length.Should().Be(50,
+        edgebandEntity.Length.ShouldBe(50,
             "because edgeband entity '16' was created with length 50");
     }
 

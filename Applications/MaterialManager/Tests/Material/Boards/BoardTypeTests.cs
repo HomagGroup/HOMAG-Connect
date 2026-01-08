@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -23,11 +23,11 @@ public class BoardTypeTests : MaterialManagerTestBase
     [TestMethod]
     public void BoardType_CheckConfiguration_ConfigValid()
     {
-        BaseUrl.Should().NotBeNull(
+        BaseUrl.ShouldNotBeNull(
             "because BaseUrl should be configured for MaterialManager tests");
-        SubscriptionId.Should().NotBeEmpty(
+        SubscriptionId.ShouldNotBe(Guid.Empty,
             "because SubscriptionId should be configured for MaterialManager tests");
-        AuthorizationKey.Should().NotBeNullOrEmpty(
+        AuthorizationKey.ShouldNotBeNullOrEmpty(
             "because AuthorizationKey should be configured for MaterialManager tests");
     }
 
@@ -43,8 +43,9 @@ public class BoardTypeTests : MaterialManagerTestBase
             Density = 485.9
         };
 
-        // Assert
-        boardType.DensityOrCategoryTypical.Should().Be(485.9, "because specific density is set");
+        boardType.DensityOrCategoryTypical.ShouldNotBeNull();
+        boardType.DensityOrCategoryTypical.Value.ShouldBe(485.9,0.0001, "because the specific density is set");
+    
     }
 
     /// <summary />
@@ -60,7 +61,8 @@ public class BoardTypeTests : MaterialManagerTestBase
         };
 
         // Assert
-        boardType.DensityOrCategoryTypical.Should().Be(650, "because typical density should be returned when specific density is not set");
+        boardType.DensityOrCategoryTypical.ShouldBe(650,
+            "because typical density should be returned when specific density is not set");
     }
 
     /// <summary />
@@ -76,7 +78,8 @@ public class BoardTypeTests : MaterialManagerTestBase
         };
 
         // Assert
-        boardType.DensityOrCategoryTypical.Should().BeNull("because Undefined category does not have a typical density");
+        boardType.DensityOrCategoryTypical.ShouldBeNull(
+            "because Undefined category does not have a typical density");
     }
 
     /// <summary />
@@ -92,13 +95,17 @@ public class BoardTypeTests : MaterialManagerTestBase
         };
 
         // Assert metric typical first
-        boardType.DensityOrCategoryTypical.Should().Be(700, "because MDF typical density should be used in metric");
+        boardType.DensityOrCategoryTypical.ShouldBe(700,
+            "because MDF typical density should be used in metric");
 
         // Act
         var boardTypeImperial = boardType.SwitchUnitSystem(UnitSystem.Imperial, true);
 
         // Assert converted value is in a reasonable lb/ft³ range (~43.7)
-        boardTypeImperial.DensityOrCategoryTypical.Should().BeGreaterThan(40).And.BeLessThan(50,
+        boardTypeImperial.DensityOrCategoryTypical.ShouldNotBeNull();
+        boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeGreaterThan(40,
+            "because MDF typical density should be converted to imperial units");
+        boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeLessThan(50,
             "because MDF typical density should be converted to imperial units");
     }
 
@@ -138,11 +145,11 @@ public class BoardTypeTests : MaterialManagerTestBase
             }
         }, [additionalDataImage]);
 
-        boardType.Should().NotBeNull(
+        boardType.ShouldNotBeNull(
             $"because board type with board code '{fullBoardCode}' should be created successfully");
-        boardType.BoardCode.Should().Be(fullBoardCode,
+        boardType!.BoardCode.ShouldBe(fullBoardCode,
             $"because created board type should have board code '{fullBoardCode}'");
-        boardType.MaterialCode.Should().Be(materialCode,
+        boardType.MaterialCode.ShouldBe(materialCode,
             $"because created board type should have material code '{materialCode}'");
 
         boardType.Trace();
@@ -167,18 +174,18 @@ public class BoardTypeTests : MaterialManagerTestBase
 
         boardTypeImperial.Trace();
 
-        boardTypeImperial.UnitSystem.Should().Be(UnitSystem.Imperial,
+        boardTypeImperial.UnitSystem.ShouldBe(UnitSystem.Imperial,
             "because board type was switched to Imperial unit system");
 
-        boardTypeImperial.Length.Should().NotBe(boardTypeMetric.Length,
+        boardTypeImperial.Length.ShouldNotBe(boardTypeMetric.Length,
             "because length should be converted from metric to imperial units");
-        boardTypeImperial.Width.Should().NotBe(boardTypeMetric.Width,
+        boardTypeImperial.Width.ShouldNotBe(boardTypeMetric.Width,
             "because width should be converted from metric to imperial units");
-        boardTypeImperial.Thickness.Should().NotBe(boardTypeMetric.Thickness,
+        boardTypeImperial.Thickness.ShouldNotBe(boardTypeMetric.Thickness,
             "because thickness should be converted from metric to imperial units");
-        boardTypeImperial.TotalAreaAvailableWarningLimit.Should().NotBe(boardTypeMetric.TotalAreaAvailableWarningLimit,
+        boardTypeImperial.TotalAreaAvailableWarningLimit.ShouldNotBe(boardTypeMetric.TotalAreaAvailableWarningLimit,
             "because total area warning limit should be converted from metric to imperial units");
-        boardTypeImperial.Density.Should().NotBe(boardTypeMetric.Density,
+        boardTypeImperial.Density.ShouldNotBe(boardTypeMetric.Density,
             "because length should be converted from metric to imperial units");
     }
 
@@ -193,7 +200,7 @@ public class BoardTypeTests : MaterialManagerTestBase
 
         existingBoardTypes = (await materialManagerClient.Material.Boards.GetBoardTypesByMaterialCodes([materialCode])).ToArray();
 
-        existingBoardTypes.Should().BeEmpty(
+        existingBoardTypes.ShouldBeEmpty(
             $"because all board types with material code '{materialCode}' should be deleted during cleanup");
     }
 }

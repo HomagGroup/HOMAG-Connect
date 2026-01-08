@@ -1,10 +1,9 @@
-﻿using FluentAssertions;
-
-using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts;
 
@@ -31,19 +30,19 @@ public class CreateOffcutsTests : MaterialAssistTestBase
 
         var offcutEntity = await _MaterialAssistClientBoards.GetBoardEntityByCode(_OffcutEntityId);
 
-        offcutEntity.Should().NotBeNull(
+        offcutEntity.ShouldNotBeNull(
             $"because offcut entity with ID '{_OffcutEntityId}' should be created successfully");
-        offcutEntity!.Id.Should().Be(_OffcutEntityId,
+        offcutEntity!.Id.ShouldBe(_OffcutEntityId,
             $"because we created offcut entity with ID '{_OffcutEntityId}'");
-        offcutEntity.BoardType.BoardTypeType.Should().Be(BoardTypeType.Offcut,
+        offcutEntity.BoardType.BoardTypeType.ShouldBe(BoardTypeType.Offcut,
             $"because entity '{_OffcutEntityId}' was created as an offcut");
-        offcutEntity.ManagementType.Should().Be(ManagementType.Single,
+        offcutEntity.ManagementType.ShouldBe(ManagementType.Single,
             $"because offcut entity '{_OffcutEntityId}' was created with ManagementType.Single");
-        offcutEntity.Quantity.Should().Be(1,
+        offcutEntity.Quantity.ShouldBe(1,
             "because Single management type must have quantity of 1");
-        offcutEntity.Length.Should().Be(1000.0,
+        offcutEntity.Length.ShouldBe(1000.0,
             $"because offcut entity '{_OffcutEntityId}' was created with length 1000.0");
-        offcutEntity.Width.Should().Be(500.0,
+        offcutEntity.Width.ShouldBe(500.0,
             $"because offcut entity '{_OffcutEntityId}' was created with width 500.0");
     }
 

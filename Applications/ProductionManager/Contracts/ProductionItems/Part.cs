@@ -75,6 +75,11 @@ public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingPrope
 
             return null;
         }
+        // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Needed for serialization. Do nothing. If removed the property is added to AdditionalProperties on deserialization.
+        }
     }
 
     #region IMaterialProperties
