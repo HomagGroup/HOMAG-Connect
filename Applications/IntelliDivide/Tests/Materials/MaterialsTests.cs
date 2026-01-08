@@ -1,6 +1,7 @@
 using FluentAssertions;
 
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Materials;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -9,6 +10,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Materials")]
+    [TemporaryDisabledOnServer(2026, 01, 30, "IntelliDivide")]
     public class MaterialsTests : IntelliDivideTestBase
     {
         [TestMethod]
