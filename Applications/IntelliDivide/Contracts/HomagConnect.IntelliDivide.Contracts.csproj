@@ -35,6 +35,11 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>RotationAngleDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="OptimizationStatusDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>OptimizationStatusDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -46,6 +51,10 @@
 	  <EmbeddedResource Update="Common\RotationAngleDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>RotationAngleDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="OptimizationStatusDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>OptimizationStatusDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
