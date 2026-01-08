@@ -1,12 +1,12 @@
-﻿using FluentAssertions;
-
-using HomagConnect.Base.TestBase.Attributes;
+﻿using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
+
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration.Boards;
 
@@ -72,10 +72,11 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
         await materialManagerClient.UpdateBoardType(board1.boardCode, boardTypeUpdate);
         var updatedBoardType1 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
 
-        updatedBoardType1.Should().NotBeNull(
+        updatedBoardType1.ShouldNotBeNull(
             $"because board type with board code '{board1.boardCode}' should exist after update");
-        updatedBoardType1!.Thickness.Should().Be(12.0,
-            $"because board type '{board1.boardCode}' was updated to thickness 12.0");
+
+        updatedBoardType1.Thickness.ShouldNotBeNull();
+        updatedBoardType1.Thickness.Value.ShouldBe(12.0, 0.0001, "because the update value should be 12.0");
 
         await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board2.boardCode);
         var boardTypeUpdate2 = new MaterialManagerUpdateBoardType
@@ -89,15 +90,18 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
         var updatedBoard2 = new { id = "92", boardCode = "P2_F204_75_38.0_4200_610" };
         var updatedBoardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(updatedBoard2.boardCode);
 
-        updatedBoardType2.Should().NotBeNull(
+        updatedBoardType2.ShouldNotBeNull(
             $"because board type with board code '{updatedBoard2.boardCode}' should exist after update");
-        updatedBoardType2!.Length.Should().Be(4200.0,
-            $"because board type '{updatedBoard2.boardCode}' was updated to length 4200.0");
-        updatedBoardType2.Width.Should().Be(610.0,
-            $"because board type '{updatedBoard2.boardCode}' was updated to width 610.0");
-        updatedBoardType2.Thickness.Should().Be(38.0,
-            $"because board type '{updatedBoard2.boardCode}' was updated to thickness 38.0");
 
+        updatedBoardType2.Thickness.ShouldNotBeNull();
+        updatedBoardType2.Thickness.Value.ShouldBe(38.0, 0.0001, "because the update value should be 38.0");
+
+        updatedBoardType2.Length.ShouldNotBeNull();
+        updatedBoardType2.Length.Value.ShouldBe(4200.0, 0.0001, "because the update value should be 4200.0");
+
+        updatedBoardType2.Width.ShouldNotBeNull();
+        updatedBoardType2.Width.Value.ShouldBe(610.0, 0.0001, "because the update value should be 610.0");
+        
         await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
         var boardTypeUpdate3 = new MaterialManagerUpdateBoardType
         {
@@ -107,9 +111,9 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
         await materialManagerClient.UpdateBoardType(board3.boardCode, boardTypeUpdate3);
         var updatedBoardType3 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
 
-        updatedBoardType3.Should().NotBeNull(
+        updatedBoardType3.ShouldNotBeNull(
             $"because board type with board code '{board3.boardCode}' should exist after update");
-        updatedBoardType3!.MaterialCategory.Should().Be(BoardMaterialCategory.CompactPanels_HPL,
+        updatedBoardType3!.MaterialCategory.ShouldBe(BoardMaterialCategory.CompactPanels_HPL,
             $"because board type '{board3.boardCode}' was updated to material category CompactPanels_HPL");
         
         // create board type allocations
@@ -148,14 +152,11 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
 
         var allAllocationNames = (await materialManagerClient.GetBoardTypeAllocationsByAllocationNames(new List<string> { "DeploymentTestAllocation1", "DeploymentTestAllocation2", "DeploymentTestAllocation3" }, 1000) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
 
-        allAllocationNames.Should().NotBeNull(
+        allAllocationNames.ShouldNotBeNull(
             "because GetBoardTypeAllocationsByAllocationNames should return a collection of allocations");
-        allAllocationNames.Should().Contain(a => a.Name == "DeploymentTestAllocation1",
-            "because allocation 'DeploymentTestAllocation1' was created for board type '{0}'", board1.boardCode);
-        allAllocationNames.Should().Contain(a => a.Name == "DeploymentTestAllocation2",
-            "because allocation 'DeploymentTestAllocation2' was created for board type '{0}'", updatedBoard2.boardCode);
-        allAllocationNames.Should().Contain(a => a.Name == "DeploymentTestAllocation3",
-            "because allocation 'DeploymentTestAllocation3' was created for board type '{0}'", board3.boardCode);
+        allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation1").ShouldBeTrue();
+        allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation2").ShouldBeTrue();
+        allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation3").ShouldBeTrue();
     }
 
     [TestCleanup]

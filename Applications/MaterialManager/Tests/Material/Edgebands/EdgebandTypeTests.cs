@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -22,11 +22,11 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public void EdgebandType_CheckConfiguration_ConfigValid()
     {
-        BaseUrl.Should().NotBeNull(
+        BaseUrl.ShouldNotBeNull(
             "because BaseUrl should be configured for MaterialManager tests");
-        SubscriptionId.Should().NotBeEmpty(
+        SubscriptionId.ShouldNotBe(Guid.Empty,
             "because SubscriptionId should be configured for MaterialManager tests");
-        AuthorizationKey.Should().NotBeNullOrEmpty(
+        AuthorizationKey.ShouldNotBeNullOrEmpty(
             "because AuthorizationKey should be configured for MaterialManager tests");
     }
 
@@ -63,13 +63,15 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             }
         }, [additionalDataImage]);
 
-        edgebandType.Should().NotBeNull(
+        edgebandType.ShouldNotBeNull(
             $"because edgeband type with edgeband code '{fullEdgebandCode}' should be created successfully");
-        edgebandType.EdgebandCode.Should().Be(fullEdgebandCode,
+        edgebandType.EdgebandCode.ShouldBe(fullEdgebandCode,
             $"because created edgeband type should have edgeband code '{fullEdgebandCode}'");
-        edgebandType.Thickness.Should().Be(1.0,
-            "because created edgeband type should have thickness 1.0");
-        edgebandType.Height.Should().Be(20,
+
+        edgebandType.Thickness.ShouldNotBeNull();
+        edgebandType.Thickness.Value.ShouldBe(1.0,0.0001, "because created edgeband type should have thickness 1.0");
+        
+        edgebandType.Height.ShouldBe(20,
             "because created edgeband type should have height 20");
 
         edgebandType.Trace();
@@ -83,7 +85,9 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines()).ToArray();
 
-        machines.Should().NotBeNullOrEmpty(
+        machines.ShouldNotBeNull(
+            "because machines should be assigned to test subscription");
+        machines.ShouldNotBeEmpty(
             "because machines should be assigned to test subscription");
     }
 
@@ -106,18 +110,18 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         edgebandTypeImperial.Trace();
 
-        edgebandTypeImperial.UnitSystem.Should().Be(UnitSystem.Imperial,
+        edgebandTypeImperial.UnitSystem.ShouldBe(UnitSystem.Imperial,
             "because edgeband type was switched to Imperial unit system");
 
-        edgebandTypeImperial.DefaultLength.Should().NotBe(edgebandTypeMetric.DefaultLength,
+        edgebandTypeImperial.DefaultLength.ShouldNotBe(edgebandTypeMetric.DefaultLength,
             "because default length should be converted from metric to imperial units");
-        edgebandTypeImperial.Thickness.Should().NotBe(edgebandTypeMetric.Thickness,
+        edgebandTypeImperial.Thickness.ShouldNotBe(edgebandTypeMetric.Thickness,
             "because thickness should be converted from metric to imperial units");
-        edgebandTypeImperial.ProtectionFilmThickness.Should().NotBe(edgebandTypeMetric.ProtectionFilmThickness,
+        edgebandTypeImperial.ProtectionFilmThickness.ShouldNotBe(edgebandTypeMetric.ProtectionFilmThickness,
             "because protection film thickness should be converted from metric to imperial units");
-        edgebandTypeImperial.Airtec.Should().NotBe(edgebandTypeMetric.Airtec,
+        edgebandTypeImperial.Airtec.ShouldNotBe(edgebandTypeMetric.Airtec,
             "because airtec should be converted from metric to imperial units");
-        edgebandTypeImperial.TotalLengthAvailableWarningLimit.Should().NotBe(edgebandTypeMetric.TotalLengthAvailableWarningLimit,
+        edgebandTypeImperial.TotalLengthAvailableWarningLimit.ShouldNotBe(edgebandTypeMetric.TotalLengthAvailableWarningLimit,
             "because total length warning limit should be converted from metric to imperial units");
     }
 
@@ -129,13 +133,15 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines()).ToArray();
 
-        machines.Should().NotBeNullOrEmpty(
+        machines.ShouldNotBeNull(
+            "because at least one licensed machine should be available to retrieve technology macros");
+        machines.ShouldNotBeEmpty(
             "because at least one licensed machine should be available to retrieve technology macros");
 
         var firstMachine = machines.First();
         var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(firstMachine.TapioMachineId);
 
-        macros.Should().NotBeNull(
+        macros.ShouldNotBeNull(
             $"because technology macros should be retrievable for machine '{firstMachine.TapioMachineId}'");
     }
 
@@ -153,7 +159,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
 
         existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
-        existingEdgebandTypes.Should().BeEmpty(
+        existingEdgebandTypes.ShouldBeEmpty(
             $"because all edgeband types with edgeband code '{edgebandCode}' should be deleted during cleanup");
     }
 }

@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Samples.Orders.Predict;
@@ -33,15 +33,15 @@ namespace HomagConnect.ProductionManager.Tests.Predict
             Assert.IsFalse(anyException);
             Assert.IsNotNull(cncPrediction);
 
-            cncPrediction.Should().NotBeNull();
+            cncPrediction.ShouldNotBeNull();
 
-            cncPrediction.DurationMax.Should().BeGreaterOrEqualTo(cncPrediction.DurationMin);
-            cncPrediction.DurationMax.Should().BeGreaterOrEqualTo(cncPrediction.Duration);
-            cncPrediction.Duration.Should().BeGreaterOrEqualTo(cncPrediction.DurationMin);
-            cncPrediction.Duration.Should().BeLessThanOrEqualTo(cncPrediction.DurationMax);
+            cncPrediction!.DurationMax.ShouldBeGreaterThanOrEqualTo(cncPrediction.DurationMin);
+            cncPrediction.DurationMax.ShouldBeGreaterThanOrEqualTo(cncPrediction.Duration);
+            cncPrediction.Duration.ShouldBeGreaterThanOrEqualTo(cncPrediction.DurationMin);
+            cncPrediction.Duration.ShouldBeLessThanOrEqualTo(cncPrediction.DurationMax);
 
-            cncPrediction.PredictionMethod.Should().NotBe(PredictionMethod.Unknown);
-            cncPrediction.PredictionBase.Should().NotBeNull();
+            cncPrediction.PredictionMethod.ShouldNotBe(PredictionMethod.Unknown);
+            cncPrediction.PredictionBase.ShouldNotBeNull();
         }
     }
 }
