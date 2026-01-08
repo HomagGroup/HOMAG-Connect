@@ -1,8 +1,7 @@
-using FluentAssertions;
-
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
+using Shouldly;
 
 namespace HomagConnect.IntelliDivide.Tests.Statistics;
 
@@ -21,7 +20,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var materialStatistics = await intelliDivide.GetMaterialStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
-        materialStatistics.Should().NotBeNull("Material statistics should be found in the given time period.");
+        materialStatistics.ShouldNotBeNull("Material statistics should be found in the given time period.");
   
         materialStatistics.Trace();
     }
@@ -34,7 +33,8 @@ public class StatisticTests : IntelliDivideTestBase
 
         var materialStatistics = await intelliDivide.GetMaterialStatistics(90, 100).ToListAsync();
 
-        materialStatistics.Should().NotBeNullOrEmpty("Material statistics should be found in the last 90 days");
+        materialStatistics.ShouldNotBeNull("Material statistics should be found in the last 90 days");
+        materialStatistics.Any().ShouldBeTrue();
 
         materialStatistics.Trace();
     }
@@ -47,7 +47,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
-        edgebandStatistics.Should().NotBeNull("Edgeband statistics should be found in the given time period.");
+        edgebandStatistics.ShouldNotBeNull("Edgeband statistics should be found in the given time period.");
 
         edgebandStatistics.Trace();
     }
@@ -59,7 +59,8 @@ public class StatisticTests : IntelliDivideTestBase
 
         var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(30, 100).ToListAsync();
 
-        edgebandStatistics.Should().NotBeNullOrEmpty("Edgeband statistics should be found in the given time period.");
+        edgebandStatistics.ShouldNotBeNull("Edgeband statistics should be found in the given time period.");
+        edgebandStatistics.Any().ShouldBeTrue();
 
         edgebandStatistics.Trace();
     }

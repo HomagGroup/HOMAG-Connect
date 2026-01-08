@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using HomagConnect.Base.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,7 +27,7 @@ namespace HomagConnect.Base.Tests.Services
             Assert.IsNotNull(response);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            content.Should().Be("de-DE");
+            content.ShouldBe("de-DE");
         }
     }
 

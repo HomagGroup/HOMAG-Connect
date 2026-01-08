@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using HomagConnect.Base.TestBase.Attributes;
 using System.IO.Compression;
 
@@ -21,7 +21,7 @@ public class MmrMobileClientTests : MmrTestBase
         var result = await client.GetCurrentValuesFromMachine(machines.First()?.MachineNumber ?? "123", "Test");
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     /// <summary />
@@ -37,7 +37,7 @@ public class MmrMobileClientTests : MmrTestBase
             DateTime.Now.AddDays(-5), DateTime.Now, 1000);
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     /// <summary />
@@ -53,7 +53,7 @@ public class MmrMobileClientTests : MmrTestBase
             DateTime.Now.AddDays(-5), DateTime.Now, 1000);
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     /// <summary />
@@ -88,7 +88,7 @@ public class MmrMobileClientTests : MmrTestBase
         var result = await client.GetMachines();
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     /// <summary />
@@ -103,7 +103,7 @@ public class MmrMobileClientTests : MmrTestBase
         var result = await client.GetNodesOfMachine(machines.First()?.MachineNumber ?? "123");
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     /// <summary />
@@ -120,7 +120,7 @@ public class MmrMobileClientTests : MmrTestBase
                 DateTime.Now);
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     /// <summary />

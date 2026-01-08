@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 
-using FluentAssertions;
-
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -13,6 +11,7 @@ using HomagConnect.OrderManager.Samples.Orders.Actions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Newtonsoft.Json;
+using Shouldly;
 
 namespace HomagConnect.OrderManager.Tests.Orders
 {
@@ -267,7 +266,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
             // Try to serialize and deserialize it
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
+            JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
         }
 
         /// <summary />
@@ -448,7 +447,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
+            JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
         }
 
         [TestMethod]
@@ -678,7 +677,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
             // Try to serialize and deserialize it
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
+            JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
         }
     }
 }

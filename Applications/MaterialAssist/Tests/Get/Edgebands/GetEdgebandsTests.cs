@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
+﻿using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands;
 
@@ -27,9 +26,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntities(materialAssistClient);
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetEdgebandEntities should return a collection of edgeband entities");
-        result.Count.Should().BeGreaterOrEqualTo(3,
+        result.Count.ShouldBeGreaterThanOrEqualTo(3,
             "because at least 3 edgeband entities (33, 34, 35) should exist in the system");
     }
 
@@ -39,9 +38,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntityById(materialAssistClient);
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because edgeband entity with ID '33' should exist");
-        result?.Id.Should().Be("33",
+        result?.Id.ShouldBe("33",
             "because we retrieved edgeband entity by ID '33'");
     }
 
@@ -51,9 +50,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = (await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByIds(materialAssistClient)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetEdgebandEntitiesByIds should return a collection of edgeband entities");
-        result.Should().HaveCount(3,
+        result.Length.ShouldBe(3,
             "because we requested 3 specific edgeband entity IDs: 33, 34, and 35");
     }
 
@@ -63,9 +62,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = (await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCode(materialAssistClient) ?? Array.Empty<EdgebandEntity>()).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetEdgebandEntitiesByEdgebandCode should return a collection of edgeband entities");
-        result.Should().HaveCountGreaterOrEqualTo(3,
+        result.Length.ShouldBeGreaterThanOrEqualTo(3,
             "because at least 3 edgeband entities with edgeband code 'ABS_White_1mm' should exist");
     }
 
@@ -75,9 +74,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = (await GetEndgebandEntitiesSamples.Edgebands_GetEdgebandEntitiesByEdgebandCodes(materialAssistClient)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetEdgebandEntitiesByEdgebandCodes should return a collection of edgeband entities");
-        result.Should().HaveCountGreaterOrEqualTo(3,
+        result.Length.ShouldBeGreaterThanOrEqualTo(3,
             "because at least 3 edgeband entities with the requested edgeband codes should exist");
     }
 
@@ -87,9 +86,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = (await GetEndgebandEntitiesSamples.Edgebands_GetStorageLocations(materialAssistClient)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetStorageLocations should return a collection of storage locations");
-        result.Should().HaveCountGreaterOrEqualTo(1,
+        result.Length.ShouldBeGreaterThanOrEqualTo(1,
             "because at least 1 storage location should be available for edgebands");
     }
 
@@ -99,9 +98,9 @@ public class GetEdgebandsTests : MaterialAssistTestBase
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
         var result = (await GetEndgebandEntitiesSamples.Edgebands_GetWorkstations(materialAssistClient)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetWorkstations should return a collection of workstations");
-        result.Should().HaveCountGreaterOrEqualTo(1,
+        result.Length.ShouldBeGreaterThanOrEqualTo(1,
             "because at least 1 workstation should be available for edgebands");
     }
 }

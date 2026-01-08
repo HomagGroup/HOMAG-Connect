@@ -1,6 +1,5 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialManager.Samples.Update.Edgebands;
+﻿using HomagConnect.MaterialManager.Samples.Update.Edgebands;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Edgebands;
 
@@ -24,9 +23,9 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 
         var checkEdgeband = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(EdgebandCode);
 
-        checkEdgeband.Should().NotBeNull(
+        checkEdgeband.ShouldNotBeNull(
             $"because edgeband type with edgeband code '{EdgebandCode}' should exist after update");
-        checkEdgeband!.DefaultLength.Should().Be(value,
+        checkEdgeband!.DefaultLength.ShouldBe(value,
             $"because edgeband type '{EdgebandCode}' was updated to default length {value}");
         return;
 

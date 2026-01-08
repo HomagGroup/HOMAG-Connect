@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.Base;
 using HomagConnect.Base.TestBase.Attributes;
@@ -43,10 +43,8 @@ public class MaterialDefinitionRoomleTests
 
         // Assert
         Assert.IsNotNull(roundtripped, "Roundtripped material should deserialize");
-        roundtripped!.Should().BeEquivalentTo(original, opts => opts
-            .RespectingRuntimeTypes()
-            .WithStrictOrdering()
-        );
+        var reSerializedRoundtrip = JsonConvert.SerializeObject(roundtripped, SerializerSettings.Default);
+        reSerializedRoundtrip.ShouldBe(serializedJson);
 
         // Attach artifacts for inspection
         TestContext.AddResultFile(inputPath);

@@ -7,7 +7,6 @@ using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration.Edgebands;
 
-[TemporaryDisabledOnServer(2025, 12, 30, "DF-Material")]
 [TestClass]
 [TestCategory("MaterialAssist")]
 [TestCategory("MaterialAssist.Edgebands")]
@@ -26,9 +25,9 @@ public class CreateUpdateStoreEdgebands : MaterialAssistTestBase
     public async Task Edgebands_CreateUpdateStore()
     {
         // edgeband data
-        var edgeband1 = new { id = "87", edgebandCode = "ABS_Multiplex_schwarz_1.00_23.0_NN" };
-        var edgeband2 = new { id = "88", edgebandCode = "NN_Schwarz_16.50_24.5_HM" };
-        var edgeband3 = new { id = "89", edgebandCode = "ABS_A_Dash_of_Freedom_1.00_100.0_HM" };
+        var edgeband1 = new { id = Guid.NewGuid().ToString(), edgebandCode = "ABS_Multiplex_schwarz_1.00_23.0_NN" };
+        var edgeband2 = new { id = Guid.NewGuid().ToString(), edgebandCode = "NN_Schwarz_16.50_24.5_HM" };
+        var edgeband3 = new { id = Guid.NewGuid().ToString(), edgebandCode = "ABS_A_Dash_of_Freedom_1.00_100.0_HM" };
 
         // create edgeband entities
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
@@ -41,7 +40,7 @@ public class CreateUpdateStoreEdgebands : MaterialAssistTestBase
             Length = 75.0,
             CurrentThickness = 1.0
         };
-        await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest);
+        await materialAssistClient.CreateEdgebandEntity(edgebandEntityRequest) ;
 
         var edgebandEntityRequest2 = new MaterialAssistRequestEdgebandEntity()
         {

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
+using System.Globalization;
 
 using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -10,7 +11,6 @@ using HomagConnect.IntelliDivide.Contracts.Events;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Tests.Events;
@@ -28,7 +28,8 @@ public class OptimizationEventTests : IntelliDivideTestBase
         var assemblies = new[] { typeof(OptimizationRequest).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
-        derivedTypes.Should().NotBeNullOrEmpty();
+        derivedTypes.ShouldNotBeNull();
+        derivedTypes.Length.ShouldBeGreaterThan(0);
 
         derivedTypes.Trace();
     }
@@ -51,7 +52,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
         solutionTransferredEvent.SolutionExportUri = new Uri("https://www.google.com");
         solutionTransferredEvent.SolutionDetails = solutionDetails;
 
-        solutionTransferredEvent.IsValid.Should().BeTrue("The given event should be valid.");
+        solutionTransferredEvent.IsValid.ShouldBeTrue("The given event should be valid.");
 
         TestContext?.AddResultFile(solutionTransferredEvent.TraceToFile("solutionTransferredEvent").FullName);
 
@@ -68,11 +69,11 @@ public class OptimizationEventTests : IntelliDivideTestBase
         TestContext?.AddResultFile(solutionTransferredEventDeserialized.TraceToFile("solutionTransferredEventDeserialized").FullName);
 
         // Compare properties
-        solutionTransferredEventDeserialized.Id.Should().Be(solutionTransferredEvent.Id, "That means the deserialization was successful for solution id.");
-        solutionTransferredEventDeserialized.Timestamp.Should().Be(solutionTransferredEvent.Timestamp, "That means the deserialization was successful for solution.");
-        solutionTransferredEventDeserialized.SubscriptionId.Should().Be(solutionTransferredEvent.SubscriptionId, "That means the deserialization was successful for solution.");
-        solutionTransferredEventDeserialized.TransferredBy.Should().Be(solutionTransferredEvent.TransferredBy, "That means the deserialization was successful for solution.");
-        solutionTransferredEventDeserialized.SolutionDetails.Parts.First().Description.Should().Be(solutionTransferredEvent.SolutionDetails.Parts.First().Description, "That means the deserialization was successful for solution.");
+        solutionTransferredEventDeserialized!.Id.ShouldBe(solutionTransferredEvent.Id);
+        solutionTransferredEventDeserialized.Timestamp.ShouldBe(solutionTransferredEvent.Timestamp);
+        solutionTransferredEventDeserialized.SubscriptionId.ShouldBe(solutionTransferredEvent.SubscriptionId);
+        solutionTransferredEventDeserialized.TransferredBy.ShouldBe(solutionTransferredEvent.TransferredBy);
+        solutionTransferredEventDeserialized.SolutionDetails.Parts.First().Description.ShouldBe(solutionTransferredEvent.SolutionDetails.Parts.First().Description);
     }
 
     private async Task<SolutionDetails> GetSampleSolutionDetails()
@@ -95,13 +96,14 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
         var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
 
-        solutions.Should().NotBeNull($"Solutions should not be null for {optimization.Id}.");
+        solutions.ShouldNotBeNull();
+        solutions!.Count.ShouldBeGreaterThan(0);
 
         var solution = solutions!.First();
 
         var solutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solution.Id);
 
-        solutionDetails.Should().NotBeNull($"Solutions for {optimization.Id} should contain at least one element.");
+        solutionDetails.ShouldNotBeNull();
         return solutionDetails;
     }
 }

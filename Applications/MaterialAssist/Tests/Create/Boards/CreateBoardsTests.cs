@@ -1,8 +1,7 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialAssist.Client;
+﻿using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Samples.Create.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using Shouldly;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
@@ -28,35 +27,35 @@ public class CreateBoardsTests : MaterialAssistTestBase
 
                 // Verify Single board entity
                 var boardEntity1 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_SingleCode);
-                boardEntity1.Should().NotBeNull(
+                boardEntity1.ShouldNotBeNull(
                     $"because board entity with ID '{_SingleCode}' should be created successfully");
-                boardEntity1!.Id.Should().Be(_SingleCode,
+                boardEntity1!.Id.ShouldBe(_SingleCode,
                     $"because we created board entity with ID '{_SingleCode}'");
-                boardEntity1.ManagementType.Should().Be(ManagementType.Single,
+                boardEntity1.ManagementType.ShouldBe(ManagementType.Single,
                     $"because board entity '{_SingleCode}' was created with ManagementType.Single");
-                boardEntity1.Quantity.Should().Be(1,
+                boardEntity1.Quantity.ShouldBe(1,
                     "because Single management type must have quantity of 1");
 
                 // Verify Stack board entity
                 var boardEntity2 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_StackCode);
-                boardEntity2.Should().NotBeNull(
+                boardEntity2.ShouldNotBeNull(
                     $"because board entity with ID '{_StackCode}' should be created successfully");
-                boardEntity2!.Id.Should().Be(_StackCode,
+                boardEntity2!.Id.ShouldBe(_StackCode,
                     $"because we created board entity with ID '{_StackCode}'");
-                boardEntity2.ManagementType.Should().Be(ManagementType.Stack,
+                boardEntity2.ManagementType.ShouldBe(ManagementType.Stack,
                     $"because board entity '{_StackCode}' was created with ManagementType.Stack");
-                boardEntity2.Quantity.Should().Be(5,
+                boardEntity2.Quantity.ShouldBe(5,
                     "because Stack management type was created with quantity of 5");
 
                 // Verify GoodsInStock board entity
                 var boardEntity3 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_GoodsInStockCode);
-                boardEntity3.Should().NotBeNull(
+                boardEntity3.ShouldNotBeNull(
                     $"because board entity with ID '{_GoodsInStockCode}' should be created successfully");
-                boardEntity3!.Id.Should().Be(_GoodsInStockCode,
+                boardEntity3!.Id.ShouldBe(_GoodsInStockCode,
                     $"because we created board entity with ID '{_GoodsInStockCode}'");
-                boardEntity3.ManagementType.Should().Be(ManagementType.GoodsInStock,
+                boardEntity3.ManagementType.ShouldBe(ManagementType.GoodsInStock,
                     $"because board entity '{_GoodsInStockCode}' was created with ManagementType.GoodsInStock");
-                boardEntity3.Quantity.Should().Be(5,
+                boardEntity3.Quantity.ShouldBe(5,
                     "because GoodsInStock management type was created with quantity of 5");
             }
         ,delayMs:5000);

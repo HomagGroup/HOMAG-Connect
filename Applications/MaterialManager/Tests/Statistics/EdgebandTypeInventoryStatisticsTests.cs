@@ -1,6 +1,5 @@
-﻿using FluentAssertions;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics;
 
@@ -18,7 +17,7 @@ public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
 
         var statistics = (await materialClient.Material.Edgebands.GetEdgebandTypeInventoryHistoryAsync(60).ConfigureAwait(false)).ToArray();
 
-        statistics.Should().NotBeNull(
+        statistics.ShouldNotBeNull(
             "because edgeband type inventory history for the last 60 days should be available");
 
         statistics.Trace();
@@ -35,7 +34,7 @@ public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
 
         var statistics = (await materialClient.Material.Edgebands.GetEdgebandTypeInventoryHistoryAsync(from, to).ConfigureAwait(false)).ToArray();
 
-        statistics.Should().NotBeNull(
+        statistics.ShouldNotBeNull(
             $"because edgeband type inventory history should be available from {from:yyyy-MM-dd} to {to:yyyy-MM-dd}");
 
         statistics.Trace();

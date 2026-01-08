@@ -16,6 +16,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Shouldly" Version="4.2.1" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.1" />
 	  <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
@@ -28,6 +29,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Assertions\" />
 	</ItemGroup>
 
 </Project>
