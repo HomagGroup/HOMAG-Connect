@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Rework
@@ -8,7 +10,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     /// Rework class
     /// </summary>
     [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Rework))]
-    public class Rework
+    public class Rework : ISupportsLocalizedSerialization
     {
         /// <summary>
         /// Gets or sets the additional properties configured in the application.
