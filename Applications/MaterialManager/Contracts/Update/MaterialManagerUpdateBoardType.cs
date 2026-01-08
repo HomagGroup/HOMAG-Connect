@@ -43,6 +43,11 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     public bool? LockedForOptimization { get; set; } = null;
 
     /// <summary>
+    /// Gets or sets whether the board type is locked for configuration.
+    /// </summary>
+    public bool? LockedForConfiguration { get; set; } = null;
+
+    /// <summary>
     /// Gets or sets the material category of the board.
     /// </summary>
     public BoardMaterialCategory? MaterialCategory { get; set; } = null;
