@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -34,7 +34,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     {
         var act = async () => await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(_MaterialManagerClientMaterialEdgebands, _EdgebandCodeWhite);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             $"because creating edgeband type with edgeband code '{_EdgebandCodeWhite}' should complete successfully");
     }
 
@@ -50,7 +50,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
 
         var act = async () => await _MaterialManagerClientMaterialEdgebands.CreateEdgebandType(requestEdgebandType);
 
-        await act.Should().ThrowAsync<ValidationException>(
+        await Should.ThrowAsync<ValidationException>(act,
             "because creating an edgeband type with missing required properties should throw a ValidationException");
     }
 
@@ -61,7 +61,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
         var act = async () => await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType_AdditionalData(
             _MaterialManagerClientMaterialEdgebands, _EdgebandCodeAdditionalData);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             $"because creating edgeband type with edgeband code '{_EdgebandCodeAdditionalData}' and additional data should complete successfully");
     }
 

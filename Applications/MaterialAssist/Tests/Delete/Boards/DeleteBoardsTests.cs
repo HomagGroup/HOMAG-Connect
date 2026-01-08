@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialAssist.Samples.Delete.Boards;
+﻿using HomagConnect.MaterialAssist.Samples.Delete.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Delete.Boards;
 
@@ -29,7 +28,7 @@ public class DeleteBoardsTests : MaterialAssistTestBase
 
         var act = async () => await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntity(materialAssistClient, "21111");
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because deleting board entity '21111' should complete successfully without errors");
     }
 
@@ -40,7 +39,7 @@ public class DeleteBoardsTests : MaterialAssistTestBase
 
         var act = async () => await DeleteBoardEntitiesSamples.Boards_DeleteBoardEntities(materialAssistClient, ["21112", "21113"]);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because deleting board entities '21112' and '21113' should complete successfully without errors");
     }
 }

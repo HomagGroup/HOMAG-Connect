@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -14,9 +14,9 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         [TestMethod]
         public void IntelliDivide_CheckConfiguration_ConfigValid()
         {
-            BaseUrl.Should().NotBeNull();
-            SubscriptionId.Should().NotBeEmpty();
-            AuthorizationKey.Should().NotBeNullOrEmpty();
+            BaseUrl.ShouldNotBeNull();
+            SubscriptionId.ShouldNotBe(Guid.Empty);
+            AuthorizationKey.ShouldNotBeNullOrEmpty();
         }
 
         [TestMethod]

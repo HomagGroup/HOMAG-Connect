@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Samples.Get.Boards;
@@ -27,9 +27,9 @@ public class GetBoardsTests : MaterialAssistTestBase
     {
         var result = await GetBoardEntitiesSamples.Boards_GetBoardEntities(_MaterialAssistClientBoards);
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetBoardEntities should return a collection of board entities");
-        result.Count.Should().BeGreaterOrEqualTo(3,
+        result.Count.ShouldBeGreaterThanOrEqualTo(3,
             $"because at least 3 board entities ({_SingleCode}, {_StackCode}, {_GoodsInStockCode}) should exist in the system");
     }
 
@@ -39,13 +39,13 @@ public class GetBoardsTests : MaterialAssistTestBase
         const string boardCode = _BoardCodeMdfH3171;
         var result = (await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCode(_MaterialAssistClientBoards, boardCode) ?? []).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetBoardEntitiesByBoardCode should return a collection of board entities");
-        result.Should().HaveCountGreaterOrEqualTo(2,
+        result.Length.ShouldBeGreaterThanOrEqualTo(2,
             $"because at least 2 board entities with board code '{boardCode}' should exist");
-        result.Should().Contain(be => be.Id == _SingleCode,
+        result.ShouldContain(be => be.Id == _SingleCode,
             $"because board entity '{_SingleCode}' has board code '{boardCode}'");
-        result.Should().Contain(be => be.Id == _StackCode,
+        result.ShouldContain(be => be.Id == _StackCode,
             $"because board entity '{_StackCode}' has board code '{boardCode}'");
     }
 
@@ -55,15 +55,15 @@ public class GetBoardsTests : MaterialAssistTestBase
         var boardCodes = new List<string> { _BoardCodeMdfH3171, _BoardCodeEgH3303 };
         var result = (await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByBoardCodes(_MaterialAssistClientBoards, boardCodes)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetBoardEntitiesByBoardCodes should return a collection of board entities");
-        result.Should().HaveCountGreaterOrEqualTo(3,
+        result.Length.ShouldBeGreaterThanOrEqualTo(3,
             $"because at least 3 board entities with board codes '{string.Join(", ", boardCodes)}' should exist");
-        result.Should().Contain(be => be.Id == _SingleCode,
+        result.ShouldContain(be => be.Id == _SingleCode,
             $"because board entity '{_SingleCode}' has board code '{_BoardCodeMdfH3171}'");
-        result.Should().Contain(be => be.Id == _StackCode,
+        result.ShouldContain(be => be.Id == _StackCode,
             $"because board entity '{_StackCode}' has board code '{_BoardCodeMdfH3171}'");
-        result.Should().Contain(be => be.Id == _GoodsInStockCode,
+        result.ShouldContain(be => be.Id == _GoodsInStockCode,
             $"because board entity '{_GoodsInStockCode}' has board code '{_BoardCodeEgH3303}'");
     }
 
@@ -73,15 +73,15 @@ public class GetBoardsTests : MaterialAssistTestBase
         var requestedIds = new List<string> { _SingleCode, _StackCode, _GoodsInStockCode };
         var result = (await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByCodes(_MaterialAssistClientBoards, requestedIds)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetBoardEntitiesById should return a collection of board entities");
-        result.Should().HaveCount(3,
+        result.Length.ShouldBe(3,
             $"because we requested 3 specific board entity IDs: {_SingleCode}, {_StackCode}, and {_GoodsInStockCode}");
-        result.Should().Contain(be => be.Id == _SingleCode,
+        result.ShouldContain(be => be.Id == _SingleCode,
             $"because board entity with ID '{_SingleCode}' was requested");
-        result.Should().Contain(be => be.Id == _StackCode,
+        result.ShouldContain(be => be.Id == _StackCode,
             $"because board entity with ID '{_StackCode}' was requested");
-        result.Should().Contain(be => be.Id == _GoodsInStockCode,
+        result.ShouldContain(be => be.Id == _GoodsInStockCode,
             $"because board entity with ID '{_GoodsInStockCode}' was requested");
     }
 
@@ -91,11 +91,11 @@ public class GetBoardsTests : MaterialAssistTestBase
         const string materialCode = _MaterialCodeEgH3303;
         var result = (await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCode(_MaterialAssistClientBoards, materialCode) ?? []).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetBoardEntitiesByMaterialCode should return a collection of board entities");
-        result.Should().HaveCountGreaterOrEqualTo(1,
+        result.Length.ShouldBeGreaterThanOrEqualTo(1,
             $"because at least 1 board entity with material code '{materialCode}' should exist");
-        result.Should().Contain(be => be.Id == _GoodsInStockCode,
+        result.ShouldContain(be => be.Id == _GoodsInStockCode,
             $"because board entity '{_GoodsInStockCode}' has material code '{materialCode}'");
     }
 
@@ -105,15 +105,15 @@ public class GetBoardsTests : MaterialAssistTestBase
         var materialCodes = new List<string> { _MaterialCodeEgH3303, _MaterialCodeMdfH3171 };
         var result = (await GetBoardEntitiesSamples.Boards_GetBoardEntitiesByMaterialCodes(_MaterialAssistClientBoards, materialCodes)).ToArray();
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             "because GetBoardEntitiesByMaterialCodes should return a collection of board entities");
-        result.Should().HaveCountGreaterOrEqualTo(3,
+        result.Length.ShouldBeGreaterThanOrEqualTo(3,
             $"because at least 3 board entities with material codes '{string.Join(", ", materialCodes)}' should exist");
-        result.Should().Contain(be => be.Id == _SingleCode,
+        result.ShouldContain(be => be.Id == _SingleCode,
             $"because board entity '{_SingleCode}' has material code '{_MaterialCodeMdfH3171}'");
-        result.Should().Contain(be => be.Id == _StackCode,
+        result.ShouldContain(be => be.Id == _StackCode,
             $"because board entity '{_StackCode}' has material code '{_MaterialCodeMdfH3171}'");
-        result.Should().Contain(be => be.Id == _GoodsInStockCode,
+        result.ShouldContain(be => be.Id == _GoodsInStockCode,
             $"because board entity '{_GoodsInStockCode}' has material code '{_MaterialCodeEgH3303}'");
     }
 
@@ -122,9 +122,9 @@ public class GetBoardsTests : MaterialAssistTestBase
     {
         var result = await GetBoardEntitiesSamples.Boards_GetBoardEntityByCode(_MaterialAssistClientBoards, _SingleCode);
 
-        result.Should().NotBeNull(
+        result.ShouldNotBeNull(
             $"because board entity with ID '{_SingleCode}' should exist");
-        result?.Id.Should().Be(_SingleCode,
+        result!.Id.ShouldBe(_SingleCode,
             $"because we retrieved board entity by ID '{_SingleCode}'");
     }
 
@@ -133,7 +133,7 @@ public class GetBoardsTests : MaterialAssistTestBase
     {
         var act = async () => await GetBoardEntitiesSamples.Boards_GetStorageLocation(_MaterialAssistClientBoards);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetStorageLocation should retrieve a storage location successfully");
     }
 
@@ -142,7 +142,7 @@ public class GetBoardsTests : MaterialAssistTestBase
     {
         var act = async () => await GetBoardEntitiesSamples.Boards_GetStorageLocations(_MaterialAssistClientBoards);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetStorageLocations should retrieve storage locations successfully");
     }
 
@@ -151,7 +151,7 @@ public class GetBoardsTests : MaterialAssistTestBase
     {
         var act = async () => await GetBoardEntitiesSamples.Boards_GetWorkstations(_MaterialAssistClientBoards);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetWorkstations should retrieve workstations successfully");
     }
 
