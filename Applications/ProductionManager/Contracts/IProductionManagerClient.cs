@@ -3,6 +3,7 @@ using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -219,6 +220,16 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<IEnumerable<Rework.Rework>?> GetCompletedReworks();
 
         #endregion Rework
+
+        #region ProductionProtocol
+
+        /// <summary>
+        /// Get the ProductionProtocol for one workstation by its identifier
+        /// </summary>
+        /// <param name="workstationId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7);       
+        #endregion
 
         #region Production prediction
 
