@@ -27,5 +27,47 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Rework\ReworkPropertyDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ReworkPropertyDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Rework\ReworkCategoryDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ReworkCategoryDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Rework\ReworkReasonDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ReworkReasonDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Rework\ReworkStateDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ReworkStateDisplayNames.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Rework\ReworkPropertyDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ReworkPropertyDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Rework\ReworkCategoryDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ReworkCategoryDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Rework\ReworkReasonDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ReworkReasonDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Rework\ReworkStateDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ReworkStateDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
 	
 </Project>

@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -8,6 +9,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     /// Rework reason
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
+    [ResourceManager(typeof(ReworkReasonDisplayNames))]
     public enum ReworkReason
     {
         /// <summary>

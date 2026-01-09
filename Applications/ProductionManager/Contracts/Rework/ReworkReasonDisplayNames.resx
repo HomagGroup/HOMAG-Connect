@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BurnMarks" xml:space="preserve">
+    <value>Brandspuren</value>
+    <comment>Burn</comment>
+  </data>
+  <data name="ChatterMarks" xml:space="preserve">
+    <value>Rattermarken</value>
+    <comment>ChatterMarks</comment>
+  </data>
+  <data name="ClampingNotOK" xml:space="preserve">
+    <value>Aufspannung nicht OK</value>
+    <comment>ClampingNotOK</comment>
+  </data>
+  <data name="DamagedBoard" xml:space="preserve">
+    <value>Platte beschädigt</value>
+    <comment>DamagedBoard</comment>
+  </data>
+  <data name="Damages" xml:space="preserve">
+    <value>Beschädigung</value>
+    <comment>Damages</comment>
+  </data>
+  <data name="DimensionsNotOK" xml:space="preserve">
+    <value>Abmessungen nicht OK</value>
+    <comment>DimensionsNotOK</comment>
+  </data>
+  <data name="DrillingPatternMirrored" xml:space="preserve">
+    <value>Bohrbild gespiegelt</value>
+    <comment>DrillingPatternMirrored</comment>
+  </data>
+  <data name="FinishingNotOK" xml:space="preserve">
+    <value>Nachfertigung nicht OK</value>
+    <comment>FinishingNotOK</comment>
+  </data>
+  <data name="Inclusions" xml:space="preserve">
+    <value>Einschlüsse</value>
+    <comment>Inclusions</comment>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Sonstige</value>
+    <comment>Other</comment>
+  </data>
+  <data name="PartDamaged" xml:space="preserve">
+    <value>Teil beschädigt</value>
+    <comment>PartDamaged</comment>
+  </data>
+  <data name="PartLost" xml:space="preserve">
+    <value>Teil verloren</value>
+    <comment>PartLost</comment>
+  </data>
+  <data name="PartOutOfTolerance" xml:space="preserve">
+    <value>Teil außerhalb Toleranz</value>
+    <comment>PartOutOfTolerance</comment>
+  </data>
+  <data name="Pollution" xml:space="preserve">
+    <value>Verschmutzung</value>
+    <comment>Pollution</comment>
+  </data>
+  <data name="Scratches" xml:space="preserve">
+    <value>Kratzer</value>
+    <comment>Scratches</comment>
+  </data>
+  <data name="Tearouts" xml:space="preserve">
+    <value>Ausrisse</value>
+    <comment>Tearouts</comment>
+  </data>
+  <data name="TooLittleGlue" xml:space="preserve">
+    <value>Zu wenig Leim</value>
+    <comment>TooLittleGlue</comment>
+  </data>
+  <data name="ToolMeasuredIncorrectly" xml:space="preserve">
+    <value>Werkzeug falsch eingemessen</value>
+    <comment>ToolMeasuredIncorrectly</comment>
+  </data>
+  <data name="WaveCut" xml:space="preserve">
+    <value>Wellenschnitt</value>
+    <comment>WaveCut</comment>
+  </data>
+  <data name="WrongCNCProgramOrDrillingPattern" xml:space="preserve">
+    <value>Falsches CNC-Programm/ Bohrbild</value>
+    <comment>WrongCNCProgramOrDrillingPattern</comment>
+  </data>
+  <data name="WrongEdgeMaterial" xml:space="preserve">
+    <value>Falsches Kantenmaterial</value>
+    <comment>WrongEdgeMaterial</comment>
+  </data>
+  <data name="WrongMaterial" xml:space="preserve">
+    <value>Falsches Material</value>
+    <comment>WrongMaterial</comment>
+  </data>
+</root>
