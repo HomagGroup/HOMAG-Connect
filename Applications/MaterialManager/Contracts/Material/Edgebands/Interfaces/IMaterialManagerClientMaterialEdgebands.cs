@@ -150,6 +150,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate);
 
         /// <summary>
+        /// Updates the requested edgeband type by its edgebandCode in materialManager with image.
+        /// </summary>
+        Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate, FileReference[] fileReferences);
+
+        /// <summary>
         /// Updates the requested edgeband type allocation in materialManager.
         /// </summary>
         /// <param name="edgebandTypeAllocationUpdate"></param>
