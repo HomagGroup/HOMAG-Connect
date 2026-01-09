@@ -133,4 +133,8 @@
     <value>Übertragen</value>
     <comment>Transferred</comment>
   </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
+    <comment>Unknown</comment>
+  </data>
 </root>
