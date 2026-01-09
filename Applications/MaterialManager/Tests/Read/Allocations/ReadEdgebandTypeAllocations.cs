@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Client;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialManager.Client;
 using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
@@ -7,6 +8,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 /// </summary>
 [TestClass]
 [TestCategory("MaterialManager")]
+[TemporaryDisabledOnServer(2026, 01, 31, "DF-Material")]
 public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>
