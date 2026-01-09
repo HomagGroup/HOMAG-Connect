@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
-
-using HomagConnect.MaterialManager.Client;
+﻿using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Update;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Allocations
 {
@@ -54,7 +53,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
             await RetryAssertAsync(async () =>
             {
                 var result = await MaterialManagerClientMaterialEdgebands.GetEdgebandTypeAllocation(order, customer, project, EdgebandCode);
-                result.AllocatedLength.Should().Be(5);
+                result.AllocatedLength.ShouldBe(5);
             });
 
             await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands, EdgebandCode, customer, order, project);

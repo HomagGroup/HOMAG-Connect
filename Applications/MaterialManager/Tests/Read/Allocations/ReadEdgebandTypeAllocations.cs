@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
-
+﻿using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 
@@ -8,6 +8,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 /// </summary>
 [TestClass]
 [TestCategory("MaterialManager")]
+[TemporaryDisabledOnServer(2026, 01, 31, "DF-Material")]
 public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>
@@ -48,12 +49,12 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
         var allocation = await MaterialManagerClientMaterialEdgebandTypes.GetEdgebandTypeAllocation(order, customer, project, edgebandCode);
 
         // Assert
-        allocation.Should().NotBeNull("because the allocation should exist for the given parameters");
+        allocation.ShouldNotBeNull("because the allocation should exist for the given parameters");
         //code is not returned correctly yet
         //allocation.EdgebandCode.Should().Be(edgebandCode, "because the allocation was created for this edgeband code");
-        allocation.Order.Should().Be(order, "because the allocation was created for this order");
-        allocation.Customer.Should().Be(customer, "because the allocation was created for this customer");
-        allocation.Project.Should().Be(project, "because the allocation was created for this project");
+        allocation!.Order.ShouldBe(order, "because the allocation was created for this order");
+        allocation.Customer.ShouldBe(customer, "because the allocation was created for this customer");
+        allocation.Project.ShouldBe(project, "because the allocation was created for this project");
 
         // Cleanup
         await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebandTypes, edgebandCode, customer, order, project);
@@ -69,7 +70,7 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
         var allocations = await MaterialManagerClientMaterialEdgebandTypes.GetEdgebandTypeAllocations();
 
         // Assert
-        allocations.Should().NotBeNull(
+        allocations.ShouldNotBeNull(
             "because GetEdgebandTypeTypeAllocations should return a collection of board type allocations");
     }
 

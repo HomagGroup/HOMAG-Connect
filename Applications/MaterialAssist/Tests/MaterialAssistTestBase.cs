@@ -13,6 +13,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialAssist.Tests;
 
 /// <summary />
@@ -187,7 +189,7 @@ public class MaterialAssistTestBase : TestBase
 
         if (edgebandType == null)
         {
-            await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+            edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
             {
                 EdgebandCode = edgebandCode,
                 Height = 20,
@@ -196,6 +198,8 @@ public class MaterialAssistTestBase : TestBase
                 MaterialCategory = EdgebandMaterialCategory.ABS,
                 Process = EdgebandingProcess.Other,
             });
+
+            edgebandType.ShouldNotBeNull();
         }
     }
 }

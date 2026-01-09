@@ -20,7 +20,7 @@ trigger:
     - '*'
 
 variables:
-  dotnetVersion: 8.0.x
+  dotnetVersion: 10.0.x
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect 
 
@@ -126,8 +126,15 @@ stages:
         - task: DotNetCoreCLI@2
           displayName: Build projects
           inputs:
-            command: 'build'
-            projects: '**/*.csproj'
+            command: 'build'            
+            projects: |
+                  **/*.csproj
+                  !**/.git/**
+                  !**/.github/**
+                  !**/.gitlab/**
+                  !**/logs/**
+                  !**/bin/**/*.csproj
+                  !**/obj/**/*.csproj
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
