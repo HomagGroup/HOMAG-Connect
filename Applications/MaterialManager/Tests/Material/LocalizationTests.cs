@@ -119,6 +119,8 @@ public class LocalizationTests
             $"because BoardType.OptimizeAgainstInfinite should be localized correctly in culture '{cultureName}'");
         propertyDisplayNames[nameof(BoardType.LockedForOptimization)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_LockedForOptimization), culture),
             $"because BoardType.LockedForOptimization should be localized correctly in culture '{cultureName}'");
+        propertyDisplayNames[nameof(BoardType.LockedForConfiguration)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_LockedForConfiguration), culture),
+            $"because BoardType.LockedForConfiguration should be localized correctly in culture '{cultureName}'");
         propertyDisplayNames[nameof(BoardType.TotalQuantityInInventory)].ShouldBe(
             Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalQuantityInInventory), culture),
             $"because BoardType.TotalQuantityInInventory should be localized correctly in culture '{cultureName}'");
