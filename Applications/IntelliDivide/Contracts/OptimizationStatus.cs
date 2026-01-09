@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -6,6 +7,7 @@ namespace HomagConnect.IntelliDivide.Contracts
 {
     /// <summary>The state of an optimization</summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
+    [ResourceManager(typeof(OptimizationStatusDisplayNames))]
     public enum OptimizationStatus
     {
         /// <summary>
@@ -42,5 +44,10 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Download of SAW-File to machine pending or in progress.
         /// </summary>
         Transferring = 9,
+
+        /// <summary>
+        /// Indicates that optimization is in a queued state and awaiting processing.
+        /// </summary>
+        Queued
     }
 }
