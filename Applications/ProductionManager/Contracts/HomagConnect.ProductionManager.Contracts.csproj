@@ -14,6 +14,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<EmbedAllSources>true</EmbedAllSources>
 		<DebugType>Embedded</DebugType>
+		<UserSecretsId>eed30443-b51b-48cb-8136-ed16c615aa25</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">

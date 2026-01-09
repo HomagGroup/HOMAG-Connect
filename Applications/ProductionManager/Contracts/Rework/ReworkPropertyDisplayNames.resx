@@ -126,8 +126,12 @@
     <comment>Attachments</comment>
   </data>
   <data name="CapturedAt" xml:space="preserve">
-    <value>Erfasst</value>
+    <value>Erfasst am</value>
     <comment>CapturedAt</comment>
+  </data>
+  <data name="CapturedBy" xml:space="preserve">
+    <value>Erfasst von</value>
+    <comment>CapturedBy</comment>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Kategorie</value>
@@ -137,9 +141,9 @@
     <value>Notizen</value>
     <comment>Comment</comment>
   </data>
-  <data name="CreationDetails" xml:space="preserve">
+  <data name="CaptureDetails" xml:space="preserve">
     <value>Erfassungsdetails</value>
-    <comment>CreationDetails</comment>
+    <comment>CaptureDetails</comment>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Beschreibung</value>
@@ -148,6 +152,10 @@
   <data name="Id" xml:space="preserve">
     <value>ID</value>
     <comment>Id</comment>
+  </data>
+  <data name="LastWorkstation" xml:space="preserve">
+    <value>Letzter Arbeitsplatz</value>
+    <comment>LastWorkstation</comment>
   </data>
   <data name="Material" xml:space="preserve">
     <value>Material</value>
@@ -165,13 +173,13 @@
     <value>Grund</value>
     <comment>Reason</comment>
   </data>
+  <data name="RejectedAt" xml:space="preserve">
+    <value>Abgelehnt am</value>
+    <comment>RejectedAt</comment>
+  </data>
   <data name="RejectedBy" xml:space="preserve">
     <value>Abgelehnt von</value>
     <comment>RejectedBy</comment>
-  </data>
-  <data name="RejectedOn" xml:space="preserve">
-    <value>Abgelehnt am</value>
-    <comment>RejectedOn</comment>
   </data>
   <data name="RejectionDetails" xml:space="preserve">
     <value>Ablehnungsnotiz</value>

@@ -29,7 +29,7 @@ public class ReworkLocalizationTests
         propertyDisplayNames.ShouldNotBeEmpty(
             "because Rework properties should have localized display names");
 
-        propertyDisplayNames[nameof(rework.CapturedAt)].ShouldBe("Erfasst", "the CapturedAt property should be localized as 'Erfasst' in German");
+        propertyDisplayNames[nameof(rework.CapturedAt)].ShouldBe("Erfasst am", "the CapturedAt property should be localized as 'Erfasst' in German");
 
         propertyDisplayNames.Trace();
     }
@@ -49,15 +49,15 @@ public class ReworkLocalizationTests
     }
 
     [TestMethod]
-    public void Localization_ReworkCreationDetails()
+    public void Localization_ReworkCaptureDetails()
     {
         var culture = CultureInfo.GetCultureInfo("de");
 
-        var creationDetails = new CreationDetails();
+        var creationDetails = new CaptureDetails();
         var propertyDisplayNames = creationDetails.GetPropertyDisplayNames(culture);
 
         propertyDisplayNames.ShouldNotBeEmpty(
-            "because CreationDetails properties should have localized display names");
+            "because CaptureDetails properties should have localized display names");
 
         propertyDisplayNames[nameof(creationDetails.Comment)].ShouldBe("Notizen", "the Comment property should be localized as 'Notizen' in German");
 
@@ -72,8 +72,10 @@ public class ReworkLocalizationTests
         {
             CapturedAt = DateTimeOffset.Parse("2026-01-08T10:40:11.5441193+01:00", CultureInfo.InvariantCulture),
             Category = ReworkCategory.Dividing,
-            CreationDetails = new CreationDetails
+            CaptureDetails = new CaptureDetails
             {
+                CapturedBy = "Boris Wehrle",
+                LastWorkstation = "Workstation 1",
                 Comment = "Happens often"
             },
             Description = "Left door",
@@ -86,7 +88,7 @@ public class ReworkLocalizationTests
             {
                 Comment = "The quality is sufficient.",
                 RejectedBy = "Boris Wehrle",
-                RejectedOn = DateTimeOffset.Parse("2026-01-08T10:40:24.7076173+01:00", CultureInfo.InvariantCulture)
+                RejectedAt = DateTimeOffset.Parse("2026-01-08T10:40:24.7076173+01:00", CultureInfo.InvariantCulture)
             },
             State = ReworkState.Rejected
         };
@@ -139,7 +141,7 @@ public class ReworkLocalizationTests
             {
                 CapturedAt = DateTimeOffset.Parse("2026-01-08T10:40:11.5441193+01:00", CultureInfo.InvariantCulture),
                 Category = ReworkCategory.Dividing,
-                CreationDetails = new CreationDetails
+                CaptureDetails = new CaptureDetails
                 {
                     Comment = "Happens often"
                 },
@@ -153,7 +155,7 @@ public class ReworkLocalizationTests
                 {
                     Comment = "The quality is sufficient.",
                     RejectedBy = "Boris Wehrle",
-                    RejectedOn = DateTimeOffset.Parse("2026-01-08T10:40:24.7076173+01:00", CultureInfo.InvariantCulture)
+                    RejectedAt = DateTimeOffset.Parse("2026-01-08T10:40:24.7076173+01:00", CultureInfo.InvariantCulture)
                 },
                 State = ReworkState.Rejected
             },
@@ -161,7 +163,7 @@ public class ReworkLocalizationTests
             {
                 CapturedAt = DateTimeOffset.Parse("2026-01-08T11:00:00+01:00", CultureInfo.InvariantCulture),
                 Category = ReworkCategory.CNC,
-                CreationDetails = new CreationDetails
+                CaptureDetails = new CaptureDetails    
                 {
                     Comment = "Check alignment"
                 },
@@ -175,7 +177,7 @@ public class ReworkLocalizationTests
                 {
                     Comment = "Surface acceptable.",
                     RejectedBy = "Boris Wehrle",
-                    RejectedOn = DateTimeOffset.Parse("2026-01-08T11:05:00+01:00", CultureInfo.InvariantCulture)
+                    RejectedAt = DateTimeOffset.Parse("2026-01-08T11:05:00+01:00", CultureInfo.InvariantCulture)
                 },
                 State = ReworkState.Rejected
             },
@@ -183,7 +185,7 @@ public class ReworkLocalizationTests
             {
                 CapturedAt = DateTimeOffset.Parse("2026-01-08T11:30:00+01:00", CultureInfo.InvariantCulture),
                 Category = ReworkCategory.Edgebanding,
-                CreationDetails = new CreationDetails
+                CaptureDetails = new CaptureDetails 
                 {
                     Comment = "Glue issue"
                 },
@@ -197,7 +199,7 @@ public class ReworkLocalizationTests
                 {
                     Comment = "Edges not smooth.",
                     RejectedBy = "Boris Wehrle",
-                    RejectedOn = DateTimeOffset.Parse("2026-01-08T11:35:00+01:00", CultureInfo.InvariantCulture)
+                    RejectedAt = DateTimeOffset.Parse("2026-01-08T11:35:00+01:00", CultureInfo.InvariantCulture)
                 },
             }
         };
