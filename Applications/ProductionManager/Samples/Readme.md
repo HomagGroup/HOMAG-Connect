@@ -43,4 +43,4 @@
 	- Get production protocol
 		- [Retrieve production protocol for an order](CSharp/ProductionProtocol/Actions/Readme.md)
 	- Get sample Power BI report for production protocol
-		- [Use sample Power BI report for production protocol](CSharp/ProductionProtocol/PowerBi)
+		- Use sample Power BI report for production protocol. Go to [CSharp/ProductionProtocol/PowerBi](CSharp/ProductionProtocol/PowerBi) and download the sample report. Add your credentials to the Power BI data source settings.
