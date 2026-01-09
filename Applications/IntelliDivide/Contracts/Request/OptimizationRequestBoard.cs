@@ -89,6 +89,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Width { get; set; }
 
+        /// <summary>
+        /// Gets or sets an optional comment for the board.
+        /// </summary>
+        public string? Comment { get; set; }
+
         #region IExtensibleDataObject Members
 
         /// <inheritdoc />
