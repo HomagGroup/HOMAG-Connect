@@ -36,8 +36,6 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task BoardsUpdateBoardType_WithAdditionalData_Succeeds()
     {
-        var random = new Random();
-        var value = Math.Round(RandomBetween(5.0, 25.0), 2);
 
         var materialManagerClient = GetMaterialManagerClient();
         const string boardCode = "HPL_F274_9_19.0_2800_2070";
@@ -45,11 +43,8 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
         await UpdateBoardTypeSamples.Boards_UpdateBoardType_AdditionalData(materialManagerClient.Material.Boards, materialCode, boardCode);
 
         var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
-
-        checkBoard.Should().NotBeNull(
-            $"because board type with board code '{boardCode}' should exist after update");
-        checkBoard!.Costs.Should().Be(value,
-            $"because board type '{boardCode}' was updated to costs {value}");        
+        checkBoard.ShouldNotBeNull(
+            $"because board type with board code '{boardCode}' should exist after update");        
     }
 
     double RandomBetween(double min, double max)

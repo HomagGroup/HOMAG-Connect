@@ -40,13 +40,12 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandTypeUpdate_WithAdditionalData_Succeeds()
     {
         var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "EB_White_1mm_AdditionalData";
 
         var act = async () => await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType_AdditionalData(
-            materialManagerClient.Material.Edgebands, edgebandCode);
+            materialManagerClient.Material.Edgebands, EdgebandCode);
 
         await act.ShouldNotThrowAsync(
-            $"because creating edgeband type with edgeband code '{edgebandCode}' and additional data should complete successfully");
+            $"because creating edgeband type with edgeband code '{EdgebandCode}' and additional data should complete successfully");
     }
 
     /// <summary />
