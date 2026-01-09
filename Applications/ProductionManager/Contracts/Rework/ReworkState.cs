@@ -13,6 +13,11 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     public enum ReworkState
     {
         /// <summary>
+        /// Fallback value if the state is unknown
+        /// </summary>
+        Unknown,
+
+        /// <summary>
         /// Pending
         /// </summary>
         Pending,
