@@ -39,3 +39,8 @@
 		- [Delete or decompose lots by lot Ids ](CSharp/Lots/Actions/Readme.md)
         - [Delete or decompose lots by lot names ](CSharp/Lots/Actions/Readme.md)
 
+- Retrieving the production protocol
+	- Get production protocol
+		- [Retrieve production protocol for an order](CSharp/ProductionProtocol/Actions/Readme.md)
+	- Get sample Power BI report for production protocol
+		- Use sample Power BI report for production protocol. Go to CSharp/ProductionProtocol/PowerBi and download the sample report. Add your credentials to the Power BI data source settings.
