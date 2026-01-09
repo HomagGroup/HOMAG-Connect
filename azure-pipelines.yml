@@ -11,6 +11,10 @@
 #     name: OneHomag/SWC-DevOps-HoT
 #     ref: main
 
+concurrency:
+  group: build-1250
+  cancelInProgress: false
+
 trigger:
   branches:
     include:
