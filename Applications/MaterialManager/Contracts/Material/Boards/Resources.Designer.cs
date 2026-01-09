@@ -455,7 +455,18 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
                 return ResourceManager.GetString("BoardTypeProperties_Length", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Plattentyp für Konfiguration gesperrt.
+        /// </summary>
+        public static string BoardTypeProperties_LockedForConfiguration
+        {
+            get
+            {
+                return ResourceManager.GetString("BoardTypeProperties_LockedForConfiguration", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Plattentyp für Optimierung gesperrt.
         /// </summary>
