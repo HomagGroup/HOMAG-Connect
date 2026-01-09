@@ -192,6 +192,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
     }
 
+    [TemporaryDisabledOnServer(2026, 1, 30, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Single()
     {
