@@ -8,6 +8,7 @@ namespace HomagConnect.ProductionManager.Tests.Rework
 {
     [TestClass]
     [IntegrationTest("ProductionManager.Rework")]
+    [TemporaryDisabledOnServer(2026,02,28, "DF-Production")]
     public class ReworkTests : ProductionManagerTestBase
     {
         /// <summary>
