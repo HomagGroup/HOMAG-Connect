@@ -117,20 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
-    <value>Belag unten</value>
+  <data name="AdditionalProperties" xml:space="preserve">
+    <value>Zusätzliche Eigenschaften</value>
+    <comment>AdditionalProperties</comment>
   </data>
-  <data name="ILaminatingProperties_LaminateBottomGrain" xml:space="preserve">
-    <value>Belag unten Maserung</value>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie</value>
+    <comment>Category</comment>
   </data>
-  <data name="ILaminatingProperties_LaminateTop" xml:space="preserve">
-    <value>Belag oben</value>
+  <data name="DownloadFileName" xml:space="preserve">
+    <value>Dateiname</value>
+    <comment>DownloadFileName</comment>
   </data>
-  <data name="ILaminatingProperties_LaminateTopGrain" xml:space="preserve">
-    <value>Belag oben Maserung</value>
+  <data name="DownloadUri" xml:space="preserve">
+    <value>Download-URL</value>
+    <comment>DownloadUri</comment>
   </data>
-  <data name="UnitSystem" xml:space="preserve">
-    <value>Einheitensystem</value>
-    <comment>UnitSystem</comment>
+  <data name="Grain" xml:space="preserve">
+    <value>Maserung</value>
+    <comment>Grain</comment>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Länge</value>
+    <comment>Length</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Name</comment>
+  </data>
+  <data name="Previews" xml:space="preserve">
+    <value>Vorschauen</value>
+    <comment>Previews</comment>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Größe</value>
+    <comment>Size</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+    <comment>Type</comment>
+  </data>
+  <data name="Uri" xml:space="preserve">
+    <value>Uri</value>
+    <comment>Uri</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breite</value>
+    <comment>Width</comment>
   </data>
 </root>
