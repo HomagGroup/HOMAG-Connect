@@ -10,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Materials")]
-    [TemporaryDisabledOnServer(2026, 01, 30, "IntelliDivide")]
+    [TemporaryDisabledOnServer(2026, 01, 31, "IntelliDivide")]
     public class MaterialsTests : IntelliDivideTestBase
     {
         [TestMethod]
