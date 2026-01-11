@@ -232,7 +232,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Gets or sets the id from an external system.
         /// </summary>
-        [JsonProperty(Order = 94)]
+        [JsonProperty(Order = 95)]
         public string? ExternalId { get; set; }
 
         #endregion
@@ -268,6 +268,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LockedForOptimization))]
         [JsonProperty(Order = 93)]
         public bool LockedForOptimization { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the board type is locked for configuration.
+        /// </summary>
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LockedForConfiguration))]
+        [JsonProperty(Order = 94)]
+        public bool LockedForConfiguration { get; set; }
 
         #endregion
 

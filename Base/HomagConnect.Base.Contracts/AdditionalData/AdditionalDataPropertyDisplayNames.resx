@@ -118,79 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdditionalProperties" xml:space="preserve">
-    <value>Zusatzdaten</value>
+    <value>Zusätzliche Eigenschaften</value>
     <comment>AdditionalProperties</comment>
-  </data>
-  <data name="Attachments" xml:space="preserve">
-    <value>Anhänge</value>
-    <comment>Attachments</comment>
-  </data>
-  <data name="CapturedAt" xml:space="preserve">
-    <value>Erfasst am</value>
-    <comment>CapturedAt</comment>
-  </data>
-  <data name="CapturedBy" xml:space="preserve">
-    <value>Erfasst von</value>
-    <comment>CapturedBy</comment>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Kategorie</value>
     <comment>Category</comment>
   </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Notizen</value>
-    <comment>Comment</comment>
+  <data name="DownloadFileName" xml:space="preserve">
+    <value>Dateiname</value>
+    <comment>DownloadFileName</comment>
   </data>
-  <data name="CaptureDetails" xml:space="preserve">
-    <value>Erfassungsdetails</value>
-    <comment>CaptureDetails</comment>
+  <data name="DownloadUri" xml:space="preserve">
+    <value>Download-URL</value>
+    <comment>DownloadUri</comment>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Beschreibung</value>
-    <comment>Description</comment>
+  <data name="Grain" xml:space="preserve">
+    <value>Maserung</value>
+    <comment>Grain</comment>
   </data>
-  <data name="Id" xml:space="preserve">
-    <value>ID</value>
-    <comment>Id</comment>
+  <data name="Length" xml:space="preserve">
+    <value>Länge</value>
+    <comment>Length</comment>
   </data>
-  <data name="LastWorkstation" xml:space="preserve">
-    <value>Letzter Arbeitsplatz</value>
-    <comment>LastWorkstation</comment>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Name</comment>
   </data>
-  <data name="Material" xml:space="preserve">
-    <value>Material</value>
-    <comment>Material</comment>
+  <data name="Previews" xml:space="preserve">
+    <value>Vorschauen</value>
+    <comment>Previews</comment>
   </data>
-  <data name="OrderName" xml:space="preserve">
-    <value>Auftragsname</value>
-    <comment>OrderName</comment>
+  <data name="Size" xml:space="preserve">
+    <value>Größe</value>
+    <comment>Size</comment>
   </data>
-  <data name="QuantityOfReworks" xml:space="preserve">
-    <value>Anzahl Nachfertigungen</value>
-    <comment>QuantityOfReworks</comment>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+    <comment>Type</comment>
   </data>
-  <data name="Reason" xml:space="preserve">
-    <value>Grund</value>
-    <comment>Reason</comment>
+  <data name="Uri" xml:space="preserve">
+    <value>Uri</value>
+    <comment>Uri</comment>
   </data>
-  <data name="RejectedAt" xml:space="preserve">
-    <value>Abgelehnt am</value>
-    <comment>RejectedAt</comment>
-  </data>
-  <data name="RejectedBy" xml:space="preserve">
-    <value>Abgelehnt von</value>
-    <comment>RejectedBy</comment>
-  </data>
-  <data name="RejectionDetails" xml:space="preserve">
-    <value>Ablehnungsnotiz</value>
-    <comment>RejectionDetails</comment>
-  </data>
-  <data name="Rework" xml:space="preserve">
-    <value>Nachfertigung</value>
-    <comment>Rework</comment>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>Status</value>
-    <comment>State</comment>
+  <data name="Width" xml:space="preserve">
+    <value>Breite</value>
+    <comment>Width</comment>
   </data>
 </root>
