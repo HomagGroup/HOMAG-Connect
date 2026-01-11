@@ -5,12 +5,8 @@ using System.ComponentModel;
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
     /// <summary>
-    /// Represents the edge banding configuration for a component, including edge material and thickness information for
-    /// each side.
+    /// Represents a edge band.
     /// </summary>
-    /// <remarks>Use this class to specify the edge banding details for the front, back, left, and right sides
-    /// of a component, as well as associated thickness values. Edge banding properties are commonly used in cabinetry
-    /// and furniture design to define the materials and appearance of panel edges.</remarks>
     public class EdgeBand : Base
     {
         #region ComponentBase Members
