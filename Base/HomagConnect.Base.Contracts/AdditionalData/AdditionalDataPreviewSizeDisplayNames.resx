@@ -117,20 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
-    <value>Belag unten</value>
+  <data name="Large" xml:space="preserve">
+    <value>Groß</value>
+    <comment>Large</comment>
   </data>
-  <data name="ILaminatingProperties_LaminateBottomGrain" xml:space="preserve">
-    <value>Belag unten Maserung</value>
+  <data name="Medium" xml:space="preserve">
+    <value>Mittel</value>
+    <comment>Medium</comment>
   </data>
-  <data name="ILaminatingProperties_LaminateTop" xml:space="preserve">
-    <value>Belag oben</value>
+  <data name="Small" xml:space="preserve">
+    <value>Klein</value>
+    <comment>Small</comment>
   </data>
-  <data name="ILaminatingProperties_LaminateTopGrain" xml:space="preserve">
-    <value>Belag oben Maserung</value>
+  <data name="Thumbnail" xml:space="preserve">
+    <value>Miniaturansicht</value>
+    <comment>Thumbnail</comment>
   </data>
-  <data name="UnitSystem" xml:space="preserve">
-    <value>Einheitensystem</value>
-    <comment>UnitSystem</comment>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
+    <comment>Unknown</comment>
   </data>
 </root>

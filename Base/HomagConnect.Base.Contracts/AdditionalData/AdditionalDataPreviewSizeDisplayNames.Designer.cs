@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.Base.Contracts {
+namespace HomagConnect.Base.Contracts.AdditionalData {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.Base.Contracts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class AdditionalDataPreviewSizeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal AdditionalDataPreviewSizeDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace HomagConnect.Base.Contracts {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.AdditionalData.AdditionalDataPreviewSizeDisplayNames", typeof(AdditionalDataPreviewSizeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,47 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belag unten.
+        ///   Looks up a localized string similar to Groß.
         /// </summary>
-        public static string ILaminatingProperties_LaminateBottom {
+        public static string Large {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateBottom", resourceCulture);
+                return ResourceManager.GetString("Large", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belag unten Maserung.
+        ///   Looks up a localized string similar to Mittel.
         /// </summary>
-        public static string ILaminatingProperties_LaminateBottomGrain {
+        public static string Medium {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateBottomGrain", resourceCulture);
+                return ResourceManager.GetString("Medium", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belag oben.
+        ///   Looks up a localized string similar to Klein.
         /// </summary>
-        public static string ILaminatingProperties_LaminateTop {
+        public static string Small {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateTop", resourceCulture);
+                return ResourceManager.GetString("Small", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belag oben Maserung.
+        ///   Looks up a localized string similar to Miniaturansicht.
         /// </summary>
-        public static string ILaminatingProperties_LaminateTopGrain {
+        public static string Thumbnail {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateTopGrain", resourceCulture);
+                return ResourceManager.GetString("Thumbnail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Einheitensystem.
+        ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
-        public static string UnitSystem {
+        public static string Unknown {
             get {
-                return ResourceManager.GetString("UnitSystem", resourceCulture);
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
     }
