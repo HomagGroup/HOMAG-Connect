@@ -69,4 +69,19 @@ public enum Type
     /// Error information.
     /// </summary>
     ErrorInfo,
+
+    /// <summary>
+    /// Represents board
+    /// </summary>
+    Board,
+
+    /// <summary>
+    /// Represents an edge band
+    /// </summary>
+    EdgeBand,
+
+    /// <summary>
+    /// Represents an offcut
+    /// </summary>
+    Offcut,
 }

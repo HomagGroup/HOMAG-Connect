@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialAssist.Samples.Get.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using Shouldly;
 
@@ -7,6 +8,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands;
 [TestClass]
 [TestCategory("MaterialAssist")]
 [TestCategory("MaterialAssist.Edgebands")]
+[TemporaryDisabledOnServer(2026, 01, 31, "DF-Material")]
 public class GetEdgebandsTests : MaterialAssistTestBase
 {
     [ClassInitialize]
