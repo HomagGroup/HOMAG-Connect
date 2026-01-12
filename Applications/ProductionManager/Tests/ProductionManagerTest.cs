@@ -1,6 +1,4 @@
 ﻿using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
-using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions;
 
 namespace HomagConnect.ProductionManager.Tests;

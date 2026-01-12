@@ -4,6 +4,7 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.Rework;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -244,6 +245,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Get the ProductionProtocol for one workstation by its identifier
         /// </summary>
         /// <param name="workstationId"></param>
+        /// <param name="daysBack"></param>
         /// <returns></returns>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7);       
         #endregion
