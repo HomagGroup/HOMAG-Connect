@@ -1,7 +1,9 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
+
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
@@ -391,11 +393,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// </summary>
         [TypicalDensity(1200)]
         [Display(Description = "Wood-plastic composites (WPC)")]
-        WoodplasticComposites_WPC,
+        WoodplasticComposites_WPC
 
         // ReSharper restore IdentifierTypo
         // ReSharper restore InconsistentNaming
     }
-
-
 }
