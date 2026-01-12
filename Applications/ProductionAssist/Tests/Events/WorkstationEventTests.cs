@@ -2,7 +2,6 @@
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
-using HomagConnect.MaterialManager.Contracts.Events.Material.Enums;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Events;
 using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
