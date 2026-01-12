@@ -21,6 +21,16 @@
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="AdditionalData\AdditionalDataPreviewSizeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AdditionalDataPreviewSizeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="AdditionalData\AdditionalDataPropertyDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AdditionalDataPropertyDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="AdditionalData\AdditionalDataTypeDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -58,6 +68,14 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
+	  <EmbeddedResource Update="AdditionalData\AdditionalDataPreviewSizeDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AdditionalDataPreviewSizeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="AdditionalData\AdditionalDataPropertyDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AdditionalDataPropertyDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="AdditionalData\AdditionalDataTypeDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AdditionalDataTypeDisplayNames.Designer.cs</LastGenOutput>
