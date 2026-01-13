@@ -8,8 +8,12 @@ With the HOMAG Connect Client, the orders can be retrieved from productionManage
  // Create new instance of the productionManager client:
 var client = new ProductionManagerClient(subscriptionId, authorizationKey);
 
+// Get the workstationId.
+// Get a list of all workstations in productionAssist via the ProductionAssistClient - See HomagConnect.ProductionAssist.Samples for more information on how to get the workstations
+// Choose one workstation and use its ID here.
+var workstationId = "your-workstation-id"; // 
+
 // Get the data
-var workstationId = "your-workstation-id"; // this is a GUID string
 var productionProtocol = await productionManager.GetProductionProtocol(workstationId).ToListAsync();
 
 // Use the retrieved data
@@ -19,3 +23,5 @@ Assert.IsTrue(productionProtocol.Any());
 var protocol = productionProtocol.Select(x => x.Id).ToList();
 reworkIds.Trace(nameof(protocol));
 ``` 
+
+GetWorkstations information and code samples can be found at [Documentation for productionAssist Client](./../../../../../ProductionAssist/Samples/CSharp/Workstations/Readme.md).
