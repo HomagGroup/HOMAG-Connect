@@ -161,6 +161,10 @@
     <value>Zementgebundene Platten</value>
     <comment>Cement-bound panels</comment>
   </data>
+  <data name="Ceramic" xml:space="preserve">
+    <value>Keramik</value>
+    <comment>Ceramic</comment>
+  </data>
   <data name="Chipboard" xml:space="preserve">
     <value>Spanplatte</value>
     <comment>Chipboard</comment>
@@ -188,6 +192,10 @@
   <data name="Flakeboard_OSBPanel" xml:space="preserve">
     <value>Grobspanplatte (OSB-Platte)</value>
     <comment>Flakeboard (OSB panel)</comment>
+  </data>
+  <data name="FloatGlass" xml:space="preserve">
+    <value>Floatglas</value>
+    <comment>Float glass</comment>
   </data>
   <data name="GluedWoodPanelGluelaminatedWood_HardWood" xml:space="preserve">
     <value>Leimholzplatte/Brettschichtholz (Hartholz)</value>
