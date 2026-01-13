@@ -393,7 +393,19 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// </summary>
         [TypicalDensity(1200)]
         [Display(Description = "Wood-plastic composites (WPC)")]
-        WoodplasticComposites_WPC
+        WoodplasticComposites_WPC,
+
+        /// <summary>
+        /// Ceramic
+        /// </summary>
+        [TypicalDensity(2500)]
+        Ceramic,
+
+        /// <summary>
+        /// Float glass
+        /// </summary>
+        [TypicalDensity(2420)]
+        FloatGlass
 
         // ReSharper restore IdentifierTypo
         // ReSharper restore InconsistentNaming
