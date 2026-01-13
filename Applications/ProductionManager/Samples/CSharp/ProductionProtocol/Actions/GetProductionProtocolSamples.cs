@@ -19,7 +19,7 @@ namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
              * Get a list of all workstations in productionAssist via the ProductionAssistClient - See HomagConnect.ProductionAssist.Samples for more information on how to get the workstations
              * Choose one workstation and use its ID here.
             */
-            var workstationId = "8892b810-ac7a-468f-9153-c1a4d6536463"; 
+            var workstationId = "your-workstation-id"; 
 
             var response = await productionManager.GetProductionProtocol(workstationId).ToListAsync();
             response.Trace();
