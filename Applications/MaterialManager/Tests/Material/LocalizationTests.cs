@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
@@ -44,6 +45,7 @@ public class LocalizationTests
     }
     /// <summary />
     [TestMethod]
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public void MaterialManager_Localization_BoardMaterialCategory()
     {
         var displayNames = EnumExtensions.GetDisplayNames<BoardMaterialCategory>(CultureInfo.GetCultureInfo("de"));
@@ -51,6 +53,10 @@ public class LocalizationTests
             "because BoardMaterialCategory enum should have localized display names");
         displayNames[BoardMaterialCategory.Chipboard].ShouldBe("Spanplatte",
             "because BoardMaterialCategory.Chipboard should be localized as 'Spanplatte' in German");
+        displayNames[BoardMaterialCategory.Ceramic].ShouldBe("Keramik",
+            "because BoardMaterialCategory.Ceramic should be localized as 'Keramik' in German");
+        displayNames[BoardMaterialCategory.FloatGlass].ShouldBe("Floatglas",
+            "because BoardMaterialCategory.FloatGlass should be localized as 'Floatglas' in German");
         displayNames.Trace();
     }
     /// <summary>

@@ -8,6 +8,8 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.Rework;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -530,6 +532,17 @@ namespace HomagConnect.ProductionManager.Client
 
         #endregion Rework
 
+        #region ProductionProtocol
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7)
+        {
+            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
+            var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?> (new Uri(url, UriKind.Relative));
+
+            return productionProtocol;
+        }
+
         #endregion
 
         #region Constructors
@@ -542,6 +555,8 @@ namespace HomagConnect.ProductionManager.Client
 
         /// <inheritdoc />
         public ProductionManagerClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #endregion
     }
