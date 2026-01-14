@@ -30,6 +30,7 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     [JsonProperty(Order = 21)]
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Length))]
     public double? Length { get; set; }
 
     /// <summary>
@@ -38,6 +39,7 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     [JsonProperty(Order = 22)]
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Width))]
     public double? Width { get; set; }
 
     /// <summary>
@@ -46,10 +48,12 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     [JsonProperty(Order = 23)]
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Thickness))]
     public double? Thickness { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 24)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(UnitSystem))]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
     #endregion
 
@@ -58,12 +62,14 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     /// Gets or sets the material.
     /// </summary>
     [JsonProperty(Order = 25)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Material))]
     public string? Material { get; set; }
 
     /// <summary>
     /// Gets or sets the grain.
     /// </summary>
     [JsonProperty(Order = 26)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Grain))]
     public Grain Grain { get; set; }
     #endregion
     

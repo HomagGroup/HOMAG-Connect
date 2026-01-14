@@ -53,6 +53,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
+	    <LastGenOutput>ProductionProtocolPropertyDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Rework\ReworkPropertyDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ReworkPropertyDisplayNames.Designer.cs</LastGenOutput>
