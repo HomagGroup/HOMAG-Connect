@@ -1,0 +1,28 @@
+trigger: none
+
+schedules:
+- cron: '0 0 * * 0'
+  displayName: Weekly midnight build on sunday
+  branches:
+    include:
+    - main
+
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: OneHomag/SWC-DevOps-HoT
+    ref: release/3
+
+stages:
+  - template: translation/template.yml@templates
+    variables:
+      - name: BuildConfiguration
+        value: Release
+      - group: dftranslationvariables      
+    parameters:
+      languages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+      include_filter: *.resx
+      responsible_user_id: tb10BOW
+      pull_request_feedback: true
+      pull_request_target_branch: main
