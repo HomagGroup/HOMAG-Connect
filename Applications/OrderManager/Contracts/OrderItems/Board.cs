@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
@@ -32,6 +33,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         /// Gets or sets the thickness.
         /// </summary>
         [JsonProperty(Order = 15)]
+        [DefaultValue(0.0)]
         public double? Thickness { get; set; }
 
         #endregion
@@ -63,5 +65,12 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public Grain Grain { get; set; }
 
         #endregion
+
+        /// <summary>
+        /// Gets or sets the total costs.
+        /// </summary>
+        [JsonProperty(Order = 7)]
+        [DefaultValue(0.0)]
+        public double Costs { get; set; }
     }
 }

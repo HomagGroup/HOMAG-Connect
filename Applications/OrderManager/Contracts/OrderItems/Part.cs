@@ -2,6 +2,7 @@
 using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 // Note: This is preliminary code and is subject to change
 
