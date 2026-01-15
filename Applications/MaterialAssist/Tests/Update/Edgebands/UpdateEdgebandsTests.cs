@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialAssist.Samples.Update.Edgebands;
 
@@ -20,9 +20,9 @@ public class UpdateEdgebandsTests : MaterialAssistTestBase
 
         var checkEdgebandEntity = await materialAssistClient.GetEdgebandEntityById("43");
 
-        checkEdgebandEntity.Should().NotBeNull(
+        checkEdgebandEntity.ShouldNotBeNull(
             "because edgeband entity '43' should exist after update");
-        checkEdgebandEntity!.Length.Should().Be(length,
+        Assert.AreEqual(length, checkEdgebandEntity!.Length, 0.0001,
             $"because edgeband entity '43' was updated to length {length}");
         return;
 

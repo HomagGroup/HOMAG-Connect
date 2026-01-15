@@ -129,4 +129,8 @@
   <data name="ILaminatingProperties_LaminateTopGrain" xml:space="preserve">
     <value>Belag oben Maserung</value>
   </data>
+  <data name="UnitSystem" xml:space="preserve">
+    <value>Einheitensystem</value>
+    <comment>UnitSystem</comment>
+  </data>
 </root>

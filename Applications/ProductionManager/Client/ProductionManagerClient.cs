@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using HomagConnect.Base;
+﻿using HomagConnect.Base;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
@@ -17,8 +8,18 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.Rework;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -482,13 +483,65 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<Rework>?> GetCompletedReworks()
         {
-            var url = $"/api/productionManager/orders/reworks?completed={true}";
+            return await GetReworks([ReworkState.Rejected , ReworkState.Transferred]);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Rework>?> GetReworks(ReworkState[]? states,  DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        {
+            var url = "/api/productionManager/orders/reworks";
+
+            var queryParameters = new List<string>();
+
+            if (states is { Length: > 0 })
+            {
+                queryParameters.AddRange(states.Select(reworkState => $"state={Uri.EscapeDataString(reworkState.ToString())}"));
+            }
+
+            if (capturedAtFrom.HasValue)
+            {
+                queryParameters.Add($"capturedAtFrom={Uri.EscapeDataString(capturedAtFrom.Value.ToString("o", CultureInfo.InvariantCulture))}");
+            }
+
+            if (capturedAtTo.HasValue)
+            {
+                queryParameters.Add($"capturedAtTo={Uri.EscapeDataString(capturedAtTo.Value.ToString("o", CultureInfo.InvariantCulture))}");
+            }
+
+            if (skip > 0)
+            {
+                queryParameters.Add($"skip={skip}");
+            }
+
+            if (take > 0 && take != int.MaxValue) 
+            {
+                queryParameters.Add($"take={take}");
+            }
+
+            queryParameters.Add($"completed=true"); // TODO: remove when API supports non-completed reworks
+
+            if (queryParameters.Count > 0)
+            {
+                url += $"?{string.Join("&", queryParameters)}";
+            }
+            
             var completedReworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
 
             return completedReworks;
         }
 
         #endregion Rework
+
+        #region ProductionProtocol
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7)
+        {
+            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
+            var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?> (new Uri(url, UriKind.Relative));
+
+            return productionProtocol;
+        }
 
         #endregion
 
@@ -502,6 +555,8 @@ namespace HomagConnect.ProductionManager.Client
 
         /// <inheritdoc />
         public ProductionManagerClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+        #endregion
 
         #endregion
     }

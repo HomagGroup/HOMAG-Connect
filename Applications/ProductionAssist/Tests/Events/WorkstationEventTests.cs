@@ -2,7 +2,6 @@
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
-using HomagConnect.MaterialManager.Contracts.Events.Material.Enums;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Events;
 using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
@@ -75,7 +74,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         workstationUpsertedEvent.Trace();
 
         Assert.IsTrue(workstationUpsertedEvent.IsValid);
-        Assert.AreEqual(workstationUpsertedEvent.Action, UpsertAction.Created);
+        Assert.AreEqual(UpsertAction.Created, workstationUpsertedEvent.Action);
 
         TestContext?.AddResultFile(workstationUpsertedEvent.TraceToFile("workstationUpsertedEvent").FullName);
     }
@@ -97,7 +96,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         workstationUpsertedEvent.Trace();
 
         Assert.IsTrue(workstationUpsertedEvent.IsValid);
-        Assert.AreEqual(workstationUpsertedEvent.Action, UpsertAction.Updated);
+        Assert.AreEqual(UpsertAction.Updated, workstationUpsertedEvent.Action);
 
         TestContext?.AddResultFile(workstationUpsertedEvent.TraceToFile("workstationUpsertedEvent").FullName);
     }
@@ -132,7 +131,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
         Assert.IsNotNull(derivedTypes);
-        Assert.IsTrue(derivedTypes.Length > 0);
+        Assert.IsNotEmpty(derivedTypes);
 
         derivedTypes.Trace();
     }

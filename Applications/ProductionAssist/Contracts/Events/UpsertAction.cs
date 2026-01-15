@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Events.Material.Enums
+﻿namespace HomagConnect.ProductionAssist.Contracts.Events
 {
     /// <summary>
     /// Specifies the action performed during an upsert operation.

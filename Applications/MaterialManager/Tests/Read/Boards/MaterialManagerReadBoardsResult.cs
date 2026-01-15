@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialManager.Samples.Read.Boards;
 
@@ -19,7 +19,7 @@ public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerReadBoardsResults.GetLocations(materialManager.Material.Boards, boardCodes);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             $"because GetLocations should retrieve locations for board codes '{string.Join(", ", boardCodes)}' successfully");
     }
     
@@ -31,7 +31,7 @@ public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerReadBoardsResults.GetMaterialCodes(materialManager.Material.Boards);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetMaterialCodes should retrieve material codes successfully");
     }
 
@@ -43,7 +43,7 @@ public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
 
         var act = async () => await MaterialManagerReadBoardsResults.GetThumbnails(materialManager.Material.Boards);
 
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because GetThumbnails should retrieve thumbnails successfully");
     }
     

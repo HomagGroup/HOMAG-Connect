@@ -1,7 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
-using HomagConnect.MaterialManager.Contracts.Events.Material.Enums;
 using Newtonsoft.Json;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events;

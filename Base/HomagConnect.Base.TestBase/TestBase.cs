@@ -148,7 +148,7 @@ namespace HomagConnect.Base.TestBase
                 return config;
             }
 
-            if (TestContext != null && TestContext.Properties.Contains(key))
+            if (TestContext != null && TestContext.Properties.ContainsKey(key))
             {
                 var value = TestContext.Properties[key];
 

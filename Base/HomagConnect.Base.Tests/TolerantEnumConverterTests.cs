@@ -1,8 +1,8 @@
-﻿using FluentAssertions;
-using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Converter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
+using Shouldly;
 
 namespace HomagConnect.Base.Tests
 {
@@ -39,7 +39,8 @@ namespace HomagConnect.Base.Tests
             var o2 = JsonConvert.DeserializeObject<Test>(json, SerializerSettings.Default);
 
             // Assert
-            o2.Should().BeEquivalentTo(o);
+            o2.ShouldNotBeNull();
+            o2!.Type.ShouldBe(o.Type);
         }
 
         [DataTestMethod]
@@ -58,7 +59,8 @@ namespace HomagConnect.Base.Tests
             var o2 = JsonConvert.DeserializeObject<Test>(json, SerializerSettings.Default);
 
             // Assert
-            o2.Type.Should().Be(addressType);
+            o2.ShouldNotBeNull();
+            o2!.Type.ShouldBe(addressType);
         }
 
         [JsonConverter(typeof(TolerantEnumConverter))]
@@ -89,7 +91,7 @@ namespace HomagConnect.Base.Tests
             var o2 = JsonConvert.DeserializeObject<Test2>(json, SerializerSettings.Default);
 
             // Assert
-            o2.Type.Should().Be(addressType);
+            o2.Type.ShouldBe(addressType);
         }
     }
 }
