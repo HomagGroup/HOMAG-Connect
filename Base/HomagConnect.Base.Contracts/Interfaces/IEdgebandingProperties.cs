@@ -1,4 +1,6 @@
-﻿namespace HomagConnect.Base.Contracts.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HomagConnect.Base.Contracts.Interfaces;
 
 /// <summary>
 /// Edgebanding properties
@@ -8,25 +10,30 @@ public interface IEdgebandingProperties
     /// <summary>
     /// Gets or sets the edgeband code of the edgeband type which should get applied on the back.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EdgeBack))]
     public string? EdgeBack { get; set; }
 
     /// <summary>
     /// Gets or sets how the edgebands should get applied.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EdgeDiagram))]
     public string? EdgeDiagram { get; set; }
 
     /// <summary>
     /// Gets or sets the edgeband code of the edgeband type which should get applied on the front.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EdgeFront))]
     public string? EdgeFront { get; set; }
 
     /// <summary>
     /// Gets or sets the edgeband code of the edgeband type which should get applied on the left.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EdgeLeft))]
     public string? EdgeLeft { get; set; }
 
     /// <summary>
     /// Gets or sets the edgeband code of the edgeband type which should get applied on the right.
     /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EdgeRight))]
     public string? EdgeRight { get; set; }
 }

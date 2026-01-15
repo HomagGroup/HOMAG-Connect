@@ -18,7 +18,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     /// Describes a part in context of an intelliDivide optimization.
     /// </summary>
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}")]
-    public class OptimizationBasePart : IEdgebandingProperties, ILaminatingProperties, IDimensionProperties, ICncProgramProperties
+    public class OptimizationBasePart :  IPartProperties
     {
         #region Constructors
 
@@ -54,6 +54,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonProperty(Order = 11)]
         [StringLength(50, MinimumLength = 1)]
         public string? MaterialCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the material code.
+        /// </summary>
+        [JsonProperty(Order = 11)]
+        [StringLength(50, MinimumLength = 1)]
+        public string? Material
+        {
+            get
+            {
+                return MaterialCode;
+            }
+            set
+            {
+                MaterialCode = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="Grain" /> of the part.
