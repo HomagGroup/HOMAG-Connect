@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-// NOTE: This is preliminary code and is subject to change
-
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+
+// NOTE: This is preliminary code and is subject to change
 
 /// <summary>
 /// Root container for a collection of Roomle <see cref="Material"/> entries.

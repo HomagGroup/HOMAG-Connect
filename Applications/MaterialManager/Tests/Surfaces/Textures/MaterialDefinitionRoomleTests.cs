@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Tests.Surfaces.Textures;
 
+// NOTE: This is preliminary code and is subject to change
+
 /// <summary />
 [TestClass]
 [TestCategory("MaterialManager")]

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+
 using HomagConnect.Base;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
@@ -15,13 +17,16 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 public class MaterialDefinitionRoomle
 {
     #region Properties
+
     /// <summary>
     /// The contained material definition with textures, shading, and metadata.
     /// </summary>
     public Material? Material { get; set; }
+
     #endregion
 
     #region Deserialization
+
     /// <summary>
     /// Deserialize a <see cref="MaterialDefinitionRoomle"/> from a file.
     /// </summary>
@@ -64,9 +69,11 @@ public class MaterialDefinitionRoomle
             return false;
         }
     }
+
     #endregion
 
     #region Serialization
+
     /// <summary>
     /// Serialize this instance to a JSON string.
     /// </summary>
@@ -98,5 +105,6 @@ public class MaterialDefinitionRoomle
         stream.Position = 0;
         return stream;
     }
+
     #endregion
 }
