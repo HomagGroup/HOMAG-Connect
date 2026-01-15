@@ -86,6 +86,6 @@ public class TextureTests
 
         // Assert
         // ReSharper disable once StringLiteralTypo
-        Assert.AreEqual("Oberfl�chentextur", germanDisplayNames[AdditionalDataType.SurfaceTexture]);
+        Assert.AreEqual("Oberflächentextur", germanDisplayNames[AdditionalDataType.SurfaceTexture]);
     }
 }
