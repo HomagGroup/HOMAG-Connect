@@ -41,13 +41,39 @@ public sealed class LocalizedContractResolver : DefaultContractResolver
         var prop = base.CreateProperty(member, memberSerialization);
 
         // Localize the property name via [Display(ResourceType=..., Name=...)]
+
         var displayAttr = member.GetCustomAttribute<DisplayAttribute>();
+
         if (displayAttr != null)
         {
             var localized = TryGetDisplayName(displayAttr, _Culture);
             if (!string.IsNullOrWhiteSpace(localized))
             {
                 prop.PropertyName = localized!;
+            }
+        }
+
+        // Check the interfaces implemented by the class
+        var type = member.DeclaringType;
+
+        if (type != null)
+        {
+            foreach (var i in type.GetInterfaces())
+            {
+                var propertyInfo = i.GetProperty(member.Name);
+                if (propertyInfo != null)
+                {
+                    var displayAttribute = propertyInfo.GetCustomAttribute<DisplayAttribute>(true);
+                    if (displayAttribute != null)
+                    {
+                        var localized = TryGetDisplayName(displayAttribute, _Culture);
+                        if (!string.IsNullOrWhiteSpace(localized))
+                        {
+                            prop.PropertyName = localized!;
+                        }
+                        break;
+                    }
+                }
             }
         }
 
@@ -84,9 +110,11 @@ public sealed class LocalizedContractResolver : DefaultContractResolver
         if (display.ResourceType != null && !string.IsNullOrEmpty(display.Name))
         {
             var rm = GetResourceManager(display.ResourceType);
+
             if (rm != null)
             {
                 var s = rm.GetString(display.Name!, culture);
+
                 if (!string.IsNullOrEmpty(s))
                 {
                     return s;

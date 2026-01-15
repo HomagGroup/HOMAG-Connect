@@ -1,19 +1,23 @@
 ﻿using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
+namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+
+/// <summary>
+/// Represents a processed assembly group in a production protocol, including its id, description and quantity processed.
+/// </summary>
+public class ProcessedAssemblyGroup : ProcessedOrderItem
 {
-    /// <summary>
-    /// Represents a processed assembly group in a production protocol, including its id, description and quantity processed.
-    /// </summary>
-    public class ProcessedAssemblyGroup : ProcessedOrderItem
+    /// <inheritdoc />
+    public override ProductionItemType ItemType
     {
-        /// <inheritdoc />
-        public override ProductionItemType ItemType
+        get
         {
-            get
-            {
-                return ProductionItemType.AssemblyGroup;
-            }
+            return ProductionItemType.AssemblyGroup;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
         }
     }
 }

@@ -27,7 +27,7 @@ namespace HomagConnect.Base.TestBase
         /// <summary>
         /// Gets or sets the test context which provides information about and functionality for the current test run.
         /// </summary>
-        public virtual TestContext? TestContext { get; set; }
+        public virtual required TestContext? TestContext { get; set; }
 
         #endregion
 

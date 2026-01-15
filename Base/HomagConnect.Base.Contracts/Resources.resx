@@ -205,6 +205,10 @@
     <value>Dicke</value>
     <comment>Thickness</comment>
   </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Zeitpunkt</value>
+    <comment>Timestamp</comment>
+  </data>
   <data name="UnitSystem" xml:space="preserve">
     <value>Einheitensystem</value>
     <comment>UnitSystem</comment>

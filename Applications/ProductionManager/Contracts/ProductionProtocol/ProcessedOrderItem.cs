@@ -12,14 +12,14 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         /// Gets or sets the id of the processed OrderItem
         /// </summary>
         [JsonProperty(Order = 10)]
-        [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Id))]
+        [Display(AutoGenerateField = false)]
         public string? Id { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the processed OrderItem
         /// </summary>
         [JsonProperty(Order = 11)]
-        [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Description))]
+        [Display(ResourceType = typeof(HomagConnect.Base.Contracts.Resources), Name = nameof(Description))]
         public string? Description { get; set; }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         /// <summary>
         /// Gets or sets the OrderId in which the OrderItem was defined.
         /// </summary>
-        [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(OrderId))]
         [JsonProperty(Order = 14)]
+        [Display(AutoGenerateField = false)]
         public Guid? OrderId { get; set; }
 
         /// <summary>

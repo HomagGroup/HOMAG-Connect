@@ -117,16 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionalProperties" xml:space="preserve">
-    <value>Zusatzdaten</value>
-    <comment>Zusatzdaten</comment>
-  </data>
   <data name="BoardCode" xml:space="preserve">
     <value>Plattencode</value>
     <comment>Plattencode</comment>
   </data>
   <data name="BoardEntityId" xml:space="preserve">
-    <value>Platten-Id</value>
+    <value>Plattennummer</value>
     <comment>Platten-Id</comment>
   </data>
   <data name="CompletedAt" xml:space="preserve">
@@ -136,29 +132,8 @@
   <data name="CustomerName" xml:space="preserve">
     <value>Kundenname</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Beschreibung</value>
-  </data>
-  <data name="EdgeBack" xml:space="preserve">
-    <value>Kante hinten</value>
-  </data>
-  <data name="EdgeDiagram" xml:space="preserve">
-    <value>Kantengrafik</value>
-  </data>
-  <data name="EdgeFront" xml:space="preserve">
-    <value>Kante vorne</value>
-  </data>
-  <data name="EdgeLeft" xml:space="preserve">
-    <value>Kante links</value>
-  </data>
-  <data name="EdgeRight" xml:space="preserve">
-    <value>Kante rechts</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>Herkunft</value>
-  </data>
-  <data name="Grain" xml:space="preserve">
-    <value>Maserung</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>ID</value>
@@ -166,17 +141,8 @@
   <data name="ItemType" xml:space="preserve">
     <value>Eintragstyp</value>
   </data>
-  <data name="Length" xml:space="preserve">
-    <value>Länge</value>
-  </data>
-  <data name="Material" xml:space="preserve">
-    <value>Material</value>
-  </data>
   <data name="OptimizationName" xml:space="preserve">
     <value>Optimierung</value>
-  </data>
-  <data name="OrderId" xml:space="preserve">
-    <value>Auftrags-ID</value>
   </data>
   <data name="OrderName" xml:space="preserve">
     <value>Auftragsname</value>
@@ -208,19 +174,7 @@
   <data name="Thickness" xml:space="preserve">
     <value>Dicke</value>
   </data>
-  <data name="Timestamp" xml:space="preserve">
-    <value>Zeitpunkt der Anforderung</value>
-  </data>
   <data name="Type" xml:space="preserve">
     <value>Typ</value>
-  </data>
-  <data name="UnitSystem" xml:space="preserve">
-    <value>Einheit</value>
-  </data>
-  <data name="Width" xml:space="preserve">
-    <value>Breite</value>
-  </data>
-  <data name="WorkstationId" xml:space="preserve">
-    <value>Id des Arbeitsplatzes</value>
   </data>
 </root>
