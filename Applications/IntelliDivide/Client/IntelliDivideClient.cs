@@ -1,5 +1,4 @@
 ﻿using HomagConnect.Base;
-using HomagConnect.Base.DataModel;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.IntelliDivide.Contracts;
@@ -14,6 +13,8 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Security.Authentication;
+
+using HomagConnect.Base.Contracts.DataModel;
 
 namespace HomagConnect.IntelliDivide.Client
 {

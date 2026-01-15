@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+
 using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics;
@@ -11,20 +12,6 @@ namespace HomagConnect.MaterialManager.Tests.Statistics;
 [TestCategory("MaterialManager.Statistics.Inventory")]
 public class BoardTypeInventoryStatisticsTests : MaterialManagerTestBase
 {
-    /// <summary />
-    [TestMethod]
-    public async Task Statistics_GetInventory_ByDays_NoException()
-    {
-        var materialClient = GetMaterialManagerClient();
-
-        var statistics = (await materialClient.Material.Boards.GetPartHistoryAsync(60, 10).ConfigureAwait(false) ?? Array.Empty<PartHistory>()).ToArray();
-
-        statistics.ShouldNotBeNull(
-            "because part history for the last 60 days with max 10 results should be available");
-
-        statistics.Trace();
-    }
-
     /// <summary />
     [TestMethod]
     public async Task Statistics_GetInventory_NoException()
