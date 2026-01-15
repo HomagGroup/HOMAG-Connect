@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.ProductionAssist.Contracts.Events
+﻿namespace HomagConnect.Base.Contracts.Enumerations
 {
     /// <summary>
     /// Specifies the action performed during an upsert operation.
