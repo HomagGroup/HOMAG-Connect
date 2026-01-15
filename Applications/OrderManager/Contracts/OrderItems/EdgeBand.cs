@@ -36,25 +36,29 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         /// Gets or sets the height.
         /// </summary>
         [JsonProperty(Order = 2)]
+        [DefaultValue(0.0)]
         public double Height { get; set; }
 
         /// <summary>
         /// Gets or sets the thickness.
         /// </summary>
         [JsonProperty(Order = 3)]
+        [DefaultValue(0.0)]
         public double Thickness { get; set; }
 
         /// <summary>
         /// Gets or sets the total cost.
         /// </summary>
         [JsonProperty(Order = 5)]
+        [DefaultValue(0.0)]
         public double Costs { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity of the production entity.
+        /// Gets or sets the length of the edgeband.
         /// </summary>
         [JsonProperty(Order = 22)]
-        public int Quantity { get; set; } = 1;
+        [DefaultValue(0.0)]
+        public double Length { get; set; }
 
         /// <summary>
         /// Gets or sets the unit system.
