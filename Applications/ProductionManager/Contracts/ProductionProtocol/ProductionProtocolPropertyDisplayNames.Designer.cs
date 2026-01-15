@@ -278,7 +278,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dauer.
+        ///   Looks up a localized string similar to Programmname.
         /// </summary>
         public static string ProgramName {
             get {
