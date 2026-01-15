@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.Base.DataModel;
+﻿namespace HomagConnect.Base.Contracts.DataModel;
 
 /// <summary>
 /// Defines the type of the data model property.
