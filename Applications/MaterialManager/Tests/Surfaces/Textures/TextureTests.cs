@@ -7,6 +7,8 @@ using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 
 namespace HomagConnect.MaterialManager.Tests.Surfaces.Textures;
 
+// NOTE: This is preliminary code and is subject to change
+
 /// <summary>
 /// Tests for texture asset URL building, localization, and tracing.
 /// </summary>
@@ -84,6 +86,6 @@ public class TextureTests
 
         // Assert
         // ReSharper disable once StringLiteralTypo
-        Assert.AreEqual("Oberfl‰chentextur", germanDisplayNames[AdditionalDataType.SurfaceTexture]);
+        Assert.AreEqual("Oberfl√§chentextur", germanDisplayNames[AdditionalDataType.SurfaceTexture]);
     }
 }
