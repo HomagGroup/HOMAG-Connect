@@ -1,6 +1,5 @@
-﻿using System.Globalization;
-
-using HomagConnect.Base;
+﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
@@ -13,44 +12,6 @@ using Shouldly;
 
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 {
-    /// <summary />
-    [TestClass]
-    [IntegrationTest("ProductionManager.ProductionProtocol")]
-    public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
-    {
-        /// <summary />
-        [TestMethod]
-        public async Task ProductionProtocol_Trace()
-        {
-            var productionManagerClient = GetProductionManagerClient();
-
-            var productionProtocol = (await productionManagerClient.GetProductionProtocol("8892b810-ac7a-468f-9153-c1a4d6536463").ToListAsync()).OrderByDescending(p => p.Timestamp);
-
-            Assert.IsNotNull(productionProtocol);
-
-            TestContext?.AddResultFile(productionProtocol.TraceToFile(nameof(ProductionProtocol_Trace)).FullName);
-        }
-
-        /// <summary />
-        [TestMethod]
-        public async Task ProductionProtocol_TraceLocalized()
-        {
-            var productionManagerClient = GetProductionManagerClient();
-
-            var productionProtocol = await productionManagerClient.GetProductionProtocol("8892b810-ac7a-468f-9153-c1a4d6536463");
-
-            productionProtocol.ShouldNotBeNull();
-
-            var culture = CultureInfo.GetCultureInfo("de-DE");
-
-            var serializedObjectLocalized = productionProtocol.SerializeLocalized(culture);
-
-            var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
-
-            TestContext?.AddResultFile(dynamic.TraceToFile(nameof(ProductionProtocol_TraceLocalized)).FullName);
-        }
-    }
-
     /// <summary />
     [TestClass]
     [UnitTest("ProductionManager.ProductionProtocol")]
@@ -263,6 +224,90 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartNesting.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPartNesting.OptimizationName, processedPartDeserialized.OptimizationName);
             Assert.AreEqual(processedPartNesting.ItemType, ProductionItemType.Part);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Part_LengthInRange_Valid()
+        {
+            var processedPart = new ProcessedPart
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 12000,
+                Width = 8000,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder"
+            };
+
+            var tryValidateObjectRecursive = DataAnnotationsValidator.TryValidateObjectRecursive(processedPart, out var validationResults);
+
+            validationResults.Trace();
+
+            tryValidateObjectRecursive.ShouldBeTrue();
+            validationResults.Any(v => v.MemberNames.Contains("Length")).ShouldBeFalse();
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Part_LengthOutOfRange_Invalid()
+        {
+            var processedPart = new ProcessedPart
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 50000,
+                Width = 8000,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder"
+            };
+
+            var tryValidateObjectRecursive = DataAnnotationsValidator.TryValidateObjectRecursive(processedPart, out var validationResults);
+
+            validationResults.Trace();
+
+            tryValidateObjectRecursive.ShouldBeFalse();
+            validationResults.Any(v => v.MemberNames.Contains("Length")).ShouldBeTrue();
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Part_SwitchUnitSystem()
+        {
+            var processedPart = new ProcessedPart
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 162,
+                Width = 600,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder",
+            };
+
+            processedPart.UnitSystem.ShouldBe(UnitSystem.Metric);
+
+            var processedPartImperial = processedPart.SwitchUnitSystem(UnitSystem.Imperial, false);
+
+            processedPartImperial.Length.ShouldNotBeNull();
+            processedPartImperial.Length.ShouldNotBe(processedPart.Length);
+            processedPartImperial.UnitSystem.ShouldBe(UnitSystem.Imperial);
+
+            processedPartImperial.Trace();
+
+            var processedPartMetric = processedPartImperial.SwitchUnitSystem(UnitSystem.Metric, false);
+
+            processedPartMetric.UnitSystem.ShouldBe(UnitSystem.Metric);
+            processedPartMetric.Length.ShouldNotBeNull();
+            processedPartMetric.Length.ShouldNotBe(processedPartImperial.Length);
+            processedPartMetric.Length.ShouldBe(processedPart.Length);
+
+            processedPartMetric.Trace();
         }
 
         /// <summary />

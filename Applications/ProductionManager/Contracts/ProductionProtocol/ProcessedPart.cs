@@ -32,20 +32,15 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
 
     /// <inheritdoc />
     [JsonProperty(Order = 21)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    
     public double? Length { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 22)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 23)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Thickness { get; set; }
 
     /// <inheritdoc />

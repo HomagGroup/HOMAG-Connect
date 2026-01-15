@@ -11,6 +11,7 @@ public interface IDimensionProperties : IContainsUnitSystemDependentProperties
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Thickness))]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Range(0.01, 999.9)]
     public double? Thickness { get; set; }
 
     /// <summary>
@@ -18,6 +19,7 @@ public interface IDimensionProperties : IContainsUnitSystemDependentProperties
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Length))]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Range(0.1, 19999.9)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -25,5 +27,6 @@ public interface IDimensionProperties : IContainsUnitSystemDependentProperties
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Width))]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Range(0.1, 19999.9)]
     public double? Width { get; set; }
 }
