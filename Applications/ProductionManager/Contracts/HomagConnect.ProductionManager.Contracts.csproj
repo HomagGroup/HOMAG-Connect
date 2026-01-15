@@ -30,6 +30,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ProductionProtocolPropertyDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Rework\ReworkPropertyDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
