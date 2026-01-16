@@ -1,16 +1,20 @@
 ﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
 using Newtonsoft.Json;
 
+using Shouldly;
+
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 {
     /// <summary />
     [TestClass]
-    [TestCategory("ProductionManager")]
-    [TestCategory("ProductionManager.ProductionProtocol")]
+    [UnitTest("ProductionManager.ProductionProtocol")]
     public class ProductionProtocolTests
     {
         /// <summary />
@@ -18,33 +22,34 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
         /// <summary />
         [TestMethod]
-        public void ProductionProtocol_Cutting_Part_Serialization()
+        public void ProductionProtocol_AssemblyGroup_Serialization()
         {
-            var processedPartCutting = new ProcessedPartDividing
+            var completedAt = DateTimeOffset.Now;
+            var processedAssemblyGroup = new ProcessedAssemblyGroup
             {
-                Timestamp = DateTimeOffset.Now,
+                Timestamp = completedAt,
                 SubscriptionId = Guid.NewGuid(),
                 Description = "BTH-CAB-END-LEFT",
-                Length = 162,
-                Width = 600,
-                Material = "P2_Gold_Craft_Oak_19.0",
                 Quantity = 2,
                 OrderName = "TestOrder",
-                BoardCode = "P2_Gold_Craft_Oak_19.0_2800.0_2070.0"
+                OrderId = Guid.NewGuid()
             };
 
-            TestContext.AddResultFile(processedPartCutting.TraceToFile("processedPartCutting").FullName);
+            TestContext.AddResultFile(processedAssemblyGroup.TraceToFile("ProcessedPartEdgebanding").FullName);
 
-            var processedPartCuttingSerialized = JsonConvert.SerializeObject(processedPartCutting, SerializerSettings.Default);
-            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartCuttingSerialized);
+            var processedAssemblyGroupSerialized = JsonConvert.SerializeObject(processedAssemblyGroup, SerializerSettings.Default);
+            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedAssemblyGroupSerialized);
 
             Assert.IsNotNull(processedItemDeserialized);
-            Assert.AreEqual(processedPartCutting.GetType(), processedItemDeserialized.GetType());
+            Assert.AreEqual(processedAssemblyGroup.GetType(), processedItemDeserialized.GetType());
 
-            var processedPartDeserialized = processedItemDeserialized as ProcessedPartDividing;
+            var processedPartDeserialized = processedItemDeserialized as ProcessedAssemblyGroup;
 
             Assert.IsNotNull(processedPartDeserialized);
-            Assert.AreEqual(processedPartCutting.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(processedAssemblyGroup.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(processedAssemblyGroup.CustomerName, processedPartDeserialized.CustomerName);
+            Assert.AreEqual(processedAssemblyGroup.OrderName, processedPartDeserialized.OrderName);
+            Assert.AreEqual(processedAssemblyGroup.ItemType, ProductionItemType.AssemblyGroup);
         }
 
         /// <summary />
@@ -77,41 +82,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedBasePart.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedBasePart.ItemType, ProductionItemType.Part);
         }
-
-        /// <summary />
-        [TestMethod]
-        public void ProductionProtocol_Nesting_Part_Serialization()
-        {
-            var processedPartNesting = new ProcessedPartDividing
-            {
-                Timestamp = DateTimeOffset.Now,
-                SubscriptionId = Guid.NewGuid(),
-                Description = "BTH-CAB-END-LEFT",
-                Length = 162,
-                Width = 600,
-                Material = "P2_Gold_Craft_Oak_19.0",
-                Quantity = 2,
-                OrderName = "TestOrder",
-                BoardCode = "P2_Gold_Craft_Oak_19.0_2800.0_2070.0",
-                OptimizationName = "TestOptimization"
-            };
-
-            TestContext.AddResultFile(processedPartNesting.TraceToFile("processedPartNesting").FullName);
-
-            var processedPartCuttingSerialized = JsonConvert.SerializeObject(processedPartNesting, SerializerSettings.Default);
-            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartCuttingSerialized);
-
-            Assert.IsNotNull(processedItemDeserialized);
-            Assert.AreEqual(processedPartNesting.GetType(), processedItemDeserialized.GetType());
-
-            var processedPartDeserialized = processedItemDeserialized as ProcessedPartDividing;
-
-            Assert.IsNotNull(processedPartDeserialized);
-            Assert.AreEqual(processedPartNesting.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedPartNesting.OptimizationName, processedPartDeserialized.OptimizationName);
-            Assert.AreEqual(processedPartNesting.ItemType, ProductionItemType.Part);
-        }
-
 
         /// <summary />
         [TestMethod]
@@ -153,13 +123,44 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartCnc.Preview, processedPartDeserialized.Preview);
             Assert.AreEqual(processedPartCnc.ItemType, ProductionItemType.Part);
         }
-        
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Cutting_Part_Serialization()
+        {
+            var processedPartCutting = new ProcessedPartDividing
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 162,
+                Width = 600,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder",
+                BoardCode = "P2_Gold_Craft_Oak_19.0_2800.0_2070.0"
+            };
+
+            TestContext.AddResultFile(processedPartCutting.TraceToFile("processedPartCutting").FullName);
+
+            var processedPartCuttingSerialized = JsonConvert.SerializeObject(processedPartCutting, SerializerSettings.Default);
+            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartCuttingSerialized);
+
+            Assert.IsNotNull(processedItemDeserialized);
+            Assert.AreEqual(processedPartCutting.GetType(), processedItemDeserialized.GetType());
+
+            var processedPartDeserialized = processedItemDeserialized as ProcessedPartDividing;
+
+            Assert.IsNotNull(processedPartDeserialized);
+            Assert.AreEqual(processedPartCutting.Timestamp, processedPartDeserialized.Timestamp);
+        }
+
         /// <summary />
         [TestMethod]
         public void ProductionProtocol_Edgebanding_Part_Serialization()
         {
             var completedAt = DateTimeOffset.Now;
-            var processedPartEdgebanding = new ProcessedPartEdgebanding()
+            var processedPartEdgebanding = new ProcessedPartEdgebanding
             {
                 Timestamp = completedAt,
                 SubscriptionId = Guid.NewGuid(),
@@ -193,6 +194,124 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
         /// <summary />
         [TestMethod]
+        public void ProductionProtocol_Nesting_Part_Serialization()
+        {
+            var processedPartNesting = new ProcessedPartDividing
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 162,
+                Width = 600,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder",
+                BoardCode = "P2_Gold_Craft_Oak_19.0_2800.0_2070.0",
+                OptimizationName = "TestOptimization"
+            };
+
+            TestContext.AddResultFile(processedPartNesting.TraceToFile("processedPartNesting").FullName);
+
+            var processedPartCuttingSerialized = JsonConvert.SerializeObject(processedPartNesting, SerializerSettings.Default);
+            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartCuttingSerialized);
+
+            Assert.IsNotNull(processedItemDeserialized);
+            Assert.AreEqual(processedPartNesting.GetType(), processedItemDeserialized.GetType());
+
+            var processedPartDeserialized = processedItemDeserialized as ProcessedPartDividing;
+
+            Assert.IsNotNull(processedPartDeserialized);
+            Assert.AreEqual(processedPartNesting.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(processedPartNesting.OptimizationName, processedPartDeserialized.OptimizationName);
+            Assert.AreEqual(processedPartNesting.ItemType, ProductionItemType.Part);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Part_LengthInRange_Valid()
+        {
+            var processedPart = new ProcessedPart
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 12000,
+                Width = 8000,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder"
+            };
+
+            var tryValidateObjectRecursive = DataAnnotationsValidator.TryValidateObjectRecursive(processedPart, out var validationResults);
+
+            validationResults.Trace();
+
+            tryValidateObjectRecursive.ShouldBeTrue();
+            validationResults.Any(v => v.MemberNames.Contains("Length")).ShouldBeFalse();
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Part_LengthOutOfRange_Invalid()
+        {
+            var processedPart = new ProcessedPart
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 50000,
+                Width = 8000,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder"
+            };
+
+            var tryValidateObjectRecursive = DataAnnotationsValidator.TryValidateObjectRecursive(processedPart, out var validationResults);
+
+            validationResults.Trace();
+
+            tryValidateObjectRecursive.ShouldBeFalse();
+            validationResults.Any(v => v.MemberNames.Contains("Length")).ShouldBeTrue();
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Part_SwitchUnitSystem()
+        {
+            var processedPart = new ProcessedPart
+            {
+                Timestamp = DateTimeOffset.Now,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "BTH-CAB-END-LEFT",
+                Length = 162,
+                Width = 600,
+                Material = "P2_Gold_Craft_Oak_19.0",
+                Quantity = 2,
+                OrderName = "TestOrder",
+            };
+
+            processedPart.UnitSystem.ShouldBe(UnitSystem.Metric);
+
+            var processedPartImperial = processedPart.SwitchUnitSystem(UnitSystem.Imperial, false);
+
+            processedPartImperial.Length.ShouldNotBeNull();
+            processedPartImperial.Length.ShouldNotBe(processedPart.Length);
+            processedPartImperial.UnitSystem.ShouldBe(UnitSystem.Imperial);
+
+            processedPartImperial.Trace();
+
+            var processedPartMetric = processedPartImperial.SwitchUnitSystem(UnitSystem.Metric, false);
+
+            processedPartMetric.UnitSystem.ShouldBe(UnitSystem.Metric);
+            processedPartMetric.Length.ShouldNotBeNull();
+            processedPartMetric.Length.ShouldNotBe(processedPartImperial.Length);
+            processedPartMetric.Length.ShouldBe(processedPart.Length);
+
+            processedPartMetric.Trace();
+        }
+
+        /// <summary />
+        [TestMethod]
         public void ProductionProtocol_Position_Serialization()
         {
             var completedAt = DateTimeOffset.Now;
@@ -221,38 +340,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPosition.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPosition.OrderName, processedPartDeserialized.OrderName);
             Assert.AreEqual(processedPosition.ItemType, ProductionItemType.Position);
-        }
-
-        /// <summary />
-        [TestMethod]
-        public void ProductionProtocol_AssemblyGroup_Serialization()
-        {
-            var completedAt = DateTimeOffset.Now;
-            var processedAssemblyGroup = new ProcessedAssemblyGroup
-            {
-                Timestamp = completedAt,
-                SubscriptionId = Guid.NewGuid(),
-                Description = "BTH-CAB-END-LEFT",
-                Quantity = 2,
-                OrderName = "TestOrder",
-                OrderId = Guid.NewGuid()
-            };
-
-            TestContext.AddResultFile(processedAssemblyGroup.TraceToFile("ProcessedPartEdgebanding").FullName);
-
-            var processedAssemblyGroupSerialized = JsonConvert.SerializeObject(processedAssemblyGroup, SerializerSettings.Default);
-            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedAssemblyGroupSerialized);
-
-            Assert.IsNotNull(processedItemDeserialized);
-            Assert.AreEqual(processedAssemblyGroup.GetType(), processedItemDeserialized.GetType());
-
-            var processedPartDeserialized = processedItemDeserialized as ProcessedAssemblyGroup;
-
-            Assert.IsNotNull(processedPartDeserialized);
-            Assert.AreEqual(processedAssemblyGroup.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedAssemblyGroup.CustomerName, processedPartDeserialized.CustomerName);
-            Assert.AreEqual(processedAssemblyGroup.OrderName, processedPartDeserialized.OrderName);
-            Assert.AreEqual(processedAssemblyGroup.ItemType, ProductionItemType.AssemblyGroup);
         }
     }
 }

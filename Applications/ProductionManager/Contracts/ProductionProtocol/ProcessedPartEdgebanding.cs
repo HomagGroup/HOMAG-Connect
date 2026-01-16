@@ -1,7 +1,6 @@
 ﻿using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
@@ -15,38 +14,27 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </remarks>
 public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
 {
-    /// <summary>
-    /// Gets or sets the EdgeFront
-    /// </summary>
+    /// <inheritdoc />
     [JsonProperty(Order = 32)]
-    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeFront))]
     public string? EdgeFront { get; set; }
 
-    /// <summary>
-    /// Gets or sets the EdgeBack
-    /// </summary>
+    /// <inheritdoc />
     [JsonProperty(Order = 33)]
-    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeBack))]
     public string? EdgeBack { get; set; }
 
     /// <summary>
     /// Gets or sets the EdgeLeft
     /// </summary>
     [JsonProperty(Order = 34)]
-    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeLeft))]
     public string? EdgeLeft { get; set; }
 
-    /// <summary>
-    /// Gets or sets the EdgeRight
-    /// </summary>
+    /// <inheritdoc />
+    /// >
     [JsonProperty(Order = 35)]
-    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeRight))]
     public string? EdgeRight { get; set; }
 
-    /// <summary>
-    /// Gets or sets how the edgebands should be applied
-    /// </summary>
+    /// <inheritdoc />
+    /// >
     [JsonProperty(Order = 36)]
-    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeDiagram))]
     public string? EdgeDiagram { get; set; }
 }

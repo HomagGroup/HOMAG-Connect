@@ -19,7 +19,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProductionProtocolPropertyDisplayNames {
@@ -62,15 +62,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zusatzdaten.
-        /// </summary>
-        public static string AdditionalProperties {
-            get {
-                return ResourceManager.GetString("AdditionalProperties", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Plattencode.
         /// </summary>
         public static string BoardCode {
@@ -80,7 +71,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platten-Id.
+        ///   Looks up a localized string similar to Plattennummer.
         /// </summary>
         public static string BoardEntityId {
             get {
@@ -107,74 +98,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beschreibung.
-        /// </summary>
-        public static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kante hinten.
-        /// </summary>
-        public static string EdgeBack {
-            get {
-                return ResourceManager.GetString("EdgeBack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kantengrafik.
-        /// </summary>
-        public static string EdgeDiagram {
-            get {
-                return ResourceManager.GetString("EdgeDiagram", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kante vorne.
-        /// </summary>
-        public static string EdgeFront {
-            get {
-                return ResourceManager.GetString("EdgeFront", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kante links.
-        /// </summary>
-        public static string EdgeLeft {
-            get {
-                return ResourceManager.GetString("EdgeLeft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kante rechts.
-        /// </summary>
-        public static string EdgeRight {
-            get {
-                return ResourceManager.GetString("EdgeRight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Herkunft.
         /// </summary>
         public static string From {
             get {
                 return ResourceManager.GetString("From", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maserung.
-        /// </summary>
-        public static string Grain {
-            get {
-                return ResourceManager.GetString("Grain", resourceCulture);
             }
         }
         
@@ -197,38 +125,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Länge.
-        /// </summary>
-        public static string Length {
-            get {
-                return ResourceManager.GetString("Length", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Material.
-        /// </summary>
-        public static string Material {
-            get {
-                return ResourceManager.GetString("Material", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Optimierung.
         /// </summary>
         public static string OptimizationName {
             get {
                 return ResourceManager.GetString("OptimizationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auftrags-ID.
-        /// </summary>
-        public static string OrderId {
-            get {
-                return ResourceManager.GetString("OrderId", resourceCulture);
             }
         }
         
@@ -323,47 +224,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zeitpunkt der Anforderung.
-        /// </summary>
-        public static string Timestamp {
-            get {
-                return ResourceManager.GetString("Timestamp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Typ.
         /// </summary>
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Einheit.
-        /// </summary>
-        public static string UnitSystem {
-            get {
-                return ResourceManager.GetString("UnitSystem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Breite.
-        /// </summary>
-        public static string Width {
-            get {
-                return ResourceManager.GetString("Width", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Id des Arbeitsplatzes.
-        /// </summary>
-        public static string WorkstationId {
-            get {
-                return ResourceManager.GetString("WorkstationId", resourceCulture);
             }
         }
     }
