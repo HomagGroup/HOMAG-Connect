@@ -15,7 +15,21 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// quantity of boards cut in a book.
 /// </remarks>
 public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerialization
-{
+{    
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedPartDividing;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
+
     /// <summary>
     /// Gets or sets the id of the BoardEntity used
     /// </summary>
@@ -49,5 +63,5 @@ public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerializat
     /// </summary>
     [JsonProperty(Order = 3)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(PatternName))]
-    public string? PatternName { get; set; }
+    public string? PatternName { get; set; }    
 }

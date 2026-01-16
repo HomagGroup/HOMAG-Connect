@@ -14,12 +14,12 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// Represents a processed item in a production protocol.
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedPartDividing), nameof(ProcessedPartDividing))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedPartEdgebanding), nameof(ProcessedPartEdgebanding))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedPartCnc), nameof(ProcessedPartCnc))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedPart), nameof(ProcessedPart))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedPosition), nameof(ProcessedPosition))]
-[JsonSubtypes.KnownSubType(typeof(ProcessedAssemblyGroup), nameof(ProcessedAssemblyGroup))]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPartDividing), ProcessedItemType.ProcessedPartDividing)]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPartEdgebanding), ProcessedItemType.ProcessedPartEdgebanding)]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPartCnc), ProcessedItemType.ProcessedPartCnc)]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPart), ProcessedItemType.ProcessedPart)]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPosition), ProcessedItemType.ProcessedPosition)]
+[JsonSubtypes.KnownSubType(typeof(ProcessedAssemblyGroup), ProcessedItemType.ProcessedAssemblyGroup)]
 public class ProcessedItem : ISupportsLocalizedSerialization
 {
     /// <summary>
@@ -75,18 +75,7 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     /// </summary>
     [JsonProperty(Order = 0)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Type))]
-    public virtual string Type
-    {
-        get
-        {
-            return GetType().Name;
-        }
-        // ReSharper disable once ValueParameterNotUsed
-        protected set
-        {
-            // Ignored, needed for serialization
-        }
-    }
+    public virtual ProcessedItemType Type { get; set; } = ProcessedItemType.ProcessedItem;
 
     /// <summary>
     /// Gets or sets the WorkstationId.

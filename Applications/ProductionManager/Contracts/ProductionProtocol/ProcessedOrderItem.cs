@@ -9,11 +9,21 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
     public class ProcessedOrderItem: ProcessedItem
     {
         /// <summary>
-        /// Gets or sets the id of the processed OrderItem
+        /// Gets or sets the identifier of the processed OrderItem
         /// </summary>
         [JsonProperty(Order = 10)]
         [Display(AutoGenerateField = false)]
-        public string? Id { get; set; }
+        public string? Identifier { get; set; }
+
+        /// <summary>
+        /// Id is deprecated and will be removed in future versions.
+        /// </summary>
+        [Obsolete("Replaced by Identifier")]
+        public string? Id
+        {
+            get => Identifier;
+            set => Identifier = value;
+        }
 
         /// <summary>
         /// Gets or sets the description of the processed OrderItem
@@ -37,10 +47,16 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         public string? OrderName { get; set; }
 
         /// <summary>
-        /// Gets or sets the OrderId in which the OrderItem was defined.
+        /// Gets or sets the OrderNumber in which the OrderItem was defined.
         /// </summary>
         [JsonProperty(Order = 14)]
         [Display(AutoGenerateField = false)]
+        public string? OrderNumber { get; set; }
+
+        /// <summary>
+        /// OrderId is deprecated and will be removed in future versions.
+        /// </summary>
+        [Obsolete("Use OrderNumber instead.")]
         public Guid? OrderId { get; set; }
 
         /// <summary>

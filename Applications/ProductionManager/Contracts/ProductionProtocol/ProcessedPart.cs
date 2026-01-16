@@ -28,6 +28,20 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
         }
     }
 
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedPart;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
+
     #region IDimensionProperties
 
     /// <inheritdoc />
