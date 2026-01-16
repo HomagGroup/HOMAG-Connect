@@ -20,4 +20,18 @@ public class ProcessedAssemblyGroup : ProcessedOrderItem
             // Ignored, needed for serialization
         }
     }
+
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedAssemblyGroup;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
 }

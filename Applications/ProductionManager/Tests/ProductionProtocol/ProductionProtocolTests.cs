@@ -32,10 +32,10 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Description = "BTH-CAB-END-LEFT",
                 Quantity = 2,
                 OrderName = "TestOrder",
-                OrderId = Guid.NewGuid()
+                OrderNumber = ""
             };
 
-            TestContext.AddResultFile(processedAssemblyGroup.TraceToFile("ProcessedPartEdgebanding").FullName);
+            TestContext.AddResultFile(processedAssemblyGroup.TraceToFile("ProcessedAssemblyGroup").FullName);
 
             var processedAssemblyGroupSerialized = JsonConvert.SerializeObject(processedAssemblyGroup, SerializerSettings.Default);
             var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedAssemblyGroupSerialized);
@@ -49,7 +49,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedAssemblyGroup.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedAssemblyGroup.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedAssemblyGroup.OrderName, processedPartDeserialized.OrderName);
-            Assert.AreEqual(processedAssemblyGroup.ItemType, ProductionItemType.AssemblyGroup);
+            Assert.AreEqual(ProductionItemType.AssemblyGroup, processedAssemblyGroup.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedAssemblyGroup, processedAssemblyGroup.Type);
         }
 
         /// <summary />
@@ -66,6 +67,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Material = "P2_Gold_Craft_Oak_19.0",
                 Quantity = 2,
                 OrderName = "TestOrder",
+                Id = "010102"
             };
 
             TestContext.AddResultFile(processedBasePart.TraceToFile("processedBasePart").FullName);
@@ -80,7 +82,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedBasePart.Timestamp, processedPartDeserialized.Timestamp);
-            Assert.AreEqual(processedBasePart.ItemType, ProductionItemType.Part);
+            Assert.AreEqual(ProductionItemType.Part, processedBasePart.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPart, processedBasePart.Type);
         }
 
         /// <summary />
@@ -92,6 +95,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             var processedPartCnc = new ProcessedPartCnc
             {
                 Timestamp = completedAt,
+                Id = "012341",
                 SubscriptionId = Guid.NewGuid(),
                 Description = "BTH-CAB-END-LEFT",
                 Length = 162,
@@ -102,6 +106,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 StartedAt = startedAt,
                 ProgramName = "Test.mpr",
                 OrderName = "TestOrder",
+                OrderNumber = "",
                 OrderId = Guid.NewGuid(),
                 ProgramDuration = completedAt - startedAt
             };
@@ -121,7 +126,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartCnc.CompletedAt, processedPartDeserialized.CompletedAt);
             Assert.AreEqual(processedPartCnc.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPartCnc.Preview, processedPartDeserialized.Preview);
-            Assert.AreEqual(processedPartCnc.ItemType, ProductionItemType.Part);
+            Assert.AreEqual(ProductionItemType.Part, processedPartCnc.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPartCnc, processedPartCnc.Type);
         }
 
         /// <summary />
@@ -153,6 +159,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPartCutting.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(ProductionItemType.Part, processedPartDeserialized.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPartDividing, processedPartDeserialized.Type);
         }
 
         /// <summary />
@@ -170,7 +178,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Material = "P2_Gold_Craft_Oak_19.0",
                 Quantity = 2,
                 OrderName = "TestOrder",
-                OrderId = Guid.NewGuid(),
+                OrderNumber = "",
                 EdgeBack = "PP_Eiche_hell_1.30_19.0_HM"
             };
 
@@ -189,7 +197,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartEdgebanding.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPartEdgebanding.OrderName, processedPartDeserialized.OrderName);
             Assert.AreEqual(processedPartEdgebanding.EdgeBack, processedPartDeserialized.EdgeBack);
-            Assert.AreEqual(processedPartEdgebanding.ItemType, ProductionItemType.Part);
+            Assert.AreEqual(ProductionItemType.Part, processedPartEdgebanding.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPartEdgebanding, processedPartEdgebanding.Type);
         }
 
         /// <summary />
@@ -223,7 +232,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedPartNesting.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPartNesting.OptimizationName, processedPartDeserialized.OptimizationName);
-            Assert.AreEqual(processedPartNesting.ItemType, ProductionItemType.Part);
+            Assert.AreEqual(ProductionItemType.Part, processedPartNesting.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPartDividing, processedPartNesting.Type);
         }
 
         /// <summary />
@@ -322,7 +332,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Description = "BTH-CAB-END-LEFT",
                 Quantity = 2,
                 OrderName = "TestOrder",
-                OrderId = Guid.NewGuid()
+                OrderNumber = ""
             };
 
             TestContext.AddResultFile(processedPosition.TraceToFile("processedPosition").FullName);
@@ -339,7 +349,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPosition.Timestamp, processedPartDeserialized.Timestamp);
             Assert.AreEqual(processedPosition.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPosition.OrderName, processedPartDeserialized.OrderName);
-            Assert.AreEqual(processedPosition.ItemType, ProductionItemType.Position);
+            Assert.AreEqual(ProductionItemType.Position, processedPosition.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPosition, processedPosition.Type);
         }
     }
 }

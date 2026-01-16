@@ -15,6 +15,20 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
 {
     /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedPartEdgebanding;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
+
+    /// <inheritdoc />
     [JsonProperty(Order = 32)]
     public string? EdgeFront { get; set; }
 

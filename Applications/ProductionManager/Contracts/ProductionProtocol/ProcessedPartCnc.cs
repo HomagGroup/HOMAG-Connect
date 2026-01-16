@@ -8,6 +8,20 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </summary>
 public class ProcessedPartCnc : ProcessedPart
 {
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedPartCnc;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
+
     /// <summary>
     /// Gets or sets the duration of the CNC program execution for this part.
     /// </summary>
