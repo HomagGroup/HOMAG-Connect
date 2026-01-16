@@ -13,6 +13,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol;
 /// <summary />
 [TestClass]
 [IntegrationTest("ProductionManager.ProductionProtocol")]
+[TemporaryDisabledOnServer(2026,2,28, "DF-Insights")]
 public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
 {
     /// <summary />
@@ -43,6 +44,8 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
         var serializedObjectLocalized = productionProtocol.SerializeLocalized(culture);
 
         var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
+
+        dynamic.ShouldNotBeNull();
 
         TestContext?.AddResultFile(dynamic.TraceToFile(nameof(ProductionProtocol_TraceLocalized)).FullName);
     }
