@@ -66,12 +66,35 @@ public static class UnitSystemExtensions
 
         foreach (var propertyInfo in propertyInfos)
         {
-            var valueDependsOnUnitSystemAttribute =
-                propertyInfo.GetCustomAttributes().OfType<ValueDependsOnUnitSystemAttribute>().FirstOrDefault();
+            var valueDependsOnUnitSystemAttribute = propertyInfo.GetCustomAttributes().OfType<ValueDependsOnUnitSystemAttribute>().FirstOrDefault();
+
+            // Check the interfaces implemented by the class if attribute not found on the property itself
+            if (valueDependsOnUnitSystemAttribute == null)
+            {
+                var type = clone.GetType();
+
+                foreach (var i in type.GetInterfaces())
+                {
+                    var interfaceProperty = i.GetProperty(propertyInfo.Name);
+
+                    if (interfaceProperty != null)
+                    {
+                        valueDependsOnUnitSystemAttribute = interfaceProperty
+                            .GetCustomAttributes()
+                            .OfType<ValueDependsOnUnitSystemAttribute>()
+                            .FirstOrDefault();
+                        if (valueDependsOnUnitSystemAttribute != null)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
 
             if (valueDependsOnUnitSystemAttribute != null)
             {
-                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar or BaseUnit.MeterPerSecond or BaseUnit.KilogramPerCubicMeter)
+                if (valueDependsOnUnitSystemAttribute.BaseUnit is BaseUnit.Millimeter or BaseUnit.SquareMeter or BaseUnit.Meter or BaseUnit.Bar or BaseUnit.MeterPerSecond
+                    or BaseUnit.KilogramPerCubicMeter)
                 {
                     SwitchBaseUnit(propertyInfo, clone, valueDependsOnUnitSystemAttribute, applyRounding);
                 }

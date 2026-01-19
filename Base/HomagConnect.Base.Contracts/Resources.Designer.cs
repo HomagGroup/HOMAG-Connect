@@ -277,6 +277,15 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zeitpunkt.
+        /// </summary>
+        public static string Timestamp {
+            get {
+                return ResourceManager.GetString("Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Einheitensystem.
         /// </summary>
         public static string UnitSystem {
