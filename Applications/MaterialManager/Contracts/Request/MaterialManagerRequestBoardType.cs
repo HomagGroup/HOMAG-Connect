@@ -1,7 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+
+using Newtonsoft.Json;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Request;
 
@@ -16,6 +18,11 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     [Required]
     [StringLength(50, MinimumLength = 1)]
     public string BoardCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id from an external system for the board type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
 
     /// <summary>
     /// Gets or sets the coating category of the board.
@@ -110,4 +117,5 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// </summary>
     [StringLength(50)]
     public string? EmbossingBottom { get; set; }
+
 }
