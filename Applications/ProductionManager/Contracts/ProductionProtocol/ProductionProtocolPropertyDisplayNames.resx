@@ -119,15 +119,12 @@
   </resheader>
   <data name="BoardCode" xml:space="preserve">
     <value>Plattencode</value>
-    <comment>Plattencode</comment>
   </data>
   <data name="BoardEntityId" xml:space="preserve">
     <value>Plattennummer</value>
-    <comment>Platten-Id</comment>
   </data>
   <data name="CompletedAt" xml:space="preserve">
     <value>Endzeitpunkt</value>
-    <comment>Endzeitpunkt</comment>
   </data>
   <data name="CustomerName" xml:space="preserve">
     <value>Kundenname</value>
@@ -136,7 +133,7 @@
     <value>Herkunft</value>
   </data>
   <data name="Id" xml:space="preserve">
-    <value>ID</value>
+    <value>Id</value>
   </data>
   <data name="ItemType" xml:space="preserve">
     <value>Eintragstyp</value>
@@ -167,9 +164,6 @@
   </data>
   <data name="StartedAt" xml:space="preserve">
     <value>Startzeitpunkt</value>
-  </data>
-  <data name="SubscriptionId" xml:space="preserve">
-    <value>Id der Subscription</value>
   </data>
   <data name="Thickness" xml:space="preserve">
     <value>Dicke</value>
