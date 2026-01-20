@@ -168,9 +168,6 @@
   <data name="StartedAt" xml:space="preserve">
     <value>Startzeitpunkt</value>
   </data>
-  <data name="SubscriptionId" xml:space="preserve">
-    <value>Id der Subscription</value>
-  </data>
   <data name="Thickness" xml:space="preserve">
     <value>Dicke</value>
   </data>
