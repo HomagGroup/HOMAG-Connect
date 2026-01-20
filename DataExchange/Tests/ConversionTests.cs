@@ -156,7 +156,8 @@ public class ConversionTests
             }
 
             Assert.AreEqual(source.OrderName, target.OrderName);
-            Assert.AreEqual(source.OrderNumber, target.OrderNumber);
+            Assert.AreEqual(source.OrderNumber, target.OrderNumberExternal);
+            Assert.IsNull(target.OrderNumber);
         }
     }
 }
