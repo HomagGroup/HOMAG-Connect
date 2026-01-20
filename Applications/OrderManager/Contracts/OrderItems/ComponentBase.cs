@@ -77,9 +77,15 @@ public abstract class ComponentBase : Base
     /// </summary>
     [JsonProperty(Order = 22)]
     public int Quantity { get; set; } = 1;
-    
+
+    /// <summary>
+    /// Gets the external system id of the item which can be used as a reference.
+    /// </summary>
+    [JsonProperty(Order = 23)]
+    public string? ExternalSystemId { get; set; }
+
     #endregion
-    
+
     /// <summary>
     /// Gets or sets the unit system.
     /// </summary>

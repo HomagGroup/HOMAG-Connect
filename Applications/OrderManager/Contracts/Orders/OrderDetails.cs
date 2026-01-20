@@ -57,6 +57,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public string? OrderDescription { get; set; }
 
         /// <summary>
+        /// Gets the external system id of the item which can be used as a reference.
+        /// </summary>
+        [JsonProperty(Order = 114)]
+        public string? ExternalSystemId { get; set; }
+
+        /// <summary>
         /// The project of the order
         /// </summary>
         [JsonProperty(Order = 120)]

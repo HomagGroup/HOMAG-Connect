@@ -485,6 +485,12 @@ public static class ProjectExtensionsConversion
 
         var orderWrapper = new OrderWrapper(order);
 
+        if (!string.IsNullOrEmpty(orderWrapper.OrderNumber))
+        {
+            orderDetails.OrderNumber = null;
+            orderDetails.OrderNumberExternal = orderWrapper.OrderNumber;
+        }
+
         if (orderDetails.Addresses == null || orderDetails.Addresses.Count == 0)
         {
             var address = new Address();
