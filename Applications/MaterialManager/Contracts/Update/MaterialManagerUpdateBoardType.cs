@@ -17,6 +17,11 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     public string? BoardCode { get; set; } = null;
 
     /// <summary>
+    /// Gets or sets the id from an external system for the board type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
+
+    /// <summary>
     /// Gets or sets the coating category of the board.
     /// </summary>
     public CoatingCategory? CoatingCategory { get; set; } = null;
@@ -101,4 +106,5 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// </summary>
     [StringLength(50)]
     public string? EmbossingBottom { get; set; } = null;
+
 }

@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialAssist.Tests.BoardEntities;
 [TestCategory("MaterialAssist.Boards")]
 public class BoardEntityTests : MaterialAssistTestBase
 {
-    [TemporaryDisabledOnServer(2026, 1, 30, "DF-Material")]
+    [TemporaryDisabledOnServer(2026, 2, 28, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_GoodsInStock()
     {
@@ -192,7 +192,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
     }
 
-    [TemporaryDisabledOnServer(2026, 1, 30, "DF-Material")]
+    [TemporaryDisabledOnServer(2026, 2, 28, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Single()
     {
@@ -279,7 +279,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
     }
 
-    [TemporaryDisabledOnServer(2026, 1, 30, "DF-Material")]
+    [TemporaryDisabledOnServer(2026, 2, 28, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Stack()
     {
