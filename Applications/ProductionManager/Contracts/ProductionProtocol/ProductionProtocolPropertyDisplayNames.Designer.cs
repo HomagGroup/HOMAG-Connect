@@ -107,7 +107,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id.
+        ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Id {
             get {
@@ -202,6 +202,15 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         public static string StartedAt {
             get {
                 return ResourceManager.GetString("StartedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id der Subscription.
+        /// </summary>
+        public static string SubscriptionId {
+            get {
+                return ResourceManager.GetString("SubscriptionId", resourceCulture);
             }
         }
         
