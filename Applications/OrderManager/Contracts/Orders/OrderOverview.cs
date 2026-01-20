@@ -73,4 +73,10 @@ public class OrderOverview
     /// </summary>
     [JsonProperty(Order = 123)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
+
+    /// <summary>
+    /// Gets the external system id of the item which can be used as a reference.
+    /// </summary>
+    [JsonProperty(Order = 124)]
+    public string? ExternalSystemId { get; set; }
 }

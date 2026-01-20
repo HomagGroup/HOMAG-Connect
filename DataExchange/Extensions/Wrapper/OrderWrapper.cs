@@ -179,6 +179,19 @@ public class OrderWrapper
         }
     }
 
+    /// <summary />
+    public string? ExternalSystemId
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
     #region Address
 
     /// <summary />
