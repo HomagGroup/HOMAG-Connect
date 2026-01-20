@@ -206,15 +206,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id der Subscription.
-        /// </summary>
-        public static string SubscriptionId {
-            get {
-                return ResourceManager.GetString("SubscriptionId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dicke.
         /// </summary>
         public static string Thickness {
