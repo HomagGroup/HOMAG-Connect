@@ -48,5 +48,10 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// Gets or sets the contact telephone number of the customer.
         /// </summary>
         public string? TelephoneNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the customer language and region
+        /// </summary>
+        public Locale Locale { get; set; }
     }
 }
