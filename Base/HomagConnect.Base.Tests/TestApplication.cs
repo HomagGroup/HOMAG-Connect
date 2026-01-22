@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Tests.Api;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Tests.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;

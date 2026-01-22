@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.Base.Contracts;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Extensions
 {

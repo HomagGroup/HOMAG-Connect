@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts.Events.Order;

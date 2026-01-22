@@ -1,10 +1,9 @@
 using Shouldly;
-
-using HomagConnect.Base;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 using Newtonsoft.Json;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.MaterialManager.Tests.Surfaces.Textures;
 

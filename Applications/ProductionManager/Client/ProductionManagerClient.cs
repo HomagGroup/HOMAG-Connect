@@ -1,5 +1,4 @@
-﻿using HomagConnect.Base;
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
@@ -20,6 +19,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.ProductionManager.Client
 {
