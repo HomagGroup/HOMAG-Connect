@@ -3,6 +3,8 @@ using System.Collections;
 using System.IO;
 using System.Runtime.CompilerServices;
 
+using HomagConnect.Base.Contracts;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Extensions

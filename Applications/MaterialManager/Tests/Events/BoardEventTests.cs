@@ -1,11 +1,11 @@
-﻿using HomagConnect.Base;
-using HomagConnect.Base.Contracts.Events;
+﻿using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Events.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using Shouldly;
 
 using Newtonsoft.Json;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.MaterialManager.Tests.Events;
 

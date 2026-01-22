@@ -1,6 +1,5 @@
 ﻿using System.Text;
 
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;

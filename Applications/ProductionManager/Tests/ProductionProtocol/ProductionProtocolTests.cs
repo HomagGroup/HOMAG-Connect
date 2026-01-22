@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;

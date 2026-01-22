@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using System.Security.Authentication;
 
 using HomagConnect.Base.Contracts.DataModel;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.IntelliDivide.Client
 {
