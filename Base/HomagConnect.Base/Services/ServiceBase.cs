@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Exceptions;
 
 using Newtonsoft.Json;

@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
@@ -8,6 +8,8 @@ using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
 using HomagConnect.ProductionAssist.Contracts.Events.Sorting;
 
 using Newtonsoft.Json;
+
+using Workstation = HomagConnect.ProductionAssist.Contracts.Workstation;
 
 namespace HomagConnect.ProductionAssist.Tests.Events;
 

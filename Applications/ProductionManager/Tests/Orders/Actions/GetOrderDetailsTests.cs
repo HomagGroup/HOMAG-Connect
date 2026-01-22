@@ -1,4 +1,3 @@
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -7,6 +6,7 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
+
 using Shouldly;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Actions;
