@@ -15,7 +15,7 @@ namespace HomagConnect.OrderManager.Tests.Customers
 
             try
             {
-                await DeleteCustomerSamples.DeleteCustomersByCustomerIds(orderManager);
+                await CustomerSamples.DeleteCustomersByCustomerIds(orderManager);
             }
             catch (ArgumentNullException) 
             {
@@ -30,9 +30,24 @@ namespace HomagConnect.OrderManager.Tests.Customers
 
             try
             {
-                await DeleteCustomerSamples.DeleteCustomersByCustomerNumbers(orderManager);
+                await CustomerSamples.DeleteCustomersByCustomerNumbers(orderManager);
             }
             catch (ArgumentNullException) 
+            {
+                // catch as no customer numbers are hardcoded in sample
+            }
+        }
+
+        [TestMethod]
+        public async Task GetCustomerByCustomerNumbers()
+        {
+            var orderManager = GetOrderManagerClient();
+
+            try
+            {
+                await CustomerSamples.GetCustomerByCustomerNumber(orderManager);
+            }
+            catch (ArgumentNullException)
             {
                 // catch as no customer numbers are hardcoded in sample
             }

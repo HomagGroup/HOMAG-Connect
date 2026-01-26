@@ -28,7 +28,7 @@
         /// <summary>
         /// Spanisch (Spanien)
         /// </summary>
-        enES,
+        esES,
         /// <summary>
         /// Niederländisch (Niederlande)
         /// </summary>
