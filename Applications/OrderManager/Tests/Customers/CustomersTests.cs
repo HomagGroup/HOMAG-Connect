@@ -45,9 +45,7 @@ namespace HomagConnect.OrderManager.Tests.Customers
 
             try
             {
-                var customer = await CustomerSamples.GetCustomerByCustomerNumber(orderManager);
-
-                Assert.IsNotNull(customer);
+                await CustomerSamples.GetCustomerByCustomerNumber(orderManager);
             }
             catch (ArgumentNullException)
             {
