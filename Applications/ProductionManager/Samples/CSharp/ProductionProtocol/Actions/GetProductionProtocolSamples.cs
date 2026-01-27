@@ -16,10 +16,10 @@ namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
         {
             /* 
              * Replace with your workstation ID.
-             * Get a list of all workstations in productionAssist via the ProductionAssistClient - See HomagConnect.ProductionAssist.Samples for more information on how to get the workstations
-             * Choose one workstation and use its ID here.
+             * Get a list of all workstations in productionManager via the ProductionManagerClient 
+             * Choose one workstation and use its ID here. Or you can get all protocols from all workstations as shown in the next sample.
             */
-            //var workstationId = "your-workstation-id"; 
+
             var workstations = await productionManager.GetWorkstations();
 
             var protocolList = new List<ProcessedItem>();
