@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
@@ -7,9 +8,8 @@ using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
-using HomagConnect.ProductionManager.Contracts.Rework;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
-
+using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -535,12 +535,20 @@ namespace HomagConnect.ProductionManager.Client
         #region ProductionProtocol
 
         /// <inheritdoc />
-        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7)
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7, int take=int.MaxValue, int skip = 0)
         {
             var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
             var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?> (new Uri(url, UriKind.Relative));
 
             return productionProtocol;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Workstation>?> GetWorkstations()
+        {
+            const string uri = "api/productionManager/workstations";
+
+            return (await RequestEnumerable<Workstation>(new Uri(uri, UriKind.Relative)));
         }
 
         #endregion

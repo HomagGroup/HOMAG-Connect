@@ -1,12 +1,10 @@
-﻿using System.Globalization;
-
-using HomagConnect.Base.Contracts.Extensions;
+﻿using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
-
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using Newtonsoft.Json;
-
 using Shouldly;
+using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol;
 
@@ -21,12 +19,23 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
     public async Task ProductionProtocol_Trace()
     {
         var productionManagerClient = GetProductionManagerClient();
+        var workstations = await productionManagerClient.GetWorkstations();
 
-        var productionProtocol = (await productionManagerClient.GetProductionProtocol("8892b810-ac7a-468f-9153-c1a4d6536463").ToListAsync()).OrderByDescending(p => p.Timestamp);
+        Assert.IsNotNull(workstations);
 
-        Assert.IsNotNull(productionProtocol);
+        var protocolList = new List<ProcessedItem>();
+        foreach (var workstation in workstations)
+        {
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString());
+            var response = await protocolTask ?? Array.Empty<ProcessedItem>();
+            protocolList.AddRange(response);
+        }
 
-        TestContext?.AddResultFile(productionProtocol.TraceToFile(nameof(ProductionProtocol_Trace)).FullName);
+        protocolList.Trace();
+
+        Assert.IsNotNull(protocolList);
+
+        TestContext?.AddResultFile(protocolList.TraceToFile(nameof(ProductionProtocol_Trace)).FullName);
     }
 
     /// <summary />
@@ -34,14 +43,23 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
     public async Task ProductionProtocol_TraceLocalized()
     {
         var productionManagerClient = GetProductionManagerClient();
+        var workstations = await productionManagerClient.GetWorkstations();
+        var protocolList = new List<ProcessedItem>();
 
-        var productionProtocol = await productionManagerClient.GetProductionProtocol("8892b810-ac7a-468f-9153-c1a4d6536463");
+        Assert.IsNotNull(workstations);
 
-        productionProtocol.ShouldNotBeNull();
+        foreach (var workstation in workstations)
+        {
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString());
+            var response = await protocolTask ?? Array.Empty<ProcessedItem>();
+            protocolList.AddRange(response);
+        }
+
+        protocolList.ShouldNotBeNull();
 
         var culture = CultureInfo.GetCultureInfo("de-DE");
 
-        var serializedObjectLocalized = productionProtocol.SerializeLocalized(culture);
+        var serializedObjectLocalized = protocolList.SerializeLocalized(culture);
 
         var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
 
