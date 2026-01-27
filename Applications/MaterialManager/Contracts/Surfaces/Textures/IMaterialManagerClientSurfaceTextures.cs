@@ -15,12 +15,6 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 public interface IMaterialManagerClientTextures
 {
     /// <summary>
-    /// Deletes a texture by its identifier.
-    /// </summary>
-    /// <param name="id">The texture identifier.</param>
-    Task DeleteTexture(string id);
-
-    /// <summary>
     /// Gets a texture by its identifier.
     /// </summary>
     /// <param name="id">The texture identifier.</param>
@@ -69,4 +63,10 @@ public interface IMaterialManagerClientTextures
     /// <param name="fileReferences">Optional files to associate (e.g., thumbnails, textures).</param>
     /// <returns>The resulting textures.</returns>
     Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials, params FileReference[] fileReferences);
+
+    /// <summary>
+    /// Deletes a texture by its identifier.
+    /// </summary>
+    /// <param name="id">The texture identifier.</param>
+    Task DeleteTexture(string id);
 }

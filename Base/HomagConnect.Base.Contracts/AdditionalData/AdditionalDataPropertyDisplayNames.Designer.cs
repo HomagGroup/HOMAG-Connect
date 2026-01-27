@@ -142,6 +142,15 @@ namespace HomagConnect.Base.Contracts.AdditionalData {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quelle.
+        /// </summary>
+        public static string Source {
+            get {
+                return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Typ.
         /// </summary>
         public static string Type {
