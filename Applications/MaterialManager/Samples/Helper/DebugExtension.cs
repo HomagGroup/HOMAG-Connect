@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Runtime.CompilerServices;
-using HomagConnect.Base;
+
+using HomagConnect.Base.Contracts;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Samples.Helper

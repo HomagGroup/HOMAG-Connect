@@ -153,6 +153,9 @@
     <value>Größe</value>
     <comment>Size</comment>
   </data>
+  <data name="Source" xml:space="preserve">
+    <value>Quelle</value>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Typ</value>
     <comment>Type</comment>

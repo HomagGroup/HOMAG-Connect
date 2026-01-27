@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-using HomagConnect.Base;
+using HomagConnect.Base.Contracts;
 
 using Newtonsoft.Json;
 

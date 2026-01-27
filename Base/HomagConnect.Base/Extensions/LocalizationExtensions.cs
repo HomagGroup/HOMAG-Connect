@@ -55,7 +55,7 @@ public static class LocalizationExtensions
             propertyDisplayName = propertyName;
         }
 
-        return propertyDisplayName;
+        return FirstCharToUpper(propertyDisplayName);
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ public static class LocalizationExtensions
                 propertyDisplayName = propertyName;
             }
 
-            propertyDisplayNames.Add(propertyName, propertyDisplayName);
+            propertyDisplayNames.Add(propertyName, FirstCharToUpper(propertyDisplayName));
         }
 
         return propertyDisplayNames;
@@ -195,6 +195,11 @@ public static class LocalizationExtensions
         }
 
         return propertyDisplayName;
+    }
+
+    private static string FirstCharToUpper(string property)
+    {
+        return string.IsNullOrEmpty(property) ? string.Empty : $"{property[0].ToString().ToUpper()}{property.Substring(1)}";
     }
 
     #endregion

@@ -17,6 +17,7 @@ public class MaterialManagerClientMaterial : ServiceBase
     {
         Boards = new MaterialManagerClientMaterialBoards(client);
         Edgebands = new MaterialManagerClientMaterialEdgebands(client);
+        Textures = new MaterialManagerClientTextures(client);
     }
 
     /// <inheritdoc />
@@ -24,6 +25,7 @@ public class MaterialManagerClientMaterial : ServiceBase
     {
         Boards = new MaterialManagerClientMaterialBoards(subscriptionOrPartnerId, authorizationKey);
         Edgebands = new MaterialManagerClientMaterialEdgebands(subscriptionOrPartnerId, authorizationKey);
+        Textures = new MaterialManagerClientTextures(subscriptionOrPartnerId, authorizationKey);
     }
 
     /// <inheritdoc />
@@ -31,10 +33,11 @@ public class MaterialManagerClientMaterial : ServiceBase
     {
         Boards = new MaterialManagerClientMaterialBoards(subscriptionOrPartnerId, authorizationKey, baseUri);
         Edgebands = new MaterialManagerClientMaterialEdgebands(subscriptionOrPartnerId, authorizationKey, baseUri);
+        Textures = new MaterialManagerClientTextures(subscriptionOrPartnerId, authorizationKey, baseUri);
     }
 
     #endregion
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -44,4 +47,9 @@ public class MaterialManagerClientMaterial : ServiceBase
     /// 
     /// </summary>
     public MaterialManagerClientMaterialBoards Boards { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public MaterialManagerClientTextures Textures { get; set; }
 }

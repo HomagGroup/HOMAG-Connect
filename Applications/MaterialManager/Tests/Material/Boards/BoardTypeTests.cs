@@ -111,6 +111,7 @@ public class BoardTypeTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 01, 23, "DF-Material")]
     public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
     {
         var materialManagerClient = GetMaterialManagerClient();

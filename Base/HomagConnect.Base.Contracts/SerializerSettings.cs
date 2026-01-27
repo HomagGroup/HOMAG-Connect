@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace HomagConnect.Base;
+namespace HomagConnect.Base.Contracts;
 
 /// <summary>
 /// Serializer Settings

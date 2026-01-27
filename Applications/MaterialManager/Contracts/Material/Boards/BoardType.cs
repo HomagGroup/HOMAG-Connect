@@ -233,7 +233,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets the id from an external system.
         /// </summary>
         [JsonProperty(Order = 95)]
+        [Obsolete ("use ExternalSystemId instead", false)]
         public string? ExternalId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id from an external system.
+        /// </summary>
+        [JsonProperty(Order = 96)]
+        public string? ExternalSystemId { get; set; }
 
         #endregion
 

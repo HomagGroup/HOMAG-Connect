@@ -117,61 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoardCode" xml:space="preserve">
-    <value>Plattencode</value>
-    <comment>Plattencode</comment>
+  <data name="Default" xml:space="preserve">
+    <value>Standard</value>
   </data>
-  <data name="BoardEntityId" xml:space="preserve">
-    <value>Plattennummer</value>
-    <comment>Platten-Id</comment>
+  <data name="OptimizationBoards" xml:space="preserve">
+    <value>Benötigte Platten</value>
   </data>
-  <data name="CompletedAt" xml:space="preserve">
-    <value>Endzeitpunkt</value>
-    <comment>Endzeitpunkt</comment>
+  <data name="OptimizationEdgeBands" xml:space="preserve">
+    <value>Benötigte Kantenbänder</value>
   </data>
-  <data name="CustomerName" xml:space="preserve">
-    <value>Kundenname</value>
-  </data>
-  <data name="From" xml:space="preserve">
-    <value>Herkunft</value>
-  </data>
-  <data name="Id" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="ItemType" xml:space="preserve">
-    <value>Eintragstyp</value>
-  </data>
-  <data name="OptimizationName" xml:space="preserve">
-    <value>Optimierung</value>
-  </data>
-  <data name="OrderName" xml:space="preserve">
-    <value>Auftragsname</value>
-  </data>
-  <data name="PatternCycle" xml:space="preserve">
-    <value>Zyklus</value>
-  </data>
-  <data name="PatternName" xml:space="preserve">
-    <value>Plan</value>
-  </data>
-  <data name="Preview" xml:space="preserve">
-    <value>Vorschau</value>
-  </data>
-  <data name="ProgramDuration" xml:space="preserve">
-    <value>Dauer</value>
-  </data>
-  <data name="ProgramName" xml:space="preserve">
-    <value>Programmname</value>
-  </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Anzahl</value>
-  </data>
-  <data name="StartedAt" xml:space="preserve">
-    <value>Startzeitpunkt</value>
-  </data>
-  <data name="Thickness" xml:space="preserve">
-    <value>Dicke</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Typ</value>
+  <data name="OptimizationOffcuts" xml:space="preserve">
+    <value>Reste</value>
   </data>
 </root>
