@@ -118,7 +118,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <summary>
         /// Rework id
         /// </summary>
-        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(ReworkId))]
         public string? ReworkId { get; set; }
     }
 }
