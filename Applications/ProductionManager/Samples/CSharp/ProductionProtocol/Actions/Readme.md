@@ -11,10 +11,11 @@ var client = new ProductionManagerClient(subscriptionId, authorizationKey);
 // Get the workstationId.
 // Get a list of all workstations in productionAssist via the ProductionAssistClient - See HomagConnect.ProductionAssist.Samples for more information on how to get the workstations
 // Choose one workstation and use its ID here.
-var workstationId = "your-workstation-id"; // 
+ var workstations = await productionManager.GetWorkstations();
+ var workstation = workstations.FirstOrDefault() //
 
 // Get the data
-var productionProtocol = await productionManager.GetProductionProtocol(workstationId).ToListAsync();
+var productionProtocol = await productionManager.GetProductionProtocol(workstation.Id.ToString(), take:100, skip:0, daysBack:7)).ToListAsync();
 
 // Use the retrieved data
 productionProtocol.Trace();
@@ -23,5 +24,3 @@ Assert.IsTrue(productionProtocol.Any());
 var protocol = productionProtocol.Select(x => x.Id).ToList();
 reworkIds.Trace(nameof(protocol));
 ``` 
-
-GetWorkstations information and code samples can be found at [Documentation for productionAssist Client](./../../../../../ProductionAssist/Samples/CSharp/Workstations/Readme.md).
