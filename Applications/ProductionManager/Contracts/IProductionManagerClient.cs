@@ -250,7 +250,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take, int skip = 0, int daysBack = 7);
+        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7);
 
         /// <summary>
         /// Retrieve the list all workstations.
