@@ -16,7 +16,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItem">
-    <Position X="10" Y="0.75" Width="3.5" />
+    <Position X="10" Y="2" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAEAAEAAAAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedItem.cs</FileName>
@@ -43,7 +43,7 @@
     <Position X="15" Y="8" Width="3.25" />
     <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem" ManuallyRouted="true">
       <Path>
-        <Point X="11.75" Y="6.579" />
+        <Point X="11.75" Y="7.329" />
         <Point X="11.75" Y="6.895" />
         <Point X="16.625" Y="6.895" />
         <Point X="16.625" Y="8" />
@@ -55,7 +55,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem">
-    <Position X="10.25" Y="4" Width="3" />
+    <Position X="10.25" Y="4.75" Width="3" />
     <TypeIdentifier>
       <HashCode>EAACAAIAAAAgAAAAAABAAAAAQAAAAAAAAAAAwAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedOrderItem.cs</FileName>
