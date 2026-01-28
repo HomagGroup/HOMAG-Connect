@@ -48,19 +48,5 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectedBy))]
         [JsonProperty(Order =20)]
         public string? RejectedBy { get; set; }
-
-        /// <summary />
-        [Obsolete("Use RejectedAt instead.", true)]
-        public DateTimeOffset? RejectedOn
-        {
-            get
-            {
-               return null;
-            }
-            set
-            {
-                RejectedAt = value;
-            }
-        }
     }
 }

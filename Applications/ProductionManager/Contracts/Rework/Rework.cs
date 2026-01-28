@@ -41,21 +41,6 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         [JsonProperty(Order = 38)]
         public CaptureDetails? CaptureDetails { get; set; }
 
-        /// <summary/>
-        [Obsolete("Use CaptureDetails instead", true)]
-        [JsonProperty(Order = 99)]
-        public CaptureDetails? CreationDetails
-        {
-            get
-            {
-                return CaptureDetails;
-            }
-            set
-            {
-                CaptureDetails = value;
-            }
-        }
-
         /// <summary>
         /// Description of the rework
         /// </summary>
@@ -111,5 +96,29 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(State))]
         [JsonProperty(Order = 35)]
         public ReworkState State { get; set; }
+
+        /// <summary>
+        /// Customer name
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CustomerName))]
+        public string? CustomerName { get; set; }
+
+        /// <summary>
+        /// Lenght
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
+        public string? Length { get; set; }
+
+        /// <summary>
+        /// Width
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
+        public string? Width { get; set; }
+
+        /// <summary>
+        /// Rework id
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(ReworkId))]
+        public string? ReworkId { get; set; }
     }
 }
