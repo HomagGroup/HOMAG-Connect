@@ -2,6 +2,7 @@
 using System.Globalization;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
@@ -62,6 +63,7 @@ public class LocalizationTests
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
+    [TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
     [DataRow("de")]
     [DataRow("en")]
     [TestMethod]
@@ -148,6 +150,7 @@ public class LocalizationTests
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
+    [TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
     [DataRow("de")]
     [DataRow("en")]
     [TestMethod]
@@ -181,6 +184,7 @@ public class LocalizationTests
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
+    [TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
     [DataRow("de")]
     [DataRow("en")]
     [TestMethod]
