@@ -536,7 +536,7 @@ namespace HomagConnect.ProductionManager.Client
         #region ProductionProtocol
 
         /// <inheritdoc />
-        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7, int take=int.MaxValue, int skip = 0)
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take, int skip = 0, int daysBack = 7)
         {
             var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
             var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?> (new Uri(url, UriKind.Relative));

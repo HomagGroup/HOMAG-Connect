@@ -26,7 +26,7 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
         var protocolList = new List<ProcessedItem>();
         foreach (var workstation in workstations)
         {
-            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString());
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7);
             var response = await protocolTask ?? Array.Empty<ProcessedItem>();
             protocolList.AddRange(response);
         }
@@ -50,7 +50,7 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
 
         foreach (var workstation in workstations)
         {
-            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString());
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7);
             var response = await protocolTask ?? Array.Empty<ProcessedItem>();
             protocolList.AddRange(response);
         }
