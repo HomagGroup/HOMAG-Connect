@@ -221,7 +221,7 @@ public class ReworkLocalizationTests
 
         displayNames.ShouldNotBeEmpty(
             "because ReworkState enum should have localized display names");
-        displayNames[ReworkState.Rejected].ShouldBe("Verweigert",
+        displayNames[ReworkState.Rejected].ShouldBe("Abgelehnt",
             "because ReworkState.Rejected should be localized as 'Verweigert' in German");
 
         displayNames.Trace();
