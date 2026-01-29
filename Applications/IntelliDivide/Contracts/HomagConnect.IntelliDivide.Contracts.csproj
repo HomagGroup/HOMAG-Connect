@@ -28,10 +28,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Common\ProgramTransferModeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ProgramTransferModeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\RotationAngleDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>RotationAngleDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Evaluation\SolutionCharacteristicDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>SolutionCharacteristicDisplayNames.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="OptimizationStatusDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
@@ -46,9 +56,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Common\ProgramTransferModeDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ProgramTransferModeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Common\RotationAngleDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>RotationAngleDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Evaluation\SolutionCharacteristicDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>SolutionCharacteristicDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="OptimizationStatusDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>

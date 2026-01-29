@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.IntelliDivide.Contracts.Common {
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ProgramTransferModeDisplayNames {
+    public class SolutionCharacteristicDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProgramTransferModeDisplayNames() {
+        internal SolutionCharacteristicDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.IntelliDivide.Contracts.Common.ProgramTransferModeDisplayNames", typeof(ProgramTransferModeDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.IntelliDivide.Contracts.Evaluation.SolutionCharacteristicDisplayName" +
+                            "s", typeof(SolutionCharacteristicDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +62,20 @@ namespace HomagConnect.IntelliDivide.Contracts.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HOMAG File Agent.
+        ///   Looks up a localized string similar to Niedrigste Materialkosten.
         /// </summary>
-        public static string FileAgent {
+        public static string LowestMaterialCosts {
             get {
-                return ResourceManager.GetString("FileAgent", resourceCulture);
+                return ResourceManager.GetString("LowestMaterialCosts", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mit Maschine verbunden.
+        ///   Looks up a localized string similar to Niedrigste Gesamtkosten.
         /// </summary>
-        public static string MachineConnection {
+        public static string LowestTotalCosts {
             get {
-                return ResourceManager.GetString("MachineConnection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Herunterladen.
-        /// </summary>
-        public static string ManualDownload {
-            get {
-                return ResourceManager.GetString("ManualDownload", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mit productionAssist verbunden.
-        /// </summary>
-        public static string ProductionAssist {
-            get {
-                return ResourceManager.GetString("ProductionAssist", resourceCulture);
+                return ResourceManager.GetString("LowestTotalCosts", resourceCulture);
             }
         }
     }
