@@ -1,20 +1,164 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="HomagConnect.IntelliDivide.Contracts.Optimization">
-    <Position X="4.5" Y="3.5" Width="3" />
+    <Position X="1.25" Y="0.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>MAACAAAEAAAAAAAEAAAAAAQAAAAAABAAAAAAQCABAAA=</HashCode>
+      <HashCode>IAACBAAEAAAAAAAEAACAAAQBAAAAADAAABAAQAABAAA=</HashCode>
       <FileName>Optimization.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Status" />
     </ShowAsAssociation>
   </Class>
-  <Enum Name="HomagConnect.IntelliDivide.Contracts.OptimizationStatus">
-    <Position X="9.5" Y="3.5" Width="1.5" />
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.Solution">
+    <Position X="5.75" Y="7.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAACAACAIgAAAAAAIAAIAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAACIAACAAAAIAAAAAAAAAQAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Result\Solution.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Overview" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionDetails">
+    <Position X="11.25" Y="15.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>gEAgAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Result\SolutionDetails.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="KeyFigures" />
+      <Property Name="Material" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Parts" />
+      <Property Name="Exports" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFigures">
+    <Position X="16.75" Y="7.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAEAABAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFigures.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Costs" />
+      <Property Name="Material" />
+      <Property Name="Production" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionFigures">
+    <Position X="16.75" Y="15.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionFigures.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Material" />
+      <Property Name="Production" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterial">
+    <Position X="16.75" Y="20.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEIEAAAAAAAAAABAAAAAAAAAAAAAACAAAAE=</HashCode>
+      <FileName>Result\SolutionMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionPart">
+    <Position X="16.75" Y="17.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEEAAAAAAAAAAAAAAAAAAAAAAAAAAUAhAAAAAA=</HashCode>
+      <FileName>Result\SolutionPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresCosts">
+    <Position X="23.5" Y="12.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAgAAAAAAAEAAAAAAAAAgAAAE=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresCosts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverview">
+    <Position X="11.25" Y="7.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverview.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Figures" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresMaterial">
+    <Position X="23.5" Y="10" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIMAAAAAAAAAQAAgAAAACAAAAAAAAAAACA=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresProduction">
+    <Position X="23.5" Y="7.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACEAAAAAACAEAAAAAAAACAAAAAAAACBAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresProduction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionFiguresMaterial">
+    <Position X="23.5" Y="15.5" Width="3.25" />
+    <AssociationLine Name="WasteOffcutsPerMaterial" Type="HomagConnect.IntelliDivide.Contracts.Result.SolutionFiguresMaterialWasteOffcuts" ManuallyRouted="true">
+      <Path>
+        <Point X="26.656" Y="16.603" />
+        <Point X="26.656" Y="17.721" />
+        <Point X="27.43" Y="17.721" />
+        <Point X="27.43" Y="19.99" />
+        <Point X="28.75" Y="19.99" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionFiguresMaterial.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BoardsAndOffcuts" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="WasteOffcutsPerMaterial" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionFiguresMaterialBoardsOffcuts">
+    <Position X="28.75" Y="15.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIMACAAAAAAAAQAgAAgACAAAAAAAAAAACA=</HashCode>
+      <FileName>Result\SolutionFiguresMaterialBoardsOffcuts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionFiguresMaterialWasteOffcuts">
+    <Position X="28.75" Y="18.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEACAAgAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionFiguresMaterialWasteOffcuts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionFiguresProduction">
+    <Position X="23.5" Y="18.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAIAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionFiguresProduction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="HomagConnect.IntelliDivide.Contracts.OptimizationStatus">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAACAACAIgAAAAAAIQAIAAAAAAAAAAAAAIBA=</HashCode>
       <FileName>OptimizationStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionExportType">
+    <Position X="16.75" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAABAAAAAAAAEAAQAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Result\SolutionExportType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
