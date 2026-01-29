@@ -59,7 +59,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
             var results = new List<SolutionCandidateEvaluationResult>(solutionCandidates.Length);
 
-            foreach (var candidate in solutionCandidates)
+            foreach (var candidate in solutionCandidatesInEvaluationOrder)
             {
                 // Try to find a characteristic associated with the current candidate
 
@@ -70,7 +70,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                 results.Add(new SolutionCandidateEvaluationResult
                 {
                     Id = candidate.Id,
-                    Characteristic = characteristic
+                    Characteristic = characteristic,
                 });
             }
 
@@ -80,7 +80,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             
             var none = results.Where(r => r.Characteristic == SolutionCharacteristic.None);
            
-            return specials.Concat(none).ToArray();
+            var result = specials.Concat(none).ToArray();
+
+            for (var i = 0; i < result.Length; i++)
+            {
+                result[i].Ranking = i + 1;
+            }
+
+            return result;
         }
 
         /// <summary>
