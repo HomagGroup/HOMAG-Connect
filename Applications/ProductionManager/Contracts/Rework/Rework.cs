@@ -49,7 +49,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Description { get; set; }
 
         /// <summary>
-        /// Identifier of the rework
+        /// Id of the part for which the rework was created
         /// </summary>
         [JsonProperty(Order = 1)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Id))]
@@ -104,19 +104,19 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? CustomerName { get; set; }
 
         /// <summary>
-        /// Lenght
+        /// Length
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
-        public string? Length { get; set; }
+        public decimal? Length { get; set; }
 
         /// <summary>
         /// Width
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
-        public string? Width { get; set; }
+        public decimal? Width { get; set; }
 
         /// <summary>
-        /// Rework id
+        /// Id of the rework
         /// </summary>
         public string? ReworkId { get; set; }
     }
