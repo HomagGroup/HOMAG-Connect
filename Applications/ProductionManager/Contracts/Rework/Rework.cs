@@ -49,7 +49,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Description { get; set; }
 
         /// <summary>
-        /// Identifier of the rework
+        /// Id of the part for which the rework was created
         /// </summary>
         [JsonProperty(Order = 1)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Id))]
