@@ -205,8 +205,4 @@
     <value>Breite</value>
     <comment>Width</comment>
   </data>
-  <data name="ReworkId" xml:space="preserve">
-    <value>NachfertigungId</value>
-    <comment>ReworkId</comment>
-  </data>
 </root>
