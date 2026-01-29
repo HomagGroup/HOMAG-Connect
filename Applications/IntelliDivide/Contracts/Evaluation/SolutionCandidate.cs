@@ -19,6 +19,7 @@ public class SolutionCandidate
     /// <summary>
     /// Number of cuts required by the candidate.
     /// </summary>
+    [PartialScoreType(PartialScoreType.Cuts)]
     public int Cuts { get; private set; }
 
     /// <summary>
@@ -29,6 +30,7 @@ public class SolutionCandidate
     /// <summary>
     /// Material costs if available from overview figures.
     /// </summary>
+    [PartialScoreType(PartialScoreType.MaterialCost)]
     public double? MaterialCosts { get; private set; }
 
     /// <summary>
@@ -39,11 +41,13 @@ public class SolutionCandidate
     /// <summary>
     /// Production costs if available (not mapped currently).
     /// </summary>
+    [PartialScoreType(PartialScoreType.ProductionCost)]
     public double? ProductionCosts { get; private set; }
 
     /// <summary>
     /// Total production time in seconds for the candidate.
     /// </summary>
+    [PartialScoreType(PartialScoreType.ProductionTime)]
     public double ProductionTime { get; private set; }
 
     /// <summary>
@@ -54,12 +58,25 @@ public class SolutionCandidate
     /// <summary>
     /// Quantity of plus parts (additional parts beyond required).
     /// </summary>
+    [PartialScoreType(PartialScoreType.NumberOfPlusParts)]
     public int QuantityOfPlusParts { get; private set; }
 
     /// <summary>
     /// Total costs if available (not mapped currently).
     /// </summary>
+    [PartialScoreType(PartialScoreType.TotalCost)]
     public double? TotalCosts { get; private set; }
+
+    /// <summary>
+    /// Waste for the solution.
+    /// </summary>
+    [PartialScoreType(PartialScoreType.PercentageOfScrap)]
+    public double Waste { get; private set; }
+
+    /// <summary>
+    /// Total score calculated from weighted partial scores.
+    /// </summary>
+    public double TotalScore { get; internal set; }
 
     /// <summary>
     /// Creates a <see cref="SolutionCandidate" /> from <see cref="SolutionDetails" />.
@@ -84,7 +101,8 @@ public class SolutionCandidate
             QuantityOfPlusParts = production?.QuantityOfPlusParts ?? 0,
             OffcutsTotal = material?.OffcutsTotal ?? 0,
             MaterialCosts = costs?.MaterialCosts,
-            CalculationTime = 20.0
+            CalculationTime = 20.0,
+            Waste = material?.Waste ?? 0
         };
     }
 

@@ -18,5 +18,15 @@ public enum SolutionCharacteristic
     /// <summary>
     /// Lowest material costs among the evaluated solutions
     /// </summary>
-    LowestMaterialCosts
+    LowestMaterialCosts,
+
+    /// <summary>
+    /// Represents a solution that maintains a balanced state according to defined weights
+    /// </summary>
+    BalancedSolution,
+
+    /// <summary>
+    /// A small amount of waste, but a more balanced solution
+    /// </summary>
+    LittleWaste
 }

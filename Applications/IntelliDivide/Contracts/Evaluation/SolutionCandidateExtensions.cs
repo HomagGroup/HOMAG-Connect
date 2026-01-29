@@ -102,6 +102,10 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                     return EvaluateLowestTotalCosts(solutionCandidates, out solutionId);
                 case SolutionCharacteristic.LowestMaterialCosts:
                     return EvaluateLowestMaterialCosts(solutionCandidates, out solutionId);
+                case SolutionCharacteristic.BalancedSolution:
+                    return EvaluateBalancedSolution(solutionCandidates, out solutionId);
+                case SolutionCharacteristic.LittleWaste:
+                    return EvaluateLittleWaste(solutionCandidates, out solutionId);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(characteristic), characteristic, null);
             }
@@ -176,6 +180,60 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
             lowestTotalCostsSolutionId = candidate.Id;
 
+            return true;
+        }
+
+        /// <summary>
+        /// Finds the candidate with a balanced score, based on weights.
+        /// </summary>
+        /// <param name="solutionCandidates">Candidates to search.</param>
+        /// <param name="solutionId">Id of the best candidate if found; otherwise <see cref="Guid.Empty" />.</param>
+        /// <returns>True if a candidate was found; otherwise false.</returns>
+        private static bool EvaluateBalancedSolution(SolutionCandidate[] solutionCandidates, out Guid solutionId)
+        {
+            solutionId = Guid.Empty;
+
+            var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
+            var weights = ScoreWeightsProvider.GetBalancedWeights(hasMaterialCost);
+            SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
+
+            var candidates = solutionCandidates
+                .OrderBy(s => s.TotalScore);
+            var candidate = candidates.FirstOrDefault();
+
+            if (candidate == null)
+            {
+                return false;
+            }
+
+            solutionId = candidate.Id;
+            return true;
+        }
+
+        /// <summary>
+        /// Finds the candidate with a little waste, based on weights.
+        /// </summary>
+        /// <param name="solutionCandidates">Candidates to search.</param>
+        /// <param name="solutionId">Id of the best candidate if found; otherwise <see cref="Guid.Empty" />.</param>
+        /// <returns>True if a candidate was found; otherwise false.</returns>
+        private static bool EvaluateLittleWaste(SolutionCandidate[] solutionCandidates, out Guid solutionId)
+        {
+            solutionId = Guid.Empty;
+
+            var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
+            var weights = ScoreWeightsProvider.GetScrapAccentuatedWeights(hasMaterialCost);
+            SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
+
+            var candidates = solutionCandidates
+                .OrderBy(s => s.TotalScore);
+            var candidate = candidates.FirstOrDefault();
+
+            if (candidate == null)
+            {
+                return false;
+            }
+
+            solutionId = candidate.Id;
             return true;
         }
     }
