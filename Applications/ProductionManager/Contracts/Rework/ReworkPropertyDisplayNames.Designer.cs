@@ -241,15 +241,6 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NachfertigungId.
-        /// </summary>
-        public static string ReworkId {
-            get {
-                return ResourceManager.GetString("ReworkId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string State {

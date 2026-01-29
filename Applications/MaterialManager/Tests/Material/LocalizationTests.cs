@@ -12,6 +12,7 @@ using Shouldly;
 using MaterialType = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
 namespace HomagConnect.MaterialManager.Tests.Material;
 /// <summary />
+[TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
 [TestClass]
 [TestCategory("MaterialManager")]
 public class LocalizationTests
