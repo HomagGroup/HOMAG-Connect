@@ -107,13 +107,13 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// Lenght
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
-        public string? Length { get; set; }
+        public decimal? Length { get; set; }
 
         /// <summary>
         /// Width
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
-        public string? Width { get; set; }
+        public decimal? Width { get; set; }
 
         /// <summary>
         /// Rework id
