@@ -27,6 +27,14 @@ public enum SolutionCharacteristic
     LowestTotalCosts,
 
     /// <summary>
+    /// Represents a solution that maintains a balanced state according to defined weights
+    /// </summary>
+    /// <remarks>
+    /// This characteristic is recommended when the total costs can't get calculated.
+    /// </remarks>
+    BalancedSolution,
+
+    /// <summary>
     /// Solution with the lowest material cost among all evaluated options.
     /// </summary>
     /// <remarks>
@@ -36,12 +44,7 @@ public enum SolutionCharacteristic
     LowestMaterialCosts,
 
     /// <summary>
-    /// Represents a solution that maintains a balanced state according to defined weights
-    /// </summary>
-    BalancedSolution,
-
-    /// <summary>
-    /// A small amount of waste, but a more balanced solution
+    /// Compromise of all key figures with stronger weighting of waste.
     /// </summary>
     LittleWaste
 }
