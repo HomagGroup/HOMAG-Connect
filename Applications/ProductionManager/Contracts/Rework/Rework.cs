@@ -104,7 +104,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? CustomerName { get; set; }
 
         /// <summary>
-        /// Lenght
+        /// Length
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
         public decimal? Length { get; set; }
@@ -116,7 +116,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public decimal? Width { get; set; }
 
         /// <summary>
-        /// Rework id
+        /// Id of the rework
         /// </summary>
         public string? ReworkId { get; set; }
     }
