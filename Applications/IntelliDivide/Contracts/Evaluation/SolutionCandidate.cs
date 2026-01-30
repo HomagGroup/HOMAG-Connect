@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using System;
+using System.Linq;
 
 using HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -14,101 +15,93 @@ public class SolutionCandidate
     /// <summary>
     /// Time spent calculating/evaluating this candidate (static default in mapping).
     /// </summary>
-    public double CalculationTime { get; private set; }
+    public double CalculationTime { get; set; }
+
+    public int Cuts { get; set; }
+
+    public double CutsScore { get; set; }
 
     /// <summary>
-    /// Number of cuts required by the candidate.
+    /// Gets or sets the unique identifier of the solution candidate.
     /// </summary>
-    [PartialScoreType(PartialScoreType.Cuts)]
-    public int Cuts { get; private set; }
+    public Guid Id { get; set; }
 
-    /// <summary>
-    /// Unique identifier of the solution candidate (mirrors <see cref="SolutionDetails.Id" />).
-    /// </summary>
-    public Guid Id { get; private set; }
+    public double MaterialCosts { get; set; }
 
-    /// <summary>
-    /// Material costs if available from overview figures.
-    /// </summary>
-    [PartialScoreType(PartialScoreType.MaterialCost)]
-    public double? MaterialCosts { get; private set; }
+    public double MaterialCostsScore { get; set; }
 
-    /// <summary>
-    /// Total number of offcuts.
-    /// </summary>
-    public int OffcutsTotal { get; private set; }
+    public int OffcutsTotal { get; set; }
 
-    /// <summary>
-    /// Production costs if available (not mapped currently).
-    /// </summary>
-    [PartialScoreType(PartialScoreType.ProductionCost)]
-    public double? ProductionCosts { get; private set; }
+    public double OffcutsTotalScore { get; set; }
 
-    /// <summary>
-    /// Total production time in seconds for the candidate.
-    /// </summary>
-    [PartialScoreType(PartialScoreType.ProductionTime)]
-    public double ProductionTime { get; private set; }
+    public double ProdCostsScore { get; set; }
 
-    /// <summary>
-    /// Quantity of parts produced.
-    /// </summary>
-    public int QuantityOfParts { get; private set; }
+    public double ProductionCosts { get; set; }
 
-    /// <summary>
-    /// Quantity of plus parts (additional parts beyond required).
-    /// </summary>
-    [PartialScoreType(PartialScoreType.NumberOfPlusParts)]
-    public int QuantityOfPlusParts { get; private set; }
+    public double ProductionTime { get; set; }
 
-    /// <summary>
-    /// Total costs if available (not mapped currently).
-    /// </summary>
-    [PartialScoreType(PartialScoreType.TotalCost)]
-    public double? TotalCosts { get; private set; }
+    public double ProductionTimeScore { get; set; }
 
-    /// <summary>
-    /// Waste for the solution.
-    /// </summary>
-    [PartialScoreType(PartialScoreType.PercentageOfScrap)]
-    public double Waste { get; private set; }
+    public int QuantityOfParts { get; set; }
 
-    /// <summary>
-    /// Total score calculated from weighted partial scores.
-    /// </summary>
-    public double TotalScore { get; internal set; }
+    public double TotalCosts { get; set; }
+
+    public double TotalCostsScore { get; set; }
+
+    public double Waste { get; set; }
+
+    public double WasteScore { get; set; }
 
     /// <summary>
     /// Creates a <see cref="SolutionCandidate" /> from <see cref="SolutionDetails" />.
     /// Returns null when input is null.
     /// </summary>
-    public static SolutionCandidate? From(SolutionDetails? solutionDetails)
+    public static SolutionCandidate[] From(SolutionDetails[] solutionDetails)
     {
-        if (solutionDetails == null)
-            return null;
+        var solutionCandidates = new SolutionCandidate[solutionDetails.Length];
 
-        var id = solutionDetails.Id;
-        var production = solutionDetails.KeyFigures?.Production?.Output;
-        var material = solutionDetails.KeyFigures?.Material?.BoardsAndOffcuts;
-        var costs = solutionDetails.Overview?.Figures?.Costs;
-
-        return new SolutionCandidate
+        for (var i = 0; i < solutionDetails.Length; i++)
         {
-            Id = id,
-            ProductionTime = production?.ProductionTime.TotalSeconds ?? 0d,
-            Cuts = production?.Cuts ?? 0,
-            QuantityOfParts = production?.QuantityOfParts ?? 0,
-            QuantityOfPlusParts = production?.QuantityOfPlusParts ?? 0,
-            OffcutsTotal = material?.OffcutsTotal ?? 0,
-            MaterialCosts = costs?.MaterialCosts,
-            CalculationTime = 20.0,
-            Waste = material?.Waste ?? 0
-        };
+            var solutionDetail = solutionDetails[i];
+            var production = solutionDetail.KeyFigures?.Production?.Output;
+            var material = solutionDetail.KeyFigures?.Material?.BoardsAndOffcuts;
+            var costs = solutionDetail.Overview?.Figures?.Costs;
+
+            var candidate = new SolutionCandidate
+            {
+                Id = solutionDetail.Id,
+                CalculationTime = 20,
+                MaterialCosts = costs?.MaterialCosts ?? 0,
+                ProductionTime = production?.ProductionTime.TotalSeconds ?? 0,
+                QuantityOfParts = production?.QuantityOfParts ?? 0,
+                OffcutsTotal = material?.OffcutsTotal ?? 0,
+                Cuts = production?.Cuts ?? 0,
+                Waste = material?.Waste ?? 0
+            };
+
+            solutionCandidates[i] = candidate;
+        }
+
+        foreach (var solutionCandidate in solutionCandidates)
+        {
+            solutionCandidate.MaterialCostsScore = ScoreLowerIsBetter(solutionCandidate.MaterialCosts, solutionCandidates.Min(s => s.MaterialCosts), solutionCandidates.Max(s => s.MaterialCosts));
+            solutionCandidate.ProductionTimeScore = ScoreLowerIsBetter(solutionCandidate.ProductionTime, solutionCandidates.Min(s => s.ProductionTime), solutionCandidates.Max(s => s.ProductionTime));
+            solutionCandidate.OffcutsTotalScore = ScoreLowerIsBetter(solutionCandidate.OffcutsTotal, solutionCandidates.Min(s => s.OffcutsTotal), solutionCandidates.Max(s => s.OffcutsTotal));
+            solutionCandidate.CutsScore = ScoreLowerIsBetter(solutionCandidate.Cuts, solutionCandidates.Min(s => s.Cuts), solutionCandidates.Max(s => s.Cuts));
+            solutionCandidate.WasteScore = ScoreLowerIsBetter(solutionCandidate.Waste, solutionCandidates.Min(s => s.Waste), solutionCandidates.Max(s => s.Waste));
+        }
+
+        return solutionCandidates;
     }
 
-    /// <summary>
-    /// Implicit conversion from <see cref="SolutionDetails" /> to <see cref="SolutionCandidate" />.
-    /// Delegates to <see cref="From(SolutionDetails?)" /> and returns null for null input.
-    /// </summary>
-    public static implicit operator SolutionCandidate?(SolutionDetails? solutionDetails) => From(solutionDetails);
+    #region Private Methods
+
+    private static double ScoreLowerIsBetter(double value, double min, double max)
+    {
+        var range = max - min;
+        if (range <= 0) return 1000; // all equal -> perfect score
+        return (1 - (value - min) / range) * 1000;
+    }
+
+    #endregion
 }

@@ -22,10 +22,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// <returns>Ordered evaluation results with an assigned characteristic when available.</returns>
         public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
         {
-            return solutionDetails == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionDetails.Select(sd => (SolutionCandidate)sd!).ToArray());
+            var solutionCandidates = SolutionCandidate.From((solutionDetails ?? []).ToArray());
+
+            return solutionDetails == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates);
         }
 
-        /// <summary>
+        /// <summary>    
         /// Evaluates characteristics and display order for an enumerable of <see cref="SolutionCandidate" />.
         /// Returns an empty sequence for null input.
         /// </summary>
@@ -52,8 +54,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
             var solutionCandidatesInEvaluationOrder = solutionCandidates
                 .OrderBy(s => s.CalculationTime)
-                .ThenBy(s => s.TotalCosts ?? double.MaxValue)
-                .ThenBy(s => s.OffcutsTotal).ToArray();
+                .ThenBy(s => s.MaterialCosts)
+                .ThenBy(s => s.ProductionCosts).ToArray();
 
             var characteristics = DetermineCharacteristics(solutionCandidatesInEvaluationOrder);
 
@@ -150,9 +152,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
             // Filter candidates with positive material costs and order deterministically
             var candidate = solutionCandidates
-                .Where(s => s.MaterialCosts is > 0)
+                .Where(s => s.MaterialCosts > 0)
                 .OrderBy(s => s.CalculationTime)
-                .ThenBy(s => s.MaterialCosts!.Value)
+                .ThenBy(s => s.MaterialCosts)
                 .FirstOrDefault();
 
             if (candidate == null)
@@ -177,7 +179,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             var candidate = solutionCandidates
                 .Where(s => s.TotalCosts is > 0)
                 .OrderBy(s => s.CalculationTime)
-                .ThenBy(s => s.TotalCosts!.Value)
+                .ThenBy(s => s.TotalCosts)
                 .FirstOrDefault();
 
             if (candidate == null)
@@ -200,21 +202,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         {
             solutionId = Guid.Empty;
 
-            var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
-            var weights = ScoreWeightsProvider.GetBalancedWeights(hasMaterialCost);
-            SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
+            //var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
+            //var weights = ScoreWeightsProvider.GetBalancedWeights(hasMaterialCost);
+            //SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
 
-            var candidates = solutionCandidates
-                .OrderBy(s => s.TotalScore);
-            var candidate = candidates.FirstOrDefault();
+            //var candidates = solutionCandidates
+            //    .OrderBy(s => s.TotalScore);
+            //var candidate = candidates.FirstOrDefault();
 
-            if (candidate == null)
-            {
-                return false;
-            }
+            //if (candidate == null)
+            //{
+            //    return false;
+            //}
 
-            solutionId = candidate.Id;
-            return true;
+            //solutionId = candidate.Id;
+            return false;
         }
 
         /// <summary>
@@ -227,21 +229,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         {
             solutionId = Guid.Empty;
 
-            var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
-            var weights = ScoreWeightsProvider.GetScrapAccentuatedWeights(hasMaterialCost);
-            SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
 
-            var candidates = solutionCandidates
-                .OrderBy(s => s.TotalScore);
-            var candidate = candidates.FirstOrDefault();
+            //            var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
+            //var weights = ScoreWeightsProvider.GetScrapAccentuatedWeights(hasMaterialCost);
+            //SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
 
-            if (candidate == null)
-            {
-                return false;
-            }
 
-            solutionId = candidate.Id;
-            return true;
+
+            //var candidates = solutionCandidates
+            //    .OrderBy(s => s.TotalScore);
+            //var candidate = candidates.FirstOrDefault();
+
+            //if (candidate == null)
+            //{
+            //    return false;
+            //}
+
+            //solutionId = candidate.Id;
+            return false;
         }
     }
 }
