@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 using HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -15,6 +16,106 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
     public static class SolutionCandidateExtensions
     {
         /// <summary>
+        /// Calculates normalized scores for every numeric property of <see cref="SolutionCandidate" />
+        /// that has a corresponding property with the same name suffixed by "Score".
+        /// Example: for property "Cuts" it will set "CutsScore" using lower-is-better normalization.
+        /// Supports int and double properties.
+        /// </summary>
+        public static void CalculateAndSetScores(this SolutionCandidate[] solutionCandidates)
+        {
+            if (solutionCandidates.Length == 0)
+            {
+                return;
+            }
+
+            var solutionCandidateType = typeof(SolutionCandidate);
+            var publicInstanceProperties = solutionCandidateType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var sourceProperty in publicInstanceProperties)
+            {
+                // Only numeric sources (int or double) are supported
+                var sourcePropertyType = sourceProperty.PropertyType;
+                var scoreProperty = publicInstanceProperties.FirstOrDefault(p => p.Name == sourceProperty.Name + "Score" && p.PropertyType == typeof(double) && p.CanWrite);
+                if (scoreProperty == null)
+                {
+                    continue;
+                }
+
+                // Build min/max across candidates for the source property
+                var minimumValue = double.MaxValue;
+                var maximumValue = double.MinValue;
+                var sourceValues = new double[solutionCandidates.Length];
+                var anyNumericValueFound = false;
+
+                for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                {
+                    var sourceValueObject = sourceProperty.GetValue(solutionCandidates[candidateIndex]);
+                    double numericValue;
+                    if (sourcePropertyType == typeof(int))
+                    {
+                        numericValue = (int)sourceValueObject;
+                    }
+                    else if (sourcePropertyType == typeof(double))
+                    {
+                        numericValue = (double)sourceValueObject;
+                    }
+                    else
+                    {
+                        // Non-numeric types are skipped
+                        sourceValues[candidateIndex] = 0;
+                        continue;
+                    }
+
+                    sourceValues[candidateIndex] = numericValue;
+                    if (numericValue < minimumValue) minimumValue = numericValue;
+                    if (numericValue > maximumValue) maximumValue = numericValue;
+                    anyNumericValueFound = true;
+                }
+
+                if (!anyNumericValueFound)
+                    continue;
+
+                // Assign scores
+                for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                {
+                    var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+                    scoreProperty.SetValue(solutionCandidates[candidateIndex], score);
+                }
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="solutionCandidate"></param>
+        /// <param name="solutionCharacteristic"></param>
+        /// <returns></returns>
+        public static double CalculateCharacteristicScore(this SolutionCandidate solutionCandidate, SolutionCharacteristic solutionCharacteristic)
+        {
+            switch (solutionCharacteristic)
+            {
+                case SolutionCharacteristic.LowestTotalCosts:
+                    return solutionCandidate.TotalCostsScore;
+                case SolutionCharacteristic.LowestMaterialCosts:
+                    return solutionCandidate.MaterialCostsScore;
+                case SolutionCharacteristic.BalancedSolution:
+                    return
+                        solutionCandidate.MaterialCostsScore * 800 +
+                        solutionCandidate.ProductionTimeScore * 800 +
+                        solutionCandidate.WasteScore * 800 +
+                        solutionCandidate.ProductionCostsScore * 800 +
+                        solutionCandidate.CutsScore * 800 +
+                        solutionCandidate.OffcutsTotalScore * 100
+                        ;
+                case SolutionCharacteristic.LittleWaste:
+                    return
+                        solutionCandidate.WasteScore * 1000 +
+                        solutionCandidate.ProductionTimeScore * 500;
+                default:
+                    return 0;
+            }
+        }
+
+        /// <summary>
         /// Converts incoming <see cref="SolutionDetails" /> to <see cref="SolutionCandidate" /> and evaluates
         /// characteristics and display order. Returns an empty sequence for null input.
         /// </summary>
@@ -22,12 +123,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// <returns>Ordered evaluation results with an assigned characteristic when available.</returns>
         public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
         {
-            var solutionCandidates = SolutionCandidate.From((solutionDetails ?? []).ToArray());
+            var solutionCandidates = SolutionCandidates.From((solutionDetails ?? []).ToArray());
 
             return solutionDetails == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates);
         }
 
-        /// <summary>    
+        /// <summary>
         /// Evaluates characteristics and display order for an enumerable of <see cref="SolutionCandidate" />.
         /// Returns an empty sequence for null input.
         /// </summary>
@@ -54,42 +155,44 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
             var solutionCandidatesInEvaluationOrder = solutionCandidates
                 .OrderBy(s => s.CalculationTime)
-                .ThenBy(s => s.MaterialCosts)
-                .ThenBy(s => s.ProductionCosts).ToArray();
+                .ThenByDescending(s => s.TotalCostsScore)
+                .ThenByDescending(s => s.MaterialCostsScore)
+                .ThenByDescending(s => s.ProductionCostsScore)
+                .ToArray();
 
-            var characteristics = DetermineCharacteristics(solutionCandidatesInEvaluationOrder);
+            var characteristicsByType = DetermineCharacteristics(solutionCandidatesInEvaluationOrder);
 
-            var results = new List<SolutionCandidateEvaluationResult>(solutionCandidates.Length);
+            var evaluationResults = new List<SolutionCandidateEvaluationResult>(solutionCandidates.Length);
 
-            foreach (var candidate in solutionCandidatesInEvaluationOrder)
+            foreach (var solutionCandidate in solutionCandidatesInEvaluationOrder)
             {
                 // Try to find a characteristic associated with the current candidate
 
-                var assigned = characteristics.FirstOrDefault(c => c.Value == candidate.Id);
+                var assignedCharacteristic = characteristicsByType.FirstOrDefault(c => c.Value == solutionCandidate.Id);
 
-                var characteristic = assigned.Key != 0 ? assigned.Key : SolutionCharacteristic.None;
+                var characteristic = assignedCharacteristic.Key != 0 ? assignedCharacteristic.Key : SolutionCharacteristic.None;
 
-                results.Add(new SolutionCandidateEvaluationResult
+                evaluationResults.Add(new SolutionCandidateEvaluationResult
                 {
-                    Id = candidate.Id,
+                    Id = solutionCandidate.Id,
                     Characteristic = characteristic,
                 });
             }
 
             // Order: special characteristics first (by enum value), then None
-            var specials = results.Where(r => r.Characteristic != SolutionCharacteristic.None)
+            var resultsWithCharacteristic = evaluationResults.Where(r => r.Characteristic != SolutionCharacteristic.None)
                 .OrderBy(r => (int)r.Characteristic);
-            
-            var none = results.Where(r => r.Characteristic == SolutionCharacteristic.None);
-           
-            var result = specials.Concat(none).ToArray();
 
-            for (var i = 0; i < result.Length; i++)
+            var resultsWithoutCharacteristic = evaluationResults.Where(r => r.Characteristic == SolutionCharacteristic.None);
+
+            var orderedResults = resultsWithCharacteristic.Concat(resultsWithoutCharacteristic).ToArray();
+
+            for (var resultIndex = 0; resultIndex < orderedResults.Length; resultIndex++)
             {
-                result[i].Ranking = i + 1;
+                orderedResults[resultIndex].Ranking = resultIndex + 1;
             }
 
-            return result;
+            return orderedResults;
         }
 
         /// <summary>
@@ -101,23 +204,26 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// <returns>True if the characteristic could be determined; otherwise false.</returns>
         private static bool DetermineCharacteristic(SolutionCharacteristic characteristic, SolutionCandidate[] solutionCandidates, out Guid solutionId)
         {
-            solutionId = Guid.Empty;
+            var bestCandidate = solutionCandidates.Select(s => new
+                {
+                    s.Id,
+                    s.CalculationTime,
+                    Score = s.CalculateCharacteristicScore(characteristic)
+                })
+                .Where(s => s.Score > 0)
+                .OrderByDescending(s => s.Score)
+                .ThenBy(s => s.CalculationTime)
+                .FirstOrDefault();
 
-            switch (characteristic)
+            if (bestCandidate == null)
             {
-                case SolutionCharacteristic.None:
-                    return false;
-                case SolutionCharacteristic.LowestTotalCosts:
-                    return EvaluateLowestTotalCosts(solutionCandidates, out solutionId);
-                case SolutionCharacteristic.LowestMaterialCosts:
-                    return EvaluateLowestMaterialCosts(solutionCandidates, out solutionId);
-                case SolutionCharacteristic.BalancedSolution:
-                    return EvaluateBalancedSolution(solutionCandidates, out solutionId);
-                case SolutionCharacteristic.LittleWaste:
-                    return EvaluateLittleWaste(solutionCandidates, out solutionId);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(characteristic), characteristic, null);
+                solutionId = Guid.Empty;
+                return false;
             }
+
+            solutionId = bestCandidate.Id;
+
+            return true;
         }
 
         /// <summary>
@@ -127,126 +233,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// <returns>Map of characteristic to the candidate that achieves it.</returns>
         private static Dictionary<SolutionCharacteristic, Guid> DetermineCharacteristics(SolutionCandidate[] solutionCandidates)
         {
-            var result = new Dictionary<SolutionCharacteristic, Guid>();
+            var characteristicsByType = new Dictionary<SolutionCharacteristic, Guid>();
 
-            foreach (SolutionCharacteristic value in Enum.GetValues(typeof(SolutionCharacteristic)))
+            foreach (SolutionCharacteristic characteristicValue in Enum.GetValues(typeof(SolutionCharacteristic)))
             {
-                if (DetermineCharacteristic(value, solutionCandidates, out var id))
+                if (DetermineCharacteristic(characteristicValue, solutionCandidates, out var matchingSolutionId))
                 {
-                    result[value] = id;
+                    characteristicsByType[characteristicValue] = matchingSolutionId;
                 }
             }
 
-            return result;
+            return characteristicsByType;
         }
 
-        /// <summary>
-        /// Finds the candidate with the lowest positive material costs, preferring lower calculation time first.
-        /// </summary>
-        /// <param name="solutionCandidates">Candidates to search.</param>
-        /// <param name="solutionId">Id of the best candidate if found; otherwise <see cref="Guid.Empty" />.</param>
-        /// <returns>True if a candidate was found; otherwise false.</returns>
-        private static bool EvaluateLowestMaterialCosts(SolutionCandidate[] solutionCandidates, out Guid solutionId)
+        private static double ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
-            solutionId = Guid.Empty;
-
-            // Filter candidates with positive material costs and order deterministically
-            var candidate = solutionCandidates
-                .Where(s => s.MaterialCosts > 0)
-                .OrderBy(s => s.CalculationTime)
-                .ThenBy(s => s.MaterialCosts)
-                .FirstOrDefault();
-
-            if (candidate == null)
-            {
-                return false;
-            }
-
-            solutionId = candidate.Id;
-            return true;
-        }
-
-        /// <summary>
-        /// Finds the candidate with the lowest positive total costs, preferring lower calculation time first.
-        /// </summary>
-        /// <param name="solutionCandidates">Candidates to search.</param>
-        /// <param name="lowestTotalCostsSolutionId">Id of the best candidate if found; otherwise <see cref="Guid.Empty" />.</param>
-        /// <returns>True if a candidate was found; otherwise false.</returns>
-        private static bool EvaluateLowestTotalCosts(SolutionCandidate[] solutionCandidates, out Guid lowestTotalCostsSolutionId)
-        {
-            lowestTotalCostsSolutionId = Guid.Empty;
-
-            var candidate = solutionCandidates
-                .Where(s => s.TotalCosts is > 0)
-                .OrderBy(s => s.CalculationTime)
-                .ThenBy(s => s.TotalCosts)
-                .FirstOrDefault();
-
-            if (candidate == null)
-            {
-                return false;
-            }
-
-            lowestTotalCostsSolutionId = candidate.Id;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Finds the candidate with a balanced score, based on weights.
-        /// </summary>
-        /// <param name="solutionCandidates">Candidates to search.</param>
-        /// <param name="solutionId">Id of the best candidate if found; otherwise <see cref="Guid.Empty" />.</param>
-        /// <returns>True if a candidate was found; otherwise false.</returns>
-        private static bool EvaluateBalancedSolution(SolutionCandidate[] solutionCandidates, out Guid solutionId)
-        {
-            solutionId = Guid.Empty;
-
-            //var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
-            //var weights = ScoreWeightsProvider.GetBalancedWeights(hasMaterialCost);
-            //SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
-
-            //var candidates = solutionCandidates
-            //    .OrderBy(s => s.TotalScore);
-            //var candidate = candidates.FirstOrDefault();
-
-            //if (candidate == null)
-            //{
-            //    return false;
-            //}
-
-            //solutionId = candidate.Id;
-            return false;
-        }
-
-        /// <summary>
-        /// Finds the candidate with a little waste, based on weights.
-        /// </summary>
-        /// <param name="solutionCandidates">Candidates to search.</param>
-        /// <param name="solutionId">Id of the best candidate if found; otherwise <see cref="Guid.Empty" />.</param>
-        /// <returns>True if a candidate was found; otherwise false.</returns>
-        private static bool EvaluateLittleWaste(SolutionCandidate[] solutionCandidates, out Guid solutionId)
-        {
-            solutionId = Guid.Empty;
-
-
-            //            var hasMaterialCost = solutionCandidates.Any(s => s.MaterialCosts.HasValue);
-            //var weights = ScoreWeightsProvider.GetScrapAccentuatedWeights(hasMaterialCost);
-            //SolutionScoresCalculator.CalculateTotalScoreValues(solutionCandidates, weights);
-
-
-
-            //var candidates = solutionCandidates
-            //    .OrderBy(s => s.TotalScore);
-            //var candidate = candidates.FirstOrDefault();
-
-            //if (candidate == null)
-            //{
-            //    return false;
-            //}
-
-            //solutionId = candidate.Id;
-            return false;
+            var range = maximumValue - minimumValue;
+            if (range <= 0) return 1000; // all equal -> perfect score
+            return (1 - (value - minimumValue) / range) * 1000;
         }
     }
 }

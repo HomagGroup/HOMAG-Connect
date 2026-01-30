@@ -28,11 +28,20 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         solutionCharacteristicsAndDisplayOrder.Trace(nameof(solutionCharacteristicsAndDisplayOrder));
     }
 
+    [TestMethod]
+    public async Task Optimizations_GetFirstOptimizationAndEvaluateAllProperties()
+    {
+        var solutionDetails = await GetSampleSolutionDetails();
+        var solutionCandidates = SolutionCandidates.From(solutionDetails.ToArray());
+
+        solutionCandidates.Trace(nameof(solutionCandidates));
+    }
+
     private async Task<List<SolutionDetails>> GetSampleSolutionDetails()
     {
         var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);
 
-        var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized,1)!.FirstOrDefaultAsync();
+        var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1)!.FirstOrDefaultAsync();
 
         if (optimization == null)
         {
@@ -53,19 +62,5 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         }
 
         return solutionDetails;
-    }
-
-    [TestMethod]
-    public async Task Optimizations_GetFirstOptimizationAndEvaluateAllProperties()
-    {
-        var solutionDetails = await GetSampleSolutionDetails();
-        var solutionCandidates = SolutionCandidate.From(solutionDetails.ToArray());
-
-
-
-
-
-
-        solutionCandidates.Trace(nameof(solutionCandidates));
     }
 }
