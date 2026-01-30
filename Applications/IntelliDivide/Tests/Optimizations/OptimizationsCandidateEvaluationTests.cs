@@ -48,6 +48,8 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
             Assert.Inconclusive("No optimization found");
         }
 
+        optimization.Link.Trace(nameof(optimization.Link));
+
         var solutionDetails = new List<SolutionDetails>();
         var solutions = await intelliDivide.GetSolutions(optimization.Id);
 

@@ -46,5 +46,7 @@ public enum SolutionCharacteristic
     /// <summary>
     /// Compromise of all key figures with stronger weighting of waste.
     /// </summary>
-    LittleWaste
+    LittleWaste,
+
+    Offcuts
 }

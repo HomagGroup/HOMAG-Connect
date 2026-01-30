@@ -27,4 +27,10 @@ public class SolutionCandidateEvaluationResult
     /// </summary>
     [JsonProperty(Order = 1)]
     public int Ranking { get; set; }
+
+    /// <summary>
+    /// Gets or sets the solution candidate details.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public SolutionCandidate SolutionCandidate { get; set; }
 }

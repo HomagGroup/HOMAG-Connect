@@ -89,7 +89,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// <param name="solutionCandidate"></param>
         /// <param name="solutionCharacteristic"></param>
         /// <returns></returns>
-        public static double CalculateCharacteristicScore(this SolutionCandidate solutionCandidate, SolutionCharacteristic solutionCharacteristic)
+        private static double CalculateCharacteristicScore(this SolutionCandidate solutionCandidate, SolutionCharacteristic solutionCharacteristic)
         {
             switch (solutionCharacteristic)
             {
@@ -110,6 +110,10 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                     return
                         solutionCandidate.WasteScore * 1000 +
                         solutionCandidate.ProductionTimeScore * 500;
+                case SolutionCharacteristic.Offcuts:
+                    return 
+                        solutionCandidate.OffcutsTotalScore * 1000 +
+                        solutionCandidate.MaterialCostsScore * 500;
                 default:
                     return 0;
             }
@@ -176,6 +180,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                 {
                     Id = solutionCandidate.Id,
                     Characteristic = characteristic,
+                    SolutionCandidate = solutionCandidate
                 });
             }
 
@@ -248,8 +253,18 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
         private static double ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
+            if (minimumValue == 0 && maximumValue == 0)
+            {
+                return 0; // all zero -> no results
+            }
+
             var range = maximumValue - minimumValue;
-            if (range <= 0) return 1000; // all equal -> perfect score
+            
+            if (range <= 0)
+            {
+                return 1000; // all equal -> perfect score
+            }
+
             return (1 - (value - minimumValue) / range) * 1000;
         }
     }
