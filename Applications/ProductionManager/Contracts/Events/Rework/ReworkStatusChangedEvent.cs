@@ -1,6 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
-using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
