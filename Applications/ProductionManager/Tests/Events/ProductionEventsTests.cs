@@ -88,6 +88,7 @@ public class ProductionEventsTests : ProductionManagerTestBase
            
         };
 
+        Assert.IsTrue(orderReleased.IsValid);
         TestContext?.AddResultFile(orderReleased.TraceToFile("OrderReleasedEvent").FullName);
 
         var orderReleasedSerialized = JsonConvert.SerializeObject(orderReleased, SerializerSettings.Default);
@@ -109,6 +110,7 @@ public class ProductionEventsTests : ProductionManagerTestBase
 
         };
 
+        Assert.IsTrue(orderEvent.IsValid);
         TestContext?.AddResultFile(orderEvent.TraceToFile("OrderStatusChangedEvent").FullName);
 
         var eventSerialized = JsonConvert.SerializeObject(orderEvent, SerializerSettings.Default);
@@ -126,10 +128,13 @@ public class ProductionEventsTests : ProductionManagerTestBase
         {
             Timestamp = completedAt,
             SubscriptionId = Guid.NewGuid(),
-            Status = ProductionItemStatus.InProduction
-
+            Status = ProductionItemStatus.InProduction,
+            Quantity = 1,
+            Identifier = "0123456",
+            WorkstationId = Guid.NewGuid(),
         };
 
+        Assert.IsTrue(productionItemEvent.IsValid);
         TestContext?.AddResultFile(productionItemEvent.TraceToFile("ProductionItemStatusChangedEvent").FullName);
 
         var eventSerialized = JsonConvert.SerializeObject(productionItemEvent, SerializerSettings.Default);
@@ -149,10 +154,11 @@ public class ProductionEventsTests : ProductionManagerTestBase
             SubscriptionId = Guid.NewGuid(),
             State = Contracts.Rework.ReworkState.Pending,
             StatusChangedBy = "Test User",
-            ReworkId = "RW-001"
-
+            ReworkId = "RW-001",
+            Identifier = "0123456"
         };
 
+        Assert.IsTrue(reworkEvent.IsValid);
         TestContext?.AddResultFile(reworkEvent.TraceToFile("ReworkStatusChangedEvent").FullName);
 
         var eventSerialized = JsonConvert.SerializeObject(reworkEvent, SerializerSettings.Default);
@@ -181,6 +187,7 @@ public class ProductionEventsTests : ProductionManagerTestBase
 
         };
 
+        Assert.IsTrue(reworkEvent.IsValid);
         TestContext?.AddResultFile(reworkEvent.TraceToFile("ReworkCreatedEvent").FullName);
 
         var eventSerialized = JsonConvert.SerializeObject(reworkEvent, SerializerSettings.Default);
