@@ -52,14 +52,21 @@ public enum SolutionCharacteristic
     /// <summary>
     /// Compromise of all key figures with stronger weighting of waste.
     /// </summary>
+    [SolutionCharacteristicScoreWeights(
+            nameof(SolutionCandidate.WasteScore), 1000,
+            nameof(SolutionCandidate.ProductionTimeScore), 500
+        )
+    ]
     LittleWaste,
 
     /// <summary>
     /// Gets or sets the offcuts value associated with the solution candidate.
     /// </summary>
-    /// <remarks>This property is used in scoring calculations, with higher offcuts typically resulting in a
+    /// <remarks>
+    /// This property is used in scoring calculations, with higher offcuts typically resulting in a
     /// lower overall score. The value may influence optimization or selection algorithms that prioritize material
-    /// efficiency.</remarks>
+    /// efficiency.
+    /// </remarks>
     [SolutionCharacteristicScoreWeights(
         nameof(SolutionCandidate.OffcutsTotalScore), 1000,
         nameof(SolutionCandidate.TotalCostsScore), 500

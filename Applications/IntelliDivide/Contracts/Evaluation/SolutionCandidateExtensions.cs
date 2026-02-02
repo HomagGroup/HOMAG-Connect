@@ -187,6 +187,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             return Math.Round((1 - (value - minimumValue) / range) * 1000, 2);
         }
 
+        private static double ScoreHigherIsBetter(double value, double minimumValue, double maximumValue)
+        {
+            if (minimumValue == 0 && maximumValue == 0)
+            {
+                return 0; // all zero -> no results
+            }
+
+            var range = maximumValue - minimumValue;
+
+            if (range <= 0)
+            {
+                return 0; // all equal -> perfect score
+            }
+
+            return Math.Round(((value - minimumValue) / range) * 1000, 2);
+        }
+
+
         extension(SolutionCandidate[] solutionCandidates)
         {
             private void CalculateAndSetCharacteristicScores()
@@ -231,7 +249,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
                         if (range > 0)
                         {
-                            solutionCandidatesCharacteristicScore.Key.CharacteristicScores[characteristic] = Math.Round((1 - (value - minimumValue) / range) * 1000, 2);
+                            solutionCandidatesCharacteristicScore.Key.CharacteristicScores[characteristic] = ScoreHigherIsBetter(value, minimumValue, maximumValue);
                         }
                     }
                 }
