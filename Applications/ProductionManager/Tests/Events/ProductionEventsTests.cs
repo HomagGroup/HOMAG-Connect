@@ -148,7 +148,8 @@ public class ProductionEventsTests : ProductionManagerTestBase
             Timestamp = completedAt,
             SubscriptionId = Guid.NewGuid(),
             State = Contracts.Rework.ReworkState.Pending,
-            StatusChangedBy = "Test User"
+            StatusChangedBy = "Test User",
+            ReworkId = "RW-001"
 
         };
 
