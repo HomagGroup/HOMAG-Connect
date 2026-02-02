@@ -26,6 +26,8 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         solutionCharacteristicsAndDisplayOrder.Length.ShouldBe(solutionDetails.Count());
 
         solutionCharacteristicsAndDisplayOrder.Trace(nameof(solutionCharacteristicsAndDisplayOrder));
+
+        TestContext?.AddResultFile(solutionCharacteristicsAndDisplayOrder.TraceToFile(nameof(solutionCharacteristicsAndDisplayOrder)).FullName);
     }
 
     [TestMethod]
@@ -35,6 +37,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         var solutionCandidates = SolutionCandidates.From(solutionDetails.ToArray());
 
         solutionCandidates.Trace(nameof(solutionCandidates));
+
     }
 
     private async Task<List<SolutionDetails>> GetSampleSolutionDetails()

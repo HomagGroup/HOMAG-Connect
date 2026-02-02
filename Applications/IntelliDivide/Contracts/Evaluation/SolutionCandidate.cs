@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using System;
+using System.Collections.Generic;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
@@ -95,6 +96,15 @@ public class SolutionCandidate
     /// Normalized score for <see cref="Waste" /> (lower is better, 0–1000).
     /// </summary>
     public double WasteScore { get; set; }
+
+    /// <summary>
+    /// Gets or sets the collection of scores associated with each solution characteristic.
+    /// </summary>
+    /// <remarks>
+    /// Each entry in the dictionary maps a <see cref="SolutionCharacteristic" /> to its corresponding
+    /// score. Modifying the dictionary affects the scores used for evaluating solution characteristics.
+    /// </remarks>
+    public Dictionary<SolutionCharacteristic, double> CharacteristicScores { get; set; } = new();
 
     #endregion
 }

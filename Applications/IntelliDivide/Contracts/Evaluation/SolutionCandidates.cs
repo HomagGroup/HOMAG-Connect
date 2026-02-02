@@ -44,9 +44,6 @@ public static class SolutionCandidates
             };
         }
 
-        // Compute and assign scores per candidate using extension method
-        candidates.CalculateAndSetScores();
-
         return candidates;
     }
 }

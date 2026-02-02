@@ -15,13 +15,51 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
     /// </summary>
     public static class SolutionCandidateExtensions
     {
+        public static void CalculateAndSetCharacteristicScores(this SolutionCandidate[] solutionCandidates)
+        {
+            var characteristicScoreWeights = GetCharacteristicScoreWeights();
+
+            foreach (var characteristicScoreWeight in characteristicScoreWeights)
+            {
+                var characteristic = characteristicScoreWeight.Key;
+                var weights = characteristicScoreWeight.Value;
+
+                foreach (var solutionCandidate in solutionCandidates)
+                {
+                    double totalScore = 0;
+                    int totalWeight = 0;
+
+                    foreach (var weightEntry in weights)
+                    {
+                        var propertyName = weightEntry.Key;
+                        var weight = weightEntry.Value;
+
+                        var scoreProperty = typeof(SolutionCandidate).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+                        if (scoreProperty != null && scoreProperty.PropertyType == typeof(double))
+                        {
+                            var scoreValue = (double)scoreProperty.GetValue(solutionCandidate);
+                            totalScore += scoreValue * weight;
+                            totalWeight = totalWeight += weight;
+                        }
+                    }
+
+                    if (totalWeight > 0)
+                    {
+                        totalScore = Math.Round(totalScore / totalWeight, 2);
+
+                        solutionCandidate.CharacteristicScores[characteristic] = totalScore;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Calculates normalized scores for every numeric property of <see cref="SolutionCandidate" />
         /// that has a corresponding property with the same name suffixed by "Score".
         /// Example: for property "Cuts" it will set "CutsScore" using lower-is-better normalization.
         /// Supports int and double properties.
         /// </summary>
-        public static void CalculateAndSetScores(this SolutionCandidate[] solutionCandidates)
+        public static void CalculateAndSetPartialScores(this SolutionCandidate[] solutionCandidates)
         {
             if (solutionCandidates.Length == 0)
             {
@@ -85,41 +123,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         }
 
         /// <summary>
-        /// </summary>
-        /// <param name="solutionCandidate"></param>
-        /// <param name="solutionCharacteristic"></param>
-        /// <returns></returns>
-        private static double CalculateCharacteristicScore(this SolutionCandidate solutionCandidate, SolutionCharacteristic solutionCharacteristic)
-        {
-            switch (solutionCharacteristic)
-            {
-                case SolutionCharacteristic.LowestTotalCosts:
-                    return solutionCandidate.TotalCostsScore;
-                case SolutionCharacteristic.LowestMaterialCosts:
-                    return solutionCandidate.MaterialCostsScore;
-                case SolutionCharacteristic.BalancedSolution:
-                    return
-                        solutionCandidate.MaterialCostsScore * 800 +
-                        solutionCandidate.ProductionTimeScore * 800 +
-                        solutionCandidate.WasteScore * 800 +
-                        solutionCandidate.ProductionCostsScore * 800 +
-                        solutionCandidate.CutsScore * 800 +
-                        solutionCandidate.OffcutsTotalScore * 100
-                        ;
-                case SolutionCharacteristic.LittleWaste:
-                    return
-                        solutionCandidate.WasteScore * 1000 +
-                        solutionCandidate.ProductionTimeScore * 500;
-                case SolutionCharacteristic.Offcuts:
-                    return 
-                        solutionCandidate.OffcutsTotalScore * 1000 +
-                        solutionCandidate.MaterialCostsScore * 500;
-                default:
-                    return 0;
-            }
-        }
-
-        /// <summary>
         /// Converts incoming <see cref="SolutionDetails" /> to <see cref="SolutionCandidate" /> and evaluates
         /// characteristics and display order. Returns an empty sequence for null input.
         /// </summary>
@@ -156,6 +159,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             {
                 return [];
             }
+
+            solutionCandidates.CalculateAndSetPartialScores();
+            solutionCandidates.CalculateAndSetCharacteristicScores();
 
             var solutionCandidatesInEvaluationOrder = solutionCandidates
                 .OrderBy(s => s.CalculationTime)
@@ -198,6 +204,41 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             }
 
             return orderedResults;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="solutionCandidate"></param>
+        /// <param name="solutionCharacteristic"></param>
+        /// <returns></returns>
+        private static double CalculateCharacteristicScore(this SolutionCandidate solutionCandidate, SolutionCharacteristic solutionCharacteristic)
+        {
+            switch (solutionCharacteristic)
+            {
+                case SolutionCharacteristic.LowestTotalCosts:
+                    return solutionCandidate.TotalCostsScore;
+                case SolutionCharacteristic.LowestMaterialCosts:
+                    return solutionCandidate.MaterialCostsScore;
+                case SolutionCharacteristic.BalancedSolution:
+                    return
+                        solutionCandidate.MaterialCostsScore * 800 +
+                        solutionCandidate.ProductionTimeScore * 800 +
+                        solutionCandidate.WasteScore * 800 +
+                        solutionCandidate.ProductionCostsScore * 800 +
+                        solutionCandidate.CutsScore * 800 +
+                        solutionCandidate.OffcutsTotalScore * 100
+                        ;
+                case SolutionCharacteristic.LittleWaste:
+                    return
+                        solutionCandidate.WasteScore * 1000 +
+                        solutionCandidate.ProductionTimeScore * 500;
+                case SolutionCharacteristic.Offcuts:
+                    return
+                        solutionCandidate.OffcutsTotalScore * 1000 +
+                        solutionCandidate.MaterialCostsScore * 500;
+                default:
+                    return 0;
+            }
         }
 
         /// <summary>
@@ -251,6 +292,40 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             return characteristicsByType;
         }
 
+        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<string, int>> GetCharacteristicScoreWeights()
+        {
+            var result = new Dictionary<SolutionCharacteristic, IReadOnlyDictionary<string, int>>();
+
+            var enumType = typeof(SolutionCharacteristic);
+            foreach (SolutionCharacteristic characteristic in Enum.GetValues(enumType))
+            {
+                var name = Enum.GetName(enumType, characteristic);
+                if (name == null)
+                {
+                    continue;
+                }
+
+                var field = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
+                if (field == null)
+                {
+                    continue;
+                }
+
+                var attr = field.GetCustomAttribute<SolutionCharacteristicScoreWeightsAttribute>();
+                if (attr != null)
+                {
+                    result[characteristic] = attr.Weights;
+                }
+                else
+                {
+                    // No attribute: store an empty dictionary for consistency
+                    result[characteristic] = new Dictionary<string, int>();
+                }
+            }
+
+            return result;
+        }
+
         private static double ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
             if (minimumValue == 0 && maximumValue == 0)
@@ -259,13 +334,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             }
 
             var range = maximumValue - minimumValue;
-            
+
             if (range <= 0)
             {
                 return 1000; // all equal -> perfect score
             }
 
-            return (1 - (value - minimumValue) / range) * 1000;
+            return Math.Round((1 - (value - minimumValue) / range) * 1000, 2);
         }
     }
 }
