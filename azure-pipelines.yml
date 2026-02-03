@@ -11,6 +11,11 @@
 #     name: OneHomag/SWC-DevOps-HoT
 #     ref: main
 
+pr:
+  branches:
+    include:
+      - '*'
+
 trigger:
   branches:
     include:
@@ -108,6 +113,11 @@ stages:
             projectVersion: '$(MajorMinorBuildVersion)'
             extraProperties: |
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+                sonar.pullrequest.provider=github
+                sonar.pullrequest.github.repository=HomagGroup/HOMAG-Connect
+                sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber)
+                sonar.pullrequest.branch=$(System.PullRequest.SourceBranch)
+                sonar.pullrequest.base=$(System.PullRequest.TargetBranch)
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
         - task: ResourceTranslation@3
