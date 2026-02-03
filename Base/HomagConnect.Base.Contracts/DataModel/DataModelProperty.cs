@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HomagConnect.Base.DataModel;
+﻿namespace HomagConnect.Base.Contracts.DataModel;
 
 public class DataModelProperty
 {

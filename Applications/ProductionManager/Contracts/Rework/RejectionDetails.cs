@@ -24,6 +24,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <summary>
         /// Attachments
         /// </summary>
+        [JsonProperty(Order = 80)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Attachments))]
         public Collection<AdditionalDataEntity>? Attachments { get; set; }
 
@@ -31,18 +32,21 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// Rejection comment
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Comment))]
+        [JsonProperty(Order = 70)]
         public string? Comment { get; set; }
+
+        /// <summary>
+        /// Date and time when the item was rejected
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectedAt))]
+        [JsonProperty(Order = 10)]
+        public DateTimeOffset? RejectedAt { get; set; }
 
         /// <summary>
         /// Rejected by user
         /// </summary>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectedBy))]
+        [JsonProperty(Order =20)]
         public string? RejectedBy { get; set; }
-
-        /// <summary>
-        /// Date and time when the item was rejected
-        /// </summary>
-        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectedOn))]
-        public DateTimeOffset? RejectedOn { get; set; }
     }
 }

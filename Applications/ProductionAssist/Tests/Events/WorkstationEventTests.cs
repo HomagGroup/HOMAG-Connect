@@ -1,14 +1,15 @@
-﻿using HomagConnect.Base;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
-using HomagConnect.MaterialManager.Contracts.Events.Material.Enums;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionAssist.Contracts.Events;
 using HomagConnect.ProductionAssist.Contracts.Events.Dividing;
 using HomagConnect.ProductionAssist.Contracts.Events.Sorting;
 
 using Newtonsoft.Json;
+
+using Workstation = HomagConnect.ProductionAssist.Contracts.Workstation;
 
 namespace HomagConnect.ProductionAssist.Tests.Events;
 
@@ -61,6 +62,26 @@ public class WorkstationEventTests : ProductionAssistTestBase
 
     /// <summary />
     [TestMethod]
+    public void Events_CycleItemLabeled_SerializeDeserialize()
+    {
+        var cycleItemLabeledEvent = new CycleItemLabeledEvent();
+
+        cycleItemLabeledEvent.SubscriptionId = Guid.NewGuid();
+        cycleItemLabeledEvent.WorkstationId = Guid.NewGuid();
+
+        cycleItemLabeledEvent.OptimizationId = Guid.NewGuid();
+        cycleItemLabeledEvent.PatternName = "0001";
+        cycleItemLabeledEvent.PatternCycle = 1;
+        cycleItemLabeledEvent.Identifier = "I0012";
+        cycleItemLabeledEvent.Trace();
+
+        Assert.IsTrue(cycleItemLabeledEvent.IsValid);
+
+        TestContext?.AddResultFile(cycleItemLabeledEvent.TraceToFile("CycleItemLabeledEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
     public void Events_WorkstationUpsertedEventCreated_SerializeDeserialize()
     {
         var workstationUpsertedEvent = new WorkstationUpsertedEvent();
@@ -75,7 +96,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         workstationUpsertedEvent.Trace();
 
         Assert.IsTrue(workstationUpsertedEvent.IsValid);
-        Assert.AreEqual(workstationUpsertedEvent.Action, UpsertAction.Created);
+        Assert.AreEqual(UpsertAction.Created, workstationUpsertedEvent.Action);
 
         TestContext?.AddResultFile(workstationUpsertedEvent.TraceToFile("workstationUpsertedEvent").FullName);
     }
@@ -97,7 +118,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         workstationUpsertedEvent.Trace();
 
         Assert.IsTrue(workstationUpsertedEvent.IsValid);
-        Assert.AreEqual(workstationUpsertedEvent.Action, UpsertAction.Updated);
+        Assert.AreEqual(UpsertAction.Updated, workstationUpsertedEvent.Action);
 
         TestContext?.AddResultFile(workstationUpsertedEvent.TraceToFile("workstationUpsertedEvent").FullName);
     }
@@ -132,7 +153,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
         Assert.IsNotNull(derivedTypes);
-        Assert.IsTrue(derivedTypes.Length > 0);
+        Assert.IsNotEmpty(derivedTypes);
 
         derivedTypes.Trace();
     }
@@ -154,6 +175,25 @@ public class WorkstationEventTests : ProductionAssistTestBase
         Assert.IsTrue(pice.IsValid);
 
         TestContext?.AddResultFile(pice.TraceToFile("ProductionItemCompletedEventSample").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_ProductionItemLabeledEvent_SerializeDeserialize()
+    {
+        var pice = new ProductionItemLabeledEvent();
+
+        pice.SubscriptionId = Guid.NewGuid();
+        pice.WorkstationId = Guid.NewGuid();
+
+        pice.Identifier = "ProdItem-01";
+        pice.Quantity = 10;
+
+        pice.Trace();
+
+        Assert.IsTrue(pice.IsValid);
+
+        TestContext?.AddResultFile(pice.TraceToFile("ProductionItemLabeledEvent1").FullName);
     }
 
 

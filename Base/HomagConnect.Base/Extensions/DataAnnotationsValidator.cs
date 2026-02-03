@@ -37,16 +37,11 @@ namespace HomagConnect.Base.Extensions
             validatedObjects.Add(obj);
             var result = TryValidateObject(obj, results, validationContextItems);
 
-            var properties = obj.GetType().GetProperties().Where(prop => prop.CanRead
-                                                                         && prop.GetIndexParameters().Length == 0).ToList();
+            var type = obj.GetType();
+            var properties = type.GetProperties().Where(prop => prop.CanRead && prop.GetIndexParameters().Length == 0).ToList();
 
             foreach (var property in properties)
             {
-                if (property.PropertyType == typeof(string) || property.PropertyType.IsValueType)
-                {
-                    continue;
-                }
-
                 var value = obj.GetPropertyValue(property.Name);
 
                 if (value == null)
@@ -54,25 +49,47 @@ namespace HomagConnect.Base.Extensions
                     continue;
                 }
 
-                if (value is IEnumerable asEnumerable)
+                // Validate attributes defined on the interface as well as on the class property
+                var validationAttributes = property.GetCustomAttributes(typeof(ValidationAttribute), true)
+                    .Cast<ValidationAttribute>()
+                    .ToList();
+
+                foreach (var i in type.GetInterfaces())
+                {
+                    var interfaceProperty = i.GetProperty(property.Name);
+
+                    if (interfaceProperty != null)
+                    {
+                        var interfaceAttrs = interfaceProperty.GetCustomAttributes(typeof(ValidationAttribute), true)
+                            .Cast<ValidationAttribute>();
+                        validationAttributes.AddRange(interfaceAttrs);
+                    }
+                }
+
+                foreach (var attr in validationAttributes.Distinct())
+                {
+                    var validationResult = attr.GetValidationResult(value, new ValidationContext(obj) { MemberName = property.Name });
+                    if (validationResult != ValidationResult.Success)
+                    {
+                        results.Add(new ValidationResult(attr.FormatErrorMessage(property.Name), [property.Name]));
+                        result = false;
+                    }
+                }
+
+                if (value is IEnumerable asEnumerable && !(value is string))
                 {
                     var index = 0;
-
                     foreach (var enumObj in asEnumerable)
                     {
                         if (enumObj != null)
                         {
                             var nestedResults = new List<ValidationResult>();
-
                             if (!TryValidateObjectRecursive(enumObj, nestedResults, validatedObjects, validationContextItems))
                             {
                                 result = false;
-
                                 foreach (var validationResult in nestedResults)
                                 {
-                                    var property1 = property;
-                                    var index1 = index;
-                                    results.Add(new ValidationResult(validationResult.ErrorMessage, validationResult.MemberNames.Select(x => property1.Name + $"[{index1}]." + x)));
+                                    results.Add(new ValidationResult(validationResult.ErrorMessage, validationResult.MemberNames.Select(x => property.Name + $"[{index}]." + x)));
                                 }
                             }
                         }
@@ -80,18 +97,15 @@ namespace HomagConnect.Base.Extensions
                         index++;
                     }
                 }
-                else
+                else if (!(value is string) && !property.PropertyType.IsValueType)
                 {
                     var nestedResults = new List<ValidationResult>();
-
                     if (!TryValidateObjectRecursive(value, nestedResults, validatedObjects, validationContextItems))
                     {
                         result = false;
-
                         foreach (var validationResult in nestedResults)
                         {
-                            var property1 = property;
-                            results.Add(new ValidationResult(validationResult.ErrorMessage, validationResult.MemberNames.Select(x => property1.Name + '.' + x)));
+                            results.Add(new ValidationResult(validationResult.ErrorMessage, validationResult.MemberNames.Select(x => property.Name + '.' + x)));
                         }
                     }
                 }

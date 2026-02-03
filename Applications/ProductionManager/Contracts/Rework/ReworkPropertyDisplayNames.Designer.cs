@@ -19,7 +19,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ReworkPropertyDisplayNames {
@@ -79,11 +79,29 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erfasst.
+        ///   Looks up a localized string similar to Erfasst am.
         /// </summary>
         public static string CapturedAt {
             get {
                 return ResourceManager.GetString("CapturedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erfasst von.
+        /// </summary>
+        public static string CapturedBy {
+            get {
+                return ResourceManager.GetString("CapturedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erfassungsdetails.
+        /// </summary>
+        public static string CaptureDetails {
+            get {
+                return ResourceManager.GetString("CaptureDetails", resourceCulture);
             }
         }
         
@@ -106,11 +124,11 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erfassungsdetails.
+        ///   Looks up a localized string similar to Kundenname.
         /// </summary>
-        public static string CreationDetails {
+        public static string CustomerName {
             get {
-                return ResourceManager.GetString("CreationDetails", resourceCulture);
+                return ResourceManager.GetString("CustomerName", resourceCulture);
             }
         }
         
@@ -129,6 +147,24 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Letzter Arbeitsplatz.
+        /// </summary>
+        public static string LastWorkstation {
+            get {
+                return ResourceManager.GetString("LastWorkstation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Länge.
+        /// </summary>
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
             }
         }
         
@@ -169,20 +205,20 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abgelehnt am.
+        /// </summary>
+        public static string RejectedAt {
+            get {
+                return ResourceManager.GetString("RejectedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abgelehnt von.
         /// </summary>
         public static string RejectedBy {
             get {
                 return ResourceManager.GetString("RejectedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Abgelehnt am.
-        /// </summary>
-        public static string RejectedOn {
-            get {
-                return ResourceManager.GetString("RejectedOn", resourceCulture);
             }
         }
         
@@ -210,6 +246,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         public static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breite.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
     }

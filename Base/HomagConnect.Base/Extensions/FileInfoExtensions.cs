@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Extensions;
 
 using Newtonsoft.Json;

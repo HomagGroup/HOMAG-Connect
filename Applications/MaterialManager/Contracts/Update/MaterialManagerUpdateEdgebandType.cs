@@ -39,6 +39,11 @@ public class MaterialManagerUpdateEdgebandType : MaterialManagerUpdateMaterialTy
     public string? EdgebandCode { get; set; }
 
     /// <summary>
+    /// Gets or sets the id from an external system for an edgeband type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
+
+    /// <summary>
     /// Gets or sets the protection layer thickness.
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
@@ -105,4 +110,5 @@ public class MaterialManagerUpdateEdgebandType : MaterialManagerUpdateMaterialTy
     /// </summary>
     [Range(0, int.MaxValue)]
     public int? TotalQuantityAvailableWarningLimit { get; set; }
+
 }

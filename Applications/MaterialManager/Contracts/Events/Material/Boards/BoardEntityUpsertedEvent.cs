@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
-using HomagConnect.MaterialManager.Contracts.Events.Material.Enums;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 using Newtonsoft.Json;

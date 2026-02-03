@@ -1,13 +1,15 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
+
+using Newtonsoft.Json;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-
-using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
@@ -43,6 +45,11 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// </summary>
     [Key]
     public string? EdgebandCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id from an external system for the edgeband type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
 
     /// <summary>
     /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
@@ -160,8 +167,10 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Gets or sets the id from an external system.
     /// </summary>
+    [Obsolete ("use ExternalSystemId instead", false)]
     public string? ExternalId { get; set; }
 
+  
     #endregion
 
     #region Inventory

@@ -1,7 +1,5 @@
 ﻿using Shouldly;
 using System.Globalization;
-
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
@@ -12,6 +10,7 @@ using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
 using Newtonsoft.Json;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.IntelliDivide.Tests.Events;
 

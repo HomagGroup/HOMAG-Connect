@@ -117,16 +117,104 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ILaminatingProperties_LaminateBottom" xml:space="preserve">
+  <data name="AdditionalData" xml:space="preserve">
+    <value>Zusatzdaten</value>
+    <comment>Additional data</comment>
+  </data>
+  <data name="AdditionalProperties" xml:space="preserve">
+    <value>Weitere Eigenschaften</value>
+    <comment>Additional properties</comment>
+  </data>
+  <data name="ArticleNumber" xml:space="preserve">
+    <value>Artikelnummer</value>
+  </data>
+  <data name="CncProgramName1" xml:space="preserve">
+    <value>CNC-Programm 1</value>
+  </data>
+  <data name="CncProgramName2" xml:space="preserve">
+    <value>CNC-Programm 2</value>
+  </data>
+  <data name="CncProgramName3" xml:space="preserve">
+    <value>CNC-Programm 3</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+    <comment>Description</comment>
+  </data>
+  <data name="EdgeBack" xml:space="preserve">
+    <value>Kante hinten</value>
+    <comment>Edge back</comment>
+  </data>
+  <data name="EdgeDiagram" xml:space="preserve">
+    <value>Kantengrafik</value>
+    <comment>Edge diagram</comment>
+  </data>
+  <data name="EdgeFront" xml:space="preserve">
+    <value>Kante vorne</value>
+    <comment>Edge front</comment>
+  </data>
+  <data name="EdgeLeft" xml:space="preserve">
+    <value>Kante links</value>
+    <comment>Edge left</comment>
+  </data>
+  <data name="EdgeRight" xml:space="preserve">
+    <value>Kante rechts</value>
+    <comment>Edge right</comment>
+  </data>
+  <data name="Grain" xml:space="preserve">
+    <value>Maserung</value>
+    <comment>Grain</comment>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+    <comment>Id</comment>
+  </data>
+  <data name="Identifier" xml:space="preserve">
+    <value>Kennung</value>
+    <comment>Identifier</comment>
+  </data>
+  <data name="LaminateBottom" xml:space="preserve">
     <value>Belag unten</value>
   </data>
-  <data name="ILaminatingProperties_LaminateBottomGrain" xml:space="preserve">
+  <data name="LaminateBottomGrain" xml:space="preserve">
     <value>Belag unten Maserung</value>
   </data>
-  <data name="ILaminatingProperties_LaminateTop" xml:space="preserve">
+  <data name="LaminateTop" xml:space="preserve">
     <value>Belag oben</value>
   </data>
-  <data name="ILaminatingProperties_LaminateTopGrain" xml:space="preserve">
+  <data name="LaminateTopGrain" xml:space="preserve">
     <value>Belag oben Maserung</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Länge</value>
+    <comment>Length</comment>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+    <comment>Material</comment>
+  </data>
+  <data name="OptimizationName" xml:space="preserve">
+    <value>Optimierung</value>
+    <comment>Optimization name</comment>
+  </data>
+  <data name="Part" xml:space="preserve">
+    <value>Teil</value>
+    <comment>Part</comment>
+  </data>
+  <data name="Thickness" xml:space="preserve">
+    <value>Dicke</value>
+    <comment>Thickness</comment>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Zeitpunkt</value>
+    <comment>Timestamp</comment>
+  </data>
+  <data name="UnitSystem" xml:space="preserve">
+    <value>Einheitensystem</value>
+    <comment>UnitSystem</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breite</value>
+    <comment>Width</comment>
   </data>
 </root>

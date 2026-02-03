@@ -14,6 +14,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<EmbedAllSources>true</EmbedAllSources>
 		<DebugType>Embedded</DebugType>
+		<UserSecretsId>eed30443-b51b-48cb-8136-ed16c615aa25</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">
@@ -29,6 +30,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ProductionProtocolPropertyDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Rework\ReworkPropertyDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -52,6 +58,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
+	    <LastGenOutput>ProductionProtocolPropertyDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Rework\ReworkPropertyDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ReworkPropertyDisplayNames.Designer.cs</LastGenOutput>

@@ -8,7 +8,7 @@ namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands;
 [TestClass]
 [TestCategory("MaterialAssist")]
 [TestCategory("MaterialAssist.Edgebands")]
-[TemporaryDisabledOnServer(2026, 01, 31, "DF-Material")]
+[TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
 public class GetEdgebandsTests : MaterialAssistTestBase
 {
     [ClassInitialize]

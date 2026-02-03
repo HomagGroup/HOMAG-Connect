@@ -25,7 +25,7 @@ For further information on how to obtain your Authorization Key and Subscription
 #### Prepare the import request
 
 There are several ways to request an optimization:
-1. [Importing a standardized ZIP file]()
+1. [Importing a standardized ZIP file](Samples/CSharp/Orders/Import/Readme.md)
 
 Please refer to the linked pages for detailed samples and explanations.
 

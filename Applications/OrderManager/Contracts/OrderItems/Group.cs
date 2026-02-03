@@ -53,5 +53,13 @@ public class Group : Base
     /// The position of each ConfigurationPosition must match 
     /// with the corrdinate system of the room data.
     /// </summary>
+    [JsonProperty(Order = 20)]
     public string? RoomInformation { get; set; }
+
+    /// <summary>
+    /// Gets or sets the type of group.
+    /// </summary>
+    [DefaultValue(GroupType.Default)]
+    [JsonProperty(Order = 30)]
+    public GroupType GroupType { get; set; }
 }

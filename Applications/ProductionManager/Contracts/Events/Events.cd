@@ -8,7 +8,7 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.Events.Order.OrderReleasedEvent">
     <Position X="1.5" Y="7.25" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Events\Order\OrderReleasedEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -40,8 +40,15 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Events\Order\OrderResetReleasedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Applications.ProductionManager.Contracts.Events.ProductionItem.ProductionItemStatusChangedEvent">
+    <Position X="19.5" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAgAAAAAAAAAAAAAAAAAAAAAABAAAwAAAAAA=</HashCode>
+      <FileName>Events\ProductionItem\ProductionItemStatusChangedEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="HomagConnect.ProductionManager.Contracts.Events.ProductionItem.ProductionItemProcessedAction">

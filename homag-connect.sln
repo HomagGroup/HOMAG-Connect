@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		homag-connect.sln.DotSettings = homag-connect.sln.DotSettings
 		Local.runsettings = Local.runsettings
 		README.md = README.md
+		translate.yml = translate.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base.Tests", "Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj", "{FAE434F6-9E58-4AC7-B481-8D661080FAE3}"
