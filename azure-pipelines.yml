@@ -11,11 +11,6 @@
 #     name: OneHomag/SWC-DevOps-HoT
 #     ref: main
 
-pr:
-  branches:
-    include:
-      - '*'
-
 trigger:
   branches:
     include:
@@ -23,6 +18,11 @@ trigger:
   tags:
     include:
     - '*'
+
+pr:
+  branches:
+    include:
+      - '*'
 
 variables:
   dotnetVersion: 10.0.x
