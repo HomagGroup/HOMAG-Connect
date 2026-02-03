@@ -36,11 +36,6 @@ public sealed class SolutionCharacteristicScoreWeightsAttribute : Attribute
                 throw new ArgumentException($"Argument at index {i} must be a string (score name).");
             }
 
-            if (!name.EndsWith("Score", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException($"Score name '{name}' must end with 'Score'.");
-            }
-
             if (nameWeightPairs[i + 1] is not int weight)
             {
                 throw new ArgumentException($"Argument at index {i + 1} must be an int (weight) for score '{name}'.");

@@ -1,11 +1,12 @@
 ﻿#nullable enable
 
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Result;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
-using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 {
@@ -21,7 +22,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// </summary>
         /// <param name="solutionDetails">Source solution details to evaluate.</param>
         /// <returns>Ordered evaluation results with an assigned characteristic when available.</returns>
-        public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
+        public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
         {
             var solutionCandidates = SolutionCandidates.From((solutionDetails ?? []).ToArray());
 
@@ -34,7 +35,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// </summary>
         /// <param name="solutionCandidates">Candidates to evaluate.</param>
         /// <returns>Ordered evaluation results with assigned characteristics when available.</returns>
-        public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionCandidate>? solutionCandidates)
+        public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionCandidate>? solutionCandidates)
         {
             return solutionCandidates == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates.ToArray());
         }
@@ -46,28 +47,16 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// </summary>
         /// <param name="solutionCandidates">Array of candidates to evaluate.</param>
         /// <returns>Ordered evaluation results.</returns>
-        public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(SolutionCandidate[]? solutionCandidates)
+        public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(SolutionCandidate[]? solutionCandidates)
         {
-            if (solutionCandidates == null || solutionCandidates.Length == 0)
-            {
-                return [];
-            }
+            var serialized = JsonConvert.SerializeObject(solutionCandidates);
+            var solutionCandidatesEvaluated = JsonConvert.DeserializeObject<SolutionCandidateEvaluated[]>(serialized) ?? [];
+            
+            solutionCandidatesEvaluated.CalculateAndSetPartialScores();
+            solutionCandidatesEvaluated.CalculateAndSetCharacteristicScores();
+            var characteristicsByType = DetermineCharacteristics(solutionCandidatesEvaluated);
 
-            solutionCandidates.CalculateAndSetPartialScores();
-            solutionCandidates.CalculateAndSetCharacteristicScores();
-
-            var solutionCandidatesInEvaluationOrder = solutionCandidates
-                .OrderBy(s => s.CalculationTime)
-                .ThenByDescending(s => s.TotalCostsScore)
-                .ThenByDescending(s => s.MaterialCostsScore)
-                .ThenByDescending(s => s.ProductionCostsScore)
-                .ToArray();
-
-            var characteristicsByType = DetermineCharacteristics(solutionCandidatesInEvaluationOrder);
-
-            var evaluationResults = new List<SolutionCandidateEvaluationResult>(solutionCandidates.Length);
-
-            foreach (var solutionCandidate in solutionCandidatesInEvaluationOrder)
+            foreach (var solutionCandidate in solutionCandidatesEvaluated)
             {
                 // Try to find a characteristic associated with the current candidate
 
@@ -75,28 +64,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
                 var characteristic = assignedCharacteristic.Key != 0 ? assignedCharacteristic.Key : SolutionCharacteristic.None;
 
-                evaluationResults.Add(new SolutionCandidateEvaluationResult
-                {
-                    Id = solutionCandidate.Id,
-                    Characteristic = characteristic,
-                    SolutionCandidate = solutionCandidate
-                });
+                solutionCandidate.Characteristic = characteristic;
+                solutionCandidate.Ranking = (int)characteristic;
             }
 
-            // Order: special characteristics first (by enum value), then None
-            var resultsWithCharacteristic = evaluationResults.Where(r => r.Characteristic != SolutionCharacteristic.None)
-                .OrderBy(r => (int)r.Characteristic);
-
-            var resultsWithoutCharacteristic = evaluationResults.Where(r => r.Characteristic == SolutionCharacteristic.None);
-
-            var orderedResults = resultsWithCharacteristic.Concat(resultsWithoutCharacteristic).ToArray();
-
-            for (var resultIndex = 0; resultIndex < orderedResults.Length; resultIndex++)
+            var solutionCandidateEvaluateds = 
+                solutionCandidatesEvaluated
+                    .OrderBy(s => s.Ranking)
+                    .ThenBy(s => s.CharacteristicScores[SolutionCharacteristic.BalancedSolution])
+                    .ThenBy(s => s.CalculationTime);
+            var ranking = 1;
+            foreach (var solutionCandidateEvaluated in solutionCandidateEvaluateds)
             {
-                orderedResults[resultIndex].Ranking = resultIndex + 1;
+                solutionCandidateEvaluated.Ranking = ranking++;
+                
             }
 
-            return orderedResults;
+            return solutionCandidatesEvaluated.OrderBy(s => s.Ranking).ThenBy(s => s.CalculationTime).ToArray();
         }
 
         #region Private Methods
@@ -106,7 +90,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// </summary>
         /// <param name="solutionCandidates">Candidates to evaluate.</param>
         /// <returns>Map of characteristic to the candidate that achieves it.</returns>
-        private static Dictionary<SolutionCharacteristic, Guid> DetermineCharacteristics(SolutionCandidate[] solutionCandidates)
+        private static Dictionary<SolutionCharacteristic, Guid> DetermineCharacteristics(SolutionCandidateEvaluated[] solutionCandidates)
         {
             var characteristicsByType = new Dictionary<SolutionCharacteristic, Guid>();
 
@@ -170,127 +154,126 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             return result;
         }
 
-        private static double ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
+        private static double? ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
             if (minimumValue == 0 && maximumValue == 0)
             {
-                return 0; // all zero -> no results
+                return null; // all zero -> no results
             }
 
             var range = maximumValue - minimumValue;
 
             if (range <= 0)
             {
-                return 1000; // all equal -> perfect score
+                return null; // all equal -> ignore in comparison
             }
 
             return Math.Round((1 - (value - minimumValue) / range) * 1000, 2);
         }
 
-        private static double ScoreHigherIsBetter(double value, double minimumValue, double maximumValue)
+        private static double? ScoreHigherIsBetter(double value, double minimumValue, double maximumValue)
         {
             if (minimumValue == 0 && maximumValue == 0)
             {
-                return 0; // all zero -> no results
+                return null;
             }
 
             var range = maximumValue - minimumValue;
 
             if (range <= 0)
             {
-                return 0; // all equal -> perfect score
+                return null; // all equal -> -> ignore in comparison
             }
 
-            return Math.Round(((value - minimumValue) / range) * 1000, 2);
+            return Math.Round((value - minimumValue) / range * 1000, 2);
         }
 
-
-        extension(SolutionCandidate[] solutionCandidates)
+        private static void CalculateAndSetCharacteristicScores(this SolutionCandidateEvaluated[] solutionCandidates)
         {
-            private void CalculateAndSetCharacteristicScores()
+            var characteristicScoreWeights = GetCharacteristicScoreWeights();
+
+            foreach (var characteristicScoreWeight in characteristicScoreWeights)
             {
-                var characteristicScoreWeights = GetCharacteristicScoreWeights();
+                var characteristic = characteristicScoreWeight.Key;
+                var weights = characteristicScoreWeight.Value;
 
-                foreach (var characteristicScoreWeight in characteristicScoreWeights)
+                var solutionCandidatesCharacteristicScores = new Dictionary<SolutionCandidateEvaluated, double>();
+
+                foreach (var solutionCandidate in solutionCandidates)
                 {
-                    var characteristic = characteristicScoreWeight.Key;
-                    var weights = characteristicScoreWeight.Value;
+                    double? totalScore = null;
 
-                    var solutionCandidatesCharacteristicScores = new Dictionary<SolutionCandidate, double>();
-
-                    foreach (var solutionCandidate in solutionCandidates)
+                    foreach (var weightEntry in weights)
                     {
-                        var totalScore = 0.0;
-
-                        foreach (var weightEntry in weights)
+                        var propertyName = weightEntry.Key;
+                        var weight =  weightEntry.Value;
+                            
+                        if (solutionCandidate.PartialScores.TryGetValue(propertyName, out var scoreValue))
                         {
-                            var propertyName = weightEntry.Key;
-                            var weight = weightEntry.Value;
-
-                            var scoreProperty = typeof(SolutionCandidate).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-
-                            if (scoreProperty != null && scoreProperty.PropertyType == typeof(double))
+                            if (scoreValue != null)
                             {
-                                var scoreValue = (double)scoreProperty.GetValue(solutionCandidate);
-
-                                totalScore += scoreValue * weight;
+                                totalScore ??= 0;
+                                totalScore += scoreValue.Value * weight;
                             }
                         }
-
-                        solutionCandidatesCharacteristicScores.Add(solutionCandidate, totalScore);
                     }
 
-                    foreach (var solutionCandidatesCharacteristicScore in solutionCandidatesCharacteristicScores)
+                    if (totalScore != null)
                     {
-                        var value = solutionCandidatesCharacteristicScore.Value;
-                        var minimumValue = solutionCandidatesCharacteristicScores.Values.Min();
-                        var maximumValue = solutionCandidatesCharacteristicScores.Values.Max();
-                        var range = maximumValue - minimumValue;
+                        solutionCandidatesCharacteristicScores.Add(solutionCandidate, totalScore.Value);
+                    }
+                }
 
-                        if (range > 0)
-                        {
-                            solutionCandidatesCharacteristicScore.Key.CharacteristicScores[characteristic] = ScoreHigherIsBetter(value, minimumValue, maximumValue);
-                        }
+                foreach (var solutionCandidatesCharacteristicScore in solutionCandidatesCharacteristicScores)
+                {
+                    var value = solutionCandidatesCharacteristicScore.Value;
+                    var minimumValue = solutionCandidatesCharacteristicScores.Values.Min();
+                    var maximumValue = solutionCandidatesCharacteristicScores.Values.Max();
+                    var range = maximumValue - minimumValue;
+
+                    if (range > 0)
+                    {
+                        solutionCandidatesCharacteristicScore.Key.CharacteristicScores[characteristic] = ScoreHigherIsBetter(value, minimumValue, maximumValue);
                     }
                 }
             }
+        }
 
-            /// <summary>
-            /// Calculates normalized scores for every numeric property of <see cref="SolutionCandidate" />
-            /// that has a corresponding property with the same name suffixed by "Score".
-            /// Example: for property "Cuts" it will set "CutsScore" using lower-is-better normalization.
-            /// Supports int and double properties.
-            /// </summary>
-            private void CalculateAndSetPartialScores()
+        /// <summary>
+        /// Calculates normalized scores for every numeric property of <see cref="SolutionCandidate" />
+        /// that has a corresponding property with the same name suffixed by "Score".
+        /// Example: for property "Cuts" it will set "CutsScore" using lower-is-better normalization.
+        /// Supports int and double properties.
+        /// </summary>
+        private static void CalculateAndSetPartialScores(this SolutionCandidateEvaluated[] solutionCandidates)
+        {
+            if (solutionCandidates.Length == 0)
             {
-                if (solutionCandidates.Length == 0)
-                {
-                    return;
-                }
+                return;
+            }
 
-                var solutionCandidateType = typeof(SolutionCandidate);
-                var publicInstanceProperties = solutionCandidateType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var solutionCandidateType = typeof(SolutionCandidate);
+            var publicInstanceProperties = solutionCandidateType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-                foreach (var sourceProperty in publicInstanceProperties)
+            foreach (var sourceProperty in publicInstanceProperties)
+            {
+                var lowerIsBetterAttribute = sourceProperty.GetCustomAttributes(typeof(LowerIsBetterAttribute), true).FirstOrDefault();
+                var higherIsBetterAttribute = sourceProperty.GetCustomAttributes(typeof(HigherIsBetterAttribute), true).FirstOrDefault();
+
+                if (lowerIsBetterAttribute != null || higherIsBetterAttribute != null)
                 {
-                    // Only numeric sources (int or double) are supported
                     var sourcePropertyType = sourceProperty.PropertyType;
-                    var scoreProperty = publicInstanceProperties.FirstOrDefault(p => p.Name == sourceProperty.Name + "Score" && p.PropertyType == typeof(double) && p.CanWrite);
-                    if (scoreProperty == null)
-                    {
-                        continue;
-                    }
 
-                    // Build min/max across candidates for the source property
                     var minimumValue = double.MaxValue;
                     var maximumValue = double.MinValue;
-                    var sourceValues = new double[solutionCandidates.Length];
                     var anyNumericValueFound = false;
+                    var sourceValues = new double[solutionCandidates.Length];
+                    double numericValue;
 
                     for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
                     {
                         var sourceValueObject = sourceProperty.GetValue(solutionCandidates[candidateIndex]);
-                        double numericValue;
+
                         if (sourcePropertyType == typeof(int))
                         {
                             numericValue = (int)sourceValueObject;
@@ -312,14 +295,29 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                         anyNumericValueFound = true;
                     }
 
-                    if (!anyNumericValueFound)
-                        continue;
-
-                    // Assign scores
                     for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
                     {
-                        var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-                        scoreProperty.SetValue(solutionCandidates[candidateIndex], score);
+                        if (lowerIsBetterAttribute != null)
+                        {
+                            var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+
+                            if (score != null)
+                            {
+                                solutionCandidates[candidateIndex].PartialScores[sourceProperty.Name] = score;
+                            }
+                        }
+
+                        if (higherIsBetterAttribute != null)
+                        {
+                            var score = ScoreHigherIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+
+                            if (score != null)
+                            {
+                                solutionCandidates[candidateIndex].PartialScores[sourceProperty.Name] = score;
+                            }
+
+                                
+                        }
                     }
                 }
             }
