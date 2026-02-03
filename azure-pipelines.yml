@@ -68,7 +68,7 @@ stages:
     variables:
       - name: BuildConfiguration
         value: Release
-      - group: dftranslationvariables      
+      - group: dftranslationvariables
   
     # MEND
     # dependsOn: software_composition_analysis_stage
@@ -91,7 +91,13 @@ stages:
               git log
               $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
               echo "Set version tag: $($VERSION_TAG)"
-              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
+              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
+
+        - script: |
+            echo "PR Number: $(System.PullRequest.PullRequestNumber)"
+            echo "Source Branch: $(System.PullRequest.SourceBranch)"
+            echo "Target Branch: $(System.PullRequest.TargetBranch)"
+          displayName: "Debug PR Variables"
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
@@ -118,7 +124,20 @@ stages:
                 sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber)
                 sonar.pullrequest.branch=$(System.PullRequest.SourceBranch)
                 sonar.pullrequest.base=$(System.PullRequest.TargetBranch)
-          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false, eq(variables['Build.Reason'], 'PullRequest')))
+
+        - task: SonarQubePrepare@7
+          displayName: 'Prepare analysis on SonarQube'
+          inputs:
+            SonarQube: 'SonarQube Enterprise'
+            projectKey: $(ProductName).$(ProjectName)
+            projectName: $(ProductName).$(ProjectName)
+            projectVersion: '$(MajorMinorBuildVersion)'
+            extraProperties: |
+              sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+              sonar.branch.name=$(Build.SourceBranchName)
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false), ne(variables['Build.Reason'], 'PullRequest'))
+
 
         - task: ResourceTranslation@3
           displayName: 'ResourceTranslation'
