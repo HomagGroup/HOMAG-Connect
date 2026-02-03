@@ -24,7 +24,10 @@ public enum SolutionCharacteristic
     /// This characteristic is available only if both production and material costs are known.
     /// It is generally recommended for typical scenarios.
     /// </remarks>
-    [SolutionCharacteristicScoreWeights(nameof(SolutionCandidate.TotalCosts), 1000)]
+    [SolutionCharacteristicScoreWeights(
+        nameof(SolutionCandidate.TotalCosts), 1000,
+        nameof(SolutionCandidate.MaterialCosts), 100
+    )]
     LowestTotalCosts,
 
     /// <summary>

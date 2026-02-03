@@ -50,5 +50,5 @@ public sealed class SolutionCharacteristicScoreWeightsAttribute : Attribute
     /// <summary>
     /// Parsed weights keyed by score name.
     /// </summary>
-    public IReadOnlyDictionary<string, int> Weights { get; }
+    public Dictionary<string, int> Weights { get; }
 }
