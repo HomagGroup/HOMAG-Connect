@@ -11,13 +11,13 @@
 #     name: OneHomag/SWC-DevOps-HoT
 #     ref: main
 
-trigger:
-  branches:
-    include:
-    - '*'
-  tags:
-    include:
-    - '*'
+#trigger:
+#  branches:
+#    include:
+#    - '*'
+#  tags:
+#    include:
+#    - '*'
 
 pr:
   branches:
