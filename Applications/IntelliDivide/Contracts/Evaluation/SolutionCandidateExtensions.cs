@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
@@ -60,33 +59,44 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
             solutionCandidatesEvaluated.CalculateAndSetPartialScores();
             solutionCandidatesEvaluated.CalculateAndSetCharacteristicScores();
+            solutionCandidatesEvaluated.CalculateCharacteristics();
+            solutionCandidatesEvaluated.CalculateRanking();
 
-            var characteristicsByType = DetermineCharacteristics(solutionCandidatesEvaluated);
+            return solutionCandidatesEvaluated.OrderBy(s => s.Ranking).ToArray();
+        }
 
-            foreach (var solutionCandidate in solutionCandidatesEvaluated)
-            {
-                // Try to find a characteristic associated with the current candidate
-
-                var assignedCharacteristic = characteristicsByType.FirstOrDefault(c => c.Value == solutionCandidate.Id);
-
-                var characteristic = assignedCharacteristic.Key != 0 ? assignedCharacteristic.Key : SolutionCharacteristic.None;
-
-                solutionCandidate.Characteristic = characteristic;
-                solutionCandidate.Ranking = (int)characteristic;
-            }
-
-            var solutionCandidateEvaluateds =
+        private static void CalculateRanking(this SolutionCandidateEvaluated[] solutionCandidatesEvaluated)
+        {
+            var solutionCandidateSorted =
                 solutionCandidatesEvaluated
-                    .OrderBy(s => s.Ranking)
+                    .OrderBy(s => s.Characteristic)
                     .ThenBy(s => s.CharacteristicScores[SolutionCharacteristic.BalancedSolution])
                     .ThenBy(s => s.CalculationTime);
+           
             var ranking = 1;
-            foreach (var solutionCandidateEvaluated in solutionCandidateEvaluateds)
+
+            foreach (var solutionCandidateEvaluated in solutionCandidateSorted)
             {
                 solutionCandidateEvaluated.Ranking = ranking++;
             }
+        }
 
-            return solutionCandidatesEvaluated.OrderBy(s => s.Ranking).ThenBy(s => s.CalculationTime).ToArray();
+        private static void CalculateCharacteristics(this SolutionCandidateEvaluated[] solutionCandidatesEvaluated)
+        {
+            foreach (var solutionCandidateEvaluated in solutionCandidatesEvaluated)
+            {
+                foreach (SolutionCharacteristic characteristicValue in Enum.GetValues(typeof(SolutionCharacteristic)))
+                {
+                    var bestCandidate = solutionCandidatesEvaluated
+                        .Where(s => s.CharacteristicScores.TryGetValue(characteristicValue, out var score) && score.HasValue)
+                        .OrderByDescending(s => s.CharacteristicScores[characteristicValue]).FirstOrDefault();
+
+                    if (bestCandidate != null && bestCandidate.Id == solutionCandidateEvaluated.Id)
+                    {
+                        solutionCandidateEvaluated.Characteristics.Add(characteristicValue);
+                    }
+                }
+            }
         }
 
         #region Private Methods
@@ -183,12 +193,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                 }
 
                 return _characteristicScoreWeights;
-            
-
+            }
         }
-        }
-
-      
 
         private static double? ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
@@ -226,8 +232,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
         private static void CalculateAndSetCharacteristicScores(this SolutionCandidateEvaluated[] solutionCandidates)
         {
-
-            foreach (var characteristicScoreWeight in CharacteristicScoreWeights)       
+            foreach (var characteristicScoreWeight in CharacteristicScoreWeights)
             {
                 var characteristic = characteristicScoreWeight.Key;
                 var weights = characteristicScoreWeight.Value;
@@ -293,52 +298,48 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             {
                 if (KeyFiguresUsedForAtLeastOneSolutionCharacteristic.Contains(solutionKeyFigure))
                 {
+                    var minimumValue = double.MaxValue;
+                    var maximumValue = double.MinValue;
+                    var sourceValues = new double[solutionCandidates.Length];
 
-                
-
-                var minimumValue = double.MaxValue;
-                var maximumValue = double.MinValue;
-                var sourceValues = new double[solutionCandidates.Length];
-
-                for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
-                {
-                    if (solutionCandidates[candidateIndex].KeyFigures.TryGetValue(solutionKeyFigure, out double? value))
+                    for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
                     {
-                        if (value != null)
+                        if (solutionCandidates[candidateIndex].KeyFigures.TryGetValue(solutionKeyFigure, out double? value))
                         {
-                            sourceValues[candidateIndex] = value.Value;
-                            if (value < minimumValue) minimumValue = value.Value;
-                            if (value > maximumValue) maximumValue = value.Value;
+                            if (value != null)
+                            {
+                                sourceValues[candidateIndex] = value.Value;
+                                if (value < minimumValue) minimumValue = value.Value;
+                                if (value > maximumValue) maximumValue = value.Value;
+                            }
                         }
                     }
-                }
 
-                for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
-                {
-                    if (IsLowerIsBetter(solutionKeyFigure))
+                    for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
                     {
-                        var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-
-                        if (score != null)
+                        if (IsLowerIsBetter(solutionKeyFigure))
                         {
-                            solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
+                            var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+
+                            if (score != null)
+                            {
+                                solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
+                            }
+                        }
+                        else
+                        {
+                            var score = ScoreHigherIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+
+                            if (score != null)
+                            {
+                                solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
+                            }
                         }
                     }
-                    else
-                    {
-                        var score = ScoreHigherIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-
-                        if (score != null)
-                        {
-                            solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
-                        }
-                    }
-                }
                 }
             }
         }
 
-      
         private static bool IsLowerIsBetter(SolutionKeyFigure solutionKeyFigure)
         {
             var enumType = typeof(SolutionKeyFigure);
@@ -346,9 +347,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             if (name == null) return false;
 
             var field = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
-            if (field == null) return false;
-
-            return field.GetCustomAttributes(typeof(LowerIsBetterAttribute), inherit: false).Any();
+            return field != null && field.GetCustomAttributes(typeof(LowerIsBetterAttribute), inherit: false).Any();
         }
 
         #endregion

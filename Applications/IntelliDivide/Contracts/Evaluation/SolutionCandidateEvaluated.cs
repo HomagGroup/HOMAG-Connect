@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 
@@ -38,7 +39,19 @@ public class SolutionCandidateEvaluated
     /// Gets or sets the characteristic assigned to the solution candidate.
     /// </summary>
     [JsonProperty(Order = 2)]
-    public SolutionCharacteristic Characteristic { get; set; } = SolutionCharacteristic.None;
+    public SolutionCharacteristic Characteristic
+    {
+        get
+        {
+            return Characteristics.Any() ? Characteristics.First() : SolutionCharacteristic.None;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the collection of additional characteristics associated with the solution candidate.
+    /// </summary>
+    [JsonProperty(Order = 3)]
+    public List<SolutionCharacteristic> Characteristics { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the collection of scores associated with each solution characteristic.
