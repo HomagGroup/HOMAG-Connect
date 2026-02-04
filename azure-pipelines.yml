@@ -122,8 +122,6 @@ stages:
             projectVersion: '$(MajorMinorBuildVersion)'
             extraProperties: |
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
-                sonar.pullrequest.provider=github
-                sonar.pullrequest.github.repository=HomagGroup/HOMAG-Connect
                 sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber)
                 sonar.pullrequest.branch=$(System.PullRequest.SourceBranch)
                 sonar.pullrequest.base=$(System.PullRequest.TargetBranch)
