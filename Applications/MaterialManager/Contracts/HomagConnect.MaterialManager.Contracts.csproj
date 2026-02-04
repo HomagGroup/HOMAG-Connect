@@ -95,6 +95,16 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>TensionTrimTypeDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Statistics\MaterialStatisticsDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MaterialStatisticsDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Statistics\StatisticsDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>StatisticsDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Surfaces\Textures\TextureDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -158,6 +168,14 @@
 	  <EmbeddedResource Update="Processing\Optimization\TensionTrimTypeDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>TensionTrimTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Statistics\MaterialStatisticsDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>MaterialStatisticsDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Statistics\StatisticsDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>StatisticsDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Surfaces\Textures\TextureDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>

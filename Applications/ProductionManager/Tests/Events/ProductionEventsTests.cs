@@ -4,6 +4,7 @@ using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts.Events.Order;
 using HomagConnect.ProductionManager.Contracts.Events.ProductionItem;
+using HomagConnect.ProductionManager.Contracts.Events.Rework;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using Newtonsoft.Json;
@@ -87,6 +88,7 @@ public class ProductionEventsTests : ProductionManagerTestBase
            
         };
 
+        Assert.IsTrue(orderReleased.IsValid);
         TestContext?.AddResultFile(orderReleased.TraceToFile("OrderReleasedEvent").FullName);
 
         var orderReleasedSerialized = JsonConvert.SerializeObject(orderReleased, SerializerSettings.Default);
@@ -108,6 +110,7 @@ public class ProductionEventsTests : ProductionManagerTestBase
 
         };
 
+        Assert.IsTrue(orderEvent.IsValid);
         TestContext?.AddResultFile(orderEvent.TraceToFile("OrderStatusChangedEvent").FullName);
 
         var eventSerialized = JsonConvert.SerializeObject(orderEvent, SerializerSettings.Default);
@@ -125,10 +128,13 @@ public class ProductionEventsTests : ProductionManagerTestBase
         {
             Timestamp = completedAt,
             SubscriptionId = Guid.NewGuid(),
-            Status = ProductionItemStatus.InProduction
-
+            Status = ProductionItemStatus.InProduction,
+            Quantity = 1,
+            Identifier = "0123456",
+            WorkstationId = Guid.NewGuid(),
         };
 
+        Assert.IsTrue(productionItemEvent.IsValid);
         TestContext?.AddResultFile(productionItemEvent.TraceToFile("ProductionItemStatusChangedEvent").FullName);
 
         var eventSerialized = JsonConvert.SerializeObject(productionItemEvent, SerializerSettings.Default);
@@ -136,6 +142,59 @@ public class ProductionEventsTests : ProductionManagerTestBase
 
         Assert.IsNotNull(eventDeserialized);
         Assert.AreEqual(productionItemEvent.Key, eventDeserialized.Key);
+    }
+
+    [TestMethod]
+    public void ReworkStatusChangedEvent_Serialization()
+    {
+        var completedAt = DateTimeOffset.Now;
+        var reworkEvent = new ReworkStatusChangedEvent
+        {
+            Timestamp = completedAt,
+            SubscriptionId = Guid.NewGuid(),
+            State = Contracts.Rework.ReworkState.Pending,
+            StatusChangedBy = "Test User",
+            ReworkId = "RW-001",
+            Identifier = "0123456"
+        };
+
+        Assert.IsTrue(reworkEvent.IsValid);
+        TestContext?.AddResultFile(reworkEvent.TraceToFile("ReworkStatusChangedEvent").FullName);
+
+        var eventSerialized = JsonConvert.SerializeObject(reworkEvent, SerializerSettings.Default);
+        var eventDeserialized = JsonConvert.DeserializeObject<AppEvent>(eventSerialized);
+
+        Assert.IsNotNull(eventDeserialized);
+        Assert.AreEqual(reworkEvent.Key, eventDeserialized.Key);
+    }
+
+    [TestMethod]
+    public void ReworkCreatedEvent_Serialization()
+    {
+        var completedAt = DateTimeOffset.Now;
+        var reworkEvent = new ReworkCreatedEvent
+        {
+            Timestamp = completedAt,
+            SubscriptionId = Guid.NewGuid(),
+            Rework = new Contracts.Rework.Rework
+            {
+                Id = "0123456",
+                CapturedAt = completedAt,
+                Description = "Test Rework",
+                State = Contracts.Rework.ReworkState.Pending,
+                ReworkId = "RW-001"
+            }
+
+        };
+
+        Assert.IsTrue(reworkEvent.IsValid);
+        TestContext?.AddResultFile(reworkEvent.TraceToFile("ReworkCreatedEvent").FullName);
+
+        var eventSerialized = JsonConvert.SerializeObject(reworkEvent, SerializerSettings.Default);
+        var eventDeserialized = JsonConvert.DeserializeObject<AppEvent>(eventSerialized);
+
+        Assert.IsNotNull(eventDeserialized);
+        Assert.AreEqual(reworkEvent.Key, eventDeserialized.Key);
     }
 
 }
