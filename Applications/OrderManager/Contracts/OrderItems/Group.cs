@@ -62,4 +62,10 @@ public class Group : Base
     [DefaultValue(GroupType.Default)]
     [JsonProperty(Order = 30)]
     public GroupType GroupType { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether Bill of Materials (BOM) data is required for processing.
+    /// </summary>
+    [JsonProperty(Order = 40)]
+    public bool? NeedsBOMData { get; set; }
 }
