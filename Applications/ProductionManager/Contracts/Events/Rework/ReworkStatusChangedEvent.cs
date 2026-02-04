@@ -39,5 +39,12 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Rework
         [Required]
         [JsonProperty(Order = 13)]
         public string? Identifier { get; set; }
+
+        /// <summary>
+        /// Rejection details if available
+        /// </summary>
+        [Required]
+        [JsonProperty(Order = 14)]
+        public RejectionDetails? RejectionDetails { get; set; } = null;
     }
 }
