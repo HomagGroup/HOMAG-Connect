@@ -160,6 +160,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Letzter Arbeitsplatz-ID.
+        /// </summary>
+        public static string LastWorkstationId {
+            get {
+                return ResourceManager.GetString("LastWorkstationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Länge.
         /// </summary>
         public static string Length {
@@ -237,6 +246,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         public static string Rework {
             get {
                 return ResourceManager.GetString("Rework", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nachfertigungs-ID.
+        /// </summary>
+        public static string ReworkId {
+            get {
+                return ResourceManager.GetString("ReworkId", resourceCulture);
             }
         }
         

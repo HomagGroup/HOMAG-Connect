@@ -205,4 +205,12 @@
     <value>Breite</value>
     <comment>Width</comment>
   </data>
+  <data name="LastWorkstationId" xml:space="preserve">
+    <value>Letzter Arbeitsplatz-ID</value>
+    <comment>LastWorkstationId</comment>
+  </data>
+  <data name="ReworkId" xml:space="preserve">
+    <value>Nachfertigungs-ID</value>
+    <comment>ReworkId</comment>
+  </data>
 </root>
