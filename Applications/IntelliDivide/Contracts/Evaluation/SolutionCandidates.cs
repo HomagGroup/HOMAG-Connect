@@ -1,4 +1,7 @@
 ﻿#nullable enable
+using System.Collections.Generic;
+
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
@@ -19,31 +22,34 @@ public static class SolutionCandidates
             return [];
         }
 
-        var candidates = new SolutionCandidate[solutionDetails.Length];
+        var solutionCandidates = new List<SolutionCandidate>();
 
-        for (var i = 0; i < solutionDetails.Length; i++)
+        foreach (var sd in solutionDetails)
         {
-            var sd = solutionDetails[i];
             var production = sd.KeyFigures?.Production?.Output;
             var material = sd.KeyFigures?.Material?.BoardsAndOffcuts;
             var costs = sd.Overview?.Figures?.Costs;
 
-            candidates[i] = new SolutionCandidate
+            var solutionCandidate = new SolutionCandidate
             {
                 Id = sd.Id,
-                CalculationTime = 20,
-                MaterialCosts = costs?.MaterialCosts ?? 0,
-                // Source currently does not expose ProductionCosts/TotalCosts; set to 0
-                ProductionCosts = 0,
-                TotalCosts = 0,
-                ProductionTime = production?.ProductionTime.TotalSeconds ?? 0,
-                QuantityOfParts = production?.QuantityOfParts ?? 0,
-                OffcutsTotal = material?.OffcutsTotal ?? 0,
-                Cuts = production?.Cuts ?? 0,
-                Waste = material?.Waste ?? 0
+                CalculationTime = 20
             };
+
+            solutionCandidate.KeyFigures[SolutionKeyFigure.MaterialCosts] = costs?.MaterialCosts ?? null;
+
+            solutionCandidate.KeyFigures[SolutionKeyFigure.ProductionCosts] = 0;
+            solutionCandidate.KeyFigures[SolutionKeyFigure.TotalCosts] = 0;
+            solutionCandidate.KeyFigures[SolutionKeyFigure.ProductionTime] = production?.ProductionTime.TotalSeconds ?? 0;
+            solutionCandidate.KeyFigures[SolutionKeyFigure.PartsQuantity] = production?.QuantityOfParts ?? 0;
+
+            solutionCandidate.KeyFigures[SolutionKeyFigure.OffcutsTotal] = material?.OffcutsTotal ?? 0;
+            solutionCandidate.KeyFigures[SolutionKeyFigure.Cuts] = production?.Cuts ?? 0;
+            solutionCandidate.KeyFigures[SolutionKeyFigure.WastePercentage] = material?.Waste ?? 0;
+
+            solutionCandidates.Add(solutionCandidate);
         }
 
-        return candidates;
+        return solutionCandidates.ToArray();
     }
 }

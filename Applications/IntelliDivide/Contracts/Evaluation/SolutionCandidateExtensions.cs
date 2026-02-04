@@ -1,12 +1,14 @@
 ﻿#nullable enable
 
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
-using HomagConnect.IntelliDivide.Contracts.Result;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
+
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 {
@@ -49,11 +51,16 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
         /// <returns>Ordered evaluation results.</returns>
         public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(SolutionCandidate[]? solutionCandidates)
         {
-            var serialized = JsonConvert.SerializeObject(solutionCandidates);
-            var solutionCandidatesEvaluated = JsonConvert.DeserializeObject<SolutionCandidateEvaluated[]>(serialized) ?? [];
-            
+            if (solutionCandidates == null)
+            {
+                return [];
+            }
+
+            var solutionCandidatesEvaluated = solutionCandidates.Select(s => new SolutionCandidateEvaluated(s)).ToArray();
+
             solutionCandidatesEvaluated.CalculateAndSetPartialScores();
             solutionCandidatesEvaluated.CalculateAndSetCharacteristicScores();
+
             var characteristicsByType = DetermineCharacteristics(solutionCandidatesEvaluated);
 
             foreach (var solutionCandidate in solutionCandidatesEvaluated)
@@ -68,7 +75,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                 solutionCandidate.Ranking = (int)characteristic;
             }
 
-            var solutionCandidateEvaluateds = 
+            var solutionCandidateEvaluateds =
                 solutionCandidatesEvaluated
                     .OrderBy(s => s.Ranking)
                     .ThenBy(s => s.CharacteristicScores[SolutionCharacteristic.BalancedSolution])
@@ -77,7 +84,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             foreach (var solutionCandidateEvaluated in solutionCandidateEvaluateds)
             {
                 solutionCandidateEvaluated.Ranking = ranking++;
-                
             }
 
             return solutionCandidatesEvaluated.OrderBy(s => s.Ranking).ThenBy(s => s.CalculationTime).ToArray();
@@ -120,39 +126,69 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             return characteristicsByType;
         }
 
-        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<string, int>> GetCharacteristicScoreWeights()
+        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>? _characteristicScoreWeights;
+        private static SolutionKeyFigure[]? _keyFiguresUsedForAtLeastOneSolutionCharacteristic;
+
+        private static IEnumerable<SolutionKeyFigure> KeyFiguresUsedForAtLeastOneSolutionCharacteristic
         {
-            var result = new Dictionary<SolutionCharacteristic, IReadOnlyDictionary<string, int>>();
-
-            var enumType = typeof(SolutionCharacteristic);
-            foreach (SolutionCharacteristic characteristic in Enum.GetValues(enumType))
+            get
             {
-                var name = Enum.GetName(enumType, characteristic);
-                if (name == null)
+                if (_keyFiguresUsedForAtLeastOneSolutionCharacteristic == null)
                 {
-                    continue;
+                    _keyFiguresUsedForAtLeastOneSolutionCharacteristic = CharacteristicScoreWeights
+                        .SelectMany(c => c.Value.Keys)
+                        .Distinct().ToArray();
                 }
 
-                var field = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
-                if (field == null)
-                {
-                    continue;
-                }
-
-                var attr = field.GetCustomAttribute<SolutionCharacteristicScoreWeightsAttribute>();
-                if (attr != null)
-                {
-                    result[characteristic] = attr.Weights;
-                }
-                else
-                {
-                    // No attribute: store an empty dictionary for consistency
-                    result[characteristic] = new Dictionary<string, int>();
-                }
+                return _keyFiguresUsedForAtLeastOneSolutionCharacteristic;
             }
-
-            return result;
         }
+
+        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>> CharacteristicScoreWeights
+        {
+            get
+            {
+                if (_characteristicScoreWeights == null)
+                {
+                    var result = new Dictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>();
+
+                    var enumType = typeof(SolutionCharacteristic);
+                    foreach (SolutionCharacteristic characteristic in Enum.GetValues(enumType))
+                    {
+                        var name = Enum.GetName(enumType, characteristic);
+                        if (name == null)
+                        {
+                            continue;
+                        }
+
+                        var field1 = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
+                        if (field1 == null)
+                        {
+                            continue;
+                        }
+
+                        var attr = field1.GetCustomAttribute<SolutionCharacteristicScoreWeightsAttribute>();
+                        if (attr != null)
+                        {
+                            result[characteristic] = attr.Weights;
+                        }
+                        else
+                        {
+                            // No attribute: store an empty dictionary for consistency
+                            result[characteristic] = new Dictionary<SolutionKeyFigure, int>();
+                        }
+                    }
+
+                    _characteristicScoreWeights = result;
+                }
+
+                return _characteristicScoreWeights;
+            
+
+        }
+        }
+
+      
 
         private static double? ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
@@ -190,9 +226,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
         private static void CalculateAndSetCharacteristicScores(this SolutionCandidateEvaluated[] solutionCandidates)
         {
-            var characteristicScoreWeights = GetCharacteristicScoreWeights();
 
-            foreach (var characteristicScoreWeight in characteristicScoreWeights)
+            foreach (var characteristicScoreWeight in CharacteristicScoreWeights)       
             {
                 var characteristic = characteristicScoreWeight.Key;
                 var weights = characteristicScoreWeight.Value;
@@ -206,8 +241,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                     foreach (var weightEntry in weights)
                     {
                         var propertyName = weightEntry.Key;
-                        var weight =  weightEntry.Value;
-                            
+                        var weight = weightEntry.Value;
+
                         if (solutionCandidate.PartialScores.TryGetValue(propertyName, out var scoreValue))
                         {
                             if (scoreValue != null)
@@ -252,75 +287,68 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                 return;
             }
 
-            var solutionCandidateType = typeof(SolutionCandidate);
-            var publicInstanceProperties = solutionCandidateType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var solutionKeyFigures = solutionCandidates.SelectMany(s => s.KeyFigures.Keys).Distinct().ToArray();
 
-            foreach (var sourceProperty in publicInstanceProperties)
+            foreach (var solutionKeyFigure in solutionKeyFigures)
             {
-                var lowerIsBetterAttribute = sourceProperty.GetCustomAttributes(typeof(LowerIsBetterAttribute), true).FirstOrDefault();
-                var higherIsBetterAttribute = sourceProperty.GetCustomAttributes(typeof(HigherIsBetterAttribute), true).FirstOrDefault();
-
-                if (lowerIsBetterAttribute != null || higherIsBetterAttribute != null)
+                if (KeyFiguresUsedForAtLeastOneSolutionCharacteristic.Contains(solutionKeyFigure))
                 {
-                    var sourcePropertyType = sourceProperty.PropertyType;
 
-                    var minimumValue = double.MaxValue;
-                    var maximumValue = double.MinValue;
-                    var anyNumericValueFound = false;
-                    var sourceValues = new double[solutionCandidates.Length];
-                    double numericValue;
+                
 
-                    for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                var minimumValue = double.MaxValue;
+                var maximumValue = double.MinValue;
+                var sourceValues = new double[solutionCandidates.Length];
+
+                for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                {
+                    if (solutionCandidates[candidateIndex].KeyFigures.TryGetValue(solutionKeyFigure, out double? value))
                     {
-                        var sourceValueObject = sourceProperty.GetValue(solutionCandidates[candidateIndex]);
-
-                        if (sourcePropertyType == typeof(int))
+                        if (value != null)
                         {
-                            numericValue = (int)sourceValueObject;
-                        }
-                        else if (sourcePropertyType == typeof(double))
-                        {
-                            numericValue = (double)sourceValueObject;
-                        }
-                        else
-                        {
-                            // Non-numeric types are skipped
-                            sourceValues[candidateIndex] = 0;
-                            continue;
-                        }
-
-                        sourceValues[candidateIndex] = numericValue;
-                        if (numericValue < minimumValue) minimumValue = numericValue;
-                        if (numericValue > maximumValue) maximumValue = numericValue;
-                        anyNumericValueFound = true;
-                    }
-
-                    for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
-                    {
-                        if (lowerIsBetterAttribute != null)
-                        {
-                            var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-
-                            if (score != null)
-                            {
-                                solutionCandidates[candidateIndex].PartialScores[sourceProperty.Name] = score;
-                            }
-                        }
-
-                        if (higherIsBetterAttribute != null)
-                        {
-                            var score = ScoreHigherIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-
-                            if (score != null)
-                            {
-                                solutionCandidates[candidateIndex].PartialScores[sourceProperty.Name] = score;
-                            }
-
-                                
+                            sourceValues[candidateIndex] = value.Value;
+                            if (value < minimumValue) minimumValue = value.Value;
+                            if (value > maximumValue) maximumValue = value.Value;
                         }
                     }
                 }
+
+                for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                {
+                    if (IsLowerIsBetter(solutionKeyFigure))
+                    {
+                        var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+
+                        if (score != null)
+                        {
+                            solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
+                        }
+                    }
+                    else
+                    {
+                        var score = ScoreHigherIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
+
+                        if (score != null)
+                        {
+                            solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
+                        }
+                    }
+                }
+                }
             }
+        }
+
+      
+        private static bool IsLowerIsBetter(SolutionKeyFigure solutionKeyFigure)
+        {
+            var enumType = typeof(SolutionKeyFigure);
+            var name = Enum.GetName(enumType, solutionKeyFigure);
+            if (name == null) return false;
+
+            var field = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
+            if (field == null) return false;
+
+            return field.GetCustomAttributes(typeof(LowerIsBetterAttribute), inherit: false).Any();
         }
 
         #endregion

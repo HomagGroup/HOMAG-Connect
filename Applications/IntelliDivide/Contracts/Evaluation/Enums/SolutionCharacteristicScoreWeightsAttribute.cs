@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 
 /// <summary>
 /// Attribute that accepts an array of string/int pairs as parameters,
@@ -16,7 +16,7 @@ public sealed class SolutionCharacteristicScoreWeightsAttribute : Attribute
     /// <param name="nameWeightPairs">Alternating string (name) and int (weight) values.</param>
     public SolutionCharacteristicScoreWeightsAttribute(params object[] nameWeightPairs)
     {
-        var dictionary = new Dictionary<string, int>(StringComparer.Ordinal);
+        var dictionary = new Dictionary<SolutionKeyFigure, int>();
 
         if (nameWeightPairs == null || nameWeightPairs.Length == 0)
         {
@@ -31,17 +31,17 @@ public sealed class SolutionCharacteristicScoreWeightsAttribute : Attribute
 
         for (int i = 0; i < nameWeightPairs.Length; i += 2)
         {
-            if (nameWeightPairs[i] is not string name)
+            if (nameWeightPairs[i] is not SolutionKeyFigure solutionKeyFigure)
             {
                 throw new ArgumentException($"Argument at index {i} must be a string (score name).");
             }
 
             if (nameWeightPairs[i + 1] is not int weight)
             {
-                throw new ArgumentException($"Argument at index {i + 1} must be an int (weight) for score '{name}'.");
+                throw new ArgumentException($"Argument at index {i + 1} must be an int (weight) for score '{solutionKeyFigure}'.");
             }
 
-            dictionary[name] = weight;
+            dictionary[solutionKeyFigure] = weight;
         }
 
         Weights = dictionary;
@@ -50,5 +50,5 @@ public sealed class SolutionCharacteristicScoreWeightsAttribute : Attribute
     /// <summary>
     /// Parsed weights keyed by score name.
     /// </summary>
-    public Dictionary<string, int> Weights { get; }
+    public Dictionary<SolutionKeyFigure, int> Weights { get; }
 }

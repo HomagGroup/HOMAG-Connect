@@ -3,7 +3,7 @@ using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 
 /// <summary>
 /// Specifies the characteristics used to evaluate or select a solution in the order to be displayed.
@@ -25,8 +25,8 @@ public enum SolutionCharacteristic
     /// It is generally recommended for typical scenarios.
     /// </remarks>
     [SolutionCharacteristicScoreWeights(
-        nameof(SolutionCandidate.TotalCosts), 1000,
-        nameof(SolutionCandidate.MaterialCosts), 100
+        SolutionKeyFigure.TotalCosts, 1000,
+        SolutionKeyFigure.MaterialCosts, 100
     )]
     LowestTotalCosts,
 
@@ -37,9 +37,9 @@ public enum SolutionCharacteristic
     /// This characteristic is recommended when the total costs can't get calculated.
     /// </remarks>
     [SolutionCharacteristicScoreWeights(
-        nameof(SolutionCandidate.OffcutsTotal), 1000,
-        nameof(SolutionCandidate.MaterialCosts), 1000,
-        nameof(SolutionCandidate.TotalCosts), 500)]
+        SolutionKeyFigure.OffcutsTotal, 1000,
+        SolutionKeyFigure.MaterialCosts, 1000,
+        SolutionKeyFigure.TotalCosts, 500)]
     BalancedSolution,
 
     /// <summary>
@@ -49,15 +49,15 @@ public enum SolutionCharacteristic
     /// This characteristic is available only if the material costs are known.
     /// It is recommended when production time is not a relevant factor.
     /// </remarks>
-    [SolutionCharacteristicScoreWeights(nameof(SolutionCandidate.MaterialCosts), 1000)]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.MaterialCosts, 1000)]
     LowestMaterialCosts,
 
     /// <summary>
     /// Compromise of all key figures with stronger weighting of waste.
     /// </summary>
     [SolutionCharacteristicScoreWeights(
-            nameof(SolutionCandidate.Waste), 1000,
-            nameof(SolutionCandidate.ProductionTime), 500
+            SolutionKeyFigure.WastePercentage, 1000,
+            SolutionKeyFigure.ProductionTime, 500
         )
     ]
     LittleWaste,
@@ -71,15 +71,13 @@ public enum SolutionCharacteristic
     /// efficiency.
     /// </remarks>
     [SolutionCharacteristicScoreWeights(
-        nameof(SolutionCandidate.OffcutsTotal), 1000,
-        nameof(SolutionCandidate.TotalCosts), 500
+        SolutionKeyFigure.OffcutsTotal, 1000,
+        SolutionKeyFigure.TotalCosts, 500
     )]
     Offcuts,
-
-
 
     /// <summary>
     /// The solution has no special characteristic and should not be displayed.
     /// </summary>
-    None =99
+    None = 99
 }

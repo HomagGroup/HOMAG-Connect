@@ -1,5 +1,4 @@
 ﻿#nullable enable
-using HomagConnect;
 using System;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
@@ -7,5 +6,5 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
 /// <summary>
 /// The attribute indicates that higher values are better for evaluation purposes.
 /// </summary>
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Field)]
 public class HigherIsBetterAttribute : Attribute { }
