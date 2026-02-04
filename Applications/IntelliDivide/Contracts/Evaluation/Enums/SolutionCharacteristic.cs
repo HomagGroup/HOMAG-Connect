@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
@@ -28,6 +30,7 @@ public enum SolutionCharacteristic
         SolutionKeyFigure.TotalCosts, 1000,
         SolutionKeyFigure.MaterialCosts, 100
     )]
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestTotalCosts), Description = "LowestTotalCostsDescription")]
     LowestTotalCosts,
 
     /// <summary>

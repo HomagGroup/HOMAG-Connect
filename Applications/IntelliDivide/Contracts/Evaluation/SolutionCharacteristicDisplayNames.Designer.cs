@@ -62,6 +62,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zusätzlich bietet diese Alternative folgende Besonderheiten:.
+        /// </summary>
+        public static string AdditionalCharacteristicsDescription {
+            get {
+                return ResourceManager.GetString("AdditionalCharacteristicsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niedrigste Materialkosten.
         /// </summary>
         public static string LowestMaterialCosts {
@@ -76,6 +85,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation {
         public static string LowestTotalCosts {
             get {
                 return ResourceManager.GetString("LowestTotalCosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative weist die niedrigsten Gesamtkosten auf und ist daher in typischen Szenarien die empfohlene Lösung..
+        /// </summary>
+        public static string LowestTotalCostsDescription {
+            get {
+                return ResourceManager.GetString("LowestTotalCostsDescription", resourceCulture);
             }
         }
     }

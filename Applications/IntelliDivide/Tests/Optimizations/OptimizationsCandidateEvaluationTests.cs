@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
@@ -18,26 +20,22 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     [TestMethod]
     public async Task Optimizations_GetFirstOptimizationAndEvaluate()
     {
+        var cultureInfo = new CultureInfo("de");
         var solutionDetails = await GetSampleSolutionDetails();
-
         var solutionCharacteristicsAndDisplayOrder = solutionDetails.DetermineCharacteristicsAndDisplayOrder();
 
         solutionCharacteristicsAndDisplayOrder.ShouldNotBeEmpty();
         solutionCharacteristicsAndDisplayOrder.Length.ShouldBe(solutionDetails.Count());
 
-        solutionCharacteristicsAndDisplayOrder.Trace(nameof(solutionCharacteristicsAndDisplayOrder));
+        solutionCharacteristicsAndDisplayOrder.Select(s => new
+        {
+            s.Id,
+            s.Characteristic,
+            DisplayName = s.GetLocalizedName(cultureInfo),
+            Description = s.GetLocalizedDescription(cultureInfo)
+        }).Trace();
 
         TestContext?.AddResultFile(solutionCharacteristicsAndDisplayOrder.TraceToFile(nameof(solutionCharacteristicsAndDisplayOrder)).FullName);
-    }
-
-    [TestMethod]
-    public async Task Optimizations_GetFirstOptimizationAndEvaluateAllProperties()
-    {
-        var solutionDetails = await GetSampleSolutionDetails();
-        var solutionCandidates = SolutionCandidates.From(solutionDetails.ToArray());
-
-        solutionCandidates.Trace(nameof(solutionCandidates));
-
     }
 
     private async Task<List<SolutionDetails>> GetSampleSolutionDetails()

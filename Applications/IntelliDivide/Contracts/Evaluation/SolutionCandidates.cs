@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using System.Collections.Generic;
 
 using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
@@ -6,6 +7,9 @@ using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
+/// <summary>
+/// Extension methods for creating <see cref="SolutionCandidate" /> arrays.
+/// </summary>
 public static class SolutionCandidates
 {
     /// <summary>
