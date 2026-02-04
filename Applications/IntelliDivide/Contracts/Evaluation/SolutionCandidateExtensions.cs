@@ -11,19 +11,31 @@ using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 {
+    /// <summary>
+    /// Extensions to evaluate <see cref="SolutionCandidate"/>s and produce ranked <see cref="SolutionCandidateEvaluationResult"/>s.
+    /// </summary>
     public static class SolutionCandidateExtensions
     {
+        /// <summary>
+        /// Converts incoming <see cref="SolutionDetails"/> to <see cref="SolutionCandidate"/> and evaluates.
+        /// </summary>
         public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
         {
             var solutionCandidates = SolutionCandidates.From((solutionDetails ?? []).ToArray());
             return solutionDetails == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates);
         }
 
+        /// <summary>
+        /// Evaluates characteristics and display order for an enumerable of <see cref="SolutionCandidate"/>.
+        /// </summary>
         public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionCandidate>? solutionCandidates)
         {
             return solutionCandidates == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates.ToArray());
         }
 
+        /// <summary>
+        /// Core evaluation: compute partial scores, characteristic scores, assign characteristics, then rank.
+        /// </summary>
         public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(SolutionCandidate[]? solutionCandidates)
         {
             if (solutionCandidates == null || solutionCandidates.Length == 0)
@@ -43,6 +55,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
         #region Private Methods
 
+        /// <summary>
+        /// Rank by primary characteristic (enum order), then BalancedSolution score (desc), then calculation time.
+        /// </summary>
         private static void CalculateRanking(this SolutionCandidateEvaluationResult[] evaluated)
         {
             var ordered =
@@ -58,11 +73,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             }
         }
 
+        /// <summary>
+        /// Assign primary characteristic and additional ones the candidate wins.
+        /// </summary>
         private static void AssignCharacteristics(this SolutionCandidateEvaluationResult[] evaluated)
         {
             foreach (var candidate in evaluated)
             {
-                // Determine all characteristics this candidate wins
                 var wins = new List<SolutionCharacteristic>();
 
                 foreach (SolutionCharacteristic characteristic in Enum.GetValues(typeof(SolutionCharacteristic)))
@@ -78,41 +95,45 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                     }
                 }
 
-                // Primary characteristic is first win or None
-
                 candidate.Characteristic = wins.Count > 0 ? wins[0] : SolutionCharacteristic.None;
-
-                if (wins.Count > 1)
-                {
-                    candidate.CharacteristicsInAddition = wins.Skip(1).ToArray();
-                }
+                if (wins.Count > 1) candidate.CharacteristicsInAddition = wins.Skip(1).ToArray();
             }
         }
 
-        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>? _scoreWeightsByCharacteristic;
-        private static SolutionKeyFigure[]? _keyFiguresUsedForAtLeastOneSolutionCharacteristic;
+        /// <summary>
+        /// Cache: score weights by characteristic (keyed by SolutionKeyFigure).
+        /// </summary>
+        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>? _ScoreWeightsByCharacteristic;
 
+        /// <summary>
+        /// Cache: key figures referenced by at least one characteristic.
+        /// </summary>
+        private static SolutionKeyFigure[]? _KeyFiguresUsedForAtLeastOneSolutionCharacteristic;
+
+        /// <summary>
+        /// Key figures referenced by at least one characteristic weight configuration.
+        /// </summary>
         private static IEnumerable<SolutionKeyFigure> KeyFiguresUsedForAtLeastOneSolutionCharacteristic
         {
             get
             {
-                if (_keyFiguresUsedForAtLeastOneSolutionCharacteristic == null)
-                {
-                    _keyFiguresUsedForAtLeastOneSolutionCharacteristic = ScoreWeightsByCharacteristic
-                        .SelectMany(c => c.Value.Keys)
-                        .Distinct()
-                        .ToArray();
-                }
+                _KeyFiguresUsedForAtLeastOneSolutionCharacteristic ??= ScoreWeightsByCharacteristic
+                    .SelectMany(c => c.Value.Keys)
+                    .Distinct()
+                    .ToArray();
 
-                return _keyFiguresUsedForAtLeastOneSolutionCharacteristic;
+                return _KeyFiguresUsedForAtLeastOneSolutionCharacteristic;
             }
         }
 
+        /// <summary>
+        /// Lazy loader for weights indexed by <see cref="SolutionCharacteristic"/>.
+        /// </summary>
         private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>> ScoreWeightsByCharacteristic
         {
             get
             {
-                if (_scoreWeightsByCharacteristic == null)
+                if (_ScoreWeightsByCharacteristic == null)
                 {
                     var result = new Dictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>();
 
@@ -122,27 +143,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                         var name = Enum.GetName(enumType, characteristic);
                         if (name == null) continue;
 
-                        var field1 = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
-                        if (field1 == null) continue;
+                        var f = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
+                        if (f == null) continue;
 
-                        var attr = field1.GetCustomAttribute<SolutionCharacteristicScoreWeightsAttribute>();
-                        if (attr != null)
-                        {
-                            result[characteristic] = attr.Weights;
-                        }
-                        else
-                        {
-                            result[characteristic] = new Dictionary<SolutionKeyFigure, int>();
-                        }
+                        var attr = f.GetCustomAttribute<SolutionCharacteristicScoreWeightsAttribute>();
+                        result[characteristic] = attr != null ? attr.Weights : new Dictionary<SolutionKeyFigure, int>();
                     }
 
-                    _scoreWeightsByCharacteristic = result;
+                    _ScoreWeightsByCharacteristic = result;
                 }
 
-                return _scoreWeightsByCharacteristic;
+                return _ScoreWeightsByCharacteristic;
             }
         }
 
+        /// <summary>
+        /// Normalize value where lower is better; null when range is zero or all data is zero.
+        /// </summary>
         private static double? ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
             if (minimumValue == 0 && maximumValue == 0) return null;
@@ -151,6 +168,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             return Math.Round((1 - (value - minimumValue) / range) * 1000, 2);
         }
 
+        /// <summary>
+        /// Normalize value where higher is better; null when range is zero or all data is zero.
+        /// </summary>
         private static double? ScoreHigherIsBetter(double value, double minimumValue, double maximumValue)
         {
             if (minimumValue == 0 && maximumValue == 0) return null;
@@ -159,6 +179,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             return Math.Round((value - minimumValue) / range * 1000, 2);
         }
 
+        /// <summary>
+        /// Compute characteristic scores as weighted sums of partial scores (normalized higher-is-better).
+        /// </summary>
         private static void CalculateAndSetCharacteristicScores(this SolutionCandidateEvaluationResult[] evaluated)
         {
             foreach (var characteristicEntry in ScoreWeightsByCharacteristic)
@@ -207,6 +230,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             }
         }
 
+        /// <summary>
+        /// Compute partial scores for each referenced key figure honoring LowerIsBetter or HigherIsBetter.
+        /// </summary>
         private static void CalculateAndSetPartialScores(this SolutionCandidateEvaluationResult[] evaluated)
         {
             if (evaluated.Length == 0) return;
@@ -235,9 +261,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 
                 var lowerIsBetter = IsLowerIsBetter(keyFigure);
 
-                for (int i = 0; i < evaluated.Length; i++)
+                for (var i = 0; i < evaluated.Length; i++)
                 {
-                    double? score = lowerIsBetter
+                    var score = lowerIsBetter
                         ? ScoreLowerIsBetter(values[i], min, max)
                         : ScoreHigherIsBetter(values[i], min, max);
 
@@ -249,6 +275,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             }
         }
 
+        /// <summary>
+        /// Returns true if the key figure enum field is decorated with <see cref="LowerIsBetterAttribute"/>.
+        /// </summary>
         private static bool IsLowerIsBetter(SolutionKeyFigure keyFigure)
         {
             var enumType = typeof(SolutionKeyFigure);
