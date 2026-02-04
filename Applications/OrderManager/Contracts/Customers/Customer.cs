@@ -58,5 +58,10 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// Gets or sets the Addresses.
         /// </summary>
         public Collection<Address>? Addresses { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Sales Portal Access.
+        /// </summary>
+        public Collection<string>? SalesPortalAccess { get; set; }
     }
 }
