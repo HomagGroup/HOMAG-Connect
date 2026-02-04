@@ -83,6 +83,9 @@ stages:
         - script: echo "Build branch is $(Build.SourceBranch)" 
           displayName: Display build branch environment variable
 
+        - script: echo "Build.Reason is $(Build.Reason)"
+          displayName: 'Debug Build Reason'
+
         - task: PowerShell@2
           displayName: Set version environment variable
           inputs:
