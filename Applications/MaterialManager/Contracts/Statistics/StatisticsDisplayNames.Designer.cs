@@ -70,11 +70,38 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kosten.
+        /// </summary>
+        internal static string Costs {
+            get {
+                return ResourceManager.GetString("Costs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Endzeitpunkt.
         /// </summary>
         internal static string DividedAt {
             get {
                 return ResourceManager.GetString("DividedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kantenband.
+        /// </summary>
+        internal static string EdgebandCode {
+            get {
+                return ResourceManager.GetString("EdgebandCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Höhe.
+        /// </summary>
+        internal static string Height {
+            get {
+                return ResourceManager.GetString("Height", resourceCulture);
             }
         }
         

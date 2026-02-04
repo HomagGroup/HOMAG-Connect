@@ -120,8 +120,17 @@
   <data name="BoardEntity" xml:space="preserve">
     <value>Platten</value>
   </data>
+  <data name="Costs" xml:space="preserve">
+    <value>Kosten</value>
+  </data>
   <data name="DividedAt" xml:space="preserve">
     <value>Endzeitpunkt</value>
+  </data>
+  <data name="EdgebandCode" xml:space="preserve">
+    <value>Kantenband</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Höhe</value>
   </data>
   <data name="OptimizationId" xml:space="preserve">
     <value>Optimierungnummber</value>
