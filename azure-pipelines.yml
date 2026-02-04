@@ -11,7 +11,7 @@
 #     name: OneHomag/SWC-DevOps-HoT
 #     ref: main
 
-#trigger:
+trigger: none
 #  branches:
 #    include:
 #    - '*'
