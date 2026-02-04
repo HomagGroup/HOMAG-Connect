@@ -124,7 +124,7 @@ stages:
                 sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber)
                 sonar.pullrequest.branch=$(System.PullRequest.SourceBranch)
                 sonar.pullrequest.base=$(System.PullRequest.TargetBranch)
-          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false, eq(variables['Build.Reason'], 'PullRequest')))
+          condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false), eq(variables['Build.Reason'], 'PullRequest'))
 
         - task: SonarQubePrepare@7
           displayName: 'Prepare analysis on SonarQube'
