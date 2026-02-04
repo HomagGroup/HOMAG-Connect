@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
     /// <summary>
     /// A board type inventory for statistical use.
     /// </summary>
-    public class BoardTypeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class BoardTypeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
     {
         private const int _BoardCodeMaxLength = 50;
         private const int _MaterialCodeMaxLength = 50;

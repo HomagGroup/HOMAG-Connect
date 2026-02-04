@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
     /// <summary>
     /// An edge inventory for statistical use.
     /// </summary>
-    public class EdgeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class EdgeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
     {
         private const int _EdgebandCodeMaxLength = 50;
         private const double _HeightDimensionMinValue = 0.1;
