@@ -1,9 +1,14 @@
-﻿using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
+﻿using HomagConnect.Base.Contracts.Converter;
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums
 {
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum SolutionKeyFigure
     {
+        Unknown = 0,
+
         // Material
         [LowerIsBetter]
         WasteArea,

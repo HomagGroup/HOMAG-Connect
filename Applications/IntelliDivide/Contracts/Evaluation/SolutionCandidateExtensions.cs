@@ -11,132 +11,85 @@ using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation
 {
-    /// <summary>
-    /// Extension utilities to evaluate <see cref="SolutionCandidate" />s and determine display order
-    /// based on computed <see cref="SolutionCharacteristic" />s.
-    /// </summary>
     public static class SolutionCandidateExtensions
     {
-        /// <summary>
-        /// Converts incoming <see cref="SolutionDetails" /> to <see cref="SolutionCandidate" /> and evaluates
-        /// characteristics and display order. Returns an empty sequence for null input.
-        /// </summary>
-        /// <param name="solutionDetails">Source solution details to evaluate.</param>
-        /// <returns>Ordered evaluation results with an assigned characteristic when available.</returns>
-        public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
+        public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
         {
             var solutionCandidates = SolutionCandidates.From((solutionDetails ?? []).ToArray());
-
             return solutionDetails == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates);
         }
 
-        /// <summary>
-        /// Evaluates characteristics and display order for an enumerable of <see cref="SolutionCandidate" />.
-        /// Returns an empty sequence for null input.
-        /// </summary>
-        /// <param name="solutionCandidates">Candidates to evaluate.</param>
-        /// <returns>Ordered evaluation results with assigned characteristics when available.</returns>
-        public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionCandidate>? solutionCandidates)
+        public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionCandidate>? solutionCandidates)
         {
             return solutionCandidates == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates.ToArray());
         }
 
-        /// <summary>
-        /// Core evaluation routine that determines characteristics and generates the display order.
-        /// Special characteristics are listed first (ascending enum value), followed by entries with
-        /// <see cref="SolutionCharacteristic.None" />.
-        /// </summary>
-        /// <param name="solutionCandidates">Array of candidates to evaluate.</param>
-        /// <returns>Ordered evaluation results.</returns>
-        public static SolutionCandidateEvaluated[] DetermineCharacteristicsAndDisplayOrder(SolutionCandidate[]? solutionCandidates)
+        public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(SolutionCandidate[]? solutionCandidates)
         {
-            if (solutionCandidates == null)
+            if (solutionCandidates == null || solutionCandidates.Length == 0)
             {
                 return [];
             }
 
-            var solutionCandidatesEvaluated = solutionCandidates.Select(s => new SolutionCandidateEvaluated(s)).ToArray();
+            var evaluated = solutionCandidates.Select(s => new SolutionCandidateEvaluationResult(s)).ToArray();
 
-            solutionCandidatesEvaluated.CalculateAndSetPartialScores();
-            solutionCandidatesEvaluated.CalculateAndSetCharacteristicScores();
-            solutionCandidatesEvaluated.CalculateCharacteristics();
-            solutionCandidatesEvaluated.CalculateRanking();
+            evaluated.CalculateAndSetPartialScores();
+            evaluated.CalculateAndSetCharacteristicScores();
+            evaluated.AssignCharacteristics();
+            evaluated.CalculateRanking();
 
-            return solutionCandidatesEvaluated.OrderBy(s => s.Ranking).ToArray();
-        }
-
-        private static void CalculateRanking(this SolutionCandidateEvaluated[] solutionCandidatesEvaluated)
-        {
-            var solutionCandidateSorted =
-                solutionCandidatesEvaluated
-                    .OrderBy(s => s.Characteristic)
-                    .ThenBy(s => s.CharacteristicScores[SolutionCharacteristic.BalancedSolution])
-                    .ThenBy(s => s.CalculationTime);
-           
-            var ranking = 1;
-
-            foreach (var solutionCandidateEvaluated in solutionCandidateSorted)
-            {
-                solutionCandidateEvaluated.Ranking = ranking++;
-            }
-        }
-
-        private static void CalculateCharacteristics(this SolutionCandidateEvaluated[] solutionCandidatesEvaluated)
-        {
-            foreach (var solutionCandidateEvaluated in solutionCandidatesEvaluated)
-            {
-                foreach (SolutionCharacteristic characteristicValue in Enum.GetValues(typeof(SolutionCharacteristic)))
-                {
-                    var bestCandidate = solutionCandidatesEvaluated
-                        .Where(s => s.CharacteristicScores.TryGetValue(characteristicValue, out var score) && score.HasValue)
-                        .OrderByDescending(s => s.CharacteristicScores[characteristicValue]).FirstOrDefault();
-
-                    if (bestCandidate != null && bestCandidate.Id == solutionCandidateEvaluated.Id)
-                    {
-                        solutionCandidateEvaluated.Characteristics.Add(characteristicValue);
-                    }
-                }
-            }
+            return evaluated.OrderBy(s => s.Ranking).ToArray();
         }
 
         #region Private Methods
 
-        /// <summary>
-        /// Computes all supported characteristics across the candidate set.
-        /// </summary>
-        /// <param name="solutionCandidates">Candidates to evaluate.</param>
-        /// <returns>Map of characteristic to the candidate that achieves it.</returns>
-        private static Dictionary<SolutionCharacteristic, Guid> DetermineCharacteristics(SolutionCandidateEvaluated[] solutionCandidates)
+        private static void CalculateRanking(this SolutionCandidateEvaluationResult[] evaluated)
         {
-            var characteristicsByType = new Dictionary<SolutionCharacteristic, Guid>();
+            var ordered =
+                evaluated
+                    .OrderBy(s => s.Characteristic)
+                    .ThenByDescending(s => s.CharacteristicScores.TryGetValue(SolutionCharacteristic.BalancedSolution, out var score) && score.HasValue ? score.Value : 0d)
+                    .ThenBy(s => s.CalculationTime);
 
-            foreach (SolutionCharacteristic characteristicValue in Enum.GetValues(typeof(SolutionCharacteristic)))
+            var ranking = 1;
+            foreach (var candidate in ordered)
             {
-                var bestSolutionId = Guid.Empty;
-                var bestCharacteristicScore = 0.1;
+                candidate.Ranking = ranking++;
+            }
+        }
 
-                foreach (var solutionCandidate in solutionCandidates)
+        private static void AssignCharacteristics(this SolutionCandidateEvaluationResult[] evaluated)
+        {
+            foreach (var candidate in evaluated)
+            {
+                // Determine all characteristics this candidate wins
+                var wins = new List<SolutionCharacteristic>();
+
+                foreach (SolutionCharacteristic characteristic in Enum.GetValues(typeof(SolutionCharacteristic)))
                 {
-                    if (solutionCandidate.CharacteristicScores.TryGetValue(characteristicValue, out var characteristicScoreValue))
+                    var best = evaluated
+                        .Where(s => s.CharacteristicScores.TryGetValue(characteristic, out var score) && score.HasValue)
+                        .OrderByDescending(s => s.CharacteristicScores[characteristic])
+                        .FirstOrDefault();
+
+                    if (best != null && best.Id == candidate.Id)
                     {
-                        if (characteristicScoreValue > bestCharacteristicScore)
-                        {
-                            bestCharacteristicScore = (int)characteristicScoreValue;
-                            bestSolutionId = solutionCandidate.Id;
-                        }
+                        wins.Add(characteristic);
                     }
                 }
 
-                if (bestSolutionId != Guid.Empty)
+                // Primary characteristic is first win or None
+
+                candidate.Characteristic = wins.Count > 0 ? wins[0] : SolutionCharacteristic.None;
+
+                if (wins.Count > 1)
                 {
-                    characteristicsByType[characteristicValue] = bestSolutionId;
+                    candidate.CharacteristicsInAddition = wins.Skip(1).ToArray();
                 }
             }
-
-            return characteristicsByType;
         }
 
-        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>? _characteristicScoreWeights;
+        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>? _scoreWeightsByCharacteristic;
         private static SolutionKeyFigure[]? _keyFiguresUsedForAtLeastOneSolutionCharacteristic;
 
         private static IEnumerable<SolutionKeyFigure> KeyFiguresUsedForAtLeastOneSolutionCharacteristic
@@ -145,20 +98,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             {
                 if (_keyFiguresUsedForAtLeastOneSolutionCharacteristic == null)
                 {
-                    _keyFiguresUsedForAtLeastOneSolutionCharacteristic = CharacteristicScoreWeights
+                    _keyFiguresUsedForAtLeastOneSolutionCharacteristic = ScoreWeightsByCharacteristic
                         .SelectMany(c => c.Value.Keys)
-                        .Distinct().ToArray();
+                        .Distinct()
+                        .ToArray();
                 }
 
                 return _keyFiguresUsedForAtLeastOneSolutionCharacteristic;
             }
         }
 
-        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>> CharacteristicScoreWeights
+        private static IReadOnlyDictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>> ScoreWeightsByCharacteristic
         {
             get
             {
-                if (_characteristicScoreWeights == null)
+                if (_scoreWeightsByCharacteristic == null)
                 {
                     var result = new Dictionary<SolutionCharacteristic, IReadOnlyDictionary<SolutionKeyFigure, int>>();
 
@@ -166,16 +120,10 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                     foreach (SolutionCharacteristic characteristic in Enum.GetValues(enumType))
                     {
                         var name = Enum.GetName(enumType, characteristic);
-                        if (name == null)
-                        {
-                            continue;
-                        }
+                        if (name == null) continue;
 
                         var field1 = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
-                        if (field1 == null)
-                        {
-                            continue;
-                        }
+                        if (field1 == null) continue;
 
                         var attr = field1.GetCustomAttribute<SolutionCharacteristicScoreWeightsAttribute>();
                         if (attr != null)
@@ -184,170 +132,131 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
                         }
                         else
                         {
-                            // No attribute: store an empty dictionary for consistency
                             result[characteristic] = new Dictionary<SolutionKeyFigure, int>();
                         }
                     }
 
-                    _characteristicScoreWeights = result;
+                    _scoreWeightsByCharacteristic = result;
                 }
 
-                return _characteristicScoreWeights;
+                return _scoreWeightsByCharacteristic;
             }
         }
 
         private static double? ScoreLowerIsBetter(double value, double minimumValue, double maximumValue)
         {
-            if (minimumValue == 0 && maximumValue == 0)
-            {
-                return null; // all zero -> no results
-            }
-
+            if (minimumValue == 0 && maximumValue == 0) return null;
             var range = maximumValue - minimumValue;
-
-            if (range <= 0)
-            {
-                return null; // all equal -> ignore in comparison
-            }
-
+            if (range <= 0) return null;
             return Math.Round((1 - (value - minimumValue) / range) * 1000, 2);
         }
 
         private static double? ScoreHigherIsBetter(double value, double minimumValue, double maximumValue)
         {
-            if (minimumValue == 0 && maximumValue == 0)
-            {
-                return null;
-            }
-
+            if (minimumValue == 0 && maximumValue == 0) return null;
             var range = maximumValue - minimumValue;
-
-            if (range <= 0)
-            {
-                return null; // all equal -> -> ignore in comparison
-            }
-
+            if (range <= 0) return null;
             return Math.Round((value - minimumValue) / range * 1000, 2);
         }
 
-        private static void CalculateAndSetCharacteristicScores(this SolutionCandidateEvaluated[] solutionCandidates)
+        private static void CalculateAndSetCharacteristicScores(this SolutionCandidateEvaluationResult[] evaluated)
         {
-            foreach (var characteristicScoreWeight in CharacteristicScoreWeights)
+            foreach (var characteristicEntry in ScoreWeightsByCharacteristic)
             {
-                var characteristic = characteristicScoreWeight.Key;
-                var weights = characteristicScoreWeight.Value;
+                var characteristic = characteristicEntry.Key;
+                var weights = characteristicEntry.Value;
+                var scoresByCandidate = new Dictionary<SolutionCandidateEvaluationResult, double>();
 
-                var solutionCandidatesCharacteristicScores = new Dictionary<SolutionCandidateEvaluated, double>();
-
-                foreach (var solutionCandidate in solutionCandidates)
+                foreach (var candidate in evaluated)
                 {
-                    double? totalScore = null;
+                    double? total = null;
 
-                    foreach (var weightEntry in weights)
+                    foreach (var weight in weights)
                     {
-                        var propertyName = weightEntry.Key;
-                        var weight = weightEntry.Value;
+                        var keyFigure = weight.Key;
+                        var w = weight.Value;
 
-                        if (solutionCandidate.PartialScores.TryGetValue(propertyName, out var scoreValue))
+                        if (candidate.PartialScores.TryGetValue(keyFigure, out var score) && score.HasValue)
                         {
-                            if (scoreValue != null)
-                            {
-                                totalScore ??= 0;
-                                totalScore += scoreValue.Value * weight;
-                            }
+                            total ??= 0;
+                            total += score.Value * w;
                         }
                     }
 
-                    if (totalScore != null)
+                    if (total.HasValue)
                     {
-                        solutionCandidatesCharacteristicScores.Add(solutionCandidate, totalScore.Value);
+                        scoresByCandidate[candidate] = total.Value;
                     }
                 }
 
-                foreach (var solutionCandidatesCharacteristicScore in solutionCandidatesCharacteristicScores)
-                {
-                    var value = solutionCandidatesCharacteristicScore.Value;
-                    var minimumValue = solutionCandidatesCharacteristicScores.Values.Min();
-                    var maximumValue = solutionCandidatesCharacteristicScores.Values.Max();
-                    var range = maximumValue - minimumValue;
+                if (scoresByCandidate.Count == 0) continue;
 
-                    if (range > 0)
+                var min = scoresByCandidate.Values.Min();
+                var max = scoresByCandidate.Values.Max();
+                var range = max - min;
+                if (range <= 0) continue;
+
+                foreach (var kvp in scoresByCandidate)
+                {
+                    var normalized = ScoreHigherIsBetter(kvp.Value, min, max);
+                    if (normalized.HasValue)
                     {
-                        solutionCandidatesCharacteristicScore.Key.CharacteristicScores[characteristic] = ScoreHigherIsBetter(value, minimumValue, maximumValue);
+                        kvp.Key.CharacteristicScores[characteristic] = normalized;
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// Calculates normalized scores for every numeric property of <see cref="SolutionCandidate" />
-        /// that has a corresponding property with the same name suffixed by "Score".
-        /// Example: for property "Cuts" it will set "CutsScore" using lower-is-better normalization.
-        /// Supports int and double properties.
-        /// </summary>
-        private static void CalculateAndSetPartialScores(this SolutionCandidateEvaluated[] solutionCandidates)
+        private static void CalculateAndSetPartialScores(this SolutionCandidateEvaluationResult[] evaluated)
         {
-            if (solutionCandidates.Length == 0)
-            {
-                return;
-            }
+            if (evaluated.Length == 0) return;
 
-            var solutionKeyFigures = solutionCandidates.SelectMany(s => s.KeyFigures.Keys).Distinct().ToArray();
+            var allKeyFigures = evaluated.SelectMany(s => s.KeyFigures.Keys).Distinct().ToArray();
 
-            foreach (var solutionKeyFigure in solutionKeyFigures)
+            foreach (var keyFigure in allKeyFigures)
             {
-                if (KeyFiguresUsedForAtLeastOneSolutionCharacteristic.Contains(solutionKeyFigure))
+                if (!KeyFiguresUsedForAtLeastOneSolutionCharacteristic.Contains(keyFigure))
+                    continue;
+
+                var min = double.MaxValue;
+                var max = double.MinValue;
+                var values = new double[evaluated.Length];
+
+                for (int i = 0; i < evaluated.Length; i++)
                 {
-                    var minimumValue = double.MaxValue;
-                    var maximumValue = double.MinValue;
-                    var sourceValues = new double[solutionCandidates.Length];
-
-                    for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                    if (evaluated[i].KeyFigures.TryGetValue(keyFigure, out double? v) && v.HasValue)
                     {
-                        if (solutionCandidates[candidateIndex].KeyFigures.TryGetValue(solutionKeyFigure, out double? value))
-                        {
-                            if (value != null)
-                            {
-                                sourceValues[candidateIndex] = value.Value;
-                                if (value < minimumValue) minimumValue = value.Value;
-                                if (value > maximumValue) maximumValue = value.Value;
-                            }
-                        }
+                        var val = v.Value;
+                        values[i] = val;
+                        if (val < min) min = val;
+                        if (val > max) max = val;
                     }
+                }
 
-                    for (var candidateIndex = 0; candidateIndex < solutionCandidates.Length; candidateIndex++)
+                var lowerIsBetter = IsLowerIsBetter(keyFigure);
+
+                for (int i = 0; i < evaluated.Length; i++)
+                {
+                    double? score = lowerIsBetter
+                        ? ScoreLowerIsBetter(values[i], min, max)
+                        : ScoreHigherIsBetter(values[i], min, max);
+
+                    if (score.HasValue)
                     {
-                        if (IsLowerIsBetter(solutionKeyFigure))
-                        {
-                            var score = ScoreLowerIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-
-                            if (score != null)
-                            {
-                                solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
-                            }
-                        }
-                        else
-                        {
-                            var score = ScoreHigherIsBetter(sourceValues[candidateIndex], minimumValue, maximumValue);
-
-                            if (score != null)
-                            {
-                                solutionCandidates[candidateIndex].PartialScores[solutionKeyFigure] = score;
-                            }
-                        }
+                        evaluated[i].PartialScores[keyFigure] = score;
                     }
                 }
             }
         }
 
-        private static bool IsLowerIsBetter(SolutionKeyFigure solutionKeyFigure)
+        private static bool IsLowerIsBetter(SolutionKeyFigure keyFigure)
         {
             var enumType = typeof(SolutionKeyFigure);
-            var name = Enum.GetName(enumType, solutionKeyFigure);
+            var name = Enum.GetName(enumType, keyFigure);
             if (name == null) return false;
 
             var field = enumType.GetField(name, BindingFlags.Public | BindingFlags.Static);
-            return field != null && field.GetCustomAttributes(typeof(LowerIsBetterAttribute), inherit: false).Any();
+            return field != null && field.GetCustomAttributes(typeof(LowerIsBetterAttribute), false).Any();
         }
 
         #endregion

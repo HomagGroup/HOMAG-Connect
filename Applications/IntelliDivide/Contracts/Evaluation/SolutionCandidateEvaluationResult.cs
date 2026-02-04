@@ -13,7 +13,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 /// <summary>
 /// Evaluated solution candidate with assigned characteristic and scores.
 /// </summary>
-public class SolutionCandidateEvaluated
+public class SolutionCandidateEvaluationResult
 {
     /// <summary>
     /// Initializes a new instance of the SolutionCandidateEvaluated class using the specified solution candidate.
@@ -22,7 +22,7 @@ public class SolutionCandidateEvaluated
     /// The solution candidate whose identifier, calculation time, and key figures are used to initialize the new
     /// instance. Cannot be null.
     /// </param>
-    public SolutionCandidateEvaluated(SolutionCandidate candidate)
+    public SolutionCandidateEvaluationResult(SolutionCandidate candidate)
     {
         Id = candidate.Id;
         CalculationTime = candidate.CalculationTime;
@@ -38,20 +38,14 @@ public class SolutionCandidateEvaluated
     /// <summary>
     /// Gets or sets the characteristic assigned to the solution candidate.
     /// </summary>
-    [JsonProperty(Order = 2)]
-    public SolutionCharacteristic Characteristic
-    {
-        get
-        {
-            return Characteristics.Any() ? Characteristics.First() : SolutionCharacteristic.None;
-        }
-    }
-
+    [JsonProperty(Order = 3)]
+    public SolutionCharacteristic Characteristic { get; set; }
+    
     /// <summary>
     /// Gets or sets the collection of additional characteristics associated with the solution candidate.
     /// </summary>
-    [JsonProperty(Order = 3)]
-    public List<SolutionCharacteristic> Characteristics { get; set; } = [];
+    [JsonProperty(Order = 4)]
+    public SolutionCharacteristic[]? CharacteristicsInAddition { get; set; }
 
     /// <summary>
     /// Gets or sets the collection of scores associated with each solution characteristic.
@@ -60,25 +54,25 @@ public class SolutionCandidateEvaluated
     /// Each entry in the dictionary maps a <see cref="SolutionCharacteristic" /> to its corresponding
     /// score. Modifying the dictionary affects the scores used for evaluating solution characteristics.
     /// </remarks>
-    [JsonProperty(Order = 4)]
+    [JsonProperty(Order = 5)]
     public Dictionary<SolutionCharacteristic, double?> CharacteristicScores { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the unique identifier of the solution candidate.
     /// </summary>
-    [JsonProperty(Order = 3)]
+    [JsonProperty(Order = 2)]
     public Guid Id { get; set; }
 
     /// <summary>
     /// Gets or sets the collection of partial scores associated with their corresponding keys.
     /// </summary>
-    [JsonProperty(Order = 6)]
+    [JsonProperty(Order = 7)]
     public Dictionary<SolutionKeyFigure, double?> KeyFigures { get; set; }
 
     /// <summary>
     /// Gets or sets the collection of partial scores associated with their corresponding keys.
     /// </summary>
-    [JsonProperty(Order = 5)]
+    [JsonProperty(Order = 6)]
     public Dictionary<SolutionKeyFigure, double?> PartialScores { get; set; } = new();
 
     /// <summary>
