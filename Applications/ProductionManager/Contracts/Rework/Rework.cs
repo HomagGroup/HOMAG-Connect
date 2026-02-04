@@ -72,7 +72,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <summary>
         /// Quantity of parts to rework
         /// </summary>
-         [JsonProperty(Order = 5)]
+        [JsonProperty(Order = 5)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(QuantityOfReworks))]
         public int QuantityOfReworks { get; set; }
 
@@ -118,6 +118,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <summary>
         /// Id of the rework
         /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(ReworkId))]
         public string? ReworkId { get; set; }
     }
 }
