@@ -84,7 +84,7 @@ public class AdditionalDataEntity
     /// </summary>
     [JsonProperty(Order = 12)]
     [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Source))]
-    public AdditionalDataSource Source { get; set; }
+    public AdditionalDataSource? Source { get; set; }
     
     /// <summary>
     /// Creates a new instance of the <see cref="AdditionalDataEntity" /> class based on the file extension.

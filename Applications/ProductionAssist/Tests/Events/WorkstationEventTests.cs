@@ -62,6 +62,26 @@ public class WorkstationEventTests : ProductionAssistTestBase
 
     /// <summary />
     [TestMethod]
+    public void Events_CycleItemLabeled_SerializeDeserialize()
+    {
+        var cycleItemLabeledEvent = new CycleItemLabeledEvent();
+
+        cycleItemLabeledEvent.SubscriptionId = Guid.NewGuid();
+        cycleItemLabeledEvent.WorkstationId = Guid.NewGuid();
+
+        cycleItemLabeledEvent.OptimizationId = Guid.NewGuid();
+        cycleItemLabeledEvent.PatternName = "0001";
+        cycleItemLabeledEvent.PatternCycle = 1;
+        cycleItemLabeledEvent.Identifier = "I0012";
+        cycleItemLabeledEvent.Trace();
+
+        Assert.IsTrue(cycleItemLabeledEvent.IsValid);
+
+        TestContext?.AddResultFile(cycleItemLabeledEvent.TraceToFile("CycleItemLabeledEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
     public void Events_WorkstationUpsertedEventCreated_SerializeDeserialize()
     {
         var workstationUpsertedEvent = new WorkstationUpsertedEvent();
@@ -155,6 +175,25 @@ public class WorkstationEventTests : ProductionAssistTestBase
         Assert.IsTrue(pice.IsValid);
 
         TestContext?.AddResultFile(pice.TraceToFile("ProductionItemCompletedEventSample").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_ProductionItemLabeledEvent_SerializeDeserialize()
+    {
+        var pice = new ProductionItemLabeledEvent();
+
+        pice.SubscriptionId = Guid.NewGuid();
+        pice.WorkstationId = Guid.NewGuid();
+
+        pice.Identifier = "ProdItem-01";
+        pice.Quantity = 10;
+
+        pice.Trace();
+
+        Assert.IsTrue(pice.IsValid);
+
+        TestContext?.AddResultFile(pice.TraceToFile("ProductionItemLabeledEvent1").FullName);
     }
 
 

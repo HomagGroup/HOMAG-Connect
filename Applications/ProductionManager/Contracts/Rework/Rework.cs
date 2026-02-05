@@ -41,21 +41,6 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         [JsonProperty(Order = 38)]
         public CaptureDetails? CaptureDetails { get; set; }
 
-        /// <summary/>
-        [Obsolete("Use CaptureDetails instead", true)]
-        [JsonProperty(Order = 99)]
-        public CaptureDetails? CreationDetails
-        {
-            get
-            {
-                return CaptureDetails;
-            }
-            set
-            {
-                CaptureDetails = value;
-            }
-        }
-
         /// <summary>
         /// Description of the rework
         /// </summary>
@@ -64,7 +49,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Description { get; set; }
 
         /// <summary>
-        /// Identifier of the rework
+        /// Id of the part for which the rework was created
         /// </summary>
         [JsonProperty(Order = 1)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Id))]
@@ -87,7 +72,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <summary>
         /// Quantity of parts to rework
         /// </summary>
-         [JsonProperty(Order = 5)]
+        [JsonProperty(Order = 5)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(QuantityOfReworks))]
         public int QuantityOfReworks { get; set; }
 
@@ -111,5 +96,29 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(State))]
         [JsonProperty(Order = 35)]
         public ReworkState State { get; set; }
+
+        /// <summary>
+        /// Customer name
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CustomerName))]
+        public string? CustomerName { get; set; }
+
+        /// <summary>
+        /// Length
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
+        public decimal? Length { get; set; }
+
+        /// <summary>
+        /// Width
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
+        public decimal? Width { get; set; }
+
+        /// <summary>
+        /// Id of the rework
+        /// </summary>
+        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(ReworkId))]
+        public string? ReworkId { get; set; }
     }
 }

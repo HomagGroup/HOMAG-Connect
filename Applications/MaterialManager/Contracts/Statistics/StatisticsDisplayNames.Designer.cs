@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.ProductionManager.Contracts.Rework {
+namespace HomagConnect.MaterialManager.Contracts.Statistics {
     using System;
     
     
@@ -19,27 +19,27 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ReworkStateDisplayNames {
+    internal class StatisticsDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ReworkStateDisplayNames() {
+        internal StatisticsDisplayNames() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.Rework.ReworkStateDisplayNames", typeof(ReworkStateDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Statistics.StatisticsDisplayNames", typeof(StatisticsDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,47 +61,65 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genehmigt.
+        ///   Looks up a localized string similar to Platten.
         /// </summary>
-        public static string Approved {
+        internal static string BoardEntity {
             get {
-                return ResourceManager.GetString("Approved", resourceCulture);
+                return ResourceManager.GetString("BoardEntity", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In Bearbeitung.
+        ///   Looks up a localized string similar to Kosten.
         /// </summary>
-        public static string Pending {
+        internal static string Costs {
             get {
-                return ResourceManager.GetString("Pending", resourceCulture);
+                return ResourceManager.GetString("Costs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abgelehnt.
+        ///   Looks up a localized string similar to Endzeitpunkt.
         /// </summary>
-        public static string Rejected {
+        internal static string DividedAt {
             get {
-                return ResourceManager.GetString("Rejected", resourceCulture);
+                return ResourceManager.GetString("DividedAt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Übertragen.
+        ///   Looks up a localized string similar to Kantenband.
         /// </summary>
-        public static string Transferred {
+        internal static string EdgebandCode {
             get {
-                return ResourceManager.GetString("Transferred", resourceCulture);
+                return ResourceManager.GetString("EdgebandCode", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unbekannt.
+        ///   Looks up a localized string similar to Höhe.
         /// </summary>
-        public static string Unknown {
+        internal static string Height {
             get {
-                return ResourceManager.GetString("Unknown", resourceCulture);
+                return ResourceManager.GetString("Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimierungnummber.
+        /// </summary>
+        internal static string OptimizationId {
+            get {
+                return ResourceManager.GetString("OptimizationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arbeitsplatznummber.
+        /// </summary>
+        internal static string WorkstationId {
+            get {
+                return ResourceManager.GetString("WorkstationId", resourceCulture);
             }
         }
     }

@@ -193,4 +193,24 @@
     <value>Status</value>
     <comment>State</comment>
   </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Kundenname</value>
+    <comment>CustomerName</comment>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Länge</value>
+    <comment>Length</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breite</value>
+    <comment>Width</comment>
+  </data>
+  <data name="LastWorkstationId" xml:space="preserve">
+    <value>Letzter Arbeitsplatz-ID</value>
+    <comment>LastWorkstationId</comment>
+  </data>
+  <data name="ReworkId" xml:space="preserve">
+    <value>Nachfertigungs-ID</value>
+    <comment>ReworkId</comment>
+  </data>
 </root>

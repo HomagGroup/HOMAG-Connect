@@ -1,4 +1,5 @@
-﻿using HomagConnect.ProductionManager.Contracts.Import;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
@@ -246,8 +247,16 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <param name="workstationId"></param>
         /// <param name="daysBack"></param>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int daysBack=7);       
+        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7);
+
+        /// <summary>
+        /// Retrieve the list all workstations.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Workstation>?> GetWorkstations();
         #endregion
 
         #region Production prediction

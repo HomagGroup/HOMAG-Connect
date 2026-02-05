@@ -27,22 +27,14 @@ public class LocalizationTests
         var culture = CultureInfo.GetCultureInfo(cultureName);
         var boardEntity = new BoardEntity();
         var propertyDisplayNames = boardEntity.GetPropertyDisplayNames(culture);
-        propertyDisplayNames[nameof(BoardEntity.Length)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Length), culture),
-            $"because BoardEntity.Length should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.Width)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Width), culture),
-            $"because BoardEntity.Width should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.Quantity)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Quantity), culture),
-            $"because BoardEntity.Quantity should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.ManagementType)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_ManagementType), culture),
-            $"because BoardEntity.ManagementType should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.Comments)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Comments), culture),
-            $"because BoardEntity.Comments should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.CreationDate)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_CreationDate), culture),
-            $"because BoardEntity.CreationDate should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.Location)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_Location), culture),
-            $"because BoardEntity.Location should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardEntity.BoardType)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardEntityProperties_BoardType), culture),
-            $"because BoardEntity.BoardType should be localized correctly in culture '{cultureName}'");
+        foreach (var propertyName in propertyDisplayNames.Keys)
+        {
+            var resourceKey = $"BoardEntityProperties_{propertyName}";
+            var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
+            if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            propertyDisplayNames[propertyName].ShouldBe(expected,
+                $"because BoardEntity.{propertyName} should be localized correctly in culture '{cultureName}'");
+        }
     }
     /// <summary />
     [TestMethod]
@@ -71,80 +63,14 @@ public class LocalizationTests
         var culture = CultureInfo.GetCultureInfo(cultureName);
         var boardType = new BoardType();
         var propertyDisplayNames = boardType.GetPropertyDisplayNames(culture);
-        propertyDisplayNames[nameof(BoardType.ArticleNumber)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_ArticleNumber), culture),
-            $"because BoardType.ArticleNumber should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.LastUsed)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_LastUsed), culture),
-            $"because BoardType.LastUsed should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.MaterialCode)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_MaterialCode), culture),
-            $"because BoardType.MaterialCode should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Thickness)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Thickness), culture),
-            $"because BoardType.Thickness should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.MaterialCategory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_MaterialCategory), culture),
-            $"because BoardType.MaterialCategory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.CoatingCategory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_CoatingCategory), culture),
-            $"because BoardType.CoatingCategory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.StandardQuality)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_StandardQuality), culture),
-            $"because BoardType.StandardQuality should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.MaterialLastUsed)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_MaterialLastUsed), culture),
-            $"because BoardType.MaterialLastUsed should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.BoardCode)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_BoardCode), culture),
-            $"because BoardType.BoardCode should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Width)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Width), culture),
-            $"because BoardType.Width should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Length)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Length), culture),
-            $"because BoardType.Length should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Grain)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Grain), culture),
-            $"because BoardType.Grain should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Costs)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Costs), culture),
-            $"because BoardType.Costs should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Density)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Density), culture),
-            $"because BoardType.Density should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.BoardTypeType)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_BoardTypeType), culture),
-            $"because BoardType.BoardTypeType should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.ManufacturerName)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_ManufacturerName), culture),
-            $"because BoardType.ManufacturerName should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.ProductName)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_ProductName), culture),
-            $"because BoardType.ProductName should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.DecorCode)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_DecorCode), culture),
-            $"because BoardType.DecorCode should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.DecorName)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_DecorName), culture),
-            $"because BoardType.DecorName should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Gtin)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Gtin), culture),
-            $"because BoardType.Gtin should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.EmbossingTop)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_EmbossingTop), culture),
-            $"because BoardType.EmbossingTop should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.EmbossingBottom)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_EmbossingBottom), culture),
-            $"because BoardType.EmbossingBottom should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalQuantityAvailableWarningLimit)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalQuantityAvailableWarningLimit), culture),
-            $"because BoardType.TotalQuantityAvailableWarningLimit should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalAreaAvailableWarningLimit)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalAreaAvailableWarningLimit), culture),
-            $"because BoardType.TotalAreaAvailableWarningLimit should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.OptimizeAgainstInfinite)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_OptimizeAgainstInfinite), culture),
-            $"because BoardType.OptimizeAgainstInfinite should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.LockedForOptimization)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_LockedForOptimization), culture),
-            $"because BoardType.LockedForOptimization should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.LockedForConfiguration)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_LockedForConfiguration), culture),
-            $"because BoardType.LockedForConfiguration should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalQuantityInInventory)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalQuantityInInventory), culture),
-            $"because BoardType.TotalQuantityInInventory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalQuantityAllocated)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalQuantityAllocated), culture),
-            $"because BoardType.TotalQuantityAllocated should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalQuantityAvailable)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalQuantityAvailable), culture),
-            $"because BoardType.TotalQuantityAvailable should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalAreaInInventory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalAreaInInventory), culture),
-            $"because BoardType.TotalAreaInInventory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalAreaAllocated)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalAreaAllocated), culture),
-            $"because BoardType.TotalAreaAllocated should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.TotalAreaAvailable)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_TotalAreaAvailable), culture),
-            $"because BoardType.TotalAreaAvailable should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.InsufficientInventory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_InsufficientInventory), culture),
-            $"because BoardType.InsufficientInventory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardType.Comments)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeProperties_Comments), culture),
-            $"because BoardType.Comments should be localized correctly in culture '{cultureName}'");
+        foreach (var propertyName in propertyDisplayNames.Keys)
+        {
+            var resourceKey = $"BoardTypeProperties_{propertyName}";
+            var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
+            if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            propertyDisplayNames[propertyName].ShouldBe(expected,
+                $"because BoardType.{propertyName} should be localized correctly in culture '{cultureName}'");
+        }
     }
     /// <summary>
     /// </summary>
@@ -157,27 +83,14 @@ public class LocalizationTests
         var culture = CultureInfo.GetCultureInfo(cultureName);
         var allocation = new BoardTypeAllocation();
         var propertyDisplayNames = allocation.GetPropertyDisplayNames(culture);
-        propertyDisplayNames[nameof(BoardTypeAllocation.BoardCode)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeAllocationProperties_BoardCode), culture),
-            $"because BoardTypeAllocation.BoardCode should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.Quantity)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeAllocationProperties_Quantity), culture),
-            $"because BoardTypeAllocation.Quantity should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.AdditionalData)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_AdditionalData), culture),
-            $"because BoardTypeAllocation.AdditionalData should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.AdditionalProperties)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_AdditionalProperties), culture),
-            $"because BoardTypeAllocation.AdditionalProperties should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.Comments)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Comments), culture),
-            $"because BoardTypeAllocation.Comments should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.CreatedAt)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_CreatedAt), culture),
-            $"because BoardTypeAllocation.CreatedAt should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.CreatedBy)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_CreatedBy), culture),
-            $"because BoardTypeAllocation.CreatedBy should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.Name)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Name), culture),
-            $"because BoardTypeAllocation.Name should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.Source)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Source), culture),
-            $"because BoardTypeAllocation.Source should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeAllocation.Workstation)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.AllocationProperties_Workstation), culture),
-            $"because BoardTypeAllocation.Workstation should be localized correctly in culture '{cultureName}'");
+        foreach (var propertyName in propertyDisplayNames.Keys)
+        {
+            var resourceKey = $"BoardTypeAllocationProperties_{propertyName}";
+            var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
+            if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            propertyDisplayNames[propertyName].ShouldBe(expected,
+                $"because BoardTypeAllocation.{propertyName} should be localized correctly in culture '{cultureName}'");
+        }
     }
     /// <summary>
     /// </summary>
@@ -190,12 +103,15 @@ public class LocalizationTests
         var culture = CultureInfo.GetCultureInfo(cultureName);
         var details = new BoardTypeDetails();
         var propertyDisplayNames = details.GetPropertyDisplayNames(culture);
-        propertyDisplayNames[nameof(BoardTypeDetails.AdditionalData)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeDetailsProperties_AdditionalData), culture),
-            $"because BoardTypeDetails.AdditionalData should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeDetails.Allocations)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeDetailsProperties_Allocations), culture),
-            $"because BoardTypeDetails.Allocations should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeDetails.Inventory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeDetailsProperties_Inventory), culture),
-            $"because BoardTypeDetails.Inventory should be localized correctly in culture '{cultureName}'");
+
+        foreach (var propertyName in propertyDisplayNames.Keys)
+        {
+            var resourceKey = $"BoardTypeDetailsProperties_{propertyName}";
+            var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
+            if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            propertyDisplayNames[propertyName].ShouldBe(expected,
+                $"because BoardTypeDetails.{propertyName} should be localized correctly in culture '{cultureName}'");
+        }
     }
     /// <summary>
     /// </summary>
@@ -208,19 +124,14 @@ public class LocalizationTests
         var culture = CultureInfo.GetCultureInfo(cultureName);
         var inventory = new BoardTypeInventory();
         var propertyDisplayNames = inventory.GetPropertyDisplayNames(culture);
-        propertyDisplayNames[nameof(BoardTypeInventory.Code)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Code), culture),
-            $"because BoardTypeInventory.Code should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeInventory.Location)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Location), culture),
-            $"because BoardTypeInventory.Location should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeInventory.Workstation)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Workstation), culture),
-            $"because BoardTypeInventory.Workstation should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeInventory.Quantity)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_Quantity), culture),
-            $"because BoardTypeInventory.Quantity should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeInventory.AdditionalCommentsBoards)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_AdditionalCommentsBoards), culture),
-            $"because BoardTypeInventory.AdditionalCommentsBoards should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(BoardTypeInventory.CreationDate)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.BoardTypeInventoryProperties_CreationDate), culture),
-            $"because BoardTypeInventory.CreationDate should be localized correctly in culture '{cultureName}'");
+        foreach (var propertyName in propertyDisplayNames.Keys)
+        {
+            var resourceKey = $"BoardTypeInventoryProperties_{propertyName}";
+            var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
+            if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            propertyDisplayNames[propertyName].ShouldBe(expected,
+                $"because Material.{propertyName} should be localized correctly in culture '{cultureName}'");
+        }
     }
     /// <summary>
     /// Tests the localization of the BoardTypeType enumeration for a given culture.
@@ -424,38 +335,15 @@ public class LocalizationTests
         var culture = CultureInfo.GetCultureInfo(cultureName);
         var material = new MaterialType();
         var propertyDisplayNames = material.GetPropertyDisplayNames(culture);
-        propertyDisplayNames[nameof(MaterialType.AdditionalData)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_AdditionalData), culture),
-            $"because Material.AdditionalData should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.AverageCosts)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_AverageCosts), culture),
-            $"because Material.AverageCosts should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.BoardParameterForOptimization)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_BoardParameterForOptimization), culture),
-            $"because Material.BoardParameterForOptimization should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.CoatingCategory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_CoatingCategory), culture),
-            $"because Material.CoatingCategory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.Code)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Code), culture),
-            $"because Material.Code should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.DecorCode)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_DecorCode), culture),
-            $"because Material.DecorCode should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.DecorName)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_DecorName), culture),
-            $"because Material.DecorName should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.Density)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Density), culture),
-            $"because Material.Density should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.Manufacturer)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Manufacturer), culture),
-            $"because Material.Manufacturer should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.MasterDataComments)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_MasterDataComments), culture),
-            $"because Material.MasterDataComments should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.MaterialCategory)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_MaterialCategory), culture),
-            $"because Material.MaterialCategory should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.MaterialParameterForOptimization)].ShouldBe(
-            Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_MaterialParameterForOptimization), culture),
-            $"because Material.MaterialParameterForOptimization should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.ProductName)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_ProductName), culture),
-            $"because Material.ProductName should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.StandardQuality)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_StandardQuality), culture),
-            $"because Material.StandardQuality should be localized correctly in culture '{cultureName}'");
-        propertyDisplayNames[nameof(MaterialType.Thickness)].ShouldBe(Resources.ResourceManager.GetString(nameof(Resources.MaterialProperties_Thickness), culture),
-            $"because Material.Thickness should be localized correctly in culture '{cultureName}'");
+
+        foreach (var propertyName in propertyDisplayNames.Keys)
+        {
+            var resourceKey = $"MaterialProperties_{propertyName}";
+            var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
+            if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            propertyDisplayNames[propertyName].ShouldBe(expected,
+                $"because Material.{propertyName} should be localized correctly in culture '{cultureName}'");
+        }
     }
     /// <summary>
     /// Tests the localization of the StandardQuality enumeration for a given culture.

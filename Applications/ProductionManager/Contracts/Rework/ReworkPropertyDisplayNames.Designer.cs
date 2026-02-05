@@ -19,7 +19,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ReworkPropertyDisplayNames {
@@ -124,6 +124,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kundenname.
+        /// </summary>
+        public static string CustomerName {
+            get {
+                return ResourceManager.GetString("CustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beschreibung.
         /// </summary>
         public static string Description {
@@ -147,6 +156,24 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         public static string LastWorkstation {
             get {
                 return ResourceManager.GetString("LastWorkstation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Letzter Arbeitsplatz-ID.
+        /// </summary>
+        public static string LastWorkstationId {
+            get {
+                return ResourceManager.GetString("LastWorkstationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Länge.
+        /// </summary>
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
             }
         }
         
@@ -223,11 +250,29 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nachfertigungs-ID.
+        /// </summary>
+        public static string ReworkId {
+            get {
+                return ResourceManager.GetString("ReworkId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breite.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
     }

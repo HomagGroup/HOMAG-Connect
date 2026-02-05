@@ -117,24 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Approved" xml:space="preserve">
-    <value>Genehmigt</value>
-    <comment>Approved</comment>
+  <data name="BoardEntity" xml:space="preserve">
+    <value>Platten</value>
   </data>
-  <data name="Pending" xml:space="preserve">
-    <value>In Bearbeitung</value>
-    <comment>Pending</comment>
+  <data name="Costs" xml:space="preserve">
+    <value>Kosten</value>
   </data>
-  <data name="Rejected" xml:space="preserve">
-    <value>Abgelehnt</value>
-    <comment>Rejected</comment>
+  <data name="DividedAt" xml:space="preserve">
+    <value>Endzeitpunkt</value>
   </data>
-  <data name="Transferred" xml:space="preserve">
-    <value>Übertragen</value>
-    <comment>Transferred</comment>
+  <data name="EdgebandCode" xml:space="preserve">
+    <value>Kantenband</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unbekannt</value>
-    <comment>Unknown</comment>
+  <data name="Height" xml:space="preserve">
+    <value>Höhe</value>
+  </data>
+  <data name="OptimizationId" xml:space="preserve">
+    <value>Optimierungnummber</value>
+  </data>
+  <data name="WorkstationId" xml:space="preserve">
+    <value>Arbeitsplatznummber</value>
   </data>
 </root>
