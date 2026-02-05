@@ -13,19 +13,28 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
 
-        /// <summary>
-        /// Gets or sets the BoardEntity information
-        /// </summary>
         #region Board parameters     
 
+        /// <summary>
+        /// Gets or sets the BoardEntityId information
+        /// </summary>
         public string? BoardEntityId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Comments related to the board
+        /// </summary>
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardEntityProperties_Comments))]
         public string? Comments { get; set; }
 
+        /// <summary>
+        /// Gets or sets the BoardCode
+        /// </summary>
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_BoardCode))]
         public string? BoardCode { get; set; }
 
+        /// <summary>
+        /// The type of board such as Offcut, Board or Template
+        /// </summary>
         public BoardTypeType BoardTypeType { get; set; }
 
         #endregion
