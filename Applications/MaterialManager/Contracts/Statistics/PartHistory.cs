@@ -1,5 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
 using Resources = HomagConnect.Base.Contracts.Resources;
@@ -16,14 +16,19 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the BoardEntity information
         /// </summary>
-        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.BoardEntity))]
-        public BoardEntity BoardEntity { get; set; }
+        #region Board parameters     
 
-        /// <summary>
-        /// Gets or sets the BoardType information
-        /// </summary>
-        [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardEntityProperties_BoardType))]
-        public BoardType BoardType { get; set; }
+        public string? BoardEntityId { get; set; }
+
+        [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardEntityProperties_Comments))]
+        public string? Comments { get; set; }
+
+        [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_BoardCode))]
+        public string? BoardCode { get; set; }
+
+        public BoardTypeType BoardTypeType { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Gets or sets the DividedAt timestamp
@@ -34,7 +39,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the OptimizationId
         /// </summary>
-        [Display(AutoGenerateField = false, ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.OptimizationId))]
+        [Display(AutoGenerateField = false)]
         public Guid OptimizationId { get; set; }
 
         /// <summary>
@@ -76,13 +81,13 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the part.
         /// </summary>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Part))]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Part))]
         public PartHistoryPart Part { get; set; }
 
         /// <summary>
         /// Gets or sets the WorkstationId on which the dividing occured
         /// </summary>
-        [Display(AutoGenerateField = false, ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.WorkstationId))]
+        [Display(AutoGenerateField = false)]
         public Guid WorkstationId { get; set; }
 
         /// <summary>

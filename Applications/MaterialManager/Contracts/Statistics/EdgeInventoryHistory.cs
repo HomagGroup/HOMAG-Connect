@@ -37,7 +37,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         public double? Costs { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the board. The unit depends on the settings of the subscription (metric: mm, imperial:
+        /// Gets or sets the height of the Edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
         /// inch).
         /// </summary>
         [Required]
@@ -61,6 +61,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [Required]
         [JsonProperty(Order = 5)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TotalLengthInInventory))]
         public double? TotalLengthInInventory { get; set; }
 
         #region IContainsUnitSystemDependentProperties Members
