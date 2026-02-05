@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;

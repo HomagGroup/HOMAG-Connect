@@ -1,8 +1,15 @@
-﻿namespace HomagConnect.IntelliDivide.Contracts.Common
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.IntelliDivide.Contracts.Common
 {
     /// <summary>
     /// Specifies how the machine program (e.g., saw, ptx, mpr) is transferred to the machine.
     /// </summary>
+    [JsonConverter(typeof(TolerantEnumConverter))]
+    [ResourceManager(typeof(ProgramTransferModeDisplayNames))]
     public enum ProgramTransferMode
     {
         /// <summary>
