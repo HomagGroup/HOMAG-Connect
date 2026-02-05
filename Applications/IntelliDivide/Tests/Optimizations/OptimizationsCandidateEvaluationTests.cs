@@ -23,12 +23,12 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     {
         var cultureInfo = new CultureInfo("de");
         var solutionDetails = await GetSampleSolutionDetails();
-        var solutionCharacteristicsAndDisplayOrder = solutionDetails.DetermineCharacteristicsAndDisplayOrder();
+        var solutionCandidateEvaluationResults = solutionDetails.DetermineCharacteristicsAndDisplayOrder();
 
-        solutionCharacteristicsAndDisplayOrder.ShouldNotBeEmpty();
-        solutionCharacteristicsAndDisplayOrder.Length.ShouldBe(solutionDetails.Count());
+        solutionCandidateEvaluationResults.ShouldNotBeEmpty();
+        solutionCandidateEvaluationResults.Length.ShouldBe(solutionDetails.Count());
 
-        solutionCharacteristicsAndDisplayOrder.Select(s => new
+        solutionCandidateEvaluationResults.Select(s => new
         {
             s.Id,
             s.Characteristic,
@@ -36,7 +36,10 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
             Description = s.Characteristic.GetLocalizedDescription(s.CharacteristicsInAddition, cultureInfo)
         }).Trace();
 
-        TestContext?.AddResultFile(solutionCharacteristicsAndDisplayOrder.TraceToFile(nameof(solutionCharacteristicsAndDisplayOrder)).FullName);
+        
+        solutionCandidateEvaluationResults.Trace();
+
+        TestContext?.AddResultFile(solutionCandidateEvaluationResults.TraceToFile(nameof(solutionCandidateEvaluationResults)).FullName);
     }
 
     private async Task<List<SolutionDetails>> GetSampleSolutionDetails()
