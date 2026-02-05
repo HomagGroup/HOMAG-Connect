@@ -1,6 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Converter;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
-
+using HomagConnect.IntelliDivide.Contracts.Result;
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums

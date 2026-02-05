@@ -1,6 +1,7 @@
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;

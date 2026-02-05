@@ -38,7 +38,7 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>RotationAngleDisplayNames.resx</DependentUpon>
 	  </Compile>
-	  <Compile Update="Evaluation\SolutionCharacteristicDisplayNames.Designer.cs">
+	  <Compile Update="Result\SolutionCharacteristicDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>SolutionCharacteristicDisplayNames.resx</DependentUpon>
@@ -64,7 +64,7 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>RotationAngleDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Evaluation\SolutionCharacteristicDisplayNames.resx">
+	  <EmbeddedResource Update="Result\SolutionCharacteristicDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>SolutionCharacteristicDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>

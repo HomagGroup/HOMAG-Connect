@@ -1,10 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.Serialization;
-
+﻿#nullable enable
 using HomagConnect.IntelliDivide.Contracts.Constants;
-
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -13,19 +16,37 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     [DebuggerDisplay("Id={Id}, OptimizationId={OptimizationId}, Name={Name}")]
-    public class Solution : IExtensibleDataObject
+    public class Solution : IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// Gets or sets the unique identifier of the solution.
         /// </summary>
         [JsonProperty(Order = 1)]
         public Guid Id { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the name of the solution. See <see cref="SolutionName" /> for more details.
         /// </summary>
         [JsonProperty(Order = 2)]
         public string Name { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Gets or sets the description of the solution.
+        /// </summary>
+        [JsonProperty(Order = 5)]
+        public string Description { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the primary characteristic of the solution.
+        /// </summary>
+        [JsonProperty(Order = 3)]
+        public SolutionCharacteristic Characteristic { get; set; } = SolutionCharacteristic.Unknown;
+
+        /// <summary>   
+        /// Gets or sets the characteristics in addition to the primary characteristic of the solution.
+        /// </summary>
+        [JsonProperty(Order = 4)]
+        public SolutionCharacteristic[]? CharacteristicsInAddition { get; set; } 
 
         /// <summary>
         /// Gets or sets the optimization id.
@@ -36,18 +57,20 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Gets or sets the <see cref="SolutionOverview" />.
         /// </summary>
-        [JsonProperty(Order = 5)]
-        public SolutionOverview Overview { get; set; } = new SolutionOverview();
-
+        [JsonProperty(Order = 8)]
+        public SolutionOverview Overview { get; set; } = new();
+        
         /// <summary>
-        /// Gets or sets the total score of the solution. The <see cref="SolutionName.BalancedSolution" /> has typically the
-        /// highest score. The solutions are listed in the app sorted by the score (highest first).
+        /// Gets or sets the additional properties configured in the application.
         /// </summary>
         [JsonProperty(Order = 80)]
-        public double TotalScore { get; set; }
-
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the unit system.
+        /// </summary>
+        [JsonProperty(Order = 21)]
+        public UnitSystem UnitSystem { get; set; }
     }
 }

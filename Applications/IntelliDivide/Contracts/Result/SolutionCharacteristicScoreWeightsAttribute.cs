@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+
+namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
 /// Attribute that accepts an array of string/int pairs as parameters,
 /// e.g. [ScoreWeights("TotalCosts", 1000, "MaterialCosts", 500)]
 /// </summary>
-[AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Field)]
 public sealed class SolutionCharacteristicScoreWeightsAttribute : Attribute
 {
     /// <summary>

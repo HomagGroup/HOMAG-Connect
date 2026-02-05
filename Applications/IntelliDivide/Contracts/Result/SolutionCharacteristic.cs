@@ -2,10 +2,11 @@
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
+using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
 /// Specifies the characteristics used to evaluate or select a solution in the order to be displayed.

@@ -2,12 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-
 using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
+namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
 /// Key figures of a solution candidate for evaluation purposes.

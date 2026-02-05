@@ -1,12 +1,13 @@
 using System.Globalization;
 
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
-using HomagConnect.IntelliDivide.Contracts.Evaluation;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
+using HomagConnect.IntelliDivide.Contracts.Extensions;
 
 using Shouldly;
 
@@ -31,8 +32,8 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         {
             s.Id,
             s.Characteristic,
-            DisplayName = s.GetLocalizedName(cultureInfo),
-            Description = s.GetLocalizedDescription(cultureInfo)
+            DisplayName = s.Characteristic.GetLocalizedName(cultureInfo),
+            Description = s.Characteristic.GetLocalizedDescription(s.CharacteristicsInAddition, cultureInfo)
         }).Trace();
 
         TestContext?.AddResultFile(solutionCharacteristicsAndDisplayOrder.TraceToFile(nameof(solutionCharacteristicsAndDisplayOrder)).FullName);

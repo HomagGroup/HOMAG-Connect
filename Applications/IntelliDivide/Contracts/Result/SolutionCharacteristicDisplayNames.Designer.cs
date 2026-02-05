@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation {
+namespace HomagConnect.IntelliDivide.Contracts.Result {
     using System;
     
     
@@ -39,8 +39,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.IntelliDivide.Contracts.Evaluation.SolutionCharacteristicDisplayName" +
-                            "s", typeof(SolutionCharacteristicDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.IntelliDivide.Contracts.Result.SolutionCharacteristicDisplayNames", typeof(SolutionCharacteristicDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

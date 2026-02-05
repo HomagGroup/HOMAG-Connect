@@ -2,16 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-
-using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation
+namespace HomagConnect.IntelliDivide.Contracts.Extensions
 {
     /// <summary>
     /// Extensions to evaluate <see cref="SolutionCandidate" />s and produce ranked
@@ -54,43 +50,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Evaluation
             evaluated.CalculateRanking();
 
             return evaluated.OrderBy(s => s.Ranking).ToArray();
-        }
-
-        /// <param name="candidate">The solution candidate evaluation result for which to retrieve the localized name.</param>
-        extension(SolutionCandidateEvaluationResult candidate)
-        {
-            /// <summary>
-            /// Gets the localized description for the specified solution candidate evaluation result, using the provided culture.
-            /// </summary>
-            public string GetLocalizedDescription(CultureInfo culture)
-            {
-                var description = candidate.Characteristic.GetLocalizedDescription(culture);
-
-                if (candidate.CharacteristicsInAddition is { Length: > 0 })
-                {
-                    description += Environment.NewLine;
-                    description += Environment.NewLine;
-                    description += SolutionCharacteristicDisplayNames.AdditionalCharacteristicsDescription;
-
-                    description += " ";
-
-                    foreach (var solutionCharacteristic in candidate.CharacteristicsInAddition)
-                    {
-                        description += solutionCharacteristic.GetLocalizedName(culture);
-                        description += ", ";
-                    }
-                }
-
-                return description.Trim(' ', ',');
-            }
-
-            /// <summary>
-            /// Gets the localized display name for the specified solution candidate evaluation result, using the provided culture.
-            /// </summary>
-            public string GetLocalizedName(CultureInfo culture)
-            {
-                return candidate.Characteristic.GetLocalizedName(culture);
-            }
         }
 
         #region Private Methods
