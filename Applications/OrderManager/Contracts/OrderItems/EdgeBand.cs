@@ -61,6 +61,12 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public double Length { get; set; }
 
         /// <summary>
+        /// Gets or sets the quantity of the edge band coils.
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        public int? CoilQuantity { get; set; }
+
+        /// <summary>
         /// Gets or sets the unit system.
         /// </summary>
         [JsonProperty(Order = 999)]
