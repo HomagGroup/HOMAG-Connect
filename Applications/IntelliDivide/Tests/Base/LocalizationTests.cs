@@ -2,6 +2,7 @@
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
