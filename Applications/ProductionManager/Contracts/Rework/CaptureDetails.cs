@@ -52,7 +52,6 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <summary>
         /// Last workstation id where the rework was captured
         /// </summary>
-        [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(LastWorkstationId))]
         [JsonProperty(Order = 31)]
         public Guid? LastWorkstationId { get; set; }
     }
