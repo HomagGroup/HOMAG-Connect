@@ -2,51 +2,75 @@ using System.Globalization;
 
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Result;
-using HomagConnect.IntelliDivide.Tests.Base;
 using HomagConnect.IntelliDivide.Contracts.Extensions;
+using HomagConnect.IntelliDivide.Tests.Base;
 
 using Shouldly;
 
 namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Optimizations")]
+[IntegrationTest("IntelliDivide.Optimizations.Evaluation")]
 public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
 {
     [TestMethod]
-    public async Task Optimizations_GetFirstOptimizationAndEvaluate()
+    public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {
-        var cultureInfo = new CultureInfo("de");
-        var solutionDetails = await GetSampleSolutionDetails();
-        var solutionCandidateEvaluationResults = solutionDetails.DetermineCharacteristicsAndDisplayOrder();
-
-        solutionCandidateEvaluationResults.ShouldNotBeEmpty();
-        solutionCandidateEvaluationResults.Length.ShouldBe(solutionDetails.Count());
-
-        solutionCandidateEvaluationResults.Select(s => new
-        {
-            s.Id,
-            s.Characteristic,
-            DisplayName = s.Characteristic.GetLocalizedName(cultureInfo),
-            Description = s.Characteristic.GetLocalizedDescription(s.CharacteristicsInAddition, cultureInfo)
-        }).Trace();
-
-        
-        solutionCandidateEvaluationResults.Trace();
-
-        TestContext?.AddResultFile(solutionCandidateEvaluationResults.TraceToFile(nameof(solutionCandidateEvaluationResults)).FullName);
+        var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
+        GetFirstOptimizationAndEvaluate(solutions);
     }
 
-    private async Task<List<SolutionDetails>> GetSampleSolutionDetails()
+    [TestMethod]
+    public async Task Optimization_Nesting_GetFirstOptimizationAndEvaluate()
+    {
+        var solutions = await GetSampleSolutionDetails(OptimizationType.Nesting);
+        GetFirstOptimizationAndEvaluate(solutions);
+    }
+
+    private void GetFirstOptimizationAndEvaluate(List<SolutionDetails> solutionDetails)
+    {
+        solutionDetails.ShouldNotBeNull();
+        solutionDetails.ShouldNotBeEmpty();
+
+        var cultureInfo = new CultureInfo("de-DE");
+
+        var evaluationResults = solutionDetails.DetermineCharacteristicsAndDisplayOrder();
+
+        evaluationResults.ShouldNotBeEmpty();
+        evaluationResults.Length.ShouldBe(solutionDetails.Count);
+
+        // Project localized name and description for reporting
+        evaluationResults
+            .Select(r => new
+            {
+                r.Id,
+                r.Characteristic,
+                DisplayName = r.Characteristic.GetLocalizedName(cultureInfo),
+                Description = r.Characteristic.GetLocalizedDescription(r.CharacteristicsInAddition, cultureInfo)
+            })
+            .Trace("LocalizedCharacteristics");
+
+        evaluationResults.Trace(nameof(evaluationResults));
+
+        var resultFile = evaluationResults.TraceToFile(nameof(evaluationResults));
+        if (resultFile != null)
+        {
+            TestContext?.AddResultFile(resultFile.FullName);
+        }
+    }
+
+    private async Task<List<SolutionDetails>> GetSampleSolutionDetails(OptimizationType optimizationType)
     {
         var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);
 
-        var optimization = await intelliDivide.GetOptimizations(OptimizationType.Nesting, OptimizationStatus.Optimized, 1)!.FirstOrDefaultAsync();
+        var optimization = await intelliDivide
+            .GetOptimizations(optimizationType, OptimizationStatus.Optimized, 1)!
+            .FirstOrDefaultAsync();
 
         if (optimization == null)
         {
@@ -63,7 +87,6 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         foreach (var solution in solutions)
         {
             var details = await intelliDivide.GetSolutionDetails(optimization.Id, solution.Id);
-
             Assert.IsNotNull(details);
             solutionDetails.Add(details);
         }
