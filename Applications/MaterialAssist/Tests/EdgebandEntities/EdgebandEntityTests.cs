@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.EdgebandEntities;
 
@@ -77,13 +76,13 @@ public class EdgebandEntityTests : MaterialAssistTestBase
                 firstStorageLocation.LocationId
             );
 
-            found.Should().NotBeNull(
+            found.ShouldNotBeNull(
                 $"because edgeband entity with ID '{createdEdgebandEntity.Id}' should be stored and retrievable from storage location '{firstStorageLocation.LocationId}'");
-            found!.Length.Should().Be(storeEdgebandEntity.Length,
+            found!.Length.ShouldBe(storeEdgebandEntity.Length,
                 $"because edgeband entity '{createdEdgebandEntity.Id}' was stored with length {storeEdgebandEntity.Length}");
-            found.Quantity.Should().Be(1,
+            found.Quantity.ShouldBe(1,
                 $"because edgeband entity '{createdEdgebandEntity.Id}' with ManagementType.Single must have quantity 1");
-            found.Location.LocationId.Should().Be(firstStorageLocation.LocationId,
+            found.Location.LocationId.ShouldBe(firstStorageLocation.LocationId,
                 $"because edgeband entity '{createdEdgebandEntity.Id}' was stored in storage location '{firstStorageLocation.LocationId}'");
         }
         finally
@@ -105,7 +104,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
 
         var storageLocations = (await client.GetStorageLocations().ConfigureAwait(false)).ToArray();
 
-        storageLocations.Should().NotBeNull(
+        storageLocations.ShouldNotBeNull(
             "because GetStorageLocations should return a collection of all available storage locations");
 
         foreach (var storageLocation in storageLocations)
@@ -130,7 +129,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         var workstationId = firstWorkstation.Id.ToString();
         var storageLocations = (await client.GetStorageLocations(workstationId).ConfigureAwait(false)).ToArray();
 
-        storageLocations.Should().NotBeNull(
+        storageLocations.ShouldNotBeNull(
             $"because GetStorageLocations should return a collection of storage locations for workstation '{firstWorkstation.Name}' (ID: {workstationId})");
 
         foreach (var storageLocation in storageLocations)
@@ -146,7 +145,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
 
         var workstations = (await client.GetWorkstations().ConfigureAwait(false)).ToArray();
 
-        workstations.Should().NotBeNull(
+        workstations.ShouldNotBeNull(
             "because GetWorkstations should return a collection of all available workstations");
 
         foreach (var workstation in workstations)
@@ -162,7 +161,7 @@ public class EdgebandEntityTests : MaterialAssistTestBase
 
         var edgebandEntities = (await client.GetEdgebandEntities(5).ConfigureAwait(false) ?? new List<EdgebandEntity>()).ToArray();
 
-        edgebandEntities.Should().NotBeNull(
+        edgebandEntities.ShouldNotBeNull(
             "because GetEdgebandEntities should return a collection (empty or populated) of edgeband entities");
 
         foreach (var edgebandEntity in edgebandEntities)
@@ -171,6 +170,22 @@ public class EdgebandEntityTests : MaterialAssistTestBase
         }
     }
 
+    [TestMethod]
+    public async Task MaterialAssist_EdgebandEntities_ChangedSince()
+    {
+        var client = GetMaterialAssistClient().Edgebands;
+
+        var edgebandEntities = (await client.GetEdgebandEntities(DateTimeOffset.UtcNow.AddDays(-2), 5).ConfigureAwait(false) ?? new List<EdgebandEntity>()).ToArray();
+
+        edgebandEntities.ShouldNotBeNull(
+            "because GetEdgebandEntities should return a collection (empty or populated) of edgeband entities");
+
+        foreach (var edgebandEntity in edgebandEntities)
+        {
+            edgebandEntity.Trace();
+        }
+    }
+    
     private static async Task CleanupAsync(
         IEnumerable<Func<Task>> cleanupActions)
     {

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialManager.Samples.Update.Boards;
 
@@ -23,10 +23,13 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
 
         var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
 
-        checkBoard.Should().NotBeNull(
+        checkBoard.ShouldNotBeNull(
             $"because board type with board code '{boardCode}' should exist after update");
-        checkBoard!.Costs.Should().Be(value,
-            $"because board type '{boardCode}' was updated to costs {value}");
+
+        checkBoard.Costs.ShouldNotBeNull();
+        checkBoard.Costs.Value.ShouldBe(value, 0.0001, "because the costs should match");
+
+        
         return;
 
         double RandomBetween(double min, double max)

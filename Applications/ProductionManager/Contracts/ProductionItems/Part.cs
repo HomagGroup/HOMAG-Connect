@@ -15,7 +15,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 /// Represents a part in an order, including its properties for laminating, edgebanding, dimensions, materials, and CNC
 /// programs.
 /// </summary>
-public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties, IMaterialProperties, ICncProgramProperties
+public class Part : ProductionItemBase, IPartProperties
 {
     #region (60) Production resources
 
@@ -74,6 +74,11 @@ public class Part : ProductionItemBase, ILaminatingProperties, IEdgebandingPrope
             }
 
             return null;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Needed for serialization. Do nothing. If removed the property is added to AdditionalProperties on deserialization.
         }
     }
 

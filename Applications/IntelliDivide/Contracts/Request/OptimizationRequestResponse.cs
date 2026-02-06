@@ -1,15 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
     /// <summary>
     /// Represents the response of an optimization request
     /// </summary>
-    public class OptimizationRequestResponse : IExtensibleDataObject
+    public class OptimizationRequestResponse
     {
         /// <summary>
         /// Gets or sets the link to the optimization
@@ -35,12 +33,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         [JsonProperty(Order = 4)]
         public OptimizationValidationResult[] ValidationResults { get; set;}
 
-        #region IExtensibleDataObject Members
-
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
-
-        #endregion
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

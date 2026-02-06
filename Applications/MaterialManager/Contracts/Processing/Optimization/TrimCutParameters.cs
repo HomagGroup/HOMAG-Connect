@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
     public class TrimCutParameters : IContainsUnitSystemDependentProperties
     {
         private const double _LengthConstraintMin = 0;
-        private const double _LengthConstraintMax = 9999.9;
+        private const double _LengthConstraintMax = 19999.9;
 
         /// <summary>
         /// Determines whether undershooting the minimum trim cut is allowed.

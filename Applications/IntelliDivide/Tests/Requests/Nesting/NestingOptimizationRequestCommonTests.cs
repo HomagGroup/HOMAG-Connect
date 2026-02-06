@@ -1,4 +1,5 @@
-﻿using HomagConnect.IntelliDivide.Contracts.Common;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -26,6 +27,7 @@ public class NestingOptimizationRequestCommonTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 01, 31, "DF-Optimization")]
     public async Task NestingRequest_Common_RetrieveResults()
     {
         var intelliDivide = GetIntelliDivideClient();

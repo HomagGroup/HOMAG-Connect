@@ -1,0 +1,40 @@
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.ProductionManager.Contracts.Rework
+{
+    /// <summary>
+    /// Rework State
+    /// </summary>
+    [JsonConverter(typeof(TolerantEnumConverter))]
+    [ResourceManager(typeof(ReworkStateDisplayNames))]
+    public enum ReworkState
+    {
+        /// <summary>
+        /// Fallback value if the state is unknown
+        /// </summary>
+        Unknown,
+
+        /// <summary>
+        /// Pending
+        /// </summary>
+        Pending,
+
+        /// <summary>
+        /// Approved
+        /// </summary>
+        Approved,
+
+        /// <summary>
+        /// Rejected
+        /// </summary>
+        Rejected,
+
+        /// <summary>
+        /// Transferred
+        /// </summary>
+        Transferred
+    }
+}

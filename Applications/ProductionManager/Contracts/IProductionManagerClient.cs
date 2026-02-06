@@ -1,8 +1,11 @@
-﻿using HomagConnect.ProductionManager.Contracts.Import;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.Rework;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -208,6 +211,52 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <returns></returns>
         public Task<LotDetails?> GetLotDetails(string identifier);
 
+        #endregion
+
+        #region Rework
+
+        /// <summary>
+        /// Get completed reworks
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Rework.Rework>?> GetCompletedReworks();
+
+        /// <summary>
+        /// Retrieves a collection of rework records that match the specified states and optional capture date range.
+        /// </summary>
+        /// <param name="states">An array of rework states to filter the results. If <paramref name="states"/> is <see langword="null"/>, all
+        /// states are included.</param>
+        /// <param name="capturedAtFrom">The earliest capture date and time to include in the results. If <paramref name="capturedAtFrom"/> is <see
+        /// langword="null"/>, no lower bound is applied.</param>
+        /// <param name="capturedAtTo">The latest capture date and time to include in the results. If <paramref name="capturedAtTo"/> is <see
+        /// langword="null"/>, no upper bound is applied.</param>
+        /// <param name="take">The maximum number of rework records to return. Must be greater than or equal to 0. The default is <see
+        /// cref="int.MaxValue"/>.</param>
+        /// <param name="skip">The number of matching rework records to skip before returning results. Must be greater than or equal to 0.
+        /// The default is 0.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
+        /// rework records matching the specified criteria, or <see langword="null"/> if no records are found.</returns>
+        Task<IEnumerable<Rework.Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0);
+
+        #endregion Rework
+
+        #region ProductionProtocol
+
+        /// <summary>
+        /// Get the ProductionProtocol for one workstation by its identifier
+        /// </summary>
+        /// <param name="workstationId"></param>
+        /// <param name="daysBack"></param>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7);
+
+        /// <summary>
+        /// Retrieve the list all workstations.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Workstation>?> GetWorkstations();
         #endregion
 
         #region Production prediction

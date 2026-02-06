@@ -1,9 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-
-using JsonSubTypes;
-
+﻿using JsonSubTypes;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace HomagConnect.Base.Contracts.AdditionalData;
 
@@ -19,6 +18,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataThreeD), AdditionalDataType.ThreeD)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataPdf), AdditionalDataType.Pdf)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataZip), AdditionalDataType.Zip)]
+[JsonSubtypes.KnownSubType(typeof(AdditionalDataSurfaceTexture), AdditionalDataType.SurfaceTexture)]
 [DebuggerDisplay("Type={Type}, Name={Name}")]
 public class AdditionalDataEntity
 {
@@ -27,6 +27,7 @@ public class AdditionalDataEntity
     /// </summary>
     [JsonExtensionData]
     [JsonProperty(Order = 30)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(AdditionalProperties))]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
@@ -38,40 +39,53 @@ public class AdditionalDataEntity
     /// * AboveImage (Type=Image) => per group
     /// * ThreeDModel (Type=ThreeD) => per group or per position
     /// * ArticleImage (Type=Image) => per position
+    /// * AttributeValueImage (Type=Image) => per ConfigurationAttribute
     /// </remarks>
     [JsonProperty(Order = 1)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Category))]
     public string? Category { get; set; }
 
     /// <summary>
     /// Gets or sets the download file name.
     /// </summary>
     [JsonProperty(Order = 10)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(DownloadFileName))]
     public string? DownloadFileName { get; set; }
 
     /// <summary>
     /// Gets or sets the download uri.
     /// </summary>
     [JsonProperty(Order = 11)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(DownloadUri))]
     public Uri? DownloadUri { get; set; }
 
     /// <summary>
     /// Gets or sets the additional data name
     /// </summary>
     [JsonProperty(Order = 2)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Name))]
     public string? Name { get; set; }
 
     /// <summary>
     /// Previews
     /// </summary>
     [JsonProperty(Order = 20)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Previews))]
+
     public Collection<AdditionalDataPreview>? Previews { get; set; }
 
     /// <summary>
     /// Gets or sets the additional data type.
     /// </summary>
     [JsonProperty(Order = 0)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Type))]
     public virtual AdditionalDataType Type { get; set; }
 
+    /// </summary>
+    [JsonProperty(Order = 12)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Source))]
+    public AdditionalDataSource? Source { get; set; }
+    
     /// <summary>
     /// Creates a new instance of the <see cref="AdditionalDataEntity" /> class based on the file extension.
     /// </summary>

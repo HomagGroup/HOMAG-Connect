@@ -3,29 +3,30 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartCnc">
     <Position X="6.75" Y="11.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAABAAAAAAAAAAAAAAAAUAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAIAABAAAAAAAAAAAAAAAQUAAAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPartCnc.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPart">
     <Position X="10" Y="8" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAABAAAAAAAAAEBAAAAAAAAAAAAAAAABQgA=</HashCode>
+      <HashCode>AEAAAAAAAAABAAAAAAAAAEBAAAAAAAAAAQAAAAABQgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPart.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItem">
-    <Position X="10" Y="0.75" Width="3.5" />
+    <Position X="10" Y="2" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEgAEAAAAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
+      <HashCode>AgAAAAAAEAAEAAAAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedItem.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartEdgebanding">
     <Position X="10.5" Y="11.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAQAAAAQAAAIAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAQAAAAQAAQIAAAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPartEdgebanding.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -33,45 +34,38 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartDividing">
     <Position X="14.25" Y="11.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAABAAAAAAAAAAQAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQAAAAAABAAAAAAAAAAQAAAAUAAAAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPartDividing.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedAssemblyGroup">
     <Position X="15" Y="8" Width="3.25" />
     <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem" ManuallyRouted="true">
       <Path>
-        <Point X="11.75" Y="6.194" />
+        <Point X="11.75" Y="7.329" />
         <Point X="11.75" Y="6.895" />
         <Point X="16.625" Y="6.895" />
         <Point X="16.625" Y="8" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedAssemblyGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem">
-    <Position X="10.25" Y="4" Width="3" />
+    <Position X="10.25" Y="4.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>EAACAAAAAAAgAAAAAABAAAAAQAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>EAACAAIAAAAgAAAAAABAAAAAQAAAAAAAAAAAwAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedOrderItem.cs</FileName>
       <NewMemberFileName>ProductionProtocol\ProcessedPosition.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPosition">
     <Position X="19.25" Y="8" Width="2.75" />
-    <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem" ManuallyRouted="true">
-      <Path>
-        <Point X="11.75" Y="6.194" />
-        <Point X="11.75" Y="6.907" />
-        <Point X="20.625" Y="6.907" />
-        <Point X="20.625" Y="8" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPosition.cs</FileName>
     </TypeIdentifier>
   </Class>

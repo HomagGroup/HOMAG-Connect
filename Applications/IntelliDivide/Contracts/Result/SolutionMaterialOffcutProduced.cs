@@ -1,8 +1,8 @@
-﻿using System.Runtime.Serialization;
+﻿#nullable enable
 
 using HomagConnect.Base.Contracts.Enumerations;
-
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -10,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// Describes the offcuts produced by the solution
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionMaterialOffcutProduced : IExtensibleDataObject
+    public class SolutionMaterialOffcutProduced 
     {
         /// <summary>
         /// Gets or sets the total costs.
@@ -58,14 +58,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut ids announced in materialAssist.
         /// </summary>
         [JsonProperty(Order = 8)]
-        public string[] Ids { get; set; }
+        public string[]? Ids { get; set; }
 
-        #region IExtensibleDataObject members
-
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
-
-        #endregion
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

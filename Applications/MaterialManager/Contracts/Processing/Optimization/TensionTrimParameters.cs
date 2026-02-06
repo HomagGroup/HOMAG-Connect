@@ -15,7 +15,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
     public class TensionTrimParameters : IContainsUnitSystemDependentProperties
     {
         private const double _LengthConstraintMin = 0;
-        private const double _LengthConstraintMax = 9999.9;
+        private const double _LengthConstraintMax = 19999.9;
 
         /// <summary>
         /// Gets or sets whether the tension trim parameters are enabled.

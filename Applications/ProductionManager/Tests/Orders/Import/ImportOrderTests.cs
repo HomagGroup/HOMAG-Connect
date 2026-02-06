@@ -1,7 +1,6 @@
 using System.IO.Compression;
 
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Samples.Orders.Import;

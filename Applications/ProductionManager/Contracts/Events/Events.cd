@@ -1,41 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="HomagConnect.Base.Contracts.Events.AppEvent">
-    <Position X="5.25" Y="1.75" Width="3" />
+    <Position X="7.75" Y="1.5" Width="3" />
     <TypeIdentifier />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.Events.Order.OrderReleasedEvent">
     <Position X="1.5" Y="7.25" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Events\Order\OrderReleasedEvent.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HomagConnect.ProductionManager.Contracts.Events.Order.OrderReleaseResetEvent">
-    <Position X="4.75" Y="7.25" Width="2.75" />
-    <InheritanceLine Type="HomagConnect.Base.Contracts.Events.AppEvent" ManuallyRouted="true">
-      <Path>
-        <Point X="6.75" Y="4.459" />
-        <Point X="6.75" Y="4.86" />
-        <Point X="6.125" Y="4.86" />
-        <Point X="6.125" Y="7.25" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Events\Order\OrderReleasedResetEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.Events.ProductionItem.ProductionItemProcessedByMachineFileEvent">
     <Position X="14.25" Y="7.25" Width="3.5" />
-    <InheritanceLine Type="HomagConnect.Base.Contracts.Events.AppEvent" ManuallyRouted="true">
-      <Path>
-        <Point X="6.75" Y="4.459" />
-        <Point X="6.75" Y="4.856" />
-        <Point X="16" Y="4.856" />
-        <Point X="16" Y="7.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAAAAAIAAAAAAAIAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Events\ProductionItem\ProductionItemProcessedByMachineFileEvent.cs</FileName>
@@ -51,8 +29,30 @@
       <Property Name="Action" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.Events.Order.OrderResetReleasedEvent">
+    <Position X="5.25" Y="7.5" Width="2.25" />
+    <InheritanceLine Type="HomagConnect.Base.Contracts.Events.AppEvent" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.25" Y="4.017" />
+        <Point X="9.25" Y="6.782" />
+        <Point X="6.125" Y="6.782" />
+        <Point X="6.125" Y="7.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Events\Order\OrderResetReleasedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Applications.ProductionManager.Contracts.Events.ProductionItem.ProductionItemStatusChangedEvent">
+    <Position X="19.5" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAgAAAAAAAAAAAAAAAAAAAAAABAAAwAAAAAA=</HashCode>
+      <FileName>Events\ProductionItem\ProductionItemStatusChangedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="HomagConnect.ProductionManager.Contracts.Events.ProductionItem.ProductionItemProcessedAction">
-    <Position X="11.5" Y="7.25" Width="1.75" />
+    <Position X="11.25" Y="7.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAABA=</HashCode>
       <FileName>Events\ProductionItem\ProductionItemProcessedAction.cs</FileName>

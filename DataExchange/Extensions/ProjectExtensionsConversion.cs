@@ -179,10 +179,7 @@ public static class ProjectExtensionsConversion
 
         foreach (var projectWrapperOrder in projectWrapper.Orders)
         {
-            foreach (var orderItemWrapper in projectWrapperOrder.Entities.OfType<OrderItemWrapper>())
-            {
-                orderItemWrapper.Catalog = source;
-            }
+            projectWrapperOrder.Source = source;
         }
     }
 
@@ -487,6 +484,12 @@ public static class ProjectExtensionsConversion
         MapEntity(order, orderDetails);
 
         var orderWrapper = new OrderWrapper(order);
+
+        if (!string.IsNullOrEmpty(orderWrapper.OrderNumber))
+        {
+            orderDetails.OrderNumber = null;
+            orderDetails.OrderNumberExternal = orderWrapper.OrderNumber;
+        }
 
         if (orderDetails.Addresses == null || orderDetails.Addresses.Count == 0)
         {

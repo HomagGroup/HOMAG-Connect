@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Samples.Create.Edgebands;
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 namespace HomagConnect.MaterialManager.Tests.Create.Edgebands;
 
@@ -14,27 +16,26 @@ namespace HomagConnect.MaterialManager.Tests.Create.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class CreateEdgebandTypeTests : MaterialManagerTestBase
 {
+    private const string _EdgebandCodeWhite = "ABS_White_3mm";
+    private const string _EdgebandCodeAdditionalData = "EB_White_1mm_AdditionalData";
+
+    private MaterialManagerClientMaterialEdgebands _MaterialManagerClientMaterialEdgebands;
+
     /// <summary />
-    [ClassCleanup]
-    public static async Task Cleanup()
+    [TestCleanup]
+    public async Task Cleanup()
     {
-        var classInstance = new CreateEdgebandTypeTests();
-        var materialManagerClient = classInstance.GetMaterialManagerClient();
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("ABS_White_3mm");
-        await materialManagerClient.Material.Edgebands.DeleteEdgebandType("EB_White_1mm_AdditionalData");
+        await CleanupEdgebands();
     }
 
     /// <summary />
     [TestMethod]
     public async Task EdgebandsCreateEdgebandType()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "ABS_White_3mm";
+        var act = async () => await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(_MaterialManagerClientMaterialEdgebands, _EdgebandCodeWhite);
 
-        var act = async () => await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType(materialManagerClient.Material.Edgebands, edgebandCode);
-
-        await act.Should().NotThrowAsync(
-            $"because creating edgeband type with edgeband code '{edgebandCode}' should complete successfully");
+        await Should.NotThrowAsync(act,
+            $"because creating edgeband type with edgeband code '{_EdgebandCodeWhite}' should complete successfully");
     }
 
     /// <summary />
@@ -45,14 +46,11 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     [DataRow("EdgebandCode", 20, 1.2, null)] // Length not set
     public async Task EdgebandTypeCreation_RequiredPropertiesMissing_ThrowsException(string edgebandCode, double height, double thickness, double length)
     {
-        var client = new HttpClient();
-        var edgebandsClient = new MaterialManagerClientMaterialEdgebands(client);
-
         var requestEdgebandType = CreateEdgebandTypeRequest(edgebandCode, height, thickness, length);
 
-        var act = async () => await edgebandsClient.CreateEdgebandType(requestEdgebandType);
+        var act = async () => await _MaterialManagerClientMaterialEdgebands.CreateEdgebandType(requestEdgebandType);
 
-        await act.Should().ThrowAsync<ValidationException>(
+        await Should.ThrowAsync<ValidationException>(act,
             "because creating an edgeband type with missing required properties should throw a ValidationException");
     }
 
@@ -60,14 +58,26 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandTypeCreation_WithAdditionalData_Succeeds()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-        var edgebandCode = "EB_White_1mm_AdditionalData";
-
         var act = async () => await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType_AdditionalData(
-            materialManagerClient.Material.Edgebands, edgebandCode);
+            _MaterialManagerClientMaterialEdgebands, _EdgebandCodeAdditionalData);
 
-        await act.Should().NotThrowAsync(
-            $"because creating edgeband type with edgeband code '{edgebandCode}' and additional data should complete successfully");
+        await Should.NotThrowAsync(act,
+            $"because creating edgeband type with edgeband code '{_EdgebandCodeAdditionalData}' and additional data should complete successfully");
+    }
+
+    /// <summary>
+    /// </summary>
+    [TestInitialize]
+    public async Task Initialize()
+    {
+        _MaterialManagerClientMaterialEdgebands = GetMaterialManagerClient().Material.Edgebands;
+        await CleanupEdgebands();
+    }
+
+    private async Task CleanupEdgebands()
+    {
+        await DeleteEdgeBand(_EdgebandCodeWhite);
+        await DeleteEdgeBand(_EdgebandCodeAdditionalData);
     }
 
     private static MaterialManagerRequestEdgebandType CreateEdgebandTypeRequest(string edgebandCode, double height, double thickness, double length)
@@ -78,5 +88,20 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
         edgebandType.Thickness = thickness;
         edgebandType.DefaultLength = length;
         return edgebandType;
+    }
+
+    private async Task DeleteEdgeBand(string edgebandCode)
+    {
+        try
+
+        {
+            await _MaterialManagerClientMaterialEdgebands.DeleteEdgebandType(edgebandCode);
+        }
+
+        catch (Exception)
+
+        {
+            // ignored if the board entity does not exist
+        }
     }
 }

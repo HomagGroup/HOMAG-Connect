@@ -1,7 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+
+using Newtonsoft.Json;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Request;
 
@@ -16,6 +18,11 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     [Required]
     [StringLength(50, MinimumLength = 1)]
     public string BoardCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id from an external system for the board type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
 
     /// <summary>
     /// Gets or sets the coating category of the board.
@@ -38,13 +45,18 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// Gets or sets the length of the board.
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double Length { get; set; }
 
     /// <summary>
     /// Gets or sets whether the board type is locked for optimization.
     /// </summary>
     public bool LockedForOptimization { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the board type is locked for configuration.
+    /// </summary>
+    public bool LockedForConfiguration { get; set; }
 
     /// <summary>
     /// Gets or sets the material category of the board.
@@ -91,7 +103,7 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// Gets or sets the width of the board.
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0.1, 19999.9)]
     public double Width { get; set; }
 
     /// <summary>
@@ -105,4 +117,5 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// </summary>
     [StringLength(50)]
     public string? EmbossingBottom { get; set; }
+
 }

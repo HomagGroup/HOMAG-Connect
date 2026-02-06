@@ -1,12 +1,16 @@
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Materials;
 using HomagConnect.IntelliDivide.Tests.Base;
+
+using Shouldly;
 
 namespace HomagConnect.IntelliDivide.Tests.Materials
 {
     [TestClass]
     [TestCategory("IntelliDivide")]
     [TestCategory("IntelliDivide.Materials")]
+    [TemporaryDisabledOnServer(2026, 01, 31, "IntelliDivide")]
     public class MaterialsTests : IntelliDivideTestBase
     {
         [TestMethod]
@@ -26,7 +30,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
                 exceptionThrown = true;
             }
 
-            Assert.IsFalse(exceptionThrown);
+            exceptionThrown.ShouldBeFalse("The call for materials board types should be successful.");
         }
 
         [TestMethod]
@@ -46,7 +50,7 @@ namespace HomagConnect.IntelliDivide.Tests.Materials
                 exceptionThrown = true;
             }
 
-            Assert.IsFalse(exceptionThrown);
+            exceptionThrown.ShouldBeFalse("The call for material edge band types should be successful.");
         }
     }
 }

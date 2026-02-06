@@ -1,9 +1,8 @@
 using HomagConnect.Base.Extensions;
-using FluentAssertions;
-
-using HomagConnect.Base;
+using Shouldly;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Usage
 {
@@ -37,10 +36,10 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Usage
             Assert.IsNotNull(deserialized);
             Assert.IsNotNull(deserialized.Source);
 
-            deserialized.Should().NotBe(null);
-            deserialized.Should().BeEquivalentTo(order);
+            deserialized.ShouldNotBe(null);
+            deserialized.ShouldBeEquivalentTo(order);
 
-            deserialized.Action.Should().Be(OrderAction.Release);
+            deserialized.Action.ShouldBe(OrderAction.Release);
         }
 
         /// <summary />
@@ -73,10 +72,10 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Usage
             Assert.IsNotNull(deserialized);
             Assert.IsNotNull(deserialized.Licenses);
 
-            deserialized.Should().NotBe(null);
-            deserialized.Should().BeEquivalentTo(overview);
+            deserialized.ShouldNotBe(null);
+            deserialized.ShouldBeEquivalentTo(overview);
 
-            deserialized.Licenses.GetType().Should().Be(overview.Licenses.GetType());
+            deserialized.Licenses.GetType().ShouldBe(overview.Licenses.GetType());
         }
     }
 

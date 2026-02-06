@@ -251,6 +251,42 @@
 			]
 		},
 		{
+			"name": "Workstations",
+			"item": [
+				{
+					"name": "Get Workstations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"workstationId\": \"56863e42-cde6-4431-8f1a-874ba9416e72\",\r\n  \"identification\": \"10523244\",\r\n  \"timestamp\": \"2025-08-22T08:51:21.8052452+00:00\",\r\n  \"quantity\": \"1\",\r\n  \"source\": \"Feedback in Demo\"  \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ConnectHost}}/api/productionAssist/workstations",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"productionAssist",
+								"workstations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Feedback",
 			"item": [
 				{

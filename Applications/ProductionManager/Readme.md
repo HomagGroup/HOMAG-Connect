@@ -18,14 +18,14 @@ Once you have confirmed your license, you can create an instance of the client b
 var client = new ProductionManagerClient(subscriptionId, authorizationKey);
 ``` 
 
-For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/Authentication) page for detailed instructions.
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/CSharp/Authentication) page for detailed instructions.
 
 ### Import Order
 
 #### Prepare the import request
 
 There are several ways to request an optimization:
-1. [Importing a standardized ZIP file]()
+1. [Importing a standardized ZIP file](Samples/CSharp/Orders/Import/Readme.md)
 
 Please refer to the linked pages for detailed samples and explanations.
 

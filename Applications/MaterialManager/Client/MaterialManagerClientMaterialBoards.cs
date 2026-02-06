@@ -31,7 +31,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Import
 
     /// <inheritdoc />
-    public async Task<string> ImportInventory(ImportInventoryRequest data)
+    public async Task<ImportInventoryResponse> ImportInventory(ImportInventoryRequest data)
     {
         if (data == null)
         {
@@ -43,7 +43,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var response = await PostObject(new Uri(_ImportInventoryRoute, UriKind.Relative), content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<string>(responseContent, SerializerSettings.Default);
+        var result = JsonConvert.DeserializeObject<ImportInventoryResponse>(responseContent, SerializerSettings.Default);
 
         if (result != null)
         {
@@ -260,10 +260,24 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>?> GetBoardTypes(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?{nameof(changedSince)}={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        return await RequestEnumerable<BoardType>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
 
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}?{nameof(changedSince)}={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}&{_IncludingDetails}=true";
         return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
@@ -432,6 +446,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<Material>?> GetMaterials(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRoute}/materials?{nameof(changedSince)}={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        return await RequestEnumerable<Material>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
     public async Task<IEnumerable<Material>?> GetMaterialsByMaterialCodes(IEnumerable<string> materialCodes)
     {
         if (materialCodes == null)
@@ -467,6 +488,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var url = $"{_BoardTypeAllocationsRoute}?take={take}&skip={skip}";
         var result = await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
         return result ?? [];
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocations(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BoardTypeAllocationsRoute}?{nameof(changedSince)}={Uri.EscapeDataString(changedSince.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+        return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative)) ?? [];
     }
 
     /// <inheritdoc />

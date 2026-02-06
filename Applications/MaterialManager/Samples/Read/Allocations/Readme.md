@@ -6,11 +6,26 @@ With the HOMAG Connect materialManager boards client, the board type allocations
 
 ```csharp
 var client = new MaterialManagerClientMaterialBoards(subscriptionId, authorizationKey);
+var taken = 10; // Number of board types to retrieve
+var skip = 0; // Number of board types to skip
 
-// Define the boardCodes you want to retrieve data for:
-var boardCodes = new List<string> { "P2_Gold Craft Oak_19_2800_2070", "P2_Weiss_19_2800_2070" };
+var boardTypeAllocations = client.GetBoardTypeAllocations(taken, skip);
+```
 
-var boardTypes = client.GetBoardTypes(boardCodes);
+# Read edgeband type allocations
+
+With the HOMAG Connect materialManager edgebands client, the edgeband type allocations be retrieved from materialManager for further programmatic evaluation.
+
+<strong>Example:</strong>
+
+```csharp
+var client = new MaterialManagerClientMaterialEdgebands(subscriptionId, authorizationKey);
+
+var edgebandTypeAllocations = client.GetEdgebandTypeAllocations();
+
+var edgebandTypeAllocation = client.GetEdgebandTypeAllocation(
+                order: "Order", customer: "Customer", project: "Project", edgebandCode: "ABS_White_2mm"
+                );
 ```
 
 

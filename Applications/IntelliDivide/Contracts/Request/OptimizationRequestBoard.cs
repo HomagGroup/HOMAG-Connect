@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-
+﻿
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
     /// <summary>
     /// Represents a board to use in an optimization.
     /// </summary>
-    public class OptimizationRequestBoard : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class OptimizationRequestBoard : IContainsUnitSystemDependentProperties
     {
         #region Constructors
 
@@ -89,12 +90,17 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double Width { get; set; }
 
-        #region IExtensibleDataObject Members
+        /// <summary>
+        /// Gets or sets an optional comment for the board.
+        /// </summary>
+        public string? Comment { get; set; }
 
-        /// <inheritdoc />
-        public ExtensionDataObject ExtensionData { get; set; }
-
-        #endregion
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         #region IContainsUnitSystemDependentProperties
 

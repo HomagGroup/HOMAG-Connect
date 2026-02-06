@@ -1,9 +1,9 @@
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting;
 using HomagConnect.IntelliDivide.Tests.Base;
+using Shouldly;
 
 namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 
@@ -62,8 +62,8 @@ public class CuttingOptimizationRequestTests : IntelliDivideTestBase
 
         var displayNames = await intelliDivide.GetBoardMaterialCategoryDisplayNames();
 
-        Assert.IsNotNull(displayNames);
-        Assert.IsTrue(displayNames.Any());
+        displayNames.ShouldNotBeNull("There should be existing display names for BoardMaterialCategory.");
+        displayNames.Count.ShouldBeGreaterThan(0);
 
         displayNames.Trace();
     }

@@ -61,6 +61,11 @@ public class ProductionItemBase
         {
             return !string.IsNullOrWhiteSpace(Barcode) ? Barcode : Id;
         }
+        // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Needed for serialization. Do nothing. If removed the property is added to AdditionalProperties on deserialization.
+        }
     }
 
     /// <summary>
@@ -78,14 +83,20 @@ public class ProductionItemBase
     /// <summary>
     /// Gets or sets the group.
     /// </summary>
-    [JsonProperty(Order = 3)]
+    [JsonProperty(Order = 5)]
     public string? ArticleGroup { get; set; }
 
     /// <summary>
     /// Gets or sets the procurement type.
     /// </summary>
-    [JsonProperty(Order = 3)]
+    [JsonProperty(Order = 6)]
     public string? ProcurementType { get; set; }
+
+    /// <summary>
+    /// Gets the external system id of the item which can be used as a reference.
+    /// </summary>
+    [JsonProperty(Order = 7)]
+    public string? ExternalSystemId { get; set; }
 
     /// <summary>
     /// Gets or sets the length.

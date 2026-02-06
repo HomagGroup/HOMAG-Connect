@@ -19,6 +19,8 @@ public sealed class ValueDependsOnUnitSystemAttribute : Attribute
 
     private const double _MeterPerSecondToFeetPerSecondConversionFactor = 3.280839895;
 
+    private const double _KilogramPerCubicMeterToPoundPerCubicFeetConversionFactor = 0.06242796;
+
     /// <summary>
     /// Attribute to define the unit system of a property.
     /// </summary>
@@ -48,6 +50,10 @@ public sealed class ValueDependsOnUnitSystemAttribute : Attribute
         else if (BaseUnit == BaseUnit.MeterPerSecond)
         {
             ConversionFactorMetricToImperial = _MeterPerSecondToFeetPerSecondConversionFactor;
+        }
+        else if (BaseUnit == BaseUnit.KilogramPerCubicMeter)
+        {
+            ConversionFactorMetricToImperial = _KilogramPerCubicMeterToPoundPerCubicFeetConversionFactor;
         }
         else
         {

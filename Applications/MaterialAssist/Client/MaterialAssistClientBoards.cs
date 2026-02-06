@@ -1,6 +1,5 @@
 ﻿using System.Text;
 
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -12,6 +11,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 
 using Newtonsoft.Json;
+// ReSharper disable LocalizableElement
 
 namespace HomagConnect.MaterialAssist.Client
 {
@@ -102,36 +102,42 @@ namespace HomagConnect.MaterialAssist.Client
             return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
 
-        /// <inheritdoc />
-        public async Task<BoardEntity?> GetBoardEntityById(string id)
+        public async Task<IEnumerable<BoardEntity>?> GetBoardEntities(DateTimeOffset changedSince, int take, int skip = 0)
         {
-            return await GetBoardEntitiesByIds([id]).FirstOrDefaultAsync();
+            var url = $"{_BaseRouteMaterialAssist}?changedSince={Uri.EscapeDataString(changedSince.ToString("o"))}&take={take}&skip={skip}";
+            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByIds(IEnumerable<string> ids)
+        public async Task<BoardEntity?> GetBoardEntityByCode(string code)
         {
-            if (ids == null)
+            return await GetBoardEntitiesByCodes([code]).FirstOrDefaultAsync();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByCodes(IEnumerable<string> codes)
+        {
+            if (codes == null)
             {
-                throw new ArgumentNullException(nameof(ids));
+                throw new ArgumentNullException(nameof(codes));
             }
 
-            var codes = ids
+            var filteredCodes = codes
                 .Where(b => !string.IsNullOrWhiteSpace(b))
                 .Distinct()
                 .OrderBy(b => b).ToList();
 
-            if (!codes.Any())
+            if (!filteredCodes.Any())
             {
-                throw new ArgumentNullException(nameof(ids), "At least one id must be passed.");
+                throw new ArgumentNullException(nameof(codes), "At least one id must be passed.");
             }
 
-            var urls = CreateUrls(codes, _Id);
+            var urls = CreateUrls(filteredCodes, _Id);
             var boardEntities = new List<BoardEntity>();
 
             foreach (var url in urls)
             {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardEntity>());
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
             }
 
             return boardEntities;
@@ -168,7 +174,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             foreach (var url in urls)
             {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardEntity>());
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
             }
 
             return boardEntities;
@@ -205,7 +211,7 @@ namespace HomagConnect.MaterialAssist.Client
 
             foreach (var url in urls)
             {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? Array.Empty<BoardEntity>());
+                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
             }
 
             return boardEntities;

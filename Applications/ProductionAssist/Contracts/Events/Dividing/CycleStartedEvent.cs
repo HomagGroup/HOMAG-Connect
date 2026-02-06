@@ -1,9 +1,6 @@
 ﻿#nullable enable
-
 using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events.Dividing
@@ -19,6 +16,12 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.Dividing
         /// </summary>
         [JsonProperty(Order = 30)]
         public string? BoardEntityId { get; set; }
+
+        /// <summary>
+        /// Gets or sets BoardCode used for the current cycle
+        /// </summary>
+        [JsonProperty(Order = 31)]
+        public string? BoardCode { get; set; }
 
         /// <summary>
         /// Gets or sets the Identifier of the Optimization that was processed.

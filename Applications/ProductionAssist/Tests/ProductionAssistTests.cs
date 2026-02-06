@@ -1,7 +1,7 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.ProductionAssist.Samples;
 using HomagConnect.ProductionManager.Contracts.Import;
-using HomagConnect.ProductionManager.Contracts.Orders;
 
 namespace HomagConnect.ProductionAssist.Tests;
 
@@ -39,6 +39,27 @@ public class ProductionAssistTests : ProductionAssistTestBase
             Assert.AreEqual(orderItemId, orderItem.Barcode);
 
             await productionManager.DeleteOrderByOrderId(orderDetails.Id);
+        }
+        catch (Exception e)
+        {
+            e.Trace();
+            exceptionThrown = true;
+        }
+
+        Assert.IsFalse(exceptionThrown);
+    }
+
+    /// <summary />
+    [TestMethod]
+    [TemporaryDisabledOnServer(2026, 01, 31, "DF-Production")]
+    public async Task ProductionAssist_GetWorkstations_NoException()
+    {
+        var exceptionThrown = false;
+        var client = GetProductionAssistClient();
+
+        try
+        {
+            await ProductionAssistSamples.GetWorkstations(client);
         }
         catch (Exception e)
         {

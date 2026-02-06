@@ -41,6 +41,17 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public string? GroupId { get; set; }
 
         /// <summary>
+        /// An optional parameter that is used reflect a link to 
+        /// a <seealso cref="Configuration"/>.<seealso cref="Base.Id"/> from 
+        /// another <seealso cref="ConfigurationPosition"/> or their sub-<seealso cref="Configuration"/>
+        /// </summary>
+        /// <remarks>
+        /// This is used to reflect a position for a sub-article
+        /// </remarks>
+        [JsonProperty(Order = 20)]
+        public string? LinkedConfigurationId { get; set; }
+
+        /// <summary>
         /// An optional position of this module (x, y, z)
         /// </summary>
         [JsonProperty(Order = 30)]

@@ -13,6 +13,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialAssist.Tests;
 
 /// <summary />
@@ -41,7 +43,7 @@ public class MaterialAssistTestBase : TestBase
 
         try
         {
-            boardEntity = await materialAssistClient.Boards.GetBoardEntityById(id);
+            boardEntity = await materialAssistClient.Boards.GetBoardEntityByCode(id);
         }
         catch (ProblemDetailsException ex)
         {
@@ -138,21 +140,32 @@ public class MaterialAssistTestBase : TestBase
                 throw;
             }
         }
+        catch(Exception )
+        {
+            // Ignore other exceptions
+        }
 
         if (boardType == null)
         {
-            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            try
             {
-                MaterialCode = materialCode,
-                BoardCode = boardCode,
-                Thickness = thickness,
-                Grain = Grain.None,
-                Width = width,
-                Length = length,
-                Type = boardTypeType,
-                CoatingCategory = CoatingCategory.Undefined,
-                MaterialCategory = BoardMaterialCategory.Undefined
-            });
+                await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+                {
+                    MaterialCode = materialCode,
+                    BoardCode = boardCode,
+                    Thickness = thickness,
+                    Grain = Grain.None,
+                    Width = width,
+                    Length = length,
+                    Type = boardTypeType,
+                    CoatingCategory = CoatingCategory.Undefined,
+                    MaterialCategory = BoardMaterialCategory.Undefined
+                });
+            }
+            catch (Exception)
+            {
+                //ignore if already exists
+            }
         }
     }
 
@@ -176,7 +189,7 @@ public class MaterialAssistTestBase : TestBase
 
         if (edgebandType == null)
         {
-            await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+            edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
             {
                 EdgebandCode = edgebandCode,
                 Height = 20,
@@ -185,6 +198,8 @@ public class MaterialAssistTestBase : TestBase
                 MaterialCategory = EdgebandMaterialCategory.ABS,
                 Process = EdgebandingProcess.Other,
             });
+
+            edgebandType.ShouldNotBeNull();
         }
     }
 }

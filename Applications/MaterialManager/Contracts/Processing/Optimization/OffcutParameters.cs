@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
     public class OffcutParameters : IContainsUnitSystemDependentProperties
     {
         private const double _LengthConstraintMin = 0.1;
-        private const double _LengthConstraintMax = 9999.9;
+        private const double _LengthConstraintMax = 19999.9;
 
         /// <summary>
         /// Gets or sets whether the offcut parameters are enabled.

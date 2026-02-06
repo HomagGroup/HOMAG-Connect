@@ -1,8 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 
-using FluentAssertions;
-
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
@@ -13,6 +10,8 @@ using HomagConnect.OrderManager.Samples.Orders.Actions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Newtonsoft.Json;
+
+using Shouldly;
 
 namespace HomagConnect.OrderManager.Tests.Orders
 {
@@ -87,11 +86,22 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 new ConfigurationPosition
                                 {
                                     Id = "190d9d40-9095-40b0-a7ce-2b85e26b9485",
+                                    PositionNumber = "001",
                                     LibraryId = "CabinetLibrary",
                                     ModuleId = "mr_StorageunitSingle",
                                     Attributes = new()
                                     {
-                                        new ConfigurationAttribute("mod_Depth", 548),
+                                        new ConfigurationAttribute("mod_Depth", 548)
+                                        {
+                                            AdditionalData = new()
+                                            {
+                                                new AdditionalDataImage
+                                                {
+                                                    Category = "AttributeValueImage",
+                                                    DownloadUri = new Uri("https://example.com/attribute-value-image.jpg")
+                                                }
+                                            }
+                                        },
                                         new ConfigurationAttribute("mod_Height", 900),
                                         new ConfigurationAttribute("mod_Width", 600),
                                         new ConfigurationAttribute("color", "white")
@@ -149,10 +159,9 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                         },
                                         new Price
                                         {
-                                            UnitPrice = 999.98,
+                                            PriceType = PriceType.Total,
                                             TotalPrice = 999.98,
                                             Currency = "EUR",
-                                            SalesArticleNumber = "CAB-01",
                                             Notes = "This is the price for the cabinet"
                                         },
                                         new ErrorInfo
@@ -170,11 +179,86 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                             Text = "Error message",
                                         }
                                     }
+                                },
+                                new Position
+                                {
+                                    Id = "47F74A7F-999C-44C2-AF5B-709F0D25B5EA",
+                                    PositionType = PositionType.MaterialAndProcessing,
+                                    IsHidden = true,
+                                    Items = new()
+                                    {
+                                        new Part
+                                        {
+                                            Id = "P 02.01",
+                                            Quantity = 2,
+                                            Description = "Cabinet right",
+                                            Notes = "Lorem ipsum",
+                                            Length = 300,
+                                            Width = 120,
+                                            Thickness = 180
+                                        },
+                                        new Price
+                                        {
+                                            PriceType = PriceType.Total,
+                                            UnitPrice = 1299.98,
+                                            TotalPrice = 1299.98,
+                                            Currency = "EUR",
+                                            Notes = "This is the price for the cabinet"
+                                        }
+                                    }
+                                },
+                                new ConfigurationPosition
+                                {
+                                    Id = "E02967A6-22AF-466F-B721-B4A9DC270489",
+                                    LinkedConfigurationId = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
+                                    PositionType = PositionType.PriceGenerated,
+                                    PositionNumber = "001.001"
                                 }
                             }
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.Total,
+                            UnitPrice = 999.98,
+                            TotalPrice = 999.98,
+                            Currency = "EUR",
+                        },
+                    }
+                },
+                new Price
+                {
+                    PriceType = PriceType.GrossTotal,
+                    TotalPrice = 989.82,
+                    Currency = "EUR",
+                    Items = new()
+                    {
+                        new Price
+                        {
+                            PriceType = PriceType.SubTotal,
+                            TotalPrice = 539.82,
+                            Currency = "EUR",
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.Tax,
+                            TotalPrice = 160.16,
+                            Currency = "EUR",
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.Shipping,
+                            TotalPrice = 150.00,
+                            Currency = "EUR",
+                        },
+                        new Price
+                        {
+                            PriceType = PriceType.NetTotal,
+                            TotalPrice = 839.82,
+                            Currency = "EUR",
                         }
                     }
-                }
+                },
+
             };
 
             order.Trace(nameof(order));
@@ -182,7 +266,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
             // Try to serialize and deserialize it
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
+            JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
         }
 
         /// <summary />
@@ -363,7 +447,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
+            JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
         }
 
         [TestMethod]
@@ -593,7 +677,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
             // Try to serialize and deserialize it
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
-            o.Should().BeEquivalentTo(order);
+            JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
         }
     }
 }

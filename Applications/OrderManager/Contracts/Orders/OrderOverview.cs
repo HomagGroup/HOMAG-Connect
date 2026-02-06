@@ -33,15 +33,21 @@ public class OrderOverview
     public string? OrderNumber { get; set; }
 
     /// <summary>
-    /// The name of the order
+    /// The order number from the preceding system
     /// </summary>
     [JsonProperty(Order = 111)]
+    public string? OrderNumberExternal { get; set; }
+
+    /// <summary>
+    /// The name of the order
+    /// </summary>
+    [JsonProperty(Order = 112)]
     public string OrderName { get; set; } = null!;
 
     /// <summary>
     /// The description of the order
     /// </summary>
-    [JsonProperty(Order = 112)]
+    [JsonProperty(Order = 113)]
     public string? OrderDescription { get; set; }
 
     /// <summary>
@@ -67,4 +73,16 @@ public class OrderOverview
     /// </summary>
     [JsonProperty(Order = 123)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
+
+    /// <summary>
+    /// Gets the external system id of the item which can be used as a reference.
+    /// </summary>
+    [JsonProperty(Order = 124)]
+    public string? ExternalSystemId { get; set; }
+
+    /// <summary>
+    /// Gets the HasErrors flag indicates whether the order has errors. The definition of what an error is, is up to the implementation of the OrderManager. This is a flag that can be used by the UI to display an error state for the order.
+    /// </summary>
+    [JsonProperty(Order = 125)]
+    public bool HasErrors { get; set; }
 }

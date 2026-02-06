@@ -1,7 +1,6 @@
-using FluentAssertions;
+using Shouldly;
 
 using HomagConnect.ProductionManager.Contracts.Predict;
-
 using HomagConnect.ProductionManager.Samples.Orders.Predict;
 
 namespace HomagConnect.ProductionManager.Tests.Predict
@@ -34,17 +33,17 @@ namespace HomagConnect.ProductionManager.Tests.Predict
             Assert.IsFalse(anyException);
             Assert.IsNotNull(edgebandingPrediction);
 
-            edgebandingPrediction.Should().NotBeNull();
+            edgebandingPrediction.ShouldNotBeNull();
 
-            edgebandingPrediction.DurationMax.Should().BeGreaterOrEqualTo(edgebandingPrediction.DurationMin);
-            edgebandingPrediction.DurationMax.Should().BeGreaterOrEqualTo(edgebandingPrediction.Duration);
-            edgebandingPrediction.Duration.Should().BeGreaterOrEqualTo(edgebandingPrediction.DurationMin);
-            edgebandingPrediction.Duration.Should().BeLessThanOrEqualTo(edgebandingPrediction.DurationMax);
+            edgebandingPrediction!.DurationMax.ShouldBeGreaterThanOrEqualTo(edgebandingPrediction.DurationMin);
+            edgebandingPrediction.DurationMax.ShouldBeGreaterThanOrEqualTo(edgebandingPrediction.Duration);
+            edgebandingPrediction.Duration.ShouldBeGreaterThanOrEqualTo(edgebandingPrediction.DurationMin);
+            edgebandingPrediction.Duration.ShouldBeLessThanOrEqualTo(edgebandingPrediction.DurationMax);
 
-            edgebandingPrediction.LengthByEdgebandCode.Should().NotBeNull();
+            edgebandingPrediction.LengthByEdgebandCode.ShouldNotBeNull();
 
-            edgebandingPrediction.PredictionMethod.Should().NotBe(PredictionMethod.Unknown);
-            edgebandingPrediction.PredictionBase.Should().NotBeNull();
+            edgebandingPrediction.PredictionMethod.ShouldNotBe(PredictionMethod.Unknown);
+            edgebandingPrediction.PredictionBase.ShouldNotBeNull();
         }
     }
 }

@@ -84,7 +84,6 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// Gets the external system id of the order which can be used as a reference.
         /// </summary>
         [JsonProperty(Order = 119)]
-        [Obsolete("Use OrderNumber instead", true)]
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
@@ -98,6 +97,12 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 121)]
         public string? OrderNumber { get; set; }
+
+        /// <summary>
+        /// The order number from the preceding system
+        /// </summary>
+        [JsonProperty(Order = 122)]
+        public string? OrderNumberExternal { get; set; }
 
         #endregion
 

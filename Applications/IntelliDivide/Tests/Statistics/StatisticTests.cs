@@ -1,7 +1,7 @@
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
+using Shouldly;
 
 namespace HomagConnect.IntelliDivide.Tests.Statistics;
 
@@ -20,7 +20,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var materialStatistics = await intelliDivide.GetMaterialStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
-        Assert.IsNotNull(materialStatistics);
+        materialStatistics.ShouldNotBeNull("Material statistics should be found in the given time period.");
   
         materialStatistics.Trace();
     }
@@ -33,8 +33,8 @@ public class StatisticTests : IntelliDivideTestBase
 
         var materialStatistics = await intelliDivide.GetMaterialStatistics(90, 100).ToListAsync();
 
-        Assert.IsNotNull(materialStatistics);
-        Assert.IsFalse(!materialStatistics.Any());
+        materialStatistics.ShouldNotBeNull("Material statistics should be found in the last 90 days");
+        materialStatistics.Any().ShouldBeTrue();
 
         materialStatistics.Trace();
     }
@@ -47,7 +47,7 @@ public class StatisticTests : IntelliDivideTestBase
 
         var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(DateTime.Now.AddDays(-91), DateTime.Now.AddDays(-1), 100).ToListAsync();
 
-        Assert.IsNotNull(edgebandStatistics);
+        edgebandStatistics.ShouldNotBeNull("Edgeband statistics should be found in the given time period.");
 
         edgebandStatistics.Trace();
     }
@@ -59,7 +59,8 @@ public class StatisticTests : IntelliDivideTestBase
 
         var edgebandStatistics = await intelliDivide.GetEdgebandStatistics(30, 100).ToListAsync();
 
-        Assert.IsNotNull(edgebandStatistics);
+        edgebandStatistics.ShouldNotBeNull("Edgeband statistics should be found in the given time period.");
+        edgebandStatistics.Any().ShouldBeTrue();
 
         edgebandStatistics.Trace();
     }
@@ -74,7 +75,11 @@ public class StatisticTests : IntelliDivideTestBase
         var to = DateTime.Now.AddDays(-1);
         var from = to.AddMonths(-3);
 
-        var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, from, to);
+        var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, from, to).ToListAsync();
+        if (statistics == null || !statistics.Any())
+        {
+            Assert.Inconclusive("No statistics could be found for the given material codes.");
+        }
 
         statistics.Trace();
     }
@@ -86,10 +91,11 @@ public class StatisticTests : IntelliDivideTestBase
 
         var materialCodes = new[] { "P2_White_19", "P2_White_8" };
 
-        var to = DateTime.Now.AddDays(-1);
-        var from = to.AddMonths(-3);
-
-        var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, 90);
+        var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, 90).ToListAsync();
+        if (statistics == null || !statistics.Any())
+        {
+            Assert.Inconclusive("No statistics could be found for the given material codes");
+        }
 
         statistics.Trace();
     }

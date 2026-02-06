@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 
 using HomagConnect.MaterialAssist.Samples.Authentication;
 
@@ -16,7 +16,7 @@ public class AuthenticationTests : MaterialAssistTestBase
         var act = async () => await AuthenticationSamples.CreateMaterialAssistClientUsingHttpClient(SubscriptionId, AuthorizationKey);
 
         // Assert
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because authentication using HttpClient with valid subscription ID and authorization key should succeed and retrieve board entities");
     }
 
@@ -27,7 +27,7 @@ public class AuthenticationTests : MaterialAssistTestBase
         var act = async () => await AuthenticationSamples.CreateMaterialAssistClientUsingSubscriptionIdAndToken(SubscriptionId, AuthorizationKey);
 
         // Assert
-        await act.Should().NotThrowAsync(
+        await Should.NotThrowAsync(act,
             "because authentication using subscription ID and authorization key should succeed and retrieve board entities");
     }
 }

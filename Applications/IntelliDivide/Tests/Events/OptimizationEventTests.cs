@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base;
+﻿using Shouldly;
+using System.Globalization;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
@@ -7,8 +9,8 @@ using HomagConnect.IntelliDivide.Contracts.Events;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
-
 using Newtonsoft.Json;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.IntelliDivide.Tests.Events;
 
@@ -25,8 +27,8 @@ public class OptimizationEventTests : IntelliDivideTestBase
         var assemblies = new[] { typeof(OptimizationRequest).Assembly };
         var derivedTypes = TypeFinder.FindDerivedTypes<AppEvent>(assemblies).ToArray();
 
-        Assert.IsNotNull(derivedTypes);
-        Assert.IsTrue(derivedTypes.Length > 0);
+        derivedTypes.ShouldNotBeNull();
+        derivedTypes.Length.ShouldBeGreaterThan(0);
 
         derivedTypes.Trace();
     }
@@ -41,11 +43,15 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
         solutionTransferredEvent.SubscriptionId = SubscriptionId;
         solutionTransferredEvent.AlgorithmName = "APS";
+        solutionTransferredEvent.OptimizationName = "Optimization 01";
         solutionTransferredEvent.AlgorithmSettings = "01";
-        solutionTransferredEvent.TransferredBy = "Max.Mustermann@homag.com";
+        solutionTransferredEvent.TransferredBy = "Test.SolutionTransferred@homag.com";
+        solutionTransferredEvent.MachineDisplayName = "My Sawteq 0101";
+        solutionTransferredEvent.MachineType = MachineType.Cutting;
+        solutionTransferredEvent.SolutionExportUri = new Uri("https://www.google.com");
         solutionTransferredEvent.SolutionDetails = solutionDetails;
 
-        Assert.IsTrue(solutionTransferredEvent.IsValid);
+        solutionTransferredEvent.IsValid.ShouldBeTrue("The given event should be valid.");
 
         TestContext?.AddResultFile(solutionTransferredEvent.TraceToFile("solutionTransferredEvent").FullName);
 
@@ -62,11 +68,11 @@ public class OptimizationEventTests : IntelliDivideTestBase
         TestContext?.AddResultFile(solutionTransferredEventDeserialized.TraceToFile("solutionTransferredEventDeserialized").FullName);
 
         // Compare properties
-        Assert.AreEqual(solutionTransferredEvent.Id, solutionTransferredEventDeserialized.Id);
-        Assert.AreEqual(solutionTransferredEvent.Timestamp, solutionTransferredEventDeserialized.Timestamp);
-        Assert.AreEqual(solutionTransferredEvent.SubscriptionId, solutionTransferredEventDeserialized.SubscriptionId);
-        Assert.AreEqual(solutionTransferredEvent.TransferredBy, solutionTransferredEventDeserialized.TransferredBy);
-        Assert.AreEqual(solutionTransferredEvent.SolutionDetails.Parts.First().Description, solutionTransferredEventDeserialized.SolutionDetails.Parts.First().Description);
+        solutionTransferredEventDeserialized!.Id.ShouldBe(solutionTransferredEvent.Id);
+        solutionTransferredEventDeserialized.Timestamp.ShouldBe(solutionTransferredEvent.Timestamp);
+        solutionTransferredEventDeserialized.SubscriptionId.ShouldBe(solutionTransferredEvent.SubscriptionId);
+        solutionTransferredEventDeserialized.TransferredBy.ShouldBe(solutionTransferredEvent.TransferredBy);
+        solutionTransferredEventDeserialized.SolutionDetails.Parts.First().Description.ShouldBe(solutionTransferredEvent.SolutionDetails.Parts.First().Description);
     }
 
     private async Task<SolutionDetails> GetSampleSolutionDetails()
@@ -89,13 +95,14 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
         var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
 
-        Assert.IsNotNull(solutions);
+        solutions.ShouldNotBeNull();
+        solutions!.Count.ShouldBeGreaterThan(0);
 
-        var solution = solutions.First();
+        var solution = solutions!.First();
 
         var solutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solution.Id);
 
-        Assert.IsNotNull(solutionDetails);
+        solutionDetails.ShouldNotBeNull();
         return solutionDetails;
     }
 }

@@ -1,9 +1,11 @@
 using System.Net.Http.Headers;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase;
 using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Delete;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
@@ -16,22 +18,77 @@ namespace HomagConnect.MaterialManager.Tests;
 public class MaterialManagerTestBase : TestBase
 {
     /// <summary>
-    /// Gets a new instance of the <see cref="MaterialManagerClient" />.
+    /// Edgeband code used for testing.
     /// </summary>
-    protected MaterialManagerClient GetMaterialManagerClient()
-    {
-        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
+    protected const string EdgebandCode = "ABS_White_2mm";
 
-        var httpClient = new HttpClient
+    /// <summary>
+    /// Create a EdgebandTypeAllocationRequest instance.
+    /// </summary>
+    /// <param name="edgebandCode"></param>
+    /// <param name="comments"></param>
+    /// <param name="createdBy"></param>
+    /// <param name="source"></param>
+    /// <param name="workstation"></param>
+    /// <param name="allocatedLength"></param>
+    /// <param name="customer"></param>
+    /// <param name="order"></param>
+    /// <param name="project"></param>
+    /// <param name="usedLength"></param>
+    /// <returns></returns>
+    protected static EdgebandTypeAllocationRequest CreateEdgebandTypeAllocationRequest(string edgebandCode, string comments, string createdBy, string source, string workstation,
+        double allocatedLength,
+        string customer, string order, string project, double usedLength)
+    {
+        var edgebandTypeAllocationRequest = new EdgebandTypeAllocationRequest
         {
-            BaseAddress = BaseUrl
+            EdgebandCode = edgebandCode,
+            Comments = comments,
+            CreatedBy = createdBy,
+            Source = source,
+            Workstation = workstation,
+            AllocatedLength = allocatedLength,
+            Customer = customer,
+            Order = order,
+            Project = project,
+            UsedLength = usedLength
         };
 
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
-
-        return new MaterialManagerClient(httpClient);
+        return edgebandTypeAllocationRequest;
     }
 
+    /// <summary>
+    /// Edgeband cleanup after creating an edgeband type allocation.
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="edgebandCode"></param>
+    /// <param name="customer"></param>
+    /// <param name="order"></param>
+    /// <param name="project"></param>
+    protected async Task EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebands client, string edgebandCode, string customer, string order, string project)
+    {
+        try
+        {
+            await client.DeleteEdgebandTypeAllocation(new EdgebandTypeAllocationDelete
+            {
+                Customer = customer,
+                EdgebandCode = edgebandCode,
+                Order = order,
+                Project = project
+            });
+        }
+        catch (Exception)
+        {
+            //ignored
+        }
+    }
+
+    /// <summary>
+    /// Ensures that a board type with the given material code exists.
+    /// </summary>
+    /// <param name="materialCode"></param>
+    /// <param name="length"></param>
+    /// <param name="width"></param>
     protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070)
     {
         var boardCode = $"{materialCode}_{length}_{width}";
@@ -68,6 +125,12 @@ public class MaterialManagerTestBase : TestBase
         }
     }
 
+    /// <summary>
+    /// Ensures that an edgeband type with the given edgeband code exists.
+    /// </summary>
+    /// <param name="edgebandCode"></param>
+    /// <param name="thickness"></param>
+    /// <param name="length"></param>
     protected async Task EnsureEdgebandTypeExist(string edgebandCode, double thickness = 1.0, double length = 23.0)
     {
         var materialManagerClient = GetMaterialManagerClient();
@@ -98,5 +161,22 @@ public class MaterialManagerTestBase : TestBase
                 Process = EdgebandingProcess.Other,
             });
         }
+    }
+
+    /// <summary>
+    /// Gets a new instance of the <see cref="MaterialManagerClient" />.
+    /// </summary>
+    protected MaterialManagerClient GetMaterialManagerClient()
+    {
+        $"BaseUrl: {BaseUrl}, Subscription: {SubscriptionId}, AuthorizationKey: {AuthorizationKey[..4]}*".Trace();
+
+        var httpClient = new HttpClient
+        {
+            BaseAddress = BaseUrl
+        };
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
+
+        return new MaterialManagerClient(httpClient);
     }
 }

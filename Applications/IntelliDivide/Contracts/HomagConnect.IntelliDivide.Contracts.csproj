@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<LangVersion>default</LangVersion>
 		<PackageId>HomagGroup.HomagConnect.IntelliDivide.Contracts</PackageId>
@@ -15,25 +15,38 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="6.0.0" />
+		<PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
-	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
 	  <ProjectReference Include="..\..\MaterialManager\Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Common\ProgramTransferModeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ProgramTransferModeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\RotationAngleDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>RotationAngleDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Result\SolutionCharacteristicDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>SolutionCharacteristicDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="OptimizationStatusDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>OptimizationStatusDisplayNames.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
@@ -43,9 +56,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Common\ProgramTransferModeDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ProgramTransferModeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Common\RotationAngleDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>RotationAngleDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Result\SolutionCharacteristicDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>SolutionCharacteristicDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="OptimizationStatusDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>OptimizationStatusDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>

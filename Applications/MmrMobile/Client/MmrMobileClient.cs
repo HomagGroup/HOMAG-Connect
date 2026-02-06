@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Services;
 using HomagConnect.MmrMobile.Contracts;
 using Newtonsoft.Json;

@@ -35,10 +35,18 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
             };
 
             var response = await intelliDivide.RequestOptimization(request, projectFile);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace();
 
             var optimization = await intelliDivide.GetOptimization(response.OptimizationId);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be found.");
+            }
 
             optimization.Trace();
         }
@@ -53,12 +61,12 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
             var optimizationMachine = await intelliDivide.GetMachines(OptimizationType.Nesting).FirstOrDefaultAsync(m => m.Name == "productionAssist Nesting");
             if (optimizationMachine == null)
             {
-                Assert.Inconclusive("The machine is not available.");
+                Assert.Fail("The machine is not available.");
             }
             var optimizationParameter = await intelliDivide.GetParameters(optimizationMachine.OptimizationType).FirstOrDefaultAsync();
             if (optimizationParameter == null)
             {
-                Assert.Inconclusive("There is no optimizing parameter available.");
+                Assert.Fail("There is no optimizing parameter available.");
             }
 
             var request = new OptimizationRequestUsingProject
@@ -69,10 +77,18 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting.ProjectZip
             };
 
             var response = await intelliDivide.RequestOptimization(request, projectFile);
+            if (response == null)
+            {
+                Assert.Fail("The request did not send a response.");
+            }
 
             response.Trace();
 
             var optimization = await intelliDivide.WaitForCompletion(response.OptimizationId, CommonSampleSettings.TimeoutDuration);
+            if (optimization == null)
+            {
+                Assert.Fail($"The optimization with id {response.OptimizationId} could not be optimized.");
+            }
 
             optimization.Trace();
         }
