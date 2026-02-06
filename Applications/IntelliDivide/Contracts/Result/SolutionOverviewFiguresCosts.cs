@@ -1,6 +1,7 @@
 ﻿#nullable enable
-using Newtonsoft.Json;
 using System.Collections.Generic;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -8,8 +9,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the overview figures for costs.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionOverviewFiguresCosts 
+public class SolutionOverviewFiguresCosts
 {
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
     /// <summary>
     /// Gets the costs of boards and offcuts in the currency of the subscription.
     /// </summary>
@@ -51,11 +59,4 @@ public class SolutionOverviewFiguresCosts
     /// </summary>
     [JsonProperty(Order = 6)]
     public double? TotalCostsPerPart { get; set; }
-
-    /// <summary>
-    /// Gets or sets the additional properties configured in the application.
-    /// </summary>
-    [JsonProperty(Order = 80)]
-    [JsonExtensionData]
-    public IDictionary<string, object>? AdditionalProperties { get; set; }
 }

@@ -2,7 +2,6 @@
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 
 using Newtonsoft.Json;
 
@@ -27,24 +26,16 @@ public enum SolutionCharacteristic
     /// This characteristic is available only if both production and material costs are known.
     /// It is generally recommended for typical scenarios.
     /// </remarks>
-    [SolutionCharacteristicScoreWeights(
-        SolutionKeyFigure.TotalCosts, 1000,
-        SolutionKeyFigure.MaterialCosts, 100
-    )]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.TotalCostsPerPart, 1000)]
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestTotalCosts), Description = "LowestTotalCostsDescription")]
     LowestTotalCosts,
 
     /// <summary>
-    /// Represents a solution that maintains a balanced state according to defined weights
+    /// The alternative cuts most parts in automatic mode, thereby reducing manual effort.
     /// </summary>
-    /// <remarks>
-    /// This characteristic is recommended when the total costs can't get calculated.
-    /// </remarks>
-    [SolutionCharacteristicScoreWeights(
-        SolutionKeyFigure.OffcutsTotal, 1000,
-        SolutionKeyFigure.MaterialCosts, 1000,
-        SolutionKeyFigure.TotalCosts, 500)]
-    BalancedSolution,
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(HighestAutomationLevel), Description = "HighestAutomationLevelDescription")]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.PartsQuantityAutomaticMode, 1000)]
+    HighestAutomationLevel,
 
     /// <summary>
     /// Solution with the lowest material cost among all evaluated options.
@@ -53,32 +44,81 @@ public enum SolutionCharacteristic
     /// This characteristic is available only if the material costs are known.
     /// It is recommended when production time is not a relevant factor.
     /// </remarks>
-    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.MaterialCosts, 1000)]
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestMaterialCosts), Description = "LowestMaterialCostsDescription")]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.MaterialCostsPerPart, 1000)]
     LowestMaterialCosts,
+
+    /// <summary>
+    /// Represents a solution that maintains a balanced state according to defined weights
+    /// </summary>
+    /// <remarks>
+    /// This characteristic is recommended when the total costs can't get calculated.
+    /// </remarks>
+    [SolutionCharacteristicScoreWeights(
+        SolutionKeyFigure.WastePlusOffcutsArea, 1000,
+        SolutionKeyFigure.ProductionTimePerPart, 500,
+        SolutionKeyFigure.OffcutsTotal, 500,
+        SolutionKeyFigure.WasteArea, 500
+    )]
+    BalancedSolution,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.WholeBoardsRequired, 1000)]
+    LowestWholeBoardsQuantity,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.ProductionTime, 1000)]
+    FastestProduction,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.BookHeightAverage, 1000)]
+    MaximumAverageBookHeight,
+
+    [SolutionCharacteristicScoreWeights(
+            SolutionKeyFigure.OffcutsTotal, 1000,
+            SolutionKeyFigure.OffcutsProduced, 100
+        )
+    ]
+    LowestOffcutsTotalQuantity,
+
+    [SolutionCharacteristicScoreWeights(
+        SolutionKeyFigure.OffcutsSmallTotal, 1000,
+        SolutionKeyFigure.OffcutsSmallProduced, 100
+    )]
+    LowestOffcutsSmallTotalQuantity,
+
+    [SolutionCharacteristicScoreWeights(
+        SolutionKeyFigure.Recuts, 1000,
+        SolutionKeyFigure.Headcuts, 500,
+        SolutionKeyFigure.BookWeightMax, 200
+    )]
+    LowestComplexity,
 
     /// <summary>
     /// Compromise of all key figures with stronger weighting of waste.
     /// </summary>
     [SolutionCharacteristicScoreWeights(
             SolutionKeyFigure.WastePercentage, 1000,
-            SolutionKeyFigure.ProductionTime, 500
+            SolutionKeyFigure.WastePlusOffcutsPercentage, 100
         )
     ]
-    LittleWaste,
+    LowestWastePercentage,
 
-    /// <summary>
-    /// Gets or sets the offcuts value associated with the solution candidate.
-    /// </summary>
-    /// <remarks>
-    /// This property is used in scoring calculations, with higher offcuts typically resulting in a
-    /// lower overall score. The value may influence optimization or selection algorithms that prioritize material
-    /// efficiency.
-    /// </remarks>
     [SolutionCharacteristicScoreWeights(
-        SolutionKeyFigure.OffcutsTotal, 1000,
-        SolutionKeyFigure.TotalCosts, 500
-    )]
-    Offcuts,
+            SolutionKeyFigure.WastePlusOffcutsPercentage, 1000,
+            SolutionKeyFigure.WastePercentage, 100
+        )
+    ]
+    LowestWastePlusOffcutsPercentage,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.PartsQuantityPlusParts, 1000)]
+    HighestNumberOfPlusParts,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.Cycles, 1000)]
+    LowestNumberOfCycles,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.PatternCount, 1000)]
+    LowestNumberOfPatterns,
+
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.QuantityPerPatternAverage, 1000)]
+    SimilarPatterns,
 
     /// <summary>
     /// The solution has no special characteristic and should not be displayed.

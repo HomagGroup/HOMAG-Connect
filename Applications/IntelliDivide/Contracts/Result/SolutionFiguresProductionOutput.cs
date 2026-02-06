@@ -24,6 +24,45 @@ public class SolutionFiguresProductionOutput
     public int QuantityOfPlusParts { get; set; }
 
     /// <summary>
+    /// Gets the total quantity of parts, including plus parts (optional parts).
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public int QuantityOfPartsTotal
+    {
+        get
+        {
+            return QuantityOfPlusParts + QuantityOfParts;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Required for serialization
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the quantity of parts to use when operating in automatic mode.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public double PartsQuantityAutomaticMode { get; set; }
+
+    /// <summary>
+    /// Gets the quantity of parts to use when operating in manual mode. This is calculated as the difference between the total quantity of parts and the quantity of parts in automatic mode.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public double PartsQuantityManualMode
+    {
+        get
+        {
+           return QuantityOfPartsTotal - PartsQuantityAutomaticMode;
+        } // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Required for serialization
+        }
+    }
+
+    /// <summary>
     /// Gets the value of the area of the parts in m² or ft².
     /// </summary>
     [JsonProperty(Order = 3)]
@@ -71,4 +110,5 @@ public class SolutionFiguresProductionOutput
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
 }

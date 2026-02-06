@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
-
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
@@ -65,24 +63,77 @@ public static class SolutionCandidates
     public static Dictionary<SolutionKeyFigure, double?> GetSolutionKeyFigures(this SolutionDetails solutionDetails)
     {
         var keyFigures = new Dictionary<SolutionKeyFigure, double?>();
-        var production = solutionDetails.KeyFigures.Production.Output;
-        var material = solutionDetails.KeyFigures.Material.BoardsAndOffcuts;
-        var costs = solutionDetails.Overview.Figures.Costs;
-
-        // Costs
-        keyFigures[SolutionKeyFigure.MaterialCosts] = costs.MaterialCosts ?? null;
-        keyFigures[SolutionKeyFigure.ProductionCosts] = null; // Source currently unknown
-        keyFigures[SolutionKeyFigure.TotalCosts] = null; // Source currently unknown
-
-        // Production
-        keyFigures[SolutionKeyFigure.ProductionTime] = production.ProductionTime.TotalSeconds;
-        keyFigures[SolutionKeyFigure.PartsQuantity] = production.QuantityOfParts;
-        keyFigures[SolutionKeyFigure.Cuts] = production.Cuts;
 
         // Material
-        keyFigures[SolutionKeyFigure.OffcutsTotal] = material.OffcutsTotal;
-        keyFigures[SolutionKeyFigure.WastePercentage] = material.Waste;
+        keyFigures[SolutionKeyFigure.WastePercentage] = solutionDetails.Overview.Figures.Material.Waste;
+        keyFigures[SolutionKeyFigure.WastePlusOffcutsPercentage] = solutionDetails.Overview.Figures.Material.WastePlusOffcuts;
+        keyFigures[SolutionKeyFigure.WholeBoardsRequired] = solutionDetails.Overview.Figures.Material.WholeBoards;
 
+        keyFigures[SolutionKeyFigure.WasteArea] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.WasteArea;
+
+        keyFigures[SolutionKeyFigure.OffcutsRequired] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsRequired;
+        keyFigures[SolutionKeyFigure.OffcutsProduced] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsProduced;
+        keyFigures[SolutionKeyFigure.OffcutsTotal] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsTotal;
+
+        keyFigures[SolutionKeyFigure.OffcutsSmallRequired] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsSmallRequired;
+        keyFigures[SolutionKeyFigure.OffcutsSmallProduced] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsSmallProduced;
+        keyFigures[SolutionKeyFigure.OffcutsSmallTotal] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsSmallTotal;
+
+        keyFigures[SolutionKeyFigure.OffcutsLargeRequired] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsLargeRequired;
+        keyFigures[SolutionKeyFigure.OffcutsLargeProduced] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsLargeProduced;
+        keyFigures[SolutionKeyFigure.OffcutsLargeTotal] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsLargeTotal;
+
+        keyFigures[SolutionKeyFigure.EdgebandLength] = solutionDetails.KeyFigures.Material.Edgebands.EdgebandLength;
+
+        // Costs
+        keyFigures[SolutionKeyFigure.MaterialCosts] = solutionDetails.Overview.Figures.Costs.MaterialCosts;
+        keyFigures[SolutionKeyFigure.MaterialCostsPerPart] = solutionDetails.Overview.Figures.Costs.MaterialCostsPerPart;
+
+        keyFigures[SolutionKeyFigure.BoardsPlusOffcutsCosts] = solutionDetails.Overview.Figures.Costs.CostsOfBoardsPlusOffcuts;
+        keyFigures[SolutionKeyFigure.EdgebandCosts] = solutionDetails.Overview.Figures.Costs.CostsOfEdgebands;
+
+        keyFigures[SolutionKeyFigure.ProductionCosts] = solutionDetails.Overview.Figures.Costs.ProductionCosts;
+
+        keyFigures[SolutionKeyFigure.TotalCosts] = solutionDetails.Overview.Figures.Costs.TotalCosts;
+        keyFigures[SolutionKeyFigure.TotalCostsPerPart] = solutionDetails.Overview.Figures.Costs.TotalCostsPerPart;
+
+        // Production
+        keyFigures[SolutionKeyFigure.ProductionTime] = solutionDetails.KeyFigures.Production.Output.ProductionTime.TotalSeconds;
+        keyFigures[SolutionKeyFigure.ProductionTimePerPart] = solutionDetails.KeyFigures.Production.Output.ProductionTimePerPart;
+
+        keyFigures[SolutionKeyFigure.BookHeightAverage] = solutionDetails.KeyFigures.Production.Handling.AverageBookHeight;
+        keyFigures[SolutionKeyFigure.BookHeightMax] = solutionDetails.KeyFigures.Production.Handling.MaxBookHeight;
+
+        keyFigures[SolutionKeyFigure.PartsQuantity] = solutionDetails.KeyFigures.Production.Output.QuantityOfParts;
+        keyFigures[SolutionKeyFigure.PartsQuantityPlusParts] = solutionDetails.KeyFigures.Production.Output.QuantityOfPlusParts;
+        keyFigures[SolutionKeyFigure.PartsQuantityTotal] = solutionDetails.KeyFigures.Production.Output.QuantityOfPartsTotal;
+
+        keyFigures[SolutionKeyFigure.PartsQuantityAutomaticMode] = solutionDetails.KeyFigures.Production.Output.PartsQuantityAutomaticMode;
+        keyFigures[SolutionKeyFigure.PartsQuantityManualMode] = solutionDetails.KeyFigures.Production.Output.PartsQuantityManualMode;
+
+        keyFigures[SolutionKeyFigure.Cuts] = solutionDetails.KeyFigures.Production.Output.Cuts;
+        keyFigures[SolutionKeyFigure.Cycles] = solutionDetails.KeyFigures.Production.Output.Cycles;
+        keyFigures[SolutionKeyFigure.CuttingLength] = solutionDetails.KeyFigures.Production.Output.CuttingLength;
+
+        keyFigures[SolutionKeyFigure.Headcuts] = solutionDetails.KeyFigures.Production.Handling.HeadCuts;
+        keyFigures[SolutionKeyFigure.Recuts] = solutionDetails.KeyFigures.Production.Handling.Recuts;
+
+        keyFigures[SolutionKeyFigure.BookWeightAverage] = solutionDetails.KeyFigures.Production.Handling.BookWeightAverage;
+        keyFigures[SolutionKeyFigure.BookWeightMax] = solutionDetails.KeyFigures.Production.Handling.BookWeightMax;
+
+
+        var patterns = solutionDetails.Overview.Pattern.ToArray();
+
+        double patternsCount = patterns.Length;
+        double patternsQuantityTotal = patterns.Sum(p => p.Quantity);
+
+        if (patternsCount > 0)
+        {
+            keyFigures.Add(SolutionKeyFigure.QuantityPerPatternAverage, patternsQuantityTotal / patternsCount);
+        }
+
+        solutionDetails.KeyFigures.Production.Handling.QuantityPerPatternAverage = patternsQuantityTotal / patternsCount;
+        
         return keyFigures;
     }
 }

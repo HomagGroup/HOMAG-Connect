@@ -70,11 +70,38 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Höchster Automatikanteil.
+        /// </summary>
+        public static string HighestAutomationLevel {
+            get {
+                return ResourceManager.GetString("HighestAutomationLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative schneidet die meisten Teile im Automatikbetrieb und reduziert damit manuellen Aufwand. .
+        /// </summary>
+        public static string HighestAutomationLevelDescription {
+            get {
+                return ResourceManager.GetString("HighestAutomationLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niedrigste Materialkosten.
         /// </summary>
         public static string LowestMaterialCosts {
             get {
                 return ResourceManager.GetString("LowestMaterialCosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative erzielt die niedrigsten Materialkosten und eignet sich, wenn der Materialverbrauch im Fokus steht. Die Produktionszeit kann höher ausfallen oder die Pläne können komplexer sein..
+        /// </summary>
+        public static string LowestMaterialCostsDescription {
+            get {
+                return ResourceManager.GetString("LowestMaterialCostsDescription", resourceCulture);
             }
         }
         

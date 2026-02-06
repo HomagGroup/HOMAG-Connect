@@ -120,16 +120,22 @@
   <data name="AdditionalCharacteristicsDescription" xml:space="preserve">
     <value>Zusätzlich bietet diese Alternative folgende Besonderheiten:</value>
   </data>
+  <data name="HighestAutomationLevel" xml:space="preserve">
+    <value>Höchster Automatikanteil</value>
+  </data>
+  <data name="HighestAutomationLevelDescription" xml:space="preserve">
+    <value>Die Alternative schneidet die meisten Teile im Automatikbetrieb und reduziert damit manuellen Aufwand. </value>
+  </data>
   <data name="LowestMaterialCosts" xml:space="preserve">
     <value>Niedrigste Materialkosten</value>
-    <comment>LowestMaterialCosts</comment>
+  </data>
+  <data name="LowestMaterialCostsDescription" xml:space="preserve">
+    <value>Die Alternative erzielt die niedrigsten Materialkosten und eignet sich, wenn der Materialverbrauch im Fokus steht. Die Produktionszeit kann höher ausfallen oder die Pläne können komplexer sein.</value>
   </data>
   <data name="LowestTotalCosts" xml:space="preserve">
     <value>Niedrigste Gesamtkosten</value>
-    <comment>Lowest Total Costs</comment>
   </data>
   <data name="LowestTotalCostsDescription" xml:space="preserve">
     <value>Die Alternative weist die niedrigsten Gesamtkosten auf und ist daher in typischen Szenarien die empfohlene Lösung.</value>
-    <comment>LowestTotalCosts</comment>
   </data>
 </root>
