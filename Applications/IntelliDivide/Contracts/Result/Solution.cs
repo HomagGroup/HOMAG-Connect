@@ -1,6 +1,6 @@
 ﻿#nullable enable
 using HomagConnect.IntelliDivide.Contracts.Constants;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

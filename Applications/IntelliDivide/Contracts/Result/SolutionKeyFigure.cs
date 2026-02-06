@@ -1,248 +1,299 @@
 ﻿using HomagConnect.Base.Contracts.Converter;
-using HomagConnect.IntelliDivide.Contracts.Result;
+
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Evaluation.Enums
+namespace HomagConnect.IntelliDivide.Contracts.Result;
+
+/// <summary>
+/// Identifies measurable key figures used for scoring solution candidates.
+/// Each enum member can be decorated with <see cref="LowerIsBetterAttribute" /> or <see cref="HigherIsBetterAttribute" />
+/// indicating the desired optimization direction for normalization and scoring.
+/// </summary>
+[JsonConverter(typeof(TolerantEnumConverter))]
+public enum SolutionKeyFigure
 {
     /// <summary>
-    /// Identifies measurable key figures used for scoring solution candidates.
-    /// Each enum member can be decorated with <see cref="LowerIsBetterAttribute" /> or <see cref="HigherIsBetterAttribute" />
-    /// indicating the desired optimization direction for normalization and scoring.
+    /// Unknown or unspecified key figure.
     /// </summary>
-    [JsonConverter(typeof(TolerantEnumConverter))]
-    public enum SolutionKeyFigure
-    {
-        /// <summary>
-        /// Unknown or unspecified key figure.
-        /// </summary>
-        Unknown = 0,
+    Unknown = 0,
 
-        #region Material key figures
+    #region Material
 
-        /// <summary>
-        /// Total waste area; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        WasteArea,
+    /// <summary>
+    /// Total waste area; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    WasteArea,
 
-        /// <summary>
-        /// Waste as percentage of total; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        WastePercentage,
+    /// <summary>
+    /// Total waste plus offcuts area; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    WastePlusOffcutsArea,
 
-        /// <summary>
-        /// Combined waste and offcut area; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        WasteAndOffcutArea,
+    /// <summary>
+    /// Waste as percentage of total; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    WastePercentage,
 
-        /// <summary>
-        /// Combined waste and offcut percentage; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        WasteAndOffcutPercentage,
+    [LowerIsBetter]
+    WastePlusOffcutsPercentage,
 
-        /// <summary>
-        /// Number of small offcuts produced; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        OffcutsSmallProduced,
+    #region Offcuts
 
-        /// <summary>
-        /// Number of small offcuts used (recycled); higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        OffcutsSmallUsed,
+    /// <summary>
+    /// Number of small offcuts produced; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    OffcutsSmallProduced,
 
-        /// <summary>
-        /// Total small offcuts; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        OffcutsSmallTotal,
+    /// <summary>
+    /// Number of small offcuts used (recycled); higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    OffcutsSmallRequired,
 
-        /// <summary>
-        /// Number of large offcuts produced; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        OffcutsLargeProduced,
+    /// <summary>
+    /// Number of small offcuts total; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    OffcutsSmallTotal,
 
-        /// <summary>
-        /// Number of large offcuts used (recycled); higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        OffcutsLargeUsed,
+    /// <summary>
+    /// Number of large offcuts produced; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    OffcutsLargeProduced,
 
-        /// <summary>
-        /// Total large offcuts; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        OffcutsLargeTotal,
+    /// <summary>
+    /// Number of large offcuts used (recycled); higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    OffcutsLargeRequired,
 
-        /// <summary>
-        /// Total offcuts produced; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        OffcutsProduced,
+    /// <summary>
+    /// Total large offcuts; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    OffcutsLargeTotal,
 
-        /// <summary>
-        /// Total offcuts used (recycled); higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        OffcutsUsed,
+    /// <summary>
+    /// Total offcuts produced; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    OffcutsProduced,
 
-        /// <summary>
-        /// Sum of produced offcuts minus used/recycled; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        OffcutsTotal,
+    /// <summary>
+    /// Indicates the number of offcuts required as a metric for evaluation.
+    /// </summary>
+    /// <remarks>
+    /// A higher value for this metric is considered better when comparing results, as
+    /// indicated by the HigherIsBetter attribute.
+    /// </remarks>
+    [HigherIsBetter]
+    OffcutsRequired,
 
-        /// <summary>
-        /// Required whole boards count; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        WholeBoardsRequired,
+    /// <summary>
+    /// Total offcuts (produced minus required); lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    OffcutsTotal,
 
-        #endregion
+    #endregion
 
-        #region Production key figures
+    #region Boards
 
-        /// <summary>
-        /// Total production time; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        ProductionTime,
+    /// <summary>
+    /// Required whole boards count; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    WholeBoardsRequired,
 
-        /// <summary>
-        /// Production time per part; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        ProductionTimePerPart,
+    #endregion
 
-        /// <summary>
-        /// Quantity of produced parts; higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        PartsQuantity,
+    #region Edgebands
 
-        /// <summary>
-        /// Quantity of plus parts; higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        PartsQuantityPlusParts,
+    /// <summary>
+    /// Total edge banding length; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    EdgebandLength,
 
-        /// <summary>
-        /// Total parts quantity (including plus parts); higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        PartsQuantityTotal,
+    #endregion
 
-        /// <summary>
-        /// Quantity produced in manual mode; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        PartsQuantityManualMode,
+    #endregion
 
-        /// <summary>
-        /// Quantity produced in automatic mode; higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        PartsQuantityAutomaticMode,
+    #region Production
 
-        /// <summary>
-        /// Number of cycles; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        CycleCount,
+    /// <summary>
+    /// Total production time; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    ProductionTime,
 
-        /// <summary>
-        /// Number of cutting patterns; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        PatternCount,
+    /// <summary>
+    /// Production time per part; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    ProductionTimePerPart,
 
-        /// <summary>
-        /// Average book height; higher values are better.
-        /// </summary>
-        [HigherIsBetter]
-        AverageBookHeight,
+    /// <summary>
+    /// Book height average; higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    BookHeightAverage,
 
-        /// <summary>
-        /// Number of cuts; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        Cuts,
+    /// <summary>
+    /// Book height maximum; higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    BookHeightMax,
 
-        /// <summary>
-        /// Number of recuts; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        Recuts,
+    #region Parts
 
-        /// <summary>
-        /// Number of headcuts; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        Headcuts,
+    /// <summary>
+    /// Quantity of produced parts; higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    PartsQuantity,
 
-        /// <summary>
-        /// Total cutting length; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        CuttingLength,
+    /// <summary>
+    /// Quantity of plus parts; higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    PartsQuantityPlusParts,
 
-        #endregion
+    /// <summary>
+    /// Total parts quantity (including plus parts); higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    PartsQuantityTotal,
 
-        #region Cost key figures
+    /// <summary>
+    /// Quantity produced in manual mode; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    PartsQuantityManualMode,
 
-        /// <summary>
-        /// Total costs; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        TotalCosts,
+    /// <summary>
+    /// Quantity produced in automatic mode; higher values are better.
+    /// </summary>
+    [HigherIsBetter]
+    PartsQuantityAutomaticMode,
 
-        /// <summary>
-        /// Total costs per part; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        TotalCostsPerPart,
+    #endregion
 
-        /// <summary>
-        /// Material costs; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        MaterialCosts,
+    #region Handling
 
-        /// <summary>
-        /// Material costs per part; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        MaterialCostsPerPart,
+    /// <summary>
+    /// Book weight average; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    BookWeightAverage,
 
-        /// <summary>
-        /// Production costs; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        ProductionCosts,
+    /// <summary>
+    /// Book weight maximum; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    BookWeightMax,
 
-        /// <summary>
-        /// Production costs per part; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        ProductionCostsPerPart,
+    /// <summary>
+    /// Number of cycles; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    Cycles,
+   
+    /// <summary>
+    /// Number of cutting patterns; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    PatternCount,
 
-        /// <summary>
-        /// Combined boards and offcuts costs; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        BoardsAndOffcutsCosts,
+    /// <summary>
+    /// Number of cuts; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    Cuts,
 
-        /// <summary>
-        /// Edgeband costs; lower values are better.
-        /// </summary>
-        [LowerIsBetter]
-        EdgebandCosts
+    /// <summary>
+    /// Number of recuts; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    Recuts,
 
-        #endregion
-    }
+    /// <summary>
+    /// Number of headcuts; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    Headcuts,
+
+    /// <summary>
+    /// Total cutting length; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    CuttingLength,
+
+    /// <summary>
+    /// Gives the average quantity of parts per cutting pattern; higher values are better as it indicates more efficient cutting patterns.
+    /// </summary>
+    [HigherIsBetter]
+    QuantityPerPatternAverage,
+
+    #endregion
+
+    #endregion
+
+    #region Costs
+
+    /// <summary>
+    /// Total costs; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    TotalCosts,
+
+    /// <summary>
+    /// Total costs per part; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    TotalCostsPerPart,
+
+    /// <summary>
+    /// Material costs; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    MaterialCosts,
+
+    /// <summary>
+    /// Material costs per part; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    MaterialCostsPerPart,
+
+    /// <summary>
+    /// Production costs; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    ProductionCosts,
+
+    /// <summary>
+    /// Production costs per part; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    ProductionCostsPerPart,
+
+    /// <summary>
+    /// Combined boards and offcuts costs; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    BoardsPlusOffcutsCosts,
+
+    /// <summary>
+    /// Edgeband costs; lower values are better.
+    /// </summary>
+    [LowerIsBetter]
+    EdgebandCosts,
+
+    #endregion
+  
 }

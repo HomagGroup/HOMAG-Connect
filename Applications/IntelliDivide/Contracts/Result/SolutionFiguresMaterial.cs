@@ -18,6 +18,12 @@ public class SolutionFiguresMaterial
     public SolutionFiguresMaterialBoardsOffcuts BoardsAndOffcuts { get; set; } = new();
 
     /// <summary>
+    /// Gets the material key figures for boards and offcuts.
+    /// </summary>
+    [JsonProperty(Order = 11)]
+    public SolutionFiguresMaterialEdgebands Edgebands { get; set; } = new();
+
+    /// <summary>
     /// Gets a list of material key figures for waste per material code.
     /// </summary>
     [JsonProperty(Order = 20)]

@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;

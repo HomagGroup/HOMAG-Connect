@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
-
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>

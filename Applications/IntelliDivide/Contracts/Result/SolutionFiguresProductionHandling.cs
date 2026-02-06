@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿#nullable enable
+
 using System.Collections.Generic;
 
-#nullable enable
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -12,16 +13,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 public class SolutionFiguresProductionHandling
 {
     /// <summary>
-    /// Gets the quantity of recuts.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonProperty(Order = 1)]
-    public int Recuts { get; set; }
-
-    /// <summary>
-    /// Gets the quantity of headcuts.
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    public int HeadCuts { get; set; }
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
     /// Gets the average book height in mm or inch.
@@ -30,15 +26,38 @@ public class SolutionFiguresProductionHandling
     public double AverageBookHeight { get; set; }
 
     /// <summary>
+    /// Gets the average book weight in kg or lbs.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public double? BookWeightAverage { get; set; }
+
+    /// <summary>
+    /// Gets the average book weight in kg or lbs.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public double? BookWeightMax { get; set; }
+
+    /// <summary>
+    /// Gets the quantity of headcuts.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public int HeadCuts { get; set; }
+
+    /// <summary>
     /// Gets the maximum book height in mm or inch.
     /// </summary>
     [JsonProperty(Order = 3)]
     public double MaxBookHeight { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional properties configured in the application.
+    /// Gets or sets the average quantity per pattern.
     /// </summary>
-    [JsonProperty(Order = 80)]
-    [JsonExtensionData]
-    public IDictionary<string, object>? AdditionalProperties { get; set; }
+    [JsonProperty(Order = 5)]
+    public double QuantityPerPatternAverage { get; set; }
+
+    /// <summary>
+    /// Gets the quantity of recuts.
+    /// </summary>
+    [JsonProperty(Order = 1)]
+    public int Recuts { get; set; }
 }
