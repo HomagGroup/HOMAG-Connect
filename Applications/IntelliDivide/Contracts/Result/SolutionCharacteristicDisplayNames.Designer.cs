@@ -349,7 +349,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diese Alternative hat keine besonderheiten..
+        ///   Looks up a localized string similar to Diese Alternative hat keine Besonderheiten..
         /// </summary>
         public static string NoneDescription {
             get {
