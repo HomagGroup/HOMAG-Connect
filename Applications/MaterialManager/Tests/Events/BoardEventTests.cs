@@ -1,8 +1,5 @@
 ﻿using System.Diagnostics;
-﻿using FluentAssertions;
-
-using HomagConnect.Base;
-using HomagConnect.Base.Contracts.Events;
+﻿using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Events.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
@@ -30,8 +27,7 @@ public class BoardEventTests : MaterialManagerTestBase
 
         boardEntityDeletedEvent.Trace();
 
-        boardEntityDeletedEvent.IsValid.Should().BeTrue(
-            "because boardEntityDeletedEvent should be valid after setting required properties");
+        Assert.IsTrue (boardEntityDeletedEvent.IsValid, "because boardEntityDeletedEvent should be valid after setting required properties");
 
         TestContext?.AddResultFile(boardEntityDeletedEvent.TraceToFile("boardEntityDeletedEvent").FullName);
     }
@@ -251,8 +247,8 @@ public class BoardEventTests : MaterialManagerTestBase
         derivedTypes.Length.ShouldBeGreaterThan(0,
             "because there should be at least one type derived from AppEvent in the MaterialManager assembly");
 
-        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityCreatedEvent)), "BoardEntityCreatedEvent should be present in derived event types.");
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityDeletedEvent)), "BoardEntityDeletedEvent should be present in derived event types.");
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityUpsertedEvent)), "BoardEntityUpsertedEvent should be present in derived event types.");
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeUpsertedEvent)), "BoardTypeUpsertedEvent should be present in derived event types.");
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeDeletedEvent)), "BoardTypeDeletedEvent should be present in derived event types.");
 
