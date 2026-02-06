@@ -367,7 +367,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diese Alternative hat meisten gleichen Schnittpläne - sorgt für Übersichtlichkeit und Einfachheit..
+        ///   Looks up a localized string similar to Diese Alternative hat die meisten gleichen Schnittpläne - sorgt für Übersichtlichkeit und Einfachheit..
         /// </summary>
         public static string SimilarPatternsDescription {
             get {
