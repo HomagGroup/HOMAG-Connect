@@ -22,21 +22,21 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class StatisticsDisplayNames {
+    public class StatisticsDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal StatisticsDisplayNames() {
+        public StatisticsDisplayNames() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Statistics.StatisticsDisplayNames", typeof(StatisticsDisplayNames).Assembly);
@@ -51,7 +51,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,67 +59,76 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Platten.
-        /// </summary>
-        internal static string BoardEntity {
-            get {
-                return ResourceManager.GetString("BoardEntity", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kosten.
         /// </summary>
-        internal static string Costs {
+        public static string Costs {
             get {
                 return ResourceManager.GetString("Costs", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Endzeitpunkt.
         /// </summary>
-        internal static string DividedAt {
+        public static string DividedAt {
             get {
                 return ResourceManager.GetString("DividedAt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Kantenband.
         /// </summary>
-        internal static string EdgebandCode {
+        public static string EdgebandCode {
             get {
                 return ResourceManager.GetString("EdgebandCode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Höhe.
         /// </summary>
-        internal static string Height {
+        public static string Height {
             get {
                 return ResourceManager.GetString("Height", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Optimierungnummber.
+        ///   Looks up a localized string similar to Reserviert m^2.
         /// </summary>
-        internal static string OptimizationId {
+        public static string TotalAreaAllocated {
             get {
-                return ResourceManager.GetString("OptimizationId", resourceCulture);
+                return ResourceManager.GetString("TotalAreaAllocated", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Arbeitsplatznummber.
+        ///   Looks up a localized string similar to Verfügbar m^2.
         /// </summary>
-        internal static string WorkstationId {
+        public static string TotalAreaAvailable {
             get {
-                return ResourceManager.GetString("WorkstationId", resourceCulture);
+                return ResourceManager.GetString("TotalAreaAvailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gesamtfläche m^2.
+        /// </summary>
+        public static string TotalAreaInInventory {
+            get {
+                return ResourceManager.GetString("TotalAreaInInventory", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gesamtlänge.
+        /// </summary>
+        public static string TotalLengthInInventory {
+            get {
+                return ResourceManager.GetString("TotalLengthInInventory", resourceCulture);
             }
         }
     }
