@@ -19,6 +19,48 @@ public class BoardEventTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
+    public void Events_BoardEntityDeletedEvent_SerializeDeserialize()
+    {
+        var boardEntityDeletedEvent = new BoardEntityDeletedEvent();
+
+        boardEntityDeletedEvent.SubscriptionId = Guid.NewGuid();
+        boardEntityDeletedEvent.Id = "abc";
+
+        boardEntityDeletedEvent.Trace();
+
+        boardEntityDeletedEvent.IsValid.Should().BeTrue(
+            "because boardEntityDeletedEvent should be valid after setting required properties");
+
+        TestContext?.AddResultFile(boardEntityDeletedEvent.TraceToFile("boardEntityDeletedEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_BoardEntityDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        Guid expected = Guid.NewGuid();
+        // Arrange
+        var evt = new BoardEntityDeletedEvent()
+        {
+            SubscriptionId = Guid.NewGuid(),
+            Id = expected.ToString()
+        };
+
+        // Act
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        var deserializedTyped = JsonConvert.DeserializeObject<BoardEntityDeletedEvent>(json, SerializerSettings.Default);
+
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        // Assert
+        Assert.IsNotNull(deserializedTyped);
+        Assert.AreEqual(expected.ToString(), deserializedTyped.Id);
+
+        Assert.AreEqual(expected, deserializedBase.Id);
+    }
+    /// <summary />
+    [TestMethod]
     public void Events_BoardEntityCreatedEvent_SerializeDeserialize()
     {
         var boardEntityCreatedEvent = new BoardEntityCreatedEvent();
@@ -208,6 +250,7 @@ public class BoardEventTests : MaterialManagerTestBase
             "because there should be at least one type derived from AppEvent in the MaterialManager assembly");
 
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityCreatedEvent)), "BoardEntityCreatedEvent should be present in derived event types.");
+        Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardEntityDeletedEvent)), "BoardEntityDeletedEvent should be present in derived event types.");
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeUpsertedEvent)), "BoardTypeUpsertedEvent should be present in derived event types.");
         Assert.IsTrue(derivedTypes.Any(t => t == typeof(BoardTypeDeletedEvent)), "BoardTypeDeletedEvent should be present in derived event types.");
 
