@@ -203,7 +203,6 @@ public enum SolutionKeyFigure
     /// </summary>
     [LowerIsBetter]
     Cycles,
-
    
     /// <summary>
     /// Number of cutting patterns; lower values are better.
@@ -235,6 +234,9 @@ public enum SolutionKeyFigure
     [LowerIsBetter]
     CuttingLength,
 
+    /// <summary>
+    /// Gives the average quantity of parts per cutting pattern; higher values are better as it indicates more efficient cutting patterns.
+    /// </summary>
     [HigherIsBetter]
     QuantityPerPatternAverage,
 

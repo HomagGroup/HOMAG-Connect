@@ -93,6 +93,7 @@ public static class SolutionCandidates
         keyFigures[SolutionKeyFigure.EdgebandCosts] = solutionDetails.Overview.Figures.Costs.CostsOfEdgebands;
 
         keyFigures[SolutionKeyFigure.ProductionCosts] = solutionDetails.Overview.Figures.Costs.ProductionCosts;
+        keyFigures[SolutionKeyFigure.ProductionCostsPerPart] = solutionDetails.Overview.Figures.Costs.ProductionCostsPerPart;
 
         keyFigures[SolutionKeyFigure.TotalCosts] = solutionDetails.Overview.Figures.Costs.TotalCosts;
         keyFigures[SolutionKeyFigure.TotalCostsPerPart] = solutionDetails.Overview.Figures.Costs.TotalCostsPerPart;
@@ -121,6 +122,9 @@ public static class SolutionCandidates
         keyFigures[SolutionKeyFigure.BookWeightAverage] = solutionDetails.KeyFigures.Production.Handling.BookWeightAverage;
         keyFigures[SolutionKeyFigure.BookWeightMax] = solutionDetails.KeyFigures.Production.Handling.BookWeightMax;
 
+        #region Missing key figures
+
+        #region QuantityPerPatternAverage
 
         var patterns = solutionDetails.Overview.Pattern.ToArray();
 
@@ -133,7 +137,11 @@ public static class SolutionCandidates
         }
 
         solutionDetails.KeyFigures.Production.Handling.QuantityPerPatternAverage = patternsQuantityTotal / patternsCount;
-        
+
+        #endregion
+
+        #endregion
+
         return keyFigures;
     }
 }

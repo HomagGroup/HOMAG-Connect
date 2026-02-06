@@ -49,6 +49,12 @@ public class SolutionOverviewFiguresCosts
     public double? ProductionCosts { get; set; }
 
     /// <summary>
+    /// Gets the average production costs per part in the currency of the subscription.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public double? ProductionCostsPerPart { get; set; }
+
+    /// <summary>
     /// Gets the total costs in the currency of the subscription.
     /// </summary>
     [JsonProperty(Order = 5)]
@@ -59,4 +65,6 @@ public class SolutionOverviewFiguresCosts
     /// </summary>
     [JsonProperty(Order = 6)]
     public double? TotalCostsPerPart { get; set; }
+
+ 
 }
