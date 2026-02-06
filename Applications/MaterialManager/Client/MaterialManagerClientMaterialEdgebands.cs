@@ -281,6 +281,64 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <inheritdoc />
+    public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate, FileReference[] fileReferences)
+    {
+        if (edgebandTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeUpdate));
+        }
+        ValidateRequiredProperties(edgebandTypeUpdate);
+        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+        if (fileReferences == null)
+        {
+            throw new ArgumentNullException(nameof(fileReferences));
+        }
+
+        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
+
+        if (missingFile != null)
+        {
+            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
+        }
+
+        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
+
+        if (missingReference != null)
+        {
+            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
+        }
+
+        var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
+        request.RequestUri = new Uri(url, UriKind.Relative);
+
+        using var httpContent = new MultipartFormDataContent();
+
+        var json = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
+
+        httpContent.Add(new StringContent(json), nameof(edgebandTypeUpdate));
+
+        foreach (var fileReference in fileReferences)
+        {
+            var fileStream = fileReference.FileInfo.OpenRead();
+
+            HttpContent streamContent = new StreamContent(fileStream);
+            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
+        }
+
+        request.Content = httpContent;
+
+        var response = await Client.SendAsync(request);
+
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        var result = await response.Content.ReadAsStringAsync();
+        var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
+
+        return responseObject ?? new EdgebandType();
+    }
+
+    /// <inheritdoc />
     public async Task<EdgebandTypeAllocation> UpdateEdgebandTypeAllocation(EdgebandTypeAllocationUpdate edgebandTypeAllocationUpdate)
     {
         if (edgebandTypeAllocationUpdate == null)
