@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoardEntity" xml:space="preserve">
-    <value>Platten</value>
-  </data>
   <data name="Costs" xml:space="preserve">
     <value>Kosten</value>
   </data>
@@ -132,10 +129,16 @@
   <data name="Height" xml:space="preserve">
     <value>Höhe</value>
   </data>
-  <data name="OptimizationId" xml:space="preserve">
-    <value>Optimierungnummber</value>
+  <data name="TotalAreaAllocated" xml:space="preserve">
+    <value>Reserviert m^2</value>
   </data>
-  <data name="WorkstationId" xml:space="preserve">
-    <value>Arbeitsplatznummber</value>
+  <data name="TotalAreaAvailable" xml:space="preserve">
+    <value>Verfügbar m^2</value>
+  </data>
+  <data name="TotalAreaInInventory" xml:space="preserve">
+    <value>Gesamtfläche m^2</value>
+  </data>
+  <data name="TotalLengthInInventory" xml:space="preserve">
+    <value>Gesamtlänge</value>
   </data>
 </root>
