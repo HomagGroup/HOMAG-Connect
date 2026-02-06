@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
@@ -25,8 +26,9 @@ public enum SolutionCharacteristic
     /// Solution with the lowest total costs per part.
     /// </summary>
     /// <remarks>Recommended when both production and material costs are available.</remarks>
-    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.TotalCostsPerPart, 1000)]
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestTotalCosts), Description = "LowestTotalCostsDescription")]
+    [SolutionCharacteristicIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowesttotalcosts.svg")]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.TotalCostsPerPart, 1000)]
     LowestTotalCosts,
 
     /// <summary>
