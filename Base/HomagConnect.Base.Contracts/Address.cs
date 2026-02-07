@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.Base.Contracts;
 
@@ -11,7 +12,7 @@ public class Address
     /// The type of the address.
     /// </summary>
     [JsonProperty(Order = 0)]
-    public AddressType Type { get; set; } = AddressType.Unknown;
+    public List<AddressType> Type { get; set; } = new List<AddressType>();
 
     /// <summary>
     /// Gets or sets the country
