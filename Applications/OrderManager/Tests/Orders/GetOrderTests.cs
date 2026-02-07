@@ -48,7 +48,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                     PostalCode = "12345",
                     City = "Musterstadt",
                     Country = "Deutschland",
-                    Type = AddressType.Delivery | AddressType.Billing
+                    Type = [AddressType.Delivery, AddressType.Billing]
                 }
             });
 
@@ -388,7 +388,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                     PostalCode = "12345",
                     City = "Musterstadt",
                     Country = "Deutschland",
-                    Type = AddressType.Delivery | AddressType.Billing
+                    Type = [AddressType.Delivery, AddressType.Billing]
                 }
             });
 
@@ -476,7 +476,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                     PostalCode = "12345",
                     City = "Musterstadt",
                     Country = "Deutschland",
-                    Type = AddressType.Delivery | AddressType.Billing
+                    Type = [AddressType.Delivery, AddressType.Billing]
                 }
             });
 

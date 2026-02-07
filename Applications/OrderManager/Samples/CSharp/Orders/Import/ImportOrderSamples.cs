@@ -99,7 +99,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                     PostalCode = "12345",
                     City = "Musterstadt",
                     Country = "Deutschland",
-                    Type = AddressType.Delivery
+                    Type = [AddressType.Delivery]
                 }
             ]);
 

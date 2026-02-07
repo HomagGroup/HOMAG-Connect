@@ -495,7 +495,7 @@ public static class ProjectExtensionsConversion
         {
             var address = new Address();
 
-            address.Type = AddressType.Delivery;
+            address.Type = [AddressType.Delivery];
             address.Name = orderWrapper.CustomerName;
             address.Street = orderWrapper.Street;
             address.HouseNumber = orderWrapper.HouseNumber;
