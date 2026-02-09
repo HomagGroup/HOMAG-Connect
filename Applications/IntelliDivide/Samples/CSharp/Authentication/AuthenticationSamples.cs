@@ -4,8 +4,6 @@ using System.Text;
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Client;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HomagConnect.IntelliDivide.Samples.Authentication
 {
     /// <summary>

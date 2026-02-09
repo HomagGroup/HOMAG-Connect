@@ -7,18 +7,18 @@ using System.Linq;
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
-/// Factory and helpers for creating <see cref="SolutionCandidate" /> instances from solution data.
+/// Factory and helpers for creating <see cref="SolutionCandidate"/> instances from solution data.
 /// </summary>
 public static class SolutionCandidates
 {
     /// <summary>
-    /// Creates a <see cref="SolutionCandidate" /> with provided key figures and calculation time.
+    /// Creates a <see cref="SolutionCandidate"/> with provided key figures and calculation time.
     /// </summary>
     /// <param name="solutionId">The unique identifier of the solution.</param>
     /// <param name="solutionKeyFigures">Key figures used for scoring and evaluation.</param>
     /// <param name="calculationTime">Calculation time in seconds.</param>
-    /// <returns>A populated <see cref="SolutionCandidate" />.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="solutionKeyFigures" /> is null or empty.</exception>
+    /// <returns>A populated <see cref="SolutionCandidate"/>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="solutionKeyFigures"/> is null or empty.</exception>
     public static SolutionCandidate From(Guid solutionId, Dictionary<SolutionKeyFigure, double?> solutionKeyFigures, double calculationTime)
     {
         if (solutionKeyFigures == null || solutionKeyFigures.Count == 0)
@@ -35,7 +35,7 @@ public static class SolutionCandidates
     }
 
     /// <summary>
-    /// Creates an array of <see cref="SolutionCandidate" /> from a collection of <see cref="SolutionDetails" />.
+    /// Creates an array of <see cref="SolutionCandidate"/> from a collection of <see cref="SolutionDetails"/>.
     /// Returns an empty array for empty input.
     /// </summary>
     /// <param name="solutionDetails">Source details used to construct candidates.</param>
@@ -56,7 +56,7 @@ public static class SolutionCandidates
     }
 
     /// <summary>
-    /// Extracts key figures from <see cref="SolutionDetails" /> for evaluation.
+    /// Extracts key figures from <see cref="SolutionDetails"/> for evaluation.
     /// </summary>
     /// <param name="solutionDetails">Source solution details.</param>
     /// <returns>Dictionary of key figures and their values.</returns>
@@ -70,6 +70,7 @@ public static class SolutionCandidates
         keyFigures[SolutionKeyFigure.WholeBoardsRequired] = solutionDetails.Overview.Figures.Material.WholeBoards;
 
         keyFigures[SolutionKeyFigure.WasteArea] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.WasteArea;
+        keyFigures[SolutionKeyFigure.WastePlusOffcutsArea] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.WastePlusOffcutsArea;
 
         keyFigures[SolutionKeyFigure.OffcutsRequired] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsRequired;
         keyFigures[SolutionKeyFigure.OffcutsProduced] = solutionDetails.KeyFigures.Material.BoardsAndOffcuts.OffcutsProduced;
@@ -105,12 +106,15 @@ public static class SolutionCandidates
         keyFigures[SolutionKeyFigure.BookHeightAverage] = solutionDetails.KeyFigures.Production.Handling.AverageBookHeight;
         keyFigures[SolutionKeyFigure.BookHeightMax] = solutionDetails.KeyFigures.Production.Handling.MaxBookHeight;
 
+        keyFigures[SolutionKeyFigure.PatternCount] = solutionDetails.KeyFigures.Production.Handling.PatternCount;
+
         keyFigures[SolutionKeyFigure.PartsQuantity] = solutionDetails.KeyFigures.Production.Output.QuantityOfParts;
         keyFigures[SolutionKeyFigure.PartsQuantityPlusParts] = solutionDetails.KeyFigures.Production.Output.QuantityOfPlusParts;
         keyFigures[SolutionKeyFigure.PartsQuantityTotal] = solutionDetails.KeyFigures.Production.Output.QuantityOfPartsTotal;
 
         keyFigures[SolutionKeyFigure.PartsQuantityAutomaticMode] = solutionDetails.KeyFigures.Production.Output.PartsQuantityAutomaticMode;
         keyFigures[SolutionKeyFigure.PartsQuantityManualMode] = solutionDetails.KeyFigures.Production.Output.PartsQuantityManualMode;
+        keyFigures[SolutionKeyFigure.PartsQuantityAutomaticModePercentage] = solutionDetails.KeyFigures.Production.Output.PartsQuantityAutomaticModePercentage;
 
         keyFigures[SolutionKeyFigure.Cuts] = solutionDetails.KeyFigures.Production.Output.Cuts;
         keyFigures[SolutionKeyFigure.Cycles] = solutionDetails.KeyFigures.Production.Output.Cycles;
@@ -122,25 +126,7 @@ public static class SolutionCandidates
         keyFigures[SolutionKeyFigure.BookWeightAverage] = solutionDetails.KeyFigures.Production.Handling.BookWeightAverage;
         keyFigures[SolutionKeyFigure.BookWeightMax] = solutionDetails.KeyFigures.Production.Handling.BookWeightMax;
 
-        #region Missing key figures
-
-        #region QuantityPerPatternAverage
-
-        var patterns = solutionDetails.Overview.Pattern.ToArray();
-
-        double patternsCount = patterns.Length;
-        double patternsQuantityTotal = patterns.Sum(p => p.Quantity);
-
-        if (patternsCount > 0)
-        {
-            keyFigures.Add(SolutionKeyFigure.QuantityPerPatternAverage, patternsQuantityTotal / patternsCount);
-        }
-
-        solutionDetails.KeyFigures.Production.Handling.QuantityPerPatternAverage = patternsQuantityTotal / patternsCount;
-
-        #endregion
-
-        #endregion
+        keyFigures[SolutionKeyFigure.QuantityPerPatternAverage] = solutionDetails.KeyFigures.Production.Handling.QuantityPerPatternAverage;
 
         return keyFigures;
     }

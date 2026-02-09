@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -181,6 +183,10 @@ public enum SolutionKeyFigure
     /// </summary>
     [HigherIsBetter]
     PartsQuantityAutomaticMode,
+
+
+    [HigherIsBetter]
+    PartsQuantityAutomaticModePercentage,
 
     #endregion
 

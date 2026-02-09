@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -45,6 +46,23 @@ public class SolutionFiguresProductionOutput
     /// </summary>
     [JsonProperty(Order = 2)]
     public double PartsQuantityAutomaticMode { get; set; }
+
+    /// <summary>
+    /// Gets the percentage of parts to use when operating in automatic mode. This is calculated as the ratio of the quantity of parts in automatic mode to the total quantity of parts, multiplied by 100 to express it as a percentage.
+    /// </summary>
+    [Range(0,100)]
+    public double PartsQuantityAutomaticModePercentage
+    {
+        get
+        {
+            return Math.Round(PartsQuantityAutomaticMode / QuantityOfPartsTotal * 100, 2);
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        private set
+        {
+            // Required for serialization
+        }
+    }
 
     /// <summary>
     /// Gets the quantity of parts to use when operating in manual mode. This is calculated as the difference between the total quantity of parts and the quantity of parts in automatic mode.

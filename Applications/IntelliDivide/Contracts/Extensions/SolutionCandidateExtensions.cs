@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -20,8 +21,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
         /// </summary>
         public static SolutionCandidateEvaluationResult[] DetermineCharacteristicsAndDisplayOrder(this IEnumerable<SolutionDetails>? solutionDetails)
         {
-            var solutionCandidates = SolutionCandidates.From((solutionDetails ?? []).ToArray());
-            return solutionDetails == null ? [] : DetermineCharacteristicsAndDisplayOrder(solutionCandidates);
+            if (solutionDetails == null) return [];
+
+            var solutionDetailsAsArray = solutionDetails as SolutionDetails[] ?? solutionDetails.ToArray();
+
+            solutionDetailsAsArray.Validate();
+
+            return DetermineCharacteristicsAndDisplayOrder(SolutionCandidates.From(solutionDetailsAsArray));
         }
 
         /// <summary>
@@ -41,6 +47,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
             {
                 return [];
             }
+
+            solutionCandidates.DebugAssertAllRequiredKeyFiguresExists();
 
             var evaluated = solutionCandidates.Select(s => new SolutionCandidateEvaluationResult(s)).ToArray();
 
@@ -167,6 +175,37 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
         /// Cache: key figures referenced by at least one characteristic.
         /// </summary>
         private static SolutionKeyFigure[]? _KeyFiguresUsedForAtLeastOneSolutionCharacteristic;
+
+        private static void DebugAssertAllRequiredKeyFiguresExists(this SolutionCandidate[] solutionCandidates)
+        {
+            foreach (var solutionCandidate in solutionCandidates)
+            {
+                solutionCandidate.DebugAssertAllRequiredKeyFiguresExists();
+            }
+        }
+
+        private static void DebugAssertAllRequiredKeyFiguresExists(this SolutionCandidate solutionCandidate)
+        {
+            // Collect required key figures (referenced by at least one characteristic)
+            var requiredKeyFigures = KeyFiguresUsedForAtLeastOneSolutionCharacteristic;
+
+            // Collect the key figures present in this candidate
+            var presentKeyFigures = solutionCandidate.KeyFigures.Keys;
+
+            // Determine which required key figures are missing
+            var missingKeyFigures = requiredKeyFigures
+                .Where(required => !presentKeyFigures.Contains(required))
+                .ToArray();
+
+            if (missingKeyFigures.Length > 0)
+            {
+                var message =
+                    $"SolutionCandidate {solutionCandidate.Id} is missing required key figures: " +
+                    string.Join(", ", missingKeyFigures);
+
+                Debug.Assert(false, message);
+            }
+        }
 
         /// <summary>
         /// Key figures referenced by at least one characteristic weight configuration.

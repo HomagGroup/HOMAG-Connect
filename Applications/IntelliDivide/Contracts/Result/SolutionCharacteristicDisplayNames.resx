@@ -186,20 +186,14 @@
   <data name="LowestTotalCostsDescription" xml:space="preserve">
     <value>Die Alternative weist die niedrigsten Gesamtkosten auf und ist daher in typischen Szenarien die empfohlene Lösung.</value>
   </data>
-  <data name="LowestWastePercentage" xml:space="preserve">
+  <data name="MinimumWaste" xml:space="preserve">
     <value>Minimaler Abfall</value>
   </data>
-  <data name="LowestWastePercentageDescription" xml:space="preserve">
+  <data name="MinimumWasteDescription" xml:space="preserve">
     <value>Reduziert den Abfall auf ein Minimum – ideal zur Materialeinsparung. Es können viele kleinere Reste entstehen, die Lagerplatz benötigen.</value>
   </data>
-  <data name="LowestWastePlusOffcutsPercentage" xml:space="preserve">
-    <value>Minimaler Abfall incl. Reste</value>
-  </data>
-  <data name="LowestWastePlusOffcutsPercentageDescription" xml:space="preserve">
+  <data name="MinimumWastePlusOffcutsDescription" xml:space="preserve">
     <value>Diese Alternative minimiert den Gesamtabfall inklusive anfallender Reste und ist ideal, wenn Materialeinsparung im Fokus steht.</value>
-  </data>
-  <data name="LowestWholeBoardsQuantity" xml:space="preserve">
-    <value>Geringste Anzahl ganze Platten</value>
   </data>
   <data name="LowestWholeBoardsQuantityDescription" xml:space="preserve">
     <value>Die Alternative benötigt die wenigsten ganzen Platten und spart dadurch Material.</value>
@@ -227,5 +221,11 @@
   </data>
   <data name="UnknownDescription" xml:space="preserve">
     <value>Unbekannte Charakteristic</value>
+  </data>
+  <data name="MinimumWastePlusOffcuts" xml:space="preserve">
+    <value>Minimaler Abfall incl. Reste</value>
+  </data>
+  <data name="LowestWholeBoardsQuantity" xml:space="preserve">
+    <value>Geringste Anzahl ganze Platten</value>
   </data>
 </root>

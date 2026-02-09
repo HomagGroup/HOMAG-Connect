@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
@@ -20,6 +19,7 @@ public enum SolutionCharacteristic
     /// Indicates that the characteristic is unknown or not specified.
     /// </summary>
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(Unknown), Description = "UnknownDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/generic.svg")]
     Unknown = 0,
 
     /// <summary>
@@ -36,7 +36,7 @@ public enum SolutionCharacteristic
     /// </summary>
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(HighestAutomationLevel), Description = "HighestAutomationLevelDescription")]
     [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/highest_automation_level.svg")]
-    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.PartsQuantityAutomaticMode, 1000)]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.PartsQuantityAutomaticModePercentage, 1000)]
     HighestAutomationLevel,
 
     /// <summary>
@@ -123,24 +123,24 @@ public enum SolutionCharacteristic
     /// <summary>
     /// Minimizes combined waste and offcuts percentage.
     /// </summary>
-    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestWastePlusOffcutsPercentage), Description = "LowestWastePlusOffcutsPercentageDescription")]
-    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/minimum_waste.svg")]
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(MinimumWastePlusOffcuts), Description = "MinimumWastePlusOffcutsDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/minimal_waste_including_offcuts.svg")]
     [SolutionCharacteristicScoreWeights(
-        SolutionKeyFigure.WastePlusOffcutsPercentage, 1000,
-        SolutionKeyFigure.WastePercentage, 100
+        SolutionKeyFigure.WastePlusOffcutsArea, 1000,
+        SolutionKeyFigure.WasteArea, 100
     )]
-    LowestWastePlusOffcutsPercentage,
+    MinimumWastePlusOffcuts,
 
     /// <summary>
     /// Minimizes waste percentage relative to total.
     /// </summary>
-    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestWastePercentage), Description = "LowestWastePercentageDescription")]
-    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/minimal_waste_including_offcuts.svg")]
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(MinimumWaste), Description = "MinimumWasteDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/minimum_waste.svg")]
     [SolutionCharacteristicScoreWeights(
         SolutionKeyFigure.WastePercentage, 1000,
         SolutionKeyFigure.WastePlusOffcutsPercentage, 100
     )]
-    LowestWastePercentage,
+    MinimumWaste,
 
     /// <summary>
     /// Maximizes the number of plus parts produced.
@@ -178,5 +178,6 @@ public enum SolutionCharacteristic
     /// Indicates that the solution has no special characteristic.
     /// </summary>
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(None), Description = "NoneDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/generic.svg")]
     None = 99
 }
