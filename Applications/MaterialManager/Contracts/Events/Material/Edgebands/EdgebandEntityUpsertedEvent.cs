@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Edgebands
     /// <summary>
     /// Event that occurs when a board entity has been upserted.
     /// </summary>
-    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Edgebands) + "." + nameof(EdgebandTypeDeletedEvent))]
+    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Edgebands) + "." + nameof(EdgebandEntityUpsertedEvent))]
     public class EdgebandEntityUpsertedEvent : AppEvent
     {
         /// <summary>
