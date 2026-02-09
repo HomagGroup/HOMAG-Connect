@@ -5,6 +5,7 @@ using HomagConnect.MaterialManager.Contracts.Events.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 using Newtonsoft.Json;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Events;
 
@@ -55,6 +56,79 @@ public class EdgebandEventTests : MaterialManagerTestBase
 
         Assert.AreEqual(expected, deserializedBase.Id);
     }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_EdgebandEntityCreatedEvent_SerializeDeserialize()
+    {
+        var edgebandEntityUpsertedEvent = new EdgebandEntityUpsertedEvent();
+
+        edgebandEntityUpsertedEvent.SubscriptionId = Guid.NewGuid();
+        edgebandEntityUpsertedEvent.EdgebandEntity = new EdgebandEntity();
+
+        edgebandEntityUpsertedEvent.Trace();
+
+        edgebandEntityUpsertedEvent.IsValid.ShouldBeTrue(
+            "because EdgebandEntityUpsertedEvent  should be valid after setting required properties");
+
+        TestContext?.AddResultFile(edgebandEntityUpsertedEvent.TraceToFile("edgebandEntityUpsertedEvent").FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_EdgebandEntityUpsertedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
+    {
+        // Arrange
+        var edgebandEntity = new EdgebandEntity
+        {
+            Id = "E123",
+            Length = 1000,
+            Quantity = 1,
+            Comments = "Test edgeband"
+        };
+
+        var evt = new EdgebandEntityUpsertedEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            EdgebandEntity = edgebandEntity 
+        };
+
+        // Act
+        var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
+
+        var deserializedTyped = JsonConvert.DeserializeObject<EdgebandEntityUpsertedEvent>(json, SerializerSettings.Default);
+
+        var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
+
+        // Assert
+        deserializedTyped.ShouldNotBeNull(
+            "because EdgebandEntityUpserted should be successfully deserialized from JSON");
+        deserializedTyped!.EdgebandEntity.ShouldNotBeNull(
+            "because EdgebandEntity property should be included in the serialized event");
+        deserializedTyped.EdgebandEntity.Id.ShouldBe(edgebandEntity.Id,
+            $"because deserialized EdgebandEntity should have ID '{edgebandEntity.Id}'");
+
+        deserializedBase.ShouldNotBeNull(   
+            "because AppEvent should be successfully deserialized from JSON");
+        deserializedBase!.CustomProperties.ShouldNotBeNull(
+            "because CustomProperties should contain event-specific data");
+        deserializedBase.CustomProperties.ContainsKey("edgebandEntity").ShouldBeTrue(
+            "because edgebandEntity should be stored in CustomProperties when deserialized as AppEvent");
+
+        // deserialized back to EdgebandEntity
+        var edgebandEntityJson = deserializedBase.CustomProperties["edgebandEntity"].ToString();
+
+        edgebandEntityJson.ShouldNotBeNull(
+            "because edgebandEntity value in CustomProperties should not be null after serialization");
+    
+        var edgebandEntityFromCustom = JsonConvert.DeserializeObject<EdgebandEntity>(edgebandEntityJson!, SerializerSettings.Default);
+
+        edgebandEntityFromCustom.ShouldNotBeNull(
+            "because EdgebandEntity from CustomProperties should deserialize back to EdgebandEntity");
+        edgebandEntityFromCustom!.Id.ShouldBe(edgebandEntity.Id,
+            $"because EdgebandEntity deserialized from CustomProperties should have ID '{edgebandEntity.Id}'");
+    }
+
 
     /// <summary />
     [TestMethod]

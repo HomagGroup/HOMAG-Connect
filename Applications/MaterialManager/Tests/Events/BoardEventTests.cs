@@ -57,6 +57,7 @@ public class BoardEventTests : MaterialManagerTestBase
 
         Assert.AreEqual(expected, deserializedBase.Id);
     }
+
     /// <summary />
     [TestMethod]
     public void Events_BoardEntityCreatedEvent_SerializeDeserialize()
