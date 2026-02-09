@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 
 using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Extensions;

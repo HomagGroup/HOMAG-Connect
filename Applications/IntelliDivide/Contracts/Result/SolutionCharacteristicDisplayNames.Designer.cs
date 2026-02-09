@@ -70,11 +70,182 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ausgewogene Produktionszeit &amp; Verschnitt.
+        /// </summary>
+        public static string BalancedSolution {
+            get {
+                return ResourceManager.GetString("BalancedSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ein Kompromiss basierend auf Produktionszeit, Verschnitt und Handling..
+        /// </summary>
+        public static string BalancedSolutionDescription {
+            get {
+                return ResourceManager.GetString("BalancedSolutionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schnellste Produktion.
+        /// </summary>
+        public static string FastestProduction {
+            get {
+                return ResourceManager.GetString("FastestProduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative bietet die kürzeste Produktionszeit – ideal für eilige Aufträge..
+        /// </summary>
+        public static string FastestProductionDescription {
+            get {
+                return ResourceManager.GetString("FastestProductionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Höchster Automatikanteil.
+        /// </summary>
+        public static string HighestAutomationLevel {
+            get {
+                return ResourceManager.GetString("HighestAutomationLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative schneidet die meisten Teile im Automatikbetrieb und reduziert damit manuellen Aufwand. .
+        /// </summary>
+        public static string HighestAutomationLevelDescription {
+            get {
+                return ResourceManager.GetString("HighestAutomationLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Höchste Anzahl Plusteile.
+        /// </summary>
+        public static string HighestNumberOfPlusParts {
+            get {
+                return ResourceManager.GetString("HighestNumberOfPlusParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative maximiert die Anzahl produzierter Plusteile und ist geeignet, wenn gezielt Überproduktionen benötigt werden..
+        /// </summary>
+        public static string HighestNumberOfPlusPartsDescription {
+            get {
+                return ResourceManager.GetString("HighestNumberOfPlusPartsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Einfachste Handhabung.
+        /// </summary>
+        public static string LowestComplexity {
+            get {
+                return ResourceManager.GetString("LowestComplexity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative hat im Vergleich besonders einfach zu handhabende Schnittpläne und eignet sich, wenn Bedienerfreundlichkeit im Fokus steht. Der Materialverbrauch oder die Produktionszeit sind eventuell nicht optimal..
+        /// </summary>
+        public static string LowestComplexityDescription {
+            get {
+                return ResourceManager.GetString("LowestComplexityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niedrigste Materialkosten.
         /// </summary>
         public static string LowestMaterialCosts {
             get {
                 return ResourceManager.GetString("LowestMaterialCosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative erzielt die niedrigsten Materialkosten und eignet sich, wenn der Materialverbrauch im Fokus steht. Die Produktionszeit kann höher ausfallen oder die Pläne können komplexer sein..
+        /// </summary>
+        public static string LowestMaterialCostsDescription {
+            get {
+                return ResourceManager.GetString("LowestMaterialCostsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geringste Anzahl Zyklen.
+        /// </summary>
+        public static string LowestNumberOfCycles {
+            get {
+                return ResourceManager.GetString("LowestNumberOfCycles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Benötigt die wenigsten Bearbeitungszyklen und reduziert Maschinenzeit. Kann zu weniger optimalem Verschnitt oder Handling führen..
+        /// </summary>
+        public static string LowestNumberOfCyclesDescription {
+            get {
+                return ResourceManager.GetString("LowestNumberOfCyclesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geringste Anzahl Schnittpläne.
+        /// </summary>
+        public static string LowestNumberOfPatterns {
+            get {
+                return ResourceManager.GetString("LowestNumberOfPatterns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erzeugt die geringstmögliche Anzahl an Plänen – sorgt für Übersichtlichkeit und Einfachheit..
+        /// </summary>
+        public static string LowestNumberOfPatternsDescription {
+            get {
+                return ResourceManager.GetString("LowestNumberOfPatternsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geringste Anzahl kleiner Reste insgesamt.
+        /// </summary>
+        public static string LowestOffcutsSmallTotalQuantity {
+            get {
+                return ResourceManager.GetString("LowestOffcutsSmallTotalQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative berücksichtigt vorhandene kleinere Reststücke optimal und reduziert Lagerbestände. Der zusätzliche Handlingsaufwand führt zu einer längeren Produktionszeit..
+        /// </summary>
+        public static string LowestOffcutsSmallTotalQuantityDescription {
+            get {
+                return ResourceManager.GetString("LowestOffcutsSmallTotalQuantityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geringste Anzahl Reste insgesamt.
+        /// </summary>
+        public static string LowestOffcutsTotalQuantity {
+            get {
+                return ResourceManager.GetString("LowestOffcutsTotalQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative nutzt vorhandene Reststücke optimal aus – ideal zur Resteverwertung..
+        /// </summary>
+        public static string LowestOffcutsTotalQuantityDescription {
+            get {
+                return ResourceManager.GetString("LowestOffcutsTotalQuantityDescription", resourceCulture);
             }
         }
         
@@ -93,6 +264,132 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         public static string LowestTotalCostsDescription {
             get {
                 return ResourceManager.GetString("LowestTotalCostsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimaler Abfall.
+        /// </summary>
+        public static string LowestWastePercentage {
+            get {
+                return ResourceManager.GetString("LowestWastePercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reduziert den Abfall auf ein Minimum – ideal zur Materialeinsparung. Es können viele kleinere Reste entstehen, die Lagerplatz benötigen..
+        /// </summary>
+        public static string LowestWastePercentageDescription {
+            get {
+                return ResourceManager.GetString("LowestWastePercentageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimaler Abfall incl. Reste.
+        /// </summary>
+        public static string LowestWastePlusOffcutsPercentage {
+            get {
+                return ResourceManager.GetString("LowestWastePlusOffcutsPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative minimiert den Gesamtabfall inklusive anfallender Reste und ist ideal, wenn Materialeinsparung im Fokus steht..
+        /// </summary>
+        public static string LowestWastePlusOffcutsPercentageDescription {
+            get {
+                return ResourceManager.GetString("LowestWastePlusOffcutsPercentageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geringste Anzahl ganze Platten.
+        /// </summary>
+        public static string LowestWholeBoardsQuantity {
+            get {
+                return ResourceManager.GetString("LowestWholeBoardsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative benötigt die wenigsten ganzen Platten und spart dadurch Material..
+        /// </summary>
+        public static string LowestWholeBoardsQuantityDescription {
+            get {
+                return ResourceManager.GetString("LowestWholeBoardsQuantityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximale durchschnittliche Pakethöhe.
+        /// </summary>
+        public static string MaximumAverageBookHeight {
+            get {
+                return ResourceManager.GetString("MaximumAverageBookHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative erzielt besonders hohe Pakethöhen und steigert die Effizienz beim Schneiden großer Mengen. Höhere Pakete können schwerer handzuhaben sein..
+        /// </summary>
+        public static string MaximumAverageBookHeightDescription {
+            get {
+                return ResourceManager.GetString("MaximumAverageBookHeightDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keine Besonderheiten.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative hat keine Besonderheiten..
+        /// </summary>
+        public static string NoneDescription {
+            get {
+                return ResourceManager.GetString("NoneDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gleichartige Pläne.
+        /// </summary>
+        public static string SimilarPatterns {
+            get {
+                return ResourceManager.GetString("SimilarPatterns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative hat die meisten gleichen Schnittpläne - sorgt für Übersichtlichkeit und Einfachheit..
+        /// </summary>
+        public static string SimilarPatternsDescription {
+            get {
+                return ResourceManager.GetString("SimilarPatternsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannt.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannte Charakteristic.
+        /// </summary>
+        public static string UnknownDescription {
+            get {
+                return ResourceManager.GetString("UnknownDescription", resourceCulture);
             }
         }
     }

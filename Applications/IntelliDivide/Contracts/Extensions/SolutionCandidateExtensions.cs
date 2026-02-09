@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using HomagConnect.IntelliDivide.Contracts.Evaluation.Enums;
+
 using HomagConnect.IntelliDivide.Contracts.Result;
 
 namespace HomagConnect.IntelliDivide.Contracts.Extensions
@@ -47,12 +47,47 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
             evaluated.CalculateAndSetPartialScores();
             evaluated.CalculateAndSetCharacteristicScores();
             evaluated.AssignCharacteristics();
+            evaluated.AssignCharacteristicsBalancedIfNoneWasSet();
             evaluated.CalculateRanking();
 
             return evaluated.OrderBy(s => s.Ranking).ToArray();
         }
 
         #region Private Methods
+
+        extension(SolutionCandidateEvaluationResult solution)
+        {
+            private double? GetCharacteristicValue(SolutionCharacteristic solutionCharacteristic)
+            {
+                if (solution.CharacteristicScores.TryGetValue(solutionCharacteristic, out var value))
+                {
+                    if (value.HasValue)
+                    {
+                        return value.Value;
+                    }
+                }
+
+                return null;
+            }
+
+            private double GetCharacteristicValueOrDefault(SolutionCharacteristic solutionCharacteristic, double defaultValue)
+            {
+                return solution.GetCharacteristicValue(solutionCharacteristic) ?? defaultValue;
+            }
+
+            private double GetKeyFigureValueOrDefault(SolutionKeyFigure solutionKeyFigure, double defaultValue = 0)
+            {
+                if (solution.KeyFigures.TryGetValue(solutionKeyFigure, out var value))
+                {
+                    if (value.HasValue)
+                    {
+                        return value.Value;
+                    }
+                }
+
+                return defaultValue;
+            }
+        }
 
         /// <param name="evaluated">The array of evaluated solution candidate results.</param>
         extension(SolutionCandidateEvaluationResult[] evaluated)
@@ -69,8 +104,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
                     foreach (SolutionCharacteristic characteristic in Enum.GetValues(typeof(SolutionCharacteristic)))
                     {
                         var best = evaluated
-                            .Where(s => s.CharacteristicScores.TryGetValue(characteristic, out var score) && score.HasValue)
-                            .OrderByDescending(s => s.CharacteristicScores[characteristic])
+                            .Where(s => s.GetCharacteristicValue(characteristic) != null)
+                            .OrderByDescending(s => s.GetCharacteristicValueOrDefault(characteristic, 0))
+                            .ThenBy(s => s.GetKeyFigureValueOrDefault(SolutionKeyFigure.TotalCostsPerPart))
+                            .ThenBy(s => s.GetKeyFigureValueOrDefault(SolutionKeyFigure.MaterialCostsPerPart))
+                            .ThenBy(s => s.GetKeyFigureValueOrDefault(SolutionKeyFigure.WastePlusOffcutsPercentage))
+                            .ThenBy(s => s.GetKeyFigureValueOrDefault(SolutionKeyFigure.WastePercentage))
+                            .ThenBy(s => s.CalculationTime)
                             .FirstOrDefault();
 
                         if (best != null && best.Id == candidate.Id)
@@ -80,7 +120,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
                     }
 
                     candidate.Characteristic = wins.Count > 0 ? wins[0] : SolutionCharacteristic.None;
+
                     if (wins.Count > 1) candidate.CharacteristicsInAddition = wins.Skip(1).ToArray();
+                }
+            }
+
+            private void AssignCharacteristicsBalancedIfNoneWasSet()
+            {
+                if (evaluated.All(e => e.Characteristic == SolutionCharacteristic.None))
+                {
+                    var first = evaluated.FirstOrDefault();
+
+                    if (first != null)
+                    {
+                        first.Characteristic = SolutionCharacteristic.BalancedSolution;
+                    }
                 }
             }
 
@@ -96,6 +150,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
                         .ThenBy(s => s.CalculationTime);
 
                 var ranking = 1;
+
                 foreach (var candidate in ordered)
                 {
                     candidate.Ranking = ranking++;
