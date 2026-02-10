@@ -1,5 +1,6 @@
 using System.Globalization;
 
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
@@ -18,6 +19,28 @@ namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 [IntegrationTest("IntelliDivide.Optimizations.Evaluation")]
 public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
 {
+    [TestMethod]
+    public async Task Optimizations_Cutting_SwitchUnitSystem()
+    {
+        var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
+
+
+        if (solutions.Count == 0)
+        {
+            Assert.Inconclusive("No solutions found for Cutting optimization");
+        }
+
+        var solutionMetric = solutions.First();
+        var solutionImperial = solutionMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
+
+        solutionMetric.Overview.Figures.Production.AverageBookHeight.ShouldNotBe(solutionImperial.Overview.Figures.Production.AverageBookHeight);
+        
+        TestContext?.AddResultFile(solutionMetric.TraceToFile(nameof(solutionMetric)).FullName);
+        TestContext?.AddResultFile(solutionImperial.TraceToFile(nameof(solutionImperial)).FullName);
+
+    }
+
+
     [TestMethod]
     public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {

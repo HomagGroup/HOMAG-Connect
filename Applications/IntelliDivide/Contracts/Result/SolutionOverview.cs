@@ -1,5 +1,9 @@
 ﻿#nullable enable
 using System.Collections.Generic;
+
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
@@ -8,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the overview data.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionOverview
+public class SolutionOverview: IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Provides the overview figures.
@@ -28,4 +32,8 @@ public class SolutionOverview
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
 }

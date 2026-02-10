@@ -1,4 +1,6 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -8,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the overview figures for material.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionOverviewFiguresMaterial
+public class SolutionOverviewFiguresMaterial: IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets the total number of offcuts.
@@ -52,4 +54,8 @@ public class SolutionOverviewFiguresMaterial
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
 }

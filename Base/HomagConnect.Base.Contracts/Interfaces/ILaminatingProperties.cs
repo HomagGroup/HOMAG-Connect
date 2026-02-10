@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Converter;
 
 namespace HomagConnect.Base.Contracts.Interfaces;
 

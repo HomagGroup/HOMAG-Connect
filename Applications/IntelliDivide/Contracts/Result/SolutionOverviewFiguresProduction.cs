@@ -3,18 +3,23 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
 /// Provides the overview figures for production.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionOverviewFiguresProduction 
+public class SolutionOverviewFiguresProduction : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets the average book height in mm or inch.
     /// </summary>
     [JsonProperty(Order = 6)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double AverageBookHeight { get; set; }
 
     /// <summary>
@@ -53,4 +58,8 @@ public class SolutionOverviewFiguresProduction
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
 }

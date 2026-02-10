@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 
-using Newtonsoft.Json;
+using HomagConnect.Base.Contracts.Extensions;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -15,7 +16,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets the board code.
         /// </summary>
         [JsonProperty(Order = 3)]
-        public string BoardCode { get; set; } = string.Empty;
+        public string BoardCode
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
 
         /// <summary>
         /// Gets the cycle number.
@@ -39,7 +47,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Get the material code.
         /// </summary>
         [JsonProperty(Order = 2)]
-        public string MaterialCode { get; set; } = string.Empty;
+        public string MaterialCode
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
 
         /// <summary>
         /// Gets a link to a preview image of the pattern.
@@ -56,7 +71,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Gets or sets the name of the generated nesting program for the pattern.
         /// </summary>
-        public string ProgramName { get; set; }
+        public string ProgramName
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
 
         /// <inheritdoc />
         [JsonProperty(Order = 99)]

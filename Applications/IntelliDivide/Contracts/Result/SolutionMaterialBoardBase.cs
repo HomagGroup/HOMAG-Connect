@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using JsonSubTypes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -26,7 +27,14 @@ public class SolutionMaterialBoardBase
     /// Gets or sets the board code.
     /// </summary>
     [JsonProperty(Order = 2)]
-    public string BoardCode { get; set; } = string.Empty;
+    public string BoardCode
+    {
+        get;
+        set
+        {
+            field = value.Trimmed();
+        }
+    } = string.Empty;
 
     /// <summary>
     /// Gets or sets the total costs.
@@ -50,7 +58,14 @@ public class SolutionMaterialBoardBase
     /// Gets or sets the material code.
     /// </summary>
     [JsonProperty(Order = 1)]
-    public string MaterialCode { get; set; } = string.Empty;
+    public string MaterialCode
+    {
+        get;
+        set
+        {
+            field = value.Trimmed();
+        }
+    } = string.Empty;
 
     /// <summary>
     /// Gets or sets the thickness.

@@ -1,6 +1,9 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Enumerations;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -8,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the overview figures.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionOverviewFigures 
+public class SolutionOverviewFigures : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets the overview figures for costs.
@@ -34,4 +37,8 @@ public class SolutionOverviewFigures
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
 }

@@ -39,6 +39,9 @@ public enum SolutionKeyFigure
     [LowerIsBetter]
     WastePercentage,
 
+    /// <summary>
+    /// Waste plus offcuts as percentage of total; lower values are better.
+    /// </summary>
     [LowerIsBetter]
     WastePlusOffcutsPercentage,
 

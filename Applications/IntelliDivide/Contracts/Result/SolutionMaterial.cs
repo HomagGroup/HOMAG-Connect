@@ -7,7 +7,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// <summary>
 /// Represents the material used in a solution.
 /// </summary>
-[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+[JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
 public class SolutionMaterial 
 {
     /// <summary>

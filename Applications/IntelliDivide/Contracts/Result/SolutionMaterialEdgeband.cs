@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Extensions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -14,7 +15,14 @@ public class SolutionMaterialEdgeband
     /// Gets or sets the material code.
     /// </summary>
     [JsonProperty(Order = 1)]
-    public string MaterialCode { get; set; } = string.Empty;
+    public string MaterialCode
+    {
+        get;
+        set
+        {
+            field = value.Trimmed();
+        }
+    } = string.Empty;
 
     /// <summary>
     /// Gets or sets the height.

@@ -1,13 +1,12 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.IntelliDivide.Contracts.Constants;
-
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -28,13 +27,27 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the name of the solution. See <see cref="SolutionName" /> for more details.
         /// </summary>
         [JsonProperty(Order = 2)]
-        public string Name { get; set; } = string.Empty;
-        
+        public string Name
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
+
         /// <summary>
         /// Gets or sets the description of the solution.
         /// </summary>
         [JsonProperty(Order = 5)]
-        public string Description { get; set; } = string.Empty;
+        public string Description
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
 
         /// <summary>
         /// Gets or sets the primary characteristic of the solution.
@@ -70,7 +83,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Gets or sets the unit system.
         /// </summary>
-        [JsonProperty(Order = 21)]
+        [JsonProperty(Order = 99)]
         public UnitSystem UnitSystem { get; set; }
     }
 }
