@@ -4,7 +4,7 @@ using System.Text;
 using HomagConnect.Base.Extensions;
 using HomagConnect.OrderManager.Client;
 
-namespace HomagConnect.OrderManager.Samples.Authetication
+namespace HomagConnect.OrderManager.Samples.Authentication
 {
     /// <summary>
     /// Authentication samples.

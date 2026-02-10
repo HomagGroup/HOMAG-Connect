@@ -1,5 +1,4 @@
-﻿using HomagConnect.Base;
-using HomagConnect.Base.Contracts;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Services;
 using HomagConnect.MmrMobile.Contracts;
 using Newtonsoft.Json;
@@ -10,6 +9,8 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
+using HomagConnect.Base.Client;
 
 namespace HomagConnect.MmrMobile.Client
 {

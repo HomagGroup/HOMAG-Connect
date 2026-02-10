@@ -1,8 +1,11 @@
 ﻿#nullable enable
 
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -10,7 +13,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the key figures for material boards and offcuts.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresMaterialBoardsOffcuts
+public class SolutionFiguresMaterialBoardsOffcuts: IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
@@ -132,6 +135,7 @@ public class SolutionFiguresMaterialBoardsOffcuts
     /// Gets the required board area in m² or ft².
     /// </summary>
     [JsonProperty(Order = 4)]
+    [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
     public double RequiredBoardArea { get; set; }
 
     /// <summary>
@@ -144,7 +148,15 @@ public class SolutionFiguresMaterialBoardsOffcuts
     /// Gets the waste area in m² or ft².
     /// </summary>
     [JsonProperty(Order = 1)]
+    [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
     public double? WasteArea { get; set; }
+
+    /// <summary>
+    /// Gets the waste area including offcuts in m² or ft².
+    /// </summary>
+    [JsonProperty(Order = 1)]
+    [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+    public double WastePlusOffcutsArea { get; set; }
 
     /// <summary>
     /// Gets the percentage of waste, including offcuts, based on board area.
@@ -163,4 +175,9 @@ public class SolutionFiguresMaterialBoardsOffcuts
     /// </summary>
     [JsonProperty(Order = 5)]
     public int WholeBoards { get; set; }
+
+    /// <summary>
+    /// Gets or sets the unit system used for measurements and calculations.
+    /// </summary>
+    public UnitSystem UnitSystem { get; set; }
 }

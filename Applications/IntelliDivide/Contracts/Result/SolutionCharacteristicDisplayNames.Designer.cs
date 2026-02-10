@@ -268,42 +268,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimaler Abfall.
-        /// </summary>
-        public static string LowestWastePercentage {
-            get {
-                return ResourceManager.GetString("LowestWastePercentage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reduziert den Abfall auf ein Minimum – ideal zur Materialeinsparung. Es können viele kleinere Reste entstehen, die Lagerplatz benötigen..
-        /// </summary>
-        public static string LowestWastePercentageDescription {
-            get {
-                return ResourceManager.GetString("LowestWastePercentageDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimaler Abfall incl. Reste.
-        /// </summary>
-        public static string LowestWastePlusOffcutsPercentage {
-            get {
-                return ResourceManager.GetString("LowestWastePlusOffcutsPercentage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Diese Alternative minimiert den Gesamtabfall inklusive anfallender Reste und ist ideal, wenn Materialeinsparung im Fokus steht..
-        /// </summary>
-        public static string LowestWastePlusOffcutsPercentageDescription {
-            get {
-                return ResourceManager.GetString("LowestWastePlusOffcutsPercentageDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geringste Anzahl ganze Platten.
         /// </summary>
         public static string LowestWholeBoardsQuantity {
@@ -336,6 +300,42 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         public static string MaximumAverageBookHeightDescription {
             get {
                 return ResourceManager.GetString("MaximumAverageBookHeightDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimaler Abfall.
+        /// </summary>
+        public static string MinimumWaste {
+            get {
+                return ResourceManager.GetString("MinimumWaste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reduziert den Abfall auf ein Minimum – ideal zur Materialeinsparung. Es können viele kleinere Reste entstehen, die Lagerplatz benötigen..
+        /// </summary>
+        public static string MinimumWasteDescription {
+            get {
+                return ResourceManager.GetString("MinimumWasteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimaler Abfall incl. Reste.
+        /// </summary>
+        public static string MinimumWastePlusOffcuts {
+            get {
+                return ResourceManager.GetString("MinimumWastePlusOffcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Alternative minimiert den Gesamtabfall inklusive anfallender Reste und ist ideal, wenn Materialeinsparung im Fokus steht..
+        /// </summary>
+        public static string MinimumWastePlusOffcutsDescription {
+            get {
+                return ResourceManager.GetString("MinimumWastePlusOffcutsDescription", resourceCulture);
             }
         }
         

@@ -71,89 +71,139 @@ namespace HomagConnect.Base.Contracts.Extensions
         }
 
         /// <summary>
-        /// Gets a localized description for the enum value using DisplayAttribute (Description or Name),
-        /// falling back to ResourceManager "{EnumName}.Description" or "{EnumName}", and finally the enum name.
+        /// Gets the display icon URI for the enum value using the DisplayIconAttribute, or null if not set.
         /// </summary>
-        public static string GetLocalizedDescription<T>(this T enumValue, CultureInfo culture) where T : Enum
+        public static Dictionary<T, Uri?> GetDisplayIconUris<T>() where T : Enum
         {
             var enumType = typeof(T);
-            var enumName = Enum.GetName(enumType, enumValue);
+            var iconUris = new Dictionary<T, Uri?>();
 
-            if (string.IsNullOrWhiteSpace(enumName))
+            foreach (var enumValue in Enum.GetValues(enumType))
             {
-                return enumValue.ToString();
-            }
-
-            // Try DisplayAttribute first (supports ResourceType for localization)
-            var field = enumType.GetField(enumName, BindingFlags.Public | BindingFlags.Static);
-            if (field != null)
-            {
-                var displayAttribute = field.GetCustomAttribute<DisplayAttribute>();
-                if (displayAttribute != null)
+                var field = enumType.GetField(enumValue.ToString(), BindingFlags.Public | BindingFlags.Static);
+                if (field != null)
                 {
-                    // DisplayAttribute.GetDescription/GetName resolves via ResourceType when set
-                    var description = displayAttribute.GetDescription();
-                    if (!string.IsNullOrWhiteSpace(description))
-                        return description.CapitalizeFirstLetter();
-
-                    var name = displayAttribute.GetName();
-                    if (!string.IsNullOrWhiteSpace(name))
-                        return name.CapitalizeFirstLetter();
+                    var displayIconAttribute = field.GetCustomAttribute<DisplayIconAttribute>();
+                    if (displayIconAttribute != null)
+                    {
+                        iconUris.Add((T)enumValue, displayIconAttribute.Icon);
+                    }
                 }
             }
 
-            // Fallback to ResourceManager if the enum type has ResourceManagerAttribute
-            var resourceManager = GetResourceManager(enumType);
-            if (resourceManager != null)
-            {
-                var resourceDescription = resourceManager.GetString($"{enumName}.Description", culture)
-                                          ?? resourceManager.GetString(enumName, culture);
-                if (!string.IsNullOrWhiteSpace(resourceDescription))
-                    return resourceDescription.CapitalizeFirstLetter();
-            }
-
-            // Final fallback: enum name
-            return enumName.CapitalizeFirstLetter();
+            return iconUris;
         }
 
-        /// <summary>
-        /// Gets a localized display name for the enum value using DisplayAttribute (Name),
-        /// falling back to ResourceManager "{EnumName}", and finally the enum name.
-        /// </summary>
-        public static string GetLocalizedName<T>(this T enumValue, CultureInfo culture) where T : Enum
+        extension<T>(T enumValue) where T : Enum
         {
-            var enumType = typeof(T);
-            var enumName = Enum.GetName(enumType, enumValue);
-
-            if (string.IsNullOrWhiteSpace(enumName))
+            /// <summary>
+            /// Gets the display icon URI for the enum value using the DisplayIconAttribute, or null if not set.
+            /// </summary>
+            public Uri? GetDisplayIconUri()
             {
-                return enumValue.ToString();
-            }
-
-            // Try DisplayAttribute first (supports ResourceType for localization)
-            var field = enumType.GetField(enumName, BindingFlags.Public | BindingFlags.Static);
-            if (field != null)
-            {
-                var displayAttribute = field.GetCustomAttribute<DisplayAttribute>();
-                if (displayAttribute != null)
+                var enumType = typeof(T);
+                var enumName = Enum.GetName(enumType, enumValue);
+                if (string.IsNullOrWhiteSpace(enumName))
                 {
-                    var name = displayAttribute.GetName();
-                    if (!string.IsNullOrWhiteSpace(name))
-                        return name.CapitalizeFirstLetter();
+                    return null;
                 }
+                var field = enumType.GetField(enumName, BindingFlags.Public | BindingFlags.Static);
+                if (field != null)
+                {
+                    var displayIconAttribute = field.GetCustomAttribute<DisplayIconAttribute>();
+                    if (displayIconAttribute != null)
+                    {
+                        return displayIconAttribute.Icon;
+                    }
+                }
+                return null;
             }
 
-            // Fallback to ResourceManager if the enum type has ResourceManagerAttribute
-            var resourceManager = GetResourceManager(enumType);
-            if (resourceManager != null)
+            /// <summary>
+            /// Gets a localized description for the enum value using DisplayAttribute (Description or Name),
+            /// falling back to ResourceManager "{EnumName}.Description" or "{EnumName}", and finally the enum name.
+            /// </summary>
+            public string GetLocalizedDescription(CultureInfo culture)
             {
-                var resourceName = resourceManager.GetString(enumName, culture);
-                if (!string.IsNullOrWhiteSpace(resourceName))
-                    return resourceName.CapitalizeFirstLetter();
+                var enumType = typeof(T);
+                var enumName = Enum.GetName(enumType, enumValue);
+
+                if (string.IsNullOrWhiteSpace(enumName))
+                {
+                    return enumValue.ToString();
+                }
+
+                // Try DisplayAttribute first (supports ResourceType for localization)
+                var field = enumType.GetField(enumName, BindingFlags.Public | BindingFlags.Static);
+                if (field != null)
+                {
+                    var displayAttribute = field.GetCustomAttribute<DisplayAttribute>();
+                    if (displayAttribute != null)
+                    {
+                        // DisplayAttribute.GetDescription/GetName resolves via ResourceType when set
+                        var description = displayAttribute.GetDescription();
+                        if (!string.IsNullOrWhiteSpace(description))
+                            return description.CapitalizeFirstLetter();
+
+                        var name = displayAttribute.GetName();
+                        if (!string.IsNullOrWhiteSpace(name))
+                            return name.CapitalizeFirstLetter();
+                    }
+                }
+
+                // Fallback to ResourceManager if the enum type has ResourceManagerAttribute
+                var resourceManager = GetResourceManager(enumType);
+                if (resourceManager != null)
+                {
+                    var resourceDescription = resourceManager.GetString($"{enumName}.Description", culture)
+                                              ?? resourceManager.GetString(enumName, culture);
+                    if (!string.IsNullOrWhiteSpace(resourceDescription))
+                        return resourceDescription.CapitalizeFirstLetter();
+                }
+
+                // Final fallback: enum name
+                return enumName.CapitalizeFirstLetter();
             }
 
-            // Final fallback: enum name
-            return enumName.CapitalizeFirstLetter();
+            /// <summary>
+            /// Gets a localized display name for the enum value using DisplayAttribute (Name),
+            /// falling back to ResourceManager "{EnumName}", and finally the enum name.
+            /// </summary>
+            public string GetLocalizedName(CultureInfo culture)
+            {
+                var enumType = typeof(T);
+                var enumName = Enum.GetName(enumType, enumValue);
+
+                if (string.IsNullOrWhiteSpace(enumName))
+                {
+                    return enumValue.ToString();
+                }
+
+                // Try DisplayAttribute first (supports ResourceType for localization)
+                var field = enumType.GetField(enumName, BindingFlags.Public | BindingFlags.Static);
+                if (field != null)
+                {
+                    var displayAttribute = field.GetCustomAttribute<DisplayAttribute>();
+                    if (displayAttribute != null)
+                    {
+                        var name = displayAttribute.GetName();
+                        if (!string.IsNullOrWhiteSpace(name))
+                            return name.CapitalizeFirstLetter();
+                    }
+                }
+
+                // Fallback to ResourceManager if the enum type has ResourceManagerAttribute
+                var resourceManager = GetResourceManager(enumType);
+                if (resourceManager != null)
+                {
+                    var resourceName = resourceManager.GetString(enumName, culture);
+                    if (!string.IsNullOrWhiteSpace(resourceName))
+                        return resourceName.CapitalizeFirstLetter();
+                }
+
+                // Final fallback: enum name
+                return enumName.CapitalizeFirstLetter();
+            }
         }
 
         #endregion
