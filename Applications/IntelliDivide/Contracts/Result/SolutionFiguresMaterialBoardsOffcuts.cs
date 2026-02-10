@@ -176,8 +176,11 @@ public class SolutionFiguresMaterialBoardsOffcuts: IContainsUnitSystemDependentP
     [JsonProperty(Order = 5)]
     public int WholeBoards { get; set; }
 
-    /// <summary>
-    /// Gets or sets the unit system used for measurements and calculations.
-    /// </summary>
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
     public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

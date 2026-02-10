@@ -1,6 +1,9 @@
 ﻿#nullable enable
-using System.Collections.Generic;
+using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
+using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -8,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Represents the material used in a solution.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
-public class SolutionMaterial 
+public class SolutionMaterial : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the boards used in the solution.
@@ -46,4 +49,12 @@ public class SolutionMaterial
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

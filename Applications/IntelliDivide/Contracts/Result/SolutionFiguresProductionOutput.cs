@@ -1,4 +1,6 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the key figures for production output.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresProductionOutput 
+public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets the quantity of parts.
@@ -128,5 +130,13 @@ public class SolutionFiguresProductionOutput
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 
 }

@@ -14,6 +14,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class SolutionOverview: IContainsUnitSystemDependentProperties
 {
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution"/> class.
+    /// </summary>
+    public SolutionOverview() : this(UnitSystem.Metric) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution"/> class with the specified unit system.
+    /// </summary>
+    public SolutionOverview(UnitSystem unitSystem)
+    {
+        UnitSystem = unitSystem;
+    }
+
+    #endregion
+
     /// <summary>
     /// Provides the overview figures.
     /// </summary>

@@ -1,10 +1,12 @@
 ﻿#nullable enable
 
+using HomagConnect;
+using HomagConnect.IntelliDivide.Contracts.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
 /// <summary>
 /// Factory and helpers for creating <see cref="SolutionCandidate"/> instances from solution data.

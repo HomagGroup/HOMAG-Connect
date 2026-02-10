@@ -1,7 +1,9 @@
 ﻿#nullable enable
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -9,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Describes the key figures for the materials of a solution.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresMaterial 
+public class SolutionFiguresMaterial : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets the material key figures for boards and offcuts.
@@ -35,4 +37,12 @@ public class SolutionFiguresMaterial
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-
+using HomagConnect.IntelliDivide.Contracts.Result;
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
 /// <summary>
 /// Evaluated solution candidate with assigned characteristic and scores.

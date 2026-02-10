@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Converter;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
 /// <summary>
 /// Identifies measurable key figures used for scoring solution candidates.

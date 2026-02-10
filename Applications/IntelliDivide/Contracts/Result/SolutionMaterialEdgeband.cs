@@ -1,5 +1,7 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -9,7 +11,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Describes the material used in the solution.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionMaterialEdgeband 
+public class SolutionMaterialEdgeband : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the material code.
@@ -54,4 +56,12 @@ public class SolutionMaterialEdgeband
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

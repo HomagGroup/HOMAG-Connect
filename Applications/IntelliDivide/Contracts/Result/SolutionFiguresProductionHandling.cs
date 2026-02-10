@@ -80,8 +80,11 @@ public class SolutionFiguresProductionHandling : IContainsUnitSystemDependentPro
     [Range(0, int.MaxValue)]
     public int Recuts { get; set; }
 
-    /// <summary>
-    /// Gets or sets the unit system used for measurements.
-    /// </summary>
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
     public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

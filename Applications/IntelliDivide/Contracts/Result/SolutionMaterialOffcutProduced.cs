@@ -5,13 +5,15 @@ using HomagConnect.Base.Contracts.Extensions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
+using HomagConnect.Base.Contracts.Interfaces;
+
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
     /// <summary>
     /// Describes the offcuts produced by the solution
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionMaterialOffcutProduced 
+    public class SolutionMaterialOffcutProduced : IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// Gets or sets the total costs.
@@ -74,5 +76,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 80)]
         [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+        #region IContainsUnitSystemDependentProperties Members
+
+        /// <inheritdoc/>
+        [JsonProperty(Order = 99)]
+        public UnitSystem UnitSystem { get; set; }
+
+        #endregion
     }
 }

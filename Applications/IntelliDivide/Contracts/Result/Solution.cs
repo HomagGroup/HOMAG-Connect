@@ -17,6 +17,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     [DebuggerDisplay("Id={Id}, OptimizationId={OptimizationId}, Name={Name}")]
     public class Solution : IContainsUnitSystemDependentProperties
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Solution"/> class.
+        /// </summary>
+        public Solution() : this(UnitSystem.Metric) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Solution"/> class with the specified unit system.
+        /// </summary>
+        public Solution(UnitSystem unitSystem) 
+        {
+            UnitSystem = unitSystem;
+        }
+
+        #endregion
+
         /// <summary>
         /// Gets or sets the unique identifier of the solution.
         /// </summary>
@@ -80,10 +97,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
         
-        /// <summary>
-        /// Gets or sets the unit system.
-        /// </summary>
+        #region IContainsUnitSystemDependentProperties Members
+
+        /// <inheritdoc/>
         [JsonProperty(Order = 99)]
         public UnitSystem UnitSystem { get; set; }
+
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
 /// <summary>
 /// Attribute that accepts an array of string/int pairs as parameters,

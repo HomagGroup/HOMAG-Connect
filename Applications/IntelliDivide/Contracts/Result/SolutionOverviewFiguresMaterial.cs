@@ -12,6 +12,23 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class SolutionOverviewFiguresMaterial: IContainsUnitSystemDependentProperties
 {
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution"/> class.
+    /// </summary>
+    public SolutionOverviewFiguresMaterial() : this(UnitSystem.Metric) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution"/> class with the specified unit system.
+    /// </summary>
+    public SolutionOverviewFiguresMaterial(UnitSystem unitSystem)
+    {
+        UnitSystem = unitSystem;
+    }
+
+    #endregion
+
     /// <summary>
     /// Gets the total number of offcuts.
     /// </summary>

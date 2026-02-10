@@ -6,6 +6,8 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
+using HomagConnect.Base.Contracts.Interfaces;
+
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
@@ -15,7 +17,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialBoard), BoardTypeType.Board)]
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialOffcut), BoardTypeType.Offcut)]
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialTemplate), BoardTypeType.Template)]
-public class SolutionMaterialBoardBase 
+public class SolutionMaterialBoardBase : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the board type.
@@ -85,4 +87,12 @@ public class SolutionMaterialBoardBase
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

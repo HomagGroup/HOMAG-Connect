@@ -1,7 +1,10 @@
 ﻿#nullable enable
 
+using HomagConnect.Base.Contracts.Enumerations;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -9,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the key figures for material waste and offcuts per material code.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresMaterialWasteOffcuts
+public class SolutionFiguresMaterialWasteOffcuts : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the material code.
@@ -35,4 +38,12 @@ public class SolutionFiguresMaterialWasteOffcuts
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

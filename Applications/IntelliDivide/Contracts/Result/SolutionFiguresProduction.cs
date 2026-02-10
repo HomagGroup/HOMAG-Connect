@@ -1,7 +1,10 @@
 ﻿#nullable enable
 
+using HomagConnect.Base.Contracts.Enumerations;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -9,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Describes the key figures for the production of a solution.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresProduction 
+public class SolutionFiguresProduction : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets the production key figures for output.
@@ -29,4 +32,12 @@ public class SolutionFiguresProduction
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc/>
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #endregion
 }

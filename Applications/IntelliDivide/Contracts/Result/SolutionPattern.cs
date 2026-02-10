@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Runtime.Serialization;
-
+﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -10,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// Provides access to cutting or nesting pattern properties.
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionPattern : IExtensibleDataObject
+    public class SolutionPattern
     {
         /// <summary>
         /// Gets the board code.
@@ -80,8 +82,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
             }
         } = string.Empty;
 
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
+
     }
 }
