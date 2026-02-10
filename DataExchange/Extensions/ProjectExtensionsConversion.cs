@@ -502,6 +502,7 @@ public static class ProjectExtensionsConversion
             address.PostalCode = orderWrapper.PostalCode;
             address.City = orderWrapper.City;
             address.Country = orderWrapper.Country;
+            address.AdditionalInfo = orderWrapper.AdditionalInfo;
 
             orderDetails.Addresses =
             [

@@ -272,6 +272,19 @@ public class OrderWrapper
         }
     }
 
+    /// <summary />
+    public string? AdditionalInfo
+    {
+        get
+        {
+            return Order.GetPropertyValue<string>();
+        }
+        set
+        {
+            Order.SetPropertyValue(value);
+        }
+    }
+
     #endregion
 
     /// <summary>
