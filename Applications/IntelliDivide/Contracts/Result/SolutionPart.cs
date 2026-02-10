@@ -1,4 +1,5 @@
-﻿using HomagConnect.IntelliDivide.Contracts.Common;
+﻿using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the name of the generated nesting program for the part.
         /// </summary>
         [JsonProperty(Order = 70)]
-        public string ProgramName { get; set; }
+        public string ProgramName
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
 
         /// <summary>
         /// Gets the list of patterns in which the part is contained including the quantity of the part in the pattern.

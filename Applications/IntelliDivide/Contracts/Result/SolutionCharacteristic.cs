@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
-
+using HomagConnect.IntelliDivide.Contracts.Evaluation;
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;

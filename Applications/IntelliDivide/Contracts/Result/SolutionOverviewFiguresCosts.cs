@@ -1,5 +1,9 @@
 ﻿#nullable enable
+
 using System.Collections.Generic;
+
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -9,7 +13,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the overview figures for costs.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionOverviewFiguresCosts
+public class SolutionOverviewFiguresCosts : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
@@ -66,5 +70,24 @@ public class SolutionOverviewFiguresCosts
     [JsonProperty(Order = 6)]
     public double? TotalCostsPerPart { get; set; }
 
- 
+    /// <inheritdoc />
+    [JsonProperty(Order = 99)]
+    public UnitSystem UnitSystem { get; set; }
+
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution" /> class.
+    /// </summary>
+    public SolutionOverviewFiguresCosts() : this(UnitSystem.Metric) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
+    /// </summary>
+    public SolutionOverviewFiguresCosts(UnitSystem unitSystem)
+    {
+        UnitSystem = unitSystem;
+    }
+
+    #endregion
 }

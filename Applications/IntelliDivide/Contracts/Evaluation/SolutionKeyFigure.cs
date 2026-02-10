@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Converter;
-
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result;
+namespace HomagConnect.IntelliDivide.Contracts.Evaluation;
 
 /// <summary>
 /// Identifies measurable key figures used for scoring solution candidates.
@@ -39,6 +37,9 @@ public enum SolutionKeyFigure
     [LowerIsBetter]
     WastePercentage,
 
+    /// <summary>
+    /// Waste plus offcuts as percentage of total; lower values are better.
+    /// </summary>
     [LowerIsBetter]
     WastePlusOffcutsPercentage,
 
