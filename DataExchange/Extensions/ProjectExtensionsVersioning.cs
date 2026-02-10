@@ -22,8 +22,6 @@ public static class ProjectExtensionsVersioning
         (typeof(Order), "AddressField3", nameof(Address.City)),
         (typeof(Order), "AddressField4", nameof(Address.PostalCode)),
         (typeof(Order), "AddressField5", nameof(Address.Country)),
-        (typeof(Order), "AddressField6", nameof(Address.Name)),
-        (typeof(Order), "AddressField7", nameof(Address.AdditionalInfo)),
 
         (typeof(Entity), "Typ", nameof(Part.Type)),
         (typeof(Entity), "EdgeDiagramm", nameof(Part.EdgeDiagram)),
