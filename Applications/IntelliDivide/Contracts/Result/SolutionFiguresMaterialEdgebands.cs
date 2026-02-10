@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 
@@ -19,10 +20,26 @@ public class SolutionFiguresMaterialEdgebands : IContainsUnitSystemDependentProp
 
     #region IContainsUnitSystemDependentProperties Members
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     [JsonProperty(Order = 99)]
     public UnitSystem UnitSystem { get; set; }
 
     #endregion
 
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution" /> class.
+    /// </summary>
+    public SolutionFiguresMaterialEdgebands() : this(UnitSystem.Metric) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
+    /// </summary>
+    public SolutionFiguresMaterialEdgebands(UnitSystem unitSystem)
+    {
+        UnitSystem = unitSystem;
+    }
+
+    #endregion
 }

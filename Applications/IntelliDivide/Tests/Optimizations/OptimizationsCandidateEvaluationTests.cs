@@ -20,10 +20,16 @@ namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
 {
     [TestMethod]
+    public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
+    {
+        var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
+        GetFirstOptimizationAndEvaluate(solutions);
+    }
+
+    [TestMethod]
     public async Task Optimizations_Cutting_SwitchUnitSystem()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
-
 
         if (solutions.Count == 0)
         {
@@ -34,18 +40,9 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         var solutionImperial = solutionMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
 
         solutionMetric.Overview.Figures.Production.AverageBookHeight.ShouldNotBe(solutionImperial.Overview.Figures.Production.AverageBookHeight);
-        
+
         TestContext?.AddResultFile(solutionMetric.TraceToFile(nameof(solutionMetric)).FullName);
         TestContext?.AddResultFile(solutionImperial.TraceToFile(nameof(solutionImperial)).FullName);
-
-    }
-
-
-    [TestMethod]
-    public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
-    {
-        var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
-        GetFirstOptimizationAndEvaluate(solutions);
     }
 
     [TestMethod]

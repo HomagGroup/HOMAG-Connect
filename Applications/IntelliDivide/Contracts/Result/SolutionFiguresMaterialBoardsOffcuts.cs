@@ -1,11 +1,12 @@
 ﻿#nullable enable
 
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -13,7 +14,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the key figures for material boards and offcuts.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresMaterialBoardsOffcuts: IContainsUnitSystemDependentProperties
+public class SolutionFiguresMaterialBoardsOffcuts : IContainsUnitSystemDependentProperties
 {
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
@@ -178,9 +179,26 @@ public class SolutionFiguresMaterialBoardsOffcuts: IContainsUnitSystemDependentP
 
     #region IContainsUnitSystemDependentProperties Members
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     [JsonProperty(Order = 99)]
     public UnitSystem UnitSystem { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution" /> class.
+    /// </summary>
+    public SolutionFiguresMaterialBoardsOffcuts() : this(UnitSystem.Metric) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
+    /// </summary>
+    public SolutionFiguresMaterialBoardsOffcuts(UnitSystem unitSystem)
+    {
+        UnitSystem = unitSystem;
+    }
 
     #endregion
 }
