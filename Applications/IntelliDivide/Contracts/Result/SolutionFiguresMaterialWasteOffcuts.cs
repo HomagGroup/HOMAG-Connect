@@ -47,6 +47,6 @@ public class SolutionFiguresMaterialWasteOffcuts
     /// Gets the percentage of waste, including offcuts, based on parts area.
     /// </summary>
     [JsonProperty(Order = 3)]
-    [Range(0, 100)]
+    //[Range(0, 100)]
     public double WasteWithOffcutsByParts { get; set; }
 }
