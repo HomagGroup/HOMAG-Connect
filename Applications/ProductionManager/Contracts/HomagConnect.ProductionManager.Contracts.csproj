@@ -30,6 +30,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ProductionItemFeedbackActionDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="ProductionItems\ProductionItemFeedbackDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ProductionItemFeedbackDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -58,6 +68,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ProductionItemFeedbackActionDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="ProductionItems\ProductionItemFeedbackDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ProductionItemFeedbackDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
 	    <LastGenOutput>ProductionProtocolPropertyDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
