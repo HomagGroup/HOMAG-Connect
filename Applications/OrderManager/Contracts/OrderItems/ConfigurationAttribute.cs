@@ -68,7 +68,6 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     /// <summary>
     /// An optional sorting of the attribute within a category.
     /// </summary>
-    [JsonProperty("sorting")]
     public int? Sorting { get; set; }
 
     /// <summary>
