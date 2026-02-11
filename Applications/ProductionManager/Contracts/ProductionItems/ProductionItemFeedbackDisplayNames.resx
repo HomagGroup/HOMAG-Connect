@@ -129,4 +129,7 @@
   <data name="Workstation" xml:space="preserve">
     <value>Arbeitsplatz</value>
   </data>
+  <data name="WorkstationType" xml:space="preserve">
+    <value>Arbeitsplatztyp</value>
+  </data>
 </root>

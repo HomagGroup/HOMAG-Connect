@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -30,6 +31,13 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems
         [JsonProperty(Order = 3)]
         [Display(ResourceType = typeof(ProductionItemFeedbackDisplayNames), Name = nameof(Workstation))]
         public string? Workstation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Workstation name
+        /// </summary>
+        [JsonProperty(Order = 3)]
+        [Display(ResourceType = typeof(ProductionItemFeedbackDisplayNames), Name = nameof(WorkstationType))]
+        public WorkstationType WorkstationType { get; set; }
 
         /// <summary>
         /// Gets or sets the source of the feedback information, e.g. the name of the machine, person or system which provided the feedback.

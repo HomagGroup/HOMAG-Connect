@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Extensions;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
@@ -39,11 +40,12 @@ namespace HomagConnect.ProductionManager.Tests.ProductionItems
                 Identifier = "12345",
                 WorkstationId = Guid.NewGuid(),
                 Workstation = "Workstation 1",
+                WorkstationType = WorkstationType.Assembly,
                 From = "Machine 1",
                 Timestamp = DateTimeOffset.UtcNow,
                 Quantity = 10,
                 Action = ProductionItemFeedbackAction.InProduction
-            };
+            };  
 
             var culture = CultureInfo.GetCultureInfo("de-DE");
             var serializedObjectLocalized = itemFeedback.SerializeLocalized(culture);

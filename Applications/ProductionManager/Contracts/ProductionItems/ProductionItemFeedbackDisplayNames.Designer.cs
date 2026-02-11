@@ -96,5 +96,14 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("Workstation", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Arbeitsplatztyp.
+        /// </summary>
+        public static string WorkstationType {
+            get {
+                return ResourceManager.GetString("WorkstationType", resourceCulture);
+            }
+        }
     }
 }
