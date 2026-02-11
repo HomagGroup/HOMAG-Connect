@@ -66,6 +66,12 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     public string? DisplayValue { get; set; }
 
     /// <summary>
+    /// Gets or sets the sorting order for displaying the attribute.
+    /// </summary>
+    [JsonProperty("sorting")]
+    public int? Sorting { get; set; }
+
+    /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
     [JsonProperty(Order = 997)]
