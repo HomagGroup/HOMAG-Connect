@@ -66,7 +66,7 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     public string? DisplayValue { get; set; }
 
     /// <summary>
-    /// Gets or sets the sorting order for displaying the attribute.
+    /// An optional sorting of the attribute within a category.
     /// </summary>
     [JsonProperty("sorting")]
     public int? Sorting { get; set; }
