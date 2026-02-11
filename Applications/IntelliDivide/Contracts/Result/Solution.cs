@@ -43,14 +43,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the description of the solution.
         /// </summary>
         [JsonProperty(Order = 5)]
-        public string Description
+        public string? Description
         {
             get;
             set
             {
-                field = value.Trimmed();
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
             }
-        } = string.Empty;
+        } 
 
         /// <summary>
         /// Gets or sets the unique identifier of the solution.
@@ -81,7 +81,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the <see cref="SolutionOverview" />.
         /// </summary>
         [JsonProperty(Order = 8)]
-        public SolutionOverview Overview { get; set; }
+        public SolutionOverview Overview { get; set; } = new();
 
         #region IContainsUnitSystemDependentProperties Members
 
@@ -104,8 +104,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public Solution(UnitSystem unitSystem)
         {
             UnitSystem = unitSystem;
-
-            Overview = new SolutionOverview(unitSystem);
         }
 
         #endregion

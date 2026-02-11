@@ -2,9 +2,6 @@
 
 using System.Collections.Generic;
 
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
@@ -13,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Represents the material used in a solution.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Include)]
-public class SolutionMaterial : IContainsUnitSystemDependentProperties
+public class SolutionMaterial
 {
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
@@ -51,29 +48,4 @@ public class SolutionMaterial : IContainsUnitSystemDependentProperties
     /// </summary>
     [JsonProperty(Order = 5)]
     public IReadOnlyCollection<SolutionMaterialTemplate>? Templates { get; set; }
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 99)]
-    public UnitSystem UnitSystem { get; set; }
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Solution" /> class.
-    /// </summary>
-    public SolutionMaterial() : this(UnitSystem.Metric) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
-    /// </summary>
-    public SolutionMaterial(UnitSystem unitSystem)
-    {
-        UnitSystem = unitSystem;
-    }
-
-    #endregion
 }

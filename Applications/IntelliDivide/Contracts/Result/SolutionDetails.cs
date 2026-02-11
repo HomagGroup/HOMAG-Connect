@@ -23,13 +23,13 @@ public class SolutionDetails : Solution
     /// Gets or sets the key figures of the solution.
     /// </summary>
     [JsonProperty(Order = 40)]
-    public SolutionFigures KeyFigures { get; set; }
+    public SolutionFigures KeyFigures { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the material of the solution.
     /// </summary>
     [JsonProperty(Order = 30)]
-    public SolutionMaterial Material { get; set; }
+    public SolutionMaterial Material { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the parts of the solution.
@@ -47,11 +47,7 @@ public class SolutionDetails : Solution
     /// <summary>
     /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
     /// </summary>
-    public SolutionDetails(UnitSystem unitSystem) : base(unitSystem)
-    {
-        Material = new SolutionMaterial(unitSystem);
-        KeyFigures = new SolutionFigures(unitSystem);
-    }
+    public SolutionDetails(UnitSystem unitSystem) : base(unitSystem) { }
 
     #endregion
 }

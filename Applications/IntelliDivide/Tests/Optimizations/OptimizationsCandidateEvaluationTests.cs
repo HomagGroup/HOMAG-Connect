@@ -19,11 +19,16 @@ namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 [IntegrationTest("IntelliDivide.Optimizations.Evaluation")]
 public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
 {
+    // Conversion factors
+    private const double _MillimeterToInch = 0.03937008;
+    private const double _SquareMeterToSquareFeet = 10.7639104;
+    private const double _MeterToFeet = 3.2808399;
+
     [TestMethod]
     public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
-        GetFirstOptimizationAndEvaluate(solutions);
+        EvaluateFirstOptimization(solutions);
     }
 
     [TestMethod]
@@ -34,22 +39,26 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         if (solutions.Count == 0)
         {
             Assert.Inconclusive("No solutions found for Cutting optimization");
+            return;
         }
 
-        var solutionMetric = solutions.First();
-        var solutionImperial = solutionMetric.SwitchUnitSystem(UnitSystem.Imperial, true);
+        var metric = solutions.First();
+        var imperial = metric.SwitchUnitSystem(UnitSystem.Imperial, false);
 
-        solutionMetric.Overview.Figures.Production.AverageBookHeight.ShouldNotBe(solutionImperial.Overview.Figures.Production.AverageBookHeight);
+        AssertUnconvertedValues(metric, imperial);
+        AssertConvertedKeyFigures(metric, imperial);
+        AssertConvertedPartDimensions(metric, imperial);
+        AssertConvertedBoardDimensions(metric, imperial);
 
-        TestContext?.AddResultFile(solutionMetric.TraceToFile(nameof(solutionMetric)).FullName);
-        TestContext?.AddResultFile(solutionImperial.TraceToFile(nameof(solutionImperial)).FullName);
+        TestContext?.AddResultFile(metric.TraceToFile(nameof(metric)).FullName);
+        TestContext?.AddResultFile(imperial.TraceToFile(nameof(imperial)).FullName);
     }
 
     [TestMethod]
     public async Task Optimizations_Nesting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Nesting);
-        GetFirstOptimizationAndEvaluate(solutions);
+        EvaluateFirstOptimization(solutions);
     }
 
     [TestMethod]
@@ -110,7 +119,62 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         }
     }
 
-    private void GetFirstOptimizationAndEvaluate(List<SolutionDetails> solutionDetails)
+    private static void AssertConvertedBoardDimensions(SolutionDetails metric, SolutionDetails imperial)
+    {
+        var metricBoard = metric.Material.Boards.FirstOrDefault();
+        if (metricBoard == null)
+        {
+            Assert.Inconclusive("No boards found in the solution");
+            return;
+        }
+
+        var imperialBoard = imperial.Material.Boards.First();
+
+        imperialBoard.Length.ShouldBeEquivalentTo(metricBoard.Length * _MillimeterToInch);
+        imperialBoard.Width.ShouldBeEquivalentTo(metricBoard.Width * _MillimeterToInch);
+    }
+
+    private static void AssertConvertedKeyFigures(SolutionDetails metric, SolutionDetails imperial)
+    {
+        // mm -> inch
+        imperial.Overview.Figures.Production.AverageBookHeight
+            .ShouldBeEquivalentTo(metric.Overview.Figures.Production.AverageBookHeight * _MillimeterToInch);
+
+        // m² -> ft²
+        imperial.KeyFigures.Production.Output.PartArea
+            .ShouldBeEquivalentTo(metric.KeyFigures.Production.Output.PartArea * _SquareMeterToSquareFeet);
+
+        // m -> ft
+        imperial.KeyFigures.Production.Output.CuttingLength
+            .ShouldBeEquivalentTo(metric.KeyFigures.Production.Output.CuttingLength * _MeterToFeet);
+    }
+
+    private static void AssertConvertedPartDimensions(SolutionDetails metric, SolutionDetails imperial)
+    {
+        var metricPart = metric.Parts.FirstOrDefault();
+        if (metricPart == null)
+        {
+            Assert.Inconclusive("No parts found in the solution");
+            return;
+        }
+
+        var imperialPart = imperial.Parts.First();
+
+        imperialPart.Length.ShouldBeEquivalentTo(metricPart.Length * _MillimeterToInch);
+        imperialPart.Width.ShouldBeEquivalentTo(metricPart.Width * _MillimeterToInch);
+        imperialPart.UnitSystem.ShouldBe(UnitSystem.Imperial);
+    }
+
+    private static void AssertUnconvertedValues(SolutionDetails metric, SolutionDetails imperial)
+    {
+        imperial.Overview.Figures.Production.ProductionTime
+            .ShouldBeEquivalentTo(metric.Overview.Figures.Production.ProductionTime);
+
+        imperial.Overview.Figures.Production.Cycles
+            .ShouldBeEquivalentTo(metric.Overview.Figures.Production.Cycles);
+    }
+
+    private void EvaluateFirstOptimization(List<SolutionDetails> solutionDetails)
     {
         solutionDetails.ShouldNotBeNull();
         solutionDetails.ShouldNotBeEmpty();
