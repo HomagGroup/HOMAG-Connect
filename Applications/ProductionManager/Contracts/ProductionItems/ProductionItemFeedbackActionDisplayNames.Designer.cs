@@ -116,7 +116,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Bauteil ausgelagert.
+        ///   Looks up a localized string similar to Bauteil entnommen.
         /// </summary>
         public static string PickedFromSortingShelf {
             get {
@@ -125,7 +125,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Bauteil einsortiert.
+        ///   Looks up a localized string similar to Bauteil eingelagert.
         /// </summary>
         public static string PlacedInSortingShelf {
             get {
@@ -168,7 +168,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("SentToProductionAssist", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Unbekannte Aktion.
         /// </summary>

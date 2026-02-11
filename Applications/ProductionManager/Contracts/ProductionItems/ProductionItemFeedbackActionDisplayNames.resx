@@ -133,10 +133,10 @@
     <value>In Produktion</value>
   </data>
   <data name="PickedFromSortingShelf" xml:space="preserve">
-    <value>Bauteil ausgelagert</value>
+    <value>Bauteil entnommen</value>
   </data>
   <data name="PlacedInSortingShelf" xml:space="preserve">
-    <value>Bauteil einsortiert</value>
+    <value>Bauteil eingelagert</value>
   </data>
   <data name="ReadyForProduction" xml:space="preserve">
     <value>Produktionsbereit</value>
