@@ -8,20 +8,11 @@ using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Contracts.Extensions;
 
-/// <summary>
-/// Extension methods for objects that contain properties that are dependent on the unit system.
-/// </summary>
 public static class UnitSystemExtensions
 {
     private const int _MillimeterToMeterConversionFactor = 1000;
     private const int _SquareInchToSquareFootConversionFactor = 144;
 
-    /// <summary>
-    /// Calculates the area of a rectangle for the given unit system.
-    /// - Metric: length/width are provided in millimeters and converted to square meters.
-    /// - Imperial: length/width are provided in square inches and converted to square feet.
-    /// Returns null if any input is null.
-    /// </summary>
     public static double? CalculateArea(this UnitSystem unitSystem, double? length, double? width, int? quantity)
     {
         if (length == null || width == null || quantity == null)
@@ -51,19 +42,6 @@ public static class UnitSystemExtensions
         throw new InvalidOperationException($"{nameof(UnitSystem)} {unitSystem} is not supported");
     }
 
-    /// <summary>
-    /// Converts the unit system of the given object to the specified unit system.
-    /// Behavior:
-    /// - Clones the input to avoid mutating the original instance.
-    /// - Converts primitive properties marked with ValueDependsOnUnitSystemAttribute.
-    /// - Recursively converts nested properties that implement IContainsUnitSystemDependentProperties.
-    /// - Converts collections (arrays, IEnumerable&lt;T&gt;, List&lt;T&gt;) of nested unit-system dependent objects.
-    /// </summary>
-    /// <typeparam name="T">A type implementing IContainsUnitSystemDependentProperties.</typeparam>
-    /// <param name="source">The source instance to convert.</param>
-    /// <param name="unitSystem">Target unit system.</param>
-    /// <param name="applyRounding">Whether to round values using attribute-provided decimal settings.</param>
-    /// <returns>A converted clone of the source instance.</returns>
     public static T SwitchUnitSystem<T>(this T source, UnitSystem unitSystem, bool applyRounding)
         where T : class, IContainsUnitSystemDependentProperties, new()
     {
@@ -80,90 +58,30 @@ public static class UnitSystemExtensions
         // Always set target unit system on the clone
         clone.UnitSystem = unitSystem;
 
-        // Convert all public instance properties
-        var propertyInfos = clone.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-        foreach (var propertyInfo in propertyInfos)
-        {
-            // 1) Convert primitive properties marked with ValueDependsOnUnitSystemAttribute
-            var valueDependsOnUnitSystemAttribute = GetUnitSystemAttribute(propertyInfo, clone.GetType());
-
-            if (valueDependsOnUnitSystemAttribute != null)
-            {
-                ConvertValueWithBaseUnit(propertyInfo, clone, valueDependsOnUnitSystemAttribute, applyRounding);
-                continue;
-            }
-
-            // 2) Recursively convert nested objects that implement IContainsUnitSystemDependentProperties
-            var currentValue = propertyInfo.GetValue(clone);
-            if (currentValue == null)
-            {
-                continue;
-            }
-
-            // Single nested object
-            if (currentValue is IContainsUnitSystemDependentProperties nested)
-            {
-                var convertedNested = SwitchUnitSystemDynamic(nested, unitSystem, applyRounding);
-                if (propertyInfo.CanWrite)
-                {
-                    propertyInfo.SetValue(clone, convertedNested);
-                }
-                continue;
-            }
-
-            // Arrays or lists of nested objects
-            if (currentValue is System.Collections.IEnumerable enumerable)
-            {
-                var elementType = GetEnumerableElementType(propertyInfo.PropertyType);
-                if (elementType != null && typeof(IContainsUnitSystemDependentProperties).IsAssignableFrom(elementType))
-                {
-                    var convertedCollection = ConvertEnumerable(enumerable, elementType, unitSystem, applyRounding);
-                    if (propertyInfo.CanWrite)
-                    {
-                        propertyInfo.SetValue(clone, convertedCollection);
-                    }
-                }
-            }
-        }
+        // Recursively find and convert all properties annotated with ValueDependsOnUnitSystemAttribute
+        var visited = new HashSet<object>(ReferenceEqualityComparer.Instance);
+        TraverseAndConvertAttributes(clone, unitSystem, applyRounding, visited);
 
         return clone;
     }
 
-    /// <summary>
-    /// Converts a value in millimeter to meter.
-    /// </summary>
-    private static double ConvertMillimeterToMeter(double value)
-    {
-        return value / _MillimeterToMeterConversionFactor;
-    }
+    private static double ConvertMillimeterToMeter(double value) => value / _MillimeterToMeterConversionFactor;
 
-    /// <summary>
-    /// Converts a value in square inch to square foot.
-    /// </summary>
-    private static double ConvertSquareInchToSquareFoot(double value)
-    {
-        return value / _SquareInchToSquareFootConversionFactor;
-    }
+    private static double ConvertSquareInchToSquareFoot(double value) => value / _SquareInchToSquareFootConversionFactor;
 
-    /// <summary>
-    /// Converts a single numeric property annotated with ValueDependsOnUnitSystemAttribute
-    /// using the object's current target unit system (clone.UnitSystem).
-    /// </summary>
-    private static void ConvertValueWithBaseUnit<T>(
+    private static void ConvertValueWithBaseUnit(
         PropertyInfo propertyInfo,
-        T clone,
+        object owner,
+        UnitSystem targetUnitSystem,
         ValueDependsOnUnitSystemAttribute unitAttribute,
         bool applyRounding)
-        where T : IContainsUnitSystemDependentProperties, new()
     {
-        var value = propertyInfo.GetValue(clone);
+        var value = propertyInfo.GetValue(owner);
         if (value == null)
         {
             return;
         }
 
-        // Ensure supported base units
         var supportedBaseUnit =
             unitAttribute.BaseUnit is BaseUnit.Millimeter
             or BaseUnit.SquareMeter
@@ -177,7 +95,7 @@ public static class UnitSystemExtensions
             throw new NotSupportedException($"Base unit '{unitAttribute.BaseUnit}' is not supported.");
         }
 
-        if (clone.UnitSystem == UnitSystem.Imperial)
+        if (targetUnitSystem == UnitSystem.Imperial)
         {
             var convertedValue = (double)value * unitAttribute.ConversionFactorMetricToImperial;
 
@@ -188,10 +106,10 @@ public static class UnitSystemExtensions
 
             if (propertyInfo.CanWrite)
             {
-                propertyInfo.SetValue(clone, convertedValue);
+                propertyInfo.SetValue(owner, convertedValue);
             }
         }
-        else if (clone.UnitSystem == UnitSystem.Metric)
+        else if (targetUnitSystem == UnitSystem.Metric)
         {
             var convertedValue = (double)value / unitAttribute.ConversionFactorMetricToImperial;
 
@@ -202,22 +120,17 @@ public static class UnitSystemExtensions
 
             if (propertyInfo.CanWrite)
             {
-                propertyInfo.SetValue(clone, convertedValue);
+                propertyInfo.SetValue(owner, convertedValue);
             }
         }
         else
         {
-            throw new InvalidOperationException($"{nameof(UnitSystem)} {clone.UnitSystem} is not supported");
+            throw new InvalidOperationException($"{nameof(UnitSystem)} {targetUnitSystem} is not supported");
         }
     }
 
-    /// <summary>
-    /// Finds ValueDependsOnUnitSystemAttribute on the property, searching both the concrete type property
-    /// and the corresponding interface property (if any).
-    /// </summary>
     private static ValueDependsOnUnitSystemAttribute? GetUnitSystemAttribute(PropertyInfo propertyInfo, Type concreteType)
     {
-        // Try attribute on the class property
         var attribute = propertyInfo
             .GetCustomAttributes()
             .OfType<ValueDependsOnUnitSystemAttribute>()
@@ -228,7 +141,6 @@ public static class UnitSystemExtensions
             return attribute;
         }
 
-        // Try attribute on an interface property (implemented by the concrete type)
         foreach (var implementedInterface in concreteType.GetInterfaces())
         {
             var interfaceProperty = implementedInterface.GetProperty(propertyInfo.Name);
@@ -251,9 +163,12 @@ public static class UnitSystemExtensions
         return null;
     }
 
-    /// <summary>
-    /// Executes SwitchUnitSystem for a nested object using its runtime type via reflection.
-    /// </summary>
+    private static bool IsClassWithParameterlessCtor(Type type)
+    {
+        // Must be a reference type and have a public parameterless constructor
+        return type.IsClass && type.GetConstructor(Type.EmptyTypes) != null;
+    }   
+
     private static object SwitchUnitSystemDynamic(IContainsUnitSystemDependentProperties nestedObject, UnitSystem unitSystem, bool applyRounding)
     {
         var runtimeType = nestedObject.GetType();
@@ -264,18 +179,103 @@ public static class UnitSystemExtensions
         return genericSwitchMethod.Invoke(null, new object[] { nestedObject, unitSystem, applyRounding })!;
     }
 
-    /// <summary>
-    /// Determines the element type of an enumerable (arrays and IEnumerable&lt;T&gt;).
-    /// </summary>
+    private static void TraverseAndConvertAttributes(object? obj, UnitSystem unitSystem, bool applyRounding, HashSet<object> visited)
+    {
+        if (obj == null)
+        {
+            return;
+        }
+
+        var type = obj.GetType();
+        if (IsSimple(type))
+        {
+            return;
+        }
+
+        if (!visited.Add(obj))
+        {
+            return; // avoid cycles
+        }
+
+        if (obj is IContainsUnitSystemDependentProperties unitAware)
+        {
+            unitAware.UnitSystem = unitSystem;
+        }
+
+        // Enumerables (lists/arrays/etc.): recurse into elements
+        if (obj is System.Collections.IDictionary dict)
+        {
+            foreach (System.Collections.DictionaryEntry entry in dict)
+            {
+                TraverseAndConvertAttributes(entry.Value, unitSystem, applyRounding, visited);
+            }
+            return;
+        }
+
+        if (obj is System.Collections.IEnumerable enumerable)
+        {
+            foreach (var item in enumerable)
+            {
+                TraverseAndConvertAttributes(item, unitSystem, applyRounding, visited);
+            }
+            return;
+        }
+
+        // POCO: convert annotated properties; also recurse into nested objects
+        var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(p => p.CanRead)
+                        .ToArray();
+
+        foreach (var prop in props)
+        {
+            if (prop.GetIndexParameters().Length > 0)
+            {
+                continue;
+            }
+
+            var unitAttr = GetUnitSystemAttribute(prop, type);
+            if (unitAttr != null)
+            {
+                ConvertValueWithBaseUnit(prop, obj, unitSystem, unitAttr, applyRounding);
+            }
+
+            var nested = prop.GetValue(obj);
+            if (nested == null)
+            {
+                continue;
+            }
+
+            TraverseAndConvertAttributes(nested, unitSystem, applyRounding, visited);
+        }
+    }
+
+    private static bool IsSimple(Type type)
+    {
+        return type.IsPrimitive
+               || type.IsEnum
+               || type == typeof(string)
+               || type == typeof(decimal)
+               || type == typeof(DateTime)
+               || type == typeof(Guid)
+               || type == typeof(TimeSpan);
+    }
+
+    private sealed class ReferenceEqualityComparer : IEqualityComparer<object>
+    {
+        public static readonly ReferenceEqualityComparer Instance = new ReferenceEqualityComparer();
+
+        public new bool Equals(object x, object y) => ReferenceEquals(x, y);
+
+        public int GetHashCode(object obj) => System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj);
+    }
+
     private static Type? GetEnumerableElementType(Type enumerableType)
     {
-        // Arrays
         if (enumerableType.IsArray)
         {
             return enumerableType.GetElementType();
         }
 
-        // Generic IEnumerable<T> (from self or interfaces)
         var ienumerableGeneric = enumerableType
             .GetInterfaces()
             .Concat(new[] { enumerableType })
@@ -284,29 +284,199 @@ public static class UnitSystemExtensions
         return ienumerableGeneric?.GetGenericArguments().FirstOrDefault();
     }
 
-    /// <summary>
-    /// Converts each element of an enumerable that implements IContainsUnitSystemDependentProperties.
-    /// Returns a List&lt;TElement&gt; of converted elements.
-    /// Non-convertible elements are kept as-is.
-    /// </summary>
-    private static object ConvertEnumerable(System.Collections.IEnumerable source, Type elementType, UnitSystem unitSystem, bool applyRounding)
+    private static object ConvertEnumerable(System.Collections.IEnumerable source, Type? elementType, UnitSystem unitSystem, bool applyRounding)
     {
-        var listType = typeof(List<>).MakeGenericType(elementType);
-        var convertedList = (System.Collections.IList)Activator.CreateInstance(listType)!;
+        // Preserve dictionaries
+        if (source is System.Collections.IDictionary dict)
+        {
+            return ConvertDictionary(dict, unitSystem, applyRounding);
+        }
 
+        var sourceType = source.GetType();
+
+        // Preserve arrays
+        if (sourceType.IsArray)
+        {
+            var array = (Array)source;
+            var elemType = elementType ?? sourceType.GetElementType() ?? typeof(object);
+            var result = Array.CreateInstance(elemType, array.Length);
+            var i = 0;
+            foreach (var item in array)
+            {
+                var convertedItem = DeepConvertNested(item, unitSystem, applyRounding);
+                result.SetValue(convertedItem, i++);
+            }
+            return result;
+        }
+
+        // First, materialize converted items into a List<T> as a staging collection
+        var listElemType = elementType ?? typeof(object);
+        var tempListType = typeof(List<>).MakeGenericType(listElemType);
+        var tempList = (System.Collections.IList)Activator.CreateInstance(tempListType)!;
         foreach (var item in source)
         {
-            if (item is IContainsUnitSystemDependentProperties nested)
+            var convertedItem = DeepConvertNested(item, unitSystem, applyRounding);
+            tempList.Add(convertedItem!);
+        }
+
+        // Try to instantiate the same concrete collection type and populate it
+        if (!sourceType.IsInterface && !sourceType.IsAbstract)
+        {
+            // If it supports non-generic IList, use it
+            if (typeof(System.Collections.IList).IsAssignableFrom(sourceType))
             {
-                var convertedItem = SwitchUnitSystemDynamic(nested, unitSystem, applyRounding);
-                convertedList.Add(convertedItem);
+                var target = (System.Collections.IList)Activator.CreateInstance(sourceType)!;
+                foreach (var item in (System.Collections.IEnumerable)tempList)
+                {
+                    target.Add(item);
+                }
+                return target;
             }
-            else
+
+            // If it has a parameterless ctor and an Add(T) method, use that
+            var parameterlessCtor = sourceType.GetConstructor(Type.EmptyTypes);
+            if (parameterlessCtor != null)
             {
-                convertedList.Add(item);
+                var target = Activator.CreateInstance(sourceType)!;
+                var addMethod = sourceType
+                    .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                    .FirstOrDefault(m => m.Name == "Add" && m.GetParameters().Length == 1);
+
+                if (addMethod != null)
+                {
+                    foreach (var item in (System.Collections.IEnumerable)tempList)
+                    {
+                        addMethod.Invoke(target, new[] { item });
+                    }
+                    return target;
+                }
+            }
+
+            // Support collection types with ctor(IList<T>) or ctor(IEnumerable<T>) e.g., ReadOnlyCollection<T>
+            var iListOfT = typeof(IList<>).MakeGenericType(listElemType);
+            var iEnumerableOfT = typeof(IEnumerable<>).MakeGenericType(listElemType);
+
+            var ctorIList = sourceType.GetConstructor(new[] { iListOfT });
+            if (ctorIList != null)
+            {
+                return ctorIList.Invoke(new object[] { tempList });
+            }
+
+            var ctorIEnumerable = sourceType.GetConstructor(new[] { iEnumerableOfT });
+            if (ctorIEnumerable != null)
+            {
+                return ctorIEnumerable.Invoke(new object[] { tempList });
             }
         }
 
-        return convertedList;
+        // Fallback to List<T>
+        return tempList;
+    }
+
+    /// <summary>
+    /// Recursively visits any nested value:
+    /// - If it implements IContainsUnitSystemDependentProperties, converts via SwitchUnitSystemDynamic.
+    /// - If it is an enumerable, converts each element recursively (regardless of declared element type).
+    /// - If it is a POCO (class), visits its public instance properties and converts nested values in place.
+    /// Returns the (potentially converted) object reference.
+    /// </summary>
+    private static object? DeepConvertNested(object? value, UnitSystem unitSystem, bool applyRounding)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (value is IContainsUnitSystemDependentProperties unitAware)
+        {
+            return SwitchUnitSystemDynamic(unitAware, unitSystem, applyRounding);
+        }
+
+        var type = value.GetType();
+        if (type.IsPrimitive || type.IsEnum || type == typeof(string) || type == typeof(decimal) || type == typeof(DateTime) || type == typeof(Guid) || type == typeof(TimeSpan))
+        {
+            return value;
+        }
+
+        // Handle IDictionary before IEnumerable
+        if (value is System.Collections.IDictionary dictionary)
+        {
+            return ConvertDictionary(dictionary, unitSystem, applyRounding);
+        }
+
+        if (value is System.Collections.IEnumerable enumerable)
+        {
+            var elementType = GetEnumerableElementType(type);
+            return ConvertEnumerable(enumerable, elementType, unitSystem, applyRounding);
+        }
+
+        var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(p => p.CanRead)
+                        .ToArray();
+
+        foreach (var prop in props)
+        {
+            // Skip indexers
+            if (prop.GetIndexParameters().Length > 0)
+            {
+                continue;
+            }
+
+            var nestedValue = prop.GetValue(value);
+            if (nestedValue == null)
+            {       
+                continue;
+            }
+
+            var convertedNested = DeepConvertNested(nestedValue, unitSystem, applyRounding);
+
+            if (!ReferenceEquals(convertedNested, nestedValue) && prop.CanWrite)
+            {
+                prop.SetValue(value, convertedNested);
+            }
+        }
+
+        return value;
+    }
+
+    private static object ConvertDictionary(System.Collections.IDictionary source, UnitSystem unitSystem, bool applyRounding)
+    {
+        var type = source.GetType();
+
+        var idictType = type
+            .GetInterfaces()
+            .Concat(new[] { type })
+            .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
+
+        var keyType = typeof(object);
+        var valueType = typeof(object);
+
+        if (idictType != null)
+        {
+            var args = idictType.GetGenericArguments();
+            keyType = args[0];
+            valueType = args[1];
+        }
+
+        // Prefer same concrete type if possible, else Dictionary<TKey,TValue>
+        Type targetType;
+        if (type.IsInterface || type.IsAbstract || type.GetConstructor(Type.EmptyTypes) == null)
+        {
+            targetType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
+        }
+        else
+        {
+            targetType = type;
+        }
+
+        var result = (System.Collections.IDictionary)Activator.CreateInstance(targetType)!;
+
+        foreach (System.Collections.DictionaryEntry entry in source)
+        {
+            var convertedValue = DeepConvertNested(entry.Value, unitSystem, applyRounding);
+            result[entry.Key] = convertedValue;
+        }
+
+        return result;
     }
 }

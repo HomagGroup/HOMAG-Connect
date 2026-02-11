@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -15,7 +14,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the key figures for production handling.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresProductionHandling : IContainsUnitSystemDependentProperties
+public class SolutionFiguresProductionHandling
 {
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
@@ -36,6 +35,7 @@ public class SolutionFiguresProductionHandling : IContainsUnitSystemDependentPro
     /// </summary>
     [JsonProperty(Order = 4)]
     [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
+    [Range(0.01, double.MaxValue)]
     public double? BookWeightAverage { get; set; }
 
     /// <summary>
@@ -43,6 +43,7 @@ public class SolutionFiguresProductionHandling : IContainsUnitSystemDependentPro
     /// </summary>
     [JsonProperty(Order = 4)]
     [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
+    [Range(0.01, double.MaxValue)]
     public double? BookWeightMax { get; set; }
 
     /// <summary>
@@ -78,30 +79,5 @@ public class SolutionFiguresProductionHandling : IContainsUnitSystemDependentPro
     /// </summary>
     [JsonProperty(Order = 1)]
     [Range(0, int.MaxValue)]
-    public int Recuts { get; set; }
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 99)]
-    public UnitSystem UnitSystem { get; set; }
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Solution" /> class.
-    /// </summary>
-    public SolutionFiguresProductionHandling() : this(UnitSystem.Metric) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
-    /// </summary>
-    public SolutionFiguresProductionHandling(UnitSystem unitSystem)
-    {
-        UnitSystem = unitSystem;
-    }
-
-    #endregion
+    public int Recuts { get; set; } 
 }

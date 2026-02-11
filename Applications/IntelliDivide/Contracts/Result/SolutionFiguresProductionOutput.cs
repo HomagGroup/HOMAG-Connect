@@ -1,10 +1,11 @@
 ﻿#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 /// Provides the key figures for production output.
 /// </summary>
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentProperties
+public class SolutionFiguresProductionOutput
 {
     /// <summary>
     /// Gets or sets the additional properties configured in the application.
@@ -27,30 +28,37 @@ public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentPrope
     /// Gets the number of cuts.
     /// </summary>
     [JsonProperty(Order = 8)]
+    [Range(0, int.MaxValue)]
     public int Cuts { get; set; }
 
     /// <summary>
     /// Gets the value of the cutting length in m or inch.
     /// </summary>
     [JsonProperty(Order = 9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+    [Range(0, double.MaxValue)]
     public double CuttingLength { get; set; }
 
     /// <summary>
     /// Gets the quantity of cutting cycles.
     /// </summary>
     [JsonProperty(Order = 7)]
+    [Range(0, int.MaxValue)]
     public int Cycles { get; set; }
 
     /// <summary>
     /// Gets the value of the area of the parts in m² or ft².
     /// </summary>
     [JsonProperty(Order = 3)]
+    [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+    [Range(0, double.MaxValue)]
     public double PartArea { get; set; }
 
     /// <summary>
     /// Gets or sets the quantity of parts to use when operating in automatic mode.
     /// </summary>
     [JsonProperty(Order = 2)]
+    [Range(0, int.MaxValue)]
     public double PartsQuantityAutomaticMode { get; set; }
 
     /// <summary>
@@ -76,6 +84,7 @@ public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentPrope
     /// quantity of parts and the quantity of parts in automatic mode.
     /// </summary>
     [JsonProperty(Order = 2)]
+    [Range(0, int.MaxValue)]
     public double PartsQuantityManualMode
     {
         get
@@ -92,6 +101,8 @@ public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentPrope
     /// Gets the value of the area of the plus parts (optional parts) in m² or ft².
     /// </summary>
     [JsonProperty(Order = 4)]
+    [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+    [Range(0, double.MaxValue)]
     public double PlusPartsArea { get; set; }
 
     /// <summary>
@@ -104,18 +115,21 @@ public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentPrope
     /// Gets the average production time per part in seconds.
     /// </summary>
     [JsonProperty(Order = 6)]
+    [Range(0, double.MaxValue)]
     public double ProductionTimePerPart { get; set; }
 
     /// <summary>
     /// Gets the quantity of parts.
     /// </summary>
     [JsonProperty(Order = 1)]
+    [Range(0, int.MaxValue)]
     public int QuantityOfParts { get; set; }
 
     /// <summary>
     /// Gets the total quantity of parts, including plus parts (optional parts).
     /// </summary>
     [JsonProperty(Order = 2)]
+    [Range(0, int.MaxValue)]
     public int QuantityOfPartsTotal
     {
         get
@@ -133,30 +147,6 @@ public class SolutionFiguresProductionOutput : IContainsUnitSystemDependentPrope
     /// Gets the quantity of plus parts (optional parts).
     /// </summary>
     [JsonProperty(Order = 2)]
+    [Range(0, int.MaxValue)]
     public int QuantityOfPlusParts { get; set; }
-
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 99)]
-    public UnitSystem UnitSystem { get; set; }
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Solution" /> class.
-    /// </summary>
-    public SolutionFiguresProductionOutput() : this(UnitSystem.Metric) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Solution" /> class with the specified unit system.
-    /// </summary>
-    public SolutionFiguresProductionOutput(UnitSystem unitSystem)
-    {
-        UnitSystem = unitSystem;
-    }
-
-    #endregion
 }

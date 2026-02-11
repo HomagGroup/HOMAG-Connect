@@ -1,12 +1,16 @@
 ﻿#nullable enable
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
-using JsonSubTypes;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-
 using HomagConnect.Base.Contracts.Interfaces;
+
+using JsonSubTypes;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -17,18 +21,20 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialBoard), BoardTypeType.Board)]
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialOffcut), BoardTypeType.Offcut)]
 [JsonSubtypes.KnownSubType(typeof(SolutionMaterialTemplate), BoardTypeType.Template)]
-public class SolutionMaterialBoardBase : IContainsUnitSystemDependentProperties
+public class SolutionMaterialBoardBase : IDimensionProperties, IMaterialProperties
 {
     /// <summary>
-    /// Gets or sets the board type.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonProperty(Order = 0)]
-    public virtual BoardTypeType Type { get; set; }
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
     /// Gets or sets the board code.
     /// </summary>
     [JsonProperty(Order = 2)]
+    [StringLength(50, MinimumLength = 1)]
     public string BoardCode
     {
         get;
@@ -42,19 +48,18 @@ public class SolutionMaterialBoardBase : IContainsUnitSystemDependentProperties
     /// Gets or sets the total costs.
     /// </summary>
     [JsonProperty(Order = 7)]
-    public double Costs { get; set; }
+    public double? Costs { get; set; }
 
     /// <summary>
     /// Gets or sets the demand.
     /// </summary>
     [JsonProperty(Order = 6)]
+    [Range(0,int.MaxValue)]
     public int Demand { get; set; }
 
-    /// <summary>
-    /// Gets or sets the length.
-    /// </summary>
+    /// <inheritdoc/>
     [JsonProperty(Order = 3)]
-    public double Length { get; set; }
+    public double? Length { get; set; }
 
     /// <summary>
     /// Gets or sets the material code.
@@ -69,30 +74,35 @@ public class SolutionMaterialBoardBase : IContainsUnitSystemDependentProperties
         }
     } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets the thickness.
-    /// </summary>
+    /// <inheritdoc/>
     [JsonProperty(Order = 5)]
-    public double Thickness { get; set; }
+    public double? Thickness { get; set; }
 
     /// <summary>
-    /// Gets or sets the width.
+    /// Gets or sets the board type.
     /// </summary>
-    [JsonProperty(Order = 4)]
-    public double Width { get; set; }
-
-    /// <summary>
-    /// Gets or sets the additional properties configured in the application.
-    /// </summary>
-    [JsonProperty(Order = 80)]
-    [JsonExtensionData]
-    public IDictionary<string, object>? AdditionalProperties { get; set; }
-
-    #region IContainsUnitSystemDependentProperties Members
+    [JsonProperty(Order = 0)]
+    public virtual BoardTypeType Type { get; set; }
 
     /// <inheritdoc/>
-    [JsonProperty(Order = 99)]
-    public UnitSystem UnitSystem { get; set; }
+    [JsonProperty(Order = 4)]
+    public double? Width { get; set; }
 
-    #endregion
+
+    /// <inheritdoc/>
+    public Grain Grain { get; set; }
+
+    /// <inheritdoc/>
+    [JsonIgnore]
+    public string? Material
+    {
+        get
+        {
+            return MaterialCode;
+        }
+        set
+        {
+            MaterialCode = value ?? string.Empty;
+        }
+    }
 }

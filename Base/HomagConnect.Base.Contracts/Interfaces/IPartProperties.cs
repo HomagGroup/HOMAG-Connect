@@ -15,5 +15,6 @@ public interface IPartProperties : ILaminatingProperties, IEdgebandingProperties
     /// Gets or sets the description of the part.
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Description))]
+    [StringLength(255, MinimumLength = 0)]
     public string Description { get; set; }
 }

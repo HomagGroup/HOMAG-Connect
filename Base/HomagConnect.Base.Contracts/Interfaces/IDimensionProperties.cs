@@ -1,10 +1,13 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
+﻿#nullable enable
+
 using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.Base.Contracts.Interfaces;
 
-public interface IDimensionProperties : IContainsUnitSystemDependentProperties
+public interface IDimensionProperties : IDimensionPropertiesLengthWidth
 {
     /// <summary>
     /// Gets or sets the thickness of the part.
@@ -13,20 +16,4 @@ public interface IDimensionProperties : IContainsUnitSystemDependentProperties
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     [Range(0.01, 999.9)]
     public double? Thickness { get; set; }
-
-    /// <summary>
-    /// Gets or sets the length.
-    /// </summary>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Length))]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 19999.9)]
-    public double? Length { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width.
-    /// </summary>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Width))]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 19999.9)]
-    public double? Width { get; set; }
 }
