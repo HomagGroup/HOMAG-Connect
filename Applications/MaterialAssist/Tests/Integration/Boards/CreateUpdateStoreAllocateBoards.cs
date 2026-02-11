@@ -133,7 +133,7 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
         return boardCode;
     }
 
-    private static async Task<string> CreateAllocation(string boardCode, int quantity, MaterialManagerClientMaterialBoards boardsClient)
+    private static async Task<string> CreateAllocation(string boardCode, int quantity, MaterialManagerClientMaterialBoards boardsClient, [CallerMemberName] string caller = "")
     {
         var request = new BoardTypeAllocationRequest
         {
@@ -141,7 +141,7 @@ public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
             CreatedBy = nameof(Boards_CreateUpdateStoreAllocate),
             Name = Guid.NewGuid().ToString(),
             Quantity = quantity,
-            Source = "HOMAG Connect",
+            Source = caller,
             Workstation = "001"
         };
 
