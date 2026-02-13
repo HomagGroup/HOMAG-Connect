@@ -19,11 +19,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems
         public string? Identifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the WorkstationId
+        /// Gets or sets the WorkstationId - can be null if the feedback is not related to a specific workstation, e.g. if it is provided by a system without workstation association.
         /// </summary>
         [JsonProperty(Order = 2)]
         [Display(AutoGenerateField = false)]
-        public Guid WorkstationId { get; set; }
+        public Guid? WorkstationId { get; set; }
 
         /// <summary>
         /// Gets or sets the Workstation name
