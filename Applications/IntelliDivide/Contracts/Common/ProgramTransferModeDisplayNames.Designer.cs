@@ -59,5 +59,41 @@ namespace HomagConnect.IntelliDivide.Contracts.Common {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HOMAG File Agent.
+        /// </summary>
+        public static string FileAgent {
+            get {
+                return ResourceManager.GetString("FileAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mit Maschine verbunden.
+        /// </summary>
+        public static string MachineConnection {
+            get {
+                return ResourceManager.GetString("MachineConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Herunterladen.
+        /// </summary>
+        public static string ManualDownload {
+            get {
+                return ResourceManager.GetString("ManualDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mit productionAssist verbunden.
+        /// </summary>
+        public static string ProductionAssist {
+            get {
+                return ResourceManager.GetString("ProductionAssist", resourceCulture);
+            }
+        }
     }
 }

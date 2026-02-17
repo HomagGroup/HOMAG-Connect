@@ -2,9 +2,11 @@
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
@@ -12,15 +14,15 @@ using Shouldly;
 
 namespace HomagConnect.IntelliDivide.Tests.Base
 {
+    /// <summary />
     [TestClass]
-    [TestCategory("IntelliDivide")]
+    [UnitTest("IntelliDivide.Localization")]
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public class LocalizationTests
     {
         /// <summary>
         /// This test will only succeed on server OR when you add the relevant resx for ja and en manually.
         /// </summary>
-        [IntegrationTest("translation")]
         [TestMethod]
         public void IntelliDivide_Localization_Grain()
         {
@@ -42,10 +44,23 @@ namespace HomagConnect.IntelliDivide.Tests.Base
             displayNames.Trace();
         }
 
+        /// <summary />
+        [TestMethod]
+        public void IntelliDivide_Localization_OptimizationStatus()
+        {
+            var cultureInfo = CultureInfo.GetCultureInfo("de-DE");
+            var displayNames = EnumExtensions.GetDisplayNames<OptimizationStatus>(cultureInfo);
+
+            displayNames.ShouldNotBeNull();
+            displayNames.Count.ShouldBeGreaterThanOrEqualTo(1);
+            displayNames[OptimizationStatus.Queued].ShouldBe("Gestartet (In Warteschlange)", "The German display name for OptimizationStatus.Queued is 'Gestartet (In Warteschlange)'.");
+
+            displayNames.Trace($"{nameof(OptimizationStatus)}: {cultureInfo}");
+        }
+
         /// <summary>
         /// This test will only succeed on server OR when you add the relevant resx for ja and en manually.
         /// </summary>
-        [IntegrationTest("translation")]
         [TestMethod]
         public void IntelliDivide_Localization_Properties()
         {

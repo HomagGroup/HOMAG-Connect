@@ -485,6 +485,9 @@ public static class ProjectExtensionsConversion
 
         var orderWrapper = new OrderWrapper(order);
 
+        orderDetails.OrderNumberExternal = orderWrapper.OrderNumberExternal ?? orderWrapper.OrderNumber;
+        orderDetails.OrderNumber = null;
+
         if (orderDetails.Addresses == null || orderDetails.Addresses.Count == 0)
         {
             var address = new Address();
@@ -496,6 +499,7 @@ public static class ProjectExtensionsConversion
             address.PostalCode = orderWrapper.PostalCode;
             address.City = orderWrapper.City;
             address.Country = orderWrapper.Country;
+            address.AdditionalInfo = orderWrapper.AdditionalInfo;
 
             orderDetails.Addresses =
             [

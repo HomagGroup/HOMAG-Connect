@@ -2,9 +2,9 @@
 
 using Newtonsoft.Json;
 
-// NOTE: This is preliminary code and is subject to change
-
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+
+// NOTE: This is preliminary code and is subject to change
 
 /// <summary>
 /// Texture mapping type used in Roomle payloads. Parsed tolerantly from JSON via <see cref="TolerantEnumConverter"/>.

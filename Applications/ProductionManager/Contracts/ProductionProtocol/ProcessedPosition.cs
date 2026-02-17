@@ -14,6 +14,25 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
             {
                 return ProductionItemType.Position;
             }
+            // ReSharper disable once ValueParameterNotUsed
+            set
+            {
+                // Ignored, needed for serialization
+            }
+        }  
+
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+        {
+            get
+            {
+                return ProcessedItemType.ProcessedPosition;
+            }
+            // ReSharper disable once ValueParameterNotUsed
+            set
+            {
+                // Ignored, needed for serialization
+            }
         }
     }
 }

@@ -57,6 +57,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public string? OrderDescription { get; set; }
 
         /// <summary>
+        /// Gets the external system id of the item which can be used as a reference.
+        /// </summary>
+        [JsonProperty(Order = 114)]
+        public string? ExternalSystemId { get; set; }
+
+        /// <summary>
         /// The project of the order
         /// </summary>
         [JsonProperty(Order = 120)]
@@ -85,6 +91,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 150)]
         public Uri? Link { get; set; }
+
+        /// <summary>
+        /// Gets the HasErrors flag indicates whether the order has errors. The definition of what an error is, is up to the implementation of the OrderManager. This is a flag that can be used by the UI to display an error state for the order.
+        /// </summary>
+        [JsonProperty(Order = 151)]
+        public bool HasErrors { get; set; }
 
         #endregion
 

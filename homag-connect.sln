@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33829.357
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}"
 EndProject
@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		homag-connect.sln.DotSettings = homag-connect.sln.DotSettings
 		Local.runsettings = Local.runsettings
 		README.md = README.md
+		translate.yml = translate.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.Base.Tests", "Base\HomagConnect.Base.Tests\HomagConnect.Base.Tests.csproj", "{FAE434F6-9E58-4AC7-B481-8D661080FAE3}"
@@ -154,6 +155,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Tests.Api", "HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj", "{1A802AF7-F483-43FE-828E-1CE239B853A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.TestBase", "Base\HomagConnect.Base.TestBase\HomagConnect.Base.TestBase.csproj", "{8FE09EC2-C809-465C-B013-02634410A141}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Client", "Base\HomagConnect.Base.Client\HomagConnect.Base.Client.csproj", "{9346613B-37F1-4235-8040-9241DAAC90BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -309,6 +312,10 @@ Global
 		{8FE09EC2-C809-465C-B013-02634410A141}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FE09EC2-C809-465C-B013-02634410A141}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FE09EC2-C809-465C-B013-02634410A141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9346613B-37F1-4235-8040-9241DAAC90BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9346613B-37F1-4235-8040-9241DAAC90BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9346613B-37F1-4235-8040-9241DAAC90BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9346613B-37F1-4235-8040-9241DAAC90BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -369,6 +376,7 @@ Global
 		{553D43EC-B600-4886-9A32-B6C94A3DA8D8} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
 		{1A802AF7-F483-43FE-828E-1CE239B853A4} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 		{8FE09EC2-C809-465C-B013-02634410A141} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
+		{9346613B-37F1-4235-8040-9241DAAC90BE} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

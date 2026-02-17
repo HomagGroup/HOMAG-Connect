@@ -1,11 +1,11 @@
-﻿using Shouldly;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.BoardEntities;
 
@@ -14,6 +14,7 @@ namespace HomagConnect.MaterialAssist.Tests.BoardEntities;
 [TestCategory("MaterialAssist.Boards")]
 public class BoardEntityTests : MaterialAssistTestBase
 {
+    [TemporaryDisabledOnServer(2026, 2, 28, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_GoodsInStock()
     {
@@ -191,6 +192,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
     }
 
+    [TemporaryDisabledOnServer(2026, 2, 28, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Single()
     {
@@ -277,6 +279,7 @@ public class BoardEntityTests : MaterialAssistTestBase
         }
     }
 
+    [TemporaryDisabledOnServer(2026, 2, 28, "DF-Material")]
     [TestMethod]
     public async Task MaterialAssist_BoardEntities_CreateStoreGetAndDeleteBoardEntity_Stack()
     {

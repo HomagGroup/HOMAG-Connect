@@ -8,7 +8,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 /// </summary>
 [TestClass]
 [TestCategory("MaterialManager")]
-[TemporaryDisabledOnServer(2026, 01, 31, "DF-Material")]
+[TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
 public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>

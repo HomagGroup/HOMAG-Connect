@@ -17,6 +17,10 @@
   </PropertyGroup>
 
 	<ItemGroup>
+	  <None Include="Events\Material\Edgebands\EdgebandTypeDeletedEvent.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
@@ -27,7 +31,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
-	  <ProjectReference Include="..\..\ProductionManager\Contracts\HomagConnect.ProductionManager.Contracts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -96,6 +99,16 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>TensionTrimTypeDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Statistics\MaterialStatisticsDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MaterialStatisticsDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Statistics\StatisticsDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>StatisticsDisplayNames.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Surfaces\Textures\TextureDisplayNames.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -159,6 +172,14 @@
 	  <EmbeddedResource Update="Processing\Optimization\TensionTrimTypeDisplayNames.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>TensionTrimTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Statistics\MaterialStatisticsDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>MaterialStatisticsDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Statistics\StatisticsDisplayNames.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>StatisticsDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Surfaces\Textures\TextureDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>

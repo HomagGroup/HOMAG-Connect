@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿#nullable enable
+
+using HomagConnect.Base.Contracts.Enumerations;
 
 using Newtonsoft.Json;
 

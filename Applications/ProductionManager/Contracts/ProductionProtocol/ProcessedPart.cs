@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// <summary>
 /// Represents a processed part in a production protocol, including its id, description and quantity processed.
 /// </summary>
-public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterialProperties
+public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterialProperties, IContainsUnitSystemDependentProperties
 {
     /// <inheritdoc />
     public override ProductionItemType ItemType
@@ -21,42 +21,51 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
         {
             return ProductionItemType.Part;
         }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
+
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedPart;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
     }
 
     #region IDimensionProperties
-    /// <summary>
-    /// Gets or sets the length.
-    /// </summary>
+
+    /// <inheritdoc />
     [JsonProperty(Order = 21)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    
     public double? Length { get; set; }
 
-    /// <summary>
-    /// Gets or sets the width.
-    /// </summary>
+    /// <inheritdoc />
     [JsonProperty(Order = 22)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
-    /// <summary>
-    /// Gets or sets the thickness.
-    /// </summary>
+    /// <inheritdoc />
     [JsonProperty(Order = 23)]
-    [Range(0.1, 9999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Thickness { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 24)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+
     #endregion
 
     #region IMaterialProperties
-    /// <summary>
-    /// Gets or sets the material.
-    /// </summary>
+
+    /// <inheritdoc />
     [JsonProperty(Order = 25)]
     public string? Material { get; set; }
 
@@ -65,6 +74,6 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     /// </summary>
     [JsonProperty(Order = 26)]
     public Grain Grain { get; set; }
+
     #endregion
-    
 }

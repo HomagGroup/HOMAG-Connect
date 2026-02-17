@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Samples.Create.Offcuts;
 using HomagConnect.MaterialManager.Client;
@@ -16,6 +17,7 @@ public class CreateOffcutsTests : MaterialAssistTestBase
     private MaterialAssistClientBoards _MaterialAssistClientBoards;
     private MaterialManagerClientMaterialBoards _MaterialManagerClientMaterialBoards;
 
+    [TemporaryDisabledOnServer(2026,2,28, "DF-Material")]
     [TestMethod]
     public async Task BoardsCreateOffcutEntity()
     {

@@ -19,7 +19,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ReworkStateDisplayNames {
@@ -79,7 +79,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verweigert.
+        ///   Looks up a localized string similar to Abgelehnt.
         /// </summary>
         public static string Rejected {
             get {
@@ -93,6 +93,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework {
         public static string Transferred {
             get {
                 return ResourceManager.GetString("Transferred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannt.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
     }

@@ -5,6 +5,7 @@ using System.IO.Compression;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Samples;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
@@ -16,6 +17,7 @@ using Uri = System.Uri;
 namespace HomagConnect.OrderManager.Tests.Import
 {
     /// <summary />
+    [TemporaryDisabledOnServer(2026, 2, 01, "DF-OrderManager")]
     [TestClass]
     [TestCategory("OrderManager")]
     [TestCategory("OrderManager.Orders.Import")]

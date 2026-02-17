@@ -41,6 +41,11 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     public string EdgebandCode { get; set; }
 
     /// <summary>
+    /// Gets or sets the id from an external system.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
+
+    /// <summary>
     /// Gets or sets the protection layer thickness.
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]

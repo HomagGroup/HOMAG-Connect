@@ -21,5 +21,10 @@ public enum AddressType
     /// <summary>
     /// The address is a billing address.
     /// </summary>
-    Billing = 2
+    Billing = 2,
+
+    /// <summary>
+    /// The address is delivery and billing address.
+    /// </summary>
+    DeliveryAndBilling = 3
 }

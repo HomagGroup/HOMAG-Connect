@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class BoardMaterialCategoryDisplayNames {
@@ -161,6 +161,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keramik.
+        /// </summary>
+        public static string Ceramic {
+            get {
+                return ResourceManager.GetString("Ceramic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spanplatte.
         /// </summary>
         public static string Chipboard {
@@ -220,6 +229,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations {
         public static string Flakeboard_OSBPanel {
             get {
                 return ResourceManager.GetString("Flakeboard_OSBPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floatglas.
+        /// </summary>
+        public static string FloatGlass {
+            get {
+                return ResourceManager.GetString("FloatGlass", resourceCulture);
             }
         }
         

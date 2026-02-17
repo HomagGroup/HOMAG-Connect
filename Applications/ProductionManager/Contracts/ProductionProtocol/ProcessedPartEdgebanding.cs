@@ -14,15 +14,25 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// </remarks>
 public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
 {
-    /// <summary>
-    /// Gets or sets the EdgeFront
-    /// </summary>
+    /// <inheritdoc />
+    public override ProcessedItemType Type
+    {
+        get
+        {
+            return ProcessedItemType.ProcessedPartEdgebanding;
+        }
+        // ReSharper disable once ValueParameterNotUsed
+        set
+        {
+            // Ignored, needed for serialization
+        }
+    }
+
+    /// <inheritdoc />
     [JsonProperty(Order = 32)]
     public string? EdgeFront { get; set; }
 
-    /// <summary>
-    /// Gets or sets the EdgeBack
-    /// </summary>
+    /// <inheritdoc />
     [JsonProperty(Order = 33)]
     public string? EdgeBack { get; set; }
 
@@ -32,15 +42,13 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
     [JsonProperty(Order = 34)]
     public string? EdgeLeft { get; set; }
 
-    /// <summary>
-    /// Gets or sets the EdgeRight
-    /// </summary>
+    /// <inheritdoc />
+    /// >
     [JsonProperty(Order = 35)]
     public string? EdgeRight { get; set; }
 
-    /// <summary>
-    /// Gets or sets how the edgebands should be applied
-    /// </summary>
+    /// <inheritdoc />
+    /// >
     [JsonProperty(Order = 36)]
     public string? EdgeDiagram { get; set; }
 }

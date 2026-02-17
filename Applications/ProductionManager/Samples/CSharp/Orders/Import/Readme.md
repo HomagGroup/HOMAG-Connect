@@ -2,7 +2,7 @@
 
 #### Prepare the import request
 
-For import request you have to specify two parameters, the FileInfo(the zip file which will be imported) and the action which will take place during import.
+For import request you have to specify two parameters, the FileInfo (the [zip file](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Samples/CSharp/Orders/Project.zip) which will be imported) and the action which will take place during import.
 
 ```c#
   var projectFile = new FileInfo(@"Orders\Project.zip");

@@ -13,6 +13,7 @@ namespace HomagConnect.MaterialAssist.Tests.Integration.Edgebands;
 public class CreateUpdateStoreEdgebands : MaterialAssistTestBase
 {
     [TestMethod]
+    [TemporaryDisabledOnServer(2026,2,28, "DF-Material")]
     public async Task Edgebands_CreateUpdateStore()
     {
         var materialManagerClient = GetMaterialManagerClient().Material.Edgebands;

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HomagConnect.Base;
+using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;

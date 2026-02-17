@@ -55,4 +55,9 @@ public class Address
     [JsonProperty(Order = 80)]
     [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <summary>
+    /// Gets or sets the additional info.
+    /// </summary>
+    public string? AdditionalInfo { get; set; }
 }

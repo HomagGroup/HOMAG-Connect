@@ -1,30 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿#nullable enable
+
+using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result
+namespace HomagConnect.IntelliDivide.Contracts.Result;
+
+/// <summary>
+/// Provides the overview data.
+/// </summary>
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+public class SolutionOverview
 {
     /// <summary>
-    /// Provides the overview data.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionOverview : IExtensibleDataObject
-    {
-        /// <summary>
-        /// Provides the overview figures.
-        /// </summary>
-        [JsonProperty(Order = 10)]
-        public SolutionOverviewFigures Figures { get; set; } = new SolutionOverviewFigures();
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
-        /// <summary>
-        /// Gets the list of patterns.
-        /// </summary>
-        [JsonProperty(Order = 20)]
-        public IReadOnlyCollection<SolutionPattern> Pattern { get; set; } = new List<SolutionPattern>();
+    /// <summary>
+    /// Provides the overview figures.
+    /// </summary>
+    [JsonProperty(Order = 10)]
+    public SolutionOverviewFigures Figures { get; set; } = new ();
 
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
-    }
+    /// <summary>
+    /// Gets the list of patterns.
+    /// </summary>
+    [JsonProperty(Order = 20)]
+    public IReadOnlyCollection<SolutionPattern> Pattern { get; set; } = new List<SolutionPattern>();
 }

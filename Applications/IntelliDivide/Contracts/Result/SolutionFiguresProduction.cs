@@ -1,29 +1,33 @@
-﻿using System.Runtime.Serialization;
+﻿#nullable enable
+
+using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result
+namespace HomagConnect.IntelliDivide.Contracts.Result;
+
+/// <summary>
+/// Describes the key figures for the production of a solution.
+/// </summary>
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+public class SolutionFiguresProduction
 {
     /// <summary>
-    /// Describes the key figures for the production of a solution.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionFiguresProduction : IExtensibleDataObject
-    {
-        /// <summary>
-        /// Gets the production key figures for output.
-        /// </summary>
-        [JsonProperty(Order = 10)]
-        public SolutionFiguresProductionOutput Output { get; set; } = new SolutionFiguresProductionOutput();
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
-        /// <summary>
-        /// Gets the production key figures for handling.
-        /// </summary>
-        [JsonProperty(Order = 20)]
-        public SolutionFiguresProductionHandling Handling { get; set; } = new SolutionFiguresProductionHandling();
+    /// <summary>
+    /// Gets the production key figures for handling.
+    /// </summary>
+    [JsonProperty(Order = 20)]
+    public SolutionFiguresProductionHandling Handling { get; set; } = new();
 
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
-    }
+    /// <summary>
+    /// Gets the production key figures for output.
+    /// </summary>
+    [JsonProperty(Order = 10)]
+    public SolutionFiguresProductionOutput Output { get; set; } = new();
 }
