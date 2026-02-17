@@ -49,5 +49,10 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         [JsonProperty(Order = 30)]
         public string? LastWorkstation { get; set; }
 
+        /// <summary>
+        /// Last workstation id where the rework was captured
+        /// </summary>
+        [JsonProperty(Order = 31)]
+        public Guid? LastWorkstationId { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿#nullable enable
+
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
@@ -11,21 +13,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 public class SolutionOverview
 {
     /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <summary>
     /// Provides the overview figures.
     /// </summary>
     [JsonProperty(Order = 10)]
-    public SolutionOverviewFigures Figures { get; set; } = new();
+    public SolutionOverviewFigures Figures { get; set; } = new ();
 
     /// <summary>
     /// Gets the list of patterns.
     /// </summary>
     [JsonProperty(Order = 20)]
     public IReadOnlyCollection<SolutionPattern> Pattern { get; set; } = new List<SolutionPattern>();
-
-    /// <summary>
-    /// Gets or sets the additional properties configured in the application.
-    /// </summary>
-    [JsonProperty(Order = 80)]
-    [JsonExtensionData]
-    public IDictionary<string, object>? AdditionalProperties { get; set; }
 }

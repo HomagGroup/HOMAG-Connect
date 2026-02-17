@@ -19,5 +19,6 @@ public interface IMaterialProperties
     /// Gets or sets the material.
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Material))]
+    [StringLength(50, MinimumLength = 1)]
     public string? Material { get; set; }
 }

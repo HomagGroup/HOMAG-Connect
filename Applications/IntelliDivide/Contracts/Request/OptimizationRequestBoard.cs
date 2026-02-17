@@ -1,10 +1,10 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {

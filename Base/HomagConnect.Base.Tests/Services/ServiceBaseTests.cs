@@ -1,10 +1,8 @@
 ﻿using Shouldly;
 using HomagConnect.Base.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System.Globalization;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace HomagConnect.Base.Tests.Services
 {

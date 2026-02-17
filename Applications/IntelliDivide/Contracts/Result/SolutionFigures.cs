@@ -1,6 +1,8 @@
 ﻿#nullable enable
-using Newtonsoft.Json;
+
 using System.Collections.Generic;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -11,10 +13,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result;
 public class SolutionFigures
 {
     /// <summary>
-    /// Gets the production key figures for the solution.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonProperty(Order = 10)]
-    public SolutionFiguresProduction Production { get; set; } = new();
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
     /// Gets the material key figures for the solution.
@@ -23,9 +26,8 @@ public class SolutionFigures
     public SolutionFiguresMaterial Material { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the additional properties configured in the application.
+    /// Gets the production key figures for the solution.
     /// </summary>
-    [JsonProperty(Order = 80)]
-    [JsonExtensionData]
-    public IDictionary<string, object>? AdditionalProperties { get; set; }
+    [JsonProperty(Order = 10)]
+    public SolutionFiguresProduction Production { get; set; } = new();
 }

@@ -551,7 +551,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/reworks?completed=true",
+									"raw": "{{ConnectHost}}/api/productionManager/orders/reworks",
 									"host": [
 										"{{ConnectHost}}"
 									],

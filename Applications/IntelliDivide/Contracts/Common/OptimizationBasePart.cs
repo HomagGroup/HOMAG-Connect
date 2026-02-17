@@ -1,16 +1,16 @@
 ﻿#nullable enable
 
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-
-using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
-
-using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Common
 {
@@ -45,7 +45,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [Required]
         [JsonProperty(Order = 10)]
         [StringLength(100, MinimumLength = 1)]
-        public string? Description { get; set; }
+        public string? Description
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the material code.
@@ -53,7 +60,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [Required]
         [JsonProperty(Order = 11)]
         [StringLength(50, MinimumLength = 1)]
-        public string? MaterialCode { get; set; }
+        public string? MaterialCode
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the material code.
@@ -90,7 +104,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <inheritdoc />
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
         /// <inheritdoc />
@@ -108,34 +121,68 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 31)]
         [StringLength(50, MinimumLength = 1)]
-        public string? EdgeFront { get; set; }
+        public string? EdgeFront
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the back.
         /// </summary>
         [JsonProperty(Order = 32)]
         [StringLength(50, MinimumLength = 1)]
-        public string? EdgeBack { get; set; }
+        public string? EdgeBack
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the left.
         /// </summary>
         [JsonProperty(Order = 33)]
         [StringLength(50, MinimumLength = 1)]
-        public string? EdgeLeft { get; set; }
+        public string? EdgeLeft
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the edgeband code of the edgeband type which should get applied on the right.
         /// </summary>
         [JsonProperty(Order = 34)]
         [StringLength(50, MinimumLength = 1)]
-        public string? EdgeRight { get; set; }
-
+        public string? EdgeRight
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
         /// <summary>
         /// Gets or sets how the edgebands should get applied.
         /// </summary>
         [JsonProperty(Order = 35)]
-        public string? EdgeDiagram { get; set; }
+        public string? EdgeDiagram
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         #endregion
 
@@ -144,21 +191,42 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <inheritdoc />
         [JsonProperty(Order = 41)]
         [StringLength(1000, MinimumLength = 1)]
-        public string? CncProgramName1 { get; set; }
+        public string? CncProgramName1
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the program name of the CNC program to execute.
         /// </summary>
         [JsonProperty(Order = 42)]
         [StringLength(1000, MinimumLength = 1)]
-        public string? CncProgramName2 { get; set; }
+        public string? CncProgramName2
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the program name of the CNC program to execute.
         /// </summary>
         [JsonProperty(Order = 43)]
         [StringLength(1000, MinimumLength = 1)]
-        public string? CncProgramName3 { get; set; }
+        public string? CncProgramName3
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         #endregion
 
@@ -169,14 +237,29 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 51)]
         [StringLength(50, MinimumLength = 1)]
-        public string? LaminateTop { get; set; }
+        [JsonConverter(typeof(EmptyStringToNullConverter))]
+        public string? LaminateTop
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the material code of the laminate type which should get applied on the bottom.
         /// </summary>
         [JsonProperty(Order = 52)]
         [StringLength(50, MinimumLength = 1)]
-        public string? LaminateBottom { get; set; }
+        public string? LaminateBottom
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the grain of the laminate which was applied on the top.
@@ -198,25 +281,53 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the id of the part.
         /// </summary>
         [JsonProperty(Order = 1)]
-        public string? Id { get; set; }
+        public string? Id
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the customer who has ordered the part.
         /// </summary>
         [JsonProperty(Order = 60)]
-        public string? CustomerName { get; set; }
+        public string? CustomerName
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the order.
         /// </summary>
         [JsonProperty(Order = 61)]
-        public string? OrderName { get; set; }
+        public string? OrderName
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the item of the order.
         /// </summary>
         [JsonProperty(Order = 62)]
-        public string? OrderItem { get; set; }
+        public string? OrderItem
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the order date.
@@ -258,7 +369,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the production route.
         /// </summary>
         [JsonProperty(Order = 68)]
-        public string? ProductionRoute { get; set; }
+        public string? ProductionRoute
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         #endregion
 
@@ -268,19 +386,12 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the label layout.
         /// </summary>
         [JsonProperty(Order = 70)]
-        public string? LabelLayout { get; set; }
-
-        /// <summary />
-        [Obsolete("Replaced by DestackingGroup ", true)]
-        public string? StackingGroup
+        public string? LabelLayout
         {
-            get
-            {
-                return DestackingGroup;
-            }
+            get;
             set
             {
-                DestackingGroup = value;
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
             }
         }
 
@@ -288,13 +399,27 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the stacking group value for the part.
         /// </summary>
         [JsonProperty(Order = 75)]
-        public string? DestackingGroup { get; set; }
-        
+        public string? DestackingGroup
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
+
         /// <summary>
         /// Gets or sets the destination for the destacking of the part.
         /// </summary>
         [JsonProperty(Order = 75)]
-        public string? DestackingDestination { get; set; }
+        public string? DestackingDestination
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         #endregion
 
@@ -304,13 +429,27 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the notes of the production entity.
         /// </summary>
         [JsonProperty(Order = 80)]
-        public string? Notes { get; set; }
+        public string? Notes
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the lot in wich the part is contained.
         /// </summary>
         [JsonProperty(Order = 81)]
-        public string? Lot { get; set; }
+        public string? Lot
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the additional properties configured in the application.
@@ -323,7 +462,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the article number.
         /// </summary>
         [JsonProperty(Order = 19)]
-        public string? ArticleNumber { get; set; }
+        public string? ArticleNumber
+        {
+            get;
+            set
+            {
+                field = value.NormalizeEmptyStringToNullOrTrimmed();
+            }
+        }
 
         #endregion
 

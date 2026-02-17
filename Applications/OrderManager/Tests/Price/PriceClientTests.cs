@@ -4,7 +4,6 @@ using HomagConnect.OrderManager.Client;
 using HomagConnect.OrderManager.Contracts.Orders;
 using HomagConnect.OrderManager.Contracts.Price;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.OrderManager.Tests.Orders
 {

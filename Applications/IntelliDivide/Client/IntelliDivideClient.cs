@@ -1,6 +1,4 @@
-﻿using HomagConnect.Base;
-using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Services;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Request;
@@ -14,8 +12,10 @@ using System.Globalization;
 using System.Net.Http.Headers;
 using System.Security.Authentication;
 
+using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts.DataModel;
 using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Services;
 
 namespace HomagConnect.IntelliDivide.Client
 {

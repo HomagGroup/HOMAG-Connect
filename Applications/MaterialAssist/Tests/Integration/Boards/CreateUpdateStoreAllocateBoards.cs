@@ -1,174 +1,180 @@
 ﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
+using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
-using HomagConnect.MaterialManager.Contracts.Update;
-
 using Shouldly;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
+using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration.Boards;
 
-[TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[IntegrationTest("MaterialAssist.Boards")]
 public class CreateUpdateStoreAllocateBoards : MaterialAssistTestBase
 {
-    [TestInitialize]
-    public async Task Initialize()
-    {
-        await EnsureBoardTypeExist("HPL_Anthracite_Marble_12.0");
-        await EnsureBoardTypeExist("P2_F204_75_38.0", 4100, 600);
-        await EnsureBoardTypeExist("HPL_Natural_4.0", 2790, 2060, 4);
-    }
+    private const int _Iterations = 5;
+    private const int _DefaultQuantity = 1;
 
     [TestMethod]
     public async Task Boards_CreateUpdateStoreAllocate()
     {
-        // board data
-        var board1 = new { id = "91", boardCode = "HPL_Anthracite_Marble_12.0_2800_2070" };
-        var board2 = new { id = "92", boardCode = "P2_F204_75_38.0_4100_600" };
-        var board3 = new { id = "93", boardCode = "HPL_Natural_4.0_2790_2060" };
+        var boardsClient = GetMaterialManagerClient().Material.Boards;
+        var assistBoardsClient = GetMaterialAssistClient().Boards;
 
-        // create board entities
-        var materialAssistClient = GetMaterialAssistClient().Boards;
-        var boardEntityRequest = new MaterialAssistRequestBoardEntity()
+        var boardCode = await EnsureSampleBoardType(boardsClient);
+
+        var available = 0;
+        var inventory = 0;
+        var allocated = 0;
+
+        var createdBoardIds = new List<string>(_Iterations);
+        var createdAllocationNames = new List<string>(_Iterations);
+
+        var stopwatch = Stopwatch.StartNew();
+
+        // Create boards
+        for (var i = 0; i < _Iterations; i++)
         {
-            Id = board1.id,
-            BoardCode = board1.boardCode,
-            ManagementType = ManagementType.Single,
-            Quantity = 1
-        };
-        await materialAssistClient.CreateBoardEntity(boardEntityRequest);
+            var id = await CreateBoardEntity(assistBoardsClient, boardCode, _DefaultQuantity);
+            createdBoardIds.Add(id);
 
-        var boardEntityRequest2 = new MaterialAssistRequestBoardEntity()
+            inventory += _DefaultQuantity;
+            available += _DefaultQuantity;
+
+            await ValidateBoardTypeQuantities(boardsClient, boardCode, inventory, available, allocated);
+        }
+
+        TestContext!.WriteLine($"Board creation took (#{_Iterations}): {stopwatch.ElapsedMilliseconds} ms, {stopwatch.ElapsedMilliseconds / _Iterations} ms/iteration");
+
+        stopwatch.Restart();
+
+        // Create allocations
+        for (var i = 0; i < _Iterations; i++)
         {
-            Id = board2.id,
-            BoardCode = board2.boardCode,
-            ManagementType = ManagementType.Stack,
-            Quantity = 10
-        };
-        await materialAssistClient.CreateBoardEntity(boardEntityRequest2);
+            var allocationName = await CreateAllocation(boardCode, _DefaultQuantity, boardsClient);
+            createdAllocationNames.Add(allocationName);
 
-        var boardEntityRequest3 = new MaterialAssistRequestBoardEntity()
+            allocated += _DefaultQuantity;
+            available -= _DefaultQuantity;
+
+            await ValidateBoardTypeQuantities(boardsClient, boardCode, inventory, available, allocated);
+        }
+
+        TestContext.WriteLine($"Allocation creation took (#{_Iterations}): {stopwatch.ElapsedMilliseconds} ms, {stopwatch.ElapsedMilliseconds / _Iterations} ms/iteration");
+
+        stopwatch.Restart();
+
+        // Delete boards
+        for (var i = 0; i < _Iterations; i++)
         {
-            Id = board3.id,
-            BoardCode = board3.boardCode,
-            ManagementType = ManagementType.GoodsInStock,
-            Quantity = 2
-        };
-        await materialAssistClient.CreateBoardEntity(boardEntityRequest3);
+            await assistBoardsClient.DeleteBoardEntity(createdBoardIds[i]);
 
-        // update board types
-        var materialManagerClient = GetMaterialManagerClient().Material.Boards;
+            inventory -= _DefaultQuantity;
+            available -= _DefaultQuantity;
 
-        await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
-        var boardTypeUpdate = new MaterialManagerUpdateBoardType
+            await ValidateBoardTypeQuantities(boardsClient, boardCode, inventory, available, allocated);
+        }
+
+        TestContext.WriteLine($"Board deletion took (#{_Iterations}): {stopwatch.ElapsedMilliseconds} ms, {stopwatch.ElapsedMilliseconds / _Iterations} ms/iteration");
+
+        stopwatch.Restart();
+
+        // Delete allocations
+        for (var i = 0; i < _Iterations; i++)
         {
-            Thickness = 12.0,
-        };
-        await materialManagerClient.UpdateBoardType(board1.boardCode, boardTypeUpdate);
-        var updatedBoardType1 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board1.boardCode);
+            await boardsClient.DeleteBoardTypeAllocations([createdAllocationNames[i]]);
 
-        updatedBoardType1.ShouldNotBeNull(
-            $"because board type with board code '{board1.boardCode}' should exist after update");
+            available += _DefaultQuantity;
+            allocated -= _DefaultQuantity;
 
-        updatedBoardType1.Thickness.ShouldNotBeNull();
-        updatedBoardType1.Thickness.Value.ShouldBe(12.0, 0.0001, "because the update value should be 12.0");
+            await ValidateBoardTypeQuantities(boardsClient, boardCode, inventory, available, allocated);
+        }
 
-        await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board2.boardCode);
-        var boardTypeUpdate2 = new MaterialManagerUpdateBoardType
-        {
-            BoardCode = "P2_F204_75_38.0_4200_610",
-            Length = 4200.0,
-            Width = 610.0,
-            Thickness = 38.0
-        };
-        await materialManagerClient.UpdateBoardType(board2.boardCode, boardTypeUpdate2);
-        var updatedBoard2 = new { id = "92", boardCode = "P2_F204_75_38.0_4200_610" };
-        var updatedBoardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(updatedBoard2.boardCode);
+        TestContext.WriteLine($"Allocation deletion took (#{_Iterations}): {stopwatch.ElapsedMilliseconds} ms, {stopwatch.ElapsedMilliseconds / _Iterations} ms/iteration");
 
-        updatedBoardType2.ShouldNotBeNull(
-            $"because board type with board code '{updatedBoard2.boardCode}' should exist after update");
+        await boardsClient.DeleteBoardType(boardCode);
 
-        updatedBoardType2.Thickness.ShouldNotBeNull();
-        updatedBoardType2.Thickness.Value.ShouldBe(38.0, 0.0001, "because the update value should be 38.0");
-
-        updatedBoardType2.Length.ShouldNotBeNull();
-        updatedBoardType2.Length.Value.ShouldBe(4200.0, 0.0001, "because the update value should be 4200.0");
-
-        updatedBoardType2.Width.ShouldNotBeNull();
-        updatedBoardType2.Width.Value.ShouldBe(610.0, 0.0001, "because the update value should be 610.0");
-        
-        await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
-        var boardTypeUpdate3 = new MaterialManagerUpdateBoardType
-        {
-            Thickness = 4.0,
-            MaterialCategory = BoardMaterialCategory.CompactPanels_HPL,
-        };
-        await materialManagerClient.UpdateBoardType(board3.boardCode, boardTypeUpdate3);
-        var updatedBoardType3 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(board3.boardCode);
-
-        updatedBoardType3.ShouldNotBeNull(
-            $"because board type with board code '{board3.boardCode}' should exist after update");
-        updatedBoardType3!.MaterialCategory.ShouldBe(BoardMaterialCategory.CompactPanels_HPL,
-            $"because board type '{board3.boardCode}' was updated to material category CompactPanels_HPL");
-        
-        // create board type allocations
-        var boardTypeAllocationRequest = new BoardTypeAllocationRequest
-        {
-            BoardTypeCode = board1.boardCode,
-            CreatedBy = "Boards_CreateUpdateAllocate",
-            Name = "DeploymentTestAllocation1",
-            Quantity = 1,
-            Source = "HOMAG Connect",
-            Workstation = "001"
-        };
-        await materialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest);
-
-        var boardTypeAllocationRequest2 = new BoardTypeAllocationRequest
-        {
-            BoardTypeCode = updatedBoard2.boardCode,
-            CreatedBy = "Boards_CreateUpdateAllocate",
-            Name = "DeploymentTestAllocation2",
-            Quantity = 1,
-            Source = "HOMAG Connect",
-            Workstation = "001"
-        };
-        await materialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest2);
-
-        var boardTypeAllocationRequest3 = new BoardTypeAllocationRequest
-        {
-            BoardTypeCode = board3.boardCode,
-            CreatedBy = "Boards_CreateUpdateAllocate",
-            Name = "DeploymentTestAllocation3",
-            Quantity = 2,
-            Source = "HOMAG Connect",
-            Workstation = "001"
-        };
-        await materialManagerClient.CreateBoardTypeAllocation(boardTypeAllocationRequest3);
-
-        var allAllocationNames = (await materialManagerClient.GetBoardTypeAllocationsByAllocationNames(new List<string> { "DeploymentTestAllocation1", "DeploymentTestAllocation2", "DeploymentTestAllocation3" }, 1000) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
-
-        allAllocationNames.ShouldNotBeNull(
-            "because GetBoardTypeAllocationsByAllocationNames should return a collection of allocations");
-        allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation1").ShouldBeTrue();
-        allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation2").ShouldBeTrue();
-        allAllocationNames.Any(a => a.Name == "DeploymentTestAllocation3").ShouldBeTrue();
+        inventory.ShouldBe(0);
     }
 
-    [TestCleanup]
-    public async Task Cleanup()
+    private async Task<string> EnsureSampleBoardType(MaterialManagerClientMaterialBoards boardsClient, [CallerMemberName] string caller = "")
     {
-        var materialAssistClient = GetMaterialAssistClient().Boards;
-        await materialAssistClient.DeleteBoardEntity("91");
-        await materialAssistClient.DeleteBoardEntity("92");
-        await materialAssistClient.DeleteBoardEntity("93");
-        var materialManagerClient = GetMaterialManagerClient().Material;
-        await materialManagerClient.Boards.DeleteBoardType("HPL_Anthracite_Marble_12.0_2800_2070");
-        await materialManagerClient.Boards.DeleteBoardType("P2_F204_75_38.0_4200_610");
-        await materialManagerClient.Boards.DeleteBoardType("HPL_Natural_4.0_2790_2060");
+        var boardTypes = await boardsClient.GetBoardTypes(1000);
+
+        if (boardTypes != null)
+        {
+            foreach (var boardType in boardTypes.Where(b => b.BoardCode.StartsWith(caller)))
+            {
+                await boardsClient.DeleteBoardType(boardType.BoardCode);
+            }
+        }
+
+        var boardCode = $"{caller}_{Guid.NewGuid().ToString().Substring(0, 6)}";
+
+        await boardsClient.CreateBoardType(new MaterialManagerRequestBoardType
+        {
+            MaterialCode = boardCode,
+            BoardCode = boardCode,
+            Thickness = 19,
+            Grain = Grain.None,
+            Width = 2800,
+            Length = 2070,
+            Type = BoardTypeType.Offcut,
+            CoatingCategory = CoatingCategory.Undefined,
+            MaterialCategory = BoardMaterialCategory.Undefined
+        });
+
+        return boardCode;
+    }
+
+    private static async Task<string> CreateAllocation(string boardCode, int quantity, MaterialManagerClientMaterialBoards boardsClient, [CallerMemberName] string caller = "")
+    {
+        var request = new BoardTypeAllocationRequest
+        {
+            BoardTypeCode = boardCode,
+            CreatedBy = nameof(Boards_CreateUpdateStoreAllocate),
+            Name = Guid.NewGuid().ToString(),
+            Quantity = quantity,
+            Source = caller,
+            Workstation = "001"
+        };
+
+        var allocation = await boardsClient.CreateBoardTypeAllocation(request);
+        return allocation.Name;
+    }
+
+    private static async Task<string> CreateBoardEntity(MaterialAssistClientBoards assistBoardsClient, string boardCode, int quantity = _DefaultQuantity)
+    {
+        var request = new MaterialAssistRequestBoardEntity
+        {
+            Id = Guid.NewGuid().ToString(),
+            BoardCode = boardCode,
+            ManagementType = ManagementType.Single,
+            Quantity = quantity
+        };
+
+        var response = await assistBoardsClient.CreateBoardEntity(request);
+        return response.Id;
+    }
+   
+    private static async Task ValidateBoardTypeQuantities(
+        MaterialManagerClientMaterialBoards boardsClient,
+        string boardCode,
+        int? expectedInventory,
+        int? expectedAvailable,
+        int? expectedAllocated)
+    {
+        var boardType = await boardsClient.GetBoardTypeByBoardCode(boardCode);
+
+        boardType.ShouldNotBeNull();
+        boardType.TotalQuantityInInventory.ShouldBe(expectedInventory);
+        boardType.TotalQuantityAvailable.ShouldBe(expectedAvailable);
+        boardType.TotalQuantityAllocated.ShouldBe(expectedAllocated);
     }
 }

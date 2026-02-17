@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 /// <summary>
 /// Represents a processed part in a production protocol, including its id, description and quantity processed.
 /// </summary>
-public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterialProperties
+public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterialProperties, IContainsUnitSystemDependentProperties
 {
     /// <inheritdoc />
     public override ProductionItemType ItemType

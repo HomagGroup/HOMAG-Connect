@@ -13,6 +13,7 @@ public interface ILaminatingProperties
     /// Gets or sets the material code of the laminate type which should get applied on the bottom.
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LaminateBottom))]
+    [StringLength(50, MinimumLength = 1)]
     public string? LaminateBottom { get; set; }
 
     /// <summary>
@@ -25,6 +26,7 @@ public interface ILaminatingProperties
     /// Gets or sets the material code of the laminate type which should get applied on the top.
     /// </summary>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LaminateTop))]
+    [StringLength(50, MinimumLength = 1)]
     public string? LaminateTop { get; set; }
 
     /// <summary>
