@@ -19,7 +19,7 @@ namespace HomagConnect.Base.Contracts {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,38 +61,245 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zusatzdaten.
+        /// </summary>
+        public static string AdditionalData {
+            get {
+                return ResourceManager.GetString("AdditionalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weitere Eigenschaften.
+        /// </summary>
+        public static string AdditionalProperties {
+            get {
+                return ResourceManager.GetString("AdditionalProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Artikelnummer.
+        /// </summary>
+        public static string ArticleNumber {
+            get {
+                return ResourceManager.GetString("ArticleNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CNC-Programm 1.
+        /// </summary>
+        public static string CncProgramName1 {
+            get {
+                return ResourceManager.GetString("CncProgramName1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CNC-Programm 2.
+        /// </summary>
+        public static string CncProgramName2 {
+            get {
+                return ResourceManager.GetString("CncProgramName2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CNC-Programm 3.
+        /// </summary>
+        public static string CncProgramName3 {
+            get {
+                return ResourceManager.GetString("CncProgramName3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschreibung.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante hinten.
+        /// </summary>
+        public static string EdgeBack {
+            get {
+                return ResourceManager.GetString("EdgeBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kantengrafik.
+        /// </summary>
+        public static string EdgeDiagram {
+            get {
+                return ResourceManager.GetString("EdgeDiagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante vorne.
+        /// </summary>
+        public static string EdgeFront {
+            get {
+                return ResourceManager.GetString("EdgeFront", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante links.
+        /// </summary>
+        public static string EdgeLeft {
+            get {
+                return ResourceManager.GetString("EdgeLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante rechts.
+        /// </summary>
+        public static string EdgeRight {
+            get {
+                return ResourceManager.GetString("EdgeRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maserung.
+        /// </summary>
+        public static string Grain {
+            get {
+                return ResourceManager.GetString("Grain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kennung.
+        /// </summary>
+        public static string Identifier {
+            get {
+                return ResourceManager.GetString("Identifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Belag unten.
         /// </summary>
-        public static string ILaminatingProperties_LaminateBottom {
+        public static string LaminateBottom {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateBottom", resourceCulture);
+                return ResourceManager.GetString("LaminateBottom", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Belag unten Maserung.
         /// </summary>
-        public static string ILaminatingProperties_LaminateBottomGrain {
+        public static string LaminateBottomGrain {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateBottomGrain", resourceCulture);
+                return ResourceManager.GetString("LaminateBottomGrain", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Belag oben.
         /// </summary>
-        public static string ILaminatingProperties_LaminateTop {
+        public static string LaminateTop {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateTop", resourceCulture);
+                return ResourceManager.GetString("LaminateTop", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Belag oben Maserung.
         /// </summary>
-        public static string ILaminatingProperties_LaminateTopGrain {
+        public static string LaminateTopGrain {
             get {
-                return ResourceManager.GetString("ILaminatingProperties_LaminateTopGrain", resourceCulture);
+                return ResourceManager.GetString("LaminateTopGrain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Länge.
+        /// </summary>
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material.
+        /// </summary>
+        public static string Material {
+            get {
+                return ResourceManager.GetString("Material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimierung.
+        /// </summary>
+        public static string OptimizationName {
+            get {
+                return ResourceManager.GetString("OptimizationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teil.
+        /// </summary>
+        public static string Part {
+            get {
+                return ResourceManager.GetString("Part", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dicke.
+        /// </summary>
+        public static string Thickness {
+            get {
+                return ResourceManager.GetString("Thickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zeitpunkt.
+        /// </summary>
+        public static string Timestamp {
+            get {
+                return ResourceManager.GetString("Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Einheitensystem.
+        /// </summary>
+        public static string UnitSystem {
+            get {
+                return ResourceManager.GetString("UnitSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breite.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
     }

@@ -1,35 +1,39 @@
-﻿using System.Runtime.Serialization;
+﻿#nullable enable
+
+using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Result
+namespace HomagConnect.IntelliDivide.Contracts.Result;
+
+/// <summary>
+/// Provides the overview figures.
+/// </summary>
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+public class SolutionOverviewFigures
 {
     /// <summary>
-    /// Provides the overview figures.
+    /// Gets or sets the additional properties configured in the application.
     /// </summary>
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionOverviewFigures : IExtensibleDataObject
-    {
-        /// <summary>
-        /// Gets the overview figures for costs.
-        /// </summary>
-        [JsonProperty(Order = 30)]
-        public SolutionOverviewFiguresCosts Costs { get; set; } = new SolutionOverviewFiguresCosts();
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
-        /// <summary>
-        /// Gets the overview figures for material.
-        /// </summary>
-        [JsonProperty(Order = 10)]
-        public SolutionOverviewFiguresMaterial Material { get; set; } = new SolutionOverviewFiguresMaterial();
+    /// <summary>
+    /// Gets the overview figures for costs.
+    /// </summary>
+    [JsonProperty(Order = 30)]
+    public SolutionOverviewFiguresCosts Costs { get; set; } = new();
 
-        /// <summary>
-        /// Gets the overview figures for the production.
-        /// </summary>
-        [JsonProperty(Order = 20)]
-        public SolutionOverviewFiguresProduction Production { get; set; } = new SolutionOverviewFiguresProduction();
+    /// <summary>
+    /// Gets the overview figures for material.
+    /// </summary>
+    [JsonProperty(Order = 10)]
+    public SolutionOverviewFiguresMaterial Material { get; set; } = new();
 
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
-    }
+    /// <summary>
+    /// Gets the overview figures for the production.
+    /// </summary>
+    [JsonProperty(Order = 20)]
+    public SolutionOverviewFiguresProduction Production { get; set; } = new();
 }

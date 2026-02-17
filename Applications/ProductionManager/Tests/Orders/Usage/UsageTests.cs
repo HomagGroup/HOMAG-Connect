@@ -1,9 +1,8 @@
 using HomagConnect.Base.Extensions;
 using Shouldly;
-
-using HomagConnect.Base;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Usage
 {

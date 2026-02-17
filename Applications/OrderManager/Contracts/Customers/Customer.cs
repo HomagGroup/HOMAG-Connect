@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 
 namespace HomagConnect.OrderManager.Contracts.Customers
@@ -48,5 +48,20 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// Gets or sets the contact telephone number of the customer.
         /// </summary>
         public string? TelephoneNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the customer language and region
+        /// </summary>
+        public Locale Locale { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Addresses.
+        /// </summary>
+        public Collection<Address>? Addresses { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Sales Portal Access.
+        /// </summary>
+        public Collection<string>? SalesPortalAccess { get; set; }
     }
 }

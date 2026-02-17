@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -13,7 +13,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
     /// <summary>
     /// An edge inventory for statistical use.
     /// </summary>
-    public class EdgeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class EdgeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
     {
         private const int _EdgebandCodeMaxLength = 50;
         private const double _HeightDimensionMinValue = 0.1;
@@ -26,22 +26,25 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [Required]
         [StringLength(_EdgebandCodeMaxLength, MinimumLength = 1)]
         [JsonProperty(Order = 2)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.EdgebandCode))]
         public string EdgebandCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the costs of the Edgeband. The unit depends on the settings of the subscription.
         /// </summary>
         [JsonProperty(Order = 3)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.Costs))]
         public double? Costs { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the board. The unit depends on the settings of the subscription (metric: mm, imperial:
+        /// Gets or sets the height of the Edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
         /// inch).
         /// </summary>
         [Required]
         [Range(_HeightDimensionMinValue, _HeightDimensionMaxValue)]
         [JsonProperty(Order = 4)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.Height))]
         public double? Height { get; set; }
 
         /// <summary>
@@ -49,6 +52,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// </summary>
         [Required]
         [JsonProperty(Order = 1)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Timestamp))]
         public DateTimeOffset Timestamp { get; set; }
 
         /// <summary>
@@ -57,11 +61,13 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [Required]
         [JsonProperty(Order = 5)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TotalLengthInInventory))]
         public double? TotalLengthInInventory { get; set; }
 
         #region IContainsUnitSystemDependentProperties Members
 
         /// <inheritdoc />
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.UnitSystem))]
         public UnitSystem UnitSystem { get; set; }
 
         #endregion

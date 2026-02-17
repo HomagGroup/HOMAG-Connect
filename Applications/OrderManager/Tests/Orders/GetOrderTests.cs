@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 
-using HomagConnect.Base;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
@@ -11,6 +10,7 @@ using HomagConnect.OrderManager.Samples.Orders.Actions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Newtonsoft.Json;
+
 using Shouldly;
 
 namespace HomagConnect.OrderManager.Tests.Orders

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.Solution">
+    <Position X="2" Y="1" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAAAkIAAACAAAAAQAAAAAAAAAAAAAAgAAQAA=</HashCode>
+      <FileName>Result\Solution.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Overview" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionDetails">
+    <Position X="2" Y="4" Width="4" />
+    <TypeIdentifier>
+      <HashCode>gEAgAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionDetails.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="KeyFigures" />
+      <Property Name="Material" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Parts" />
+      <Property Name="Exports" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionFigures">
+    <Position X="8" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionFigures.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionMaterial" Collapsed="true">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEIEAAAAAAAAAABAAAAAAAAAAAAAACAAAAE=</HashCode>
+      <FileName>Result\SolutionMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionPart" Collapsed="true">
+    <Position X="3.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEEAAAAAAAAAAAAAAAAAAAAAAAAAAUAhAAAAAA=</HashCode>
+      <FileName>Result\SolutionPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverview">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverview.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Figures" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFigures">
+    <Position X="11.5" Y="1" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAEAABAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFigures.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Costs" />
+      <Property Name="Material" />
+      <Property Name="Production" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresCosts">
+    <Position X="18" Y="1" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAEAAAAAAAAgACAAAAAEAAAAAAAEAgAAAE=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresCosts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresMaterial">
+    <Position X="18" Y="3.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIMAAAAAAAAAQAAgAAAACAAAAAAAAAAACA=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionOverviewFiguresProduction">
+    <Position X="18" Y="6.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACEAAAAAACAEAAAAAAAACAAAAAAAACBAAA=</HashCode>
+      <FileName>Result\SolutionOverviewFiguresProduction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="HomagConnect.IntelliDivide.Contracts.Result.SolutionExportType" Collapsed="true">
+    <Position X="1.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAABAAAAAAAAEAAQAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Result\SolutionExportType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

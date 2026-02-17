@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using Shouldly;
+using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.Base.Tests
 {

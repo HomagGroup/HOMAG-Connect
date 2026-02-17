@@ -1,5 +1,11 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿#nullable enable
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -9,13 +15,27 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// Provides access to cutting or nesting pattern properties.
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionPattern : IExtensibleDataObject
+    public class SolutionPattern : IHasMaterialCode
     {
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonProperty(Order = 80)]
+        [JsonExtensionData]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
+
         /// <summary>
         /// Gets the board code.
         /// </summary>
         [JsonProperty(Order = 3)]
-        public string BoardCode { get; set; } = string.Empty;
+        public string BoardCode
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
 
         /// <summary>
         /// Gets the cycle number.
@@ -36,30 +56,39 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public string Id { get; set; } = string.Empty;
 
         /// <summary>
-        /// Get the material code.
-        /// </summary>
-        [JsonProperty(Order = 2)]
-        public string MaterialCode { get; set; } = string.Empty;
-
-        /// <summary>
         /// Gets a link to a preview image of the pattern.
         /// </summary>
         [JsonProperty(Order = 5)]
         public Uri Preview { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the generated nesting program for the pattern.
+        /// </summary>
+        public string ProgramName
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
+
+        /// <summary>
         /// Gets the total quantity in which the pattern will get produced.
         /// </summary>
         [JsonProperty(Order = 4)]
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the generated nesting program for the pattern.
-        /// </summary>
-        public string ProgramName { get; set; }
-
         /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
+        [JsonProperty(Order = 2)]
+        public string MaterialCode
+        {
+            get;
+            set
+            {
+                field = value.Trimmed();
+            }
+        } = string.Empty;
     }
 }
