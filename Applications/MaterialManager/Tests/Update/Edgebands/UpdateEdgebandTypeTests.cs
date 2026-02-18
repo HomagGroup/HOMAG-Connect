@@ -13,8 +13,6 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandsUpdateEdgebandType()
     {
-        var random = new Random();
-
         var value = Math.Round(RandomBetween(50.0, 100.0), 2);
 
         var materialManagerClient = GetMaterialManagerClient();
@@ -27,12 +25,7 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
             $"because edgeband type with edgeband code '{EdgebandCode}' should exist after update");
         checkEdgeband!.DefaultLength.ShouldBe(value,
             $"because edgeband type '{EdgebandCode}' was updated to default length {value}");
-        return;
-
-        double RandomBetween(double min, double max)
-        {
-            return random.NextDouble() * (max - min) + min;
-        }
+        return;       
     }
 
     /// <summary />

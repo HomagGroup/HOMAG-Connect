@@ -19,6 +19,7 @@ namespace HomagConnect.Base.TestBase
         #region Private Properties
 
         private IConfigurationRoot? Configuration { get; set; }
+        private readonly Random random = new Random();
 
         #endregion
 
@@ -192,6 +193,11 @@ namespace HomagConnect.Base.TestBase
             }
 
             Assert.Fail($"Assertion failed after {maxAttempts} attempts. Last error: {lastException?.Message}");
+        }
+
+        public double RandomBetween(double min, double max)
+        {
+            return random.NextDouble() * (max - min) + min;
         }
     }
 }

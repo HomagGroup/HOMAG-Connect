@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
+﻿using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Samples.Update.Boards;
 using Shouldly;
-using System;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Boards;
 
@@ -12,21 +11,34 @@ namespace HomagConnect.MaterialManager.Tests.Update.Boards;
 public class UpdateBoardTypeTests : MaterialManagerTestBase
 {
 
-    private readonly Random random = new Random();
+    private const string MaterialCode = "HPL_F274_9_19.0";
+    private const double length = 2800.0;
+    private const double width = 2070.0;
+    private string BoardTypeCode = $"{MaterialCode}_{length}_{width}";
+    private MaterialManagerClient materialManagerClient;
+
+    /// <summary>
+    /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
+    /// </summary>
+    [TestInitialize]
+    public async Task Init()
+    {
+        materialManagerClient = GetMaterialManagerClient();
+        await EnsureBoardTypeExist(BoardTypeCode, MaterialCode, length, width);
+    }
+    
     /// <summary />
     [TestMethod]
     public async Task BoardsUpdateBoardType()
     {
-        var value = Math.Round(RandomBetween(5.0, 25.0), 2);
+        var value = Math.Round(RandomBetween(5.0, 25.0), 2);        
 
-        var materialManagerClient = GetMaterialManagerClient();
-        const string boardCode = "HPL_F274_9_19.0_2800_2070";
-        await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, boardCode, value);
+        await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, BoardTypeCode, value);
 
-        var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
+        var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(BoardTypeCode);
 
         checkBoard.ShouldNotBeNull(
-            $"because board type with board code '{boardCode}' should exist after update");
+            $"because board type with board code '{BoardTypeCode}' should exist after update");
 
         checkBoard.Costs.ShouldNotBeNull();
         checkBoard.Costs.Value.ShouldBe(value, 0.0001, "because the costs should match");
@@ -36,27 +48,11 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task BoardsUpdateBoardType_WithAdditionalData_Succeeds()
     {
+        await UpdateBoardTypeSamples.Boards_UpdateBoardType_AdditionalData(materialManagerClient.Material.Boards, MaterialCode, BoardTypeCode);
 
-        var materialManagerClient = GetMaterialManagerClient();
-        const string boardCode = "HPL_F274_9_19.0_2800_2070";
-        const string materialCode = "HPL_F274_9_19.0";
-        await UpdateBoardTypeSamples.Boards_UpdateBoardType_AdditionalData(materialManagerClient.Material.Boards, materialCode, boardCode);
-
-        var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
+        var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(BoardTypeCode);
         checkBoard.ShouldNotBeNull(
-            $"because board type with board code '{boardCode}' should exist after update");        
+            $"because board type with board code '{BoardTypeCode}' should exist after update");
     }
-
-    double RandomBetween(double min, double max)
-    {
-        return random.NextDouble() * (max - min) + min;
-    }
-
-    /// <summary />
-    [ClassInitialize]
-    public static async Task Initialize(TestContext testContext)
-    {
-        var classInstance = new UpdateBoardTypeTests();
-        await classInstance.EnsureBoardTypeExist("HPL_F274_9_19.0");
-    }
+    
 }

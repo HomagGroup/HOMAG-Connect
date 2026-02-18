@@ -20,7 +20,7 @@ public class MaterialManagerTestBase : TestBase
     /// <summary>
     /// Edgeband code used for testing.
     /// </summary>
-    protected const string EdgebandCode = "ABS_White_2mm";
+    protected const string EdgebandCode = "ABS_White_2mm";   
 
     /// <summary>
     /// Create a EdgebandTypeAllocationRequest instance.
@@ -84,28 +84,24 @@ public class MaterialManagerTestBase : TestBase
     }
 
     /// <summary>
-    /// Ensures that a board type with the given material code exists.
+    /// Ensures that a board type with the given board type code exists.
     /// </summary>
+    /// <param name="boardTypeCode"></param>
     /// <param name="materialCode"></param>
     /// <param name="length"></param>
     /// <param name="width"></param>
-    protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070)
+    protected async Task EnsureBoardTypeExist(string boardTypeCode, string materialCode, double length, double width)
     {
-        var boardCode = $"{materialCode}_{length}_{width}";
         var materialManagerClient = GetMaterialManagerClient();
 
         BoardType? boardType = null;
-
         try
         {
-            boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
-        }
-        catch (ProblemDetailsException ex)
+            boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardTypeCode);
+        }       
+        catch (Exception)
         {
-            if (!ex.Message.Contains("No board types found."))
-            {
-                throw;
-            }
+            //ignored           
         }
 
         if (boardType == null)
@@ -113,7 +109,7 @@ public class MaterialManagerTestBase : TestBase
             await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
             {
                 MaterialCode = materialCode,
-                BoardCode = boardCode,
+                BoardCode = boardTypeCode,
                 Thickness = 19.0,
                 Grain = Grain.None,
                 Width = width,
@@ -178,5 +174,5 @@ public class MaterialManagerTestBase : TestBase
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
         return new MaterialManagerClient(httpClient);
-    }
+    }    
 }
