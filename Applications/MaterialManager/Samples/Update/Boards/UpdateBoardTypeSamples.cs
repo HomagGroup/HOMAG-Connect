@@ -40,7 +40,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
                 BoardCode = boardCode,
                 Length = 4100.0,
                 Width = 650.0,
-                Thickness = 12.0,
+                Thickness = 19.0,
                 Type = BoardTypeType.Board,
                 MaterialCategory = BoardMaterialCategory.Undefined,
                 CoatingCategory = CoatingCategory.Undefined,
