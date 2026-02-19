@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Samples.Update.Edgebands;
+﻿using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Samples.Update.Edgebands;
 using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Edgebands;
@@ -9,6 +10,19 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 {
+
+    private MaterialManagerClientMaterialEdgebands materialManagerClient;
+
+    /// <summary>
+    /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
+    /// </summary>
+    [TestInitialize]
+    public async Task Init()
+    {
+        materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+        await EnsureEdgebandTypeExist(materialManagerClient, EdgebandCode, 2);
+    }
+
     /// <summary />
     [TestMethod]
     public async Task EdgebandsUpdateEdgebandType()
@@ -39,13 +53,5 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 
         await act.ShouldNotThrowAsync(
             $"because creating edgeband type with edgeband code '{EdgebandCode}' and additional data should complete successfully");
-    }
-
-    /// <summary />
-    [ClassInitialize]
-    public static async Task Initialize(TestContext testContext)
-    {
-        var classInstance = new UpdateEdgebandTypeTests();
-        await classInstance.EnsureEdgebandTypeExist(EdgebandCode, 2);
     }
 }

@@ -18,6 +18,18 @@ namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class EdgebandTypeTests : MaterialManagerTestBase
 {
+
+    private MaterialManagerClientMaterialEdgebands materialManagerClient;
+
+    /// <summary>
+    /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
+    /// </summary>
+    [TestInitialize]
+    public async Task Init()
+    {
+        materialManagerClient = GetMaterialManagerClient().Material.Edgebands;      
+    }
+
     /// <summary />
     [TestMethod]
     public void EdgebandType_CheckConfiguration_ConfigValid()
@@ -34,17 +46,15 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_CreateEdgebandTypeWithAdditionalDataImage()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
         const string edgebandCode = "ABS_CreateEdgebandTypeTest";
         var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
 
-        await EdgebandType_CreateEdgebandType_Cleanup(materialManagerClient, edgebandCode);
+        await EdgebandType_CreateEdgebandType_Cleanup(edgebandCode);
 
         var uniqueEdgebandCode = $"{edgebandCode}_{Guid.NewGuid().ToString("N")[..8]}";
         var fullEdgebandCode = $"{uniqueEdgebandCode}_150_1";
 
-        var edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+        var edgebandType = await materialManagerClient.CreateEdgebandType(new MaterialManagerRequestEdgebandType
         {
             EdgebandCode = fullEdgebandCode,
             Thickness = 1.0,
@@ -81,9 +91,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_Machines_GetAll_ReturnsData()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
-        var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines() ?? []).ToArray();
+        var machines = (await materialManagerClient.GetLicensedMachines() ?? []).ToArray();
 
         machines.ShouldNotBeNull(
             "because machines should be assigned to test subscription");
@@ -129,9 +137,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_TechnologyMacros_GetByMachine_ReturnsData()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
-        var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines() ?? []).ToArray();
+        var machines = (await materialManagerClient.GetLicensedMachines() ?? []).ToArray();
 
         machines.ShouldNotBeNull(
             "because at least one licensed machine should be available to retrieve technology macros");
@@ -139,7 +145,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             "because at least one licensed machine should be available to retrieve technology macros");
 
         var firstMachine = machines.First();
-        var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(firstMachine.TapioMachineId);
+        var macros = await materialManagerClient.GetTechnologyMacrosFromMachine(firstMachine.TapioMachineId);
 
         macros.ShouldNotBeNull(
             $"because technology macros should be retrievable for machine '{firstMachine.TapioMachineId}'");
@@ -149,17 +155,15 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_UpdateEdgebandTypeWithAdditionalDataImage()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
         const string edgebandCode = "ABS_UpdateEdgebandTypeTest";
         var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
 
-        await EdgebandType_CreateEdgebandType_Cleanup(materialManagerClient, edgebandCode);
+        await EdgebandType_CreateEdgebandType_Cleanup(edgebandCode);
 
         var uniqueEdgebandCode = $"{edgebandCode}_{Guid.NewGuid().ToString("N")[..8]}";
         var fullEdgebandCode = $"{uniqueEdgebandCode}_150_1";
 
-        var edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+        var edgebandType = await materialManagerClient.CreateEdgebandType(new MaterialManagerRequestEdgebandType
         {
             EdgebandCode = fullEdgebandCode,
             Thickness = 1.0,
@@ -169,7 +173,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             Process = EdgebandingProcess.Other
         });
 
-        var updatedEdgeBandType = await materialManagerClient.Material.Edgebands.UpdateEdgebandType(fullEdgebandCode, new MaterialManagerUpdateEdgebandType
+        var updatedEdgeBandType = await materialManagerClient.UpdateEdgebandType(fullEdgebandCode, new MaterialManagerUpdateEdgebandType
         {
             AdditionalData = new List<AdditionalDataEntity>
             {
@@ -196,19 +200,19 @@ public class EdgebandTypeTests : MaterialManagerTestBase
         edgebandType.Trace();
     }
 
-    private static async Task EdgebandType_CreateEdgebandType_Cleanup(MaterialManagerClient materialManagerClient, string edgebandCode)
+    private async Task EdgebandType_CreateEdgebandType_Cleanup(string edgebandCode)
     {
-        var existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
+        var existingEdgebandTypes = (await materialManagerClient.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
         foreach (var existingEdgebandType in existingEdgebandTypes)
         {
             if (existingEdgebandType is { EdgebandCode: not null })
             {
-                await materialManagerClient.Material.Edgebands.DeleteEdgebandType(existingEdgebandType.EdgebandCode);
+                await materialManagerClient.DeleteEdgebandType(existingEdgebandType.EdgebandCode);
             }
         }
 
-        existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
+        existingEdgebandTypes = (await materialManagerClient.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
         existingEdgebandTypes.ShouldBeEmpty(
             $"because all edgeband types with edgeband code '{edgebandCode}' should be deleted during cleanup");

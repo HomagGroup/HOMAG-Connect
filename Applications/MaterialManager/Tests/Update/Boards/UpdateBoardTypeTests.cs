@@ -15,7 +15,7 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     private const double length = 2800.0;
     private const double width = 2070.0;
     private string BoardTypeCode = $"{MaterialCode}_{length}_{width}";
-    private MaterialManagerClient materialManagerClient;
+    private MaterialManagerClientMaterialBoards materialManagerClient;
 
     /// <summary>
     /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
@@ -23,8 +23,8 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     [TestInitialize]
     public async Task Init()
     {
-        materialManagerClient = GetMaterialManagerClient();
-        await EnsureBoardTypeExist(BoardTypeCode, MaterialCode, length, width);
+        materialManagerClient = GetMaterialManagerClient().Material.Boards;
+        await EnsureBoardTypeExist(materialManagerClient, BoardTypeCode, MaterialCode, length, width);
     }
     
     /// <summary />
@@ -33,9 +33,9 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     {
         var value = Math.Round(RandomBetween(5.0, 25.0), 2);        
 
-        await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient.Material.Boards, BoardTypeCode, value);
+        await UpdateBoardTypeSamples.Boards_UpdateBoardType(materialManagerClient, BoardTypeCode, value);
 
-        var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(BoardTypeCode);
+        var checkBoard = await materialManagerClient.GetBoardTypeByBoardCode(BoardTypeCode);
 
         checkBoard.ShouldNotBeNull(
             $"because board type with board code '{BoardTypeCode}' should exist after update");
@@ -48,9 +48,9 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task BoardsUpdateBoardType_WithAdditionalData_Succeeds()
     {
-        await UpdateBoardTypeSamples.Boards_UpdateBoardType_AdditionalData(materialManagerClient.Material.Boards, MaterialCode, BoardTypeCode);
+        await UpdateBoardTypeSamples.Boards_UpdateBoardType_AdditionalData(materialManagerClient, MaterialCode, BoardTypeCode);
 
-        var checkBoard = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(BoardTypeCode);
+        var checkBoard = await materialManagerClient.GetBoardTypeByBoardCode(BoardTypeCode);
         checkBoard.ShouldNotBeNull(
             $"because board type with board code '{BoardTypeCode}' should exist after update");
     }

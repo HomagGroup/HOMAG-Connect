@@ -86,18 +86,18 @@ public class MaterialManagerTestBase : TestBase
     /// <summary>
     /// Ensures that a board type with the given board type code exists.
     /// </summary>
+    /// <param name="client"></param>
     /// <param name="boardTypeCode"></param>
     /// <param name="materialCode"></param>
     /// <param name="length"></param>
     /// <param name="width"></param>
-    protected async Task EnsureBoardTypeExist(string boardTypeCode, string materialCode, double length, double width)
+    protected async Task EnsureBoardTypeExist(MaterialManagerClientMaterialBoards client, string boardTypeCode, string materialCode, double length, double width)
     {
-        var materialManagerClient = GetMaterialManagerClient();
 
         BoardType? boardType = null;
         try
         {
-            boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardTypeCode);
+            boardType = await client.GetBoardTypeByBoardCode(boardTypeCode);
         }       
         catch (Exception)
         {
@@ -106,7 +106,7 @@ public class MaterialManagerTestBase : TestBase
 
         if (boardType == null)
         {
-            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            await client.CreateBoardType(new MaterialManagerRequestBoardType
             {
                 MaterialCode = materialCode,
                 BoardCode = boardTypeCode,
@@ -124,18 +124,17 @@ public class MaterialManagerTestBase : TestBase
     /// <summary>
     /// Ensures that an edgeband type with the given edgeband code exists.
     /// </summary>
+    /// <param name="client"></param>
     /// <param name="edgebandCode"></param>
     /// <param name="thickness"></param>
     /// <param name="length"></param>
-    protected async Task EnsureEdgebandTypeExist(string edgebandCode, double thickness = 1.0, double length = 23.0)
+    protected async Task EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands client, string edgebandCode, double thickness = 1.0, double length = 23.0)
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
         EdgebandType? edgebandType = null;
 
         try
         {
-            edgebandType = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
+            edgebandType = await client.GetEdgebandTypeByEdgebandCode(edgebandCode);
         }
         catch (ProblemDetailsException ex)
         {
@@ -147,7 +146,7 @@ public class MaterialManagerTestBase : TestBase
 
         if (edgebandType == null)
         {
-            await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+            await client.CreateEdgebandType(new MaterialManagerRequestEdgebandType
             {
                 EdgebandCode = edgebandCode,
                 Height = 20,
