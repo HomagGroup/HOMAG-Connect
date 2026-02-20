@@ -27,6 +27,12 @@ public enum OrderState
     ReadyForProduction,
 
     /// <summary>
+    /// As soon as a production order of a order is in production.
+    /// </summary>
+    [Obsolete("InProduction is Obsolete, please use InProgress")]
+    InProduction,
+
+    /// <summary>
     /// As soon as a production order of a order is in progress.
     /// </summary>
     InProgress,

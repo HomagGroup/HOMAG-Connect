@@ -36,9 +36,9 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
         }
 
         /// <summary />
-        public static async Task GetAllOrdersHavingStatusNewOrInProgress(IOrderManagerClient orderManager)
+        public static async Task GetAllOrdersHavingStatusNewOrInProduction(IOrderManagerClient orderManager)
         {
-            var response = await orderManager.GetOrders([OrderState.New, OrderState.InProgress], 5);
+            var response = await orderManager.GetOrders([OrderState.New, OrderState.InProduction], 5);
 
             response.Trace();
         }

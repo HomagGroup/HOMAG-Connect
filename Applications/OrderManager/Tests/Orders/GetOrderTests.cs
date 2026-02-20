@@ -321,7 +321,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
             try
             {
-                await GetOrderSamples.GetAllOrdersHavingStatusNewOrInProgress(orderManager);
+                await GetOrderSamples.GetAllOrdersHavingStatusNewOrInProduction(orderManager);
             }
             catch (Exception e)
             {
