@@ -27,9 +27,9 @@ public enum OrderState
     ReadyForProduction,
 
     /// <summary>
-    /// As soon as a production order of a order is in production.
+    /// As soon as a production order of a order is in progress.
     /// </summary>
-    InProduction,
+    InProgress,
 
     /// <summary>
     /// As soon as all production orders have been completed, the order receives the state "Completed".
