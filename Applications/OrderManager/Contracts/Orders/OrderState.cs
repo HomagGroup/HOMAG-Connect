@@ -29,7 +29,13 @@ public enum OrderState
     /// <summary>
     /// As soon as a production order of a order is in production.
     /// </summary>
+    [Obsolete("InProduction is Obsolete, please use InProgress")]
     InProduction,
+
+    /// <summary>
+    /// As soon as a production order of a order is in progress.
+    /// </summary>
+    InProgress,
 
     /// <summary>
     /// As soon as all production orders have been completed, the order receives the state "Completed".
