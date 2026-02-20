@@ -47,7 +47,7 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
         var requestEdgebandTypeAllocation = CreateEdgebandTypeAllocationRequest(EdgebandCode, comments, createdBy, source, workstation, allocatedLength, customer, order, project, usedLength);
 
         var allocationResult = await MaterialManagerClientMaterialEdgebands.CreateEdgebandTypeAllocation(requestEdgebandTypeAllocation);
-
+        
         allocationResult.ShouldNotBeNull(
             $"because Edgeband type allocation with EdgebandCode '{EdgebandCode}' should be created successfully");
         allocationResult!.Comments.ShouldBe(comments,
@@ -72,6 +72,6 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
     public async Task Setup()
     {
         MaterialManagerClientMaterialEdgebands = GetMaterialManagerClient().Material.Edgebands;
-        await EnsureEdgebandTypeExist(EdgebandCode);
+        await EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands, EdgebandCode);
     }
 }

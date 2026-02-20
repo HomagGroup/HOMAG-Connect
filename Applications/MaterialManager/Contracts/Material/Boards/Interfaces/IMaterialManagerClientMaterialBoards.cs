@@ -177,6 +177,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate);
 
         /// <summary>
+        /// Update board type by board code with file references.
+        /// </summary>
+        Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate, FileReference[] fileReferences);
+
+        /// <summary>
         /// Updates the board type allocation in materialManager.
         /// </summary>
         /// <returns>The updated board type allocation <see cref="BoardTypeAllocation" />.</returns>

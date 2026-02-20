@@ -29,7 +29,7 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
         const string customer = "TestCustomerABC";
         const string project = "TestProjectXYZ";
         await EdgebandType_CreateEdgebandTypeAllocation_Cleanup(MaterialManagerClientMaterialEdgebandTypes, edgebandCode, customer, order, project);
-        await EnsureEdgebandTypeExist(edgebandCode);
+        await EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebandTypes, edgebandCode);
 
         var allocationRequest = CreateEdgebandTypeAllocationRequest(
             edgebandCode,

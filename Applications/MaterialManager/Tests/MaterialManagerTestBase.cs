@@ -20,7 +20,7 @@ public class MaterialManagerTestBase : TestBase
     /// <summary>
     /// Edgeband code used for testing.
     /// </summary>
-    protected const string EdgebandCode = "ABS_White_2mm";
+    protected const string EdgebandCode = "ABS_White_2mm";   
 
     /// <summary>
     /// Create a EdgebandTypeAllocationRequest instance.
@@ -84,36 +84,32 @@ public class MaterialManagerTestBase : TestBase
     }
 
     /// <summary>
-    /// Ensures that a board type with the given material code exists.
+    /// Ensures that a board type with the given board type code exists.
     /// </summary>
+    /// <param name="client"></param>
+    /// <param name="boardTypeCode"></param>
     /// <param name="materialCode"></param>
     /// <param name="length"></param>
     /// <param name="width"></param>
-    protected async Task EnsureBoardTypeExist(string materialCode, double length = 2800, double width = 2070)
+    protected async Task EnsureBoardTypeExist(MaterialManagerClientMaterialBoards client, string boardTypeCode, string materialCode, double length, double width)
     {
-        var boardCode = $"{materialCode}_{length}_{width}";
-        var materialManagerClient = GetMaterialManagerClient();
 
         BoardType? boardType = null;
-
         try
         {
-            boardType = await materialManagerClient.Material.Boards.GetBoardTypeByBoardCode(boardCode);
-        }
-        catch (ProblemDetailsException ex)
+            boardType = await client.GetBoardTypeByBoardCode(boardTypeCode);
+        }       
+        catch (Exception)
         {
-            if (!ex.Message.Contains("No board types found."))
-            {
-                throw;
-            }
+            //ignored           
         }
 
         if (boardType == null)
         {
-            await materialManagerClient.Material.Boards.CreateBoardType(new MaterialManagerRequestBoardType
+            await client.CreateBoardType(new MaterialManagerRequestBoardType
             {
                 MaterialCode = materialCode,
-                BoardCode = boardCode,
+                BoardCode = boardTypeCode,
                 Thickness = 19.0,
                 Grain = Grain.None,
                 Width = width,
@@ -128,18 +124,17 @@ public class MaterialManagerTestBase : TestBase
     /// <summary>
     /// Ensures that an edgeband type with the given edgeband code exists.
     /// </summary>
+    /// <param name="client"></param>
     /// <param name="edgebandCode"></param>
     /// <param name="thickness"></param>
     /// <param name="length"></param>
-    protected async Task EnsureEdgebandTypeExist(string edgebandCode, double thickness = 1.0, double length = 23.0)
+    protected async Task EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands client, string edgebandCode, double thickness = 1.0, double length = 23.0)
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
         EdgebandType? edgebandType = null;
 
         try
         {
-            edgebandType = await materialManagerClient.Material.Edgebands.GetEdgebandTypeByEdgebandCode(edgebandCode);
+            edgebandType = await client.GetEdgebandTypeByEdgebandCode(edgebandCode);
         }
         catch (ProblemDetailsException ex)
         {
@@ -151,7 +146,7 @@ public class MaterialManagerTestBase : TestBase
 
         if (edgebandType == null)
         {
-            await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+            await client.CreateEdgebandType(new MaterialManagerRequestEdgebandType
             {
                 EdgebandCode = edgebandCode,
                 Height = 20,
@@ -178,5 +173,5 @@ public class MaterialManagerTestBase : TestBase
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
         return new MaterialManagerClient(httpClient);
-    }
+    }    
 }

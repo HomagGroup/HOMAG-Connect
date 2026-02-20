@@ -1,5 +1,3 @@
-using Shouldly;
-
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -9,6 +7,8 @@ using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
+using HomagConnect.MaterialManager.Contracts.Update;
+using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
 
@@ -18,6 +18,18 @@ namespace HomagConnect.MaterialManager.Tests.Material.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class EdgebandTypeTests : MaterialManagerTestBase
 {
+
+    private MaterialManagerClientMaterialEdgebands materialManagerClient;
+
+    /// <summary>
+    /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
+    /// </summary>
+    [TestInitialize]
+    public async Task Init()
+    {
+        materialManagerClient = GetMaterialManagerClient().Material.Edgebands;      
+    }
+
     /// <summary />
     [TestMethod]
     public void EdgebandType_CheckConfiguration_ConfigValid()
@@ -34,17 +46,15 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_CreateEdgebandTypeWithAdditionalDataImage()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
         const string edgebandCode = "ABS_CreateEdgebandTypeTest";
         var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
 
-        await EdgebandType_CreateEdgebandType_Cleanup(materialManagerClient, edgebandCode);
+        await EdgebandType_CreateEdgebandType_Cleanup(edgebandCode);
 
         var uniqueEdgebandCode = $"{edgebandCode}_{Guid.NewGuid().ToString("N")[..8]}";
         var fullEdgebandCode = $"{uniqueEdgebandCode}_150_1";
 
-        var edgebandType = await materialManagerClient.Material.Edgebands.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+        var edgebandType = await materialManagerClient.CreateEdgebandType(new MaterialManagerRequestEdgebandType
         {
             EdgebandCode = fullEdgebandCode,
             Thickness = 1.0,
@@ -81,9 +91,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_Machines_GetAll_ReturnsData()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
-        var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines()).ToArray();
+        var machines = (await materialManagerClient.GetLicensedMachines() ?? []).ToArray();
 
         machines.ShouldNotBeNull(
             "because machines should be assigned to test subscription");
@@ -95,7 +103,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public void EdgebandType_SwitchUnitSystem_LengthWidthThicknessChanged()
     {
-        var edgebandTypeMetric = new EdgebandType()
+        var edgebandTypeMetric = new EdgebandType
         {
             DefaultLength = 150,
             Thickness = 19,
@@ -129,9 +137,7 @@ public class EdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandType_TechnologyMacros_GetByMachine_ReturnsData()
     {
-        var materialManagerClient = GetMaterialManagerClient();
-
-        var machines = (await materialManagerClient.Material.Edgebands.GetLicensedMachines()).ToArray();
+        var machines = (await materialManagerClient.GetLicensedMachines() ?? []).ToArray();
 
         machines.ShouldNotBeNull(
             "because at least one licensed machine should be available to retrieve technology macros");
@@ -139,25 +145,74 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             "because at least one licensed machine should be available to retrieve technology macros");
 
         var firstMachine = machines.First();
-        var macros = await materialManagerClient.Material.Edgebands.GetTechnologyMacrosFromMachine(firstMachine.TapioMachineId);
+        var macros = await materialManagerClient.GetTechnologyMacrosFromMachine(firstMachine.TapioMachineId);
 
         macros.ShouldNotBeNull(
             $"because technology macros should be retrievable for machine '{firstMachine.TapioMachineId}'");
     }
 
-    private static async Task EdgebandType_CreateEdgebandType_Cleanup(MaterialManagerClient materialManagerClient, string edgebandCode)
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandType_UpdateEdgebandTypeWithAdditionalDataImage()
     {
-        var existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
+        const string edgebandCode = "ABS_UpdateEdgebandTypeTest";
+        var additionalDataImage = new FileReference("Red.png", @"Data\Red.png");
+
+        await EdgebandType_CreateEdgebandType_Cleanup(edgebandCode);
+
+        var uniqueEdgebandCode = $"{edgebandCode}_{Guid.NewGuid().ToString("N")[..8]}";
+        var fullEdgebandCode = $"{uniqueEdgebandCode}_150_1";
+
+        var edgebandType = await materialManagerClient.CreateEdgebandType(new MaterialManagerRequestEdgebandType
+        {
+            EdgebandCode = fullEdgebandCode,
+            Thickness = 1.0,
+            Height = 20,
+            DefaultLength = 23.0,
+            MaterialCategory = EdgebandMaterialCategory.Veneer,
+            Process = EdgebandingProcess.Other
+        });
+
+        var updatedEdgeBandType = await materialManagerClient.UpdateEdgebandType(fullEdgebandCode, new MaterialManagerUpdateEdgebandType
+        {
+            AdditionalData = new List<AdditionalDataEntity>
+            {
+                new AdditionalDataImage
+                {
+                    Category = "Decor",
+                    DownloadFileName = additionalDataImage.Reference,
+                    DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
+                }
+            }
+        }, [additionalDataImage]);
+
+        updatedEdgeBandType.ShouldNotBeNull(
+            $"because edgeband type with edgeband code '{fullEdgebandCode}' should be created successfully");
+        updatedEdgeBandType.EdgebandCode.ShouldBe(fullEdgebandCode,
+            $"because created edgeband type should have edgeband code '{fullEdgebandCode}'");
+        updatedEdgeBandType.Thickness.ShouldBe(1.0,
+            "because created edgeband type should have thickness 1.0");
+        updatedEdgeBandType.Height.ShouldBe(20,
+            "because created edgeband type should have height 20");
+        updatedEdgeBandType.Thumbnail.ShouldNotBeNull(
+            $"because edgeband type with edgeband code '{fullEdgebandCode}' contain an image");
+
+        edgebandType.Trace();
+    }
+
+    private async Task EdgebandType_CreateEdgebandType_Cleanup(string edgebandCode)
+    {
+        var existingEdgebandTypes = (await materialManagerClient.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
         foreach (var existingEdgebandType in existingEdgebandTypes)
         {
-            if (existingEdgebandType.EdgebandCode != null)
+            if (existingEdgebandType is { EdgebandCode: not null })
             {
-                await materialManagerClient.Material.Edgebands.DeleteEdgebandType(existingEdgebandType.EdgebandCode);
+                await materialManagerClient.DeleteEdgebandType(existingEdgebandType.EdgebandCode);
             }
         }
 
-        existingEdgebandTypes = (await materialManagerClient.Material.Edgebands.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
+        existingEdgebandTypes = (await materialManagerClient.GetEdgebandTypesByEdgebandCodes([edgebandCode])).ToArray();
 
         existingEdgebandTypes.ShouldBeEmpty(
             $"because all edgeband types with edgeband code '{edgebandCode}' should be deleted during cleanup");

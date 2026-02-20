@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Samples.Update.Edgebands;
+﻿using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Samples.Update.Edgebands;
 using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Update.Edgebands;
@@ -9,12 +10,23 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 {
+
+    private MaterialManagerClientMaterialEdgebands materialManagerClient;
+
+    /// <summary>
+    /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
+    /// </summary>
+    [TestInitialize]
+    public async Task Init()
+    {
+        materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+        await EnsureEdgebandTypeExist(materialManagerClient, EdgebandCode, 2);
+    }
+
     /// <summary />
     [TestMethod]
     public async Task EdgebandsUpdateEdgebandType()
     {
-        var random = new Random();
-
         var value = Math.Round(RandomBetween(50.0, 100.0), 2);
 
         var materialManagerClient = GetMaterialManagerClient();
@@ -27,19 +39,19 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
             $"because edgeband type with edgeband code '{EdgebandCode}' should exist after update");
         checkEdgeband!.DefaultLength.ShouldBe(value,
             $"because edgeband type '{EdgebandCode}' was updated to default length {value}");
-        return;
-
-        double RandomBetween(double min, double max)
-        {
-            return random.NextDouble() * (max - min) + min;
-        }
+        return;       
     }
 
     /// <summary />
-    [ClassInitialize]
-    public static async Task Initialize(TestContext testContext)
+    [TestMethod]
+    public async Task EdgebandTypeUpdate_WithAdditionalData_Succeeds()
     {
-        var classInstance = new UpdateEdgebandTypeTests();
-        await classInstance.EnsureEdgebandTypeExist(EdgebandCode, 2);
+        var materialManagerClient = GetMaterialManagerClient();
+
+        var act = async () => await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType_AdditionalData(
+            materialManagerClient.Material.Edgebands, EdgebandCode);
+
+        await act.ShouldNotThrowAsync(
+            $"because creating edgeband type with edgeband code '{EdgebandCode}' and additional data should complete successfully");
     }
 }
