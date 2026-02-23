@@ -91,7 +91,7 @@ public class MaterialManagerTestBase : TestBase
     /// <param name="materialCode"></param>
     /// <param name="length"></param>
     /// <param name="width"></param>
-    protected async Task EnsureBoardTypeExist(MaterialManagerClientMaterialBoards client, string boardTypeCode, string materialCode, double length, double width)
+    protected static async Task EnsureBoardTypeExist(MaterialManagerClientMaterialBoards client, string boardTypeCode, string materialCode, double length, double width)
     {
 
         BoardType? boardType = null;
@@ -128,7 +128,7 @@ public class MaterialManagerTestBase : TestBase
     /// <param name="edgebandCode"></param>
     /// <param name="thickness"></param>
     /// <param name="length"></param>
-    protected async Task EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands client, string edgebandCode, double thickness = 1.0, double length = 23.0)
+    protected static async Task EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands client, string edgebandCode, double thickness = 1.0, double length = 23.0)
     {
         EdgebandType? edgebandType = null;
 

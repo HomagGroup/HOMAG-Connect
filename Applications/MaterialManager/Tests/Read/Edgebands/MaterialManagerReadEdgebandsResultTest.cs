@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Edgebands;
 [TestCategory("MaterialManager.Edgebands")]
 public class ReadEdgebandTypeTests : MaterialManagerTestBase
 {
-    private MaterialManagerClientMaterialEdgebands materialManagerClient;
+    private MaterialManagerClientMaterialEdgebands materialManagerClient = null!;
 
     /// <summary>
     /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.

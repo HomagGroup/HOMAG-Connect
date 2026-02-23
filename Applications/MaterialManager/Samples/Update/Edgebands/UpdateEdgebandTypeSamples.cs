@@ -22,6 +22,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
                 // Add other properties
             };
             var updatedEdgebandType = await materialManager.UpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
+            Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.EdgebandCode}");
         }
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
             };
 
             var updateEdgebandType = await materialManager.UpdateEdgebandType(edgebandCode, edgebandTypeUpdate, [additionalDataImage]);
+            Console.WriteLine($"Updated Edgeband Type: {updateEdgebandType.EdgebandCode}");
         }
 
         /// <summary>
@@ -71,6 +73,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
             };
 
             var updatedEdgebandType = await materialManager.UpdateEdgebandType("ABS_White_1mm", edgebandTypeUpdate);
+            Console.WriteLine($"Updated Edgeband Type: {updatedEdgebandType.EdgebandCode}");
         }
     }
 }

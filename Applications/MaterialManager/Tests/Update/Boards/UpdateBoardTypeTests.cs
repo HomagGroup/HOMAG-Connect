@@ -15,7 +15,7 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
     private const double length = 2800.0;
     private const double width = 2070.0;
     private string BoardTypeCode = $"{MaterialCode}_{length}_{width}";
-    private MaterialManagerClientMaterialBoards materialManagerClient;
+    private MaterialManagerClientMaterialBoards materialManagerClient = null!;
 
     /// <summary>
     /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.

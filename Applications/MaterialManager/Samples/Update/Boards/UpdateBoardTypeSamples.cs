@@ -57,6 +57,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
             };
 
             var updateBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate, [additionalDataImage]);
+            Console.WriteLine($"Updated Board Type: {updateBoardType.BoardCode}");
         }
     }
 }
