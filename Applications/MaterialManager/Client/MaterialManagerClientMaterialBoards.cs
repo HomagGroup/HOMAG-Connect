@@ -65,24 +65,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #region Update
 
-    /// <summary>
-    /// Prepare validation, url and json payload for update operations.
-    /// </summary>
-    private static (Uri Uri, string Json) PrepareUpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
-    {
-        if (boardTypeUpdate == null)
-        {
-            throw new ArgumentNullException(nameof(boardTypeUpdate));
-        }
-
-        // ValidateRequiredProperties is an instance method on ServiceBase derived class.
-        // We'll call it from the instance methods before calling this helper to keep the same validation semantics.
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
-        var json = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
-
-        return (new Uri(url, UriKind.Relative), json);
-    }
-
     /// <inheritdoc />
     public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
     {
@@ -93,7 +75,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         ValidateRequiredProperties(boardTypeUpdate);
 
-        var (uri, json) = PrepareUpdateBoardType(boardCode, boardTypeUpdate);
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardCode, boardTypeUpdate);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await PatchObject(uri, content);
@@ -119,52 +101,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         ValidateRequiredProperties(boardTypeUpdate);
 
-        if (fileReferences == null)
-        {
-            throw new ArgumentNullException(nameof(fileReferences));
-        }
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardTypeCode, boardTypeUpdate);
 
-        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
-
-        if (missingFile != null)
-        {
-            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
-        }
-
-        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
-
-        if (missingReference != null)
-        {
-            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
-        }
-
-        var (uri, json) = PrepareUpdateBoardType(boardTypeCode, boardTypeUpdate);
-
-        var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
-        request.RequestUri = uri;
-
-        using var httpContent = new MultipartFormDataContent();
-
-        httpContent.Add(new StringContent(json), nameof(boardTypeUpdate));
-
-        foreach (var fileReference in fileReferences)
-        {
-            var fileStream = fileReference.FileInfo.OpenRead();
-
-            HttpContent streamContent = new StreamContent(fileStream);
-            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
-        }
-
-        request.Content = httpContent;
-
-        var response = await Client.SendAsync(request);
-
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-
-        var result = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<BoardType>(result, SerializerSettings.Default);
-
-        return responseObject ?? new BoardType();
+        
+        return await UpdateHelpers.SendMultipartPatchAsync<BoardType>(Client, uri, json, fileReferences, nameof(boardTypeUpdate)).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -586,7 +526,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .ToList();
 
         if (!names.Any())
+        {
             throw new ArgumentException("At least one allocation name must be passed.", nameof(allocationNames));
+        }
 
         if (take > 1000)
             throw new ArgumentException("The maximum value for 'take' is 1000.", nameof(take));
@@ -679,7 +621,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
-
+    
     #endregion Delete
 
     #region statistics

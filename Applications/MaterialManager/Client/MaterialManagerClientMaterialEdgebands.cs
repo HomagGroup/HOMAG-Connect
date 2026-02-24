@@ -51,16 +51,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     /// <summary>
-    /// Prepare URL and JSON payload used by UpdateEdgebandType operations.
-    /// ValidateRequiredProperties is intentionally not called here because it is an instance method;
-    /// callers should invoke it before calling this helper to preserve existing semantics.
+    /// Prepare URL and JSON payload used by UpdateEdgebandType operations is moved to shared helper
     /// </summary>
-    private static (Uri Uri, string Json) PrepareUpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate)
-    {
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
-        var json = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
-        return (new Uri(url, UriKind.Relative), json);
-    }
+    /// <remarks>Call ValidateRequiredProperties from instance methods; helper only prepares payload and uri.</remarks>
 
     #endregion Private methods
 
@@ -275,7 +268,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         ValidateRequiredProperties(edgebandTypeUpdate);
 
-        var (uri, json) = PrepareUpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await PatchObject(uri, content);
@@ -300,52 +293,10 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         }
         ValidateRequiredProperties(edgebandTypeUpdate);
 
-        if (fileReferences == null)
-        {
-            throw new ArgumentNullException(nameof(fileReferences));
-        }
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
-        var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
-
-        if (missingFile != null)
-        {
-            throw new FileNotFoundException($"File '{missingFile.FileInfo.FullName}' was not found.");
-        }
-
-        var missingReference = fileReferences.FirstOrDefault(f => string.IsNullOrWhiteSpace(f.Reference));
-
-        if (missingReference != null)
-        {
-            throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
-        }
-
-        var (uri, json) = PrepareUpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
-
-        var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
-        request.RequestUri = uri;
-
-        using var httpContent = new MultipartFormDataContent();
-
-        httpContent.Add(new StringContent(json), nameof(edgebandTypeUpdate));
-
-        foreach (var fileReference in fileReferences)
-        {
-            var fileStream = fileReference.FileInfo.OpenRead();
-
-            HttpContent streamContent = new StreamContent(fileStream);
-            httpContent.Add(streamContent, fileReference.Reference, fileReference.FileInfo.Name);
-        }
-
-        request.Content = httpContent;
-
-        var response = await Client.SendAsync(request);
-
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-
-        var result = await response.Content.ReadAsStringAsync();
-        var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
-
-        return responseObject ?? new EdgebandType();
+        // reuse shared multipart logic
+        return await UpdateHelpers.SendMultipartPatchAsync<EdgebandType>(Client, uri, json, fileReferences, nameof(edgebandTypeUpdate)).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
