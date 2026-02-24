@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Update;
@@ -20,7 +21,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
                 // Add other properties
             };
             var updatedBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate);
-            Console.WriteLine($"Updated Board Type: {updatedBoardType.BoardCode}");
+            updatedBoardType.Trace();            
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
             };
 
             var updateBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate, [additionalDataImage]);
-            Console.WriteLine($"Updated Board Type: {updateBoardType.BoardCode}");
+            updateBoardType.Trace();
         }
     }
 }
