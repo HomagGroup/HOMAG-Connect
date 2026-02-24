@@ -3,9 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Extensions;
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client
