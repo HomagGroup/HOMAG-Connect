@@ -50,6 +50,18 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return urls;
     }
 
+    /// <summary>
+    /// Prepare URL and JSON payload used by UpdateEdgebandType operations.
+    /// ValidateRequiredProperties is intentionally not called here because it is an instance method;
+    /// callers should invoke it before calling this helper to preserve existing semantics.
+    /// </summary>
+    private static (Uri Uri, string Json) PrepareUpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate)
+    {
+        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+        var json = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
+        return (new Uri(url, UriKind.Relative), json);
+    }
+
     #endregion Private methods
 
     #region Get
@@ -263,11 +275,10 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         ValidateRequiredProperties(edgebandTypeUpdate);
 
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+        var (uri, json) = PrepareUpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
 
-        var payload = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await PatchObject(uri, content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
@@ -288,7 +299,6 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
         ValidateRequiredProperties(edgebandTypeUpdate);
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
 
         if (fileReferences == null)
         {
@@ -309,12 +319,12 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
         }
 
+        var (uri, json) = PrepareUpdateEdgebandType(edgebandCode, edgebandTypeUpdate);
+
         var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
-        request.RequestUri = new Uri(url, UriKind.Relative);
+        request.RequestUri = uri;
 
         using var httpContent = new MultipartFormDataContent();
-
-        var json = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
 
         httpContent.Add(new StringContent(json), nameof(edgebandTypeUpdate));
 

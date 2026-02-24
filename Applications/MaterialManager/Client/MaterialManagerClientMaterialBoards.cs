@@ -65,6 +65,24 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #region Update
 
+    /// <summary>
+    /// Prepare validation, url and json payload for update operations.
+    /// </summary>
+    private static (Uri Uri, string Json) PrepareUpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        // ValidateRequiredProperties is an instance method on ServiceBase derived class.
+        // We'll call it from the instance methods before calling this helper to keep the same validation semantics.
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+        var json = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
+
+        return (new Uri(url, UriKind.Relative), json);
+    }
+
     /// <inheritdoc />
     public async Task<BoardType> UpdateBoardType(string boardCode, MaterialManagerUpdateBoardType boardTypeUpdate)
     {
@@ -75,11 +93,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         ValidateRequiredProperties(boardTypeUpdate);
 
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+        var (uri, json) = PrepareUpdateBoardType(boardCode, boardTypeUpdate);
 
-        var payload = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await PatchObject(uri, content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
@@ -100,7 +117,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(boardTypeUpdate));
         }
 
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardTypeCode)}";
         ValidateRequiredProperties(boardTypeUpdate);
 
         if (fileReferences == null)
@@ -122,12 +138,12 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentException($"Reference for file '{missingReference.FileInfo.FullName}' is missing.");
         }
 
+        var (uri, json) = PrepareUpdateBoardType(boardTypeCode, boardTypeUpdate);
+
         var request = new HttpRequestMessage { Method = new HttpMethod("PATCH") };
-        request.RequestUri = new Uri(url, UriKind.Relative);
+        request.RequestUri = uri;
 
         using var httpContent = new MultipartFormDataContent();
-
-        var json = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
 
         httpContent.Add(new StringContent(json), nameof(boardTypeUpdate));
 
@@ -663,7 +679,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
-    
+
     #endregion Delete
 
     #region statistics
