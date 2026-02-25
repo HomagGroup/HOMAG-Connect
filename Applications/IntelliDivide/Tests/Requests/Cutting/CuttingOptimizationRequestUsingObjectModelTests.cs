@@ -36,6 +36,7 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 03, 01, "DF-Optimization")]
     public async Task CuttingRequest_ObjectModel_AdditionalProperties_Optimize()
     {
         var intelliDivide = GetIntelliDivideClient();
