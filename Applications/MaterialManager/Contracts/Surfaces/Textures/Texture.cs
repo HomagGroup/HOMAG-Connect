@@ -70,6 +70,13 @@ public class Texture : ISupportsAdditionalData
     [Display(ResourceType = typeof(TextureDisplayNames), Name = nameof(TextureDisplayNames.Name))]
     public string Name { get; set; } = string.Empty;
 
+    /// <summary>
+    ///  Gets or sets the lookup of the texture.
+    /// </summary>    
+    [JsonProperty(Order = 12)]
+    [StringLength(100, MinimumLength = 1)]        
+    public string Lookup { get; set; } = string.Empty;
+
     /// <inheritdoc />
     [JsonProperty(Order = 80)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
