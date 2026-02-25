@@ -15,6 +15,7 @@ trigger:
   branches:
     include:
     - main
+    - 'dependabot/nuget/*'
   tags:
     include:
     - '*'
