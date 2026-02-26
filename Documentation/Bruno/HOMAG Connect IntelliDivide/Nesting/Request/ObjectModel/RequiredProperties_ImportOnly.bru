@@ -1,0 +1,43 @@
+meta {
+  name: RequiredProperties_ImportOnly
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "Name": "Sample_ObjectModel_Postman_RequiredProperties_ImportOnly",
+      "Parts": [
+        {
+          "Description": "Part A",
+          "MaterialCode": "P2_Gold_Craft_Oak_19.0",
+          "Grain": "Lengthwise",
+          "Quantity": 2,
+          "MprFileName": "PartA.mpr"
+        },
+        {
+          "Description": "Part B",
+          "MaterialCode": "P2_Gold_Craft_Oak_19.0",
+          "Grain": "Lengthwise",
+          "Quantity": 3,
+          "MprFileName": "PartB.mpr"
+        }
+      ],
+      "Machine": "productionAssist Nesting",
+      "Parameters": "Rectangular"
+    }
+  '''
+  PartA.mpr: @file(/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartA.mpr)
+  PartB.mpr: @file(/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartB.mpr)
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.2.11415.280 d18.0
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}"
 EndProject
@@ -109,27 +109,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomagConnect.ProductionAssi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Partner", "Partner", "{F6E5A8CA-0849-4EA2-9B39-439B87116525}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{7DDEF0A8-91A4-4776-87F6-F99325B28088}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Partner\Authorization\Readme.md = Documentation\Partner\Authorization\Readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F71265AB-0375-4E28-9368-897BD5A2CA77}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{371B1C91-B9BF-4DC0-85C6-35C31C1230A0}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Tools\Excel\Readme.md = Documentation\Tools\Excel\Readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{5222BE37-B31A-4FD6-8C09-B0FE368B324E}"
-	ProjectSection(SolutionItems) = preProject
-		Documentation\Authentication\Readme.md = Documentation\Authentication\Readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{868E6DD3-3DAC-4A8F-B827-EB85FF94EB7E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.IntelliDivide.Samples", "Applications\IntelliDivide\Samples\CSharp\HomagConnect.IntelliDivide.Samples.csproj", "{FC7B129C-B901-4231-9FC1-F2D830CFCA99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.OrderManager", "HomagConnect.OrderManager", "{1EF75278-EABE-42DB-B673-0A432B83DFEF}"
@@ -152,11 +131,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.DataExchange.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.OrderManager.Tests", "Applications\OrderManager\Tests\HomagConnect.OrderManager.Tests.csproj", "{553D43EC-B600-4886-9A32-B6C94A3DA8D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Tests.Api", "HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj", "{1A802AF7-F483-43FE-828E-1CE239B853A4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.TestBase", "Base\HomagConnect.Base.TestBase\HomagConnect.Base.TestBase.csproj", "{8FE09EC2-C809-465C-B013-02634410A141}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Client", "Base\HomagConnect.Base.Client\HomagConnect.Base.Client.csproj", "{9346613B-37F1-4235-8040-9241DAAC90BE}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "API", "Documentation\Docs\API.shproj", "{28444013-D79F-494A-BA47-55927E2F1AD9}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bruno", "Documentation\Bruno\Bruno.shproj", "{7151A9C9-C78B-4020-B839-32E1F8631FC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Tests.Api", "Base\HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj", "{2D5D97F3-6185-4339-B414-0731B1DD6111}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -304,10 +287,6 @@ Global
 		{553D43EC-B600-4886-9A32-B6C94A3DA8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{553D43EC-B600-4886-9A32-B6C94A3DA8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{553D43EC-B600-4886-9A32-B6C94A3DA8D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A802AF7-F483-43FE-828E-1CE239B853A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A802AF7-F483-43FE-828E-1CE239B853A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A802AF7-F483-43FE-828E-1CE239B853A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A802AF7-F483-43FE-828E-1CE239B853A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FE09EC2-C809-465C-B013-02634410A141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FE09EC2-C809-465C-B013-02634410A141}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FE09EC2-C809-465C-B013-02634410A141}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -316,6 +295,10 @@ Global
 		{9346613B-37F1-4235-8040-9241DAAC90BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9346613B-37F1-4235-8040-9241DAAC90BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9346613B-37F1-4235-8040-9241DAAC90BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -359,11 +342,6 @@ Global
 		{60EA46CD-2233-4AFC-BC80-3A3D485F71DA} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{B1D7FEC2-FAD5-4235-AC67-9F6BE6B4AAE6} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
 		{48CEB0E8-F145-4274-86AB-5DD62DCB83EB} = {D0EA0BE4-D8C8-4422-BAB4-57D60123543C}
-		{F6E5A8CA-0849-4EA2-9B39-439B87116525} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
-		{7DDEF0A8-91A4-4776-87F6-F99325B28088} = {F6E5A8CA-0849-4EA2-9B39-439B87116525}
-		{F71265AB-0375-4E28-9368-897BD5A2CA77} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
-		{371B1C91-B9BF-4DC0-85C6-35C31C1230A0} = {F71265AB-0375-4E28-9368-897BD5A2CA77}
-		{5222BE37-B31A-4FD6-8C09-B0FE368B324E} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{FC7B129C-B901-4231-9FC1-F2D830CFCA99} = {49D52272-39DD-4CB3-8921-B33207BE43AE}
 		{1EF75278-EABE-42DB-B673-0A432B83DFEF} = {E30F7EEA-E03B-4A98-86CA-7E288AA6D0AF}
 		{44521D4B-E97A-4235-86BF-42C7363C8280} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
@@ -374,11 +352,17 @@ Global
 		{233465D0-0278-4B35-93E9-391F4698FAF2} = {E6E88844-7221-4FE2-AE6E-51F00F999F2F}
 		{28BB8DC4-4223-475C-B80D-0BB81DDC1C07} = {E6E88844-7221-4FE2-AE6E-51F00F999F2F}
 		{553D43EC-B600-4886-9A32-B6C94A3DA8D8} = {1EF75278-EABE-42DB-B673-0A432B83DFEF}
-		{1A802AF7-F483-43FE-828E-1CE239B853A4} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 		{8FE09EC2-C809-465C-B013-02634410A141} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 		{9346613B-37F1-4235-8040-9241DAAC90BE} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
+		{28444013-D79F-494A-BA47-55927E2F1AD9} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
+		{7151A9C9-C78B-4020-B839-32E1F8631FC0} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
+		{2D5D97F3-6185-4339-B414-0731B1DD6111} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Documentation\Docs\Docs.projitems*{28444013-d79f-494a-ba47-55927e2f1ad9}*SharedItemsImports = 13
+		Documentation\Bruno\Bruno.projitems*{7151a9c9-c78b-4020-b839-32e1f8631fc0}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

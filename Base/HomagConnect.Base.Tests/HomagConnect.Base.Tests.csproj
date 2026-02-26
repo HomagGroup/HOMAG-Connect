@@ -28,7 +28,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<ProjectReference Include="..\..\HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj" />
+		<ProjectReference Include="..\HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj" />
 		<ProjectReference Include="..\HomagConnect.Base.Client\HomagConnect.Base.Client.csproj" />
 		<ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />
 	</ItemGroup>

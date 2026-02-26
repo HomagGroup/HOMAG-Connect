@@ -1,0 +1,63 @@
+meta {
+  name: MprProgramVariables_ImportOnly
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "name": "Sample_ObjectModel_Postman_MprProgramVariables_ImportOnly",
+      "parts": [
+        {
+          "description": "Part A",
+          "materialCode": "P2_Gold_Craft_Oak_19.0",
+          "grain": "Lengthwise",
+          "quantity": 2,
+          "mprFileName": "Generic.mpr",
+          "mprProgramVariables": [
+            {
+              "name": "L",
+              "value": "980.0"
+            },
+            {
+              "name": "B",
+              "value": "450.0"
+            }
+          ]
+        },
+        {
+          "description": "Part B",
+          "materialCode": "P2_Gold_Craft_Oak_19.0",
+          "grain": "Lengthwise",
+          "quantity": 3,
+          "quantityPlus": 0,
+          "mprFileName": "Generic.mpr",
+          "mprProgramVariables": [
+            {
+              "name": "L",
+              "value": "720.0"
+            },
+            {
+              "name": "B",
+              "value": "380.0"
+            }
+          ]
+        }
+      ],
+      "machine": "productionAssist Nesting",
+      "parameters": "Rectangular"
+    }
+  '''
+  Generic.mpr: @file(/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/Generic.mpr)
+}
+
+settings {
+  encodeUrl: true
+}

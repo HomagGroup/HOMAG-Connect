@@ -1,0 +1,313 @@
+meta {
+  name: Get optimizations
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  take: 100
+  skip: 0
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # IntelliDivide API - Get Optimizations
+  
+  ## Endpoint
+  
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations
+  ```
+  
+  ## Description
+  
+  Retrieves a paginated list of optimizations available in the IntelliDivide system. This endpoint supports filtering by optimization type and other optional parameters. Results are returned in pages to manage large datasets efficiently.
+  
+  ## Query Parameters
+  
+  ### Required Parameters
+  
+  | Parameter | Type | Description |
+  |-----------|------|-------------|
+  | `take` | integer | Maximum number of optimization records to return (max 100). Must be a positive integer. |
+  
+  ### Optional Parameters
+  
+  | Parameter | Type | Description | Default |
+  |-----------|------|-------------|---------|
+  | `skip` | integer | Number of records to skip for pagination. Used with `take` to implement pagination. | 0 |
+  | `optimizationType` | string | Filter results to a specific optimization type. Valid values: `Cutting`, `Nesting`. Case-insensitive. | All types |
+  | `state` | string | Filter results by optimization status. Valid values: `Unknown`, `New`, `Started`, `Canceled`, `Faulted`, `Optimized`, `Archived`, `Transferred`, `Transferring`, `Queued`. | All statuses |
+  | `orderBy` | string | Property name to sort results by. Must be a valid property of the `Optimization` object (e.g., `Name`, `LastModifiedDate`, `Status`, `Machine`). | Default sort order |
+  | `machine` | string | Filter results by machine name. Returns optimizations associated with the specified machine. | All machines |
+  
+  ## Example Requests
+  
+  ### Get cutting optimizations
+  
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=cutting
+  ```
+  
+  Returns the first 100 cutting pattern optimizations.
+  
+  ### Get nesting optimizations
+  
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=nesting
+  ```
+  
+  Returns the first 100 nesting pattern optimizations.
+  
+  ### Get optimized optimizations with pagination
+  
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=50&skip=100&optimizationType=cutting&state=optimized
+  ```
+  
+  Returns optimizations 101-150 of completed cutting optimizations.
+  
+  ### Get optimizations for a specific machine
+  
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=cutting&machine=SawMachine01&state=optimized
+  ```
+  
+  Returns the first 100 optimized cutting optimizations for the specified machine.
+  
+  ### Get optimizations sorted by name
+  
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&orderBy=Name
+  ```
+  
+  Returns the first 100 optimizations sorted by name.
+  
+  ## Response
+  
+  ### Success Response (HTTP 200)
+  
+  ```json
+  [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "name": "JobOrder_2026_001",
+      "optimizationType": "Cutting",
+      "status": "Optimized",
+      "machine": "SawMachine01",
+      "parameterName": "Standard_Parameters",
+      "quantityOfParts": 45,
+      "waste": 12.5,
+      "productionTime": "00:15:30",
+      "lastModifiedDate": "2026-02-26T14:30:00Z",
+      "link": "https://connect.homag.cloud/intelliDivide/optimization/550e8400-e29b-41d4-a716-446655440000",
+      "selectedSolutionId": "660f8400-e29b-41d4-a716-446655440001",
+      "validationResults": []
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "JobOrder_2026_002",
+      "optimizationType": "Cutting",
+      "status": "Optimized",
+      "machine": "SawMachine02",
+      "parameterName": "Standard_Parameters",
+      "quantityOfParts": 32,
+      "waste": 8.3,
+      "productionTime": "00:12:15",
+      "lastModifiedDate": "2026-02-25T10:45:00Z",
+      "link": "https://connect.homag.cloud/intelliDivide/optimization/550e8400-e29b-41d4-a716-446655440001",
+      "selectedSolutionId": null,
+      "validationResults": []
+    }
+  ]
+  ```
+  
+  ### Response Properties
+  
+  | Property | Type | Description |
+  |----------|------|-------------|
+  | `id` | GUID | Unique identifier for the optimization. |
+  | `name` | string | Human-readable name of the optimization. |
+  | `optimizationType` | string | Type of optimization: `Cutting` or `Nesting`. |
+  | `status` | string | Current status of the optimization (e.g., `New`, `Started`, `Optimized`, `Archived`). |
+  | `machine` | string | Name of the machine the optimization is configured for. |
+  | `parameterName` | string | Name of the parameter set used for this optimization. |
+  | `quantityOfParts` | integer | Total number of parts in the optimization. |
+  | `waste` | number | Waste percentage as a decimal (e.g., 12.5 = 12.5%). Nullable. |
+  | `productionTime` | timespan | Estimated time required for production. Nullable. |
+  | `lastModifiedDate` | datetime | ISO 8601 timestamp of the last modification. |
+  | `link` | URI | Direct link to view the optimization in the IntelliDivide application. |
+  | `selectedSolutionId` | GUID | ID of the selected solution, if transferred to production. Nullable. |
+  | `validationResults` | array | Array of validation messages, if any issues exist. |
+  
+  ## Optimization Types
+  
+  ### Cutting
+  Optimizations that generate cutting patterns for saw machines. Pattern layouts are optimized to minimize material waste.
+  
+  ### Nesting
+  Optimizations that generate nesting patterns for CNC nesting machines. Parts are nested to maximize material utilization.
+  
+  ## Optimization Statuses
+  
+  | Status | Description |
+  |--------|-------------|
+  | `Unknown` | Fallback state; should normally not occur. |
+  | `New` | Optimization saved but not yet started. |
+  | `Started` | Optimization execution in progress. |
+  | `Canceled` | Optimization execution was canceled by user. |
+  | `Faulted` | Optimization execution failed with an error. |
+  | `Optimized` | Execution completed successfully. Results are available. |
+  | `Archived` | Optimization has been archived. |
+  | `Transferred` | Results have been downloaded or sent to the machine. |
+  | `Transferring` | Download or transfer to machine is pending or in progress. |
+  | `Queued` | Optimization is queued and awaiting processing. |
+  
+  ## Pagination
+  
+  Use the `take` and `skip` parameters together to implement pagination:
+  
+  - `take`: Number of records per page (maximum 100)
+  - `skip`: Number of records to skip from the beginning
+  
+  **Example:** To get the second page of 50 results:
+  ```
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=50&skip=50
+  ```
+  
+  ## Error Responses
+  
+  ### Bad Request (HTTP 400)
+  
+  Returned when parameters are invalid.
+  
+  ```json
+  {
+    "error": "take parameter must not exceed 100"
+  }
+  ```
+  
+  ### Unauthorized (HTTP 401)
+  
+  Returned when authentication is missing or invalid.
+  
+  ```json
+  {
+    "error": "Unauthorized"
+  }
+  ```
+  
+  ### Not Found (HTTP 404)
+  
+  Returned when the endpoint is not found.
+  
+  ```json
+  {
+    "error": "Not Found"
+  }
+  ```
+  
+  ### Internal Server Error (HTTP 500)
+  
+  Returned when the server encounters an unexpected error.
+  
+  ```json
+  {
+    "error": "An unexpected error occurred"
+  }
+  ```
+  
+  ## Implementation Details
+  
+  ### Client Method
+  
+  The .NET client provides strongly-typed methods for this endpoint:
+  
+  ```csharp
+  // Get optimizations by type
+  Task<IEnumerable<Optimization>> GetOptimizations(
+      OptimizationType optimizationType, 
+      int take, 
+      int skip = 0);
+  
+  // Get optimizations with sorting
+  Task<IEnumerable<Optimization>> GetOptimizations(
+      OptimizationType optimizationType, 
+      string orderBy, 
+      int take, 
+      int skip = 0);
+  
+  // Get optimizations by type and status
+  Task<IEnumerable<Optimization>> GetOptimizations(
+      OptimizationType optimizationType, 
+      OptimizationStatus optimizationStatus, 
+      int take, 
+      int skip = 0);
+  
+  // Get optimizations with all filters
+  Task<IEnumerable<Optimization>> GetOptimizations(
+      OptimizationType optimizationType, 
+      OptimizationStatus optimizationStatus, 
+      string orderBy, 
+      string machine, 
+      int take, 
+      int skip = 0);
+  
+  // Get all optimizations (any type)
+  Task<IEnumerable<Optimization>> GetOptimizations(int take, int skip = 0);
+  ```
+  
+  ### Usage Example
+  
+  ```csharp
+  var client = new IntelliDivideClient(baseUri, httpClient);
+  
+  // Get first 100 completed cutting optimizations
+  var optimizations = await client.GetOptimizations(
+      optimizationType: OptimizationType.Cutting,
+      optimizationStatus: OptimizationStatus.Optimized,
+      take: 100,
+      skip: 0);
+  
+  foreach (var optimization in optimizations)
+  {
+      Console.WriteLine($"{optimization.Name} - {optimization.Status}");
+  }
+  ```
+  
+  ## Rate Limiting
+  
+  It is recommended to:
+  - Keep `take` parameter at or below 100 to minimize response time
+  - Implement appropriate pagination strategies for large datasets
+  - Cache results when appropriate to reduce server load
+  
+  ## Authentication
+  
+  In order to access a HOMAG app via the respective HOMAG Connect interface, you need a license and the necessary authentication data, consisting of SubscribtionId (user name) and authorization key (password). For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication page](https://redirect.homag.cloud/homagconnect_authentication) for detailed instructions.
+  
+  ## Related Endpoints
+  
+  - `GET /api/intelliDivide/optimizations/{optimizationId}` - Get a specific optimization by ID
+  - `POST /api/intelliDivide/optimizations` - Create a new optimization
+  - `DELETE /api/intelliDivide/optimizations/{optimizationId}` - Delete an optimization
+  - `GET /api/intelliDivide/optimizations/{optimizationId}/solutions` - Get solutions for an optimization
+  
+  ## See Also
+  
+  - [IntelliDivide Documentation](https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Readme.md)
+  - [OptimizationType Reference](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Common/OptimizationType.cs)
+  - [OptimizationStatus Reference](https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)
+  - [Optimization Model Reference](https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/IntelliDivide/Contracts/Optimization.cs)
+  
+}

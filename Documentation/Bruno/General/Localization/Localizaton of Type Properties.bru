@@ -1,0 +1,16 @@
+meta {
+  name: Localizaton of Type Properties
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/localizations/types/:typeName/properties/:culture
+  body: none
+  auth: inherit
+}
+
+params:path {
+  typeName: PartHistory
+  culture: de
+}

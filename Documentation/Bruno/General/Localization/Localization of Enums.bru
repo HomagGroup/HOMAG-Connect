@@ -1,0 +1,16 @@
+meta {
+  name: Localization of Enums
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/localizations/enums/:enumTypeName/:culture
+  body: none
+  auth: inherit
+}
+
+params:path {
+  enumTypeName: EdgebandMaterialCategory
+  culture: de
+}
