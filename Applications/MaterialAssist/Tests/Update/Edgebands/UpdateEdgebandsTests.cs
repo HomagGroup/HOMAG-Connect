@@ -12,7 +12,6 @@ public class UpdateEdgebandsTests : MaterialAssistTestBase
     [TestMethod]
     public async Task EdgebandsUpdateEdgebandEntities()
     {
-        var random = new Random();
         var length = Math.Round(RandomBetween(50.0, 100.0), 2);
 
         var materialAssistClient = GetMaterialAssistClient().Edgebands;
@@ -24,12 +23,7 @@ public class UpdateEdgebandsTests : MaterialAssistTestBase
             "because edgeband entity '43' should exist after update");
         Assert.AreEqual(length, checkEdgebandEntity!.Length, 0.0001,
             $"because edgeband entity '43' was updated to length {length}");
-        return;
-
-        double RandomBetween(double min, double max)
-        {
-            return random.NextDouble() * (max - min) + min;
-        }
+        return;       
     }
 
     [ClassInitialize]
