@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
 
 // Note: This is preliminary code and is subject to change
@@ -14,6 +15,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// recognized or is newly introduced. When deserializing from JSON, unknown values will be mapped to <see
 /// cref="Unknown"/> due to the tolerant enum converter.</remarks>
 [JsonConverter(typeof(TolerantEnumConverter))]
+[ResourceManager(typeof(PriceTypeDisplayNames))]
 public enum PriceType
 {
     /// <summary>
