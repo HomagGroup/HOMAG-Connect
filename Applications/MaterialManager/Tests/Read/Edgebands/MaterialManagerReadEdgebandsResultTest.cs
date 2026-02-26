@@ -25,7 +25,6 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         await EnsureEdgebandTypeExist(materialManagerClient, "ABS_Black_1.20_23.0_ZJ", 1.2);
     }
 
-
     /// <summary />
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypeByEdgebandCode()

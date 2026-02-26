@@ -50,11 +50,6 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return urls;
     }
 
-    /// <summary>
-    /// Prepare URL and JSON payload used by UpdateEdgebandType operations is moved to shared helper
-    /// </summary>
-    /// <remarks>Call ValidateRequiredProperties from instance methods; helper only prepares payload and uri.</remarks>
-
     #endregion Private methods
 
     #region Get

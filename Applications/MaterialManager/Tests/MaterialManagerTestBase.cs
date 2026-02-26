@@ -20,7 +20,7 @@ public class MaterialManagerTestBase : TestBase
     /// <summary>
     /// Edgeband code used for testing.
     /// </summary>
-    protected const string EdgebandCode = "ABS_White_2mm";   
+    protected const string EdgebandCode = "ABS_White_2mm";
 
     /// <summary>
     /// Create a EdgebandTypeAllocationRequest instance.
@@ -98,7 +98,7 @@ public class MaterialManagerTestBase : TestBase
         try
         {
             boardType = await client.GetBoardTypeByBoardCode(boardTypeCode);
-        }       
+        }
         catch (Exception)
         {
             //ignored           
@@ -173,5 +173,5 @@ public class MaterialManagerTestBase : TestBase
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", EncodeBase64Token(SubscriptionId.ToString(), AuthorizationKey));
 
         return new MaterialManagerClient(httpClient);
-    }    
+    }
 }
