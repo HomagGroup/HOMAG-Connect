@@ -100,6 +100,7 @@ New enums annotated with `[ResourceManager]` become automatically available via 
 ## Related
 
 - [Type Property Localisations API](TypePropertyLocalizations.md) – localized object property names.
+- [Bruno Request: Localization of Enums](../../../Bruno/General/Localization/Localization%20of%20Enums.bru)
 - `ResourceManager` attribute – marks enums for localization.
 - `TolerantEnumConverter` – `Newtonsoft.Json` converter for robust enum parsing.
 

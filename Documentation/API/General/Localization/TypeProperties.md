@@ -168,6 +168,7 @@ var json = boardType.SerializeLocalized(culture);
 ## Related
 
 - [Enum Localisations API](EnumLocalizations.md) – localized enum values.
+- [Bruno Request: Localizaton of Type Properties](../../../Bruno/General/Localization/Localizaton%20of%20Type%20Properties.bru)
 - `ISupportsLocalizedSerialization` – interface for localized JSON output.
 - `LocalizedContractResolver` – `Newtonsoft.Json` resolver for localized serialization.
 

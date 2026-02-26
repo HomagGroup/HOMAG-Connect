@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>29900426-9e86-4f37-a685-f1a442c056ca</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Docs</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)General\Localization\Cultures.md" />
+    <None Include="$(MSBuildThisFileDirectory)General\Localization\Enums.md" />
+    <None Include="$(MSBuildThisFileDirectory)General\Localization\TypeProperties.md" />
+    <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Archive Optimization.md" />
+    <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Delete Optimization.md" />
+    <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Get Optimization Solutions.md" />
+    <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Get Optimization.md" />
+    <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Get Optimizations.md" />
+    <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Start Optimization.md" />
+  </ItemGroup>
+</Project>

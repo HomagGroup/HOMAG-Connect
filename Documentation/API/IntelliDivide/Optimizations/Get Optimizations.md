@@ -1,4 +1,4 @@
-# IntelliDivide API - Get Optimizations
+# HOMAG Connect intelliDivide - Get Optimizations
 
 ## Endpoint
 
@@ -208,7 +208,7 @@ Returned when the server encounters an unexpected error.
 
 ### Client Method
 
-The .NET client provides strongly-typed methods for this endpoint:
+The .NET client provides strongly-typed methods for this endpoint (see [`IIntelliDivideClient`](../../../../Applications/IntelliDivide/Contracts/IIntelliDivideClient.cs) and [`IntelliDivideClient`](../../../../Applications/IntelliDivide/Client/IntelliDivideClient.cs)):
 
 ```csharp
 // Get optimizations by type
@@ -264,14 +264,18 @@ foreach (var optimization in optimizations)
 
 ## Rate Limiting
 
-No specific rate limiting is documented. However, it is recommended to:
+It is recommended to:
 - Keep `take` parameter at or below 100 to minimize response time
 - Implement appropriate pagination strategies for large datasets
 - Cache results when appropriate to reduce server load
 
-## Authentication
+## Referenced Types
 
-All requests require valid authentication credentials. Ensure that your HTTP client includes appropriate authentication headers (typically a Bearer token or API key).
+- [`Optimization`](../../../../Applications/IntelliDivide/Contracts/Optimization.cs)
+- [`OptimizationType`](../../../../Applications/IntelliDivide/Contracts/Common/OptimizationType.cs)
+- [`OptimizationStatus`](../../../../Applications/IntelliDivide/Contracts/OptimizationStatus.cs)
+- [`IIntelliDivideClient`](../../../../Applications/IntelliDivide/Contracts/IIntelliDivideClient.cs)
+- [`IntelliDivideClient`](../../../../Applications/IntelliDivide/Client/IntelliDivideClient.cs)
 
 ## Related Endpoints
 
@@ -282,7 +286,7 @@ All requests require valid authentication credentials. Ensure that your HTTP cli
 
 ## See Also
 
-- [IntelliDivide Documentation](../Readme.md)
-- [OptimizationType Reference](../../Contracts/Common/OptimizationType.cs)
-- [OptimizationStatus Reference](../../Contracts/OptimizationStatus.cs)
-- [Optimization Model Reference](../../Contracts/Optimization.cs)
+- [IntelliDivide Documentation](../../../../Applications/IntelliDivide/Readme.md)
+- [OptimizationType Reference](../../../../Applications/IntelliDivide/Contracts/Common/OptimizationType.cs)
+- [OptimizationStatus Reference](../../../../Applications/IntelliDivide/Contracts/OptimizationStatus.cs)
+- [Optimization Model Reference](../../../../Applications/IntelliDivide/Contracts/Optimization.cs)

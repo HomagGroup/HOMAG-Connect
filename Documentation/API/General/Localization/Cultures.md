@@ -54,3 +54,4 @@ Missing or invalid credentials.
 
 - [Enum Localisations API](EnumLocalizations.md)
 - [Type Property Localisations API](TypePropertyLocalisations.md)
+- [Bruno Request: Supported Cultures](../../../Bruno/General/Localization/Supported%20Cultures.bru)
