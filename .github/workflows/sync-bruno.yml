@@ -40,7 +40,7 @@ jobs:
       # Step 4: Commit and push the modified .bru files back to the current branch.
       # If the Python script didn't change any files, this step will gracefully do nothing.
       - name: Commit and Push Changes
-        uses: stefanzweifel/git-auto-commit-action@a44f0a74683f632e2a2a0f4fd2d3965f399d8a52
+        uses: stefanzweifel/git-auto-commit-action/commit/04702edda442b2e678b25b537cec683a1493fcb9        
         with:
           # The commit message that will appear in your Git history.
           commit_message: "chore(bruno): auto-sync markdown documentation into .bru files"
