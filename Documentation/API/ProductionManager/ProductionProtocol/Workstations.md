@@ -64,7 +64,7 @@ Returned when the server encounters an unexpected error.
 
 ### Client Method
 
-The .NET client provides a strongly-typed method for this endpoint (see [`IProductionManagerClient`](../../../Applications/ProductionManager/Contracts/IProductionManagerClient.cs) and [`ProductionManagerClient`](../../../Applications/ProductionManager/Client/ProductionManagerClient.cs)):
+The .NET client provides a strongly-typed method for this endpoint (see [`IProductionManagerClient`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs) and [`ProductionManagerClient`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)):
 
 ```csharp
 Task<IEnumerable<Workstation>?> GetWorkstations();
@@ -90,7 +90,7 @@ foreach (var workstation in workstations)
 
 ## Referenced Types
 
-- [`Workstation`](../../../Base/HomagConnect.Base.Contracts/Workstation.cs)
-- [`WorkstationType`](../../../Base/HomagConnect.Base.Contracts/Enumerations/WorkstationType.cs)
-- [`IProductionManagerClient`](../../../Applications/ProductionManager/Contracts/IProductionManagerClient.cs)
-- [`ProductionManagerClient`](../../../Applications/ProductionManager/Client/ProductionManagerClient.cs)
+- [`Workstation`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Base/HomagConnect.Base.Contracts/Workstation.cs)
+- [`WorkstationType`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Base/HomagConnect.Base.Contracts/Enumerations/WorkstationType.cs)
+- [`IProductionManagerClient`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs)
+- [`ProductionManagerClient`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)

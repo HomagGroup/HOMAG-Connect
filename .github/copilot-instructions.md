@@ -3,6 +3,7 @@
 ## General Guidelines
 - First general instruction
 - Second general instruction
+- Use absolute URLs for links.
 
 ## Code Style
 - Use specific formatting rules

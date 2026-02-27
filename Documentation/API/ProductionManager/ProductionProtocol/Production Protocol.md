@@ -61,13 +61,13 @@ GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01
 
 ## Related Variants
 
-- [Production Protocol (localized)](Production%20Protocol%20(localized).md)
-- [Production Protocol (from - to)](Production%20Protocol%20(from%20-%20to).md)
+- [Production Protocol (localized)](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/ProductionManager/ProductionProtocol/Production%20Protocol%20(localized).md)
+- [Production Protocol (from - to)](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/ProductionManager/ProductionProtocol/Production%20Protocol%20(from%20-%20to).md)
 
 ## Referenced Types
 
-- [`ProcessedItem`](../../../Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs))
-- [`ProcessedItemType`](../../../Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItemType.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItemType.cs))
-- [`IProductionManagerClient`](../../../Applications/ProductionManager/Contracts/IProductionManagerClient.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs))
-- [`ProductionManagerClient`](../../../Applications/ProductionManager/Client/ProductionManagerClient.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs))
-- [`Workstation`](../../../Base/HomagConnect.Base.Contracts/Workstation.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Base/HomagConnect.Base.Contracts/Workstation.cs))
+- [`ProcessedItem`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs)
+- [`ProcessedItemType`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItemType.cs)
+- [`IProductionManagerClient`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs)
+- [`ProductionManagerClient`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+- [`Workstation`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Base/HomagConnect.Base.Contracts/Workstation.cs)
