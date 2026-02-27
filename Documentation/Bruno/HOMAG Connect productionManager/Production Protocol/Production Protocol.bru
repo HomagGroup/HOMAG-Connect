@@ -1,24 +1,30 @@
 meta {
   name: Production Protocol
   type: http
-  seq: 2
+  seq: 4
 }
 
 get {
-  url: https://connect.homag.cloud/api/productionManager/workstations/:workstationId/productionprotocol?daysBack=90
+  url: https://connect.homag.cloud/api/productionManager/workstations/:workstationId/productionprotocol?daysBack=90&take=1000&skip=0
   body: none
   auth: inherit
 }
 
 params:query {
   daysBack: 90
+  take: 1000
+  skip: 0
 }
 
 params:path {
-  workstationId: c2ff86b1-962a-4574-9689-4a339bee15ef
+  workstationId: {{WorkstationId}}
 }
 
 settings {
   encodeUrl: true
   timeout: 0
+}
+
+docs {
+  [See API documentation](../../../../API/ProductionManager/ProductionProtocol/Production%20Protocol.md)
 }

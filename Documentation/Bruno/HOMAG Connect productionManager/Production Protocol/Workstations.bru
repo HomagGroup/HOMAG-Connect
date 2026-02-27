@@ -10,7 +10,21 @@ get {
   auth: inherit
 }
 
+script:post-response {
+  
+  // Pick first workstation
+  const id = data[0].id;
+  
+  // Store in environment variable
+  bru.setEnvVar("workstationId", id);
+  
+}
+
 settings {
   encodeUrl: true
   timeout: 0
+}
+
+docs {
+  [See API documentation](../../../../API/ProductionManager/ProductionProtocol/Workstations.md)
 }

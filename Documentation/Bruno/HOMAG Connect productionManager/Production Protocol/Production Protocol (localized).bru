@@ -1,0 +1,30 @@
+meta {
+  name: Production Protocol (localized)
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/workstations/:workstationId/productionprotocol?daysBack=90&culture=de&format=localized
+  body: none
+  auth: inherit
+}
+
+params:query {
+  daysBack: 90
+  culture: de
+  format: localized
+}
+
+params:path {
+  workstationId: {{WorkstationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  [See API documentation](../../../../API/ProductionManager/ProductionProtocol/Production%20Protocol%20(localized).md)
+}

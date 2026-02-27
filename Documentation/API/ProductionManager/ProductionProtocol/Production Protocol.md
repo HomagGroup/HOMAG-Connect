@@ -1,15 +1,15 @@
-# HOMAG Connect productionManager - Get Production Protocol
+# HOMAG Connect productionManager - Production Protocol
 
 ## Endpoint
 
 ```http
-GET https://connect.homag.cloud/api/productionManager/workstations/{workstationId}/productionprotocol?daysBack={daysBack}
+GET https://connect.homag.cloud/api/productionManager/workstations/{workstationId}/productionprotocol
 ```
 
 ## Description
 
 Retrieves production protocol entries for a specific workstation.
-The response contains processed production items (polymorphic `ProcessedItem` records) for the selected time window.
+This variant matches the default Bruno request using `daysBack`, `take`, and `skip`.
 
 ## Path Parameters
 
@@ -21,12 +21,14 @@ The response contains processed production items (polymorphic `ProcessedItem` re
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `daysBack` | integer | no | Number of days to include in the history window. Default in client: `7`. |
+| `daysBack` | integer | no | Number of days to include in the history window. |
+| `take` | integer | no | Maximum number of items to return. |
+| `skip` | integer | no | Number of items to skip for paging. Default: `0`. |
 
 ## Example Request
 
 ```http
-GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01-4d43-98a8-2e9e88f4e1a7/productionprotocol?daysBack=7
+GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01-4d43-98a8-2e9e88f4e1a7/productionprotocol?daysBack=90&take=1000&skip=0
 ```
 
 ## Response
@@ -57,51 +59,15 @@ GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01
 | `subscriptionId` | GUID | Subscription identifier. |
 | `additionalProperties` | object | Optional extension fields. |
 
-## Error Responses
+## Related Variants
 
-### Bad Request (HTTP 400)
-
-Returned when parameters are invalid (for example unsupported `workstationId` format).
-
-### Unauthorized (HTTP 401)
-
-Returned when authentication is missing or invalid.
-
-### Not Found (HTTP 404)
-
-Returned when the specified workstation cannot be resolved.
-
-### Internal Server Error (HTTP 500)
-
-Returned when the server encounters an unexpected error.
-
-## Implementation Details
-
-### Client Method
-
-The .NET client exposes this method (see [`IProductionManagerClient`](../../../Applications/ProductionManager/Contracts/IProductionManagerClient.cs) and [`ProductionManagerClient`](../../../Applications/ProductionManager/Client/ProductionManagerClient.cs)):
-
-```csharp
-Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7);
-```
-
-### Usage Example
-
-```csharp
-var client = new ProductionManagerClient(subscriptionId, authorizationKey);
-
-var workstations = await client.GetWorkstations();
-var workstation = workstations?.FirstOrDefault();
-if (workstation is null)
-    return;
-
-var protocol = await client.GetProductionProtocol(workstation.Id.ToString(), daysBack: 7);
-```
+- [Production Protocol (localized)](Production%20Protocol%20(localized).md)
+- [Production Protocol (from - to)](Production%20Protocol%20(from%20-%20to).md)
 
 ## Referenced Types
 
-- [`ProcessedItem`](../../../Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs)
-- [`ProcessedItemType`](../../../Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItemType.cs)
-- [`IProductionManagerClient`](../../../Applications/ProductionManager/Contracts/IProductionManagerClient.cs)
-- [`ProductionManagerClient`](../../../Applications/ProductionManager/Client/ProductionManagerClient.cs)
-- [`Workstation`](../../../Base/HomagConnect.Base.Contracts/Workstation.cs)
+- [`ProcessedItem`](../../../Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs))
+- [`ProcessedItemType`](../../../Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItemType.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItemType.cs))
+- [`IProductionManagerClient`](../../../Applications/ProductionManager/Contracts/IProductionManagerClient.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs))
+- [`ProductionManagerClient`](../../../Applications/ProductionManager/Client/ProductionManagerClient.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs))
+- [`Workstation`](../../../Base/HomagConnect.Base.Contracts/Workstation.cs) ([GitHub](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Base/HomagConnect.Base.Contracts/Workstation.cs))

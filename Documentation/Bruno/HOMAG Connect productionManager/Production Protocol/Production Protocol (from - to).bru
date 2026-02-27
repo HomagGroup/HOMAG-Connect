@@ -1,0 +1,31 @@
+meta {
+  name: Production Protocol (from / to)
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/workstations/:workstationId/productionprotocol?from=2025-12-01&to=2026-01-31&take=1000&skip=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  from: 2025-12-01
+  to: 2026-01-31
+  take: 1000
+  skip: 0
+}
+
+params:path {
+  workstationId: {{WorkstationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  [See API documentation](../../../../API/ProductionManager/ProductionProtocol/Production%20Protocol%20(from%20-%20to).md)
+}
