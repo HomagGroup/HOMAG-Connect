@@ -10,7 +10,8 @@
   <PropertyGroup />
   <ItemGroup>
     <Content Include="bruno.json" />
-    <None Include="**\*.yml" />
+    <None Include="General\Localization\folder.yml" />
+    <None Include="HOMAG Connect IntelliDivide\Cutting\Settings\Get machines.yml" />
   </ItemGroup>
   <Import Project="Bruno.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />

@@ -59,11 +59,6 @@ GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01
 | `subscriptionId` | GUID | Subscription identifier. |
 | `additionalProperties` | object | Optional extension fields. |
 
-## Related Variants
-
-- [Production Protocol (localized)](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/ProductionManager/ProductionProtocol/Production%20Protocol%20(localized).md)
-- [Production Protocol (from - to)](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/ProductionManager/ProductionProtocol/Production%20Protocol%20(from%20-%20to).md)
-
 ## Referenced Types
 
 - [`ProcessedItem`](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionProtocol/ProcessedItem.cs)
