@@ -1,5 +1,5 @@
 meta {
-  name: Get material statistics
+  name: List material statistics
   type: http
   seq: 1
 }
@@ -22,44 +22,35 @@ settings {
 }
 
 docs {
-  # IntelliDivide API - Get material statistics
-  
-  Retrieves material efficiency statistics for a configurable time range.
+  # List material statistics for a time range
   
   ## Endpoint
   
   ```http
-  GET /api/intelliDivide/statistics/material
+  GET https://connect.homag.cloud/api/intelliDivide/statistics/material
   ```
   
-  ## Query Parameters
+  ## Purpose
   
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | `daysBack` | integer | no | Number of days to look back from now. |
-  | `from` | datetime | no | Explicit start timestamp (`yyyy-MM-ddTHH:mm:ss`). |
-  | `to` | datetime | no | Explicit end timestamp (`yyyy-MM-ddTHH:mm:ss`). |
-  | `take` | integer | no | Maximum number of result rows to return. |
-  | `skip` | integer | no | Number of result rows to skip. |
+  List IntelliDivide material efficiency statistics for a selected time range to support reporting and analysis.
   
-  Notes:
-  - Use either `daysBack` **or** the `from` + `to` range.
-  - Do not combine `daysBack` with `from`/`to` in the same request.
-  - This request currently uses `daysBack=90`, `take=10000`, `skip=0`.
+  ## Parameters
   
-  ## Current request
-
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `daysBack` | query | integer | no | Number of days to look back from now. Use either `daysBack` or `from` and `to`. |
+  | `from` | query | datetime | no | Start timestamp in ISO format (`yyyy-MM-ddTHH:mm:ss`). Use with `to`. |
+  | `to` | query | datetime | no | End timestamp in ISO format (`yyyy-MM-ddTHH:mm:ss`). Use with `from`. |
+  | `take` | query | integer | no | Maximum number of rows to return. |
+  | `skip` | query | integer | no | Number of rows to skip. Must be `>= 0`. |
+  
+  ## Request example
+  
   ```http
-  GET /api/intelliDivide/statistics/material?daysBack=90&take=10000&skip=0
+  GET https://connect.homag.cloud/api/intelliDivide/statistics/material?daysBack=90&take=10000&skip=0
   ```
-
-  ## Alternative request (`from` / `to`)
-
-  ```http
-  GET /api/intelliDivide/statistics/material?from=2026-01-01T00:00:00&to=2026-01-31T23:59:59&take=10000&skip=0
-  ```
-
-  ## Success response (200)
+  
+  ## Success response example
   
   ```json
   [
@@ -78,40 +69,54 @@ docs {
   ]
   ```
   
+  ## Possible error codes
+  
+  - `300 Ambiguous` - Invalid parameter combination (for example using `daysBack` together with `from` or `to`).
+  - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
+  - `422 Unprocessable Entity` - Invalid `take`/`skip` values, invalid date range, or too much data requested.
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
   ## C# sample
-
+  
   ```csharp
-  var client = new IntelliDivideClient(baseUri, httpClient);
+  using HomagConnect.IntelliDivide.Client;
+  using HomagConnect.IntelliDivide.Contracts.Statistics;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  var baseUrl = new Uri("https://connect.homag.cloud/");
+  
+  var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
   var statistics = await client.GetMaterialStatistics(daysBack: 90, take: 10000, skip: 0);
-
+  
   foreach (var item in statistics ?? Enumerable.Empty<MaterialEfficiency>())
   {
       Console.WriteLine($"{item.MaterialCode}: waste={item.WasteArea}");
   }
   ```
-
+  
   ## PowerShell sample
-
+  
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
   $subscriptionId = "<your-subscription-id>"
   $authorizationKey = "<your-authorization-key>"
-
+  
   $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
   $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-
+  
   $headers = @{
     Authorization = "Basic $encoded"
   }
-
+  
   $url = "$baseUrl/api/intelliDivide/statistics/material?daysBack=90&take=10000&skip=0"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
-
+  
   foreach ($item in $response) {
     Write-Host ("{0}: waste={1}" -f $item.materialCode, $item.wasteArea)
   }
   ```
-
+  
   ## Referenced types (GitHub)
   
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)

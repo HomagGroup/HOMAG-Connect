@@ -20,7 +20,7 @@ settings {
 }
 
 docs {
-  # List optimization status by ID
+  # Get optimization status by ID
 
   ## Endpoint
 
@@ -30,12 +30,12 @@ docs {
 
   ## Purpose
 
-  List the current status of an optimization before listing results or triggering follow-up actions.
+  Retrieve the current status for one optimization so you can decide whether to trigger follow-up actions.
 
   ## Parameters
 
-  | Parameter | Location | Type | Required | Description |
-  |-----------|----------|------|----------|-------------|
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
   | `optimizationId` | path | GUID | yes | Unique identifier of the optimization. |
 
   ## Request example

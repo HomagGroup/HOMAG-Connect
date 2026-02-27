@@ -22,25 +22,21 @@ settings {
 docs {
   # List import templates for an optimization type
   
-  ## Overview
-  
-  Retrieves available IntelliDivide import templates for the selected optimization type.
-  
   ## Endpoint
   
   ```http
   GET https://connect.homag.cloud/api/intelliDivide/{optimizationType}/templates
   ```
   
-  ## Purpose of the request
+  ## Purpose
   
-  Use this endpoint to list available template names before submitting template-based optimization imports.
+  List available IntelliDivide import templates for the selected optimization type before submitting template-based optimization imports.
   
-  ## Path parameter table
+  ## Parameters
   
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | `optimizationType` | string | yes | Optimization type used by the HOMAG Connect API route. Typical values: `cutting`, `nesting`. |
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `optimizationType` | path | string | yes | Optimization type used by the HOMAG Connect API route. Typical values: `cutting`, `nesting`. |
   
   ## Request example
   
@@ -69,7 +65,7 @@ docs {
   - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
   - `500 Internal Server Error` - Unexpected error while resolving template data.
   
-  ## Runnable C# sample
+  ## C# sample
   
   ```csharp
   using HomagConnect.IntelliDivide.Client;
@@ -93,7 +89,7 @@ docs {
   }
   ```
   
-  ## Runnable PowerShell sample
+  ## PowerShell sample
   
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
@@ -116,7 +112,7 @@ docs {
   }
   ```
   
-  ## Referenced types with absolute GitHub URLs
+  ## Referenced types (GitHub)
   
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
   - [OptimizationImportTemplate](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationImportTemplate.cs)

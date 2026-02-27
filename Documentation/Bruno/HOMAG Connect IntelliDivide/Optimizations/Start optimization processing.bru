@@ -1,11 +1,11 @@
 meta {
-  name: Delete Optimization
+  name: Start optimization processing
   type: http
-  seq: 6
+  seq: 3
 }
 
-delete {
-  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId/optimize
   body: none
   auth: inherit
 }
@@ -20,86 +20,82 @@ settings {
 }
 
 docs {
-  # Delete an optimization by ID
-
-  ## Overview
-
-  Removes an IntelliDivide optimization identified by `optimizationId`.
-
+  # Start optimization processing by ID
+  
   ## Endpoint
-
+  
   ```http
-  DELETE https://connect.homag.cloud/api/intelliDivide/optimizations/{optimizationId}
+  POST https://connect.homag.cloud/api/intelliDivide/optimizations/{optimizationId}/optimize
   ```
-
-  ## Purpose of the request
-
-  Use this endpoint to remove obsolete or test optimizations from the list.
-
-  ## Path parameter table
-
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | `optimizationId` | GUID | yes | Unique identifier of the optimization to delete. |
-
+  
+  ## Purpose
+  
+  Start execution for an existing IntelliDivide optimization after import or preparation so you can list progress and results in follow-up requests.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `optimizationId` | path | GUID | yes | Unique identifier of the optimization to start. |
+  
   ## Request example
-
+  
   ```http
-  DELETE https://connect.homag.cloud/api/intelliDivide/optimizations/550e8400-e29b-41d4-a716-446655440000
+  POST https://connect.homag.cloud/api/intelliDivide/optimizations/550e8400-e29b-41d4-a716-446655440000/optimize
   ```
-
+  
   ## Success response example
-
+  
   ```json
-  true
+  "Started"
   ```
-
+  
   ## Possible error codes
-
+  
   - `400 Bad Request` - Invalid `optimizationId` format.
   - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
   - `404 Not Found` - Optimization ID does not exist.
   - `500 Internal Server Error` - Unexpected server-side error.
-
-  ## Runnable C# sample
-
+  
+  ## C# sample
+  
   ```csharp
   using HomagConnect.IntelliDivide.Client;
-
+  
   var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
   var authorizationKey = "<your-authorization-key>";
   var baseUrl = new Uri("https://connect.homag.cloud/");
   var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
-
+  
   var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
-  await client.DeleteOptimization(optimizationId);
-
-  Console.WriteLine($"Deleted optimization {optimizationId}");
+  await client.StartOptimization(optimizationId);
+  
+  Console.WriteLine($"Started optimization {optimizationId}");
   ```
-
-  ## Runnable PowerShell sample
-
+  
+  ## PowerShell sample
+  
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
   $subscriptionId = "<your-subscription-id>"
   $authorizationKey = "<your-authorization-key>"
   $optimizationId = "550e8400-e29b-41d4-a716-446655440000"
-
+  
   $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
   $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-
+  
   $headers = @{
     Authorization = "Basic $encoded"
   }
-
-  $url = "$baseUrl/api/intelliDivide/optimizations/$optimizationId"
-  $response = Invoke-RestMethod -Method Delete -Uri $url -Headers $headers
-
+  
+  $url = "$baseUrl/api/intelliDivide/optimizations/$optimizationId/optimize"
+  $response = Invoke-RestMethod -Method Post -Uri $url -Headers $headers
+  
   $response | ConvertTo-Json -Depth 10
   ```
-
-  ## Referenced types with absolute GitHub URLs
-
+  
+  ## Referenced types (GitHub)
+  
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
   - [Optimization](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Optimization.cs)
   - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)

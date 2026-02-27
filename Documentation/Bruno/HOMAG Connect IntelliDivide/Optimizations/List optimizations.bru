@@ -1,5 +1,5 @@
 meta {
-  name: Get optimizations
+  name: List optimizations
   type: http
   seq: 1
 }
@@ -22,46 +22,36 @@ settings {
 
 docs {
   # List optimizations with pagination
-
-  ## Overview
-
-  Retrieves a paginated list of IntelliDivide optimizations with optional filtering and sorting.
-
+  
   ## Endpoint
-
+  
   ```http
   GET https://connect.homag.cloud/api/intelliDivide/optimizations
   ```
-
-  ## Purpose of the request
-
-  Use this endpoint to list optimization records for monitoring, reporting, and follow-up actions.
-
-  ## Path parameter table
-
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | _None_ | - | - | This endpoint does not require path parameters. |
-
-  ## Query parameters
-
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | `take` | integer | yes | Maximum number of items to return. Allowed range in implementation: `1..100`. |
-  | `skip` | integer | no | Number of items to skip. Must be `>= 0`. |
-  | `optimizationType` | string | no | Filter by optimization type (`Cutting`, `Nesting`). |
-  | `state` | string | no | Filter by optimization status. |
-  | `orderBy` | string | no | Property name for sorting (for example `Name`, `LastModifiedDate`). |
-  | `machine` | string | no | Filter by machine name. |
-
+  
+  ## Purpose
+  
+  List IntelliDivide optimizations with pagination, optional filtering, and optional sorting for monitoring and follow-up actions.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `take` | query | integer | yes | Maximum number of items to return. Allowed range in implementation: `1..100`. |
+  | `skip` | query | integer | no | Number of items to skip. Must be `>= 0`. |
+  | `optimizationType` | query | string | no | Filter by optimization type (`Cutting`, `Nesting`). |
+  | `state` | query | string | no | Filter by optimization status. |
+  | `orderBy` | query | string | no | Property name for sorting (for example `Name`, `LastModifiedDate`). |
+  | `machine` | query | string | no | Filter by machine name. |
+  
   ## Request example
-
+  
   ```http
   GET https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=Cutting&state=Optimized
   ```
-
+  
   ## Success response example
-
+  
   ```json
   [
     {
@@ -79,56 +69,56 @@ docs {
     }
   ]
   ```
-
+  
   ## Possible error codes
-
+  
   - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
   - `422 Unprocessable Entity` - Invalid range for `take` or `skip` (for example `take > 100`, `take < 1`, or `skip < 0`).
   - `500 Internal Server Error` - Unexpected server-side error.
-
-  ## Runnable C# sample
-
+  
+  ## C# sample
+  
   ```csharp
   using HomagConnect.IntelliDivide.Client;
   using HomagConnect.IntelliDivide.Contracts;
-
+  
   var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
   var authorizationKey = "<your-authorization-key>";
   var baseUrl = new Uri("https://connect.homag.cloud/");
-
+  
   var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
   var optimizations = await client.GetOptimizations(take: 100, skip: 0);
-
+  
   foreach (var optimization in optimizations ?? Enumerable.Empty<Optimization>())
   {
       Console.WriteLine($"{optimization.Name} - {optimization.Status}");
   }
   ```
-
-  ## Runnable PowerShell sample
-
+  
+  ## PowerShell sample
+  
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
   $subscriptionId = "<your-subscription-id>"
   $authorizationKey = "<your-authorization-key>"
-
+  
   $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
   $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-
+  
   $headers = @{
     Authorization = "Basic $encoded"
   }
-
+  
   $url = "$baseUrl/api/intelliDivide/optimizations?take=100&skip=0"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
-
+  
   foreach ($optimization in $response) {
     Write-Host ("{0} - {1}" -f $optimization.name, $optimization.status)
   }
   ```
-
-  ## Referenced types with absolute GitHub URLs
-
+  
+  ## Referenced types (GitHub)
+  
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
   - [Optimization](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Optimization.cs)
   - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)

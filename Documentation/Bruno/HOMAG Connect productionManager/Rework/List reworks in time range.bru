@@ -1,13 +1,20 @@
 meta {
-  name: Rework
+  name: List reworks in time range
   type: http
-  seq: 1
+  seq: 3
 }
 
 get {
-  url: https://connect.homag.cloud/api/productionManager/orders/reworks
+  url: https://connect.homag.cloud/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
   body: none
   auth: inherit
+}
+
+params:query {
+  capturedAtFrom: 2025-12-01
+  capturedAtTo: 2026-02-28
+  take: 1000
+  skip: 0
 }
 
 settings {
@@ -16,108 +23,103 @@ settings {
 }
 
 docs {
-  # List reworks
-
+  # List reworks in a capture time range
+  
   ## Endpoint
-
+  
   ```http
   GET https://connect.homag.cloud/api/productionManager/orders/reworks
   ```
-
+  
   ## Purpose
-
-  List rework entries from productionManager with optional filters for state, capture time range, paging, and localization.
-
+  
+  List rework entries captured in a specific time range for reporting, analysis, or follow-up processing.
+  
   ## Parameters
-
+  
   | Name | In | Type | Required | Description |
   |------|----|------|----------|-------------|
-  | `state` | query | string[] | no | Rework states to include. Repeat the parameter for multiple values. |
-  | `capturedAtFrom` | query | datetimeoffset | no | Start of capture timestamp range (inclusive). |
-  | `capturedAtTo` | query | datetimeoffset | no | End of capture timestamp range (inclusive). |
+  | `capturedAtFrom` | query | datetimeoffset | yes | Start of capture timestamp range (inclusive). |
+  | `capturedAtTo` | query | datetimeoffset | yes | End of capture timestamp range (inclusive). |
   | `take` | query | integer | no | Maximum number of records to return. |
   | `skip` | query | integer | no | Number of records to skip. |
-  | `format` | query | string | no | Set to `localized` to enable localized output. |
-  | `culture` | query | string | no | Localization culture (for example `de`, `en`, `de-DE`). |
-
+  
   ## Request example
-
+  
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks
+  GET https://connect.homag.cloud/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
   ```
-
+  
   ## Success response example
-
+  
   ```json
   [
     {
-      "reworkId": "RWK-2026-0001",
-      "id": "P-100234",
-      "orderName": "Order_2026_001",
-      "material": "MDF_19.0",
-      "quantityOfReworks": 2,
-      "state": "Rejected",
-      "capturedAt": "2026-02-27T08:45:00Z"
+      "reworkId": "RWK-2026-0002",
+      "id": "P-100311",
+      "orderName": "Order_2026_014",
+      "material": "HPL_12.0",
+      "quantityOfReworks": 1,
+      "state": "Transferred",
+      "capturedAt": "2026-02-20T14:18:32Z"
     }
   ]
   ```
-
+  
   ## Possible error codes
-
-  - `400 Bad Request` - Invalid query parameter values.
+  
+  - `400 Bad Request` - Invalid query parameter values (for example invalid timestamp format).
   - `401 Unauthorized` - Missing or invalid credentials, or required productionManager license is missing.
   - `500 Internal Server Error` - Unexpected server-side error.
-
+  
   ## C# sample
-
+  
   ```csharp
   using HomagConnect.ProductionManager.Client;
   using HomagConnect.ProductionManager.Contracts.Rework;
-
+  
   var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
   var authorizationKey = "<your-authorization-key>";
-
+  
   var client = new ProductionManagerClient(subscriptionId, authorizationKey);
-
+  
   var reworks = await client.GetReworks(
       states: null,
-      capturedAtFrom: null,
-      capturedAtTo: null,
+      capturedAtFrom: DateTimeOffset.Parse("2025-12-01T00:00:00Z"),
+      capturedAtTo: DateTimeOffset.Parse("2026-02-28T23:59:59Z"),
       take: 1000,
       skip: 0);
-
+  
   foreach (var rework in reworks ?? Enumerable.Empty<Rework>())
   {
-      Console.WriteLine($"{rework.ReworkId} - {rework.State}");
+      Console.WriteLine($"{rework.ReworkId} - {rework.CapturedAt}");
   }
   ```
-
+  
   ## PowerShell sample
-
+  
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
   $subscriptionId = "<your-subscription-id>"
   $authorizationKey = "<your-authorization-key>"
-
+  
   $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
   $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-
+  
   $headers = @{
     Authorization = "Basic $encoded"
   }
-
-  $url = "$baseUrl/api/productionManager/orders/reworks"
+  
+  $url = "$baseUrl/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
-
+  
   foreach ($rework in $response) {
-    Write-Host ("{0} - {1}" -f $rework.reworkId, $rework.state)
+    Write-Host ("{0} - {1}" -f $rework.reworkId, $rework.capturedAt)
   }
   ```
-
+  
   ## Referenced types (GitHub)
-
+  
   - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
-  - [IProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs)
   - [Rework](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/Rework.cs)
-  - [ReworkState](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/ReworkState.cs) 
 }

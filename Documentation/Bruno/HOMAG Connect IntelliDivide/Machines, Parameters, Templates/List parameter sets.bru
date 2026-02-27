@@ -22,25 +22,21 @@ settings {
 docs {
   # List parameter sets for an optimization type
   
-  ## Overview
-  
-  Retrieves available IntelliDivide parameter sets for the selected optimization type.
-  
   ## Endpoint
   
   ```http
   GET https://connect.homag.cloud/api/intelliDivide/{optimizationType}/parameters
   ```
   
-  ## Purpose of the request
+  ## Purpose
   
-  Use this endpoint to list configured parameter presets (for example, cutting or nesting presets) before creating or running optimizations.
+  List configured IntelliDivide parameter sets for the selected optimization type before you create or run optimizations.
   
-  ## Path parameter table
+  ## Parameters
   
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | `optimizationType` | string | yes | Optimization type. Typical values: `cutting`, `nesting`. |
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `optimizationType` | path | string | yes | Optimization type. Typical values: `cutting`, `nesting`. |
   
   ## Request example
   
@@ -69,7 +65,7 @@ docs {
   - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
   - `500 Internal Server Error` - Unexpected server-side error.
   
-  ## Runnable C# sample
+  ## C# sample
   
   ```csharp
   using HomagConnect.IntelliDivide.Client;
@@ -88,7 +84,7 @@ docs {
   }
   ```
   
-  ## Runnable PowerShell sample with placeholders
+  ## PowerShell sample
   
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
@@ -111,7 +107,7 @@ docs {
   }
   ```
   
-  ## Referenced types (absolute GitHub URLs)
+  ## Referenced types (GitHub)
   
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
   - [OptimizationParameter](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Common/OptimizationParameter.cs)

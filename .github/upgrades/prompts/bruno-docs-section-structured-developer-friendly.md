@@ -13,8 +13,8 @@ Use this exact section order:
 5. **Request example**
 6. **Success response example**
 7. **Possible error codes**
-8. **C# sample** (runnable, with placeholders)
-9. **PowerShell sample** (runnable, with placeholders)
+8. **C# example** (runnable, with placeholders)
+9. **PowerShell example** (runnable, with placeholders)
 10. **Referenced types (GitHub)** (absolute links)
 
 ## Formatting Rules
