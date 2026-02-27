@@ -1,0 +1,56 @@
+meta {
+  name: Archive Optimization
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId/archiv
+  body: none
+  auth: inherit
+}
+
+params:path {
+  optimizationId: 
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  # HOMAG Connect intelliDivide - Archive Optimization
+
+  Archives an optimization by its ID.
+
+  ## Endpoint
+
+  ```http
+  POST /api/intelliDivide/optimizations/{optimizationId}/archiv
+  ```
+
+  ## Path Parameters
+
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `optimizationId` | GUID | yes | Unique identifier of the optimization to archive. |
+
+  ## Current request
+
+  ```http
+  POST /api/intelliDivide/optimizations/{optimizationId}/archiv
+  ```
+
+  ## C# sample
+
+  ```csharp
+  var client = new IntelliDivideClient(baseUri, httpClient);
+  var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
+
+  await client.ArchiveOptimization(optimizationId);
+  ```
+
+  ## Referenced types (GitHub)
+
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  }

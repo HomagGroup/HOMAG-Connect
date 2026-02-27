@@ -11,7 +11,7 @@ get {
 }
 
 docs {
-  # Supported UI Cultures API
+  # HOMAG Connect - Get the supported Cultures
   
   Retrieves all supported UI culture codes available for localization resources.
   
@@ -30,7 +30,7 @@ docs {
   ## Success response (200)
   
   ```json
-  ["de", "en", "fr", "it", "pt"]
+  ["bg","cs","da","de","el","en","es","fr","hr","hu","it","ja","ko","nl","pl","pt","ro","ru","sk","sl","tr","uk","vi","zh"]
   ```
   
   ## C# sample
@@ -42,11 +42,6 @@ docs {
   };
   
   var cultures = await client.GetFromJsonAsync<List<string>>("api/localizations/cultures");
-  ```
+  ``` 
   
-  ## Referenced docs (GitHub)
-  
-  - [Supported UI Cultures API](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/General/Localization/Cultures.md)
-  - [Enum Localisations API](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/General/Localization/Enums.md)
-  - [Type Property Localisations API](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Documentation/API/General/Localization/TypeProperties.md)
 }

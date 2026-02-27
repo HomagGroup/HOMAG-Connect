@@ -1,0 +1,69 @@
+meta {
+  name: Get optimizations
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  take: 100
+  skip: 0
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+ # HOMAG Connect intelliDivide - Get optimizations
+  
+  Retrieves a paginated list of optimizations.
+  
+  ## Endpoint
+  
+  ```http
+  GET /api/intelliDivide/optimizations
+  ```
+  
+  ## Query Parameters
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `take` | integer | yes | Maximum number of items to return (max 100). |
+  | `skip` | integer | no | Number of items to skip for paging. |
+  | `optimizationType` | string | no | Filter by optimization type (`Cutting`, `Nesting`). |
+  | `state` | string | no | Filter by optimization status. |
+  | `orderBy` | string | no | Sort property name. |
+  | `machine` | string | no | Filter by machine name. |
+  
+  ## Current request
+  
+  ```http
+  GET /api/intelliDivide/optimizations?take=100&skip=0
+  ```
+  
+  ## C# sample
+  
+  ```csharp
+  var client = new IntelliDivideClient(baseUri, httpClient);
+  var optimizations = await client.GetOptimizations(take: 100, skip: 0);
+  
+  foreach (var optimization in optimizations ?? Enumerable.Empty<Optimization>())
+  {
+      Console.WriteLine($"{optimization.Name} - {optimization.Status}");
+  }
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [IIntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/IIntelliDivideClient.cs)
+  - [Optimization](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Optimization.cs)
+  - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)
+}
