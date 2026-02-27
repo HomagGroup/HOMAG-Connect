@@ -72,6 +72,6 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
     public async Task Setup()
     {
         MaterialManagerClientMaterialEdgebands = GetMaterialManagerClient().Material.Edgebands;
-        await EnsureEdgebandTypeExist(EdgebandCode);
+        await EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands, EdgebandCode);
     }
 }

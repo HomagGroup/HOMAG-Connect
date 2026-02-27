@@ -33,11 +33,6 @@ public class UpdateBoardsTests : MaterialAssistTestBase
         Assert.AreEqual(width, boardEntity.Width, 0.0001,
             $"because board entity '{_BoardEntityCode}' was updated to width {width}");
         return;
-
-        double RandomBetween(double min, double max)
-        {
-            return random.NextDouble() * (max - min) + min;
-        }
     }
 
     [TestInitialize]
