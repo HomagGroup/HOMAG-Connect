@@ -20,40 +20,81 @@ settings {
 }
 
 docs {
-  # IntelliDivide API - Get optimization status
-  
-  Retrieves the current status of an optimization by its ID.
-  
+  # List optimization status by ID
+
   ## Endpoint
-  
+
   ```http
-  GET /api/intelliDivide/optimizations/{optimizationId}/state
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations/{optimizationId}/state
   ```
-  
-  ## Path Parameters
-  
-  | Parameter | Type | Required | Description |
-  |-----------|------|----------|-------------|
-  | `optimizationId` | GUID | yes | Unique identifier of the optimization. |
-  
-  ## Current request
-  
+
+  ## Purpose
+
+  List the current status of an optimization before listing results or triggering follow-up actions.
+
+  ## Parameters
+
+  | Parameter | Location | Type | Required | Description |
+  |-----------|----------|------|----------|-------------|
+  | `optimizationId` | path | GUID | yes | Unique identifier of the optimization. |
+
+  ## Request example
+
   ```http
-  GET /api/intelliDivide/optimizations/{optimizationId}/state
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations/550e8400-e29b-41d4-a716-446655440000/state
   ```
-  
+
+  ## Success response example
+
+  ```json
+  "Optimized"
+  ```
+
+  ## Possible error codes
+
+  - `400 Bad Request` - Invalid `optimizationId` format.
+  - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
+  - `500 Internal Server Error` - Unexpected server-side error.
+
   ## C# sample
-  
+
   ```csharp
-  var client = new IntelliDivideClient(baseUri, httpClient);
+  using HomagConnect.IntelliDivide.Client;
+
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  var baseUrl = new Uri("https://connect.homag.cloud/");
   var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
-  
+
+  var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
   var status = await client.GetOptimizationStatus(optimizationId);
+
   Console.WriteLine(status);
   ```
-  
+
+  ## PowerShell sample
+
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  $optimizationId = "550e8400-e29b-41d4-a716-446655440000"
+
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+
+  $url = "$baseUrl/api/intelliDivide/optimizations/$optimizationId/state"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+
+  $response | ConvertTo-Json -Depth 10
+  ```
+
   ## Referenced types (GitHub)
-  
-  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)  
-  - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)  
+
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)
 }

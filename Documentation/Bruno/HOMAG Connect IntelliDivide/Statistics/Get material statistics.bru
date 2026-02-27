@@ -22,5 +22,99 @@ settings {
 }
 
 docs {
-  GetOptimizations
+  # IntelliDivide API - Get material statistics
+  
+  Retrieves material efficiency statistics for a configurable time range.
+  
+  ## Endpoint
+  
+  ```http
+  GET /api/intelliDivide/statistics/material
+  ```
+  
+  ## Query Parameters
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `daysBack` | integer | no | Number of days to look back from now. |
+  | `from` | datetime | no | Explicit start timestamp (`yyyy-MM-ddTHH:mm:ss`). |
+  | `to` | datetime | no | Explicit end timestamp (`yyyy-MM-ddTHH:mm:ss`). |
+  | `take` | integer | no | Maximum number of result rows to return. |
+  | `skip` | integer | no | Number of result rows to skip. |
+  
+  Notes:
+  - Use either `daysBack` **or** the `from` + `to` range.
+  - Do not combine `daysBack` with `from`/`to` in the same request.
+  - This request currently uses `daysBack=90`, `take=10000`, `skip=0`.
+  
+  ## Current request
+
+  ```http
+  GET /api/intelliDivide/statistics/material?daysBack=90&take=10000&skip=0
+  ```
+
+  ## Alternative request (`from` / `to`)
+
+  ```http
+  GET /api/intelliDivide/statistics/material?from=2026-01-01T00:00:00&to=2026-01-31T23:59:59&take=10000&skip=0
+  ```
+
+  ## Success response (200)
+  
+  ```json
+  [
+    {
+      "transferredAt": "2026-02-27T10:30:00+00:00",
+      "optimizationId": "550e8400-e29b-41d4-a716-446655440000",
+      "optimizationName": "JobOrder_2026_001",
+      "machineName": "SawMachine01",
+      "materialCode": "MDF_19.0",
+      "boardsUsedArea": 120.4,
+      "offcutsUsedArea": 10.5,
+      "partsArea": 95.2,
+      "wasteArea": 8.1,
+      "unitSystem": "Metric"
+    }
+  ]
+  ```
+  
+  ## C# sample
+
+  ```csharp
+  var client = new IntelliDivideClient(baseUri, httpClient);
+  var statistics = await client.GetMaterialStatistics(daysBack: 90, take: 10000, skip: 0);
+
+  foreach (var item in statistics ?? Enumerable.Empty<MaterialEfficiency>())
+  {
+      Console.WriteLine($"{item.MaterialCode}: waste={item.WasteArea}");
+  }
+  ```
+
+  ## PowerShell sample
+
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+
+  $url = "$baseUrl/api/intelliDivide/statistics/material?daysBack=90&take=10000&skip=0"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+
+  foreach ($item in $response) {
+    Write-Host ("{0}: waste={1}" -f $item.materialCode, $item.wasteArea)
+  }
+  ```
+
+  ## Referenced types (GitHub)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [MaterialEfficiency](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Statistics/MaterialEfficiency.cs)
+  
 }

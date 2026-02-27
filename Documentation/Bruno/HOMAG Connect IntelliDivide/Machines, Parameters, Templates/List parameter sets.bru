@@ -1,0 +1,119 @@
+meta {
+  name: List parameter sets
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/:optimizationType/parameters
+  body: none
+  auth: inherit
+}
+
+params:path {
+  optimizationType: cutting
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # List parameter sets for an optimization type
+  
+  ## Overview
+  
+  Retrieves available IntelliDivide parameter sets for the selected optimization type.
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/intelliDivide/{optimizationType}/parameters
+  ```
+  
+  ## Purpose of the request
+  
+  Use this endpoint to list configured parameter presets (for example, cutting or nesting presets) before creating or running optimizations.
+  
+  ## Path parameter table
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `optimizationType` | string | yes | Optimization type. Typical values: `cutting`, `nesting`. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/intelliDivide/cutting/parameters
+  ```
+  
+  ## Success response example
+  
+  ```json
+  [
+    {
+      "name": "Standard_Parameters",
+      "optimizationType": "Cutting"
+    },
+    {
+      "name": "HighYield",
+      "optimizationType": "Cutting"
+    }
+  ]
+  ```
+  
+  ## Possible error codes
+  
+  - `400 Bad Request` - Invalid path parameter (for example unsupported `optimizationType`).
+  - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## Runnable C# sample
+  
+  ```csharp
+  using HomagConnect.IntelliDivide.Client;
+  using HomagConnect.IntelliDivide.Contracts.Common;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  var baseUrl = new Uri("https://connect.homag.cloud/");
+  
+  var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
+  var parameters = await client.GetParameters(OptimizationType.Cutting);
+  
+  foreach (var parameter in parameters ?? Enumerable.Empty<OptimizationParameter>())
+  {
+      Console.WriteLine($"{parameter.Name} ({parameter.OptimizationType})");
+  }
+  ```
+  
+  ## Runnable PowerShell sample with placeholders
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  $optimizationType = "cutting"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  $url = "$baseUrl/api/intelliDivide/$optimizationType/parameters"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($parameter in $response) {
+    Write-Host ("{0} ({1})" -f $parameter.name, $parameter.optimizationType)
+  }
+  ```
+  
+  ## Referenced types (absolute GitHub URLs)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [OptimizationParameter](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Common/OptimizationParameter.cs)
+  - [OptimizationType](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Common/OptimizationType.cs)
+}
