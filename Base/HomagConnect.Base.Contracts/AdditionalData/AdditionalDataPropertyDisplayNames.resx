@@ -137,6 +137,10 @@
     <value>Maserung</value>
     <comment>Grain</comment>
   </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+    <comment>Id</comment>
+  </data>
   <data name="Length" xml:space="preserve">
     <value>Länge</value>
     <comment>Length</comment>
