@@ -932,6 +932,47 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update a board type With AdditionalData",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "boardTypeRequest",
+											"value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 888.8,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"lockedForConfiguration\": false,\n  \"embossingTop\": \"string\",\n  \"embossingBottom\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+											"type": "text"
+										},
+										{
+											"key": "Red.png",
+											"type": "file",
+											"src": "Applications/MaterialManager/Tests/Data/Red.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=HPL_Chilli_Red_0.8_Hgc_AdditionalData",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"boards"
+									],
+									"query": [
+										{
+											"key": "boardCode",
+											"value": "HPL_Chilli_Red_0.8_Hgc_AdditionalData"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -968,6 +1009,47 @@
 											"key": "edgebandCode",
 											"value": "",
 											"description": "required"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update an edgeband type With AdditionalData Copy",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "edgebandTypeRequest",
+											"value": "{\n  \"edgebandCode\": \"ABS_Concrete_0.80_23.0_NN_Hgc_AdditionalData\",\n  \"thickness\": 1.2,\n  \"height\": 23,\n  \"defaultLength\": 150,\n  \"articleNumber\": \"article_number\",\n  \"comments\": \"comments\",\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"materialCategory\": \"abs\",\n  \"process\": \"Zerojoint\",\n  \"lasertec\": 0,\n  \"airtec\": 0,\n  \"protectionFilmThickness\": 0,\n  \"functionLayerThickness\": 0,\n  \"technologyMacro\": \"technology_macro\",\n  \"decorEmbossingCode\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+											"type": "text"
+										},
+										{
+											"key": "Red.png",
+											"type": "file",
+											"src": "Applications/MaterialManager/Tests/Data/Red.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"materialManager",
+										"materials",
+										"edgebands"
+									],
+									"query": [
+										{
+											"key": "edgebandCode",
+											"value": ""
 										}
 									]
 								}

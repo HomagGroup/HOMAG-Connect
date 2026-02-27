@@ -263,11 +263,10 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         ValidateRequiredProperties(edgebandTypeUpdate);
 
-        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
-        var payload = JsonConvert.SerializeObject(edgebandTypeUpdate, SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await PatchObject(uri, content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
@@ -278,6 +277,21 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         }
 
         throw new Exception($"The returned object is not of type {nameof(edgebandCode)}");
+    }
+
+    /// <inheritdoc />
+    public async Task<EdgebandType> UpdateEdgebandType(string edgebandCode, MaterialManagerUpdateEdgebandType edgebandTypeUpdate, FileReference[] fileReferences)
+    {
+        if (edgebandTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeUpdate));
+        }
+        ValidateRequiredProperties(edgebandTypeUpdate);
+
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
+
+        // reuse shared multipart logic
+        return await UpdateHelpers.SendMultipartPatchAsync<EdgebandType>(Client, uri, json, fileReferences, nameof(edgebandTypeUpdate)).ConfigureAwait(false);
     }
 
     /// <inheritdoc />

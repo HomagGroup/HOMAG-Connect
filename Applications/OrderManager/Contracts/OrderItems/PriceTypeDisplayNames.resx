@@ -117,59 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionalProperties" xml:space="preserve">
-    <value>Zusätzliche Eigenschaften</value>
-    <comment>AdditionalProperties</comment>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
   </data>
-  <data name="Category" xml:space="preserve">
-    <value>Kategorie</value>
-    <comment>Category</comment>
+  <data name="Total" xml:space="preserve">
+    <value>Gesamtbetrag</value>
   </data>
-  <data name="DownloadFileName" xml:space="preserve">
-    <value>Dateiname</value>
-    <comment>DownloadFileName</comment>
+  <data name="GrossTotal" xml:space="preserve">
+    <value>Bruttogesamtbetrag</value>
   </data>
-  <data name="DownloadUri" xml:space="preserve">
-    <value>Download-URL</value>
-    <comment>DownloadUri</comment>
+  <data name="NetTotal" xml:space="preserve">
+    <value>Nettogesamtbetrag</value>
   </data>
-  <data name="Grain" xml:space="preserve">
-    <value>Maserung</value>
-    <comment>Grain</comment>
+  <data name="Shipping" xml:space="preserve">
+    <value>Versand</value>
   </data>
-  <data name="Id" xml:space="preserve">
-    <value>Id</value>
-    <comment>Id</comment>
+  <data name="Tax" xml:space="preserve">
+    <value>Steuer</value>
   </data>
-  <data name="Length" xml:space="preserve">
-    <value>Länge</value>
-    <comment>Length</comment>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Zwischensumme</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-    <comment>Name</comment>
-  </data>
-  <data name="Previews" xml:space="preserve">
-    <value>Vorschauen</value>
-    <comment>Previews</comment>
-  </data>
-  <data name="Size" xml:space="preserve">
-    <value>Größe</value>
-    <comment>Size</comment>
-  </data>
-  <data name="Source" xml:space="preserve">
-    <value>Quelle</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Typ</value>
-    <comment>Type</comment>
-  </data>
-  <data name="Uri" xml:space="preserve">
-    <value>Uri</value>
-    <comment>Uri</comment>
-  </data>
-  <data name="Width" xml:space="preserve">
-    <value>Breite</value>
-    <comment>Width</comment>
+  <data name="Discount" xml:space="preserve">
+    <value>Rabatt</value>
   </data>
 </root>

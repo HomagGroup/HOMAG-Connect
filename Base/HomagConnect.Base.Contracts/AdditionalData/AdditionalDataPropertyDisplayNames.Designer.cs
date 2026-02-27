@@ -106,6 +106,15 @@ namespace HomagConnect.Base.Contracts.AdditionalData {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Länge.
         /// </summary>
         public static string Length {

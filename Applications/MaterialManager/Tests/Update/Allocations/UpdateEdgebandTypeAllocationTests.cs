@@ -21,7 +21,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
         public async Task Setup()
         {
             MaterialManagerClientMaterialEdgebands = GetMaterialManagerClient().Material.Edgebands;
-            await EnsureEdgebandTypeExist(EdgebandCode);
+            await EnsureEdgebandTypeExist(MaterialManagerClientMaterialEdgebands, EdgebandCode);
         }
 
         /// <summary>

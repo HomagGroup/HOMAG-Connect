@@ -75,11 +75,10 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         ValidateRequiredProperties(boardTypeUpdate);
 
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardCode, boardTypeUpdate);
 
-        var payload = JsonConvert.SerializeObject(boardTypeUpdate, SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await PatchObject(uri, content);
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
@@ -90,6 +89,22 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    /// <inheritdoc />
+    public async Task<BoardType> UpdateBoardType(string boardTypeCode, MaterialManagerUpdateBoardType boardTypeUpdate, FileReference[] fileReferences)
+    {
+        if (boardTypeUpdate == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeUpdate));
+        }
+
+        ValidateRequiredProperties(boardTypeUpdate);
+
+        var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardTypeCode, boardTypeUpdate);
+
+        
+        return await UpdateHelpers.SendMultipartPatchAsync<BoardType>(Client, uri, json, fileReferences, nameof(boardTypeUpdate)).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -511,7 +526,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .ToList();
 
         if (!names.Any())
+        {
             throw new ArgumentException("At least one allocation name must be passed.", nameof(allocationNames));
+        }
 
         if (take > 1000)
             throw new ArgumentException("The maximum value for 'take' is 1000.", nameof(take));

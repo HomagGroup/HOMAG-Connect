@@ -60,9 +60,16 @@ public class AdditionalDataEntity
     public Uri? DownloadUri { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional data name
+    /// Gets or sets the optional additional data id
     /// </summary>
     [JsonProperty(Order = 2)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Id))]
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the additional data name
+    /// </summary>
+    [JsonProperty(Order = 3)]
     [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Name))]
     public string? Name { get; set; }
 
