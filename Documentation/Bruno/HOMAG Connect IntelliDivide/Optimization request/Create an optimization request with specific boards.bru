@@ -1,0 +1,206 @@
+meta {
+  name: Create an optimization request with specific boards
+  type: http
+  seq: 4
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "Name": "Sample_SpecificBoards",
+      "Parts": [
+        {
+          "Description": "Part A",
+          "MaterialCode": "MDF_19.0",
+          "Quantity": 1,
+          "Length": 800.0,
+          "Width": 600.0
+        }
+      ],
+      "Action": "Optimize",
+      "Boards": [
+        {
+          "BoardCode": "MDF_19.0_2800_2070",
+          "Costs": 10.0,
+          "Length": 2800.0,
+          "MaterialCode": "MDF_19.0",
+          "Quantity": 70,
+          "Thickness": 19.0,
+          "Width": 2070.0,
+          "Comment": "Handle with care"
+        }
+      ],
+      "Machine": "productionAssist Cutting",
+      "Parameters": "Default"
+    }
+  '''
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Create an optimization request with specific boards
+  
+  ## Endpoint
+  
+  ```http
+  POST https://connect.homag.cloud/api/intelliDivide/optimizations
+  ```
+  
+  ## Purpose
+  
+  Create a cutting optimization request and restrict optimization to explicitly provided board stock.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `OptimizationRequest` | multipart body | JSON object | yes | Request payload with `Parts`, `Boards`, and optimization settings. |
+  | `Parts` | body (`OptimizationRequest`) | array | yes | Parts to optimize. At least one part is required. |
+  | `Boards` | body (`OptimizationRequest`) | array | no | Explicit board stock to use during optimization. |
+  | `Action` | body (`OptimizationRequest`) | string | yes | Request action. Use `Optimize` to start optimization. |
+  | `files` | multipart body | file[] | no | Optional files uploaded together with the request. |
+  
+  ## Request example
+  
+  ```http
+  POST https://connect.homag.cloud/api/intelliDivide/optimizations
+  Content-Type: multipart/form-data
+  
+  OptimizationRequest={"Name":"Sample_SpecificBoards","Action":"Optimize","Parts":[{"Description":"Part A","MaterialCode":"MDF_19.0","Quantity":1,"Length":800.0,"Width":600.0}],"Boards":[{"BoardCode":"MDF_19.0_2800_2070","Costs":10.0,"Length":2800.0,"MaterialCode":"MDF_19.0","Quantity":70,"Thickness":19.0,"Width":2070.0,"Comment":"Handle with care"}],"Machine":"productionAssist Cutting","Parameters":"Default"}
+  ```
+  
+  ## Success response example
+  
+  ```json
+  {
+    "optimizationId": "550e8400-e29b-41d4-a716-446655440000",
+    "optimizationStatus": "InProgress",
+    "link": "https://connect.homag.cloud/intelliDivide/optimization/550e8400-e29b-41d4-a716-446655440000",
+    "validationResults": []
+  }
+  ```
+  
+  ## Possible error codes
+  
+  - `400 Bad Request` - Invalid multipart payload or malformed `OptimizationRequest` JSON.
+  - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
+  - `422 Unprocessable Entity` - Validation failed (for example invalid board or part values).
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# example
+  
+  ```csharp
+  using HomagConnect.IntelliDivide.Client;
+  using HomagConnect.IntelliDivide.Contracts.Request;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  var baseUrl = new Uri("https://connect.homag.cloud/");
+  
+  var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
+  
+  var request = new OptimizationRequest
+  {
+      Name = "Sample_SpecificBoards",
+      Action = OptimizationRequestAction.Optimize,
+      Machine = "productionAssist Cutting",
+      Parameters = "Default"
+  };
+  
+  request.Parts.Add(new OptimizationRequestPart
+  {
+      Description = "Part A",
+      MaterialCode = "MDF_19.0",
+      Quantity = 1,
+      Length = 800.0,
+      Width = 600.0
+  });
+  
+  request.Boards.Add(new OptimizationRequestBoard
+  {
+      BoardCode = "MDF_19.0_2800_2070",
+      Costs = 10.0,
+      Length = 2800.0,
+      MaterialCode = "MDF_19.0",
+      Quantity = 70,
+      Thickness = 19.0,
+      Width = 2070.0,
+      Comment = "Handle with care"
+  });
+  
+  var response = await client.RequestOptimization(request);
+  Console.WriteLine($"{response.OptimizationId} - {response.OptimizationStatus}");
+  ```
+  
+  ## PowerShell example
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  $optimizationRequest = @'
+  {
+    "Name": "Sample_SpecificBoards",
+    "Action": "Optimize",
+    "Parts": [
+      {
+        "Description": "Part A",
+        "MaterialCode": "MDF_19.0",
+        "Quantity": 1,
+        "Length": 800.0,
+        "Width": 600.0
+      }
+    ],
+    "Boards": [
+      {
+        "BoardCode": "MDF_19.0_2800_2070",
+        "Costs": 10.0,
+        "Length": 2800.0,
+        "MaterialCode": "MDF_19.0",
+        "Quantity": 70,
+        "Thickness": 19.0,
+        "Width": 2070.0,
+        "Comment": "Handle with care"
+      }
+    ],
+    "Machine": "productionAssist Cutting",
+    "Parameters": "Default"
+  }
+  '@
+  
+  $form = @{
+    OptimizationRequest = $optimizationRequest
+  }
+  
+  $url = "$baseUrl/api/intelliDivide/optimizations"
+  $response = Invoke-RestMethod -Method Post -Uri $url -Headers $headers -Form $form
+  
+  $response | ConvertTo-Json -Depth 10
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [OptimizationRequest](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationRequest.cs)
+  - [OptimizationRequestBoard](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationRequestBoard.cs)
+  - [OptimizationRequestPart](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationRequestPart.cs)
+  - [OptimizationRequestResponse](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationRequestResponse.cs)
+}

@@ -1,11 +1,11 @@
 meta {
-  name: Get optimization status
+  name: Get an optimization by ID
   type: http
-  seq: 4
+  seq: 2
 }
 
 get {
-  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId/state
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId
   body: none
   auth: inherit
 }
@@ -20,81 +20,95 @@ settings {
 }
 
 docs {
-  # Get optimization status by ID
-
+  # Get an optimization by ID
+  
   ## Endpoint
-
+  
   ```http
-  GET https://connect.homag.cloud/api/intelliDivide/optimizations/{optimizationId}/state
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations/{optimizationId}
   ```
-
+  
   ## Purpose
-
-  Retrieve the current status for one optimization so you can decide whether to trigger follow-up actions.
-
+  
+  Retrieve one IntelliDivide optimization by ID to inspect its details before you list solutions, start actions, or check current state.
+  
   ## Parameters
-
+  
   | Name | In | Type | Required | Description |
   |------|----|------|----------|-------------|
-  | `optimizationId` | path | GUID | yes | Unique identifier of the optimization. |
-
+  | `optimizationId` | path | GUID | yes | Unique identifier of the optimization to retrieve. |
+  
   ## Request example
-
+  
   ```http
-  GET https://connect.homag.cloud/api/intelliDivide/optimizations/550e8400-e29b-41d4-a716-446655440000/state
+  GET https://connect.homag.cloud/api/intelliDivide/optimizations/550e8400-e29b-41d4-a716-446655440000
   ```
-
+  
   ## Success response example
-
+  
   ```json
-  "Optimized"
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "name": "JobOrder_2026_001",
+    "optimizationType": "Cutting",
+    "status": "Optimized",
+    "machine": "SawMachine01",
+    "parameterName": "Standard_Parameters",
+    "quantityOfParts": 45,
+    "waste": 12.5,
+    "productionTime": "00:15:30",
+    "lastModifiedDate": "2026-02-26T14:30:00Z",
+    "link": "https://connect.homag.cloud/intelliDivide/optimization/550e8400-e29b-41d4-a716-446655440000"
+  }
   ```
-
+  
   ## Possible error codes
-
+  
   - `400 Bad Request` - Invalid `optimizationId` format.
   - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
+  - `404 Not Found` - Optimization ID does not exist.
   - `500 Internal Server Error` - Unexpected server-side error.
-
+  
   ## C# sample
-
+  
   ```csharp
   using HomagConnect.IntelliDivide.Client;
-
+  
   var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
   var authorizationKey = "<your-authorization-key>";
   var baseUrl = new Uri("https://connect.homag.cloud/");
   var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
-
+  
   var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
-  var status = await client.GetOptimizationStatus(optimizationId);
-
-  Console.WriteLine(status);
+  var optimization = await client.GetOptimization(optimizationId);
+  
+  Console.WriteLine($"{optimization?.Name} ({optimization?.Status})");
   ```
-
+  
   ## PowerShell sample
-
+  
   ```powershell
   $baseUrl = "https://connect.homag.cloud"
   $subscriptionId = "<your-subscription-id>"
   $authorizationKey = "<your-authorization-key>"
   $optimizationId = "550e8400-e29b-41d4-a716-446655440000"
-
+  
   $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
   $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
-
+  
   $headers = @{
     Authorization = "Basic $encoded"
   }
-
-  $url = "$baseUrl/api/intelliDivide/optimizations/$optimizationId/state"
+  
+  $url = "$baseUrl/api/intelliDivide/optimizations/$optimizationId"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
-
+  
   $response | ConvertTo-Json -Depth 10
   ```
-
+  
   ## Referenced types (GitHub)
-
+  
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [Optimization](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Optimization.cs)
   - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)
 }

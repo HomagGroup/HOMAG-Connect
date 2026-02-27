@@ -358,4 +358,7 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Documentation\Bruno\Bruno.projitems*{7151a9c9-c78b-4020-b839-32e1f8631fc0}*SharedItemsImports = 13
+	EndGlobalSection
 EndGlobal

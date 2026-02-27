@@ -1,0 +1,148 @@
+meta {
+  name: Create an optimization request from an Excel template import
+  type: http
+  seq: 5
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/RequestUsingTemplate
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "Name": "Sample_Template_Excel_ImportOnly",
+      "ImportTemplate": "HOMAG Connect",
+      "Machine": "productionAssist Cutting",
+      "Parameters": "Default"
+    }
+  '''
+  ImportFile: @file(Kitchen.xlsx)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Create an optimization request from an Excel template import
+  
+  ## Endpoint
+  
+  ```http
+  POST https://connect.homag.cloud/api/intelliDivide/optimizations/RequestUsingTemplate
+  ```
+  
+  ## Purpose
+  
+  Create a cutting optimization request in `ImportOnly` mode using a configured import template and an Excel file.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `OptimizationRequest` | multipart body | JSON object | yes | Request metadata including `ImportTemplate`, optional `Name`, `Machine`, and `Parameters`. |
+  | `ImportFile` | multipart body | file | yes | Source file to import (for example `.xlsx`). |
+  
+  ## Request example
+  
+  ```http
+  POST https://connect.homag.cloud/api/intelliDivide/optimizations/RequestUsingTemplate
+  Content-Type: multipart/form-data
+  
+  OptimizationRequest={"Name":"Sample_Template_Excel_ImportOnly","Action":"ImportOnly","ImportTemplate":"HOMAG Connect","Machine":"productionAssist Cutting","Parameters":"Default"}
+  ImportFile=@Kitchen.xlsx
+  ```
+  
+  ## Success response example
+  
+  ```json
+  {
+    "optimizationId": "550e8400-e29b-41d4-a716-446655440000",
+    "optimizationStatus": "Imported",
+    "link": "https://connect.homag.cloud/intelliDivide/optimization/550e8400-e29b-41d4-a716-446655440000",
+    "validationResults": []
+  }
+  ```
+  
+  ## Possible error codes
+  
+  - `400 Bad Request` - Invalid multipart payload, missing `ImportFile`, or invalid template name.
+  - `401 Unauthorized` - Missing or invalid credentials, or required IntelliDivide license is missing.
+  - `422 Unprocessable Entity` - Import validation failed.
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# example
+  
+  ```csharp
+  using HomagConnect.IntelliDivide.Client;
+  using HomagConnect.IntelliDivide.Contracts.Common;
+  using HomagConnect.IntelliDivide.Contracts.Request;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  var baseUrl = new Uri("https://connect.homag.cloud/");
+  
+  var client = new IntelliDivideClient(subscriptionId, authorizationKey, baseUrl);
+  
+  var request = new OptimizationRequestUsingTemplate
+  {
+      Name = "Sample_Template_Excel_ImportOnly",
+      Action = OptimizationRequestAction.ImportOnly,
+      ImportTemplate = "HOMAG Connect",
+      Machine = "productionAssist Cutting",
+      Parameters = "Default"
+  };
+  
+  var importFile = await ImportFile.CreateAsync("<path-to-your-file>/Kitchen.xlsx");
+  
+  var response = await client.RequestOptimization(request, importFile);
+  Console.WriteLine($"{response.OptimizationId} - {response.OptimizationStatus}");
+  ```
+  
+  ## PowerShell example
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  $importFilePath = "<path-to-your-file>\Kitchen.xlsx"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  $optimizationRequest = @'
+  {
+    "Name": "Sample_Template_Excel_ImportOnly",
+    "Action": "ImportOnly",
+    "ImportTemplate": "HOMAG Connect",
+    "Machine": "productionAssist Cutting",
+    "Parameters": "Default"
+  }
+  '@
+  
+  $form = @{
+    OptimizationRequest = $optimizationRequest
+    ImportFile = Get-Item $importFilePath
+  }
+  
+  $url = "$baseUrl/api/intelliDivide/optimizations/RequestUsingTemplate"
+  $response = Invoke-RestMethod -Method Post -Uri $url -Headers $headers -Form $form
+  
+  $response | ConvertTo-Json -Depth 10
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [ImportFile](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Common/ImportFile.cs)
+  - [OptimizationRequestUsingTemplate](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationRequestUsingTemplate.cs)
+  - [OptimizationRequestResponse](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Request/OptimizationRequestResponse.cs)
+}

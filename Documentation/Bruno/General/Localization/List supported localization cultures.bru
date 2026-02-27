@@ -1,0 +1,90 @@
+meta {
+  name: List supported localization cultures
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/localizations/cultures
+  body: none
+  auth: inherit
+}
+
+docs {
+  # List supported localization cultures
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/localizations/cultures
+  ```
+  
+  ## Purpose
+  
+  List all supported neutral culture codes that can be used for localized API output.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | _None_ | - | - | no | This endpoint does not require path, query, or body parameters. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/localizations/cultures
+  ```
+  
+  ## Success response example
+  
+  ```json
+  ["bg","cs","da","de","el","en","es","fr","hr","hu","it","ja","ko","nl","pl","pt","ro","ru","sk","sl","tr","uk","vi","zh"]
+  ```
+  
+  ## Possible error codes
+  
+  - `401 Unauthorized` - Missing or invalid credentials.
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# sample
+  
+  ```csharp
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  
+  using var httpClient = new HttpClient();
+  var pair = $"{subscriptionId}:{authorizationKey}";
+  var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(pair));
+  httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", token);
+  
+  var cultures = await httpClient.GetFromJsonAsync<List<string>>("https://connect.homag.cloud/api/localizations/cultures");
+  
+  Console.WriteLine(string.Join(", ", cultures ?? new List<string>()));
+  ```
+  
+  ## PowerShell sample
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  $url = "$baseUrl/api/localizations/cultures"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  $response | ConvertTo-Json -Depth 10
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [UnitSystem](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Base/HomagConnect.Base.Contracts/Enumerations/UnitSystem.cs)
+  - [BoardMaterialCategory](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/MaterialManager/Contracts/Material/Boards/Enumerations/BoardMaterialCategory.cs)
+  - [RotationAngle](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Common/RotationAngle.cs)
+}
