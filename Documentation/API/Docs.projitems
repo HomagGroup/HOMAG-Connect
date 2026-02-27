@@ -22,5 +22,6 @@
     <None Include="$(MSBuildThisFileDirectory)ProductionManager\ProductionProtocol\Production Protocol %28localized%29.md" />
     <None Include="$(MSBuildThisFileDirectory)ProductionManager\ProductionProtocol\Production Protocol.md" />
     <None Include="$(MSBuildThisFileDirectory)ProductionManager\ProductionProtocol\Workstations.md" />
+    <None Include="$(MSBuildThisFileDirectory)ProductionManager\Rework\Reworks.md" />
   </ItemGroup>
 </Project>

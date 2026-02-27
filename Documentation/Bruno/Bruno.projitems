@@ -15,6 +15,11 @@
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Production Protocol\Production Protocol %28localized%29.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Production Protocol\Production Protocol.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Production Protocol\Workstations.bru" />
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\folder.bru" />
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\Rework %28localized%29.bru" />
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\Rework %28by state%29.bru" />
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\Rework %28in time range%29.bru" />
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\Rework.bru" />
     <None Include="**\*.bru" />
   </ItemGroup>
 </Project>

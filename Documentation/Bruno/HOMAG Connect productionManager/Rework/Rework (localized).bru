@@ -1,0 +1,105 @@
+meta {
+  name: Rework (localized)
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/orders/reworks?format=localized&culture=de
+  body: none
+  auth: inherit
+}
+
+params:query {
+  format: localized
+  culture: de
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Reworks API - localized
+
+  Retrieves rework entries using localized serialization.
+
+  ## Endpoint
+
+  ```http
+  GET /api/productionManager/orders/reworks
+  ```
+
+  ## Query Parameters
+
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `format` | string | yes | Set to `localized` (case-insensitive) to enable localized output. |
+  | `culture` | string | no | Localization culture (for example `de`, `en`, `de-DE`). Falls back to current server culture if omitted. |
+
+  ## Current request
+
+  ```http
+  GET /api/productionManager/orders/reworks?format=localized&culture=de
+  ```
+
+  ## Localized response sample (`de`)
+
+  ```json
+  [
+    {
+      "Kundenname": "Customer GmbH",
+      "Länge": 733.62,
+      "Breite": 362.75,
+      "Nachfertigungs-ID": "d26bbb17-28ec-4382-a800-5cab99dcadd0",
+      "ID": "16481767",
+      "Beschreibung": "Inset Door",
+      "Auftragsname": "Multi Shelf",
+      "Material": "P2_Olive_green_19.0",
+      "Anzahl Nachfertigungen": 1,
+      "Kategorie": "Kantenanleimen",
+      "Grund": "Nachfertigung nicht OK",
+      "Status": "Abgelehnt",
+      "Erfasst am": "2026-02-27T09:33:58.7831281+00:00",
+      "Erfassungsdetails": {
+        "Notizen": "",
+        "Erfasst von": null,
+        "Letzter Arbeitsplatz": "Dividing",
+        "Letzter Arbeitsplatz-ID": null,
+        "Anhänge": []
+      },
+      "Ablehnungsnotiz": {
+        "Abgelehnt am": "2026-02-27T09:34:10.4207612+00:00",
+        "Abgelehnt von": "Boris Wehrle",
+        "Notizen": "still  usable",
+        "Anhänge": []
+      }
+    }
+  ]
+  ```
+
+  ## C# sample
+
+  ```csharp
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+  var reworks = await client.GetReworks(
+      states: null,
+      take: 1000,
+      skip: 0);
+
+  var localizedJson = reworks.SerializeLocalized(CultureInfo.GetCultureInfo("de"));
+  Console.WriteLine(localizedJson);
+  ```
+
+  ## Referenced types (GitHub)
+
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [Rework](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/Rework.cs)
+
+  ## Notes
+
+  - `format=localized` is useful for Excel/Power BI scenarios.
+  - Column names and enum values are returned in the selected culture.
+}

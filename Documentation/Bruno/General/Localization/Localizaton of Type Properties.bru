@@ -16,5 +16,57 @@ params:path {
 }
 
 docs {
-  [See API documentation](../../../API/General/Localization/TypeProperties.md)
+  # Type Property Localisations API
+  
+  Retrieves localized display names for properties of a given type.
+  
+  ## Endpoint
+  
+  ```http
+  GET /api/localizations/types/{typeName}/properties/{culture}
+  ```
+  
+  ## Path Parameters
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `typeName` | string | yes | Type/class name (case-insensitive), e.g. `PartHistory`. |
+  | `culture` | string | yes | Two-letter ISO language code, e.g. `de`, `en`, `fr`. |
+  
+  ## Current request
+  
+  ```http
+  GET /api/localizations/types/PartHistory/properties/de
+  ```
+  
+  ## Success response (200)
+  
+  ```json
+  {
+    "Guid": "ID",
+    "Name": "Name",
+    "Type": "Typ",
+    "Timestamp": "Zeitpunkt"
+  }
+  ```
+  
+  ## C# sample
+
+  ```csharp
+  var culture = CultureInfo.GetCultureInfo("de");
+  var url = $"/api/localizations/types/{nameof(PartHistory)}/properties/{culture.TwoLetterISOLanguageName}";
+  var localizedProperties = await httpClient.GetFromJsonAsync<Dictionary<string, string>>(url);
+  ```
+
+  ## NuGet package option
+
+  If you are using the HOMAG Connect NuGet package, you can also resolve localized property display names directly in code via `LocalizationExtensions.GetPropertyDisplayNames`.
+
+  ```csharp
+  using HomagConnect.Base.Extensions;
+
+  var culture = CultureInfo.GetCultureInfo("de");
+  var displayNames = typeof(PartHistory).GetPropertyDisplayNames(culture);
+  // or: var displayNames = LocalizationExtensions.GetPropertyDisplayNames<PartHistory>(culture);
+  ```
 }
