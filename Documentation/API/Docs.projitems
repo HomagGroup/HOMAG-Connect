@@ -18,5 +18,10 @@
     <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Get Optimization.md" />
     <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Get Optimizations.md" />
     <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Start Optimization.md" />
+    <None Include="$(MSBuildThisFileDirectory)ProductionManager\ProductionProtocol\Production Protocol.md" />
+    <None Include="$(MSBuildThisFileDirectory)ProductionManager\ProductionProtocol\Workstations.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)ProductionManager\ProductionProtocol\" />
   </ItemGroup>
 </Project>

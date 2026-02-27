@@ -1,0 +1,16 @@
+meta {
+  name: Workstations
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/workstations
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
