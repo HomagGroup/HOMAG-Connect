@@ -9,9 +9,9 @@
     <Import_RootNamespace>Docs</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)General\Localization\Cultures.md" />
-    <None Include="$(MSBuildThisFileDirectory)General\Localization\Enums.md" />
-    <None Include="$(MSBuildThisFileDirectory)General\Localization\TypeProperties.md" />
+    <None Include="$(MSBuildThisFileDirectory)General\Localization\Supported Cultures.md" />
+    <None Include="$(MSBuildThisFileDirectory)General\Localization\Localization of Enums.md" />
+    <None Include="$(MSBuildThisFileDirectory)General\Localization\Localizaton of Type Properties.md" />
     <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Archive Optimization.md" />
     <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Delete Optimization.md" />
     <None Include="$(MSBuildThisFileDirectory)IntelliDivide\Optimizations\Get Optimization Solutions.md" />

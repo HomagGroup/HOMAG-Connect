@@ -94,13 +94,3 @@ New enums annotated with `[ResourceManager]` become automatically available via 
 1. Use this endpoint for localized dropdowns, labels, and enum display values.
 2. To add a new enum, decorate it and provide a matching `<EnumName>DisplayNames.resx` file.
 3. The response shape is consistent across all supported enums.
-
----
-
-## Related
-
-- [Type Property Localisations API](TypePropertyLocalizations.md) – localized object property names.
-- [Bruno Request: Localization of Enums](../../../Bruno/General/Localization/Localization%20of%20Enums.bru)
-- `ResourceManager` attribute – marks enums for localization.
-- `TolerantEnumConverter` – `Newtonsoft.Json` converter for robust enum parsing.
-
