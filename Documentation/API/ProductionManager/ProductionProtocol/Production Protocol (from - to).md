@@ -45,8 +45,3 @@ GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01
   }
 ]
 ```
-
-## Related Variants
-
-- [Production Protocol](Production%20Protocol.md)
-- [Production Protocol (localized)](Production%20Protocol%20(localized).md)

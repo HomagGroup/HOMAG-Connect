@@ -70,7 +70,3 @@ GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01
 - `format=localized` is useful for direct consumption in Excel or Power BI.
 - Column names and enum values are emitted in the selected culture.
 
-## Related Variants
-
-- [Production Protocol](Production%20Protocol.md)
-- [Production Protocol (from - to)](Production%20Protocol%20(from%20-%20to).md)
