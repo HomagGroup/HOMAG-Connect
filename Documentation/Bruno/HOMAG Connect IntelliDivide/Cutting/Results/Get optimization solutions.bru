@@ -1,0 +1,19 @@
+meta {
+  name: Get optimization solutions
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/solutions
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  GetOptimizations
+}

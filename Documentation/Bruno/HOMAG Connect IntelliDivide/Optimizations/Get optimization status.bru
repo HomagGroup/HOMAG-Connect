@@ -1,0 +1,59 @@
+meta {
+  name: Get optimization status
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId/state
+  body: none
+  auth: inherit
+}
+
+params:path {
+  optimizationId: {{OptimizationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # IntelliDivide API - Get optimization status
+  
+  Retrieves the current status of an optimization by its ID.
+  
+  ## Endpoint
+  
+  ```http
+  GET /api/intelliDivide/optimizations/{optimizationId}/state
+  ```
+  
+  ## Path Parameters
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `optimizationId` | GUID | yes | Unique identifier of the optimization. |
+  
+  ## Current request
+  
+  ```http
+  GET /api/intelliDivide/optimizations/{optimizationId}/state
+  ```
+  
+  ## C# sample
+  
+  ```csharp
+  var client = new IntelliDivideClient(baseUri, httpClient);
+  var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
+  
+  var status = await client.GetOptimizationStatus(optimizationId);
+  Console.WriteLine(status);
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)  
+  - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)  
+}

@@ -1,0 +1,78 @@
+File: Documentation\Bruno\HOMAG Connect productionManager\Rework\Rework.bru
+````````
+meta {
+  name: Rework
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/orders/reworks
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Reworks API
+
+  Retrieves rework entries from productionManager.
+
+  ## Endpoint
+
+  ```http
+  GET /api/productionManager/orders/reworks
+  ```
+
+  ## Query Parameters
+
+  This base request sends no filters.
+
+  Optional query parameters supported by the endpoint:
+
+  - `state` (repeatable)
+  - `capturedAtFrom`
+  - `capturedAtTo`
+  - `take`
+  - `skip`
+  - `format`
+  - `culture`
+
+  ## Current request
+
+  ```http
+  GET /api/productionManager/orders/reworks
+  ```
+
+  ## C# sample
+
+  ```csharp
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+  var reworks = await client.GetReworks(
+      states: null,
+      capturedAtFrom: null,
+      capturedAtTo: null,
+      take: 1000,
+      skip: 0);
+
+  foreach (var rework in reworks ?? Enumerable.Empty<Rework>())
+  {
+      Console.WriteLine($"{rework.ReworkId} - {rework.State}");
+  }
+  ```
+
+  ## Referenced types (GitHub)
+
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [IProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/IProductionManagerClient.cs)
+  - [Rework](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/Rework.cs)
+  - [ReworkState](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/ReworkState.cs) 
+}
+````````
+
+# Response

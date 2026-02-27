@@ -1,0 +1,45 @@
+meta {
+  name: TypicalProperties_ImportOnly
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "Name": "Postman_Sample_ObjectModel_TypicalProperties_ImportOnly",
+      "Parts": [
+        {
+          "Description": "Part (typical properties)",
+          "MaterialCode": "P2_Gold_Craft_Oak_19.0",
+          "Grain": "Lengthwise",
+          "Quantity": 1,
+          "EdgeFront": "PP_White_1.3_22_HM",
+          "EdgeBack": "PP_White_1.3_22_HM",
+          "EdgeLeft": "PP_White_1.3_22_HM",
+          "EdgeRight": "PP_White_1.3_22_HM",
+          "EdgeDiagram": "011:011:000:000",
+          "CncProgramName1": "SortingS1004",
+          "CncProgramName2": "SortingS1004_2",
+          "CustomerName": "HOMAG",
+          "OrderName": "Kitchen 123",
+          "MprFileName": "PartA.mpr"
+        }
+      ],
+      "Machine": "productionAssist Nesting",
+      "Parameters": "Rectangular"
+    }
+    
+  '''
+  PartA.mpr: @file(/C:/GitHub/HOMAG-Connect/Applications/IntelliDivide/Samples/Postman/PartA.mpr)
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Excel_ImportOnly
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/RequestUsingTemplate
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "Name": "Postman_Sample_Template_Excel_ImportOnly",
+      "ImportTemplate": "HOMAG Connect",
+      "Machine": "productionAssist Cutting",
+      "Parameters": "Default"
+    }
+  '''
+  ImportFile: @file(Kitchen.xlsx)
+}
+
+settings {
+  encodeUrl: true
+}

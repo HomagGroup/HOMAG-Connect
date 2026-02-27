@@ -1,0 +1,25 @@
+meta {
+  name: Get optimizations
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations?take=100&skip=0&optimizationType=nesting
+  body: none
+  auth: inherit
+}
+
+params:query {
+  take: 100
+  skip: 0
+  optimizationType: nesting
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  GetOptimizations
+}

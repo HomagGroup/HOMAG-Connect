@@ -1,0 +1,73 @@
+meta {
+  name: Rework (in time range)
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  capturedAtFrom: 2025-12-01
+  capturedAtTo: 2026-02-28
+  take: 1000
+  skip: 0
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Reworks API - in time range
+  
+  Retrieves rework entries filtered by capture timestamp range.
+  
+  ## Endpoint
+  
+  ```http
+  GET /api/productionManager/orders/reworks
+  ```
+  
+  ## Query Parameters
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `capturedAtFrom` | datetimeoffset | yes | Start of capture timestamp range (inclusive). |
+  | `capturedAtTo` | datetimeoffset | yes | End of capture timestamp range (inclusive). |
+  | `take` | integer | no | Maximum number of records to return. |
+  | `skip` | integer | no | Number of records to skip. |
+  
+  ## Current request
+  
+  ```http
+  GET /api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
+  ```
+  
+  ## C# sample
+  
+  ```csharp
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+  
+  var reworks = await client.GetReworks(
+      states: null,
+      capturedAtFrom: DateTimeOffset.Parse("2025-12-01T00:00:00Z"),
+      capturedAtTo: DateTimeOffset.Parse("2026-02-28T23:59:59Z"),
+      take: 1000,
+      skip: 0);
+  
+  foreach (var rework in reworks ?? Enumerable.Empty<Rework>())
+  {
+      Console.WriteLine($"{rework.ReworkId} - {rework.CapturedAt}");
+  }
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [Rework](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/Rework.cs)
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Get machines
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/cutting/machines
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  GetOptimizations
+}

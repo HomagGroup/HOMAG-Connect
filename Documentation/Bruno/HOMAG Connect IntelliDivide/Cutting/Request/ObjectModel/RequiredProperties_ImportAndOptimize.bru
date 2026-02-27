@@ -1,0 +1,46 @@
+meta {
+  name: RequiredProperties_ImportAndOptimize
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  OptimizationRequest: '''
+    {
+      "Name": "Postman_Sample_ObjectModel_TypicalProperties_ImportAndOptimize",
+      "Parts": [
+        {
+          "Description": "Part (typical properties)",
+          "MaterialCode": "P2_Gold_Craft_Oak_19.0",
+          "Grain": "Lengthwise",
+          "Quantity": 1,
+          "Length": 400.0,
+          "Width": 200.0,
+          "EdgeFront": "PP_White_1.3_22_HM",
+          "EdgeBack": "PP_White_1.3_22_HM",
+          "EdgeLeft": "PP_White_1.3_22_HM",
+          "EdgeRight": "PP_White_1.3_22_HM",
+          "EdgeDiagram": "011:011:000:000",
+          "CncProgramName1": "SortingS1004",
+          "CncProgramName2": "SortingS1004_2",
+          "CustomerName": "HOMAG",
+          "OrderName": "Kitchen 123"
+        }
+      ],
+      "Action": "Optimize",
+      "Machine": "productionAssist Cutting",
+      "Parameters": "Default"
+    }
+    
+  '''
+}
+
+settings {
+  encodeUrl: true
+}
