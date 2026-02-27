@@ -139,8 +139,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bruno", "Documentation\Brun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Tests.Api", "Base\HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj", "{2D5D97F3-6185-4339-B414-0731B1DD6111}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "API", "Documentation\API\API.shproj", "{91B6DB5D-E83B-4C85-9254-39F56B40E2B8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,13 +354,8 @@ Global
 		{9346613B-37F1-4235-8040-9241DAAC90BE} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 		{7151A9C9-C78B-4020-B839-32E1F8631FC0} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{2D5D97F3-6185-4339-B414-0731B1DD6111} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
-		{91B6DB5D-E83B-4C85-9254-39F56B40E2B8} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Documentation\Bruno\Bruno.projitems*{7151a9c9-c78b-4020-b839-32e1f8631fc0}*SharedItemsImports = 13
-		Documentation\API\Docs.projitems*{91b6db5d-e83b-4c85-9254-39f56b40e2b8}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

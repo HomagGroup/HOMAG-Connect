@@ -9,6 +9,7 @@
     <Import_RootNamespace>Bruno</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect IntelliDivide\Optimizations\Get optimization status.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\folder.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Production Protocol\folder.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Production Protocol\Production Protocol %28from - to%29.bru" />

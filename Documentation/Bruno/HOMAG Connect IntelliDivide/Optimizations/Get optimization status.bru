@@ -1,11 +1,11 @@
 meta {
-  name: Delete Optimization
+  name: Get optimization status
   type: http
-  seq: 6
+  seq: 4
 }
 
-delete {
-  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId
+get {
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:optimizationId/state
   body: none
   auth: inherit
 }
@@ -20,26 +20,26 @@ settings {
 }
 
 docs {
-  # HOMAG Connect intelliDivide - Delete Optimization
+  # IntelliDivide API - Get optimization status
   
-  Deletes an optimization by its ID.
+  Retrieves the current status of an optimization by its ID.
   
   ## Endpoint
   
   ```http
-  DELETE /api/intelliDivide/optimizations/{optimizationId}
+  GET /api/intelliDivide/optimizations/{optimizationId}/state
   ```
   
   ## Path Parameters
   
   | Parameter | Type | Required | Description |
   |-----------|------|----------|-------------|
-  | `optimizationId` | GUID | yes | Unique identifier of the optimization to delete. |
+  | `optimizationId` | GUID | yes | Unique identifier of the optimization. |
   
   ## Current request
   
   ```http
-  DELETE /api/intelliDivide/optimizations/{optimizationId}
+  GET /api/intelliDivide/optimizations/{optimizationId}/state
   ```
   
   ## C# sample
@@ -48,10 +48,12 @@ docs {
   var client = new IntelliDivideClient(baseUri, httpClient);
   var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
   
-  await client.DeleteOptimization(optimizationId);
+  var status = await client.GetOptimizationStatus(optimizationId);
+  Console.WriteLine(status);
   ```
   
   ## Referenced types (GitHub)
   
   - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)  
+  - [OptimizationStatus](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/OptimizationStatus.cs)  
 }

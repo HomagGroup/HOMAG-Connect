@@ -1,7 +1,7 @@
 meta {
   name: Get Optimization
   type: http
-  seq: 4
+  seq: 2
 }
 
 get {
@@ -11,9 +11,49 @@ get {
 }
 
 params:path {
-  optimizationId: 
+  optimizationId: {{OptimizationId}}
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # HOMAG Connect intelliDivide - Get Optimization
+  
+  Retrieves a single optimization by its ID.
+  
+  ## Endpoint
+  
+  ```http
+  GET /api/intelliDivide/optimizations/{optimizationId}
+  ```
+  
+  ## Path Parameters
+  
+  | Parameter | Type | Required | Description |
+  |-----------|------|----------|-------------|
+  | `optimizationId` | GUID | yes | Unique identifier of the optimization to retrieve. |
+  
+  ## Current request
+  
+  ```http
+  GET /api/intelliDivide/optimizations/{optimizationId}
+  ```
+  
+  ## C# sample
+  
+  ```csharp
+  var client = new IntelliDivideClient(baseUri, httpClient);
+  var optimizationId = Guid.Parse("550e8400-e29b-41d4-a716-446655440000");
+  
+  var optimization = await client.GetOptimization(optimizationId);
+  Console.WriteLine(optimization?.Name);
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [IntelliDivideClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Client/IntelliDivideClient.cs)
+  - [Optimization](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/IntelliDivide/Contracts/Optimization.cs)  
 }
