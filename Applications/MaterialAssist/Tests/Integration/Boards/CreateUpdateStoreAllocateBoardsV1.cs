@@ -11,7 +11,7 @@ using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration.Boards;
 
-[TemporaryDisabledOnServer(2026, 02, 28, "DF-Material")]
+[TemporaryDisabledOnServer(2026, 03, 31, "DF-Material")]
 [TestClass]
 [TestCategory("MaterialAssist")]
 [TestCategory("MaterialAssist.Boards")]
