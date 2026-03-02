@@ -34,7 +34,7 @@ public class ConversionTests
     [TestMethod]
     public void Convert_ProjectToGroup_ProjectHavingTypicalProperties()
     {
-        var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
+        var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties(true, true);
 
         ConvertProjectToGroup(fileInfo);
     }
