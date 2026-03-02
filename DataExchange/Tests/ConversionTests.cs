@@ -84,6 +84,15 @@ public class ConversionTests
 
     /// <summary />
     [TestMethod]
+    public void Convert_ProjectWithGroupsToOrder_LargeProject()
+    {
+        var fileInfo = new FileInfo("TestData\\PositionGroups.zip");
+
+        ConvertProjectToOrder(fileInfo);
+    }
+
+    /// <summary />
+    [TestMethod]
     public void Convert_ProjectToOrder_ProjectHavingTypicalProperties()
     {
         var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
