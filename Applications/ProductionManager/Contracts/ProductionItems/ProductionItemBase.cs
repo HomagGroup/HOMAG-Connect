@@ -15,9 +15,10 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Represents a base class for production items, which can be parts, positions, assembly groups, or resources.
+/// Represents a base class for production items, which can be group, parts, positions, assembly groups, or resources.
 /// </summary>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
+[JsonSubtypes.KnownSubType(typeof(Group), ProductionItemType.Group)]
 [JsonSubtypes.KnownSubType(typeof(Position), ProductionItemType.Position)]
 [JsonSubtypes.KnownSubType(typeof(Part), ProductionItemType.Part)]
 [JsonSubtypes.KnownSubType(typeof(AssemblyGroup), ProductionItemType.AssemblyGroup)]
