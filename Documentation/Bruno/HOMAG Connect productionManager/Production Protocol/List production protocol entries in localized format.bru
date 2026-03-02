@@ -1,0 +1,126 @@
+meta {
+  name: List production protocol entries in localized format
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/workstations/:workstationId/productionprotocol?daysBack=90&culture=de&format=localized
+  body: none
+  auth: inherit
+}
+
+params:query {
+  daysBack: 90
+  culture: de
+  format: localized
+}
+
+params:path {
+  workstationId: {{WorkstationId}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # List production protocol entries in localized format
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/workstations/{workstationId}/productionprotocol
+  ```
+  
+  ## Purpose
+  
+  List production protocol entries with localized property names and enum values for a workstation and time window.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `workstationId` | path | string | yes | Workstation identifier. |
+  | `daysBack` | query | integer | no | Number of days to include in the history window. |
+  | `format` | query | string | yes | Set to `localized` (case-insensitive) to enable localized output. |
+  | `culture` | query | string | no | Localization culture (for example `de`, `en`, `de-DE`). Uses current culture if omitted. |
+  | `take` | query | integer | no | Maximum number of items to return. Maximum supported value: `10000`. |
+  | `skip` | query | integer | no | Number of items to skip for paging. Must be `>= 0`. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/workstations/8f9d9f1a-5a01-4d43-98a8-2e9e88f4e1a7/productionprotocol?daysBack=90&culture=de&format=localized
+  ```
+  
+  ## Success response example
+  
+  ```json
+  [
+    {
+      "Id": "16332994",
+      "OrderId": null,
+      "Typ": "ProcessedPartDividing",
+      "WorkstationId": "39f580df-62dc-4356-a309-29a693bb5842",
+      "Herkunft": "productionAssist",
+      "Zeitpunkt": "2025-12-05T09:36:31+00:00",
+      "Eintragstyp": "Part",
+      "Identifier": "16332994",
+      "Beschreibung": "dfdf"
+    }
+  ]
+  ```
+  
+  ## Possible error codes
+  
+  - `300 Ambiguous` - Invalid parameter combination (for example combining `daysBack` with `from` or `to`).
+  - `401 Unauthorized` - Missing or invalid credentials, or required productionManager license is missing.
+  - `422 Unprocessable Entity` - Invalid date range or paging values.
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# sample
+  
+  ```csharp
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  var workstationId = "<your-workstation-id>";
+  
+  using var httpClient = new HttpClient();
+  var pair = $"{subscriptionId}:{authorizationKey}";
+  var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(pair));
+  httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", token);
+  
+  var url = $"https://connect.homag.cloud/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack=90&culture=de&format=localized";
+  var response = await httpClient.GetStringAsync(url);
+  
+  Console.WriteLine(response);
+  ```
+  
+  ## PowerShell sample
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  $workstationId = "<your-workstation-id>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  $url = "$baseUrl/api/productionManager/workstations/$workstationId/productionprotocol?daysBack=90&culture=de&format=localized"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  $response | ConvertTo-Json -Depth 10
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [ProcessedItem](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/ProductionItems/ProcessedItem.cs)
+}

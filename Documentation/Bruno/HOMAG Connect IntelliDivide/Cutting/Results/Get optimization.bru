@@ -5,13 +5,18 @@ meta {
 }
 
 get {
-  url: https://connect.homag.cloud/api/intelliDivide/optimizations/{{OptimizationId}}/
+  url: https://connect.homag.cloud/api/intelliDivide/optimizations/:OptimizationId
   body: none
   auth: inherit
 }
 
+params:path {
+  OptimizationId: {{OptimizationId}}
+}
+
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
