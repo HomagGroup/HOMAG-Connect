@@ -34,7 +34,7 @@ public class ConversionTests
     [TestMethod]
     public void Convert_ProjectToGroup_ProjectHavingTypicalProperties()
     {
-        var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties();
+        var fileInfo = DataExchangeSamples.GetProjectHavingTypicalProperties(true, true);
 
         ConvertProjectToGroup(fileInfo);
     }
@@ -78,6 +78,15 @@ public class ConversionTests
     public void Convert_ProjectToOrder_LargeProject()
     {
         var fileInfo = new FileInfo("TestData\\Kitchen.zip");
+
+        ConvertProjectToOrder(fileInfo);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void Convert_ProjectWithGroupsToOrder_LargeProject()
+    {
+        var fileInfo = new FileInfo("TestData\\PositionGroups.zip");
 
         ConvertProjectToOrder(fileInfo);
     }

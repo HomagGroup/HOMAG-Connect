@@ -24,6 +24,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Applications\OrderManager\Contracts\HomagConnect.OrderManager.Contracts.csproj" />
+	  <ProjectReference Include="..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
 	  <ProjectReference Include="..\Contracts\HomagConnect.DataExchange.Contracts.csproj" />
 	</ItemGroup>
 </Project>

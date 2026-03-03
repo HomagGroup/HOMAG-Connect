@@ -5,6 +5,7 @@ using System.Reflection;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.Base.Extensions;
 using HomagConnect.DataExchange.Contracts;
 using HomagConnect.DataExchange.Extensions.Wrapper;
 using HomagConnect.OrderManager.Contracts.OrderItems;
@@ -33,11 +34,16 @@ public static class ProjectExtensionsConversion
         {
             foreach (var projectOrder in project.Orders)
             {
-                var group = new Group();
+                var orderDetails = new OrderDetails();
+                orderDetails.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
 
-                Map(project, projectOrder, group);
+                Map(project, projectOrder, orderDetails);
 
-                groups.Add(group);
+                var orderGroups = orderDetails.Items?.OfType<Group>().ToArray() ?? Array.Empty<Group>();
+                foreach (var group in orderGroups)
+                {
+                    groups.Add(group);
+                }
             }
         }
 
@@ -60,13 +66,18 @@ public static class ProjectExtensionsConversion
         {
             foreach (var projectOrder in project.Orders)
             {
-                var group = new Group();
+                var orderDetails = new OrderDetails();
+                orderDetails.Items= new Collection<OrderManager.Contracts.OrderItems.Base>();
 
-                Map(project, projectOrder, group);
+                Map(project, projectOrder, orderDetails);
 
-                var fileReferencesReferenced = GetReferencedFileReferences(group, fileReferences);
+                var orderGroups = orderDetails.Items?.OfType<Group>().ToArray() ?? Array.Empty<Group>();
+                var fileReferencesReferenced = GetReferencedFileReferences(orderGroups, fileReferences);
 
-                groups.Add(new(group, fileReferencesReferenced));
+                foreach (var group in orderGroups)
+                {
+                    groups.Add(new(group, fileReferencesReferenced));
+                }
             }
         }
 
@@ -202,6 +213,11 @@ public static class ProjectExtensionsConversion
 
         var type = entityEntityProperty.Value;
 
+        if (string.Equals(type, "Group", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return new Group();
+        }
+
         if (string.Equals(type, "OrderItem", StringComparison.CurrentCultureIgnoreCase))
         {
             return new Position();
@@ -313,9 +329,15 @@ public static class ProjectExtensionsConversion
         return Replace3dsReferencesWithZipPackages(fileReferencesReferenced, additionalDataEntities, fileReferencesNotReferenced).ToArray();
     }
 
-    private static FileReference[] GetReferencedFileReferences(Group group, FileReference[] fileReferencesAvailable)
+    private static FileReference[] GetReferencedFileReferences(Group[] groups, FileReference[] fileReferencesAvailable)
     {
-        var additionalDataEntities = GetAdditionalDataEntities(group).ToList();
+        var additionalDataEntities = new List<AdditionalDataEntity>();
+
+        foreach (var group in groups)
+        {
+            var additionalData = GetAdditionalDataEntities(group).ToList();
+            additionalDataEntities.AddRange(additionalData);
+        }
 
         var fileReferencesReferenced = new List<FileReference>();
         var fileReferencesNotReferenced = new List<FileReference>();
@@ -373,35 +395,66 @@ public static class ProjectExtensionsConversion
         return fileReferencesReferenced;
     }
 
-    private static void Map(Project project, Order order, Group group)
+    private static void Map(Project project, Order order, OrderDetails orderDetails)
     {
         var projectWrapper = new ProjectWrapper(project);
         var orderWrapper = new OrderWrapper(order);
 
-        group.Name = orderWrapper.OrderName;
-        group.Quantity = orderWrapper.Quantity ?? 1;
+        var projectGroups = new List<Group>();
+
+        var projectContainsGroups = false;
+        var orderName = orderWrapper.OrderName;
+        var orderQuantity = orderWrapper.Quantity ?? 1;
+        var source = string.Empty;
 
         if (!string.IsNullOrWhiteSpace(orderWrapper.Source))
         {
-            group.Source = orderWrapper.Source;
+            source = orderWrapper.Source;
         }
         else if (!string.IsNullOrWhiteSpace(projectWrapper.Source))
         {
-            group.Source = projectWrapper.Source;
+            source = projectWrapper.Source;
         }
 
         if (order.Entities.Count > 0)
         {
-            group.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
+            //Use a generated group to preserve the hierarchy of the order items in case the xml structure does not have a Group element.
+            var generatedGroup = new Group();
+            generatedGroup.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
+            generatedGroup.Name = orderName;
+            generatedGroup.Source = source;
+            generatedGroup.Quantity = orderQuantity;
 
             foreach (var entityEntity in order.Entities)
             {
                 var orderItem = CreateInstance(entityEntity.Properties);
-
                 MapOrderItem(entityEntity, orderItem);
 
-                group.Items.Add(orderItem);
+                if (orderItem is Group group)
+                {
+                    projectContainsGroups = true;
+
+                    group.Source = source;
+                    group.Name = group.Name ?? orderName;
+                    group.Quantity = group.Quantity == 0 ? orderQuantity : group.Quantity;
+                    projectGroups.Add(group);
+                }
+                else
+                {
+                    generatedGroup.Items.Add(orderItem);
+                }
             }
+
+            // If the project contains groups, add the groups to the order details. Otherwise, add the generated group to the order details.
+            if (projectContainsGroups)
+            {
+                orderDetails.Items!.AddRange(projectGroups);
+            }
+            else
+            {
+                orderDetails.Items!.Add(generatedGroup);
+            }
+
         }
     }
 
@@ -511,17 +564,17 @@ public static class ProjectExtensionsConversion
         {
             orderDetails.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
 
-            var group = new Group();
-
-            Map(project, order, group);
-
-            orderDetails.Items.Add(group);
+            Map(project, order, orderDetails);
         }
     }
 
     private static void MapOrderItem(Entity entity, OrderManager.Contracts.OrderItems.Base orderItem)
     {
-        if (orderItem is Position position)
+        if (orderItem is Group group)
+        {
+            MapGroup(entity, group);
+        }
+        else if (orderItem is Position position)
         {
             MapPosition(entity, position);
         }
@@ -543,6 +596,47 @@ public static class ProjectExtensionsConversion
                 orderItem.Items.Add(orderItemItem);
             }
         }
+    }
+
+    private static void MapGroup(Entity entity, Group group)
+    {
+        var orderItemWrapper = new GroupWrapper(entity);
+
+        group.Name = orderItemWrapper.ArticleGroup;
+        group.Notes = orderItemWrapper.Description;
+        group.Quantity = orderItemWrapper.Quantity ?? 1;
+
+        var propertiesToIgnore = new[]
+        {
+            "Type",
+            "QuantityUnit",
+            "Barcode",
+
+            // TODO: Validate if these properties are really not needed
+
+            "ArticleGroup",
+            "StartDatePlanned",
+            "Grain"
+        };
+
+        var wrapperPropertyNames = orderItemWrapper.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(p => p.Name);
+
+        foreach (var property in entity.Properties
+                     .Where(p => !propertiesToIgnore.Any(i => string.Equals(i, p.Name, StringComparison.OrdinalIgnoreCase)))
+                     .Where(p => !wrapperPropertyNames.Any(w => string.Equals(w, p.Name, StringComparison.OrdinalIgnoreCase))))
+        {
+            if (property is { Name: not null, Value: not null })
+            {
+                group.AdditionalProperties ??= new Dictionary<string, object>();
+
+                if (!string.IsNullOrWhiteSpace(property.Value)) // Ignore empty values
+                {
+                    group.AdditionalProperties.Add(property.Name, property.Value);
+                }
+            }
+        }
+
+        MapImages(entity, group);
     }
 
     private static void MapPosition(Entity entity, Position position)
