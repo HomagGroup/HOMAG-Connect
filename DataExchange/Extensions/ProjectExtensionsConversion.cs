@@ -418,6 +418,7 @@ public static class ProjectExtensionsConversion
 
         if (order.Entities.Count > 0)
         {
+            //Use a generated group to preserve the hierarchy of the order items in case the xml structure does not have a Group element.
             var generatedGroup = new Group();
             generatedGroup.Items = new Collection<OrderManager.Contracts.OrderItems.Base>();
             generatedGroup.Name = orderName;
@@ -601,6 +602,8 @@ public static class ProjectExtensionsConversion
         var orderItemWrapper = new GroupWrapper(entity);
 
         group.Name = orderItemWrapper.ArticleGroup;
+        group.Notes = orderItemWrapper.Description;
+        group.Quantity = orderItemWrapper.Quantity ?? 1;
 
         var propertiesToIgnore = new[]
         {
