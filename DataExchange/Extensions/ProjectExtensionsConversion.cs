@@ -445,6 +445,7 @@ public static class ProjectExtensionsConversion
                 }
             }
 
+            // If the project contains groups, add the groups to the order details. Otherwise, add the generated group to the order details.
             if (projectContainsGroups)
             {
                 orderDetails.Items!.AddRange(projectGroups);
