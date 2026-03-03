@@ -602,7 +602,7 @@ public static class ProjectExtensionsConversion
     {
         var orderItemWrapper = new GroupWrapper(entity);
 
-        group.Name = orderItemWrapper.ArticleGroup;
+        group.Name = orderItemWrapper.ArticleNumber;
         group.Notes = orderItemWrapper.Description;
         group.Quantity = orderItemWrapper.Quantity ?? 1;
 

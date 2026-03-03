@@ -24,6 +24,19 @@ public class GroupWrapper : EntityWrapper
     }
 
     /// <summary />
+    public string? ArticleNumber
+    {
+        get
+        {
+            return Entity.GetPropertyValue<string>();
+        }
+        set
+        {
+            Entity.SetPropertyValue(value);
+        }
+    }
+
+    /// <summary />
     public string? ArticleDescription
     {
         get
