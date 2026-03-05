@@ -12,6 +12,10 @@
     <Content Include="bruno.json" />
     <Content Include="**\*.bru" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="HOMAG Connect productionManager\Rework\Get rework history.bru" />
+    <Content Remove="HOMAG Connect productionManager\Rework\Get reworks.bru" />
+  </ItemGroup>
   <Import Project="Bruno.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
 </Project>

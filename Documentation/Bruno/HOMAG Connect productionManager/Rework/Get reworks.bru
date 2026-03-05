@@ -1,0 +1,186 @@
+meta {
+  name: Get reworks
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/reworks?daysBack=7
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~from: 2024-01-01T00:00:00Z
+  ~to: 2024-01-31T23:59:59Z
+  daysBack: 7
+  ~state: Transferred
+  ~identifier: 
+  ~reworkId: 
+  ~take: 100
+  ~skip: 0
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Get reworks
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/reworks
+  ```
+  
+  ## Purpose
+  
+  Retrieve rework records with flexible filtering options including date range, state, production item identifier, and pagination support.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `from` | query | DateTime | no | Start date for the date range filter (ISO 8601 format). Cannot be combined with `daysBack`. |
+  | `to` | query | DateTime | no | End date for the date range filter (ISO 8601 format). Cannot be combined with `daysBack`. |
+  | `daysBack` | query | integer | no | Number of days to look back from now. Cannot be combined with `from` and `to`. |
+  | `state` | query | string | no | Rework state filter (for example Transferred, Rejected). |
+  | `identifier` | query | string | no | Production item identifier to filter by. |
+  | `reworkId` | query | string | no | Specific rework ID to filter by. |
+  | `take` | query | integer | no | Maximum number of records to return. |
+  | `skip` | query | integer | no | Number of records to skip for pagination. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/reworks?daysBack=7
+  ```
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/reworks?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&state=Transferred&take=100
+  ```
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/reworks?identifier=PART-123&take=50&skip=0
+  ```
+  
+  ## Success response example
+  
+  ```json
+  [
+    {
+      "reworkId": "RWK-2026-0001",
+      "id": "P-100234",
+      "orderName": "Order_2026_001",
+      "material": "MDF_19.0",
+      "quantityOfReworks": 2,
+      "state": "Transferred",
+      "capturedAt": "2026-02-20T08:45:00Z"
+    },
+    {
+      "reworkId": "RWK-2026-0002",
+      "id": "P-100235",
+      "orderName": "Order_2026_002",
+      "material": "CHIPBOARD_16.0",
+      "quantityOfReworks": 1,
+      "state": "Rejected",
+      "capturedAt": "2026-02-21T14:30:00Z"
+    }
+  ]
+  ```
+  
+  ## Possible error codes
+  
+  - `300 Ambiguous` - Invalid combination of parameters (for example using both `daysBack` and `from`/`to`).
+  - `400 Bad Request` - Invalid query parameter values.
+  - `401 Unauthorized` - Missing or invalid credentials, or required productionManager license is missing.
+  - `422 Unprocessable Entity` - Too much data requested. Please adjust date range or use pagination parameters.
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# sample
+  
+  ```csharp
+  using HomagConnect.ProductionManager.Client;
+  using HomagConnect.ProductionManager.Contracts.Rework;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+  
+  // Example 1: Get reworks from the last 7 days
+  var reworksLastWeek = await client.GetReworks(daysBack: 7);
+  
+  foreach (var rework in reworksLastWeek)
+  {
+      Console.WriteLine($"{rework.ReworkId} - {rework.State} - {rework.CapturedAt}");
+  }
+  
+  // Example 2: Get reworks with specific date range and state filter
+  var from = DateTime.UtcNow.AddDays(-30);
+  var to = DateTime.UtcNow;
+  var reworksFiltered = await client.GetReworks(
+      from: from,
+      to: to,
+      state: ReworkState.Transferred,
+      take: 100);
+  
+  foreach (var rework in reworksFiltered)
+  {
+      Console.WriteLine($"{rework.ReworkId} - {rework.Identifier}");
+  }
+  
+  // Example 3: Get reworks by production item identifier
+  var reworksByIdentifier = await client.GetReworks(
+      daysBack: 14,
+      identifier: "PART-123",
+      take: 50,
+      skip: 0);
+  
+  foreach (var rework in reworksByIdentifier)
+  {
+      Console.WriteLine($"{rework.ReworkId} - {rework.Material}");
+  }
+  ```
+  
+  ## PowerShell sample
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  # Example 1: Get reworks from the last 7 days
+  $url = "$baseUrl/api/productionManager/reworks?daysBack=7"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($rework in $response) {
+    Write-Host ("{0} - {1} - {2}" -f $rework.reworkId, $rework.state, $rework.capturedAt)
+  }
+  
+  # Example 2: Get reworks with date range and state filter
+  $from = (Get-Date).AddDays(-30).ToString("yyyy-MM-ddTHH:mm:ssZ")
+  $to = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ssZ")
+  $url = "$baseUrl/api/productionManager/reworks?from=$from&to=$to&state=Transferred&take=100"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($rework in $response) {
+    Write-Host ("{0} - {1}" -f $rework.reworkId, $rework.identifier)
+  }
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [Rework](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/Rework.cs)
+  - [ReworkState](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Rework/ReworkState.cs)
+}

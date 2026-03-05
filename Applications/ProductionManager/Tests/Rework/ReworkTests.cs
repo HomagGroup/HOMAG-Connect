@@ -38,11 +38,123 @@ namespace HomagConnect.ProductionManager.Tests.Rework
             var reworks = await productionManager.GetReworks([ReworkState.Transferred, ReworkState.Rejected], from, to).ToListAsync();
 
             reworks.ShouldNotBeNull();
-            
+
             reworks.Count(r => r.CapturedAt > to).ShouldBe(0);
             reworks.Count(r => r.CapturedAt < from).ShouldBe(0);
 
             reworks.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve reworks using date range without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworks_WithDateRange_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+            var from = DateTime.UtcNow.AddDays(-30);
+            var to = DateTime.UtcNow;
+
+            var reworks = await productionManager.GetReworks(from: from, to: to).ToListAsync();
+
+            reworks.ShouldNotBeNull();
+            reworks.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve reworks using daysBack parameter without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworks_WithDaysBack_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var reworks = await productionManager.GetReworks(daysBack: 30).ToListAsync();
+
+            reworks.ShouldNotBeNull();
+            reworks.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve reworks with state filter without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworks_WithStateFilter_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var reworks = await productionManager.GetReworks(
+                daysBack: 30, 
+                state: ReworkState.Transferred).ToListAsync();
+
+            reworks.ShouldNotBeNull();
+            reworks.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve reworks with pagination without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworks_WithPagination_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var reworks = await productionManager.GetReworks(
+                daysBack: 30,
+                take: 10,
+                skip: 0).ToListAsync();
+
+            reworks.ShouldNotBeNull();
+            reworks.Count.ShouldBeLessThanOrEqualTo(10);
+            reworks.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve rework history using date range without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworkHistory_WithDateRange_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+            var from = DateTime.UtcNow.AddDays(-7);
+            var to = DateTime.UtcNow;
+
+            var reworkHistory = await productionManager.GetReworkHistory(from: from, to: to).ToListAsync();
+
+            reworkHistory.ShouldNotBeNull();
+            reworkHistory.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve rework history using daysBack parameter without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworkHistory_WithDaysBack_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var reworkHistory = await productionManager.GetReworkHistory(daysBack: 14).ToListAsync();
+
+            reworkHistory.ShouldNotBeNull();
+            reworkHistory.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve rework history with pagination without throwing.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetReworkHistory_WithPagination_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var reworkHistory = await productionManager.GetReworkHistory(
+                daysBack: 30,
+                take: 5,
+                skip: 0).ToListAsync();
+
+            reworkHistory.ShouldNotBeNull();
+            reworkHistory.Count.ShouldBeLessThanOrEqualTo(5);
+            reworkHistory.Trace();
         }
     }
 }
