@@ -66,10 +66,6 @@ docs {
   GET https://connect.homag.cloud/api/productionManager/reworks?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&state=Transferred&take=100
   ```
   
-  ```http
-  GET https://connect.homag.cloud/api/productionManager/reworks?identifier=PART-123&take=50&skip=0
-  ```
-  
   ## Success response example
   
   ```json
@@ -136,17 +132,6 @@ docs {
       Console.WriteLine($"{rework.ReworkId} - {rework.Identifier}");
   }
   
-  // Example 3: Get reworks by production item identifier
-  var reworksByIdentifier = await client.GetReworks(
-      daysBack: 14,
-      identifier: "PART-123",
-      take: 50,
-      skip: 0);
-  
-  foreach (var rework in reworksByIdentifier)
-  {
-      Console.WriteLine($"{rework.ReworkId} - {rework.Material}");
-  }
   ```
   
   ## PowerShell sample

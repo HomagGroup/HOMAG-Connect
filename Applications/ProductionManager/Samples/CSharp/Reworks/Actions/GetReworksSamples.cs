@@ -40,14 +40,6 @@ namespace HomagConnect.ProductionManager.Samples.Reworks.Actions
                 take: 100).ToListAsync();
             reworksFiltered.Trace(nameof(reworksFiltered));
 
-            // Example 3: Get reworks by identifier with pagination
-            var reworksByIdentifier = await productionManager.GetReworks(
-                daysBack: 14,
-                identifier: "10800332",
-                take: 50,
-                skip: 0).ToListAsync();
-            reworksByIdentifier.Trace(nameof(reworksByIdentifier));
-
             if (reworksLastWeek != null)
             {
                 var reworkIds = reworksLastWeek.Select(x => x.Id).ToList();
@@ -73,12 +65,6 @@ namespace HomagConnect.ProductionManager.Samples.Reworks.Actions
                 take: 100).ToListAsync();
             historyByDateRange.Trace(nameof(historyByDateRange));
 
-            // Example 3: Get rework history by rework ID
-            var historyByReworkId = await productionManager.GetReworkHistory(
-                daysBack: 30,
-                reworkId: "a880d29f-e158-424f-8ec3-196c579ce43e",
-                take: 10).ToListAsync();
-            historyByReworkId.Trace(nameof(historyByReworkId));
 
             if (historyLastTwoWeeks != null)
             {
