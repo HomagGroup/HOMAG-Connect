@@ -18,6 +18,8 @@ params:query {
   ~reworkId: 
   ~take: 100
   ~skip: 0
+  ~format: localized
+  ~culture: en
 }
 
 settings {
@@ -49,6 +51,8 @@ docs {
   | `reworkId` | query | string | no | Specific rework ID to filter by. |
   | `take` | query | integer | no | Maximum number of records to return. |
   | `skip` | query | integer | no | Number of records to skip for pagination. |
+  | `format` | query | string | no | Set to `localized` to return property names and enum values in the requested culture. |
+  | `culture` | query | string | no | Localization culture (for example `de`, `en`, `de-DE`). Used together with `format=localized`. Falls back to current server culture if omitted. |
   
   ## Request example
   
