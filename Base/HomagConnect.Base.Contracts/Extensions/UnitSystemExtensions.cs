@@ -88,7 +88,8 @@ public static class UnitSystemExtensions
             or BaseUnit.Meter
             or BaseUnit.Bar
             or BaseUnit.MeterPerSecond
-            or BaseUnit.KilogramPerCubicMeter;
+            or BaseUnit.KilogramPerCubicMeter 
+            or BaseUnit.Kilogram;
 
         if (!supportedBaseUnit)
         {
