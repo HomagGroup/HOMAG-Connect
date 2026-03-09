@@ -18,6 +18,9 @@ public enum ProductionItemType
     Unknown,
 
     /// <summary />
+    Group,
+
+    /// <summary />
     Position,
 
     /// <summary />
