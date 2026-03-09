@@ -29,5 +29,9 @@ public enum BaseUnit
 
     /// <summary />
     [RoundingFormat(1, 1)]
-    KilogramPerCubicMeter
+    KilogramPerCubicMeter,
+    
+    /// <summary />
+    [RoundingFormat(1, 1)]
+    Kilogram
 }

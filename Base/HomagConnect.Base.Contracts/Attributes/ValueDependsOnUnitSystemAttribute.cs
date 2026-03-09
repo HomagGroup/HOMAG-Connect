@@ -55,6 +55,10 @@ public sealed class ValueDependsOnUnitSystemAttribute : Attribute
         {
             ConversionFactorMetricToImperial = _KilogramPerCubicMeterToPoundPerCubicFeetConversionFactor;
         }
+        else if (BaseUnit == BaseUnit.Kilogram)     
+        {
+            ConversionFactorMetricToImperial = 2;
+        }
         else
         {
             throw new NotImplementedException($"Conversion factor for {baseUnit} is not defined.");
