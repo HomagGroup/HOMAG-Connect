@@ -12,10 +12,10 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Orders
 {
     /// <summary>
-        /// Order data
-        /// </summary>
-        [DebuggerDisplay("OrderName={OrderName}")]
-    public class OrderDetails: ISupportsAdditionalData
+    /// Order data
+    /// </summary>
+    [DebuggerDisplay("OrderName={OrderName}")]
+    public class OrderDetails : ISupportsAdditionalData
     {
         #region (100) Header
 
@@ -118,6 +118,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// The company of the customer of this order
         /// </summary>
         [JsonProperty(Order = 320)]
+        [Obsolete("Use CustomerName instead.")]
         public string? Company { get; set; }
 
         #endregion
@@ -194,7 +195,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// Gets the quantity of parts planned in this order.
         /// </summary>
         [JsonProperty(Order = 411)]
-        public int? QuantityOfPartsPlanned { get; set; }       
+        public int? QuantityOfPartsPlanned { get; set; }
 
         #endregion
 
