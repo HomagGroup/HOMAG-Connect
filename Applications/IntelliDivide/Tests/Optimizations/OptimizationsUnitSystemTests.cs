@@ -17,10 +17,22 @@ public class OptimizationsUnitSystemTests : IntelliDivideTestBase
     [UnitTest("IntelliDivide.Optimizations.UnitSystem")]
     public void SolutionDetails_UnitSystem_Imperial()
     {
-        const UnitSystem unitSystem = UnitSystem.Imperial;
-        var solutionDetails = new SolutionDetails(unitSystem);
+        const UnitSystem sourceUnitSystem = UnitSystem.Imperial;
+        const UnitSystem targetUnitSystem = UnitSystem.Metric;
+        const double conversionFactorImperialToMetric = 2;
 
- 
+        var solutionDetailsImperial = new SolutionDetails(sourceUnitSystem);
+        solutionDetailsImperial.KeyFigures.Production.Handling.BookWeightMax = 100;
+        solutionDetailsImperial.KeyFigures.Production.Handling.BookWeightAverage = 50;
+
+        solutionDetailsImperial.UnitSystem.ShouldBe(sourceUnitSystem);
+
+        var solutionDetailsMetric = solutionDetailsImperial.SwitchUnitSystem(targetUnitSystem, false);
+
+        solutionDetailsMetric.UnitSystem.ShouldBe(targetUnitSystem);
+        solutionDetailsMetric.KeyFigures.Production.Handling.BookWeightMax
+            .ShouldBe(solutionDetailsImperial.KeyFigures.Production.Handling.BookWeightMax / conversionFactorImperialToMetric);
+        solutionDetailsMetric.KeyFigures.Production.Handling.BookWeightAverage
+            .ShouldBe(solutionDetailsImperial.KeyFigures.Production.Handling.BookWeightAverage / conversionFactorImperialToMetric);
     }
-
 }
