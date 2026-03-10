@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using HomagConnect.Base.Contracts;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.OrderManager.Contracts.Customers
 {
@@ -20,8 +20,14 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         public bool ApiAccess { get; set; }
 
         /// <summary>
+        /// The name of the customer of this order
+        /// </summary>
+        public string? CustomerName { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the customer.
         /// </summary>
+        [Obsolete ("Use CustomerName instead.")]
         public string? Company { get; set; }
 
         /// <summary>
