@@ -7,10 +7,11 @@ using Newtonsoft.Json;
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
     /// <summary>
-    /// Represents the validation errors for an optimization
-    /// This class was created in order to avoid creating custom converters for ValidationResults because the class
-    /// "ValidationResult" doesn't have a default constructor and cannot be deserialized in our context.
+    /// Represents a validation error returned when an optimization request contains invalid data.
+    /// Inspect <see cref="ValidationResult.ErrorMessage" /> for the error detail and
+    /// <see cref="ValidationResult.MemberNames" /> for the affected properties.
     /// </summary>
+    /// <example>{ "errorMessage": "The material code 'UNKNOWN' is not available." }</example>
     public class OptimizationValidationResult : ValidationResult
     {
         /// <inheritdoc />

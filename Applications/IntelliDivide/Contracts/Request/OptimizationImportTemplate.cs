@@ -6,8 +6,12 @@ using HomagConnect.IntelliDivide.Contracts.Common;
 namespace HomagConnect.IntelliDivide.Contracts.Request
 {
     /// <summary>
-    /// Optimization import template.
+    /// Represents an import template configured in intelliDivide. Import templates define how structured files
+    /// (e.g. CSV, Excel, PNX) are mapped to optimization parts during a template-based optimization request.
     /// </summary>
+    /// <example>
+    /// { "name": "HOMAG Connect", "fileExtension": "csv", "optimizationType": "Cutting" }
+    /// </example>
     [DebuggerDisplay("{Name}")]
     public class OptimizationImportTemplate
     {
@@ -15,7 +19,9 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
 
         /// <summary>
         /// Gets or sets the file extension (without leading dot) for which the template was created.
+        /// Leading dots and whitespace are trimmed automatically.
         /// </summary>
+        /// <example>csv</example>
         [Required]
         public string FileExtension
         {
@@ -37,14 +43,17 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         }
 
         /// <summary>
-        /// Ges or sets the name of the import template.
+        /// Gets or sets the name of the import template as configured in intelliDivide.
         /// </summary>
+        /// <example>HOMAG Connect</example>
         [Required]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the <see cref="OptimizationType" /> for which the template is valid..
+        /// Gets or sets the <see cref="OptimizationType" /> this template applies to.
+        /// Supported values: <c>Cutting</c>, <c>Nesting</c>.
         /// </summary>
+        /// <example>Cutting</example>
         [Required]
         public OptimizationType OptimizationType { get; set; }
     }
