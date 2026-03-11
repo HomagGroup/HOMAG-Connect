@@ -6,43 +6,55 @@ using System.Runtime.Serialization;
 
 using Newtonsoft.Json;
 
-namespace HomagConnect.IntelliDivide.Contracts.Request
+namespace HomagConnect.IntelliDivide.Contracts.Request;
+
+/// <summary>
+/// Base class for optimization requests. Provides shared properties for specifying the target machine,
+/// parameter set, available boards, and the action to perform after submission.
+/// </summary>
+[DebuggerDisplay("Action={Action}")]
+public class OptimizationRequestBase : IExtensibleDataObject
 {
+    private const int _MachineNameMaxLength = 100;
+    private const int _ParameterNameMaxLength = 100;
+
     /// <summary>
-    /// Optimization request base class.
+    /// Gets or sets the action to perform after the request is submitted.
+    /// Defaults to <c>ImportOnly</c>, which creates the optimization without starting it.
     /// </summary>
-    [DebuggerDisplay("Action={Action}")]
-    public class OptimizationRequestBase : IExtensibleDataObject
-    {
-        private const int _MachineNameMaxLength = 100;
-        private const int _ParameterNameMaxLength = 100;
+    /// <example>Optimize</example>
+    [Required]
+    [DefaultValue(OptimizationRequestAction.ImportOnly)]
+    public OptimizationRequestAction Action { get; set; } = OptimizationRequestAction.ImportOnly;
 
-        /// <summary>
-        /// Gets or sets the <see cref="OptimizationRequestAction" />.
-        /// </summary>
-        [Required]
-        [DefaultValue(OptimizationRequestAction.ImportOnly)]
-        public OptimizationRequestAction Action { get; set; } = OptimizationRequestAction.ImportOnly;
+    /// <summary>
+    /// Gets or sets the boards available for the optimization. Optional — when no boards are provided,
+    /// the required boards are retrieved automatically from materialManager.
+    /// </summary>
+    /// <example>
+    /// [
+    ///   { "materialCode": "P2_White_19.0", "boardCode": "P2_White_19.0_2800_2070", "length": 2800, "width": 2070, "thickness": 19.0, "grain": "None", "costs": 10, "quantity": 70 }
+    /// ]
+    /// </example>
+    public Collection<OptimizationRequestBoard> Boards { get; set; } = [];
 
-        /// <summary>
-        /// Optional. If no boards are provided the required boards are retrieved from materialManager.
-        /// </summary>
-        public Collection<OptimizationRequestBoard> Boards { get; set; } = new Collection<OptimizationRequestBoard>();
+    /// <summary>
+    /// Gets or sets the name of the target machine. Optional — when not provided, the first machine
+    /// sorted by name is used. Maximum length is 100 characters.
+    /// </summary>
+    /// <example>productionAssist Cutting</example>
+    [StringLength(_MachineNameMaxLength, MinimumLength = 3)]
+    public string Machine { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Optional. If no machine is provided the first cutting machine sorted by name is used.
-        /// </summary>
-        [StringLength(_MachineNameMaxLength, MinimumLength = 3)]
-        public string Machine { get; set; } = string.Empty;
+    /// <summary>
+    /// Gets or sets the name of the parameter set to use. Optional — when not provided, the first
+    /// parameter set sorted by name that matches the machine type is used. Maximum length is 100 characters.
+    /// </summary>
+    /// <example>Default</example>
+    [StringLength(_ParameterNameMaxLength, MinimumLength = 3)]
+    public string Parameters { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Optional. If no parameter is provided the first parameter, sorted by name which fits the machine type is used.
-        /// </summary>
-        [StringLength(_ParameterNameMaxLength, MinimumLength = 3)]
-        public string Parameters { get; set; } = string.Empty;
-
-        /// <inheritdoc />
-        [JsonProperty(Order = 99)]
-        public ExtensionDataObject ExtensionData { get; set; }
-    }
+    /// <inheritdoc />
+    [JsonProperty(Order = 99)]
+    public ExtensionDataObject ExtensionData { get; set; }
 }

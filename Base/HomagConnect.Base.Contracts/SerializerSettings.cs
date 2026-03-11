@@ -9,7 +9,7 @@ using Newtonsoft.Json.Serialization;
 namespace HomagConnect.Base.Contracts;
 
 /// <summary>
-/// Serializer Settings
+/// Provides shared JSON serializer settings for HOMAG Connect contracts.
 /// </summary>
 public static class SerializerSettings
 {
@@ -31,10 +31,19 @@ public static class SerializerSettings
     }
 
     /// <summary>
-    /// Default
+    /// Gets the default JSON serializer settings used for contract serialization.
+    /// Uses camelCase property names, preserves dictionary keys, parses dates as <see cref="DateTimeOffset" />,
+    /// ignores <c>null</c> values, and serializes enums as strings.
     /// </summary>
+    /// <example>var json = JsonConvert.SerializeObject(contract, SerializerSettings.Default);</example>
     public static JsonSerializerSettings Default { get; }
 
+    /// <summary>
+    /// Creates JSON serializer settings that use localized property names for the specified culture.
+    /// Includes <c>null</c> values and uses ISO 8601 date formatting.
+    /// </summary>
+    /// <param name="cultureInfo">The culture to use for localized property names.</param>
+    /// <returns>A localized <see cref="JsonSerializerSettings" /> instance.</returns>
     public static JsonSerializerSettings Localized(CultureInfo cultureInfo)
     {
         return new JsonSerializerSettings
