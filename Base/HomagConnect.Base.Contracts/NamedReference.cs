@@ -1,9 +1,9 @@
 ﻿namespace HomagConnect.Base.Contracts;
 
 /// <summary>
-/// Represents a reference to another object.
+/// Represents a lightweight reference to another object using an identifier and display name.
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <typeparam name="T">The type of the referenced identifier.</typeparam>
 public class NamedReference<T>
 {
     /// <summary>
@@ -21,12 +21,14 @@ public class NamedReference<T>
     }
 
     /// <summary>
-    /// Gets or sets the id of the referenced object.
+    /// Gets or sets the identifier of the referenced object.
     /// </summary>
+    /// <example>42</example>
     public T Id { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the name of the referenced object.
+    /// Gets or sets the display name of the referenced object.
     /// </summary>
+    /// <example>Default</example>
     public string? Name { get; set; }
 }
