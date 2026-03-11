@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
@@ -10,8 +7,21 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
 /// <summary>
-/// Represents a processed part in a production protocol, including its id, description and quantity processed.
+/// Represents a processed part in a production protocol, including dimensional and material information.
 /// </summary>
+/// <example>
+/// {
+///   "identifier": "10",
+///   "description": "Side Panel Left",
+///   "quantity": 4,
+///   "length": 720,
+///   "width": 480,
+///   "thickness": 19.0,
+///   "unitSystem": "Metric",
+///   "material": "P2_White_19.0",
+///   "grain": "Lengthwise"
+/// }
+/// </example>
 public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterialProperties, IContainsUnitSystemDependentProperties
 {
     /// <inheritdoc />
@@ -46,7 +56,6 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
 
     /// <inheritdoc />
     [JsonProperty(Order = 21)]
-    
     public double? Length { get; set; }
 
     /// <inheritdoc />
@@ -69,9 +78,7 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     [JsonProperty(Order = 25)]
     public string? Material { get; set; }
 
-    /// <summary>
-    /// Gets or sets the grain.
-    /// </summary>
+    /// <inheritdoc />
     [JsonProperty(Order = 26)]
     public Grain Grain { get; set; }
 

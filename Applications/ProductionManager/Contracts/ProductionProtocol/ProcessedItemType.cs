@@ -4,43 +4,44 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
 {
     /// <summary>
-    /// Processed item type enumeration
+    /// Specifies the processed item contract type used in production protocol payloads.
     /// </summary>
+    /// <example>ProcessedPart</example>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum ProcessedItemType
     {
         /// <summary>
-        /// Processed item in general
+        /// Base processed item.
         /// </summary>
         ProcessedItem,
 
         /// <summary>
-        /// Processed part in general
+        /// Processed part.
         /// </summary>
         ProcessedPart,
 
         /// <summary>
-        /// Processed part in dividing workstations
+        /// Processed part for dividing workstations.
         /// </summary>
         ProcessedPartDividing,
 
         /// <summary>
-        /// Processed part in edgebanding workstations
+        /// Processed part for edgebanding workstations.
         /// </summary>
         ProcessedPartEdgebanding,
 
         /// <summary>
-        /// Processed part in CNC workstations
+        /// Processed part for CNC workstations.
         /// </summary>
         ProcessedPartCnc,
 
         /// <summary>
-        /// Processed position
+        /// Processed position.
         /// </summary>
         ProcessedPosition,
 
         /// <summary>
-        /// Processed assembly group
+        /// Processed assembly group.
         /// </summary>
         ProcessedAssemblyGroup
     }
