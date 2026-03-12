@@ -2,6 +2,9 @@
 
 namespace HomagConnect.Base.Contracts
 {
+    /// <summary>
+    /// Represents a file together with the logical reference name used when submitting or processing the file.
+    /// </summary>
     [DebuggerDisplay("{Reference}: {FileInfo}")]
     public class FileReference
     {
@@ -20,17 +23,19 @@ namespace HomagConnect.Base.Contracts
         }
 
         /// <summary>
-        /// Gets or sets the file info.
+        /// Gets or sets the file metadata and local file system path.
         /// </summary>
+        /// <example>C:\Data\Project.zip</example>
         public FileInfo FileInfo { get; set; }
 
         /// <summary>
-        /// Gets or sets the reference.
+        /// Gets or sets the logical reference name used for the file in the request or response payload.
         /// </summary>
+        /// <example>Project.zip</example>
         public string Reference { get; set; }
 
         /// <summary>
-        /// Gets or sets file stream.
+        /// Opens the referenced file and returns its content as a memory stream.
         /// </summary>
         public async Task<MemoryStream> GetStream()
         {

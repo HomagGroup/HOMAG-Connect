@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -12,10 +13,10 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Orders
 {
     /// <summary>
-        /// Order data
-        /// </summary>
-        [DebuggerDisplay("OrderName={OrderName}")]
-    public class OrderDetails: ISupportsAdditionalData
+    /// Order data
+    /// </summary>
+    [DebuggerDisplay("OrderName={OrderName}")]
+    public class OrderDetails : ISupportsAdditionalData
     {
         #region (100) Header
 
@@ -118,6 +119,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// The company of the customer of this order
         /// </summary>
         [JsonProperty(Order = 320)]
+        [Obsolete("Use CustomerName instead.")]
         public string? Company { get; set; }
 
         #endregion
@@ -145,6 +147,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 491)]
         public string? ChangedBy { get; set; }
+
+        /// <summary>
+        /// Gets the user who created the order.
+        /// </summary>
+        [JsonProperty(Order = 492)]
+        public string? CreatedBy { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was created at.
@@ -194,7 +202,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// Gets the quantity of parts planned in this order.
         /// </summary>
         [JsonProperty(Order = 411)]
-        public int? QuantityOfPartsPlanned { get; set; }       
+        public int? QuantityOfPartsPlanned { get; set; }
 
         #endregion
 

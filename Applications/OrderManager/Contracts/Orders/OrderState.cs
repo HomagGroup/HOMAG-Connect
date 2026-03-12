@@ -22,6 +22,11 @@ public enum OrderState
     New,
 
     /// <summary>
+    /// As soon as an order group has been created or updated, the order receives the state "NewInCalculation".
+    /// </summary>
+    NewInCalculation,
+
+    /// <summary>
     /// After an order has been release it receives the state "ReadyForProduction".
     /// </summary>
     ReadyForProduction,
