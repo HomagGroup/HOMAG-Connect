@@ -31,14 +31,14 @@ There are several ways to request an optimization:
 
 Please refer to the linked pages for detailed samples and explanations.
 
-For all optimization requests, you can specify the optimization name, the machine, and the parameters to be used.
+For all optimization requests, you must specify the optimization name, the machine, and the parameters to be used.
 
 ```c#
 request.Name = "Sample";
 request.Machine = "productionAssist Cutting";
 request.Parameters = "Default";
 ```
-If you don't provide this information, the optimization name will be automatically generated and the first machine and default parameters will be used.
+
 
 The type of machine determines whether a cutting or nesting algorithm is used to perform the optimization.
 
