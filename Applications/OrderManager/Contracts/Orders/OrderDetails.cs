@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -146,6 +147,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 491)]
         public string? ChangedBy { get; set; }
+
+        /// <summary>
+        /// Gets the user who created the order.
+        /// </summary>
+        [JsonProperty(Order = 492)]
+        public string? CreatedBy { get; set; }
 
         /// <summary>
         /// Gets the timestamp the order was created at.
