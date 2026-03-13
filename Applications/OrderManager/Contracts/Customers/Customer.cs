@@ -41,6 +41,11 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         public string? Email { get; set; }
 
         /// <summary>
+        /// Gets or sets the contact telephone number of the customer.
+        /// </summary>
+        public string? TelephoneNumber { get; set; }
+
+        /// <summary>
         /// Gets or sets the unique identifier of the customer.
         /// </summary>
         public Guid Id { get; set; }
@@ -49,11 +54,6 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// Gets or sets the contact phone number of the customer.
         /// </summary>
         public string? Notes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the contact telephone number of the customer.
-        /// </summary>
-        public string? TelephoneNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the customer language and region
