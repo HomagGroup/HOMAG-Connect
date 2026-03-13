@@ -45,63 +45,75 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string? CustomerNumber { get; set; }
 
         /// <summary>
-        /// The company of the customer of this order
+        /// The telephone number of the customer of this order
         /// </summary>
         [JsonProperty(Order = 113)]
+        public string? TelephoneNumber { get; set; }
+
+        /// <summary>
+        /// The email of the customer of this order
+        /// </summary>
+        [JsonProperty(Order = 114)]
+        public string? Email { get; set; }
+
+        /// <summary>
+        /// The company of the customer of this order
+        /// </summary>
+        [JsonProperty(Order = 115)]
         public string? Company { get; set; }
 
         /// <summary>
         /// The description of the order
         /// </summary>
-        [JsonProperty(Order = 114)]
+        [JsonProperty(Order = 116)]
         public string? OrderDescription { get; set; }
 
         /// <summary>
         /// The project of the order
         /// </summary>
-        [JsonProperty(Order = 115)]
+        [JsonProperty(Order = 117)]
         public string? Project { get; set; }
 
         /// <summary>
         /// The description of the order
         /// </summary>
-        [JsonProperty(Order = 116)]
+        [JsonProperty(Order = 118)]
         public string? PersonInCharge { get; set; }
 
         /// <summary>
         /// The date the order was created at
         /// </summary>
-        [JsonProperty(Order = 117)]
+        [JsonProperty(Order = 119)]
         public DateTimeOffset OrderDate { get; set; }
 
         /// <summary>
         /// Gets the planned delivery date of this order.
         /// </summary>
-        [JsonProperty(Order = 118)]
+        [JsonProperty(Order = 120)]
         public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
         /// <summary>
         /// Gets the external system id of the order which can be used as a reference.
         /// </summary>
-        [JsonProperty(Order = 119)]
+        [JsonProperty(Order = 121)]
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
         /// Gets or sets the link to the order in productionManager.
         /// </summary>
-        [JsonProperty(Order = 120)]
+        [JsonProperty(Order = 122)]
         public Uri? Link { get; set; }
 
         /// <summary>
         /// The number of the order
         /// </summary>
-        [JsonProperty(Order = 121)]
+        [JsonProperty(Order = 123)]
         public string? OrderNumber { get; set; }
 
         /// <summary>
         /// The order number from the preceding system
         /// </summary>
-        [JsonProperty(Order = 122)]
+        [JsonProperty(Order = 124)]
         public string? OrderNumberExternal { get; set; }
 
         #endregion

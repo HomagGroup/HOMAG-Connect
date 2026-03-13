@@ -1,6 +1,10 @@
-﻿using System.Globalization;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 
 using Newtonsoft.Json;
@@ -13,6 +17,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Common.GrainMatchingTemplates;
 [JsonConverter(typeof(GrainMatchTemplateReferenceConverter))]
 public class GrainMatchTemplateReference
 {
+    /// <summary>
+    /// Gets the default trim value for the template in metric unit system.
+    /// </summary>
+    public const double DefaultTrim = 5;
+
     /// <summary>
     /// Gets or sets whether the template should be divided within the pattern or in separate pattern.
     /// </summary>
@@ -39,6 +48,26 @@ public class GrainMatchTemplateReference
     public string Template { get; set; }
 
     /// <summary>
+    /// Gets or sets the trim value of the template.
+    /// </summary>
+    [DefaultValue(DefaultTrim)]
+    [Range(0, 999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    public double Trim
+    {
+        get
+        {
+            if (Trims == GrainMatchingTemplateOptionsTrims.None)
+            {
+                return 0;
+            }
+
+            return field;
+        }
+        set;
+    } = DefaultTrim;
+
+    /// <summary>
     /// Gets or sets the trims of the template.
     /// </summary>
     public GrainMatchingTemplateOptionsTrims Trims { get; set; } = GrainMatchingTemplateOptionsTrims.AllSides;
@@ -54,6 +83,7 @@ public class GrainMatchTemplateReference
         const int positionIndex = 1;
         const int instanceIndex = 2;
         const int optionsIndex = 3;
+        const int trimIndex = 4;
 
         var parts = grainMatchingTemplateReference.Split(':');
 
@@ -105,6 +135,14 @@ public class GrainMatchTemplateReference
             }
         }
 
+        if (result.Trims != GrainMatchingTemplateOptionsTrims.None)
+        {
+            if (parts.Length > trimIndex && double.TryParse(parts[trimIndex].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out var trim))
+            {
+                result.Trim = trim;
+            }
+        }
+
         return result;
     }
 
@@ -136,6 +174,11 @@ public class GrainMatchTemplateReference
         var options = (int)Trims;
         options |= (int)Grain;
         options |= (int)Dividing;
+
+        if (Trims != GrainMatchingTemplateOptionsTrims.None && Math.Abs(Trim - DefaultTrim) > double.Epsilon)
+        {
+            return $"{Template}:{positions}:{Instance}:{options}:{Trim}";
+        }
 
         return $"{Template}:{positions}:{Instance}:{options}";
     }

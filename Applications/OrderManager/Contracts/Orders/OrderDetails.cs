@@ -122,6 +122,18 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         [Obsolete("Use CustomerName instead.")]
         public string? Company { get; set; }
 
+        /// <summary>
+        /// The telephone number of the customer of this order
+        /// </summary>
+        [JsonProperty(Order = 3210)]
+        public string? TelephoneNumber { get; set; }
+
+        /// <summary>
+        /// The email of the customer of this order
+        /// </summary>
+        [JsonProperty(Order = 322)]
+        public string? Email { get; set; }
+
         #endregion
 
         #region (200) Address
