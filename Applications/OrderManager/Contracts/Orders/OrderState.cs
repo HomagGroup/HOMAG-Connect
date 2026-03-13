@@ -46,4 +46,9 @@ public enum OrderState
     /// The order has been archived.
     /// </summary>
     Archived,
+
+    /// <summary>
+    /// As soon as an order group has been created or updated, the order receives the state "NewInCalculation" until all data has been generated.
+    /// </summary>
+    NewInCalculation,
 }

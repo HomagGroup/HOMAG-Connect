@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 
@@ -16,6 +17,13 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
     [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(BoardTypeUpsertedEvent))]
     public class BoardTypeUpsertedEvent : AppEvent
     {
+        /// <summary>
+        /// Gets or sets the action performed during the upsert operation.
+        /// </summary>
+        [JsonProperty(Order = 19)]
+
+        public UpsertAction Action { get; set; }
+
         /// <summary>
         /// Gets or sets the BoardType that has been created or updated.
         /// </summary>

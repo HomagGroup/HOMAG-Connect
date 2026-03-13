@@ -9,7 +9,21 @@ public class GroupWrapper : EntityWrapper
     public GroupWrapper(Entity entityEntity) : base(entityEntity) { }
 
     #region Public properties
-   
+
+
+    /// <summary />
+    public string? OrderItemGroup
+    {
+        get
+        {
+            return Entity.GetPropertyValue<string>();
+        }
+        set
+        {
+            Entity.SetPropertyValue(value);
+        }
+    }
+
     /// <summary />
     public string? ArticleGroup
     {

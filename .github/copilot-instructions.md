@@ -9,6 +9,7 @@
 ## Code Style
 - Use specific formatting rules
 - Follow naming conventions
+- Use `/// <inheritdoc />` for properties derived from an interface or base class instead of duplicating documentation when documenting contracts.
 
 ## Project-Specific Rules
 - Attributes should accept arrays of (string, int) pairs. Due to C# attribute parameter constraints, prefer repeatable attributes with a (string, int) constructor.

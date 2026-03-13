@@ -20,6 +20,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
         /// <summary>
         /// Gets or sets the action performed during the upsert operation.
         /// </summary>
+        [JsonProperty(Order = 19)]
         public UpsertAction Action { get; set; }
 
         /// <summary>

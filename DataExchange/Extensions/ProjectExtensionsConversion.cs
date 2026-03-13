@@ -600,11 +600,12 @@ public static class ProjectExtensionsConversion
 
     private static void MapGroup(Entity entity, Group group)
     {
-        var orderItemWrapper = new GroupWrapper(entity);
+        var groupWrapper = new GroupWrapper(entity);
 
-        group.Name = orderItemWrapper.ArticleNumber;
-        group.Notes = orderItemWrapper.Description;
-        group.Quantity = orderItemWrapper.Quantity ?? 1;
+        group.Id = groupWrapper.OrderItemGroup;
+        group.Name = groupWrapper.OrderItemGroup ?? groupWrapper.ArticleNumber;
+        group.Notes = groupWrapper.Description;
+        group.Quantity = groupWrapper.Quantity ?? 1;
 
         var propertiesToIgnore = new[]
         {
@@ -619,7 +620,7 @@ public static class ProjectExtensionsConversion
             "Grain"
         };
 
-        var wrapperPropertyNames = orderItemWrapper.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(p => p.Name);
+        var wrapperPropertyNames = groupWrapper.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(p => p.Name);
 
         foreach (var property in entity.Properties
                      .Where(p => !propertiesToIgnore.Any(i => string.Equals(i, p.Name, StringComparison.OrdinalIgnoreCase)))

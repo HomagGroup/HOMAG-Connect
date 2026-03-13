@@ -18,6 +18,7 @@ Update XML documentation (`///`) for the selected contract type and its public p
    - state Metric vs Imperial behavior clearly.
 5. Preserve existing nullability, attributes, and serialization behavior.
 6. Do not change runtime logic unless explicitly requested.
+7. When a public property overrides or implements documentation from a base class or interface, use `/// <inheritdoc />` instead of duplicating the XML documentation.
 
 ## Unit Documentation Guidance
 - If a property is percentage-based, document unit as `%` for both Metric and Imperial.

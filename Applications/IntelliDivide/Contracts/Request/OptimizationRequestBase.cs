@@ -39,19 +39,19 @@ public class OptimizationRequestBase : IExtensibleDataObject
     public Collection<OptimizationRequestBoard> Boards { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the name of the target machine. Optional — when not provided, the first machine
-    /// sorted by name is used. Maximum length is 100 characters.
+    /// Gets or sets the name of the target machine. Maximum length is 100 characters.
     /// </summary>
     /// <example>productionAssist Cutting</example>
     [StringLength(_MachineNameMaxLength, MinimumLength = 3)]
+    [Required]
     public string Machine { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the name of the parameter set to use. Optional — when not provided, the first
-    /// parameter set sorted by name that matches the machine type is used. Maximum length is 100 characters.
+    /// Gets or sets the name of the parameter set to use. Maximum length is 100 characters.
     /// </summary>
     /// <example>Default</example>
     [StringLength(_ParameterNameMaxLength, MinimumLength = 3)]
+    [Required]
     public string Parameters { get; set; } = string.Empty;
 
     /// <inheritdoc />
