@@ -121,6 +121,25 @@ public class ProductionEventsTests : ProductionManagerTestBase
     }
 
     [TestMethod]
+    public void OrderDeletedEvent_Serialization()
+    {
+        var orderEvent = new OrderDeletedEvent()
+        {
+            SubscriptionId = Guid.NewGuid(),
+            OrderId = Guid.NewGuid()
+        };
+
+        Assert.IsTrue(orderEvent.IsValid);
+        TestContext?.AddResultFile(orderEvent.TraceToFile("OrderDeletedEvent").FullName);
+
+        var eventSerialized = JsonConvert.SerializeObject(orderEvent, SerializerSettings.Default);
+        var eventDeserialized = JsonConvert.DeserializeObject<AppEvent>(eventSerialized);
+
+        Assert.IsNotNull(eventDeserialized);
+        Assert.AreEqual(orderEvent.Key, eventDeserialized.Key);
+    }
+
+    [TestMethod]
     public void ProductionItemStatusChangedEvent_Serialization()
     {
         var completedAt = DateTimeOffset.Now;
