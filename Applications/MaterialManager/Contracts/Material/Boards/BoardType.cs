@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// A board type.
     /// </summary>
     [DebuggerDisplay("{BoardCode}")]
-    public class BoardType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
+    public class BoardType : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
     {
 #pragma warning disable S109 // Magic numbers should not be used
 
@@ -159,6 +159,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             get
             {
                 return Density ?? (MaterialCategory != BoardMaterialCategory.Undefined ? MaterialCategory.GetTypicalDensity(UnitSystem) : null);
+            }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
             }
         }
 
@@ -322,6 +327,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
                 return null;
             }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+            }
         }
 
         /// <summary>
@@ -339,6 +349,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
                 return null;
             }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+            }
         }
 
         /// <summary>
@@ -353,6 +368,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             get
             {
                 return UnitSystem.CalculateArea(Length, Width, TotalQuantityInInventory);
+            }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
             }
         }
 
@@ -369,6 +389,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             {
                 return UnitSystem.CalculateArea(Length, Width, TotalQuantityAllocated);
             }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+            }
         }
 
         /// <summary>
@@ -383,6 +408,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             get
             {
                 return UnitSystem.CalculateArea(Length, Width, TotalQuantityAvailable);
+            }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
             }
         }
 
