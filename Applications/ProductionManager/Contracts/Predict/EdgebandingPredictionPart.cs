@@ -10,19 +10,35 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Predict
 {
     /// <summary>
-    /// Part for edgebanding prediction.
+    /// Represents a part used as input for edgebanding duration prediction.
     /// </summary>
-    public class EdgebandingPredictionPart : IEdgebandingProperties, IDimensionProperties
+    /// <example>
+    /// {
+    ///   "id": "PART-10",
+    ///   "quantity": 2,
+    ///   "edgeFront": "EB_White_1mm",
+    ///   "edgeBack": "EB_White_1mm",
+    ///   "edgeLeft": "EB_White_1mm",
+    ///   "edgeRight": "EB_White_1mm",
+    ///   "length": 720,
+    ///   "width": 480,
+    ///   "thickness": 19.0,
+    ///   "unitSystem": "Metric"
+    /// }
+    /// </example>
+    public class EdgebandingPredictionPart : IEdgebandingProperties, IDimensionProperties, IContainsUnitSystemDependentProperties
     {
         /// <summary>
-        /// Gets or sets the id of the part.
+        /// Gets or sets the identifier of the part.
         /// </summary>
+        /// <example>PART-10</example>
         [JsonProperty(Order = 1)]
         public string? Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity how often the part is needed.
+        /// Gets or sets the required quantity of the part. Must be between 1 and 10,000.
         /// </summary>
+        /// <example>2</example>
         [Required]
         [JsonProperty(Order = 2)]
         [Range(1, 10000)]
@@ -58,25 +74,19 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
 
         #region IDimensionsProperties Members
 
-        /// <summary>
-        /// Gets or sets the length of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 21)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
 
-        /// <summary>
-        /// Gets or sets the thickness of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 23)]
         [Range(0.1, 500)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
