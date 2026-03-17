@@ -163,7 +163,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             // ReSharper disable once ValueParameterNotUsed
             private set
             {
-                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+                // needed for deserialization
             }
         }
 
@@ -330,7 +330,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             // ReSharper disable once ValueParameterNotUsed
             private set
             {
-                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+                // needed for deserialization
             }
         }
 
@@ -352,7 +352,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             // ReSharper disable once ValueParameterNotUsed
             private set
             {
-                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+                // needed for deserialization
             }
         }
 
@@ -372,7 +372,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             // ReSharper disable once ValueParameterNotUsed
             private set
             {
-                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+                // needed for deserialization
             }
         }
 
@@ -392,7 +392,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             // ReSharper disable once ValueParameterNotUsed
             private set
             {
-                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+                // needed for deserialization
             }
         }
 
@@ -412,7 +412,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             // ReSharper disable once ValueParameterNotUsed
             private set
             {
-                // needed for deserialization, value is calculated based on Length, Width and TotalQuantityAvailable
+                // needed for deserialization
             }
         }
 
