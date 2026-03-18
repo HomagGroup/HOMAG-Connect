@@ -29,6 +29,20 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Constants
+
+    private const string _BaseRoute = "api/materialManager/materials/boards";
+    private const string _BoardTypeAllocationsRoute = _BaseRoute + "/allocations";
+    private const string _BaseStatisticsRoute = "api/materialManager/statistics";
+    private const string _MaterialCode = "materialCode";
+    private const string _BoardCode = "boardCode";
+    private const string _IncludingDetails = "includingDetails";
+    private const string _GatewayMaterialRoutePrefix = "api/gw/materials";
+    private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
+    private const string _AvailibilityCheckRoute = "api/materialManager/availabilityCheck";
+
+    #endregion
+
     #region Import
 
     /// <inheritdoc />
@@ -59,6 +73,23 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var url = $"{_ImportInventoryRoute}/{Uri.EscapeDataString(correlationId)}";
         return await RequestObject<ImportStateResponse>(new Uri(url, UriKind.Relative)) ?? new ImportStateResponse();
+    }
+
+    /// <inheritdoc />
+    public async Task UpdateServiceAvailabilityCheck(string serviceName, Dictionary<string, string> details = null)
+    {
+        var url = $"{_AvailibilityCheckRoute}?serviceName={Uri.EscapeDataString(serviceName)}";
+
+        if (details != null)
+        {
+            var payload = JsonConvert.SerializeObject(details, SerializerSettings.Default);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            await PostObject(new Uri(url, UriKind.Relative), content);
+        }
+        else
+        {
+            await PostObject(new Uri(url, UriKind.Relative));
+        }
     }
 
     #endregion
@@ -249,19 +280,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         throw new Exception($"The returned object is not of type {nameof(BoardTypeAllocation)}");
     }
-
-    #endregion
-
-    #region Constants
-
-    private const string _BaseRoute = "api/materialManager/materials/boards";
-    private const string _BoardTypeAllocationsRoute = _BaseRoute + "/allocations";
-    private const string _BaseStatisticsRoute = "api/materialManager/statistics";
-    private const string _MaterialCode = "materialCode";
-    private const string _BoardCode = "boardCode";
-    private const string _IncludingDetails = "includingDetails";
-    private const string _GatewayMaterialRoutePrefix = "api/gw/materials";
-    private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
 
     #endregion
 
