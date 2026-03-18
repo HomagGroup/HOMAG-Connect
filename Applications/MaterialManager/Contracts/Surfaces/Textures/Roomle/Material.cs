@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Newtonsoft.Json;
+
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 // NOTE: This is preliminary code and is subject to change
@@ -19,6 +21,12 @@ public class Material
     /// <summary>
     /// Free-form additional information entries.
     /// </summary>
+    /// <remarks>
+    /// Ignored during deserialization because the upstream API returns mixed types
+    /// (empty array, strings, or complex objects) that cannot be reliably bound.
+    /// This data is not critical for our use case and can be safely ignored.
+    /// </remarks>
+    [JsonIgnore]
     public List<string>? AdditionalInfos { get; set; }
 
     /// <summary>
