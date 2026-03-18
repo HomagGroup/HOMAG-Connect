@@ -1,0 +1,20 @@
+﻿using System.ComponentModel.DataAnnotations;
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Events;
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
+namespace HomagConnect.ProductionManager.Contracts.Events.Order;
+
+/// <summary>
+/// Gets or sets an event that occurs when an order has been deleted.
+/// </summary>
+[AppEvent(nameof(ProductionManager) + "." + nameof(Order) + "." + nameof(OrderDeletedEvent))]
+public class OrderDeletedEvent : AppEvent
+{
+    /// <summary>
+    /// Gets or sets the order id that has been deleted.
+    /// </summary>
+    [Required]
+    public Guid OrderId { get; set; }
+}

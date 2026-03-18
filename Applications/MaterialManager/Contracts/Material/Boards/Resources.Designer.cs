@@ -19,7 +19,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -29,7 +29,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Resources() {
+        internal Resources() {
         }
         
         /// <summary>
@@ -455,18 +455,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
                 return ResourceManager.GetString("BoardTypeProperties_Length", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Plattentyp für Konfiguration gesperrt.
         /// </summary>
-        public static string BoardTypeProperties_LockedForConfiguration
-        {
-            get
-            {
+        public static string BoardTypeProperties_LockedForConfiguration {
+            get {
                 return ResourceManager.GetString("BoardTypeProperties_LockedForConfiguration", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Plattentyp für Optimierung gesperrt.
         /// </summary>
@@ -549,7 +547,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reserviert.
+        ///   Looks up a localized string similar to Reserviert (Fläche).
         /// </summary>
         public static string BoardTypeProperties_TotalAreaAllocated {
             get {
@@ -558,7 +556,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verfügbar.
+        ///   Looks up a localized string similar to Verfügbar (Fläche).
         /// </summary>
         public static string BoardTypeProperties_TotalAreaAvailable {
             get {
@@ -567,7 +565,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mindestbestand.
+        ///   Looks up a localized string similar to Mindestbestand (Fläche).
         /// </summary>
         public static string BoardTypeProperties_TotalAreaAvailableWarningLimit {
             get {

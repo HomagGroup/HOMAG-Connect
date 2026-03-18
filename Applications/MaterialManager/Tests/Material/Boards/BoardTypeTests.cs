@@ -1,5 +1,3 @@
-using Shouldly;
-
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -10,6 +8,9 @@ using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
+using Newtonsoft.Json;
+using Shouldly;
+using System.Globalization;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Boards;
 
@@ -203,5 +204,34 @@ public class BoardTypeTests : MaterialManagerTestBase
 
         existingBoardTypes.ShouldBeEmpty(
             $"because all board types with material code '{materialCode}' should be deleted during cleanup");
+    }
+
+    /// <summary />
+    [IntegrationTest("MaterialManager.Boards")]
+    [TestMethod]
+    public async Task BoardType_SerializeLocalized_ReturnsDeserializableJson()
+    {
+        var materialManagerClient = GetMaterialManagerClient();
+
+        var boardTypes = await materialManagerClient.Material.Boards.GetBoardTypes(10).ToListAsync();
+
+        if (boardTypes == null || !boardTypes.Any())
+        {
+            Assert.Inconclusive("because there are no board types available to test localized serialization");
+        }
+
+        var cultureInfo = CultureInfo.GetCultureInfo("de-DE");
+        var serializedBoardTypesLocalized = boardTypes.SerializeLocalized(cultureInfo);
+
+        serializedBoardTypesLocalized.ShouldNotBeNullOrWhiteSpace(
+            "because localized serialization should produce JSON content");
+
+        var deserializedBoardTypes = JsonConvert.DeserializeObject(serializedBoardTypesLocalized);
+
+        deserializedBoardTypes.ShouldNotBeNull(
+            "because localized serialization should produce valid JSON that can be deserialized");
+
+        TestContext?.AddResultFile(boardTypes.TraceToFile(nameof(BoardType_SerializeLocalized_ReturnsDeserializableJson) + "_BoardTypes").FullName);
+        TestContext?.AddResultFile(deserializedBoardTypes.TraceToFile(nameof(BoardType_SerializeLocalized_ReturnsDeserializableJson) + "_Deserialized").FullName);
     }
 }

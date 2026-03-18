@@ -243,6 +243,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         Task<ImportStateResponse> GetImportState(string correlationId);
 
+        /// <summary>
+        /// Updates the service availability check for the given service name.
+        /// </summary>
+        /// <param name="serviceName">The service name to check availability for.</param>
+        /// <param name="details">Optional additional details as key-value pairs.</param>
+        Task UpdateServiceAvailabilityCheck(string serviceName, Dictionary<string, string> details = null);
+
         #endregion
     }
 }
