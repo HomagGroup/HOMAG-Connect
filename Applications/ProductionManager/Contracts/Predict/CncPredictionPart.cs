@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
     /// <summary>
     /// Part for CNC prediction.
     /// </summary>
-    public class CncPredictionPart : IDimensionProperties, ICncProgramProperties
+    public class CncPredictionPart : IDimensionProperties, ICncProgramProperties, IContainsUnitSystemDependentProperties
     {
         /// <summary>
         /// Gets or sets the id of the part.
@@ -30,25 +30,19 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
 
         #region IDimensionsProperties Members
 
-        /// <summary>
-        /// Gets or sets the length of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 20)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 21)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
 
-        /// <summary>
-        /// Gets or sets the thickness of the part.
-        /// </summary>
+        /// <inheritdoc />
         [JsonProperty(Order = 23)]
         [Range(0.1, 500)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
@@ -76,7 +70,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
 
         #region IContainsUnitSystemDependentProperties Members
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [JsonProperty(Order = 999)]
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
