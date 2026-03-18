@@ -143,7 +143,7 @@ stages:
             WorkingDirectoryList: '..\s'
             C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
             C3PORetryCounter: '3'
-            C3POTimeout: '240'
+            C3POTimeout: '600'
             C3PODisableCache: true
           condition:  and(succeeded(), ne(variables['Build.Reason'], 'Schedule'), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
 
