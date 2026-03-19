@@ -351,4 +351,8 @@
   <data name="BoardTypeProperties_LockedForConfiguration" xml:space="preserve">
     <value>Plattentyp für Konfiguration gesperrt</value>
   </data>
+  <data name="BoardTypeProperties_OrderDemand" xml:space="preserve">
+    <value>Bestellbedarf</value>
+    <comment>OrderDemand</comment>
+  </data>
 </root>
