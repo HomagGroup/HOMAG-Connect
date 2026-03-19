@@ -9,6 +9,7 @@ using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using Newtonsoft.Json;
 
 using Shouldly;
+using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 {
@@ -66,8 +67,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Width = 600,
                 Material = "P2_Gold_Craft_Oak_19.0",
                 Quantity = 2,
-                OrderName = "TestOrder",
-                Id = "010102"
+                OrderName = "TestOrder"
             };
 
             TestContext.AddResultFile(processedBasePart.TraceToFile("processedBasePart").FullName);
@@ -86,6 +86,20 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(ProcessedItemType.ProcessedPart, processedBasePart.Type);
         }
 
+
+        [TestMethod]
+        public void ProductionProtocol_Quality_Serialization()
+        {
+            var displayNames = EnumExtensions.GetDisplayNames<ProcessedItemQuality>(CultureInfo.GetCultureInfo("de"));
+
+            displayNames.ShouldNotBeEmpty(
+                "because ProcessedPartQuality enum should have localized display names");
+            displayNames[ProcessedItemQuality.Good].ShouldBe("Gut",
+                "because ProcessedPartQuality.Good should be localized as 'Gut' in German");
+
+            displayNames.Trace();
+        }
+
         /// <summary />
         [TestMethod]
         public void ProductionProtocol_CNC_Part_Serialization()
@@ -95,7 +109,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             var processedPartCnc = new ProcessedPartCnc
             {
                 Timestamp = completedAt,
-                Id = "012341",
                 SubscriptionId = Guid.NewGuid(),
                 Description = "BTH-CAB-END-LEFT",
                 Length = 162,
@@ -107,7 +120,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 ProgramName = "Test.mpr",
                 OrderName = "TestOrder",
                 OrderNumber = "",
-                OrderId = Guid.NewGuid(),
+                Quality = ProcessedItemQuality.Good,
                 ProgramDuration = completedAt - startedAt
             };
 

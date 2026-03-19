@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
@@ -37,21 +38,26 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 32)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(EdgeFront))]
     public string? EdgeFront { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 33)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(EdgeBack))]
     public string? EdgeBack { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 34)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(EdgeLeft))]
     public string? EdgeLeft { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 35)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(EdgeRight))]
     public string? EdgeRight { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 36)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(EdgeDiagram))]
     public string? EdgeDiagram { get; set; }
 }
