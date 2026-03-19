@@ -3,6 +3,7 @@ using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
@@ -55,19 +56,23 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     #region IDimensionProperties
 
     /// <inheritdoc />
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(Length))]
     [JsonProperty(Order = 21)]
     public double? Length { get; set; }
 
     /// <inheritdoc />
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(Width))]
     [JsonProperty(Order = 22)]
     public double? Width { get; set; }
 
     /// <inheritdoc />
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(Thickness))]
     [JsonProperty(Order = 23)]
     public double? Thickness { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 24)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(UnitSystem))]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion
@@ -76,10 +81,12 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
 
     /// <inheritdoc />
     [JsonProperty(Order = 25)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(Material))]
     public string? Material { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 26)]
+    [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(Grain))]
     public Grain Grain { get; set; }
 
     #endregion
