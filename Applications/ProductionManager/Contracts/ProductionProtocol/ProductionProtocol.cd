@@ -18,7 +18,7 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItem">
     <Position X="10" Y="2" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAEAAEAAAAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
+      <HashCode>AgAAAAAAEAAEAABAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedItem.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -29,7 +29,6 @@
       <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAQAAAAQAAQIAAAAAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPartEdgebanding.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartDividing">
     <Position X="14.25" Y="11.5" Width="2.25" />
@@ -40,13 +39,13 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedAssemblyGroup">
-    <Position X="15" Y="8" Width="3.25" />
+    <Position X="15.25" Y="8.25" Width="3.25" />
     <InheritanceLine Type="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedOrderItem" ManuallyRouted="true">
       <Path>
         <Point X="11.75" Y="7.329" />
-        <Point X="11.75" Y="6.895" />
-        <Point X="16.625" Y="6.895" />
-        <Point X="16.625" Y="8" />
+        <Point X="11.75" Y="7.621" />
+        <Point X="16.875" Y="7.621" />
+        <Point X="16.875" Y="8.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>

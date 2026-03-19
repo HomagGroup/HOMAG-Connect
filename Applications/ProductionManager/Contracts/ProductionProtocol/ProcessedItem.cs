@@ -102,4 +102,11 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     [JsonProperty(Order = 1)]
     [Display(AutoGenerateField = false)]
     public Guid WorkstationId { get; set; }
+
+    /// <summary>
+    /// The processed part quality 
+    /// </summary>
+    [JsonProperty(Order = 6)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Quality))]
+    public ProcessedItemQuality Quality { get; set; } = ProcessedItemQuality.Good;
 }

@@ -520,6 +520,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bestellbedarf.
+        /// </summary>
+        public static string BoardTypeProperties_OrderDemand {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_OrderDemand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Produktname.
         /// </summary>
         public static string BoardTypeProperties_ProductName {
