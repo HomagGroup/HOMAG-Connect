@@ -216,6 +216,18 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         [JsonProperty(Order = 411)]
         public int? QuantityOfPartsPlanned { get; set; }
 
+        /// <summary>
+        /// Defines if the order should ship offcuts.
+        /// </summary>
+        [JsonProperty(Order = 450)]
+        public bool? IncludeOffcuts { get; set; }
+
+        /// <summary>
+        /// Defines if the order should include edgebands.
+        /// </summary>
+        [JsonProperty(Order = 451)]
+        public bool? IncludeEdgeBands { get; set; }
+
         #endregion
 
         #region (600) Additional Data

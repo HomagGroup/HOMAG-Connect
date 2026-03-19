@@ -5,8 +5,7 @@ using HomagConnect.DataExchange.Contracts;
 using HomagConnect.DataExchange.Extensions;
 using HomagConnect.DataExchange.Extensions.Wrapper;
 using HomagConnect.DataExchange.Samples;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HomagConnect.OrderManager.Contracts.OrderItems;
 
 // ReSharper disable ExplicitCallerInfoArgument
 
@@ -71,6 +70,61 @@ public class ConversionTests
         var grps = project.ConvertToGroups();
         Assert.IsNotNull(grps);
         Assert.AreEqual(1, grps.Count());
+    }
+
+    [TestMethod]
+    public void Convert_ProjectToGroup_ProjectHavingUnknwonPropertyTypes()
+    {
+        var newProprtyParam = new Param
+        {
+            Name = "NewProperty",
+            Value = "anyValue"
+        };
+
+        var project = new Project();
+        var order = new Order();
+        project.Orders?.Add(order);
+
+        var orderItemEntity = new Entity();
+        orderItemEntity.Properties.Add(new Param { Name = "Type", Value = "OrderItem" });
+        order.Entities.Add(orderItemEntity);
+
+        var componentEntity = new Entity();
+        componentEntity.Properties.Add(new Param { Name = "Type", Value = "Component" });
+        componentEntity.Properties.Add(newProprtyParam);
+        orderItemEntity.Entities.Add(componentEntity);
+
+        var boardEntity = new Entity();
+        boardEntity.Properties.Add(new Param { Name = "Type", Value = "ProductionOrder" });
+        boardEntity.Properties.Add(newProprtyParam);
+        componentEntity.Entities.Add(boardEntity);
+
+        // Act
+        var grps = project.ConvertToGroups();
+
+        // Assert
+        Assert.IsNotNull(grps);
+        Assert.AreEqual(1, grps.Count());
+        var grp = grps.First();
+        Assert.IsNotNull(grp.Items);
+        Assert.AreEqual(1, grp.Items.Count());
+
+        var pos = grp.Items.FirstOrDefault(p => p is Position);
+        Assert.IsNotNull(pos);
+        Assert.IsNotNull(pos.Items);
+        Assert.AreEqual(1, pos.Items.Count());
+
+        var comp = pos.Items.FirstOrDefault(p => p is Component);
+        Assert.IsNotNull(comp);
+        Assert.IsNotNull(comp.AdditionalProperties);
+        Assert.IsNotNull(comp.AdditionalProperties.FirstOrDefault(p => p.Key == newProprtyParam.Name && p.Value?.ToString() == newProprtyParam.Value));
+        Assert.IsNotNull(comp.Items);
+        Assert.AreEqual(1, comp.Items.Count());
+
+        var part = comp.Items.FirstOrDefault(p => p is Part);
+        Assert.IsNotNull(part);
+        Assert.IsNotNull(part.AdditionalProperties);
+        Assert.IsNotNull(part.AdditionalProperties.FirstOrDefault(p => p.Key == newProprtyParam.Name && p.Value?.ToString() == newProprtyParam.Value));
     }
 
     /// <summary />
