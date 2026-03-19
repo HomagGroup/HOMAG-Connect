@@ -1,15 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Runtime.Serialization;
-
-using HomagConnect.Base.Contracts.Attributes;
+﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
@@ -17,7 +16,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// A board type.
     /// </summary>
     [DebuggerDisplay("{BoardCode}")]
-    public class BoardType : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
+    public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties
     {
 #pragma warning disable S109 // Magic numbers should not be used
 
@@ -35,10 +34,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
         #endregion
 
-        #region IExtensibleDataObject Members
+        #region ISupportsAdditionalProperties
 
-        /// <inheritdoc />
-        public ExtensionDataObject? ExtensionData { get; set; }
+        /// <inheritdoc/>
+        [JsonExtensionData]
+        [JsonProperty(Order = 999)]
+        [Display(ResourceType = typeof(HomagConnect.Base.Contracts.Resources), Name = nameof(AdditionalProperties))]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         #endregion
 
@@ -160,11 +162,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             {
                 return Density ?? (MaterialCategory != BoardMaterialCategory.Undefined ? MaterialCategory.GetTypicalDensity(UnitSystem) : null);
             }
-            // ReSharper disable once ValueParameterNotUsed
-            private set
-            {
-                // needed for deserialization
-            }
+            private set => _ = value;
         }
 
         /// <summary>
@@ -288,6 +286,41 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [JsonProperty(Order = 94)]
         public bool LockedForConfiguration { get; set; }
 
+        /// <summary>
+        /// Gets the number of boards that should be ordered.
+        /// </summary>
+        /// <remarks>
+        /// This is a computed value.
+        /// It reflects the greater of the current shortage caused by a negative <see cref="TotalQuantityAvailable" />
+        /// and the quantity required to reach <see cref="TotalQuantityAvailableWarningLimit" />.
+        /// </remarks>
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_OrderDemand))]
+        [JsonProperty(Order = 95)]
+        [DefaultValue(0)]
+        public int OrderDemand
+        {
+            get
+            {
+                var orderDemand = 0;
+
+                if (TotalQuantityAvailable is < 0)
+                {
+                    orderDemand = -1 *TotalQuantityAvailable.Value;
+                }
+
+                if (TotalQuantityInInventory.HasValue && TotalQuantityAvailableWarningLimit.HasValue)
+                {
+                    if (TotalQuantityInInventory.Value < TotalQuantityAvailableWarningLimit.Value)
+                    {
+                        orderDemand = Math.Max(orderDemand, TotalQuantityAvailableWarningLimit.Value - TotalQuantityInInventory.Value);
+                    }
+                }
+
+                return orderDemand;
+            }
+            private set => _ = value;
+        }
+
         #endregion
 
         #region Inventory
@@ -327,11 +360,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
                 return null;
             }
-            // ReSharper disable once ValueParameterNotUsed
-            private set
-            {
-                // needed for deserialization
-            }
+            private set => _ = value;
         }
 
         /// <summary>
@@ -349,11 +378,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 
                 return null;
             }
-            // ReSharper disable once ValueParameterNotUsed
-            private set
-            {
-                // needed for deserialization
-            }
+            private set => _ = value;
         }
 
         /// <summary>
@@ -369,11 +394,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             {
                 return UnitSystem.CalculateArea(Length, Width, TotalQuantityInInventory);
             }
-            // ReSharper disable once ValueParameterNotUsed
-            private set
-            {
-                // needed for deserialization
-            }
+            private set => _ = value;
         }
 
         /// <summary>
@@ -389,11 +410,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             {
                 return UnitSystem.CalculateArea(Length, Width, TotalQuantityAllocated);
             }
-            // ReSharper disable once ValueParameterNotUsed
-            private set
-            {
-                // needed for deserialization
-            }
+            private set => _ = value;
         }
 
         /// <summary>
@@ -409,11 +426,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
             {
                 return UnitSystem.CalculateArea(Length, Width, TotalQuantityAvailable);
             }
-            // ReSharper disable once ValueParameterNotUsed
-            private set
-            {
-                // needed for deserialization
-            }
+            private set => _ = value;
         }
 
         /// <summary>
