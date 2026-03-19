@@ -6,6 +6,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -295,6 +296,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </remarks>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_OrderDemand))]
         [JsonProperty(Order = 95)]
+        [DefaultValue(0)]
         public int OrderDemand
         {
             get
