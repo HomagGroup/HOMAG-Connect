@@ -11,6 +11,27 @@ namespace HomagConnect.Base.TestBase.Extensions
     public static class AssertExtensions
     {
         /// <summary>
+        /// Asserts that a collection is either <see langword="null"/> or contains no elements.
+        /// </summary>
+        /// <typeparam name="T">The collection element type.</typeparam>
+        /// <param name="actual">The collection under test.</param>
+        /// <param name="customMessage">Optional custom assertion message.</param>
+        public static void ShouldBeNullOrEmpty<T>(
+            this IEnumerable<T>? actual,
+            string? customMessage = null)
+        {
+            if (actual == null)
+            {
+                return;
+            }
+
+            if (actual.Any()) 
+            {
+                Assert.Fail(customMessage ?? "Collection should be empty.");
+            }
+        }
+
+        /// <summary>
         /// Asserts that a collection is not <see langword="null"/> and contains
         /// at least one element.
         /// </summary>
