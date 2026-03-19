@@ -110,5 +110,5 @@ public class SolutionMaterialBoardBase : IDimensionProperties, IMaterialProperti
     /// Gets or sets the thumbnail URI for the board or offcut.
     /// </summary>
     [JsonProperty(Order = 80)]
-    public Uri? Thumbnail { get; set; } = new("https://core.homag.cloud/cdn/images/material-icons/boards.png");
+    public Uri Thumbnail { get; set; } = new("https://core.homag.cloud/cdn/images/material-icons/boards.png");
 }

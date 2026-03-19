@@ -65,5 +65,5 @@ public class SolutionMaterialEdgeband : IHasMaterialCode
     /// Gets or sets the thumbnail URI for the edgeband material.
     /// </summary>
     [JsonProperty(Order = 80)]
-    public Uri Thumbnail { get; set; } = new Uri("https://core.homag.cloud/cdn/images/material-icons/edgebands.svg");
+    public Uri Thumbnail { get; set; } = new("https://core.homag.cloud/cdn/images/material-icons/edgebands.svg");
 }
