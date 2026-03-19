@@ -69,7 +69,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
                 return ResourceManager.GetString("Good", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Nachfertigung.
         /// </summary>
@@ -78,9 +78,9 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
                 return ResourceManager.GetString("Rework", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Ungewiss.
+        ///   Looks up a localized string similar to Unsicher.
         /// </summary>
         public static string Uncertain {
             get {
