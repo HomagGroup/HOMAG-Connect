@@ -125,7 +125,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// <summary>
         /// The telephone number of the customer of this order
         /// </summary>
-        [JsonProperty(Order = 3210)]
+        [JsonProperty(Order = 321)]
         public string? TelephoneNumber { get; set; }
 
         /// <summary>
