@@ -6,30 +6,28 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.Base.Contracts.Interfaces
 {
     /// <summary>
-    /// Defines support for typed additional data entries and custom extension properties.
+    /// Defines support for contracts that expose typed additional data entries together with custom JSON extension properties.
     /// </summary>
-    public interface ISupportsAdditionalData
+    /// <remarks>
+    /// Use <see cref="AdditionalData" /> for structured attachments such as images, CNC programs, PDFs, textures, or 3D data.
+    /// Use <see cref="ISupportsAdditionalProperties.AdditionalProperties" /> for unmapped custom fields that should round-trip through JSON.
+    /// </remarks>
+    public interface ISupportsAdditionalData : ISupportsAdditionalProperties
     {
         /// <summary>
-        /// Gets or sets typed additional data entries associated with the contract.
-        /// Use this collection for structured payloads such as images, CNC programs, PDFs, or 3D data.
+        /// Gets or sets the typed additional data entries associated with the contract.
         /// </summary>
+        /// <remarks>
+        /// This collection is intended for strongly typed payloads based on <see cref="AdditionalDataEntity" />.
+        /// Examples include files and metadata for images, CNC programs, PDFs, ZIP archives, textures, and 3D data.
+        /// </remarks>
         /// <example>
         /// [
         ///   { "type": "Image", "name": "Overview", "downloadUri": "https://example.com/files/overview.png" }
         /// ]
         /// </example>
         [Display(ResourceType = typeof(Resources), Name = nameof(AdditionalData))]
+        [JsonProperty(Order = 998)]
         Collection<AdditionalDataEntity>? AdditionalData { get; set; }
-
-        /// <summary>
-        /// Gets or sets additional custom properties.
-        /// Any JSON properties not mapped to typed members can be captured here via <c>[JsonExtensionData]</c>.
-        /// </summary>
-        /// <example>{ "customField1": "value1" }</example>
-        [JsonExtensionData]
-        [JsonProperty(Order = 602)]
-        [Display(ResourceType = typeof(Resources), Name = nameof(AdditionalProperties))]
-        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

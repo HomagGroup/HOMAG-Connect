@@ -154,7 +154,7 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Boards\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Material\Edgebands\Enumerations\EdgebandMaterialCategoryDisplayNames.resx">

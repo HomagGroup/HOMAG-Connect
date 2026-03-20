@@ -51,4 +51,9 @@ public enum OrderState
     /// As soon as an order group has been created or updated, the order receives the state "NewInCalculation" until all data has been generated.
     /// </summary>
     NewInCalculation,
+
+    /// <summary>
+    /// Represents a draft order that is not yet finalized.
+    /// </summary>
+    Draft,
 }
