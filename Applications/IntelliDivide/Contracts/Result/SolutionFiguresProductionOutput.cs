@@ -102,7 +102,7 @@ public class SolutionFiguresProductionOutput
             return Math.Round(PartsQuantityAutomaticMode / QuantityOfPartsTotal * 100, 2);
         }
         // ReSharper disable once ValueParameterNotUsed
-        set
+        private set
         {
             // Required for serialization
         }
