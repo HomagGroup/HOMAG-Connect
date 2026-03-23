@@ -22,7 +22,7 @@ public class EdgebandEventTests : MaterialManagerTestBase
         var EdgebandEntityDeletedEvent = new EdgebandEntityDeletedEvent();
 
         EdgebandEntityDeletedEvent.SubscriptionId = Guid.NewGuid();
-        EdgebandEntityDeletedEvent.Id = "abc";
+        EdgebandEntityDeletedEvent.EdgebandEntityId = "abc";
 
         EdgebandEntityDeletedEvent.Trace();
 
@@ -40,7 +40,7 @@ public class EdgebandEventTests : MaterialManagerTestBase
         var evt = new EdgebandEntityDeletedEvent()
         {
             SubscriptionId = Guid.NewGuid(),
-            Id = expected.ToString()
+            EdgebandEntityId = expected.ToString()
         };
 
         // Act
@@ -52,7 +52,7 @@ public class EdgebandEventTests : MaterialManagerTestBase
 
         // Assert
         Assert.IsNotNull(deserializedTyped);
-        Assert.AreEqual(expected.ToString(), deserializedTyped.Id);
+        Assert.AreEqual(expected.ToString(), deserializedTyped.EdgebandEntityId);
 
         Assert.AreEqual(expected, deserializedBase.Id);
     }
