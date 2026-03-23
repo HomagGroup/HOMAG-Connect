@@ -35,13 +35,16 @@ public class EdgebandEventTests : MaterialManagerTestBase
     [TestMethod]
     public void Events_EdgebandEntityDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
-        Guid expected = Guid.NewGuid();
+        var expectedEdgebandEntityId = Guid.NewGuid().ToString();
+
         // Arrange
         var evt = new EdgebandEntityDeletedEvent()
         {
             SubscriptionId = Guid.NewGuid(),
-            EdgebandEntityId = expected.ToString()
+            EdgebandEntityId = expectedEdgebandEntityId
         };
+
+        var expectedId = evt.Id;
 
         // Act
         var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
@@ -51,10 +54,23 @@ public class EdgebandEventTests : MaterialManagerTestBase
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
         // Assert
-        Assert.IsNotNull(deserializedTyped);
-        Assert.AreEqual(expected.ToString(), deserializedTyped.EdgebandEntityId);
+        deserializedTyped.ShouldNotBeNull(
+            "because EdgebandEntityDeletedEvent should be successfully deserialized from JSON");
+        deserializedTyped!.Id.ShouldBe(expectedId,
+            "because Id property from AppEvent should be serialized and deserialized correctly");
+        deserializedTyped.EdgebandEntityId.ShouldBe(expectedEdgebandEntityId,
+            "because EdgebandEntityId should be serialized and deserialized correctly");
 
-        Assert.AreEqual(expected, deserializedBase.Id);
+        deserializedBase.ShouldNotBeNull(
+            "because AppEvent should be successfully deserialized from JSON");
+        deserializedBase!.Id.ShouldBe(expectedId,
+            "because Id property should match when deserialized as base AppEvent");
+        deserializedBase.CustomProperties.ShouldNotBeNull(
+            "because CustomProperties should contain event-specific data");
+        deserializedBase.CustomProperties.ContainsKey("edgebandEntityId").ShouldBeTrue(
+            "because edgebandEntityId should be stored in CustomProperties when deserialized as AppEvent");
+        deserializedBase.CustomProperties["edgebandEntityId"].ToString().ShouldBe(expectedEdgebandEntityId,
+            "because edgebandEntityId value in CustomProperties should match the original value");
     }
 
     /// <summary />
