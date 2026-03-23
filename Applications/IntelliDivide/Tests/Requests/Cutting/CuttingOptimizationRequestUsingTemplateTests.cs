@@ -1,3 +1,4 @@
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting.Template;
@@ -26,6 +27,7 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task CuttingRequest_Template_Excel_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
