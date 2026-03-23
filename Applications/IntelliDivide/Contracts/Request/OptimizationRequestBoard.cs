@@ -1,4 +1,5 @@
-﻿
+﻿#nullable enable
+
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;

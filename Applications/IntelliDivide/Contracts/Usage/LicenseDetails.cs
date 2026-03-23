@@ -3,20 +3,25 @@ using Newtonsoft.Json;
 namespace HomagConnect.IntelliDivide.Contracts.Usage
 {
     /// <summary>
-    /// Contains the name and the number of parts covered by a license
+    /// Describes a license and the number of parts covered by it.
     /// </summary>
+    /// <example>
+    /// { "licenseName": "HOMAG intelliDivide Cutting Premium", "partsCoveredQuantity": 5000 }
+    /// </example>
     public class LicenseDetails
     {
         /// <summary>
-        /// The name of the license
+        /// Gets or sets the name of the license.
         /// </summary>
-	[JsonProperty(Order = 1)]
+        /// <example>HOMAG intelliDivide Cutting Premium</example>
+        [JsonProperty(Order = 1)]
         public string LicenseName { get; set; }
 
         /// <summary>
-        /// The number of parts covered by the license
+        /// Gets or sets the number of parts covered by the license.
         /// </summary>
-	[JsonProperty(Order = 2)]
+        /// <example>5000</example>
+        [JsonProperty(Order = 2)]
         public int PartsCoveredQuantity { get; set; }
     }
 }

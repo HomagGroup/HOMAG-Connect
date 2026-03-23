@@ -94,6 +94,7 @@ public class SolutionFiguresProductionOutput
     /// Unit for metric and imperial unit systems: percent (%).
     /// </summary>
     /// <example>0.0</example>
+    [JsonProperty(Order = 2)]
     [Range(0, 100)]
     public double PartsQuantityAutomaticModePercentage
     {
@@ -101,11 +102,7 @@ public class SolutionFiguresProductionOutput
         {
             return Math.Round(PartsQuantityAutomaticMode / QuantityOfPartsTotal * 100, 2);
         }
-        // ReSharper disable once ValueParameterNotUsed
-        private set
-        {
-            // Required for serialization
-        }
+        private set => _ = value;
     }
 
     /// <summary>
@@ -121,11 +118,8 @@ public class SolutionFiguresProductionOutput
         get
         {
             return QuantityOfPartsTotal - PartsQuantityAutomaticMode;
-        } // ReSharper disable once ValueParameterNotUsed
-        private set
-        {
-            // Required for serialization
         }
+        private set => _ = value;
     }
 
     /// <summary>
@@ -177,11 +171,7 @@ public class SolutionFiguresProductionOutput
         {
             return QuantityOfPlusParts + QuantityOfParts;
         }
-        // ReSharper disable once ValueParameterNotUsed
-        private set
-        {
-            // Required for serialization
-        }
+        private set => _ = value;
     }
 
     /// <summary>
