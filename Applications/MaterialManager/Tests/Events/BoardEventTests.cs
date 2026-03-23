@@ -23,7 +23,7 @@ public class BoardEventTests : MaterialManagerTestBase
         var boardEntityDeletedEvent = new BoardEntityDeletedEvent();
 
         boardEntityDeletedEvent.SubscriptionId = Guid.NewGuid();
-        boardEntityDeletedEvent.Id = "abc";
+        boardEntityDeletedEvent.BoardEntityId = "abc";
 
         boardEntityDeletedEvent.Trace();
 
@@ -41,7 +41,7 @@ public class BoardEventTests : MaterialManagerTestBase
         var evt = new BoardEntityDeletedEvent()
         {
             SubscriptionId = Guid.NewGuid(),
-            Id = expected.ToString()
+            BoardEntityId = expected.ToString()
         };
 
         // Act
@@ -53,7 +53,7 @@ public class BoardEventTests : MaterialManagerTestBase
 
         // Assert
         Assert.IsNotNull(deserializedTyped);
-        Assert.AreEqual(expected.ToString(), deserializedTyped.Id);
+        Assert.AreEqual(expected.ToString(), deserializedTyped.BoardEntityId);
 
         Assert.AreEqual(expected, deserializedBase.Id);
     }
