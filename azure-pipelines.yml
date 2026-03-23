@@ -160,7 +160,7 @@ stages:
                   !**/logs/**
                   !**/bin/**/*.csproj
                   !**/obj/**/*.csproj
-            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
+            arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) --no-restore -nr:FALSE'
 
         - task: DotNetCoreCLI@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
