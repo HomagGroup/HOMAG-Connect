@@ -23,7 +23,7 @@ public class BoardEventTests : MaterialManagerTestBase
         var boardEntityDeletedEvent = new BoardEntityDeletedEvent();
 
         boardEntityDeletedEvent.SubscriptionId = Guid.NewGuid();
-        boardEntityDeletedEvent.Id = "abc";
+        boardEntityDeletedEvent.BoardEntityId = "abc";
 
         boardEntityDeletedEvent.Trace();
 
@@ -36,13 +36,16 @@ public class BoardEventTests : MaterialManagerTestBase
     [TestMethod]
     public void Events_BoardEntityDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
-        Guid expected = Guid.NewGuid();
+        var expectedBoardEntityId = Guid.NewGuid().ToString();
+
         // Arrange
         var evt = new BoardEntityDeletedEvent()
         {
             SubscriptionId = Guid.NewGuid(),
-            Id = expected.ToString()
+            BoardEntityId = expectedBoardEntityId
         };
+
+        var expectedId = evt.Id;
 
         // Act
         var json = JsonConvert.SerializeObject(evt, SerializerSettings.Default);
@@ -52,10 +55,23 @@ public class BoardEventTests : MaterialManagerTestBase
         var deserializedBase = JsonConvert.DeserializeObject<AppEvent>(json, SerializerSettings.Default);
 
         // Assert
-        Assert.IsNotNull(deserializedTyped);
-        Assert.AreEqual(expected.ToString(), deserializedTyped.Id);
+        deserializedTyped.ShouldNotBeNull(
+            "because BoardEntityDeletedEvent should be successfully deserialized from JSON");
+        deserializedTyped!.Id.ShouldBe(expectedId,
+            "because Id property from AppEvent should be serialized and deserialized correctly");
+        deserializedTyped.BoardEntityId.ShouldBe(expectedBoardEntityId,
+            "because BoardEntityId should be serialized and deserialized correctly");
 
-        Assert.AreEqual(expected, deserializedBase.Id);
+        deserializedBase.ShouldNotBeNull(
+            "because AppEvent should be successfully deserialized from JSON");
+        deserializedBase!.Id.ShouldBe(expectedId,
+            "because Id property should match when deserialized as base AppEvent");
+        deserializedBase.CustomProperties.ShouldNotBeNull(
+            "because CustomProperties should contain event-specific data");
+        deserializedBase.CustomProperties.ContainsKey("boardEntityId").ShouldBeTrue(
+            "because boardEntityId should be stored in CustomProperties when deserialized as AppEvent");
+        deserializedBase.CustomProperties["boardEntityId"].ToString().ShouldBe(expectedBoardEntityId,
+            "because boardEntityId value in CustomProperties should match the original value");
     }
 
     /// <summary />
