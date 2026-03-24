@@ -84,4 +84,9 @@ public enum Type
     /// Represents an offcut
     /// </summary>
     Offcut,
+
+    /// <summary>
+    /// Represents a calculation error
+    /// </summary>
+    CalculationError,
 }
