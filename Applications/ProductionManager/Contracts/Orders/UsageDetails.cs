@@ -56,7 +56,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// The order was released or reset
         /// </summary>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(Action))]
-        [JsonProperty(Order = 7)]
+        [JsonProperty(Order = 7, DefaultValueHandling = DefaultValueHandling.Include)]
         public OrderAction Action { get; set; }
 
         /// <summary>
