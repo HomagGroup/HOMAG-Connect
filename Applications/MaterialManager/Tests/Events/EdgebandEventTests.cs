@@ -153,7 +153,7 @@ public class EdgebandEventTests : MaterialManagerTestBase
         var edgebandTypeDeletedEvent = new EdgebandTypeDeletedEvent();
 
         edgebandTypeDeletedEvent.SubscriptionId = Guid.NewGuid();
-        edgebandTypeDeletedEvent.EdgebandCode = "EDGE-DEL-123";
+        edgebandTypeDeletedEvent.EdgebandTypeId = "EDGE-DEL-123";
 
         edgebandTypeDeletedEvent.Trace();
 
@@ -167,11 +167,11 @@ public class EdgebandEventTests : MaterialManagerTestBase
     public void Events_EdgebandTypeDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         // Arrange
-        var edgebandCode = "EDGE-DEL-123";
+        var edgebandTypeId = "EDGE-DEL-123";
         var evt = new EdgebandTypeDeletedEvent
         {
             SubscriptionId = Guid.NewGuid(),
-            EdgebandCode = edgebandCode
+            EdgebandTypeId = edgebandTypeId
         };
 
         // Act
@@ -183,12 +183,12 @@ public class EdgebandEventTests : MaterialManagerTestBase
 
         // Assert
         Assert.IsNotNull(deserializedTyped);
-        Assert.AreEqual(edgebandCode, deserializedTyped.EdgebandCode);
+        Assert.AreEqual(edgebandTypeId, deserializedTyped.EdgebandTypeId);
 
         Assert.IsNotNull(deserializedBase);
         Assert.IsNotNull(deserializedBase.CustomProperties);
-        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("edgebandCode"));
-        Assert.AreEqual(edgebandCode, deserializedBase.CustomProperties["edgebandCode"].ToString());
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("edgebandTypeId"));
+        Assert.AreEqual(edgebandTypeId, deserializedBase.CustomProperties["edgebandTypeId"].ToString());
     }
 
     /// <summary />

@@ -16,10 +16,10 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
     public class BoardTypeDeletedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the BoardCode that has been deleted.
+        /// Gets or sets the BoardTypeId that has been deleted.
         /// </summary>
         [Required]
         [JsonProperty(Order = 20)]
-        public string BoardCode { get; set; }
+        public string BoardTypeId { get; set; }
     }
 }

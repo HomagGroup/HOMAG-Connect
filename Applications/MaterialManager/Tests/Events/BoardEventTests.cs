@@ -154,7 +154,7 @@ public class BoardEventTests : MaterialManagerTestBase
         var boardTypeDeletedEvent = new BoardTypeDeletedEvent();
 
         boardTypeDeletedEvent.SubscriptionId = Guid.NewGuid();
-        boardTypeDeletedEvent.BoardCode = "CODE-DEL-123";
+        boardTypeDeletedEvent.BoardTypeId = "CODE-DEL-123";
 
         boardTypeDeletedEvent.Trace();
 
@@ -168,11 +168,11 @@ public class BoardEventTests : MaterialManagerTestBase
     public void Events_BoardTypeDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
     {
         // Arrange
-        var boardCode = "CODE-DEL-123";
+        var boardTypeId = "CODE-DEL-123";
         var evt = new BoardTypeDeletedEvent
         {
             SubscriptionId = Guid.NewGuid(),
-            BoardCode = boardCode
+            BoardTypeId = boardTypeId
         };
 
         // Act
@@ -184,12 +184,12 @@ public class BoardEventTests : MaterialManagerTestBase
 
         // Assert
         Assert.IsNotNull(deserializedTyped);
-        Assert.AreEqual(boardCode, deserializedTyped.BoardCode);
+        Assert.AreEqual(boardTypeId, deserializedTyped.BoardTypeId);
 
         Assert.IsNotNull(deserializedBase);
         Assert.IsNotNull(deserializedBase.CustomProperties);
-        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("boardCode"));
-        Assert.AreEqual(boardCode, deserializedBase.CustomProperties["boardCode"].ToString());
+        Assert.IsTrue(deserializedBase.CustomProperties.ContainsKey("boardTypeId"));
+        Assert.AreEqual(boardTypeId, deserializedBase.CustomProperties["boardTypeId"].ToString());
     }
 
     /// <summary />
