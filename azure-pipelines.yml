@@ -105,6 +105,8 @@ stages:
           inputs:
             command: 'restore'
 
+        - script: echo "##vso[task.setvariable variable=VERSION_TAG]1.2.3"
+
         - task: SonarQubePrepare@7
           displayName: 'Prepare analysis on SonarQube'
           inputs:
@@ -160,7 +162,23 @@ stages:
                   !**/logs/**
                   !**/bin/**/*.csproj
                   !**/obj/**/*.csproj
-            arguments: '--configuration $(BuildConfiguration) /p:PackageVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
+            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
+
+        - task: DotNetCoreCLI@2
+          displayName: Pack NuGet Packages
+          inputs:
+            command: 'pack'
+            packagesToPack: |
+              **/HomagConnect*.csproj
+              **/OrderManager*.csproj
+            arguments: >
+              --configuration $(BuildConfiguration)
+              /p:PackageVersion=$(VERSION_TAG)
+              /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)
+              --no-build
+
+        - publish: $(Build.ArtifactStagingDirectory)
+          artifact: nuget
 
         - task: DotNetCoreCLI@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
@@ -184,98 +202,5 @@ stages:
           displayName: 'Publish Quality Gate Result'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))          
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Client NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))    
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MmrMobile/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MmrMobile Client NuGet package on nuget.org"          
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-             
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MmrMobile/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MmrMobile Contracts NuGet package on nuget.org"          
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-             
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialAssist/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialAssist Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialAssist/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialAssist Client package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionManager Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionManager Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Samples/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionManager Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionAssist/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionAssist Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionAssist/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionAssist Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionAssist/Samples/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionAssist Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect OrderManager Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))  
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect OrderManager Client package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Samples/CSharp/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect OrderManager Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "DataExchange/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect DataExchange Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "DataExchange/Extensions/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect DataExchange Extensions package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-        
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.TestBase/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Test Base NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
+        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "$(Build.ArtifactStagingDirectory)/*.nupkg" --skip-duplicate
+          displayName: "Publish all NuGet packages on nuget.org"
