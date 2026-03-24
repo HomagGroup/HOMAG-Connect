@@ -16,10 +16,10 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Edgebands
     public class EdgebandTypeDeletedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the EdgebandTypeId that has been deleted.
+        /// Gets or sets the EdgebandCode that has been deleted.
         /// </summary>
         [Required]
         [JsonProperty(Order = 20)]
-        public string EdgebandTypeId { get; set; }
+        public string EdgebandCode { get; set; }
     }
 }
