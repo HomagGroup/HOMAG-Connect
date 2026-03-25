@@ -169,8 +169,9 @@ stages:
           inputs:
             command: 'pack'
             packagesToPack: |
-              **/HomagConnect*.csproj
-              **/OrderManager*.csproj
+              **/HomagConnect.*.csproj
+              !**/*.Tests.csproj
+              **/HomagConnect.Base.Tests.csproj
             arguments: >
               --configuration $(BuildConfiguration)
               /p:PackageVersion=$(VERSION_TAG)
