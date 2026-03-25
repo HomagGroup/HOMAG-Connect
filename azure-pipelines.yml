@@ -169,14 +169,17 @@ stages:
           inputs:
             command: 'pack'
             packagesToPack: |
-              Applications/**/HomagConnect.*.csproj
-              Base/**/HomagConnect.*.csproj
-              DataExchange/**/HomagConnect.*.csproj
-              !Applications/**/*.Tests.csproj
-              !Base/**/*.Tests.Api.csproj
-              !Base/**/*.Tests.csproj
-              !DataExchange/**/*.Tests.csproj
-              Base/**/HomagConnect.Base.Tests.csproj
+              **/HomagConnect.*.Client.csproj
+              **/HomagConnect.*.Contracts.csproj
+              **/HomagConnect.*.Samples*.csproj
+              **/HomagConnect.Base.csproj
+              **/HomagConnect.Base.Contracts.csproj
+              **/HomagConnect.Base.TestBase.csproj
+              **/HomagConnect.DataExchange.Extensions.csproj
+              **/HomagConnect.DataExchange.Contracts.csproj
+              **/HomagConnect.DataExchange.Samples.csproj
+              !**/HomagConnect.*.Tests.csproj
+              !**/HomagConnect.Base.Tests.Api.csproj
             configuration: '$(BuildConfiguration)'
             nobuild: true
             buildProperties: 'PackageVersion=$(VERSION_TAG)'
