@@ -27,6 +27,7 @@ pr:
 
 variables:
   dotnetVersion: 10.0.x
+  testPublishTargetFramework: net10.0
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect 
 
@@ -172,6 +173,27 @@ stages:
             command: 'test'
             projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
+
+        - task: PowerShell@2
+          displayName: 'Publish HomagConnect test projects'
+          inputs:
+            targetType: inline
+            script: |
+              $testProjects = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj'
+
+              foreach ($testProject in $testProjects)
+              {
+                  $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+                  $outputPath = Join-Path '$(Build.ArtifactStagingDirectory)\tests' $projectName
+
+                  dotnet publish $testProject.FullName --configuration $(BuildConfiguration) --framework $(testPublishTargetFramework) --output $outputPath --no-restore --property:ErrorOnDuplicatePublishOutputFiles=false
+
+                  if ($LASTEXITCODE -ne 0)
+                  {
+                      throw "Publishing test project '$($testProject.FullName)' failed."
+                  }
+              }
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
         
         # MEND
         # - template: common-tasks/list-agent-directory/template.yml@templates
