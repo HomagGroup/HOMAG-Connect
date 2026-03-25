@@ -29,7 +29,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         /// </summary>
         public static async Task Optimizations_GetOptimizationsWithStatusOptimized(IIntelliDivideClient intelliDivide)
         {
-            var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized, OptimizationStatus.New], 3).ToListAsync();
+            var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 3).ToListAsync();
             if (optimizations == null)
             {
                 Assert.Fail("No cutting optimization having the state optimized found.");
