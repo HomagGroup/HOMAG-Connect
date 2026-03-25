@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
+namespace HomagConnect.ProductionManager.Contracts.Orders {
     using System;
     
     
@@ -22,25 +22,24 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ProcessedItemQualityDisplayNames {
+    public class OrderActionDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProcessedItemQualityDisplayNames() {
+        internal OrderActionDisplayNames() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItemQualityD" +
-                            "isplayNames", typeof(ProcessedItemQualityDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.Orders.OrderActionDisplayNames", typeof(OrderActionDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -52,7 +51,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,29 +61,20 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gut.
+        ///   Looks up a localized string similar to Freigeben.
         /// </summary>
-        internal static string Good {
+        public static string Release {
             get {
-                return ResourceManager.GetString("Good", resourceCulture);
+                return ResourceManager.GetString("Release", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nachfertigung.
+        ///   Looks up a localized string similar to Freigabe zurücknehmen.
         /// </summary>
-        internal static string Rework {
+        public static string ResetRelease {
             get {
-                return ResourceManager.GetString("Rework", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unsicher.
-        /// </summary>
-        internal static string Uncertain {
-            get {
-                return ResourceManager.GetString("Uncertain", resourceCulture);
+                return ResourceManager.GetString("ResetRelease", resourceCulture);
             }
         }
     }
