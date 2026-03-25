@@ -27,6 +27,7 @@ pr:
 
 variables:
   dotnetVersion: 10.0.x
+  testPublishTargetFramework: net10.0
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect 
 
@@ -185,7 +186,7 @@ stages:
                   $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
                   $outputPath = Join-Path '$(Build.ArtifactStagingDirectory)\tests' $projectName
 
-                  dotnet publish $testProject.FullName --configuration $(BuildConfiguration) --output $outputPath --no-restore --property:ErrorOnDuplicatePublishOutputFiles=false
+                  dotnet publish $testProject.FullName --configuration $(BuildConfiguration) --framework $(testPublishTargetFramework) --output $outputPath --no-restore --property:ErrorOnDuplicatePublishOutputFiles=false
 
                   if ($LASTEXITCODE -ne 0)
                   {
