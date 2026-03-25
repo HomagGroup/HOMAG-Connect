@@ -29,7 +29,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         /// </summary>
         public static async Task Optimizations_GetOptimizationsWithStatusOptimized(IIntelliDivideClient intelliDivide)
         {
-            var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 3).ToListAsync();
+            var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized, OptimizationStatus.New], 3).ToListAsync();
             if (optimizations == null)
             {
                 Assert.Fail("No cutting optimization having the state optimized found.");
@@ -57,7 +57,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         /// </summary>
         public static async Task Optimizations_GetStatusOfAOptimization(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstAsync();
+            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 1).FirstAsync();
             if (optimization == null)
             {
                 Assert.Fail("No cutting optimization having the state optimized found.");
@@ -73,7 +73,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         /// </summary>
         public static async Task Optimizations_GetSolutionsAndSolutionDetails(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstOrDefaultAsync();
+            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 1).FirstOrDefaultAsync();
 
             if (optimization == null)
             {
@@ -117,7 +117,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         /// </summary>
         public static async Task Optimizations_ArchiveAndDelete(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstOrDefaultAsync();
+            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 1).FirstOrDefaultAsync();
 
             if (optimization == null)
             {
@@ -134,7 +134,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         /// </summary>
         public static async Task Optimizations_GetExportsForSolution(IIntelliDivideClient intelliDivide)
         {
-            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstOrDefaultAsync();
+            var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 1).FirstOrDefaultAsync();
 
             if (optimization == null)
             {

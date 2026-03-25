@@ -79,7 +79,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1);
+        var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 1);
 
         if (optimizations == null)
         {

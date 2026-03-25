@@ -214,7 +214,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);
 
         var optimization = await intelliDivide
-            .GetOptimizations(optimizationType, OptimizationStatus.Optimized, 1)!
+            .GetOptimizations(optimizationType, [OptimizationStatus.Optimized], 1)!
             .FirstOrDefaultAsync();
 
         if (optimization == null)
