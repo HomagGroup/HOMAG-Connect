@@ -171,15 +171,15 @@ stages:
             packagesToPack: |
               Applications/**/HomagConnect.*.csproj
               Base/**/HomagConnect.*.csproj
+              DataExchange/**/HomagConnect.*.csproj
               !Applications/**/*.Tests.csproj
               !Base/**/*.Tests.Api.csproj
               !Base/**/*.Tests.csproj
+              !DataExchange/**/*.Tests.csproj
               Base/**/HomagConnect.Base.Tests.csproj
-            arguments: >
-              --configuration $(BuildConfiguration)
-              /p:PackageVersion=$(VERSION_TAG)
-              /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)
-              --no-build
+            configuration: '$(BuildConfiguration)'
+            nobuild: true
+            buildProperties: 'PackageVersion=$(VERSION_TAG)'
 
         - publish: $(Build.ArtifactStagingDirectory)
           artifact: nuget
