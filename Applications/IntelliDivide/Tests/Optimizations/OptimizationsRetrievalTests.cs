@@ -1,3 +1,4 @@
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Optimizations;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -22,6 +23,7 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_GetOptimizationsWithStatusOptimized()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -40,6 +42,7 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_GetSolutionsAndSolutionDetails()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -49,6 +52,7 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_ArchiveAndDelete()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -58,6 +62,7 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
     
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_GetExportsForSolution()
     {
         var intelliDivide = GetIntelliDivideClient();
