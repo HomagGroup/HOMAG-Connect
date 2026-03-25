@@ -27,6 +27,7 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
+    [DeploymentTest("IntelliDivide.Requests.Cutting", TestPriority.Critical)]
     public async Task CuttingRequest_ObjectModel_RequiredProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
