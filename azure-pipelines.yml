@@ -164,22 +164,30 @@ stages:
                   !**/obj/**/*.csproj
             arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
 
+        - task: PowerShell@2
+          displayName: Find projects to pack
+          inputs:
+            targetType: inline
+            script: |
+              $projects = Get-ChildItem -Path "$(Build.SourcesDirectory)" -Filter "HomagConnect.*.csproj" -Recurse | 
+                Where-Object { 
+                  $_.FullName -notmatch "\\Tests\\" -and
+                  $_.FullName -notmatch "\.Tests\.csproj$" -and
+                  $_.FullName -notmatch "\.Tests\.Api\.csproj$"
+                } | 
+                ForEach-Object { $_.FullName }
+      
+              Write-Host "Found $($projects.Count) projects to pack:"
+              $projects | ForEach-Object { Write-Host "  - $_" }
+      
+              $projectsList = $projects -join ";"
+              Write-Host "##vso[task.setvariable variable=PROJECTS_TO_PACK]$projectsList"
+
         - task: DotNetCoreCLI@2
           displayName: Pack NuGet Packages
           inputs:
             command: 'pack'
-            packagesToPack: |
-              **/HomagConnect.*.Client.csproj
-              **/HomagConnect.*.Contracts.csproj
-              **/HomagConnect.*.Samples*.csproj
-              **/HomagConnect.Base.csproj
-              **/HomagConnect.Base.Contracts.csproj
-              **/HomagConnect.Base.TestBase.csproj
-              **/HomagConnect.DataExchange.Extensions.csproj
-              **/HomagConnect.DataExchange.Contracts.csproj
-              **/HomagConnect.DataExchange.Samples.csproj
-              !**/HomagConnect.*.Tests.csproj
-              !**/HomagConnect.Base.Tests.Api.csproj
+            packagesToPack: '$(PROJECTS_TO_PACK)'
             configuration: '$(BuildConfiguration)'
             nobuild: true
             buildProperties: 'PackageVersion=$(VERSION_TAG)'
