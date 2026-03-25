@@ -254,3 +254,4 @@ stages:
 
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "$(Build.ArtifactStagingDirectory)/*.nupkg" --skip-duplicate
           displayName: "Publish all NuGet packages on nuget.org"
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
