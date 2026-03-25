@@ -105,7 +105,9 @@ stages:
           inputs:
             command: 'restore'
 
-        - script: echo "##vso[task.setvariable variable=VERSION_TAG]1.2.3"
+        - script: |
+            echo "VERSION_TAG is: $(VERSION_TAG)"
+          displayName: Display VERSION_TAG
 
         - task: SonarQubePrepare@7
           displayName: 'Prepare analysis on SonarQube'
@@ -169,18 +171,51 @@ stages:
           inputs:
             targetType: inline
             script: |
-              $projects = Get-ChildItem -Path "$(Build.SourcesDirectory)" -Filter "HomagConnect.*.csproj" -Recurse | 
-                Where-Object { 
-                  $_.FullName -notmatch "\\Tests\\" -and
-                  $_.FullName -notmatch "\.Tests\.csproj$" -and
-                  $_.FullName -notmatch "\.Tests\.Api\.csproj$"
-                } | 
-                ForEach-Object { $_.FullName }
-      
+              $projectPatterns = @(
+                "*.Client.csproj",
+                "*.Contracts.csproj", 
+                "*.Samples*.csproj",
+                "HomagConnect.Base.csproj",
+                "HomagConnect.Base.Contracts.csproj",
+                "HomagConnect.Base.TestBase.csproj",
+                "HomagConnect.DataExchange.Extensions.csproj",
+                "HomagConnect.DataExchange.Contracts.csproj",
+                "HomagConnect.DataExchange.Samples.csproj"
+              )
+              
+              $excludePatterns = @(
+                "*.Tests.csproj",
+                "HomagConnect.Base.Tests.Api.csproj",
+                "HomagConnect.MmrMobile.Samples.Console.csproj"
+              )
+              
+              $allProjects = @()
+              foreach ($pattern in $projectPatterns) {
+                $found = Get-ChildItem -Path "$(Build.SourcesDirectory)" -Filter $pattern -Recurse
+                $allProjects += $found
+              }
+              
+              $projects = $allProjects | Where-Object {
+                $projectFile = $_
+                $shouldExclude = $false
+                foreach ($excludePattern in $excludePatterns) {
+                  if ($projectFile.Name -like $excludePattern) {
+                    $shouldExclude = $true
+                    break
+                  }
+                }
+                -not $shouldExclude
+              } | Select-Object -Unique | ForEach-Object { $_.FullName }
+              
+              if ($projects.Count -eq 0) {
+                Write-Host "##vso[task.logissue type=error]No projects found to pack!"
+                exit 1
+              }
+              
               Write-Host "Found $($projects.Count) projects to pack:"
               $projects | ForEach-Object { Write-Host "  - $_" }
-      
-              $projectsList = $projects -join ";"
+              
+              $projectsList = $projects -join "`n"
               Write-Host "##vso[task.setvariable variable=PROJECTS_TO_PACK]$projectsList"
 
         - task: DotNetCoreCLI@2
@@ -190,7 +225,7 @@ stages:
             packagesToPack: '$(PROJECTS_TO_PACK)'
             configuration: '$(BuildConfiguration)'
             nobuild: true
-            buildProperties: 'PackageVersion=$(VERSION_TAG)'
+            arguments: '-p:PackageVersion=$(VERSION_TAG) -p:Version=$(VERSION_TAG)'
 
         - publish: $(Build.ArtifactStagingDirectory)
           artifact: nuget
