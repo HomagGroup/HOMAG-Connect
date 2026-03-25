@@ -4,50 +4,68 @@ using Newtonsoft.Json;
 namespace HomagConnect.IntelliDivide.Contracts.Usage
 {
     /// <summary>
-    /// Shows the transferred job and a few statistics about it
+    /// Describes a transferred optimization job and related usage statistics.
     /// </summary>
+    /// <example>
+    /// {
+    ///   "partsTransferredQuantity": 24,
+    ///   "transferredAt": "2025-03-10T14:30:00+00:00",
+    ///   "optimizationName": "Kitchen_Order_4711",
+    ///   "transferredBy": "max.mustermann@example.com",
+    ///   "machineName": "SAWTEQ-B300",
+    ///   "wastePercentage": 12.5,
+    ///   "productionTime": "01:35:00"
+    /// }
+    /// </example>
     public class UsageDetails
     {
         /// <summary>
-        /// The number of parts transferred in the job
+        /// Gets or sets the number of parts transferred in the job.
         /// </summary>
-	[JsonProperty(Order = 1)]
+        /// <example>24</example>
+        [JsonProperty(Order = 1)]
         public int PartsTransferredQuantity { get; set; }
 
         /// <summary>
-        /// The time when the job was transferred
+        /// Gets or sets the time when the job was transferred.
         /// </summary>
-	[JsonProperty(Order = 2)]
+        /// <example>2025-03-10T14:30:00+00:00</example>
+        [JsonProperty(Order = 2)]
         public DateTimeOffset TransferredAt { get; set; }
 
         /// <summary>
-        /// The name of the optimization job
+        /// Gets or sets the name of the optimization job.
         /// </summary>
-	[JsonProperty(Order = 3)]
+        /// <example>Kitchen_Order_4711</example>
+        [JsonProperty(Order = 3)]
         public string OptimizationName { get; set; }
 
         /// <summary>
-        /// The user who transferred the job
+        /// Gets or sets the user who transferred the job.
         /// </summary>
-	[JsonProperty(Order = 4)]
+        /// <example>max.mustermann@example.com</example>
+        [JsonProperty(Order = 4)]
         public string TransferredBy { get; set; }
 
         /// <summary>
-        /// The name of the machine that will process the job
+        /// Gets or sets the name of the machine that will process the job.
         /// </summary>
-	[JsonProperty(Order = 5)]
+        /// <example>SAWTEQ-B300</example>
+        [JsonProperty(Order = 5)]
         public string MachineName { get; set; }
 
         /// <summary>
-        /// The board waste percentage
+        /// Gets or sets the board waste percentage.
         /// </summary>
-	[JsonProperty(Order = 6)]
+        /// <example>12.5</example>
+        [JsonProperty(Order = 6)]
         public double? WastePercentage { get; set; }
 
         /// <summary>
-        /// The time estimation for the job to be processed
+        /// Gets or sets the estimated production time for the job.
         /// </summary>
-	[JsonProperty(Order = 7)]
+        /// <example>01:35:00</example>
+        [JsonProperty(Order = 7)]
         public TimeSpan ProductionTime { get; set; }
     }
 }

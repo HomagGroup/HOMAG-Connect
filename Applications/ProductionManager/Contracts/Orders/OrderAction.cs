@@ -1,3 +1,4 @@
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
 
@@ -7,9 +8,9 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
     /// Order action enumeration
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
+    [ResourceManager(typeof(OrderActionDisplayNames))]
     public enum OrderAction
     {
-
         /// <summary>
         /// The order was released
         /// </summary>

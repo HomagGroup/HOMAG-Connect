@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
+namespace HomagConnect.ProductionManager.Contracts.Orders {
     using System;
     
     
@@ -22,25 +22,25 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ProcessedItemQualityDisplayNames {
+    public class UsageOverviewPropertyDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProcessedItemQualityDisplayNames() {
+        internal UsageOverviewPropertyDisplayNames() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItemQualityD" +
-                            "isplayNames", typeof(ProcessedItemQualityDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.Orders.UsageOverviewPropertyDisplayNames" +
+                            "", typeof(UsageOverviewPropertyDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -52,7 +52,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,29 +62,47 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gut.
+        ///   Looks up a localized string similar to Lizenzen.
         /// </summary>
-        internal static string Good {
+        public static string Licenses {
             get {
-                return ResourceManager.GetString("Good", resourceCulture);
+                return ResourceManager.GetString("Licenses", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nachfertigung.
+        ///   Looks up a localized string similar to Zeitraum.
         /// </summary>
-        internal static string Rework {
+        public static string Period {
             get {
-                return ResourceManager.GetString("Rework", resourceCulture);
+                return ResourceManager.GetString("Period", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unsicher.
+        ///   Looks up a localized string similar to Anzahl der durch die Lizenzen abgedeckten Teile.
         /// </summary>
-        internal static string Uncertain {
+        public static string QuantityOfPartsCoveredByTheLicenses {
             get {
-                return ResourceManager.GetString("Uncertain", resourceCulture);
+                return ResourceManager.GetString("QuantityOfPartsCoveredByTheLicenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anzahl freigegebener Teile.
+        /// </summary>
+        public static string QuantityOfReleasedParts {
+            get {
+                return ResourceManager.GetString("QuantityOfReleasedParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nutzungsübersicht.
+        /// </summary>
+        public static string UsageOverview {
+            get {
+                return ResourceManager.GetString("UsageOverview", resourceCulture);
             }
         }
     }
