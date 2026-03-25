@@ -30,81 +30,108 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ProductionItemFeedbackActionDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="ProductionItems\ProductionItemFeedbackDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ProductionItemFeedbackDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="ProductionProtocol\ProcessedItemQualityDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ProcessedItemQualityDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ProductionProtocolPropertyDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Rework\ReworkPropertyDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ReworkPropertyDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Rework\ReworkCategoryDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ReworkCategoryDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Rework\ReworkReasonDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ReworkReasonDisplayNames.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Rework\ReworkStateDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>ReworkStateDisplayNames.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Orders\OrderActionDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>OrderActionDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Orders\UsageDetailsPropertyDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>UsageDetailsPropertyDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Orders\UsageOverviewPropertyDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>UsageOverviewPropertyDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ProductionItemFeedbackActionDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="ProductionItems\ProductionItemFeedbackDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ProductionItemFeedbackDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="ProductionProtocol\ProcessedItemQualityDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ProcessedItemQualityDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ProductionProtocolPropertyDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Rework\ReworkPropertyDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ReworkPropertyDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Rework\ReworkCategoryDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ReworkCategoryDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Rework\ReworkReasonDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ReworkReasonDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Rework\ReworkStateDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ReworkStateDisplayNames.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ProductionItemFeedbackActionDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="ProductionItems\ProductionItemFeedbackDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ProductionItemFeedbackDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="ProductionProtocol\ProcessedItemQualityDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ProcessedItemQualityDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
-	    <LastGenOutput>ProductionProtocolPropertyDisplayNames.Designer.cs</LastGenOutput>
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Rework\ReworkPropertyDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ReworkPropertyDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Rework\ReworkCategoryDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ReworkCategoryDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Rework\ReworkReasonDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ReworkReasonDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Rework\ReworkStateDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>ReworkStateDisplayNames.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Orders\OrderActionDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>OrderActionDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Orders\UsageDetailsPropertyDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UsageDetailsPropertyDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Orders\UsageOverviewPropertyDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UsageOverviewPropertyDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ProductionItemFeedbackActionDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackDisplayNames.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ProductionItemFeedbackDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="ProductionProtocol\ProcessedItemQualityDisplayNames.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ProcessedItemQualityDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
+			<LastGenOutput>ProductionProtocolPropertyDisplayNames.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Rework\ReworkPropertyDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ReworkPropertyDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Rework\ReworkCategoryDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ReworkCategoryDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Rework\ReworkReasonDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ReworkReasonDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Rework\ReworkStateDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ReworkStateDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 	
 </Project>
