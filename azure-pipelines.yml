@@ -182,19 +182,19 @@ stages:
                 "HomagConnect.DataExchange.Contracts.csproj",
                 "HomagConnect.DataExchange.Samples.csproj"
               )
-              
+      
               $excludePatterns = @(
                 "*.Tests.csproj",
                 "HomagConnect.Base.Tests.Api.csproj",
                 "HomagConnect.MmrMobile.Samples.Console.csproj"
               )
-              
+      
               $allProjects = @()
               foreach ($pattern in $projectPatterns) {
                 $found = Get-ChildItem -Path "$(Build.SourcesDirectory)" -Filter $pattern -Recurse
                 $allProjects += $found
               }
-              
+      
               $projects = $allProjects | Where-Object {
                 $projectFile = $_
                 $shouldExclude = $false
@@ -206,15 +206,15 @@ stages:
                 }
                 -not $shouldExclude
               } | Select-Object -Unique | ForEach-Object { $_.FullName }
-              
+      
               if ($projects.Count -eq 0) {
                 Write-Host "##vso[task.logissue type=error]No projects found to pack!"
                 exit 1
               }
-              
+      
               Write-Host "Found $($projects.Count) projects to pack:"
               $projects | ForEach-Object { Write-Host "  - $_" }
-              
+      
               $projectsList = $projects -join "`n"
               Write-Host "##vso[task.setvariable variable=PROJECTS_TO_PACK]$projectsList"
 
