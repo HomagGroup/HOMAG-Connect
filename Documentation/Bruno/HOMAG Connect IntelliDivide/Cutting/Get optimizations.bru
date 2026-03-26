@@ -246,14 +246,14 @@ docs {
   // Get optimizations by type and status
   Task<IEnumerable<Optimization>> GetOptimizations(
       OptimizationType optimizationType, 
-      IEnumerable<OptimizationStatus> optimizationStatuses, 
+      OptimizationStatus optimizationStatus, 
       int take, 
       int skip = 0);
   
   // Get optimizations with all filters
   Task<IEnumerable<Optimization>> GetOptimizations(
       OptimizationType optimizationType, 
-      IEnumerable<OptimizationStatus> optimizationStatuses, 
+      OptimizationStatus optimizationStatus, 
       string orderBy, 
       string machine, 
       int take, 
@@ -271,7 +271,7 @@ docs {
   // Get first 100 completed cutting optimizations
   var optimizations = await client.GetOptimizations(
       optimizationType: OptimizationType.Cutting,
-      optimizationStatuses: [OptimizationStatus.Optimized],
+      optimizationStatus: OptimizationStatus.Optimized,
       take: 100,
       skip: 0);
   
