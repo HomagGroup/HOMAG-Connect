@@ -187,7 +187,7 @@
     <value>Mindestbestand</value>
   </data>
   <data name="BoardTypeProperties_TotalAreaAvailableWarningLimit" xml:space="preserve">
-    <value>Mindestbestand</value>
+    <value>Mindestbestand (Fläche)</value>
   </data>
   <data name="BoardTypeProperties_OptimizeAgainstInfinite" xml:space="preserve">
     <value>Gegen unendlich optimieren</value>
@@ -208,10 +208,10 @@
     <value>Gesamtfläche</value>
   </data>
   <data name="BoardTypeProperties_TotalAreaAllocated" xml:space="preserve">
-    <value>Reserviert</value>
+    <value>Reserviert (Fläche)</value>
   </data>
   <data name="BoardTypeProperties_TotalAreaAvailable" xml:space="preserve">
-    <value>Verfügbar</value>
+    <value>Verfügbar (Fläche)</value>
   </data>
   <data name="BoardTypeProperties_InsufficientInventory" xml:space="preserve">
     <value>Mindestbestand unterschritten</value>
@@ -350,5 +350,9 @@
   </data>
   <data name="BoardTypeProperties_LockedForConfiguration" xml:space="preserve">
     <value>Plattentyp für Konfiguration gesperrt</value>
+  </data>
+  <data name="BoardTypeProperties_OrderDemand" xml:space="preserve">
+    <value>Bestellbedarf</value>
+    <comment>OrderDemand</comment>
   </data>
 </root>

@@ -1,11 +1,26 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
 /// <summary>
-/// Cutting Prediction Request
+/// Represents a request for cutting duration prediction.
 /// </summary>
-public class CuttingPredictionRequest : IExtensibleDataObject
+/// <example>
+/// {
+///   "machineNumber": "1-001-01-0001",
+///   "predictionParts": [
+///     {
+///       "id": "PART-10",
+///       "quantity": 2,
+///       "length": 720,
+///       "width": 480,
+///       "thickness": 19.0,
+///       "unitSystem": "Metric"
+///     }
+///   ]
+/// }
+/// </example>
+public class CuttingPredictionRequest
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CuttingPredictionRequest"/> class.
@@ -32,19 +47,34 @@ public class CuttingPredictionRequest : IExtensibleDataObject
     }
 
     /// <summary>
-    /// MachineNumber for which the prediction should be made.
+    /// Gets or sets the machine number for which the prediction should be calculated.
     /// </summary>
+    /// <example>1-001-01-0001</example>
     public string? MachineNumber { get; set; }
 
     /// <summary>
-    /// List of Parts, that will be produced, and for which we need prediction
+    /// Gets or sets the parts for which the cutting duration prediction should be calculated.
     /// </summary>
+    /// <example>
+    /// [
+    ///   {
+    ///     "id": "PART-10",
+    ///     "quantity": 2,
+    ///     "length": 720,
+    ///     "width": 480,
+    ///     "thickness": 19.0,
+    ///     "unitSystem": "Metric"
+    ///   }
+    /// ]
+    /// </example>
     public IEnumerable<CuttingPredictionPart>? PredictionParts { get; set; }
-
-    #region IExtensibleDataObject Members
-
-    /// <inheritdoc />
-    public ExtensionDataObject? ExtensionData { get; set; }
-
-    #endregion
+    
+    /// <summary>
+    /// Gets or sets additional custom properties configured in the application. Any JSON properties not mapped
+    /// to a typed member are captured here via <c>[JsonExtensionData]</c>.
+    /// </summary>
+    /// <example>{ "customField1": "value1" }</example>
+    [JsonProperty(Order = 80)]
+    [JsonExtensionData]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 }

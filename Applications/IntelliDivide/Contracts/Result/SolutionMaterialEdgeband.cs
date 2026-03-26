@@ -1,12 +1,11 @@
 ﻿#nullable enable
 
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
-
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
@@ -61,4 +60,10 @@ public class SolutionMaterialEdgeband : IHasMaterialCode
             field = value.Trimmed();
         }
     } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the thumbnail URI for the edgeband material.
+    /// </summary>
+    [JsonProperty(Order = 80)]
+    public Uri Thumbnail { get; set; } = new("https://core.homag.cloud/cdn/images/material-icons/edgebands.svg");
 }

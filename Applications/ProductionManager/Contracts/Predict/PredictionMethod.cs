@@ -4,43 +4,39 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Predict
 {
     /// <summary>
-    /// Method, that was taken to predict the edgebanding duration.
+    /// Specifies the method used to calculate a production duration prediction.
     /// </summary>
+    /// <example>Machine</example>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum PredictionMethod
     {
         /// <summary>
-        /// Fallback value, if the prediction method is unknown.
+        /// Fallback value when the prediction method is unknown.
         /// </summary>
         Unknown = 0,
 
         /// <summary>
-        /// The prediction was based on data from a single machine. This method is selected when there is enough data for the
-        /// machine.
+        /// Prediction based on data from a single machine.
         /// </summary>
         Machine,
 
         /// <summary>
-        /// The prediction was made using data from multiple machines in the subscription. This method is chosen when there is
-        /// insufficient data for a single machine or when no specific machine is specified.
+        /// Prediction based on data from multiple machines in the current subscription.
         /// </summary>
         MachineGroup,
 
         /// <summary>
-        /// The prediction was based on data from a single workplace. This method is selected when there is enough data for the
-        /// workplace.
+        /// Prediction based on data from a single workplace.
         /// </summary>
         Workplace,
 
         /// <summary>
-        /// The prediction was made using data from multiple workplaces in the subscription. This method is chosen when there is
-        /// insufficient data for a single workplace or when no specific machine is specified.
+        /// Prediction based on data from multiple workplaces in the current subscription.
         /// </summary>
         WorkplaceGroup,
 
         /// <summary>
-        /// The prediction was made using data from multiple machine in multiple subscriptions. This method is chosen when there is
-        /// insufficient data available in the current subscription.
+        /// Prediction based on data from multiple machines across multiple subscriptions.
         /// </summary>
         Global = 9
     }

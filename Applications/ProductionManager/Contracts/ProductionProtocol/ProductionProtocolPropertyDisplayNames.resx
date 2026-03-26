@@ -162,6 +162,9 @@
   <data name="ProgramName" xml:space="preserve">
     <value>Programmname</value>
   </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Qualität</value>
+  </data>
   <data name="Quantity" xml:space="preserve">
     <value>Anzahl</value>
   </data>

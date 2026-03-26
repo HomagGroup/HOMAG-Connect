@@ -125,7 +125,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// <summary>
         /// The telephone number of the customer of this order
         /// </summary>
-        [JsonProperty(Order = 3210)]
+        [JsonProperty(Order = 321)]
         public string? TelephoneNumber { get; set; }
 
         /// <summary>
@@ -215,6 +215,18 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 411)]
         public int? QuantityOfPartsPlanned { get; set; }
+
+        /// <summary>
+        /// Defines if the order should ship offcuts.
+        /// </summary>
+        [JsonProperty(Order = 450)]
+        public bool? IncludeOffcuts { get; set; }
+
+        /// <summary>
+        /// Defines if the order should include edgebands.
+        /// </summary>
+        [JsonProperty(Order = 451)]
+        public bool? IncludeEdgeBands { get; set; }
 
         #endregion
 

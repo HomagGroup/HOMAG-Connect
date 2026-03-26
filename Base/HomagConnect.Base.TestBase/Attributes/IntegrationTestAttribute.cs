@@ -1,49 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.Base.TestBase.Attributes;
 
 /// <summary>
-/// Test Attribute to comment to link to an Area
+/// Applies integration-related categories to a test, including area-based categories and an optional <see cref="TestPriority" />.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
 public sealed class IntegrationTestAttribute : TestCategoryBaseAttribute
 {
+    private const string RootCategory = "IntegrationTests";
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute" />
-    /// class
-    /// by applying the supplied category to the test.
+    /// Initializes a new instance of the <see cref="IntegrationTestAttribute" /> class.
     /// </summary>
-    /// <param name="area">The area to be applied.</param>
-    public IntegrationTestAttribute(string area)
+    /// <param name="area">The area path used to generate hierarchical integration test categories.</param>
+    /// <param name="priority">The optional priority category to apply to the test.</param>
+    public IntegrationTestAttribute(string area, TestPriority priority = TestPriority.Undefined)
     {
-        var list = new List<string> { "IntegrationTests" };
+        TestCategories = BuildTestCategories(area, priority);
+    }
+
+    /// <inheritdoc />
+    public override IList<string> TestCategories { get; }
+
+    private static List<string> BuildTestCategories(string area, TestPriority priority)
+    {
+        var categories = new List<string> { RootCategory };
 
         if (!string.IsNullOrWhiteSpace(area))
         {
             var areas = area.Split('.');
 
-            for (int i = 0; i < areas.Length; i++)
+            for (var i = 0; i < areas.Length; i++)
             {
-                var areaName = new StringBuilder();
-
-                for (int j = 0; j <= i; j++)
-                {
-                    areaName.Append(areas[j] + ".");
-                }
-
-                list.Add("IntegrationTests." + areaName.ToString().TrimEnd('.'));
+                categories.Add($"{RootCategory}.{string.Join('.', areas, 0, i + 1)}");
             }
         }
 
-        TestCategories = list;
-    }
+        if (priority != TestPriority.Undefined)
+        {
+            categories.Add($"{RootCategory}.Priority.{priority}");
+        }
 
-    /// <summary>
-    /// Gets the test categories that have been applied to the test.
-    /// </summary>
-    public override IList<string> TestCategories { get; }
+        return categories;
+    }
 }
