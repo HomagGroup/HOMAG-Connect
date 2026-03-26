@@ -36,7 +36,6 @@ public class OptimizationEventTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task SolutionTransferred_SerializeDeserialize_PropertiesEqual()
     {
         var solutionDetails = await GetSampleSolutionDetails();
@@ -81,7 +80,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, [OptimizationStatus.Optimized], 1);
+        var optimizations = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1);
 
         if (optimizations == null)
         {

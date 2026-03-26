@@ -25,7 +25,6 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     private const double _MeterToFeet = 3.2808399;
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
@@ -33,7 +32,6 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_Cutting_SwitchUnitSystem()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
@@ -57,8 +55,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 01, "DF-Optimization")]
-    public async Task Optimizations_Nesting_GetFirstOptimizationAndEvaluate()
+     public async Task Optimizations_Nesting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Nesting);
         EvaluateFirstOptimization(solutions);
@@ -216,7 +213,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         var intelliDivide = new IntelliDivideClient(SubscriptionId, AuthorizationKey, BaseUrl);
 
         var optimization = await intelliDivide
-            .GetOptimizations(optimizationType, [OptimizationStatus.Optimized], 1)!
+            .GetOptimizations(optimizationType, OptimizationStatus.Optimized, 1)!
             .FirstOrDefaultAsync();
 
         if (optimization == null)

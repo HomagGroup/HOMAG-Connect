@@ -523,7 +523,32 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, IEnumerable<OptimizationStatus> optimizationStatuses, int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0)
+        {
+            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}";
+
+            return await RequestEnumerable<Optimization>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, string machine, int take, int skip = 0)
+        {
+            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&machine={Uri.EscapeDataString(machine)}&take={take}&skip={skip}";
+
+            return await RequestEnumerable<Optimization>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy,
+            int take, int skip = 0)
+        {
+            var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&state={optimizationStatus}&take={take}&skip={skip}&orderBy={orderBy}";
+
+            return await RequestEnumerable<Optimization>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, IList<OptimizationStatus> optimizationStatuses, int take, int skip = 0)
         {
             var stateParams = string.Join("&", optimizationStatuses.Select(s => $"state={s}"));
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&{stateParams}&take={take}&skip={skip}";
@@ -532,7 +557,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, IEnumerable<OptimizationStatus> optimizationStatuses, string orderBy, string machine, int take, int skip = 0)
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, IList<OptimizationStatus> optimizationStatuses, string orderBy, string machine, int take, int skip = 0)
         {
             var stateParams = string.Join("&", optimizationStatuses.Select(s => $"state={s}"));
             var url = $"api/intelliDivide/optimizations?optimizationType={optimizationType}&{stateParams}&machine={Uri.EscapeDataString(machine)}&take={take}&skip={skip}";
@@ -541,7 +566,7 @@ namespace HomagConnect.IntelliDivide.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, IEnumerable<OptimizationStatus> optimizationStatuses, string orderBy,
+        public async Task<IEnumerable<Optimization>?> GetOptimizations(OptimizationType optimizationType, IList<OptimizationStatus> optimizationStatuses, string orderBy,
             int take, int skip = 0)
         {
             var stateParams = string.Join("&", optimizationStatuses.Select(s => $"state={s}"));

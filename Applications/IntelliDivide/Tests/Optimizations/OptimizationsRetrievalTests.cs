@@ -23,7 +23,6 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_GetOptimizationsWithStatusOptimized()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -42,7 +41,6 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_GetSolutionsAndSolutionDetails()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -52,7 +50,6 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_ArchiveAndDelete()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -62,7 +59,6 @@ public class OptimizationsRetrievalTests : IntelliDivideTestBase
     
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task Optimizations_GetExportsForSolution()
     {
         var intelliDivide = GetIntelliDivideClient();

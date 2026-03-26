@@ -114,37 +114,73 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="optimizationStatuses">Request only optimizations having one of the specified <see cref="OptimizationStatus" /> values.</param>
+        /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, IEnumerable<OptimizationStatus> optimizationStatuses, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, int take, int skip = 0);
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="optimizationStatuses">Request only optimizations having one of the specified <see cref="OptimizationStatus" /> values.</param>
+        /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
         /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
         /// <param name="machine">Name of the machine</param>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, IEnumerable<OptimizationStatus> optimizationStatuses, string orderBy, string machine, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, string machine, int take, int skip = 0);
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
         /// </summary>
         /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
-        /// <param name="optimizationStatuses">Request only optimizations having one of the specified <see cref="OptimizationStatus" /> values.</param>
+        /// <param name="optimizationStatus">Request only optimizations having a specific <see cref="OptimizationStatus" /></param>
         /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
         /// <param name="take">Quantity of optimizations to return max.</param>
         /// <param name="skip">Quantity of optimizations to skip.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
-        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, IEnumerable<OptimizationStatus> optimizationStatuses, string orderBy, int take, int skip = 0);
+        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, OptimizationStatus optimizationStatus, string orderBy, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
+        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
+        /// <param name="optimizationStatuses">Request only optimizations having one of the specified <see cref="OptimizationStatus" /></param>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, IList<OptimizationStatus> optimizationStatuses, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
+        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
+        /// <param name="optimizationStatuses">Request only optimizations having one of the specified <see cref="OptimizationStatus" /></param>
+        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
+        /// <param name="machine">Name of the machine</param>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, IList<OptimizationStatus> optimizationStatuses, string orderBy, string machine, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.
+        /// </summary>
+        /// <param name="optimizationType">Request only optimizations having a specific <see cref="OptimizationType" /></param>
+        /// <param name="optimizationStatuses">Request only optimizations having one of the specified <see cref="OptimizationStatus" /></param>
+        /// <param name="orderBy">Optimization property name to order by <see cref="Optimization" /></param>
+        /// <param name="take">Quantity of optimizations to return max.</param>
+        /// <param name="skip">Quantity of optimizations to skip.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown, when more then 100 optimizations are requested.</exception>
+        Task<IEnumerable<Optimization>> GetOptimizations(OptimizationType optimizationType, IList<OptimizationStatus> optimizationStatuses, string orderBy, int take, int skip = 0);
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of optimizations available.

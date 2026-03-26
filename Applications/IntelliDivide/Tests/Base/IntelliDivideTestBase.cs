@@ -158,7 +158,7 @@ public class IntelliDivideTestBase : TestBase
 
         while (startTime.Add(timeout) > DateTime.Now)
         {
-            var startedOptimization = await intelliDivideClient.GetOptimizations(optimizationType, [OptimizationStatus.Started], parallelOptimizationsRunningLimit + 1).ToListAsync();
+            var startedOptimization = await intelliDivideClient.GetOptimizations(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
             if (startedOptimization == null)
             {
                 return;
