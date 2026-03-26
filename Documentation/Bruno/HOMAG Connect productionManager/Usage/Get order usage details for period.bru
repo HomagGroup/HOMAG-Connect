@@ -1,0 +1,159 @@
+meta {
+  name: Get order usage details for period
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/statistics/usage/details/2025-01
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~format: localized
+  ~culture: en
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Get order usage details for period
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/details/{period}
+  ```
+  
+  ## Purpose
+  
+  Retrieve detailed usage statistics for a specific period, showing all orders that were released or reset during that month.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `period` | path | string | yes | The period in format yyyy-MM (for example 2025-01). |
+  | `format` | query | string | no | Set to `localized` to return property names and enum values in the requested culture. |
+  | `culture` | query | string | no | Localization culture (for example `de`, `en`, `de-DE`). Used together with `format=localized`. Falls back to current server culture if omitted. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/details/2025-01
+  ```
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/details/2024-12?format=localized&culture=de
+  ```
+  
+  ## Success response example
+  
+  ```json
+  [
+    {
+      "timestamp": "2025-01-15T10:30:00Z",
+      "orderNumber": "ORD-2025-001",
+      "orderName": "Kitchen Cabinet Project",
+      "customerNumber": "CUST-123",
+      "customerName": "ABC Furniture GmbH",
+      "quantityOfParts": 150,
+      "action": "Release",
+      "changedBy": "john.doe@example.com",
+      "source": "HOMAG Connect"
+    },
+    {
+      "timestamp": "2025-01-20T14:45:00Z",
+      "orderNumber": "ORD-2025-002",
+      "orderName": "Office Furniture",
+      "customerNumber": "CUST-456",
+      "customerName": "XYZ Office Solutions",
+      "quantityOfParts": 85,
+      "action": "Release",
+      "changedBy": "jane.smith@example.com",
+      "source": "productionManager"
+    }
+  ]
+  ```
+  
+  ## Possible error codes
+  
+  - `401 Unauthorized` - Missing or invalid credentials, or required productionManager license is missing.
+  - `422 Unprocessable Entity` - Invalid period format (must be yyyy-MM).
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# sample
+  
+  ```csharp
+  using HomagConnect.ProductionManager.Client;
+  using HomagConnect.ProductionManager.Contracts.Orders;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+  
+  // Example 1: Get usage details for January 2025
+  var janUsage = await client.GetUsageDetailsForPeriod("2025-01");
+  
+  foreach (var detail in janUsage)
+  {
+      Console.WriteLine($"{detail.Timestamp:yyyy-MM-dd} - {detail.OrderNumber}: {detail.QuantityOfParts} parts");
+  }
+  
+  // Example 2: Get usage for multiple periods
+  var periods = new[] { "2025-01", "2024-12", "2024-11" };
+  
+  foreach (var period in periods)
+  {
+      var usage = await client.GetUsageDetailsForPeriod(period);
+      var totalParts = usage.Sum(d => d.QuantityOfParts);
+      Console.WriteLine($"{period}: {totalParts} total parts released");
+  }
+  ```
+  
+  ## PowerShell sample
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  # Example 1: Get usage details for January 2025
+  $period = "2025-01"
+  $url = "$baseUrl/api/productionManager/statistics/usage/details/$period"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($detail in $response) {
+    $timestamp = [DateTime]::Parse($detail.timestamp).ToString("yyyy-MM-dd")
+    Write-Host "$timestamp - $($detail.orderNumber): $($detail.quantityOfParts) parts"
+  }
+  
+  # Example 2: Get usage for multiple periods
+  $periods = @("2025-01", "2024-12", "2024-11")
+  
+  foreach ($period in $periods) {
+    $url = "$baseUrl/api/productionManager/statistics/usage/details/$period"
+    $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+    $totalParts = ($response | Measure-Object -Property quantityOfParts -Sum).Sum
+    Write-Host "${period}: $totalParts total parts released"
+  }
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [UsageDetails](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Orders/UsageDetails.cs)
+  - [OrderAction](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Orders/OrderAction.cs)
+}
