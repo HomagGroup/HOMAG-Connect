@@ -12,9 +12,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 /// The class contains tests to ensure that the cutting optimization requests samples work as expected.
 /// </summary>
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Requests.Cutting")]
-[TestCategory("IntelliDivide.Requests.Cutting.Template")]
+[DeploymentTest("IntelliDivide.Requests.Cutting.Template")]
 public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
     /// <summary />

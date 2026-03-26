@@ -1,4 +1,5 @@
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Samples.Statistics.Material.Client;
 using HomagConnect.IntelliDivide.Tests.Base;
 using Shouldly;
@@ -6,8 +7,7 @@ using Shouldly;
 namespace HomagConnect.IntelliDivide.Tests.Statistics;
 
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Statistics")]
+[DeploymentTest("IntelliDivide.Statistics")]
 public class StatisticTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions

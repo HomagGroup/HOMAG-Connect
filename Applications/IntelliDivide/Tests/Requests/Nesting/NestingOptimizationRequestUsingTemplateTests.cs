@@ -12,9 +12,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 /// The class contains tests to ensure that the cutting optimization requests samples work as expected.
 /// </summary>
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Requests.Nesting")]
-[TestCategory("IntelliDivide.Requests.Nesting.Template")]
+[DeploymentTest("IntelliDivide.Requests.Nesting.Template")]
 public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
     /// <summary />

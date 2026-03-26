@@ -1,3 +1,4 @@
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Client;
 using HomagConnect.IntelliDivide.Samples.Optimizations;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -5,8 +6,7 @@ using HomagConnect.IntelliDivide.Tests.Base;
 namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Optimizations")]
+[DeploymentTest("IntelliDivide.Optimizations", TestPriority.Critical)]
 public class OptimizationsRetrievalTests : IntelliDivideTestBase
 {
 #pragma warning disable S2699 // Tests should include assertions

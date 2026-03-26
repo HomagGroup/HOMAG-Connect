@@ -1,11 +1,11 @@
-﻿using HomagConnect.IntelliDivide.Samples.Authentication;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.IntelliDivide.Samples.Authentication;
 using HomagConnect.IntelliDivide.Tests.Base;
 
 namespace HomagConnect.IntelliDivide.Tests.Authentication
 {
     [TestClass]
-    [TestCategory("IntelliDivide")]
-    [TestCategory("IntelliDivide.Authentication")]
+    [DeploymentTest("IntelliDivide.Authentication", TestPriority.Critical)]
     public class AuthenticationTests : IntelliDivideTestBase
     {
 #pragma warning disable S2699 // Tests should include assertions
