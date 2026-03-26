@@ -39,7 +39,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _IncludingDetails = "includingDetails";
     private const string _GatewayMaterialRoutePrefix = "api/gw/materials";
     private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
-    private const string _AvailibilityCheckRoute = "api/materialManager/availabilityCheck";
+    private const string _AvailibilityCheckRoute = _GatewayMaterialRoutePrefix + "/storage/availabilityCheck";
+    private const string _GatewayDeleteRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
 
     #endregion
 
@@ -462,13 +463,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
-        bool includingDetails = false)
+        bool includingDetails = false, string baseRoute = _BaseRoute)
     {
         var urls = codes
             .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
             .Join(QueryParametersMaxLength)
             .Select(x => x.Remove(0, 1).Insert(0, "?"))
-            .Select(parameter => includingDetails ? $"{_BaseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{_BaseRoute}{route}" + parameter).ToList();
+            .Select(parameter => includingDetails ? $"{baseRoute}{route}" + parameter + $"&{_IncludingDetails}=true" : $"{baseRoute}{route}" + parameter).ToList();
         return urls;
     }
 
@@ -606,6 +607,32 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         var urls = CreateUrls(codes, _BoardCode);
+
+        foreach (var url in urls)
+        {
+            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteBoardTypesByCodes(IEnumerable<string> boardCodes)
+    {
+        if (boardCodes == null)
+        {
+            throw new ArgumentNullException(nameof(boardCodes));
+        }
+
+        var codes = boardCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).ToList();
+
+        if (!codes.Any())
+        {
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
+        }
+
+        var urls = CreateUrls(codes, _BoardCode, baseRoute: _GatewayDeleteRoute);
 
         foreach (var url in urls)
         {
