@@ -1,4 +1,13 @@
-﻿using HomagConnect.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
@@ -10,17 +19,8 @@ using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Contracts.Rework;
+
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using HomagConnect.Base.Contracts;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -484,11 +484,11 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<Rework>?> GetCompletedReworks()
         {
-            return await GetReworks([ReworkState.Rejected , ReworkState.Transferred]);
+            return await GetReworks([ReworkState.Rejected, ReworkState.Transferred]);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Rework>?> GetReworks(ReworkState[]? states,  DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        public async Task<IEnumerable<Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
         {
             var url = "/api/productionManager/orders/reworks";
 
@@ -514,7 +514,7 @@ namespace HomagConnect.ProductionManager.Client
                 queryParameters.Add($"skip={skip}");
             }
 
-            if (take > 0 && take != int.MaxValue) 
+            if (take > 0 && take != int.MaxValue)
             {
                 queryParameters.Add($"take={take}");
             }
@@ -660,10 +660,10 @@ namespace HomagConnect.ProductionManager.Client
         #region ProductionProtocol
 
         /// <inheritdoc />
-        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take=100000, int skip = 0, int daysBack = 7)
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7)
         {
             var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
-            var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?> (new Uri(url, UriKind.Relative));
+            var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?>(new Uri(url, UriKind.Relative));
 
             return productionProtocol;
         }
@@ -673,10 +673,46 @@ namespace HomagConnect.ProductionManager.Client
         {
             const string uri = "api/productionManager/workstations";
 
-            return (await RequestEnumerable<Workstation>(new Uri(uri, UriKind.Relative)));
+            return await RequestEnumerable<Workstation>(new Uri(uri, UriKind.Relative));
         }
 
         #endregion
+
+        #region Usage statistics
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<UsageOverview>> GetUsageOverview(int monthsAgo = 12)
+        {
+            var url = $"/api/productionManager/statistics/usage/overview?monthsAgo={monthsAgo}";
+            var usageOverview = await RequestEnumerable<UsageOverview>(new Uri(url, UriKind.Relative));
+            return usageOverview ?? Enumerable.Empty<UsageOverview>();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<UsageDetails>> GetUsageDetails(int monthsAgo = 12)
+        {
+            var url = $"/api/productionManager/statistics/usage/details?monthsAgo={monthsAgo}";
+            var usageDetails = await RequestEnumerable<UsageDetails>(new Uri(url, UriKind.Relative));
+            return usageDetails ?? Enumerable.Empty<UsageDetails>();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<UsageDetails>> GetUsageDetailsForPeriod(string period)
+        {
+            var url = $"/api/productionManager/statistics/usage/details/{Uri.EscapeDataString(period)}";
+            var usageDetails = await RequestEnumerable<UsageDetails>(new Uri(url, UriKind.Relative));
+            return usageDetails ?? Enumerable.Empty<UsageDetails>();
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<UsageDetails>> GetCurrentUsage()
+        {
+            const string url = "/api/productionManager/statistics/usage/current";
+            var usageDetails = await RequestEnumerable<UsageDetails>(new Uri(url, UriKind.Relative));
+            return usageDetails ?? Enumerable.Empty<UsageDetails>();
+        }
+
+        #endregion Usage statistics
 
         #region Constructors
 
