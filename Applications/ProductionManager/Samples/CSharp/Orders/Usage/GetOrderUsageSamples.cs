@@ -18,26 +18,22 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Usage
             var currentUsage = await productionManager.GetCurrentUsage().ToListAsync();
             currentUsage.Trace(nameof(currentUsage));
 
-            Console.WriteLine($@"Current month usage ({DateTime.Now:yyyy-MM}):");
-
             if (currentUsage != null)
             {
-                foreach (var detail in currentUsage)
-                {
-                    Console.WriteLine($@"{detail.Timestamp:yyyy-MM-dd HH:mm} - {detail.OrderNumber} ({detail.OrderName})");
-                    Console.WriteLine($@"  Customer: {detail.CustomerName}");
-                    Console.WriteLine($@"  Parts: {detail.QuantityOfParts}, Action: {detail.Action}");
-                }
-
                 // Calculate current month statistics
                 var totalParts = currentUsage.Sum(d => d.QuantityOfParts);
                 var releaseCount = currentUsage.Count(d => d.Action == OrderAction.Release);
                 var resetCount = currentUsage.Count(d => d.Action == OrderAction.ResetRelease);
 
-                Console.WriteLine($@"
-Current month totals:");
-                Console.WriteLine($@"Total parts: {totalParts}");
-                Console.WriteLine($@"Releases: {releaseCount}, Resets: {resetCount}");
+                var statistics = new
+                {
+                    Period = $"{DateTime.Now:yyyy-MM}",
+                    TotalParts = totalParts,
+                    ReleaseCount = releaseCount,
+                    ResetCount = resetCount
+                };
+
+                statistics.Trace("Current month statistics");
             }
         }
 
@@ -50,14 +46,6 @@ Current month totals:");
             var usageDetails = await productionManager.GetUsageDetails(monthsAgo: 12).ToListAsync();
             usageDetails.Trace(nameof(usageDetails));
 
-            if (usageDetails != null)
-                foreach (var detail in usageDetails)
-                {
-                    Console.WriteLine($@"{detail.Timestamp:yyyy-MM-dd HH:mm} - {detail.OrderNumber} ({detail.OrderName})");
-                    Console.WriteLine($@"  Customer: {detail.CustomerName} ({detail.CustomerNumber})");
-                    Console.WriteLine($@"  Parts: {detail.QuantityOfParts}, Action: {detail.Action}, By: {detail.ChangedBy}");
-                }
-
             // Example 2: Get usage details for the last 3 months and calculate totals
             var recentDetails = await productionManager.GetUsageDetails(monthsAgo: 3).ToListAsync();
             if (recentDetails != null)
@@ -66,8 +54,14 @@ Current month totals:");
                 var releaseCount = recentDetails.Count(d => d.Action == OrderAction.Release);
                 var resetCount = recentDetails.Count(d => d.Action == OrderAction.ResetRelease);
 
-                Console.WriteLine($@"Total parts: {totalParts}");
-                Console.WriteLine($@"Releases: {releaseCount}, Resets: {resetCount}");
+                var statistics = new
+                {
+                    TotalParts = totalParts,
+                    ReleaseCount = releaseCount,
+                    ResetCount = resetCount
+                };
+
+                statistics.Trace("Last 3 months statistics");
             }
         }
 
@@ -80,14 +74,10 @@ Current month totals:");
             var janUsage = await productionManager.GetUsageDetailsForPeriod("2025-01").ToListAsync();
             janUsage.Trace(nameof(janUsage));
 
-            if (janUsage != null)
-                foreach (var detail in janUsage)
-                {
-                    Console.WriteLine($@"{detail.Timestamp:yyyy-MM-dd} - {detail.OrderNumber}: {detail.QuantityOfParts} parts");
-                }
-
             // Example 2: Get usage for multiple periods
             var periods = new[] { "2025-01", "2024-12", "2024-11" };
+
+            var periodStatistics = new List<object>();
 
             foreach (var period in periods)
             {
@@ -95,9 +85,11 @@ Current month totals:");
                 if (usage != null)
                 {
                     var totalParts = usage.Sum(d => d.QuantityOfParts);
-                    Console.WriteLine($@"{period}: {totalParts} total parts released");
+                    periodStatistics.Add(new { Period = period, TotalParts = totalParts });
                 }
             }
+
+            periodStatistics.Trace("Period statistics");
         }
 
         /// <summary>
@@ -109,29 +101,21 @@ Current month totals:");
             var usageOverview = await productionManager.GetUsageOverview(monthsAgo: 12).ToListAsync();
             usageOverview.Trace(nameof(usageOverview));
 
-            if (usageOverview != null)
-                foreach (var overview in usageOverview)
-                {
-                    Console.WriteLine($@"Period: {overview.Period:yyyy-MM}");
-                    Console.WriteLine($@"Parts released: {overview.QuantityOfReleasedParts} / {overview.QuantityOfPartsCoveredByTheLicenses}");
-
-                    foreach (var license in overview.Licenses)
-                    {
-                        Console.WriteLine($@"  License: {license.ApplicationLicenseFullName} (Count: {license.LicenseCount})");
-                    }
-                }
-
             // Example 2: Get usage overview for the last 6 months
             var recentOverview = await productionManager.GetUsageOverview(monthsAgo: 6).ToListAsync();
 
             if (recentOverview != null)
-                foreach (var overview in recentOverview)
+            {
+                var usagePercentages = recentOverview.Select(overview => new
                 {
-                    var usagePercentage = overview.QuantityOfPartsCoveredByTheLicenses > 0
+                    Period = $"{overview.Period:yyyy-MM}",
+                    UsagePercentage = overview.QuantityOfPartsCoveredByTheLicenses > 0
                         ? overview.QuantityOfReleasedParts * 100.0 / overview.QuantityOfPartsCoveredByTheLicenses
-                        : 0;
-                    Console.WriteLine($@"{overview.Period:yyyy-MM}: {usagePercentage:F1}% used");
-                }
+                        : 0
+                }).ToList();
+
+                usagePercentages.Trace("Last 6 months usage percentages");
+            }
         }
     }
 }
