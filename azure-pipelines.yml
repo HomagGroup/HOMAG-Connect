@@ -194,6 +194,14 @@ stages:
                   }
               }
           condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish test artifacts to pipeline'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)\tests'
+            artifact: 'tests'
+            publishLocation: 'pipeline'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
         
         # MEND
         # - template: common-tasks/list-agent-directory/template.yml@templates
@@ -300,4 +308,6 @@ stages:
         
         - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.TestBase/**/*.nupkg" --skip-duplicate
           displayName: "Publish HomagConnect Base Test Base NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
+          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
+          
+
