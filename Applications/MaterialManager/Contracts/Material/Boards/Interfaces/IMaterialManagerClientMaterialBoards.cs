@@ -52,6 +52,11 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task DeleteBoardTypes(IEnumerable<string> boardCode);
 
         /// <summary>
+        /// Delete board types by board codes trough file agent controller.
+        /// </summary>
+        Task DeleteBoardTypesByCodes(IEnumerable<string> boardCode);
+
+        /// <summary>
         /// Gets the board type allocations paginated.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
