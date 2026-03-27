@@ -20,7 +20,7 @@ public class TextureObject
     /// <summary>
     /// Timestamp when the texture object was created.
     /// </summary>
-    public DateTime Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
     /// <summary>
     /// Definition metadata including pixel and physical dimensions.
@@ -75,7 +75,7 @@ public class TextureObject
     /// <summary>
     /// Timestamp when the texture object was last updated.
     /// </summary>
-    public DateTime Updated { get; set; }
+    public DateTimeOffset Updated { get; set; }
 
     /// <summary>
     /// Absolute or relative URL to the texture resource.

@@ -37,7 +37,7 @@ public class Material
     /// <summary>
     /// Creation timestamp of the material record.
     /// </summary>
-    public DateTime Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
     /// <summary>
     /// External identifier from upstream systems.
@@ -97,7 +97,7 @@ public class Material
     /// <summary>
     /// Last update timestamp of the material record.
     /// </summary>
-    public DateTime Updated { get; set; }
+    public DateTimeOffset Updated { get; set; }
 
     /// <summary>
     /// Schema or content version of the material entry.
