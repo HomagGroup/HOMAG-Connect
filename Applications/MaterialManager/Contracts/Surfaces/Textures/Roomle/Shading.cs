@@ -1,4 +1,7 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 // NOTE: This is preliminary code and is subject to change
 
@@ -26,7 +29,7 @@ public class Shading
     /// <summary>
     /// Alpha blending mode (opaque, mask, blend).
     /// </summary>
-    public AlphaMode AlphaMode { get; set; } = AlphaMode.OPAQUE;
+    public string? AlphaMode { get; set; }
 
     /// <summary>
     /// Base color in RGB.
@@ -124,4 +127,15 @@ public class Shading
     /// Attenuation distance for volumetric transmission.
     /// </summary>
     public double AttenuationDistance { get; set; }
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #endregion
 }
