@@ -32,7 +32,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
             throw new ArgumentNullException(nameof(id));
         }
 
-        var url = $"{_BaseRoute}/{Uri.EscapeDataString(id)}";
+        var url = $"{_BaseRoute}/byId?id={Uri.EscapeDataString(id)}";
         var response = await RequestObject<Texture>(new Uri(url, UriKind.Relative));
         if (response != null)
         {
