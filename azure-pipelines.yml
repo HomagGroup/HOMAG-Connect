@@ -179,7 +179,16 @@ stages:
           inputs:
             command: 'test'
             projects: '**/*.Tests.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
+            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --logger "trx" --results-directory "$(Agent.TempDirectory)\TestResults" --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
+
+        - task: PublishTestResults@2
+          displayName: 'Publish test results'
+          inputs:
+            testResultsFormat: 'VSTest'
+            testResultsFiles: '$(Agent.TempDirectory)\TestResults\**\*.trx'
+            failTaskOnFailedTests: true
+            testRunTitle: 'HomagConnect Integration Tests'
+          condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'Schedule'))
 
         - task: PowerShell@2
           displayName: 'Publish HomagConnect test projects'
