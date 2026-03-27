@@ -178,6 +178,7 @@ stages:
             HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
           inputs:
             command: 'test'
+            publishTestResults: false
             projects: '**/*.Tests.csproj'
             arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --logger "trx" --results-directory "$(Agent.TempDirectory)\TestResults" --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
 
