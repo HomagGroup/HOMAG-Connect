@@ -102,7 +102,7 @@ stages:
         - task: Cache@2
           displayName: Cache NuGet packages
           inputs:
-            key: 'nuget | "$(Agent.OS)" | **/*.csproj'
+            key: 'nuget | "$(Agent.OS)" | azure-pipelines.yml | **/*.csproj, !**/bin/**, !**/obj/**'
             restoreKeys: |
               nuget | "$(Agent.OS)"
             path: '$(NUGET_PACKAGES)'
@@ -277,6 +277,7 @@ stages:
             script: |
               $packages = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
                 Where-Object {
+                  $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
                   $_.FullName -notlike '*\obj\*' -and
                   $_.FullName -notlike '*\bin\*\publish\*' -and
                   $_.Name -notlike '*.snupkg' -and
