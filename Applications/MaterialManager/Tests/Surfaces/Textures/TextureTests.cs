@@ -30,12 +30,12 @@ public class TextureTests
         const string baseUrl = "https://materialmanager.homag.cloud/cdn/textures/{subscriptionId}";
         var texture = new Texture
         {
-            Id = "egger:u999_st7",
-            Catalog = "egger",
-            DecorCode = "U999",
-            Embossing = "ST7",
-            Name = "EGGER U999 ST7",
-            ExternalId = "egger:u999_st7",
+            Id = "room_designer:oak",
+            Catalog = "room_designer",
+            DecorCode = "oak",
+            Embossing = "",
+            Name = "EGGER OAK",
+            ExternalId = "room_designer:oak",
             ModifiedAt = new DateTime(2025, 02, 20, 14, 27, 34)
         };
 
