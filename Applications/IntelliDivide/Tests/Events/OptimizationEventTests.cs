@@ -1,5 +1,5 @@
 ﻿using Shouldly;
-using System.Globalization;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
