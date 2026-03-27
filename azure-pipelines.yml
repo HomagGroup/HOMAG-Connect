@@ -88,7 +88,7 @@ stages:
            
         steps:
         - checkout: self
-          fetchDepth: 0         
+          fetchDepth: 1         
         
         - script: echo "Build branch is $(Build.SourceBranch)" 
           displayName: Display build branch environment variable
@@ -170,18 +170,56 @@ stages:
                   !**/obj/**/*.csproj
             arguments: '--configuration $(BuildConfiguration) /p:PackageVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
-        - task: DotNetCoreCLI@2
-          displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
-          retryCountOnTaskFailure: 2
+        - task: PowerShell@2
+          displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
           env:
             HomagConnect:BaseUrl: $(HomagConnect:BaseUrl)
             HomagConnect:SubscriptionId: $(HomagConnect:SubscriptionId)
             HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
           inputs:
-            command: 'test'
-            publishTestResults: false
-            projects: '**/*.Tests.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --logger "trx" --results-directory "$(Agent.TempDirectory)\TestResults" --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
+            targetType: inline
+            script: |
+              $testProjects = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj'
+              $testResultsDirectory = '$(Agent.TempDirectory)\TestResults'
+              $filter = 'TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
+              $maxAttempts = 3
+
+              for ($attempt = 1; $attempt -le $maxAttempts; $attempt++)
+              {
+                  if (Test-Path $testResultsDirectory)
+                  {
+                      Remove-Item -Path $testResultsDirectory -Recurse -Force
+                  }
+
+                  New-Item -ItemType Directory -Path $testResultsDirectory | Out-Null
+
+                  $hasFailures = $false
+
+                  foreach ($testProject in $testProjects)
+                  {
+                      $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+                      $trxFileName = "$projectName-attempt$attempt.trx"
+
+                      dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter"
+
+                      if ($LASTEXITCODE -ne 0)
+                      {
+                          $hasFailures = $true
+                      }
+                  }
+
+                  if (-not $hasFailures)
+                  {
+                      return
+                  }
+
+                  if ($attempt -lt $maxAttempts)
+                  {
+                      Write-Host "Integration tests failed on attempt $attempt. Retrying with a clean test results folder."
+                  }
+              }
+
+              throw "Integration tests failed after $maxAttempts attempts."
 
         - task: PublishTestResults@2
           displayName: 'Publish test results'
