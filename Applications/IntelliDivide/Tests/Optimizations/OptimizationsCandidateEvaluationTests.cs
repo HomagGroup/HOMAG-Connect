@@ -16,7 +16,7 @@ using Shouldly;
 namespace HomagConnect.IntelliDivide.Tests.Optimizations;
 
 [TestClass]
-[IntegrationTest("IntelliDivide.Optimizations.Evaluation")]
+[IntegrationTest("IntelliDivide.Optimizations.Evaluation", TestPriority.Medium)]
 public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
 {
     // Conversion factors

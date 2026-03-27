@@ -12,7 +12,7 @@ namespace HomagConnect.Base.TestBase.Attributes;
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
 public sealed class DeploymentTestAttribute : TestCategoryBaseAttribute
 {
-    private const string _RootCategory = "DeploymentTests";
+    private const string RootCategory = "DeploymentTests";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DeploymentTestAttribute" /> class.
@@ -29,17 +29,31 @@ public sealed class DeploymentTestAttribute : TestCategoryBaseAttribute
 
     private static List<string> BuildTestCategories(string area, TestPriority priority)
     {
-        var categories = new List<string> { _RootCategory };
+        var categories = new List<string> { RootCategory };
+        var areas = GetAreas(area);
 
-        if (!string.IsNullOrWhiteSpace(area))
+        for (var i = 0; i < areas.Length; i++)
         {
-            var areas = area.Split('.');
-
-            categories.AddRange(areas.Select((t, i) => $"{_RootCategory}.{string.Join('.', areas, 0, i + 1)}"));
+            categories.Add($"{RootCategory}.{string.Join('.', areas, 0, i + 1)}");
         }
-        
-        categories.Add($"{_RootCategory}.Priority.{priority}");
+
+        if (priority != TestPriority.Undefined)
+        {
+            categories.Add($"{RootCategory}.Priority.{priority}");
+
+            if (areas.Length > 0)
+            {
+                categories.Add($"{RootCategory}.Priority.{priority}.{areas[0]}");
+            }
+        }
 
         return categories;
+    }
+
+    private static string[] GetAreas(string area)
+    {
+        return string.IsNullOrWhiteSpace(area)
+            ? []
+            : area.Split('.');
     }
 }

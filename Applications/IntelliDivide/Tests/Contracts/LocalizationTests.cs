@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -12,7 +11,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
 using Shouldly;
 
-namespace HomagConnect.IntelliDivide.Tests.Base
+namespace HomagConnect.IntelliDivide.Tests.Contracts
 {
     /// <summary />
     [TestClass]
