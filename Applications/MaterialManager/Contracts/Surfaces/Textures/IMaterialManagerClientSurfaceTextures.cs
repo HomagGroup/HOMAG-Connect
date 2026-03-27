@@ -52,17 +52,15 @@ public interface IMaterialManagerClientTextures
     /// Imports or updates a single Roomle material definition with optional file references.
     /// </summary>
     /// <param name="material">The Roomle material definition.</param>
-    /// <param name="fileReferences">Optional files to associate (e.g., thumbnails, textures).</param>
     /// <returns>The resulting texture.</returns>
-    Task<Texture> ImportOrUpdate(MaterialDefinitionRoomle material, params FileReference[] fileReferences);
+    Task<Texture> ImportOrUpdate(MaterialDefinitionRoomle material);
 
     /// <summary>
     /// Imports or updates multiple Roomle material definitions with optional file references.
     /// </summary>
     /// <param name="materials">The Roomle materials collection.</param>
-    /// <param name="fileReferences">Optional files to associate (e.g., thumbnails, textures).</param>
     /// <returns>The resulting textures.</returns>
-    Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials, params FileReference[] fileReferences);
+    Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials);
 
     /// <summary>
     /// Deletes a texture by its identifier.
