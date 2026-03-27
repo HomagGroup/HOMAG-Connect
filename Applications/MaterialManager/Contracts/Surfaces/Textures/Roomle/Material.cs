@@ -108,4 +108,15 @@ public class Material
     /// Visibility status code (Roomle-specific numeric state).
     /// </summary>
     public int VisibilityStatus { get; set; }
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #endregion
 }
