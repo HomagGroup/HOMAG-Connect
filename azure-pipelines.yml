@@ -172,6 +172,7 @@ stages:
 
         - task: DotNetCoreCLI@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
+          retryCountOnTaskFailure: 2
           env:
             HomagConnect:BaseUrl: $(HomagConnect:BaseUrl)
             HomagConnect:SubscriptionId: $(HomagConnect:SubscriptionId)
