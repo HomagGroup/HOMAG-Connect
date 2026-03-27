@@ -24,5 +24,6 @@
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\Rework %28in time range%29.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Rework\Rework.bru" />
     <None Include="$(MSBuildThisFileDirectory)HOMAG Connect IntelliDivide\Optimizations\Get optimizations.bru" />
+    <None Include="$(MSBuildThisFileDirectory)HOMAG Connect productionManager\Usage\folder.bru" />
   </ItemGroup>
 </Project>

@@ -3,8 +3,6 @@ using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Result;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace HomagConnect.IntelliDivide.Samples.Optimizations
 {
     /// <summary />
@@ -77,7 +75,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             if (optimization == null)
             {
-                Assert.Fail("No cutting optimization having the state optimized found.");
+                Assert.Inconclusive("No cutting optimization having the state optimized found.");
             }
 
             // Get the solutions including the main key figures
@@ -121,7 +119,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             if (optimization == null)
             {
-                Assert.Fail("No optimization having the state optimized found.");
+                Assert.Inconclusive("No optimization having the state optimized found.");
             }
 
             await intelliDivide.ArchiveOptimization(optimization.Id);
@@ -138,7 +136,7 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
 
             if (optimization == null)
             {
-                Assert.Fail("No optimization having the state optimized found.");
+                Assert.Inconclusive("No optimization having the state optimized found.");
             }
 
             var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
