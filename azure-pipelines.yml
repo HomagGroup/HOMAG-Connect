@@ -50,7 +50,13 @@ stages:
         inputs:
           targetType: inline
           script: |
-            $versionTag = git describe --tags --dirty --match='[0-9]*'
+            $versionTag = git describe --tags --dirty --match='[0-9]*' 2>$null
+
+            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($versionTag))
+            {
+                throw "No matching Git tag found for versioning. Create a version tag like '2.2.1' before running this pipeline."
+            }
+
             Write-Host "##vso[task.setvariable variable=VERSION_TAG;isOutput=true]$versionTag"
 
   # MEND
