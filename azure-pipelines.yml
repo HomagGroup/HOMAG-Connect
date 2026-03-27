@@ -283,6 +283,7 @@ stages:
                   $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
                   $_.FullName -notlike '*\obj\*' -and
                   $_.FullName -notlike '*\bin\*\publish\*' -and
+                  $_.Name -like 'HomagConnect*.nupkg' -and
                   $_.Name -notlike '*.snupkg' -and
                   $_.DirectoryName -notlike '*\Tests\*' -and
                   $_.Name -notlike '*.Tests*.nupkg' -and
