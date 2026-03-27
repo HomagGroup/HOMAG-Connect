@@ -57,6 +57,7 @@ stages:
                 throw "No matching Git tag found for versioning. Create a version tag like '2.2.1' before running this pipeline."
             }
 
+            Write-Host "Resolved VERSION_TAG: $versionTag"
             Write-Host "##vso[task.setvariable variable=VERSION_TAG;isOutput=true]$versionTag"
 
   # MEND
@@ -90,7 +91,9 @@ stages:
         - checkout: self
           fetchDepth: 1         
         
-        - script: echo "Build branch is $(Build.SourceBranch)" 
+        - script: |
+            echo "Build branch is $(Build.SourceBranch)"
+            echo "Build version tag is $(VERSION_TAG)"
           displayName: Display build branch environment variable
 
         - task: UseDotNet@2
