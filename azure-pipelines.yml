@@ -225,7 +225,9 @@ stages:
                   $_.FullName -notlike '*\obj\*' -and
                   $_.FullName -notlike '*\bin\*\publish\*' -and
                   $_.Name -notlike '*.snupkg' -and
-                  $_.DirectoryName -notlike '*\Tests\*'
+                  $_.DirectoryName -notlike '*\Tests\*' -and
+                  $_.Name -notlike '*.Tests*.nupkg' -and
+                  $_.Name -notlike '*.TestBase*.nupkg'
                 }
 
               foreach ($package in $packages)
