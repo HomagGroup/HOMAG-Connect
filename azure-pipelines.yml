@@ -321,9 +321,9 @@ stages:
             targetType: inline
             script: |
               $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
-
+              
               Write-Host "Found $($packages.Count) NuGet package(s) to publish."
-
+              
               foreach ($package in $packages)
               {
                   dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) $package.FullName --skip-duplicate

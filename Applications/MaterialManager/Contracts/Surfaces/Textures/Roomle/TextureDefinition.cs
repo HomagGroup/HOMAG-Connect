@@ -1,4 +1,7 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 // NOTE: This is preliminary code and is subject to change
 
@@ -36,5 +39,16 @@ public class TextureDefinition
     /// <summary>
     /// Mapping type for interpreting texture data (e.g., RGBA or XYZ).
     /// </summary>
-    public TextureMapping Mapping { get; set; }
+    public string? Mapping { get; set; }
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #endregion
 }
