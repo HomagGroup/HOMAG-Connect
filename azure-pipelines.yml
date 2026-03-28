@@ -84,12 +84,165 @@ stages:
     # MEND
     # dependsOn: software_composition_analysis_stage
     jobs:
+      - job: DetectChangedResxFiles
+        displayName: Detect changed resx files
+        timeoutInMinutes: 30
+        steps:
+        - checkout: self
+          fetchDepth: 2
+
+        - task: PowerShell@2
+          displayName: 'Detect changed resx files'
+          name: detectResxFiles
+          inputs:
+            targetType: inline
+            script: |
+              $translationMatrix = @{}
+              $shouldTranslate = '$(Build.Reason)' -ne 'Schedule' -and ('$(Build.SourceBranch)'.StartsWith('refs/tags/') -or '$(Build.SourceBranch)'.StartsWith('refs/heads/main'))
+
+              if (-not $shouldTranslate)
+              {
+                  Write-Host 'Resource translation is skipped for this build reason or branch.'
+                  Write-Host '##vso[task.setvariable variable=translationMatrix;isOutput=true]{}'
+                  Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+                  return
+              }
+
+              $changedResxFiles = @()
+              $runAllResxTranslations = $false
+
+              try
+              {
+                  git rev-parse HEAD~1 | Out-Null
+                  $changedResxFiles = @(git diff --name-only HEAD~1 HEAD -- '*.resx' 2>$null |
+                    Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                    ForEach-Object { $_.Trim() -replace '\\', '/' } |
+                    Sort-Object -Unique)
+              }
+              catch
+              {
+                  $runAllResxTranslations = $true
+                  Write-Host 'Unable to determine changed .resx files. All .resx files will be translated.'
+              }
+
+              if ($runAllResxTranslations)
+              {
+                  $sourceDirectory = '$(Build.SourcesDirectory)'
+                  $changedResxFiles = @(Get-ChildItem -Path $sourceDirectory -Recurse -Filter '*.resx' |
+                    ForEach-Object { $_.FullName.Substring($sourceDirectory.Length + 1) -replace '\\', '/' } |
+                    Sort-Object -Unique)
+              }
+
+              if ($changedResxFiles.Count -eq 0)
+              {
+                  Write-Host 'No changed .resx files detected.'
+                  Write-Host '##vso[task.setvariable variable=translationMatrix;isOutput=true]{}'
+                  Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+                  return
+              }
+
+              $index = 0
+
+              foreach ($changedResxFile in $changedResxFiles)
+              {
+                  $index++
+                  $relativeDirectory = Split-Path $changedResxFile -Parent
+                  $translationMatrix["resx$index"] = @{
+                    TranslationResxPath = $changedResxFile
+                    TranslationRelativeDirectory = $relativeDirectory
+                    TranslationWorkingDirectory = "..\\s\\$($relativeDirectory -replace '/', '\\')"
+                    TranslationFileName = Split-Path $changedResxFile -Leaf
+                  }
+              }
+
+              Write-Host "Changed .resx files:`n$($changedResxFiles -join [Environment]::NewLine)"
+              Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($translationMatrix | ConvertTo-Json -Compress -Depth 5))"
+              Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]true'
+
+      - job: TranslateChangedResxFiles
+        displayName: Translate changed resx files
+        dependsOn: DetectChangedResxFiles
+        condition: and(succeeded(), eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true'))
+        strategy:
+          matrix: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.translationMatrix'] ]
+        steps:
+        - checkout: self
+          fetchDepth: 1
+
+        - task: ResourceTranslation@3
+          displayName: 'ResourceTranslation - $(TranslationFileName)'
+          inputs:
+            C3POCustomFolder: true
+            C3POWorkingFolder: '$(Build.SourcesDirectory)'
+            RecursiveSearch: false
+            C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+            AssemblyMaskList: '$(TranslationFileName)'
+            WorkingDirectoryList: '$(TranslationWorkingDirectory)'
+            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
+            C3PORetryCounter: '3'
+            C3POTimeout: '600'
+            C3PODisableCache: true
+
+        - task: PowerShell@2
+          displayName: 'Stage translated resx files'
+          inputs:
+            targetType: inline
+            script: |
+              $relativeDirectory = '$(TranslationRelativeDirectory)' -replace '/', '\\'
+              $sourceDirectory = Join-Path '$(Build.SourcesDirectory)' $relativeDirectory
+              $artifactDirectory = Join-Path '$(Build.ArtifactStagingDirectory)\translations' $relativeDirectory
+
+              New-Item -ItemType Directory -Path $artifactDirectory -Force | Out-Null
+              Get-ChildItem -Path $sourceDirectory -Filter '*.resx' | Copy-Item -Destination $artifactDirectory -Force
+
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish translated resx artifact'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)\translations'
+            artifact: 'translated-$(System.JobPositionInPhase)'
+            publishLocation: 'pipeline'
+
       - job: Build
+        dependsOn:
+        - DetectChangedResxFiles
+        - TranslateChangedResxFiles
+        condition: and(succeeded('DetectChangedResxFiles'), in(dependencies.TranslateChangedResxFiles.result, 'Succeeded', 'Skipped'))
         timeoutInMinutes: 240
            
         steps:
         - checkout: self
-          fetchDepth: 1         
+          fetchDepth: 1
+
+        - download: current
+          displayName: 'Download translated resx artifacts'
+          condition: eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true')
+
+        - task: PowerShell@2
+          displayName: 'Merge translated resx artifacts'
+          inputs:
+            targetType: inline
+            script: |
+              $translationArtifacts = @(Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory |
+                Where-Object { $_.Name -like 'translated-*' })
+
+              if ($translationArtifacts.Count -eq 0)
+              {
+                  Write-Host 'No translated resx artifacts found.'
+                  return
+              }
+
+              foreach ($translationArtifact in $translationArtifacts)
+              {
+                  $translationsPath = Join-Path $translationArtifact.FullName 'translations'
+
+                  if (-not (Test-Path $translationsPath))
+                  {
+                      continue
+                  }
+
+                  Copy-Item -Path (Join-Path $translationsPath '*') -Destination '$(Build.SourcesDirectory)' -Recurse -Force
+              }
+          condition: eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true')
         
         - script: |
             echo "Build branch is $(Build.SourceBranch)"
@@ -142,21 +295,6 @@ stages:
               sonar.branch.name=$(Build.SourceBranchName)
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false), ne(variables['Build.Reason'], 'PullRequest'))
 
-
-        - task: ResourceTranslation@3
-          displayName: 'ResourceTranslation'
-          inputs:
-            C3POCustomFolder: true
-            C3POWorkingFolder: '$(Build.SourcesDirectory)'
-            RecursiveSearch: true
-            C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
-            AssemblyMaskList: '*.resx'
-            WorkingDirectoryList: '..\s'
-            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
-            C3PORetryCounter: '3'
-            C3POTimeout: '600'
-            C3PODisableCache: true
-          condition:  and(succeeded(), ne(variables['Build.Reason'], 'Schedule'), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
 
         - task: DotNetCoreCLI@2
           displayName: Build projects
