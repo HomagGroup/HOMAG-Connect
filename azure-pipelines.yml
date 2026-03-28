@@ -270,10 +270,12 @@ stages:
             script: |
               $translationArtifacts = @(Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory |
                 Where-Object { $_.Name -like 'translated-*' })
+              $translationsMerged = $false
 
               if ($translationArtifacts.Count -eq 0)
               {
                   Write-Host 'No translated resx artifacts found.'
+                  Write-Host '##vso[task.setvariable variable=TranslationFallbackRequired]true'
                   return
               }
 
@@ -287,8 +289,26 @@ stages:
                   }
 
                   Copy-Item -Path (Join-Path $translationsPath '*') -Destination '$(Build.SourcesDirectory)' -Recurse -Force
+                  $translationsMerged = $true
               }
+
+              Write-Host "##vso[task.setvariable variable=TranslationFallbackRequired]$(((-not $translationsMerged).ToString()).ToLowerInvariant())"
           condition: eq(variables['HasResxChanges'], 'true')
+
+        - task: ResourceTranslation@3
+          displayName: 'ResourceTranslation fallback'
+          condition: and(eq(variables['HasResxChanges'], 'true'), eq(variables['TranslationFallbackRequired'], 'true'))
+          inputs:
+            C3POCustomFolder: true
+            C3POWorkingFolder: '$(Build.SourcesDirectory)'
+            RecursiveSearch: true
+            C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+            AssemblyMaskList: '*.resx'
+            WorkingDirectoryList: '..\s'
+            C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
+            C3PORetryCounter: '3'
+            C3POTimeout: '600'
+            C3PODisableCache: true
         
         - script: |
             echo "Build branch is $(Build.SourceBranch)"
