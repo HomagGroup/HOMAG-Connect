@@ -50,13 +50,51 @@ stages:
         inputs:
           targetType: inline
           script: |
-            $versionTag = git describe --tags --dirty --match='[0-9]*' 2>$null
+            $sourceBranch = if ('$(Build.Reason)' -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace('$(System.PullRequest.SourceBranch)'))
+            {
+                '$(System.PullRequest.SourceBranch)'
+            }
+            else
+            {
+                '$(Build.SourceBranch)'
+            }
 
-            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($versionTag))
+            $latestTag = git describe --tags --abbrev=0 --match='[0-9]*' 2>$null
+            $exactTag = git describe --tags --exact-match --match='[0-9]*' 2>$null
+            $hasExactTag = $LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($exactTag)
+
+            if ([string]::IsNullOrWhiteSpace($latestTag))
             {
                 throw "No matching Git tag found for versioning. Create a version tag like '2.2.1' before running this pipeline."
             }
 
+            if ($sourceBranch -like 'refs/tags/*' -or ($sourceBranch -eq 'refs/heads/main' -and $hasExactTag))
+            {
+                $versionTag = if ($hasExactTag) { $exactTag } else { $sourceBranch.Substring(10) }
+            }
+            else
+            {
+                $version = [Version]$latestTag
+                $nextPatchVersion = '{0}.{1}.{2}' -f $version.Major, $version.Minor, ($version.Build + 1)
+                $commitsSinceTag = [int](git rev-list "$latestTag..HEAD" --count 2>$null)
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    throw "Unable to determine commits since tag '$latestTag'."
+                }
+
+                $preReleaseNumber = [Math]::Max($commitsSinceTag, 1)
+                $preReleaseLabel = if ($sourceBranch -eq 'refs/heads/main') { 'preview' } else { 'alpha' }
+                $versionTag = "$nextPatchVersion-$preReleaseLabel.$preReleaseNumber"
+            }
+
+            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($versionTag))
+            {
+                throw "Unable to resolve package version from Git metadata."
+            }
+
+            Write-Host "Resolved source branch: $sourceBranch"
+            Write-Host "Resolved latest tag: $latestTag"
             Write-Host "Resolved VERSION_TAG: $versionTag"
             Write-Host "##vso[task.setvariable variable=VERSION_TAG;isOutput=true]$versionTag"
 
@@ -212,6 +250,8 @@ stages:
         dependsOn:
         - DetectChangedResxFiles
         - TranslateChangedResxFiles
+        variables:
+          HasResxChanges: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'] ]
         condition: and(succeeded('DetectChangedResxFiles'), in(dependencies.TranslateChangedResxFiles.result, 'Succeeded', 'Skipped'))
         timeoutInMinutes: 240
            
@@ -221,7 +261,7 @@ stages:
 
         - download: current
           displayName: 'Download translated resx artifacts'
-          condition: eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true')
+          condition: eq(variables['HasResxChanges'], 'true')
 
         - task: PowerShell@2
           displayName: 'Merge translated resx artifacts'
@@ -248,7 +288,7 @@ stages:
 
                   Copy-Item -Path (Join-Path $translationsPath '*') -Destination '$(Build.SourcesDirectory)' -Recurse -Force
               }
-          condition: eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true')
+          condition: eq(variables['HasResxChanges'], 'true')
         
         - script: |
             echo "Build branch is $(Build.SourceBranch)"
