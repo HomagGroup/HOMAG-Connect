@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
@@ -19,7 +20,7 @@ public class TextureObject
     /// <summary>
     /// Timestamp when the texture object was created.
     /// </summary>
-    public DateTime Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
     /// <summary>
     /// Definition metadata including pixel and physical dimensions.
@@ -44,7 +45,7 @@ public class TextureObject
     /// <summary>
     /// Mapping type for interpreting texture data (RGBA/XYZ).
     /// </summary>
-    public TextureMapping Mapping { get; set; }
+    public string? Mapping { get; set; }
 
     /// <summary>
     /// Material identifier this texture is associated with.
@@ -74,7 +75,7 @@ public class TextureObject
     /// <summary>
     /// Timestamp when the texture object was last updated.
     /// </summary>
-    public DateTime Updated { get; set; }
+    public DateTimeOffset Updated { get; set; }
 
     /// <summary>
     /// Absolute or relative URL to the texture resource.
@@ -85,4 +86,15 @@ public class TextureObject
     /// Texture width in pixels.
     /// </summary>
     public int Width { get; set; }
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #endregion
 }

@@ -458,6 +458,7 @@ stages:
           inputs:
             targetType: inline
             script: |
+
               $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
 
               Write-Host "Found $($packages.Count) NuGet package(s) to publish."
