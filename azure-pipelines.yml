@@ -137,7 +137,7 @@ stages:
             script: |
               $emptyTranslationMatrix = @{ noop = @{ TranslationResxPath = ''; TranslationRelativeDirectory = ''; TranslationWorkingDirectory = '..\s'; TranslationFileName = ''; RunTranslation = 'false' } }
               $translationMatrix = @{}
-              $shouldTranslate = '$(Build.Reason)' -ne 'Schedule' -and ('$(Build.SourceBranch)'.StartsWith('refs/tags/') -or '$(Build.SourceBranch)'.StartsWith('refs/heads/main'))
+              $shouldTranslate = '$(Build.Reason)' -ne 'Schedule'
 
               if (-not $shouldTranslate)
               {
@@ -252,6 +252,7 @@ stages:
         - TranslateChangedResxFiles
         variables:
           HasResxChanges: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'] ]
+          TranslationFallbackRequired: 'true'
         condition: and(succeeded('DetectChangedResxFiles'), in(dependencies.TranslateChangedResxFiles.result, 'Succeeded', 'Skipped'))
         timeoutInMinutes: 240
            
@@ -261,7 +262,7 @@ stages:
 
         - download: current
           displayName: 'Download translated resx artifacts'
-          condition: eq(variables['HasResxChanges'], 'true')
+          condition: ne(variables['Build.Reason'], 'Schedule')
 
         - task: PowerShell@2
           displayName: 'Merge translated resx artifacts'
@@ -293,11 +294,11 @@ stages:
               }
 
               Write-Host "##vso[task.setvariable variable=TranslationFallbackRequired]$(((-not $translationsMerged).ToString()).ToLowerInvariant())"
-          condition: eq(variables['HasResxChanges'], 'true')
+          condition: ne(variables['Build.Reason'], 'Schedule')
 
         - task: ResourceTranslation@3
           displayName: 'ResourceTranslation fallback'
-          condition: and(eq(variables['HasResxChanges'], 'true'), eq(variables['TranslationFallbackRequired'], 'true'))
+          condition: and(ne(variables['Build.Reason'], 'Schedule'), eq(variables['TranslationFallbackRequired'], 'true'))
           inputs:
             C3POCustomFolder: true
             C3POWorkingFolder: '$(Build.SourcesDirectory)'
