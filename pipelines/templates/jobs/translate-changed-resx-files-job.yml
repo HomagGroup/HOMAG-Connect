@@ -1,0 +1,133 @@
+jobs:
+- job: TranslateChangedResxFiles
+  displayName: Translate changed resx files
+  dependsOn: DetectChangedResxFiles
+  condition: and(succeeded(), eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true'))
+  strategy:
+    matrix: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.translationMatrix'] ]
+  steps:
+  - checkout: self
+    fetchDepth: 1
+
+  - task: PowerShell@2
+    displayName: 'Prepare translation cache metadata'
+    condition: eq(variables['RunTranslation'], 'true')
+    name: prepareTranslationCache
+    inputs:
+      targetType: inline
+      script: |
+        $translationResxPath = '$(TranslationResxPath)' -replace '/', '\'
+        $fullResxPath = Join-Path '$(Build.SourcesDirectory)' $translationResxPath
+
+        if (-not (Test-Path $fullResxPath))
+        {
+            throw "Translation source file '$fullResxPath' was not found."
+        }
+
+        $translationSourceHash = (Get-FileHash -Path $fullResxPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        $translationCachePath = Join-Path (Join-Path '$(Pipeline.Workspace)' 'translation-cache') $translationSourceHash
+
+        if (Test-Path $translationCachePath)
+        {
+            Remove-Item -Path $translationCachePath -Recurse -Force
+        }
+
+        New-Item -ItemType Directory -Path $translationCachePath -Force | Out-Null
+
+        Write-Host "Translation source hash: $translationSourceHash"
+        Write-Host "##vso[task.setvariable variable=TranslationSourceHash]$translationSourceHash"
+        Write-Host "##vso[task.setvariable variable=TranslationCachePath]$translationCachePath"
+
+  - task: Cache@2
+    displayName: 'Restore translated resx cache'
+    condition: eq(variables['RunTranslation'], 'true')
+    inputs:
+      key: 'resx-translation | "$(Agent.OS)" | $(TranslationResxPath) | $(TranslationSourceHash)'
+      path: '$(TranslationCachePath)'
+      cacheHitVar: TranslationCacheHit
+
+  - task: PowerShell@2
+    displayName: 'Restore translated resx files from cache'
+    condition: and(eq(variables['RunTranslation'], 'true'), eq(variables['TranslationCacheHit'], 'true'))
+    inputs:
+      targetType: inline
+      script: |
+        $relativeDirectory = '$(TranslationRelativeDirectory)' -replace '/', '\'
+        $sourceDirectory = Join-Path '$(Build.SourcesDirectory)' $relativeDirectory
+        $cachedResxFiles = @(Get-ChildItem -Path '$(TranslationCachePath)' -Filter '*.resx' -File)
+
+        if ($cachedResxFiles.Count -eq 0)
+        {
+            throw "No cached translated .resx files found for '$(TranslationResxPath)'."
+        }
+
+        New-Item -ItemType Directory -Path $sourceDirectory -Force | Out-Null
+
+        foreach ($cachedResxFile in $cachedResxFiles)
+        {
+            Copy-Item -Path $cachedResxFile.FullName -Destination $sourceDirectory -Force
+        }
+
+        Write-Host "Restored $($cachedResxFiles.Count) translated .resx file(s) from cache."
+
+  - task: ResourceTranslation@3
+    displayName: 'ResourceTranslation - $(TranslationFileName)'
+    condition: and(eq(variables['RunTranslation'], 'true'), ne(variables['TranslationCacheHit'], 'true'))
+    inputs:
+      C3POCustomFolder: true
+      C3POWorkingFolder: '$(Build.SourcesDirectory)'
+      RecursiveSearch: false
+      C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+      AssemblyMaskList: '$(TranslationFileName)'
+      WorkingDirectoryList: '$(TranslationWorkingDirectory)'
+      C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
+      C3PORetryCounter: '3'
+      C3POTimeout: '600'
+      C3PODisableCache: true
+
+  - task: PowerShell@2
+    displayName: 'Update translated resx cache'
+    condition: and(succeeded(), eq(variables['RunTranslation'], 'true'), ne(variables['TranslationCacheHit'], 'true'))
+    inputs:
+      targetType: inline
+      script: |
+        $relativeDirectory = '$(TranslationRelativeDirectory)' -replace '/', '\'
+        $sourceDirectory = Join-Path '$(Build.SourcesDirectory)' $relativeDirectory
+        $baseFileName = [System.IO.Path]::GetFileNameWithoutExtension('$(TranslationFileName)')
+        $translatedResxFiles = @(Get-ChildItem -Path $sourceDirectory -Filter "$baseFileName*.resx" -File)
+
+        if ($translatedResxFiles.Count -eq 0)
+        {
+            throw "No translated .resx files found to cache for '$(TranslationResxPath)'."
+        }
+
+        Get-ChildItem -Path '$(TranslationCachePath)' -File -ErrorAction SilentlyContinue | Remove-Item -Force
+
+        foreach ($translatedResxFile in $translatedResxFiles)
+        {
+            Copy-Item -Path $translatedResxFile.FullName -Destination '$(TranslationCachePath)' -Force
+        }
+
+        Write-Host "Cached $($translatedResxFiles.Count) translated .resx file(s)."
+
+  - task: PowerShell@2
+    displayName: 'Stage translated resx files'
+    condition: eq(variables['RunTranslation'], 'true')
+    inputs:
+      targetType: inline
+      script: |
+        $relativeDirectory = '$(TranslationRelativeDirectory)' -replace '/', '\'
+        $sourceDirectory = Join-Path '$(Build.SourcesDirectory)' $relativeDirectory
+        $artifactDirectory = Join-Path '$(Build.ArtifactStagingDirectory)\translations' $relativeDirectory
+        $baseFileName = [System.IO.Path]::GetFileNameWithoutExtension('$(TranslationFileName)')
+
+        New-Item -ItemType Directory -Path $artifactDirectory -Force | Out-Null
+        Get-ChildItem -Path $sourceDirectory -Filter "$baseFileName*.resx" | Copy-Item -Destination $artifactDirectory -Force
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish translated resx artifact'
+    condition: eq(variables['RunTranslation'], 'true')
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)\translations'
+      artifact: 'translated-$(System.JobPositionInPhase)'
+      publishLocation: 'pipeline'

@@ -1,0 +1,119 @@
+jobs:
+- job: DetectChangedResxFiles
+  displayName: Detect changed resx files
+  timeoutInMinutes: 30
+  steps:
+  - checkout: self
+    fetchDepth: 0
+
+  - task: PowerShell@2
+    displayName: 'Detect changed resx files'
+    name: detectResxFiles
+    inputs:
+      targetType: inline
+      script: |
+        $emptyTranslationMatrix = @{ noop = @{ TranslationResxPath = ''; TranslationRelativeDirectory = ''; TranslationWorkingDirectory = '..\s'; TranslationFileName = ''; RunTranslation = 'false' } }
+        $translationMatrix = @{}
+        $shouldTranslate = '$(Build.Reason)' -ne 'Schedule'
+        $buildReason = '$(Build.Reason)'
+        $pullRequestTargetBranch = '$(System.PullRequest.TargetBranch)'
+
+        if (-not $shouldTranslate)
+        {
+            Write-Host 'Resource translation is skipped for this build reason or branch.'
+            Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($emptyTranslationMatrix | ConvertTo-Json -Compress -Depth 5))"
+            Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+            return
+        }
+
+        $changedResxFiles = @()
+        $runAllResxTranslations = $false
+        $diffDescription = ''
+
+        try
+        {
+            if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestTargetBranch))
+            {
+                Write-Host "Detecting changed .resx files against pull request target branch '$pullRequestTargetBranch'."
+                git fetch --no-tags origin $pullRequestTargetBranch 2>$null | Out-Null
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    throw "Unable to fetch target branch '$pullRequestTargetBranch'."
+                }
+
+                $mergeBase = git merge-base HEAD FETCH_HEAD 2>$null
+
+                if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
+                {
+                    throw "Unable to determine merge base for '$pullRequestTargetBranch'."
+                }
+
+                $diffDescription = "$mergeBase..HEAD"
+                $changedResxFiles = @(git diff --name-only "$mergeBase..HEAD" -- '*.resx' 2>$null |
+                  Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                  ForEach-Object { $_.Trim() -replace '\\', '/' } |
+                  Sort-Object -Unique)
+            }
+            else
+            {
+                git rev-parse HEAD~1 | Out-Null
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    throw 'Unable to resolve the previous commit.'
+                }
+
+                $diffDescription = 'HEAD~1..HEAD'
+                $changedResxFiles = @(git diff --name-only HEAD~1 HEAD -- '*.resx' 2>$null |
+                  Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                  ForEach-Object { $_.Trim() -replace '\\', '/' } |
+                  Sort-Object -Unique)
+            }
+        }
+        catch
+        {
+            $runAllResxTranslations = $true
+            Write-Host "Unable to determine changed .resx files. $($_.Exception.Message)"
+            Write-Host 'All .resx files will be translated.'
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($diffDescription))
+        {
+            Write-Host "Translation diff range: $diffDescription"
+        }
+
+        if ($runAllResxTranslations)
+        {
+            $sourceDirectory = '$(Build.SourcesDirectory)'
+            $changedResxFiles = @(Get-ChildItem -Path $sourceDirectory -Recurse -Filter '*.resx' |
+              ForEach-Object { $_.FullName.Substring($sourceDirectory.Length + 1) -replace '\\', '/' } |
+              Sort-Object -Unique)
+        }
+
+        if ($changedResxFiles.Count -eq 0)
+        {
+            Write-Host 'No changed .resx files detected.'
+            Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($emptyTranslationMatrix | ConvertTo-Json -Compress -Depth 5))"
+            Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+            return
+        }
+
+        $index = 0
+
+        foreach ($changedResxFile in $changedResxFiles)
+        {
+            $index++
+            $relativeDirectory = Split-Path $changedResxFile -Parent
+            $translationMatrix["resx$index"] = @{
+              TranslationResxPath = $changedResxFile
+              TranslationRelativeDirectory = $relativeDirectory
+              TranslationWorkingDirectory = "..\\s\\$($relativeDirectory -replace '/', '\\')"
+              TranslationFileName = Split-Path $changedResxFile -Leaf
+              RunTranslation = 'true'
+            }
+        }
+
+        Write-Host "Changed .resx files:`n$($changedResxFiles -join [Environment]::NewLine)"
+        Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($translationMatrix | ConvertTo-Json -Compress -Depth 5))"
+        Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]true'
