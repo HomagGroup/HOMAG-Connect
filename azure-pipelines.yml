@@ -306,6 +306,7 @@ stages:
             targetType: inline
             script: |
               $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
+              $expectedPackageVersion = '$(VERSION_TAG)'
 
               if (Test-Path $packagesOutputPath)
               {
@@ -320,12 +321,14 @@ stages:
                   $_.FullName -notlike '*\obj\*' -and
                   $_.FullName -notlike '*\bin\*\publish\*' -and
                   $_.Name -like 'HomagGroup.HomagConnect*.nupkg' -and
+                  $_.Name -like "*.$expectedPackageVersion.nupkg" -and
                   $_.Name -notlike '*.snupkg' -and
                   $_.DirectoryName -notlike '*\Tests\*' -and
                   $_.Name -notlike '*.Tests*.nupkg' -and
                   $_.Name -notlike '*.TestBase*.nupkg'
                 })
 
+              Write-Host "Expected package version: $expectedPackageVersion"
               Write-Host "Found $($packages.Count) NuGet package(s) to stage."
 
               foreach ($package in $packages)
