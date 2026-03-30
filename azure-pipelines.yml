@@ -209,7 +209,7 @@ stages:
                   !**/logs/**
                   !**/bin/**/*.csproj
                   !**/obj/**/*.csproj
-            arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
+            arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
         - task: PowerShell@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
