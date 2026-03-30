@@ -282,13 +282,21 @@ stages:
 
               foreach ($translationArtifact in $translationArtifacts)
               {
-                  $translationsPath = Join-Path $translationArtifact.FullName 'translations'
+                  $translationsPath = if (Test-Path (Join-Path $translationArtifact.FullName 'translations'))
+                  {
+                      Join-Path $translationArtifact.FullName 'translations'
+                  }
+                  else
+                  {
+                      $translationArtifact.FullName
+                  }
 
                   if (-not (Test-Path $translationsPath))
                   {
                       continue
                   }
 
+                  Write-Host "Merging translated resx artifact from '$translationsPath'."
                   Copy-Item -Path (Join-Path $translationsPath '*') -Destination '$(Build.SourcesDirectory)' -Recurse -Force
                   $translationsMerged = $true
               }
