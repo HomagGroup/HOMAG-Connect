@@ -35,14 +35,14 @@ jobs:
             if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestTargetBranch))
             {
                 Write-Host "Detecting changed .resx files against pull request target branch '$pullRequestTargetBranch'."
-                git fetch --no-tags origin $pullRequestTargetBranch 2>$null | Out-Null
+                $fetchOutput = @(& git fetch --no-tags origin $pullRequestTargetBranch 2>&1)
 
                 if ($LASTEXITCODE -ne 0)
                 {
-                    throw "Unable to fetch target branch '$pullRequestTargetBranch'."
+                    throw "Unable to fetch target branch '$pullRequestTargetBranch'. $($fetchOutput -join [Environment]::NewLine)"
                 }
 
-                $mergeBase = git merge-base HEAD FETCH_HEAD 2>$null
+                $mergeBase = (& git merge-base HEAD FETCH_HEAD 2>$null | Select-Object -First 1).Trim()
 
                 if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
                 {
@@ -74,6 +74,7 @@ jobs:
         catch
         {
             $runAllResxTranslations = $true
+            $global:LASTEXITCODE = 0
             Write-Host "Unable to determine changed .resx files. $($_.Exception.Message)"
             Write-Host 'All .resx files will be translated.'
         }
@@ -96,6 +97,7 @@ jobs:
             Write-Host 'No changed .resx files detected.'
             Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($emptyTranslationMatrix | ConvertTo-Json -Compress -Depth 5))"
             Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+            $global:LASTEXITCODE = 0
             return
         }
 
@@ -117,3 +119,4 @@ jobs:
         Write-Host "Changed .resx files:`n$($changedResxFiles -join [Environment]::NewLine)"
         Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($translationMatrix | ConvertTo-Json -Compress -Depth 5))"
         Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]true'
+        $global:LASTEXITCODE = 0
