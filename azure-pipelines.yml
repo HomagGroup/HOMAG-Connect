@@ -261,6 +261,48 @@ stages:
             artifact: 'tests'
             publishLocation: 'pipeline'
           condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PowerShell@2
+          displayName: 'Stage NuGet packages'
+          inputs:
+            targetType: inline
+            script: |
+              $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
+
+              if (Test-Path $packagesOutputPath)
+              {
+                  Remove-Item -Path $packagesOutputPath -Recurse -Force
+              }
+
+              New-Item -ItemType Directory -Path $packagesOutputPath | Out-Null
+
+              $packages = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
+                Where-Object {
+                  $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
+                  $_.FullName -notlike '*\obj\*' -and
+                  $_.FullName -notlike '*\bin\*\publish\*' -and
+                  $_.Name -like 'HomagGroup.HomagConnect*.nupkg' -and
+                  $_.Name -notlike '*.snupkg' -and
+                  $_.DirectoryName -notlike '*\Tests\*' -and
+                  $_.Name -notlike '*.Tests*.nupkg' -and
+                  $_.Name -notlike '*.TestBase*.nupkg'
+                })
+
+              Write-Host "Found $($packages.Count) NuGet package(s) to stage."
+
+              foreach ($package in $packages)
+              {
+                  Copy-Item -Path $package.FullName -Destination $packagesOutputPath -Force
+              }
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish NuGet packages artifact'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)\packages'
+            artifact: 'nuget-packages'
+            publishLocation: 'pipeline'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
         
         # MEND
         # - template: common-tasks/list-agent-directory/template.yml@templates
@@ -278,18 +320,10 @@ stages:
           inputs:
             targetType: inline
             script: |
-              $packages = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
-                Where-Object {
-                  $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
-                  $_.FullName -notlike '*\obj\*' -and
-                  $_.FullName -notlike '*\bin\*\publish\*' -and
-                  $_.Name -like 'HomagConnect*.nupkg' -and
-                  $_.Name -notlike '*.snupkg' -and
-                  $_.DirectoryName -notlike '*\Tests\*' -and
-                  $_.Name -notlike '*.Tests*.nupkg' -and
-                  $_.Name -notlike '*.TestBase*.nupkg'
-                }
-
+              $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
+              
+              Write-Host "Found $($packages.Count) NuGet package(s) to publish."
+              
               foreach ($package in $packages)
               {
                   dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) $package.FullName --skip-duplicate
