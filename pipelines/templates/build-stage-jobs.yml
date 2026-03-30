@@ -1,4 +1,4 @@
 jobs:
-- template: pipelines/templates/jobs/detect-changed-resx-files-job.yml
-- template: pipelines/templates/jobs/translate-changed-resx-files-job.yml
-- template: pipelines/templates/jobs/build-job.yml
+- template: jobs/detect-changed-resx-files-job.yml
+- template: jobs/translate-changed-resx-files-job.yml
+- template: jobs/build-job.yml
