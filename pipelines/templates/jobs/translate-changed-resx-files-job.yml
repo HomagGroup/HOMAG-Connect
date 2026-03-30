@@ -2,6 +2,7 @@ jobs:
 - job: TranslateChangedResxFiles
   displayName: Translate changed resx files
   dependsOn: DetectChangedResxFiles
+  timeoutInMinutes: 240
   variables:
     ChangedResxFilesJson: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.ChangedResxFilesJson'] ]
   condition: and(succeeded(), eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true'))
@@ -15,7 +16,7 @@ jobs:
       key: 'resx-translation | "$(Agent.OS)" | $(Build.SourceVersion)'
       restoreKeys: |
         resx-translation | "$(Agent.OS)"
-      path: '$(Pipeline.Workspace)\translation-cache-root'
+      path: '$(Agent.TempDirectory)\translation-cache-root'
       cacheHitVar: TranslationCacheRestored
 
   - task: PowerShell@2
@@ -35,7 +36,7 @@ jobs:
         }
 
         $changedResxFiles = @($changedResxFilesRaw | ForEach-Object { [string]$_ })
-        $cacheRoot = '$(Pipeline.Workspace)\translation-cache-root'
+        $cacheRoot = '$(Agent.TempDirectory)\translation-cache-root'
         $translationWorkspaceRoot = '$(Pipeline.Workspace)\translation-workspace'
         $artifactRoot = '$(Build.ArtifactStagingDirectory)\translations'
         $filesToTranslate = @()
