@@ -113,10 +113,7 @@ jobs:
             }
             New-Item -ItemType Directory -Path $workspaceDirectory -Force | Out-Null
 
-            foreach ($resxFile in Get-ChildItem -Path $sourceDirectory -Filter "$baseFileName*.resx" -File)
-            {
-                Copy-Item -Path $resxFile.FullName -Destination $workspaceDirectory -Force
-            }
+            Copy-Item -Path $sourceResxPath -Destination (Join-Path $workspaceDirectory $fileName) -Force
 
             $filesToTranslate += [pscustomobject]@{
                 RelativePath = $changedResxFile
