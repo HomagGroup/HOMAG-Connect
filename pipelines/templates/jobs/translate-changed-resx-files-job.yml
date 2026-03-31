@@ -165,11 +165,29 @@ jobs:
             throw "Translation manifest '$translationManifestPath' was not found."
         }
 
-        $filesToTranslate = @(Get-Content -Path $translationManifestPath -Raw | ConvertFrom-Json)
+        $filesToTranslateRaw = Get-Content -Path $translationManifestPath -Raw | ConvertFrom-Json
+        $filesToTranslate = @($filesToTranslateRaw)
 
         foreach ($fileToTranslate in $filesToTranslate)
         {
-            $relativeDirectory = $fileToTranslate.RelativeDirectory -replace '/', '\'
+            $relativeDirectoryValue = $fileToTranslate.RelativeDirectory
+            $relativeDirectory = if ($null -eq $relativeDirectoryValue)
+            {
+                ''
+            }
+            elseif ($relativeDirectoryValue -is [System.Array])
+            {
+                [string]$relativeDirectoryValue[0]
+            }
+            else
+            {
+                [string]$relativeDirectoryValue
+            }
+
+            $relativeDirectory = $relativeDirectory -replace '/', '\'
+            $relativePath = [string]$fileToTranslate.RelativePath
+            $baseFileName = [string]$fileToTranslate.BaseFileName
+            $sourceHash = [string]$fileToTranslate.SourceHash
             $workspaceDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
             {
                 $translationWorkspaceRoot
@@ -194,12 +212,12 @@ jobs:
             {
                 Join-Path $artifactRoot $relativeDirectory
             }
-            $cachePath = Join-Path $cacheRoot $fileToTranslate.SourceHash
-            $translatedResxFiles = @(Get-ChildItem -Path $workspaceDirectory -Filter "$($fileToTranslate.BaseFileName)*.resx" -File)
+            $cachePath = Join-Path $cacheRoot $sourceHash
+            $translatedResxFiles = @(Get-ChildItem -Path $workspaceDirectory -Filter "$baseFileName*.resx" -File)
 
             if ($translatedResxFiles.Count -eq 0)
             {
-                throw "No translated .resx files found for '$($fileToTranslate.RelativePath)'."
+                throw "No translated .resx files found for '$relativePath'."
             }
 
             if (Test-Path $cachePath)
@@ -218,7 +236,7 @@ jobs:
                 Copy-Item -Path $translatedResxFile.FullName -Destination $cachePath -Force
             }
 
-            Write-Host "Cached translated .resx files for '$($fileToTranslate.RelativePath)'."
+            Write-Host "Cached translated .resx files for '$relativePath'."
         }
 
   - task: PublishPipelineArtifact@1
