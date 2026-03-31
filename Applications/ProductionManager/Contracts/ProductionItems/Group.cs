@@ -11,6 +11,12 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 public class Group : ProductionItemBase
 {
     /// <summary>
+    /// Gets or sets the order item group.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public string? OrderItemGroup { get; set; }
+
+    /// <summary>
     /// Gets or sets the production entities.
     /// </summary>
     [JsonProperty(Order = 999)]
