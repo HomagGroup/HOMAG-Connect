@@ -90,12 +90,10 @@ jobs:
 
             if ($cachedResxFiles.Count -gt 0)
             {
-                New-Item -ItemType Directory -Path $sourceDirectory -Force | Out-Null
                 New-Item -ItemType Directory -Path $artifactDirectory -Force | Out-Null
 
                 foreach ($cachedResxFile in $cachedResxFiles)
                 {
-                    Copy-Item -Path $cachedResxFile.FullName -Destination $sourceDirectory -Force
                     Copy-Item -Path $cachedResxFile.FullName -Destination $artifactDirectory -Force
                 }
 
@@ -139,11 +137,11 @@ jobs:
     condition: eq(variables['RequiresC3PO'], 'true')
     inputs:
       C3POCustomFolder: true
-      C3POWorkingFolder: '$(Pipeline.Workspace)'
+      C3POWorkingFolder: '$(TranslationWorkspaceRoot)'
       RecursiveSearch: true
       C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
       AssemblyMaskList: '*.resx'
-      WorkingDirectoryList: 'translation-workspace'
+      WorkingDirectoryList: '.'
       C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
       C3PORetryCounter: '3'
       C3POTimeout: '600'
@@ -196,14 +194,6 @@ jobs:
             {
                 Join-Path $translationWorkspaceRoot $relativeDirectory
             }
-            $sourceDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
-            {
-                '$(Build.SourcesDirectory)'
-            }
-            else
-            {
-                Join-Path '$(Build.SourcesDirectory)' $relativeDirectory
-            }
             $artifactDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
             {
                 $artifactRoot
@@ -225,13 +215,11 @@ jobs:
                 Remove-Item -Path $cachePath -Recurse -Force
             }
 
-            New-Item -ItemType Directory -Path $sourceDirectory -Force | Out-Null
             New-Item -ItemType Directory -Path $artifactDirectory -Force | Out-Null
             New-Item -ItemType Directory -Path $cachePath -Force | Out-Null
 
             foreach ($translatedResxFile in $translatedResxFiles)
             {
-                Copy-Item -Path $translatedResxFile.FullName -Destination $sourceDirectory -Force
                 Copy-Item -Path $translatedResxFile.FullName -Destination $artifactDirectory -Force
                 Copy-Item -Path $translatedResxFile.FullName -Destination $cachePath -Force
             }
