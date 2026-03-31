@@ -125,7 +125,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// <summary>
         /// The telephone number of the customer of this order
         /// </summary>
-        [JsonProperty(Order = 3210)]
+        [JsonProperty(Order = 321)]
         public string? TelephoneNumber { get; set; }
 
         /// <summary>
@@ -133,6 +133,24 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 322)]
         public string? Email { get; set; }
+
+        /// <summary>
+        /// The country and language code of the customer of this order
+        /// IETF language tag, e.g. "de-CH" for German/Switzerland
+        /// </summary>
+        public string? CustomerCulture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the language preference associated with the customer. 
+        /// ISO 2 Letter code e.g. "EN"
+        /// </summary>
+        public string? CustomerLanguage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ISO currency code associated with the customer.
+        /// e.g. "CHF" for Swiss Francs, "EUR" for Euro, "USD" for US Dollar
+        /// </summary>
+        public string? CustomerCurrency { get; set; }
 
         #endregion
 

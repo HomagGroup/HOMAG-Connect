@@ -1,3 +1,4 @@
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Cutting.Project;
@@ -11,9 +12,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 /// The class contains tests to ensure that the cutting optimization requests samples work as expected.
 /// </summary>
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Requests.Cutting")]
-[TestCategory("IntelliDivide.Requests.Cutting.ProjectZip")]
+[DeploymentTest("IntelliDivide.Requests.Cutting.ProjectZip")]
 public class CuttingOptimizationRequestUsingProjectZipTests : IntelliDivideTestBase
 {
     /// <summary />
@@ -26,6 +25,7 @@ public class CuttingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task CuttingRequest_ProjectZip_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -35,6 +35,7 @@ public class CuttingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task CuttingRequest_ProjectZip_StackingGroups_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();

@@ -3,56 +3,51 @@
   <Class Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.TextureDefinition">
     <Position X="13.5" Y="7" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAABAAQAAAAAAEAAAAAgAAAAAAAAAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAFAAQAAAAAAEAAAAAgAAAAAAAAAAEAAAA=</HashCode>
       <FileName>Surfaces\Textures\Roomle\TextureDefinition.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Mapping" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.TextureObject">
     <Position X="10" Y="7" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAABAABCAQAAAAAAMAAAAAgABQASAAgAAEAAAA=</HashCode>
+      <HashCode>AEACAAAABAAFCAQAAAAAAMAAAAAgABQASAAgAAEAAAA=</HashCode>
       <FileName>Surfaces\Textures\Roomle\TextureObject.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Definition" />
-      <Property Name="Mapping" />
     </ShowAsAssociation>
   </Class>
   <Class Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.ColorRgb">
     <Position X="13.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAACAEAAQA=</HashCode>
       <FileName>Surfaces\Textures\Roomle\ColorRgb.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.Shading">
     <Position X="10" Y="1.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>IoCoCAABEAAAAARAAAAAAABQQAICAFAAAgAAQEAAgAA=</HashCode>
+      <HashCode>IoCoCAABEAAEAARAAAAAAABQQAICAFAAAgAAQEAAgAA=</HashCode>
       <FileName>Surfaces\Textures\Roomle\Shading.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Basecolor" />
-      <Property Name="AlphaMode" />
-      <Property Name="AttenuationColor" />
       <Property Name="EmissiveColor" />
       <Property Name="SheenColor" />
+      <Property Name="AttenuationColor" />
     </ShowAsAssociation>
   </Class>
   <Class Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.MaterialLinks">
     <Position X="10" Y="11" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Surfaces\Textures\Roomle\MaterialLinks.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.Material">
     <Position X="4.75" Y="1.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>oAICAAAAGAAAAABACAAACAABAAAAAEQgSAAABAAEAgA=</HashCode>
+      <HashCode>oAICAAAAGAAEAABACAAACAABAAAAAEQgSAAABAAEAgA=</HashCode>
       <FileName>Surfaces\Textures\Roomle\Material.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -72,19 +67,5 @@
       <Property Name="Materials" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Enum Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.TextureMapping">
-    <Position X="16.5" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAQAAAAAAABA=</HashCode>
-      <FileName>Surfaces\Textures\Roomle\TextureMapping.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle.AlphaMode">
-    <Position X="13.5" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIAAAAAAEABA=</HashCode>
-      <FileName>Surfaces\Textures\Roomle\AlphaMode.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

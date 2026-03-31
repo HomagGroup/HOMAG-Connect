@@ -20,6 +20,6 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
         /// </summary>
         [Required]
         [JsonProperty(Order = 20)]
-        public string Id { get; set; }
+        public string BoardEntityId { get; set; }
     }
 }

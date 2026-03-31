@@ -1,4 +1,7 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 // NOTE: This is preliminary code and is subject to change
 
@@ -11,4 +14,15 @@ public class MaterialLinks
     /// URL to the textures endpoint associated with this material.
     /// </summary>
     public string? Textures { get; set; }
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #endregion
 }

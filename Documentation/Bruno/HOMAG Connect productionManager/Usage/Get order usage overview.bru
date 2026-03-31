@@ -1,0 +1,175 @@
+meta {
+  name: Get order usage overview
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/statistics/usage/overview?monthsAgo=12
+  body: none
+  auth: inherit
+}
+
+params:query {
+  monthsAgo: 12
+  ~format: localized
+  ~culture: en
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Get order usage overview
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/overview
+  ```
+  
+  ## Purpose
+  
+  Retrieve usage overview for production manager orders grouped by period, showing the licenses owned and the quantity of parts released per period.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `monthsAgo` | query | integer | no | Number of months to look back (default: 12, max: 24). |
+  | `format` | query | string | no | Set to `localized` to return property names and enum values in the requested culture. |
+  | `culture` | query | string | no | Localization culture (for example `de`, `en`, `de-DE`). Used together with `format=localized`. Falls back to current server culture if omitted. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/overview?monthsAgo=12
+  ```
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/overview?monthsAgo=6&format=localized&culture=de
+  ```
+  
+  ## Success response example
+  
+  ```json
+  [
+    {
+      "period": "2025-01-01T00:00:00Z",
+      "licenses": [
+        {
+          "applicationId": "00000000-0000-0000-0000-000000000001",
+          "applicationLicenseFullName": "productionManager Premium",
+          "licenseCount": 5
+        }
+      ],
+      "quantityOfPartsCoveredByTheLicenses": 10000,
+      "quantityOfReleasedParts": 7500
+    },
+    {
+      "period": "2024-12-01T00:00:00Z",
+      "licenses": [
+        {
+          "applicationId": "00000000-0000-0000-0000-000000000001",
+          "applicationLicenseFullName": "productionManager Premium",
+          "licenseCount": 5
+        }
+      ],
+      "quantityOfPartsCoveredByTheLicenses": 10000,
+      "quantityOfReleasedParts": 9250
+    }
+  ]
+  ```
+  
+  ## Possible error codes
+  
+  - `401 Unauthorized` - Missing or invalid credentials, or required productionManager license is missing.
+  - `422 Unprocessable Entity` - Invalid monthsAgo parameter (must be between 1 and 24).
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# sample
+  
+  ```csharp
+  using HomagConnect.ProductionManager.Client;
+  using HomagConnect.ProductionManager.Contracts.Orders;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+  
+  // Example 1: Get usage overview for the last 12 months
+  var usageOverview = await client.GetUsageOverview(monthsAgo: 12);
+  
+  foreach (var overview in usageOverview)
+  {
+      Console.WriteLine($"Period: {overview.Period:yyyy-MM}");
+      Console.WriteLine($"Parts released: {overview.QuantityOfReleasedParts} / {overview.QuantityOfPartsCoveredByTheLicenses}");
+      
+      foreach (var license in overview.Licenses)
+      {
+          Console.WriteLine($"  License: {license.ApplicationLicenseFullName} (Count: {license.LicenseCount})");
+      }
+  }
+  
+  // Example 2: Get usage overview for the last 6 months
+  var recentOverview = await client.GetUsageOverview(monthsAgo: 6);
+  
+  foreach (var overview in recentOverview)
+  {
+      var usagePercentage = overview.QuantityOfPartsCoveredByTheLicenses > 0
+          ? (overview.QuantityOfReleasedParts * 100.0 / overview.QuantityOfPartsCoveredByTheLicenses)
+          : 0;
+      Console.WriteLine($"{overview.Period:yyyy-MM}: {usagePercentage:F1}% used");
+  }
+  ```
+  
+  ## PowerShell sample
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  # Example 1: Get usage overview for the last 12 months
+  $url = "$baseUrl/api/productionManager/statistics/usage/overview?monthsAgo=12"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($overview in $response) {
+    $period = [DateTime]::Parse($overview.period).ToString("yyyy-MM")
+    Write-Host "Period: $period"
+    Write-Host "Parts released: $($overview.quantityOfReleasedParts) / $($overview.quantityOfPartsCoveredByTheLicenses)"
+    
+    foreach ($license in $overview.licenses) {
+      Write-Host "  License: $($license.applicationLicenseFullName) (Count: $($license.licenseCount))"
+    }
+  }
+  
+  # Example 2: Get usage overview for the last 6 months
+  $url = "$baseUrl/api/productionManager/statistics/usage/overview?monthsAgo=6"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($overview in $response) {
+    $period = [DateTime]::Parse($overview.period).ToString("yyyy-MM")
+    if ($overview.quantityOfPartsCoveredByTheLicenses -gt 0) {
+      $usagePercentage = ($overview.quantityOfReleasedParts * 100.0 / $overview.quantityOfPartsCoveredByTheLicenses)
+      Write-Host ("{0}: {1:F1}% used" -f $period, $usagePercentage)
+    }
+  }
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [UsageOverview](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Orders/UsageOverview.cs)
+  - [License](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Orders/License.cs)
+}

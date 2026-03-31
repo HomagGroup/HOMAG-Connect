@@ -10,12 +10,42 @@ namespace HomagConnect.IntelliDivide.Contracts.Request;
 /// </summary>
 /// <example>
 /// {
-///   "name": "Order_20250120",
+///   "name": "Order_20260120",
 ///   "machine": "productionAssist Cutting",
 ///   "parameters": "Default",
 ///   "action": "Optimize",
+///   "unitSystem": "Metric",
+///   "boards": [  // optional, materialManager data is used if not provided
+///     {
+///       "materialCode": "P2_White_19.0",
+///       "boardCode": "P2_White_19.0_2800_2070",
+///       "length": 2800,
+///       "width": 2070,
+///       "thickness": 19.0,
+///       "grain": "None",
+///       "quantity": 20,
+///       "costs": 10.5
+///     }
+///   ],
 ///   "parts": [
-///     { "description": "Part A", "materialCode": "P2_White_19.0", "length": 300, "width": 300, "quantity": 5 }
+///     {
+///       "description": "Left Side",
+///       "materialCode": "P2_White_19.0",
+///       "length": 600,
+///       "width": 300,
+///       "thickness": 19.0,
+///       "quantity": 5,
+///       "grain": "None"
+///     },
+///     {
+///       "description": "Right Side",
+///       "materialCode": "P2_White_19.0",
+///       "length": 600,
+///       "width": 300,
+///       "thickness": 19.0,
+///       "quantity": 5,
+///       "grain": "None"
+///     }
 ///   ]
 /// }
 /// </example>

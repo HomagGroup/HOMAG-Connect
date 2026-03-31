@@ -1,4 +1,7 @@
-﻿namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 // NOTE: This is preliminary code and is subject to change
 
@@ -22,4 +25,15 @@ public class ColorRgb
     /// Red channel component.
     /// </summary>
     public double R { get; set; }
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    #endregion
 }

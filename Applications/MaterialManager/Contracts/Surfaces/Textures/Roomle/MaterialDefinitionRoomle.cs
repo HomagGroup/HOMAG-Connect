@@ -1,10 +1,9 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
-using HomagConnect.Base.Contracts;
-
-using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
@@ -22,6 +21,17 @@ public class MaterialDefinitionRoomle
     /// The contained material definition with textures, shading, and metadata.
     /// </summary>
     public Material? Material { get; set; }
+
+    #endregion
+
+    #region Additional Properties
+
+    /// <summary>
+    /// Gets or sets the additional properties configured in the application.
+    /// </summary>
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     #endregion
 

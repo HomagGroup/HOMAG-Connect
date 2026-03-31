@@ -27,6 +27,8 @@ pr:
 
 variables:
   dotnetVersion: 10.0.x
+  testPublishTargetFramework: net10.0
+  NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
   ProductName: HomagGroup.DigitalFactory.DigitalDevelopment
   ProjectName: HomagConnect 
 
@@ -48,10 +50,53 @@ stages:
         inputs:
           targetType: inline
           script: |
-            git log
-            $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
-            echo "Set version tag: $($VERSION_TAG)"
-            echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"      
+            $sourceBranch = if ('$(Build.Reason)' -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace('$(System.PullRequest.SourceBranch)'))
+            {
+                '$(System.PullRequest.SourceBranch)'
+            }
+            else
+            {
+                '$(Build.SourceBranch)'
+            }
+
+            $latestTag = git describe --tags --abbrev=0 --match='[0-9]*' 2>$null
+            $exactTag = git describe --tags --exact-match --match='[0-9]*' 2>$null
+            $hasExactTag = $LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($exactTag)
+
+            if ([string]::IsNullOrWhiteSpace($latestTag))
+            {
+                throw "No matching Git tag found for versioning. Create a version tag like '2.2.1' before running this pipeline."
+            }
+
+            if ($sourceBranch -like 'refs/tags/*' -or ($sourceBranch -eq 'refs/heads/main' -and $hasExactTag))
+            {
+                $versionTag = if ($hasExactTag) { $exactTag } else { $sourceBranch.Substring(10) }
+            }
+            else
+            {
+                $version = [Version]$latestTag
+                $nextPatchVersion = '{0}.{1}.{2}' -f $version.Major, $version.Minor, ($version.Build + 1)
+                $commitsSinceTag = [int](git rev-list "$latestTag..HEAD" --count 2>$null)
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    throw "Unable to determine commits since tag '$latestTag'."
+                }
+
+                $preReleaseNumber = [Math]::Max($commitsSinceTag, 1)
+                $preReleaseLabel = if ($sourceBranch -eq 'refs/heads/main') { 'preview' } else { 'alpha' }
+                $versionTag = "$nextPatchVersion-$preReleaseLabel.$preReleaseNumber"
+            }
+
+            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($versionTag))
+            {
+                throw "Unable to resolve package version from Git metadata."
+            }
+
+            Write-Host "Resolved source branch: $sourceBranch"
+            Write-Host "Resolved latest tag: $latestTag"
+            Write-Host "Resolved VERSION_TAG: $versionTag"
+            Write-Host "##vso[task.setvariable variable=VERSION_TAG;isOutput=true]$versionTag"
 
   # MEND
   # - template: software-composition-analysis/template.yml@templates
@@ -63,12 +108,15 @@ stages:
   #     package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
 
   - stage: Build
+    dependsOn: retrieve_version_info_from_git
     pool:
       #vmimage: 'windows-latest'
       name: Homag Windows Agents
     variables:
       - name: BuildConfiguration
         value: Release
+      - name: VERSION_TAG
+        value: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
       - group: dftranslationvariables
   
     # MEND
@@ -79,20 +127,12 @@ stages:
            
         steps:
         - checkout: self
-          fetchDepth: 0         
+          fetchDepth: 1         
         
-        - script: echo "Build branch is $(Build.SourceBranch)" 
+        - script: |
+            echo "Build branch is $(Build.SourceBranch)"
+            echo "Build version tag is $(VERSION_TAG)"
           displayName: Display build branch environment variable
-
-        - task: PowerShell@2
-          displayName: Set version environment variable
-          inputs:
-            targetType: inline
-            script: |
-              git log
-              $VERSION_TAG = git describe --tags --dirty --match='[0-9]*'
-              echo "Set version tag: $($VERSION_TAG)"
-              echo "##vso[task.setvariable variable=VERSION_TAG]$($VERSION_TAG)"
 
         - task: UseDotNet@2
           displayName: 'Use .NET Core sdk $(dotnetVersion)'
@@ -100,10 +140,19 @@ stages:
             packageType: 'sdk'
             version: $(dotnetVersion)
 
+        - task: Cache@2
+          displayName: Cache NuGet packages
+          inputs:
+            key: 'nuget | "$(Agent.OS)" | azure-pipelines.yml | **/*.csproj, !**/bin/**, !**/obj/**'
+            restoreKeys: |
+              nuget | "$(Agent.OS)"
+            path: '$(NUGET_PACKAGES)'
+
         - task: DotNetCoreCLI@2
           displayName: Restore packages
           inputs:
             command: 'restore'
+            arguments: '--packages $(NUGET_PACKAGES)'
 
         - task: SonarQubePrepare@7
           displayName: 'Prepare analysis on SonarQube'
@@ -160,18 +209,141 @@ stages:
                   !**/logs/**
                   !**/bin/**/*.csproj
                   !**/obj/**/*.csproj
-            arguments: '--configuration $(BuildConfiguration) --no-restore -nr:FALSE'
+            arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
-        - task: DotNetCoreCLI@2
-          displayName: Run Integration Tests in PRD environment to ensure that the samples are working.   
+        - task: PowerShell@2
+          displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
           env:
             HomagConnect:BaseUrl: $(HomagConnect:BaseUrl)
             HomagConnect:SubscriptionId: $(HomagConnect:SubscriptionId)
             HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
           inputs:
-            command: 'test'
-            projects: '**/*.Tests.csproj'
-            arguments: '--configuration $(BuildConfiguration) --no-restore --no-build --filter TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'                        
+            targetType: inline
+            script: |
+              $testProjects = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj'
+              $testResultsDirectory = '$(Agent.TempDirectory)\TestResults'
+              $filter = 'TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
+              $maxAttempts = 3
+
+              for ($attempt = 1; $attempt -le $maxAttempts; $attempt++)
+              {
+                  if (Test-Path $testResultsDirectory)
+                  {
+                      Remove-Item -Path $testResultsDirectory -Recurse -Force
+                  }
+
+                  New-Item -ItemType Directory -Path $testResultsDirectory | Out-Null
+
+                  $hasFailures = $false
+
+                  foreach ($testProject in $testProjects)
+                  {
+                      $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+                      $trxFileName = "$projectName-attempt$attempt.trx"
+
+                      dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter"
+
+                      if ($LASTEXITCODE -ne 0)
+                      {
+                          $hasFailures = $true
+                      }
+                  }
+
+                  if (-not $hasFailures)
+                  {
+                      return
+                  }
+
+                  if ($attempt -lt $maxAttempts)
+                  {
+                      Write-Host "Integration tests failed on attempt $attempt. Retrying with a clean test results folder."
+                  }
+              }
+
+              throw "Integration tests failed after $maxAttempts attempts."
+
+        - task: PublishTestResults@2
+          displayName: 'Publish test results'
+          inputs:
+            testResultsFormat: 'VSTest'
+            testResultsFiles: '$(Agent.TempDirectory)\TestResults\**\*.trx'
+            failTaskOnFailedTests: true
+            testRunTitle: 'HomagConnect Integration Tests'
+          condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PowerShell@2
+          displayName: 'Publish HomagConnect test projects'
+          inputs:
+            targetType: inline
+            script: |
+              $testProjects = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj'
+
+              foreach ($testProject in $testProjects)
+              {
+                  $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+                  $outputPath = Join-Path '$(Build.ArtifactStagingDirectory)\tests' $projectName
+
+                  dotnet publish $testProject.FullName --configuration $(BuildConfiguration) --framework $(testPublishTargetFramework) --output $outputPath --no-restore --property:ErrorOnDuplicatePublishOutputFiles=false
+
+                  if ($LASTEXITCODE -ne 0)
+                  {
+                      throw "Publishing test project '$($testProject.FullName)' failed."
+                  }
+              }
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish test artifacts to pipeline'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)\tests'
+            artifact: 'tests'
+            publishLocation: 'pipeline'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PowerShell@2
+          displayName: 'Stage NuGet packages'
+          inputs:
+            targetType: inline
+            script: |
+              $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
+              $expectedPackageVersion = '$(VERSION_TAG)'
+
+              if (Test-Path $packagesOutputPath)
+              {
+                  Remove-Item -Path $packagesOutputPath -Recurse -Force
+              }
+
+              New-Item -ItemType Directory -Path $packagesOutputPath | Out-Null
+
+              $packages = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
+                Where-Object {
+                  $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
+                  $_.FullName -notlike '*\obj\*' -and
+                  $_.FullName -notlike '*\bin\*\publish\*' -and
+                  $_.Name -like 'HomagGroup.HomagConnect*.nupkg' -and
+                  $_.Name -like "*.$expectedPackageVersion.nupkg" -and
+                  $_.Name -notlike '*.snupkg' -and
+                  $_.DirectoryName -notlike '*\Tests\*' -and
+                  $_.Name -notlike '*.Tests*.nupkg' -and
+                  $_.Name -notlike '*.TestBase*.nupkg'
+                })
+
+              Write-Host "Expected package version: $expectedPackageVersion"
+              Write-Host "Found $($packages.Count) NuGet package(s) to stage."
+
+              foreach ($package in $packages)
+              {
+                  Copy-Item -Path $package.FullName -Destination $packagesOutputPath -Force
+              }
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish NuGet packages artifact'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)\packages'
+            artifact: 'nuget-packages'
+            publishLocation: 'pipeline'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
         
         # MEND
         # - template: common-tasks/list-agent-directory/template.yml@templates
@@ -184,98 +356,24 @@ stages:
           displayName: 'Publish Quality Gate Result'
           condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))          
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
+        - task: PowerShell@2
+          displayName: 'Publish NuGet packages on nuget.org'
+          inputs:
+            targetType: inline
+            script: |
+              $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
+              
+              Write-Host "Found $($packages.Count) NuGet package(s) to publish."
+              
+              foreach ($package in $packages)
+              {
+                  dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) $package.FullName --skip-duplicate
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Contracts NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Client NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))    
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MmrMobile/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MmrMobile Client NuGet package on nuget.org"          
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-             
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MmrMobile/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MmrMobile Contracts NuGet package on nuget.org"          
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-             
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/IntelliDivide/Samples/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect IntelliDivide Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialManager Contracts package on nuget.org"
+                  if ($LASTEXITCODE -ne 0)
+                  {
+                      throw "Publishing package '$($package.FullName)' failed."
+                  }
+              }
           condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialManager/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialManager Client package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialAssist/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialAssist Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/MaterialAssist/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect MaterialAssist Client package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionManager Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
           
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionManager Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
 
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionManager/Samples/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionManager Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionAssist/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionAssist Contract NuGet package on nuget.org"     
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionAssist/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionAssist Client NuGet package on nuget.org"            
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/ProductionAssist/Samples/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect ProductionAssist Client Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect OrderManager Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))  
-          
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Client/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect OrderManager Client package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Applications/orderManager/Samples/CSharp/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect OrderManager Samples package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "DataExchange/Contracts/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect DataExchange Contracts package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "DataExchange/Extensions/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect DataExchange Extensions package on nuget.org"
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))) 
-        
-        - script: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) "Base/HomagConnect.Base.TestBase/**/*.nupkg" --skip-duplicate
-          displayName: "Publish HomagConnect Base Test Base NuGet package on nuget.org"               
-          condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'),startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))     

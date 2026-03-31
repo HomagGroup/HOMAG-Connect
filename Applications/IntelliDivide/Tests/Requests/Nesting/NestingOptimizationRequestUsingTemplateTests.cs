@@ -1,4 +1,5 @@
-﻿using HomagConnect.IntelliDivide.Contracts.Common;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Requests;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting.Template;
 using HomagConnect.IntelliDivide.Tests.Base;
@@ -11,9 +12,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 /// The class contains tests to ensure that the cutting optimization requests samples work as expected.
 /// </summary>
 [TestClass]
-[TestCategory("IntelliDivide")]
-[TestCategory("IntelliDivide.Requests.Nesting")]
-[TestCategory("IntelliDivide.Requests.Nesting.Template")]
+[DeploymentTest("IntelliDivide.Requests.Nesting.Template")]
 public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBase
 {
     /// <summary />
@@ -26,6 +25,7 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_Template_CSV_MPR_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -37,6 +37,7 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_Template_CSV_MPR_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
