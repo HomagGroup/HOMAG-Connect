@@ -169,7 +169,8 @@ jobs:
     inputs:
       targetType: inline
       script: |
-        $testProjects = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj'
+        $testProjects = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj')
+        $projectsToRun = @($testProjects)
         $testResultsDirectory = '$(Agent.TempDirectory)\TestResults'
         $filter = 'TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
         $maxAttempts = 3
@@ -183,9 +184,9 @@ jobs:
 
             New-Item -ItemType Directory -Path $testResultsDirectory | Out-Null
 
-            $hasFailures = $false
+            $failedProjects = @()
 
-            foreach ($testProject in $testProjects)
+            foreach ($testProject in $projectsToRun)
             {
                 $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
                 $trxFileName = "$projectName-attempt$attempt.trx"
@@ -194,18 +195,19 @@ jobs:
 
                 if ($LASTEXITCODE -ne 0)
                 {
-                    $hasFailures = $true
+                    $failedProjects += $testProject
                 }
             }
 
-            if (-not $hasFailures)
+            if ($failedProjects.Count -eq 0)
             {
                 return
             }
 
             if ($attempt -lt $maxAttempts)
             {
-                Write-Host "Integration tests failed on attempt $attempt. Retrying with a clean test results folder."
+                $projectsToRun = @($failedProjects)
+                Write-Host "Integration tests failed on attempt $attempt. Retrying only failed test projects: $((@($projectsToRun | ForEach-Object { $_.Name })) -join ', ')"
             }
         }
 
