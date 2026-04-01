@@ -320,7 +320,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:TargetFramework=net10.0 /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore --no-build -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: DotNetCoreCLI@2
     displayName: Pack projects
