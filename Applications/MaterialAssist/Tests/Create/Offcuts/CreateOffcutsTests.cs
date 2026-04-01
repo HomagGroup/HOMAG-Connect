@@ -13,53 +13,43 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts;
 [TestCategory("MaterialAssist.Boards")]
 public class CreateOffcutsTests : MaterialAssistTestBase
 {
-    private const string _OffcutEntityId = "11114";
+    private string _OffcutEntityCode = "OffcutCode_" + RunSuffix;
     private MaterialAssistClientBoards _MaterialAssistClientBoards;
     private MaterialManagerClientMaterialBoards _MaterialManagerClientMaterialBoards;
 
-    [TemporaryDisabledOnServer(2026, 03, 31, "DF-Material")]
     [TestMethod]
     public async Task BoardsCreateOffcutEntity()
     {
         try
         {
-            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(_MaterialAssistClientBoards, _OffcutEntityId);
+            await CreateOffcutEntitiesSamples.Boards_CreateOffcutEntity(_MaterialAssistClientBoards, _OffcutEntityCode);
         }
         catch (Exception )
         {
             // do nothing, the entity might already exist
         }
 
-        var offcutEntity = await _MaterialAssistClientBoards.GetBoardEntityByCode(_OffcutEntityId);
+        var offcutEntity = await _MaterialAssistClientBoards.GetBoardEntityByCode(_OffcutEntityCode);
 
         offcutEntity.ShouldNotBeNull(
-            $"because offcut entity with ID '{_OffcutEntityId}' should be created successfully");
-        offcutEntity!.Id.ShouldBe(_OffcutEntityId,
-            $"because we created offcut entity with ID '{_OffcutEntityId}'");
+            $"because offcut entity with ID '{_OffcutEntityCode}' should be created successfully");
+        offcutEntity!.Id.ShouldBe(_OffcutEntityCode,
+            $"because we created offcut entity with ID '{_OffcutEntityCode}'");
         offcutEntity.BoardType.BoardTypeType.ShouldBe(BoardTypeType.Offcut,
-            $"because entity '{_OffcutEntityId}' was created as an offcut");
+            $"because entity '{_OffcutEntityCode}' was created as an offcut");
         offcutEntity.ManagementType.ShouldBe(ManagementType.Single,
-            $"because offcut entity '{_OffcutEntityId}' was created with ManagementType.Single");
+            $"because offcut entity '{_OffcutEntityCode}' was created with ManagementType.Single");
         offcutEntity.Quantity.ShouldBe(1,
             "because Single management type must have quantity of 1");
         offcutEntity.Length.ShouldBe(1000.0,
-            $"because offcut entity '{_OffcutEntityId}' was created with length 1000.0");
+            $"because offcut entity '{_OffcutEntityCode}' was created with length 1000.0");
         offcutEntity.Width.ShouldBe(500.0,
-            $"because offcut entity '{_OffcutEntityId}' was created with width 500.0");
+            $"because offcut entity '{_OffcutEntityCode}' was created with width 500.0");
     }
 
     [TestCleanup]
     public async Task Cleanup()
     {
-        // Clean up board entity
-        try
-        {
-            await _MaterialAssistClientBoards.DeleteBoardEntity(_OffcutEntityId);
-        }
-        catch
-        {
-            // Ignore cleanup errors if entity doesn't exist
-        }
 
         // Clean up parent board type (the regular board type created in Initialize)
         try
