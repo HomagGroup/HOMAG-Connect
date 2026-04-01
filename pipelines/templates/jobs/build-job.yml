@@ -113,6 +113,32 @@ jobs:
       command: 'restore'
       arguments: '--packages $(NUGET_PACKAGES)'
 
+  - task: PowerShell@2
+    displayName: 'Compute assembly and file version'
+    inputs:
+      targetType: inline
+      script: |
+        $versionTag = '$(VERSION_TAG)'
+        $match = [regex]::Match($versionTag, '^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?:-[A-Za-z]+\.(?<rev>\d+))?$')
+
+        if (-not $match.Success)
+        {
+            throw "VERSION_TAG '$versionTag' is not in a supported format."
+        }
+
+        $major = [int]$match.Groups['major'].Value
+        $minor = [int]$match.Groups['minor'].Value
+        $patch = [int]$match.Groups['patch'].Value
+        $revision = if ($match.Groups['rev'].Success) { [int]$match.Groups['rev'].Value } else { 0 }
+
+        $assemblyVersion = "$major.$minor.0.0"
+        $fileVersion = "$major.$minor.$patch.$revision"
+
+        Write-Host "Resolved AssemblyVersion: $assemblyVersion"
+        Write-Host "Resolved FileVersion: $fileVersion"
+        Write-Host "##vso[task.setvariable variable=ASSEMBLY_VERSION]$assemblyVersion"
+        Write-Host "##vso[task.setvariable variable=FILE_VERSION]$fileVersion"
+
   - task: SonarQubePrepare@7
     displayName: 'Prepare analysis on SonarQube'
     condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false), eq(variables['Build.Reason'], 'PullRequest'))
@@ -153,7 +179,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:TargetFramework=net10.0 /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:TargetFramework=net10.0 /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: DotNetCoreCLI@2
     displayName: Build projects
@@ -169,7 +195,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
     displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
