@@ -99,6 +99,12 @@ jobs:
       echo "Build version tag is $(VERSION_TAG)"
     displayName: Display build branch environment variable
 
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk $(dotnetVersion)'
+    inputs:
+      packageType: 'sdk'
+      version: $(dotnetVersion)
+
   - task: Cache@2
     displayName: Cache NuGet packages
     inputs:
