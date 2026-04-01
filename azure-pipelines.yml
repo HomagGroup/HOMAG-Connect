@@ -50,13 +50,51 @@ stages:
         inputs:
           targetType: inline
           script: |
-            $versionTag = git describe --tags --dirty --match='[0-9]*' 2>$null
+            $sourceBranch = if ('$(Build.Reason)' -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace('$(System.PullRequest.SourceBranch)'))
+            {
+                '$(System.PullRequest.SourceBranch)'
+            }
+            else
+            {
+                '$(Build.SourceBranch)'
+            }
 
-            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($versionTag))
+            $latestTag = git describe --tags --abbrev=0 --match='[0-9]*' 2>$null
+            $exactTag = git describe --tags --exact-match --match='[0-9]*' 2>$null
+            $hasExactTag = $LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($exactTag)
+
+            if ([string]::IsNullOrWhiteSpace($latestTag))
             {
                 throw "No matching Git tag found for versioning. Create a version tag like '2.2.1' before running this pipeline."
             }
 
+            if ($sourceBranch -like 'refs/tags/*' -or ($sourceBranch -eq 'refs/heads/main' -and $hasExactTag))
+            {
+                $versionTag = if ($hasExactTag) { $exactTag } else { $sourceBranch.Substring(10) }
+            }
+            else
+            {
+                $version = [Version]$latestTag
+                $nextPatchVersion = '{0}.{1}.{2}' -f $version.Major, $version.Minor, ($version.Build + 1)
+                $commitsSinceTag = [int](git rev-list "$latestTag..HEAD" --count 2>$null)
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    throw "Unable to determine commits since tag '$latestTag'."
+                }
+
+                $preReleaseNumber = [Math]::Max($commitsSinceTag, 1)
+                $preReleaseLabel = if ($sourceBranch -eq 'refs/heads/main') { 'preview' } else { 'alpha' }
+                $versionTag = "$nextPatchVersion-$preReleaseLabel.$preReleaseNumber"
+            }
+
+            if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($versionTag))
+            {
+                throw "Unable to resolve package version from Git metadata."
+            }
+
+            Write-Host "Resolved source branch: $sourceBranch"
+            Write-Host "Resolved latest tag: $latestTag"
             Write-Host "Resolved VERSION_TAG: $versionTag"
             Write-Host "##vso[task.setvariable variable=VERSION_TAG;isOutput=true]$versionTag"
 
@@ -171,7 +209,7 @@ stages:
                   !**/logs/**
                   !**/bin/**/*.csproj
                   !**/obj/**/*.csproj
-            arguments: '--configuration $(BuildConfiguration) /p:PackageVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
+            arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
         - task: PowerShell@2
           displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
@@ -261,6 +299,51 @@ stages:
             artifact: 'tests'
             publishLocation: 'pipeline'
           condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PowerShell@2
+          displayName: 'Stage NuGet packages'
+          inputs:
+            targetType: inline
+            script: |
+              $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
+              $expectedPackageVersion = '$(VERSION_TAG)'
+
+              if (Test-Path $packagesOutputPath)
+              {
+                  Remove-Item -Path $packagesOutputPath -Recurse -Force
+              }
+
+              New-Item -ItemType Directory -Path $packagesOutputPath | Out-Null
+
+              $packages = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
+                Where-Object {
+                  $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
+                  $_.FullName -notlike '*\obj\*' -and
+                  $_.FullName -notlike '*\bin\*\publish\*' -and
+                  $_.Name -like 'HomagGroup.HomagConnect*.nupkg' -and
+                  $_.Name -like "*.$expectedPackageVersion.nupkg" -and
+                  $_.Name -notlike '*.snupkg' -and
+                  $_.DirectoryName -notlike '*\Tests\*' -and
+                  $_.Name -notlike '*.Tests*.nupkg' -and
+                  $_.Name -notlike '*.TestBase*.nupkg'
+                })
+
+              Write-Host "Expected package version: $expectedPackageVersion"
+              Write-Host "Found $($packages.Count) NuGet package(s) to stage."
+
+              foreach ($package in $packages)
+              {
+                  Copy-Item -Path $package.FullName -Destination $packagesOutputPath -Force
+              }
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish NuGet packages artifact'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)\packages'
+            artifact: 'nuget-packages'
+            publishLocation: 'pipeline'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
         
         # MEND
         # - template: common-tasks/list-agent-directory/template.yml@templates
@@ -278,18 +361,10 @@ stages:
           inputs:
             targetType: inline
             script: |
-              $packages = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
-                Where-Object {
-                  $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
-                  $_.FullName -notlike '*\obj\*' -and
-                  $_.FullName -notlike '*\bin\*\publish\*' -and
-                  $_.Name -like 'HomagConnect*.nupkg' -and
-                  $_.Name -notlike '*.snupkg' -and
-                  $_.DirectoryName -notlike '*\Tests\*' -and
-                  $_.Name -notlike '*.Tests*.nupkg' -and
-                  $_.Name -notlike '*.TestBase*.nupkg'
-                }
-
+              $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
+              
+              Write-Host "Found $($packages.Count) NuGet package(s) to publish."
+              
               foreach ($package in $packages)
               {
                   dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) $package.FullName --skip-duplicate
