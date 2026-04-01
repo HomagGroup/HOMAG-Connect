@@ -199,5 +199,18 @@ namespace HomagConnect.Base.TestBase
         {
             return random.NextDouble() * (max - min) + min;
         }
+
+        /// <summary>
+        /// Short suffix unique to this pipeline run.
+        /// </summary>
+        public static readonly string RunSuffix =
+            Environment.GetEnvironmentVariable("BUILD_BUILDID")
+            ?? Guid.NewGuid().ToString("N")[..8];
+
+        /// <summary>
+        /// Full marker embedded in Comments of ALL test data created by this run.
+        /// Cleanup filters exclusively on this value — parallel runs never touch each other's data.
+        /// </summary>
+        public static readonly string RunMarker = $"homag-connect-{RunSuffix}";
     }
 }
