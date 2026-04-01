@@ -119,7 +119,7 @@ jobs:
       targetType: inline
       script: |
         $versionTag = '$(VERSION_TAG)'
-        $match = [regex]::Match($versionTag, '^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?:-[A-Za-z]+\.(?<rev>\d+))?$')
+        $match = [regex]::Match($versionTag, '^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$')
 
         if (-not $match.Success)
         {
@@ -129,7 +129,18 @@ jobs:
         $major = [int]$match.Groups['major'].Value
         $minor = [int]$match.Groups['minor'].Value
         $patch = [int]$match.Groups['patch'].Value
-        $revision = if ($match.Groups['rev'].Success) { [int]$match.Groups['rev'].Value } else { 0 }
+        $prerelease = $match.Groups['prerelease'].Value
+        $revision = 0
+
+        if (-not [string]::IsNullOrWhiteSpace($prerelease))
+        {
+            $revisionToken = ($prerelease -split '\.' | Where-Object { $_ -match '^\d+$' } | Select-Object -First 1)
+
+            if (-not [string]::IsNullOrWhiteSpace($revisionToken))
+            {
+                $revision = [int]$revisionToken
+            }
+        }
 
         $assemblyVersion = "$major.$minor.0.0"
         $fileVersion = "$major.$minor.$patch.$revision"
