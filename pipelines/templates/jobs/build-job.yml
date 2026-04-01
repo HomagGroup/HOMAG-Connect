@@ -306,6 +306,38 @@ jobs:
       artifact: 'tests'
       publishLocation: 'pipeline'
 
+  - task: DotNetCoreCLI@2
+    displayName: Pack projects (PR, net10.0)
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+    timeoutInMinutes: 240
+    inputs:
+      command: 'pack'
+      projects: |
+            **/*.csproj
+            !**/.git/**
+            !**/.github/**
+            !**/.gitlab/**
+            !**/logs/**
+            !**/bin/**/*.csproj
+            !**/obj/**/*.csproj
+      arguments: '--configuration $(BuildConfiguration) /p:TargetFramework=net10.0 /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore --no-build -nr:FALSE'
+
+  - task: DotNetCoreCLI@2
+    displayName: Pack projects
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    timeoutInMinutes: 240
+    inputs:
+      command: 'pack'
+      projects: |
+            **/*.csproj
+            !**/.git/**
+            !**/.github/**
+            !**/.gitlab/**
+            !**/logs/**
+            !**/bin/**/*.csproj
+            !**/obj/**/*.csproj
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore --no-build -nr:FALSE'
+
   - task: PowerShell@2
     displayName: 'Stage NuGet packages'
     condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
@@ -314,6 +346,7 @@ jobs:
       script: |
         $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
         $expectedPackageVersion = '$(VERSION_TAG)'
+        $buildQueuedUtc = [DateTime]::Parse('$(Build.QueuedTime)').ToUniversalTime()
 
         if (Test-Path $packagesOutputPath)
         {
@@ -322,21 +355,38 @@ jobs:
 
         New-Item -ItemType Directory -Path $packagesOutputPath | Out-Null
 
-        $packages = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
+        $allCandidatePackages = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
           Where-Object {
             $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
             $_.FullName -notlike '*\obj\*' -and
             $_.FullName -notlike '*\bin\*\publish\*' -and
             $_.Name -like 'HomagGroup.HomagConnect*.nupkg' -and
-            $_.Name -like "*.$expectedPackageVersion.nupkg" -and
             $_.Name -notlike '*.snupkg' -and
             $_.DirectoryName -notlike '*\Tests\*' -and
             $_.Name -notlike '*.Tests*.nupkg' -and
             $_.Name -notlike '*.TestBase*.nupkg'
           })
 
+        $packages = @($allCandidatePackages | Where-Object { $_.Name -like "*.$expectedPackageVersion.nupkg" })
+
+        if ($packages.Count -eq 0)
+        {
+            Write-Host "No package matched exact VERSION_TAG '$expectedPackageVersion'. Falling back to packages created in this run."
+            $packages = @($allCandidatePackages | Where-Object { $_.LastWriteTimeUtc -ge $buildQueuedUtc })
+        }
+
         Write-Host "Expected package version: $expectedPackageVersion"
         Write-Host "Found $($packages.Count) NuGet package(s) to stage."
+
+        foreach ($candidate in $allCandidatePackages)
+        {
+            Write-Host "Candidate: $($candidate.FullName)"
+        }
+
+        if ($packages.Count -eq 0)
+        {
+            throw "No NuGet packages found to stage."
+        }
 
         foreach ($package in $packages)
         {
