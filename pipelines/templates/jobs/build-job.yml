@@ -104,6 +104,7 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: $(dotnetVersion)
+      installationPath: '$(Agent.ToolsDirectory)\\dotnet'
 
   - task: Cache@2
     displayName: Cache NuGet packages
