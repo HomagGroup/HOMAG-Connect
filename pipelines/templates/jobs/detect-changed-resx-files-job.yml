@@ -36,18 +36,28 @@ jobs:
             if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestTargetBranch))
             {
                 Write-Host "Detecting changed .resx files against pull request target branch '$pullRequestTargetBranch'."
-                $fetchOutput = @(& git fetch --no-tags origin $pullRequestTargetBranch 2>&1)
+                $targetBranchRef = if ($pullRequestTargetBranch -like 'refs/heads/*')
+                {
+                    $pullRequestTargetBranch
+                }
+                else
+                {
+                    "refs/heads/$pullRequestTargetBranch"
+                }
+                $targetRemoteRef = "refs/remotes/origin/__translation_target"
+
+                $fetchOutput = @(& git fetch --no-tags origin "$targetBranchRef`:$targetRemoteRef" 2>&1)
 
                 if ($LASTEXITCODE -ne 0)
                 {
-                    throw "Unable to fetch target branch '$pullRequestTargetBranch'. $($fetchOutput -join [Environment]::NewLine)"
+                    throw "Unable to fetch target branch '$targetBranchRef'. $($fetchOutput -join [Environment]::NewLine)"
                 }
 
-                $mergeBase = (& git merge-base HEAD FETCH_HEAD 2>$null | Select-Object -First 1).Trim()
+                $mergeBase = (& git merge-base HEAD $targetRemoteRef 2>$null | Select-Object -First 1).Trim()
 
                 if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
                 {
-                    throw "Unable to determine merge base for '$pullRequestTargetBranch'."
+                    throw "Unable to determine merge base for '$targetBranchRef'."
                 }
 
                 $diffDescription = "$mergeBase..HEAD"
