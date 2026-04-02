@@ -129,4 +129,7 @@
   <data name="ProductionAssist" xml:space="preserve">
     <value>Mit productionAssist verbunden</value>
   </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
 </root>

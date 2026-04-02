@@ -1,0 +1,454 @@
+jobs:
+- job: Build
+  dependsOn:
+  - DetectChangedResxFiles
+  - TranslateChangedResxFiles
+  variables:
+    HasResxChanges: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'] ]
+    TranslationFallbackRequired: 'true'
+  condition: and(succeeded('DetectChangedResxFiles'), in(dependencies.TranslateChangedResxFiles.result, 'Succeeded', 'Skipped'))
+  timeoutInMinutes: 240
+  steps:
+  - checkout: self
+    fetchDepth: 1
+
+  - download: current
+    displayName: 'Download translated resx artifacts'
+    condition: and(ne(variables['Build.Reason'], 'Schedule'), eq(variables['HasResxChanges'], 'true'))
+
+  - task: PowerShell@2
+    displayName: 'Merge translated resx artifacts'
+    condition: and(ne(variables['Build.Reason'], 'Schedule'), eq(variables['HasResxChanges'], 'true'))
+    inputs:
+      targetType: inline
+      script: |
+        $translationArtifacts = @(Get-ChildItem -Path '$(Pipeline.Workspace)' -Directory |
+          Where-Object { $_.Name -like 'translated-*' })
+        $translationsMerged = $false
+        $sourceRoot = '$(Build.SourcesDirectory)'
+
+        if ($translationArtifacts.Count -eq 0)
+        {
+            Write-Host 'No translated resx artifacts found.'
+            Write-Host '##vso[task.setvariable variable=TranslationFallbackRequired]true'
+            return
+        }
+
+        foreach ($translationArtifact in $translationArtifacts)
+        {
+            $translationsPath = if (Test-Path (Join-Path $translationArtifact.FullName 'translations'))
+            {
+                Join-Path $translationArtifact.FullName 'translations'
+            }
+            else
+            {
+                $translationArtifact.FullName
+            }
+
+            if (-not (Test-Path $translationsPath))
+            {
+                continue
+            }
+
+            $translatedResxFiles = @(Get-ChildItem -Path $translationsPath -Recurse -Filter '*.resx' -File)
+
+            if ($translatedResxFiles.Count -eq 0)
+            {
+                Write-Host "No translated .resx files found in '$translationsPath'."
+                continue
+            }
+
+            Write-Host "Merging $($translatedResxFiles.Count) translated .resx file(s) from '$translationsPath'."
+
+            foreach ($translatedResxFile in $translatedResxFiles)
+            {
+                $relativePath = $translatedResxFile.FullName.Substring($translationsPath.Length).TrimStart('\\')
+                $destinationPath = Join-Path $sourceRoot $relativePath
+                $destinationDirectory = Split-Path $destinationPath -Parent
+
+                if (-not [string]::IsNullOrWhiteSpace($destinationDirectory))
+                {
+                    New-Item -ItemType Directory -Path $destinationDirectory -Force | Out-Null
+                }
+
+                Copy-Item -Path $translatedResxFile.FullName -Destination $destinationPath -Force
+            }
+
+            $translationsMerged = $true
+        }
+
+        Write-Host "##vso[task.setvariable variable=TranslationFallbackRequired]$(((-not $translationsMerged).ToString()).ToLowerInvariant())"
+
+  - task: ResourceTranslation@3
+    displayName: 'ResourceTranslation fallback'
+    condition: and(ne(variables['Build.Reason'], 'Schedule'), eq(variables['HasResxChanges'], 'true'), eq(variables['TranslationFallbackRequired'], 'true'))
+    inputs:
+      C3POCustomFolder: true
+      C3POWorkingFolder: '$(Build.SourcesDirectory)'
+      RecursiveSearch: true
+      C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+      AssemblyMaskList: '*.resx'
+      WorkingDirectoryList: '..\s'
+      C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
+      C3PORetryCounter: '3'
+      C3POTimeout: '600'
+      C3PODisableCache: true
+
+  - script: |
+      echo "Build branch is $(Build.SourceBranch)"
+      echo "Build version tag is $(VERSION_TAG)"
+    displayName: Display build branch environment variable
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk $(dotnetVersion)'
+    inputs:
+      packageType: 'sdk'
+      version: $(dotnetVersion)
+      installationPath: '$(Agent.ToolsDirectory)\\dotnet'
+
+  - task: Cache@2
+    displayName: Cache NuGet packages
+    inputs:
+      key: 'nuget | "$(Agent.OS)" | azure-pipelines.yml | **/*.csproj, !**/bin/**, !**/obj/**'
+      restoreKeys: |
+        nuget | "$(Agent.OS)"
+      path: '$(NUGET_PACKAGES)'
+
+  - task: DotNetCoreCLI@2
+    displayName: Restore packages
+    inputs:
+      command: 'restore'
+      arguments: '--packages $(NUGET_PACKAGES)'
+
+  - task: PowerShell@2
+    displayName: 'Compute assembly and file version'
+    inputs:
+      targetType: inline
+      script: |
+        $versionTag = '$(VERSION_TAG)'
+        $match = [regex]::Match($versionTag, '^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$')
+
+        if (-not $match.Success)
+        {
+            throw "VERSION_TAG '$versionTag' is not in a supported format."
+        }
+
+        $major = [int]$match.Groups['major'].Value
+        $minor = [int]$match.Groups['minor'].Value
+        $patch = [int]$match.Groups['patch'].Value
+        $prerelease = $match.Groups['prerelease'].Value
+        $revision = 0
+
+        if (-not [string]::IsNullOrWhiteSpace($prerelease))
+        {
+            $revisionToken = ($prerelease -split '\.' | Where-Object { $_ -match '^\d+$' } | Select-Object -First 1)
+
+            if (-not [string]::IsNullOrWhiteSpace($revisionToken))
+            {
+                $revision = [int]$revisionToken
+            }
+        }
+
+        $assemblyVersion = "$major.$minor.0.0"
+        $fileVersion = "$major.$minor.$patch.$revision"
+
+        Write-Host "Resolved AssemblyVersion: $assemblyVersion"
+        Write-Host "Resolved FileVersion: $fileVersion"
+        Write-Host "##vso[task.setvariable variable=ASSEMBLY_VERSION]$assemblyVersion"
+        Write-Host "##vso[task.setvariable variable=FILE_VERSION]$fileVersion"
+
+  - task: SonarQubePrepare@7
+    displayName: 'Prepare analysis on SonarQube'
+    condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false), eq(variables['Build.Reason'], 'PullRequest'))
+    inputs:
+      SonarQube: 'SonarQube Enterprise'
+      projectKey: $(ProductName).$(ProjectName)
+      projectName: $(ProductName).$(ProjectName)
+      projectVersion: '$(MajorMinorBuildVersion)'
+      extraProperties: |
+          sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber)
+          sonar.pullrequest.branch=$(System.PullRequest.SourceBranch)
+          sonar.pullrequest.base=$(System.PullRequest.TargetBranch)
+
+  - task: SonarQubePrepare@7
+    displayName: 'Prepare analysis on SonarQube'
+    condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false), ne(variables['Build.Reason'], 'PullRequest'))
+    inputs:
+      SonarQube: 'SonarQube Enterprise'
+      projectKey: $(ProductName).$(ProjectName)
+      projectName: $(ProductName).$(ProjectName)
+      projectVersion: '$(MajorMinorBuildVersion)'
+      extraProperties: |
+        sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+        sonar.branch.name=$(Build.SourceBranchName)
+
+  - task: DotNetCoreCLI@2
+    displayName: Build projects (PR)
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+    timeoutInMinutes: 240
+    inputs:
+      command: 'build'
+      projects: |
+            **/*.csproj
+            !**/.git/**
+            !**/.github/**
+            !**/.gitlab/**
+            !**/logs/**
+            !**/bin/**/*.csproj
+            !**/obj/**/*.csproj
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+
+  - task: DotNetCoreCLI@2
+    displayName: Build projects
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    timeoutInMinutes: 240
+    inputs:
+      command: 'build'
+      projects: |
+            **/*.csproj
+            !**/.git/**
+            !**/.github/**
+            !**/.gitlab/**
+            !**/logs/**
+            !**/bin/**/*.csproj
+            !**/obj/**/*.csproj
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+
+  - task: PowerShell@2
+    displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
+    env:
+      HomagConnect:BaseUrl: $(HomagConnect:BaseUrl)
+      HomagConnect:SubscriptionId: $(HomagConnect:SubscriptionId)
+      HomagConnect:AuthorizationKey: $(HomagConnect:AuthorizationKey)
+    inputs:
+      targetType: inline
+      script: |
+        $testProjects = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj')
+        $projectsToRun = @($testProjects)
+        $testResultsDirectory = '$(Agent.TempDirectory)\TestResults'
+        $filter = 'TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
+        $maxAttempts = 3
+
+        for ($attempt = 1; $attempt -le $maxAttempts; $attempt++)
+        {
+            if (Test-Path $testResultsDirectory)
+            {
+                Remove-Item -Path $testResultsDirectory -Recurse -Force
+            }
+
+            New-Item -ItemType Directory -Path $testResultsDirectory | Out-Null
+
+            $failedProjects = @()
+
+            foreach ($testProject in $projectsToRun)
+            {
+                $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+                $trxFileName = "$projectName-attempt$attempt.trx"
+
+                dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter"
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    $failedProjects += $testProject
+                }
+            }
+
+            if ($failedProjects.Count -eq 0)
+            {
+                return
+            }
+
+            if ($attempt -lt $maxAttempts)
+            {
+                $projectsToRun = @($failedProjects)
+                Write-Host "Integration tests failed on attempt $attempt. Retrying only failed test projects: $((@($projectsToRun | ForEach-Object { $_.Name })) -join ', ')"
+            }
+        }
+
+        throw "Integration tests failed after $maxAttempts attempts."
+
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: '$(Agent.TempDirectory)\TestResults\**\*.trx'
+      failTaskOnFailedTests: true
+      testRunTitle: 'HomagConnect Integration Tests'
+
+  - task: PowerShell@2
+    displayName: 'Publish HomagConnect test projects'
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      targetType: inline
+      script: |
+        $testProjects = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj'
+
+        foreach ($testProject in $testProjects)
+        {
+            $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+            $outputPath = Join-Path '$(Build.ArtifactStagingDirectory)\tests' $projectName
+
+            dotnet publish $testProject.FullName --configuration $(BuildConfiguration) --framework $(testPublishTargetFramework) --output $outputPath --no-restore --no-build --property:ErrorOnDuplicatePublishOutputFiles=false
+
+            if ($LASTEXITCODE -ne 0)
+            {
+                throw "Publishing test project '$($testProject.FullName)' failed."
+            }
+        }
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish test artifacts to pipeline'
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)\tests'
+      artifact: 'tests'
+      publishLocation: 'pipeline'
+
+  - task: DotNetCoreCLI@2
+    displayName: Pack projects (PR, net10.0)
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+    timeoutInMinutes: 240
+    inputs:
+      command: 'pack'
+      nobuild: false
+      projects: |
+            **/*.csproj
+            !**/.git/**
+            !**/.github/**
+            !**/.gitlab/**
+            !**/logs/**
+            !**/bin/**/*.csproj
+            !**/obj/**/*.csproj
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+
+  - task: DotNetCoreCLI@2
+    displayName: Pack projects
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    timeoutInMinutes: 240
+    inputs:
+      command: 'pack'
+      nobuild: false
+      projects: |
+            **/*.csproj
+            !**/.git/**
+            !**/.github/**
+            !**/.gitlab/**
+            !**/logs/**
+            !**/bin/**/*.csproj
+            !**/obj/**/*.csproj
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+
+  - task: PowerShell@2
+    displayName: 'Stage NuGet packages'
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      targetType: inline
+      script: |
+        $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
+        $expectedPackageVersion = '$(VERSION_TAG)'
+        $buildQueuedUtc = [DateTime]::MinValue
+        $buildQueuedTimeRaw = '$(Build.QueuedTime)'
+
+        if (-not [string]::IsNullOrWhiteSpace($buildQueuedTimeRaw))
+        {
+            $parsedBuildQueuedUtc = [DateTime]::MinValue
+
+            if ([DateTime]::TryParse($buildQueuedTimeRaw, [System.Globalization.CultureInfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::AssumeUniversal, [ref]$parsedBuildQueuedUtc))
+            {
+                $buildQueuedUtc = $parsedBuildQueuedUtc.ToUniversalTime()
+            }
+            else
+            {
+                Write-Host "Build.QueuedTime '$buildQueuedTimeRaw' is not parseable. Falling back without queued-time filter."
+            }
+        }
+
+        if (Test-Path $packagesOutputPath)
+        {
+            Remove-Item -Path $packagesOutputPath -Recurse -Force
+        }
+
+        New-Item -ItemType Directory -Path $packagesOutputPath | Out-Null
+
+        $allCandidatePackages = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.nupkg' |
+          Where-Object {
+            $_.FullName -like "*\bin\$(BuildConfiguration)\*" -and
+            $_.FullName -notlike '*\obj\*' -and
+            $_.FullName -notlike '*\bin\*\publish\*' -and
+            $_.Name -like 'HomagGroup.HomagConnect*.nupkg' -and
+            $_.Name -notlike '*.snupkg' -and
+            $_.DirectoryName -notlike '*\Tests\*' -and
+            $_.Name -notlike '*.Tests*.nupkg' -and
+            $_.Name -notlike '*.TestBase*.nupkg'
+          })
+
+        $packages = @($allCandidatePackages | Where-Object { $_.Name -like "*.$expectedPackageVersion.nupkg" })
+
+        if ($packages.Count -eq 0)
+        {
+            Write-Host "No package matched exact VERSION_TAG '$expectedPackageVersion'. Falling back to packages created in this run."
+            if ($buildQueuedUtc -gt [DateTime]::MinValue)
+            {
+                $packages = @($allCandidatePackages | Where-Object { $_.LastWriteTimeUtc -ge $buildQueuedUtc })
+            }
+            else
+            {
+                $packages = @($allCandidatePackages)
+            }
+        }
+
+        Write-Host "Expected package version: $expectedPackageVersion"
+        Write-Host "Found $($packages.Count) NuGet package(s) to stage."
+
+        foreach ($candidate in $allCandidatePackages)
+        {
+            Write-Host "Candidate: $($candidate.FullName)"
+        }
+
+        if ($packages.Count -eq 0)
+        {
+            throw "No NuGet packages found to stage."
+        }
+
+        foreach ($package in $packages)
+        {
+            Copy-Item -Path $package.FullName -Destination $packagesOutputPath -Force
+        }
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish NuGet packages artifact'
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)\packages'
+      artifact: 'nuget-packages'
+      publishLocation: 'pipeline'
+
+  - task: SonarQubeAnalyze@7
+    displayName: 'Run Code Analysis'
+    condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+
+  - task: SonarQubePublish@7
+    displayName: 'Publish Quality Gate Result'
+    condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
+
+  - task: PowerShell@2
+    displayName: 'Publish NuGet packages on nuget.org'
+    condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
+    inputs:
+      targetType: inline
+      script: |
+        $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
+
+        Write-Host "Found $($packages.Count) NuGet package(s) to publish."
+
+        foreach ($package in $packages)
+        {
+            dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) $package.FullName --skip-duplicate
+
+            if ($LASTEXITCODE -ne 0)
+            {
+                throw "Publishing package '$($package.FullName)' failed."
+            }
+        }
