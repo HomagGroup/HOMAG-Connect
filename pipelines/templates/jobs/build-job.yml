@@ -184,7 +184,7 @@ jobs:
         sonar.branch.name=$(Build.SourceBranchName)
 
   - task: DotNetCoreCLI@2
-    displayName: Build projects (PR, net10.0)
+    displayName: Build projects (PR)
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
     timeoutInMinutes: 240
     inputs:
@@ -197,7 +197,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:TargetFramework=net10.0 /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: DotNetCoreCLI@2
     displayName: Build projects
@@ -312,6 +312,7 @@ jobs:
     timeoutInMinutes: 240
     inputs:
       command: 'pack'
+      nobuild: false
       projects: |
             **/*.csproj
             !**/.git/**
@@ -328,6 +329,7 @@ jobs:
     timeoutInMinutes: 240
     inputs:
       command: 'pack'
+      nobuild: false
       projects: |
             **/*.csproj
             !**/.git/**
@@ -336,7 +338,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore --no-build -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
     displayName: 'Stage NuGet packages'
