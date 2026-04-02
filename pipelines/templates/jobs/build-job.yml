@@ -197,7 +197,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: DotNetCoreCLI@2
     displayName: Build projects
@@ -213,7 +213,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
     displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
@@ -321,7 +321,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: DotNetCoreCLI@2
     displayName: Pack projects
@@ -338,7 +338,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) /p:MinVerVersionOverride=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
     displayName: 'Stage NuGet packages'
