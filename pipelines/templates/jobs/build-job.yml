@@ -348,7 +348,22 @@ jobs:
       script: |
         $packagesOutputPath = '$(Build.ArtifactStagingDirectory)\packages'
         $expectedPackageVersion = '$(VERSION_TAG)'
-        $buildQueuedUtc = [DateTime]::Parse('$(Build.QueuedTime)').ToUniversalTime()
+        $buildQueuedUtc = [DateTime]::MinValue
+        $buildQueuedTimeRaw = '$(Build.QueuedTime)'
+
+        if (-not [string]::IsNullOrWhiteSpace($buildQueuedTimeRaw))
+        {
+            $parsedBuildQueuedUtc = [DateTime]::MinValue
+
+            if ([DateTime]::TryParse($buildQueuedTimeRaw, [System.Globalization.CultureInfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::AssumeUniversal, [ref]$parsedBuildQueuedUtc))
+            {
+                $buildQueuedUtc = $parsedBuildQueuedUtc.ToUniversalTime()
+            }
+            else
+            {
+                Write-Host "Build.QueuedTime '$buildQueuedTimeRaw' is not parseable. Falling back without queued-time filter."
+            }
+        }
 
         if (Test-Path $packagesOutputPath)
         {
@@ -374,7 +389,14 @@ jobs:
         if ($packages.Count -eq 0)
         {
             Write-Host "No package matched exact VERSION_TAG '$expectedPackageVersion'. Falling back to packages created in this run."
-            $packages = @($allCandidatePackages | Where-Object { $_.LastWriteTimeUtc -ge $buildQueuedUtc })
+            if ($buildQueuedUtc -gt [DateTime]::MinValue)
+            {
+                $packages = @($allCandidatePackages | Where-Object { $_.LastWriteTimeUtc -ge $buildQueuedUtc })
+            }
+            else
+            {
+                $packages = @($allCandidatePackages)
+            }
         }
 
         Write-Host "Expected package version: $expectedPackageVersion"
