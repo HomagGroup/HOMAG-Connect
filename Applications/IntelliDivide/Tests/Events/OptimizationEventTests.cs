@@ -1,5 +1,5 @@
 ﻿using Shouldly;
-using System.Globalization;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.Base.Extensions;
@@ -11,13 +11,13 @@ using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Tests.Base;
 using Newtonsoft.Json;
 using HomagConnect.Base.Contracts;
+using HomagConnect.Base.TestBase.Attributes;
 
 namespace HomagConnect.IntelliDivide.Tests.Events;
 
 /// <summary />
 [TestClass]
-[TestCategory("Events")]
-[TestCategory("IntelliDivide.Events")]
+[DeploymentTest("IntelliDivide.Events", TestPriority.Low)]
 public class OptimizationEventTests : IntelliDivideTestBase
 {
     /// <summary />

@@ -1,0 +1,163 @@
+meta {
+  name: Get order usage details
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://connect.homag.cloud/api/productionManager/statistics/usage/details?monthsAgo=12
+  body: none
+  auth: inherit
+}
+
+params:query {
+  monthsAgo: 12
+  ~format: localized
+  ~culture: en
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Get order usage details
+  
+  ## Endpoint
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/details
+  ```
+  
+  ## Purpose
+  
+  Retrieve detailed statistics about individual orders that have been released or reset, including order information, customer details, and part quantities.
+  
+  ## Parameters
+  
+  | Name | In | Type | Required | Description |
+  |------|----|------|----------|-------------|
+  | `monthsAgo` | query | integer | no | Number of months to look back (default: 12, max: 24). |
+  | `format` | query | string | no | Set to `localized` to return property names and enum values in the requested culture. |
+  | `culture` | query | string | no | Localization culture (for example `de`, `en`, `de-DE`). Used together with `format=localized`. Falls back to current server culture if omitted. |
+  
+  ## Request example
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/details?monthsAgo=12
+  ```
+  
+  ```http
+  GET https://connect.homag.cloud/api/productionManager/statistics/usage/details?monthsAgo=3&format=localized&culture=de
+  ```
+  
+  ## Success response example
+  
+  ```json
+  [
+    {
+      "timestamp": "2025-01-15T10:30:00Z",
+      "orderNumber": "ORD-2025-001",
+      "orderName": "Kitchen Cabinet Project",
+      "customerNumber": "CUST-123",
+      "customerName": "ABC Furniture GmbH",
+      "quantityOfParts": 150,
+      "action": "Release",
+      "changedBy": "john.doe@example.com",
+      "source": "HOMAG Connect"
+    },
+    {
+      "timestamp": "2025-01-20T14:45:00Z",
+      "orderNumber": "ORD-2025-002",
+      "orderName": "Office Furniture",
+      "customerNumber": "CUST-456",
+      "customerName": "XYZ Office Solutions",
+      "quantityOfParts": 85,
+      "action": "Release",
+      "changedBy": "jane.smith@example.com",
+      "source": "productionManager"
+    }
+  ]
+  ```
+  
+  ## Possible error codes
+  
+  - `401 Unauthorized` - Missing or invalid credentials, or required productionManager license is missing.
+  - `422 Unprocessable Entity` - Invalid monthsAgo parameter (must be between 1 and 24).
+  - `500 Internal Server Error` - Unexpected server-side error.
+  
+  ## C# sample
+  
+  ```csharp
+  using HomagConnect.ProductionManager.Client;
+  using HomagConnect.ProductionManager.Contracts.Orders;
+  
+  var subscriptionId = Guid.Parse("<your-subscription-id-guid>");
+  var authorizationKey = "<your-authorization-key>";
+  
+  var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+  
+  // Example 1: Get usage details for the last 12 months
+  var usageDetails = await client.GetUsageDetails(monthsAgo: 12);
+  
+  foreach (var detail in usageDetails)
+  {
+      Console.WriteLine($"{detail.Timestamp:yyyy-MM-dd HH:mm} - {detail.OrderNumber} ({detail.OrderName})");
+      Console.WriteLine($"  Customer: {detail.CustomerName} ({detail.CustomerNumber})");
+      Console.WriteLine($"  Parts: {detail.QuantityOfParts}, Action: {detail.Action}, By: {detail.ChangedBy}");
+  }
+  
+  // Example 2: Get usage details for the last 3 months and calculate totals
+  var recentDetails = await client.GetUsageDetails(monthsAgo: 3);
+  var totalParts = recentDetails.Sum(d => d.QuantityOfParts);
+  var releaseCount = recentDetails.Count(d => d.Action == OrderAction.Release);
+  var resetCount = recentDetails.Count(d => d.Action == OrderAction.ResetRelease);
+  
+  Console.WriteLine($"Total parts: {totalParts}");
+  Console.WriteLine($"Releases: {releaseCount}, Resets: {resetCount}");
+  ```
+  
+  ## PowerShell sample
+  
+  ```powershell
+  $baseUrl = "https://connect.homag.cloud"
+  $subscriptionId = "<your-subscription-id>"
+  $authorizationKey = "<your-authorization-key>"
+  
+  $pair = "{0}:{1}" -f $subscriptionId, $authorizationKey
+  $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+  
+  $headers = @{
+    Authorization = "Basic $encoded"
+  }
+  
+  # Example 1: Get usage details for the last 12 months
+  $url = "$baseUrl/api/productionManager/statistics/usage/details?monthsAgo=12"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  foreach ($detail in $response) {
+    $timestamp = [DateTime]::Parse($detail.timestamp).ToString("yyyy-MM-dd HH:mm")
+    Write-Host "$timestamp - $($detail.orderNumber) ($($detail.orderName))"
+    Write-Host "  Customer: $($detail.customerName) ($($detail.customerNumber))"
+    Write-Host "  Parts: $($detail.quantityOfParts), Action: $($detail.action), By: $($detail.changedBy)"
+  }
+  
+  # Example 2: Get usage details for the last 3 months and calculate totals
+  $url = "$baseUrl/api/productionManager/statistics/usage/details?monthsAgo=3"
+  $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
+  
+  $totalParts = ($response | Measure-Object -Property quantityOfParts -Sum).Sum
+  $releaseCount = ($response | Where-Object { $_.action -eq "Release" } | Measure-Object).Count
+  $resetCount = ($response | Where-Object { $_.action -eq "ResetRelease" } | Measure-Object).Count
+  
+  Write-Host "Total parts: $totalParts"
+  Write-Host "Releases: $releaseCount, Resets: $resetCount"
+  ```
+  
+  ## Referenced types (GitHub)
+  
+  - [ProductionManagerClient](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Client/ProductionManagerClient.cs)
+  - [UsageDetails](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Orders/UsageDetails.cs)
+  - [OrderAction](https://github.com/HomagGroup/HOMAG-Connect/blob/main/Applications/ProductionManager/Contracts/Orders/OrderAction.cs)
+}

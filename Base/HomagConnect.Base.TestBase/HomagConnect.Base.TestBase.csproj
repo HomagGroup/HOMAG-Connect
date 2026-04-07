@@ -24,7 +24,6 @@
 	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.5" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.5" />
-	  <PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

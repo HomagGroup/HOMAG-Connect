@@ -73,6 +73,5 @@
 	</ItemGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
 	</ItemGroup>
 </Project>

@@ -309,5 +309,40 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest);
 
         #endregion
+
+        #region Usage statistics
+
+        /// <summary>
+        /// Gets usage overview for production manager orders grouped by period.
+        /// </summary>
+        /// <param name="monthsAgo">Number of months to look back (default: 12, max: 24).</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
+        /// usage overview records grouped by period. Returns an empty collection if no records are found.</returns>
+        Task<IEnumerable<UsageOverview>> GetUsageOverview(int monthsAgo = 12);
+
+        /// <summary>
+        /// Gets usage details for production manager orders.
+        /// </summary>
+        /// <param name="monthsAgo">Number of months to look back (default: 12, max: 24).</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
+        /// usage detail records. Returns an empty collection if no records are found.</returns>
+        Task<IEnumerable<UsageDetails>> GetUsageDetails(int monthsAgo = 12);
+
+        /// <summary>
+        /// Gets usage details for a specific period.
+        /// </summary>
+        /// <param name="period">The period in format yyyy-MM (e.g., 2025-01).</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
+        /// usage detail records for the specified period. Returns an empty collection if no records are found.</returns>
+        Task<IEnumerable<UsageDetails>> GetUsageDetailsForPeriod(string period);
+
+        /// <summary>
+        /// Gets current usage details (current month).
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
+        /// current usage detail records. Returns an empty collection if no records are found.</returns>
+        Task<IEnumerable<UsageDetails>> GetCurrentUsage();
+
+        #endregion Usage statistics
     }
 }

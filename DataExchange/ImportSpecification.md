@@ -246,27 +246,27 @@ UnitOfLength | enum   | mm or inch        | iD/pM
 
 Orders may have the properties listed below. The table below is aligned to the current productionManager contracts (see `Applications/ProductionManager/Contracts/Orders/Order.cs`).
 
-Name                     | Type                        | Description                                                                                                                 | Scope
--------------------------|-----------------------------|--------------------------------------------------------------------------------------------------------------
-OrderDescription         | nvarchar(255)               | Description of the order or special features                                                   | pM/iD
-PersonInCharge           | nvarchar(100)               | The name of the person who is in charge the project                          | pM
-CustomerName             | nvarchar(100)               | Name of the customer's company                                                                                                   | pM/iD
-CustomerNumber           | nvarchar(100)               | The number assigned to that customer                                                                                        | pM
-OrderDate                | DateTimeOffset(7) not null  | Create-date or the order import date; default: current date/time ([RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)) | pM/iD
-Name                     | nvarchar(100)               | Name of the contact or recipient for the order | pM
-Street                   | nvarchar(100)               | Street name of the address | pM
-HouseNumber              | nvarchar(100)               | House number of the address  | pM
-PostalCode               | nvarchar(100)               | Postal code of the address  | pM
-City                     | nvarchar(100)               | City of the address  | pM
-Country                  | nvarchar(100)               | Country of the address | pM
-AdditionalInfo           | string                      | Optional additional info for the address  | pM
-ExternalSystemId         | nvarchar(100)               | An optional external id, which will be used in a re-import to detect the previous import and update existing data           | pM
-Company                  | nvarchar(100)               | Name of the customers company (will be replaced by "Customer Name" in the future)                                                                                                     | pM
-Project                  | nvarchar(100)               | Name of the superordinate project                                                                                                     | pM
-Notes                    | nvarchar(300)               | Free text notes for the order                                                         | pM/iD
-StartDatePlanned         | DateTimeOffset(7)           | Planned start date ([RFC3339](https://datatracker.ietf.org/doc/html/rfc3339))                                              | pM   
-CompletionDatePlanned    | DateTimeOffset(7)           | Planned completion date ([RFC3339](https://datatracker.ietf.org/doc/html/rfc3339))                                         | pM 
-DeliveryDatePlanned      | DateTimeOffset(7)           | Planned delivery date ([RFC3339](https://datatracker.ietf.org/doc/html/rfc3339))                                           | pM
+| Name                   | Type                       | Description                                                                                                               | Scope |
+|------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|-------|
+| OrderDescription       | nvarchar(255)              | Description of the order or special features                                                                              | pM/iD |
+| PersonInCharge         | nvarchar(100)              | The name of the person who is in charge the project                                                                       | pM   |
+| CustomerName           | nvarchar(100)              | Name of the customer's company                                                                                            | pM/iD |
+| CustomerNumber         | nvarchar(100)              | The number assigned to that customer                                                                                      | pM   |
+| OrderDate              | DateTimeOffset(7) not null | Create-date or the order import date; default: current date/time (RFC3339)                                                | pM/iD |
+| Name                   | nvarchar(100)              | Name of the contact or recipient for the order                                                                            | pM   |
+| Street                 | nvarchar(100)              | Street name of the address                                                                                                 | pM   |
+| HouseNumber            | nvarchar(100)              | House number of the address                                                                                                | pM   |
+| PostalCode             | nvarchar(100)              | Postal code of the address                                                                                                 | pM   |
+| City                   | nvarchar(100)              | City of the address                                                                                                        | pM   |
+| Country                | nvarchar(100)              | Country of the address                                                                                                     | pM   |
+| AdditionalInfo         | string                     | Optional additional info for the address                                                                                   | pM   |
+| ExternalSystemId       | nvarchar(100)              | Optional external id for re-imports                                                                                        | pM   |
+| Company                | nvarchar(100)              | Name of the customer's company                                                                                             | pM   |
+| Project                | nvarchar(100)              | Name of the superordinate project                                                                                          | pM   |
+| Notes                  | nvarchar(300)             | Free text notes for the order                                                                                              | pM/iD |
+| StartDatePlanned       | DateTimeOffset(7)         | Planned start date (RFC3339)                                                                                               | pM   |
+| CompletionDatePlanned  | DateTimeOffset(7)         | Planned completion date (RFC3339)                                                                                          | pM   |
+| DeliveryDatePlanned    | DateTimeOffset(7)         | Planned delivery date (RFC3339)                                                                                            | pM   |
 
 ##### Sample order
 
