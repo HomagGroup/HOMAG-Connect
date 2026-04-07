@@ -217,6 +217,44 @@ jobs:
       arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
+    displayName: 'Run Unit Tests to fail fast.'
+    inputs:
+      targetType: inline
+      script: |
+        $testProjects = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj')
+        $testResultsDirectory = '$(Agent.TempDirectory)\UnitTestResults'
+        $filter = 'TestCategory=UnitTests&TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
+
+        if (Test-Path $testResultsDirectory)
+        {
+            Remove-Item -Path $testResultsDirectory -Recurse -Force
+        }
+
+        New-Item -ItemType Directory -Path $testResultsDirectory | Out-Null
+
+        foreach ($testProject in $testProjects)
+        {
+            $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
+            $trxFileName = "$projectName.trx"
+
+            dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter"
+
+            if ($LASTEXITCODE -ne 0)
+            {
+                throw "Unit tests failed for '$($testProject.FullName)'."
+            }
+        }
+
+  - task: PublishTestResults@2
+    displayName: 'Publish unit test results'
+    condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: '$(Agent.TempDirectory)\UnitTestResults\**\*.trx'
+      failTaskOnFailedTests: true
+      testRunTitle: 'HomagConnect Unit Tests'
+
+  - task: PowerShell@2
     displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
     env:
       HomagConnect:BaseUrl: $(HomagConnect:BaseUrl)
@@ -227,8 +265,8 @@ jobs:
       script: |
         $testProjects = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.Tests.csproj')
         $projectsToRun = @($testProjects)
-        $testResultsDirectory = '$(Agent.TempDirectory)\TestResults'
-        $filter = 'TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
+        $testResultsDirectory = '$(Agent.TempDirectory)\IntegrationTestResults'
+        $filter = 'TestCategory!=UnitTests&TestCategory!=TemporaryDisabled&TestCategory!=UserTestInteractionNeeded'
         $maxAttempts = 3
 
         for ($attempt = 1; $attempt -le $maxAttempts; $attempt++)
@@ -270,11 +308,11 @@ jobs:
         throw "Integration tests failed after $maxAttempts attempts."
 
   - task: PublishTestResults@2
-    displayName: 'Publish test results'
+    displayName: 'Publish integration test results'
     condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'Schedule'))
     inputs:
       testResultsFormat: 'VSTest'
-      testResultsFiles: '$(Agent.TempDirectory)\TestResults\**\*.trx'
+      testResultsFiles: '$(Agent.TempDirectory)\IntegrationTestResults\**\*.trx'
       failTaskOnFailedTests: true
       testRunTitle: 'HomagConnect Integration Tests'
 
