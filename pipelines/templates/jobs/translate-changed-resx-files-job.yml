@@ -41,6 +41,7 @@ jobs:
         $translationWorkspaceRoot = '$(Pipeline.Workspace)\translation-workspace'
         $artifactRoot = '$(Agent.TempDirectory)\translations-artifact'
         $filesToTranslate = @()
+        $restoredFromCacheCount = 0
 
         if (Test-Path $translationWorkspaceRoot)
         {
@@ -99,6 +100,7 @@ jobs:
                 }
 
                 Write-Host "Restored translated .resx files for '$changedResxFile' from cache."
+                $restoredFromCacheCount++
                 continue
             }
 
@@ -135,6 +137,7 @@ jobs:
 
         Set-Content -Path $translationManifestPath -Value $translationManifestJson -Encoding UTF8
 
+        Write-Host "Files restored from cache: $restoredFromCacheCount"
         Write-Host "Files that require C3PO: $($filesToTranslate.Count)"
         Write-Host "##vso[task.setvariable variable=TranslationWorkspaceRoot]$translationWorkspaceRoot"
         Write-Host "##vso[task.setvariable variable=TranslationCacheRoot]$cacheRoot"
@@ -144,7 +147,7 @@ jobs:
 
   - task: ResourceTranslation@3
     displayName: 'ResourceTranslation for cache misses'
-    condition: and(eq(variables['RequiresC3PO'], 'true'), ne(variables['NoChangedResxFiles'], 'true'))
+    condition: eq(variables['RequiresC3PO'], 'true')
     inputs:
       C3POCustomFolder: true
       C3POWorkingFolder: '$(TranslationWorkspaceRoot)'
@@ -159,7 +162,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Persist translated resx files'
-    condition: and(succeeded(), eq(variables['RequiresC3PO'], 'true'), ne(variables['NoChangedResxFiles'], 'true'))
+    condition: and(succeeded(), eq(variables['RequiresC3PO'], 'true'))
     inputs:
       targetType: inline
       script: |

@@ -82,7 +82,7 @@ jobs:
 
   - task: ResourceTranslation@3
     displayName: 'ResourceTranslation fallback'
-    condition: and(ne(variables['Build.Reason'], 'Schedule'), eq(variables['HasResxChanges'], 'true'), eq(variables['TranslationFallbackRequired'], 'true'), ne(variables['NoChangedResxFiles'], 'true'))
+    condition: and(ne(variables['Build.Reason'], 'Schedule'), eq(variables['HasResxChanges'], 'true'), eq(variables['TranslationFallbackRequired'], 'true'))
     inputs:
       C3POCustomFolder: true
       C3POWorkingFolder: '$(Build.SourcesDirectory)'
