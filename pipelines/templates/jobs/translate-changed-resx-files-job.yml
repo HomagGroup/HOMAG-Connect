@@ -5,6 +5,7 @@ jobs:
   timeoutInMinutes: 240
   variables:
     ChangedResxFilesJson: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.ChangedResxFilesJson'] ]
+    NoChangedResxFiles: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.NoChangedResxFiles'] ]
   condition: and(succeeded(), eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true'))
   steps:
   - checkout: self
@@ -143,7 +144,7 @@ jobs:
 
   - task: ResourceTranslation@3
     displayName: 'ResourceTranslation for cache misses'
-    condition: eq(variables['RequiresC3PO'], 'true')
+    condition: and(eq(variables['RequiresC3PO'], 'true'), ne(variables['NoChangedResxFiles'], 'true'))
     inputs:
       C3POCustomFolder: true
       C3POWorkingFolder: '$(TranslationWorkspaceRoot)'
@@ -158,7 +159,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Persist translated resx files'
-    condition: and(succeeded(), eq(variables['RequiresC3PO'], 'true'))
+    condition: and(succeeded(), eq(variables['RequiresC3PO'], 'true'), ne(variables['NoChangedResxFiles'], 'true'))
     inputs:
       targetType: inline
       script: |
