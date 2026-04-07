@@ -46,16 +46,14 @@ jobs:
                 {
                     "refs/heads/$pullRequestTargetBranch"
                 }
-                $targetRemoteRef = 'refs/remotes/origin/__translation_target'
-
-                $fetchOutput = @(& git fetch --no-tags origin "$targetBranchRef`:$targetRemoteRef" 2>&1)
+                $fetchOutput = @(& git fetch --no-tags origin $targetBranchRef 2>&1)
 
                 if ($LASTEXITCODE -ne 0)
                 {
                     throw "Unable to fetch target branch '$targetBranchRef'. $($fetchOutput -join [Environment]::NewLine)"
                 }
 
-                $mergeBase = (& git merge-base HEAD $targetRemoteRef 2>$null | Select-Object -First 1).Trim()
+                $mergeBase = (& git merge-base HEAD FETCH_HEAD 2>$null | Select-Object -First 1).Trim()
 
                 if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
                 {
