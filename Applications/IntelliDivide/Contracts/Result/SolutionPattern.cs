@@ -211,7 +211,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <example>38.0</example>
         [JsonProperty(Order = 19)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        [Range(0.01, 999.9)]
+        [Range(0.0, 999.9)]
         public double MaxBookHeight { get; set; }
     }
 }
