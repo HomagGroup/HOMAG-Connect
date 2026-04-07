@@ -251,8 +251,9 @@ jobs:
     inputs:
       testResultsFormat: 'VSTest'
       testResultsFiles: '$(Agent.TempDirectory)\UnitTestResults\**\*.trx'
+      mergeTestResults: true
       failTaskOnFailedTests: true
-      testRunTitle: 'HomagConnect Unit Tests'
+      testRunTitle: 'HomagConnect Unit Tests (Fail Fast)'
 
   - task: PowerShell@2
     displayName: Run Integration Tests in PRD environment to ensure that the samples are working.
