@@ -553,6 +553,7 @@ public static class ProjectExtensionsConversion
             address.City = orderWrapper.City;
             address.Country = orderWrapper.Country;
             address.AdditionalInfo = orderWrapper.AdditionalInfo;
+            address.DeliveryDistance = orderWrapper.DeliveryDistance;
 
             orderDetails.Addresses =
             [
