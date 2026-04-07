@@ -46,7 +46,7 @@ jobs:
                 {
                     "refs/heads/$pullRequestTargetBranch"
                 }
-                $fetchOutput = @(& git fetch --no-tags origin $targetBranchRef 2>&1)
+                $fetchOutput = @(& git fetch --no-tags --quiet origin $targetBranchRef 2>&1)
 
                 if ($LASTEXITCODE -ne 0)
                 {
