@@ -15,6 +15,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
     /// Event that occurs when a board type has been created or updated.
     /// </summary>
     [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(BoardTypeUpsertedEvent))]
+    [LiveEvent]
     public class BoardTypeUpsertedEvent : AppEvent
     {
         /// <summary>
