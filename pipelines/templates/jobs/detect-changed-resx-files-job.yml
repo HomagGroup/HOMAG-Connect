@@ -24,11 +24,13 @@ jobs:
             Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($emptyTranslationMatrix | ConvertTo-Json -Compress -Depth 5))"
             Write-Host '##vso[task.setvariable variable=ChangedResxFilesJson;isOutput=true][]'
             Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+            Write-Host '##vso[task.setvariable variable=NoChangedResxFiles;isOutput=true]false'
             return
         }
 
         $changedResxFiles = @()
         $runAllResxTranslations = $false
+        $noChangedResxFiles = $false
         $diffDescription = ''
 
         try
@@ -36,18 +38,26 @@ jobs:
             if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestTargetBranch))
             {
                 Write-Host "Detecting changed .resx files against pull request target branch '$pullRequestTargetBranch'."
-                $fetchOutput = @(& git fetch --no-tags origin $pullRequestTargetBranch 2>&1)
+                $targetBranchRef = if ($pullRequestTargetBranch -like 'refs/heads/*')
+                {
+                    $pullRequestTargetBranch
+                }
+                else
+                {
+                    "refs/heads/$pullRequestTargetBranch"
+                }
+                $fetchOutput = @(& git fetch --no-tags --quiet origin $targetBranchRef 2>&1)
 
                 if ($LASTEXITCODE -ne 0)
                 {
-                    throw "Unable to fetch target branch '$pullRequestTargetBranch'. $($fetchOutput -join [Environment]::NewLine)"
+                    throw "Unable to fetch target branch '$targetBranchRef'. $($fetchOutput -join [Environment]::NewLine)"
                 }
 
                 $mergeBase = (& git merge-base HEAD FETCH_HEAD 2>$null | Select-Object -First 1).Trim()
 
                 if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
                 {
-                    throw "Unable to determine merge base for '$pullRequestTargetBranch'."
+                    throw "Unable to determine merge base for '$targetBranchRef'."
                 }
 
                 $diffDescription = "$mergeBase..HEAD"
@@ -85,6 +95,13 @@ jobs:
             Write-Host "Translation diff range: $diffDescription"
         }
 
+        if (-not $runAllResxTranslations -and $changedResxFiles.Count -eq 0)
+        {
+            $noChangedResxFiles = $true
+            $runAllResxTranslations = $true
+            Write-Host 'No changed .resx files detected. Restoring all translated .resx files from cache to ensure package completeness.'
+        }
+
         if ($runAllResxTranslations)
         {
             $sourceDirectory = '$(Build.SourcesDirectory)'
@@ -99,6 +116,7 @@ jobs:
             Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($emptyTranslationMatrix | ConvertTo-Json -Compress -Depth 5))"
             Write-Host '##vso[task.setvariable variable=ChangedResxFilesJson;isOutput=true][]'
             Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
+            Write-Host "##vso[task.setvariable variable=NoChangedResxFiles;isOutput=true]$(($noChangedResxFiles.ToString()).ToLowerInvariant())"
             $global:LASTEXITCODE = 0
             return
         }
@@ -122,4 +140,5 @@ jobs:
         Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($translationMatrix | ConvertTo-Json -Compress -Depth 5))"
         Write-Host "##vso[task.setvariable variable=ChangedResxFilesJson;isOutput=true]$(($changedResxFiles | ConvertTo-Json -Compress))"
         Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]true'
+        Write-Host "##vso[task.setvariable variable=NoChangedResxFiles;isOutput=true]$(($noChangedResxFiles.ToString()).ToLowerInvariant())"
         $global:LASTEXITCODE = 0
