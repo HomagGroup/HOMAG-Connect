@@ -12,11 +12,6 @@
     <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
     <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialAssist/Client</PackageProjectUrl>
   </PropertyGroup>
-
-  <ItemGroup Label="Package References">
-    <PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Client\HomagConnect.Base.Client.csproj" />
     <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />

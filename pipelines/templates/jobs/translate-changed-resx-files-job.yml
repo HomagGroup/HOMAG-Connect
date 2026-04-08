@@ -1,0 +1,248 @@
+jobs:
+- job: TranslateChangedResxFiles
+  displayName: Translate changed resx files
+  dependsOn: DetectChangedResxFiles
+  timeoutInMinutes: 240
+  variables:
+    ChangedResxFilesJson: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.ChangedResxFilesJson'] ]
+    NoChangedResxFiles: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.NoChangedResxFiles'] ]
+  condition: and(succeeded(), eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true'))
+  steps:
+  - checkout: self
+    fetchDepth: 1
+
+  - task: Cache@2
+    displayName: 'Restore translated resx cache'
+    inputs:
+      key: 'resx-translation | "$(Agent.OS)" | $(Build.SourceVersion)'
+      restoreKeys: |
+        resx-translation | "$(Agent.OS)"
+      path: '$(Agent.TempDirectory)\translation-cache-root'
+      cacheHitVar: TranslationCacheRestored
+
+  - task: PowerShell@2
+    displayName: 'Prepare translation inputs'
+    name: prepareTranslationInputs
+    inputs:
+      targetType: inline
+      script: |
+        $changedResxFilesJson = '$(ChangedResxFilesJson)'
+        $changedResxFilesRaw = if ([string]::IsNullOrWhiteSpace($changedResxFilesJson))
+        {
+            @()
+        }
+        else
+        {
+            ConvertFrom-Json -InputObject $changedResxFilesJson
+        }
+
+        $changedResxFiles = @($changedResxFilesRaw | ForEach-Object { [string]$_ })
+        $cacheRoot = '$(Agent.TempDirectory)\translation-cache-root'
+        $translationWorkspaceRoot = '$(Pipeline.Workspace)\translation-workspace'
+        $artifactRoot = '$(Agent.TempDirectory)\translations-artifact'
+        $filesToTranslate = @()
+        $restoredFromCacheCount = 0
+
+        if (Test-Path $translationWorkspaceRoot)
+        {
+            Remove-Item -Path $translationWorkspaceRoot -Recurse -Force
+        }
+
+        if (Test-Path $artifactRoot)
+        {
+            Remove-Item -Path $artifactRoot -Recurse -Force
+        }
+
+        New-Item -ItemType Directory -Path $cacheRoot -Force | Out-Null
+        New-Item -ItemType Directory -Path $translationWorkspaceRoot -Force | Out-Null
+        New-Item -ItemType Directory -Path $artifactRoot -Force | Out-Null
+
+        foreach ($changedResxFile in $changedResxFiles)
+        {
+            $relativePath = ([string]$changedResxFile) -replace '/', '\'
+            $relativeDirectory = Split-Path -Path $relativePath -Parent
+            $fileName = Split-Path $relativePath -Leaf
+            $baseFileName = [System.IO.Path]::GetFileNameWithoutExtension($fileName)
+            $sourceDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
+            {
+                '$(Build.SourcesDirectory)'
+            }
+            else
+            {
+                Join-Path '$(Build.SourcesDirectory)' $relativeDirectory
+            }
+            $sourceResxPath = Join-Path '$(Build.SourcesDirectory)' $relativePath
+
+            if (-not (Test-Path $sourceResxPath))
+            {
+                throw "Translation source file '$sourceResxPath' was not found."
+            }
+
+            $sourceHash = (Get-FileHash -Path $sourceResxPath -Algorithm SHA256).Hash.ToLowerInvariant()
+            $cachePath = Join-Path $cacheRoot $sourceHash
+            $artifactDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
+            {
+                $artifactRoot
+            }
+            else
+            {
+                Join-Path $artifactRoot $relativeDirectory
+            }
+            $cachedResxFiles = @(Get-ChildItem -Path $cachePath -Filter "$baseFileName*.resx" -File -ErrorAction SilentlyContinue)
+
+            if ($cachedResxFiles.Count -gt 0)
+            {
+                New-Item -ItemType Directory -Path $artifactDirectory -Force | Out-Null
+
+                foreach ($cachedResxFile in $cachedResxFiles)
+                {
+                    Copy-Item -Path $cachedResxFile.FullName -Destination $artifactDirectory -Force
+                }
+
+                Write-Host "Restored translated .resx files for '$changedResxFile' from cache."
+                $restoredFromCacheCount++
+                continue
+            }
+
+            $workspaceDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
+            {
+                $translationWorkspaceRoot
+            }
+            else
+            {
+                Join-Path $translationWorkspaceRoot $relativeDirectory
+            }
+            New-Item -ItemType Directory -Path $workspaceDirectory -Force | Out-Null
+
+            Copy-Item -Path $sourceResxPath -Destination (Join-Path $workspaceDirectory $fileName) -Force
+
+            $filesToTranslate += [pscustomobject]@{
+                RelativePath = $changedResxFile
+                RelativeDirectory = $relativeDirectory
+                FileName = $fileName
+                BaseFileName = $baseFileName
+                SourceHash = $sourceHash
+            }
+        }
+
+        $translationManifestPath = Join-Path $translationWorkspaceRoot 'translation-manifest.json'
+        $translationManifestJson = if ($filesToTranslate.Count -eq 0)
+        {
+            '[]'
+        }
+        else
+        {
+            $filesToTranslate | ConvertTo-Json -Depth 5
+        }
+
+        Set-Content -Path $translationManifestPath -Value $translationManifestJson -Encoding UTF8
+
+        Write-Host "Files restored from cache: $restoredFromCacheCount"
+        Write-Host "Files that require C3PO: $($filesToTranslate.Count)"
+        Write-Host "##vso[task.setvariable variable=TranslationWorkspaceRoot]$translationWorkspaceRoot"
+        Write-Host "##vso[task.setvariable variable=TranslationCacheRoot]$cacheRoot"
+        Write-Host "##vso[task.setvariable variable=TranslationArtifactRoot]$artifactRoot"
+        Write-Host "##vso[task.setvariable variable=TranslationManifestPath]$translationManifestPath"
+        Write-Host "##vso[task.setvariable variable=RequiresC3PO]$(($filesToTranslate.Count -gt 0).ToString().ToLowerInvariant())"
+
+  - task: ResourceTranslation@3
+    displayName: 'ResourceTranslation for cache misses'
+    condition: eq(variables['RequiresC3PO'], 'true')
+    inputs:
+      C3POCustomFolder: true
+      C3POWorkingFolder: '$(TranslationWorkspaceRoot)'
+      RecursiveSearch: true
+      C3POLanguages: $(C3PO_LANGUAGES_DIGITAL_APPS)
+      AssemblyMaskList: '*.resx'
+      WorkingDirectoryList: '.'
+      C3POArguments: '-@=out.dbg -err=c3po_err.txt -s -ser -fdbjobs=all -fdbsync=incr -fdbUser=$(C3PO_TERMBASE_USER) -useenglish'
+      C3PORetryCounter: '3'
+      C3POTimeout: '600'
+      C3PODisableCache: true
+
+  - task: PowerShell@2
+    displayName: 'Persist translated resx files'
+    condition: and(succeeded(), eq(variables['RequiresC3PO'], 'true'))
+    inputs:
+      targetType: inline
+      script: |
+        $translationWorkspaceRoot = '$(TranslationWorkspaceRoot)'
+        $cacheRoot = '$(TranslationCacheRoot)'
+        $artifactRoot = '$(TranslationArtifactRoot)'
+        $translationManifestPath = '$(TranslationManifestPath)'
+
+        if (-not (Test-Path $translationManifestPath))
+        {
+            throw "Translation manifest '$translationManifestPath' was not found."
+        }
+
+        $filesToTranslateRaw = Get-Content -Path $translationManifestPath -Raw | ConvertFrom-Json
+        $filesToTranslate = @($filesToTranslateRaw)
+
+        foreach ($fileToTranslate in $filesToTranslate)
+        {
+            $relativeDirectoryValue = $fileToTranslate.RelativeDirectory
+            $relativeDirectory = if ($null -eq $relativeDirectoryValue)
+            {
+                ''
+            }
+            elseif ($relativeDirectoryValue -is [System.Array])
+            {
+                [string]$relativeDirectoryValue[0]
+            }
+            else
+            {
+                [string]$relativeDirectoryValue
+            }
+
+            $relativeDirectory = $relativeDirectory -replace '/', '\'
+            $relativePath = [string]$fileToTranslate.RelativePath
+            $baseFileName = [string]$fileToTranslate.BaseFileName
+            $sourceHash = [string]$fileToTranslate.SourceHash
+            $workspaceDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
+            {
+                $translationWorkspaceRoot
+            }
+            else
+            {
+                Join-Path $translationWorkspaceRoot $relativeDirectory
+            }
+            $artifactDirectory = if ([string]::IsNullOrWhiteSpace($relativeDirectory))
+            {
+                $artifactRoot
+            }
+            else
+            {
+                Join-Path $artifactRoot $relativeDirectory
+            }
+            $cachePath = Join-Path $cacheRoot $sourceHash
+            $translatedResxFiles = @(Get-ChildItem -Path $workspaceDirectory -Filter "$baseFileName*.resx" -File)
+
+            if ($translatedResxFiles.Count -eq 0)
+            {
+                throw "No translated .resx files found for '$relativePath'."
+            }
+
+            if (Test-Path $cachePath)
+            {
+                Remove-Item -Path $cachePath -Recurse -Force
+            }
+
+            New-Item -ItemType Directory -Path $artifactDirectory -Force | Out-Null
+            New-Item -ItemType Directory -Path $cachePath -Force | Out-Null
+
+            foreach ($translatedResxFile in $translatedResxFiles)
+            {
+                Copy-Item -Path $translatedResxFile.FullName -Destination $artifactDirectory -Force
+                Copy-Item -Path $translatedResxFile.FullName -Destination $cachePath -Force
+            }
+
+            Write-Host "Cached translated .resx files for '$relativePath'."
+        }
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish translated resx artifact'
+    inputs:
+      targetPath: '$(Agent.TempDirectory)\translations-artifact'
+      artifact: 'translated-resx'
+      publishLocation: 'pipeline'
