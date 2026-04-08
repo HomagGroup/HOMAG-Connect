@@ -185,24 +185,8 @@ jobs:
         sonar.branch.name=$(Build.SourceBranchName)
 
   - task: DotNetCoreCLI@2
-    displayName: Build projects (PR)
-    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-    timeoutInMinutes: 240
-    inputs:
-      command: 'build'
-      projects: |
-            **/*.csproj
-            !**/.git/**
-            !**/.github/**
-            !**/.gitlab/**
-            !**/logs/**
-            !**/bin/**/*.csproj
-            !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
-
-  - task: DotNetCoreCLI@2
     displayName: Build projects
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    condition: succeeded()
     timeoutInMinutes: 240
     inputs:
       command: 'build'
@@ -214,7 +198,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /m /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
     displayName: 'Run Unit Tests to fail fast.'
@@ -347,25 +331,8 @@ jobs:
       publishLocation: 'pipeline'
 
   - task: DotNetCoreCLI@2
-    displayName: Pack projects (PR, net10.0)
-    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-    timeoutInMinutes: 240
-    inputs:
-      command: 'pack'
-      nobuild: false
-      projects: |
-            **/*.csproj
-            !**/.git/**
-            !**/.github/**
-            !**/.gitlab/**
-            !**/logs/**
-            !**/bin/**/*.csproj
-            !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
-
-  - task: DotNetCoreCLI@2
     displayName: Pack projects
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    condition: succeeded()
     timeoutInMinutes: 240
     inputs:
       command: 'pack'
@@ -378,7 +345,7 @@ jobs:
             !**/logs/**
             !**/bin/**/*.csproj
             !**/obj/**/*.csproj
-      arguments: '--configuration $(BuildConfiguration) /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
+      arguments: '--configuration $(BuildConfiguration) /m /p:Version=$(VERSION_TAG) /p:PackageVersion=$(VERSION_TAG) /p:AssemblyVersion=$(ASSEMBLY_VERSION) /p:FileVersion=$(FILE_VERSION) /p:InformationalVersion=$(VERSION_TAG) --no-restore -nr:FALSE'
 
   - task: PowerShell@2
     displayName: 'Stage NuGet packages'
