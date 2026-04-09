@@ -178,6 +178,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Niedrigste Materialkosten pro Teil.
+        /// </summary>
+        public static string LowestMaterialCostsPerPart {
+            get {
+                return ResourceManager.GetString("LowestMaterialCostsPerPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative erzielt die niedrigsten Materialkosten pro Teil und eignet sich für Szenarien mit Plusteilen, in denen der Materialverbrauch im Fokus steht. Die Produktionszeit kann dabei höher ausfallen oder die Pläne können komplexer sein..
+        /// </summary>
+        public static string LowestMaterialCostsPerPartDescription {
+            get {
+                return ResourceManager.GetString("LowestMaterialCostsPerPartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geringste Anzahl Zyklen.
         /// </summary>
         public static string LowestNumberOfCycles {
@@ -264,6 +282,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         public static string LowestTotalCostsDescription {
             get {
                 return ResourceManager.GetString("LowestTotalCostsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niedrigste Gesamtkosten pro Teil.
+        /// </summary>
+        public static string LowestTotalCostsPerPart {
+            get {
+                return ResourceManager.GetString("LowestTotalCostsPerPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Die Alternative bietet die niedrigsten Gesamtkosten pro Teil und ist daher in typischen Szenarien mit Plusteilen die empfohlene Lösung..
+        /// </summary>
+        public static string LowestTotalCostsPerPartDescription {
+            get {
+                return ResourceManager.GetString("LowestTotalCostsPerPartDescription", resourceCulture);
             }
         }
         
