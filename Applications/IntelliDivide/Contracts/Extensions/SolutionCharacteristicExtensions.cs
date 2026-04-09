@@ -39,6 +39,7 @@ public static class SolutionCharacteristicExtensions
         sb.Append(Environment.NewLine);
         sb.Append(SolutionCharacteristicDisplayNames.AdditionalCharacteristicsDescription);
         sb.Append(Environment.NewLine);
+        sb.Append(Environment.NewLine);
 
         foreach (var additionalCharacteristic in additionalCharacteristics)
         {

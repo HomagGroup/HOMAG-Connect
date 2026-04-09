@@ -37,6 +37,9 @@ jobs:
         }
 
         $changedResxFiles = @($changedResxFilesRaw | ForEach-Object { [string]$_ })
+        $allResxFiles = @(Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -Filter '*.resx' -File |
+          ForEach-Object { $_.FullName.Substring('$(Build.SourcesDirectory)'.Length + 1) -replace '\\', '/' } |
+          Sort-Object -Unique)
         $cacheRoot = '$(Agent.TempDirectory)\translation-cache-root'
         $translationWorkspaceRoot = '$(Pipeline.Workspace)\translation-workspace'
         $artifactRoot = '$(Agent.TempDirectory)\translations-artifact'
@@ -57,7 +60,7 @@ jobs:
         New-Item -ItemType Directory -Path $translationWorkspaceRoot -Force | Out-Null
         New-Item -ItemType Directory -Path $artifactRoot -Force | Out-Null
 
-        foreach ($changedResxFile in $changedResxFiles)
+        foreach ($changedResxFile in $allResxFiles)
         {
             $relativePath = ([string]$changedResxFile) -replace '/', '\'
             $relativeDirectory = Split-Path -Path $relativePath -Parent
@@ -137,6 +140,8 @@ jobs:
 
         Set-Content -Path $translationManifestPath -Value $translationManifestJson -Encoding UTF8
 
+        Write-Host "Changed .resx files requested: $($changedResxFiles.Count)"
+        Write-Host "Total .resx files processed for restore/translation: $($allResxFiles.Count)"
         Write-Host "Files restored from cache: $restoredFromCacheCount"
         Write-Host "Files that require C3PO: $($filesToTranslate.Count)"
         Write-Host "##vso[task.setvariable variable=TranslationWorkspaceRoot]$translationWorkspaceRoot"
