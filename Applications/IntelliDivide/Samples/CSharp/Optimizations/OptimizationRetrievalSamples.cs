@@ -56,10 +56,14 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
         public static async Task Optimizations_GetStatusOfAOptimization(IIntelliDivideClient intelliDivide)
         {
             var optimization = await intelliDivide.GetOptimizations(OptimizationType.Cutting, OptimizationStatus.Optimized, 1).FirstAsync();
+
             if (optimization == null)
             {
                 Assert.Fail("No cutting optimization having the state optimized found.");
             }
+
+            Assert.AreEqual(OptimizationStatus.Optimized, optimization.Status, $"The optimization with id {optimization.Id} should have the status optimized.");
+            Assert.IsNull(optimization.SelectedSolutionId, $"The optimization with id {optimization.Id} should not have a selected solution.");
 
             var optimizationStatus = await intelliDivide.GetOptimizationStatus(optimization.Id);
 
@@ -77,6 +81,9 @@ namespace HomagConnect.IntelliDivide.Samples.Optimizations
             {
                 Assert.Inconclusive("No cutting optimization having the state optimized found.");
             }
+            
+            Assert.AreEqual(OptimizationStatus.Optimized, optimization.Status, $"The optimization with id {optimization.Id} should have the status optimized.");
+            Assert.IsNull(optimization.SelectedSolutionId, $"The optimization with id {optimization.Id} should not have a selected solution.");
 
             // Get the solutions including the main key figures
             var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync();
