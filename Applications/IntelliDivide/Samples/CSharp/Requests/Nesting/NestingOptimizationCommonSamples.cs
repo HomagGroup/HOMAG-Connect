@@ -66,7 +66,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
             solutions.Trace(nameof(solutions));
 
-            var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
+            var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First().Id);
             if (balancedSolutionDetails == null)
             {
                 Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
