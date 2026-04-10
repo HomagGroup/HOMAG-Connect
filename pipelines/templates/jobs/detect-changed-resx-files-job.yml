@@ -145,7 +145,7 @@ jobs:
             'Changed .resx files'
         }
 
-        Write-Host "$resxLogLabel:`n$($changedResxFiles -join [Environment]::NewLine)"
+        Write-Host "${resxLogLabel}:`n$($changedResxFiles -join [Environment]::NewLine)"
         Write-Host "##vso[task.setvariable variable=translationMatrix;isOutput=true]$(($translationMatrix | ConvertTo-Json -Compress -Depth 5))"
         Write-Host "##vso[task.setvariable variable=ChangedResxFilesJson;isOutput=true]$(($changedResxFiles | ConvertTo-Json -Compress))"
         Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]true'
