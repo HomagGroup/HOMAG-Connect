@@ -12,6 +12,7 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Usage
     /// </summary>
     [TestClass]
     [IntegrationTest("ProductionManager.Orders.Usage")]
+    [TemporaryDisabledOnServer(2026,5,30, "DF-Insights")]
     public class UsageIntegrationTests : ProductionManagerTestBase
     {
         /// <summary>
