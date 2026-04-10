@@ -7,7 +7,6 @@ using System.Diagnostics;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.IntelliDivide.Contracts.Constants;
 
 using Newtonsoft.Json;
 
@@ -59,7 +58,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the solution. See <see cref="SolutionName" /> for more details.
+        /// Gets or sets the name of the solution.
         /// </summary>
         [JsonProperty(Order = 2)]
         public string Name

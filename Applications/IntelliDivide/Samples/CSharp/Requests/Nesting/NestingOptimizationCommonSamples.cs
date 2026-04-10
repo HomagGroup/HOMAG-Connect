@@ -3,12 +3,9 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
-using HomagConnect.IntelliDivide.Contracts.Constants;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Samples.Requests.Nesting.ObjectModel;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
 {
@@ -66,7 +63,7 @@ namespace HomagConnect.IntelliDivide.Samples.Requests.Nesting
             var solutions = await intelliDivide.GetSolutions(optimization.Id).ToListAsync() ?? throw new InvalidOperationException("Solutions could not get retrieved.");
             solutions.Trace(nameof(solutions));
 
-            var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions.First(s => s.Name == SolutionName.BalancedSolution).Id);
+            var balancedSolutionDetails = await intelliDivide.GetSolutionDetails(optimization.Id, solutions[0].Id);
             if (balancedSolutionDetails == null)
             {
                 Assert.Fail($"The solutions for the optimization with id {optimization.Id} should have at least one element.");
