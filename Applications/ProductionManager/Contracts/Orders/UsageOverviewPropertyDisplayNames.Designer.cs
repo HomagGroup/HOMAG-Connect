@@ -62,6 +62,33 @@ namespace HomagConnect.ProductionManager.Contracts.Orders {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anwendungs‑ID.
+        /// </summary>
+        public static string ApplicationId {
+            get {
+                return ResourceManager.GetString("ApplicationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vollständiger Lizenzname.
+        /// </summary>
+        public static string ApplicationLicenseFullName {
+            get {
+                return ResourceManager.GetString("ApplicationLicenseFullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anzahl Lizenzen.
+        /// </summary>
+        public static string LicenseCount {
+            get {
+                return ResourceManager.GetString("LicenseCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lizenzen.
         /// </summary>
         public static string Licenses {
