@@ -54,6 +54,11 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>ProductionItemFeedbackDisplayNames.resx</DependentUpon>
 		</Compile>
+		<Compile Update="ProductionProtocol\ProcessedItemCategoryDisplayNames.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>ProcessedItemCategoryDisplayNames.resx</DependentUpon>
+		</Compile>
 		<Compile Update="ProductionProtocol\ProcessedItemQualityDisplayNames.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -106,6 +111,10 @@
 		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackDisplayNames.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>ProductionItemFeedbackDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="ProductionProtocol\ProcessedItemCategoryDisplayNames.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>ProcessedItemCategoryDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionProtocol\ProcessedItemQualityDisplayNames.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
