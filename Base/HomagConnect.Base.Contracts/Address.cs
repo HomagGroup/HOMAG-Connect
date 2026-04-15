@@ -71,10 +71,4 @@ public class Address
     /// </summary>
     /// <example>2nd floor</example>
     public string? AdditionalInfo { get; set; }
-
-    /// <summary>
-    /// Gets or sets the delivery distance in miles.
-    /// </summary>
-    [JsonProperty(Order = 10)]
-    public decimal? DeliveryDistance { get; set; }
 }
