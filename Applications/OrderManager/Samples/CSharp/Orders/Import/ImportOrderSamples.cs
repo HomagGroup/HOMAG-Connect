@@ -100,8 +100,7 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                     City = "Musterstadt",
                     Country = "Deutschland",
                     Type = AddressType.Delivery,
-                    AdditionalInfo = "additional info",
-                    DeliveryDistance = 25.5m
+                    AdditionalInfo = "additional info"
                 }
             ]);
 
