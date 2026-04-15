@@ -3,7 +3,7 @@
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
 /// <summary>
-/// Represents a request for cutting duration prediction.
+/// Represents a request to predict cutting duration for one or more parts on a specific machine.
 /// </summary>
 /// <example>
 /// {
@@ -33,6 +33,7 @@ public class CuttingPredictionRequest
     /// <summary>
     /// Initializes a new instance of the <see cref="CuttingPredictionRequest"/> class.
     /// </summary>
+    /// <param name="predictionParts">The parts to include in the prediction request.</param>
     public CuttingPredictionRequest(IEnumerable<CuttingPredictionPart>? predictionParts):this()
     {
         PredictionParts = predictionParts;
@@ -41,6 +42,8 @@ public class CuttingPredictionRequest
     /// <summary>
     /// Initializes a new instance of the <see cref="CuttingPredictionRequest"/> class.
     /// </summary>
+    /// <param name="predictionParts">The parts to include in the prediction request.</param>
+    /// <param name="machineNumber">The machine number for which the prediction should be calculated.</param>
     public CuttingPredictionRequest(IEnumerable<CuttingPredictionPart>? predictionParts, string? machineNumber) :this(predictionParts)
     {
         MachineNumber = machineNumber;
@@ -70,8 +73,8 @@ public class CuttingPredictionRequest
     public IEnumerable<CuttingPredictionPart>? PredictionParts { get; set; }
     
     /// <summary>
-    /// Gets or sets additional custom properties configured in the application. Any JSON properties not mapped
-    /// to a typed member are captured here via <c>[JsonExtensionData]</c>.
+    /// Gets or sets additional custom properties configured in the application.
+    /// JSON properties that are not mapped to typed members are captured here via <c>[JsonExtensionData]</c>.
     /// </summary>
     /// <example>{ "customField1": "value1" }</example>
     [JsonProperty(Order = 80)]
