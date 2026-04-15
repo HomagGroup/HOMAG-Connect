@@ -314,25 +314,7 @@ namespace HomagConnect.ProductionManager.Client
 
             return await PostObject<CuttingPredictionRequest, CuttingPrediction>(uri, cuttingPredictionRequest).ConfigureAwait(true);
         }
-
-        /// <inhertidoc />
-        public async Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest)
-        {
-            if (cncPredictionRequest == null)
-            {
-                throw new ArgumentNullException(nameof(cncPredictionRequest));
-            }
-
-            if (cncPredictionRequest.PredictionParts == null || !cncPredictionRequest.PredictionParts.Any())
-            {
-                throw new ArgumentException("The predictionParts must not be null or empty.", nameof(cncPredictionRequest));
-            }
-
-            var uri = new Uri("/api/productionManager/predict/cnc", UriKind.Relative);
-
-            return await PostObject<CncPredictionRequest, CncPrediction>(uri, cncPredictionRequest).ConfigureAwait(true);
-        }
-
+       
         #endregion
 
         #region Order deletion
