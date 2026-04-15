@@ -285,19 +285,6 @@ public class OrderWrapper
         }
     }
 
-    /// <summary />
-    public decimal? DeliveryDistance
-    {
-        get
-        {
-            return Order.GetPropertyValue<decimal?>();
-        }
-        set
-        {
-            Order.SetPropertyValue(value);
-        }
-    }
-
     #endregion
 
     /// <summary>
