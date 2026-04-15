@@ -120,7 +120,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 ProgramName = "Test.mpr",
                 OrderName = "TestOrder",
                 OrderNumber = "",
-                Quality = ProcessedItemQuality.Good,
+                Category = ProcessedItemCategory.Planned,
                 ProgramDuration = completedAt - startedAt
             };
 
