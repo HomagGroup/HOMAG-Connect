@@ -60,7 +60,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Geplant.
         /// </summary>
@@ -69,7 +69,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
                 return ResourceManager.GetString("Planned", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Nachfertigung.
         /// </summary>
@@ -78,7 +78,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
                 return ResourceManager.GetString("Rework", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ungeplant.
         /// </summary>
