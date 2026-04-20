@@ -1,6 +1,9 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.OrderProgress
 {
@@ -10,13 +13,14 @@ namespace HomagConnect.ProductionManager.Contracts.OrderProgress
     /// <example>
     /// { "orderNumber": "4711", "group": "Saw", "id": "7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c", "aggregatedItemQuantity": 84 }
     /// </example>
-    public class OrderProgressDetails
+    public class OrderProgressDetails: ISupportsLocalizedSerialization
     {
         /// <summary>
         /// Gets or sets the business identifier of the order.
         /// </summary>
         /// <example>4711</example>
         [JsonProperty(Order = 1)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(OrderNumber))]
         public string? OrderNumber { get; set; }
 
         /// <summary>
@@ -24,6 +28,7 @@ namespace HomagConnect.ProductionManager.Contracts.OrderProgress
         /// </summary>
         /// <example>Saw</example>
         [JsonProperty(Order = 2)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(WorkstationGroup))]
         public WorkstationGroup Group { get; set; } = WorkstationGroup.None;
 
         /// <summary>

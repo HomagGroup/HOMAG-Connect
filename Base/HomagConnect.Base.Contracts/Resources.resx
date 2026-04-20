@@ -197,6 +197,9 @@
     <value>Optimierung</value>
     <comment>Optimization name</comment>
   </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Auftragsnummer</value>
+  </data>
   <data name="Part" xml:space="preserve">
     <value>Teil</value>
     <comment>Part</comment>
@@ -216,5 +219,8 @@
   <data name="Width" xml:space="preserve">
     <value>Breite</value>
     <comment>Width</comment>
+  </data>
+  <data name="WorkstationGroup" xml:space="preserve">
+    <value>Arbeitsplatzgruppe</value>
   </data>
 </root>
