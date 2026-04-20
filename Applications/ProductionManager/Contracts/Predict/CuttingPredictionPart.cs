@@ -10,19 +10,24 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
 /// <summary>
-/// Part for cutting prediction.
+/// Represents a part input used for cutting prediction requests.
 /// </summary>
+/// <example>
+/// { "id": "Part-1001", "quantity": 2, "length": 1200.0, "width": 450.0, "thickness": 19.0, "unitSystem": "Metric" }
+/// </example>
 public class CuttingPredictionPart : IDimensionProperties, IContainsUnitSystemDependentProperties
 {
     /// <summary>
-    /// Gets or sets the id of the part.
+    /// Gets or sets the client-side identifier of the part.
     /// </summary>
+    /// <example>Part-1001</example>
     [JsonProperty(Order = 1)]
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the quantity how often the part is needed.
+    /// Gets or sets how many times the part is required in the prediction request.
     /// </summary>
+    /// <example>2</example>
     [Required]
     [JsonProperty(Order = 2)]
     [Range(1, 10000)]
@@ -53,8 +58,9 @@ public class CuttingPredictionPart : IDimensionProperties, IContainsUnitSystemDe
     #region IContainsUnitSystemDependentProperties Members
 
     /// <summary>
-    /// Gets or sets the unit system used for unit-dependent values such as length, width, and thickness.
-    /// Use <c>Metric</c> for metric units (for example mm) and <c>Imperial</c> for imperial units (for example inches).
+    /// Gets or sets the unit system for unit-dependent values such as <see cref="Length" />, <see cref="Width" />, and <see cref="Thickness" />.
+    /// Use <c>Metric</c> when dimension values are provided in millimeters.
+    /// Use <c>Imperial</c> when dimension values are provided in inches.
     /// </summary>
     /// <example>Metric</example>
     [JsonProperty(Order = 999)]
@@ -63,9 +69,9 @@ public class CuttingPredictionPart : IDimensionProperties, IContainsUnitSystemDe
     #endregion
 
     /// <summary>
-    /// Converts a production order to an cutting prediction part.
+    /// Converts a production part to a cutting prediction part.
     /// </summary>
-    /// <param name="productionOrder"></param>
+    /// <param name="productionOrder">The production part to convert.</param>
     public static implicit operator CuttingPredictionPart(Part productionOrder)
     {
         var part = new CuttingPredictionPart

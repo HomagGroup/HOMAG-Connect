@@ -2,7 +2,6 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 
 using HomagConnect.Base.Contracts.Extensions;
@@ -28,21 +27,26 @@ public static class SolutionCharacteristicExtensions
     {
         var description = solutionCharacteristic.GetLocalizedDescription(culture);
 
-        if (additionalCharacteristics is { Length: > 0 })
+        if (additionalCharacteristics is not { Length: > 0 })
         {
-            var sb = new StringBuilder(description);
-
-            sb.Append(Environment.NewLine);
-            sb.Append(SolutionCharacteristicDisplayNames.AdditionalCharacteristicsDescription);
-            sb.Append(' ');
-
-            // Append names joined by comma and space, localized per characteristic
-            var joined = string.Join(", ", additionalCharacteristics.Select(ch => ch.GetLocalizedName(culture)));
-
-            sb.Append(joined);
-
-            description = sb.ToString();
+            // Ensure no stray separators or spaces at ends
+            return description.Trim(' ', ',');
         }
+
+        var sb = new StringBuilder(description);
+
+        sb.Append(Environment.NewLine);
+        sb.Append(Environment.NewLine);
+        sb.Append(SolutionCharacteristicDisplayNames.AdditionalCharacteristicsDescription);
+        sb.Append(Environment.NewLine);
+        sb.Append(Environment.NewLine);
+
+        foreach (var additionalCharacteristic in additionalCharacteristics)
+        {
+            sb.AppendLine($"• {additionalCharacteristic.GetLocalizedName(culture)}");
+        }
+
+        description = sb.ToString();
 
         // Ensure no stray separators or spaces at ends
         return description.Trim(' ', ',');

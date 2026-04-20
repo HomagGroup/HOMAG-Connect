@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,33 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="UsageOverview" xml:space="preserve">
-    <value>Nutzungsübersicht</value>
-    <comment>UsageOverview</comment>
+  <data name="Planned" xml:space="preserve">
+    <value>Geplant</value>
   </data>
-  <data name="Period" xml:space="preserve">
-    <value>Zeitraum</value>
-    <comment>Period</comment>
+  <data name="Rework" xml:space="preserve">
+    <value>Nachfertigung</value>
   </data>
-  <data name="Licenses" xml:space="preserve">
-    <value>Lizenzen</value>
-    <comment>Licenses</comment>
-  </data>
-  <data name="QuantityOfPartsCoveredByTheLicenses" xml:space="preserve">
-    <value>Anzahl der durch die Lizenzen abgedeckten Teile</value>
-    <comment>QuantityOfPartsCoveredByTheLicenses</comment>
-  </data>
-  <data name="QuantityOfReleasedParts" xml:space="preserve">
-    <value>Anzahl freigegebener Teile</value>
-    <comment>QuantityOfReleasedParts</comment>
-  </data>
-  <data name="ApplicationId" xml:space="preserve">
-    <value>Anwendungs‑ID</value>
-  </data>
-  <data name="ApplicationLicenseFullName" xml:space="preserve">
-    <value>Vollständiger Lizenzname</value>
-  </data>
-  <data name="LicenseCount" xml:space="preserve">
-    <value>Anzahl Lizenzen</value>
+  <data name="Unplanned" xml:space="preserve">
+    <value>Ungeplant</value>
   </data>
 </root>

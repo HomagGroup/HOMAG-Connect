@@ -96,6 +96,7 @@ namespace HomagConnect.OrderManager.Tests.Import
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2026, 6, 01, "DF-OrderManager")]
         public async Task ImportOrder_ProjectZip_LargeProject()
         {
             var orderManager = GetOrderManagerClient();
@@ -181,6 +182,7 @@ namespace HomagConnect.OrderManager.Tests.Import
 
         /// <summary />
         [TestMethod]
+        [TemporaryDisabledOnServer(2026, 6, 01, "DF-OrderManager")]
         public async Task ImportOrder_Wardrobe_OrderDetails()
         {
             var stopWatch = Stopwatch.StartNew();

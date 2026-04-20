@@ -22,15 +22,6 @@ public enum SolutionCharacteristic
     Unknown = 0,
 
     /// <summary>
-    /// Solution with the lowest total costs per part.
-    /// </summary>
-    /// <remarks>Recommended when both production and material costs are available.</remarks>
-    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestTotalCosts), Description = "LowestTotalCostsDescription")]
-    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowesttotalcosts.svg")]
-    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.TotalCostsPerPart, 1000)]
-    LowestTotalCosts,
-
-    /// <summary>
     /// Cuts most parts in automatic mode, reducing manual effort.
     /// </summary>
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(HighestAutomationLevel), Description = "HighestAutomationLevelDescription")]
@@ -39,13 +30,40 @@ public enum SolutionCharacteristic
     HighestAutomationLevel,
 
     /// <summary>
-    /// Solution with the lowest material costs per part.
+    /// Solution with the lowest total costs
+    /// </summary>
+    /// <remarks>Recommended when both production and material costs are available.</remarks>
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestTotalCosts), Description = "LowestTotalCostsDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowesttotalcosts.svg")]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.TotalCosts, 1000)]
+    LowestTotalCosts,
+
+    /// <summary>
+    /// Solution with the lowest total costs per part.
+    /// </summary>
+    /// <remarks>Recommended when both production and material costs are available.</remarks>
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestTotalCostsPerPart), Description = "LowestTotalCostsPerPartDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowesttotalcosts.svg")]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.TotalCostsPerPart, 1000)]
+    LowestTotalCostsPerPart,
+
+    /// <summary>
+    /// Solution with the lowest material costs
     /// </summary>
     /// <remarks>Recommended when production time is not a relevant factor.</remarks>
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestMaterialCosts), Description = "LowestMaterialCostsDescription")]
     [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowest_material_costs.svg")]
-    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.MaterialCostsPerPart, 1000)]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.MaterialCosts, 1000)]
     LowestMaterialCosts,
+
+    /// <summary>
+    /// Solution with the lowest material costs per part.
+    /// </summary>
+    /// <remarks>Recommended when production time is not a relevant factor.</remarks>
+    [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestMaterialCostsPerPart), Description = "LowestMaterialCostsPerPartDescription")]
+    [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowest_material_costs.svg")]
+    [SolutionCharacteristicScoreWeights(SolutionKeyFigure.MaterialCostsPerPart, 1000)]
+    LowestMaterialCostsPerPart,
 
     /// <summary>
     /// Balanced solution across waste, offcuts, and production time.

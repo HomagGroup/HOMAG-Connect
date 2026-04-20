@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.ProductionManager.Contracts.Orders {
+namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.ProductionManager.Contracts.Orders {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class UsageOverviewPropertyDisplayNames {
+    public class ProcessedItemCategoryDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UsageOverviewPropertyDisplayNames() {
+        internal ProcessedItemCategoryDisplayNames() {
         }
         
         /// <summary>
@@ -39,8 +39,8 @@ namespace HomagConnect.ProductionManager.Contracts.Orders {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.Orders.UsageOverviewPropertyDisplayNames" +
-                            "", typeof(UsageOverviewPropertyDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItemCategory" +
+                            "DisplayNames", typeof(ProcessedItemCategoryDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,74 +62,29 @@ namespace HomagConnect.ProductionManager.Contracts.Orders {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anwendungs‑ID.
+        ///   Looks up a localized string similar to Geplant.
         /// </summary>
-        public static string ApplicationId {
+        public static string Planned {
             get {
-                return ResourceManager.GetString("ApplicationId", resourceCulture);
+                return ResourceManager.GetString("Planned", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vollständiger Lizenzname.
+        ///   Looks up a localized string similar to Nachfertigung.
         /// </summary>
-        public static string ApplicationLicenseFullName {
+        public static string Rework {
             get {
-                return ResourceManager.GetString("ApplicationLicenseFullName", resourceCulture);
+                return ResourceManager.GetString("Rework", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anzahl Lizenzen.
+        ///   Looks up a localized string similar to Ungeplant.
         /// </summary>
-        public static string LicenseCount {
+        public static string Unplanned {
             get {
-                return ResourceManager.GetString("LicenseCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lizenzen.
-        /// </summary>
-        public static string Licenses {
-            get {
-                return ResourceManager.GetString("Licenses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zeitraum.
-        /// </summary>
-        public static string Period {
-            get {
-                return ResourceManager.GetString("Period", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Anzahl der durch die Lizenzen abgedeckten Teile.
-        /// </summary>
-        public static string QuantityOfPartsCoveredByTheLicenses {
-            get {
-                return ResourceManager.GetString("QuantityOfPartsCoveredByTheLicenses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Anzahl freigegebener Teile.
-        /// </summary>
-        public static string QuantityOfReleasedParts {
-            get {
-                return ResourceManager.GetString("QuantityOfReleasedParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nutzungsübersicht.
-        /// </summary>
-        public static string UsageOverview {
-            get {
-                return ResourceManager.GetString("UsageOverview", resourceCulture);
+                return ResourceManager.GetString("Unplanned", resourceCulture);
             }
         }
     }
