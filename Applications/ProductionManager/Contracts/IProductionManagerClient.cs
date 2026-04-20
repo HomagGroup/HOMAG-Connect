@@ -337,6 +337,11 @@ namespace HomagConnect.ProductionManager.Contracts
         /// current usage detail records. Returns an empty collection if no records are found.</returns>
         Task<IEnumerable<UsageDetails>> GetCurrentUsage();
 
+        /// <summary>
+        /// Retrieve the order progress details for given order numbers and workplace ids.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest);
         #endregion Usage statistics
     }
 }

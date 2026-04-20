@@ -1,6 +1,9 @@
+using System.Diagnostics;
+
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json;
 using Shouldly;
 using System.Globalization;
@@ -192,5 +195,32 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Usage
             var lastMonthDetails = await productionManagerClient.GetUsageDetailsForPeriod(lastMonthPeriod).ToListAsync();
             lastMonthDetails.ShouldNotBeNull();
         }
+
+        /// <summary>
+        /// retrieve order progress with first orders and workstations and trace the result
+        /// </summary>
+        [TestMethod]
+        [TemporaryDisabledOnServer(2026, 05, 01, "DF-Production")]
+        public async Task OrderProgress_Trace()
+        {
+            var productionManagerClient = GetProductionManagerClient();
+
+            var workstations = await productionManagerClient.GetWorkstations()!.ToListAsync();
+            var ordersAsync = await productionManagerClient.GetOrders([OrderStatus.New ,OrderStatus.Archived, OrderStatus.Completed,OrderStatus.InProduction,OrderStatus.ReadyForProduction], 1).ToListAsync();
+
+            Debug.Assert(ordersAsync != null, nameof(ordersAsync) + " != null");
+            Debug.Assert(workstations != null, nameof(workstations) + " != null");
+
+            var request = new OrderProgressRequest
+            {
+                OrderNumbers = ordersAsync.Select(o => o.OrderNumber ?? "").ToList(),
+                WorkplaceIds = workstations.Select(w => w.Id).ToList()
+            };
+
+            var progress = await productionManagerClient.GetOrderProgress(request);
+
+            TestContext?.AddResultFile(progress!.TraceToFile(nameof(OrderProgress_Trace)).FullName);
+        }
+
     }
 }

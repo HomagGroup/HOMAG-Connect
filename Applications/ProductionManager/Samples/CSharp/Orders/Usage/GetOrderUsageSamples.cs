@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Orders;
@@ -116,6 +118,28 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Usage
 
                 usagePercentages.Trace("Last 6 months usage percentages");
             }
+        }
+
+
+        /// <summary>
+        /// Get OrderProgress for a list of Orders
+        /// </summary>
+        public static async Task GetOrderProgressAsync(IProductionManagerClient productionManager)
+        {
+            // Get Workstations
+            var workstations = await productionManager.GetWorkstations()!.ToListAsync();
+            var orders = await productionManager.GetOrders([OrderStatus.New, OrderStatus.Archived, OrderStatus.Completed, OrderStatus.InProduction, OrderStatus.ReadyForProduction], 1).ToListAsync();
+
+            Debug.Assert(orders != null, nameof(orders) + " != null");
+            Debug.Assert(workstations != null, nameof(workstations) + " != null");
+
+            var request = new OrderProgressRequest
+            {
+                OrderNumbers = orders.Select(o => o.OrderNumber ?? "").ToList(),
+                WorkplaceIds = workstations.Select(w => w.Id).ToList()
+            };
+
+productionManager.GetOrderProgress(request).Trace("Order progress for all orders and workstations");
         }
     }
 }

@@ -694,6 +694,12 @@ namespace HomagConnect.ProductionManager.Client
             return usageDetails ?? Enumerable.Empty<UsageDetails>();
         }
 
+        /// <inhertidoc />
+        public async Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest)
+        {
+            string uri = "api/productionManager/statistics/orderProgress";
+            return await PostObject<OrderProgressRequest, IEnumerable<OrderProgressDetails>>(new Uri(uri, UriKind.Relative), orderProgressRequest);
+        }
         #endregion Usage statistics
 
         #region Constructors
