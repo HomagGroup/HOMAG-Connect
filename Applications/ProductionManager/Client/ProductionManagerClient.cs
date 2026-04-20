@@ -1,4 +1,17 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Services;
+using HomagConnect.ProductionManager.Contracts;
+using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Lots;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
+using HomagConnect.ProductionManager.Contracts.Orders;
+using HomagConnect.ProductionManager.Contracts.Predict;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.Rework;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -7,20 +20,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-
-using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Services;
-using HomagConnect.ProductionManager.Contracts;
-using HomagConnect.ProductionManager.Contracts.Import;
-using HomagConnect.ProductionManager.Contracts.Lots;
-using HomagConnect.ProductionManager.Contracts.Orders;
-using HomagConnect.ProductionManager.Contracts.Predict;
-using HomagConnect.ProductionManager.Contracts.ProductionItems;
-using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
-using HomagConnect.ProductionManager.Contracts.Rework;
-
-using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -694,6 +693,12 @@ namespace HomagConnect.ProductionManager.Client
             return usageDetails ?? Enumerable.Empty<UsageDetails>();
         }
 
+        /// <inhertidoc />
+        public async Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest)
+        {
+            string uri = "api/productionManager/orderProgress";
+            return await PostObject<OrderProgressRequest, IEnumerable<OrderProgressDetails>>(new Uri(uri, UriKind.Relative), orderProgressRequest);
+        }
         #endregion Usage statistics
 
         #region Constructors

@@ -5,7 +5,7 @@ using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace HomagConnect.ProductionManager.Contracts.Orders
+namespace HomagConnect.ProductionManager.Contracts.OrderProgress
 {
     /// <summary>
     /// Represents processed part totals for one order at one workstation.
