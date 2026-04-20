@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
@@ -337,6 +338,11 @@ namespace HomagConnect.ProductionManager.Contracts
         /// current usage detail records. Returns an empty collection if no records are found.</returns>
         Task<IEnumerable<UsageDetails>> GetCurrentUsage();
 
+        /// <summary>
+        /// Retrieve the order progress details for given order numbers and workplace ids.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest);
         #endregion Usage statistics
     }
 }
