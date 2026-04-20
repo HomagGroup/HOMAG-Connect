@@ -2,6 +2,7 @@ using System.Diagnostics;
 
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
 using HomagConnect.ProductionManager.Contracts.Orders;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Usage

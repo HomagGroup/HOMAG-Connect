@@ -1,11 +1,11 @@
-using System.Diagnostics;
-
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json;
 using Shouldly;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Usage

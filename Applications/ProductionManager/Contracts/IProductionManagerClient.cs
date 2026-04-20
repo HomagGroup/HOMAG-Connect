@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;

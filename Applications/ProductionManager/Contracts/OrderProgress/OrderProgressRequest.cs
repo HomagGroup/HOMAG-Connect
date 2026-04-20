@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.ProductionManager.Contracts.Orders
+﻿namespace HomagConnect.ProductionManager.Contracts.OrderProgress
 {
     /// <summary>
     /// request object for order progress data retrieval
