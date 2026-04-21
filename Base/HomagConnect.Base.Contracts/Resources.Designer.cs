@@ -79,6 +79,15 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menge.
+        /// </summary>
+        public static string AggregatedItemQuantity {
+            get {
+                return ResourceManager.GetString("AggregatedItemQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artikelnummer.
         /// </summary>
         public static string ArticleNumber {

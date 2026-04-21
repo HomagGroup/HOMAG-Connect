@@ -8,7 +8,7 @@
         /// <summary>
         /// all OrderNumbers, for which the data must be retrieved
         /// </summary>
-        public List<string> OrderNumbers { get; set; } = new List<string>();
+        public IEnumerable<string> OrderNumbers { get; set; } = new List<string>();
 
         /// <summary>
         /// All workplaces, for which data shall be retrieved
