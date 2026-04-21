@@ -43,6 +43,7 @@ namespace HomagConnect.ProductionManager.Contracts.OrderProgress
         /// </summary>
         /// <example>84</example>
         [JsonProperty(Order = 4)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(AggregatedItemQuantity))]
         public int AggregatedItemQuantity { get; set; }
 
     }
