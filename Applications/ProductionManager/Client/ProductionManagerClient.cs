@@ -696,7 +696,7 @@ namespace HomagConnect.ProductionManager.Client
         /// <inhertidoc />
         public async Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest)
         {
-            string uri = "api/productionManager/orderProgress";
+            string uri = "api/productionManager/orderprogress";
             return await PostObject<OrderProgressRequest, IEnumerable<OrderProgressDetails>>(new Uri(uri, UriKind.Relative), orderProgressRequest);
         }
         #endregion Usage statistics
