@@ -2,7 +2,7 @@ dirs:
 - .
 ignorePatterns:
 - pattern: '^https://connect.homag.cloud/.*$'
-- pattern: '^https://w3.org/.*$'
+- pattern: '^https://www.w3.org/.*$'
 aliveStatusCodes:
 - 200
 - 401
