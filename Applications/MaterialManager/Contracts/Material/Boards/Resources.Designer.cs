@@ -628,6 +628,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gesamtwert.
+        /// </summary>
+        public static string BoardTypeProperties_TotalValueInInventory {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_TotalValueInInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Breite.
         /// </summary>
         public static string BoardTypeProperties_Width {

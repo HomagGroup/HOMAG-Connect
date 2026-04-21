@@ -1,15 +1,15 @@
 ﻿using HomagConnect.Base.Contracts.Converter;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.Base.Contracts.Enumerations;
 
 /// <summary>
-/// Specifies the JSON output format used when serializing contracts.
+/// Specifies the output format used when serializing contracts.
 /// </summary>
 /// <example>Default</example>
 [JsonConverter(typeof(TolerantEnumConverter))]
-[Obsolete("This enum is deprecated. Use the new OutputFormat enum instead.", true)]
-public enum JsonFormat 
+public enum OutputFormat
 {
     /// <summary>
     /// Uses the default contract serialization format.
@@ -19,5 +19,10 @@ public enum JsonFormat
     /// <summary>
     /// Uses localized property names and formatting for direct usage in Excel / PowerBI.
     /// </summary>
-    Localized
+    Localized,
+
+    /// <summary>
+    /// Uses a CSV format with localized property names and formatting for direct usage in Excel / PowerBI.
+    /// </summary>
+    CSV
 }
