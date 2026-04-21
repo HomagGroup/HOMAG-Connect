@@ -204,6 +204,9 @@
     <value>Teil</value>
     <comment>Part</comment>
   </data>
+  <data name="AggregatedItemQuantity" xml:space="preserve">
+    <value>Menge</value>
+  </data>
   <data name="Thickness" xml:space="preserve">
     <value>Dicke</value>
     <comment>Thickness</comment>
