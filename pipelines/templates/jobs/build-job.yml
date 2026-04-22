@@ -8,7 +8,7 @@ jobs:
     NoChangedResxFiles: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.NoChangedResxFiles'] ]
     ForceTranslationRefresh: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.ForceTranslationRefresh'] ]
     TranslationFallbackRequired: 'true'
-  condition: and(succeeded('DetectChangedResxFiles'), in(dependencies.TranslateChangedResxFiles.result, 'Succeeded', 'Skipped'), ne(variables['ForceTranslationRefresh'], 'true'))
+  condition: and(succeeded('DetectChangedResxFiles'), in(dependencies.TranslateChangedResxFiles.result, 'Succeeded', 'Skipped'), not(and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['ForceTranslationRefresh'], 'true'))))
   timeoutInMinutes: 240
   steps:
   - checkout: self

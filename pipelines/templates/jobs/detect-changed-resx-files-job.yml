@@ -17,7 +17,66 @@ jobs:
         $buildReason = '$(Build.Reason)'
         $pullRequestTargetBranch = '$(System.PullRequest.TargetBranch)'
         $translationRefreshScheduleDisplayName = '$(TranslationRefreshScheduleDisplayName)'
-        $forceTranslationRefresh = $buildReason -eq 'Schedule' -and '$(Build.CronSchedule.DisplayName)' -eq $translationRefreshScheduleDisplayName
+        $translationRefreshPullRequestLabel = '$(TranslationRefreshPullRequestLabel)'
+        $pullRequestNumber = '$(System.PullRequest.PullRequestNumber)'
+        $repositoryUri = '$(Build.Repository.Uri)'
+        $forceTranslationRefreshFromSchedule = $buildReason -eq 'Schedule' -and '$(Build.CronSchedule.DisplayName)' -eq $translationRefreshScheduleDisplayName
+        $forceTranslationRefreshFromLabel = $false
+
+        if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestNumber) -and -not [string]::IsNullOrWhiteSpace($translationRefreshPullRequestLabel))
+        {
+            try
+            {
+                $normalizedRepositoryUri = $repositoryUri.Trim()
+
+                if ($normalizedRepositoryUri.EndsWith('.git', [System.StringComparison]::OrdinalIgnoreCase))
+                {
+                    $normalizedRepositoryUri = $normalizedRepositoryUri.Substring(0, $normalizedRepositoryUri.Length - 4)
+                }
+
+                $repositoryUriObject = [System.Uri]$normalizedRepositoryUri
+                $repositoryPathSegments = @($repositoryUriObject.AbsolutePath.Trim('/') -split '/')
+
+                if ($repositoryUriObject.Host -eq 'github.com' -and $repositoryPathSegments.Count -ge 2)
+                {
+                    $repositoryOwner = $repositoryPathSegments[0]
+                    $repositoryName = $repositoryPathSegments[1]
+                    $labelsApiUri = "https://api.github.com/repos/$repositoryOwner/$repositoryName/issues/$pullRequestNumber/labels"
+                    $headers = @{
+                        Accept = 'application/vnd.github+json'
+                        'User-Agent' = 'HOMAG-Connect-Azure-Pipelines'
+                    }
+
+                    if (-not [string]::IsNullOrWhiteSpace($env:GITHUB_API_TOKEN))
+                    {
+                        $headers.Authorization = "Bearer $($env:GITHUB_API_TOKEN)"
+                    }
+
+                    $pullRequestLabels = @(Invoke-RestMethod -Uri $labelsApiUri -Headers $headers -Method Get)
+                    $matchingLabel = $pullRequestLabels | Where-Object { $_.name -eq $translationRefreshPullRequestLabel } | Select-Object -First 1
+
+                    if ($null -ne $matchingLabel)
+                    {
+                        $forceTranslationRefreshFromLabel = $true
+                        Write-Host "Forcing a full translation refresh because pull request label '$translationRefreshPullRequestLabel' is present."
+                    }
+                    else
+                    {
+                        Write-Host "Pull request label '$translationRefreshPullRequestLabel' was not found."
+                    }
+                }
+                else
+                {
+                    Write-Host "Pull request label-based translation refresh is skipped because repository URI '$repositoryUri' is not a supported GitHub repository URL."
+                }
+            }
+            catch
+            {
+                Write-Host "Unable to evaluate pull request labels for translation refresh. $($_.Exception.Message)"
+            }
+        }
+
+        $forceTranslationRefresh = $forceTranslationRefreshFromSchedule -or $forceTranslationRefreshFromLabel
         $shouldTranslate = $buildReason -ne 'Schedule' -or $forceTranslationRefresh
 
         if (-not $shouldTranslate)
@@ -39,8 +98,19 @@ jobs:
         if ($forceTranslationRefresh)
         {
             $runAllResxTranslations = $true
-            $diffDescription = "Scheduled refresh: $translationRefreshScheduleDisplayName"
-            Write-Host "Forcing a full translation refresh for scheduled run '$translationRefreshScheduleDisplayName'."
+            $diffDescription = if ($forceTranslationRefreshFromSchedule)
+            {
+                "Scheduled refresh: $translationRefreshScheduleDisplayName"
+            }
+            else
+            {
+                "Pull request label refresh: $translationRefreshPullRequestLabel"
+            }
+
+            if ($forceTranslationRefreshFromSchedule)
+            {
+                Write-Host "Forcing a full translation refresh for scheduled run '$translationRefreshScheduleDisplayName'."
+            }
         }
         else
         {
