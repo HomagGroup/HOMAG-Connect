@@ -167,12 +167,31 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [Range(0, double.MaxValue)]
         public double PartArea { get; set; }
 
+        /// <summary>   
+        /// Gets or sets the grain match template area of the pattern.
+        /// Unit: square meters for <see cref="UnitSystem.Metric"/> and square feet for <see cref="UnitSystem.Imperial"/>.
+        /// </summary>
+        /// <example>14.9</example>
+        [JsonProperty(Order = 15)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [Range(0, double.MaxValue)]
+        public double GrainMatchTemplateArea { get; set; }
+
+        /// <summary>
+        /// Gets or sets the quantity of grain match templates of the pattern.
+        /// Unit for metric and imperial unit systems: count.
+        /// </summary>
+        /// <example>5</example>
+        [JsonProperty(Order = 16)]
+        [Range(0, int.MaxValue)]
+        public int QuantityOfGrainMatchTemplates { get; set; }
+
         /// <summary>
         /// Gets or sets the quantity of head cuts of the pattern.
         /// Unit for metric and imperial unit systems: count.
         /// </summary>
         /// <example>0</example>
-        [JsonProperty(Order = 15)]
+        [JsonProperty(Order = 17)]
         [Range(0, int.MaxValue)]
         public int HeadCuts { get; set; }
 
@@ -181,7 +200,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Unit for metric and imperial unit systems: count.
         /// </summary>
         /// <example>1</example>
-        [JsonProperty(Order = 16)]
+        [JsonProperty(Order = 18)]
         [Range(0, int.MaxValue)]
         public int Recuts { get; set; }
 
@@ -190,7 +209,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Unit for metric and imperial unit systems: count.
         /// </summary>
         /// <example>12</example>
-        [JsonProperty(Order = 17)]
+        [JsonProperty(Order = 19)]
         [Range(0, int.MaxValue)]
         public int Cuts { get; set; }
 
@@ -199,7 +218,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Unit: meters for <see cref="UnitSystem.Metric"/> and feet for <see cref="UnitSystem.Imperial"/>.
         /// </summary>
         /// <example>148.95</example>
-        [JsonProperty(Order = 18)]
+        [JsonProperty(Order = 21)]
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         [Range(0, double.MaxValue)]
         public double CuttingLength { get; set; }
@@ -209,7 +228,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Unit: millimeters for <see cref="UnitSystem.Metric"/> and inches for <see cref="UnitSystem.Imperial"/>.
         /// </summary>
         /// <example>38.0</example>
-        [JsonProperty(Order = 19)]
+        [JsonProperty(Order = 22)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         [Range(0.0, 999.9)]
         public double MaxBookHeight { get; set; }
