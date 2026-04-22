@@ -12,8 +12,11 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Statistics
 {
     /// <summary>
-    /// A board type inventory for statistical use.
+    /// Represents historical inventory totals for a board type at a specific point in time.
     /// </summary>
+    /// <example>
+    /// { "timestamp": "2025-04-09T08:15:00+00:00", "materialCode": "P2_Gold_Craft_Oak", "boardCode": "P2_Gold_Craft_Oak_19.0", "boardTypeType": "Stock", "length": 2800.0, "width": 2070.0, "costs": 12.45, "totalQuantityInInventory": 12, "totalQuantityAllocated": 3, "totalQuantityAvailable": 9, "totalAreaInInventory": 69.55, "totalAreaAllocated": 17.39, "totalAreaAvailable": 52.16, "totalValueInInventory": 866.95, "unitSystem": "Metric" }
+    /// </example>
     public class BoardTypeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
     {
         private const int _BoardCodeMaxLength = 50;
@@ -41,6 +44,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the material code.
         /// </summary>
+        /// <example>P2_Gold_Craft_Oak</example>
         [Required]
         [StringLength(_MaterialCodeMaxLength, MinimumLength = 1)]
         [JsonProperty(Order = 2)]
@@ -50,6 +54,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the board code.
         /// </summary>
+        /// <example>P2_Gold_Craft_Oak_19.0</example>
         [Key]
         [Required]
         [StringLength(_BoardCodeMaxLength, MinimumLength = 1)]
@@ -60,14 +65,17 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the type of the board.
         /// </summary>
+        /// <example>Stock</example>
         [JsonProperty(Order = 3)]
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_BoardTypeType))]
         public BoardTypeType BoardTypeType { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the board. The unit depends on the settings of the subscription (metric: mm, imperial:
-        /// inch).
+        /// Gets or sets the board length.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
         /// </summary>
+        /// <example>2800.0</example>
         [Required]
         [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
         [JsonProperty(Order = 4)]
@@ -76,8 +84,11 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         public double? Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the width of the board. The unit depends on the settings of the subscription (metric: mm, imperial: inch).
+        /// Gets or sets the board width.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
         /// </summary>
+        /// <example>2070.0</example>
         [Required]
         [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
         [JsonProperty(Order = 5)]
@@ -86,8 +97,11 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         public double? Width { get; set; }
 
         /// <summary>
-        /// Gets or sets the costs of the board. The unit depends on the settings of the subscription.
+        /// Gets or sets the board cost per area unit.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: amount/m².</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: amount/ft².</para>
         /// </summary>
+        /// <example>12.45</example>
         [JsonProperty(Order = 6)]
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_Costs))]
         public double? Costs { get; set; }
@@ -99,6 +113,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         /// <summary>
         /// Gets or sets the timestamp of the inventory.
         /// </summary>
+        /// <example>2025-04-09T08:15:00+00:00</example>
         [Required]
         [JsonProperty(Order = 1)]
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Timestamp))]
@@ -107,22 +122,25 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         #region Quantity
 
         /// <summary>
-        /// Gets or sets the total quantity allocated
+        /// Gets or sets the total quantity allocated.
         /// </summary>
+        /// <example>3</example>
         [JsonProperty(Order = 11)]
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_TotalQuantityAllocated))]
         public int? TotalQuantityAllocated { get; set; }
 
         /// <summary>
-        /// Gets or sets the total quantity available
+        /// Gets or sets the total quantity in inventory.
         /// </summary>
+        /// <example>12</example>
         [JsonProperty(Order = 10)]
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_TotalQuantityInInventory))]
         public int? TotalQuantityInInventory { get; set; }
 
         /// <summary>
-        /// Gets or sets the total quantity available
+        /// Gets the total quantity currently available.
         /// </summary>
+        /// <example>9</example>
         [JsonProperty(Order = 12)]
         [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_TotalQuantityAvailable))]
         public int? TotalQuantityAvailable
@@ -143,9 +161,11 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         #region Value
 
         /// <summary>
-        /// Gets the total value of boards of this type in inventory
+        /// Gets the total inventory value of boards of this type.
         /// </summary>
+        /// <example>866.95</example>
         [JsonProperty(Order = 30)]
+        [Display(ResourceType = typeof(Material.Boards.Resources), Name = nameof(Material.Boards.Resources.BoardTypeProperties_TotalValueInInventory))]
         public double? TotalValueInInventory
         {
             get
@@ -164,8 +184,11 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         #region Area
 
         /// <summary>
-        /// Gets or sets the total area of boards of this type
+        /// Gets the total area of boards of this type in inventory.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
+        /// <example>69.55</example>
         [JsonProperty(Order = 20)]
         [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TotalAreaInInventory))]
         public double? TotalAreaInInventory
@@ -178,8 +201,11 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
 
      
         /// <summary>
-        /// Gets the total area of boards of this type which have been allocated
+        /// Gets the total area of boards of this type allocated.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
+        /// <example>17.39</example>
         [JsonProperty(Order = 21)]
         [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TotalAreaAllocated))]
         public double? TotalAreaAllocated
@@ -192,7 +218,10 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
 
         /// <summary>
         /// Gets the total area of boards of this type which are available.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
+        /// <example>52.16</example>
         [JsonProperty(Order = 22)]
         [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TotalAreaAvailable))]
         public double? TotalAreaAvailable

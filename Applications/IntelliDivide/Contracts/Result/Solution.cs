@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 
 using HomagConnect.Base.Contracts.Enumerations;
@@ -86,6 +87,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
 
         /// <inheritdoc />
         [JsonProperty(Order = 99)]
+        [DefaultValue(UnitSystem.Metric)]
         public UnitSystem UnitSystem { get; set; }
 
         #endregion
