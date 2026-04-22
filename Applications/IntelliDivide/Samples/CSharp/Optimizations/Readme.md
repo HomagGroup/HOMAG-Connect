@@ -124,8 +124,7 @@ var balancedSolution = await intelliDivide.GetSolutionDetails(optimization.Id, s
     "Pdf",
     "MaterialDemand",
     "ZIP"
-  ],
-  "TotalScore": 705.9885908328455
+  ],  
 }
 ``` 
 

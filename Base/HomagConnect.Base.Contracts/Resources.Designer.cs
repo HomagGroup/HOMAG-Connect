@@ -79,6 +79,15 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menge.
+        /// </summary>
+        public static string AggregatedItemQuantity {
+            get {
+                return ResourceManager.GetString("AggregatedItemQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artikelnummer.
         /// </summary>
         public static string ArticleNumber {
@@ -259,6 +268,15 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auftragsnummer.
+        /// </summary>
+        public static string OrderNumber {
+            get {
+                return ResourceManager.GetString("OrderNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teil.
         /// </summary>
         public static string Part {
@@ -300,6 +318,15 @@ namespace HomagConnect.Base.Contracts {
         public static string Width {
             get {
                 return ResourceManager.GetString("Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arbeitsplatzgruppe.
+        /// </summary>
+        public static string WorkstationGroup {
+            get {
+                return ResourceManager.GetString("WorkstationGroup", resourceCulture);
             }
         }
     }

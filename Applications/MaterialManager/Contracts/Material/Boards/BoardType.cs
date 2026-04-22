@@ -416,6 +416,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         /// <example>112.05</example>
         [JsonProperty(Order = 53)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalValueInInventory))]
         public double? TotalValueInInventory
         {
             get

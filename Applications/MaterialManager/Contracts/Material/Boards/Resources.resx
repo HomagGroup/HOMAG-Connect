@@ -355,4 +355,7 @@
     <value>Bestellbedarf</value>
     <comment>OrderDemand</comment>
   </data>
+  <data name="BoardTypeProperties_TotalValueInInventory" xml:space="preserve">
+    <value>Gesamtwert</value>
+  </data>
 </root>
