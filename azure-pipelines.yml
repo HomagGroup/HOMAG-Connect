@@ -39,6 +39,29 @@ stages:
     jobs:
     - template: pipelines/templates/retrieve-version-info-jobs.yml
 
+  - stage: CoPilotReview
+    displayName: Copilot Review
+    dependsOn: retrieve_version_info_from_git
+    condition: eq(variables['Build.Reason'], 'PullRequest')
+    jobs:
+    - job: CoPilotCodeReview
+      displayName: CoPilot Code Review
+      pool:
+        vmImage: 'ubuntu-latest'
+      variables:
+      - group: dfCopilot
+      steps:
+      - checkout: self
+        fetchDepth: 0
+        persistCredentials: false
+
+      - task: CopilotCodeReview@1
+        displayName: Run Copilot code review
+        inputs:
+          githubPat: $(GITHUB-PAT)
+        env:
+          SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
   # MEND
   # - template: software-composition-analysis/template.yml@templates
   #   parameters:
@@ -49,7 +72,10 @@ stages:
   #     package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
 
   - stage: Build
-    dependsOn: retrieve_version_info_from_git
+    dependsOn:
+    - retrieve_version_info_from_git
+    - CoPilotReview
+    condition: and(succeeded('retrieve_version_info_from_git'), in(dependencies.CoPilotReview.result, 'Succeeded', 'Skipped'))
     pool:
       #vmimage: 'windows-latest'
       name: Homag Windows Agents
