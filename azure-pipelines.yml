@@ -59,6 +59,7 @@ stages:
         displayName: Run Copilot code review
         inputs:
           githubPat: $(GITHUB-PAT)
+          useSystemAccessToken: true
         env:
           SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
