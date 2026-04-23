@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using HomagConnect.Base.Contracts;
@@ -11,12 +13,12 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Statistics
 {
     /// <summary>
-    /// Represents historical inventory data for an edgeband at a specific point in time.
+    /// Represents historical inventory data for an edgeband at a specific point in time, including unit-dependent values and optional custom properties.
     /// </summary>
     /// <example>
-    /// { "timestamp": "2025-04-09T08:15:00+00:00", "edgebandCode": "ABS_White_23x1.0", "costs": 0.42, "height": 23.0, "totalLengthInInventory": 1250.0, "unitSystem": "Metric" }
+    /// { "timestamp": "2025-04-09T08:15:00+00:00", "edgebandCode": "ABS_White_23x1.0", "costs": 0.42, "height": 23.0, "totalLengthInInventory": 1250.0, "unitSystem": "Metric", "additionalProperties": { "supplierBatch": "BATCH-2025-04" } }
     /// </example>
-    public class EdgeInventoryHistory : IExtensibleDataObject, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
+    public class EdgeInventoryHistory : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties 
     {
         private const int _EdgebandCodeMaxLength = 50;
         private const double _HeightDimensionMinValue = 0.1;
@@ -76,20 +78,14 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TotalLengthInInventory))]
         public double? TotalLengthInInventory { get; set; }
-
-        #region IContainsUnitSystemDependentProperties Members
+        
 
         /// <inheritdoc />
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.UnitSystem))]
+        [DefaultValue(UnitSystem.Metric)]
         public UnitSystem UnitSystem { get; set; }
-
-        #endregion
-
-        #region IExtensibleDataObject Members
-
+        
         /// <inheritdoc />
-        public ExtensionDataObject? ExtensionData { get; set; }
-
-        #endregion
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }
