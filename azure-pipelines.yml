@@ -60,6 +60,7 @@ stages:
         inputs:
           githubPat: $(GITHUB-PAT)
           useSystemAccessToken: true
+          pullRequestId: $(System.PullRequest.PullRequestNumber)
         env:
           SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
