@@ -84,8 +84,9 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.UnitSystem))]
         [DefaultValue(UnitSystem.Metric)]
         public UnitSystem UnitSystem { get; set; }
-        
+
         /// <inheritdoc />
+        [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

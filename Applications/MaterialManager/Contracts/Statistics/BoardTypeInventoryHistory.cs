@@ -211,6 +211,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         }
 
         /// <inheritdoc />
+        [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

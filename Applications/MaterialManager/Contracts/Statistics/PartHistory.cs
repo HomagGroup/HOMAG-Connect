@@ -1,9 +1,10 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
+using Newtonsoft.Json;
 
 using Resources = HomagConnect.Base.Contracts.Resources;
 
@@ -88,6 +89,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics
         public string WorkstationName { get; set; }
 
         /// <inheritdoc />
+        [JsonExtensionData]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

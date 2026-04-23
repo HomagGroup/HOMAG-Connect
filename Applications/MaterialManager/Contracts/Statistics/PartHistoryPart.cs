@@ -17,6 +17,7 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics;
 public class PartHistoryPart : IPartProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties, IContainsUnitSystemDependentProperties
 {
     /// <inheritdoc/>
+    [JsonExtensionData]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
