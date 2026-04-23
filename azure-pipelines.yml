@@ -39,13 +39,14 @@ stages:
     jobs:
     - template: pipelines/templates/retrieve-version-info-jobs.yml
 
-  - stage: CoPilotReview
-    displayName: Copilot Review
+  - stage: PullRequestReview
+    displayName: GitHub pull request review
     dependsOn: retrieve_version_info_from_git
-    condition: eq(variables['Build.Reason'], 'PullRequest')
+    condition: and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.Repository.Provider'], 'GitHub'))
     jobs:
-    - job: CoPilotCodeReview
-      displayName: CoPilot Code Review
+    - job: GitHubPullRequestReview
+      displayName: GitHub pull request review
+      continueOnError: true
       pool:
         vmImage: 'ubuntu-latest'
       variables:
@@ -55,14 +56,13 @@ stages:
         fetchDepth: 0
         persistCredentials: false
 
-      - task: CopilotCodeReview@1
-        displayName: Run Copilot code review
+      - task: PowerShell@2
+        displayName: Run GitHub pull request review
         inputs:
-          githubPat: $(GITHUB-PAT)
-          useSystemAccessToken: true
-          pullRequestId: $(System.PullRequest.PullRequestNumber)
+          filePath: 'pipelines/scripts/review-github-pull-request.ps1'
+          pwsh: true
         env:
-          SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+          GITHUB_PAT: $(GITHUB-PAT)
 
   # MEND
   # - template: software-composition-analysis/template.yml@templates
@@ -76,8 +76,8 @@ stages:
   - stage: Build
     dependsOn:
     - retrieve_version_info_from_git
-    - CoPilotReview
-    condition: and(succeeded('retrieve_version_info_from_git'), in(dependencies.CoPilotReview.result, 'Succeeded', 'Skipped'))
+    - PullRequestReview
+    condition: and(succeeded('retrieve_version_info_from_git'), in(dependencies.PullRequestReview.result, 'Succeeded', 'SucceededWithIssues', 'Skipped'))
     pool:
       #vmimage: 'windows-latest'
       name: Homag Windows Agents
