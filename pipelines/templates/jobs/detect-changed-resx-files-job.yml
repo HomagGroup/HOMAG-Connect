@@ -14,9 +14,70 @@ jobs:
       script: |
         $emptyTranslationMatrix = @{ noop = @{ TranslationResxPath = ''; TranslationRelativeDirectory = ''; TranslationWorkingDirectory = '..\s'; TranslationFileName = ''; RunTranslation = 'false' } }
         $translationMatrix = @{}
-        $shouldTranslate = '$(Build.Reason)' -ne 'Schedule'
         $buildReason = '$(Build.Reason)'
         $pullRequestTargetBranch = '$(System.PullRequest.TargetBranch)'
+        $translationRefreshScheduleDisplayName = '$(TranslationRefreshScheduleDisplayName)'
+        $translationRefreshPullRequestLabel = '$(TranslationRefreshPullRequestLabel)'
+        $pullRequestNumber = '$(System.PullRequest.PullRequestNumber)'
+        $repositoryUri = '$(Build.Repository.Uri)'
+        $forceTranslationRefreshFromSchedule = $buildReason -eq 'Schedule' -and '$(Build.CronSchedule.DisplayName)' -eq $translationRefreshScheduleDisplayName
+        $forceTranslationRefreshFromLabel = $false
+
+        if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestNumber) -and -not [string]::IsNullOrWhiteSpace($translationRefreshPullRequestLabel))
+        {
+            try
+            {
+                $normalizedRepositoryUri = $repositoryUri.Trim()
+
+                if ($normalizedRepositoryUri.EndsWith('.git', [System.StringComparison]::OrdinalIgnoreCase))
+                {
+                    $normalizedRepositoryUri = $normalizedRepositoryUri.Substring(0, $normalizedRepositoryUri.Length - 4)
+                }
+
+                $repositoryUriObject = [System.Uri]$normalizedRepositoryUri
+                $repositoryPathSegments = @($repositoryUriObject.AbsolutePath.Trim('/') -split '/')
+
+                if ($repositoryUriObject.Host -eq 'github.com' -and $repositoryPathSegments.Count -ge 2)
+                {
+                    $repositoryOwner = $repositoryPathSegments[0]
+                    $repositoryName = $repositoryPathSegments[1]
+                    $labelsApiUri = "https://api.github.com/repos/$repositoryOwner/$repositoryName/issues/$pullRequestNumber/labels"
+                    $headers = @{
+                        Accept = 'application/vnd.github+json'
+                        'User-Agent' = 'HOMAG-Connect-Azure-Pipelines'
+                    }
+
+                    if (-not [string]::IsNullOrWhiteSpace($env:GITHUB_API_TOKEN))
+                    {
+                        $headers.Authorization = "Bearer $($env:GITHUB_API_TOKEN)"
+                    }
+
+                    $pullRequestLabels = @(Invoke-RestMethod -Uri $labelsApiUri -Headers $headers -Method Get)
+                    $matchingLabel = $pullRequestLabels | Where-Object { $_.name -eq $translationRefreshPullRequestLabel } | Select-Object -First 1
+
+                    if ($null -ne $matchingLabel)
+                    {
+                        $forceTranslationRefreshFromLabel = $true
+                        Write-Host "Forcing a full translation refresh because pull request label '$translationRefreshPullRequestLabel' is present."
+                    }
+                    else
+                    {
+                        Write-Host "Pull request label '$translationRefreshPullRequestLabel' was not found."
+                    }
+                }
+                else
+                {
+                    Write-Host "Pull request label-based translation refresh is skipped because repository URI '$repositoryUri' is not a supported GitHub repository URL."
+                }
+            }
+            catch
+            {
+                Write-Host "Unable to evaluate pull request labels for translation refresh. $($_.Exception.Message)"
+            }
+        }
+
+        $forceTranslationRefresh = $forceTranslationRefreshFromSchedule -or $forceTranslationRefreshFromLabel
+        $shouldTranslate = $buildReason -ne 'Schedule' -or $forceTranslationRefresh
 
         if (-not $shouldTranslate)
         {
@@ -25,6 +86,7 @@ jobs:
             Write-Host '##vso[task.setvariable variable=ChangedResxFilesJson;isOutput=true][]'
             Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]false'
             Write-Host '##vso[task.setvariable variable=NoChangedResxFiles;isOutput=true]false'
+            Write-Host '##vso[task.setvariable variable=ForceTranslationRefresh;isOutput=true]false'
             return
         }
 
@@ -33,61 +95,81 @@ jobs:
         $noChangedResxFiles = $false
         $diffDescription = ''
 
-        try
+        if ($forceTranslationRefresh)
         {
-            if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestTargetBranch))
+            $runAllResxTranslations = $true
+            $diffDescription = if ($forceTranslationRefreshFromSchedule)
             {
-                Write-Host "Detecting changed .resx files against pull request target branch '$pullRequestTargetBranch'."
-                $targetBranchRef = if ($pullRequestTargetBranch -like 'refs/heads/*')
-                {
-                    $pullRequestTargetBranch
-                }
-                else
-                {
-                    "refs/heads/$pullRequestTargetBranch"
-                }
-                $fetchOutput = @(& git fetch --no-tags --quiet origin $targetBranchRef 2>&1)
-
-                if ($LASTEXITCODE -ne 0)
-                {
-                    throw "Unable to fetch target branch '$targetBranchRef'. $($fetchOutput -join [Environment]::NewLine)"
-                }
-
-                $mergeBase = (& git merge-base HEAD FETCH_HEAD 2>$null | Select-Object -First 1).Trim()
-
-                if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
-                {
-                    throw "Unable to determine merge base for '$targetBranchRef'."
-                }
-
-                $diffDescription = "$mergeBase..HEAD"
-                $changedResxFiles = @(git diff --name-only "$mergeBase..HEAD" -- '*.resx' 2>$null |
-                  Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
-                  ForEach-Object { $_.Trim() -replace '\\', '/' } |
-                  Sort-Object -Unique)
+                "Scheduled refresh: $translationRefreshScheduleDisplayName"
             }
             else
             {
-                git rev-parse HEAD~1 | Out-Null
+                "Pull request label refresh: $translationRefreshPullRequestLabel"
+            }
 
-                if ($LASTEXITCODE -ne 0)
-                {
-                    throw 'Unable to resolve the previous commit.'
-                }
-
-                $diffDescription = 'HEAD~1..HEAD'
-                $changedResxFiles = @(git diff --name-only HEAD~1 HEAD -- '*.resx' 2>$null |
-                  Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
-                  ForEach-Object { $_.Trim() -replace '\\', '/' } |
-                  Sort-Object -Unique)
+            if ($forceTranslationRefreshFromSchedule)
+            {
+                Write-Host "Forcing a full translation refresh for scheduled run '$translationRefreshScheduleDisplayName'."
             }
         }
-        catch
+        else
         {
-            $runAllResxTranslations = $true
-            $global:LASTEXITCODE = 0
-            Write-Host "Unable to determine changed .resx files. $($_.Exception.Message)"
-            Write-Host 'All .resx files will be translated.'
+            try
+            {
+                if ($buildReason -eq 'PullRequest' -and -not [string]::IsNullOrWhiteSpace($pullRequestTargetBranch))
+                {
+                    Write-Host "Detecting changed .resx files against pull request target branch '$pullRequestTargetBranch'."
+                    $targetBranchRef = if ($pullRequestTargetBranch -like 'refs/heads/*')
+                    {
+                        $pullRequestTargetBranch
+                    }
+                    else
+                    {
+                        "refs/heads/$pullRequestTargetBranch"
+                    }
+                    $fetchOutput = @(& git fetch --no-tags --quiet origin $targetBranchRef 2>&1)
+
+                    if ($LASTEXITCODE -ne 0)
+                    {
+                        throw "Unable to fetch target branch '$targetBranchRef'. $($fetchOutput -join [Environment]::NewLine)"
+                    }
+
+                    $mergeBase = (& git merge-base HEAD FETCH_HEAD 2>$null | Select-Object -First 1).Trim()
+
+                    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($mergeBase))
+                    {
+                        throw "Unable to determine merge base for '$targetBranchRef'."
+                    }
+
+                    $diffDescription = "$mergeBase..HEAD"
+                    $changedResxFiles = @(git diff --name-only "$mergeBase..HEAD" -- '*.resx' 2>$null |
+                      Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                      ForEach-Object { $_.Trim() -replace '\\', '/' } |
+                      Sort-Object -Unique)
+                }
+                else
+                {
+                    git rev-parse HEAD~1 | Out-Null
+
+                    if ($LASTEXITCODE -ne 0)
+                    {
+                        throw 'Unable to resolve the previous commit.'
+                    }
+
+                    $diffDescription = 'HEAD~1..HEAD'
+                    $changedResxFiles = @(git diff --name-only HEAD~1 HEAD -- '*.resx' 2>$null |
+                      Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                      ForEach-Object { $_.Trim() -replace '\\', '/' } |
+                      Sort-Object -Unique)
+                }
+            }
+            catch
+            {
+                $runAllResxTranslations = $true
+                $global:LASTEXITCODE = 0
+                Write-Host "Unable to determine changed .resx files. $($_.Exception.Message)"
+                Write-Host 'All .resx files will be translated.'
+            }
         }
 
         if (-not [string]::IsNullOrWhiteSpace($diffDescription))
@@ -136,7 +218,11 @@ jobs:
             }
         }
 
-        $resxLogLabel = if ($noChangedResxFiles)
+        $resxLogLabel = if ($forceTranslationRefresh)
+        {
+            'Resx files to refresh via C3PO'
+        }
+        elseif ($noChangedResxFiles)
         {
             'Resx files to restore from cache'
         }
@@ -150,4 +236,5 @@ jobs:
         Write-Host "##vso[task.setvariable variable=ChangedResxFilesJson;isOutput=true]$(($changedResxFiles | ConvertTo-Json -Compress))"
         Write-Host '##vso[task.setvariable variable=HasResxChanges;isOutput=true]true'
         Write-Host "##vso[task.setvariable variable=NoChangedResxFiles;isOutput=true]$(($noChangedResxFiles.ToString()).ToLowerInvariant())"
+        Write-Host "##vso[task.setvariable variable=ForceTranslationRefresh;isOutput=true]$(($forceTranslationRefresh.ToString()).ToLowerInvariant())"
         $global:LASTEXITCODE = 0
