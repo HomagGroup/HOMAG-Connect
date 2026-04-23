@@ -9,28 +9,29 @@ using HomagConnect.Base.Contracts;
 namespace HomagConnect.MaterialManager.Contracts.Statistics;
 
 /// <summary>
-/// Part history part
+/// Represents part details contained in a material history entry.
 /// </summary>
-public class PartHistoryPart : IPartProperties, ISupportsLocalizedSerialization
+/// <example>
+/// { "id": "PART-1001", "identifier": "4711-01", "articleNumber": "ART-100200", "description": "Left side panel", "material": "P2_Gold_Craft_Oak", "length": 720.0, "width": 480.0, "thickness": 19.0, "grain": "Lengthwise", "unitSystem": "Metric" }
+/// </example>
+public class PartHistoryPart : IPartProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties, IContainsUnitSystemDependentProperties
 {
-    /// <summary>
-    /// Gets or sets the additional properties configured in the application.
-    /// </summary>
-    [JsonProperty(Order = 90)]
+    /// <inheritdoc/>
     [JsonExtensionData]
-    [Display(ResourceType = typeof(Resources), Name = nameof(AdditionalProperties))]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
-    /// Gets or sets the id
+    /// Gets or sets the unique identifier of the part.
     /// </summary>
+    /// <example>PART-1001</example>
     [JsonProperty(Order = 1)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Id))]
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the identifier.
+    /// Gets or sets the business identifier of the part.
     /// </summary>
+    /// <example>4711-01</example>
     [JsonProperty(Order = 2)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Identifier))]
     public string? Identifier { get; set; }
@@ -38,6 +39,7 @@ public class PartHistoryPart : IPartProperties, ISupportsLocalizedSerialization
     /// <summary>
     /// Gets or sets the article number.
     /// </summary>
+    /// <example>ART-100200</example>
     [JsonProperty(Order = 3)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ArticleNumber))]
     public string? ArticleNumber { get; set; }
