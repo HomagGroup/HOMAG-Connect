@@ -95,6 +95,24 @@ namespace HomagConnect.Base.Contracts {
                 return ResourceManager.GetString("ArticleNumber", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Nein.
+        /// </summary>
+        public static string BooleanValue_No {
+            get {
+                return ResourceManager.GetString("BooleanValue_No", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ja.
+        /// </summary>
+        public static string BooleanValue_Yes {
+            get {
+                return ResourceManager.GetString("BooleanValue_Yes", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to CNC-Programm 1.
@@ -259,6 +277,15 @@ namespace HomagConnect.Base.Contracts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to nein.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optimierung.
         /// </summary>
         public static string OptimizationName {
@@ -327,6 +354,15 @@ namespace HomagConnect.Base.Contracts {
         public static string WorkstationGroup {
             get {
                 return ResourceManager.GetString("WorkstationGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ja.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

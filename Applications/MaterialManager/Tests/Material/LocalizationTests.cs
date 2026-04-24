@@ -1,21 +1,30 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
+
 using Shouldly;
+
 using MaterialType = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
+
 namespace HomagConnect.MaterialManager.Tests.Material;
+
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
+[UnitTest("MaterialManager")]
 public class LocalizationTests
 {
+    private CultureInfo CultureGerman{ get; } = CultureInfo.GetCultureInfo("de");
+    private CultureInfo CultureEnglish { get; } = CultureInfo.GetCultureInfo("en");
+
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
@@ -36,6 +45,7 @@ public class LocalizationTests
                 $"because BoardEntity.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary />
     [TestMethod]
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
@@ -52,6 +62,7 @@ public class LocalizationTests
             "because BoardMaterialCategory.FloatGlass should be localized as 'Floatglas' in German");
         displayNames.Trace();
     }
+
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
@@ -72,9 +83,108 @@ public class LocalizationTests
                 $"because BoardType.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
     }
-    /// <summary>
-    /// </summary>
-    /// <param name="cultureName"></param>
+
+    /// <summary />
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_English_Fallback()
+    {
+        if (!IsRunningInAzurePipeline())
+        {
+            Assert.Inconclusive("Test is inconclusive because the English translations are not available in the current environment.");
+        }
+
+        var boardType = new BoardType
+        {
+            InsufficientInventory = true
+        };
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.InsufficientInventory), CultureEnglish).ShouldBe("yes", StringCompareShould.IgnoreCase);
+
+        boardType.InsufficientInventory = false;
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.InsufficientInventory), CultureEnglish).ShouldBe("no",StringCompareShould.IgnoreCase);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_German_Fallback()
+    {
+        var boardType = new BoardType
+        {
+            InsufficientInventory = true
+        };
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.InsufficientInventory), CultureGerman).ShouldBe("ja", StringCompareShould.IgnoreCase);
+
+        boardType.InsufficientInventory = false;
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.InsufficientInventory), CultureGerman).ShouldBe("nein", StringCompareShould.IgnoreCase);
+    }
+
+
+    /// <summary />
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_German_UsesAttributeOverride()
+    {
+        var boardType = new BoardType
+        {
+            LockedForConfiguration = true
+        };
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureGerman).ShouldBe("ja", StringCompareShould.IgnoreCase);
+
+        boardType.LockedForConfiguration = false;
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureGerman).ShouldBe("nein", StringCompareShould.IgnoreCase);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_English_UsesAttributeOverride()
+    {
+        if (!IsRunningInAzurePipeline())
+        {
+            Assert.Inconclusive("Test is inconclusive because the English translations are not available in the current environment.");
+        }
+
+        var boardType = new BoardType
+        {
+            LockedForConfiguration = true
+        };
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureEnglish).ShouldBe("yes", StringCompareShould.IgnoreCase);
+
+        boardType.LockedForConfiguration = false;
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureEnglish).ShouldBe("no", StringCompareShould.IgnoreCase);
+    }
+
+    /// <summary />
+    [DataRow("de", "Ja", "Nein")]
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValues_Fallback(string cultureName, string expectedTrueValue, string expectedFalseValue)
+    {
+        var culture = CultureInfo.GetCultureInfo(cultureName);
+        var boardType = new BoardType();
+
+        var values = boardType.GetBooleanPropertyDisplayValues(nameof(BoardType.InsufficientInventory), culture);
+
+        values[true].ShouldBe(expectedTrueValue);
+        values[false].ShouldBe(expectedFalseValue);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValues_German_UsesAttributeOverride()
+    {
+        var boardType = new BoardType();
+        var values = boardType.GetBooleanPropertyDisplayValues(nameof(BoardType.LockedForConfiguration), CultureGerman);
+
+        values[true].ShouldBe("ja", StringCompareShould.IgnoreCase);
+        values[false].ShouldBe("nein", StringCompareShould.IgnoreCase);
+    }
+
+    /// <summary />
     [DataRow("de")]
     [DataRow("en")]
     [TestMethod]
@@ -92,6 +202,7 @@ public class LocalizationTests
                 $"because BoardTypeAllocation.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
@@ -113,6 +224,7 @@ public class LocalizationTests
                 $"because BoardTypeDetails.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
@@ -133,6 +245,7 @@ public class LocalizationTests
                 $"because Material.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the BoardTypeType enumeration for a given culture.
     /// </summary>
@@ -151,6 +264,7 @@ public class LocalizationTests
                 $"because BoardTypeType.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the BookHeightMode enumeration for a given culture.
     /// </summary>
@@ -169,6 +283,7 @@ public class LocalizationTests
                 $"because BookHeightMode.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the CoatingCategory enumeration for a given culture.
     /// </summary>
@@ -187,6 +302,7 @@ public class LocalizationTests
                 $"because CoatingCategory.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the EdgebandingProcess enumeration for a given culture.
     /// </summary>
@@ -205,6 +321,7 @@ public class LocalizationTests
                 $"because EdgebandingProcess.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the EdgebandMaterialCategory enumeration for a given culture.
     /// </summary>
@@ -223,6 +340,7 @@ public class LocalizationTests
                 $"because EdgebandMaterialCategory.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary />
     [TestMethod]
     public void MaterialManager_Localization_Grain()
@@ -234,6 +352,7 @@ public class LocalizationTests
             "because Grain.None should be localized as 'Keine' in German");
         displayNames.Trace();
     }
+
     /// <summary>
     /// Tests the localization of the ImageSize enumeration for a given culture.
     /// </summary>
@@ -252,6 +371,7 @@ public class LocalizationTests
                 $"because ImageSize.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the ImageType enumeration for a given culture.
     /// </summary>
@@ -270,6 +390,7 @@ public class LocalizationTests
                 $"because ImageType.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the ImportMode enumeration for a given culture.
     /// </summary>
@@ -288,6 +409,7 @@ public class LocalizationTests
                 $"because ImportMode.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the InventoryType enumeration for a given culture.
     /// </summary>
@@ -306,6 +428,7 @@ public class LocalizationTests
                 $"because InventoryType.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the ManagementType enumeration for a given culture.
     /// </summary>
@@ -324,6 +447,7 @@ public class LocalizationTests
                 $"because ManagementType.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// </summary>
     /// <param name="cultureName"></param>
@@ -345,6 +469,7 @@ public class LocalizationTests
                 $"because Material.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the StandardQuality enumeration for a given culture.
     /// </summary>
@@ -363,6 +488,7 @@ public class LocalizationTests
                 $"because StandardQuality.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the TensionTrimType enumeration for a given culture.
     /// </summary>
@@ -381,6 +507,7 @@ public class LocalizationTests
                 $"because TensionTrimType.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     /// <summary>
     /// Tests the localization of the WorkstationType enumeration for a given culture.
     /// </summary>
@@ -399,10 +526,17 @@ public class LocalizationTests
                 $"because WorkstationType.{value} should be localized correctly in culture '{cultureName}'");
         }
     }
+
     private static string CapitalizeFirstLetter(string? input)
     {
         if (string.IsNullOrEmpty(input)) return "";
         if (input.Length == 1) return input.ToUpper();
         return char.ToUpper(input[0]) + input.Substring(1);
+    }
+
+    public static bool IsRunningInAzurePipeline()
+    {
+        return string.Equals(Environment.GetEnvironmentVariable("TF_BUILD"), "True", StringComparison.OrdinalIgnoreCase)
+            || !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_BUILDID"));
     }
 }

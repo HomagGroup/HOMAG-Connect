@@ -91,6 +91,9 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+     <EmbeddedResource Update="Resources.en.resx">
+		<DependentUpon>Resources.resx</DependentUpon>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Enumerations\BoardTypeTypeDisplayNames.resx">
 	    <LastGenOutput>BoardTypeTypeDisplayNames.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
