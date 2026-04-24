@@ -26,5 +26,12 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// </summary>
         [JsonProperty("isInput")]
         public bool? IsInput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonExtensionData]
+        [JsonProperty(Order = 999)]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

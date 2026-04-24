@@ -23,5 +23,12 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// </summary>
         [JsonProperty("attributes")]
         public IList<MDAttributeInfo> Attributes { get; set; } = new List<MDAttributeInfo>();
+
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonExtensionData]
+        [JsonProperty(Order = 999)]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }

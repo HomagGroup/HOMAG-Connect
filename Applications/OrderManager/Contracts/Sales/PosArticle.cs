@@ -84,5 +84,12 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// </summary>
         [JsonProperty("roots")]
         public IList<PosModuleRootData> ModuleRoots { get; set; } = new List<PosModuleRootData>();
+
+        /// <summary>
+        /// Gets or sets the additional properties configured in the application.
+        /// </summary>
+        [JsonExtensionData]
+        [JsonProperty(Order = 999)]
+        public IDictionary<string, object>? AdditionalProperties { get; set; }
     }
 }
