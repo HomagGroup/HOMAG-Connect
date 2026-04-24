@@ -222,6 +222,12 @@
   <data name="BoardTypeProperties_Comments" xml:space="preserve">
     <value>Anmerkungen (Stammdaten)</value>
   </data>
+  <data name="LockedForConfiguration_True" xml:space="preserve">
+    <value>ja</value>
+  </data>
+  <data name="LockedForConfiguration_False" xml:space="preserve">
+    <value>nein</value>
+  </data>
   <data name="BoardEntityProperties_Length" xml:space="preserve">
     <value>Länge</value>
   </data>

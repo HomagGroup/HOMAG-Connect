@@ -437,6 +437,24 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
                 return ResourceManager.GetString("BoardTypeProperties_InsufficientInventory", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to gesperrt.
+        /// </summary>
+        public static string BooleanValue_Locked {
+            get {
+                return ResourceManager.GetString("BooleanValue_Locked", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to nicht gesperrt.
+        /// </summary>
+        public static string BooleanValue_NotLocked {
+            get {
+                return ResourceManager.GetString("BooleanValue_NotLocked", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Zuletzt verwendet.
@@ -642,6 +660,24 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         public static string BoardTypeProperties_Width {
             get {
                 return ResourceManager.GetString("BoardTypeProperties_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nein.
+        /// </summary>
+        public static string LockedForConfiguration_False {
+            get {
+                return ResourceManager.GetString("LockedForConfiguration_False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ja.
+        /// </summary>
+        public static string LockedForConfiguration_True {
+            get {
+                return ResourceManager.GetString("LockedForConfiguration_True", resourceCulture);
             }
         }
         

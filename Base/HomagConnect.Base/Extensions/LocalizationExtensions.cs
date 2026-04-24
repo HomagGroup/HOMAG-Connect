@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 
+using HomagConnect.Base.Contracts.Attributes;
+
 namespace HomagConnect.Base.Extensions;
 
 /// <summary>
@@ -13,20 +15,117 @@ namespace HomagConnect.Base.Extensions;
 /// </summary>
 public static class LocalizationExtensions
 {
-    /// <summary>
-    /// Gets the display name of the specified property in the specified object.
-    /// </summary>
-    public static string GetPropertyDisplayName(this object o, string propertyName)
+    extension(object o)
     {
-        return o.GetType().GetPropertyDisplayName(propertyName, CultureInfo.CurrentUICulture);
+        /// <summary>
+        /// Gets the localized display value of a boolean property in the specified object.
+        /// </summary>
+        public string GetBooleanPropertyDisplayValue(string propertyName)
+        {
+            return o.GetBooleanPropertyDisplayValue(propertyName, CultureInfo.CurrentUICulture);
+        }
+
+        /// <summary>
+        /// Gets the localized display values of a boolean property in the specified object.
+        /// </summary>
+        public IDictionary<bool, string> GetBooleanPropertyDisplayValues(string propertyName)
+        {
+            return o.GetBooleanPropertyDisplayValues(propertyName, CultureInfo.CurrentUICulture);
+        }
+
+        /// <summary>
+        /// Gets the localized display values of a boolean property in the specified object.
+        /// </summary>
+        public IDictionary<bool, string> GetBooleanPropertyDisplayValues(string propertyName, CultureInfo culture)
+        {
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+
+            ValidateBooleanProperty(o.GetType(), propertyName);
+
+            return new Dictionary<bool, string>
+            {
+                { true, GetBooleanDisplayValue(o.GetType(), propertyName, true, culture) },
+                { false, GetBooleanDisplayValue(o.GetType(), propertyName, false, culture) }
+            };
+        }
+
+        /// <summary>
+        /// Gets the localized display value of a boolean property in the specified object.
+        /// </summary>
+        public string GetBooleanPropertyDisplayValue(string propertyName, CultureInfo culture)
+        {
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+
+            ValidateBooleanProperty(o.GetType(), propertyName);
+
+            var propertyInfo = GetPropertyInfo(o.GetType(), propertyName);
+
+            var propertyValue = propertyInfo.GetValue(o);
+
+            if (propertyValue == null)
+            {
+                return string.Empty;
+            }
+
+            return GetBooleanDisplayValue(o.GetType(), propertyName, (bool)propertyValue, culture);
+        }
     }
 
     /// <summary>
-    /// Gets the display name of the specified property in the specified object.
+    /// Gets the localized display value for a specific boolean value of the specified property.
     /// </summary>
-    public static string GetPropertyDisplayName(this object o, string propertyName, CultureInfo culture)
+    private static string GetBooleanDisplayValue(Type type, string propertyName, bool booleanValue, CultureInfo culture)
     {
-        return o.GetType().GetPropertyDisplayName(propertyName, culture);
+        var booleanValueDisplayAttribute = GetPropertyAttributes<BooleanValueDisplayAttribute>(type, propertyName)
+            .FirstOrDefault(attribute => attribute.Value == booleanValue);
+
+        if (booleanValueDisplayAttribute != null)
+        {
+            var localizedDisplayValue = GetResourceValue(booleanValueDisplayAttribute.ResourceType, booleanValueDisplayAttribute.ResourceName, culture);
+
+            if (!string.IsNullOrWhiteSpace(localizedDisplayValue))
+            {
+                return localizedDisplayValue;
+            }
+        }
+
+        var fallbackResourceName = booleanValue
+            ? nameof(Contracts.Resources.BooleanValue_Yes)
+            : nameof(Contracts.Resources.BooleanValue_No);
+
+        var fallbackDisplayValue = GetResourceValue(typeof(Contracts.Resources), fallbackResourceName, culture);
+
+        if (!string.IsNullOrWhiteSpace(fallbackDisplayValue))
+        {
+            return fallbackDisplayValue;
+        }
+
+        return booleanValue ? "Yes" : "No";
+    }
+
+    extension(object o)
+    {
+        /// <summary>
+        /// Gets the display name of the specified property in the specified object.
+        /// </summary>
+        public string GetPropertyDisplayName(string propertyName)
+        {
+            return o.GetType().GetPropertyDisplayName(propertyName, CultureInfo.CurrentUICulture);
+        }
+
+        /// <summary>
+        /// Gets the display name of the specified property in the specified object.
+        /// </summary>
+        public string GetPropertyDisplayName(string propertyName, CultureInfo culture)
+        {
+            return o.GetType().GetPropertyDisplayName(propertyName, culture);
+        }
     }
 
     /// <summary>
@@ -34,54 +133,36 @@ public static class LocalizationExtensions
     /// </summary>
     public static string GetPropertyDisplayName(this Type type, string propertyName, CultureInfo culture)
     {
-        var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name);
-        var propertyInfo = propertyInfos.FirstOrDefault(p => string.Equals(p.Name, propertyName, StringComparison.OrdinalIgnoreCase));
-
-        if (propertyInfo == null)
-        {
-            throw new ArgumentException(@$"Property '{propertyName}' not found in type '{type.Name}'.", nameof(propertyName));
-        }
-        
-        var propertyDisplayName = "";
-        var displayAttribute = GetDisplayAttribute(type, propertyName);
-
-        if (displayAttribute != null)
-        {
-            propertyDisplayName = GetPropertyDisplayName(displayAttribute, culture);
-        }
-
-        if (string.IsNullOrWhiteSpace(propertyDisplayName))
-        {
-            propertyDisplayName = propertyName;
-        }
-
-        return FirstCharToUpper(propertyDisplayName);
+        return FirstCharToUpper(GetLocalizedPropertyDisplayName(type, propertyName, culture));
     }
 
-    /// <summary>
-    /// Gets the display names of all properties in the specified object.
-    /// </summary>
-    public static IDictionary<string, string> GetPropertyDisplayNames(this object o)
+    extension(object o)
     {
-        if (o == null)
+        /// <summary>
+        /// Gets the display names of all properties in the specified object.
+        /// </summary>
+        public IDictionary<string, string> GetPropertyDisplayNames()
         {
-            throw new ArgumentNullException(nameof(o));
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+
+            return o.GetPropertyDisplayNames(CultureInfo.CurrentUICulture);
         }
 
-        return o.GetPropertyDisplayNames(CultureInfo.CurrentUICulture);
-    }
-
-    /// <summary>
-    /// Gets the display names of all properties in the specified object in the specified culture.
-    /// </summary>
-    public static IDictionary<string, string> GetPropertyDisplayNames(this object o, CultureInfo culture)
-    {
-        if (o == null)
+        /// <summary>
+        /// Gets the display names of all properties in the specified object in the specified culture.
+        /// </summary>
+        public IDictionary<string, string> GetPropertyDisplayNames(CultureInfo culture)
         {
-            throw new ArgumentNullException(nameof(o));
-        }
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
 
-        return o.GetType().GetPropertyDisplayNames(culture);
+            return o.GetType().GetPropertyDisplayNames(culture);
+        }
     }
 
     /// <summary>
@@ -110,21 +191,7 @@ public static class LocalizationExtensions
 
         foreach (var propertyName in propertyNames)
         {
-            var propertyDisplayName = "";
-
-            var displayAttribute = GetDisplayAttribute(type, propertyName);
-          
-            if (displayAttribute != null)
-            {
-                propertyDisplayName = GetPropertyDisplayName(displayAttribute, culture);
-            }
-
-            if (string.IsNullOrWhiteSpace(propertyDisplayName))
-            {
-                propertyDisplayName = propertyName;
-            }
-
-            propertyDisplayNames.Add(propertyName, FirstCharToUpper(propertyDisplayName));
+            propertyDisplayNames.Add(propertyName, FirstCharToUpper(GetLocalizedPropertyDisplayName(type, propertyName, culture)));
         }
 
         return propertyDisplayNames;
@@ -136,40 +203,110 @@ public static class LocalizationExtensions
 
     private static DisplayAttribute? GetDisplayAttribute(Type type, string propertyName)
     {
-        // Check the class itself
+        return GetPropertyAttribute<DisplayAttribute>(type, propertyName);
+    }
 
-        DisplayAttribute displayAttribute = null;
+    private static TAttribute? GetPropertyAttribute<TAttribute>(Type type, string propertyName)
+        where TAttribute : Attribute
+    {
         var propertyInfo = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
 
         if (propertyInfo != null)
         {
-            displayAttribute = propertyInfo.GetCustomAttribute<DisplayAttribute>(true);
+            var propertyAttribute = propertyInfo.GetCustomAttribute<TAttribute>(true);
 
-            if  (displayAttribute != null)
+            if (propertyAttribute != null)
             {
-                return displayAttribute;
+                return propertyAttribute;
             }
         }
-
-
-        // Check the interfaces implemented by the class
 
         foreach (var i in type.GetInterfaces())
         {
             propertyInfo = i.GetProperty(propertyName);
 
-           if (propertyInfo != null)
-           {
-               displayAttribute = propertyInfo.GetCustomAttribute<DisplayAttribute>(true);
+            if (propertyInfo != null)
+            {
+                var interfaceAttribute = propertyInfo.GetCustomAttribute<TAttribute>(true);
 
-               if (displayAttribute != null)
-               {
-                   return displayAttribute;
-               }
+                if (interfaceAttribute != null)
+                {
+                    return interfaceAttribute;
+                }
             }
         }
 
         return null;
+    }
+
+    private static IEnumerable<TAttribute> GetPropertyAttributes<TAttribute>(Type type, string propertyName)
+        where TAttribute : Attribute
+    {
+        var propertyInfo = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
+
+        if (propertyInfo != null)
+        {
+            var propertyAttributes = propertyInfo.GetCustomAttributes<TAttribute>(true).ToArray();
+
+            if (propertyAttributes.Length > 0)
+            {
+                return propertyAttributes;
+            }
+        }
+
+        foreach (var i in type.GetInterfaces())
+        {
+            propertyInfo = i.GetProperty(propertyName);
+
+            if (propertyInfo != null)
+            {
+                var interfaceAttributes = propertyInfo.GetCustomAttributes<TAttribute>(true).ToArray();
+
+                if (interfaceAttributes.Length > 0)
+                {
+                    return interfaceAttributes;
+                }
+            }
+        }
+
+        return Enumerable.Empty<TAttribute>();
+    }
+
+    private static PropertyInfo GetPropertyInfo(Type type, string propertyName)
+    {
+        var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name);
+        var propertyInfo = propertyInfos.FirstOrDefault(p => string.Equals(p.Name, propertyName, StringComparison.OrdinalIgnoreCase));
+
+        if (propertyInfo == null)
+        {
+            throw new ArgumentException(@$"Property '{propertyName}' not found in type '{type.Name}'.", nameof(propertyName));
+        }
+
+        return propertyInfo;
+    }
+
+    private static void ValidateBooleanProperty(Type type, string propertyName)
+    {
+        var propertyInfo = GetPropertyInfo(type, propertyName);
+        var propertyType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+
+        if (propertyType != typeof(bool))
+        {
+            throw new ArgumentException(@$"Property '{propertyName}' in type '{type.Name}' is not a boolean property.", nameof(propertyName));
+        }
+    }
+
+    private static string GetLocalizedPropertyDisplayName(Type type, string propertyName, CultureInfo culture)
+    {
+        var displayAttribute = GetDisplayAttribute(type, propertyName);
+
+        if (displayAttribute == null)
+        {
+            return propertyName;
+        }
+
+        var propertyDisplayName = GetPropertyDisplayName(displayAttribute, culture);
+        return string.IsNullOrWhiteSpace(propertyDisplayName) ? propertyName : propertyDisplayName;
     }
     
     private static string GetPropertyDisplayName(DisplayAttribute displayAttribute, CultureInfo culture)
@@ -195,6 +332,24 @@ public static class LocalizationExtensions
         }
 
         return propertyDisplayName;
+    }
+
+    private static string GetResourceValue(Type resourceType, string resourceName, CultureInfo culture)
+    {
+        var resourceManager = GetResourceManager(resourceType);
+
+        if (resourceManager == null)
+        {
+            return string.Empty;
+        }
+
+        return resourceManager.GetString(resourceName, culture) ?? string.Empty;
+    }
+
+    private static ResourceManager? GetResourceManager(Type resourceType)
+    {
+        var resourceManagerProperty = resourceType.GetProperty("ResourceManager", BindingFlags.Public | BindingFlags.Static);
+        return resourceManagerProperty?.GetValue(null) as ResourceManager;
     }
 
     private static string FirstCharToUpper(string property)
