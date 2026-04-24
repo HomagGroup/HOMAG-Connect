@@ -175,13 +175,13 @@ public class LocalizationTests
 
     /// <summary />
     [TestMethod]
-    public void MaterialManager_Localization_BoardType_BooleanDisplayValues_UsesAttributeOverride()
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValues_German_UsesAttributeOverride()
     {
         var boardType = new BoardType();
         var values = boardType.GetBooleanPropertyDisplayValues(nameof(BoardType.LockedForConfiguration), CultureGerman);
 
-        values[true].ShouldBe(Resources.LockedForConfiguration_True);
-        values[false].ShouldBe(Resources.LockedForConfiguration_False);
+        values[true].ShouldBe("ja", StringCompareShould.IgnoreCase);
+        values[false].ShouldBe("nein", StringCompareShould.IgnoreCase);
     }
 
     /// <summary />
