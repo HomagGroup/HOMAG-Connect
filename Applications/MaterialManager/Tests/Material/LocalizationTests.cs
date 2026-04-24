@@ -124,18 +124,39 @@ public class LocalizationTests
 
     /// <summary />
     [TestMethod]
-    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_UsesAttributeOverride()
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_German_UsesAttributeOverride()
     {
         var boardType = new BoardType
         {
             LockedForConfiguration = true
         };
 
-        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureGerman).ShouldBe(Resources.LockedForConfiguration_True);
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureGerman).ShouldBe("ja", StringCompareShould.IgnoreCase);
 
         boardType.LockedForConfiguration = false;
 
-        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureGerman).ShouldBe(Resources.LockedForConfiguration_False);
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureGerman).ShouldBe("nein", StringCompareShould.IgnoreCase);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType_BooleanDisplayValue_English_UsesAttributeOverride()
+    {
+        if (!IsRunningInAzurePipeline())
+        {
+            Assert.Inconclusive("Test is inconclusive because the English translations are not available in the current environment.");
+        }
+
+        var boardType = new BoardType
+        {
+            LockedForConfiguration = true
+        };
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureEnglish).ShouldBe("yes", StringCompareShould.IgnoreCase);
+
+        boardType.LockedForConfiguration = false;
+
+        boardType.GetBooleanPropertyDisplayValue(nameof(BoardType.LockedForConfiguration), CultureEnglish).ShouldBe("no", StringCompareShould.IgnoreCase);
     }
 
     /// <summary />
