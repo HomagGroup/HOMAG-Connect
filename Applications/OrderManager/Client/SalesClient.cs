@@ -19,7 +19,7 @@ namespace HomagConnect.OrderManager.Client
     /// <inheritdoc cref="ISalesClient" />
     public class SalesClient : ClientBase, ISalesClient
     {
-        private static readonly string _BaseRoute = "api/orderManager/sales";
+        private const string _BaseRoute = "api/orderManager/sales";
         private static readonly string _ArticlesRoute = $"{_BaseRoute}/articles";
         private static readonly string _MasterDataRoute = $"{_BaseRoute}/masterData";
 
