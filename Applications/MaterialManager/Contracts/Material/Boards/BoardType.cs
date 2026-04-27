@@ -326,8 +326,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets whether the board type is locked for configuration.
         /// </summary>
         /// <example>false</example>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LockedForConfiguration))]
         [JsonProperty(Order = 94)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LockedForConfiguration))]
+        [BooleanValueDisplay(true, typeof(Resources), nameof(Resources.LockedForConfiguration_True))]
+        [BooleanValueDisplay(false, typeof(Resources), nameof(Resources.LockedForConfiguration_False))]
         public bool LockedForConfiguration { get; set; }
 
         /// <summary>
