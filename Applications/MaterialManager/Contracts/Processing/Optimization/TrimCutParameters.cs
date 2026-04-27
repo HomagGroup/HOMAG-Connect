@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -17,26 +18,51 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         private const double _LengthConstraintMax = 19999.9;
 
         /// <summary>
-        /// Determines whether undershooting the minimum trim cut is allowed.
+        /// Gets or sets the minimum trim cut. The value is dependent on the unit system (Metric: mm, Imperial: inch).
         /// </summary>
-        [JsonProperty(Order = 10)]
-        public bool MinimumTrimCutUndershotAllowed { get; set; }
+        [JsonProperty(Order = 20)]
+        [Range(_LengthConstraintMin, _LengthConstraintMax)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Obsolete("This parameter is obsolete and should not be used.")]
+        public double MinimumTrimCut { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum trim cut. The value is dependent on the unit system (Metric: mm, Imperial: inch).
+        /// Gets or sets the minimum trim cut front. The value is dependent on the unit system (Metric: mm, Imperial: inch).
         /// </summary>
         [JsonProperty(Order = 13)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double MinimumTrimCut { get; set; }
+        public double MinimumTrimCutFront { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum trim recut in front. The value is dependent on the unit system (Metric: mm, Imperial: inch).
+        /// Gets or sets the minimum trim cut left. The value is dependent on the unit system (Metric: mm, Imperial: inch).
         /// </summary>
-        [JsonProperty(Order = 11)]
+        [JsonProperty(Order = 16)]
         [Range(_LengthConstraintMin, _LengthConstraintMax)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double MinimumTrimRecutInFront { get; set; }
+        public double MinimumTrimCutLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum trim cut rear. The value is dependent on the unit system (Metric: mm, Imperial: inch).
+        /// </summary>
+        [JsonProperty(Order = 14)]
+        [Range(_LengthConstraintMin, _LengthConstraintMax)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double MinimumTrimCutRear { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum trim cut right. The value is dependent on the unit system (Metric: mm, Imperial: inch).
+        /// </summary>
+        [JsonProperty(Order = 15)]
+        [Range(_LengthConstraintMin, _LengthConstraintMax)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double MinimumTrimCutRight { get; set; }
+
+        /// <summary>
+        /// Determines whether undershooting the minimum trim cut is allowed.
+        /// </summary>
+        [JsonProperty(Order = 10)]
+        public bool MinimumTrimCutUndershotAllowed { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum trim recut behind. The value is dependent on the unit system (Metric: mm, Imperial: inch).
@@ -46,9 +72,16 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double MinimumTrimRecutBehind { get; set; }
 
+        /// <summary>
+        /// Gets or sets the minimum trim recut in front. The value is dependent on the unit system (Metric: mm, Imperial: inch).
+        /// </summary>
+        [JsonProperty(Order = 11)]
+        [Range(_LengthConstraintMin, _LengthConstraintMax)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        public double MinimumTrimRecutInFront { get; set; }
+
         /// <inheritdoc />
         [JsonProperty(Order = 30)]
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
     }
 }
