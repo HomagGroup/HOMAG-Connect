@@ -97,7 +97,12 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardType>?> GetBoardTypes(DateTimeOffset changedSince, int take, int skip = 0);
-        
+
+        /// <summary>
+        /// Gets the board type codes that have been deleted since a specific date.
+        /// </summary>
+        Task<IEnumerable<string>> GetDeletedBoardTypeCodes(DateTimeOffset deletedSince, int take, int skip = 0);
+
         /// <summary>
         /// Gets the board types by board codes.
         /// </summary>
