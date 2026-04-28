@@ -1,11 +1,13 @@
 ﻿#nullable enable
-using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.IntelliDivide.Contracts.Common;
-using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.IntelliDivide.Contracts.Common;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -25,6 +27,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets a link to a preview image of the part.
         /// </summary>
         [JsonProperty(Order = 70)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(Preview))]
         public Uri Preview { get; set; }
 
         /// <summary>
@@ -45,6 +48,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 10)]
         [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(Quantity))]
         public int Quantity { get; set; }
 
         /// <summary>
@@ -52,6 +56,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 11)]
         [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(QuantityPlus))]
         public int QuantityPlus { get; set; }
 
         /// <summary>
@@ -59,6 +64,18 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 12)]
         [Range(0, int.MaxValue)]
-        public int QuantityTotal { get; set; }
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(QuantityTotal))]
+        public int QuantityTotal
+        {
+            get
+            {
+                return Quantity + QuantityPlus;
+            }
+            // ReSharper disable once ValueParameterNotUsed
+            private set
+            {
+                // needed for deserialization
+            }
+        }
     }
 }
