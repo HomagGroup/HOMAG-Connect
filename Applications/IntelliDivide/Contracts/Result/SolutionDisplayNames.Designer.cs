@@ -61,6 +61,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artikelnummer.
+        /// </summary>
+        public static string ArticleNumber {
+            get {
+                return ResourceManager.GetString("ArticleNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kundenname.
         /// </summary>
         public static string CustomerName {
@@ -205,6 +214,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schnittplan Id.
+        /// </summary>
+        public static string PatternId {
+            get {
+                return ResourceManager.GetString("PatternId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referenzen zu Schnittplänen.
+        /// </summary>
+        public static string PatternReferences {
+            get {
+                return ResourceManager.GetString("PatternReferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vorschau.
         /// </summary>
         public static string Preview {
@@ -223,11 +250,29 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Programmname.
+        /// </summary>
+        public static string ProgramName {
+            get {
+                return ResourceManager.GetString("ProgramName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anzahl.
         /// </summary>
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anzahl Teile.
+        /// </summary>
+        public static string QuantityOfParts {
+            get {
+                return ResourceManager.GetString("QuantityOfParts", resourceCulture);
             }
         }
         
