@@ -21,6 +21,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets the list of patterns in which the part is contained including the quantity of the part in the pattern.
         /// </summary>
         [JsonProperty(Order = 80)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(PatternReferences))]
         public Collection<PatternReference> PatternReferences { get; set; } = [];
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the name of the generated nesting program for the part.
         /// </summary>
         [JsonProperty(Order = 70)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(ProgramName))]
         public string ProgramName
         {
             get;
@@ -46,7 +48,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Gets the quantity of parts.
         /// </summary>
-        [JsonProperty(Order = 10)]
+        [JsonProperty(Order = 15)]
         [Range(0, int.MaxValue)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(Quantity))]
         public int Quantity { get; set; }
@@ -54,7 +56,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Gets the quantity of plus parts.
         /// </summary>
-        [JsonProperty(Order = 11)]
+        [JsonProperty(Order = 16)]
         [Range(0, int.MaxValue)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(QuantityPlus))]
         public int QuantityPlus { get; set; }
@@ -62,7 +64,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// Gets the total quantity of parts.
         /// </summary>
-        [JsonProperty(Order = 12)]
+        [JsonProperty(Order = 17)]
         [Range(0, int.MaxValue)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(QuantityTotal))]
         public int QuantityTotal
