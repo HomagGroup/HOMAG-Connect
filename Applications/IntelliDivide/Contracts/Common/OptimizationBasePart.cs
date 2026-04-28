@@ -99,6 +99,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (2) Cutting / Nesting
 
         /// <inheritdoc />
+        [JsonProperty(Order = 22)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Thickness { get; set; }
 
@@ -477,7 +478,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <summary>
         /// Gets or sets the article number.
         /// </summary>
-        [JsonProperty(Order = 19)]
+        [JsonProperty(Order = 63)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(ArticleNumber))]
         public string? ArticleNumber
         {
             get;
