@@ -99,7 +99,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<IEnumerable<BoardType>?> GetBoardTypes(DateTimeOffset changedSince, int take, int skip = 0);
 
         /// <summary>
-        /// Gets the board type codes that have been deleted since a specific date.
+        /// Gets the board type codes that have been deleted since a last time when it was checked.
         /// </summary>
         Task<IEnumerable<string>> GetDeletedBoardTypeCodes();
 
