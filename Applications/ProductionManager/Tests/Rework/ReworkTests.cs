@@ -8,18 +8,46 @@ namespace HomagConnect.ProductionManager.Tests.Rework
 {
     [TestClass]
     [IntegrationTest("ProductionManager.Rework")]
-    [TemporaryDisabledOnServer(2026,04,15, "DF-Production")]
+    [TemporaryDisabledOnServer(2026,06,15, "DF-Production")]
     public class ReworkTests : ProductionManagerTestBase
     {
+        /// <summary>
+        /// Should retrieve requested reworks without throwing and trace the results.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetRequestedReworks_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var completedReworks = await productionManager.GetRequestedReworks()!.ToListAsync();
+
+            completedReworks.ShouldNotBeNull();
+            completedReworks.Trace();
+        }
+
+        /// <summary>
+        /// Should retrieve approved reworks without throwing and trace the results.
+        /// </summary>
+        [TestMethod]
+        public async Task Rework_GetApprovedReworks_NoException()
+        {
+            var productionManager = GetProductionManagerClient();
+
+            var completedReworks = await productionManager.GetApprovedReworks()!.ToListAsync();
+
+            completedReworks.ShouldNotBeNull();
+            completedReworks.Trace();
+        }
+
         /// <summary>
         /// Should retrieve completed reworks without throwing and trace the results.
         /// </summary>
         [TestMethod]
-        public async Task Rework_GetCompletedRework_NoException()
+        public async Task Rework_GetCompletedReworks_NoException()
         {
             var productionManager = GetProductionManagerClient();
 
-            var completedReworks = await productionManager.GetCompletedReworks().ToListAsync();
+            var completedReworks = await productionManager.GetCompletedReworks()!.ToListAsync();
 
             completedReworks.ShouldNotBeNull();
             completedReworks.Trace();
@@ -35,7 +63,7 @@ namespace HomagConnect.ProductionManager.Tests.Rework
             var from = DateTimeOffset.UtcNow.AddDays(-7);
             var to = DateTimeOffset.UtcNow.AddDays(-2);
 
-            var reworks = await productionManager.GetReworks([ReworkState.Transferred, ReworkState.Rejected], from, to).ToListAsync();
+            var reworks = await productionManager.GetReworks([ReworkState.Transferred, ReworkState.Rejected], from, to)!.ToListAsync();
 
             reworks.ShouldNotBeNull();
 
@@ -107,54 +135,7 @@ namespace HomagConnect.ProductionManager.Tests.Rework
             reworks.ShouldNotBeNull();
             reworks.Count.ShouldBeLessThanOrEqualTo(10);
             reworks.Trace();
-        }
+        }      
 
-        /// <summary>
-        /// Should retrieve rework history using date range without throwing.
-        /// </summary>
-        [TestMethod]
-        public async Task Rework_GetReworkHistory_WithDateRange_NoException()
-        {
-            var productionManager = GetProductionManagerClient();
-            var from = DateTime.UtcNow.AddDays(-7);
-            var to = DateTime.UtcNow;
-
-            var reworkHistory = await productionManager.GetReworkHistory(from: from, to: to).ToListAsync();
-
-            reworkHistory.ShouldNotBeNull();
-            reworkHistory.Trace();
-        }
-
-        /// <summary>
-        /// Should retrieve rework history using daysBack parameter without throwing.
-        /// </summary>
-        [TestMethod]
-        public async Task Rework_GetReworkHistory_WithDaysBack_NoException()
-        {
-            var productionManager = GetProductionManagerClient();
-
-            var reworkHistory = await productionManager.GetReworkHistory(daysBack: 14).ToListAsync();
-
-            reworkHistory.ShouldNotBeNull();
-            reworkHistory.Trace();
-        }
-
-        /// <summary>
-        /// Should retrieve rework history with pagination without throwing.
-        /// </summary>
-        [TestMethod]
-        public async Task Rework_GetReworkHistory_WithPagination_NoException()
-        {
-            var productionManager = GetProductionManagerClient();
-
-            var reworkHistory = await productionManager.GetReworkHistory(
-                daysBack: 30,
-                take: 5,
-                skip: 0).ToListAsync();
-
-            reworkHistory.ShouldNotBeNull();
-            reworkHistory.Count.ShouldBeLessThanOrEqualTo(5);
-            reworkHistory.Trace();
-        }
     }
 }

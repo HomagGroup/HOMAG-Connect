@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Edgebands
     /// <summary>
     /// Event that occurs when an edgeband type has been deleted.
     /// </summary>
-    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(EdgebandTypeDeletedEvent))]
+    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Edgebands) + "." + nameof(EdgebandTypeDeletedEvent))]
     public class EdgebandTypeDeletedEvent : AppEvent
     {
         /// <summary>

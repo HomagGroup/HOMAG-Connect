@@ -14,7 +14,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Edgebands
     /// <summary>
     /// Event that occurs when a edgeband type has been created or updated.
     /// </summary>
-    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(EdgebandTypeUpsertedEvent))]
+    [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Edgebands) + "." + nameof(EdgebandTypeUpsertedEvent))]
     public class EdgebandTypeUpsertedEvent : AppEvent
     {
         /// <summary>
