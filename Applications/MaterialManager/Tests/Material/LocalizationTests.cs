@@ -66,22 +66,33 @@ public class LocalizationTests
     }
 
     /// <summary />
-    
+
     [DataRow("de", true, UnitSystem.Metric)]
-    [DataRow("de", false, UnitSystem.Metric)]
+    [DataRow("en", false, UnitSystem.Imperial)]
     [TestMethod]
-    public void MaterialManager_Localization_BoardType(string cultureName, bool inludingUnitSystem, UnitSystem unitSystem)
+    public void MaterialManager_Localization_BoardType_LastUsedDate(string cultureName, bool includingUnitSystem, UnitSystem unitSystem)
     {
         var culture = CultureInfo.GetCultureInfo(cultureName);
-        var boardType = new BoardType {UnitSystem = unitSystem};
-        var propertyDisplayNames = boardType.GetPropertyDisplayNames(culture, inludingUnitSystem);
+        var boardType = new BoardType { UnitSystem = unitSystem, LastUsed = DateTimeOffset.Now };
+
+        boardType.GetFormattedValue(nameof(BoardType.LastUsed), culture).Trace();
+    }
+
+    [DataRow("de", true, UnitSystem.Metric)]
+    [DataRow("de", false, UnitSystem.Imperial)]
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType(string cultureName, bool includingUnitSystem, UnitSystem unitSystem)
+    {
+        var culture = CultureInfo.GetCultureInfo(cultureName);
+        var boardType = new BoardType {UnitSystem = unitSystem, LastUsed = DateTimeOffset.Now};
+        var propertyDisplayNames = boardType.GetPropertyDisplayNames(culture, includingUnitSystem);
         foreach (var propertyName in propertyDisplayNames.Keys)
         {
             var resourceKey = $"BoardTypeProperties_{propertyName}";
             var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
             if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
             var valueDependsOnUnitSystemAttribute = typeof(BoardType).GetProperty(propertyName)?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>(true);
-            if (inludingUnitSystem && valueDependsOnUnitSystemAttribute != null)
+            if (includingUnitSystem && valueDependsOnUnitSystemAttribute != null)
             {
                 expected += boardType.UnitSystem == UnitSystem.Imperial
                     ? $" ({valueDependsOnUnitSystemAttribute.DisplayUnitImperial})"
