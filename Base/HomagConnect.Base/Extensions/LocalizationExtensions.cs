@@ -1,12 +1,14 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-
-using HomagConnect.Base.Contracts.Attributes;
 
 namespace HomagConnect.Base.Extensions;
 
@@ -134,6 +136,83 @@ public static class LocalizationExtensions
     public static string GetPropertyDisplayName(this Type type, string propertyName, CultureInfo culture)
     {
         return FirstCharToUpper(GetLocalizedPropertyDisplayName(type, propertyName, culture));
+    }
+
+    extension(object o)
+    {
+        /// <summary>
+        /// Gets the display names of all properties in the specified object.
+        /// </summary>
+        public IDictionary<string, string> GetPropertyDisplayNames(string propertyName)
+        {
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+            return o.GetPropertyDisplayNames(propertyName, CultureInfo.CurrentUICulture);
+        }
+        /// <summary>
+        /// Gets the display names of all properties in the specified object in the specified culture.
+        /// </summary>
+        public IDictionary<string, string> GetPropertyDisplayNames(string propertyName, CultureInfo culture)
+        {
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+            return o.GetType().GetPropertyDisplayNames(propertyName, culture);
+        }
+    }
+
+    extension(IContainsUnitSystemDependentProperties o)
+    {
+        /// <summary>
+        /// Gets the display names of all properties in the specified object in the specified culture.
+        /// </summary>
+        public IDictionary<string, string> GetPropertyDisplayNames(CultureInfo culture, bool includingUnitSystem)
+        {
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+
+            var type = o.GetType();
+
+            var propertyDisplayNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public).OrderBy(p => p.Name);
+
+            foreach (var propertyInfo in propertyInfos)
+            {
+                var displayName = GetLocalizedPropertyDisplayName(type, propertyInfo.Name, culture);
+
+                if (includingUnitSystem)
+                {
+                    var valueDependsOnUnitSystemAttribute =
+                        propertyInfo.GetCustomAttributes(typeof(ValueDependsOnUnitSystemAttribute), true).OfType<ValueDependsOnUnitSystemAttribute>().FirstOrDefault();
+
+                    if (valueDependsOnUnitSystemAttribute != null)
+                    {
+                        // Handle the ValueDependsOnUnitSystemAttribute
+                        if (o.UnitSystem == UnitSystem.Imperial)
+                        {
+                            displayName += $" ({valueDependsOnUnitSystemAttribute.DisplayUnitImperial})";
+                        }
+                        else if (o.UnitSystem == UnitSystem.Metric)
+                        {
+                            displayName += $" ({valueDependsOnUnitSystemAttribute.DisplayUnitMetric})";
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException($"Unsupported unit system '{o.UnitSystem}' in object of type '{type.Name}'.");
+                        }
+                    }
+                }
+
+                propertyDisplayNames.Add(propertyInfo.Name, FirstCharToUpper(displayName));
+            }
+
+            return propertyDisplayNames;
+        }
     }
 
     extension(object o)

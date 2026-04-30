@@ -183,6 +183,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <example>650.0</example>
         [JsonProperty(Order = 28)]
         [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_DensityOrCategoryTypical))]
         public double? DensityOrCategoryTypical
         {
             get
