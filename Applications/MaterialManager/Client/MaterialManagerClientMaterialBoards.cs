@@ -302,6 +302,13 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
+    public async Task<IEnumerable<string>> GetDeletedBoardTypeCodes()
+    {
+        var url = $"{_BaseRoute}/deleted";
+        return await RequestEnumerable<string>(new Uri(url, UriKind.Relative)) ?? [];
+    }
+
+    /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(int take, int skip = 0)
     {
         var url = $"{_BaseRoute}?take={take}&skip={skip}&{_IncludingDetails}=true";
