@@ -70,7 +70,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public Collection<ConfigurationAttribute>? Attributes { get; set; } = new Collection<ConfigurationAttribute>();
 
         /// <summary>
-        /// Contains the context data for this module.
+        /// Contains the optional context data for this module.
         /// It is needed i.e. for the correct handling of docked modules; it contains the docking vector and the position of the docked modules in relation to the root module.
         /// </summary>
         [JsonProperty(Order = 60)]
