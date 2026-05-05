@@ -14,16 +14,10 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public string? LibraryId { get; set; }
 
         /// <summary>
-        /// The catalog this article belongs to (english value).
+        /// The catalog this article belongs to.
         /// </summary>
         [JsonProperty("catalog")]
         public string? Catalog { get; set; }
-
-        /// <summary>
-        /// The localized catalog name keyed by culture/language code.
-        /// </summary>
-        [JsonProperty("catalog-localized")]
-        public Dictionary<string, string> CatalogLocalized { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// The unique id of the article within its catalog.
@@ -40,19 +34,19 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// <summary>
         /// The localized article name of the article keyed by culture/language code.
         /// </summary>
-        [JsonProperty("articleName-localized")]
+        [JsonProperty("articleNameLocalized")]
         public Dictionary<string, string> ArticleNameLocalized { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
-        /// A description of the article (englisch value).
+        /// A description of the article (english value).
         /// </summary>
-        [JsonProperty("desc")]
+        [JsonProperty("description")]
         public string? Description { get; set; }
 
         /// <summary>
         /// The localized description of the article keyed by culture/language code.
         /// </summary>
-        [JsonProperty("desc-localized")]
+        [JsonProperty("descriptionLocalized")]
         public Dictionary<string, string> DescriptionLocalized { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
@@ -70,7 +64,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// <summary>
         /// The localized category name keyed by culture/language code.
         /// </summary>
-        [JsonProperty("category-localized")]
+        [JsonProperty("categoryLocalized")]
         public Dictionary<string, string> CategoryLocalized { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
