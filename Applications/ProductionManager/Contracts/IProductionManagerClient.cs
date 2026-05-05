@@ -248,7 +248,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// The default is 0.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
         /// rework records matching the specified criteria, or <see langword="null"/> if no records are found.</returns>
-        Task<IEnumerable<Rework.Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0);
+        Task<IEnumerable<Rework.Rework>?> GetCurrentReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0);
 
         /// <summary>
         /// Retrieves rework records with optional filters.

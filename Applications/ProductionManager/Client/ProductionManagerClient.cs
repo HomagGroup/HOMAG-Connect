@@ -465,23 +465,23 @@ namespace HomagConnect.ProductionManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<Rework>?> GetRequestedReworks()
         {
-            return await GetReworks([ReworkState.Pending]);
+            return await GetCurrentReworks([ReworkState.Pending]);
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<Rework>?> GetApprovedReworks()
         {
-            return await GetReworks([ReworkState.Approved]);
+            return await GetCurrentReworks([ReworkState.Approved]);
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<Rework>?> GetCompletedReworks()
         {
-            return await GetReworks([ReworkState.Rejected, ReworkState.Transferred]);
+            return await GetCurrentReworks([ReworkState.Rejected, ReworkState.Transferred]);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        public async Task<IEnumerable<Rework>?> GetCurrentReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
         {
             var url = "/api/productionManager/reworks";
 

@@ -57,13 +57,13 @@ namespace HomagConnect.ProductionManager.Tests.Rework
         /// Retrieves reworks in a date range filtered by states and verifies all results are within range.
         /// </summary>
         [TestMethod]
-        public async Task Rework_GetReworksInRange_NoException()
+        public async Task Rework_GetCurrentReworksInRange_NoException()
         {
             var productionManager = GetProductionManagerClient();
             var from = DateTimeOffset.UtcNow.AddDays(-7);
             var to = DateTimeOffset.UtcNow.AddDays(-2);
 
-            var reworks = await productionManager.GetReworks([ReworkState.Transferred, ReworkState.Rejected], from, to)!.ToListAsync();
+            var reworks = await productionManager.GetCurrentReworks([ReworkState.Transferred, ReworkState.Rejected], from, to)!.ToListAsync();
 
             reworks.ShouldNotBeNull();
 
