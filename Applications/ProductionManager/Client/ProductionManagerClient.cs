@@ -510,9 +510,7 @@ namespace HomagConnect.ProductionManager.Client
             if (take > 0 && take != int.MaxValue)
             {
                 queryParameters.Add($"take={take}");
-            }
-
-            queryParameters.Add($"completed=true"); // TODO: remove when API supports non-completed reworks
+            }        
 
             if (queryParameters.Count > 0)
             {
