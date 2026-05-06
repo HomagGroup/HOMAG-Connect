@@ -679,7 +679,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region statistics
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day)
     {
         if (materialCodes == null)
         {
@@ -697,40 +697,40 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
         }
 
-        return GetBoardTypeInventoryHistoryInternalAsync(validMaterialCodes, boardTypeType, from, to);
+        return GetBoardTypeInventoryHistoryInternalAsync(validMaterialCodes, boardTypeType, from, to, granularity);
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to)
+    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day)
     {
-        return await GetBoardTypeInventoryHistoryInternalAsync(null, null, from, to);
+        return await GetBoardTypeInventoryHistoryInternalAsync(null, null, from, to, granularity);
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to)
+    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day)
     {
-        return await GetBoardTypeInventoryHistoryInternalAsync(materialCodes, null, from, to);
+        return await GetBoardTypeInventoryHistoryInternalAsync(materialCodes, null, from, to, granularity);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, DateGranularity granularity = DateGranularity.Day)
     {
-        return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now);
+        return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now, granularity);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack, DateGranularity granularity = DateGranularity.Day)
     {
-        return GetBoardTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now);
+        return GetBoardTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now, granularity);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack, DateGranularity granularity = DateGranularity.Day)
     {
-        return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now);
+        return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now, granularity);
     }
 
-    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to)
+    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day)
     {
         IEnumerable<String> paths;
         if (materialCodes != null)
@@ -739,14 +739,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
                 .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
                 .Join(QueryParametersMaxLength)
                 .Select(c =>
-                    $"/{_BaseStatisticsRoute}/inventory/boards?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
+                    $"/{_BaseStatisticsRoute}/inventory/boards?granularity={granularity.ToString()}&from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
                     c);
         }
         else
         {
             paths =
             [
-                $"/{_BaseStatisticsRoute}/inventory/boards?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}"
+                $"/{_BaseStatisticsRoute}/inventory/boards?granularity={granularity.ToString()}&from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}"
             ];
         }
 
