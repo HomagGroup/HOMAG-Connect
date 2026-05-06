@@ -10,7 +10,7 @@ namespace HomagConnect.Base.Contracts.Enumerations
     /// month level. This is commonly used in reporting, data aggregation, or filtering scenarios where the precision of
     /// date-based operations must be controlled.</remarks>
     [JsonConverter(typeof(TolerantEnumConverter))]
-    public enum DateGranularity
+    public enum AggregationPeriod
     {
         Day,
         Week,

@@ -202,32 +202,32 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <summary>
         /// Get <see cref="BoardType" /> inventory history for specific material codes and <see cref="BoardTypeType" />.
         /// </summary>
-        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, AggregationPeriod granularity = AggregationPeriod.Day);
 
         /// <summary>
         /// Get <see cref="BoardType" /> inventory history for all board types.
         /// </summary>
-        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to, AggregationPeriod granularity = AggregationPeriod.Day);
 
         /// <summary>
         /// Get <see cref="BoardType" /> inventory history for specific material codes.
         /// </summary>
-        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to, DateGranularity granularity = DateGranularity.Day);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to, AggregationPeriod granularity = AggregationPeriod.Day);
 
         /// <summary>
         /// Get <see cref="BoardType" /> inventory history for specific material codes and <see cref="BoardTypeType" />.
         /// </summary>
-        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, DateGranularity granularity = DateGranularity.Day);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, AggregationPeriod granularity = AggregationPeriod.Day);
 
         /// <summary>
         /// Get <see cref="BoardType" /> inventory history for all board types.
         /// </summary>
-        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack, DateGranularity granularity = DateGranularity.Day);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack, AggregationPeriod granularity = AggregationPeriod.Day);
 
         /// <summary>
         /// Get <see cref="BoardType" /> inventory history for specific material codes.
         /// </summary>
-        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack, DateGranularity granularity = DateGranularity.Day);
+        Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack, AggregationPeriod granularity = AggregationPeriod.Day);
 
         /// <summary>
         /// Get the PartHistory by interval dates
