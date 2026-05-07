@@ -68,4 +68,11 @@ public class Group : Base
     /// </summary>
     [JsonProperty(Order = 40)]
     public bool? NeedsBOMData { get; set; }
+
+    /// <summary>
+    /// Gets or sets the origin of the group, indicating where it was added from.
+    /// Used to determine the correct edit flow (e.g., QuickInput or SOC).
+    /// </summary>
+    [JsonProperty(Order = 50)]
+    public GroupOriginType? Origin { get; set; }
 }
