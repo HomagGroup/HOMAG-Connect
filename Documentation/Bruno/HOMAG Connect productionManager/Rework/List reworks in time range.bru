@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: https://connect.homag.cloud/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
+  url: https://connect.homag.cloud/api/productionManager/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
   body: none
   auth: inherit
 }
@@ -28,7 +28,7 @@ docs {
   ## Endpoint
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks
+  GET https://connect.homag.cloud/api/productionManager/reworks
   ```
   
   ## Purpose
@@ -47,7 +47,7 @@ docs {
   ## Request example
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
+  GET https://connect.homag.cloud/api/productionManager/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0
   ```
   
   ## Success response example
@@ -110,7 +110,7 @@ docs {
     Authorization = "Basic $encoded"
   }
   
-  $url = "$baseUrl/api/productionManager/orders/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0"
+  $url = "$baseUrl/api/productionManager/reworks?capturedAtFrom=2025-12-01&capturedAtTo=2026-02-28&take=1000&skip=0"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
   
   foreach ($rework in $response) {

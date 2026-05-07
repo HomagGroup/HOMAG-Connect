@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: https://connect.homag.cloud/api/productionManager/orders/reworks?format=localized&culture=de
+  url: https://connect.homag.cloud/api/productionManager/reworks?format=localized&culture=de
   body: none
   auth: inherit
 }
@@ -26,7 +26,7 @@ docs {
   ## Endpoint
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks
+  GET https://connect.homag.cloud/api/productionManager/reworks
   ```
   
   ## Purpose
@@ -43,7 +43,7 @@ docs {
   ## Request example
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks?format=localized&culture=de
+  GET https://connect.homag.cloud/api/productionManager/reworks?format=localized&culture=de
   ```
   
   ## Success response example
@@ -121,7 +121,7 @@ docs {
     Authorization = "Basic $encoded"
   }
   
-  $url = "$baseUrl/api/productionManager/orders/reworks?format=localized&culture=de"
+  $url = "$baseUrl/api/productionManager/reworks?format=localized&culture=de"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
   
   $response | ConvertTo-Json -Depth 10
