@@ -82,6 +82,25 @@ var reworks = await client.GetCurrentReworks(states: new[] { ReworkState.Approve
 // Use the retrieved data
 reworks.Trace();
 ```
+<strong>Example 2: Get reworks with specific date range and state filter</strong>
+
+```c#
+// Create new instance of the productionManager client:
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+// Get reworks with specific date range and state filter
+  var from = DateTime.UtcNow.AddDays(-30);
+  var to = DateTime.UtcNow;
+  var reworksFiltered = await productionManager.GetCurrentReworks(
+      capturedAtFrom: from,
+      capturedAtTo: to,
+      states: new[] { ReworkState.Transferred },
+      take: 100)!.ToListAsync();
+  reworksFiltered.Trace(nameof(reworksFiltered));
+
+// Use the retrieved data
+reworksFiltered.Trace();
+```
 
 
 ## GetReworks
