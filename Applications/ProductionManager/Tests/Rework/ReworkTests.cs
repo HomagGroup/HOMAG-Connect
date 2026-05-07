@@ -19,10 +19,10 @@ namespace HomagConnect.ProductionManager.Tests.Rework
         {
             var productionManager = GetProductionManagerClient();
 
-            var completedReworks = await productionManager.GetRequestedReworks()!.ToListAsync();
+            var requestedReworks = await productionManager.GetRequestedReworks()!.ToListAsync();
 
-            completedReworks.ShouldNotBeNull();
-            completedReworks.Trace();
+            requestedReworks.ShouldNotBeNull();
+            requestedReworks.Trace();
         }
 
         /// <summary>
@@ -33,10 +33,10 @@ namespace HomagConnect.ProductionManager.Tests.Rework
         {
             var productionManager = GetProductionManagerClient();
 
-            var completedReworks = await productionManager.GetApprovedReworks()!.ToListAsync();
+            var approvedReworks = await productionManager.GetApprovedReworks()!.ToListAsync();
 
-            completedReworks.ShouldNotBeNull();
-            completedReworks.Trace();
+            approvedReworks.ShouldNotBeNull();
+            approvedReworks.Trace();
         }
 
         /// <summary>
