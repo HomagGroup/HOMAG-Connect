@@ -83,7 +83,7 @@ docs {
   
   var client = new ProductionManagerClient(subscriptionId, authorizationKey);
   
-  var reworks = await client.GetReworks(
+  var reworks = await client.GetCurrentReworks(
       states: null,
       capturedAtFrom: DateTimeOffset.Parse("2025-12-01T00:00:00Z"),
       capturedAtTo: DateTimeOffset.Parse("2026-02-28T23:59:59Z"),

@@ -2,6 +2,49 @@
 
 With the HOMAG Connect Client, rework data can be retrieved from productionManager for further programmatic evaluation.
 
+## GetRequestedReworks
+
+Retrieves all requested reworks (states: Requested).
+
+<strong>Example:</strong>
+
+```c#
+// Create new instance of the productionManager client:
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+// Get the data
+var requestedReworks = await client.GetRequestedReworks().ToListAsync();
+
+// Use the retrieved data
+requestedReworks.Trace();
+
+Assert.IsTrue(requestedReworks.Any());
+var reworkIds = requestedReworks.Select(x => x.Id).ToList();
+reworkIds.Trace(nameof(reworkIds));
+```
+
+## GetApprovedReworks
+
+Retrieves all approved reworks (states: Approved).
+
+<strong>Example:</strong>
+
+```c#
+// Create new instance of the productionManager client:
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+// Get the data
+var approvedReworks = await client.GetApprovedReworks().ToListAsync();
+
+// Use the retrieved data
+approvedReworks.Trace();
+
+Assert.IsTrue(approvedReworks.Any());
+var reworkIds = approvedReworks.Select(x => x.Id).ToList();
+reworkIds.Trace(nameof(reworkIds));
+```
+
+
 ## GetCompletedReworks
 
 Retrieves all completed reworks (states: Rejected, Transferred).
@@ -22,6 +65,24 @@ Assert.IsTrue(completedReworks.Any());
 var reworkIds = completedReworks.Select(x => x.Id).ToList();
 reworkIds.Trace(nameof(reworkIds));
 ```
+
+## GetCurrentReworks
+
+Retrieves current rework records in productionManager with flexible filtering options including date range, state, and pagination.
+
+<strong>Example 1: Get reworks filtered by state</strong>
+
+```c#
+// Create new instance of the productionManager client:
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+
+// Get reworks with specific states
+var reworks = await client.GetCurrentReworks(states: new[] { ReworkState.Approved, ReworkState.Pending }, take: 10).ToListAsync();
+
+// Use the retrieved data
+reworks.Trace();
+```
+
 
 ## GetReworks
 
@@ -76,53 +137,3 @@ var reworks = await client.GetReworks(
 reworks.Trace();
 ```
 
-## GetReworkHistory
-
-Retrieves rework history records with filtering options for date range, identifier, and rework ID.
-
-<strong>Example 1: Get rework history from the last 14 days</strong>
-
-```c#
-// Create new instance of the productionManager client:
-var client = new ProductionManagerClient(subscriptionId, authorizationKey);
-
-// Get rework history from the last 14 days
-var history = await client.GetReworkHistory(daysBack: 14).ToListAsync();
-
-// Use the retrieved data
-history.Trace();
-```
-
-<strong>Example 2: Get rework history with specific date range</strong>
-
-```c#
-// Create new instance of the productionManager client:
-var client = new ProductionManagerClient(subscriptionId, authorizationKey);
-
-// Get rework history with specific date range
-var from = DateTime.UtcNow.AddMonths(-1);
-var to = DateTime.UtcNow;
-var history = await client.GetReworkHistory(
-    from: from,
-    to: to,
-    take: 100).ToListAsync();
-
-// Use the retrieved data
-history.Trace();
-```
-
-<strong>Example 3: Get rework history by rework ID</strong>
-
-```c#
-// Create new instance of the productionManager client:
-var client = new ProductionManagerClient(subscriptionId, authorizationKey);
-
-// Get rework history by rework ID
-var history = await client.GetReworkHistory(
-    daysBack: 30,
-    reworkId: "REWORK-456",
-    take: 10).ToListAsync();
-
-// Use the retrieved data
-history.Trace();
-```

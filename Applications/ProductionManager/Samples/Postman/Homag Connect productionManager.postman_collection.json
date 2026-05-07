@@ -551,20 +551,160 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/reworks",
+									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Transferred&state=Rejected",
 									"host": [
 										"{{ConnectHost}}"
 									],
 									"path": [
 										"api",
 										"productionManager",
-										"orders",
 										"reworks"
 									],
 									"query": [
 										{
-											"key": "completed",
-											"value": "true"
+											"key": "state",
+											"value": "Transferred"
+										},
+										{
+											"key": "state",
+											"value": "Rejected"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get approved reworks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Approved",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"reworks"
+									],
+									"query": [
+										{
+											"key": "state",
+											"value": "Approved"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get requested reworks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"reworks"
+									],
+									"query": [
+										{
+											"key": "state",
+											"value": "Pending"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get current reworks with filter data",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Rejected&capturedAtFrom=2026-03-01T00:00:00&capturedAtTo=2027-04-01T00:00:00&take=10&skip=0",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"reworks"
+									],
+									"query": [
+										{
+											"key": "state",
+											"value": "Pending"
+										},
+										{
+											"key": "state",
+											"value": "Rejected"
+										},
+										{
+											"key": "capturedAtFrom",
+											"value": "2026-03-01T00:00:00"
+										},
+										{
+											"key": "capturedAtTo",
+											"value": "2027-04-01T00:00:00"
+										},
+										{
+											"key": "take",
+											"value": "10"
+										},
+										{
+											"key": "skip",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get reworks from Insights",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/productionManager/statistics/reworks?daysBack=30&state=Rejected&identifier=Kitchen-Block-A&take=10&skip=0",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"productionManager",
+										"statistics",
+										"reworks"
+									],
+									"query": [
+										{
+											"key": "daysBack",
+											"value": "30"
+										},
+										{
+											"key": "state",
+											"value": "Rejected"
+										},
+										{
+											"key": "identifier",
+											"value": "Kitchen-Block-A"
+										},
+										{
+											"key": "take",
+											"value": "10"
+										},
+										{
+											"key": "skip",
+											"value": "0"
 										}
 									]
 								}

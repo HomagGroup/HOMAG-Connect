@@ -82,7 +82,7 @@ docs {
   
   var client = new ProductionManagerClient(subscriptionId, authorizationKey);
   
-  var reworks = await client.GetReworks(
+  var reworks = await client.GetCurrentReworks(
       states: new[] { ReworkState.Rejected, ReworkState.Transferred },
       take: 1000,
       skip: 0);
