@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="8.0.1">
+    <PackageReference Include="coverlet.collector" Version="10.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -30,8 +30,8 @@
 	<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.2.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.2.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.2.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.2.2" />
   </ItemGroup>
 
   <ItemGroup>
