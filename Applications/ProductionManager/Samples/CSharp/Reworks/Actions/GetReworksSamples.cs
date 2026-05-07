@@ -44,6 +44,32 @@ namespace HomagConnect.ProductionManager.Samples.Reworks.Actions
         }
 
         /// <summary>
+        /// Gets current reworks using state filters.
+        /// </summary>
+        public static async Task GetCurrentReworksAsync(IProductionManagerClient productionManager)
+        {
+            // Example 1: Get reworks filtered by state
+            var reworksLastWeek = await productionManager.GetCurrentReworks([ReworkState.Approved, ReworkState.Pending], take: 10)!.ToListAsync();
+            reworksLastWeek.Trace(nameof(reworksLastWeek));
+
+            // Example 2: Get reworks with specific date range and state filter
+            var from = DateTime.UtcNow.AddDays(-30);
+            var to = DateTime.UtcNow;
+            var reworksFiltered = await productionManager.GetCurrentReworks(
+                capturedAtFrom: from,
+                capturedAtTo: to,
+                states: new[] { ReworkState.Transferred },
+                take: 100)!.ToListAsync();
+            reworksFiltered.Trace(nameof(reworksFiltered));
+
+            if (reworksLastWeek != null)
+            {
+                var reworkIds = reworksLastWeek.Select(x => x.Id).ToList();
+                reworkIds.Trace(nameof(reworkIds));
+            }
+        }
+
+        /// <summary>
         /// Gets reworks using date range and filters.
         /// </summary>
         public static async Task GetReworksAsync(IProductionManagerClient productionManager)
