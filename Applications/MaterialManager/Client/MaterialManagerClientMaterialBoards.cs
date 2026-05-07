@@ -679,7 +679,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region statistics
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
     {
         if (materialCodes == null)
         {
@@ -697,40 +697,40 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
         }
 
-        return GetBoardTypeInventoryHistoryInternalAsync(validMaterialCodes, boardTypeType, from, to, aggregateBy);
+        return GetBoardTypeInventoryHistoryInternalAsync(validMaterialCodes, boardTypeType, from, to, interval);
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
     {
-        return await GetBoardTypeInventoryHistoryInternalAsync(null, null, from, to, aggregateBy);
+        return await GetBoardTypeInventoryHistoryInternalAsync(null, null, from, to, interval);
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    public async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
     {
-        return await GetBoardTypeInventoryHistoryInternalAsync(materialCodes, null, from, to, aggregateBy);
+        return await GetBoardTypeInventoryHistoryInternalAsync(materialCodes, null, from, to, interval);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, TimeInterval interval = TimeInterval.Day)
     {
-        return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now, aggregateBy);
+        return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(int daysBack, TimeInterval interval = TimeInterval.Day)
     {
-        return GetBoardTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now, aggregateBy);
+        return GetBoardTypeInventoryHistoryAsync(DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, int daysBack, TimeInterval interval = TimeInterval.Day)
     {
-        return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now, aggregateBy);
+        return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
 
-    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to, AggregationPeriod aggregateBy = AggregationPeriod.Day)
+    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
     {
         IEnumerable<String> paths;
         if (materialCodes != null)
@@ -739,14 +739,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
                 .Select(materialCode => $"&materialCode={Uri.EscapeDataString(materialCode)}")
                 .Join(QueryParametersMaxLength)
                 .Select(c =>
-                    $"/{_BaseStatisticsRoute}/inventory/boards?aggregateBy={aggregateBy}&from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
+                    $"/{_BaseStatisticsRoute}/inventory/boards?interval={interval}&from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
                     c);
         }
         else
         {
             paths =
             [
-                $"/{_BaseStatisticsRoute}/inventory/boards?aggregateBy={aggregateBy}&from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}"
+                $"/{_BaseStatisticsRoute}/inventory/boards?interval={interval}&from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}"
             ];
         }
 
