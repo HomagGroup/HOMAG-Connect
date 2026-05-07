@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: https://connect.homag.cloud/api/productionManager/orders/reworks?state=Rejected&state=Transferred&take=1000&skip=0
+  url: https://connect.homag.cloud/api/productionManager/reworks?state=Rejected&state=Transferred&take=1000&skip=0
   body: none
   auth: inherit
 }
@@ -28,7 +28,7 @@ docs {
   ## Endpoint
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks
+  GET https://connect.homag.cloud/api/productionManager/reworks
   ```
   
   ## Purpose
@@ -46,7 +46,7 @@ docs {
   ## Request example
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/orders/reworks?state=Rejected&state=Transferred&take=1000&skip=0
+  GET https://connect.homag.cloud/api/productionManager/reworks?state=Rejected&state=Transferred&take=1000&skip=0
   ```
   
   ## Success response example
@@ -82,7 +82,7 @@ docs {
   
   var client = new ProductionManagerClient(subscriptionId, authorizationKey);
   
-  var reworks = await client.GetReworks(
+  var reworks = await client.GetCurrentReworks(
       states: new[] { ReworkState.Rejected, ReworkState.Transferred },
       take: 1000,
       skip: 0);
@@ -107,7 +107,7 @@ docs {
     Authorization = "Basic $encoded"
   }
   
-  $url = "$baseUrl/api/productionManager/orders/reworks?state=Rejected&state=Transferred&take=1000&skip=0"
+  $url = "$baseUrl/api/productionManager/reworks?state=Rejected&state=Transferred&take=1000&skip=0"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
   
   foreach ($rework in $response) {
