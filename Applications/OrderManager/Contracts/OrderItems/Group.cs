@@ -70,7 +70,7 @@ public class Group : Base
     public bool? NeedsBOMData { get; set; }
 
     /// <summary>
-    /// Gets or sets the origin of the group, indicating where it was added from.
+    /// Gets or sets the optional origin of the group, indicating where its items were added or edited from.
     /// </summary>
     [JsonProperty(Order = 50)]
     public string? Origin { get; set; }
