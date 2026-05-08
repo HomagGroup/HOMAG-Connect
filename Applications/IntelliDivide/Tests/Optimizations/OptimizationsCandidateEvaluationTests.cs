@@ -55,7 +55,6 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 01, "DF-Optimization")]
     public async Task Optimizations_Nesting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Nesting);

@@ -59,5 +59,20 @@ namespace HomagConnect.Base.TestBase.Extensions
             Assert.IsNotNull(actual, customMessage ?? "Guid should not be null.");
             Assert.AreNotEqual(Guid.Empty, actual.Value, customMessage ?? "Guid should not be empty.");
         }
+
+        public static void ShouldBeNullOrEmpty(
+            this Guid? actual,
+            string? customMessage = null)
+        {
+            if (actual == null || actual.Value == Guid.Empty)
+            {
+                return;
+            }
+
+            Assert.Fail(customMessage ?? "Guid should be null or empty.");
+            
+        }
+
+
     }
 }

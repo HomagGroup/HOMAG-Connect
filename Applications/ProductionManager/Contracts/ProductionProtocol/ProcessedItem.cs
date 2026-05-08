@@ -104,9 +104,17 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     public Guid WorkstationId { get; set; }
 
     /// <summary>
-    /// The processed part quality 
+    /// The processed part category: planned, rework, or surplus. 
     /// </summary>
     [JsonProperty(Order = 6)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Category))]
+    public ProcessedItemCategory Category { get; set; } = ProcessedItemCategory.Planned;
+    
+    /// <summary>
+    /// The processed part quality 
+    /// </summary>
+    [JsonProperty(Order = 7)]
+    [Obsolete("Use Category instead")]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Quality))]
     public ProcessedItemQuality Quality { get; set; } = ProcessedItemQuality.Good;
 }

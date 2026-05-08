@@ -146,7 +146,7 @@ public class SolutionFiguresMaterialBoardsOffcuts
     {
         get
         {
-            return OffcutsLargeProduced - OffcutsLargeRequired;
+            return OffcutsSmallProduced - OffcutsSmallRequired;
         }
         // ReSharper disable once ValueParameterNotUsed
         private set

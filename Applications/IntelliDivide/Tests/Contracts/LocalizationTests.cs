@@ -23,6 +23,27 @@ namespace HomagConnect.IntelliDivide.Tests.Contracts
         /// This test will only succeed on server OR when you add the relevant resx for ja and en manually.
         /// </summary>
         [TestMethod]
+        public void IntelliDivide_Localization_Grain_EN()
+        {
+            var displayNames = EnumExtensions.GetDisplayNames<Grain>(CultureInfo.GetCultureInfo("en"));
+
+            if (!string.Equals(System.Environment.GetEnvironmentVariable("TF_BUILD"), "True", System.StringComparison.OrdinalIgnoreCase)
+                && (!displayNames.TryGetValue(Grain.None, out var grainNoneDisplayName) || grainNoneDisplayName != "None"))
+            {
+                Assert.Inconclusive("English localization is only available after the pipeline translation step or when the translated .resx files exist locally.");
+            }
+
+            displayNames.Count.ShouldBe(3, "There are 3 types of grain available.");
+            displayNames[Grain.None].ShouldBe("None", "The English display name for Grain.None is 'None'.");
+
+            displayNames.Trace();
+        }
+
+
+        /// <summary>
+        /// This test will only succeed on server OR when you add the relevant resx for ja and en manually.
+        /// </summary>
+        [TestMethod]
         public void IntelliDivide_Localization_Grain()
         {
             var displayNames = EnumExtensions.GetDisplayNames<Grain>(CultureInfo.GetCultureInfo("de"));

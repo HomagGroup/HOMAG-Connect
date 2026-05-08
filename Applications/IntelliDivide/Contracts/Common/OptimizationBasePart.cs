@@ -5,6 +5,7 @@ using HomagConnect.Base.Contracts.Converter;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.IntelliDivide.Contracts.Result;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     /// Describes a part in context of an intelliDivide optimization.
     /// </summary>
     [DebuggerDisplay("{Description}, {MaterialCode}, {Length} x {Width}")]
-    public class OptimizationBasePart :  IPartProperties
+    public class OptimizationBasePart :  IPartProperties, IContainsUnitSystemDependentProperties, ISupportsAdditionalProperties
     {
         #region Constructors
 
@@ -98,6 +99,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         #region (2) Cutting / Nesting
 
         /// <inheritdoc />
+        [JsonProperty(Order = 22)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Thickness { get; set; }
 
@@ -281,6 +283,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the id of the part.
         /// </summary>
         [JsonProperty(Order = 1)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(Id))]
         public string? Id
         {
             get;
@@ -294,6 +297,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the name of the customer who has ordered the part.
         /// </summary>
         [JsonProperty(Order = 60)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(CustomerName))]
         public string? CustomerName
         {
             get;
@@ -307,6 +311,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the name of the order.
         /// </summary>
         [JsonProperty(Order = 61)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(OrderName))]
         public string? OrderName
         {
             get;
@@ -320,6 +325,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the item of the order.
         /// </summary>
         [JsonProperty(Order = 62)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(OrderItem))]
         public string? OrderItem
         {
             get;
@@ -333,6 +339,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the order date.
         /// </summary>
         [JsonProperty(Order = 63)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(OrderDate))]
         public DateTime? OrderDate { get; set; }
 
         /// <summary>
@@ -340,6 +347,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 64)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(FinishLength))]
         public double? FinishLength { get; set; }
 
         /// <summary>
@@ -347,6 +355,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// </summary>
         [JsonProperty(Order = 65)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(FinishWidth))]
         public double? FinishWidth { get; set; }
 
         /// <summary>
@@ -355,6 +364,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonProperty(Order = 66)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(SecondCutLength))]
         public double? SecondCutLength { get; set; }
 
         /// <summary>
@@ -363,12 +373,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         [JsonProperty(Order = 67)]
         [Range(0.1, 9999.9)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(SecondCutWidth))]
         public double? SecondCutWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the production route.
         /// </summary>
         [JsonProperty(Order = 68)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(ProductionRoute))]
         public string? ProductionRoute
         {
             get;
@@ -386,6 +398,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the label layout.
         /// </summary>
         [JsonProperty(Order = 70)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(LabelLayout))]
         public string? LabelLayout
         {
             get;
@@ -399,6 +412,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the stacking group value for the part.
         /// </summary>
         [JsonProperty(Order = 75)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(DestackingGroup))]
         public string? DestackingGroup
         {
             get;
@@ -412,6 +426,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the destination for the destacking of the part.
         /// </summary>
         [JsonProperty(Order = 75)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(DestackingDestination))]
         public string? DestackingDestination
         {
             get;
@@ -429,6 +444,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the notes of the production entity.
         /// </summary>
         [JsonProperty(Order = 80)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(Notes))]
         public string? Notes
         {
             get;
@@ -442,6 +458,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// Gets or sets the lot in wich the part is contained.
         /// </summary>
         [JsonProperty(Order = 81)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(Lot))]
         public string? Lot
         {
             get;
@@ -461,7 +478,8 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
         /// <summary>
         /// Gets or sets the article number.
         /// </summary>
-        [JsonProperty(Order = 19)]
+        [JsonProperty(Order = 63)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(ArticleNumber))]
         public string? ArticleNumber
         {
             get;
@@ -477,6 +495,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
 
         /// <inheritdoc />
         [DefaultValue(UnitSystem.Metric)]
+        [JsonProperty(Order = 99)]
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
         #endregion

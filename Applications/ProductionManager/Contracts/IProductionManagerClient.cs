@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
@@ -216,6 +217,17 @@ namespace HomagConnect.ProductionManager.Contracts
         #region Rework
 
         /// <summary>
+        /// Get requested reworks
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Rework.Rework>?> GetRequestedReworks();
+
+        /// <summary>
+        /// Get approved reworks
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Rework.Rework>?> GetApprovedReworks();
+        /// <summary>
         /// Get completed reworks
         /// </summary>
         /// <returns></returns>
@@ -236,7 +248,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// The default is 0.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
         /// rework records matching the specified criteria, or <see langword="null"/> if no records are found.</returns>
-        Task<IEnumerable<Rework.Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0);
+        Task<IEnumerable<Rework.Rework>?> GetCurrentReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0);
 
         /// <summary>
         /// Retrieves rework records with optional filters.
@@ -252,21 +264,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
         /// rework records matching the specified criteria. Returns an empty collection if no records are found.</returns>
         Task<IEnumerable<Rework.Rework>> GetReworks(DateTime? from = null, DateTime? to = null, int? daysBack = null, ReworkState? state = null, string? identifier = null, string? reworkId = null, int? take = null, int? skip = null);
-
-        /// <summary>
-        /// Retrieves rework history with optional filters.
-        /// </summary>
-        /// <param name="from">Optional lower bound for the date range filter.</param>
-        /// <param name="to">Optional upper bound for the date range filter.</param>
-        /// <param name="daysBack">Optional number of days to look back from now. Cannot be combined with <paramref name="from"/> and <paramref name="to"/>.</param>
-        /// <param name="identifier">Optional production item identifier filter.</param>
-        /// <param name="reworkId">Optional specific rework ID filter.</param>
-        /// <param name="take">Optional maximum number of items to return.</param>
-        /// <param name="skip">Optional number of items to skip before returning results.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
-        /// rework history records matching the specified criteria. Returns an empty collection if no records are found.</returns>
-        Task<IEnumerable<Rework.Rework>> GetReworkHistory(DateTime? from = null, DateTime? to = null, int? daysBack = null, string? identifier = null, string? reworkId = null, int? take = null, int? skip = null);
-
+       
         #endregion Rework
 
         #region ProductionProtocol
@@ -301,13 +299,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <returns></returns>
         Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest);
-
-        /// <summary>
-        /// Predicts the cutting duration based on the number of parts with CncProgramName in the request
-        /// </summary>
-        /// <returns></returns>
-        Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest);
-
+        
         #endregion
 
         #region Usage statistics
@@ -343,6 +335,11 @@ namespace HomagConnect.ProductionManager.Contracts
         /// current usage detail records. Returns an empty collection if no records are found.</returns>
         Task<IEnumerable<UsageDetails>> GetCurrentUsage();
 
+        /// <summary>
+        /// Retrieve the order progress details for given order numbers and workplace ids.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest);
         #endregion Usage statistics
     }
 }

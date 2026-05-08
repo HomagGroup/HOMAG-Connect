@@ -25,7 +25,6 @@ public class NestingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_ProjectZip_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -35,7 +34,6 @@ public class NestingOptimizationRequestUsingProjectZipTests : IntelliDivideTestB
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_ProjectZip_Optimize()
     {
         var intelliDivide = GetIntelliDivideClient();

@@ -12,12 +12,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 public class Position : ProductionItemBase
 {
     /// <summary>
-    /// Gets or sets the order item.
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    public string? OrderItem { get; set; }
-
-    /// <summary>
     /// Gets or sets the production entities.
     /// </summary>
     [JsonProperty(Order = 999)]

@@ -80,6 +80,15 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kategorie.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Endzeitpunkt.
         /// </summary>
         public static string CompletedAt {

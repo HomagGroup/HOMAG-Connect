@@ -19,10 +19,6 @@
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
-	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
 	  <ProjectReference Include="..\..\MaterialManager\Contracts\HomagConnect.MaterialManager.Contracts.csproj" />
@@ -54,11 +50,16 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Result\SolutionDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>SolutionDisplayNames.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-  	<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="10.0.5" />
-  	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.5" />
+  	<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="10.0.7" />
+  	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
 	  <EmbeddedResource Update="Common\ProgramTransferModeDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ProgramTransferModeDisplayNames.Designer.cs</LastGenOutput>
@@ -78,6 +79,10 @@
 	  <EmbeddedResource Update="Resources.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Result\SolutionDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>SolutionDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

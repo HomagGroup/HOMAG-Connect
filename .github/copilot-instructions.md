@@ -14,3 +14,4 @@
 
 ## Project-Specific Rules
 - Attributes should accept arrays of (string, int) pairs. Due to C# attribute parameter constraints, prefer repeatable attributes with a (string, int) constructor.
+- In this codebase, do not use a Grain enum example value 'Longitudinal'; use actual existing Grain enum values only.

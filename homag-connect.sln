@@ -33,6 +33,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E7E070F-ED86-401C-93B5-7A2ABF62A80A}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines.yml = azure-pipelines.yml
+		pipelines\templates\jobs\build-job.yml = pipelines\templates\jobs\build-job.yml
+		pipelines\templates\build-stage-jobs.yml = pipelines\templates\build-stage-jobs.yml
 		homag-connect.sln.DotSettings = homag-connect.sln.DotSettings
 		Local.runsettings = Local.runsettings
 		README.md = README.md
@@ -138,6 +140,19 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bruno", "Documentation\Bruno\Bruno.shproj", "{7151A9C9-C78B-4020-B839-32E1F8631FC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.Base.Tests.Api", "Base\HomagConnect.Base.Tests.Api.csproj\HomagConnect.Base.Tests.Api.csproj", "{2D5D97F3-6185-4339-B414-0731B1DD6111}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prompts", "Prompts", "{868C0B15-1FBB-44F3-8028-EE3D4BC1D810}"
+	ProjectSection(SolutionItems) = preProject
+		.github\upgrades\prompts\Document_Contract.md = .github\upgrades\prompts\Document_Contract.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipeline", "Pipeline", "{F585A23D-A423-4BD6-B612-397F943F4023}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		pipelines\templates\jobs\build-job.yml = pipelines\templates\jobs\build-job.yml
+		pipelines\templates\build-stage-jobs.yml = pipelines\templates\build-stage-jobs.yml
+		translate.yml = translate.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -354,6 +369,8 @@ Global
 		{9346613B-37F1-4235-8040-9241DAAC90BE} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 		{7151A9C9-C78B-4020-B839-32E1F8631FC0} = {C2C7F9F5-EB6D-4822-BB6F-C92B628C0A7F}
 		{2D5D97F3-6185-4339-B414-0731B1DD6111} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
+		{868C0B15-1FBB-44F3-8028-EE3D4BC1D810} = {2E7E070F-ED86-401C-93B5-7A2ABF62A80A}
+		{F585A23D-A423-4BD6-B612-397F943F4023} = {2E7E070F-ED86-401C-93B5-7A2ABF62A80A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}

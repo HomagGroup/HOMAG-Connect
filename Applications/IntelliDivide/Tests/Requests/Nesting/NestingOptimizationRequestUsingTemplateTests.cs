@@ -25,7 +25,6 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_Template_CSV_MPR_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -37,7 +36,6 @@ public class NestingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_Template_CSV_MPR_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();

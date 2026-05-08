@@ -25,7 +25,6 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task CuttingRequest_Template_Excel_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -37,7 +36,6 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task CuttingRequest_Template_Excel_ImportAndOptimize()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -49,7 +47,6 @@ public class CuttingOptimizationRequestUsingTemplateTests : IntelliDivideTestBas
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task CuttingRequest_Template_Excel_StackingGroups_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();

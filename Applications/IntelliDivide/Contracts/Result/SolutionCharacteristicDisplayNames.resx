@@ -228,4 +228,16 @@
   <data name="LowestWholeBoardsQuantity" xml:space="preserve">
     <value>Geringste Anzahl ganze Platten</value>
   </data>
+  <data name="LowestTotalCostsPerPart" xml:space="preserve">
+    <value>Niedrigste Gesamtkosten pro Teil</value>
+  </data>
+  <data name="LowestTotalCostsPerPartDescription" xml:space="preserve">
+    <value>Die Alternative bietet die niedrigsten Gesamtkosten pro Teil und ist daher in typischen Szenarien mit Plusteilen die empfohlene Lösung.</value>
+  </data>
+  <data name="LowestMaterialCostsPerPart" xml:space="preserve">
+    <value>Niedrigste Materialkosten pro Teil</value>
+  </data>
+  <data name="LowestMaterialCostsPerPartDescription" xml:space="preserve">
+    <value>Die Alternative erzielt die niedrigsten Materialkosten pro Teil und eignet sich für Szenarien mit Plusteilen, in denen der Materialverbrauch im Fokus steht. Die Produktionszeit kann dabei höher ausfallen oder die Pläne können komplexer sein.</value>
+  </data>
 </root>

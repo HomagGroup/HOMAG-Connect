@@ -8,7 +8,7 @@ namespace HomagConnect.Base.Contracts.Enumerations;
 /// </summary>
 /// <example>Default</example>
 [JsonConverter(typeof(TolerantEnumConverter))]
-public enum JsonFormat
+public enum JsonFormat 
 {
     /// <summary>
     /// Uses the default contract serialization format.

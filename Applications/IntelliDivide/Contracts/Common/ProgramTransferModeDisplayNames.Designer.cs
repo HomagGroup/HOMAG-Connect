@@ -95,5 +95,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Common {
                 return ResourceManager.GetString("ProductionAssist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannt.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
     }
 }

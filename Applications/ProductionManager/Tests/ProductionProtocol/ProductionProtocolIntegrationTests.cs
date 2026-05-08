@@ -11,7 +11,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol;
 /// <summary />
 [TestClass]
 [IntegrationTest("ProductionManager.ProductionProtocol")]
-[TemporaryDisabledOnServer(2026,2,28, "DF-Insights")]
 public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
 {
     /// <summary />

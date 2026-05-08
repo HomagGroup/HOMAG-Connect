@@ -1,4 +1,17 @@
-﻿using System;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Extensions;
+using HomagConnect.Base.Services;
+using HomagConnect.ProductionManager.Contracts;
+using HomagConnect.ProductionManager.Contracts.Import;
+using HomagConnect.ProductionManager.Contracts.Lots;
+using HomagConnect.ProductionManager.Contracts.OrderProgress;
+using HomagConnect.ProductionManager.Contracts.Orders;
+using HomagConnect.ProductionManager.Contracts.Predict;
+using HomagConnect.ProductionManager.Contracts.ProductionItems;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.Rework;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -7,20 +20,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-
-using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Services;
-using HomagConnect.ProductionManager.Contracts;
-using HomagConnect.ProductionManager.Contracts.Import;
-using HomagConnect.ProductionManager.Contracts.Lots;
-using HomagConnect.ProductionManager.Contracts.Orders;
-using HomagConnect.ProductionManager.Contracts.Predict;
-using HomagConnect.ProductionManager.Contracts.ProductionItems;
-using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
-using HomagConnect.ProductionManager.Contracts.Rework;
-
-using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -314,25 +313,7 @@ namespace HomagConnect.ProductionManager.Client
 
             return await PostObject<CuttingPredictionRequest, CuttingPrediction>(uri, cuttingPredictionRequest).ConfigureAwait(true);
         }
-
-        /// <inhertidoc />
-        public async Task<CncPrediction> Predict(CncPredictionRequest cncPredictionRequest)
-        {
-            if (cncPredictionRequest == null)
-            {
-                throw new ArgumentNullException(nameof(cncPredictionRequest));
-            }
-
-            if (cncPredictionRequest.PredictionParts == null || !cncPredictionRequest.PredictionParts.Any())
-            {
-                throw new ArgumentException("The predictionParts must not be null or empty.", nameof(cncPredictionRequest));
-            }
-
-            var uri = new Uri("/api/productionManager/predict/cnc", UriKind.Relative);
-
-            return await PostObject<CncPredictionRequest, CncPrediction>(uri, cncPredictionRequest).ConfigureAwait(true);
-        }
-
+       
         #endregion
 
         #region Order deletion
@@ -482,15 +463,27 @@ namespace HomagConnect.ProductionManager.Client
         #region Rework
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Rework>?> GetCompletedReworks()
+        public async Task<IEnumerable<Rework>?> GetRequestedReworks()
         {
-            return await GetReworks([ReworkState.Rejected, ReworkState.Transferred]);
+            return await GetCurrentReworks([ReworkState.Pending]);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        public async Task<IEnumerable<Rework>?> GetApprovedReworks()
         {
-            var url = "/api/productionManager/orders/reworks";
+            return await GetCurrentReworks([ReworkState.Approved]);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Rework>?> GetCompletedReworks()
+        {
+            return await GetCurrentReworks([ReworkState.Rejected, ReworkState.Transferred]);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Rework>?> GetCurrentReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        {
+            var url = "/api/productionManager/reworks";
 
             var queryParameters = new List<string>();
 
@@ -517,9 +510,7 @@ namespace HomagConnect.ProductionManager.Client
             if (take > 0 && take != int.MaxValue)
             {
                 queryParameters.Add($"take={take}");
-            }
-
-            queryParameters.Add($"completed=true"); // TODO: remove when API supports non-completed reworks
+            }        
 
             if (queryParameters.Count > 0)
             {
@@ -542,7 +533,7 @@ namespace HomagConnect.ProductionManager.Client
             int? take = null,
             int? skip = null)
         {
-            var url = "/api/productionManager/reworks";
+            var url = "/api/productionManager/statistics/reworks";
 
             var queryParameters = new List<string>();
 
@@ -594,66 +585,7 @@ namespace HomagConnect.ProductionManager.Client
             var reworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
 
             return reworks ?? Enumerable.Empty<Rework>();
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<Rework>> GetReworkHistory(
-            DateTime? from = null,
-            DateTime? to = null,
-            int? daysBack = null,
-            string? identifier = null,
-            string? reworkId = null,
-            int? take = null,
-            int? skip = null)
-        {
-            var url = "/api/productionManager/reworks/history";
-
-            var queryParameters = new List<string>();
-
-            if (from.HasValue)
-            {
-                queryParameters.Add($"from={Uri.EscapeDataString(from.Value.ToString("o", CultureInfo.InvariantCulture))}");
-            }
-
-            if (to.HasValue)
-            {
-                queryParameters.Add($"to={Uri.EscapeDataString(to.Value.ToString("o", CultureInfo.InvariantCulture))}");
-            }
-
-            if (daysBack.HasValue)
-            {
-                queryParameters.Add($"daysBack={daysBack.Value}");
-            }
-
-            if (!string.IsNullOrWhiteSpace(identifier))
-            {
-                queryParameters.Add($"identifier={Uri.EscapeDataString(identifier)}");
-            }
-
-            if (!string.IsNullOrWhiteSpace(reworkId))
-            {
-                queryParameters.Add($"reworkId={Uri.EscapeDataString(reworkId)}");
-            }
-
-            if (take.HasValue)
-            {
-                queryParameters.Add($"take={take.Value}");
-            }
-
-            if (skip.HasValue && skip.Value > 0)
-            {
-                queryParameters.Add($"skip={skip.Value}");
-            }
-
-            if (queryParameters.Count > 0)
-            {
-                url += $"?{string.Join("&", queryParameters)}";
-            }
-
-            var reworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
-
-            return reworks ?? Enumerable.Empty<Rework>();
-        }
+        }       
 
         #endregion Rework
 
@@ -712,6 +644,12 @@ namespace HomagConnect.ProductionManager.Client
             return usageDetails ?? Enumerable.Empty<UsageDetails>();
         }
 
+        /// <inhertidoc />
+        public async Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest)
+        {
+            string uri = "api/productionManager/orderprogress";
+            return await PostObject<OrderProgressRequest, IEnumerable<OrderProgressDetails>>(new Uri(uri, UriKind.Relative), orderProgressRequest);
+        }
         #endregion Usage statistics
 
         #region Constructors

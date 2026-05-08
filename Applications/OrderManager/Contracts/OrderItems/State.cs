@@ -36,4 +36,19 @@ public enum State
     /// Completed
     /// </summary>
     Completed,
+
+    /// <summary>
+    /// Distributed
+    /// </summary>
+    Distributed,
+
+    /// <summary>
+    /// Delivered
+    /// </summary>
+    Delivered,
+
+    /// <summary>
+    /// Archived
+    /// </summary>
+    Archived
 }

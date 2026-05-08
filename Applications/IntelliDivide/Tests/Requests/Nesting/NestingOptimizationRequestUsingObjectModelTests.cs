@@ -25,7 +25,6 @@ public class NestingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_ObjectModel_RequiredProperties_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -35,7 +34,6 @@ public class NestingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
 
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 04, 06, "DF-Optimization")]
     public async Task NestingRequest_ObjectModel_MprProgramVariables_ImportOnly()
     {
         var intelliDivide = GetIntelliDivideClient();

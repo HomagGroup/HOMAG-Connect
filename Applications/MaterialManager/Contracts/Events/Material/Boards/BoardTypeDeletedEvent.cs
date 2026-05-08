@@ -13,6 +13,7 @@ namespace HomagConnect.MaterialManager.Contracts.Events.Material.Boards
     /// Event that occurs when a board type has been deleted.
     /// </summary>
     [AppEvent(nameof(MaterialManager) + "." + nameof(Material) + "." + nameof(Boards) + "." + nameof(BoardTypeDeletedEvent))]
+    [LiveEvent]
     public class BoardTypeDeletedEvent : AppEvent
     {
         /// <summary>

@@ -13,6 +13,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Common
     public enum ProgramTransferMode
     {
         /// <summary>
+        /// Fallback value when the transfer mode is not specified or recognized.
+        /// </summary>
+        Unknown,
+
+        /// <summary>
         /// Program is manually downloaded and copied to the machine’s shared directory.
         /// </summary>
         ManualDownload,

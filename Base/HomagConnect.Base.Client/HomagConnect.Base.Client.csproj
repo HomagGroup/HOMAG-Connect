@@ -12,10 +12,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-	<ItemGroup Label="Package References">
-		<PackageReference Include="MinVer" PrivateAssets="All" Version="7.0.0" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
 		<ProjectReference Include="..\HomagConnect.Base\HomagConnect.Base.csproj" />

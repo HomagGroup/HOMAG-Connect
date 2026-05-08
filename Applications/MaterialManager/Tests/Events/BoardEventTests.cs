@@ -31,7 +31,7 @@ public class BoardEventTests : MaterialManagerTestBase
 
         TestContext?.AddResultFile(boardEntityDeletedEvent.TraceToFile("boardEntityDeletedEvent").FullName);
     }
-
+    
     /// <summary />
     [TestMethod]
     public void Events_BoardEntityDeletedEvent_SerializeDeserialize_AsSelf_And_AsAppEvent()
@@ -162,6 +162,15 @@ public class BoardEventTests : MaterialManagerTestBase
 
         TestContext?.AddResultFile(boardTypeDeletedEvent.TraceToFile("boardTypeDeletedEvent").FullName);
     }
+
+    /// <summary />
+    [TestMethod]
+    public void Events_BoardTypeDeletedEvent_HasLiveEventAttribute()
+    {
+        Attribute.IsDefined(typeof(BoardTypeDeletedEvent), typeof(HomagConnect.Base.Contracts.Attributes.LiveEventAttribute)).ShouldBeTrue(
+            "because BoardEntityDeletedEvent should be marked as a live event");
+    }
+
 
     /// <summary />
     [TestMethod]
