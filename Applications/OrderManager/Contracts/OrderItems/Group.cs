@@ -71,8 +71,7 @@ public class Group : Base
 
     /// <summary>
     /// Gets or sets the origin of the group, indicating where it was added from.
-    /// Used to determine the correct edit flow (e.g., QuickInput or SOC).
     /// </summary>
     [JsonProperty(Order = 50)]
-    public GroupOriginType? Origin { get; set; }
+    public string? Origin { get; set; }
 }
