@@ -28,9 +28,9 @@ public class TextureTests : MaterialManagerTestBase
     private const string _TestCatalogDecor2 = "dec-002";
     private const string _TestCatalogEmb2 = "st7";
 
-    private static readonly DateTimeOffset _FixedTestTimestamp = new DateTimeOffset(2026, 05, 12, 10, 20, 30, TimeSpan.Zero);
+    private static readonly DateTimeOffset _FixedTestTimestamp = new(2026, 05, 12, 10, 20, 30, TimeSpan.Zero);
 
-    private MaterialManagerClientTextures? _TextureClient;
+    private MaterialManagerClientTextures? _MaterialManagerClientTextures;
 
     /// <summary />
     public TestContext TestContext { get; set; } = null!;
@@ -41,7 +41,7 @@ public class TextureTests : MaterialManagerTestBase
     [TestInitialize]
     public async Task Init()
     {
-        _TextureClient = GetMaterialManagerClient().Textures;
+        _MaterialManagerClientTextures = GetMaterialManagerClient().Textures;
 
         // Ensure test textures exist by importing them
         await EnsureTestTextureExists("TX-TEST-001", _TestCatalog, _TestCatalogDecor1, _TestCatalogEmb1);
@@ -125,7 +125,7 @@ public class TextureTests : MaterialManagerTestBase
 
     #endregion
 
-    #region Integration Tests - MaterialManagerClientTextures
+    #region Integration Tests - _MaterialManagerClientTextures
 
     /// <summary>
     /// Tests retrieval of a single texture by ID.
@@ -137,7 +137,7 @@ public class TextureTests : MaterialManagerTestBase
         var expectedId = ComputeExpectedTextureId(_TestCatalog, _TestCatalogDecor1, _TestCatalogEmb1);
 
         // Act
-        var result = await _TextureClient!.GetTexture(expectedId);
+        var result = await _MaterialManagerClientTextures!.GetTexture(expectedId);
 
         // Assert
         result.ShouldNotBeNull("because texture with ID should exist");
@@ -156,7 +156,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTexture_WithNullId_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.GetTexture(null!);
+        var act = async () => await _MaterialManagerClientTextures!.GetTexture(null!);
         await Should.ThrowAsync<ArgumentNullException>(act);
     }
 
@@ -167,7 +167,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTexture_WithEmptyId_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.GetTexture(string.Empty);
+        var act = async () => await _MaterialManagerClientTextures!.GetTexture(string.Empty);
         await Should.ThrowAsync<ArgumentNullException>(act);
     }
 
@@ -178,7 +178,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTexture_WithWhitespaceId_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.GetTexture("   ");
+        var act = async () => await _MaterialManagerClientTextures!.GetTexture("   ");
         await Should.ThrowAsync<ArgumentNullException>(act);
     }
 
@@ -192,7 +192,7 @@ public class TextureTests : MaterialManagerTestBase
         const string nonExistentId = "NONEXISTENT_TEXTURE_ID_THAT_DOES_NOT_EXIST";
 
         // Act & Assert
-        var act = async () => await _TextureClient!.GetTexture(nonExistentId);
+        var act = async () => await _MaterialManagerClientTextures!.GetTexture(nonExistentId);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because texture should not be found for non-existent ID and client throws HttpRequestException on 404");
     }
@@ -204,7 +204,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithDefaults_ReturnsPaginatedResult()
     {
         // Act
-        var result = await _TextureClient!.GetTextures();
+        var result = await _MaterialManagerClientTextures!.GetTextures();
 
         // Assert
         result.ShouldNotBeNull("because paged texture result should be returned");
@@ -222,7 +222,7 @@ public class TextureTests : MaterialManagerTestBase
         const int pageSize = 10;
 
         // Act
-        var result = await _TextureClient!.GetTextures(pageSize: pageSize);
+        var result = await _MaterialManagerClientTextures!.GetTextures(pageSize: pageSize);
 
         // Assert
         result.ShouldNotBeNull("because paged texture result should be returned");
@@ -246,7 +246,7 @@ public class TextureTests : MaterialManagerTestBase
         do
         {
             pageCount++;
-            var result = await _TextureClient!.GetTextures(pageSize: pageSize, continuationToken: continuationToken);
+            var result = await _MaterialManagerClientTextures!.GetTextures(pageSize: pageSize, continuationToken: continuationToken);
 
             result.ShouldNotBeNull("because paged result should be returned");
             result.Textures.ShouldNotBeNull("because textures list should be present");
@@ -277,7 +277,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithCatalogFilter_ReturnsOnlyFilteredCatalog()
     {
         // Act
-        var result = await _TextureClient!.GetTextures(catalog: _TestCatalog);
+        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: _TestCatalog);
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -295,7 +295,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithCatalogAndDecorCodeFilter_ReturnsOnlyFilteredResults()
     {
         // Act
-        var result = await _TextureClient!.GetTextures(catalog: _TestCatalog, decorCode: _TestCatalogDecor1);
+        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: _TestCatalog, decorCode: _TestCatalogDecor1);
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -311,7 +311,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithNullCatalog_ReturnsAllTextures()
     {
         // Act
-        var result = await _TextureClient!.GetTextures(catalog: null);
+        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: null);
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -325,7 +325,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithNullCatalogAndDecorCode_ReturnsAllTextures()
     {
         // Act
-        var result = await _TextureClient!.GetTextures(catalog: null, decorCode: null);
+        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: null, decorCode: null);
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -339,7 +339,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithZeroPageSize_ThrowsException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.GetTextures(pageSize: 0);
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(pageSize: 0);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because page size must be greater than 0");
     }
@@ -351,7 +351,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithNegativePageSize_ThrowsException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.GetTextures(pageSize: -5);
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(pageSize: -5);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because page size must be greater than 0");
     }
@@ -364,7 +364,7 @@ public class TextureTests : MaterialManagerTestBase
     {
         // Act & Assert
         const int excessivePageSize = 1000;
-        var act = async () => await _TextureClient!.GetTextures(pageSize: excessivePageSize);
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(pageSize: excessivePageSize);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because page size must not exceed maximum allowed (100)");
     }
@@ -376,7 +376,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithDecorCodeButNoCatalog_ThrowsException()
     {
         // Act & Assert - decor code without catalog should fail on API side
-        var act = async () => await _TextureClient!.GetTextures(catalog: null, decorCode: "some-decor");
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(catalog: null, decorCode: "some-decor");
         await Should.ThrowAsync<HttpRequestException>(act,
             "because API should reject decor code filter when catalog is not specified");
     }
@@ -394,7 +394,7 @@ public class TextureTests : MaterialManagerTestBase
 
         // Create the texture and capture the actual texture ID
         var material = CreateTestMaterialDefinition(deleteTestId, _TestCatalog, deleteTestDecor, deleteTestEmb);
-        var importedTexture = await _TextureClient!.ImportOrUpdate(material);
+        var importedTexture = await _MaterialManagerClientTextures!.ImportOrUpdate(material);
         var textureId = importedTexture.Id;
 
         textureId.ShouldNotBeNullOrWhiteSpace("because texture ID should exist");
@@ -403,17 +403,17 @@ public class TextureTests : MaterialManagerTestBase
         await Task.Delay(500);
 
         // Verify it exists before deletion
-        var retrievedTexture = await _TextureClient.GetTexture(textureId);
+        var retrievedTexture = await _MaterialManagerClientTextures.GetTexture(textureId);
         retrievedTexture.ShouldNotBeNull("because texture should exist before deletion");
 
         // Act - Delete using the Texture.Id
-        var act = async () => await _TextureClient!.DeleteTexture(textureId);
+        var act = async () => await _MaterialManagerClientTextures!.DeleteTexture(textureId);
 
         // Assert - Should not throw
         await Should.NotThrowAsync(act, "because texture deletion should succeed");
 
         // Verify texture is actually deleted
-        var act2 = async () => await _TextureClient!.GetTexture(textureId);
+        var act2 = async () => await _MaterialManagerClientTextures!.GetTexture(textureId);
         await Should.ThrowAsync<Exception>(act2,
             "because texture should no longer exist after deletion");
     }
@@ -432,19 +432,19 @@ public class TextureTests : MaterialManagerTestBase
 
         // Create the texture
         var material = CreateTestMaterialDefinition(deleteIdempotentTestId, _TestCatalog, deleteIdempotentDecor, deleteIdempotentEmb);
-        var importedTexture = await _TextureClient!.ImportOrUpdate(material);
+        var importedTexture = await _MaterialManagerClientTextures!.ImportOrUpdate(material);
         var textureId = importedTexture.Id;
 
         await Task.Delay(500);
 
         // Delete it the first time
-        await _TextureClient.DeleteTexture(textureId);
+        await _MaterialManagerClientTextures.DeleteTexture(textureId);
 
         // Wait for deletion to propagate
         await Task.Delay(500);
 
         // Act - Delete again (should be idempotent)
-        var act = async () => await _TextureClient!.DeleteTexture(textureId);
+        var act = async () => await _MaterialManagerClientTextures!.DeleteTexture(textureId);
 
         // Assert - Should not throw even though texture is already deleted
         await Should.NotThrowAsync(act,
@@ -466,7 +466,7 @@ public class TextureTests : MaterialManagerTestBase
         var material = CreateTestMaterialDefinition(metadataTestId, expectedTestCatalog, metadataTestDecor, metadataTestEmb);
 
         // Act
-        var result = await _TextureClient!.ImportOrUpdate(material);
+        var result = await _MaterialManagerClientTextures!.ImportOrUpdate(material);
 
         // Assert - Verify all metadata fields are populated
         result.ShouldNotBeNull("because import should return texture");
@@ -486,7 +486,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task DeleteTexture_WithNullId_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.DeleteTexture(null!);
+        var act = async () => await _MaterialManagerClientTextures!.DeleteTexture(null!);
         await Should.ThrowAsync<ArgumentNullException>(act);
     }
 
@@ -497,7 +497,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task DeleteTexture_WithEmptyId_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.DeleteTexture(string.Empty);
+        var act = async () => await _MaterialManagerClientTextures!.DeleteTexture(string.Empty);
         await Should.ThrowAsync<ArgumentNullException>(act);
     }
 
@@ -508,7 +508,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task DeleteTexture_WithWhitespaceId_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.DeleteTexture("   ");
+        var act = async () => await _MaterialManagerClientTextures!.DeleteTexture("   ");
         await Should.ThrowAsync<ArgumentNullException>(act);
     }
 
@@ -525,7 +525,7 @@ public class TextureTests : MaterialManagerTestBase
         var material = CreateTestMaterialDefinition(importTestId, _TestCatalog, importTestDecor, importTestEmb);
 
         // Act
-        var result = await _TextureClient!.ImportOrUpdate(material);
+        var result = await _MaterialManagerClientTextures!.ImportOrUpdate(material);
 
         // Assert
         result.ShouldNotBeNull("because import should return a texture");
@@ -551,7 +551,7 @@ public class TextureTests : MaterialManagerTestBase
         };
 
         // Act
-        var results = await _TextureClient!.ImportOrUpdate(materials);
+        var results = await _MaterialManagerClientTextures!.ImportOrUpdate(materials);
 
         // Assert
         results.ShouldNotBeNull("because batch import should return textures");
@@ -573,13 +573,13 @@ public class TextureTests : MaterialManagerTestBase
         originalMaterial.Material!.Label = "Original Label";
 
         // Act 1 - Import original
-        var originalTexture = await _TextureClient!.ImportOrUpdate(originalMaterial);
+        var originalTexture = await _MaterialManagerClientTextures!.ImportOrUpdate(originalMaterial);
         originalTexture.Name.ShouldBe("Original Label", "because original should have original name");
 
         // Act 2 - Update with new material
         var updatedMaterial = CreateTestMaterialDefinition(updateTestId, _TestCatalog, updateTestDecor, updateTestEmb);
         updatedMaterial.Material!.Label = "Updated Label";
-        var updatedTexture = await _TextureClient.ImportOrUpdate(updatedMaterial);
+        var updatedTexture = await _MaterialManagerClientTextures.ImportOrUpdate(updatedMaterial);
 
         // Assert
         updatedTexture.Name.ShouldBe("Updated Label", "because texture name should be updated");
@@ -592,7 +592,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task ImportOrUpdate_WithNullMaterial_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.ImportOrUpdate((MaterialDefinitionRoomle)null!);
+        var act = async () => await _MaterialManagerClientTextures!.ImportOrUpdate((MaterialDefinitionRoomle)null!);
         await Should.ThrowAsync<ArgumentNullException>(act,
             "because material definition cannot be null");
     }
@@ -604,7 +604,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task ImportOrUpdate_BatchWithNullMaterials_ThrowsArgumentNullException()
     {
         // Act & Assert
-        var act = async () => await _TextureClient!.ImportOrUpdate((MaterialDefinitionsRoomle)null!);
+        var act = async () => await _MaterialManagerClientTextures!.ImportOrUpdate((MaterialDefinitionsRoomle)null!);
         await Should.ThrowAsync<ArgumentNullException>(act,
             "because materials collection cannot be null");
     }
@@ -619,7 +619,7 @@ public class TextureTests : MaterialManagerTestBase
         var emptyMaterials = new MaterialDefinitionsRoomle { Materials = [] };
 
         // Act & Assert
-        var act = async () => await _TextureClient!.ImportOrUpdate(emptyMaterials);
+        var act = async () => await _MaterialManagerClientTextures!.ImportOrUpdate(emptyMaterials);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because at least one material must be provided for batch import");
     }
@@ -729,7 +729,7 @@ public class TextureTests : MaterialManagerTestBase
 
         try
         {
-            await _TextureClient!.GetTexture(expectedId);
+            await _MaterialManagerClientTextures!.GetTexture(expectedId);
             return; // Texture already exists
         }
         catch (Exception)
@@ -739,7 +739,7 @@ public class TextureTests : MaterialManagerTestBase
 
         // Create the texture
         var material = CreateTestMaterialDefinition(textureId, catalog, decorCode, embossing);
-        await _TextureClient!.ImportOrUpdate(material);
+        await _MaterialManagerClientTextures!.ImportOrUpdate(material);
 
         // Wait for persistence
         await Task.Delay(500);
@@ -747,7 +747,7 @@ public class TextureTests : MaterialManagerTestBase
         // Verify it was created
         try
         {
-            await _TextureClient.GetTexture(expectedId);
+            await _MaterialManagerClientTextures.GetTexture(expectedId);
         }
         catch (Exception ex)
         {
