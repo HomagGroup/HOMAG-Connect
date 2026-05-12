@@ -71,4 +71,14 @@ public class Address
     /// </summary>
     /// <example>2nd floor</example>
     public string? AdditionalInfo { get; set; }
+
+    /// <summary>
+    /// Gets or set the id.
+    /// </summary>
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether this address is the default address for the associated entity (e.g. customer).
+    /// </summary>
+    public bool IsDefaultAddress { get; set; }
 }
