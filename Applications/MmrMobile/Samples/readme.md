@@ -19,7 +19,7 @@ Most of the function s are already used in the [MmrConsolApp](MmrConsole.cs)
 ## powerBI-Samples
 For a intro on how to use the MMR Mobile API with powerBI please refer to [powerBI](../Documentation/powerBi/README.md)
 You will find several prepared powerBI files 
-- [CompanionSpec](https://reference.opcfoundation.org/Woodworking/v100/docs/) data of the machine [StatesAndCounters](./MachineData/MachineData.pbix)
+- CompanionSpec data of the machine [StatesAndCounters](./MachineData/MachineData.pbix)
 - Alerts/Events [StatesAndCounters](./AlertsEvents/AlertList.pbix)
 - State and counters of the machine [StatesAndCounters](./StatesAndCounters/StatesAndCounters.pbix)
 
