@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Net;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Extensions;
@@ -131,6 +130,8 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTexture_WithValidId_ReturnsTexture()
     {
         // Arrange
+        // Ensure test textures exist
+        await EnsureTestTexturesExistAsync();
         var expectedId = ComputeExpectedTextureId(_TestCatalog, _TestCatalogDecor1, _TestCatalogEmb1);
 
         // Act
@@ -734,29 +735,32 @@ public class TextureTests : MaterialManagerTestBase
         try
         {
             await _MaterialManagerClientTextures!.GetTexture(expectedId);
-            return; // Texture already exists
+            return;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             // Texture doesn't exist, create it
         }
 
         // Create the texture
         var material = CreateTestMaterialDefinition(textureId, catalog, decorCode, embossing);
-        await _MaterialManagerClientTextures!.ImportOrUpdate(material);
+        var createdTexture = await _MaterialManagerClientTextures!.ImportOrUpdate(material);
+
+        // Use the returned texture ID
+        var actualId = createdTexture.Id;
 
         // Wait for persistence
         await Task.Delay(500);
 
-        // Verify it was created
+        // Verify it was created using the actual returned ID
         try
         {
-            await _MaterialManagerClientTextures.GetTexture(expectedId);
+            await _MaterialManagerClientTextures.GetTexture(actualId);
         }
         catch (Exception ex)
         {
             throw new InvalidOperationException(
-                $"Failed to create texture {expectedId}. Ensure test material can be created.", ex);
+                $"Failed to retrieve created texture {actualId}. Error: {ex.Message}", ex);
         }
     }
 
@@ -793,10 +797,6 @@ public class TextureTests : MaterialManagerTestBase
                 await EnsureTestTextureExists("TX-TEST-002", _TestCatalog, _TestCatalogDecor2, _TestCatalogEmb2);
             }
         }
-        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.Unauthorized)
-        {
-            Assert.Inconclusive("Integration test skipped: API authentication failed. Cannot create test textures.");
-        }
         catch (Exception ex)
         {
             // Log the error but don't fail the test setup
@@ -815,16 +815,9 @@ public class TextureTests : MaterialManagerTestBase
             await _MaterialManagerClientTextures!.GetTexture(textureId);
             return true;
         }
-        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+        catch (Exception ex)
         {
-            // Texture doesn't exist
             return false;
-        }
-        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.Unauthorized)
-        {
-            // Pipeline credentials don't have permission - skip this test
-            Assert.Inconclusive("Integration test skipped: API authentication failed. Test textures not available.");
-            return false; // Never reached, but needed for compiler
         }
     }
 
