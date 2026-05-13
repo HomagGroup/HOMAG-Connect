@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: https://connect.homag.cloud/api/productionManager/reworks?daysBack=7
+  url: https://connect.homag.cloud/api/productionManager/statistics/reworks?daysBack=7
   body: none
   auth: inherit
 }
@@ -34,7 +34,7 @@ docs {
   ## Endpoint
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/reworks
+  GET https://connect.homag.cloud/api/productionManager/statistics/reworks
   ```
   
   ## Purpose
@@ -59,11 +59,11 @@ docs {
   ## Request example
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/reworks?daysBack=7
+  GET https://connect.homag.cloud/api/productionManager/statistics/reworks?daysBack=7
   ```
   
   ```http
-  GET https://connect.homag.cloud/api/productionManager/reworks?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&state=Transferred&take=100
+  GET https://connect.homag.cloud/api/productionManager/statistics/reworks?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&state=Transferred&take=100
   ```
   
   ## Success response example
@@ -149,7 +149,7 @@ docs {
   }
   
   # Example 1: Get reworks from the last 7 days
-  $url = "$baseUrl/api/productionManager/reworks?daysBack=7"
+  $url = "$baseUrl/api/productionManager/statistics/reworks?daysBack=7"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
   
   foreach ($rework in $response) {
@@ -159,7 +159,7 @@ docs {
   # Example 2: Get reworks with date range and state filter
   $from = (Get-Date).AddDays(-30).ToString("yyyy-MM-ddTHH:mm:ssZ")
   $to = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ssZ")
-  $url = "$baseUrl/api/productionManager/reworks?from=$from&to=$to&state=Transferred&take=100"
+  $url = "$baseUrl/api/productionManager/statistics/reworks?from=$from&to=$to&state=Transferred&take=100"
   $response = Invoke-RestMethod -Method Get -Uri $url -Headers $headers
   
   foreach ($rework in $response) {

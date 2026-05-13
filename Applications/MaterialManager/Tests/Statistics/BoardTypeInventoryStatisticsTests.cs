@@ -1,10 +1,13 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using System.Globalization;
+
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+
 using Newtonsoft.Json;
+
 using Shouldly;
-using System.Globalization;
 
 namespace HomagConnect.MaterialManager.Tests.Statistics;
 
@@ -68,11 +71,11 @@ public class BoardTypeInventoryStatisticsTests : MaterialManagerTestBase
 
     /// <summary />
     [TestMethod]
-    public async Task StaticticsBoardTypeInventory_TraceLocalized()
+    public async Task StatisticsBoardTypeInventory_TraceLocalized()
     {
         var materialClient = GetMaterialManagerClient();
         var to = DateTime.Now.AddDays(-1);
-        var from = to.AddMonths(-3);
+        var from = to.AddDays(-10);
         var statistics = (await materialClient.Material.Boards.GetBoardTypeInventoryHistoryAsync(from, to).ConfigureAwait(false)).ToArray();
 
         statistics.ShouldNotBeNull();
@@ -85,51 +88,50 @@ public class BoardTypeInventoryStatisticsTests : MaterialManagerTestBase
 
         dynamic.ShouldNotBeNull();
 
-        TestContext?.AddResultFile(dynamic.TraceToFile(nameof(StaticticsBoardTypeInventory_TraceLocalized)).FullName);
+        TestContext?.AddResultFile(dynamic.TraceToFile(nameof(StatisticsBoardTypeInventory_TraceLocalized)).FullName);
     }
 
+    /// <summary />
+    [TestMethod]
+    public async Task StatisticsEdgebandInventory_TraceLocalized()
+    {
+        var materialClient = GetMaterialManagerClient();
+        var to = DateTime.Now.AddDays(-1);
+        var from = to.AddMonths(-1);
+        var statistics = (await materialClient.Material.Edgebands.GetEdgebandTypeInventoryHistoryAsync(from, to).ConfigureAwait(false)).ToArray();
 
-        /// <summary />
-        [TestMethod]
-        public async Task StaticticsPartHistory_TraceLocalized()
-        {
-            var materialClient = GetMaterialManagerClient();
-            var to = DateTime.Now.AddDays(-1);
-            var from = to.AddMonths(-3);
-            var statistics = (await materialClient.Material.Boards.GetPartHistoryAsync(from, to, 100).ConfigureAwait(false) ?? Array.Empty<PartHistory>()).ToArray();
+        statistics.ShouldNotBeNull();
 
-            statistics.ShouldNotBeNull();
+        var culture = CultureInfo.GetCultureInfo("de-DE");
 
-            var culture = CultureInfo.GetCultureInfo("de-DE");
+        var serializedObjectLocalized = statistics.SerializeLocalized(culture);
 
-            var serializedObjectLocalized = statistics.SerializeLocalized(culture);
+        var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
 
-            var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
+        dynamic.ShouldNotBeNull();
 
-            dynamic.ShouldNotBeNull();
+        TestContext?.AddResultFile(dynamic.TraceToFile(nameof(StatisticsEdgebandInventory_TraceLocalized)).FullName);
+    }
 
-            TestContext?.AddResultFile(dynamic.TraceToFile(nameof(StaticticsPartHistory_TraceLocalized)).FullName);
-        }
+    /// <summary />
+    [TestMethod]
+    public async Task StatisticsPartHistory_TraceLocalized()
+    {
+        var materialClient = GetMaterialManagerClient();
+        var to = DateTime.Now.AddDays(-1);
+        var from = to.AddMonths(-3);
+        var statistics = (await materialClient.Material.Boards.GetPartHistoryAsync(from, to, 100).ConfigureAwait(false) ?? Array.Empty<PartHistory>()).ToArray();
 
-        /// <summary />
-        [TestMethod]
-        public async Task StaticticsEdgebandInventory_TraceLocalized()
-        {
-            var materialClient = GetMaterialManagerClient();
-            var to = DateTime.Now.AddDays(-1);
-            var from = to.AddMonths(-1);
-            var statistics = (await materialClient.Material.Edgebands.GetEdgebandTypeInventoryHistoryAsync(from, to).ConfigureAwait(false) ?? Array.Empty<EdgeInventoryHistory>()).ToArray();
+        statistics.ShouldNotBeNull();
 
-            statistics.ShouldNotBeNull();
+        var culture = CultureInfo.GetCultureInfo("de-DE");
 
-            var culture = CultureInfo.GetCultureInfo("de-DE");
+        var serializedObjectLocalized = statistics.SerializeLocalized(culture);
 
-            var serializedObjectLocalized = statistics.SerializeLocalized(culture);
+        var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
 
-            var dynamic = JsonConvert.DeserializeObject(serializedObjectLocalized);
+        dynamic.ShouldNotBeNull();
 
-            dynamic.ShouldNotBeNull();
-
-            TestContext?.AddResultFile(dynamic.TraceToFile(nameof(StaticticsEdgebandInventory_TraceLocalized)).FullName);
-        }
+        TestContext?.AddResultFile(dynamic.TraceToFile(nameof(StatisticsPartHistory_TraceLocalized)).FullName);
+    }
 }

@@ -463,15 +463,27 @@ namespace HomagConnect.ProductionManager.Client
         #region Rework
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Rework>?> GetCompletedReworks()
+        public async Task<IEnumerable<Rework>?> GetRequestedReworks()
         {
-            return await GetReworks([ReworkState.Rejected, ReworkState.Transferred]);
+            return await GetCurrentReworks([ReworkState.Pending]);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Rework>?> GetReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        public async Task<IEnumerable<Rework>?> GetApprovedReworks()
         {
-            var url = "/api/productionManager/orders/reworks";
+            return await GetCurrentReworks([ReworkState.Approved]);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Rework>?> GetCompletedReworks()
+        {
+            return await GetCurrentReworks([ReworkState.Rejected, ReworkState.Transferred]);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Rework>?> GetCurrentReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0)
+        {
+            var url = "/api/productionManager/reworks";
 
             var queryParameters = new List<string>();
 
@@ -498,9 +510,7 @@ namespace HomagConnect.ProductionManager.Client
             if (take > 0 && take != int.MaxValue)
             {
                 queryParameters.Add($"take={take}");
-            }
-
-            queryParameters.Add($"completed=true"); // TODO: remove when API supports non-completed reworks
+            }        
 
             if (queryParameters.Count > 0)
             {
@@ -523,7 +533,7 @@ namespace HomagConnect.ProductionManager.Client
             int? take = null,
             int? skip = null)
         {
-            var url = "/api/productionManager/reworks";
+            var url = "/api/productionManager/statistics/reworks";
 
             var queryParameters = new List<string>();
 
@@ -575,66 +585,7 @@ namespace HomagConnect.ProductionManager.Client
             var reworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
 
             return reworks ?? Enumerable.Empty<Rework>();
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<Rework>> GetReworkHistory(
-            DateTime? from = null,
-            DateTime? to = null,
-            int? daysBack = null,
-            string? identifier = null,
-            string? reworkId = null,
-            int? take = null,
-            int? skip = null)
-        {
-            var url = "/api/productionManager/reworks/history";
-
-            var queryParameters = new List<string>();
-
-            if (from.HasValue)
-            {
-                queryParameters.Add($"from={Uri.EscapeDataString(from.Value.ToString("o", CultureInfo.InvariantCulture))}");
-            }
-
-            if (to.HasValue)
-            {
-                queryParameters.Add($"to={Uri.EscapeDataString(to.Value.ToString("o", CultureInfo.InvariantCulture))}");
-            }
-
-            if (daysBack.HasValue)
-            {
-                queryParameters.Add($"daysBack={daysBack.Value}");
-            }
-
-            if (!string.IsNullOrWhiteSpace(identifier))
-            {
-                queryParameters.Add($"identifier={Uri.EscapeDataString(identifier)}");
-            }
-
-            if (!string.IsNullOrWhiteSpace(reworkId))
-            {
-                queryParameters.Add($"reworkId={Uri.EscapeDataString(reworkId)}");
-            }
-
-            if (take.HasValue)
-            {
-                queryParameters.Add($"take={take.Value}");
-            }
-
-            if (skip.HasValue && skip.Value > 0)
-            {
-                queryParameters.Add($"skip={skip.Value}");
-            }
-
-            if (queryParameters.Count > 0)
-            {
-                url += $"?{string.Join("&", queryParameters)}";
-            }
-
-            var reworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
-
-            return reworks ?? Enumerable.Empty<Rework>();
-        }
+        }       
 
         #endregion Rework
 

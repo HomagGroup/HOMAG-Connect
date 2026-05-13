@@ -80,6 +80,15 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double MinimumTrimRecutInFront { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the minimum trim cut should be applied to all four sides of the material.
+        /// If true, the minimum trim cut will be applied to the front, left, rear, and right sides of the material.
+        /// If false, the other minimum trim cut parameters will be used to determine the minimum trim cut for each side of the
+        /// material.
+        /// </summary>
+        [JsonProperty(Order = 21)]
+        public bool UseAllFourSidesTrims { get; set; }
+
         /// <inheritdoc />
         [JsonProperty(Order = 30)]
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;

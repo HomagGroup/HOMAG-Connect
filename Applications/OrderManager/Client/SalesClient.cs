@@ -63,10 +63,11 @@ namespace HomagConnect.OrderManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<PosArticle>> GetPosArticles(int take, int skip = 0)
+        public async Task<PosArticlesResponse> GetPosArticles(int take, int skip = 0)
         {
             var uri = $"{_ArticlesRoute}?take={take}&skip={skip}";
-            return await RequestEnumerable<PosArticle>(new Uri(uri, UriKind.Relative)) ?? Enumerable.Empty<PosArticle>();
+            var articles = await RequestObject<PosArticlesResponse>(new Uri(uri, UriKind.Relative)) ?? new PosArticlesResponse();
+            return articles;
         }
 
         /// <inheritdoc />

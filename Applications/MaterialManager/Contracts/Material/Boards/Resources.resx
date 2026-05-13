@@ -364,4 +364,7 @@
   <data name="BoardTypeProperties_TotalValueInInventory" xml:space="preserve">
     <value>Gesamtwert</value>
   </data>
+  <data name="BoardTypeProperties_DensityOrCategoryTypical" xml:space="preserve">
+    <value>Dichte oder typische Dichte der Kategorie</value>
+  </data>
 </root>

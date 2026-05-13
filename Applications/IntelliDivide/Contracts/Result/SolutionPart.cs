@@ -15,7 +15,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// Provides access to part properties.
     /// </summary>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class SolutionPart : OptimizationBasePart, IContainsUnitSystemDependentProperties
+    public class SolutionPart : OptimizationBasePart, IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization
     {
         /// <summary>
         /// Gets the list of patterns in which the part is contained including the quantity of the part in the pattern.

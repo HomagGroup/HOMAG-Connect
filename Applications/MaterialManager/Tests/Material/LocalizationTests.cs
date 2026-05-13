@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Reflection;
 
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
@@ -63,25 +65,44 @@ public class LocalizationTests
         displayNames.Trace();
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="cultureName"></param>
-    [DataRow("de")]
-    [DataRow("en")]
+    /// <summary />
+
+    [DataRow("de", true, UnitSystem.Metric)]
+    [DataRow("en", false, UnitSystem.Imperial)]
     [TestMethod]
-    public void MaterialManager_Localization_BoardType(string cultureName)
+    public void MaterialManager_Localization_BoardType_LastUsedDate(string cultureName, bool includingUnitSystem, UnitSystem unitSystem)
     {
         var culture = CultureInfo.GetCultureInfo(cultureName);
-        var boardType = new BoardType();
-        var propertyDisplayNames = boardType.GetPropertyDisplayNames(culture);
+        var boardType = new BoardType { UnitSystem = unitSystem, LastUsed = DateTimeOffset.Now };
+
+        boardType.GetFormattedValue(nameof(BoardType.LastUsed), culture).Trace();
+    }
+
+    [DataRow("de", true, UnitSystem.Metric)]
+    [DataRow("de", false, UnitSystem.Imperial)]
+    [TestMethod]
+    public void MaterialManager_Localization_BoardType(string cultureName, bool includingUnitSystem, UnitSystem unitSystem)
+    {
+        var culture = CultureInfo.GetCultureInfo(cultureName);
+        var boardType = new BoardType {UnitSystem = unitSystem, LastUsed = DateTimeOffset.Now};
+        var propertyDisplayNames = boardType.GetPropertyDisplayNames(culture, includingUnitSystem);
         foreach (var propertyName in propertyDisplayNames.Keys)
         {
             var resourceKey = $"BoardTypeProperties_{propertyName}";
             var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
             if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
+            var valueDependsOnUnitSystemAttribute = typeof(BoardType).GetProperty(propertyName)?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>(true);
+            if (includingUnitSystem && valueDependsOnUnitSystemAttribute != null)
+            {
+                expected += boardType.UnitSystem == UnitSystem.Imperial
+                    ? $" ({valueDependsOnUnitSystemAttribute.DisplayUnitImperial})"
+                    : $" ({valueDependsOnUnitSystemAttribute.DisplayUnitMetric})";
+            }
+
             propertyDisplayNames[propertyName].ShouldBe(expected,
                 $"because BoardType.{propertyName} should be localized correctly in culture '{cultureName}'");
         }
+        propertyDisplayNames.Trace();
     }
 
     /// <summary />
