@@ -49,6 +49,31 @@ stages:
     jobs:
     - template: pipelines/templates/retrieve-version-info-jobs.yml
 
+  - stage: PullRequestReview
+    displayName: GitHub pull request review
+    dependsOn: retrieve_version_info_from_git
+    condition: and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.Repository.Provider'], 'GitHub'))
+    jobs:
+    - job: GitHubPullRequestReview
+      displayName: GitHub pull request review
+      continueOnError: true
+      pool:
+        vmImage: 'ubuntu-latest'
+      variables:
+      - group: dfCopilot
+      steps:
+      - checkout: self
+        fetchDepth: 0
+        persistCredentials: false
+
+      - task: PowerShell@2
+        displayName: Run GitHub pull request review
+        inputs:
+          filePath: 'pipelines/scripts/review-github-pull-request.ps1'
+          pwsh: true
+        env:
+          GITHUB_PAT: $(GITHUB-PAT)
+
   # MEND
   # - template: software-composition-analysis/template.yml@templates
   #   parameters:
@@ -59,7 +84,10 @@ stages:
   #     package_version: $[ stageDependencies.retrieve_version_info_from_git.get_number_job.outputs['version_task.VERSION_TAG'] ]
 
   - stage: Build
-    dependsOn: retrieve_version_info_from_git
+    dependsOn:
+    - retrieve_version_info_from_git
+    - PullRequestReview
+    condition: and(succeeded('retrieve_version_info_from_git'), in(dependencies.PullRequestReview.result, 'Succeeded', 'SucceededWithIssues', 'Skipped'))
     pool:
       #vmimage: 'windows-latest'
       name: Homag Windows Agents
