@@ -6,6 +6,7 @@ jobs:
   variables:
     ChangedResxFilesJson: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.ChangedResxFilesJson'] ]
     NoChangedResxFiles: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.NoChangedResxFiles'] ]
+    ForceTranslationRefresh: $[ dependencies.DetectChangedResxFiles.outputs['detectResxFiles.ForceTranslationRefresh'] ]
   condition: and(succeeded(), eq(dependencies.DetectChangedResxFiles.outputs['detectResxFiles.HasResxChanges'], 'true'))
   steps:
   - checkout: self
@@ -43,6 +44,7 @@ jobs:
         $cacheRoot = '$(Agent.TempDirectory)\translation-cache-root'
         $translationWorkspaceRoot = '$(Pipeline.Workspace)\translation-workspace'
         $artifactRoot = '$(Agent.TempDirectory)\translations-artifact'
+        $forceTranslationRefresh = '$(ForceTranslationRefresh)' -eq 'true'
         $filesToTranslate = @()
         $restoredFromCacheCount = 0
 
@@ -54,6 +56,12 @@ jobs:
         if (Test-Path $artifactRoot)
         {
             Remove-Item -Path $artifactRoot -Recurse -Force
+        }
+
+        if ($forceTranslationRefresh -and (Test-Path $cacheRoot))
+        {
+            Write-Host 'Scheduled translation refresh is enabled. Existing translated resx cache content will be ignored and replaced.'
+            Remove-Item -Path $cacheRoot -Recurse -Force
         }
 
         New-Item -ItemType Directory -Path $cacheRoot -Force | Out-Null
@@ -91,7 +99,14 @@ jobs:
             {
                 Join-Path $artifactRoot $relativeDirectory
             }
-            $cachedResxFiles = @(Get-ChildItem -Path $cachePath -Filter "$baseFileName*.resx" -File -ErrorAction SilentlyContinue)
+            $cachedResxFiles = if ($forceTranslationRefresh)
+            {
+                @()
+            }
+            else
+            {
+                @(Get-ChildItem -Path $cachePath -Filter "$baseFileName*.resx" -File -ErrorAction SilentlyContinue)
+            }
 
             if ($cachedResxFiles.Count -gt 0)
             {
@@ -142,6 +157,7 @@ jobs:
 
         Write-Host "Changed .resx files requested: $($changedResxFiles.Count)"
         Write-Host "Total .resx files processed for restore/translation: $($allResxFiles.Count)"
+        Write-Host "Force translation refresh: $forceTranslationRefresh"
         Write-Host "Files restored from cache: $restoredFromCacheCount"
         Write-Host "Files that require C3PO: $($filesToTranslate.Count)"
         Write-Host "##vso[task.setvariable variable=TranslationWorkspaceRoot]$translationWorkspaceRoot"

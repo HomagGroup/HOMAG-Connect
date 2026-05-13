@@ -128,6 +128,12 @@
   <data name="ArticleNumber" xml:space="preserve">
     <value>Artikelnummer</value>
   </data>
+  <data name="BooleanValue_No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="BooleanValue_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
   <data name="CncProgramName1" xml:space="preserve">
     <value>CNC-Programm 1</value>
   </data>
@@ -225,5 +231,11 @@
   </data>
   <data name="WorkstationGroup" xml:space="preserve">
     <value>Arbeitsplatzgruppe</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ja</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nein</value>
   </data>
 </root>

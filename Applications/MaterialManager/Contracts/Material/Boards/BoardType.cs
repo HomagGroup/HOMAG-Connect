@@ -30,6 +30,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <example>2025-04-01T08:30:00+00:00</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LastUsed))]
         [JsonProperty(Order = 90)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? LastUsed { get; set; }
 
         #region IContainsUnitSystemDependentProperties Members
@@ -183,6 +185,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <example>650.0</example>
         [JsonProperty(Order = 28)]
         [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_DensityOrCategoryTypical))]
         public double? DensityOrCategoryTypical
         {
             get
@@ -326,8 +329,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// Gets or sets whether the board type is locked for configuration.
         /// </summary>
         /// <example>false</example>
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LockedForConfiguration))]
         [JsonProperty(Order = 94)]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LockedForConfiguration))]
+        [BooleanValueDisplay(true, typeof(Resources), nameof(Resources.LockedForConfiguration_True))]
+        [BooleanValueDisplay(false, typeof(Resources), nameof(Resources.LockedForConfiguration_False))]
         public bool LockedForConfiguration { get; set; }
 
         /// <summary>

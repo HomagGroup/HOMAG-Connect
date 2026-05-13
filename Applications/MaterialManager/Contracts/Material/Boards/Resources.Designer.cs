@@ -394,6 +394,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dichte oder typische Dichte der Kategorie.
+        /// </summary>
+        public static string BoardTypeProperties_DensityOrCategoryTypical {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_DensityOrCategoryTypical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prägung unten.
         /// </summary>
         public static string BoardTypeProperties_EmbossingBottom {
@@ -642,6 +651,24 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         public static string BoardTypeProperties_Width {
             get {
                 return ResourceManager.GetString("BoardTypeProperties_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nein.
+        /// </summary>
+        public static string LockedForConfiguration_False {
+            get {
+                return ResourceManager.GetString("LockedForConfiguration_False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ja.
+        /// </summary>
+        public static string LockedForConfiguration_True {
+            get {
+                return ResourceManager.GetString("LockedForConfiguration_True", resourceCulture);
             }
         }
         

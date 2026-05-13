@@ -70,33 +70,45 @@ public class ProductionItemBase
     }
 
     /// <summary>
-    /// Gets or sets the article number.
+    /// Gets or sets the order item.
     /// </summary>
     [JsonProperty(Order = 3)]
+    public string? OrderItem { get; set; }
+
+    /// <summary>
+    /// Gets or sets the order item group.
+    /// </summary>
+    [JsonProperty(Order = 4)]
+    public string? OrderItemGroup { get; set; }
+
+    /// <summary>
+    /// Gets or sets the article number.
+    /// </summary>
+    [JsonProperty(Order = 5)]
     public string? ArticleNumber { get; set; }
 
     /// <summary>
     /// Gets or sets the description.
     /// </summary>
-    [JsonProperty(Order = 4)]
+    [JsonProperty(Order = 6)]
     public string? Description { get; set; }
 
     /// <summary>
     /// Gets or sets the group.
     /// </summary>
-    [JsonProperty(Order = 5)]
+    [JsonProperty(Order = 7)]
     public string? ArticleGroup { get; set; }
 
     /// <summary>
     /// Gets or sets the procurement type.
     /// </summary>
-    [JsonProperty(Order = 6)]
+    [JsonProperty(Order = 8)]
     public string? ProcurementType { get; set; }
 
     /// <summary>
     /// Gets the external system id of the item which can be used as a reference.
     /// </summary>
-    [JsonProperty(Order = 7)]
+    [JsonProperty(Order = 9)]
     public string? ExternalSystemId { get; set; }
 
     /// <summary>

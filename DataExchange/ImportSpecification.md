@@ -263,7 +263,7 @@ Orders may have the properties listed below. The table below is aligned to the c
 | ExternalSystemId       | nvarchar(100)              | Optional external id for re-imports                                                                                        | pM   |
 | Company                | nvarchar(100)              | Name of the customer's company                                                                                             | pM   |
 | Project                | nvarchar(100)              | Name of the superordinate project                                                                                          | pM   |
-| Notes                  | nvarchar(300)             | Free text notes for the order                                                                                              | pM/iD |
+| Notes                  | nvarchar(1000)             | Free text notes for the order                                                                                              | pM/iD |
 | StartDatePlanned       | DateTimeOffset(7)         | Planned start date (RFC3339)                                                                                               | pM   |
 | CompletionDatePlanned  | DateTimeOffset(7)         | Planned completion date (RFC3339)                                                                                          | pM   |
 | DeliveryDatePlanned    | DateTimeOffset(7)         | Planned delivery date (RFC3339)                                                                                            | pM   |
@@ -362,7 +362,7 @@ EdgeThicknessBack         | decimal                  | Thickness of the back edg
 EdgeThicknessFront        | decimal                  | Thickness of the front edge in mm | pM/iD
 EdgeThicknessLeft         | decimal                  | Thickness of the left edge in mm | pM/iD
 EdgeThicknessRight        | decimal                  | Thickness of the right edge in mm | pM/iD
-Notes                     | nvarchar(300)            | Notes at order entity level           |pM/iD
+Notes                     | nvarchar(1000)            | Notes at order entity level           |pM/iD
 LaminateTop               | string                   | Material code of the laminate on the top of the order entity           |pM/iD
 LaminateBottom            | string                   | Material code of the laminate on the bottom of the order entity           |pM/iD
 LaminateTopGrain          | string/<br/>integer      | Direction of the grain of the laminate on the top of the part (s. "Grain" for valid values) | pM/iD

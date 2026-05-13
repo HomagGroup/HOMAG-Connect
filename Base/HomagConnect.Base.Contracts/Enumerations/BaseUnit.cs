@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel;
+
+using HomagConnect.Base.Contracts.Attributes;
 
 namespace HomagConnect.Base.Contracts.Enumerations;
 
@@ -8,30 +10,24 @@ namespace HomagConnect.Base.Contracts.Enumerations;
 public enum BaseUnit
 {
     /// <summary />
-    [RoundingFormat(1, 3)]
     Millimeter,
 
     /// <summary />
-    [RoundingFormat(2, 2)]
     SquareMeter,
 
     /// <summary />
-    [RoundingFormat(2, 2)]
     Meter,
 
     /// <summary />
-    [RoundingFormat(2, 1)]
     Bar,
 
     /// <summary />
-    [RoundingFormat(1, 1)]
     MeterPerSecond,
 
     /// <summary />
-    [RoundingFormat(1, 1)]
     KilogramPerCubicMeter,
     
     /// <summary />
-    [RoundingFormat(1, 1)]
     Kilogram
 }
+

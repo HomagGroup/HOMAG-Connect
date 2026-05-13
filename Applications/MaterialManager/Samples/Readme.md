@@ -10,5 +10,8 @@ Here you will find documentation and samples for the functionality provided by t
 7. [Create edgeband type](Create/Edgebands/Readme.md)
 8. [Update edgeband type](Update/Edgebands/Readme.md)
 9. [Edgeband inventory history](Statistics/Readme.md)
+10. [Read texture data](Surfaces/Textures/Readme.md)
+11. [Import or Update texture](Surfaces/Textures/Readme.md)
+12. [Delete texture](Surfaces/Textures/Readme.md)
 
 If you want to use postman we also provide a [postman collection](<Postman/Homag Connect materialManager.postman_collection.json>).

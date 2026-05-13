@@ -8,7 +8,6 @@ namespace HomagConnect.Base.Contracts.Enumerations;
 /// </summary>
 /// <example>Default</example>
 [JsonConverter(typeof(TolerantEnumConverter))]
-[Obsolete("This enum is deprecated. Use the new OutputFormat enum instead.", true)]
 public enum JsonFormat 
 {
     /// <summary>

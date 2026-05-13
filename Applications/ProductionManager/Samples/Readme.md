@@ -20,7 +20,10 @@
 
 - Retrieving reworks
 	- Get reworks
+		- [Retrieve requested reworks](CSharp/Reworks/Actions/Readme.md)
+		- [Retrieve approved reworks](CSharp/Reworks/Actions/Readme.md)
 		- [Retrieve completed reworks](CSharp/Reworks/Actions/Readme.md)
+		- [Retrieve reworks with optional filters](CSharp/Reworks/Actions/Readme.md)
  
 - Retrieving order items
 	- Get order items
