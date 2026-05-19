@@ -83,7 +83,7 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentException($"{nameof(PosArticle.ArticleId)} must be set.", nameof(article));
             }
 
-            var uri = $"{_ArticlesRoute}/{Uri.EscapeDataString(article.ArticleId!)}";
+            var uri = $"{_ArticlesRoute}";
 
             var json = JsonConvert.SerializeObject(article, SerializerSettings.Default);
             using var requestContent = new StringContent(json, Encoding.UTF8);
