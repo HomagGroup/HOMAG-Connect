@@ -340,6 +340,14 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest);
+
+        /// <summary>
+        /// Retrieves production protocol flow details for a specified duration.
+        /// </summary>  
+        /// <param name="from">The start date and time of the duration.</param>
+        /// <param name="to">The end date and time of the duration.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the production protocol flow details, or <see langword="null"/> if no data is found.</returns>
+        Task<ProductionProtocolFlowDetails?> GetProductionFlow(DateTime from, DateTime? to);
         #endregion Usage statistics
     }
 }
