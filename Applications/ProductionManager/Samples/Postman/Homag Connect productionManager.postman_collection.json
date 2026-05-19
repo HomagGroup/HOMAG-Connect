@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3b84065b-dc68-4dd5-afa2-3a0431eb7292",
+		"_postman_id": "e55fc96a-54ab-4ea2-8314-bfd20cf5117f",
 		"name": "Homag Connect productionManager",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "444913"
 	},
 	"item": [
 		{
@@ -625,12 +626,12 @@
 							"response": []
 						},
 						{
-							"name": "Get current reworks with filter data",
+							"name": "Get all current reworks with filter",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Rejected&capturedAtFrom=2026-03-01T00:00:00&capturedAtTo=2027-04-01T00:00:00&take=10&skip=0",
+									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Pending&take=10&skip=0",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -646,57 +647,17 @@
 										},
 										{
 											"key": "state",
-											"value": "Rejected"
+											"value": "Pending"
 										},
 										{
 											"key": "capturedAtFrom",
-											"value": "2026-03-01T00:00:00"
+											"value": "2026-03-01T00:00:00",
+											"disabled": true
 										},
 										{
 											"key": "capturedAtTo",
-											"value": "2027-04-01T00:00:00"
-										},
-										{
-											"key": "take",
-											"value": "10"
-										},
-										{
-											"key": "skip",
-											"value": "0"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get reworks from Insights",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/statistics/reworks?daysBack=30&state=Rejected&identifier=Kitchen-Block-A&take=10&skip=0",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"statistics",
-										"reworks"
-									],
-									"query": [
-										{
-											"key": "daysBack",
-											"value": "30"
-										},
-										{
-											"key": "state",
-											"value": "Rejected"
-										},
-										{
-											"key": "identifier",
-											"value": "Kitchen-Block-A"
+											"value": "2027-04-01T00:00:00",
+											"disabled": true
 										},
 										{
 											"key": "take",
@@ -712,6 +673,53 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "Get current and past reworks with filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ConnectHost}}/api/productionManager/statistics/reworks?daysBack=30&state=Rejected&identifier=Kitchen-Block-A&take=10&skip=0",
+							"host": [
+								"{{ConnectHost}}"
+							],
+							"path": [
+								"api",
+								"productionManager",
+								"statistics",
+								"reworks"
+							],
+							"query": [
+								{
+									"key": "daysBack",
+									"value": "30"
+								},
+								{
+									"key": "state",
+									"value": "Rejected"
+								},
+								{
+									"key": "identifier",
+									"value": "Kitchen-Block-A"
+								},
+								{
+									"key": "take",
+									"value": "10"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
