@@ -631,7 +631,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Pending&take=10&skip=0",
+									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Approved&take=10&skip=0",
 									"host": [
 										"{{ConnectHost}}"
 									],
