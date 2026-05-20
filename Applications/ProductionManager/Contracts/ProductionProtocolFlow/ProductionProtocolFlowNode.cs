@@ -33,7 +33,7 @@ public class ProductionProtocolFlowNode : ISupportsLocalizedSerialization
     public Dictionary<ProductionItemType, int> ItemTypeSummary { get; set; }
 
     /// <summary>
-    /// 
+    /// Edges are only prepared for future development, when the flow of each single instance is known
     /// </summary>
     [JsonProperty(Order = 22)]
     public IEnumerable<ProductionProtocolFlowEdge>? OutputWorkstations { get; set; }
