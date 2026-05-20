@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -5,6 +6,7 @@ using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Extension;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
@@ -202,7 +204,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithDefaults_ReturnsPaginatedResult()
     {
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures();
+        var result = await _MaterialManagerClientTextures!.GetTextures(pageSize: 100);
 
         // Assert
         result.ShouldNotBeNull("because paged texture result should be returned");
@@ -226,6 +228,36 @@ public class TextureTests : MaterialManagerTestBase
         result.ShouldNotBeNull("because paged texture result should be returned");
         result.Textures.ShouldNotBeNull("because textures list should be present");
         result.Textures.Count.ShouldBeLessThanOrEqualTo(pageSize, "because page size limits result count");
+    }
+
+    /// <summary>
+    /// Verifies that textures can be retrieved as a single page and as a complete asynchronous sequence.
+    /// </summary>
+    [IntegrationTest("MaterialManager.Textures")]
+    [TestMethod]
+    public async Task Textures_GetAllTextures()
+    {
+        const int pageSize = 100;
+
+        var stopwatch = Stopwatch.StartNew();
+
+        var firstPageTextures = (await _MaterialManagerClientTextures!.GetTextures(pageSize: pageSize)).Textures;
+
+        TestContext!.WriteLine($"Time taken to fetch {firstPageTextures.Count} of {pageSize} textures: {stopwatch.Elapsed}");
+
+        stopwatch.Restart();
+
+        var allTextures =await _MaterialManagerClientTextures.GetTextures(TestContext.CancellationToken).ToListAsync();
+
+        TestContext.WriteLine($"Time taken to fetch all {allTextures.Count} textures: {stopwatch.Elapsed}");
+
+        Assert.IsNotNull(firstPageTextures);
+        Assert.IsNotNull(allTextures);
+
+        firstPageTextures.Count.ShouldBeLessThanOrEqualTo(pageSize,
+            $"because GetTextures with page size {pageSize} should return at most {pageSize} textures");
+        allTextures.Count.ShouldBeGreaterThanOrEqualTo(firstPageTextures.Count,
+            "because streaming all textures should include at least the first page");
     }
 
     /// <summary>
