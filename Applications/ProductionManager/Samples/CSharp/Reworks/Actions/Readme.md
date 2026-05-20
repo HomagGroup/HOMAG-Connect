@@ -68,7 +68,7 @@ reworkIds.Trace(nameof(reworkIds));
 
 ## GetCurrentReworks
 
-Retrieves current rework records in productionManager with flexible filtering options including date range, state, and pagination.
+Retrieves active rework records currently visible in productionManager, with support for filtering by date range, state, and pagination.
 
 <strong>Example 1: Get reworks filtered by state</strong>
 
@@ -105,7 +105,7 @@ reworksFiltered.Trace();
 
 ## GetReworks
 
-Retrieves rework records with flexible filtering options including date range, state, identifier, and pagination.
+Retrieves all rework records, including both currently visible and no longer visible entries in productionManager, with support for filtering by date range, state, identifier, and pagination.
 
 <strong>Example 1: Get reworks from the last 7 days</strong>
 
