@@ -113,7 +113,21 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         /// <example>19.0</example>
         [JsonProperty(Order = 5)]
-        public double? Thickness { get; set; }
+        public double? Thickness
+        {
+            get;
+            set
+            {
+                if (value == 0)
+                {
+                    field = null;
+                }
+                else
+                {
+                    field = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the offcut width.
