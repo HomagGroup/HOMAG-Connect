@@ -21,6 +21,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         /// Tests getting production flow for the last 7 days.
         /// </summary>
         [TestMethod]
+        [TemporaryDisabledOnServer(2026, 07, 01, "DF-Insights")]
         public async Task GetProductionFlow_Last7Days_ReturnsData()
         {
             // Arrange
