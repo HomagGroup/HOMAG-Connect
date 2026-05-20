@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+
 namespace HomagConnect.IntelliDivide.Contracts.Result;
 
 /// <summary>
@@ -34,6 +37,7 @@ public class SolutionMaterialEdgeband : IHasMaterialCode
     /// </summary>
     [JsonProperty(Order = 4)]
     [Range(0, double.MaxValue)]
+    [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     public double Demand { get; set; }
 
     /// <summary>
@@ -41,6 +45,7 @@ public class SolutionMaterialEdgeband : IHasMaterialCode
     /// </summary>
     [JsonProperty(Order = 2)]
     [Range(0, double.MaxValue)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Height { get; set; }
 
     /// <summary>
@@ -48,6 +53,7 @@ public class SolutionMaterialEdgeband : IHasMaterialCode
     /// </summary>
     [JsonProperty(Order = 3)]
     [Range(0, double.MaxValue)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Thickness { get; set; }
 
     /// <inheritdoc />
