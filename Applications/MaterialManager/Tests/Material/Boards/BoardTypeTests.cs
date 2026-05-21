@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -7,6 +9,7 @@ using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using Shouldly;
+using HomagConnect.MaterialManager.Contracts.Extension;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Boards;
 
@@ -28,8 +31,42 @@ public class BoardTypeTests : MaterialManagerTestBase
             "because AuthorizationKey should be configured for MaterialManager tests");
     }
 
-    /// <summary />
+    /// <summary>
+    /// Verifies that board types can be retrieved as a single page and as a complete asynchronous sequence.
+    /// </summary>
+    [IntegrationTest("MaterialManager.Boards")]
     [TestMethod]
+    public async Task BoardType_GetAllBoardTypes()
+    {
+        const int pageSize = 1000;
+
+        var materialManagerClient = GetMaterialManagerClient();
+        var boardClient = materialManagerClient.Material.Boards;
+
+        var stopwatch = Stopwatch.StartNew();
+
+        var firstPageBoardTypes = await boardClient.GetBoardTypes(pageSize).ToListAsync();
+
+        Assert.IsNotNull(firstPageBoardTypes);
+
+        TestContext!.WriteLine($"Time taken to fetch {firstPageBoardTypes.Count} of {pageSize} board types: {stopwatch.Elapsed}");
+
+        stopwatch.Restart();
+
+        var allBoardTypes = await boardClient.GetBoardTypes(TestContext.CancellationToken).ToListAsync();
+
+        TestContext.WriteLine($"Time taken to fetch all {allBoardTypes.Count} board types: {stopwatch.Elapsed}");
+        
+        Assert.IsNotNull(allBoardTypes);
+
+        firstPageBoardTypes.Count.ShouldBeLessThanOrEqualTo(pageSize,
+            $"because GetBoardTypes with page size {pageSize} should return at most {pageSize} board types");
+        allBoardTypes.Count.ShouldBeGreaterThanOrEqualTo(firstPageBoardTypes.Count,
+            "because streaming all board types should include at least the first page");
+    }
+
+    /// <summary />
+        [TestMethod]
     [TemporaryDisabledOnServer(2026, 03, 31, "DF-Material")]
     public async Task BoardType_CreateBoardTypeWithAdditionalDataImage()
     {

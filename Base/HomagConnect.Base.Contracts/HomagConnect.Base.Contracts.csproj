@@ -65,6 +65,11 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>GrainDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="WorkstationPropertyDisplayNames.Designer.cs">
+	    <DependentUpon>WorkstationPropertyDisplayNames.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="AdditionalData\AdditionalDataPreviewSizeDisplayNames.resx">
@@ -105,6 +110,10 @@
 	  <EmbeddedResource Update="Enumerations\GrainDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>GrainDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="WorkstationPropertyDisplayNames.resx">
+	    <LastGenOutput>WorkstationPropertyDisplayNames.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 

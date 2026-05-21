@@ -90,7 +90,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         workstationUpsertedEvent.Workstation = new Workstation 
         { 
             Id = Guid.NewGuid(),
-            DisplayName = "TestMachine",
+            Name = "TestMachine",
             Type = WorkstationType.Cutting,
         };
         workstationUpsertedEvent.Trace();
@@ -111,7 +111,7 @@ public class WorkstationEventTests : ProductionAssistTestBase
         workstationUpsertedEvent.Workstation = new Workstation
         {
             Id = Guid.NewGuid(),
-            DisplayName = "TestMachine",
+            Name = "TestMachine",
             Type = WorkstationType.Cutting,
         };
         workstationUpsertedEvent.Action = UpsertAction.Updated;
