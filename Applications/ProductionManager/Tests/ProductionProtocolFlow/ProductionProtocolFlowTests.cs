@@ -27,10 +27,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         [TestMethod]
         public void ProductionProtocolFlowDetails_SerializeDeserialize_Basic()
         {
-            var flowDetails = new ProductionProtocolFlowDetails
-            {
-                Workstations = new List<ProductionProtocolFlowNode>()
-            };
+            var flowDetails = new ProductionProtocolFlowDetails();
 
             var serialized = JsonConvert.SerializeObject(flowDetails, SerializerSettings.Default);
             var deserialized = JsonConvert.DeserializeObject<ProductionProtocolFlowDetails>(serialized, SerializerSettings.Default);
@@ -65,13 +62,14 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
                 { ProductionItemType.Part, 80 }
             };
 
-            var node1 = new ProductionProtocolFlowNode(itemTypeSummary1)
+            var node1 = new ProductionProtocolFlowNode
             {
                 InputWorkstation = new Workstation
                 {
                     Id = workstation1Id,
                     Name = "CNC Machine 1",
-                    WorkstationType = WorkstationType.CNC
+                    Type = WorkstationType.CNC,
+                    Group = WorkstationGroup.CNC
                 },
                 OutputWorkstations = new List<ProductionProtocolFlowEdge>
                 {
@@ -81,27 +79,37 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
                         {
                             Id = workstation2Id,
                             Name = "Edgebander 1",
-                            WorkstationType = WorkstationType.Edgebanding
-                        },
-                        ItemTypeSummary = edgeItemTypeSummary
+                            Type = WorkstationType.Edgebanding,
+                            Group = WorkstationGroup.Edgebanding
+                        }
                     }
                 }
             };
 
-            var node2 = new ProductionProtocolFlowNode(itemTypeSummary2)
+            // Populate ItemTypeSummary for node1
+            node1.ItemTypeSummary[ProductionItemType.Part] = 150;
+            node1.ItemTypeSummary[ProductionItemType.AssemblyGroup] = 25;
+
+            // Populate ItemTypeSummary for the edge
+            node1.OutputWorkstations.First().ItemTypeSummary[ProductionItemType.Part] = 80;
+
+            var node2 = new ProductionProtocolFlowNode
             {
                 InputWorkstation = new Workstation
                 {
                     Id = workstation2Id,
                     Name = "Edgebander 1",
-                    WorkstationType = WorkstationType.Edgebanding
+                    Type = WorkstationType.Edgebanding,
+                    Group = WorkstationGroup.Edgebanding
                 }
             };
 
-            var flowDetails = new ProductionProtocolFlowDetails
-            {
-                Workstations = new List<ProductionProtocolFlowNode> { node1, node2 }
-            };
+            // Populate ItemTypeSummary for node2
+            node2.ItemTypeSummary[ProductionItemType.Part] = 100;
+
+            var flowDetails = new ProductionProtocolFlowDetails();
+            ((List<ProductionProtocolFlowNode>)flowDetails.Workstations).Add(node1);
+            ((List<ProductionProtocolFlowNode>)flowDetails.Workstations).Add(node2);
 
             flowDetails.Trace();
 
@@ -116,6 +124,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
             deserializedNode1.InputWorkstation.ShouldNotBeNull();
             deserializedNode1.InputWorkstation.Id.ShouldBe(workstation1Id);
             deserializedNode1.InputWorkstation.Name.ShouldBe("CNC Machine 1");
+            deserializedNode1.InputWorkstation.Type.ShouldBe(WorkstationType.CNC);
+            deserializedNode1.InputWorkstation.Group.ShouldBe(WorkstationGroup.CNC);
             deserializedNode1.ItemTypeSummary.ShouldNotBeNull();
             deserializedNode1.ItemTypeSummary[ProductionItemType.Part].ShouldBe(150);
             deserializedNode1.ItemTypeSummary[ProductionItemType.AssemblyGroup].ShouldBe(25);
@@ -125,6 +135,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
             var deserializedEdge = deserializedNode1.OutputWorkstations.First();
             deserializedEdge.OutputWorkstation.ShouldNotBeNull();
             deserializedEdge.OutputWorkstation.Id.ShouldBe(workstation2Id);
+            deserializedEdge.OutputWorkstation.Type.ShouldBe(WorkstationType.Edgebanding);
+            deserializedEdge.OutputWorkstation.Group.ShouldBe(WorkstationGroup.Edgebanding);
             deserializedEdge.ItemTypeSummary.ShouldNotBeNull();
             deserializedEdge.ItemTypeSummary[ProductionItemType.Part].ShouldBe(80);
         }
@@ -139,12 +151,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         [TestMethod]
         public void ProductionProtocolFlowNode_SerializeDeserialize_Basic()
         {
-            var itemTypeSummary = new Dictionary<ProductionItemType, int>
-            {
-                { ProductionItemType.Part, 100 }
-            };
-
-            var node = new ProductionProtocolFlowNode(itemTypeSummary);
+            var node = new ProductionProtocolFlowNode();
+            node.ItemTypeSummary[ProductionItemType.Part] = 100;
 
             var serialized = JsonConvert.SerializeObject(node, SerializerSettings.Default);
             var deserialized = JsonConvert.DeserializeObject<ProductionProtocolFlowNode>(serialized, SerializerSettings.Default);
@@ -161,22 +169,22 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         public void ProductionProtocolFlowNode_SerializeDeserialize_AllProperties()
         {
             var workstationId = Guid.NewGuid();
-            var itemTypeSummary = new Dictionary<ProductionItemType, int>
-            {
-                { ProductionItemType.Part, 200 },
-                { ProductionItemType.AssemblyGroup, 50 }
-            };
 
-            var node = new ProductionProtocolFlowNode(itemTypeSummary)
+            var node = new ProductionProtocolFlowNode
             {
                 InputWorkstation = new Workstation
                 {
                     Id = workstationId,
                     Name = "Test Workstation",
-                    WorkstationType = WorkstationType.CNC
+                    Type = WorkstationType.CNC,
+                    Group = WorkstationGroup.CNC
                 },
                 OutputWorkstations = new List<ProductionProtocolFlowEdge>()
             };
+
+            // Populate ItemTypeSummary
+            node.ItemTypeSummary[ProductionItemType.Part] = 200;
+            node.ItemTypeSummary[ProductionItemType.AssemblyGroup] = 50;
 
             node.Trace();
 
@@ -187,9 +195,12 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
             deserialized.InputWorkstation.ShouldNotBeNull();
             deserialized.InputWorkstation.Id.ShouldBe(workstationId);
             deserialized.InputWorkstation.Name.ShouldBe("Test Workstation");
-            deserialized.InputWorkstation.WorkstationType.ShouldBe(WorkstationType.CNC);
+            deserialized.InputWorkstation.Type.ShouldBe(WorkstationType.CNC);
+            deserialized.InputWorkstation.Group.ShouldBe(WorkstationGroup.CNC);
             deserialized.ItemTypeSummary.ShouldNotBeNull();
             deserialized.ItemTypeSummary.Count.ShouldBe(2);
+            deserialized.ItemTypeSummary[ProductionItemType.Part].ShouldBe(200);
+            deserialized.ItemTypeSummary[ProductionItemType.AssemblyGroup].ShouldBe(50);
             deserialized.OutputWorkstations.ShouldNotBeNull();
             deserialized.OutputWorkstations.ShouldBeEmpty();
         }
@@ -219,11 +230,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         public void ProductionProtocolFlowEdge_SerializeDeserialize_AllProperties()
         {
             var workstationId = Guid.NewGuid();
-            var itemTypeSummary = new Dictionary<ProductionItemType, int>
-            {
-                { ProductionItemType.Part, 75 },
-                { ProductionItemType.AssemblyGroup, 15 }
-            };
 
             var edge = new ProductionProtocolFlowEdge
             {
@@ -231,10 +237,14 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
                 {
                     Id = workstationId,
                     Name = "Output Workstation",
-                    WorkstationType = WorkstationType.Edgebanding
-                },
-                ItemTypeSummary = itemTypeSummary
+                    Type = WorkstationType.Edgebanding,
+                    Group = WorkstationGroup.Edgebanding
+                }
             };
+
+            // Populate ItemTypeSummary
+            edge.ItemTypeSummary[ProductionItemType.Part] = 75;
+            edge.ItemTypeSummary[ProductionItemType.AssemblyGroup] = 15;
 
             edge.Trace();
 
@@ -245,7 +255,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
             deserialized.OutputWorkstation.ShouldNotBeNull();
             deserialized.OutputWorkstation.Id.ShouldBe(workstationId);
             deserialized.OutputWorkstation.Name.ShouldBe("Output Workstation");
-            deserialized.OutputWorkstation.WorkstationType.ShouldBe(WorkstationType.Edgebanding);
+            deserialized.OutputWorkstation.Type.ShouldBe(WorkstationType.Edgebanding);
+            deserialized.OutputWorkstation.Group.ShouldBe(WorkstationGroup.Edgebanding);
             deserialized.ItemTypeSummary.ShouldNotBeNull();
             deserialized.ItemTypeSummary.Count.ShouldBe(2);
             deserialized.ItemTypeSummary[ProductionItemType.Part].ShouldBe(75);
@@ -258,16 +269,11 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         [TestMethod]
         public void ProductionProtocolFlowEdge_SerializeDeserialize_MultipleItemTypes()
         {
-            var itemTypeSummary = new Dictionary<ProductionItemType, int>
-            {
-                { ProductionItemType.Part, 100 },
-                { ProductionItemType.AssemblyGroup, 20 },
-            };
+            var edge = new ProductionProtocolFlowEdge();
 
-            var edge = new ProductionProtocolFlowEdge
-            {
-                ItemTypeSummary = itemTypeSummary
-            };
+            // Populate ItemTypeSummary
+            edge.ItemTypeSummary[ProductionItemType.Part] = 100;
+            edge.ItemTypeSummary[ProductionItemType.AssemblyGroup] = 20;
 
             var serialized = JsonConvert.SerializeObject(edge, SerializerSettings.Default);
             var deserialized = JsonConvert.DeserializeObject<ProductionProtocolFlowEdge>(serialized, SerializerSettings.Default);
