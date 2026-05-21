@@ -373,7 +373,6 @@ CncProgramName            |                          | iD: If this is set for a 
 CncProgramName1           | string                   | CNC program name only or CNC program name incl. path of the first CNC program<br/>Recommendation: article or project name\name.mpr<br/>Example: article1\side_1.mpr |pM/iD
 CncProgramName2           | string                   | CNC program name only or CNC program name incl. path of the second CNC program<br/>Recommendation: article or project name\name.mpr<br/>Example: article1\side_2.mpr |pM/iD
 CncProgramName3           | string                   | CNC program name only or CNC program name incl. path of the third CNC program<br/>Recommendation: article or project name\name.mpr<br/>Example: article1\side_3.mpr | pM/iD
-ExternalSystemId          | nvarchar(100)            | An optional external id, which will be used in an re-import to detect the "old import" and update the existing data. It is important that this ID is unique for each order entity throughout the entire order.|pM/iD
 PartFamily                |                          |            |iD
 LabelLayout               | string                   | Layout name for CADmatic label generation|iD
 LabelDemand               | integer                  | If `1` then a label should be printed|iD
