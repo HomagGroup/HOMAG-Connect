@@ -31,7 +31,7 @@ public interface IMaterialManagerClientTextures
     /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
     /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
     /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
-    Task<PagedTextureResult> GetTextures(int pageSize, string? continuationToken = null);
+    Task<PagedTextureResult> GetTextures(int pageSize = 100, string? continuationToken = null);
 
     /// <summary>
     /// Gets a paged list of textures filtered by catalog using continuation token pagination.
