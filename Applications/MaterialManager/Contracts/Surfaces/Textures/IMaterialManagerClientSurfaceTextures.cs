@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-using HomagConnect.Base.Contracts;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
@@ -15,6 +13,12 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 public interface IMaterialManagerClientTextures
 {
     /// <summary>
+    /// Deletes a texture by its identifier.
+    /// </summary>
+    /// <param name="id">The texture identifier.</param>
+    Task DeleteTexture(string id);
+
+    /// <summary>
     /// Gets a texture by its identifier.
     /// </summary>
     /// <param name="id">The texture identifier.</param>
@@ -22,31 +26,31 @@ public interface IMaterialManagerClientTextures
     Task<Texture> GetTexture(string id);
 
     /// <summary>
-    /// Gets a paged list of textures.
+    /// Gets a paged list of textures using continuation token pagination.
     /// </summary>
-    /// <param name="take">The maximum number of items to return.</param>
-    /// <param name="skip">The number of items to skip.</param>
-    /// <returns>A collection of textures or null if none found.</returns>
-    Task<IEnumerable<Texture>?> GetTextures(int take, int skip = 0);
+    /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
+    /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
+    /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    Task<PagedTextureResult> GetTextures(int pageSize, string? continuationToken = null);
 
     /// <summary>
-    /// Gets a paged list of textures filtered by catalog.
+    /// Gets a paged list of textures filtered by catalog using continuation token pagination.
     /// </summary>
-    /// <param name="catalog">The catalog code.</param>
-    /// <param name="take">The maximum number of items to return.</param>
-    /// <param name="skip">The number of items to skip.</param>
-    /// <returns>A collection of textures or null if none found.</returns>
-    Task<IEnumerable<Texture>?> GetTextures(string catalog, int take, int skip = 0);
+    /// <param name="catalog">Optional catalog filter.</param>
+    /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
+    /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
+    /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    Task<PagedTextureResult> GetTextures(string? catalog, int pageSize = 100, string? continuationToken = null);
 
     /// <summary>
-    /// Gets a paged list of textures filtered by catalog and decor code.
+    /// Gets a paged list of textures filtered by catalog and decor code using continuation token pagination.
     /// </summary>
-    /// <param name="catalog">The catalog code.</param>
-    /// <param name="decorCode">The decor code.</param>
-    /// <param name="take">The maximum number of items to return.</param>
-    /// <param name="skip">The number of items to skip.</param>
-    /// <returns>A collection of textures or null if none found.</returns>
-    Task<IEnumerable<Texture>?> GetTextures(string catalog, string decorCode, int take, int skip = 0);
+    /// <param name="catalog">Optional catalog filter.</param>
+    /// <param name="decorCode">Optional decor code filter.</param>
+    /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
+    /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
+    /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    Task<PagedTextureResult> GetTextures(string? catalog, string? decorCode, int pageSize = 100, string? continuationToken = null);
 
     /// <summary>
     /// Imports or updates a single Roomle material definition with optional file references.
@@ -61,10 +65,4 @@ public interface IMaterialManagerClientTextures
     /// <param name="materials">The Roomle materials collection.</param>
     /// <returns>The resulting textures.</returns>
     Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials);
-
-    /// <summary>
-    /// Deletes a texture by its identifier.
-    /// </summary>
-    /// <param name="id">The texture identifier.</param>
-    Task DeleteTexture(string id);
 }

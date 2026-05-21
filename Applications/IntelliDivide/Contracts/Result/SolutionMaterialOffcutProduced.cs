@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -83,6 +84,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         /// <example>1201.0</example>
         [JsonProperty(Order = 3)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Length { get; set; }
 
         /// <summary>
@@ -113,6 +115,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         /// <example>19.0</example>
         [JsonProperty(Order = 5)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Thickness { get; set; }
 
         /// <summary>
@@ -121,6 +124,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         /// <example>567.8</example>
         [JsonProperty(Order = 4)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
     }
 }

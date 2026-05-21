@@ -63,10 +63,11 @@ namespace HomagConnect.OrderManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<PosArticle>> GetPosArticles(int take, int skip = 0)
+        public async Task<PosArticlesResponse> GetPosArticles(int take, int skip = 0)
         {
             var uri = $"{_ArticlesRoute}?take={take}&skip={skip}";
-            return await RequestEnumerable<PosArticle>(new Uri(uri, UriKind.Relative)) ?? Enumerable.Empty<PosArticle>();
+            var articles = await RequestObject<PosArticlesResponse>(new Uri(uri, UriKind.Relative)) ?? new PosArticlesResponse();
+            return articles;
         }
 
         /// <inheritdoc />
@@ -82,13 +83,13 @@ namespace HomagConnect.OrderManager.Client
                 throw new ArgumentException($"{nameof(PosArticle.ArticleId)} must be set.", nameof(article));
             }
 
-            var uri = $"{_ArticlesRoute}/{Uri.EscapeDataString(article.ArticleId!)}";
+            var uri = new Uri(_ArticlesRoute, UriKind.Relative);
 
             var json = JsonConvert.SerializeObject(article, SerializerSettings.Default);
             using var requestContent = new StringContent(json, Encoding.UTF8);
             requestContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
-            using var request = new HttpRequestMessage(HttpMethod.Put, new Uri(uri, UriKind.Relative))
+            using var request = new HttpRequestMessage(HttpMethod.Put, uri)
             {
                 Content = requestContent
             };

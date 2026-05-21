@@ -44,7 +44,7 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
             var workstation = JsonConvert.DeserializeObject<FeedbackWorkstation>(oldJson);
 
             Assert.AreEqual(id, workstation?.Id);
-            Assert.AreEqual(name, workstation?.DisplayName);
+            Assert.AreEqual(name, workstation?.Name);
 
             // new properties should have default enum values
             Assert.AreEqual(default(WorkstationGroup), workstation.Group);

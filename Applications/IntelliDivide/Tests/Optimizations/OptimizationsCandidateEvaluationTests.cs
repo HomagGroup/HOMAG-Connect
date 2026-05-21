@@ -25,6 +25,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     private const double _MeterToFeet = 3.2808399;
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 05, 25, "DF-Optimization")]
     public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);

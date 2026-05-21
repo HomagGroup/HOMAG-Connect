@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.ProductionAssist.Contracts {
+namespace HomagConnect.Base.Contracts {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HomagConnect.ProductionAssist.Contracts {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionAssist.Contracts.WorkstationPropertyDisplayNames", typeof(WorkstationPropertyDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.Base.Contracts.WorkstationPropertyDisplayNames", typeof(WorkstationPropertyDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,38 @@ namespace HomagConnect.ProductionAssist.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to zugewiesene Tapio Maschine.
+        ///   Looks up a localized string similar to Gruppe.
         /// </summary>
-        public static string AssignedTapioMachineId {
+        public static string Group {
             get {
-                return ResourceManager.GetString("AssignedTapioMachineId", resourceCulture);
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschreibung.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arbeitsplatztyp.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
     }

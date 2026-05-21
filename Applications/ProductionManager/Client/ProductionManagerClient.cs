@@ -21,6 +21,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
+
 namespace HomagConnect.ProductionManager.Client
 {
     /// <inheritdoc cref="IProductionManagerClient" />
@@ -649,6 +651,23 @@ namespace HomagConnect.ProductionManager.Client
         {
             string uri = "api/productionManager/orderprogress";
             return await PostObject<OrderProgressRequest, IEnumerable<OrderProgressDetails>>(new Uri(uri, UriKind.Relative), orderProgressRequest);
+        }
+
+        /// <inheritdoc />
+        public async Task<ProductionProtocolFlowDetails?> GetProductionFlow(DateTime from, DateTime? to)
+        {
+            var intTo = to ??DateTime.UtcNow;
+
+            var queryParameters = new List<string>
+            {
+                $"from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}",
+                $"to={Uri.EscapeDataString(intTo.ToString("o", CultureInfo.InvariantCulture))}"
+            };
+
+            var url = $"/api/productionManager/productionprotocolflow?{string.Join("&", queryParameters)}";
+            var productionFlow = await RequestObject<ProductionProtocolFlowDetails>(new Uri(url, UriKind.Relative));
+
+            return productionFlow;
         }
         #endregion Usage statistics
 

@@ -30,7 +30,7 @@ namespace HomagConnect.OrderManager.Contracts
         /// <param name="take">The maximum number of articles to return.</param>
         /// <param name="skip">The number of articles to skip before starting to collect the result set.</param>
         /// <returns>The articles.</returns>
-        Task<IEnumerable<PosArticle>> GetPosArticles(int take, int skip = 0);
+        Task<PosArticlesResponse> GetPosArticles(int take, int skip = 0);
 
         /// <summary>
         /// Update an existing <see cref="PosArticle" />.
