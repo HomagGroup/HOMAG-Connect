@@ -6,4 +6,5 @@ ignorePatterns:
 aliveStatusCodes:
 - 200
 - 401
+- 403
 - 999

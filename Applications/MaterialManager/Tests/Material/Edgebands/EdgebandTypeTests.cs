@@ -1,9 +1,13 @@
+using System.Diagnostics;
+
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Extension;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -40,6 +44,37 @@ public class EdgebandTypeTests : MaterialManagerTestBase
             "because SubscriptionId should be configured for MaterialManager tests");
         AuthorizationKey.ShouldNotBeNullOrEmpty(
             "because AuthorizationKey should be configured for MaterialManager tests");
+    }
+
+    /// <summary>
+    /// Verifies that edgeband types can be retrieved as a single page and as a complete asynchronous sequence.
+    /// </summary>
+    [IntegrationTest("MaterialManager.Edgebands")]
+    [TestMethod]
+    public async Task EdgebandType_GetAllEdgebandTypes()
+    {
+        const int pageSize = 1000;
+
+        var stopwatch = Stopwatch.StartNew();
+
+        var firstPageEdgebandTypes = await materialManagerClient.GetEdgebandTypes(pageSize).ToListAsync();
+
+        Assert.IsNotNull(firstPageEdgebandTypes);
+
+        TestContext!.WriteLine($"Time taken to fetch {firstPageEdgebandTypes.Count} of {pageSize} edgeband types: {stopwatch.Elapsed}");
+
+        stopwatch.Restart();
+
+        var allEdgebandTypes = await materialManagerClient.GetEdgebandTypes(TestContext.CancellationToken).ToListAsync();
+
+        Assert.IsNotNull(allEdgebandTypes);
+
+        TestContext.WriteLine($"Time taken to fetch all {allEdgebandTypes.Count} edgeband types : {stopwatch.Elapsed}");
+
+        firstPageEdgebandTypes.Count.ShouldBeLessThanOrEqualTo(pageSize,
+            $"because GetEdgebandTypes with page size {pageSize} should return at most {pageSize} edgeband types");
+        allEdgebandTypes.Count.ShouldBeGreaterThanOrEqualTo(firstPageEdgebandTypes.Count,
+            "because streaming all edgeband types should include at least the first page");
     }
 
     /// <summary />
