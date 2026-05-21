@@ -42,6 +42,7 @@ public class SolutionFiguresProductionHandling
     /// <example>26.56</example>
     [JsonProperty(Order = 3)]
     //[Range(0.01, int.MaxValue)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double AverageBookHeight { get; set; }
 
     /// <summary>
