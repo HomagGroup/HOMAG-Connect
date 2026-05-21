@@ -6,6 +6,7 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 using HomagConnect.ProductionManager.Contracts.Rework;
 
 namespace HomagConnect.ProductionManager.Contracts

@@ -9,7 +9,6 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
-using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json;
 using System;
@@ -21,6 +20,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+
+using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 
 namespace HomagConnect.ProductionManager.Client
 {
