@@ -30,7 +30,11 @@ public class Workstation
     /// </summary>
     /// <example>Cutting</example>
     [Obsolete("This property is obsolete. Use the new Type property instead.", true)]
-    public WorkstationType WorkstationType { get; set; }
+    public WorkstationType WorkstationType 
+    {
+        get { return Type; }
+        set { Type = value; }
+    }
 
     /// <summary>
     /// Gets or sets the workstation type.

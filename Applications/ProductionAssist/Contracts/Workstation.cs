@@ -22,5 +22,9 @@ public class Workstation: Base.Contracts.Workstation, ISupportsLocalizedSerializ
     /// </summary>
     [JsonProperty(Order = 2)]
     [Obsolete("This property is obsolete. Use the new Name property instead.", true)]
-    public string DisplayName { get; set; }
+    public string DisplayName
+    {
+        get { return Name; }
+        set { Name = value; }
+    }
 }

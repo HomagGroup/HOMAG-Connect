@@ -135,6 +135,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
             var deserializedEdge = deserializedNode1.OutputWorkstations.First();
             deserializedEdge.OutputWorkstation.ShouldNotBeNull();
             deserializedEdge.OutputWorkstation.Id.ShouldBe(workstation2Id);
+            deserializedEdge.OutputWorkstation.Name.ShouldBe("Edgebander 1");
             deserializedEdge.OutputWorkstation.Type.ShouldBe(WorkstationType.Edgebanding);
             deserializedEdge.OutputWorkstation.Group.ShouldBe(WorkstationGroup.Edgebanding);
             deserializedEdge.ItemTypeSummary.ShouldNotBeNull();
