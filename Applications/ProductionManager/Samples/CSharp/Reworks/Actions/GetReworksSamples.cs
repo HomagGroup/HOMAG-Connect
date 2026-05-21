@@ -44,7 +44,7 @@ namespace HomagConnect.ProductionManager.Samples.Reworks.Actions
         }
 
         /// <summary>
-        /// Gets current reworks using state filters.
+        /// Retrieves active rework records currently visible in productionManager, with support for filtering by date range, state, and pagination.
         /// </summary>
         public static async Task GetCurrentReworksAsync(IProductionManagerClient productionManager)
         {
@@ -70,7 +70,7 @@ namespace HomagConnect.ProductionManager.Samples.Reworks.Actions
         }
 
         /// <summary>
-        /// Gets reworks using date range and filters.
+        /// Retrieves all rework records, including both currently visible and no longer visible entries in productionManager, with support for filtering by date range, state, identifier, and pagination.
         /// </summary>
         public static async Task GetReworksAsync(IProductionManagerClient productionManager)
         {
