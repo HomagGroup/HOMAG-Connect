@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -59,6 +60,7 @@ public class SolutionMaterialBoardBase : IDimensionProperties, IMaterialProperti
 
     /// <inheritdoc/>
     [JsonProperty(Order = 3)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -76,6 +78,7 @@ public class SolutionMaterialBoardBase : IDimensionProperties, IMaterialProperti
 
     /// <inheritdoc/>
     [JsonProperty(Order = 5)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Thickness { get; set; }
 
     /// <summary>
@@ -86,6 +89,7 @@ public class SolutionMaterialBoardBase : IDimensionProperties, IMaterialProperti
 
     /// <inheritdoc/>
     [JsonProperty(Order = 4)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
 
