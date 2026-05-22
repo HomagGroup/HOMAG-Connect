@@ -18,8 +18,8 @@ public class ProductionProtocolFlowEdge : ISupportsLocalizedSerialization
     public Workstation? OutputWorkstation { get; set; }
 
     /// <summary>
-    /// distribution of parts per type travelling on this edge
+    /// Distribution of parts per type travelling on this edge
     /// </summary>
     [JsonProperty(Order = 2)]
-    public Dictionary<ProductionItemType, int>? ItemTypeSummary { get; set; }
+    public Dictionary<ProductionItemType, int> ItemTypeSummary { get; set; } = new();
 }

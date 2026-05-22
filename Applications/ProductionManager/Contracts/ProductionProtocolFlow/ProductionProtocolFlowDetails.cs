@@ -1,13 +1,8 @@
-﻿using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
+﻿using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
-
-namespace HomagConnect.ProductionManager.Contracts.OrderProgress
+namespace HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow
 {
     /// <summary>
     /// get all Workstation details (like an aggregated Orderprogress)
@@ -20,6 +15,6 @@ namespace HomagConnect.ProductionManager.Contracts.OrderProgress
         /// </summary>
         /// <example>4711</example>
         [JsonProperty(Order = 1)]
-        public IEnumerable<ProductionProtocolFlowNode> Workstations { get; set; }
+        public IEnumerable<ProductionProtocolFlowNode> Workstations { get; set; } = new List<ProductionProtocolFlowNode>();
     }
 }

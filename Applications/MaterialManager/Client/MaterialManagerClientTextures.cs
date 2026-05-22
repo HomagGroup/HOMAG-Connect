@@ -38,7 +38,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     }
 
     /// <inheritdoc />
-    public async Task<PagedTextureResult> GetTextures(int pageSize, string? continuationToken = null)
+    public async Task<PagedTextureResult> GetTextures(int pageSize = 100, string? continuationToken = null)
     {
         var url = $"{_BaseRoute}?pageSize={pageSize}";
         if (!string.IsNullOrWhiteSpace(continuationToken))

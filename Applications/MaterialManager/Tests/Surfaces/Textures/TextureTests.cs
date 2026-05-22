@@ -204,7 +204,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithDefaults_ReturnsPaginatedResult()
     {
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures(pageSize: 100);
+        var result = await _MaterialManagerClientTextures!.GetTextures();
 
         // Assert
         result.ShouldNotBeNull("because paged texture result should be returned");
