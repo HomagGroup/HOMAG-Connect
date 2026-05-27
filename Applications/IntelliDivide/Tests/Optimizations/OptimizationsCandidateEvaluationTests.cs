@@ -25,7 +25,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     private const double _MeterToFeet = 3.2808399;
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 05, 25, "DF-Optimization")]
+    [TemporaryDisabledOnServer(2026, 05, 28, "DF-Optimization")]
     public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
@@ -141,7 +141,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
         imperial.Overview.Figures.Production.AverageBookHeight
             .ShouldBeEquivalentTo(metric.Overview.Figures.Production.AverageBookHeight * _MillimeterToInch);
 
-        // m² -> ft²
+        // mï¿½ -> ftï¿½
         imperial.KeyFigures.Production.Output.PartArea
             .ShouldBeEquivalentTo(metric.KeyFigures.Production.Output.PartArea * _SquareMeterToSquareFeet);
 
