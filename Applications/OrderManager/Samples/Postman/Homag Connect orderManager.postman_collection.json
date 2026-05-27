@@ -171,6 +171,53 @@
 					]
 				},
 				{
+					"name": "Release",
+					"item": [
+						{
+							"name": "ReleaseOrder",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/orderManager/orders/{{OrderId}}/release",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"orders",
+										"{{OrderId}}",
+										"release"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ResetReleaseOrder",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/orderManager/orders/{{OrderId}}/resetRelease",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"orders",
+										"{{OrderId}}",
+										"resetRelease"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Delete",
 					"item": [
 						{
