@@ -12,11 +12,6 @@ namespace HomagConnect.OrderManager.Contracts.Orders;
 public enum OrderState
 {
     /// <summary>
-    /// The order status is unknown. Only fallback for unknown newer states.
-    /// </summary>
-    Unknown,
-
-    /// <summary>
     /// After a successful import of a customer order, it receives the state "New".
     /// </summary>
     New,
@@ -25,12 +20,6 @@ public enum OrderState
     /// After an order has been release it receives the state "ReadyForProduction".
     /// </summary>
     ReadyForProduction,
-
-    /// <summary>
-    /// As soon as a production order of a order is in production.
-    /// </summary>
-    [Obsolete("InProduction is Obsolete, please use InProgress")]
-    InProduction,
 
     /// <summary>
     /// As soon as a production order of a order is in progress.
