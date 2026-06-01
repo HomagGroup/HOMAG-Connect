@@ -8,9 +8,13 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Install Chromium
+        env:
+          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
         run: npx puppeteer browsers install chrome
       
       - name: Run linkspector
+        env:
+          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
         uses: umbrelladocs/action-linkspector@v1
         with:
           github_token: ${{ secrets.github_token }}
