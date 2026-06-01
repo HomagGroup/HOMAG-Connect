@@ -72,7 +72,7 @@ namespace HomagConnect.OrderManager.Contracts.Customers
 
         /// <summary>
         /// Gets or sets the current state.
-        /// If not set, the state is considered as <see cref="State.Active"/>.
+        /// If not set, the state is considered as <see cref="State.Approved"/>.
         /// </summary>
         public State? State { get; set; }
     }

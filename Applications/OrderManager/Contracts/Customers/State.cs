@@ -6,12 +6,12 @@
     public enum State
     {
         /// <summary>
-        /// Active
+        /// Approved
         /// </summary>
-        Active,
+        Approved,
 
         /// <summary>
-        /// Registration is pending and not yet <see cref="Active"/>
+        /// Registration is pending and not yet <see cref="Approved"/>
         /// </summary>
         Pending,
 
@@ -19,11 +19,6 @@
         /// Blocked
         /// </summary>
         Blocked,
-
-        /// <summary>
-        /// Deactivated
-        /// </summary>
-        Deactivated,
 
         /// <summary>
         /// Archived
