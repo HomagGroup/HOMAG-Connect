@@ -27,8 +27,6 @@ jobs:
           ls -la /home/runner/.cache/puppeteer/chrome-* || echo "Chrome not found after install"
       
       - name: Run linkspector
-        env:
-          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
         uses: umbrelladocs/action-linkspector@v1
         with:
           github_token: ${{ secrets.github_token }}
