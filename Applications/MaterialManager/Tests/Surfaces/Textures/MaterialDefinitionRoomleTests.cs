@@ -24,8 +24,8 @@ public class MaterialDefinitionRoomleTests
     public async Task RoomleMaterial_RoundtripSerialization_ProducesEquivalentObject()
     {
         // Arrange
-        const string inputPath = "Surfaces/Textures/u999_st7.rml";
-        const string outputPath = "Surfaces/Textures/u999_st7.json";
+        const string inputPath = "Surfaces/Textures/room_designer_oak.rml";
+        const string outputPath = "Surfaces/Textures/room_designer_oak.json";
 
         Assert.IsTrue(File.Exists(inputPath), $"Input file '{inputPath}' must exist for this test.");
 
