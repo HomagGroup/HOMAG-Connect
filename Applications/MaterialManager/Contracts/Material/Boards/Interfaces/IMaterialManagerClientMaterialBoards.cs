@@ -9,6 +9,9 @@ using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
+
+using Tapio.Tadamo.Clients.WebApi;
+
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {
     /// <summary>
@@ -261,5 +264,17 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task UpdateServiceAvailabilityCheck(string serviceName, Dictionary<string, string> details = null);
 
         #endregion
+
+        #region Catalog
+
+        /// <summary>
+        /// Gets board types from the Tadamo catalog.
+        /// </summary>
+        /// <param name="take">The maximum number of catalog items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="filter">Optional structured search filter for Tadamo catalog queries.</param>
+        /// <returns>A collection of <see cref="BoardType" /> from the catalog.</returns>
+        Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take, int skip = 0, GetSearchMasterData? filter = null);
+#endregion
     }
 }

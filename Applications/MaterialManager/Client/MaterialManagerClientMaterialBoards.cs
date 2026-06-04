@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-using HomagConnect.Base;
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -22,6 +21,10 @@ using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
+using Tapio.Tadamo.Clients.WebApi;
+
+using Material = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
+
 namespace HomagConnect.MaterialManager.Client;
 
 /// <summary>
@@ -29,6 +32,25 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Catalog
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take, int skip = 0, GetSearchMasterData? filter = null)
+    {
+        var url = $"{_BaseRoute}/catalog?take={take}&skip={skip}";
+
+        var payload = JsonConvert.SerializeObject(filter ?? new GetSearchMasterData(), SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<IEnumerable<BoardType>>(responseContent, SerializerSettings.Default);
+
+        return result ?? [];
+    }
+
+    #endregion
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -135,7 +157,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardTypeCode, boardTypeUpdate);
 
-        
         return await UpdateHelpers.SendMultipartPatchAsync<BoardType>(Client, uri, json, fileReferences, nameof(boardTypeUpdate)).ConfigureAwait(false);
     }
 
@@ -673,13 +694,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
-    
+
     #endregion Delete
 
     #region statistics
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to,
+        TimeInterval interval = TimeInterval.Day)
     {
         if (materialCodes == null)
         {
@@ -713,7 +735,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, TimeInterval interval = TimeInterval.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack,
+        TimeInterval interval = TimeInterval.Day)
     {
         return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
@@ -730,7 +753,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
 
-    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
+    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to,
+        TimeInterval interval = TimeInterval.Day)
     {
         IEnumerable<String> paths;
         if (materialCodes != null)
