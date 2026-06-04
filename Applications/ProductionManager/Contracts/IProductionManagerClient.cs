@@ -6,6 +6,7 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 using HomagConnect.ProductionManager.Contracts.Rework;
 
 namespace HomagConnect.ProductionManager.Contracts
@@ -227,6 +228,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<Rework.Rework>?> GetApprovedReworks();
+        
         /// <summary>
         /// Get completed reworks
         /// </summary>
@@ -234,7 +236,7 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<IEnumerable<Rework.Rework>?> GetCompletedReworks();
 
         /// <summary>
-        /// Retrieves a collection of rework records that match the specified states and optional capture date range.
+        /// Retrieves active rework records currently visible in productionManager, with support for filtering by date range, state, and pagination.
         /// </summary>
         /// <param name="states">An array of rework states to filter the results. If <paramref name="states"/> is <see langword="null"/>, all
         /// states are included.</param>
@@ -251,7 +253,7 @@ namespace HomagConnect.ProductionManager.Contracts
         Task<IEnumerable<Rework.Rework>?> GetCurrentReworks(ReworkState[]? states, DateTimeOffset? capturedAtFrom = null, DateTimeOffset? capturedAtTo = null, int take = int.MaxValue, int skip = 0);
 
         /// <summary>
-        /// Retrieves rework records with optional filters.
+        /// Retrieves all rework records, including both currently visible and no longer visible entries in productionManager, with support for filtering by date range, state, identifier, and pagination.
         /// </summary>
         /// <param name="from">Optional lower bound for the date range filter.</param>
         /// <param name="to">Optional upper bound for the date range filter.</param>
@@ -340,6 +342,14 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest);
+
+        /// <summary>
+        /// Retrieves production protocol flow details for a specified duration.
+        /// </summary>  
+        /// <param name="from">The start date and time of the duration.</param>
+        /// <param name="to">The end date and time of the duration.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the production protocol flow details, or <see langword="null"/> if no data is found.</returns>
+        Task<ProductionProtocolFlowDetails?> GetProductionFlow(DateTime from, DateTime? to);
         #endregion Usage statistics
     }
 }

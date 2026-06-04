@@ -115,7 +115,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Extensions
                         .ToArray() ?? Array.Empty<string>();
 
                     var details = messages.Length > 0 ? string.Join("; ", messages) : "No validation details available.";
-                    throw new ValidationException($"Validation failed for solution candidate {solutionDetails.Id}. Details: {details}");
+                    throw new ValidationException($"Validation failed for solution candidate {solutionDetails.OptimizationId}/solutions/{solutionDetails.Id}. Details: {details}");
                 }
             }
         }

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
-		<LangVersion>default</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.Base.Client</PackageId>
 		<Title>Homag-Connect Base</Title>
