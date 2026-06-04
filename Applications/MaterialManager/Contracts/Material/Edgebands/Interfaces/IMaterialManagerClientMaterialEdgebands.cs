@@ -134,7 +134,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <param name="skip">The number of items to skip before returning results.</param>
         /// <param name="filter">Optional structured search filter for Tadamo catalog queries.</param>
         /// <returns>A collection of <see cref="EdgebandType" /> from the catalog.</returns>
-        Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take, int skip = 0, GetSearchMasterData? filter = null);
+        Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, GetSearchMasterData? filter = null);
 
         #endregion
 

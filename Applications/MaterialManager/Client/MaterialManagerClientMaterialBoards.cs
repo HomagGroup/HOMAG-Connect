@@ -35,7 +35,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Catalog
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take, int skip = 0, GetSearchMasterData? filter = null)
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take = 100000, int skip = 0, GetSearchMasterData? filter = null)
     {
         var url = $"{_BaseRoute}/catalog?take={take}&skip={skip}";
 

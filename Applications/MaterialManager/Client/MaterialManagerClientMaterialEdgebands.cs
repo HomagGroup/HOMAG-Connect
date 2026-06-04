@@ -42,7 +42,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     #region Catalog
 
     /// <inheritdoc />
-    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take, int skip = 0, GetSearchMasterData? filter = null)
+    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, GetSearchMasterData? filter = null)
     {
         var url = $"{_BaseRoute}/catalog?take={take}&skip={skip}";
 
