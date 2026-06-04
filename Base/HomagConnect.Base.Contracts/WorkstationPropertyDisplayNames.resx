@@ -117,8 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssignedTapioMachineId" xml:space="preserve">
-    <value>zugewiesene Tapio Maschine</value>
-    <comment>zugewiesene Tapio Maschine</comment>
+  <data name="Name" xml:space="preserve">
+    <value>Beschreibung</value>
+    <comment>Beschreibung</comment>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Gruppe</value>
+    <comment>Gruppe</comment>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>ID</value>
+    <comment>Id</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Arbeitsplatztyp</value>
   </data>
 </root>
