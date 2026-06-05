@@ -76,14 +76,14 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut ids announced in materialAssist.
         /// </summary>
         /// <example>["XID-670959", "XID-624742"]</example>
-        [Obsolete]
+        [Obsolete("Use XIds instead.")]
         [JsonProperty(Order = 8)]
         public string[]? Ids { get; set; }
 
         /// <summary>
         /// Gets or sets the offcut ids and quantities announced in materialAssist.
         /// </summary>
-        /// <example>{["XID-670959"] = 2, ["XID-624742"] = 1}</example>
+        /// <example>{"XID-670959": 2, "XID-624742": 1}</example>
         [JsonProperty(Order = 9)]
         public Dictionary<string, int>? XIds { get; set; }
 
