@@ -37,12 +37,17 @@ public class PatchBuilder<T> where T : class, new()
     private static PropertyInfo GetPropertyInfo<TProperty>(Expression<Func<T, TProperty>> expression)
     {
         if (expression.Body is MemberExpression member && member.Member is PropertyInfo property)
+        {
             return property;
+
+        }
 
         if (expression.Body is UnaryExpression unary &&
             unary.Operand is MemberExpression unaryMember &&
             unaryMember.Member is PropertyInfo unaryProperty)
+        {
             return unaryProperty;
+        }
 
         throw new ArgumentException("Expression must point to a property.");
     }
@@ -70,7 +75,9 @@ public class PatchBuilder<T> where T : class, new()
     private static string ToCamelCase(string name)
     {
         if (string.IsNullOrEmpty(name) || char.IsLower(name[0]))
+        {
             return name;
+        }
 
         // Avoid using range operator to support older frameworks
         return char.ToLowerInvariant(name[0]) + name.Substring(1);
