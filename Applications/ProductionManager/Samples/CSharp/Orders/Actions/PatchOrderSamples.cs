@@ -2,9 +2,7 @@
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Reflection;
+using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 {
@@ -24,7 +22,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 
             var patchData = PatchBuilder<OrderDetails>.For()
                 .Set(o => o.CustomerName, "Muster GmbH")
-                .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z"))
+                .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z", CultureInfo.CurrentCulture))
                 .Set(o => o.Email, null)
                 .Build();
 
