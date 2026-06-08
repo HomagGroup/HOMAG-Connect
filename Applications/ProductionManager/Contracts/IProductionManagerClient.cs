@@ -8,6 +8,7 @@ using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 using HomagConnect.ProductionManager.Contracts.Rework;
+using Newtonsoft.Json.Linq;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -82,6 +83,18 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="orderId"></param>
         /// <returns></returns>
         Task ResetReleaseOrder(Guid orderId);
+
+        #endregion
+
+        #region Patch order
+
+        /// <summary>
+        /// Patch order
+        /// </summary>
+        /// <param name="identifier">Can be OrderId/OrderNumber/ExternalOrderNumber</param>
+        /// <param name="patchData"></param>
+        /// <returns></returns>
+        Task PatchOrder(string identifier, JObject patchData);
 
         #endregion
 

@@ -9,8 +9,10 @@ using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
+using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,9 +21,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -272,6 +274,20 @@ namespace HomagConnect.ProductionManager.Client
         {
             var url = $"/api/productionManager/orders/{orderId}/resetRelease";
             var response = await PatchObject(new Uri(url, UriKind.Relative));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        #endregion
+
+        #region Patch order
+
+        /// <inheritdoc />
+        public async Task PatchOrder(string identifier, JObject patchData)
+        {
+            var url = $"/api/productionManager/orders/{identifier}";
+            var content = new StringContent(patchData.ToString(Formatting.None), Encoding.UTF8, "application/merge-patch+json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
             response.EnsureSuccessStatusCode();
         }
