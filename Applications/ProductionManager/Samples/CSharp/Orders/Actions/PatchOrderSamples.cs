@@ -1,6 +1,10 @@
-﻿using HomagConnect.ProductionManager.Contracts;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 {
@@ -18,20 +22,11 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         {
             string identifier = Guid.NewGuid().ToString(); // set existing order identifier (e.g. order number/ order id/ order externalNumber)
 
-            var patchData = new JObject
-            {
-                [nameof(OrderDetails.CustomerName)] = "Muster GmbH",
-                [nameof(OrderDetails.DeliveryDatePlanned)] = "2026-09-15T00:00:00Z",
-                [nameof(OrderDetails.Email)] = null // cleared
-            };
-
-            //or use directly the name of the property
-            //patchData = new JObject
-            //{
-            //    ["customerName"] = "Muster GmbH",
-            //    ["deliveryDatePlanned"] = "2026-09-15T00:00:00Z",
-            //    ["email"] = null // cleared
-            //};
+            var patchData = PatchBuilder<OrderDetails>.For()
+                .Set(o => o.CustomerName, "Muster GmbH")
+                .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z"))
+                .Set(o => o.Email, null)
+                .Build();
 
             await productionManagerClient.PatchOrder(identifier, patchData);
         }

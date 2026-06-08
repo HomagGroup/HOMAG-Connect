@@ -89,12 +89,11 @@ The sample code can be found at [ProductionManager - Release Orders sample ](Rel
  
  string identifier = Guid.NewGuid().ToString(); // set existing order identifier (e.g. order number/ order id/ order externalNumber)
 
- var patchData = new JObject
- {
-     ["customerName"] = "Muster GmbH",
-     ["deliveryDate"] = "2026-09-15T00:00:00Z",
-     ["email"] = null // cleared
- };
+ var patchData = PatchBuilder<OrderDetails>.For()
+                .Set(o => o.CustomerName, "Muster GmbH")
+                .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z"))
+                .Set(o => o.Email, null) // will reset Email to default value
+                .Build();
 
  await client.PatchOrder(identifier, patchData);
 ``` 
