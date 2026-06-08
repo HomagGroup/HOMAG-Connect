@@ -52,15 +52,8 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// <summary>
         /// User right (can be: Master, Advanced, Simple)
         /// </summary>
-        [Obsolete("Use UserRightType instead.")]
         [JsonProperty("userRight")]
-        public string UserRight { get; set; } = null!;
-
-        /// <summary>
-        /// User right (can be: Master, Advanced, Simple)
-        /// </summary>
-        [JsonProperty("userRightType")]
-        public MDLibraryAttributeUserRight UserRightType { get; set; }
+        public MDAttributeUserRight UserRight { get; set; }
 
         /// <summary>
         /// Implicit relevant
