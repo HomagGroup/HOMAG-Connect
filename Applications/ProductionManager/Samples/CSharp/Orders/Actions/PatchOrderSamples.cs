@@ -1,4 +1,5 @@
 ﻿using HomagConnect.ProductionManager.Contracts;
+using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json.Linq;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Actions
@@ -19,10 +20,18 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
 
             var patchData = new JObject
             {
-                ["customerName"] = "Muster GmbH",
-                ["deliveryDate"] = "2026-09-15T00:00:00Z",
-                ["email"] = null // cleared
+                [nameof(OrderDetails.CustomerName)] = "Muster GmbH",
+                [nameof(OrderDetails.DeliveryDatePlanned)] = "2026-09-15T00:00:00Z",
+                [nameof(OrderDetails.Email)] = null // cleared
             };
+
+            //or use directly the name of the property
+            //patchData = new JObject
+            //{
+            //    ["customerName"] = "Muster GmbH",
+            //    ["deliveryDatePlanned"] = "2026-09-15T00:00:00Z",
+            //    ["email"] = null // cleared
+            //};
 
             await productionManagerClient.PatchOrder(identifier, patchData);
         }
