@@ -94,7 +94,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="identifier">Can be OrderId/OrderNumber/ExternalOrderNumber</param>
         /// <param name="patchData"></param>
         /// <returns></returns>
-        Task PatchOrder(string identifier, IReadOnlyDictionary<string, object?>? patchData);
+        Task PatchOrder(string identifier, JObject patchData);
 
         #endregion
 

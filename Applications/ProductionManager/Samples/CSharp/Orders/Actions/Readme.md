@@ -94,8 +94,8 @@ The sample code can be found at [ProductionManager - Release Orders sample ](Rel
                 .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z"))
                 .Set(o => o.Email, null) // will reset Email to default value
                 .Build();
-
- await client.PatchOrder(identifier, patchData);
+ var jPatchData = JObject.FromObject(patchData);
+ await client.PatchOrder(identifier, jPatchData);
 ``` 
 
 The sample code can be found at [ProductionManager - Patch Orders sample ](PatchOrderSamples.cs).
