@@ -23,7 +23,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
             string identifier = Guid.NewGuid().ToString(); // set existing order identifier (e.g. order number/ order id/ order externalNumber)
 
             var patchData = PatchBuilder<OrderDetails>.For()
-                .Set(o => o.Project, "Muster GmbH")
+                .Set(o => o.CustomerName, "Muster GmbH")
                 .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z"))
                 .Set(o => o.Email, null)
                 .Build();
