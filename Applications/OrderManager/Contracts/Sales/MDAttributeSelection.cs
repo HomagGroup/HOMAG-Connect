@@ -14,24 +14,6 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public object? Value { get; set; }
 
         /// <summary>
-        /// The minimum value for this selection.
-        /// </summary>
-        [JsonProperty("min")]
-        public double? Min { get; set; }
-
-        /// <summary>
-        /// The maximum value for this selection.
-        /// </summary>
-        [JsonProperty("max")]
-        public double? Max { get; set; }
-
-        /// <summary>
-        /// The step value for this selection.
-        /// </summary>
-        [JsonProperty("step")]
-        public double? Step { get; set; }
-
-        /// <summary>
         /// A localized description of this selection.
         /// </summary>
         [JsonProperty("desc")]
