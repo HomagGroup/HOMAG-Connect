@@ -23,7 +23,14 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
             var patchData = PatchBuilder<OrderDetails>.For()
                 .Set(o => o.CustomerName, "Muster GmbH")
                 .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z", CultureInfo.CurrentCulture))
-                .Set(o => o.Email, null)
+                .Set(o => o.Email, null) // will reset email field
+                .Set(o => o.Address, new Address
+                {
+                    Street = "Test street",
+                    PostalCode = "12345",
+                    City = "Test City",
+                    Country = "Germany"
+                })
                 .Build();
 
             var jPatchData = JObject.FromObject(patchData);
