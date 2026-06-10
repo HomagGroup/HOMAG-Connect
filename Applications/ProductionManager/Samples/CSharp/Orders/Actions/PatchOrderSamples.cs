@@ -18,11 +18,7 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         /// <returns></returns>
         public static async Task PatchOrder(IProductionManagerClient productionManagerClient)
         {
-            string identifier = string.Empty // set existing order identifier (e.g. order number/ order id/ order externalNumber)
-            if (string.IsNullOrEmpty(identifier))
-            {
-                throw new ArgumentNullException("No order id set");
-            }
+            string identifier = string.Empty; // set existing order identifier (e.g. order number/ order id/ order externalNumber)
 
             var patchData = PatchBuilder<OrderDetails>.For()
                 .Set(o => o.CustomerName, "Muster GmbH")
