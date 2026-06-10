@@ -44,6 +44,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
             await productionManagerClient.PatchOrder(orderIdentifier!, jPatchData);
 
             var updatedOrder = await productionManagerClient.GetOrder(orderIdentifier!);
+
+            //Assert
             Assert.AreEqual("Muster GmbH", updatedOrder.CustomerName);
             Assert.AreEqual("Test City", updatedOrder.Address!.City);
         }
