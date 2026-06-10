@@ -286,7 +286,7 @@ namespace HomagConnect.ProductionManager.Client
         {
             var url = $"/api/productionManager/orders/{identifier}";
 
-            var content = new StringContent(patchData.ToString(Formatting.None), Encoding.UTF8, "application/merge-patch+json");
+            var content = new StringContent(JsonConvert.SerializeObject(patchData, Formatting.None), Encoding.UTF8, "application/merge-patch+json");
             var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
             response.EnsureSuccessStatusCode();
