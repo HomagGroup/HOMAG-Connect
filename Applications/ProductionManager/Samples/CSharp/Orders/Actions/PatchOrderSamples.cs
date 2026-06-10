@@ -18,12 +18,25 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
         /// <returns></returns>
         public static async Task PatchOrder(IProductionManagerClient productionManagerClient)
         {
-            string identifier = Guid.NewGuid().ToString(); // set existing order identifier (e.g. order number/ order id/ order externalNumber)
+            string identifier = string.Empty // set existing order identifier (e.g. order number/ order id/ order externalNumber)
+            if (string.IsNullOrEmpty(identifier))
+            {
+                throw new ArgumentNullException("No order id set");
+            }
 
             var patchData = PatchBuilder<OrderDetails>.For()
                 .Set(o => o.CustomerName, "Muster GmbH")
                 .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z", CultureInfo.CurrentCulture))
                 .Set(o => o.Email, null)
+                .Set(o => o.Address, new Address
+                {
+                    City = "Test City",
+                    HouseNumber = "123",
+                })
+                .Set(o => o.AdditionalProperties, new Dictionary<string, object>
+                {
+                    ["CustomProperty"] = "CustomPropertyValue",
+                })
                 .Build();
 
             var jPatchData = JObject.FromObject(patchData);
