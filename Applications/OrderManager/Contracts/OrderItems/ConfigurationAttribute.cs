@@ -71,6 +71,19 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     public int? Sorting { get; set; }
 
     /// <summary>
+    /// User right (can be: Master, Advanced, Simple)
+    /// </summary>
+    [JsonProperty("userRight")]
+    public string? UserRight { get; set; }
+
+    /// <summary>
+    /// Specifies if the attribute was marked as hidden during creation.
+    /// </summary>
+    [JsonProperty("isHidden")]
+    public bool? IsHidden { get; set; }
+
+
+    /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
     [JsonProperty(Order = 997)]

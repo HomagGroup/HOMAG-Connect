@@ -69,5 +69,11 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// Gets or sets the Sales Portal Access.
         /// </summary>
         public Collection<string>? SalesPortalAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current state.
+        /// If not set, the state is considered as <see cref="State.Approved"/>.
+        /// </summary>
+        public State? State { get; set; }
     }
 }

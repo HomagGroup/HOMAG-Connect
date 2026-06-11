@@ -98,6 +98,24 @@ namespace HomagConnect.OrderManager.Client
 
         #endregion
 
+        #region Order release
+
+        /// <inheritdoc />
+        public async Task ReleaseOrder(Guid orderId)
+        {
+            var url = $"{_OrderRoute}/{orderId}/release";
+            await PatchObject(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task ResetReleaseOrder(Guid orderId)
+        {
+            var url = $"{_OrderRoute}/{orderId}/resetRelease";
+            await PatchObject(new Uri(url, UriKind.Relative));
+        }
+
+        #endregion
+
         #region Order import
 
         /// <inheritdoc />
