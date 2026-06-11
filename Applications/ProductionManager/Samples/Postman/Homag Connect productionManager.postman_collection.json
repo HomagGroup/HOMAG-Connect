@@ -1,762 +1,796 @@
 {
-	"info": {
-		"_postman_id": "e55fc96a-54ab-4ea2-8314-bfd20cf5117f",
-		"name": "Homag Connect productionManager",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "444913"
-	},
-	"item": [
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "Delete",
-					"item": [
-						{
-							"name": "Delete by order by order Ids",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders?orderId=db978068-bc7a-4ba8-b8de-117ad0743395",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "orderId",
-											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
-											"description": "Add your order id"
-										},
-										{
-											"key": "orderId",
-											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
-											"description": "Add your order id",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete by order by order numbers",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders?orderNumber=300",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "orderNumber",
-											"value": "300",
-											"description": "Add your order number"
-										},
-										{
-											"key": "orderNumber",
-											"value": "200",
-											"description": "Add your order number",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Import",
-					"item": [
-						{
-							"name": "Import order",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "ImportRequest",
-											"value": "{\n  \"action\": \"ImportOnly\"\n}",
-											"type": "default"
-										},
-										{
-											"key": "ImportFile",
-											"type": "file",
-											"src": "Wardrobe.zip"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/import",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"import"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Import parts via template",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "files",
-											"type": "file",
-											"src": "/C:/Users/DH10KTR/Downloads/Import-Excel-English-Part-List-pM.xlsx"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/import/templates/{{templateId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"import",
-										"templates",
-										"{{templateId}}"
-									],
-									"query": [
-										{
-											"key": "orderName",
-											"value": null,
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get import templates",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/import/templates",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"import",
-										"templates"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Import order status",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/import/:correlationId",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"import",
-										":correlationId"
-									],
-									"variable": [
-										{
-											"key": "correlationId",
-											"value": "d24ace7b-3ba6-47f3-8c0d-c1e1160c2892"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Release",
-					"item": [
-						{
-							"name": "ReleaseOrder",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}/release",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"{{OrderId}}",
-										"release"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "ResetReleaseOrder",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}/resetRelease",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"{{OrderId}}",
-										"resetRelease"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Read",
-					"item": [
-						{
-							"name": "Get orders",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get orders details + bill of materials",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orders",
-										"{{OrderId}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Lots",
-			"item": [
-				{
-					"name": "Delete",
-					"item": [
-						{
-							"name": "Delete or decompose lots by lot ids",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots?lotId=56a48b72-1f5f-43c4-a011-e8a600154829",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"lots"
-									],
-									"query": [
-										{
-											"key": "lotId",
-											"value": "56a48b72-1f5f-43c4-a011-e8a600154829",
-											"description": "Add your lot id"
-										},
-										{
-											"key": "lotId",
-											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
-											"description": "Add your lot id",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete or decompose lots by lot names",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots?lotName=Your_Name1",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"lots"
-									],
-									"query": [
-										{
-											"key": "lotName",
-											"value": "Your_Name1",
-											"description": "Add your lot name"
-										},
-										{
-											"key": "lotName",
-											"value": "Your_Name2",
-											"description": "Add your lot name",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Create",
-					"item": [
-						{
-							"name": "Create lot",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Test Lot Homag Connect\",\r\n  \"startDatePlanned\": \"2025-07-23T08:51:21.8052452+00:00\",\r\n  \"completionDatePlanned\": \"2025-07-24T08:51:21.8052452+00:00\",\r\n  \"partIds\": [\r\n    \"1000868\"\r\n  ]\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"lots"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Read",
-					"item": [
-						{
-							"name": "Get lots",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"lots"
-									],
-									"query": [
-										{
-											"key": "take",
-											"value": null,
-											"description": "Take value",
-											"disabled": true
-										},
-										{
-											"key": "skip",
-											"value": null,
-											"description": "Skip value",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get lot details",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/lots/{{identifier}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"lots",
-										"{{identifier}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Order items",
-			"item": [
-				{
-					"name": "Read",
-					"item": [
-						{
-							"name": "Get order items by identifiers",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/orderItems?identifier=10697510&identifier=10697516",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"orderItems"
-									],
-									"query": [
-										{
-											"key": "identifier",
-											"value": "10697510",
-											"description": "Your public id or barcode"
-										},
-										{
-											"key": "identifier",
-											"value": "10697516",
-											"description": "Your public id or barcode"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Rework",
-			"item": [
-				{
-					"name": "Read",
-					"item": [
-						{
-							"name": "Get completed reworks",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Transferred&state=Rejected",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"reworks"
-									],
-									"query": [
-										{
-											"key": "state",
-											"value": "Transferred"
-										},
-										{
-											"key": "state",
-											"value": "Rejected"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get approved reworks",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Approved",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"reworks"
-									],
-									"query": [
-										{
-											"key": "state",
-											"value": "Approved"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get requested reworks",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"reworks"
-									],
-									"query": [
-										{
-											"key": "state",
-											"value": "Pending"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all current reworks with filter",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Approved&take=10&skip=0",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"productionManager",
-										"reworks"
-									],
-									"query": [
-										{
-											"key": "state",
-											"value": "Pending"
-										},
-										{
-											"key": "state",
-											"value": "Pending"
-										},
-										{
-											"key": "capturedAtFrom",
-											"value": "2026-03-01T00:00:00",
-											"disabled": true
-										},
-										{
-											"key": "capturedAtTo",
-											"value": "2027-04-01T00:00:00",
-											"disabled": true
-										},
-										{
-											"key": "take",
-											"value": "10"
-										},
-										{
-											"key": "skip",
-											"value": "0"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Statistics",
-			"item": [
-				{
-					"name": "Get current and past reworks with filter",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ConnectHost}}/api/productionManager/statistics/reworks?daysBack=30&state=Rejected&identifier=Kitchen-Block-A&take=10&skip=0",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"productionManager",
-								"statistics",
-								"reworks"
-							],
-							"query": [
-								{
-									"key": "daysBack",
-									"value": "30"
-								},
-								{
-									"key": "state",
-									"value": "Rejected"
-								},
-								{
-									"key": "identifier",
-									"value": "Kitchen-Block-A"
-								},
-								{
-									"key": "take",
-									"value": "10"
-								},
-								{
-									"key": "skip",
-									"value": "0"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	],
-	"auth": {
-		"type": "basic",
-		"basic": [
-			{
-				"key": "password",
-				"value": "{{ConnectPassword}}",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "{{ConnectUserName}}",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	]
+  "info": {
+    "_postman_id": "3f0f431a-30ac-4602-9020-480c1dbfeb47",
+    "name": "Homag Connect productionManager",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "444913"
+  },
+  "item": [
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Delete by order by order Ids",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders?orderId=db978068-bc7a-4ba8-b8de-117ad0743395",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderId",
+                      "value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+                      "description": "Add your order id"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+                      "description": "Add your order id",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete by order by order numbers",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders?orderNumber=300",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "300",
+                      "description": "Add your order number"
+                    },
+                    {
+                      "key": "orderNumber",
+                      "value": "200",
+                      "description": "Add your order number",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Import",
+          "item": [
+            {
+              "name": "Import order",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "ImportRequest",
+                      "value": "{\n  \"action\": \"ImportOnly\"\n}",
+                      "type": "default"
+                    },
+                    {
+                      "key": "ImportFile",
+                      "type": "file",
+                      "src": "Wardrobe.zip"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/import",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "import"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Import parts via template",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "files",
+                      "type": "file",
+                      "src": "/C:/Users/DH10KTR/Downloads/Import-Excel-English-Part-List-pM.xlsx"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/import/templates/{{templateId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "import",
+                    "templates",
+                    "{{templateId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderName",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get import templates",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/import/templates",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "import",
+                    "templates"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Import order status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/import/:correlationId",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "import",
+                    ":correlationId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "correlationId",
+                      "value": "d24ace7b-3ba6-47f3-8c0d-c1e1160c2892"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Release",
+          "item": [
+            {
+              "name": "ReleaseOrder",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}/release",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "{{OrderId}}",
+                    "release"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ResetReleaseOrder",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}/resetRelease",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "{{OrderId}}",
+                    "resetRelease"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Read",
+          "item": [
+            {
+              "name": "Get orders",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get orders details + bill of materials",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/{{OrderId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "{{OrderId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Patch",
+          "item": [
+            {
+              "name": "Patch Order",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{   \r\n    \"orderName\": \"Test orderName\",\r\n    \"customerName\": \"Test customer\",\r\n    \"deliveryDatePlanned\" : \"2026-06-09 20:30:52\",    \r\n    \"address\": {       \r\n        \"houseNumber\": \"10\",       \r\n        \"city\": \"Cluj\"\r\n    },\r\n    \"additionalProperties\": {       \r\n        \"Mitarbeiter_BA\": \"10\"  \r\n    }        \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders/{{identifier}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders",
+                    "{{identifier}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lots",
+      "item": [
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Delete or decompose lots by lot ids",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/lots?lotId=56a48b72-1f5f-43c4-a011-e8a600154829",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "lots"
+                  ],
+                  "query": [
+                    {
+                      "key": "lotId",
+                      "value": "56a48b72-1f5f-43c4-a011-e8a600154829",
+                      "description": "Add your lot id"
+                    },
+                    {
+                      "key": "lotId",
+                      "value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+                      "description": "Add your lot id",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete or decompose lots by lot names",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/lots?lotName=Your_Name1",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "lots"
+                  ],
+                  "query": [
+                    {
+                      "key": "lotName",
+                      "value": "Your_Name1",
+                      "description": "Add your lot name"
+                    },
+                    {
+                      "key": "lotName",
+                      "value": "Your_Name2",
+                      "description": "Add your lot name",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create",
+          "item": [
+            {
+              "name": "Create lot",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Test Lot Homag Connect\",\r\n  \"startDatePlanned\": \"2025-07-23T08:51:21.8052452+00:00\",\r\n  \"completionDatePlanned\": \"2025-07-24T08:51:21.8052452+00:00\",\r\n  \"partIds\": [\r\n    \"1000868\"\r\n  ]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/lots",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "lots"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Read",
+          "item": [
+            {
+              "name": "Get lots",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/lots",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "lots"
+                  ],
+                  "query": [
+                    {
+                      "key": "take",
+                      "value": null,
+                      "description": "Take value",
+                      "disabled": true
+                    },
+                    {
+                      "key": "skip",
+                      "value": null,
+                      "description": "Skip value",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get lot details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/lots/{{identifier}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "lots",
+                    "{{identifier}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Order items",
+      "item": [
+        {
+          "name": "Read",
+          "item": [
+            {
+              "name": "Get order items by identifiers",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orderItems?identifier=10697510&identifier=10697516",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orderItems"
+                  ],
+                  "query": [
+                    {
+                      "key": "identifier",
+                      "value": "10697510",
+                      "description": "Your public id or barcode"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "10697516",
+                      "description": "Your public id or barcode"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rework",
+      "item": [
+        {
+          "name": "Read",
+          "item": [
+            {
+              "name": "Get completed reworks",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/reworks?state=Transferred&state=Rejected",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "reworks"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "Transferred"
+                    },
+                    {
+                      "key": "state",
+                      "value": "Rejected"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get approved reworks",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/reworks?state=Approved",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "reworks"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "Approved"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get requested reworks",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "reworks"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "Pending"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all current reworks with filter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/reworks?state=Pending&state=Approved&take=10&skip=0",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "reworks"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "Pending"
+                    },
+                    {
+                      "key": "state",
+                      "value": "Pending"
+                    },
+                    {
+                      "key": "capturedAtFrom",
+                      "value": "2026-03-01T00:00:00",
+                      "disabled": true
+                    },
+                    {
+                      "key": "capturedAtTo",
+                      "value": "2027-04-01T00:00:00",
+                      "disabled": true
+                    },
+                    {
+                      "key": "take",
+                      "value": "10"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Statistics",
+      "item": [
+        {
+          "name": "Get current and past reworks with filter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ConnectHost}}/api/productionManager/statistics/reworks?daysBack=30&state=Rejected&identifier=Kitchen-Block-A&take=10&skip=0",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "productionManager",
+                "statistics",
+                "reworks"
+              ],
+              "query": [
+                {
+                  "key": "daysBack",
+                  "value": "30"
+                },
+                {
+                  "key": "state",
+                  "value": "Rejected"
+                },
+                {
+                  "key": "identifier",
+                  "value": "Kitchen-Block-A"
+                },
+                {
+                  "key": "take",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "password",
+        "value": "{{ConnectPassword}}",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "{{ConnectUserName}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
 }
