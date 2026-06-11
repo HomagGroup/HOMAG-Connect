@@ -116,6 +116,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public string? CustomerNumber { get; set; }
 
         /// <summary>
+        /// The external id of the customer of this order (e.g. from the ERP system)
+        /// </summary>
+        [JsonProperty(Order = 315)]
+        public string? CustomerNumberExternal { get; set; }
+
+        /// <summary>
         /// The company of the customer of this order
         /// </summary>
         [JsonProperty(Order = 320)]
