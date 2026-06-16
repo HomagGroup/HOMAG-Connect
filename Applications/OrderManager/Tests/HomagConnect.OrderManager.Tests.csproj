@@ -57,5 +57,4 @@
 		<ProjectReference Include="..\Contracts\HomagConnect.OrderManager.Contracts.csproj" />
 		<ProjectReference Include="..\Samples\CSharp\HomagConnect.OrderManager.Samples.csproj" />
 	</ItemGroup>
-
 </Project>
