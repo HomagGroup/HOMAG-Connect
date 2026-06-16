@@ -58,4 +58,8 @@
 		<ProjectReference Include="..\Samples\CSharp\HomagConnect.OrderManager.Samples.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="OrderItems\" />
+	</ItemGroup>
+
 </Project>

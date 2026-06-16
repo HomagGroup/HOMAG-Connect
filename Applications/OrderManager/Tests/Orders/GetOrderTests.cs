@@ -1,17 +1,13 @@
-﻿using System.Collections.ObjectModel;
-
-using HomagConnect.Base.Contracts;
+﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using HomagConnect.OrderManager.Contracts.Orders;
 using HomagConnect.OrderManager.Samples.Orders.Actions;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Newtonsoft.Json;
-
 using Shouldly;
+using System.Collections.ObjectModel;
+using OrderItemBase = HomagConnect.OrderManager.Contracts.OrderItems.Base;
 
 namespace HomagConnect.OrderManager.Tests.Orders
 {
@@ -81,6 +77,11 @@ namespace HomagConnect.OrderManager.Tests.Orders
                             ContourInformation = "...",  // countout information for THIS group
                             Position = new double[] { 1, 2, 3 }, // position of THIS group in the room
                             Rotation = new double[] { 0, 90, 0 }, // rotation of THIS group in the room
+                            Attributes = new Collection<ConfigurationAttribute>
+                            {
+                                new("groupAttribute1", "value1"),
+                                new("groupAttribute2", 123)
+                            },
                             Items = new()
                             {
                                 new ConfigurationPosition
@@ -678,6 +679,92 @@ namespace HomagConnect.OrderManager.Tests.Orders
             var json = JsonConvert.SerializeObject(order, SerializerSettings.Default);
             var o = JsonConvert.DeserializeObject<OrderDetails>(json, SerializerSettings.Default);
             JsonConvert.SerializeObject(o, SerializerSettings.Default).ShouldBe(JsonConvert.SerializeObject(order, SerializerSettings.Default));
+        }
+
+        [TestMethod]
+        public void ConfigurationGroup_Attributes_DefaultsToEmptyCollection()
+        {
+            var group = new ConfigurationGroup();
+
+            group.Attributes.ShouldNotBeNull();
+            group.Attributes.ShouldBeEmpty();
+        }
+
+        [TestMethod]
+        public void ConfigurationGroup_Attributes_CanBeAssignedAndRetrieved()
+        {
+            var group = new ConfigurationGroup
+            {
+                Attributes = new Collection<ConfigurationAttribute>
+                {
+                    new("groupAttribute1", "value1"),
+                    new("groupAttribute2", 123)
+                }
+            };
+
+            group.Attributes.ShouldNotBeNull();
+            group.Attributes.Count.ShouldBe(2);
+            group.Attributes[0].Name.ShouldBe("groupAttribute1");
+            group.Attributes[0].Value.ShouldBe("value1");
+            group.Attributes[1].Name.ShouldBe("groupAttribute2");
+            group.Attributes[1].Value.ShouldBe(123);
+        }
+
+        [TestMethod]
+        public void ConfigurationGroup_Attributes_CanBeSetToNull()
+        {
+            var group = new ConfigurationGroup
+            {
+                Attributes = null
+            };
+
+            group.Attributes.ShouldBeNull();
+        }
+
+        [TestMethod]
+        public void ConfigurationGroup_WithAttributes_RoundTripsThroughJsonPreservingAttributes()
+        {
+            var group = new ConfigurationGroup
+            {
+                Id = "18BC8A58-1CBA-4FA4-B205-8E940831F90B",
+                ContourInformation = "...",
+                Position = new double[] { 1, 2, 3 },
+                Rotation = new double[] { 0, 90, 0 },
+                Attributes = new Collection<ConfigurationAttribute>
+                {
+                    new("groupAttribute1", "value1"),
+                    new("groupAttribute2", 123)
+                }
+            };
+
+            var json = JsonConvert.SerializeObject(group, SerializerSettings.Default);
+
+            var deserialized = JsonConvert.DeserializeObject<OrderItemBase>(json, SerializerSettings.Default);
+
+            var deserializedGroup = deserialized.ShouldBeOfType<ConfigurationGroup>();
+            deserializedGroup.Attributes.ShouldNotBeNull();
+            deserializedGroup.Attributes.Count.ShouldBe(2);
+            deserializedGroup.Attributes[0].Name.ShouldBe("groupAttribute1");
+            deserializedGroup.Attributes[1].Name.ShouldBe("groupAttribute2");
+
+            JsonConvert.SerializeObject(deserializedGroup, SerializerSettings.Default).ShouldBe(json);
+        }
+
+        [TestMethod]
+        public void ConfigurationGroup_WithoutAttributes_RoundTripsThroughJsonPreservingEmptyCollection()
+        {
+            var group = new ConfigurationGroup
+            {
+                Id = "18BC8A58-1CBA-4FA4-B205-8E940831F90B"
+            };
+
+            var json = JsonConvert.SerializeObject(group, SerializerSettings.Default);
+
+            var deserialized = JsonConvert.DeserializeObject<OrderItemBase>(json, SerializerSettings.Default);
+
+            var deserializedGroup = deserialized.ShouldBeOfType<ConfigurationGroup>();
+            deserializedGroup.Attributes.ShouldNotBeNull();
+            deserializedGroup.Attributes.ShouldBeEmpty();
         }
     }
 }
