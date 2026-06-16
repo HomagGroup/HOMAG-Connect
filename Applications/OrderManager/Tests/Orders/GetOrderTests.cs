@@ -7,7 +7,6 @@ using HomagConnect.OrderManager.Samples.Orders.Actions;
 using Newtonsoft.Json;
 using Shouldly;
 using System.Collections.ObjectModel;
-using OrderItemBase = HomagConnect.OrderManager.Contracts.OrderItems.Base;
 
 namespace HomagConnect.OrderManager.Tests.Orders
 {
@@ -739,7 +738,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
             var json = JsonConvert.SerializeObject(group, SerializerSettings.Default);
 
-            var deserialized = JsonConvert.DeserializeObject<OrderItemBase>(json, SerializerSettings.Default);
+            var deserialized = JsonConvert.DeserializeObject<Contracts.OrderItems.Base>(json, SerializerSettings.Default);
 
             var deserializedGroup = deserialized.ShouldBeOfType<ConfigurationGroup>();
             deserializedGroup.Attributes.ShouldNotBeNull();
@@ -760,7 +759,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
 
             var json = JsonConvert.SerializeObject(group, SerializerSettings.Default);
 
-            var deserialized = JsonConvert.DeserializeObject<OrderItemBase>(json, SerializerSettings.Default);
+            var deserialized = JsonConvert.DeserializeObject<Contracts.OrderItems.Base>(json, SerializerSettings.Default);
 
             var deserializedGroup = deserialized.ShouldBeOfType<ConfigurationGroup>();
             deserializedGroup.Attributes.ShouldNotBeNull();
