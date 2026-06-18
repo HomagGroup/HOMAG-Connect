@@ -64,7 +64,7 @@ namespace HomagConnect.MaterialManager.Contracts.Extension
             return AsyncPaging.GetAllByContinuationToken<Texture>(
                 async continuationToken =>
                 {
-                    var result = await materialManagerClientTextures.GetTextures(DefaultContinuationTokenPageSize, continuationToken);
+                    var result = await materialManagerClientTextures.GetTextures(filter: null, pageSize: DefaultContinuationTokenPageSize, continuationToken: continuationToken);
                     return new AsyncPaging.ContinuationTokenPage<Texture>(result.Textures, result.ContinuationToken);
                 },
                 cancellationToken);
