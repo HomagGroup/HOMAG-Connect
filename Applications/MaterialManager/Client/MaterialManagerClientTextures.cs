@@ -38,50 +38,41 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     }
 
     /// <inheritdoc />
-    public async Task<PagedTextureResult> GetTextures(int pageSize = 100, string? continuationToken = null)
-    {
-        var url = $"{_BaseRoute}?pageSize={pageSize}";
-        if (!string.IsNullOrWhiteSpace(continuationToken))
-        {
-            url += $"&continuationToken={Uri.EscapeDataString(continuationToken)}";
-        }
-
-        var response = await RequestObject<PagedTextureResult>(new Uri(url, UriKind.Relative));
-        return response ?? new PagedTextureResult();
-    }
+    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
+    public Task<PagedTextureResult> GetTextures(int pageSize = 100, string? continuationToken = null)
+        => GetTextures(new TextureFilter(), pageSize, continuationToken);
 
     /// <inheritdoc />
-    public async Task<PagedTextureResult> GetTextures(string? catalog, int pageSize = 100, string? continuationToken = null)
-    {
-        var url = $"{_BaseRoute}?pageSize={pageSize}";
-
-        if (!string.IsNullOrWhiteSpace(catalog))
-        {
-            url += $"&catalog={Uri.EscapeDataString(catalog)}";
-        }
-
-        if (!string.IsNullOrWhiteSpace(continuationToken))
-        {
-            url += $"&continuationToken={Uri.EscapeDataString(continuationToken)}";
-        }
-
-        var response = await RequestObject<PagedTextureResult>(new Uri(url, UriKind.Relative));
-        return response ?? new PagedTextureResult();
-    }
+    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
+    public Task<PagedTextureResult> GetTextures(string? catalog, int pageSize = 100, string? continuationToken = null)
+        => GetTextures(new TextureFilter { Catalog = catalog }, pageSize, continuationToken);
 
     /// <inheritdoc />
-    public async Task<PagedTextureResult> GetTextures(string? catalog, string? decorCode, int pageSize = 100, string? continuationToken = null)
+    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
+    public Task<PagedTextureResult> GetTextures(string? catalog, string? decorCode, int pageSize = 100, string? continuationToken = null)
+        => GetTextures(new TextureFilter { Catalog = catalog, DecorCode = decorCode }, pageSize, continuationToken);
+
+    /// <inheritdoc />
+    public async Task<PagedTextureResult> GetTextures(TextureFilter? filter = null, int pageSize = 100, string? continuationToken = null)
     {
         var url = $"{_BaseRoute}?pageSize={pageSize}";
 
-        if (!string.IsNullOrWhiteSpace(catalog))
+        if (filter is not null)
         {
-            url += $"&catalog={Uri.EscapeDataString(catalog)}";
-        }
+            if (!string.IsNullOrWhiteSpace(filter.Catalog))
+            {
+                url += $"&catalog={Uri.EscapeDataString(filter.Catalog)}";
+            }
 
-        if (!string.IsNullOrWhiteSpace(decorCode))
-        {
-            url += $"&decorCode={Uri.EscapeDataString(decorCode)}";
+            if (!string.IsNullOrWhiteSpace(filter.DecorCode))
+            {
+                url += $"&decorCode={Uri.EscapeDataString(filter.DecorCode)}";
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Embossing))
+            {
+                url += $"&embossing={Uri.EscapeDataString(filter.Embossing)}";
+            }
         }
 
         if (!string.IsNullOrWhiteSpace(continuationToken))
