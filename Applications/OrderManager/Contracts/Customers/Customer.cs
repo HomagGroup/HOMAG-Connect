@@ -31,7 +31,7 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         public string? Company { get; set; }
 
         /// <summary>
-        /// Gets or sets the address of the customer.
+        /// Gets or sets the customer number of the customer.
         /// </summary>
         public string CustomerNumber { get; set; } = null!;
 
@@ -69,5 +69,16 @@ namespace HomagConnect.OrderManager.Contracts.Customers
         /// Gets or sets the Sales Portal Access.
         /// </summary>
         public Collection<string>? SalesPortalAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current state.
+        /// If not set, the state is considered as <see cref="State.Approved"/>.
+        /// </summary>
+        public State? State { get; set; }
+
+        /// <summary>
+        /// Optional customer number from an external system, e.g. ERP system.
+        /// </summary>
+        public string? CustomerNumberExternal { get; set; }
     }
 }

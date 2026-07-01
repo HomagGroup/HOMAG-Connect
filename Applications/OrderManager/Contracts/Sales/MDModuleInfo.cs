@@ -61,18 +61,21 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// Indicates whether this module can be used as a root module of an article.
         /// </summary>
         [JsonProperty("isRoot")]
+        [Obsolete("This property is deprecated and should not be used anymore. Use ModuleType instead.")]
         public bool? IsRoot { get; set; }
 
         /// <summary>
         /// Indicates if the module is a dummy module
         /// </summary>
         [JsonProperty("isConfigDummy")]
+        [Obsolete("This property is deprecated and should not be used anymore. Use ModuleType instead.")]
         public bool? IsConfigDummy { get; set; }
 
         /// <summary>
         /// Indicates if the module is drop container
         /// </summary>
         [JsonProperty("isDropContainer")]
+        [Obsolete("This property is deprecated and should not be used anymore. Use ModuleType instead.")]
         public bool? IsDropContainer { get; set; }
 
         /// <summary>
@@ -81,5 +84,10 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         [JsonExtensionData]
         [JsonProperty(Order = 999)]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+        /// <summary>
+        /// The type of the module, which determines how it can be used in the configuration and how it is represented in the UI.
+        /// </summary>
+        public MDModuleType? ModuleType { get; set; }
     }
 }

@@ -204,7 +204,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithDefaults_ReturnsPaginatedResult()
     {
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures();
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter());
 
         // Assert
         result.ShouldNotBeNull("because paged texture result should be returned");
@@ -222,7 +222,7 @@ public class TextureTests : MaterialManagerTestBase
         const int pageSize = 10;
 
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures(pageSize: pageSize);
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter(), pageSize: pageSize);
 
         // Assert
         result.ShouldNotBeNull("because paged texture result should be returned");
@@ -241,13 +241,13 @@ public class TextureTests : MaterialManagerTestBase
 
         var stopwatch = Stopwatch.StartNew();
 
-        var firstPageTextures = (await _MaterialManagerClientTextures!.GetTextures(pageSize: pageSize)).Textures;
+        var firstPageTextures = (await _MaterialManagerClientTextures!.GetTextures(new TextureFilter(), pageSize: pageSize)).Textures;
 
         TestContext!.WriteLine($"Time taken to fetch {firstPageTextures.Count} of {pageSize} textures: {stopwatch.Elapsed}");
 
         stopwatch.Restart();
 
-        var allTextures =await _MaterialManagerClientTextures.GetTextures(TestContext.CancellationToken).ToListAsync();
+        var allTextures = await _MaterialManagerClientTextures.GetTextures(TestContext.CancellationToken).ToListAsync();
 
         TestContext.WriteLine($"Time taken to fetch all {allTextures.Count} textures: {stopwatch.Elapsed}");
 
@@ -279,7 +279,7 @@ public class TextureTests : MaterialManagerTestBase
         do
         {
             pageCount++;
-            var result = await _MaterialManagerClientTextures!.GetTextures(pageSize: pageSize, continuationToken: continuationToken);
+            var result = await _MaterialManagerClientTextures!.GetTextures(filter: null, pageSize: pageSize, continuationToken: continuationToken);
 
             result.ShouldNotBeNull("because paged result should be returned");
             result.Textures.ShouldNotBeNull("because textures list should be present");
@@ -310,11 +310,10 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithCatalogFilter_ReturnsOnlyFilteredCatalog()
     {
         // Arrange
-        // Ensure textures are available
         await EnsureTestTexturesExistAsync();
 
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: _TestCatalog);
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = _TestCatalog });
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -331,8 +330,11 @@ public class TextureTests : MaterialManagerTestBase
     [TestMethod]
     public async Task GetTextures_WithCatalogAndDecorCodeFilter_ReturnsOnlyFilteredResults()
     {
+        // Arrange
+        await EnsureTestTexturesExistAsync();
+
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: _TestCatalog, decorCode: _TestCatalogDecor1);
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = _TestCatalog, DecorCode = _TestCatalogDecor1 });
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -342,13 +344,36 @@ public class TextureTests : MaterialManagerTestBase
     }
 
     /// <summary>
+    /// Tests retrieval of textures filtered by catalog, decor code, and embossing.
+    /// </summary>
+    [TestMethod]
+    public async Task GetTextures_WithFullFilter_ReturnsOnlyMatchingTexture()
+    {
+        // Arrange
+        await EnsureTestTexturesExistAsync();
+
+        // Act
+        var result = await _MaterialManagerClientTextures!.GetTextures(
+            new TextureFilter { Catalog = _TestCatalog, DecorCode = _TestCatalogDecor1, Embossing = _TestCatalogEmb1 });
+
+        // Assert
+        result.ShouldNotBeNull();
+        result.Textures.ShouldNotBeNull();
+        result.Textures.All(t =>
+            t.Catalog == _TestCatalog &&
+            t.DecorCode == _TestCatalogDecor1 &&
+            t.Embossing == _TestCatalogEmb1
+        ).ShouldBeTrue("because all fields of the filter should be applied");
+    }
+
+    /// <summary>
     /// Tests that null catalog parameter works correctly.
     /// </summary>
     [TestMethod]
     public async Task GetTextures_WithNullCatalog_ReturnsAllTextures()
     {
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: null);
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = null });
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -362,7 +387,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithNullCatalogAndDecorCode_ReturnsAllTextures()
     {
         // Act
-        var result = await _MaterialManagerClientTextures!.GetTextures(catalog: null, decorCode: null);
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = null, DecorCode = null });
 
         // Assert
         result.ShouldNotBeNull("because paged result should be returned");
@@ -376,7 +401,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithZeroPageSize_ThrowsException()
     {
         // Act & Assert
-        var act = async () => await _MaterialManagerClientTextures!.GetTextures(pageSize: 0);
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(new TextureFilter(), pageSize: 0);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because page size must be greater than 0");
     }
@@ -388,7 +413,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithNegativePageSize_ThrowsException()
     {
         // Act & Assert
-        var act = async () => await _MaterialManagerClientTextures!.GetTextures(pageSize: -5);
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(new TextureFilter(), pageSize: -5);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because page size must be greater than 0");
     }
@@ -401,7 +426,7 @@ public class TextureTests : MaterialManagerTestBase
     {
         // Act & Assert
         const int excessivePageSize = 1000;
-        var act = async () => await _MaterialManagerClientTextures!.GetTextures(pageSize: excessivePageSize);
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(new TextureFilter(), pageSize: excessivePageSize);
         await Should.ThrowAsync<HttpRequestException>(act,
             "because page size must not exceed maximum allowed (100)");
     }
@@ -413,7 +438,7 @@ public class TextureTests : MaterialManagerTestBase
     public async Task GetTextures_WithDecorCodeButNoCatalog_ThrowsException()
     {
         // Act & Assert - decor code without catalog should fail on API side
-        var act = async () => await _MaterialManagerClientTextures!.GetTextures(catalog: null, decorCode: "some-decor");
+        var act = async () => await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = null, DecorCode = "some-decor" });
         await Should.ThrowAsync<HttpRequestException>(act,
             "because API should reject decor code filter when catalog is not specified");
     }

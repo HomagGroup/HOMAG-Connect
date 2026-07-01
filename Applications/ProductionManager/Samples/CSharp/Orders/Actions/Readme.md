@@ -81,3 +81,21 @@ The sample code can be found at [ProductionManager - Release Orders sample ](Rel
 
 The sample code can be found at [ProductionManager - Release Orders sample ](ReleaseOrderSamples.cs).
 
+<strong>Example PatchOrder :</strong>
+
+```c#
+ // Create new instance of the productionManager client:
+ var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+ 
+ string identifier = Guid.NewGuid().ToString(); // set existing order identifier (e.g. order number/ order id/ order externalNumber)
+
+ var patchData = PatchBuilder<OrderDetails>.For()
+                .Set(o => o.CustomerName, "Muster GmbH")
+                .Set(o => o.DeliveryDatePlanned, DateTime.Parse("2026-09-15T00:00:00Z"))
+                .Set(o => o.Email, null) // will reset Email to default value
+                .Build();
+ var jPatchData = JObject.FromObject(patchData);
+ await client.PatchOrder(identifier, jPatchData);
+``` 
+
+The sample code can be found at [ProductionManager - Patch Orders sample ](PatchOrderSamples.cs).
