@@ -42,10 +42,10 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public double? Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the offcut length.
+        /// Gets or sets the offcut width.
         /// Unit: millimeters for <see cref="UnitSystem.Metric"/> and inches for <see cref="UnitSystem.Imperial"/>.
         /// </summary>
-        /// <example>1201.0</example>
+        /// <example>567.8</example>
         [JsonProperty(Order = 4)]
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public double? Width { get; set; }
