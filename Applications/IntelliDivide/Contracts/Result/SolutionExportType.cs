@@ -33,6 +33,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// <summary>
         /// ZIP file containing the MPRs for nesting.
         /// </summary>
-        ZIP
+        ZIP,
+
+        /// <summary>
+        /// Excel file containing the part list.
+        /// </summary>
+        PartList
     }
 }
