@@ -24,7 +24,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut id.
         /// </summary>
         [JsonProperty(Order = 1)]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the offcut quantity.
