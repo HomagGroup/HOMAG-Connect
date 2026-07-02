@@ -30,7 +30,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut quantity.
         /// </summary>
         [JsonProperty(Order = 2)]
-        public int Quantity  { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Gets or sets the offcut length.
