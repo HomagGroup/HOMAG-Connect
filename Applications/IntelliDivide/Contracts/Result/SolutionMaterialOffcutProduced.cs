@@ -83,7 +83,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut ids and quantities announced in materialAssist.
         /// </summary>
         /// <example>{"XID-670959": 2, "XID-624742": 1}</example>
-        [Obsolete("Offcut unique ids are now provided via SolutionPattern.OffcutDetails; this property is no longer populated.")
+        [Obsolete("Offcut unique ids are now provided via SolutionPattern.OffcutDetails; this property is no longer populated.")]
         [JsonProperty(Order = 9)]
         public Dictionary<string, int>? XIds { get; set; }
 
