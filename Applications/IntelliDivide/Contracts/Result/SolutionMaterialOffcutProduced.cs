@@ -24,7 +24,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     ///   "quantity": 2,
     ///   "costs": 5.03,
     ///   "grain": "Crosswise",
-    ///   "ids": ["XID-670959", "XID-624742"]
     /// }
     /// </example>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
@@ -84,6 +83,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut ids and quantities announced in materialAssist.
         /// </summary>
         /// <example>{"XID-670959": 2, "XID-624742": 1}</example>
+        [Obsolete("The XIds (offcut unique ids) are only available in the SolutionPattern.")]
         [JsonProperty(Order = 9)]
         public Dictionary<string, int>? XIds { get; set; }
 
