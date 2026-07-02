@@ -224,12 +224,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public double CuttingLength { get; set; }
 
         /// <summary>
-        /// Gets or sets details about offcuts contained in this pattern.
-        /// </summary>
-        [JsonProperty(Order = 30)]
-        public IReadOnlyCollection<SolutionOffcutDetails>? OffcutDetails { get; set; }
-
-        /// <summary>
         /// Gets or sets the maximum book height of the pattern.
         /// Unit: millimeters for <see cref="UnitSystem.Metric"/> and inches for <see cref="UnitSystem.Imperial"/>.
         /// </summary>
@@ -238,5 +232,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         [Range(0.0, 999.9)]
         public double MaxBookHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets details about offcuts contained in this pattern.
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        public IReadOnlyCollection<SolutionOffcutDetails>? OffcutDetails { get; set; }
     }
 }
