@@ -227,7 +227,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets details about offcuts contained in this pattern.
         /// </summary>
         [JsonProperty(Order = 30)]
-        public IReadOnlyList<SolutionOffcutDetails>? OffcutDetails { get; set; }
+        public IReadOnlyCollection<SolutionOffcutDetails>? OffcutDetails { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum book height of the pattern.
