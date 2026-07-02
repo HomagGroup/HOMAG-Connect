@@ -1,5 +1,7 @@
 ﻿#nullable enable
 
+using System.ComponentModel.DataAnnotations;
+
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 
@@ -30,6 +32,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut quantity.
         /// </summary>
         [JsonProperty(Order = 2)]
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
 
         /// <summary>
