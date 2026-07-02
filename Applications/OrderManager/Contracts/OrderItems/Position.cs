@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 // Note: This is preliminary code and is subject to change
@@ -135,4 +136,10 @@ public class Position : Base
     [JsonProperty(Order = 2)]
     [DefaultValue(State.New)]
     public State State { get; set; } = State.New;
+
+    /// <summary>
+    /// Contains configuration attributes.
+    /// </summary>
+    [JsonProperty(Order = 50)]
+    public Collection<ConfigurationAttribute>? Attributes { get; set; } = new Collection<ConfigurationAttribute>();
 }

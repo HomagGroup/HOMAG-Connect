@@ -184,6 +184,10 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                 {
                                     Id = "47F74A7F-999C-44C2-AF5B-709F0D25B5EA",
                                     PositionType = PositionType.MaterialAndProcessing,
+                                    Attributes = new()
+                                    {
+                                        new ConfigurationAttribute("mod_Width", 548)
+                                    },
                                     IsHidden = true,
                                     Items = new()
                                     {
