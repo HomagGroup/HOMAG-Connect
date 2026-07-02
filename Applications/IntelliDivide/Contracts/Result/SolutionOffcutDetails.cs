@@ -1,8 +1,9 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿#nullable enable
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 
 using Newtonsoft.Json;
-
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
     /// <summary>
