@@ -138,7 +138,7 @@ public class Position : Base
     public State State { get; set; } = State.New;
 
     /// <summary>
-    /// Contains configuration attributes.
+    /// Contains configuration and/or other attribute information which can be displayed under this postion.
     /// </summary>
     [JsonProperty(Order = 50)]
     public Collection<ConfigurationAttribute>? Attributes { get; set; } = new Collection<ConfigurationAttribute>();
