@@ -212,8 +212,12 @@ namespace HomagConnect.OrderManager.Tests.Orders
                                     Id = "E02967A6-22AF-466F-B721-B4A9DC270489",
                                     LinkedConfigurationId = "9746919d-9611-4d1d-98d3-0fc6f083c1fb",
                                     PositionType = PositionType.PriceGenerated,
+                                    Attributes = new()
+                                    {
+                                        new ConfigurationAttribute("mod_Width", 548)
+                                    },
                                     PositionNumber = "001.001"
-                                }
+                                },
                             }
                         },
                         new Price
