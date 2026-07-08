@@ -1,4 +1,4 @@
-﻿using Shouldly;
+using Shouldly;
 
 using HomagConnect.MaterialManager.Samples.Read.Boards;
 
@@ -54,5 +54,31 @@ public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
         var materialManager = GetMaterialManagerClient();
         var result = await materialManager.Material.Boards.GetBoardTypes(DateTimeOffset.UtcNow.AddDays(-2), 2);
         Assert.IsNotNull(result, "because GetBoardTypes should return a result for changed since filter");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task GetBoardTypesByExternalSystemId_GetResult_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
+        const string externalSystemId = "EXT-4711";
+
+        var act = async () => await MaterialManagerReadBoardsResults.GetBoardTypesByExternalSystemId(materialManager.Material.Boards, externalSystemId);
+
+        await Should.NotThrowAsync(act,
+            $"because GetBoardTypesByExternalSystemId should retrieve board types for external system id '{externalSystemId}' successfully");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task GetBoardTypesByExternalSystemIdIncludingDetails_GetResult_NoException()
+    {
+        var materialManager = GetMaterialManagerClient();
+        const string externalSystemId = "EXT-4711";
+
+        var act = async () => await MaterialManagerReadBoardsResults.GetBoardTypesByExternalSystemIdIncludingDetails(materialManager.Material.Boards, externalSystemId);
+
+        await Should.NotThrowAsync(act,
+            $"because GetBoardTypesByExternalSystemId with includingDetails should retrieve board types with inventory for external system id '{externalSystemId}' successfully");
     }
 }
