@@ -432,15 +432,18 @@ public class TextureTests : MaterialManagerTestBase
     }
 
     /// <summary>
-    /// Tests that GetTextures with decor code but without catalog throws validation error.
+    /// Tests that providing a decor code without a catalog returns an empty list.
     /// </summary>
     [TestMethod]
-    public async Task GetTextures_WithDecorCodeButNoCatalog_ThrowsException()
+    public async Task GetTextures_WithDecorCodeButNoCatalog_ReturnsEmptyList()
     {
-        // Act & Assert - decor code without catalog should fail on API side
-        var act = async () => await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = null, DecorCode = "some-decor" });
-        await Should.ThrowAsync<HttpRequestException>(act,
-            "because API should reject decor code filter when catalog is not specified");
+        // Act
+        var result = await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = null, DecorCode = "some-decor" });
+
+        // Assert
+        result.ShouldNotBeNull("because a paged result should always be returned");
+        result.Textures.ShouldNotBeNull("because the textures list should be present");
+        result.Textures.ShouldBeEmpty("because decor code without a catalog should match nothing");
     }
 
     /// <summary>
