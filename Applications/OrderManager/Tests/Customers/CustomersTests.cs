@@ -1,4 +1,5 @@
-﻿using HomagConnect.OrderManager.Samples.Customers.Actions;
+﻿using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.OrderManager.Samples.Customers.Actions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HomagConnect.OrderManager.Tests.Customers
@@ -17,7 +18,7 @@ namespace HomagConnect.OrderManager.Tests.Customers
             {
                 await CustomerSamples.DeleteCustomersByCustomerIds(orderManager);
             }
-            catch (ArgumentNullException) 
+            catch (ArgumentNullException)
             {
                 // catch as no customer ids are hardcoded in sample
             }
@@ -32,7 +33,7 @@ namespace HomagConnect.OrderManager.Tests.Customers
             {
                 await CustomerSamples.DeleteCustomersByCustomerNumbers(orderManager);
             }
-            catch (ArgumentNullException) 
+            catch (ArgumentNullException)
             {
                 // catch as no customer numbers are hardcoded in sample
             }
@@ -51,6 +52,18 @@ namespace HomagConnect.OrderManager.Tests.Customers
             {
                 // catch as no customer numbers are hardcoded in sample
             }
+        }
+
+        [TestMethod]
+        [TemporaryDisabledOnServer(2026, 08, 28, "DF-Production")]
+        public async Task CreateCustomer()
+        {
+            var orderManager = GetOrderManagerClient();
+
+            var customer = await CustomerSamples.CreateNewCustomer(orderManager);
+
+            Assert.IsNotNull(customer);
+            await orderManager.DeleteCustomersByCustomerIds([customer.Id]);
         }
     }
 }
