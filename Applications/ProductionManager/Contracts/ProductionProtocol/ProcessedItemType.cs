@@ -48,6 +48,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         /// <summary>
         /// Processed assembly group.
         /// </summary>
-        ProcessedAssemblyGroup,
+        ProcessedAssemblyGroup
     }
 }
