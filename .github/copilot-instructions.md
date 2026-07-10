@@ -11,6 +11,7 @@
 - Follow naming conventions
 - Use `/// <inheritdoc />` for properties derived from an interface or base class instead of duplicating documentation when documenting contracts.
 - When implementing deserialization-only private setters, prefer a StyleCop- and ReSharper-compatible implementation instead of an empty setter body.
+- Use Newtonsoft.Json instead of System.Text.Json in this codebase when working on JSON serialization/deserialization.
 
 ## Project-Specific Rules
 - Attributes should accept arrays of (string, int) pairs. Due to C# attribute parameter constraints, prefer repeatable attributes with a (string, int) constructor.
