@@ -107,7 +107,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kante hinten miniaturansicht.
+        ///   Looks up a localized string similar to Kante hinten Miniaturansicht.
         /// </summary>
         public static string EdgeBackThumbnail {
             get {
@@ -116,7 +116,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kante vorne miniaturansicht.
+        ///   Looks up a localized string similar to Kante vorne Miniaturansicht.
         /// </summary>
         public static string EdgeFrontThumbnail {
             get {
@@ -125,7 +125,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kante links miniaturansicht.
+        ///   Looks up a localized string similar to Kante links Miniaturansicht.
         /// </summary>
         public static string EdgeLeftThumbnail {
             get {
@@ -134,7 +134,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kante rechts miniaturansicht.
+        ///   Looks up a localized string similar to Kante rechts Miniaturansicht.
         /// </summary>
         public static string EdgeRightThumbnail {
             get {
@@ -170,7 +170,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belag unten miniaturansicht.
+        ///   Looks up a localized string similar to Belag unten Miniaturansicht.
         /// </summary>
         public static string LaminateBottomThumbnail {
             get {
@@ -179,7 +179,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Belag oben miniaturansicht.
+        ///   Looks up a localized string similar to Belag oben Miniaturansicht.
         /// </summary>
         public static string LaminateTopThumbnail {
             get {
@@ -188,7 +188,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Material miniaturansicht.
+        ///   Looks up a localized string similar to Material Miniaturansicht.
         /// </summary>
         public static string MaterialThumbnail {
             get {
