@@ -29,7 +29,7 @@ public class Workstation
     /// Example values include <c>Cutting</c>, <c>Nesting</c>, <c>Storage</c>, <c>CNC</c>, and <c>Assembly</c>.
     /// </summary>
     /// <example>Cutting</example>
-    [Obsolete("This property is obsolete. Use the new Type property instead.", true)]
+    [Obsolete("This property is obsolete and  latest on 1.1.2027. Use the new Type property instead.", true)]
     public WorkstationType WorkstationType 
     {
         get { return Type; }

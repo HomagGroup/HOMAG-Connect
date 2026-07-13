@@ -15,18 +15,24 @@ public class ProductionProtocolFlowNode : ISupportsLocalizedSerialization
     /// Gets or sets the tapio machine ID
     /// </summary>
     [JsonProperty(Order = 20)]
-    public Workstation? InputWorkstation { get; set; }
+    public Workstation? Workstation { get; set; }
 
     /// <summary>
     /// Gets or sets the distribution of parts per type on this workstation
     /// </summary>
     [JsonProperty(Order = 21)]
-    public Dictionary<ProductionItemType, int> ItemTypeSummary { get; set; } = new();
+    public int TotalCount { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the distribution of parts per type on this workstation
+    /// </summary>
+    [JsonProperty(Order = 23)]
+    public IEnumerable<KeyValuePair<ProductionItemType, int>> ItemTypeSummary { get; set; } = new List<KeyValuePair<ProductionItemType, int>>();
 
     /// <summary>
     /// Edges are only prepared for future development, when the flow of each single instance is known
     /// </summary>
-    [JsonProperty(Order = 22)]
+    [JsonProperty(Order = 23)]
     public IEnumerable<ProductionProtocolFlowEdge>? OutputWorkstations { get; set; }
 
 }
