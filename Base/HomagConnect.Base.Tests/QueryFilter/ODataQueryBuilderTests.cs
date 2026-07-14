@@ -119,7 +119,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
             var result = ODataQueryBuilder.BuildFilter(request);
 
             // Assert
-            result.ShouldBe("contains(tolower(Description), tolower('keyword'))");
+            result.ShouldBe("contains(Description, 'keyword')");
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
             var result = ODataQueryBuilder.BuildFilter(request);
 
             // Assert
-            result.ShouldBe("contains(tolower(Description), tolower('it''s'))");
+            result.ShouldBe("contains(Description, 'it''s')");
         }
 
         [TestMethod]
@@ -146,7 +146,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
             var result = ODataQueryBuilder.BuildFilter(request);
 
             // Assert
-            result.ShouldBe("(contains(tolower(Tags), tolower('urgent')) or contains(tolower(Tags), tolower('high priority')) or contains(tolower(Tags), tolower('critical')))");
+            result.ShouldBe("(contains(Tags, 'urgent') or contains(Tags, 'high priority') or contains(Tags, 'critical'))");
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
             var result = ODataQueryBuilder.BuildFilter(request);
 
             // Assert
-            result.ShouldBe("(contains(tolower(Tags), tolower('it''s')) or contains(tolower(Tags), tolower('we''re')))");
+            result.ShouldBe("(contains(Tags, 'it''s') or contains(Tags, 'we''re'))");
         }
 
         #endregion
@@ -239,7 +239,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
             var result = ODataQueryBuilder.BuildFilter(request);
 
             // Assert
-            result.ShouldBe("Status eq 'Active' and contains(tolower(Name), tolower('test'))");
+            result.ShouldBe("Status eq 'Active' and contains(Name, 'test')");
         }
 
         [TestMethod]
@@ -272,7 +272,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
             var result = ODataQueryBuilder.BuildFilter(request);
 
             // Assert
-            result.ShouldBe("(contains(tolower(Tags), tolower('urgent')) or contains(tolower(Tags), tolower('critical'))) and Status eq 'Open' and Priority ge 5");
+            result.ShouldBe("(contains(Tags, 'urgent') or contains(Tags, 'critical')) and Status eq 'Open' and Priority ge 5");
         }
 
         #endregion

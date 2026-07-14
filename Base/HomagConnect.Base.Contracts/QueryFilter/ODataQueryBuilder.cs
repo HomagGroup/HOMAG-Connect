@@ -71,13 +71,13 @@ public static class ODataQueryBuilder
         // String array: multiple contains clauses joined with 'or' in brackets
         if (c.Value is string[] stringArray)
         {
-            var clauses = stringArray.Select(v => $"contains(tolower({c.Column}), tolower('{Escape(v)}'))");
+            var clauses = stringArray.Select(v => $"contains({c.Column}, '{Escape(v)}')");
             return $"({string.Join(" or ", clauses)})";
         }
 
-        // Single string: case-insensitive contains
+        // Single string: contains
         if (c.Value is string s)
-            return $"contains(tolower({c.Column}), tolower('{Escape(s)}'))";
+            return $"contains({c.Column}, '{Escape(s)}')";
 
         throw new NotSupportedException($"Contains operator only supports string or string[] values. Got: {c.Value?.GetType().Name}");
     }

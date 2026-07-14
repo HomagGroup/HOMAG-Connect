@@ -27,7 +27,7 @@
 
         /// <summary>
         /// Adds a contains filter condition for the specified column and value.
-        /// Case-insensitive substring matching for strings.
+        /// Substring matching for strings.
         /// For string arrays, creates OR conditions with brackets.
         /// </summary>
         /// <param name="column">The column name to filter on.</param>
