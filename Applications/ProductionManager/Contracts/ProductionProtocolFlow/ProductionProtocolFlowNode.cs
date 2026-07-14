@@ -29,10 +29,4 @@ public class ProductionProtocolFlowNode : ISupportsLocalizedSerialization
     [JsonProperty(Order = 23)]
     public IEnumerable<KeyValuePair<ProductionItemType, int>> ItemTypeSummary { get; set; } = new List<KeyValuePair<ProductionItemType, int>>();
 
-    /// <summary>
-    /// Edges are only prepared for future development, when the flow of each single instance is known
-    /// </summary>
-    [JsonProperty(Order = 23)]
-    public IEnumerable<ProductionProtocolFlowEdge>? OutputWorkstations { get; set; }
-
 }
