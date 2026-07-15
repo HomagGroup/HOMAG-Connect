@@ -67,7 +67,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Width = 600,
                 Material = "P2_Gold_Craft_Oak_19.0",
                 Quantity = 2,
-                OrderName = "TestOrder"
+                OrderName = "TestOrder",
+                MaterialThumbnail = new Uri("https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png")
             };
 
             TestContext.AddResultFile(processedBasePart.TraceToFile("processedBasePart").FullName);
@@ -82,6 +83,7 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
 
             Assert.IsNotNull(processedPartDeserialized);
             Assert.AreEqual(processedBasePart.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(processedBasePart.MaterialThumbnail, processedPartDeserialized.MaterialThumbnail);
             Assert.AreEqual(ProductionItemType.Part, processedBasePart.ItemType);
             Assert.AreEqual(ProcessedItemType.ProcessedPart, processedBasePart.Type);
         }
@@ -192,7 +194,16 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
                 Quantity = 2,
                 OrderName = "TestOrder",
                 OrderNumber = "",
-                EdgeBack = "PP_Eiche_hell_1.30_19.0_HM"
+                EdgeBack = "PP_Eiche_hell_1.30_19.0_HM",
+                EdgeFront = "PP_Eiche_hell_1.30_19.0_HM",
+                EdgeLeft = "PP_Eiche_hell_1.30_19.0_HM",
+                EdgeRight = "PP_Eiche_hell_1.30_19.0_HM",
+                EdgeDiagram = "FBLR",
+                MaterialThumbnail = new Uri("https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png"),
+                EdgeFrontThumbnail = new Uri("https://example.com/materials/edgebands/PP_Eiche_hell_1.30_19.0_HM.png"),
+                EdgeBackThumbnail = new Uri("https://example.com/materials/edgebands/PP_Eiche_hell_1.30_19.0_HM.png"),
+                EdgeLeftThumbnail = new Uri("https://example.com/materials/edgebands/PP_Eiche_hell_1.30_19.0_HM.png"),
+                EdgeRightThumbnail = new Uri("https://example.com/materials/edgebands/PP_Eiche_hell_1.30_19.0_HM.png")
             };
 
             TestContext.AddResultFile(processedPartEdgebanding.TraceToFile("ProcessedPartEdgebanding").FullName);
@@ -210,8 +221,69 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
             Assert.AreEqual(processedPartEdgebanding.CustomerName, processedPartDeserialized.CustomerName);
             Assert.AreEqual(processedPartEdgebanding.OrderName, processedPartDeserialized.OrderName);
             Assert.AreEqual(processedPartEdgebanding.EdgeBack, processedPartDeserialized.EdgeBack);
+            Assert.AreEqual(processedPartEdgebanding.EdgeFront, processedPartDeserialized.EdgeFront);
+            Assert.AreEqual(processedPartEdgebanding.EdgeLeft, processedPartDeserialized.EdgeLeft);
+            Assert.AreEqual(processedPartEdgebanding.EdgeRight, processedPartDeserialized.EdgeRight);
+            Assert.AreEqual(processedPartEdgebanding.EdgeDiagram, processedPartDeserialized.EdgeDiagram);
+            Assert.AreEqual(processedPartEdgebanding.MaterialThumbnail, processedPartDeserialized.MaterialThumbnail);
+            Assert.AreEqual(processedPartEdgebanding.EdgeFrontThumbnail, processedPartDeserialized.EdgeFrontThumbnail);
+            Assert.AreEqual(processedPartEdgebanding.EdgeBackThumbnail, processedPartDeserialized.EdgeBackThumbnail);
+            Assert.AreEqual(processedPartEdgebanding.EdgeLeftThumbnail, processedPartDeserialized.EdgeLeftThumbnail);
+            Assert.AreEqual(processedPartEdgebanding.EdgeRightThumbnail, processedPartDeserialized.EdgeRightThumbnail);
             Assert.AreEqual(ProductionItemType.Part, processedPartEdgebanding.ItemType);
             Assert.AreEqual(ProcessedItemType.ProcessedPartEdgebanding, processedPartEdgebanding.Type);
+        }
+
+        /// <summary />
+        [TestMethod]
+        public void ProductionProtocol_Laminating_Part_Serialization()
+        {
+            var completedAt = DateTimeOffset.Now;
+            var processedPartLaminating = new ProcessedPartLaminating
+            {
+                Timestamp = completedAt,
+                SubscriptionId = Guid.NewGuid(),
+                Description = "Table Top",
+                Length = 1200,
+                Width = 800,
+                Thickness = 19.0,
+                Material = "P2_White_19.0",
+                Grain = Grain.Lengthwise,
+                Quantity = 2,
+                OrderName = "TestOrder",
+                OrderNumber = "",
+                LaminateTop = "Laminate_Oak_Natural",
+                LaminateTopGrain = Grain.Lengthwise,
+                LaminateBottom = "Laminate_White_Matt",
+                LaminateBottomGrain = Grain.Crosswise,
+                MaterialThumbnail = new Uri("https://example.com/materials/boards/P2_White_19.0.png"),
+                LaminateTopThumbnail = new Uri("https://example.com/materials/laminates/Laminate_Oak_Natural.png"),
+                LaminateBottomThumbnail = new Uri("https://example.com/materials/laminates/Laminate_White_Matt.png")
+            };
+
+            TestContext.AddResultFile(processedPartLaminating.TraceToFile("ProcessedPartLaminating").FullName);
+
+            var processedPartLaminatingSerialized = JsonConvert.SerializeObject(processedPartLaminating, SerializerSettings.Default);
+            var processedItemDeserialized = JsonConvert.DeserializeObject<ProcessedItem>(processedPartLaminatingSerialized);
+
+            Assert.IsNotNull(processedItemDeserialized);
+            Assert.AreEqual(processedPartLaminating.GetType(), processedItemDeserialized.GetType());
+
+            var processedPartDeserialized = processedItemDeserialized as ProcessedPartLaminating;
+
+            Assert.IsNotNull(processedPartDeserialized);
+            Assert.AreEqual(processedPartLaminating.Timestamp, processedPartDeserialized.Timestamp);
+            Assert.AreEqual(processedPartLaminating.CustomerName, processedPartDeserialized.CustomerName);
+            Assert.AreEqual(processedPartLaminating.OrderName, processedPartDeserialized.OrderName);
+            Assert.AreEqual(processedPartLaminating.LaminateTop, processedPartDeserialized.LaminateTop);
+            Assert.AreEqual(processedPartLaminating.LaminateTopGrain, processedPartDeserialized.LaminateTopGrain);
+            Assert.AreEqual(processedPartLaminating.LaminateBottom, processedPartDeserialized.LaminateBottom);
+            Assert.AreEqual(processedPartLaminating.LaminateBottomGrain, processedPartDeserialized.LaminateBottomGrain);
+            Assert.AreEqual(processedPartLaminating.MaterialThumbnail, processedPartDeserialized.MaterialThumbnail);
+            Assert.AreEqual(processedPartLaminating.LaminateTopThumbnail, processedPartDeserialized.LaminateTopThumbnail);
+            Assert.AreEqual(processedPartLaminating.LaminateBottomThumbnail, processedPartDeserialized.LaminateBottomThumbnail);
+            Assert.AreEqual(ProductionItemType.Part, processedPartLaminating.ItemType);
+            Assert.AreEqual(ProcessedItemType.ProcessedPartLaminating, processedPartLaminating.Type);
         }
 
         /// <summary />
