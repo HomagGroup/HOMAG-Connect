@@ -27,6 +27,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartDividing), ProcessedItemType.ProcessedPartDividing)]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartEdgebanding), ProcessedItemType.ProcessedPartEdgebanding)]
+[JsonSubtypes.KnownSubType(typeof(ProcessedPartLaminating), ProcessedItemType.ProcessedPartLaminating)]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPartCnc), ProcessedItemType.ProcessedPartCnc)]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPart), ProcessedItemType.ProcessedPart)]
 [JsonSubtypes.KnownSubType(typeof(ProcessedPosition), ProcessedItemType.ProcessedPosition)]
