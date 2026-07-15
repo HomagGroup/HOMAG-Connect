@@ -25,6 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.QueryFilter;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -642,6 +643,15 @@ namespace HomagConnect.ProductionManager.Client
             var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?>(new Uri(url, UriKind.Relative));
 
             return productionProtocol;
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7, OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            FilterRequest? filterRequest = null, SortRequest? sortRequest = null)
+        {
+            string? odataFilter = ODataQueryBuilder.BuildFilter(filterRequest);
+            string? odataOrderBy = ODataQueryBuilder.BuildOrderBy(sortRequest);
+            return GetProductionProtocol(workstationId, take, skip, daysBack, outputFormat, cultureInfo, odataFilter, odataOrderBy);
         }
 
         /// <inheritdoc />

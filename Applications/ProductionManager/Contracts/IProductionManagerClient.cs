@@ -1,5 +1,6 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.QueryFilter;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.OrderProgress;
@@ -287,7 +288,7 @@ namespace HomagConnect.ProductionManager.Contracts
         #region ProductionProtocol
 
         /// <summary>
-        /// Get the ProductionProtocol for one workstation by its identifier
+        /// Get the ProductionProtocol for one workstation 
         /// </summary>
         /// <param name="workstationId"></param>
         /// <param name="daysBack"></param>
@@ -302,9 +303,12 @@ namespace HomagConnect.ProductionManager.Contracts
             OutputFormat outputFormat = OutputFormat.Default, CultureInfo ? cultureInfo = null, 
             string? filter = null, string? orderBy = null);
 
+        /// <summary>
+        /// Get the ProductionProtocol for one workstation odata-info is created by convenient classes in HomagConnect.Base.Contracts.QueryFilter. see https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Contracts/QueryFilter
+        /// </summary>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7,
             OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
-            IEnumerable<>, string? orderBy = null);
+            FilterRequest? filterRequest = null, SortRequest? sortRequest = null);
 
         /// <summary>
         /// Retrieve the list all workstations.

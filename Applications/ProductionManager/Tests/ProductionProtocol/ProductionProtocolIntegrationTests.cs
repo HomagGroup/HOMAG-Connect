@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using Shouldly;
 using System.Globalization;
 
+using HomagConnect.Base.Contracts.Enumerations;
+
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol;
 
 /// <summary />
@@ -25,7 +27,7 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
         var protocolList = new List<ProcessedItem>();
         foreach (var workstation in workstations)
         {
-            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7);
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7,OutputFormat.Default, filter: null);
             var response = await protocolTask ?? Array.Empty<ProcessedItem>();
             protocolList.AddRange(response);
         }
@@ -49,7 +51,7 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
 
         foreach (var workstation in workstations)
         {
-            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7);
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), filter: null);
             var response = await protocolTask ?? Array.Empty<ProcessedItem>();
             protocolList.AddRange(response);
         }
