@@ -1,7 +1,7 @@
 ﻿namespace HomagConnect.Base.Contracts.QueryFilter;
 
-public class SortField
+public class OrderByField
 {
     public string Column { get; set; } = string.Empty;
-    public SortDirection Direction { get; set; } = SortDirection.Ascending;
+    public OrderByDirection Direction { get; set; } = OrderByDirection.Ascending;
 }

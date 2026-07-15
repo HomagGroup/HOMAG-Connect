@@ -4,7 +4,7 @@
 /// An ordered list of sort fields.
 /// The client serializes this into a $orderby OData query parameter.
 /// </summary>
-public class SortRequest
+public class OrderByRequest
 {
-    public IList<SortField> Fields { get; set; } = new List<SortField>();
+    public IList<OrderByField> Fields { get; set; } = new List<OrderByField>();
 }

@@ -25,7 +25,7 @@ namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
             var protocolList = new List<ProcessedItem>();
             foreach (var workstation in workstations)
             {
-                var protocolTask = productionManager.GetProductionProtocol(workstation.Id.ToString(), filter: null);
+                var protocolTask = productionManager.GetProductionProtocol(workstation.Id.ToString(), filter: "where description eq 'Test'");
                 var response = await protocolTask ?? Array.Empty<ProcessedItem>();
                 protocolList.AddRange(response);
             }

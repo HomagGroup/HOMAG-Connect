@@ -647,10 +647,10 @@ namespace HomagConnect.ProductionManager.Client
 
         /// <inheritdoc />
         public Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7, OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
-            FilterRequest? filterRequest = null, SortRequest? sortRequest = null)
+            FilterRequest? filterRequest = null, OrderByRequest? orderByRequest = null)
         {
             string? odataFilter = ODataQueryBuilder.BuildFilter(filterRequest);
-            string? odataOrderBy = ODataQueryBuilder.BuildOrderBy(sortRequest);
+            string? odataOrderBy = ODataQueryBuilder.BuildOrderBy(orderByRequest);
             return GetProductionProtocol(workstationId, take, skip, daysBack, outputFormat, cultureInfo, odataFilter, odataOrderBy);
         }
 

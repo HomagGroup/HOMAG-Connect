@@ -308,7 +308,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7,
             OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
-            FilterRequest? filterRequest = null, SortRequest? sortRequest = null);
+            FilterRequest? filterRequest = null, OrderByRequest? orderByRequest = null);
 
         /// <summary>
         /// Retrieve the list all workstations.
