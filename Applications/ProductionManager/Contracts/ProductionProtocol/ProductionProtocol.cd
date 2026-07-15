@@ -10,15 +10,15 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPart">
     <Position X="10" Y="8" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAABAAAAAAAAAEBAAAAAAAAAAQAAAAABQgA=</HashCode>
+      <HashCode>AEAAAAAAAAABAAAAAAAAAEBAAQAAAAAAAQAAAAABQgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPart.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItem">
-    <Position X="10" Y="2" Width="3.5" />
+    <Position X="10" Y="1.25" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAEAAEAABAAAACAAAAAAAAAAAABQAAAAAAAgA=</HashCode>
+      <HashCode>AgAAAAAAEAAEAABAAAACAAAAAAAAAAAABQAAAAAACgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedItem.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -26,9 +26,10 @@
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartEdgebanding">
     <Position X="10.5" Y="11.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAQAAAAQAAQIAAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAABAAAAQAAAAAAAAQAAAAQAEQIAAAEAAAA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPartEdgebanding.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartDividing">
     <Position X="14.25" Y="11.5" Width="2.25" />
@@ -62,11 +63,19 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPosition">
-    <Position X="19.25" Y="8" Width="2.75" />
+    <Position X="19.25" Y="8.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgA=</HashCode>
       <FileName>ProductionProtocol\ProcessedPosition.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedPartLaminating">
+    <Position X="18.5" Y="11.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAABAAQAAAAAAAAAEgBAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ProductionProtocol\ProcessedPartLaminating.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
