@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
 using HomagConnect.ProductionManager.Contracts.OrderProgress;
@@ -9,6 +10,7 @@ using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
@@ -279,7 +281,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of
         /// rework records matching the specified criteria. Returns an empty collection if no records are found.</returns>
         Task<IEnumerable<Rework.Rework>> GetReworks(DateTime? from = null, DateTime? to = null, int? daysBack = null, ReworkState? state = null, string? identifier = null, string? reworkId = null, int? take = null, int? skip = null);
-       
+
         #endregion Rework
 
         #region ProductionProtocol
@@ -291,8 +293,18 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <param name="daysBack"></param>
         /// <param name="take"></param>
         /// <param name="skip"></param>
+        /// <param name="outputFormat"></param>
+        /// <param name="cultureInfo"></param>
+        /// <param name="filter">Filter in ODATA format. Not all function of OData are supported. see https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Contracts/QueryFilter</param>
+        /// <param name="orderBy"></param>
         /// <returns></returns>
-        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7);
+        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7, 
+            OutputFormat outputFormat = OutputFormat.Default, CultureInfo ? cultureInfo = null, 
+            string? filter = null, string? orderBy = null);
+
+        Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7,
+            OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            IEnumerable<>, string? orderBy = null);
 
         /// <summary>
         /// Retrieve the list all workstations.

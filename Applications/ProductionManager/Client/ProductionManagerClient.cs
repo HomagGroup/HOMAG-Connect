@@ -24,6 +24,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using HomagConnect.Base.Contracts.Enumerations;
+
 namespace HomagConnect.ProductionManager.Client
 {
     /// <inheritdoc cref="IProductionManagerClient" />
@@ -603,16 +605,40 @@ namespace HomagConnect.ProductionManager.Client
             var reworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
 
             return reworks ?? Enumerable.Empty<Rework>();
-        }       
+        }
 
         #endregion Rework
 
         #region ProductionProtocol
 
         /// <inheritdoc />
-        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7)
-        {
-            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId,
+            int take = 100000, int skip = 0, 
+            int daysBack = 7, 
+            OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            string? filter = null, string? orderBy = null)
+        {   
+            var queryParameters = new List<string>
+            {
+                $"daysBack={daysBack.ToString(CultureInfo.InvariantCulture)}",
+                $"take={take.ToString(CultureInfo.InvariantCulture)}",
+                $"skip={skip.ToString(CultureInfo.InvariantCulture)}",
+                $"outputFormat={outputFormat.ToString()}",
+            };
+            if (cultureInfo != null)
+            {
+                queryParameters.Add($"cultureInfo={Uri.EscapeDataString(cultureInfo.Name)}");
+            }
+            if (filter != null)
+            {
+                queryParameters.Add($"$filter={Uri.EscapeDataString(filter)}");
+            }
+            if (orderBy != null)
+            {
+                queryParameters.Add($"$orderBy={Uri.EscapeDataString(orderBy)}");
+            }
+
+            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?{string.Join("&", queryParameters)}";
             var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?>(new Uri(url, UriKind.Relative));
 
             return productionProtocol;
