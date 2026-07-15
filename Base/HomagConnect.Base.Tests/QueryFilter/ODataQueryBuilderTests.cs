@@ -2,7 +2,6 @@ using HomagConnect.Base.Contracts.QueryFilter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System;
-using QueryFilterSortDirection = HomagConnect.Base.Contracts.QueryFilter.SortDirection;
 
 namespace HomagConnect.Base.Tests.QueryFilter
 {
@@ -310,8 +309,8 @@ namespace HomagConnect.Base.Tests.QueryFilter
         public void BuildOrderBy_WithSingleAscendingField_ShouldGenerateCorrectOrderBy()
         {
             // Arrange
-            var request = new SortRequest();
-            request.Fields.Add(new SortField { Column = "Name", Direction = QueryFilterSortDirection.Ascending });
+            var request = new OrderByRequest();
+            request.Fields.Add(new OrderByField { Column = "Name", Direction = OrderByDirection.Ascending });
 
             // Act
             var result = ODataQueryBuilder.BuildOrderBy(request);
@@ -324,8 +323,8 @@ namespace HomagConnect.Base.Tests.QueryFilter
         public void BuildOrderBy_WithSingleDescendingField_ShouldGenerateCorrectOrderBy()
         {
             // Arrange
-            var request = new SortRequest();
-            request.Fields.Add(new SortField { Column = "CreatedDate", Direction = QueryFilterSortDirection.Descending });
+            var request = new OrderByRequest();
+            request.Fields.Add(new OrderByField { Column = "CreatedDate", Direction = OrderByDirection.Descending });
 
             // Act
             var result = ODataQueryBuilder.BuildOrderBy(request);
@@ -338,10 +337,10 @@ namespace HomagConnect.Base.Tests.QueryFilter
         public void BuildOrderBy_WithMultipleFields_ShouldGenerateCorrectOrderBy()
         {
             // Arrange
-            var request = new SortRequest();
-            request.Fields.Add(new SortField { Column = "Status", Direction = QueryFilterSortDirection.Ascending });
-            request.Fields.Add(new SortField { Column = "Priority", Direction = QueryFilterSortDirection.Descending });
-            request.Fields.Add(new SortField { Column = "Name", Direction = QueryFilterSortDirection.Ascending });
+            var request = new OrderByRequest();
+            request.Fields.Add(new OrderByField { Column = "Status", Direction = OrderByDirection.Ascending });
+            request.Fields.Add(new OrderByField { Column = "Priority", Direction = OrderByDirection.Descending });
+            request.Fields.Add(new OrderByField { Column = "Name", Direction = OrderByDirection.Ascending });
 
             // Act
             var result = ODataQueryBuilder.BuildOrderBy(request);
@@ -364,7 +363,7 @@ namespace HomagConnect.Base.Tests.QueryFilter
         public void BuildOrderBy_WithEmptyFields_ShouldReturnNull()
         {
             // Arrange
-            var request = new SortRequest();
+            var request = new OrderByRequest();
 
             // Act
             var result = ODataQueryBuilder.BuildOrderBy(request);

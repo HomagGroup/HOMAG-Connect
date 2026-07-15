@@ -21,13 +21,13 @@ public static class ODataQueryBuilder
     /// Converts a SortRequest into the value of the $orderby query parameter.
     /// Returns null when no fields are present.
     /// </summary>
-    public static string? BuildOrderBy(SortRequest? request)
+    public static string? BuildOrderBy(OrderByRequest? request)
     {
         if (request == null || request.Fields.Count == 0)
             return null;
 
         return string.Join(",", request.Fields.Select(f =>
-            $"{f.Column} {(f.Direction == SortDirection.Descending ? "desc" : "asc")}"));
+            $"{f.Column} {(f.Direction == OrderByDirection.Descending ? "desc" : "asc")}"));
     }
 
     private static string BuildCondition(FilterCondition c)
