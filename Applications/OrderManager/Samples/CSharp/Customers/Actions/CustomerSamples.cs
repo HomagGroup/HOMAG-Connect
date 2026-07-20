@@ -54,7 +54,7 @@ namespace HomagConnect.OrderManager.Samples.Customers.Actions
         {
             var request = new CreateCustomerRequest
             {
-                CustomerNumber = "900",
+                CustomerNumber = "956",
                 CustomerName = "Test Customer",
                 Addresses = new Collection<Address>
                 {
@@ -76,14 +76,12 @@ namespace HomagConnect.OrderManager.Samples.Customers.Actions
                 Locale = Locale.deDE,
                 AdditionalData =
                 [
-                    new AdditionalDataEntity
-                    {
-                        Name = "TestAdditionalData",
-                        Id= Guid.NewGuid().ToString(),
-                        DownloadUri = new Uri("https://example.com/test.pdf"),
-                        DownloadFileName= "test.pdf",
-                        Type = AdditionalDataType.Pdf,
-                    }
+                    //AdditionalDataEntity is optional, you can add additional data if needed
+                    //new AdditionalDataEntity
+                    //{
+                    //    DownloadUri = new Uri("https://example.com/test.pdf"),
+                    //    DownloadFileName= "test.pdf"                        
+                    //}
                 ]
             };
 
