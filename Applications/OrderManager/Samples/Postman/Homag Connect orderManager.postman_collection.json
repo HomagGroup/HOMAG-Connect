@@ -3,6 +3,7 @@
     "_postman_id": "cd243d1d-83c9-42f8-b274-f32b78ce9db5",
     "name": "Homag Connect orderManager",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "444913"
   },
   "item": [
     {
@@ -574,13 +575,13 @@
           "name": "Create",
           "item": [
             {
-              "name": "Create customer order",
+              "name": "Create customer",
               "request": {
                 "method": "POST",
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"CustomerNumber\": \"900\",\r\n  \"CustomerName\": \"Test Customer\",\r\n  \"Email\": \"test@example.com\",\r\n  \"TelephoneNumber\": \"1234567890\",\r\n  \"Notes\": \"This is a test customer\",\r\n  \"Locale\": \"deDE\",\r\n  \"ApiAccess\": true,\r\n  \"Addresses\": [\r\n    {\r\n      \"Type\": \"Billing\",\r\n      \"Name\": \"Test Customer Address\",\r\n      \"Street\": \"Test Street 1\",\r\n      \"PostalCode\": \"12345\",\r\n      \"City\": \"Test City\",\r\n      \"Country\": \"DE\",\r\n      \"IsDefaultAddress\": true\r\n    }\r\n  ],\r\n  \"AdditionalData\": [\r\n    {\r\n      \"Type\": \"Pdf\",\r\n      \"Id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\r\n      \"Name\": \"TestAdditionalData\",\r\n      \"DownloadFileName\": \"test.pdf\",\r\n      \"DownloadUri\": \"https://example.com/test.pdf\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"CustomerNumber\": \"900\",\r\n  \"CustomerName\": \"Test Customer\",\r\n  \"Email\": \"test@example.com\",\r\n  \"TelephoneNumber\": \"1234567890\",\r\n  \"Notes\": \"This is a test customer\",\r\n  \"CustomerNumberExternal\":\"966\",\r\n  \"Locale\": \"deDE\",\r\n  \"ApiAccess\": true,\r\n  \"Addresses\": [\r\n    {\r\n      \"Type\": \"Billing\",\r\n      \"Name\": \"Test Customer Address\",\r\n      \"Street\": \"Test Street 1\",\r\n      \"PostalCode\": \"12345\",\r\n      \"City\": \"Test City\",\r\n      \"Country\": \"DE\",\r\n      \"IsDefaultAddress\": true\r\n    }],\r\n     \"AdditionalData\": [\r\n     {      \r\n        \"DownloadFileName\": \"explosion.png\",\r\n        \"DownloadUri\": \"https://dfprodmancoredeveust.blob.core.windows.net/820a547d-b2b0-4e0e-9b0f-2533e8310b3e/27aa713a-e689-47fa-8860-6e53a98bb689/images/58bd073b-100a-4f4e-bdfe-28948990669d.explosion.png.Small.png?sv=2026-06-06&st=2026-07-16T00%3A00%3A00Z&se=2026-08-18T00%3A00%3A00Z&sr=b&sp=r&sig=%2BWzof1FUhYff%2BvorYrQ0NYgEarFHb2CPc43mULTD3YQ%3D\"\r\n     }]  \r\n    \r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
