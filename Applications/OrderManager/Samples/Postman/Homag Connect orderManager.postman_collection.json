@@ -1,810 +1,852 @@
 {
-	"info": {
-		"_postman_id": "50923522-7ede-4aec-9a1d-36753d75b54f",
-		"name": "Homag Connect orderManager",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "Read",
-					"item": [
-						{
-							"name": "Get orders",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "skip",
-											"value": "0",
-											"description": "Skip value for pagination",
-											"disabled": true
-										},
-										{
-											"key": "take",
-											"value": "0",
-											"description": "Take value for pagination (default take = 1000)",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get orders by order numbers",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders?orderNumber=300",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "orderNumber",
-											"value": "300",
-											"description": "Your order number"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get orders by order status",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders?orderStatus=1",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "orderStatus",
-											"value": "1",
-											"description": "Your order status (Enum)"
-										},
-										{
-											"key": "orderStatus",
-											"value": "0",
-											"description": "Your order status (Enum)",
-											"disabled": true
-										},
-										{
-											"key": "skip",
-											"value": "0",
-											"description": "Skip value for pagination",
-											"disabled": true
-										},
-										{
-											"key": "take",
-											"value": "50",
-											"description": "Take value for pagination (default take = 1000)",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get detailed order by order number",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/{{orderNumber}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"{{orderNumber}}"
-									],
-									"query": [
-										{
-											"key": "configurationData",
-											"value": "true",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get detailed order by order Id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/{{orderId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"{{orderId}}"
-									],
-									"query": [
-										{
-											"key": "configurationData",
-											"value": "true",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Release",
-					"item": [
-						{
-							"name": "ReleaseOrder",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/{{OrderId}}/release",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"{{OrderId}}",
-										"release"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "ResetReleaseOrder",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/{{OrderId}}/resetRelease",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"{{OrderId}}",
-										"resetRelease"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Delete",
-					"item": [
-						{
-							"name": "Delete orders by order numbers",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders?orderNumber=300",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "orderNumber",
-											"value": "300",
-											"description": "Your order number"
-										},
-										{
-											"key": "orderNumber",
-											"value": "200",
-											"description": "Your order number",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete orders by order ids",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders?orderId=db978068-bc7a-4ba8-b8de-117ad0743395",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders"
-									],
-									"query": [
-										{
-											"key": "orderId",
-											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
-											"description": "Your order id"
-										},
-										{
-											"key": "orderId",
-											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
-											"description": "Your order id",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Import",
-					"item": [
-						{
-							"name": "Import an order using order details",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"state\": \"New\",\r\n  \"orderNumber\": \"736362\",\r\n  \"orderName\": \"Bedroom & bathroom 01\",\r\n  \"orderDescription\": \"Lorem ipsum dolor sit amet...\",\r\n  \"project\": \"Single family house Müller John\",\r\n  \"personInCharge\": \"Joe\",\r\n  \"orderDate\": \"2025-02-27T00:00:00+01:00\",\r\n  \"deliveryDatePlanned\": \"2025-03-13T00:00:00+01:00\",\r\n  \"addresses\": [\r\n    {\r\n      \"type\": \"Delivery\",\r\n      \"name\": \"Max Mustermann\",\r\n      \"street\": \"Musterstraße\",\r\n      \"houseNumber\": \"1\",\r\n      \"postalCode\": \"12345\",\r\n      \"city\": \"Musterstadt\",\r\n      \"country\": \"Deutschland\"\r\n    }\r\n  ],\r\n  \"company\": \"Müller & Co.\",\r\n  \"customerNumber\": \"462642\",\r\n  \"createdAt\": \"2025-02-27T15:23:52.6629513+01:00\",\r\n  \"changedAt\": \"2025-02-27T15:23:52.6629698+01:00\",\r\n  \"changedBy\": \"Selfish\",\r\n  \"items\": [\r\n    {\r\n      \"id\": \"9746919d-9611-4d1d-98d3-0fc6f083c1fb\",\r\n      \"type\": \"Group\",\r\n      \"quantity\": 1,\r\n      \"notes\": \"This is a room (ONE roomle planner id)\",\r\n      \"items\": [\r\n        {\r\n          \"id\": \"0F18CBC6-52C9-4885-BCA6-BCF95F700525\",\r\n          \"type\": \"ConfigurationGroup\",\r\n          \"quantity\": 1,\r\n          \"notes\": \"This is an article group (PosGroup)\",\r\n          \"items\": [\r\n            {\r\n              \"id\": \"190d9d40-9095-40b0-a7ce-2b85e26b9485\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"rotation\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 2000\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 1000\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a ROOT module\",\r\n              \"items\": [\r\n                {\r\n                  \"id\": \"9746919d-9611-4d1d-98d3-0fc6f083c1fb\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 800\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a SUB module\"\r\n                },\r\n                {\r\n                  \"id\": \"61029b65-730a-47de-9c5a-2cbc4cce3fc4\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 9999\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a 2nd SUB module\"\r\n                }\r\n              ]\r\n            },\r\n            {\r\n              \"id\": \"47F74A7F-999C-44C2-AF5B-709F0D25B5EA\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                1000.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 2000\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 1000\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a 2nd ROOT module\",\r\n              \"items\": [\r\n                {\r\n                  \"id\": \"810BE6A4-17A2-47C1-A4C7-392ECE5FF584\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 800\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a SUB module\"\r\n                },\r\n                {\r\n                  \"id\": \"1CCF8E5C-556A-4356-B254-7C597CC98538\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 9999\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a 2nd SUB module\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"additionalData\": [\r\n        {\r\n          \"type\": \"Image\",\r\n          \"category\": \"Room plan\",\r\n          \"downloadUri\": \"https://www.roomle.com/planner/room/ps_4ejnf8ese0jwgmtan2ltzki0io473a8.jpg\"\r\n        }\r\n      ],\r\n      \"roomlePlannerId\": \"ps_4ejnf8ese0jwgmtan2ltzki0io473a8\"\r\n    },\r\n    {\r\n      \"id\": \"4468B97A-F8C2-4456-BC56-A0C568F4470C\",\r\n      \"type\": \"Group\",\r\n      \"quantity\": 1,\r\n      \"notes\": \"This is a 2nd room (ONE roomle planner id)\",\r\n      \"items\": [\r\n        {\r\n          \"id\": \"61C36AB3-9406-44A6-8559-CBC132D5D8D4\",\r\n          \"type\": \"ConfigurationGroup\",\r\n          \"quantity\": 1,\r\n          \"notes\": \"This is an article group (PosGroup)\",\r\n          \"items\": [\r\n            {\r\n              \"id\": \"07B4A26D-AC4A-4524-99BA-6DE8FACEE41F\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"rotation\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 1800\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 600\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a ROOT module\"\r\n            },\r\n            {\r\n              \"id\": \"E02967A6-22AF-466F-B721-B4A9DC270488\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                600.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 2000\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 1000\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a 2nd ROOT module\"\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"additionalData\": [\r\n        {\r\n          \"type\": \"Image\",\r\n          \"category\": \"Room plan\",\r\n          \"downloadUri\": \"https://www.roomle.com/planner/room/ps_ai687h32o22vdn7twtiqij3e810sjde.jpg\"\r\n        }\r\n      ],\r\n      \"roomlePlannerId\": \"ps_ai687h32o22vdn7twtiqij3e810sjde\"\r\n    }\r\n  ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/import",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"import"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Import an order using order details and referenced files",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "OrderDetails",
-											"description": "Add your OrderDetails.json here",
-											"type": "file",
-											"src": []
-										},
-										{
-											"key": "ReferencedFiles",
-											"description": "Add your referenced files",
-											"type": "file",
-											"src": []
-										}
-									]
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/import",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"import"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Import an order using Project file (.zip)",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/octet-stream",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "file",
-									"file": {}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/import",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"import"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get ImportOrderState",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/orders/import/{{correlationId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"orders",
-										"import",
-										"{{correlationId}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Customers",
-			"item": [
-				{
-					"name": "Read",
-					"item": [
-						{
-							"name": "Get customers",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/customers",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"customers"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get detailed customers by customer numbers",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/customers?customerNumber=300",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"customers"
-									],
-									"query": [
-										{
-											"key": "customerNumber",
-											"value": "300",
-											"description": "Your customer number"
-										},
-										{
-											"key": "customerNumber",
-											"value": "200",
-											"description": "Your customer number",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get detailed customers by customer ids",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/customers?customerId=db978068-bc7a-4ba8-b8de-117ad0743395",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"customers"
-									],
-									"query": [
-										{
-											"key": "customerId",
-											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
-											"description": "Your customer id"
-										},
-										{
-											"key": "customerId",
-											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
-											"description": "Your customer id",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Delete",
-					"item": [
-						{
-							"name": "Delete customers by customers numbers",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/customers?customerNumber=300",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"customers"
-									],
-									"query": [
-										{
-											"key": "customerNumber",
-											"value": "300",
-											"description": "Your customer number"
-										},
-										{
-											"key": "customerNumber",
-											"value": "200",
-											"description": "Your customer number",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete customers by customer ids",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/customers?customerId=4c700a43-18d6-44bc-9e33-9c1c34d56890",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"customers"
-									],
-									"query": [
-										{
-											"key": "customerId",
-											"value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
-											"description": "Your customer id"
-										},
-										{
-											"key": "customerId",
-											"value": "db978068-bc7a-4ba8-b8de-117ad0743395",
-											"description": "Your customer id",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Sales",
-			"item": [
-				{
-					"name": "Articles",
-					"item": [
-						{
-							"name": "Get articles",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/sales/articles?skip=1&take=100",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"sales",
-										"articles"
-									],
-									"query": [
-										{
-											"key": "skip",
-											"value": "1",
-											"description": "Skip value for pagination"
-										},
-										{
-											"key": "take",
-											"value": "100",
-											"description": "Take value for pagination (default take = 1000)"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get articles by id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/sales/articles/{{articleId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"sales",
-										"articles",
-										"{{articleId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create article",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"Example Article\",\r\n  \"imageUrl\": \"https://dummyimage.com/200x200/000000/ff0000.jpg?text=test_article_postman\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"Beispielartikel\",\r\n    \"FRA\": \"Article exemple\"\r\n  },\r\n  \"description\": \"A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"category\": \"Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"Möbel\",\r\n    \"FRA\": \"Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/sales/articles",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"sales",
-										"articles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update article",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"UPD: Example Article\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"UPD: Beispielartikel\",\r\n    \"FRA\": \"UPD: Un article pour exemple\"\r\n  },\r\n  \"description\": \"UPD: A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"UPD: Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"UPD: Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"imageUrl\": \"https://dummyimage.com/200x200/000000/ff0000.jpg?text=upd_test_article_postman\",\r\n  \"category\": \"UPD: Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"UPD: Möbel\",\r\n    \"FRA\": \"UPD: Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/sales/articles",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"sales",
-										"articles"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete article",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"UPD: Example Article\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"UPD: Beispielartikel\",\r\n    \"FRA\": \"UPD: Un article pour exemple\"\r\n  },\r\n  \"description\": \"UPD: A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"UPD: Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"UPD: Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"imageUrl\": \"https://example.com/images/art-001.png\",\r\n  \"category\": \"UPD: Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"UPD: Möbel\",\r\n    \"FRA\": \"UPD: Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/sales/articles?articleId={{articleId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"sales",
-										"articles"
-									],
-									"query": [
-										{
-											"key": "articleId",
-											"value": "{{articleId}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "MasterData",
-					"item": [
-						{
-							"name": "Get masterdata",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"UPD: Example Article\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"UPD: Beispielartikel\",\r\n    \"FRA\": \"UPD: Un article pour exemple\"\r\n  },\r\n  \"description\": \"UPD: A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"UPD: Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"UPD: Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"imageUrl\": \"https://example.com/images/art-001.png\",\r\n  \"category\": \"UPD: Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"UPD: Möbel\",\r\n    \"FRA\": \"UPD: Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/sales/masterdata?libraryId={{libraryId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"sales",
-										"masterdata"
-									],
-									"query": [
-										{
-											"key": "libraryId",
-											"value": "{{libraryId}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		}
-	],
-	"auth": {
-		"type": "basic",
-		"basic": [
-			{
-				"key": "password",
-				"value": "{{ConnectPassword}}",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "{{ConnectUserName}}",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	]
+  "info": {
+    "_postman_id": "cd243d1d-83c9-42f8-b274-f32b78ce9db5",
+    "name": "Homag Connect orderManager",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "444913"
+  },
+  "item": [
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Read",
+          "item": [
+            {
+              "name": "Get orders",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0",
+                      "description": "Skip value for pagination",
+                      "disabled": true
+                    },
+                    {
+                      "key": "take",
+                      "value": "0",
+                      "description": "Take value for pagination (default take = 1000)",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get orders by order numbers",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders?orderNumber=300",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "300",
+                      "description": "Your order number"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get orders by order status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders?orderStatus=1",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderStatus",
+                      "value": "1",
+                      "description": "Your order status (Enum)"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "0",
+                      "description": "Your order status (Enum)",
+                      "disabled": true
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0",
+                      "description": "Skip value for pagination",
+                      "disabled": true
+                    },
+                    {
+                      "key": "take",
+                      "value": "50",
+                      "description": "Take value for pagination (default take = 1000)",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get detailed order by order number",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/{{orderNumber}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "{{orderNumber}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "configurationData",
+                      "value": "true",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get detailed order by order Id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/{{orderId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "{{orderId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "configurationData",
+                      "value": "true",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Release",
+          "item": [
+            {
+              "name": "ReleaseOrder",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/{{OrderId}}/release",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "{{OrderId}}",
+                    "release"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ResetReleaseOrder",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/{{OrderId}}/resetRelease",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "{{OrderId}}",
+                    "resetRelease"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Delete orders by order numbers",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders?orderNumber=300",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "300",
+                      "description": "Your order number"
+                    },
+                    {
+                      "key": "orderNumber",
+                      "value": "200",
+                      "description": "Your order number",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete orders by order ids",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders?orderId=db978068-bc7a-4ba8-b8de-117ad0743395",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderId",
+                      "value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+                      "description": "Your order id"
+                    },
+                    {
+                      "key": "orderId",
+                      "value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+                      "description": "Your order id",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Import",
+          "item": [
+            {
+              "name": "Import an order using order details",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"state\": \"New\",\r\n  \"orderNumber\": \"736362\",\r\n  \"orderName\": \"Bedroom & bathroom 01\",\r\n  \"orderDescription\": \"Lorem ipsum dolor sit amet...\",\r\n  \"project\": \"Single family house Müller John\",\r\n  \"personInCharge\": \"Joe\",\r\n  \"orderDate\": \"2025-02-27T00:00:00+01:00\",\r\n  \"deliveryDatePlanned\": \"2025-03-13T00:00:00+01:00\",\r\n  \"addresses\": [\r\n    {\r\n      \"type\": \"Delivery\",\r\n      \"name\": \"Max Mustermann\",\r\n      \"street\": \"Musterstraße\",\r\n      \"houseNumber\": \"1\",\r\n      \"postalCode\": \"12345\",\r\n      \"city\": \"Musterstadt\",\r\n      \"country\": \"Deutschland\"\r\n    }\r\n  ],\r\n  \"company\": \"Müller & Co.\",\r\n  \"customerNumber\": \"462642\",\r\n  \"createdAt\": \"2025-02-27T15:23:52.6629513+01:00\",\r\n  \"changedAt\": \"2025-02-27T15:23:52.6629698+01:00\",\r\n  \"changedBy\": \"Selfish\",\r\n  \"items\": [\r\n    {\r\n      \"id\": \"9746919d-9611-4d1d-98d3-0fc6f083c1fb\",\r\n      \"type\": \"Group\",\r\n      \"quantity\": 1,\r\n      \"notes\": \"This is a room (ONE roomle planner id)\",\r\n      \"items\": [\r\n        {\r\n          \"id\": \"0F18CBC6-52C9-4885-BCA6-BCF95F700525\",\r\n          \"type\": \"ConfigurationGroup\",\r\n          \"quantity\": 1,\r\n          \"notes\": \"This is an article group (PosGroup)\",\r\n          \"items\": [\r\n            {\r\n              \"id\": \"190d9d40-9095-40b0-a7ce-2b85e26b9485\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"rotation\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 2000\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 1000\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a ROOT module\",\r\n              \"items\": [\r\n                {\r\n                  \"id\": \"9746919d-9611-4d1d-98d3-0fc6f083c1fb\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 800\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a SUB module\"\r\n                },\r\n                {\r\n                  \"id\": \"61029b65-730a-47de-9c5a-2cbc4cce3fc4\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 9999\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a 2nd SUB module\"\r\n                }\r\n              ]\r\n            },\r\n            {\r\n              \"id\": \"47F74A7F-999C-44C2-AF5B-709F0D25B5EA\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                1000.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 2000\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 1000\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a 2nd ROOT module\",\r\n              \"items\": [\r\n                {\r\n                  \"id\": \"810BE6A4-17A2-47C1-A4C7-392ECE5FF584\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 800\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a SUB module\"\r\n                },\r\n                {\r\n                  \"id\": \"1CCF8E5C-556A-4356-B254-7C597CC98538\",\r\n                  \"type\": \"Configuration\",\r\n                  \"moduleId\": \"mf_Door\",\r\n                  \"attributes\": [\r\n                    {\r\n                      \"name\": \"mod_FrontHeight\",\r\n                      \"value\": 9999\r\n                    }\r\n                  ],\r\n                  \"notes\": \"This is a 2nd SUB module\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"additionalData\": [\r\n        {\r\n          \"type\": \"Image\",\r\n          \"category\": \"Room plan\",\r\n          \"downloadUri\": \"https://www.roomle.com/planner/room/ps_4ejnf8ese0jwgmtan2ltzki0io473a8.jpg\"\r\n        }\r\n      ],\r\n      \"roomlePlannerId\": \"ps_4ejnf8ese0jwgmtan2ltzki0io473a8\"\r\n    },\r\n    {\r\n      \"id\": \"4468B97A-F8C2-4456-BC56-A0C568F4470C\",\r\n      \"type\": \"Group\",\r\n      \"quantity\": 1,\r\n      \"notes\": \"This is a 2nd room (ONE roomle planner id)\",\r\n      \"items\": [\r\n        {\r\n          \"id\": \"61C36AB3-9406-44A6-8559-CBC132D5D8D4\",\r\n          \"type\": \"ConfigurationGroup\",\r\n          \"quantity\": 1,\r\n          \"notes\": \"This is an article group (PosGroup)\",\r\n          \"items\": [\r\n            {\r\n              \"id\": \"07B4A26D-AC4A-4524-99BA-6DE8FACEE41F\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"rotation\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 1800\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 600\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a ROOT module\"\r\n            },\r\n            {\r\n              \"id\": \"E02967A6-22AF-466F-B721-B4A9DC270488\",\r\n              \"type\": \"ConfigurationPosition\",\r\n              \"articleNumber\": \"LW_H1000DT\",\r\n              \"state\": \"New\",\r\n              \"quantity\": 1,\r\n              \"libraryId\": \"CabinetLibrary\",\r\n              \"moduleId\": \"mr_StorageunitSingle\",\r\n              \"position\": [\r\n                600.0,\r\n                0.0,\r\n                0.0\r\n              ],\r\n              \"attributes\": [\r\n                {\r\n                  \"name\": \"mod_Depth\",\r\n                  \"value\": 548\r\n                },\r\n                {\r\n                  \"name\": \"mod_Height\",\r\n                  \"value\": 2000\r\n                },\r\n                {\r\n                  \"name\": \"mod_Width\",\r\n                  \"value\": 1000\r\n                },\r\n                {\r\n                  \"name\": \"mod_TypeElement\",\r\n                  \"value\": \"TallUnit\"\r\n                }\r\n              ],\r\n              \"notes\": \"This is a 2nd ROOT module\"\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"additionalData\": [\r\n        {\r\n          \"type\": \"Image\",\r\n          \"category\": \"Room plan\",\r\n          \"downloadUri\": \"https://www.roomle.com/planner/room/ps_ai687h32o22vdn7twtiqij3e810sjde.jpg\"\r\n        }\r\n      ],\r\n      \"roomlePlannerId\": \"ps_ai687h32o22vdn7twtiqij3e810sjde\"\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/import",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "import"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Import an order using order details and referenced files",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "OrderDetails",
+                      "description": "Add your OrderDetails.json here",
+                      "type": "file",
+                      "value": null
+                    },
+                    {
+                      "key": "ReferencedFiles",
+                      "description": "Add your referenced files",
+                      "type": "file",
+                      "value": null
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/import",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "import"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Import an order using Project file (.zip)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/octet-stream",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/import",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "import"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get ImportOrderState",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/orders/import/{{correlationId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "orders",
+                    "import",
+                    "{{correlationId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Read",
+          "item": [
+            {
+              "name": "Get customers",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/customers",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "customers"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get detailed customers by customer numbers",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/customers?customerNumber=300",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "customerNumber",
+                      "value": "300",
+                      "description": "Your customer number"
+                    },
+                    {
+                      "key": "customerNumber",
+                      "value": "200",
+                      "description": "Your customer number",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get detailed customers by customer ids",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/customers?customerId=db978068-bc7a-4ba8-b8de-117ad0743395",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "customerId",
+                      "value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+                      "description": "Your customer id"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+                      "description": "Your customer id",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Delete customers by customers numbers",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/customers?customerNumber=300",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "customerNumber",
+                      "value": "300",
+                      "description": "Your customer number"
+                    },
+                    {
+                      "key": "customerNumber",
+                      "value": "200",
+                      "description": "Your customer number",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete customers by customer ids",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/customers?customerId=4c700a43-18d6-44bc-9e33-9c1c34d56890",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "customerId",
+                      "value": "4c700a43-18d6-44bc-9e33-9c1c34d56890",
+                      "description": "Your customer id"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+                      "description": "Your customer id",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create",
+          "item": [
+            {
+              "name": "Create customer",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"CustomerNumber\": \"900\",\r\n  \"CustomerName\": \"Test Customer\",\r\n  \"Email\": \"test@example.com\",\r\n  \"TelephoneNumber\": \"1234567890\",\r\n  \"Notes\": \"This is a test customer\",\r\n  \"CustomerNumberExternal\":\"966\",\r\n  \"Locale\": \"deDE\",\r\n  \"ApiAccess\": true,\r\n  \"Addresses\": [\r\n    {\r\n      \"Type\": \"Billing\",\r\n      \"Name\": \"Test Customer Address\",\r\n      \"Street\": \"Test Street 1\",\r\n      \"PostalCode\": \"12345\",\r\n      \"City\": \"Test City\",\r\n      \"Country\": \"DE\",\r\n      \"IsDefaultAddress\": true\r\n    }],\r\n     \"AdditionalData\": [\r\n     {      \r\n        \"DownloadFileName\": \"explosion.png\",\r\n        \"DownloadUri\": \"https://dfprodmancoredeveust.blob.core.windows.net/820a547d-b2b0-4e0e-9b0f-2533e8310b3e/27aa713a-e689-47fa-8860-6e53a98bb689/images/58bd073b-100a-4f4e-bdfe-28948990669d.explosion.png.Small.png?sv=2026-06-06&st=2026-07-16T00%3A00%3A00Z&se=2026-08-18T00%3A00%3A00Z&sr=b&sp=r&sig=%2BWzof1FUhYff%2BvorYrQ0NYgEarFHb2CPc43mULTD3YQ%3D\"\r\n     }]  \r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/customers",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "customers"
+                  ],
+                  "query": [
+                    {
+                      "key": "customerId",
+                      "value": "db978068-bc7a-4ba8-b8de-117ad0743395",
+                      "description": "Your customer id",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "Articles",
+          "item": [
+            {
+              "name": "Get articles",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/sales/articles?skip=1&take=100",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "sales",
+                    "articles"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "1",
+                      "description": "Skip value for pagination"
+                    },
+                    {
+                      "key": "take",
+                      "value": "100",
+                      "description": "Take value for pagination (default take = 1000)"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get articles by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/sales/articles/{{articleId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "sales",
+                    "articles",
+                    "{{articleId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create article",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"Example Article\",\r\n  \"imageUrl\": \"https://dummyimage.com/200x200/000000/ff0000.jpg?text=test_article_postman\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"Beispielartikel\",\r\n    \"FRA\": \"Article exemple\"\r\n  },\r\n  \"description\": \"A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"category\": \"Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"Möbel\",\r\n    \"FRA\": \"Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/sales/articles",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "sales",
+                    "articles"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update article",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"UPD: Example Article\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"UPD: Beispielartikel\",\r\n    \"FRA\": \"UPD: Un article pour exemple\"\r\n  },\r\n  \"description\": \"UPD: A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"UPD: Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"UPD: Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"imageUrl\": \"https://dummyimage.com/200x200/000000/ff0000.jpg?text=upd_test_article_postman\",\r\n  \"category\": \"UPD: Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"UPD: Möbel\",\r\n    \"FRA\": \"UPD: Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/sales/articles",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "sales",
+                    "articles"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete article",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"UPD: Example Article\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"UPD: Beispielartikel\",\r\n    \"FRA\": \"UPD: Un article pour exemple\"\r\n  },\r\n  \"description\": \"UPD: A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"UPD: Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"UPD: Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"imageUrl\": \"https://example.com/images/art-001.png\",\r\n  \"category\": \"UPD: Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"UPD: Möbel\",\r\n    \"FRA\": \"UPD: Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/sales/articles?articleId={{articleId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "sales",
+                    "articles"
+                  ],
+                  "query": [
+                    {
+                      "key": "articleId",
+                      "value": "{{articleId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "MasterData",
+          "item": [
+            {
+              "name": "Get masterdata",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"libraryId\": \"cabinet_ts\",\r\n  \"catalog\": \"MainCatalog\",\r\n  \"articleId\": \"ART-001\",\r\n  \"articleName\": \"UPD: Example Article\",\r\n  \"articleNameLocalized\": {\r\n    \"DEU\": \"UPD: Beispielartikel\",\r\n    \"FRA\": \"UPD: Un article pour exemple\"\r\n  },\r\n  \"description\": \"UPD: A sample POS article for demonstration purposes.\",\r\n  \"descriptionLocalized\": {\r\n    \"DEU\": \"UPD: Ein Beispielartikel für Demonstrationszwecke.\",\r\n    \"FRA\": \"UPD: Un article exemple à des fins de démonstration.\"\r\n  },\r\n  \"imageUrl\": \"https://example.com/images/art-001.png\",\r\n  \"category\": \"UPD: Furniture\",\r\n  \"categoryLocalized\": {\r\n    \"DEU\": \"UPD: Möbel\",\r\n    \"FRA\": \"UPD: Meubles\"\r\n  },\r\n  \"isConfigDummy\": false,\r\n  \"roots\": [\r\n        {\r\n            \"articlePos\": [\r\n                0.0,\r\n                0.0,\r\n                0.0\r\n            ],\r\n            \"id\": \"a4af411c-5d1d-4253-82b5-6a541c72f76d\",\r\n            \"name\": \"shape01\",\r\n            \"modules\": [\r\n                {\r\n                    \"id\": \"31d179f7-e147-4af5-9cc6-784887d51e79\",\r\n                    \"name\": \"singleDoor\",\r\n                    \"attributes\": [\r\n                        {\r\n                            \"id\": \"frontHeight\",\r\n                            \"value\": \"600\",\r\n                            \"isInput\": true\r\n                        }\r\n                    ]\r\n                }\r\n            ],\r\n            \"attributes\": [\r\n                {\r\n                    \"id\": \"corpusColor\",\r\n                    \"value\": \"Blue\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"frontColor\",\r\n                    \"value\": \"White\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"width\",\r\n                    \"value\": \"600\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"height\",\r\n                    \"value\": \"720\",\r\n                    \"isInput\": true\r\n                },\r\n                {\r\n                    \"id\": \"depth\",\r\n                    \"value\": \"550\",\r\n                    \"isInput\": true\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/orderManager/sales/masterdata?libraryId={{libraryId}}",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orderManager",
+                    "sales",
+                    "masterdata"
+                  ],
+                  "query": [
+                    {
+                      "key": "libraryId",
+                      "value": "{{libraryId}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "password",
+        "value": "{{ConnectPassword}}",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "{{ConnectUserName}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
 }
