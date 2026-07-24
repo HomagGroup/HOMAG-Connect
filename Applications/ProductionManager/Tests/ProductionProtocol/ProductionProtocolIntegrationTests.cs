@@ -9,6 +9,7 @@ using System.Globalization;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.QueryFilter;
 using HomagConnect.OrderManager.Contracts.Import;
+using HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions;
 
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol;
 
@@ -70,6 +71,15 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
 
         TestContext?.AddResultFile(protocolList.TraceToFile(nameof(ProductionProtocol_Trace)).FullName);
     }
+    /// <summary />
+    [TestMethod]
+    public async Task ProductionProtocol_Sample_GetProductionProtocolFilterObject()
+    {
+        var productionManagerClient = GetProductionManagerClient();
+
+        await GetProductionProtocolSamples.GetProductionProtocolFilterObject(productionManagerClient);
+    }
+
     /// <summary />
     [TestMethod]
     public async Task ProductionProtocol_TraceLocalized()

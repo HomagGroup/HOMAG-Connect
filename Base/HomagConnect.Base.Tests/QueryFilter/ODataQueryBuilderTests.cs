@@ -350,6 +350,33 @@ namespace HomagConnect.Base.Tests.QueryFilter
         }
 
         [TestMethod]
+        public void BuildOrderBy_WithTypedOrderByAndThenBy_ShouldGenerateCorrectOrderBy()
+        {
+            // Arrange
+            OrderByRequest request = OrderByRequest<SampleOrderByModel>
+                .OrderBy(x => x.Name)
+                .ThenByDescending(x => x.CreatedDate)
+                .ThenBy(x => x.Priority);
+
+            // Act
+            var result = ODataQueryBuilder.BuildOrderBy(request);
+
+            // Assert
+            result.ShouldBe("Name asc,CreatedDate desc,Priority asc");
+        }
+
+        [TestMethod]
+        public void BuildOrderBy_WithTypedOrderByUsingMethodSelector_ShouldThrowArgumentException()
+        {
+            // Act
+            var exception = Should.Throw<ArgumentException>(() => OrderByRequest<SampleOrderByModel>.OrderBy(x => x.GetDisplayName()));
+
+            // Assert
+            exception.ParamName.ShouldBe("propertySelector");
+            exception.Message.ShouldContain("Expression must select a property.");
+        }
+
+        [TestMethod]
         public void BuildOrderBy_WithNullRequest_ShouldReturnNull()
         {
             // Act
@@ -373,5 +400,19 @@ namespace HomagConnect.Base.Tests.QueryFilter
         }
 
         #endregion
+
+        private sealed class SampleOrderByModel
+        {
+            public string Name { get; set; } = string.Empty;
+
+            public DateTimeOffset CreatedDate { get; set; }
+
+            public int Priority { get; set; }
+
+            public string GetDisplayName()
+            {
+                return Name;
+            }
+        }
     }
 }
