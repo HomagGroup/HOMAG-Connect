@@ -320,7 +320,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Publish HomagConnect test projects'
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    condition: always()
     inputs:
       targetType: inline
       script: |
@@ -341,7 +341,7 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish test artifacts to pipeline'
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    condition: always()
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)\tests'
       artifact: 'tests'
