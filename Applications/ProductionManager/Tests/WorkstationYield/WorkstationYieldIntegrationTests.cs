@@ -3,14 +3,14 @@ using HomagConnect.Base.TestBase.Attributes;
 
 using Shouldly;
 
-namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
+namespace HomagConnect.ProductionManager.Tests.WorkstationYield
 {
     /// <summary>
-    /// Integration tests for Production Protocol Flow functionality.
+    /// Integration tests for Workstations Yield functionality.
     /// </summary>
     [TestClass]
-    [IntegrationTest("ProductionManager.ProductionProtocolFlow")]
-    public class ProductionProtocolFlowIntegrationTests : ProductionManagerTestBase
+    [IntegrationTest("ProductionManager.WorkstationYield")]
+    public class WorkstationYieldIntegrationTests : ProductionManagerTestBase
     {
         /// <summary>
         /// Gets or sets the test context for this test run.
@@ -21,8 +21,8 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
         /// Tests getting production flow for the last 7 days.
         /// </summary>
         [TestMethod]
-        [TemporaryDisabledOnServer(2026, 07, 01, "DF-Insights")]
-        public async Task GetProductionFlow_Last7Days_ReturnsData()
+        [TemporaryDisabledOnServer(2026, 08, 01, "DF-Insights")]
+        public async Task GetWorkstationsYield_Last7Days_ReturnsData()
         {
             // Arrange
             var productionManagerClient = GetProductionManagerClient();
@@ -30,13 +30,13 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocolFlow
             var to = DateTime.UtcNow;
 
             // Act
-            var result = await productionManagerClient.GetProductionFlow(from, to);
+            var result = await productionManagerClient.GetWorkstationsYield(from, to);
 
             // Assert
             result.ShouldNotBeNull();
-            result.Trace("Production Flow - Last 7 Days");
+            result.Trace("Workstations Yield - Last 7 Days");
 
-            TestContext?.AddResultFile(result.TraceToFile(nameof(GetProductionFlow_Last7Days_ReturnsData)).FullName);
+            TestContext?.AddResultFile(result.TraceToFile(nameof(GetWorkstationsYield_Last7Days_ReturnsData)).FullName);
         }
 
     }

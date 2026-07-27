@@ -1,30 +1,29 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
-using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
 
-namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
+namespace HomagConnect.ProductionManager.Samples.CSharp.ProductionProtocol.Actions
 {
     /// <summary>
-    /// Sample class which shows how to get the Production Flow for a specified duration.
+    /// Sample class which shows how to get the workstations yield   for a specified duration.
     /// </summary>
-    public static class GetProductionFlowSamples
+    public static class GetWorkstationsYieldSamples
     {
         /// <summary>
-        /// Gets the production flow for the last 7 days.
+        /// Gets the workstations yield for the last 7 days.
         /// </summary>
-        public static async Task GetProductionFlowLast7Days(IProductionManagerClient productionManager)
+        public static async Task GetWorkstationsYieldLast7Days(IProductionManagerClient productionManager)
         {
-            // Get production flow for the last 7 days
+            // Get workstations yield for the last 7 days
             var from = DateTime.UtcNow.AddDays(-7);
             var to = DateTime.UtcNow;
 
-            var productionFlow = await productionManager.GetProductionFlow(from, to);
+            var workstationsYield = await productionManager.GetWorkstationsYield(from, to);
 
-            if (productionFlow?.Workstations != null)
+            if (workstationsYield?.Yields != null)
             {
-                var workstationCount = productionFlow.Workstations.Count();
-                var totalItems = productionFlow.Workstations
-                    .SelectMany(w => w.ItemTypeSummary.Select(kv => kv.Value))
+                var workstationCount = workstationsYield.Yields.Count();
+                var totalItems = workstationsYield.Yields
+                    .SelectMany(w => w.Yields.Select(kv => kv.Value))
                     .Sum();
 
                 var summary = new
@@ -34,10 +33,10 @@ namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
                     TotalItems = totalItems
                 };
 
-                summary.Trace("Production Flow Summary");
+                summary.Trace("Workstations Yield Summary");
             }
 
-            productionFlow.Trace(nameof(productionFlow));
+            workstationsYield.Trace(nameof(workstationsYield));
         }
     }
 }
