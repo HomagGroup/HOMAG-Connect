@@ -487,7 +487,7 @@ jobs:
         $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
         $packageSources = @(
           @{ Name = 'nuget.org'; Source = 'https://api.nuget.org/v3/index.json'; ApiKey = '$(NUGET_API_KEY)' },
-          @{ Name = 'Azure Artifacts Development'; Source = 'https://pkgs.dev.azure.com/homag-group/OneHomag/_packaging/Development/nuget/v3/index.json'; ApiKey = 'az' }
+          @{ Name = 'Azure Artifacts Development'; Source = 'https://pkgs.dev.azure.com/homag-group/_packaging/Development/nuget/v3/index.json'; ApiKey = 'az' }
         )
 
         Write-Host "Found $($packages.Count) NuGet package(s) to publish."
