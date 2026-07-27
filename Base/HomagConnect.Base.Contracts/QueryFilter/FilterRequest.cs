@@ -30,16 +30,6 @@ namespace HomagConnect.Base.Contracts.QueryFilter
         }
 
         /// <summary>
-        /// Creates a filter request with one equality condition for the specified property and value.
-        /// </summary>
-        /// <typeparam name="T">The type that contains the property.</typeparam>
-        /// <param name="propertySelector">The property selector expression.</param>
-        /// <param name="value">The value to compare. Supported types: int, float, DateTimeOffset, string, string[].</param>
-        /// <returns>A new <see cref="FilterRequest" /> with one equality condition.</returns>
-        public static FilterRequest CreateEquals<T>(Expression<Func<T, object?>> propertySelector, object? value)
-            => new FilterRequest().AddEquals(propertySelector, value);
-
-        /// <summary>
         /// Adds an equality filter condition for the specified property and value.
         /// </summary>
         /// <typeparam name="T">The type that contains the property.</typeparam>
@@ -48,6 +38,16 @@ namespace HomagConnect.Base.Contracts.QueryFilter
         /// <returns>The current FilterRequest instance for method chaining.</returns>
         public FilterRequest AddEquals<T>(Expression<Func<T, object?>> propertySelector, object? value)
             => AddEquals(GetPropertyName(propertySelector), value);
+
+        /// <summary>
+        /// Creates a filter request with one equality condition for the specified property and value.
+        /// </summary>
+        /// <typeparam name="T">The type that contains the property.</typeparam>
+        /// <param name="propertySelector">The property selector expression.</param>
+        /// <param name="value">The value to compare. Supported types: int, float, DateTimeOffset, string, string[].</param>
+        /// <returns>A new <see cref="FilterRequest" /> with one equality condition.</returns>
+        public static FilterRequest CreateEquals<T>(Expression<Func<T, object?>> propertySelector, object? value)
+            => new FilterRequest().AddEquals(propertySelector, value);
 
         /// <summary>
         /// Adds a contains filter condition for the specified column and value.

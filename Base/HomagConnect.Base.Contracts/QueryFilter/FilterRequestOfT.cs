@@ -1,4 +1,3 @@
-using System;
 using System.Linq.Expressions;
 
 namespace HomagConnect.Base.Contracts.QueryFilter
@@ -9,11 +8,11 @@ namespace HomagConnect.Base.Contracts.QueryFilter
     /// <typeparam name="T">The model type used for property selector expressions.</typeparam>
     public sealed class FilterRequest<T>
     {
-        private readonly FilterRequest _innerRequest;
+        private readonly FilterRequest _InnerRequest;
 
         private FilterRequest(FilterRequest innerRequest)
         {
-            _innerRequest = innerRequest ?? throw new ArgumentNullException(nameof(innerRequest));
+            _InnerRequest = innerRequest ?? throw new ArgumentNullException(nameof(innerRequest));
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace HomagConnect.Base.Contracts.QueryFilter
         /// <returns>The same typed filter request for chaining.</returns>
         public FilterRequest<T> AddEquals(Expression<Func<T, object?>> propertySelector, object? value)
         {
-            _innerRequest.AddEquals(propertySelector, value);
+            _InnerRequest.AddEquals(propertySelector, value);
             return this;
         }
 
@@ -43,7 +42,7 @@ namespace HomagConnect.Base.Contracts.QueryFilter
         /// </summary>
         /// <param name="typedFilterRequest">The typed filter request.</param>
         public static implicit operator FilterRequest(FilterRequest<T> typedFilterRequest)
-            => typedFilterRequest._innerRequest;
+            => typedFilterRequest._InnerRequest;
 
         private static Expression<Func<T, object?>> ConvertSelector<TProperty>(Expression<Func<T, TProperty>> propertySelector)
         {

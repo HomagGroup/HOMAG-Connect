@@ -15,23 +15,23 @@ public class OrderByRequest
     public OrderByRequest OrderBy(string column)
         => AddField(column, OrderByDirection.Ascending);
 
-    public OrderByRequest OrderByDescending(string column)
-        => AddField(column, OrderByDirection.Descending);
-
-    public OrderByRequest ThenBy(string column)
-        => AddField(column, OrderByDirection.Ascending);
-
-    public OrderByRequest ThenByDescending(string column)
-        => AddField(column, OrderByDirection.Descending);
-
     public OrderByRequest OrderBy<T>(Expression<Func<T, object?>> propertySelector)
         => OrderBy(GetPropertyName(propertySelector));
+
+    public OrderByRequest OrderByDescending(string column)
+        => AddField(column, OrderByDirection.Descending);
 
     public OrderByRequest OrderByDescending<T>(Expression<Func<T, object?>> propertySelector)
         => OrderByDescending(GetPropertyName(propertySelector));
 
+    public OrderByRequest ThenBy(string column)
+        => AddField(column, OrderByDirection.Ascending);
+
     public OrderByRequest ThenBy<T>(Expression<Func<T, object?>> propertySelector)
         => ThenBy(GetPropertyName(propertySelector));
+
+    public OrderByRequest ThenByDescending(string column)
+        => AddField(column, OrderByDirection.Descending);
 
     public OrderByRequest ThenByDescending<T>(Expression<Func<T, object?>> propertySelector)
         => ThenByDescending(GetPropertyName(propertySelector));
