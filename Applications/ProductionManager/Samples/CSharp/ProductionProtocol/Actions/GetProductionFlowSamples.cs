@@ -24,7 +24,7 @@ namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
             {
                 var workstationCount = productionFlow.Workstations.Count();
                 var totalItems = productionFlow.Workstations
-                    .SelectMany(w => w.ItemTypeSummary.Values)
+                    .SelectMany(w => w.ItemTypeSummary.Select(kv => kv.Value))
                     .Sum();
 
                 var summary = new

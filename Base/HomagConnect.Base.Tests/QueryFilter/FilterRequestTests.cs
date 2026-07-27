@@ -165,6 +165,66 @@ namespace HomagConnect.Base.Tests.QueryFilter
         }
 
         [TestMethod]
+        public void CreateEquals_WithPropertySelector_ShouldCreateConditionWithPropertyName()
+        {
+            // Act
+            var request = FilterRequest.CreateEquals<SampleFilterModel>(x => x.Name, "John");
+
+            // Assert
+            request.Conditions.Count.ShouldBe(1);
+            request.Conditions[0].Column.ShouldBe(nameof(SampleFilterModel.Name));
+            request.Conditions[0].Operator.ShouldBe(FilterOperator.Eq);
+            request.Conditions[0].Value.ShouldBe("John");
+        }
+
+        [TestMethod]
+        public void AddEquals_WithPropertySelector_ShouldAddConditionWithPropertyName()
+        {
+            // Arrange
+            var request = new FilterRequest();
+
+            // Act
+            var result = request.AddEquals<SampleFilterModel>(x => x.Name, "John");
+
+            // Assert
+            result.ShouldBeSameAs(request);
+            request.Conditions.Count.ShouldBe(1);
+            request.Conditions[0].Column.ShouldBe(nameof(SampleFilterModel.Name));
+            request.Conditions[0].Operator.ShouldBe(FilterOperator.Eq);
+            request.Conditions[0].Value.ShouldBe("John");
+        }
+
+        [TestMethod]
+        public void AddEquals_WithMethodSelector_ShouldThrowArgumentException()
+        {
+            // Arrange
+            var request = new FilterRequest();
+
+            // Act
+            var exception = Should.Throw<ArgumentException>(() => request.AddEquals<SampleFilterModel>(x => x.GetDisplayName(), "John"));
+
+            // Assert
+            exception.ParamName.ShouldBe("propertySelector");
+            exception.Message.ShouldContain("Expression must select a property.");
+        }
+
+        [TestMethod]
+        public void TypedFilterRequest_ShouldAllowChainingWithoutRepeatingType()
+        {
+            // Act
+            FilterRequest request = FilterRequest<SampleFilterModel>
+                .AddEquals(x => x.Name, "John")
+                .AddEquals(x => x.Name, "Jane");
+
+            // Assert
+            request.Conditions.Count.ShouldBe(2);
+            request.Conditions[0].Column.ShouldBe(nameof(SampleFilterModel.Name));
+            request.Conditions[0].Value.ShouldBe("John");
+            request.Conditions[1].Column.ShouldBe(nameof(SampleFilterModel.Name));
+            request.Conditions[1].Value.ShouldBe("Jane");
+        }
+
+        [TestMethod]
         public void FluentInterface_ShouldChainMultipleConditions()
         {
             // Arrange & Act
@@ -180,6 +240,16 @@ namespace HomagConnect.Base.Tests.QueryFilter
             request.Conditions[1].Column.ShouldBe("Name");
             request.Conditions[2].Column.ShouldBe("Age");
             request.Conditions[3].Column.ShouldBe("Price");
+        }
+
+        private sealed class SampleFilterModel
+        {
+            public string Name { get; set; } = string.Empty;
+
+            public string GetDisplayName()
+            {
+                return Name;
+            }
         }
     }
 }
