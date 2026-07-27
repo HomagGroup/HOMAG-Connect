@@ -1,32 +1,52 @@
 # FilterRequest Usage Examples
 
-This document demonstrates how to use the `FilterRequest` tool to build OData filter queries with various data types and conditions.
+This document demonstrates how to use the `FilterRequest` tool to build OData filter queries with **type-safe property selectors** for compile-time safety and refactoring support.
 
 ## Overview
 
-The `FilterRequest` class provides a fluent API for building OData `$filter` query parameters. It supports:
+The `FilterRequest` class provides a fluent API for building OData `$filter` query parameters using lambda expressions. It supports:
 
-- **Equality comparisons** (`eq`) for int, float, DateTimeOffset, string, and string arrays
-- **Contains comparisons** (case-insensitive substring matching) for strings and string arrays
-- **Range comparisons** (`ge` and `le`) for numbers and dates
+- ✅ **Compile-time safety**: Property name validation at compile time
+- ✅ **IntelliSense support**: Full IDE support for property selection
+- ✅ **Refactoring-friendly**: Properties auto-update when model changes
+- ✅ **Type-safe operations**: Equality (`eq`), contains, and range comparisons (`ge`, `le`)
+- ✅ **Multiple data types**: int, float, DateTimeOffset, string, and string arrays
 
-## Basic Usage
+## Getting Started
+
+### Define Your Model
+
+First, define the model that represents your data structure:
+
+```csharp
+public class OrderModel
+{
+	public string Status { get; set; }
+	public string Description { get; set; }
+	public string CustomerName { get; set; }
+	public int Quantity { get; set; }
+	public float Price { get; set; }
+	public DateTimeOffset CreatedDate { get; set; }
+}
+```
+
+## Basic Filtering
 
 ### Integer Equality
 
 ```csharp
-var filter = new FilterRequest()
-	.AddEquals("Age", 42);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.Quantity, 42);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "Age eq 42"
+// Result: "Quantity eq 42"
 ```
 
 ### Float Equality
 
 ```csharp
-var filter = new FilterRequest()
-	.AddEquals("Price", 19.99f);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.Price, 19.99f);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 // Result: "Price eq 19.99"
@@ -36,8 +56,8 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 
 ```csharp
 var date = new DateTimeOffset(2024, 1, 15, 10, 30, 0, TimeSpan.Zero);
-var filter = new FilterRequest()
-	.AddEquals("CreatedDate", date);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.CreatedDate, date);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 // Result: "CreatedDate eq 2024-01-15T10:30:00Z"
@@ -50,11 +70,11 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 The `AddEquals` method performs **exact matching** for strings:
 
 ```csharp
-var filter = new FilterRequest()
-	.AddEquals("Name", "John");
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.CustomerName, "John");
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "Name eq 'John'"
+// Result: "CustomerName eq 'John'"
 ```
 
 ### String Contains (Substring Matching)
@@ -62,39 +82,39 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 The `AddContains` method performs **substring matching**:
 
 ```csharp
-var filter = new FilterRequest()
-	.AddContains("Description", "keyword");
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddContains(x => x.Description, "keyword");
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 // Result: "contains(Description, 'keyword')"
 ```
 
-## Array of Strings
+## Array Filtering with OR Conditions
 
-### String Array with Equals (OR Conditions)
+### String Array with Equals
 
 When you provide an array of strings with `AddEquals`, it creates OR conditions within brackets:
 
 ```csharp
 var statuses = new[] { "Active", "Pending", "Completed" };
-var filter = new FilterRequest()
-	.AddEquals("Status", statuses);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.Status, statuses);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 // Result: "(Status eq 'Active' or Status eq 'Pending' or Status eq 'Completed')"
 ```
 
-### String Array with Contains (OR Conditions)
+### String Array with Contains
 
 When you provide an array of strings with `AddContains`, it creates multiple contains clauses with OR:
 
 ```csharp
-var tags = new[] { "urgent", "high priority", "critical" };
-var filter = new FilterRequest()
-	.AddContains("Tags", tags);
+var keywords = new[] { "urgent", "high priority", "critical" };
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddContains(x => x.Description, keywords);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "(contains(Tags, 'urgent') or contains(Tags, 'high priority') or contains(Tags, 'critical'))"
+// Result: "(contains(Description, 'urgent') or contains(Description, 'high priority') or contains(Description, 'critical'))"
 ```
 
 ## Range Comparisons
@@ -102,8 +122,8 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 ### Greater Than or Equal
 
 ```csharp
-var filter = new FilterRequest()
-	.AddGreaterThanOrEqual("Quantity", 100);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddGreaterThanOrEqual(x => x.Quantity, 100);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 // Result: "Quantity ge 100"
@@ -112,52 +132,73 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 ### Less Than or Equal
 
 ```csharp
-var filter = new FilterRequest()
-	.AddLessThanOrEqual("Weight", 50.5f);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddLessThanOrEqual(x => x.Price, 50.5f);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "Weight le 50.5"
+// Result: "Price le 50.5"
 ```
 
 ### Date Range
 
 ```csharp
 var startDate = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
-var filter = new FilterRequest()
-	.AddGreaterThanOrEqual("CreatedDate", startDate);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddGreaterThanOrEqual(x => x.CreatedDate, startDate);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 // Result: "CreatedDate ge 2024-01-01T00:00:00Z"
 ```
 
-## Complex Queries with Multiple Conditions
+## Complex Queries
+
+### Multiple Conditions (AND)
 
 All conditions are automatically joined with `and`:
 
 ```csharp
-var filter = new FilterRequest()
-	.AddEquals("Status", "Active")
-	.AddContains("Name", "test")
-	.AddGreaterThanOrEqual("Age", 18)
-	.AddLessThanOrEqual("Price", 100.0f);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.Status, "Active")
+	.AddContains(x => x.CustomerName, "test")
+	.AddGreaterThanOrEqual(x => x.Quantity, 18)
+	.AddLessThanOrEqual(x => x.Price, 100.0f);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "Status eq 'Active' and contains(Name, 'test') and Age ge 18 and Price le 100"
+// Result: "Status eq 'Active' and contains(CustomerName, 'test') and Quantity ge 18 and Price le 100"
 ```
 
-## Mixed Array and Single Conditions
+### Mixed Array and Single Conditions
 
 ```csharp
 var statuses = new[] { "Active", "Pending" };
-var tags = new[] { "urgent", "critical" };
+var keywords = new[] { "urgent", "critical" };
 
-var filter = new FilterRequest()
-	.AddEquals("Status", statuses)
-	.AddContains("Tags", tags)
-	.AddGreaterThanOrEqual("Priority", 5);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.Status, statuses)
+	.AddContains(x => x.Description, keywords)
+	.AddGreaterThanOrEqual(x => x.Quantity, 5);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "(Status eq 'Active' or Status eq 'Pending') and (contains(Tags, 'urgent') or contains(Tags, 'critical')) and Priority ge 5"
+// Result: "(Status eq 'Active' or Status eq 'Pending') and (contains(Description, 'urgent') or contains(Description, 'critical')) and Quantity ge 5"
+```
+
+### Real-World Example
+
+```csharp
+var statuses = new[] { "Active", "Pending", "InProgress" };
+var keywords = new[] { "urgent", "critical" };
+var startDate = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.Status, statuses)
+	.AddContains(x => x.Description, keywords)
+	.AddGreaterThanOrEqual(x => x.CreatedDate, startDate)
+	.AddLessThanOrEqual(x => x.Price, 500.0f);
+
+var odataFilter = ODataQueryBuilder.BuildFilter(filter);
+// Result: "(Status eq 'Active' or Status eq 'Pending' or Status eq 'InProgress') 
+//          and (contains(Description, 'urgent') or contains(Description, 'critical')) 
+//          and CreatedDate ge 2024-01-01T00:00:00Z and Price le 500"
 ```
 
 ## Special Characters
@@ -165,20 +206,64 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 The tool automatically escapes apostrophes in string values:
 
 ```csharp
-var filter = new FilterRequest()
-	.AddEquals("Name", "O'Brien");
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.CustomerName, "O'Brien");
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "Name eq 'O''Brien'"
+// Result: "CustomerName eq 'O''Brien'"
 ```
+
+With arrays:
 
 ```csharp
 var names = new[] { "O'Brien", "D'Angelo" };
-var filter = new FilterRequest()
-	.AddEquals("Name", names);
+FilterRequest filter = FilterRequest<OrderModel>
+	.AddEquals(x => x.CustomerName, names);
 
 var odataFilter = ODataQueryBuilder.BuildFilter(filter);
-// Result: "(Name eq 'O''Brien' or Name eq 'D''Angelo')"
+// Result: "(CustomerName eq 'O''Brien' or CustomerName eq 'D''Angelo')"
+```
+
+## Alternative Syntax Options
+
+### Using New FilterRequest() with Type Parameter
+
+If you prefer explicit instantiation:
+
+```csharp
+var filter = new FilterRequest()
+	.AddEquals<OrderModel>(x => x.Status, "Active")
+	.AddContains<OrderModel>(x => x.Description, "urgent")
+	.AddGreaterThanOrEqual<OrderModel>(x => x.Quantity, 10);
+
+var odataFilter = ODataQueryBuilder.BuildFilter(filter);
+// Result: "Status eq 'Active' and contains(Description, 'urgent') and Quantity ge 10"
+```
+
+### Using Static Factory Method
+
+Use `FilterRequest.CreateEquals<T>()` for single-condition initialization:
+
+```csharp
+var filter = FilterRequest.CreateEquals<OrderModel>(x => x.Status, "Active");
+
+var odataFilter = ODataQueryBuilder.BuildFilter(filter);
+// Result: "Status eq 'Active'"
+```
+
+## Property Selector Rules
+
+✅ **Valid:**
+```csharp
+.AddEquals(x => x.Status, "Active")          // Direct property access
+.AddContains(x => x.Description, "test")     // Any property
+.AddGreaterThanOrEqual(x => x.Quantity, 10)  // Value types
+```
+
+❌ **Invalid:**
+```csharp
+.AddEquals(x => x.GetStatus(), "Active")           // Method calls not allowed
+.AddEquals(x => x.Status.ToUpper(), "ACTIVE")      // Transformations not allowed
 ```
 
 ## Key Differences: Equals vs Contains
@@ -196,10 +281,15 @@ var odataFilter = ODataQueryBuilder.BuildFilter(filter);
 
 The `FilterRequest` tool provides a clean, fluent API for building OData filters with:
 
-1. **Type safety**: Supports int, float, DateTimeOffset, string, and string[]
-2. **Clear intent**: Separate methods for equality vs. contains
-3. **Automatic formatting**: Handles OData syntax, escaping, and brackets
-4. **Chainable**: All methods return `this` for method chaining
-5. **Well-tested**: Comprehensive unit tests ensure correctness
+1. ✅ **Compile-time safety**: Property names validated at compile time
+2. ✅ **IntelliSense support**: Full IDE autocompletion
+3. ✅ **Refactoring-friendly**: Auto-updates when models change
+4. ✅ **Type safety**: Supports int, float, DateTimeOffset, string, and string[]
+5. ✅ **Clear intent**: Separate methods for equality vs. contains
+6. ✅ **Automatic formatting**: Handles OData syntax, escaping, and brackets
+7. ✅ **Chainable**: All methods return `this` for method chaining
+8. ✅ **Well-tested**: Comprehensive unit tests ensure correctness
+
+**Recommended Pattern:** Use `FilterRequest<T>` with property selectors (lambda expressions) for the best development experience.
 
 Use `AddEquals` when you need **exact matching** and `AddContains` when you need **substring searching**.
