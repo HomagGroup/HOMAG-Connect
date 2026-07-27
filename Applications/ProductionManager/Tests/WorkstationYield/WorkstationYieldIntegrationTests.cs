@@ -18,7 +18,7 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
         public required TestContext TestContext { get; set; }
 
         /// <summary>
-        /// Tests getting production flow for the last 7 days.
+        /// Tests getting workstation yield for the last 7 days.
         /// </summary>
         [TestMethod]
         [TemporaryDisabledOnServer(2026, 08, 01, "DF-Insights")]

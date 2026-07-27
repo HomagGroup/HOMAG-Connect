@@ -26,9 +26,9 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
         [TestMethod]
         public void WorkstationYields_SerializeDeserialize_Basic()
         {
-            var flowDetails = new WorkstationsYield();
+            var yield = new WorkstationsYield();
 
-            var serialized = JsonConvert.SerializeObject(flowDetails, SerializerSettings.Default);
+            var serialized = JsonConvert.SerializeObject(yield, SerializerSettings.Default);
             var deserialized = JsonConvert.DeserializeObject<WorkstationsYield>(serialized, SerializerSettings.Default);
 
             deserialized.ShouldNotBeNull();
@@ -80,13 +80,13 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
                 new(ProductionItemType.Part, 100)
             };
 
-            var flowDetails = new WorkstationsYield();
-            ((List<Contracts.WorkstationYield.WorkstationYield>)flowDetails.Yields).Add(node1);
-            ((List<Contracts.WorkstationYield.WorkstationYield>)flowDetails.Yields).Add(node2);
+            var yield = new WorkstationsYield();
+            ((List<Contracts.WorkstationYield.WorkstationYield>)yield.Yields).Add(node1);
+            ((List<Contracts.WorkstationYield.WorkstationYield>)yield.Yields).Add(node2);
 
-            flowDetails.Trace();
+            yield.Trace();
 
-            var serialized = JsonConvert.SerializeObject(flowDetails, SerializerSettings.Default);
+            var serialized = JsonConvert.SerializeObject(yield, SerializerSettings.Default);
             var deserialized = JsonConvert.DeserializeObject<WorkstationsYield>(serialized, SerializerSettings.Default);
 
             deserialized.ShouldNotBeNull();

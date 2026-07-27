@@ -10,7 +10,7 @@ namespace HomagConnect.ProductionManager.Contracts.WorkstationYield
     public class WorkstationsYield : ISupportsLocalizedSerialization
     {
         /// <summary>
-        /// List of all Workstations for graphical representation of the flow. 
+        /// List of all Workstations for graphical representation of the yield. 
         /// </summary>
         /// <example>4711</example>
         [JsonProperty(Order = 1)]
