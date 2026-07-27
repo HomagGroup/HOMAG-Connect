@@ -18,7 +18,7 @@ public static class ODataQueryBuilder
     }
 
     /// <summary>
-    /// Converts a SortRequest into the value of the $orderby query parameter.
+    /// Converts a SortRequest into the value of the orderBy query parameter.
     /// Returns null when no fields are present.
     /// </summary>
     public static string? BuildOrderBy(OrderByRequest? request)
