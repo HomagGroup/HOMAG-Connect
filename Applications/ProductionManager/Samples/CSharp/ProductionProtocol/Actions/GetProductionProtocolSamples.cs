@@ -50,18 +50,20 @@ namespace HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions
             var protocolList = new List<ProcessedItem>();
             foreach (var workstation in workstations)
             {
-                var protocolTask = productionManager.GetProductionProtocol(workstation.Id.ToString(), take: 100, skip: 0, daysBack: 7, filterRequest: new FilterRequest
-                {
-                    Conditions = new List<FilterCondition>
-                    {
-                        new FilterCondition
-                        {
-                            Column = "description",
-                            Operator = FilterOperator.Eq,
-                            Value = "Test"
-                        }
-                    }
-                });
+                var protocolTask = productionManager.GetProductionProtocol(
+                    workstation.Id.ToString(),
+                    take: 100,
+                    skip: 0,
+                    daysBack: 7,
+                    filterRequest: FilterRequest<ProcessedOrderItem>
+                        .AddEquals(x => x.Description, "Test")
+                        .AddEquals(x => x.CustomerName, "Test"),
+
+                    orderByRequest: OrderByRequest<ProcessedOrderItem>
+                        .OrderByDescending(x => x.Timestamp)
+                        .ThenBy(x => x.CustomerName)
+                    );
+
                 var response = await protocolTask ?? Array.Empty<ProcessedItem>();
                 protocolList.AddRange(response);
             }

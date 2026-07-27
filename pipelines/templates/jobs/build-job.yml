@@ -320,7 +320,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Publish HomagConnect test projects'
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    condition: always()
     inputs:
       targetType: inline
       script: |
@@ -341,7 +341,7 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish test artifacts to pipeline'
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+    condition: always()
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)\tests'
       artifact: 'tests'
@@ -474,22 +474,34 @@ jobs:
     displayName: 'Publish Quality Gate Result'
     condition: and(succeeded(), eq(variables.disableSonarQubeAnalysis, false))
 
+  - task: NuGetAuthenticate@1
+    displayName: 'Authenticate to Azure Artifacts'
+    condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
+
   - task: PowerShell@2
-    displayName: 'Publish NuGet packages on nuget.org'
+    displayName: 'Publish NuGet packages on nuget.org and Azure Artifacts'
     condition: and(succeeded(), or(startsWith(variables['Build.SourceBranch'], 'refs/tags/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
     inputs:
       targetType: inline
       script: |
         $packages = @(Get-ChildItem -Path '$(Build.ArtifactStagingDirectory)\packages' -Filter '*.nupkg')
+        $packageSources = @(
+          @{ Name = 'nuget.org'; Source = 'https://api.nuget.org/v3/index.json'; ApiKey = '$(NUGET_API_KEY)' },
+          @{ Name = 'Azure Artifacts Development'; Source = 'https://pkgs.dev.azure.com/homag-group/_packaging/Development/nuget/v3/index.json'; ApiKey = 'az' }
+        )
 
         Write-Host "Found $($packages.Count) NuGet package(s) to publish."
 
         foreach ($package in $packages)
         {
-            dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key $(NUGET_API_KEY) $package.FullName --skip-duplicate
-
-            if ($LASTEXITCODE -ne 0)
+            foreach ($packageSource in $packageSources)
             {
-                throw "Publishing package '$($package.FullName)' failed."
+                Write-Host "Publishing '$($package.Name)' to $($packageSource.Name)."
+                dotnet nuget push --source $packageSource.Source --api-key $packageSource.ApiKey $package.FullName --skip-duplicate
+
+                if ($LASTEXITCODE -ne 0)
+                {
+                    throw "Publishing package '$($package.FullName)' to $($packageSource.Name) failed."
+                }
             }
         }
