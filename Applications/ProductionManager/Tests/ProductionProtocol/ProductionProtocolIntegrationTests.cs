@@ -6,6 +6,11 @@ using Newtonsoft.Json;
 using Shouldly;
 using System.Globalization;
 
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.QueryFilter;
+using HomagConnect.OrderManager.Contracts.Import;
+using HomagConnect.ProductionManager.Samples.ProductionProtocol.Actions;
+
 namespace HomagConnect.ProductionManager.Tests.ProductionProtocol;
 
 /// <summary />
@@ -25,7 +30,7 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
         var protocolList = new List<ProcessedItem>();
         foreach (var workstation in workstations)
         {
-            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7);
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take: 10, skip: 0, daysBack: 70, OutputFormat.Default, filter: "description eq 'Test'");
             var response = await protocolTask ?? Array.Empty<ProcessedItem>();
             protocolList.AddRange(response);
         }
@@ -35,6 +40,44 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
         Assert.IsNotNull(protocolList);
 
         TestContext?.AddResultFile(protocolList.TraceToFile(nameof(ProductionProtocol_Trace)).FullName);
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task ProductionProtocol_TraceWithQuery()
+    {
+        var productionManagerClient = GetProductionManagerClient();
+        var workstations = await productionManagerClient.GetWorkstations();
+
+        Assert.IsNotNull(workstations);
+
+        var fr = new FilterRequest();
+        fr.AddEquals("description", "Test");
+        var or = new OrderByRequest();
+        or.Fields.Add(new OrderByField() { Column = "description", Direction = OrderByDirection.Ascending });
+
+        var protocolList = new List<ProcessedItem>();
+        foreach (var workstation in workstations)
+        {
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take: 10, skip: 0, daysBack: 7, 
+                filterRequest: fr, orderByRequest: or);
+            var response = await protocolTask ?? Array.Empty<ProcessedItem>();
+            protocolList.AddRange(response);
+        }
+
+        protocolList.Trace();
+
+        Assert.IsNotNull(protocolList);
+
+        TestContext?.AddResultFile(protocolList.TraceToFile(nameof(ProductionProtocol_Trace)).FullName);
+    }
+    /// <summary />
+    [TestMethod]
+    public async Task ProductionProtocol_Sample_GetProductionProtocolFilterObject()
+    {
+        var productionManagerClient = GetProductionManagerClient();
+
+        await GetProductionProtocolSamples.GetProductionProtocolFilterObject(productionManagerClient);
     }
 
     /// <summary />
@@ -49,7 +92,7 @@ public class ProductionProtocolIntegrationTests : ProductionManagerTestBase
 
         foreach (var workstation in workstations)
         {
-            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, skip:0, daysBack:7);
+            var protocolTask = productionManagerClient.GetProductionProtocol(workstation.Id.ToString(), take:10, filter: null);
             var response = await protocolTask ?? Array.Empty<ProcessedItem>();
             protocolList.AddRange(response);
         }

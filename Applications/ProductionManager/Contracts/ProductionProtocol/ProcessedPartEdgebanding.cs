@@ -17,7 +17,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 ///   "edgeBack": "EB_White_1mm",
 ///   "edgeLeft": "EB_White_1mm",
 ///   "edgeRight": "EB_White_1mm",
-///   "edgeDiagram": "FBLR"
+///   "edgeDiagram": "FBLR",
+///   "edgeFrontThumbnail": "https://example.com/materials/edgebands/EB_White_1mm.png",
+///   "edgeBackThumbnail": "https://example.com/materials/edgebands/EB_White_1mm.png",
+///   "edgeLeftThumbnail": "https://example.com/materials/edgebands/EB_White_1mm.png",
+///   "edgeRightThumbnail": "https://example.com/materials/edgebands/EB_White_1mm.png"
 /// }
 /// </example>
 public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
@@ -60,4 +64,36 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
     [JsonProperty(Order = 36)]
     [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(EdgeDiagram))]
     public string? EdgeDiagram { get; set; }
+
+    /// <summary>
+    /// Gets or sets the URI of the product thumbnail image.
+    /// </summary>
+    /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
+    [JsonProperty(Order = 37)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeFrontThumbnail))]
+    public Uri? EdgeFrontThumbnail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the URI of the product thumbnail image.
+    /// </summary>
+    /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
+    [JsonProperty(Order = 38)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeBackThumbnail))]
+    public Uri? EdgeBackThumbnail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the URI of the product thumbnail image.
+    /// </summary>
+    /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
+    [JsonProperty(Order = 39)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeLeftThumbnail))]
+    public Uri? EdgeLeftThumbnail { get; set; }
+
+    /// <summary>
+    /// Gets or sets the URI of the product thumbnail image.
+    /// </summary>
+    /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
+    [JsonProperty(Order = 40)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(EdgeRightThumbnail))]
+    public Uri? EdgeRightThumbnail { get; set; }
 }

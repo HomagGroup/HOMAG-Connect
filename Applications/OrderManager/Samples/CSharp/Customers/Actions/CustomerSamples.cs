@@ -1,5 +1,8 @@
-﻿using HomagConnect.OrderManager.Contracts;
+﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Customers;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.OrderManager.Samples.Customers.Actions
 {
@@ -39,6 +42,50 @@ namespace HomagConnect.OrderManager.Samples.Customers.Actions
             var customerNumber = "11111111111"; // add some customer number
 
             var customer = await orderManager.GetCustomer(customerNumber);
+
+            return customer;
+        }
+
+        /// <summary>
+        /// Create new customer
+        /// </summary>
+        /// <param name="orderManager"></param>
+        public static async Task<Customer> CreateNewCustomer(IOrderManagerClient orderManager)
+        {
+            var request = new CreateCustomerRequest
+            {
+                CustomerNumber = "956",
+                CustomerName = "Test Customer",
+                Addresses = new Collection<Address>
+                {
+                    new Address
+                    {
+                        Street = "Test Street 1",
+                        City = "Test City",
+                        PostalCode = "12345",
+                        Country = "DE",
+                        Type = AddressType.Billing,
+                        IsDefaultAddress = true,
+                        Name = "Test Customer Address",
+                    }
+                },
+                ApiAccess = true,
+                Email = "test@example.com",
+                TelephoneNumber= "1234567890",
+                Notes = "This is a test customer",
+                Locale = Locale.deDE,
+                AdditionalData =
+                [
+                    //AdditionalDataEntity is optional, you can add additional data if needed
+                    //new AdditionalDataEntity
+                    //{
+                    //    DownloadUri = new Uri("https://example.com/test.pdf"),
+                    //    DownloadFileName= "test.pdf"                        
+                    //}
+                ]
+            };
+
+            var customer = await orderManager.CreateCustomer(request);
 
             return customer;
         }

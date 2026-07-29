@@ -570,5 +570,24 @@ namespace HomagConnect.OrderManager.Client
 
         #endregion
 
+        #region Create Customer
+
+        /// <inheritdoc />
+        public async Task<Customer> CreateCustomer(CreateCustomerRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            var response = await PostObject(new Uri(_CustomerRoute, UriKind.Relative), request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<Customer>(result, SerializerSettings.Default);
+
+            return responseObject ?? throw new InvalidOperationException("Failed to deserialize the created customer.");
+        }
+
+        #endregion
     }
 }

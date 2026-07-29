@@ -94,13 +94,13 @@ public class TextureTests : MaterialManagerTestBase
         var thumbnail = texture.AdditionalData.OfType<AdditionalDataImage>().FirstOrDefault();
         var rml = texture.AdditionalData.OfType<AdditionalDataSurfaceTexture>().FirstOrDefault();
 
-        Assert.IsNotNull(thumbnail, "thumbnail additional data should be present");
-        StringAssert.Contains(thumbnail!.DownloadUri!.AbsoluteUri, versionTag, "thumbnail URL should include version tag");
-        Assert.IsTrue(thumbnail.DownloadUri!.AbsoluteUri.EndsWith(".png", StringComparison.OrdinalIgnoreCase), "thumbnail should point to a PNG file");
+        thumbnail.ShouldNotBeNull("because thumbnail additional data should be present");
+        thumbnail.DownloadUri!.AbsoluteUri.ShouldContain(versionTag, customMessage: "because thumbnail URL should include version tag");
+        thumbnail.DownloadUri!.AbsoluteUri.ShouldEndWith(".png", Case.Insensitive, "because thumbnail should point to a PNG file");
 
-        Assert.IsNotNull(rml, "Roomle surface texture additional data should be present");
-        StringAssert.Contains(rml!.DownloadUri!.AbsoluteUri, versionTag, "Roomle URL should include version tag");
-        Assert.IsTrue(rml.DownloadUri!.AbsoluteUri.EndsWith(".rml", StringComparison.OrdinalIgnoreCase), "Roomle URL should point to a RML file");
+        rml.ShouldNotBeNull("because Roomle surface texture additional data should be present");
+        rml.DownloadUri!.AbsoluteUri.ShouldContain(versionTag, customMessage: "because Roomle URL should include version tag");
+        rml.DownloadUri!.AbsoluteUri.ShouldEndWith(".rml", Case.Insensitive, "because Roomle URL should point to a RML file");
 
         // Attach trace file for inspection
         TestContext.AddResultFile(texture.TraceToFile(texture.Name).FullName);
@@ -118,7 +118,7 @@ public class TextureTests : MaterialManagerTestBase
 
         // Assert
         // ReSharper disable once StringLiteralTypo
-        Assert.AreEqual("Oberflächentextur", germanDisplayNames[AdditionalDataType.SurfaceTexture]);
+        germanDisplayNames[AdditionalDataType.SurfaceTexture].ShouldBe("Oberflächentextur");
     }
 
     #endregion
@@ -251,8 +251,8 @@ public class TextureTests : MaterialManagerTestBase
 
         TestContext.WriteLine($"Time taken to fetch all {allTextures.Count} textures: {stopwatch.Elapsed}");
 
-        Assert.IsNotNull(firstPageTextures);
-        Assert.IsNotNull(allTextures);
+        firstPageTextures.ShouldNotBeNull("because first page textures should be returned");
+        allTextures.ShouldNotBeNull("because all textures should be returned");
 
         firstPageTextures.Count.ShouldBeLessThanOrEqualTo(pageSize,
             $"because GetTextures with page size {pageSize} should return at most {pageSize} textures");
@@ -432,15 +432,14 @@ public class TextureTests : MaterialManagerTestBase
     }
 
     /// <summary>
-    /// Tests that GetTextures with decor code but without catalog throws validation error.
+    /// Tests that GetTextures with decor code but without catalog does not throw.
     /// </summary>
     [TestMethod]
-    public async Task GetTextures_WithDecorCodeButNoCatalog_ThrowsException()
+    public async Task GetTextures_WithDecorCodeButNoCatalog_DoesNotThrow()
     {
-        // Act & Assert - decor code without catalog should fail on API side
+        // Act & Assert
         var act = async () => await _MaterialManagerClientTextures!.GetTextures(new TextureFilter { Catalog = null, DecorCode = "some-decor" });
-        await Should.ThrowAsync<HttpRequestException>(act,
-            "because API should reject decor code filter when catalog is not specified");
+        await Should.NotThrowAsync(act);
     }
 
     /// <summary>

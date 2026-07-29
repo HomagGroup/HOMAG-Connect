@@ -20,7 +20,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 ///   "thickness": 19.0,
 ///   "unitSystem": "Metric",
 ///   "material": "P2_White_19.0",
-///   "grain": "Lengthwise"
+///   "grain": "Lengthwise",
+///   "materialThumbnail": "https://example.com/materials/boards/P2_White_19.0.png"
 /// }
 /// </example>
 public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterialProperties, IContainsUnitSystemDependentProperties
@@ -90,4 +91,14 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     public Grain Grain { get; set; }
 
     #endregion
+
+
+    /// <summary>
+    /// Gets or sets the URI of the product thumbnail image.
+    /// </summary>
+    /// <example>https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png</example>
+    [JsonProperty(Order = 27)]
+    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(MaterialThumbnail))]
+    public Uri? MaterialThumbnail { get; set; }
+
 }

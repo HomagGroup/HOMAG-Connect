@@ -107,6 +107,42 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kante hinten Miniaturansicht.
+        /// </summary>
+        public static string EdgeBackThumbnail {
+            get {
+                return ResourceManager.GetString("EdgeBackThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante vorne Miniaturansicht.
+        /// </summary>
+        public static string EdgeFrontThumbnail {
+            get {
+                return ResourceManager.GetString("EdgeFrontThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante links Miniaturansicht.
+        /// </summary>
+        public static string EdgeLeftThumbnail {
+            get {
+                return ResourceManager.GetString("EdgeLeftThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante rechts Miniaturansicht.
+        /// </summary>
+        public static string EdgeRightThumbnail {
+            get {
+                return ResourceManager.GetString("EdgeRightThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Herkunft.
         /// </summary>
         public static string From {
@@ -130,6 +166,33 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         public static string ItemType {
             get {
                 return ResourceManager.GetString("ItemType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belag unten Miniaturansicht.
+        /// </summary>
+        public static string LaminateBottomThumbnail {
+            get {
+                return ResourceManager.GetString("LaminateBottomThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belag oben Miniaturansicht.
+        /// </summary>
+        public static string LaminateTopThumbnail {
+            get {
+                return ResourceManager.GetString("LaminateTopThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material Miniaturansicht.
+        /// </summary>
+        public static string MaterialThumbnail {
+            get {
+                return ResourceManager.GetString("MaterialThumbnail", resourceCulture);
             }
         }
         

@@ -195,5 +195,16 @@ namespace HomagConnect.OrderManager.Contracts
         Task<Customer?> GetCustomer(Guid customerId);
 
         #endregion
+
+        #region Create customer
+
+        /// <summary>
+        /// Create a new customer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<Customer> CreateCustomer(CreateCustomerRequest request);
+
+        #endregion
     }
 }
