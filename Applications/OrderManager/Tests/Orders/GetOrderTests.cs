@@ -505,10 +505,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                     Notes = "This is a room (ONE roomle planner id)",
                     Name = "Test",
                     Source = "OrderConfigurator",
-                    AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
-                    {
-                        { "roomlePlannerId", "ps_4ejnf8ese0jwgmtan2ltzki0io473a8" },
-                    },
+                    RoomlePlannerId = "ps_4ejnf8ese0jwgmtan2ltzki0io473a8",
                     AdditionalData = new()
                     {
                         new AdditionalDataImage
@@ -614,10 +611,7 @@ namespace HomagConnect.OrderManager.Tests.Orders
                     Notes = "This is a 2nd room (ONE roomle planner id)",
                     Name = "Test2",
                     Source = "OrderConfigurator",
-                    AdditionalProperties = new Dictionary<string, object>(StringComparer.Ordinal)
-                    {
-                        { "roomlePlannerId", "ps_ai687h32o22vdn7twtiqij3e810sjde" },
-                    },
+                    RoomlePlannerId = "ps_ai687h32o22vdn7twtiqij3e810sjde",
                     AdditionalData = new()
                     {
                         new AdditionalDataImage
