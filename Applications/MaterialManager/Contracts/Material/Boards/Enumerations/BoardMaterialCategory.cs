@@ -98,6 +98,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// Chipboard.
         /// </summary>
         [TypicalDensity(650)]
+        [TextureReference("testing101:mr_chipboard")]
         [Display(Description = "Chipboard")]
         Chipboard,
 
@@ -273,6 +274,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// Medium-density fiberboard (MDF).
         /// </summary>
         [TypicalDensity(700)]
+        [TextureReference("testing101:mdf_board")]
         [Display(Description = "Medium-density fiberboard (MDF)")]
         MediumdensityFiberboard_MDF,
 
