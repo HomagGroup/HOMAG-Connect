@@ -141,7 +141,6 @@ public class SolutionFiguresMaterialBoardsOffcuts
     /// </summary>
     /// <example>0</example>
     [JsonProperty(Order = 9)]
-    [Range(0, int.MaxValue)]
     public int OffcutsSmallTotal
     {
         get
