@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -44,5 +47,31 @@ public static class BoardMaterialCategoryExtensions
         }
 
         return typicalDensity.Value * valueDependsOnUnitSystemAttribute.ConversionFactorMetricToImperial;
+    }
+
+    /// <summary>
+    /// Gets all board material categories that define a texture reference.
+    /// </summary>
+    /// <param name="boardMaterialCategory">Unused instance used for extension-style invocation.</param>
+    /// <returns>
+    /// A dictionary where the key is the <see cref="BoardMaterialCategory" /> and the value is the texture
+    /// reference object.
+    /// </returns>
+    public static Dictionary<BoardMaterialCategory, TextureReference> GetTextureReferences(this BoardMaterialCategory boardMaterialCategory)
+    {
+        _ = boardMaterialCategory;
+
+        return Enum.GetValues(typeof(BoardMaterialCategory))
+            .Cast<BoardMaterialCategory>()
+            .Select(category => new
+            {
+                Category = category,
+                TextureReference = typeof(BoardMaterialCategory)
+                    .GetField(category.ToString())?
+                    .GetCustomAttributes<TextureReferenceAttribute>()
+                    .FirstOrDefault()
+            })
+            .Where(item => item.TextureReference != null)
+            .ToDictionary(item => item.Category, item => item.TextureReference!.TextureReference);
     }
 }
