@@ -21,6 +21,22 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
         #region WorkstationYield Serialization Tests
 
         /// <summary>
+        /// Tests basic serialization and deserialization of WorkstationYields
+        /// </summary>
+        [TestMethod]
+        public void WorkstationYields_SerializeDeserialize_Basic()
+        {
+            var yield = new WorkstationsYield();
+
+            var serialized = JsonConvert.SerializeObject(yield, SerializerSettings.Default);
+            var deserialized = JsonConvert.DeserializeObject<WorkstationsYield>(serialized, SerializerSettings.Default);
+
+            deserialized.ShouldNotBeNull();
+            deserialized.Yields.ShouldNotBeNull();
+            deserialized.Yields.ShouldBeEmpty();
+        }
+
+        /// <summary>
         /// Tests serialization with complete data structure
         /// </summary>
         [TestMethod]
