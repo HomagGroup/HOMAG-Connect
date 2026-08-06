@@ -1,8 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.Attributes;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
