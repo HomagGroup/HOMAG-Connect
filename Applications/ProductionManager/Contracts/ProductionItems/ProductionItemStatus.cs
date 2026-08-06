@@ -1,4 +1,6 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
 
@@ -15,25 +17,30 @@ public enum ProductionItemStatus
     /// <summary>
     /// Unknown
     /// </summary>
+    [Display(ResourceType = typeof(ProductionItemStatusDisplayNames), Name = nameof(Unknown))]
     Unknown,
 
     /// <summary>
     /// New
     /// </summary>
+    [Display(ResourceType = typeof(ProductionItemStatusDisplayNames), Name = nameof(New))]
     New,
 
     /// <summary>
     /// Ready for production
     /// </summary>
+    [Display(ResourceType = typeof(ProductionItemStatusDisplayNames), Name = nameof(ReadyForProduction))]
     ReadyForProduction,
 
     /// <summary>
     /// In Production
     /// </summary>
+    [Display(ResourceType = typeof(ProductionItemStatusDisplayNames), Name = nameof(InProduction))]
     InProduction,
 
     /// <summary>
     /// Completed
     /// </summary>
+    [Display(ResourceType = typeof(ProductionItemStatusDisplayNames), Name = nameof(Completed))]
     Completed,
 }
