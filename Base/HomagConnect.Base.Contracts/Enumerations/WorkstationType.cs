@@ -148,6 +148,10 @@ public enum WorkstationType
     /// <summary>
     /// Rework
     /// </summary>
-    Rework
+    Rework,
+    /// <summary>
+    /// The workstation is a FeedbackCustom one
+    /// </summary>
+    FeedbackIndividual
     #endregion
 }
