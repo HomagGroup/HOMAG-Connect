@@ -132,6 +132,9 @@
   <data name="Edgebanding" xml:space="preserve">
     <value>Kantenanleimen</value>
   </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individuell</value>
+  </data>
   <data name="Laminating" xml:space="preserve">
     <value>Laminieren</value>
   </data>
