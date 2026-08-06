@@ -19,7 +19,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class WorkstationTypeDisplayNames {
@@ -51,7 +51,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Montieren.
         /// </summary>
-        internal static string Assembly {
+        public static string Assembly {
             get {
                 return ResourceManager.GetString("Assembly", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Platten.
         /// </summary>
-        internal static string Boards {
+        public static string Boards {
             get {
                 return ResourceManager.GetString("Boards", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to CNC.
         /// </summary>
-        internal static string CNC {
+        public static string CNC {
             get {
                 return ResourceManager.GetString("CNC", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Sägen.
         /// </summary>
-        internal static string Cutting {
+        public static string Cutting {
             get {
                 return ResourceManager.GetString("Cutting", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Bohren.
         /// </summary>
-        internal static string Drilling {
+        public static string Drilling {
             get {
                 return ResourceManager.GetString("Drilling", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Kantenanleimen.
         /// </summary>
-        internal static string Edgebanding {
+        public static string Edgebanding {
             get {
                 return ResourceManager.GetString("Edgebanding", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Montieren.
         /// </summary>
-        internal static string FeedbackAssembly {
+        public static string FeedbackAssembly {
             get {
                 return ResourceManager.GetString("FeedbackAssembly", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Automatisches Sortieren.
         /// </summary>
-        internal static string FeedbackAutomaticSorting {
+        public static string FeedbackAutomaticSorting {
             get {
                 return ResourceManager.GetString("FeedbackAutomaticSorting", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to CNC.
         /// </summary>
-        internal static string FeedbackCNC {
+        public static string FeedbackCNC {
             get {
                 return ResourceManager.GetString("FeedbackCNC", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Sägen.
         /// </summary>
-        internal static string FeedbackCutting {
+        public static string FeedbackCutting {
             get {
                 return ResourceManager.GetString("FeedbackCutting", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Bohren.
         /// </summary>
-        internal static string FeedbackDrilling {
+        public static string FeedbackDrilling {
             get {
                 return ResourceManager.GetString("FeedbackDrilling", resourceCulture);
             }
@@ -162,16 +162,25 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Kantenanleimen.
         /// </summary>
-        internal static string FeedbackEdgebanding {
+        public static string FeedbackEdgebanding {
             get {
                 return ResourceManager.GetString("FeedbackEdgebanding", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Individueller Arbeitsplatz.
+        /// </summary>
+        public static string FeedbackIndividual {
+            get {
+                return ResourceManager.GetString("FeedbackIndividual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beschläge setzen.
         /// </summary>
-        internal static string FeedbackInsertFittings {
+        public static string FeedbackInsertFittings {
             get {
                 return ResourceManager.GetString("FeedbackInsertFittings", resourceCulture);
             }
@@ -180,7 +189,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Laminieren.
         /// </summary>
-        internal static string FeedbackLaminating {
+        public static string FeedbackLaminating {
             get {
                 return ResourceManager.GetString("FeedbackLaminating", resourceCulture);
             }
@@ -189,7 +198,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Hobeln.
         /// </summary>
-        internal static string FeedbackMoulding {
+        public static string FeedbackMoulding {
             get {
                 return ResourceManager.GetString("FeedbackMoulding", resourceCulture);
             }
@@ -198,7 +207,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Nesting.
         /// </summary>
-        internal static string FeedbackNesting {
+        public static string FeedbackNesting {
             get {
                 return ResourceManager.GetString("FeedbackNesting", resourceCulture);
             }
@@ -207,7 +216,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Verpacken.
         /// </summary>
-        internal static string FeedbackPacking {
+        public static string FeedbackPacking {
             get {
                 return ResourceManager.GetString("FeedbackPacking", resourceCulture);
             }
@@ -216,7 +225,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Vormontieren.
         /// </summary>
-        internal static string FeedbackPreassembly {
+        public static string FeedbackPreassembly {
             get {
                 return ResourceManager.GetString("FeedbackPreassembly", resourceCulture);
             }
@@ -225,7 +234,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Walzenbeschichtung.
         /// </summary>
-        internal static string FeedbackRollerCoating {
+        public static string FeedbackRollerCoating {
             get {
                 return ResourceManager.GetString("FeedbackRollerCoating", resourceCulture);
             }
@@ -234,7 +243,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Schleifen.
         /// </summary>
-        internal static string FeedbackSanding {
+        public static string FeedbackSanding {
             get {
                 return ResourceManager.GetString("FeedbackSanding", resourceCulture);
             }
@@ -243,7 +252,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Versand.
         /// </summary>
-        internal static string FeedbackShipping {
+        public static string FeedbackShipping {
             get {
                 return ResourceManager.GetString("FeedbackShipping", resourceCulture);
             }
@@ -252,7 +261,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Sortieren.
         /// </summary>
-        internal static string FeedbackSorting {
+        public static string FeedbackSorting {
             get {
                 return ResourceManager.GetString("FeedbackSorting", resourceCulture);
             }
@@ -261,7 +270,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Lackieren.
         /// </summary>
-        internal static string FeedbackSprayCoating {
+        public static string FeedbackSprayCoating {
             get {
                 return ResourceManager.GetString("FeedbackSprayCoating", resourceCulture);
             }
@@ -270,7 +279,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Nesting.
         /// </summary>
-        internal static string Nesting {
+        public static string Nesting {
             get {
                 return ResourceManager.GetString("Nesting", resourceCulture);
             }
@@ -279,7 +288,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
-        internal static string None {
+        public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
             }
@@ -288,7 +297,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Verpacken.
         /// </summary>
-        internal static string Packing {
+        public static string Packing {
             get {
                 return ResourceManager.GetString("Packing", resourceCulture);
             }
@@ -297,7 +306,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Vormontieren.
         /// </summary>
-        internal static string Preassembly {
+        public static string Preassembly {
             get {
                 return ResourceManager.GetString("Preassembly", resourceCulture);
             }
@@ -306,7 +315,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Nachfertigung.
         /// </summary>
-        internal static string Rework {
+        public static string Rework {
             get {
                 return ResourceManager.GetString("Rework", resourceCulture);
             }
@@ -315,7 +324,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Versand.
         /// </summary>
-        internal static string Shipping {
+        public static string Shipping {
             get {
                 return ResourceManager.GetString("Shipping", resourceCulture);
             }
@@ -324,7 +333,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Sortieren vor Montage.
         /// </summary>
-        internal static string Sorting {
+        public static string Sorting {
             get {
                 return ResourceManager.GetString("Sorting", resourceCulture);
             }
@@ -333,7 +342,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Sortieren nach Aufteilen.
         /// </summary>
-        internal static string SortingAfterCutting {
+        public static string SortingAfterCutting {
             get {
                 return ResourceManager.GetString("SortingAfterCutting", resourceCulture);
             }
@@ -342,7 +351,7 @@ namespace HomagConnect.Base.Contracts.Enumerations {
         /// <summary>
         ///   Looks up a localized string similar to Lagern.
         /// </summary>
-        internal static string Storage {
+        public static string Storage {
             get {
                 return ResourceManager.GetString("Storage", resourceCulture);
             }
