@@ -69,11 +69,6 @@
 		  <AutoGen>True</AutoGen>
 		  <DependentUpon>ProcessedItemCategoryDisplayNames.resx</DependentUpon>
 		</Compile>
-		<Compile Update="ProductionProtocol\ProcessedItemQualityDisplayNames.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>ProcessedItemQualityDisplayNames.resx</DependentUpon>
-		</Compile>
 		<Compile Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -121,27 +116,23 @@
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemStatusDisplayNames.resx">
 		  <LastGenOutput>ProductionItemStatusDisplayNames.Designer.cs</LastGenOutput>
-		  <Generator>ResXFileCodeGenerator</Generator>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemTypeDisplayNames.resx">
 		  <LastGenOutput>ProductionItemTypeDisplayNames.Designer.cs</LastGenOutput>
-		  <Generator>ResXFileCodeGenerator</Generator>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>ProductionItemFeedbackActionDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackDisplayNames.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>ProductionItemFeedbackDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionProtocol\ProcessedItemCategoryDisplayNames.resx">
 		  <Generator>PublicResXFileCodeGenerator</Generator>
 		  <LastGenOutput>ProcessedItemCategoryDisplayNames.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-		<EmbeddedResource Update="ProductionProtocol\ProcessedItemQualityDisplayNames.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>ProcessedItemQualityDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
 			<LastGenOutput>ProductionProtocolPropertyDisplayNames.Designer.cs</LastGenOutput>

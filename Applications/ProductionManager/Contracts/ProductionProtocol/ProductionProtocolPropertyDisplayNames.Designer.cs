@@ -215,6 +215,15 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auftragsnummer.
+        /// </summary>
+        public static string OrderNumber {
+            get {
+                return ResourceManager.GetString("OrderNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zyklus.
         /// </summary>
         public static string PatternCycle {

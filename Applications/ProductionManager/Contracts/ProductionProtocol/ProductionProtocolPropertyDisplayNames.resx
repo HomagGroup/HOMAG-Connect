@@ -171,6 +171,9 @@
   <data name="OrderName" xml:space="preserve">
     <value>Auftragsname</value>
   </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Auftragsnummer</value>
+  </data>
   <data name="PatternCycle" xml:space="preserve">
     <value>Zyklus</value>
   </data>
