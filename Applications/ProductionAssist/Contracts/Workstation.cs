@@ -17,4 +17,10 @@ public class Workstation: Base.Contracts.Workstation, ISupportsLocalizedSerializ
     [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(AssignedTapioMachineId))]
     public string AssignedTapioMachineId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the tapio machine ID
+    /// </summary>
+    [JsonProperty(Order = 20)]
+    [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(GroupName))]
+    public string GroupName { get; set; }
 }
