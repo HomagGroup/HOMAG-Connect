@@ -117,58 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Assembly" xml:space="preserve">
-    <value>Montieren</value>
+  <data name="AssemblyGroup" xml:space="preserve">
+    <value>Baugruppe</value>
   </data>
-  <data name="Boards" xml:space="preserve">
-    <value>Platten</value>
+  <data name="AssemblyUnit" xml:space="preserve">
+    <value>Baugruppe</value>
   </data>
-  <data name="CNC" xml:space="preserve">
-    <value>CNC</value>
+  <data name="Group" xml:space="preserve">
+    <value>Gruppe</value>
   </data>
-  <data name="Dividing" xml:space="preserve">
-    <value>Aufteilen</value>
+  <data name="OrderItem" xml:space="preserve">
+    <value>Artikel</value>
   </data>
-  <data name="Edgebanding" xml:space="preserve">
-    <value>Kantenanleimen</value>
+  <data name="Part" xml:space="preserve">
+    <value>Teil</value>
   </data>
-  <data name="Individual" xml:space="preserve">
-    <value>Individuell</value>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
   </data>
-  <data name="Laminating" xml:space="preserve">
-    <value>Laminieren</value>
+  <data name="ProductionOrder" xml:space="preserve">
+    <value>Teil</value>
   </data>
-  <data name="Moulding" xml:space="preserve">
-    <value>Hobeln</value>
+  <data name="Resource" xml:space="preserve">
+    <value>Ressource</value>
   </data>
-  <data name="None" xml:space="preserve">
+  <data name="Unknown" xml:space="preserve">
     <value>Unbekannt</value>
-  </data>
-  <data name="Packaging" xml:space="preserve">
-    <value>Verpacken</value>
-  </data>
-  <data name="Preassembly" xml:space="preserve">
-    <value>Vormontieren</value>
-  </data>
-  <data name="Rework" xml:space="preserve">
-    <value>Nachfertigung</value>
-  </data>
-  <data name="RollerCoating" xml:space="preserve">
-    <value>Walzenbeschichtung</value>
-  </data>
-  <data name="Sanding" xml:space="preserve">
-    <value>Schleifen</value>
-  </data>
-  <data name="Shipping" xml:space="preserve">
-    <value>Versand</value>
-  </data>
-  <data name="Sorting" xml:space="preserve">
-    <value>Sortieren</value>
-  </data>
-  <data name="SortingAfterCutting" xml:space="preserve">
-    <value>Sortieren nach Aufteilen</value>
-  </data>
-  <data name="SprayCoating" xml:space="preserve">
-    <value>Lackieren</value>
   </data>
 </root>

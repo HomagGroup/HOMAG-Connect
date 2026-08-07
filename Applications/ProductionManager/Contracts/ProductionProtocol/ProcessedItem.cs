@@ -111,11 +111,4 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Category))]
     public ProcessedItemCategory Category { get; set; } = ProcessedItemCategory.Planned;
     
-    /// <summary>
-    /// The processed part quality 
-    /// </summary>
-    [JsonProperty(Order = 7)]
-    [Obsolete("Use Category instead")]
-    [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Quality))]
-    public ProcessedItemQuality Quality { get; set; } = ProcessedItemQuality.Good;
 }

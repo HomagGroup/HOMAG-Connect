@@ -17,14 +17,4 @@ public class Workstation: Base.Contracts.Workstation, ISupportsLocalizedSerializ
     [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(AssignedTapioMachineId))]
     public string AssignedTapioMachineId { get; set; }
 
-    /// <summary>
-    /// Gets or sets the display name
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    [Obsolete("This property is obsolete. Use the new Name property instead.", true)]
-    public string DisplayName
-    {
-        get { return Name; }
-        set { Name = value; }
-    }
 }

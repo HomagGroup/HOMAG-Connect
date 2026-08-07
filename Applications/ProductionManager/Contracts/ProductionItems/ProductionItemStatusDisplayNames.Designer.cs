@@ -22,14 +22,14 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ProductionItemFeedbackActionDisplayNames {
+    public class ProductionItemStatusDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProductionItemFeedbackActionDisplayNames() {
+        internal ProductionItemStatusDisplayNames() {
         }
         
         /// <summary>
@@ -39,8 +39,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemFeedbackAc" +
-                            "tionDisplayNames", typeof(ProductionItemFeedbackActionDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemStatusDisp" +
+                            "layNames", typeof(ProductionItemStatusDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -71,33 +71,6 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bauteil zugeschnitten.
-        /// </summary>
-        public static string DividingPartConfirmed {
-            get {
-                return ResourceManager.GetString("DividingPartConfirmed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestätigt.
-        /// </summary>
-        public static string FeedbackConfirmed {
-            get {
-                return ResourceManager.GetString("FeedbackConfirmed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestätigt durch {0}.
-        /// </summary>
-        public static string FeedbackConfirmedByParent {
-            get {
-                return ResourceManager.GetString("FeedbackConfirmedByParent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to In Produktion.
         /// </summary>
         public static string InProduction {
@@ -107,29 +80,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Etikett gedruckt.
+        ///   Looks up a localized string similar to Neu.
         /// </summary>
-        public static string Labeled {
+        public static string New {
             get {
-                return ResourceManager.GetString("Labeled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bauteil entnommen.
-        /// </summary>
-        public static string PickedFromSortingShelf {
-            get {
-                return ResourceManager.GetString("PickedFromSortingShelf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bauteil eingelagert.
-        /// </summary>
-        public static string PlacedInSortingShelf {
-            get {
-                return ResourceManager.GetString("PlacedInSortingShelf", resourceCulture);
+                return ResourceManager.GetString("New", resourceCulture);
             }
         }
         
@@ -143,34 +98,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empfangen von productionManager.
-        /// </summary>
-        public static string ReceivedByProductionManager {
-            get {
-                return ResourceManager.GetString("ReceivedByProductionManager", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gesendet an intelliDivide.
-        /// </summary>
-        public static string SentToIntelliDivide {
-            get {
-                return ResourceManager.GetString("SentToIntelliDivide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gesendet an productionAssist.
-        /// </summary>
-        public static string SentToProductionAssist {
-            get {
-                return ResourceManager.GetString("SentToProductionAssist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unbekannte Aktion.
+        ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
         public static string Unknown {
             get {
