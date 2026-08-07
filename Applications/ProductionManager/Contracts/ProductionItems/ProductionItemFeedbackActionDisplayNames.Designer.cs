@@ -60,7 +60,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Abgeschlossen.
         /// </summary>
@@ -69,7 +69,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bauteil zugeschnitten.
         /// </summary>
@@ -78,7 +78,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("DividingPartConfirmed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bestätigt.
         /// </summary>
@@ -87,7 +87,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("FeedbackConfirmed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bestätigt durch {0}.
         /// </summary>
@@ -96,7 +96,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("FeedbackConfirmedByParent", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to In Produktion.
         /// </summary>
@@ -105,7 +105,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("InProduction", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Etikett gedruckt.
         /// </summary>
@@ -114,7 +114,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("Labeled", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bauteil entnommen.
         /// </summary>
@@ -123,7 +123,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("PickedFromSortingShelf", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bauteil eingelagert.
         /// </summary>
@@ -132,7 +132,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("PlacedInSortingShelf", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Produktionsbereit.
         /// </summary>
@@ -141,7 +141,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("ReadyForProduction", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Empfangen von productionManager.
         /// </summary>
@@ -150,7 +150,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("ReceivedByProductionManager", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Gesendet an intelliDivide.
         /// </summary>
@@ -159,7 +159,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("SentToIntelliDivide", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Gesendet an productionAssist.
         /// </summary>

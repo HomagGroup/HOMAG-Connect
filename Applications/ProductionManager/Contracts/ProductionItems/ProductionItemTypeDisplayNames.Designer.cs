@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ProductionItemTypeDisplayNames {
+    public class ProductionItemTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemTypeDispla" +
@@ -52,7 +52,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Baugruppe.
         /// </summary>
-        internal static string AssemblyGroup {
+        public static string AssemblyGroup {
             get {
                 return ResourceManager.GetString("AssemblyGroup", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Baugruppe.
         /// </summary>
-        internal static string AssemblyUnit {
+        public static string AssemblyUnit {
             get {
                 return ResourceManager.GetString("AssemblyUnit", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Gruppe.
         /// </summary>
-        internal static string Group {
+        public static string Group {
             get {
                 return ResourceManager.GetString("Group", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Artikel.
         /// </summary>
-        internal static string OrderItem {
+        public static string OrderItem {
             get {
                 return ResourceManager.GetString("OrderItem", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Teil.
         /// </summary>
-        internal static string Part {
+        public static string Part {
             get {
                 return ResourceManager.GetString("Part", resourceCulture);
             }
@@ -109,7 +109,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
-        internal static string Position {
+        public static string Position {
             get {
                 return ResourceManager.GetString("Position", resourceCulture);
             }
@@ -118,7 +118,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Teil.
         /// </summary>
-        internal static string ProductionOrder {
+        public static string ProductionOrder {
             get {
                 return ResourceManager.GetString("ProductionOrder", resourceCulture);
             }
@@ -127,7 +127,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Ressource.
         /// </summary>
-        internal static string Resource {
+        public static string Resource {
             get {
                 return ResourceManager.GetString("Resource", resourceCulture);
             }
@@ -136,7 +136,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
-        internal static string Unknown {
+        public static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
             }

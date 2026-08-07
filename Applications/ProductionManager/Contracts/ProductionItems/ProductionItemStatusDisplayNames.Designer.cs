@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ProductionItemStatusDisplayNames {
+    public class ProductionItemStatusDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemStatusDisp" +
@@ -52,7 +52,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Abgeschlossen.
         /// </summary>
-        internal static string Completed {
+        public static string Completed {
             get {
                 return ResourceManager.GetString("Completed", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to In Produktion.
         /// </summary>
-        internal static string InProduction {
+        public static string InProduction {
             get {
                 return ResourceManager.GetString("InProduction", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Neu.
         /// </summary>
-        internal static string New {
+        public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Produktionsbereit.
         /// </summary>
-        internal static string ReadyForProduction {
+        public static string ReadyForProduction {
             get {
                 return ResourceManager.GetString("ReadyForProduction", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         /// <summary>
         ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
-        internal static string Unknown {
+        public static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
             }

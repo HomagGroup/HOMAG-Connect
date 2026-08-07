@@ -22,7 +22,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ProcessedItemQualityDisplayNames {
+    public class ProcessedItemQualityDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionProtocol.ProcessedItemQualityD" +
@@ -52,7 +52,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         /// <summary>
         ///   Looks up a localized string similar to Gut.
         /// </summary>
-        internal static string Good {
+        public static string Good {
             get {
                 return ResourceManager.GetString("Good", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         /// <summary>
         ///   Looks up a localized string similar to Nachfertigung.
         /// </summary>
-        internal static string Rework {
+        public static string Rework {
             get {
                 return ResourceManager.GetString("Rework", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol {
         /// <summary>
         ///   Looks up a localized string similar to Unsicher.
         /// </summary>
-        internal static string Uncertain {
+        public static string Uncertain {
             get {
                 return ResourceManager.GetString("Uncertain", resourceCulture);
             }

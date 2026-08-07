@@ -121,18 +121,18 @@
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemStatusDisplayNames.resx">
 		  <LastGenOutput>ProductionItemStatusDisplayNames.Designer.cs</LastGenOutput>
-		  <Generator>ResXFileCodeGenerator</Generator>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemTypeDisplayNames.resx">
 		  <LastGenOutput>ProductionItemTypeDisplayNames.Designer.cs</LastGenOutput>
-		  <Generator>ResXFileCodeGenerator</Generator>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackActionDisplayNames.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>ProductionItemFeedbackActionDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionItems\ProductionItemFeedbackDisplayNames.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>ProductionItemFeedbackDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionProtocol\ProcessedItemCategoryDisplayNames.resx">
@@ -140,7 +140,7 @@
 		  <LastGenOutput>ProcessedItemCategoryDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionProtocol\ProcessedItemQualityDisplayNames.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
+			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>ProcessedItemQualityDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="ProductionProtocol\ProductionProtocolPropertyDisplayNames.resx">
