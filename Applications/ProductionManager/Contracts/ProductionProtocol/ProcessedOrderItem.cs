@@ -56,7 +56,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         /// </summary>
         /// <example>4711</example>
         [JsonProperty(Order = 14)]
-        [Display(AutoGenerateField = false, ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(OrderName))]
+        [Display(AutoGenerateField = false, ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(OrderNumber))]
         public string? OrderNumber { get; set; }
 
         /// <summary>
