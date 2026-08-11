@@ -64,6 +64,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
+        /// Gets or sets the source of the order, indicating the system the order originates from.
+        /// </summary>
+        [JsonProperty(Order = 115)]
+        public string? Source { get; set; }
+
+        /// <summary>
         /// The project of the order
         /// </summary>
         [JsonProperty(Order = 120)]
