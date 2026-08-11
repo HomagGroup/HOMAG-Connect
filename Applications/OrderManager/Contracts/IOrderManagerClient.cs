@@ -31,6 +31,12 @@ namespace HomagConnect.OrderManager.Contracts
         /// </summary>
         Task<IEnumerable<OrderOverview>> GetOrders(string[] orderNumbers);
 
+        /// <summary>
+        /// Gets all orders for the given order state and the latest changedSince Date.
+        /// </summary>
+        /// >
+        Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState orderState, DateTime changedSince, int take, int skip = 0);
+
         #endregion
 
         #region Order details
