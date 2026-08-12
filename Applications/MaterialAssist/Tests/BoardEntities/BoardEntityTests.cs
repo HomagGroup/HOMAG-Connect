@@ -10,8 +10,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.BoardEntities;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Boards")]
 public class BoardEntityTests : MaterialAssistTestBase
 {
     [TemporaryDisabledOnServer(2026, 03, 31, "DF-Material")]

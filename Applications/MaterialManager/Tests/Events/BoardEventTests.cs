@@ -12,8 +12,8 @@ namespace HomagConnect.MaterialManager.Tests.Events;
 
 /// <inheritdoc />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Material.Events")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Material.Events")]
 public class BoardEventTests : MaterialManagerTestBase
 {
     /// <summary />
@@ -57,14 +57,14 @@ public class BoardEventTests : MaterialManagerTestBase
         // Assert
         deserializedTyped.ShouldNotBeNull(
             "because BoardEntityDeletedEvent should be successfully deserialized from JSON");
-        deserializedTyped!.Id.ShouldBe(expectedId,
+        deserializedTyped.Id.ShouldBe(expectedId,
             "because Id property from AppEvent should be serialized and deserialized correctly");
         deserializedTyped.BoardEntityId.ShouldBe(expectedBoardEntityId,
             "because BoardEntityId should be serialized and deserialized correctly");
 
         deserializedBase.ShouldNotBeNull(
             "because AppEvent should be successfully deserialized from JSON");
-        deserializedBase!.Id.ShouldBe(expectedId,
+        deserializedBase.Id.ShouldBe(expectedId,
             "because Id property should match when deserialized as base AppEvent");
         deserializedBase.CustomProperties.ShouldNotBeNull(
             "because CustomProperties should contain event-specific data");
@@ -121,14 +121,14 @@ public class BoardEventTests : MaterialManagerTestBase
         // Assert
         deserializedTyped.ShouldNotBeNull(
             "because BoardEntityUpserted should be successfully deserialized from JSON");
-        deserializedTyped!.BoardEntity.ShouldNotBeNull(
+        deserializedTyped.BoardEntity.ShouldNotBeNull(
             "because BoardEntity property should be included in the serialized event");
         deserializedTyped.BoardEntity.Id.ShouldBe(boardEntity.Id,
             $"because deserialized BoardEntity should have ID '{boardEntity.Id}'");
 
         deserializedBase.ShouldNotBeNull(
             "because AppEvent should be successfully deserialized from JSON");
-        deserializedBase!.CustomProperties.ShouldNotBeNull(
+        deserializedBase.CustomProperties.ShouldNotBeNull(
             "because CustomProperties should contain event-specific data");
         deserializedBase.CustomProperties.ContainsKey("boardEntity").ShouldBeTrue(
             "because boardEntity should be stored in CustomProperties when deserialized as AppEvent");
@@ -139,11 +139,11 @@ public class BoardEventTests : MaterialManagerTestBase
         boardEntityJson.ShouldNotBeNull(
             "because boardEntity value in CustomProperties should not be null after serialization");
 
-        var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson!, SerializerSettings.Default);
+        var boardEntityFromCustom = JsonConvert.DeserializeObject<BoardEntity>(boardEntityJson, SerializerSettings.Default);
 
         boardEntityFromCustom.ShouldNotBeNull(
             "because boardEntity from CustomProperties should deserialize back to BoardEntity");
-        boardEntityFromCustom!.Id.ShouldBe(boardEntity.Id,
+        boardEntityFromCustom.Id.ShouldBe(boardEntity.Id,
             $"because BoardEntity deserialized from CustomProperties should have ID '{boardEntity.Id}'");
     }
 

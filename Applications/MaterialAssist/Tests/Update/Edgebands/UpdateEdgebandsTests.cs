@@ -5,8 +5,8 @@ using HomagConnect.MaterialAssist.Samples.Update.Edgebands;
 namespace HomagConnect.MaterialAssist.Tests.Update.Edgebands;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Edgebands")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Edgebands")]
 public class UpdateEdgebandsTests : MaterialAssistTestBase
 {
     [TestMethod]
@@ -21,9 +21,8 @@ public class UpdateEdgebandsTests : MaterialAssistTestBase
 
         checkEdgebandEntity.ShouldNotBeNull(
             "because edgeband entity '43' should exist after update");
-        Assert.AreEqual(length, checkEdgebandEntity!.Length, 0.0001,
+        Assert.AreEqual(length, checkEdgebandEntity.Length, 0.0001,
             $"because edgeband entity '43' was updated to length {length}");
-        return;       
     }
 
     [ClassInitialize]
