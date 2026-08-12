@@ -19,8 +19,7 @@ public sealed class NewsClient : INewsClient
     /// </summary>
     private static readonly int _FeedCacheMaxAgeSeconds = (int)TimeSpan.FromHours(8).TotalSeconds;
 
-    //private static readonly Uri DefaultBaseUri = new("https://news-preview.homag.cloud");
-    private static readonly Uri _DefaultBaseUri = new("https://dfnewsprefunc.azurewebsites.net/");
+    private static readonly Uri _DefaultBaseUri = new("https://news-preview.homag.cloud");
 
     private readonly HttpClient _httpClient;
 
