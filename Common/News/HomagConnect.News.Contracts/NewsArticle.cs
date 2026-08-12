@@ -23,6 +23,11 @@ namespace HomagConnect.News.Contracts
         public required Uri Url { get; init; }
 
         /// <summary>
+        /// Gets th URL of the first image in the article. 
+        /// </summary>
+        public Uri? ImageUrl { get; set; }
+
+        /// <summary>
         /// Gets the article lead text.
         /// </summary>
         public required string Lead { get; init; }
