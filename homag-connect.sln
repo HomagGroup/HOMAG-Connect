@@ -154,6 +154,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipeline", "Pipeline", "{F5
 		translate.yml = translate.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9264CFA2-E6EF-4C15-B3F1-B7A0F6C968D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomagConnect.News", "HomagConnect.News", "{F5BEE57B-6A98-4B91-90D0-DEDC29CDE10D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomagConnect.News.Contracts", "Common\News\HomagConnect.News.Contracts\HomagConnect.News.Contracts.csproj", "{9D0F96AD-E047-4448-BFAD-A7B3A6A42261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -312,6 +318,10 @@ Global
 		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D5D97F3-6185-4339-B414-0731B1DD6111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D0F96AD-E047-4448-BFAD-A7B3A6A42261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D0F96AD-E047-4448-BFAD-A7B3A6A42261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D0F96AD-E047-4448-BFAD-A7B3A6A42261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D0F96AD-E047-4448-BFAD-A7B3A6A42261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -371,6 +381,8 @@ Global
 		{2D5D97F3-6185-4339-B414-0731B1DD6111} = {FFD3C85D-9451-4936-B8F8-DAF071E5F0A5}
 		{868C0B15-1FBB-44F3-8028-EE3D4BC1D810} = {2E7E070F-ED86-401C-93B5-7A2ABF62A80A}
 		{F585A23D-A423-4BD6-B612-397F943F4023} = {2E7E070F-ED86-401C-93B5-7A2ABF62A80A}
+		{F5BEE57B-6A98-4B91-90D0-DEDC29CDE10D} = {9264CFA2-E6EF-4C15-B3F1-B7A0F6C968D6}
+		{9D0F96AD-E047-4448-BFAD-A7B3A6A42261} = {F5BEE57B-6A98-4B91-90D0-DEDC29CDE10D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9895656-0897-4137-86F9-8DBCC5E494A6}
