@@ -19,6 +19,35 @@
 
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Base\HomagConnect.Base.Contracts\HomagConnect.Base.Contracts.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="MmrPropertyDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>MmrPropertyDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="GranularityDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>GranularityDisplayNames.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="MmrPropertyDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>MmrPropertyDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="GranularityDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>GranularityDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>
