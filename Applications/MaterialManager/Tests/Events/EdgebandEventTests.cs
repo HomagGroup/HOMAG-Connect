@@ -11,24 +11,25 @@ namespace HomagConnect.MaterialManager.Tests.Events;
 
 /// <inheritdoc />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Material.Events")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Material.Events")]
 public class EdgebandEventTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
     public void Events_EdgebandEntityDeletedEvent_SerializeDeserialize()
     {
-        var EdgebandEntityDeletedEvent = new EdgebandEntityDeletedEvent();
+        var edgebandEntityDeletedEvent = new EdgebandEntityDeletedEvent
+        {
+            SubscriptionId = Guid.NewGuid(),
+            EdgebandEntityId = "abc"
+        };
 
-        EdgebandEntityDeletedEvent.SubscriptionId = Guid.NewGuid();
-        EdgebandEntityDeletedEvent.EdgebandEntityId = "abc";
+        edgebandEntityDeletedEvent.Trace();
 
-        EdgebandEntityDeletedEvent.Trace();
+        Assert.IsTrue(edgebandEntityDeletedEvent.IsValid, "because EdgebandEntityDeletedEvent should be valid after setting required properties");
 
-        Assert.IsTrue(EdgebandEntityDeletedEvent.IsValid, "because EdgebandEntityDeletedEvent should be valid after setting required properties");
-
-        TestContext?.AddResultFile(EdgebandEntityDeletedEvent.TraceToFile("EdgebandEntityDeletedEvent").FullName);
+        TestContext?.AddResultFile(edgebandEntityDeletedEvent.TraceToFile("EdgebandEntityDeletedEvent").FullName);
     }
 
     /// <summary />
@@ -56,14 +57,14 @@ public class EdgebandEventTests : MaterialManagerTestBase
         // Assert
         deserializedTyped.ShouldNotBeNull(
             "because EdgebandEntityDeletedEvent should be successfully deserialized from JSON");
-        deserializedTyped!.Id.ShouldBe(expectedId,
+        deserializedTyped.Id.ShouldBe(expectedId,
             "because Id property from AppEvent should be serialized and deserialized correctly");
         deserializedTyped.EdgebandEntityId.ShouldBe(expectedEdgebandEntityId,
             "because EdgebandEntityId should be serialized and deserialized correctly");
 
         deserializedBase.ShouldNotBeNull(
             "because AppEvent should be successfully deserialized from JSON");
-        deserializedBase!.Id.ShouldBe(expectedId,
+        deserializedBase.Id.ShouldBe(expectedId,
             "because Id property should match when deserialized as base AppEvent");
         deserializedBase.CustomProperties.ShouldNotBeNull(
             "because CustomProperties should contain event-specific data");
@@ -119,14 +120,14 @@ public class EdgebandEventTests : MaterialManagerTestBase
         // Assert
         deserializedTyped.ShouldNotBeNull(
             "because EdgebandEntityUpserted should be successfully deserialized from JSON");
-        deserializedTyped!.EdgebandEntity.ShouldNotBeNull(
+        deserializedTyped.EdgebandEntity.ShouldNotBeNull(
             "because EdgebandEntity property should be included in the serialized event");
         deserializedTyped.EdgebandEntity.Id.ShouldBe(edgebandEntity.Id,
             $"because deserialized EdgebandEntity should have ID '{edgebandEntity.Id}'");
 
         deserializedBase.ShouldNotBeNull(   
             "because AppEvent should be successfully deserialized from JSON");
-        deserializedBase!.CustomProperties.ShouldNotBeNull(
+        deserializedBase.CustomProperties.ShouldNotBeNull(
             "because CustomProperties should contain event-specific data");
         deserializedBase.CustomProperties.ContainsKey("edgebandEntity").ShouldBeTrue(
             "because edgebandEntity should be stored in CustomProperties when deserialized as AppEvent");
@@ -137,11 +138,11 @@ public class EdgebandEventTests : MaterialManagerTestBase
         edgebandEntityJson.ShouldNotBeNull(
             "because edgebandEntity value in CustomProperties should not be null after serialization");
     
-        var edgebandEntityFromCustom = JsonConvert.DeserializeObject<EdgebandEntity>(edgebandEntityJson!, SerializerSettings.Default);
+        var edgebandEntityFromCustom = JsonConvert.DeserializeObject<EdgebandEntity>(edgebandEntityJson, SerializerSettings.Default);
 
         edgebandEntityFromCustom.ShouldNotBeNull(
             "because EdgebandEntity from CustomProperties should deserialize back to EdgebandEntity");
-        edgebandEntityFromCustom!.Id.ShouldBe(edgebandEntity.Id,
+        edgebandEntityFromCustom.Id.ShouldBe(edgebandEntity.Id,
             $"because EdgebandEntity deserialized from CustomProperties should have ID '{edgebandEntity.Id}'");
     }
 

@@ -1,4 +1,4 @@
-using Shouldly;
+﻿using Shouldly;
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
@@ -11,8 +11,8 @@ namespace HomagConnect.MaterialManager.Tests.Surfaces.Textures;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Textures")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Textures")]
 public class MaterialDefinitionRoomleTests
 {
     /// <summary />
@@ -34,7 +34,7 @@ public class MaterialDefinitionRoomleTests
         // Act
         var original = JsonConvert.DeserializeObject<MaterialDefinitionRoomle>(inputJson, SerializerSettings.Default);
         Assert.IsNotNull(original, "Deserialized Roomle material should not be null");
-        Assert.IsNotNull(original!.Material, "Roomle material payload should be present");
+        Assert.IsNotNull(original.Material, "Roomle material payload should be present");
 
         var serializedJson = JsonConvert.SerializeObject(original, SerializerSettings.Default);
         await File.WriteAllTextAsync(outputPath, serializedJson);
@@ -65,7 +65,7 @@ public class MaterialDefinitionRoomleTests
         var inputJson = await File.ReadAllTextAsync(inputPath);
         var materialDefinition = JsonConvert.DeserializeObject<MaterialDefinitionRoomle>(inputJson, SerializerSettings.Default);
         Assert.IsNotNull(materialDefinition, "Deserialized Roomle material should not be null");
-        Assert.IsNotNull(materialDefinition!.Material, "Roomle material payload should be present");
+        Assert.IsNotNull(materialDefinition.Material, "Roomle material payload should be present");
 
         materialDefinition.Material!.Thumbnail = null;
 
@@ -76,7 +76,7 @@ public class MaterialDefinitionRoomleTests
 
         // Assert
         Assert.IsNotNull(thumbnailFile, "Thumbnail file should be created from the material color fallback");
-        thumbnailFile!.Exists.ShouldBeTrue("because the thumbnail service should write the PNG file to disk");
+        thumbnailFile.Exists.ShouldBeTrue("because the thumbnail service should write the PNG file to disk");
         thumbnailFile.Extension.ShouldBe(".png", "because generated thumbnails are PNG files");
 
         var thumbnailBytes = await File.ReadAllBytesAsync(thumbnailFile.FullName);
@@ -101,7 +101,7 @@ public class MaterialDefinitionRoomleTests
         var inputJson = await File.ReadAllTextAsync(inputPath);
         var materialDefinition = JsonConvert.DeserializeObject<MaterialDefinitionRoomle>(inputJson, SerializerSettings.Default);
         Assert.IsNotNull(materialDefinition, "Deserialized Roomle material should not be null");
-        Assert.IsNotNull(materialDefinition!.Material, "Roomle material payload should be present");
+        Assert.IsNotNull(materialDefinition.Material, "Roomle material payload should be present");
 
         materialDefinition.Material!.Thumbnail = thumbnailUrl;
 
@@ -115,7 +115,7 @@ public class MaterialDefinitionRoomleTests
 
         // Assert
         Assert.IsNotNull(thumbnailFile, "Thumbnail file should be created from the downloaded thumbnail bytes");
-        thumbnailFile!.Exists.ShouldBeTrue("because the thumbnail service should write the downloaded file to disk");
+        thumbnailFile.Exists.ShouldBeTrue("because the thumbnail service should write the downloaded file to disk");
 
         var thumbnailBytes = await File.ReadAllBytesAsync(thumbnailFile.FullName);
         thumbnailBytes.ShouldBe(expectedThumbnailBytes,
