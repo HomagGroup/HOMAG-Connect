@@ -138,23 +138,14 @@
   <data name="DurationInHours" xml:space="preserve">
     <value>Dauer [h]</value>
   </data>
-  <data name="DetailedStateId" xml:space="preserve">
-    <value>Detailzustand-ID</value>
-  </data>
   <data name="DetailedStateTranslation" xml:space="preserve">
-    <value>Detailzustand</value>
-  </data>
-  <data name="StateId" xml:space="preserve">
-    <value>Zustand-ID</value>
+    <value>Beschreibung</value>
   </data>
   <data name="StateTranslation" xml:space="preserve">
     <value>Zustand</value>
   </data>
   <data name="Value" xml:space="preserve">
     <value>Wert</value>
-  </data>
-  <data name="CounterId" xml:space="preserve">
-    <value>Zähler-ID</value>
   </data>
   <data name="CounterTranslation" xml:space="preserve">
     <value>Zähler</value>

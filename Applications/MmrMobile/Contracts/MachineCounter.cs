@@ -22,7 +22,6 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Counter Id
         /// </summary>
         [JsonProperty("Counter Id")]
-        [Display(Name = nameof(MmrPropertyDisplayNames.CounterId))]
         public string? CounterId { get; set; }
 
         /// <summary>

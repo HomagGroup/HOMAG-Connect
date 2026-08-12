@@ -21,7 +21,6 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Detailed state Id
         /// </summary>
         [JsonProperty("Detailed State Id")]
-        [Display(Name = nameof(MmrPropertyDisplayNames.DetailedStateId))]
         public string? DetailedStateId { get; set; }
 
         /// <summary>
@@ -35,7 +34,6 @@ namespace HomagConnect.MmrMobile.Contracts
         /// State Id / State group
         /// </summary>
         [JsonProperty("State Id")]
-        [Display(Name = nameof(MmrPropertyDisplayNames.StateId))]
         public string? StateId { get; set; }
 
         /// <summary>

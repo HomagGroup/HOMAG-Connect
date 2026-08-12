@@ -61,24 +61,6 @@ namespace HomagConnect.MmrMobile.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instanz.
-        /// </summary>
-        public static string InstanceId {
-            get {
-                return ResourceManager.GetString("InstanceId", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Zähler-ID.
-        /// </summary>
-        public static string CounterId {
-            get {
-                return ResourceManager.GetString("CounterId", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Zähler.
         /// </summary>
         public static string CounterTranslation {
@@ -86,25 +68,16 @@ namespace HomagConnect.MmrMobile.Contracts {
                 return ResourceManager.GetString("CounterTranslation", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Detailzustand-ID.
-        /// </summary>
-        public static string DetailedStateId {
-            get {
-                return ResourceManager.GetString("DetailedStateId", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Detailzustand.
+        ///   Looks up a localized string similar to Beschreibung.
         /// </summary>
         public static string DetailedStateTranslation {
             get {
                 return ResourceManager.GetString("DetailedStateTranslation", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Dauer [h].
         /// </summary>
@@ -113,7 +86,7 @@ namespace HomagConnect.MmrMobile.Contracts {
                 return ResourceManager.GetString("DurationInHours", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Granularität.
         /// </summary>
@@ -122,52 +95,16 @@ namespace HomagConnect.MmrMobile.Contracts {
                 return ResourceManager.GetString("Granularity", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Zustand-ID.
+        ///   Looks up a localized string similar to Instanz.
         /// </summary>
-        public static string StateId {
+        public static string InstanceId {
             get {
-                return ResourceManager.GetString("StateId", resourceCulture);
+                return ResourceManager.GetString("InstanceId", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Zustand.
-        /// </summary>
-        public static string StateTranslation {
-            get {
-                return ResourceManager.GetString("StateTranslation", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Zeitstempel.
-        /// </summary>
-        public static string Timestamp {
-            get {
-                return ResourceManager.GetString("Timestamp", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Einheit.
-        /// </summary>
-        public static string Unit {
-            get {
-                return ResourceManager.GetString("Unit", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Wert.
-        /// </summary>
-        public static string Value {
-            get {
-                return ResourceManager.GetString("Value", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Maschinenname.
         /// </summary>
@@ -176,7 +113,7 @@ namespace HomagConnect.MmrMobile.Contracts {
                 return ResourceManager.GetString("MachineName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Maschinennummer.
         /// </summary>
@@ -185,13 +122,49 @@ namespace HomagConnect.MmrMobile.Contracts {
                 return ResourceManager.GetString("MachineNumber", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Maschinentyp.
         /// </summary>
         public static string MachineType {
             get {
                 return ResourceManager.GetString("MachineType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zustand.
+        /// </summary>
+        public static string StateTranslation {
+            get {
+                return ResourceManager.GetString("StateTranslation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zeitstempel.
+        /// </summary>
+        public static string Timestamp {
+            get {
+                return ResourceManager.GetString("Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Einheit.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wert.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
     }
