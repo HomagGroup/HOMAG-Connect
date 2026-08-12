@@ -5,8 +5,8 @@ namespace HomagConnect.MaterialManager.Tests.Statistics;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Statistics.Inventory")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Statistics.Inventory")]
 public class EdgebandTypeInventoryStatisticsTests : MaterialManagerTestBase
 {
     /// <summary />

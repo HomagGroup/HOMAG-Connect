@@ -12,8 +12,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Edgebands;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Edgebands")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Edgebands")]
 public class CreateEdgebandTypeTests : MaterialManagerTestBase
 {
     private const string _EdgebandCodeWhite = "ABS_White_3mm";
