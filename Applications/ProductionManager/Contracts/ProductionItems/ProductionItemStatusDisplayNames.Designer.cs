@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HomagConnect.ProductionAssist.Contracts {
+namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HomagConnect.ProductionAssist.Contracts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WorkstationPropertyDisplayNames {
+    public class ProductionItemStatusDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WorkstationPropertyDisplayNames() {
+        internal ProductionItemStatusDisplayNames() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace HomagConnect.ProductionAssist.Contracts {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionAssist.Contracts.WorkstationPropertyDisplayNames", typeof(WorkstationPropertyDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemStatusDisp" +
+                            "layNames", typeof(ProductionItemStatusDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +62,47 @@ namespace HomagConnect.ProductionAssist.Contracts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to zugewiesene Tapio Maschine.
+        ///   Looks up a localized string similar to Abgeschlossen.
         /// </summary>
-        public static string AssignedTapioMachineId {
+        public static string Completed {
             get {
-                return ResourceManager.GetString("AssignedTapioMachineId", resourceCulture);
+                return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gruppen Name.
+        ///   Looks up a localized string similar to In Produktion.
         /// </summary>
-        public static string GroupName {
+        public static string InProduction {
             get {
-                return ResourceManager.GetString("GroupName", resourceCulture);
+                return ResourceManager.GetString("InProduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neu.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produktionsbereit.
+        /// </summary>
+        public static string ReadyForProduction {
+            get {
+                return ResourceManager.GetString("ReadyForProduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unbekannt.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
     }

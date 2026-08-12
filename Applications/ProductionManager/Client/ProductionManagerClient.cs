@@ -748,7 +748,7 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<WorkstationsYield?> GetWorkstationsYield(DateTime from, DateTime? to)
+        public async Task<IEnumerable<WorkstationYield>?> GetWorkstationsYield(DateTime from, DateTime? to)
         {
             var intTo = to ??DateTime.UtcNow;
 
@@ -759,7 +759,7 @@ namespace HomagConnect.ProductionManager.Client
             };
 
             var url = $"/api/productionManager/workstations/yield?{string.Join("&", queryParameters)}";
-            var workstationsYield = await RequestObject<WorkstationsYield>(new Uri(url, UriKind.Relative));
+            var workstationsYield = await RequestObject<IEnumerable<WorkstationYield>>(new Uri(url, UriKind.Relative));
 
             return workstationsYield;
         }

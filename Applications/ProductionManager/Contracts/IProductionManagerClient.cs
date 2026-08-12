@@ -401,8 +401,8 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>  
         /// <param name="from">The start date and time of the duration.</param>
         /// <param name="to">The end date and time of the duration.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the workstation yield           details, or <see langword="null"/> if no data is found.</returns>
-        Task<WorkstationsYield?> GetWorkstationsYield(DateTime from, DateTime? to);
+        /// <returns>A task that represents the asynchronous operation. The task result contains an enumerable collection of workstation yield details. Returns an empty collection if no records are found.</returns>
+        Task<IEnumerable<WorkstationYield.WorkstationYield>?> GetWorkstationsYield(DateTime from, DateTime? to);
         #endregion Usage statistics
     }
 }

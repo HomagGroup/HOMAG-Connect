@@ -21,7 +21,7 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
         /// Tests getting workstation yield for the last 7 days.
         /// </summary>
         [TestMethod]
-        [TemporaryDisabledOnServer(2026, 08, 01, "DF-Insights")]
+        [TemporaryDisabledOnServer(2026, 08, 15, "DF-Insights")]
         public async Task GetWorkstationsYield_Last7Days_ReturnsData()
         {
             // Arrange
