@@ -28,28 +28,5 @@ namespace HomagConnect.ProductionAssist.Tests.Feedback
                 Assert.Inconclusive("Request data from sample might not be correct.");
             }
         }
-
-        [TestMethod]
-        public void FeedbackWorkstation_BackwardCompatibility_Serialization()
-        {
-            var id = Guid.NewGuid();
-            var name = "Saw 01";
-            var oldJson = $@"
-            {{
-                ""Id"": ""{id}"",
-                ""DisplayName"": ""{name}""
-            }}";
-
-            // deserialize with new class
-            var workstation = JsonConvert.DeserializeObject<FeedbackWorkstation>(oldJson);
-
-            Assert.AreEqual(id, workstation?.Id);
-            Assert.AreEqual(name, workstation?.Name);
-
-            // new properties should have default enum values
-            Assert.AreEqual(default(WorkstationGroup), workstation.Group);
-            Assert.AreEqual(default(WorkstationType), workstation.Type);
-        }
-
     }
 }

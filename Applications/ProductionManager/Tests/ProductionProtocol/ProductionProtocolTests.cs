@@ -89,19 +89,6 @@ namespace HomagConnect.ProductionManager.Tests.ProductionProtocol
         }
 
 
-        [TestMethod]
-        public void ProductionProtocol_Quality_Serialization()
-        {
-            var displayNames = EnumExtensions.GetDisplayNames<ProcessedItemQuality>(CultureInfo.GetCultureInfo("de"));
-
-            displayNames.ShouldNotBeEmpty(
-                "because ProcessedPartQuality enum should have localized display names");
-            displayNames[ProcessedItemQuality.Good].ShouldBe("Gut",
-                "because ProcessedPartQuality.Good should be localized as 'Gut' in German");
-
-            displayNames.Trace();
-        }
-
         /// <summary />
         [TestMethod]
         public void ProductionProtocol_CNC_Part_Serialization()

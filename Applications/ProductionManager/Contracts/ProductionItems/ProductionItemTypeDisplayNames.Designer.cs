@@ -22,14 +22,14 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ProductionItemFeedbackActionDisplayNames {
+    public class ProductionItemTypeDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProductionItemFeedbackActionDisplayNames() {
+        internal ProductionItemTypeDisplayNames() {
         }
         
         /// <summary>
@@ -39,8 +39,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemFeedbackAc" +
-                            "tionDisplayNames", typeof(ProductionItemFeedbackActionDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.ProductionManager.Contracts.ProductionItems.ProductionItemTypeDispla" +
+                            "yNames", typeof(ProductionItemTypeDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,115 +62,79 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abgeschlossen.
+        ///   Looks up a localized string similar to Baugruppe.
         /// </summary>
-        public static string Completed {
+        public static string AssemblyGroup {
             get {
-                return ResourceManager.GetString("Completed", resourceCulture);
+                return ResourceManager.GetString("AssemblyGroup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bauteil zugeschnitten.
+        ///   Looks up a localized string similar to Baugruppe.
         /// </summary>
-        public static string DividingPartConfirmed {
+        public static string AssemblyUnit {
             get {
-                return ResourceManager.GetString("DividingPartConfirmed", resourceCulture);
+                return ResourceManager.GetString("AssemblyUnit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestätigt.
+        ///   Looks up a localized string similar to Gruppe.
         /// </summary>
-        public static string FeedbackConfirmed {
+        public static string Group {
             get {
-                return ResourceManager.GetString("FeedbackConfirmed", resourceCulture);
+                return ResourceManager.GetString("Group", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestätigt durch {0}.
+        ///   Looks up a localized string similar to Artikel.
         /// </summary>
-        public static string FeedbackConfirmedByParent {
+        public static string OrderItem {
             get {
-                return ResourceManager.GetString("FeedbackConfirmedByParent", resourceCulture);
+                return ResourceManager.GetString("OrderItem", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In Produktion.
+        ///   Looks up a localized string similar to Teil.
         /// </summary>
-        public static string InProduction {
+        public static string Part {
             get {
-                return ResourceManager.GetString("InProduction", resourceCulture);
+                return ResourceManager.GetString("Part", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Etikett gedruckt.
+        ///   Looks up a localized string similar to Position.
         /// </summary>
-        public static string Labeled {
+        public static string Position {
             get {
-                return ResourceManager.GetString("Labeled", resourceCulture);
+                return ResourceManager.GetString("Position", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bauteil entnommen.
+        ///   Looks up a localized string similar to Teil.
         /// </summary>
-        public static string PickedFromSortingShelf {
+        public static string ProductionOrder {
             get {
-                return ResourceManager.GetString("PickedFromSortingShelf", resourceCulture);
+                return ResourceManager.GetString("ProductionOrder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bauteil eingelagert.
+        ///   Looks up a localized string similar to Ressource.
         /// </summary>
-        public static string PlacedInSortingShelf {
+        public static string Resource {
             get {
-                return ResourceManager.GetString("PlacedInSortingShelf", resourceCulture);
+                return ResourceManager.GetString("Resource", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Produktionsbereit.
-        /// </summary>
-        public static string ReadyForProduction {
-            get {
-                return ResourceManager.GetString("ReadyForProduction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Empfangen von productionManager.
-        /// </summary>
-        public static string ReceivedByProductionManager {
-            get {
-                return ResourceManager.GetString("ReceivedByProductionManager", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gesendet an intelliDivide.
-        /// </summary>
-        public static string SentToIntelliDivide {
-            get {
-                return ResourceManager.GetString("SentToIntelliDivide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gesendet an productionAssist.
-        /// </summary>
-        public static string SentToProductionAssist {
-            get {
-                return ResourceManager.GetString("SentToProductionAssist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unbekannte Aktion.
+        ///   Looks up a localized string similar to Unbekannt.
         /// </summary>
         public static string Unknown {
             get {

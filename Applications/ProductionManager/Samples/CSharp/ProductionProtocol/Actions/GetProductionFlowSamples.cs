@@ -19,10 +19,10 @@ namespace HomagConnect.ProductionManager.Samples.CSharp.ProductionProtocol.Actio
 
             var workstationsYield = await productionManager.GetWorkstationsYield(from, to);
 
-            if (workstationsYield?.Yields != null)
+            if (workstationsYield != null)
             {
-                var workstationCount = workstationsYield.Yields.Count();
-                var totalItems = workstationsYield.Yields
+                var workstationCount = workstationsYield.Count();
+                var totalItems = workstationsYield  
                     .SelectMany(w => w.Yields.Select(kv => kv.Value))
                     .Sum();
 
