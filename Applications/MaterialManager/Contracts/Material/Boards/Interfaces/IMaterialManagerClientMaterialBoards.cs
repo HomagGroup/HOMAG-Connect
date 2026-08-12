@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -150,6 +150,20 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <exception cref="ArgumentException">Thrown, if take is greater than 1000.</exception>
         Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesIncludingDetails(DateTimeOffset changedSince, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets the board types by external system id.
+        /// </summary>
+        /// <param name="externalSystemId">The external system id linked to one or more board types.</param>
+        /// <param name="take">The maximum number of board types to return.</param>
+        /// <param name="skip">The number of board types to skip. Defaults to <c>0</c>.</param>
+        /// <param name="includingDetails">
+        /// Set to <c>true</c> to populate inventory, allocations, and additional data on the returned board types.
+        /// Defaults to <c>false</c>.
+        /// </param>
+        /// <returns>The board types matching the external system id sorted by <see cref="BoardType.BoardCode" />.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="externalSystemId" /> is null or whitespace.</exception>
+        Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByExternalSystemId(string externalSystemId, int take, int skip = 0, bool includingDetails = false);
 
         /// <summary>
         /// Gets a paginated list of materials.

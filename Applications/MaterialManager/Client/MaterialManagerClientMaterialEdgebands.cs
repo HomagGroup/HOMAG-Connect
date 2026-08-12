@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -36,6 +36,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _BaseStatisticsRoute = "api/materialManager/statistics";
     private const string _EdgebandCode = "edgebandCode";
     private const string _IncludingDetails = "includingDetails";
+    private const string _ExternalSystemId = "externalSystemId";
 
     #region Private Methods
 
@@ -247,6 +248,24 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     {
         const string url = $"{_BaseRoute}/machines";
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesByExternalSystemId(string externalSystemId, int take, int skip = 0, bool includingDetails = false)
+    {
+        if (string.IsNullOrWhiteSpace(externalSystemId))
+        {
+            throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
+        }
+
+        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+
+        if (includingDetails)
+        {
+            url += $"&{_IncludingDetails}=true";
+        }
+
+        return await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
     #endregion Get
