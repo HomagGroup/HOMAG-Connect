@@ -169,6 +169,7 @@ jobs:
       projectVersion: '$(MajorMinorBuildVersion)'
       extraProperties: |
           sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/coverage.opencover.xml
           sonar.pullrequest.key=$(System.PullRequest.PullRequestNumber)
           sonar.pullrequest.branch=$(System.PullRequest.SourceBranch)
           sonar.pullrequest.base=$(System.PullRequest.TargetBranch)
@@ -183,6 +184,7 @@ jobs:
       projectVersion: '$(MajorMinorBuildVersion)'
       extraProperties: |
         sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+        sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/coverage.opencover.xml
         sonar.branch.name=$(Build.SourceBranchName)
 
   - task: DotNetCoreCLI@2
@@ -238,7 +240,7 @@ jobs:
             $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
             $trxFileName = "$projectName.trx"
 
-            dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter"
+            dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter" --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format="cobertura,opencover"
 
             if ($LASTEXITCODE -ne 0)
             {
@@ -287,7 +289,7 @@ jobs:
                 $projectName = [System.IO.Path]::GetFileNameWithoutExtension($testProject.Name)
                 $trxFileName = "$projectName-attempt$attempt.trx"
 
-                dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter"
+                dotnet test $testProject.FullName --configuration $(BuildConfiguration) --no-restore --no-build --logger "trx;LogFileName=$trxFileName" --results-directory "$testResultsDirectory" --filter "$filter" --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format="cobertura,opencover"
 
                 if ($LASTEXITCODE -ne 0)
                 {
@@ -317,6 +319,13 @@ jobs:
       testResultsFiles: '$(Agent.TempDirectory)\IntegrationTestResults\**\*.trx'
       failTaskOnFailedTests: true
       testRunTitle: 'HomagConnect Integration Tests'
+
+  - task: PublishCodeCoverageResults@2
+    displayName: 'Publish code coverage results'
+    condition: and(succeededOrFailed(), ne(variables['Build.Reason'], 'Schedule'))
+    inputs:
+      summaryFileLocation: '$(Agent.TempDirectory)/**/*coverage.cobertura.xml'
+      failIfCoverageEmpty: false
 
   - task: PowerShell@2
     displayName: 'Publish HomagConnect test projects'
