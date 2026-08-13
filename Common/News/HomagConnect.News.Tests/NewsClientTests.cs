@@ -12,19 +12,21 @@ namespace HomagConnect.News.Tests;
 [DeploymentTest("Common.News", TestPriority.Low)]
 public class NewsClientTests
 {
-    private static readonly string[] TagsIntelliDivide = ["intelliDivide"];
-    private static readonly string[] TagsServiceAssist = ["serviceAssist"];
-    private static readonly string[] TagsMultiple = ["intelliDivide", "serviceAssist"];
+    public TestContext TestContext { get; set; } = null!;
+
+    private static readonly string[] _TagsIntelliDivide = ["intelliDivide"];
+    private static readonly string[] _TagsServiceAssist = ["serviceAssist"];
+    private static readonly string[] _TagsMultiple = ["intelliDivide", "serviceAssist"];
 
     #region Culture isolation
 
     [TestMethod]
     public async Task GetLatest_EnAndDe_BothCulturesReturnArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var enArticles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), TagsIntelliDivide, take: 10);
-        var deArticles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), TagsIntelliDivide, take: 10);
+        var enArticles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 10, cancellationToken: TestContext.CancellationToken);
+        var deArticles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsIntelliDivide, take: 10, cancellationToken: TestContext.CancellationToken);
 
         enArticles.ShouldNotBeNull();
         deArticles.ShouldNotBeNull();
@@ -33,9 +35,9 @@ public class NewsClientTests
         deArticles.Count.ShouldBeGreaterThan(0, "because DE intelliDivide articles should exist");
 
         // The feed serves the same article IDs across cultures (same content, localised per culture).
-        enArticles.ShouldAllBe(a => a.Tags.Contains("intelliDivide", StringComparer.OrdinalIgnoreCase),
+        enArticles.ShouldAllBe(a => HasTag(a.Tags, "intelliDivide"),
             "because every EN article must carry the requested tag");
-        deArticles.ShouldAllBe(a => a.Tags.Contains("intelliDivide", StringComparer.OrdinalIgnoreCase),
+        deArticles.ShouldAllBe(a => HasTag(a.Tags, "intelliDivide"),
             "because every DE article must carry the requested tag");
     }
 
@@ -43,14 +45,25 @@ public class NewsClientTests
 
     private static NewsClient CreateClient() => new();
 
+    private static bool HasTag(IEnumerable<string> tags, string expectedTag)
+    {
+        return tags.Any(tag => string.Equals(tag, expectedTag, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static bool HasAnyTag(IEnumerable<string> tags, IEnumerable<string> expectedTags)
+    {
+        var expectedTagSet = new HashSet<string>(expectedTags, StringComparer.OrdinalIgnoreCase);
+        return tags.Any(expectedTagSet.Contains);
+    }
+
     #region EN
 
     [TestMethod]
     public async Task GetLatest_En_ReturnsArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), [], take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), [], take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull("because the feed should return a result");
         articles.Count.ShouldBeGreaterThan(0, "because EN articles should exist");
@@ -61,29 +74,29 @@ public class NewsClientTests
     [TestMethod]
     public async Task GetLatest_En_WithIntelliDivideTag_ReturnsFilteredArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), TagsIntelliDivide, take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because EN intelliDivide articles should exist");
-        articles.ShouldAllBe(a => a.Tags.Contains("intelliDivide", StringComparer.OrdinalIgnoreCase),
+        articles.ShouldAllBe(a => HasTag(a.Tags, "intelliDivide"),
             "because every returned article must carry the requested tag");
     }
 
     [TestMethod]
     public async Task GetLatest_En_WithServiceAssistTag_ReturnsFilteredArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), TagsServiceAssist, take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsServiceAssist, take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
 
         // Only assert tag filtering when articles are returned; the EN feed may have no serviceAssist content.
         if (articles.Count > 0)
         {
-            articles.ShouldAllBe(a => a.Tags.Contains("serviceAssist", StringComparer.OrdinalIgnoreCase),
+            articles.ShouldAllBe(a => HasTag(a.Tags, "serviceAssist"),
                 "because every returned article must carry the requested tag");
         }
     }
@@ -91,23 +104,23 @@ public class NewsClientTests
     [TestMethod]
     public async Task GetLatest_En_WithMultipleTags_ReturnsArticlesMatchingAnyTag()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), TagsMultiple, take: 10);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsMultiple, take: 10, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because EN articles for at least one of the tags should exist");
         articles.ShouldAllBe(
-            a => a.Tags.Any(t => TagsMultiple.Contains(t, StringComparer.OrdinalIgnoreCase)),
+            a => HasAnyTag(a.Tags, _TagsMultiple),
             "because every returned article must carry at least one of the requested tags");
     }
 
     [TestMethod]
     public async Task GetLatest_En_TakeReturnsArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), TagsIntelliDivide, take: 3);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 3, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because EN intelliDivide articles should exist");
@@ -116,9 +129,9 @@ public class NewsClientTests
     [TestMethod]
     public async Task GetLatest_En_ArticlesHaveRequiredFields()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("en"), TagsIntelliDivide, take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         foreach (var article in articles)
@@ -131,6 +144,17 @@ public class NewsClientTests
         }
     }
 
+    [TestMethod]
+    public async Task GetLatest_WithTakeLessThanOne_ThrowsArgumentOutOfRangeException()
+    {
+        var newsClient = CreateClient();
+
+        var exception = await Should.ThrowAsync<ArgumentOutOfRangeException>(
+            async () => await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 0, cancellationToken: TestContext.CancellationToken));
+
+        exception.ParamName.ShouldBe("take");
+    }
+
     #endregion
 
     #region DE
@@ -138,9 +162,9 @@ public class NewsClientTests
     [TestMethod]
     public async Task GetLatest_De_ReturnsArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), [], take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), [], take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull("because the feed should return a result");
         articles.Count.ShouldBeGreaterThan(0, "because DE articles should exist");
@@ -149,49 +173,49 @@ public class NewsClientTests
     [TestMethod]
     public async Task GetLatest_De_WithIntelliDivideTag_ReturnsFilteredArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), TagsIntelliDivide, take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsIntelliDivide, take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because DE intelliDivide articles should exist");
-        articles.ShouldAllBe(a => a.Tags.Contains("intelliDivide", StringComparer.OrdinalIgnoreCase),
+        articles.ShouldAllBe(a => HasTag(a.Tags, "intelliDivide"),
             "because every returned article must carry the requested tag");
     }
 
     [TestMethod]
     public async Task GetLatest_De_WithServiceAssistTag_ReturnsFilteredArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), TagsServiceAssist, take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsServiceAssist, take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because DE serviceAssist articles should exist");
-        articles.ShouldAllBe(a => a.Tags.Contains("serviceAssist", StringComparer.OrdinalIgnoreCase),
+        articles.ShouldAllBe(a => HasTag(a.Tags, "serviceAssist"),
             "because every returned article must carry the requested tag");
     }
 
     [TestMethod]
     public async Task GetLatest_De_WithMultipleTags_ReturnsArticlesMatchingAnyTag()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), TagsMultiple, take: 10);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsMultiple, take: 10, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because DE articles for at least one of the tags should exist");
         articles.ShouldAllBe(
-            a => a.Tags.Any(t => TagsMultiple.Contains(t, StringComparer.OrdinalIgnoreCase)),
+            a => HasAnyTag(a.Tags, _TagsMultiple),
             "because every returned article must carry at least one of the requested tags");
     }
 
     [TestMethod]
     public async Task GetLatest_De_TakeReturnsArticles()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), TagsIntelliDivide, take: 3);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsIntelliDivide, take: 3, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         articles.Count.ShouldBeGreaterThan(0, "because DE intelliDivide articles should exist");
@@ -202,9 +226,9 @@ public class NewsClientTests
     [TestMethod]
     public async Task GetLatest_De_ArticlesHaveRequiredFields()
     {
-        var client = CreateClient();
+        var newsClient = CreateClient();
 
-        var articles = await client.GetLatest(CultureInfo.GetCultureInfo("de"), TagsIntelliDivide, take: 5);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsIntelliDivide, take: 5, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
         foreach (var article in articles)

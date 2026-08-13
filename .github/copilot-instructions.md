@@ -8,7 +8,7 @@
 
 ## Code Style
 - Use specific formatting rules
-- Follow naming conventions, including using a leading underscore for private fields in this codebase/workspace.
+- Follow naming conventions, including using a leading underscore for private fields in this codebase/workspace and for static readonly fields (e.g., _fieldName).
 - Use `/// <inheritdoc />` for properties derived from an interface or base class instead of duplicating documentation when documenting contracts.
 - When implementing deserialization-only private setters, prefer a StyleCop- and ReSharper-compatible implementation instead of an empty setter body.
 - Use Newtonsoft.Json instead of System.Text.Json in this codebase when working on JSON serialization/deserialization.

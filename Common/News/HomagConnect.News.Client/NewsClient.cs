@@ -73,6 +73,11 @@ public sealed class NewsClient : INewsClient, IDisposable
             throw new ArgumentOutOfRangeException(nameof(take), take, "Value must be greater than or equal to 1.");
         }
 
+        if (tags is null)
+        {
+            throw new ArgumentNullException(nameof(tags));
+        }
+
         try
         {
             var requestUri = BuildFeedUri(cultureInfo, tags, take);
@@ -117,7 +122,8 @@ public sealed class NewsClient : INewsClient, IDisposable
 
         if (normalizedTags.Length > 0)
         {
-            query += $"&tags={string.Join(",", normalizedTags)}";
+            var encodedTags = normalizedTags.Select(Uri.EscapeDataString);
+            query += $"&tags={string.Join(",", encodedTags)}";
         }
 
         return new Uri(_httpClient.BaseAddress!, $"{_FeedRoute}/{culture}{query}");
@@ -125,9 +131,10 @@ public sealed class NewsClient : INewsClient, IDisposable
 
     private static string[] NormalizeTags(IEnumerable<string> tags)
     {
-        return tags.Where(tag => !string.IsNullOrWhiteSpace(tag))
+        return tags
+            .Where(tag => !string.IsNullOrWhiteSpace(tag))
             .Select(tag => tag.Trim())
-            .ToArray() ?? [];
+            .ToArray();
     }
 
     private static Task<string> ReadContentAsStringAsync(HttpResponseMessage response, CancellationToken cancellationToken)
@@ -135,6 +142,7 @@ public sealed class NewsClient : INewsClient, IDisposable
 #if NET8_0_OR_GREATER
         return response.Content.ReadAsStringAsync(cancellationToken);
 #else
+        _ = cancellationToken;
         return response.Content.ReadAsStringAsync();
 #endif
     }
