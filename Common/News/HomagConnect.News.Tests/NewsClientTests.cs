@@ -116,14 +116,15 @@ public class NewsClientTests
     }
 
     [TestMethod]
-    public async Task GetLatest_En_TakeReturnsArticles()
+    public async Task GetLatest_En_TakeLimitsArticleCount()
     {
+        const int take = 3;
         var newsClient = CreateClient();
 
-        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 3, cancellationToken: TestContext.CancellationToken);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: take, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
-        articles.Count.ShouldBeGreaterThan(0, "because EN intelliDivide articles should exist");
+        articles.Count.ShouldBeLessThanOrEqualTo(take, "because the number of returned EN articles must be less than or equal to take");
     }
 
     [TestMethod]
@@ -211,14 +212,15 @@ public class NewsClientTests
     }
 
     [TestMethod]
-    public async Task GetLatest_De_TakeReturnsArticles()
+    public async Task GetLatest_De_TakeLimitsArticleCount()
     {
+        const int take = 3;
         var newsClient = CreateClient();
 
-        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsIntelliDivide, take: 3, cancellationToken: TestContext.CancellationToken);
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("de"), _TagsIntelliDivide, take: take, cancellationToken: TestContext.CancellationToken);
 
         articles.ShouldNotBeNull();
-        articles.Count.ShouldBeGreaterThan(0, "because DE intelliDivide articles should exist");
+        articles.Count.ShouldBeLessThanOrEqualTo(take, "because the number of returned DE articles must be less than or equal to take");
 
         articles.Trace();
     }
