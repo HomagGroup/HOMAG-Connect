@@ -6,8 +6,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.Get.Edgebands;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Edgebands")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Edgebands")]
 [TemporaryDisabledOnServer(2026, 03, 31, "DF-Material")]
 public class GetEdgebandsTests : MaterialAssistTestBase
 {
@@ -42,7 +42,7 @@ public class GetEdgebandsTests : MaterialAssistTestBase
 
         result.ShouldNotBeNull(
             "because edgeband entity with ID '33' should exist");
-        result?.Id.ShouldBe("33",
+        result.Id.ShouldBe("33",
             "because we retrieved edgeband entity by ID '33'");
     }
 

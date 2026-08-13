@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -44,6 +45,14 @@ namespace HomagConnect.OrderManager.Client
         public async Task<IEnumerable<OrderOverview>?> GetOrders(int take, int skip = 0)
         {
             var url = $"{_OrderRoute}?take={take}&skip={skip}";
+            return await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState orderState, DateTime changedSince, int take, int skip = 0)
+        {
+            var url =
+                $"{_OrderRoute}?&orderStatus={Uri.EscapeDataString(orderState.ToString())}&changedSince={Uri.EscapeDataString(changedSince.ToString(CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
             return await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
         }
 

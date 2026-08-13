@@ -1,36 +1,48 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MmrMobile.Contracts
 {
     /// <summary>
     /// 
     /// </summary>
-    public class MmrMachine : IExtensibleDataObject
+    [LocalizationResource(typeof(MmrPropertyDisplayNames))]
+    public class MmrMachine : IExtensibleDataObject, ISupportsLocalizedSerialization
     {
         /// <summary>
         /// Machine number
         /// </summary>
         [JsonProperty("Machine Number")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.MachineNumber))]
         public string? MachineNumber { get; set; }
 
         /// <summary>
         /// Name of the machine
         /// </summary>
         [JsonProperty("Machine Name")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.MachineName))]
         public string? MachineName { get; set; }
 
         /// <summary>
         /// Type of the machine (CNC, Drilling, etc.)
         /// </summary>
         [JsonProperty("Machine Type")]
-        public string? MachineType { get; set; }
+        [Display(Name = nameof(MmrPropertyDisplayNames.MachineType))]
+        public MachineBaseType MachineType { get; set; }
 
 
         /// <summary>
         /// Machine instance Id
         /// </summary>
         [JsonProperty("Instance Id")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.InstanceId))]
         public string? InstanceId { get; set; }
 
         public ExtensionDataObject? ExtensionData { get; set; }
@@ -63,11 +75,12 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Type of the machine (CNC, Drilling, etc.)
         /// </summary>
         [JsonProperty("MachineType")]
+        [Display(AutoGenerateField = false)]
         private string? MachineTypeObsolete
         {
             set
             {
-                MachineType = value;
+                MachineType = Enum.TryParse<MachineBaseType>(value, true, out var parsed) ? parsed : MachineBaseType.Unknown;
             }
         }
 
@@ -75,6 +88,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Machine instance Id
         /// </summary>
         [JsonProperty("InstanceId")]
+        [Display(AutoGenerateField = false)]
         public string? InstanceIdObsolete
         {
             set

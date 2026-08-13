@@ -1,4 +1,4 @@
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Processing.Optimization;
 
 using Shouldly;
@@ -7,9 +7,9 @@ namespace HomagConnect.MaterialManager.Tests.Processing.Optimization;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Processing")]
-[TestCategory("MaterialManager.Processing.Optimization")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Processing")]
+[TestCategory("DeploymentTests.MaterialManager.Processing.Optimization")]
 public class ProcessingOptimizationTests : MaterialManagerTestBase
 {
     /// <summary />
@@ -50,7 +50,7 @@ public class ProcessingOptimizationTests : MaterialManagerTestBase
         offcutParameterSet.ShouldNotBeNull(
             $"because offcut parameter set should be retrieved for material code '{materialCode}'");
 
-        offcutParameterSet!.MaterialGroupName.ShouldNotBeNullOrEmpty(
+        offcutParameterSet.MaterialGroupName.ShouldNotBeNullOrEmpty(
             $"because offcut parameter set for material code '{materialCode}' should have a material group name");
         offcutParameterSet.MaterialCodes.ShouldContain(materialCode,
             $"because offcut parameter set should contain the requested material code '{materialCode}'");

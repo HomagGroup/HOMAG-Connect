@@ -18,13 +18,9 @@ public class Workstation: Base.Contracts.Workstation, ISupportsLocalizedSerializ
     public string AssignedTapioMachineId { get; set; }
 
     /// <summary>
-    /// Gets or sets the display name
+    /// Gets or sets the tapio machine ID
     /// </summary>
-    [JsonProperty(Order = 2)]
-    [Obsolete("This property is obsolete. Use the new Name property instead.", true)]
-    public string DisplayName
-    {
-        get { return Name; }
-        set { Name = value; }
-    }
+    [JsonProperty(Order = 20)]
+    [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(GroupName))]
+    public string GroupName { get; set; }
 }

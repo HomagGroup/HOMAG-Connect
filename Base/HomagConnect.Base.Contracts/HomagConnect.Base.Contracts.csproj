@@ -61,9 +61,14 @@
 	    <AutoGen>True</AutoGen>
 	  </Compile>
 	  <Compile Update="Enumerations\GrainDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>GrainDisplayNames.resx</DependentUpon>
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>GrainDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Enumerations\MachineBaseTypeDisplayNames.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>MachineBaseTypeDisplayNames.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="WorkstationPropertyDisplayNames.Designer.cs">
 	    <DependentUpon>WorkstationPropertyDisplayNames.resx</DependentUpon>
@@ -85,11 +90,11 @@
 	    <LastGenOutput>AdditionalDataTypeDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Enumerations\WorkstationGroupDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>WorkstationGroupDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Enumerations\WorkstationTypeDisplayNames.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>WorkstationTypeDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources.resx">
@@ -108,8 +113,12 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Enumerations\GrainDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>GrainDisplayNames.Designer.cs</LastGenOutput>
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>GrainDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Enumerations\MachineBaseTypeDisplayNames.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>MachineBaseTypeDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="WorkstationPropertyDisplayNames.resx">
 	    <LastGenOutput>WorkstationPropertyDisplayNames.Designer.cs</LastGenOutput>

@@ -21,22 +21,6 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
         #region WorkstationYield Serialization Tests
 
         /// <summary>
-        /// Tests basic serialization and deserialization of WorkstationYields
-        /// </summary>
-        [TestMethod]
-        public void WorkstationYields_SerializeDeserialize_Basic()
-        {
-            var yield = new WorkstationsYield();
-
-            var serialized = JsonConvert.SerializeObject(yield, SerializerSettings.Default);
-            var deserialized = JsonConvert.DeserializeObject<WorkstationsYield>(serialized, SerializerSettings.Default);
-
-            deserialized.ShouldNotBeNull();
-            deserialized.Yields.ShouldNotBeNull();
-            deserialized.Yields.ShouldBeEmpty();
-        }
-
-        /// <summary>
         /// Tests serialization with complete data structure
         /// </summary>
         [TestMethod]
@@ -80,20 +64,19 @@ namespace HomagConnect.ProductionManager.Tests.WorkstationYield
                 new(ProductionItemType.Part, 100)
             };
 
-            var yield = new WorkstationsYield();
-            ((List<Contracts.WorkstationYield.WorkstationYield>)yield.Yields).Add(node1);
-            ((List<Contracts.WorkstationYield.WorkstationYield>)yield.Yields).Add(node2);
+            var yield = new List<Contracts.WorkstationYield.WorkstationYield>();
+            yield.Add(node1);
+            yield.Add(node2);
 
             yield.Trace();
 
             var serialized = JsonConvert.SerializeObject(yield, SerializerSettings.Default);
-            var deserialized = JsonConvert.DeserializeObject<WorkstationsYield>(serialized, SerializerSettings.Default);
+            var deserialized = JsonConvert.DeserializeObject<List<Contracts.WorkstationYield.WorkstationYield>>(serialized, SerializerSettings.Default);
 
             deserialized.ShouldNotBeNull();
-            deserialized.Yields.ShouldNotBeNull();
-            deserialized.Yields.Count().ShouldBe(2);
+            deserialized.Count().ShouldBe(2);
 
-            var deserializedNode1 = deserialized.Yields.First();
+            var deserializedNode1 = deserialized.First();
             deserializedNode1.Workstation.ShouldNotBeNull();
             deserializedNode1.Workstation.Id.ShouldBe(workstation1Id);
             deserializedNode1.Workstation.Name.ShouldBe("CNC Machine 1");
