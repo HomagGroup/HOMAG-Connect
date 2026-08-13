@@ -81,6 +81,12 @@ public class OrderOverview
     public string? ExternalSystemId { get; set; }
 
     /// <summary>
+    /// Gets or sets the source of the order, indicating the system the order originates from.
+    /// </summary>
+    [JsonProperty(Order = 126)]
+    public string? Source { get; set; }
+
+    /// <summary>
     /// Gets the HasErrors flag indicates whether the order has errors. The definition of what an error is, is up to the implementation of the OrderManager. This is a flag that can be used by the UI to display an error state for the order.
     /// </summary>
     [JsonProperty(Order = 125)]

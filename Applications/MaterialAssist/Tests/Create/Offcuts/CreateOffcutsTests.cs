@@ -9,8 +9,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.Create.Offcuts;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Boards")]
 public class CreateOffcutsTests : MaterialAssistTestBase
 {
     private string _OffcutEntityCode = "OffcutCode_" + RunSuffix;

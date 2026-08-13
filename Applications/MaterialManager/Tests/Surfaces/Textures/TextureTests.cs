@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -20,8 +20,8 @@ namespace HomagConnect.MaterialManager.Tests.Surfaces.Textures;
 /// Unit and integration tests for texture assets, client operations, and localization.
 /// </summary>
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Textures")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Textures")]
 public class TextureTests : MaterialManagerTestBase
 {
     private const string _TestCatalog = "HomagConnectTest";
@@ -793,7 +793,7 @@ public class TextureTests : MaterialManagerTestBase
             await _MaterialManagerClientTextures!.GetTexture(expectedId);
             return;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             // Texture doesn't exist, create it
         }
@@ -871,7 +871,7 @@ public class TextureTests : MaterialManagerTestBase
             await _MaterialManagerClientTextures!.GetTexture(textureId);
             return true;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }

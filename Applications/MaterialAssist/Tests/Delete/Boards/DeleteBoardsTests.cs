@@ -5,8 +5,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.Delete.Boards;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Boards")]
 public class DeleteBoardsTests : MaterialAssistTestBase
 {
     [ClassInitialize]

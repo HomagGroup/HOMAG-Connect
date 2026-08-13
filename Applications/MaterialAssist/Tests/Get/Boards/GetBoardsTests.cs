@@ -9,8 +9,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 namespace HomagConnect.MaterialAssist.Tests.Get.Boards;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Boards")]
 public class GetBoardsTests : MaterialAssistTestBase
 {
     private const string _SingleCode = "733";
@@ -124,7 +124,7 @@ public class GetBoardsTests : MaterialAssistTestBase
 
         result.ShouldNotBeNull(
             $"because board entity with ID '{_SingleCode}' should exist");
-        result!.Id.ShouldBe(_SingleCode,
+        result.Id.ShouldBe(_SingleCode,
             $"because we retrieved board entity by ID '{_SingleCode}'");
     }
 
