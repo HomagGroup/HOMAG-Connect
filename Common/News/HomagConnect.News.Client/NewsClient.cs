@@ -20,7 +20,7 @@ public sealed class NewsClient : INewsClient, IDisposable
     /// </summary>
     private static readonly TimeSpan _FeedCacheMaxAge = TimeSpan.FromHours(24);
 
-    private static readonly Uri _DefaultBaseUri = new("https://news-preview.homag.cloud");
+    private static readonly Uri _DefaultBaseUri = new("https://news.homag.cloud");
 
     private readonly HttpClient _httpClient;
     private readonly bool _disposeHttpClient;
