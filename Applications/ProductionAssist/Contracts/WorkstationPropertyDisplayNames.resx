@@ -121,4 +121,7 @@
     <value>zugewiesene Tapio Maschine</value>
     <comment>zugewiesene Tapio Maschine</comment>
   </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>Gruppen Name</value>
+  </data>
 </root>

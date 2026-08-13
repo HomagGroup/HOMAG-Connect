@@ -8,8 +8,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.Create.Boards;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Boards")]
 public class CreateBoardsTests : MaterialAssistTestBase
 {
     private const string _SingleCode = "11111";
@@ -29,7 +29,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
                 var boardEntity1 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_SingleCode);
                 boardEntity1.ShouldNotBeNull(
                     $"because board entity with ID '{_SingleCode}' should be created successfully");
-                boardEntity1!.Id.ShouldBe(_SingleCode,
+                boardEntity1.Id.ShouldBe(_SingleCode,
                     $"because we created board entity with ID '{_SingleCode}'");
                 boardEntity1.ManagementType.ShouldBe(ManagementType.Single,
                     $"because board entity '{_SingleCode}' was created with ManagementType.Single");
@@ -40,7 +40,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
                 var boardEntity2 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_StackCode);
                 boardEntity2.ShouldNotBeNull(
                     $"because board entity with ID '{_StackCode}' should be created successfully");
-                boardEntity2!.Id.ShouldBe(_StackCode,
+                boardEntity2.Id.ShouldBe(_StackCode,
                     $"because we created board entity with ID '{_StackCode}'");
                 boardEntity2.ManagementType.ShouldBe(ManagementType.Stack,
                     $"because board entity '{_StackCode}' was created with ManagementType.Stack");
@@ -51,7 +51,7 @@ public class CreateBoardsTests : MaterialAssistTestBase
                 var boardEntity3 = await _MaterialAssistClientBoards.GetBoardEntityByCode(_GoodsInStockCode);
                 boardEntity3.ShouldNotBeNull(
                     $"because board entity with ID '{_GoodsInStockCode}' should be created successfully");
-                boardEntity3!.Id.ShouldBe(_GoodsInStockCode,
+                boardEntity3.Id.ShouldBe(_GoodsInStockCode,
                     $"because we created board entity with ID '{_GoodsInStockCode}'");
                 boardEntity3.ManagementType.ShouldBe(ManagementType.GoodsInStock,
                     $"because board entity '{_GoodsInStockCode}' was created with ManagementType.GoodsInStock");

@@ -9,18 +9,17 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.Integration.Boards;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Boards")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Boards")]
 public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
 {
-    private readonly List<string> _createdBoardEntityIds = [];
-    private readonly List<string> _createdBoardTypeCodes = [];
-    private readonly List<string> _createdAllocationNames = [];
+    private readonly List<string> _CreatedBoardEntityIds = [];
+    private readonly List<string> _CreatedBoardTypeCodes = [];
+    private readonly List<string> _CreatedAllocationNames = [];
 
     [TestMethod]
     public async Task Boards_CreateUpdateStoreAllocate()
     {
-        var materialAssistClient = GetMaterialAssistClient().Boards;
         var materialManagerClient = GetMaterialManagerClient().Material.Boards;
 
         // board data
@@ -30,23 +29,23 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
 
         // Ensure board types exist first, tracking them for cleanup
         await EnsureBoardTypeExist("HPL_Anthracite_Marble_12.0", 2800, 2070, 12);
-        _createdBoardTypeCodes.Add(board1.boardCode);
+        _CreatedBoardTypeCodes.Add(board1.boardCode);
 
         await EnsureBoardTypeExist("P2_F204_75_38.0", 4100, 600, 38);
-        _createdBoardTypeCodes.Add(board2.boardCode);
+        _CreatedBoardTypeCodes.Add(board2.boardCode);
 
         await EnsureBoardTypeExist("HPL_Natural_4.0", 2790, 2060, 4);
-        _createdBoardTypeCodes.Add(board3.boardCode);
+        _CreatedBoardTypeCodes.Add(board3.boardCode);
 
         // Ensure board entities exist (idempotent), tracking IDs for cleanup
-        await EnsureBoardEntityExist(board1.id, board1.boardCode, ManagementType.Single, 1);
-        _createdBoardEntityIds.Add(board1.id);
+        await EnsureBoardEntityExist(board1.id, board1.boardCode);
+        _CreatedBoardEntityIds.Add(board1.id);
 
         await EnsureBoardEntityExist(board2.id, board2.boardCode, ManagementType.Stack, 10);
-        _createdBoardEntityIds.Add(board2.id);
+        _CreatedBoardEntityIds.Add(board2.id);
 
         await EnsureBoardEntityExist(board3.id, board3.boardCode, ManagementType.GoodsInStock, 2);
-        _createdBoardEntityIds.Add(board3.id);
+        _CreatedBoardEntityIds.Add(board3.id);
 
         // update board type 1 - thickness
         var boardTypeUpdate = new MaterialManagerUpdateBoardType
@@ -73,8 +72,8 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
         await materialManagerClient.UpdateBoardType(board2.boardCode, boardTypeUpdate2);
 
         
-        _createdBoardTypeCodes.Remove(board2.boardCode);
-        _createdBoardTypeCodes.Add(updatedBoard2Code);
+        _CreatedBoardTypeCodes.Remove(board2.boardCode);
+        _CreatedBoardTypeCodes.Add(updatedBoard2Code);
 
         var updatedBoardType2 = await materialManagerClient.GetBoardTypeByBoardCodeIncludingDetails(updatedBoard2Code);
 
@@ -98,7 +97,7 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
 
         updatedBoardType3.ShouldNotBeNull(
             $"because board type with board code '{board3.boardCode}' should exist after update");
-        updatedBoardType3!.MaterialCategory.ShouldBe(BoardMaterialCategory.CompactPanels_HPL,
+        updatedBoardType3.MaterialCategory.ShouldBe(BoardMaterialCategory.CompactPanels_HPL,
             $"because board type '{board3.boardCode}' was updated to material category CompactPanels_HPL");
 
         // create board type allocations
@@ -115,7 +114,7 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
             Source = "HOMAG Connect",
             Workstation = "001"
         });
-        _createdAllocationNames.Add(allocationName1);
+        _CreatedAllocationNames.Add(allocationName1);
 
         await materialManagerClient.CreateBoardTypeAllocation(new BoardTypeAllocationRequest
         {
@@ -126,7 +125,7 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
             Source = "HOMAG Connect",
             Workstation = "001"
         });
-        _createdAllocationNames.Add(allocationName2);
+        _CreatedAllocationNames.Add(allocationName2);
 
         await materialManagerClient.CreateBoardTypeAllocation(new BoardTypeAllocationRequest
         {
@@ -137,7 +136,7 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
             Source = "HOMAG Connect",
             Workstation = "001"
         });
-        _createdAllocationNames.Add(allocationName3);
+        _CreatedAllocationNames.Add(allocationName3);
 
         var allAllocationNames = (await materialManagerClient.GetBoardTypeAllocationsByAllocationNames(
             [allocationName1, allocationName2, allocationName3], 1000) ?? Array.Empty<BoardTypeAllocation>()).ToArray();
@@ -156,11 +155,11 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
         var materialManagerClient = GetMaterialManagerClient().Material.Boards;
 
         // Delete allocations first (they reference board types)
-        if (_createdAllocationNames.Count > 0)
+        if (_CreatedAllocationNames.Count > 0)
         {
             try
             {
-                await materialManagerClient.DeleteBoardTypeAllocations(_createdAllocationNames);
+                await materialManagerClient.DeleteBoardTypeAllocations(_CreatedAllocationNames);
             }
             catch
             {
@@ -169,7 +168,7 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
         }
 
         // Delete board entities
-        foreach (var id in _createdBoardEntityIds)
+        foreach (var id in _CreatedBoardEntityIds)
         {
             try
             {
@@ -182,7 +181,7 @@ public class CreateUpdateStoreAllocateBoardsV1 : MaterialAssistTestBase
         }
 
         // Delete board types
-        foreach (var boardCode in _createdBoardTypeCodes)
+        foreach (var boardCode in _CreatedBoardTypeCodes)
         {
             try
             {

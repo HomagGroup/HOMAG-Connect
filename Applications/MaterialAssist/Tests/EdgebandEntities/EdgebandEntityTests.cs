@@ -9,8 +9,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.EdgebandEntities;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Edgebands")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Edgebands")]
 public class EdgebandEntityTests : MaterialAssistTestBase
 {
     [TestMethod]
