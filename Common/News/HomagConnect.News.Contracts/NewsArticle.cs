@@ -53,5 +53,5 @@ public sealed class NewsArticle
     /// <summary>
     /// Gets the version of the article.
     /// </summary>
-    public required int Version { get; init; }
+    public int? Version { get; init; }
 }
