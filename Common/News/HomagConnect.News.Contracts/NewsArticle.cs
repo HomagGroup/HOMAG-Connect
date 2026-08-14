@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.News.Contracts;
+namespace HomagConnect.News.Contracts;
 
 /// <summary>
 /// Represents a news article.
