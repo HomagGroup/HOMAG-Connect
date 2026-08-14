@@ -14,6 +14,8 @@ public class NewsClientTests
 {
     public TestContext TestContext { get; set; } = null!;
 
+    private static readonly Uri _PreviewBaseUri = new("https://news-preview.homag.cloud");
+
     private static readonly string[] _TagsIntelliDivide = ["intelliDivide"];
     private static readonly string[] _TagsServiceAssist = ["serviceAssist"];
     private static readonly string[] _TagsMultiple = ["intelliDivide", "serviceAssist"];
@@ -41,9 +43,22 @@ public class NewsClientTests
             "because every DE article must carry the requested tag");
     }
 
+    [TestMethod]
+    public async Task GetLatest_En_FromPreviewHost_ReturnsArticles()
+    {
+        var newsClient = CreateClient(_PreviewBaseUri);
+
+        var articles = await newsClient.GetLatest(CultureInfo.GetCultureInfo("en"), _TagsIntelliDivide, take: 5, cancellationToken: TestContext.CancellationToken);
+
+        articles.ShouldNotBeNull();
+        articles.Count.ShouldBeGreaterThan(0, "because the preview news endpoint should return EN intelliDivide articles");
+    }
+
     #endregion
 
     private static NewsClient CreateClient() => new();
+
+    private static NewsClient CreateClient(Uri baseUri) => new(baseUri);
 
     private static bool HasTag(IEnumerable<string> tags, string expectedTag)
     {
