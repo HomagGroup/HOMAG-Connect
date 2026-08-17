@@ -1,0 +1,108 @@
+table States
+	lineageTag: a1c61859-8e53-4466-ab03-f9f5cf1a8052
+
+	column 'Machine Number'
+		dataType: string
+		lineageTag: b009d722-19c5-4beb-9f6b-7e857e656a99
+		summarizeBy: none
+		sourceColumn: Machine Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Machine Name'
+		dataType: string
+		lineageTag: fedc6255-2c31-4d53-af6c-42503024fa58
+		summarizeBy: none
+		sourceColumn: Machine Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Machine Type'
+		dataType: string
+		lineageTag: ad840b44-2f2a-4954-87c1-9d6b87ffedff
+		summarizeBy: none
+		sourceColumn: Machine Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dbaf199c-7ef6-4813-86e0-d438b063afeb
+		summarizeBy: none
+		sourceColumn: Timestamp
+
+		variation Variation
+			isDefault
+			relationship: a3c6a1d3-5041-41d6-a3b9-0b1005bcb26c
+			defaultHierarchy: LocalDateTable_57d42904-8516-44ab-83f2-661f855ab2c1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duration [h]'
+		dataType: double
+		formatString: #,0.00
+		lineageTag: d5eabe04-a786-49ae-8abe-aae7fcfe5192
+		summarizeBy: sum
+		sourceColumn: Duration [h]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Instance Id'
+		dataType: string
+		lineageTag: 56dcf971-66a4-4def-a9ed-5eede1af2630
+		summarizeBy: none
+		sourceColumn: Instance Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Detailed State Id'
+		dataType: string
+		lineageTag: 2cda70e4-80c2-40dc-a31e-3de3ac431988
+		summarizeBy: none
+		sourceColumn: Detailed State Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Detailed State'
+		dataType: string
+		lineageTag: ba2fc197-1344-4d78-9964-0aeb6598b12a
+		summarizeBy: none
+		sourceColumn: Detailed State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'State Id'
+		dataType: string
+		lineageTag: 136a0551-a60d-45f0-af47-a30e407fefbb
+		summarizeBy: none
+		sourceColumn: State Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 88855de3-6ff0-4136-9f2d-0944a063672d
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	partition States-b586845e-fdce-4813-ad72-829186fbf2e0 = m
+		mode: import
+		queryGroup: State
+		source =
+				let
+				    RawDocument = Web.Contents("https://connect.homag.cloud/api/mmr-mobile/states?daysBack=90"),
+				    JsonDocument = Json.Document(RawDocument ),
+				    JsonAsTable = Table.FromList(JsonDocument, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    StateList = Table.ExpandRecordColumn(JsonAsTable, "Column1", {"Machine Number", "Machine Name", "Machine Type", "Timestamp", "Duration [h]", "Instance Id", "Detailed State Id", "Detailed State", "State Id", "State"}, {"Machine Number", "Machine Name", "Machine Type", "Timestamp", "Duration [h]", "Instance Id", "Detailed State Id", "Detailed State", "State Id", "State"}),
+				    ChangedStringDate = Table.TransformColumnTypes(StateList,{{"Timestamp", type datetime},{"Machine Number", type text}, {"Machine Name", type text}, {"Machine Type", type text}, {"Instance Id", type text}, {"Detailed State Id", type text}, {"Detailed State", type text}, {"State Id", type text}, {"State", type text}}),
+				    ChangedNumbers = Table.TransformColumnTypes(ChangedStringDate, {{"Duration [h]", type number}}, "en-US")
+				in
+				    ChangedNumbers
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

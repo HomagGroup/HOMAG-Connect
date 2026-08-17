@@ -1,0 +1,10 @@
+relationship a3c6a1d3-5041-41d6-a3b9-0b1005bcb26c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: States.Timestamp
+	toColumn: LocalDateTable_57d42904-8516-44ab-83f2-661f855ab2c1.Date
+
+relationship cb2856df-c3e0-4756-ade2-b9d8e897ef3e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Counters.Timestamp
+	toColumn: LocalDateTable_3f8afd58-0e94-4d1d-baee-897587a182fb.Date
+
