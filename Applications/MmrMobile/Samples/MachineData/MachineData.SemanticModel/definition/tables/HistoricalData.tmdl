@@ -1,0 +1,65 @@
+table HistoricalData
+	lineageTag: a1c61859-8e53-4466-ab03-f9f5cf1a8052
+
+	column timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 853c8ce3-dff3-47ee-9caf-e565176d7c00
+		summarizeBy: none
+		sourceColumn: timestamp
+
+		variation Variation
+			isDefault
+			relationship: 95ebfab6-f55a-4d66-8808-e2e4a32ebaa2
+			defaultHierarchy: LocalDateTable_84f3026f-d98c-474b-aae3-e97fea9e9d7c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column node
+		dataType: string
+		lineageTag: 40ae9a29-dca1-4668-b8de-00e511972744
+		summarizeBy: none
+		sourceColumn: node
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		lineageTag: 86148ff6-1658-4506-af98-702c1e8bbd83
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_numeric
+		dataType: double
+		lineageTag: 7d370d83-61ed-4e1b-ac07-f461366b0f88
+		summarizeBy: sum
+		sourceColumn: value_numeric
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition HistoricalData-b586845e-fdce-4813-ad72-829186fbf2e0 = m
+		mode: import
+		source =
+				let
+				    RawDocument = Web.Contents("https://connect.homag.cloud/api/machinedata/machines/hgt201971701/nodes/HOMAG.Machines"),
+				    JsonDocument = Json.Document(RawDocument ),
+				    nodes = JsonDocument[nodes],
+				    #"Converted to Table" = Table.FromList(nodes, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"timestamp", "node", "value"}, {"timestamp", "node", "value"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"timestamp", type datetime}, {"node", type text}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "value", "value - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"value - Copy", "value_numeric"}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Renamed Columns", {{"value_numeric", type number}}, "en-001"),
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Changed Type with Locale", {{"value_numeric", null}}),
+				    #"Sorted Rows" = Table.Sort(#"Replaced Errors",{{"timestamp", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,10 @@
+relationship df988ed5-6973-4590-ad43-24a7c580973a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: HistoricalData.startTime
+	toColumn: LocalDateTable_d1c2c3de-2674-481f-81ba-ba60fcadfa2a.Date
+
+relationship f8df9e2f-2bba-4d85-a122-48b921c2a017
+	joinOnDateBehavior: datePartOnly
+	fromColumn: HistoricalData.endTime
+	toColumn: LocalDateTable_c8831bc6-be9f-4a89-9d07-dcaa1b03f3dc.Date
+

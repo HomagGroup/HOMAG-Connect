@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "AlertList"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "612337b2-bdab-4e92-9d9a-cf03cbc527b4"
+  }
+}

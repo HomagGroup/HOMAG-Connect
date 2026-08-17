@@ -1,0 +1,41 @@
+table States
+	lineageTag: d0bda98e-30a2-43c5-a630-46ebd1de2c81
+
+	column State
+		dataType: int64
+		formatString: 0
+		lineageTag: b2cbf9a4-5aa3-416a-98ee-fdf877a5cc4f
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descr
+		dataType: string
+		lineageTag: ad486025-a27d-4563-941e-d82131fdf0af
+		summarizeBy: none
+		sourceColumn: Descr
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column1
+		dataType: string
+		lineageTag: 74fd3b6c-ac13-4831-95a7-70b674184e01
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition States = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlDSUfJPS8vJzEsFspRidaKVDIGM4JLEvJSkSpiQEZARlJqYAhcwBjLC84uyM/PSYUImQIZrUVF+EVggFgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [State = _t, Descr = _t, Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"State", Int64.Type}, {"Descr", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

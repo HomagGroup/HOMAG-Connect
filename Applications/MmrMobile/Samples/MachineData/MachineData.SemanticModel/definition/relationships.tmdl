@@ -1,0 +1,19 @@
+relationship 95ebfab6-f55a-4d66-8808-e2e4a32ebaa2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: HistoricalData.timestamp
+	toColumn: LocalDateTable_84f3026f-d98c-474b-aae3-e97fea9e9d7c.Date
+
+relationship 1b349af3-e6e9-47c7-ac88-1eccd323bb9c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: currentState.timestamp
+	toColumn: LocalDateTable_f1210d3c-8958-4b2e-87f0-381fbdcc4dcf.Date
+
+relationship c12ba0e3-e309-48ad-9472-ca9780486a04
+	joinOnDateBehavior: datePartOnly
+	fromColumn: currentState.'Inserted Addition.timestamp'
+	toColumn: LocalDateTable_f7b8533a-54ad-4c0b-bbf5-bdf3f5a0d8ba.Date
+
+relationship 4f99fd6e-faa6-40ad-8d05-e3384db04de2
+	fromColumn: currentState.value
+	toColumn: States.State
+

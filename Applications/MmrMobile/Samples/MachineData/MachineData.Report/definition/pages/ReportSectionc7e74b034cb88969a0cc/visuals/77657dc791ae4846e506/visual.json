@@ -1,0 +1,83 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "77657dc791ae4846e506",
+  "position": {
+    "x": 0,
+    "y": 86.25,
+    "z": 2000,
+    "height": 196.25,
+    "width": 1280,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HistoricalData"
+                    }
+                  },
+                  "Property": "timestamp"
+                }
+              },
+              "queryRef": "HistoricalData.timestamp",
+              "nativeQueryRef": "timestamp"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HistoricalData"
+                    }
+                  },
+                  "Property": "node"
+                }
+              },
+              "queryRef": "HistoricalData.node",
+              "nativeQueryRef": "node"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HistoricalData"
+                    }
+                  },
+                  "Property": "value"
+                }
+              },
+              "queryRef": "HistoricalData.value",
+              "nativeQueryRef": "value"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "HistoricalData"
+                  }
+                },
+                "Property": "timestamp"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
