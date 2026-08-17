@@ -1,10 +1,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 using HomagConnect.News.Contracts;
-
-using Newtonsoft.Json;
 
 namespace HomagConnect.News.Client;
 
@@ -21,6 +20,11 @@ public sealed class NewsClient : INewsClient, IDisposable
     private static readonly TimeSpan _FeedCacheMaxAge = TimeSpan.FromHours(24);
 
     private static readonly Uri _DefaultBaseUri = new("https://news.homag.cloud");
+
+    private static readonly JsonSerializerOptions _JsonSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
 
     private readonly HttpClient _httpClient;
     private readonly bool _disposeHttpClient;
@@ -89,7 +93,7 @@ public sealed class NewsClient : INewsClient, IDisposable
             response.EnsureSuccessStatusCode();
 
             var json = await ReadContentAsStringAsync(response, cancellationToken).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<NewsArticle[]>(json) ?? [];
+            return JsonSerializer.Deserialize<NewsArticle[]>(json, _JsonSerializerOptions) ?? [];
         }
         catch (Exception ex)
         {
