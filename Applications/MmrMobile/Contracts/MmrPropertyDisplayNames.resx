@@ -153,4 +153,40 @@
   <data name="Unit" xml:space="preserve">
     <value>Einheit</value>
   </data>
+  <data name="Nodes" xml:space="preserve">
+    <value>Knoten</value>
+  </data>
+  <data name="Node" xml:space="preserve">
+    <value>Knotenname</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Startzeitpunkt</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>Endzeitpunkt</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Schweregrad</value>
+  </data>
+  <data name="LocalizedSource" xml:space="preserve">
+    <value>Lokalisierte Quelle</value>
+  </data>
+  <data name="LocalizedMessage" xml:space="preserve">
+    <value>Lokalisierte Meldung</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="SourceClass" xml:space="preserve">
+    <value>Quellklasse</value>
+  </data>
+  <data name="SourceInstance" xml:space="preserve">
+    <value>Quellinstanz</value>
+  </data>
+  <data name="SourceMessageId" xml:space="preserve">
+    <value>Quellnachrichten-ID</value>
+  </data>
+  <data name="Causality" xml:space="preserve">
+    <value>Verursacher</value>
+  </data>
 </root>

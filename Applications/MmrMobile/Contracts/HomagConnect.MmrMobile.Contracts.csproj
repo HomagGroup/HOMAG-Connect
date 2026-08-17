@@ -37,6 +37,16 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>GranularityDisplayNames.resx</DependentUpon>
 		</Compile>
+		<Compile Update="AlertEventCategoryDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AlertEventCategoryDisplayNames.resx</DependentUpon>
+		</Compile>
+		<Compile Update="AlertEventCausalityDisplayNames.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AlertEventCausalityDisplayNames.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -47,6 +57,14 @@
 		<EmbeddedResource Update="GranularityDisplayNames.resx">
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>GranularityDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="AlertEventCategoryDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AlertEventCategoryDisplayNames.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="AlertEventCausalityDisplayNames.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AlertEventCausalityDisplayNames.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
 

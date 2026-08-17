@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
+
+using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.MmrMobile.Contracts
 {
@@ -13,38 +16,69 @@ namespace HomagConnect.MmrMobile.Contracts
 
         #region machinedata
         /// <summary>
-        /// request for one machine and a (comma separated) list of nodes the last know value
+        /// Request the current value of one machine node or node subtree.
         /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <param name="node"></param>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<MmrNodeData> GetCurrentValuesFromMachine(string machineNumber, string node);
+        Task<MmrNodeData> GetCurrentValuesFromMachine(string machineNumber, string node, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         /// <summary>
-        /// get all available machines with a HOMAG CONNECT MMR Mobile license
+        /// Get all available machines with a HOMAG CONNECT MMR Mobile license.
         /// </summary>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<IEnumerable<MmrMachine>> GetMachines();
+        Task<IEnumerable<MmrMachine>> GetMachines(OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         /// <summary>
-        /// get all available nodes of a machine
+        /// Get all available nodes of a machine.
         /// </summary>
-        /// <param name="machineNumber"></param>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<MmrNodeList> GetNodesOfMachine(string machineNumber);
+        Task<MmrNodeList> GetNodesOfMachine(string machineNumber, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         /// <summary>
-        /// request for one machine and a (comma separated) list of nodes the last know value
-        /// for a given point in time
+        /// Request the value of one machine node or node subtree at a specific point in time.
         /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="timestamp">The point in time to query.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<MmrNodeData> GetPointInTimeValuesFromMachine(string machineNumber, string node, DateTime timestamp);
+        Task<MmrNodeData> GetPointInTimeValuesFromMachine(string machineNumber, string node, DateTime timestamp, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         /// <summary>
-        /// Get for a given duration and a given list of nodes all values reported from the machine
+        /// Get for a given duration and a given list of nodes all values reported from the machine.
         /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="from">Inclusive start timestamp.</param>
+        /// <param name="to">Inclusive end timestamp.</param>
+        /// <param name="take">Maximum number of rows to return.</param>
+        /// <param name="skip">Number of rows to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take , int skip = 0);
+        Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
+
+        /// <summary>
+        /// Get for a given duration and a given list of nodes all values reported from the machine.
+        /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="daysBack">Optional relative lookback window in days.</param>
+        /// <param name="take">Maximum number of rows to return.</param>
+        /// <param name="skip">Number of rows to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
+        /// <returns></returns>
+        Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, int daysBack, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
 /// <summary>
 /// upload a zip-file for a specific machine.
@@ -57,19 +91,55 @@ namespace HomagConnect.MmrMobile.Contracts
         #region eventdata
 
         /// <summary>
-        /// get all  events from the requested timespan
-        /// we show also events, that overlap the requested duration 
-        /// - start was before from-value
-        /// - end is after to-value
+        /// Get all events from the requested time span.
+        /// Events that overlap the requested duration are included as well.
         /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="from">Inclusive start timestamp.</param>
+        /// <param name="to">Inclusive end timestamp.</param>
+        /// <param name="take">Maximum number of rows to return.</param>
+        /// <param name="skip">Number of rows to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns cref="AlertEvent">A list of AlertEvents</returns>
-        Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0);
+        Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         /// <summary>
-        /// gets recent alerts . To-date is fix to "now", From date is calculated automatically
+        /// Get all events from a relative lookback window.
         /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="daysBack">Number of days to look back from now.</param>
+        /// <param name="take">Maximum number of rows to return.</param>
+        /// <param name="skip">Number of rows to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
+        /// <returns cref="AlertEvent">A list of AlertEvents</returns>
+        Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, int daysBack, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
+
+        /// <summary>
+        /// Get recent alerts. The end date is fixed to now and the start date is calculated from <paramref name="daysBack"/>.
+        /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="daysBack">Number of days to look back from now.</param>
+        /// <param name="take">Maximum number of rows to return.</param>
+        /// <param name="skip">Number of rows to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0);
+        Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
+
+        /// <summary>
+        /// Get recent alerts for the given time span.
+        /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="from">Inclusive start timestamp.</param>
+        /// <param name="to">Inclusive end timestamp.</param>
+        /// <param name="take">Maximum number of rows to return.</param>
+        /// <param name="skip">Number of rows to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
+        /// <returns></returns>
+        Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, DateTime from, DateTime to, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         #endregion
 
@@ -85,10 +155,18 @@ namespace HomagConnect.MmrMobile.Contracts
         /// <param name="stateId"></param>
         /// <param name="detailedStateId"></param>
         /// <param name="granularity"></param>
+        /// <param name="take">Optional maximum number of state data buckets to return.</param>
+        /// <param name="skip">Optional number of state data buckets to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
+#pragma warning disable S107
         Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,
             string? machineNumber = null,
-            string? instanceId = null, string? machineType = null, string? stateId = null, string? detailedStateId = null, Granularity? granularity = null);
+            string? instanceId = null, string? machineType = null, string? stateId = null, string? detailedStateId = null, Granularity? granularity = null,
+            int? take = null, int skip = 0,
+            OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
+#pragma warning restore S107
 
         /// <summary>
         /// generic approarch for counter data with much filters
@@ -100,9 +178,14 @@ namespace HomagConnect.MmrMobile.Contracts
         /// <param name="machineType"></param>
         /// <param name="counterId"></param>
         /// <param name="granularity"></param>
+        /// <param name="take">Optional maximum number of counter data buckets to return.</param>
+        /// <param name="skip">Optional number of counter data buckets to skip.</param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
         Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
-            string? machineNumber = null, string? instanceId = null, string? machineType = null, string? counterId = null, Granularity? granularity = null);
+            string? machineNumber = null, string? instanceId = null, string? machineType = null, string? counterId = null, Granularity? granularity = null,
+            int? take = null, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo? culture = null);
 
         /// <summary>
         /// get all machines, the customer has access to
@@ -114,8 +197,10 @@ namespace HomagConnect.MmrMobile.Contracts
         /// get one machine information
         /// </summary>
         /// <param name="machineNumber"></param>
+        /// <param name="format">Output format of the response.</param>
+        /// <param name="culture">Culture used for localized output.</param>
         /// <returns></returns>
-        Task<IEnumerable<MmrMachine>> GetMmrMachine(string machineNumber);
+        Task<MmrMachine?> GetMmrMachine(string machineNumber, JsonFormat format = JsonFormat.Default, CultureInfo? culture = null);
 
         #endregion
     }
