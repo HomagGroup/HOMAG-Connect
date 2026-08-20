@@ -2,7 +2,6 @@
 using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using HomagConnect.ProductionManager.Samples.Orders.Actions;
-using Newtonsoft.Json.Linq;
 using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Tests.Orders.Actions
@@ -37,11 +36,9 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Actions
             {
                 City = "Test City",
                 HouseNumber = "123",
-            })
-            .Build();
+            });
 
-            var jPatchData = JObject.FromObject(patchData);
-            await productionManagerClient.PatchOrder(orderIdentifier!, jPatchData);
+            await productionManagerClient.PatchOrder(orderIdentifier!, patchData);
 
             var updatedOrder = await productionManagerClient.GetOrder(orderIdentifier!);
 
