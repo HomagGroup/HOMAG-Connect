@@ -61,11 +61,65 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plattenverbrauch (Fläche).
+        /// </summary>
+        public static string BoardsUsedArea {
+            get {
+                return ResourceManager.GetString("BoardsUsedArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattenverbrauch (Anzahl).
+        /// </summary>
+        public static string BoardsUsedQuantity {
+            get {
+                return ResourceManager.GetString("BoardsUsedQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kosten.
+        /// </summary>
+        public static string Costs {
+            get {
+                return ResourceManager.GetString("Costs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kantencode.
+        /// </summary>
+        public static string EdgebandCode {
+            get {
+                return ResourceManager.GetString("EdgebandCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Länge.
         /// </summary>
         public static string Length {
             get {
                 return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verbrauchte Länge.
+        /// </summary>
+        public static string LengthUsed {
+            get {
+                return ResourceManager.GetString("LengthUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maschinenname.
+        /// </summary>
+        public static string MachineName {
+            get {
+                return ResourceManager.GetString("MachineName", resourceCulture);
             }
         }
         
@@ -79,11 +133,164 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restezuwachs (Fläche).
+        /// </summary>
+        public static string OffcutsGrowthArea {
+            get {
+                return ResourceManager.GetString("OffcutsGrowthArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restezuwachs (Anzahl).
+        /// </summary>
+        public static string OffcutsGrowthQuantity {
+            get {
+                return ResourceManager.GetString("OffcutsGrowthQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produzierte Reste (Fläche).
+        /// </summary>
+        public static string OffcutsProducedArea {
+            get {
+                return ResourceManager.GetString("OffcutsProducedArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produzierte Reste (Anzahl).
+        /// </summary>
+        public static string OffcutsProducedQuantity {
+            get {
+                return ResourceManager.GetString("OffcutsProducedQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resteverbrauch (Fläche).
+        /// </summary>
+        public static string OffcutsUsedArea {
+            get {
+                return ResourceManager.GetString("OffcutsUsedArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resteverbrauch (Anzahl).
+        /// </summary>
+        public static string OffcutsUsedQuantity {
+            get {
+                return ResourceManager.GetString("OffcutsUsedQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimierungs-Id.
+        /// </summary>
+        public static string OptimizationId {
+            get {
+                return ResourceManager.GetString("OptimizationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimierungsname.
+        /// </summary>
+        public static string OptimizationName {
+            get {
+                return ResourceManager.GetString("OptimizationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teile (Fläche).
+        /// </summary>
+        public static string PartsArea {
+            get {
+                return ResourceManager.GetString("PartsArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teile (Anzahl).
+        /// </summary>
+        public static string PartsQuantity {
+            get {
+                return ResourceManager.GetString("PartsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Übertragene Teile (Anzahl).
+        /// </summary>
+        public static string PartsTransferredQuantity {
+            get {
+                return ResourceManager.GetString("PartsTransferredQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produktionszeit.
+        /// </summary>
+        public static string ProductionTime {
+            get {
+                return ResourceManager.GetString("ProductionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anzahl.
         /// </summary>
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gesamtkosten.
+        /// </summary>
+        public static string TotalCosts {
+            get {
+                return ResourceManager.GetString("TotalCosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Übertragen am.
+        /// </summary>
+        public static string TransferredAt {
+            get {
+                return ResourceManager.GetString("TransferredAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Übertragen von.
+        /// </summary>
+        public static string TransferredBy {
+            get {
+                return ResourceManager.GetString("TransferredBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschnitt (Fläche).
+        /// </summary>
+        public static string WasteArea {
+            get {
+                return ResourceManager.GetString("WasteArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschnitt (%).
+        /// </summary>
+        public static string WastePercentage {
+            get {
+                return ResourceManager.GetString("WastePercentage", resourceCulture);
             }
         }
         
