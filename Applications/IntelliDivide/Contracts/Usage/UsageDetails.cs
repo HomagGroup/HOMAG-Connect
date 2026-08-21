@@ -1,4 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.IntelliDivide.Contracts.Statistics;
+
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Usage
@@ -17,13 +23,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
     ///   "productionTime": "01:35:00"
     /// }
     /// </example>
-    public class UsageDetails
+    [LocalizationResource(typeof(StatisticsDisplayNames))]
+    public class UsageDetails : ISupportsLocalizedSerialization
     {
         /// <summary>
         /// Gets or sets the number of parts transferred in the job.
         /// </summary>
         /// <example>24</example>
         [JsonProperty(Order = 1)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.PartsTransferredQuantity))]
         public int PartsTransferredQuantity { get; set; }
 
         /// <summary>
@@ -31,6 +39,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// </summary>
         /// <example>2025-03-10T14:30:00+00:00</example>
         [JsonProperty(Order = 2)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TransferredAt))]
         public DateTimeOffset TransferredAt { get; set; }
 
         /// <summary>
@@ -38,6 +47,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// </summary>
         /// <example>Kitchen_Order_4711</example>
         [JsonProperty(Order = 3)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.OptimizationName))]
         public string OptimizationName { get; set; }
 
         /// <summary>
@@ -45,6 +55,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// </summary>
         /// <example>max.mustermann@example.com</example>
         [JsonProperty(Order = 4)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.TransferredBy))]
         public string TransferredBy { get; set; }
 
         /// <summary>
@@ -52,6 +63,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// </summary>
         /// <example>SAWTEQ-B300</example>
         [JsonProperty(Order = 5)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.MachineName))]
         public string MachineName { get; set; }
 
         /// <summary>
@@ -59,6 +71,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// </summary>
         /// <example>12.5</example>
         [JsonProperty(Order = 6)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.WastePercentage))]
         public double? WastePercentage { get; set; }
 
         /// <summary>
@@ -66,6 +79,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// </summary>
         /// <example>01:35:00</example>
         [JsonProperty(Order = 7)]
+        [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.ProductionTime))]
         public TimeSpan ProductionTime { get; set; }
     }
 }
