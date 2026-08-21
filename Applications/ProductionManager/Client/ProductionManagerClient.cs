@@ -285,11 +285,11 @@ namespace HomagConnect.ProductionManager.Client
         #region Patch order
 
         /// <inheritdoc />
-        public async Task PatchOrder(string identifier, JObject patchData)
+        public async Task PatchOrder(string identifier, PatchBuilder<OrderDetails> patchData)
         {
             var url = $"/api/productionManager/orders/{identifier}";
 
-            var content = new StringContent(JsonConvert.SerializeObject(patchData, Formatting.None), Encoding.UTF8, "application/merge-patch+json");
+            var content = new StringContent(JsonConvert.SerializeObject(patchData.Build(), Formatting.None), Encoding.UTF8, "application/merge-patch+json");
             var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
             response.EnsureSuccessStatusCode();
