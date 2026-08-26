@@ -12,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// <example>
     /// {
     ///   "id": "XID-1000000",
-    ///   "quantity": 3,
+    ///   "quantity": 3
     /// }
     /// </example>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
