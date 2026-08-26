@@ -75,7 +75,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// Gets or sets the offcut ids announced in materialAssist.
         /// </summary>
         /// <example>["XID-670959", "XID-624742"]</example>
-        [Obsolete("Use XIds instead.")]
         [JsonProperty(Order = 8)]
         public string[]? Ids { get; set; }
 
