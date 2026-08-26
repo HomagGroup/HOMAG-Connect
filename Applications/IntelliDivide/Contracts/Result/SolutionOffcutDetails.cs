@@ -2,9 +2,6 @@
 
 using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
-
 using Newtonsoft.Json;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
@@ -15,9 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
     /// <example>
     /// {
     ///   "id": "XID-1000000",
-    ///   "quantity": 3,
-    ///   "length": 1201.0,
-    ///   "width": 567.8,
+    ///   "quantity": 3
     /// }
     /// </example>
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
@@ -35,23 +30,5 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [JsonProperty(Order = 2)]
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the offcut length.
-        /// Unit: millimeters for <see cref="UnitSystem.Metric"/> and inches for <see cref="UnitSystem.Imperial"/>.
-        /// </summary>
-        /// <example>1201.0</example>
-        [JsonProperty(Order = 3)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? Length { get; set; }
-
-        /// <summary>
-        /// Gets or sets the offcut width.
-        /// Unit: millimeters for <see cref="UnitSystem.Metric"/> and inches for <see cref="UnitSystem.Imperial"/>.
-        /// </summary>
-        /// <example>567.8</example>
-        [JsonProperty(Order = 4)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        public double? Width { get; set; }
     }
 }
