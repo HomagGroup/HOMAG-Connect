@@ -18,7 +18,7 @@ namespace HomagConnect.OrderManager.Tests.Extensions
 
             if (children.Length > 0)
             {
-                group.Items = new Collection<OrderItemBase>(children);
+                group.Items = new Collection<OrderItemBase>([.. children]);
             }
 
             return group;
@@ -194,6 +194,120 @@ namespace HomagConnect.OrderManager.Tests.Extensions
             var result = group.GetLibraryId();
 
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ClearItems_RemovesMatchingTopLevelItems()
+        {
+            var keep = CreateGroup("keep");
+            var items = new Collection<OrderItemBase> { CreateGroup("remove"), keep };
+
+            items.ClearItems(item => item.Id == "remove");
+
+            Assert.AreEqual(1, items.Count);
+            Assert.AreSame(keep, items[0]);
+        }
+
+        [TestMethod]
+        public void ClearItems_NonRecursive_DoesNotRemoveNestedItems()
+        {
+            var root = CreateGroup("root", CreateGroup("remove"));
+            var items = new Collection<OrderItemBase> { root };
+
+            items.ClearItems(item => item.Id == "remove");
+
+            Assert.AreEqual(1, root.Items!.Count);
+        }
+
+        [TestMethod]
+        public void ClearItems_Recursive_RemovesNestedItems()
+        {
+            var root = CreateGroup("root", CreateGroup("remove"), CreateGroup("keep"));
+            var items = new Collection<OrderItemBase> { root };
+
+            items.ClearItems(item => item.Id == "remove", recursive: true);
+
+            Assert.AreEqual(1, root.Items!.Count);
+            Assert.AreEqual("keep", root.Items![0].Id);
+        }
+
+        [TestMethod]
+        public void ClearItems_NullPredicate_ThrowsArgumentNullException()
+        {
+            var items = new Collection<OrderItemBase> { CreateGroup("A") };
+
+            Assert.ThrowsExactly<ArgumentNullException>(() => items.ClearItems(null!));
+        }
+
+        [TestMethod]
+        public void ClearItems_NullSource_DoesNotThrow()
+        {
+            Collection<OrderItemBase>? items = null;
+
+            items.ClearItems(item => true);
+        }
+
+        [TestMethod]
+        public void FindAll_ReturnsAllMatchingItems()
+        {
+            var first = CreateGroup("match");
+            var second = CreateGroup("match");
+            var items = new[] { first, CreateGroup("other"), second };
+
+            var result = items.FindAll(item => item.Id == "match").ToList();
+
+            CollectionAssert.AreEqual(new[] { first, second }, result);
+        }
+
+        [TestMethod]
+        public void FindAll_NoMatch_ReturnsEmpty()
+        {
+            var items = new[] { CreateGroup("A"), CreateGroup("B") };
+
+            var result = items.FindAll(item => item.Id == "Z");
+
+            Assert.IsFalse(result.Any());
+        }
+
+        [TestMethod]
+        public void FindAll_DoesNotSearchNestedItems()
+        {
+            var root = CreateGroup("root", CreateGroup("match"));
+            var items = new[] { root };
+
+            var result = items.FindAll(item => item.Id == "match");
+
+            Assert.IsFalse(result.Any());
+        }
+
+        [TestMethod]
+        public void FindAll_IgnoresNullEntries()
+        {
+            var target = CreateGroup("A");
+            var items = new OrderItemBase?[] { null, target };
+
+            var result = items.FindAll(item => item.Id == "A").ToList();
+
+            Assert.AreEqual(1, result.Count);
+            Assert.AreSame(target, result[0]);
+        }
+
+        [TestMethod]
+        public void FindAll_NullSource_ReturnsEmpty()
+        {
+            IEnumerable<OrderItemBase?>? items = null;
+
+            var result = items.FindAll(item => true);
+
+            Assert.IsFalse(result.Any());
+        }
+
+        [TestMethod]
+        public void FindAll_NullPredicate_ThrowsArgumentNullException()
+        {
+            var items = new[] { CreateGroup("A") };
+
+            Assert.ThrowsExactly<ArgumentNullException>(() => items.FindAll(null!));
         }
     }
 }
