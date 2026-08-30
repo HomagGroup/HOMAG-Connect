@@ -1,4 +1,5 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 
 namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
 {
@@ -77,6 +78,26 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
         public static async Task Edgebands_GetLicensedMachines(IMaterialManagerClientMaterialEdgebands materialManager)
         {
             var tapioMachines = await materialManager.GetLicensedMachines();
+        }
+
+        /// <summary>
+        /// Get edgeband types by external system id.
+        /// </summary>
+        public static async Task<IEnumerable<EdgebandTypeDetails>?> Edgebands_GetEdgebandTypesByExternalSystemId(
+            IMaterialManagerClientMaterialEdgebands materialManager, string externalSystemId)
+        {
+            var edgebands = await materialManager.GetEdgebandTypesByExternalSystemId(externalSystemId, 6);
+            return edgebands;
+        }
+
+        /// <summary>
+        /// Get edgeband types by external system id including inventory and additional data.
+        /// </summary>
+        public static async Task<IEnumerable<EdgebandTypeDetails>?> Edgebands_GetEdgebandTypesByExternalSystemIdIncludingDetails(
+            IMaterialManagerClientMaterialEdgebands materialManager, string externalSystemId)
+        {
+            var edgebands = await materialManager.GetEdgebandTypesByExternalSystemId(externalSystemId, 6, includingDetails: true);
+            return edgebands;
         }
     }
 }
