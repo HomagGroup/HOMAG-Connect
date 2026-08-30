@@ -1,0 +1,91 @@
+{
+  "material": {
+    "externalIdentifier": "oak",
+    "version": 0,
+    "id": "room_designer:oak",
+    "shading": {
+      "alpha": 1,
+      "transmission": 0,
+      "transmissionIOR": 2.5,
+      "roughness": 0.5,
+      "metallic": 0,
+      "basecolor": {
+        "r": 0.9,
+        "g": 0.9,
+        "b": 0.9
+      },
+      "doubleSided": false
+    },
+    "thumbnail": "https://catalog.roomle.com/16e935de-233a-4624-a14c-542291b5512b/textures/38275/image.jpeg?marker=1741168427",
+    "embeddedTextures": [
+      {
+        "id": 38275,
+        "material": "room_designer:oak",
+        "image": "https://catalog.roomle.com/16e935de-233a-4624-a14c-542291b5512b/textures/38275/image.jpeg?marker=1691495073",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 180,
+        "mmWidth": 180,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2023-06-07T12:18:45.000Z",
+        "updated": "2023-08-08T11:44:33.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 180,
+          "mmWidth": 180,
+          "tileable": true,
+          "mapping": "RGB"
+        },
+        "mapping": "RGB",
+        "url": "https://catalog.roomle.com/16e935de-233a-4624-a14c-542291b5512b/textures/38275/image.jpeg?marker=1691495073",
+        "assets": {}
+      }
+    ],
+    "textureObjects": [
+      {
+        "id": 38275,
+        "material": "room_designer:oak",
+        "image": "https://catalog.roomle.com/16e935de-233a-4624-a14c-542291b5512b/textures/38275/image.jpeg?marker=1691495073",
+        "height": 0,
+        "width": 0,
+        "mmHeight": 180,
+        "mmWidth": 180,
+        "qualityLevel": 0,
+        "tileable": true,
+        "created": "2023-06-07T12:18:45.000Z",
+        "updated": "2023-08-08T11:44:33.000Z",
+        "definition": {
+          "height": 0,
+          "width": 0,
+          "mmHeight": 180,
+          "mmWidth": 180,
+          "tileable": true,
+          "mapping": "RGB"
+        },
+        "mapping": "RGB",
+        "url": "https://catalog.roomle.com/16e935de-233a-4624-a14c-542291b5512b/textures/38275/image.jpeg?marker=1691495073",
+        "assets": {}
+      }
+    ],
+    "textures": [
+      38275
+    ],
+    "tags": [
+      "room_designer_material_wood"
+    ],
+    "label": "Oak",
+    "language": "en",
+    "catalog": "room_designer",
+    "links": {
+      "textures": "/materials/room_designer:oak/textures"
+    },
+    "hidden": false,
+    "visibilityStatus": 0,
+    "active": true,
+    "created": "2023-06-07T12:18:24.000Z",
+    "updated": "2025-03-05T09:53:47.000Z",
+    "additionalInfos": []
+  }
+}
