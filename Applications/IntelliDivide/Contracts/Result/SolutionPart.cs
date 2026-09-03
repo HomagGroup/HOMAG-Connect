@@ -1,13 +1,14 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.IntelliDivide.Contracts.Common;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.IntelliDivide.Contracts.Common;
-
-using Newtonsoft.Json;
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -79,5 +80,87 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
                 // needed for deserialization
             }
         }
+
+        /// <summary>
+        /// Gets the part area.
+        /// </summary>
+        [JsonProperty(Order = 18)]
+        [Range(0, int.MaxValue)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(PartArea))]
+        public double? PartArea { get; set; }
+
+        /// <summary>
+        /// Gets the proportional board demand.
+        /// </summary>
+        [JsonProperty(Order = 19)] 
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardDemandProportional))]
+        public double? BoardDemandProportional { get; set; }
+
+        /// <summary>
+        /// Gets the board cost.
+        /// </summary>
+        [JsonProperty(Order = 20)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardCost))]
+        public double? BoardCost { get; set; }
+
+        /// <summary>
+        /// Gets the total board cost.
+        /// </summary>
+        [JsonProperty(Order = 21)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardCostTotal))]
+        public double? BoardCostTotal { get; set; }
+
+        /// <summary>
+        /// Gets the proportional board cost.
+        /// </summary>
+        [JsonProperty(Order = 22)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardCostProportional))]
+        public double? BoardCostProportional { get; set; }
+
+        /// <summary>
+        /// Gets the edge band demand for the part.
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        [Range(0, int.MaxValue)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(EdgebandDemand))]
+        public double? EdgebandDemand { get; set; }
+
+        /// <summary>
+        /// Gets the edge band cost.
+        /// </summary>
+        [JsonProperty(Order = 24)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(EdgebandCost))]
+        public double? EdgebandCost { get; set; }
+
+        /// <summary>
+        /// Gets the edge band total cost.
+        /// </summary>
+        [JsonProperty(Order = 25)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(EdgebandCostTotal))]
+        public double? EdgebandCostTotal { get; set; }
+
+        /// <summary>
+        /// Gets the total material cost.
+        /// </summary>
+        [JsonProperty(Order = 26)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(MaterialCostTotal))]
+        public double? MaterialCostTotal { get; set; }
+
+        /// <summary>
+        /// Gets the proportional material cost.
+        /// </summary>
+        [JsonProperty(Order = 27)]
+        [Range(0, int.MaxValue)]
+        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(MaterialCostProportional))]
+        public double? MaterialCostProportional { get; set; }
     }
 }
