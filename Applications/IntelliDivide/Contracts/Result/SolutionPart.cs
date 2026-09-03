@@ -1,13 +1,14 @@
 ﻿#nullable enable
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.IntelliDivide.Contracts.Common;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Extensions;
-using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.IntelliDivide.Contracts.Common;
-
-using Newtonsoft.Json;
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 
 namespace HomagConnect.IntelliDivide.Contracts.Result
 {
@@ -85,6 +86,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 18)]
         [Range(0, int.MaxValue)]
+        [ValueDependsOnUnitSystem(BaseUnit.SquareMeter)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(PartArea))]
         public double? PartArea { get; set; }
 
@@ -125,6 +127,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         /// </summary>
         [JsonProperty(Order = 23)]
         [Range(0, int.MaxValue)]
+        [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(EdgebandDemand))]
         public double? EdgebandDemand { get; set; }
 
