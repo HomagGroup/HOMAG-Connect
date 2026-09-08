@@ -25,7 +25,6 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     private const double _MeterToFeet = 3.2808399;
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 05, 28, "DF-Optimization")]
     public async Task Optimizations_Cutting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Cutting);
@@ -56,7 +55,6 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     }
 
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 10, 06, "DF-Optimization")] // Failing: OffcutsTotal validation error on solution candidate, see build 476495
     public async Task Optimizations_Nesting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Nesting);

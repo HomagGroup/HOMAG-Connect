@@ -36,7 +36,7 @@ public class SolutionOverviewFiguresMaterial
     /// Gets the total number of offcuts.
     /// </summary>
     [JsonProperty(Order = 10)]
-    [Range(0, int.MaxValue)]
+    [Range(int.MinValue, int.MaxValue)]
     public int OffcutsTotal { get; set; }
 
     /// <summary>
