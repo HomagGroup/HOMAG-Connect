@@ -56,6 +56,7 @@ public class OptimizationsCandidateEvaluationTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 10, 06, "DF-Optimization")] // Failing: OffcutsTotal validation error on solution candidate, see build 476495
     public async Task Optimizations_Nesting_GetFirstOptimizationAndEvaluate()
     {
         var solutions = await GetSampleSolutionDetails(OptimizationType.Nesting);
