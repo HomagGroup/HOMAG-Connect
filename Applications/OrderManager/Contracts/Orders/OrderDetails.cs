@@ -94,6 +94,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
         /// <summary>
+        /// Gets the planned completion date of this order.
+        /// </summary>
+        [JsonProperty(Order = 124)]
+        public DateTimeOffset? CompletionDatePlanned { get; set; }
+
+        /// <summary>
         /// Gets or sets the link to the order in orderManager.
         /// </summary>
         [JsonProperty(Order = 150)]
