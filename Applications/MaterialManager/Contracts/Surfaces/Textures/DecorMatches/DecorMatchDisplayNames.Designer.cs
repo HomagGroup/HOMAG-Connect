@@ -87,16 +87,7 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
                 return ResourceManager.GetString("DecorId", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Empfohlen.
-        /// </summary>
-        public static string IsRecommended {
-            get {
-                return ResourceManager.GetString("IsRecommended", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bezeichnung.
         /// </summary>
@@ -116,20 +107,11 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rangierungsbasis.
-        /// </summary>
-        public static string RankBasis {
-            get {
-                return ResourceManager.GetString("RankBasis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Textur-URL.
         /// </summary>
-        public static string TextureUrl {
+        public static string TextureUri {
             get {
-                return ResourceManager.GetString("TextureUrl", resourceCulture);
+                return ResourceManager.GetString("TextureUri", resourceCulture);
             }
         }
         

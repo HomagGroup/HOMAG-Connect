@@ -1,27 +1,27 @@
-using HomagConnect.Base.Contracts.Interfaces;
-using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.Enumerations;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Interfaces;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 
 /// <summary>
-/// Represents the response of a decor match search, returned by <c>POST /v1/decor-matches:search</c>.
+/// Represents the result of a decor match search, containing the matching decors found.
 /// </summary>
-/// <remarks>
-/// The service targets a p95 response time of 300ms or less, and never calls the Roomle API inline to build
-/// this response; <see cref="DecorMatchCandidate.TextureUrl" /> is always served from a pre-populated cache.
-/// </remarks>
-public class DecorMatchSearchResponse : ISupportsLocalizedSerialization
+public class DecorMatchSearchResponse : ISupportsLocalizedSerialization, ISupportsAdditionalProperties
 {
     /// <summary>
-    /// Gets or sets the ranking strategy used to order <see cref="Candidates" />, from highest to lowest.
+    /// Gets or sets the candidates found for the current page. Candidates are always returned, even when
+    /// their <see cref="DecorMatchCandidate.ConfidenceScore" /> is 0, so that customers can visually browse
+    /// the available decors when no confident match exists; callers should not treat an empty list as the
+    /// only "no match" signal.
     /// </summary>
-    /// <example>Confidence</example>
-    [JsonProperty(Order = 0)]
-    [Display(ResourceType = typeof(DecorMatchDisplayNames), Name = nameof(RankBasis))]
-    public DecorMatchRankBasis RankBasis { get; set; }
+    [JsonProperty(Order = 2)]
+    [Display(ResourceType = typeof(DecorMatchDisplayNames), Name = nameof(Candidates))]
+    public IReadOnlyList<DecorMatchCandidate> Candidates { get; set; } = new List<DecorMatchCandidate>();
 
     /// <summary>
     /// Gets or sets the total number of candidates available, independent of paging.
@@ -31,11 +31,9 @@ public class DecorMatchSearchResponse : ISupportsLocalizedSerialization
     [Display(ResourceType = typeof(DecorMatchDisplayNames), Name = nameof(TotalCount))]
     public int TotalCount { get; set; }
 
-    /// <summary>
-    /// Gets or sets the candidates found for the current page. This list can be empty when no confident
-    /// match exists, or contain multiple entries when matches are ambiguous; callers must handle both cases.
-    /// </summary>
-    [JsonProperty(Order = 2)]
-    [Display(ResourceType = typeof(DecorMatchDisplayNames), Name = nameof(Candidates))]
-    public IReadOnlyList<DecorMatchCandidate> Candidates { get; set; } = new List<DecorMatchCandidate>();
+    /// <inheritdoc />
+    [JsonExtensionData]
+    [JsonProperty(Order = 999)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(AdditionalProperties))]
+    public IDictionary<string, object>? AdditionalProperties { get; set; }
 }

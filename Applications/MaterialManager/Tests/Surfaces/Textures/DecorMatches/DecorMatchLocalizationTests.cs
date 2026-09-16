@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -39,26 +40,6 @@ public class DecorMatchLocalizationTests
     }
 
     /// <summary>
-    /// Tests that DecorMatchRankBasis enum values can be localized in German.
-    /// </summary>
-    [TestMethod]
-    public void Localization_DecorMatchRankBasis_German()
-    {
-        var culture = CultureInfo.GetCultureInfo("de");
-        var displayNames = EnumExtensions.GetDisplayNames<DecorMatchRankBasis>(culture);
-
-        displayNames.ShouldNotBeEmpty(
-            "because DecorMatchRankBasis enum should have localized display names");
-
-        displayNames[DecorMatchRankBasis.Confidence].ShouldBe("Konfidenz",
-            "because DecorMatchRankBasis.Confidence should be localized as 'Konfidenz' in German");
-        displayNames[DecorMatchRankBasis.UsageFrequency].ShouldBe("Nutzungshäufigkeit",
-            "because DecorMatchRankBasis.UsageFrequency should be localized as 'Nutzungshäufigkeit' in German");
-
-        displayNames.Trace();
-    }
-
-    /// <summary>
     /// Tests that DecorMatchCandidate properties that declare a Display attribute can be localized.
     /// </summary>
     [TestMethod]
@@ -88,9 +69,8 @@ public class DecorMatchLocalizationTests
         {
             DecorId = "dec-001",
             LocalizedName = "Weiß",
-            TextureUrl = "https://example.com/textures/dec-001",
+            TextureUri = new Uri("https://example.com/textures/dec-001"),
             ConfidenceScore = 0.95,
-            IsRecommended = true,
             Previews = new List<AdditionalDataPreview>
             {
                 new() { Size = AdditionalDataPreviewSize.Small, Uri = new Uri("https://example.com/small.jpg") }

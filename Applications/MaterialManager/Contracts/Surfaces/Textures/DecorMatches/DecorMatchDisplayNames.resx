@@ -70,21 +70,13 @@
 	<value>Vorschaubilder</value>
 	<comment>Preview images</comment>
   </data>
-  <data name="TextureUrl" xml:space="preserve">
+  <data name="TextureUri" xml:space="preserve">
 	<value>Textur-URL</value>
-	<comment>Texture url</comment>
+	<comment>Texture uri</comment>
   </data>
   <data name="ConfidenceScore" xml:space="preserve">
 	<value>Konfidenzwert</value>
 	<comment>Confidence score</comment>
-  </data>
-  <data name="IsRecommended" xml:space="preserve">
-	<value>Empfohlen</value>
-	<comment>Is recommended</comment>
-  </data>
-  <data name="RankBasis" xml:space="preserve">
-	<value>Rangierungsbasis</value>
-	<comment>Rank basis</comment>
   </data>
   <data name="TotalCount" xml:space="preserve">
 	<value>Gesamtanzahl</value>

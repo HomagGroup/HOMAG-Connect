@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.Enumerations;
 
 /// <summary>
-/// Discriminates the shape of the <see cref="DecorMatchSearchRequest.Material" /> payload.
+/// Discriminates the shape of the <see cref="DecorMatchSearchRequest" /> material payload.
 /// </summary>
 [ResourceManager(typeof(DecorMatchMaterialTypeDisplayNames))]
 [JsonConverter(typeof(TolerantEnumConverter))]

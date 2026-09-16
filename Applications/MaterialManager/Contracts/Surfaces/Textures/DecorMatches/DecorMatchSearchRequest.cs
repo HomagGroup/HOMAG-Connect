@@ -1,67 +1,98 @@
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.Enumerations;
 
+using JsonSubTypes;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 
 /// <summary>
-/// Represents a request to search the shared Texture Catalog for decor candidates that match a given
-/// <c>BoardType</c> or <c>EdgebandType</c>.
+/// Represents a request to search for decors that match a given board or edgeband.
 /// </summary>
-public class DecorMatchSearchRequest
+[JsonConverter(typeof(JsonSubtypes), nameof(MaterialType))]
+[JsonSubtypes.KnownSubType(typeof(BoardTypeDecorMatchSearchRequest), DecorMatchMaterialType.Board)]
+[JsonSubtypes.KnownSubType(typeof(EdgebandTypeDecorMatchSearchRequest), DecorMatchMaterialType.Edgeband)]
+public abstract class DecorMatchSearchRequest
 {
     /// <summary>
-    /// Gets or sets the discriminator that determines whether <see cref="Material" /> is deserialized as a
-    /// <c>BoardType</c> or an <c>EdgebandType</c>.
+    /// Gets whether this request matches against a board or an edgeband.
     /// </summary>
     /// <example>Board</example>
     [JsonProperty(Order = 0)]
-    [Required]
-    public DecorMatchMaterialType MaterialType { get; set; }
+    public abstract DecorMatchMaterialType MaterialType { get; }
 
     /// <summary>
-    /// Gets or sets the complete, unmodified <c>BoardType</c> or <c>EdgebandType</c> payload, passed through
-    /// This is intentionally untyped so the search service can use any field present
-    /// (e.g. <c>ManufacturerName</c>, <c>ArticleNumber</c>, <c>DecorCode</c>, <c>DecorName</c>,
-    /// <c>EmbossingTop</c>, <c>EmbossingBottom</c>, <c>ProductName</c>, or others) as a matching signal, and so new signal fields can be consumed without requiring a contract change here. Any identifying field may be absent or <c>null</c> when identifying information is incomplete.
-    /// </summary>
-    [JsonProperty(Order = 1)]
-    [Required]
-    public JObject? Material { get; set; }
-
-    /// <summary>
-    /// Gets or sets an optional, customer-supplied free text search term. It is applied on top of the
-    /// usage-frequency fallback ranking, narrowing rather than replacing it, and has no effect when a
-    /// confidence-ranked result set is returned instead of the fallback.
+    /// Gets or sets an optional free text search term to narrow down the results.
     /// </summary>
     /// <example>Oak</example>
     [JsonProperty(Order = 2)]
     public string? SearchTerm { get; set; }
 
     /// <summary>
-    /// Gets or sets the preferred culture used to resolve <see cref="DecorMatchCandidate.LocalizedName" />.
+    /// Gets or sets the preferred language used to resolve <see cref="DecorMatchCandidate.LocalizedName" />.
     /// </summary>
     /// <example>en-US</example>
     [JsonProperty(Order = 3)]
-    public string Culture { get; set; } = "en-US";
+    public CultureInfo Culture { get; set; } = CultureInfo.CurrentUICulture;
 
     /// <summary>
-    /// Gets or sets the number of candidates to skip for paging.
+    /// Gets or sets the number of matching decors to skip, for paging through results.
     /// </summary>
     /// <example>0</example>
     [JsonProperty(Order = 4)]
     [Range(0, int.MaxValue)]
-    public int Skip { get; set; } = 0;
+    public int Skip { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum number of candidates to return. The server caps this value (e.g. to 200)
-    /// regardless of what is requested.
+    /// Gets or sets the maximum number of decors to return.
     /// </summary>
     /// <example>50</example>
     [JsonProperty(Order = 5)]
     [Range(1, 200)]
     public int Take { get; set; } = 50;
+
+    /// <summary>
+    /// Creates a request to search for decors that match the given board.
+    /// </summary>
+    /// <param name="material">The board used as the matching signal.</param>
+    /// <param name="searchTerm">An optional free text search term.</param>
+    /// <param name="culture">The preferred language. Defaults to <see cref="CultureInfo.CurrentUICulture" />.</param>
+    /// <param name="skip">The number of matching decors to skip, for paging through results.</param>
+    /// <param name="take">The maximum number of decors to return.</param>
+    public static BoardTypeDecorMatchSearchRequest ForBoard(BoardType material, string? searchTerm = null, CultureInfo? culture = null, int skip = 0, int take = 50)
+    {
+        return new BoardTypeDecorMatchSearchRequest
+        {
+            Material = material,
+            SearchTerm = searchTerm,
+            Culture = culture ?? CultureInfo.CurrentUICulture,
+            Skip = skip,
+            Take = take
+        };
+    }
+
+    /// <summary>
+    /// Creates a request to search for decors that match the given edgeband.
+    /// </summary>
+    /// <param name="material">The edgeband used as the matching signal.</param>
+    /// <param name="searchTerm">An optional free text search term.</param>
+    /// <param name="culture">The preferred language. Defaults to <see cref="CultureInfo.CurrentUICulture" />.</param>
+    /// <param name="skip">The number of matching decors to skip, for paging through results.</param>
+    /// <param name="take">The maximum number of decors to return.</param>
+    public static EdgebandTypeDecorMatchSearchRequest ForEdgeband(EdgebandType material, string? searchTerm = null, CultureInfo? culture = null, int skip = 0, int take = 50)
+    {
+        return new EdgebandTypeDecorMatchSearchRequest
+        {
+            Material = material,
+            SearchTerm = searchTerm,
+            Culture = culture ?? CultureInfo.CurrentUICulture,
+            Skip = skip,
+            Take = take
+        };
+    }
 }
