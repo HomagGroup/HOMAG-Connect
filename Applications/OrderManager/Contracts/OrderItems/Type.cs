@@ -91,7 +91,7 @@ public enum Type
     CalculationError,
 
     /// <summary>
-    /// Represents a reclaimed item
+    /// Represents a reclaim
     /// </summary>
     Reclaim,
 }
