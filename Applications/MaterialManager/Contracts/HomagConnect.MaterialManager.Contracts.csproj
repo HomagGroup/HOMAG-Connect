@@ -109,9 +109,29 @@
 	    <DependentUpon>StatisticsDisplayNames.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Surfaces\Textures\TextureDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>TextureDisplayNames.resx</DependentUpon>
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>TextureDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Surfaces\Textures\DecorMatches\Enumerations\DecorMatchMaterialTypeDisplayNames.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>DecorMatchMaterialTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Surfaces\Textures\DecorMatches\Enumerations\DecorMatchRankBasisDisplayNames.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>DecorMatchRankBasisDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Surfaces\Textures\DecorMatches\DecorMatchSearchRequestDisplayNames.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>DecorMatchSearchRequestDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Surfaces\Textures\DecorMatches\DecorMatchCandidateDisplayNames.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>DecorMatchCandidateDisplayNames.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -181,8 +201,24 @@
 	    <LastGenOutput>StatisticsDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Surfaces\Textures\TextureDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>TextureDisplayNames.Designer.cs</LastGenOutput>
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>TextureDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Surfaces\Textures\DecorMatches\Enumerations\DecorMatchMaterialTypeDisplayNames.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>DecorMatchMaterialTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Surfaces\Textures\DecorMatches\Enumerations\DecorMatchRankBasisDisplayNames.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>DecorMatchRankBasisDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Surfaces\Textures\DecorMatches\DecorMatchSearchRequestDisplayNames.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>DecorMatchSearchRequestDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Surfaces\Textures\DecorMatches\DecorMatchCandidateDisplayNames.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>DecorMatchCandidateDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 
