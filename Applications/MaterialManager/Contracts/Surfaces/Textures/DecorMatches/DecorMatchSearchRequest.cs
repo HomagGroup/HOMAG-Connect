@@ -39,7 +39,6 @@ public class DecorMatchSearchRequest
     /// </summary>
     /// <example>Oak</example>
     [JsonProperty(Order = 2)]
-    [Display(ResourceType = typeof(DecorMatchSearchRequestDisplayNames), Name = nameof(SearchTerm))]
     public string? SearchTerm { get; set; }
 
     /// <summary>

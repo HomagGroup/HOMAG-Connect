@@ -7,8 +7,6 @@ using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.Enumerations;
 
-using Newtonsoft.Json.Linq;
-
 using Shouldly;
 
 namespace HomagConnect.MaterialManager.Tests.Surfaces.Textures.DecorMatches;
@@ -58,31 +56,6 @@ public class DecorMatchLocalizationTests
             "because DecorMatchRankBasis.UsageFrequency should be localized as 'Nutzungshäufigkeit' in German");
 
         displayNames.Trace();
-    }
-
-    /// <summary>
-    /// Tests that DecorMatchSearchRequest properties that declare a Display attribute can be localized.
-    /// </summary>
-    [TestMethod]
-    public void Localization_DecorMatchSearchRequest_German()
-    {
-        var culture = CultureInfo.GetCultureInfo("de");
-
-        var request = new DecorMatchSearchRequest
-        {
-            MaterialType = DecorMatchMaterialType.Board,
-            Material = new JObject()
-        };
-
-        var propertyDisplayNames = request.GetPropertyDisplayNames(culture);
-
-        propertyDisplayNames.ShouldNotBeEmpty(
-            "because DecorMatchSearchRequest properties should have display names");
-
-        propertyDisplayNames[nameof(DecorMatchSearchRequest.SearchTerm)].ShouldBe("Suchbegriff",
-            "because SearchTerm should be localized as 'Suchbegriff' in German");
-
-        propertyDisplayNames.Trace();
     }
 
     /// <summary>

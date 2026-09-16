@@ -58,8 +58,40 @@
   <resheader name="writer">
 	<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DecorId" xml:space="preserve">
+	<value>Dekor-ID</value>
+	<comment>Decor identifier</comment>
+  </data>
   <data name="LocalizedName" xml:space="preserve">
 	<value>Bezeichnung</value>
 	<comment>Localized name</comment>
+  </data>
+  <data name="Previews" xml:space="preserve">
+	<value>Vorschaubilder</value>
+	<comment>Preview images</comment>
+  </data>
+  <data name="TextureUrl" xml:space="preserve">
+	<value>Textur-URL</value>
+	<comment>Texture url</comment>
+  </data>
+  <data name="ConfidenceScore" xml:space="preserve">
+	<value>Konfidenzwert</value>
+	<comment>Confidence score</comment>
+  </data>
+  <data name="IsRecommended" xml:space="preserve">
+	<value>Empfohlen</value>
+	<comment>Is recommended</comment>
+  </data>
+  <data name="RankBasis" xml:space="preserve">
+	<value>Rangierungsbasis</value>
+	<comment>Rank basis</comment>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+	<value>Gesamtanzahl</value>
+	<comment>Total count</comment>
+  </data>
+  <data name="Candidates" xml:space="preserve">
+	<value>Kandidaten</value>
+	<comment>Candidates</comment>
   </data>
 </root>

@@ -22,14 +22,14 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DecorMatchCandidateDisplayNames {
+    public class DecorMatchDisplayNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DecorMatchCandidateDisplayNames() {
+        internal DecorMatchDisplayNames() {
         }
         
         /// <summary>
@@ -39,8 +39,8 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.DecorMatchC" +
-                            "andidateDisplayNames", typeof(DecorMatchCandidateDisplayNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.DecorMatchD" +
+                            "isplayNames", typeof(DecorMatchDisplayNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,11 +62,83 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kandidaten.
+        /// </summary>
+        public static string Candidates {
+            get {
+                return ResourceManager.GetString("Candidates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfidenzwert.
+        /// </summary>
+        public static string ConfidenceScore {
+            get {
+                return ResourceManager.GetString("ConfidenceScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dekor-ID.
+        /// </summary>
+        public static string DecorId {
+            get {
+                return ResourceManager.GetString("DecorId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empfohlen.
+        /// </summary>
+        public static string IsRecommended {
+            get {
+                return ResourceManager.GetString("IsRecommended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bezeichnung.
         /// </summary>
         public static string LocalizedName {
             get {
                 return ResourceManager.GetString("LocalizedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vorschaubilder.
+        /// </summary>
+        public static string Previews {
+            get {
+                return ResourceManager.GetString("Previews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rangierungsbasis.
+        /// </summary>
+        public static string RankBasis {
+            get {
+                return ResourceManager.GetString("RankBasis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Textur-URL.
+        /// </summary>
+        public static string TextureUrl {
+            get {
+                return ResourceManager.GetString("TextureUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gesamtanzahl.
+        /// </summary>
+        public static string TotalCount {
+            get {
+                return ResourceManager.GetString("TotalCount", resourceCulture);
             }
         }
     }
