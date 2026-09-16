@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="HomagConnect.MaterialManager.Contracts.Material.Boards.BoardType">
+    <Position X="5.75" Y="1.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AgABAAAAEAAAAAAAAAAAggEAEAAAAAIIAAAASAAAAAA=</HashCode>
+      <FileName>Material\Boards\BoardType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomagConnect.MaterialManager.Contracts.Material.Boards.BoardTypeMasterData">
+    <Position X="1.5" Y="1.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAgAIEFgACAghACCNJFAgAAAFKAAAAgAAApaAA=</HashCode>
+      <FileName>Material\Boards\BoardTypeMasterData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HomagConnect.MaterialManager.Contracts.Material.Boards.BoardTypeDetails">
+    <Position X="10" Y="1.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Material\Boards\BoardTypeDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
