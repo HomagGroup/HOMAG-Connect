@@ -38,6 +38,16 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>PriceTypeDisplayNames.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="OrderItems\ReclaimReasonDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ReclaimReasonDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Orders\OrderTypeDisplayNames.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>OrderTypeDisplayNames.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,6 +58,14 @@
 	  <EmbeddedResource Update="OrderItems\PriceTypeDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>PriceTypeDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="OrderItems\ReclaimReasonDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ReclaimReasonDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Orders\OrderTypeDisplayNames.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>OrderTypeDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 
