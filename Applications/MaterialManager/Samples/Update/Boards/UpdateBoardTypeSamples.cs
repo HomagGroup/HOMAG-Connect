@@ -2,16 +2,20 @@
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialManager.Samples.Update.Boards
 {
+    /// <summary>
+    /// Update board type samples.
+    /// </summary>
     public class UpdateBoardTypeSamples
     {
         /// <summary>
-        /// The example shows how update a boardtype.
+        /// The example shows how update a boardType.
         /// </summary>
         public static async Task Boards_UpdateBoardType(IMaterialManagerClientMaterialBoards materialManager, string boardCode, double value)
         {
@@ -59,6 +63,36 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
 
             var updateBoardType = await materialManager.UpdateBoardType(boardCode, boardTypeUpdate, [additionalDataImage]);
             updateBoardType.Trace();
+        }
+
+        /// <summary>
+        /// The example shows how to patch a board type. Only the properties which are set
+        /// via the <see cref="PatchBuilder{T}" /> are sent to and changed by materialManager.
+        /// </summary>
+        public static async Task Boards_PatchBoardType(IMaterialManagerClientMaterialBoards materialManager, string boardCode)
+        {
+            var patchData = PatchBuilder<BoardType>.For()
+                .Set(b => b.Length, 2800.0)
+                .Set(b => b.Width, 2070.0)
+                .Set(b => b.Costs, 12.45)
+                .Set(b => b.Grain, Grain.Lengthwise);
+
+            var patchedBoardType = await materialManager.PatchBoardType(boardCode, patchData);
+
+            patchedBoardType.Trace();
+        }
+
+        /// <summary>
+        /// The example shows how to clear a value of a board type by patching it with null.
+        /// </summary>
+        public static async Task Boards_PatchBoardType_ClearValue(IMaterialManagerClientMaterialBoards materialManager, string boardCode)
+        {
+            var patchData = PatchBuilder<BoardType>.For()
+                .Set(b => b.Costs, null);
+
+            var patchedBoardType = await materialManager.PatchBoardType(boardCode, patchData);
+
+            patchedBoardType.Trace();
         }
     }
 }

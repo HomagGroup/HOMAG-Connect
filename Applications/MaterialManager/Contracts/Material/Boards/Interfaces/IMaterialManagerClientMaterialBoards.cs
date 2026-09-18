@@ -197,6 +197,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// <returns>The updated board type allocation <see cref="BoardTypeAllocation" />.</returns>
         Task<IEnumerable<BoardTypeAllocation>?> UpdateBoardTypeAllocation(string allocationName, BoardTypeAllocationUpdate boardTypeAllocationUpdate);
 
+        /// <summary>
+        /// Partially updates the board type identified by the board code using merge-patch semantics.
+        /// </summary>
+        /// <param name="boardCode">The code of the board type to patch.</param>
+        /// <param name="patchData">The properties to update.</param>
+        /// <returns>The patched board type <see cref="BoardType" />.</returns>
+        Task<BoardType> PatchBoardType(string boardCode, PatchBuilder<BoardType> patchData);
+
         #region Inventory History
 
         /// <summary>

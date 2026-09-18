@@ -1,4 +1,10 @@
-﻿using HomagConnect.MaterialManager.Client;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Samples.Update.Boards;
 using Shouldly;
 
@@ -54,5 +60,56 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
         checkBoard.ShouldNotBeNull(
             $"because board type with board code '{_BoardTypeCode}' should exist after update");
     }
-    
+
+    /// <summary />
+    [TestMethod]
+    public async Task BoardsPatchBoardType()
+    {
+        await UpdateBoardTypeSamples.Boards_PatchBoardType(_MaterialManagerClient, _BoardTypeCode);
+
+        var checkBoard = await _MaterialManagerClient.GetBoardTypeByBoardCode(_BoardTypeCode);
+
+        checkBoard.ShouldNotBeNull(
+            $"because board type with board code '{_BoardTypeCode}' should exist after patch");
+
+        checkBoard.Length.ShouldNotBeNull();
+        checkBoard.Length!.Value.ShouldBe(2800.0, 0.0001, "because the length was patched");
+
+        checkBoard.Width.ShouldNotBeNull();
+        checkBoard.Width!.Value.ShouldBe(2070.0, 0.0001, "because the width was patched");
+
+        checkBoard.Costs.ShouldNotBeNull();
+        checkBoard.Costs!.Value.ShouldBe(12.45, 0.0001, "because the costs were patched");
+
+        checkBoard.Grain.ShouldBe(Grain.Lengthwise, "because the grain was patched");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task BoardsPatchBoardType_ClearValue_Succeeds()
+    {
+        var value = Math.Round(RandomBetween(5.0, 25.0), 2);
+
+        await UpdateBoardTypeSamples.Boards_UpdateBoardType(_MaterialManagerClient, _BoardTypeCode, value);
+
+        await UpdateBoardTypeSamples.Boards_PatchBoardType_ClearValue(_MaterialManagerClient, _BoardTypeCode);
+
+        var checkBoard = await _MaterialManagerClient.GetBoardTypeByBoardCode(_BoardTypeCode);
+
+        checkBoard.ShouldNotBeNull(
+            $"because board type with board code '{_BoardTypeCode}' should exist after patch");
+        checkBoard.Costs.ShouldBeNull("because the costs were cleared by the patch");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task BoardsPatchBoardType_InvalidValue_Throws()
+    {
+        var patchData = PatchBuilder<BoardType>.For();
+
+        Should.Throw<ValidationException>(
+            () => patchData.Set(b => b.Width, 0.0),
+            "because the width must be within the allowed range");
+    }
+
 }

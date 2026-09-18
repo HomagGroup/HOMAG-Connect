@@ -160,5 +160,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <param name="edgebandTypeAllocationUpdate"></param>
         /// <returns></returns>
         Task<EdgebandTypeAllocation> UpdateEdgebandTypeAllocation(EdgebandTypeAllocationUpdate edgebandTypeAllocationUpdate);
+
+        /// <summary>
+        /// Partially updates the edgeband type identified by the edgeband code using merge-patch semantics.
+        /// </summary>
+        /// <param name="edgebandCode">The code of the edgeband type to patch.</param>
+        /// <param name="patchData">The properties to update.</param>
+        /// <returns>The patched edgeband type <see cref="EdgebandType" />.</returns>
+        Task<EdgebandType> PatchEdgebandType(string edgebandCode, PatchBuilder<EdgebandType> patchData);
     }
 }

@@ -322,6 +322,39 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         throw new Exception($"The returned object is not of type {nameof(EdgebandTypeAllocation)}");
     }
 
+    /// <inheritdoc />
+    public async Task<EdgebandType> PatchEdgebandType(string edgebandCode, PatchBuilder<EdgebandType> patchData)
+    {
+        if (string.IsNullOrWhiteSpace(edgebandCode))
+        {
+            throw new ArgumentException("Edgeband code must not be null or empty.", nameof(edgebandCode));
+        }
+
+        if (patchData == null)
+        {
+            throw new ArgumentNullException(nameof(patchData));
+        }
+
+        var url = $"{_BaseRoute}?{_EdgebandCode}={Uri.EscapeDataString(edgebandCode)}";
+
+        var content = new StringContent(
+            JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
+            Encoding.UTF8,
+            "application/merge-patch+json");
+
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
+    }
+
     #endregion Update
 
     #region Constructors
