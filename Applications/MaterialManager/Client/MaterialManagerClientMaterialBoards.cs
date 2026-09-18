@@ -164,6 +164,39 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return result;
     }
 
+    /// <inheritdoc />
+    public async Task<BoardType> PatchBoardType(string boardCode, PatchBuilder<BoardType> patchData)
+    {
+        if (string.IsNullOrWhiteSpace(boardCode))
+        {
+            throw new ArgumentException("Board code must not be null or empty.", nameof(boardCode));
+        }
+
+        if (patchData == null)
+        {
+            throw new ArgumentNullException(nameof(patchData));
+        }
+
+        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+
+        var content = new StringContent(
+            JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
+            Encoding.UTF8,
+            "application/merge-patch+json");
+
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
     #endregion Update
 
     #region Constructors
