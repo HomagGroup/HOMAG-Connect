@@ -74,5 +74,26 @@ stages:
     # dependsOn: software_composition_analysis_stage
     jobs:
     - template: pipelines/templates/build-stage-jobs.yml
+
+    - job: CoPilotCodeReview
+      displayName: 'Copilot Code Review'
+      condition: eq(variables['Build.Reason'], 'PullRequest')
+      continueOnError: true
+      pool:
+        vmImage: 'ubuntu-latest'
+      variables:
+        - group: dfCopilot
+      steps:
+        - checkout: self
+          persistCredentials: true
+          fetchDepth: 0
+        - task: CopilotCodeReview@1
+          displayName: 'Copilot Code Review'
+          continueOnError: true
+          inputs:
+            githubPat: '$(GITHUB-PAT)'
+            useSystemAccessToken: true
+          env:
+            SYSTEM_ACCESSTOKEN: $(System.AccessToken)
           
 
