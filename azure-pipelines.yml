@@ -79,9 +79,11 @@ stages:
     # System.PullRequest.PullRequestId to an Int32 parameter and queries the Azure DevOps PR API.
     # This repository is hosted on GitHub, so Copilot is requested as a reviewer via the
     # GitHub REST API using the internal PAT from the 'dfCopilot' variable group instead.
+    # Build.Repository.Provider is not available during condition evaluation (resolves to Null),
+    # so the GitHub pull request number is used to detect a GitHub PR build instead.
     - job: CoPilotCodeReview
       displayName: 'Copilot Code Review'
-      condition: and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.Repository.Provider'], 'GitHub'))
+      condition: and(eq(variables['Build.Reason'], 'PullRequest'), ne(variables['System.PullRequest.PullRequestNumber'], ''))
       continueOnError: true
       pool:
         vmImage: 'ubuntu-latest'

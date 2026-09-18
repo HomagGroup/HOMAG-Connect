@@ -87,7 +87,7 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
                 return ResourceManager.GetString("DecorId", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bezeichnung.
         /// </summary>
