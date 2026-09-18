@@ -117,121 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ArticleNumber" xml:space="preserve">
-    <value>Artikelnummer</value>
+  <data name="CustomerOrder" xml:space="preserve">
+    <value>Kundenauftrag</value>
   </data>
-  <data name="BoardCost" xml:space="preserve">
-    <value>Kosten Platten</value>
+  <data name="ReclaimOrder" xml:space="preserve">
+    <value>Reklamationsauftrag</value>
   </data>
-  <data name="BoardCostProportional" xml:space="preserve">
-    <value>Kosten Platten (anteilig)</value>
-  </data>
-  <data name="BoardCostTotal" xml:space="preserve">
-    <value>Kosten Platten Gesamt</value>
-  </data>
-  <data name="BoardDemandProportional" xml:space="preserve">
-    <value>Plattenbedarf (anteilig)</value>
-  </data>
-  <data name="CustomerName" xml:space="preserve">
-    <value>Kundenname</value>
-  </data>
-  <data name="DestackingDestination" xml:space="preserve">
-    <value>Abstapelziel</value>
-  </data>
-  <data name="DestackingGroup" xml:space="preserve">
-    <value>Abstapelgruppe</value>
-  </data>
-  <data name="EdgebandCost" xml:space="preserve">
-    <value>Kantenkosten</value>
-  </data>
-  <data name="EdgebandCostTotal" xml:space="preserve">
-    <value>Kosten Kantenbänder Gesamt</value>
-  </data>
-  <data name="EdgebandDemand" xml:space="preserve">
-    <value>Kantenbedarf</value>
-  </data>
-  <data name="Exports" xml:space="preserve">
-    <value>Exporte</value>
-  </data>
-  <data name="FinishLength" xml:space="preserve">
-    <value>Fertiglänge</value>
-  </data>
-  <data name="FinishWidth" xml:space="preserve">
-    <value>Fertigbreite</value>
-  </data>
-  <data name="Id" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="KeyFigures" xml:space="preserve">
-    <value>Kennzahlen</value>
-  </data>
-  <data name="LabelLayout" xml:space="preserve">
-    <value>Etikettenlayout</value>
-  </data>
-  <data name="Lot" xml:space="preserve">
-    <value>Los</value>
-  </data>
-  <data name="Material" xml:space="preserve">
-    <value>Material</value>
-  </data>
-  <data name="MaterialCostProportional" xml:space="preserve">
-    <value>Materialkosten (anteilig)</value>
-  </data>
-  <data name="MaterialCostTotal" xml:space="preserve">
-    <value>Materialkosten</value>
-  </data>
-  <data name="Notes" xml:space="preserve">
-    <value>Notizen</value>
-  </data>
-  <data name="OrderDate" xml:space="preserve">
-    <value>Auftragsdatum</value>
-  </data>
-  <data name="OrderItem" xml:space="preserve">
-    <value>Auftragsposition</value>
-  </data>
-  <data name="OrderName" xml:space="preserve">
-    <value>Auftragsname</value>
-  </data>
-  <data name="PartArea" xml:space="preserve">
-    <value>Teilefläche</value>
-  </data>
-  <data name="Parts" xml:space="preserve">
-    <value>Teile</value>
-  </data>
-  <data name="PatternId" xml:space="preserve">
-    <value>Schnittplan Id</value>
-  </data>
-  <data name="PatternReferences" xml:space="preserve">
-    <value>Referenzen zu Schnittplänen</value>
-  </data>
-  <data name="Preview" xml:space="preserve">
-    <value>Vorschau</value>
-  </data>
-  <data name="ProductionRoute" xml:space="preserve">
-    <value>Fertigungsweg</value>
-  </data>
-  <data name="ProgramName" xml:space="preserve">
-    <value>Programmname</value>
-  </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Anzahl</value>
-  </data>
-  <data name="QuantityOfParts" xml:space="preserve">
-    <value>Anzahl Teile</value>
-  </data>
-  <data name="QuantityPlus" xml:space="preserve">
-    <value>Anzahl Plus</value>
-  </data>
-  <data name="QuantityTotal" xml:space="preserve">
-    <value>Anzahl Gesamt</value>
-  </data>
-  <data name="SecondCutLength" xml:space="preserve">
-    <value>2. Zuschnittmaß Länge</value>
-  </data>
-  <data name="SecondCutWidth" xml:space="preserve">
-    <value>2. Zuschnittmaß Breite</value>
-  </data>
-  <data name="SolutionDetails" xml:space="preserve">
-    <value>Optimierungslösung</value>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
   </data>
 </root>

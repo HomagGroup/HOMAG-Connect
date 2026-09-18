@@ -75,20 +75,26 @@ public class OrderOverview
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
     /// <summary>
+    /// Gets the planned completion date of this order.
+    /// </summary>
+    [JsonProperty(Order = 125)]
+    public DateTimeOffset? CompletionDatePlanned { get; set; }
+
+    /// <summary>
     /// Gets the external system id of the item which can be used as a reference.
     /// </summary>
-    [JsonProperty(Order = 124)]
+    [JsonProperty(Order = 126)]
     public string? ExternalSystemId { get; set; }
 
     /// <summary>
     /// Gets or sets the source of the order, indicating the system the order originates from.
     /// </summary>
-    [JsonProperty(Order = 126)]
+    [JsonProperty(Order = 128)]
     public string? Source { get; set; }
 
     /// <summary>
     /// Gets the HasErrors flag indicates whether the order has errors. The definition of what an error is, is up to the implementation of the OrderManager. This is a flag that can be used by the UI to display an error state for the order.
     /// </summary>
-    [JsonProperty(Order = 125)]
+    [JsonProperty(Order = 127)]
     public bool HasErrors { get; set; }
 }

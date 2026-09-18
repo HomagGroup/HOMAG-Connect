@@ -376,6 +376,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DekorId.
+        /// </summary>
+        public static string BoardTypeProperties_DecorId {
+            get {
+                return ResourceManager.GetString("BoardTypeProperties_DecorId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dekorname.
         /// </summary>
         public static string BoardTypeProperties_DecorName {

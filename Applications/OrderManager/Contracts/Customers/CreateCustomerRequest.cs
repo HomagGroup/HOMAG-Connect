@@ -59,4 +59,9 @@ public class CreateCustomerRequest
     /// Gets or sets the collection of additional data entities for the customer.
     /// </summary>
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
+
+    /// <summary>
+    /// Gets or sets the email addresses of the users who are granted sales portal access for the customer.
+    /// </summary>
+    public ICollection<string> SalesPortalAccess { get; set; } = new List<string>();
 }

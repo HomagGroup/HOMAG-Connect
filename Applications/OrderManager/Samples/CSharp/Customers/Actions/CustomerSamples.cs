@@ -74,6 +74,7 @@ namespace HomagConnect.OrderManager.Samples.Customers.Actions
                 TelephoneNumber= "1234567890",
                 Notes = "This is a test customer",
                 Locale = Locale.deDE,
+                SalesPortalAccess = new List<string> { "test@example.com" },
                 AdditionalData =
                 [
                     //AdditionalDataEntity is optional, you can add additional data if needed

@@ -28,6 +28,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(Board), Type.Board)]
 [JsonSubtypes.KnownSubType(typeof(EdgeBand), Type.EdgeBand)]
 [JsonSubtypes.KnownSubType(typeof(Offcut), Type.Offcut)]
+[JsonSubtypes.KnownSubType(typeof(Reclaim), Type.Reclaim)]
 public abstract class Base: ISupportsAdditionalData
 {
     /// <summary>
@@ -47,7 +48,7 @@ public abstract class Base: ISupportsAdditionalData
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the notes of the  entity.
+    /// Gets or sets the notes of the entity.
     /// </summary>
     [JsonProperty(Order = 990)]
     public string? Notes { get; set; }
