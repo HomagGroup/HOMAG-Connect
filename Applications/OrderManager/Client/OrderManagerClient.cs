@@ -51,9 +51,37 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState orderState, DateTime changedSince, int take, int skip = 0)
         {
-            var url =
-                $"{_OrderRoute}?&orderStatus={Uri.EscapeDataString(orderState.ToString())}&changedSince={Uri.EscapeDataString(changedSince.ToString(CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
-            return await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
+            return await GetOrdersChangedSince([orderState], changedSince, take, skip);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState[] orderStates, DateTime changedSince, int take, int skip = 0)
+        {
+            var uris = orderStates
+                .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"{_OrderRoute}?changedSince={Uri.EscapeDataString(changedSince.ToString(CultureInfo.InvariantCulture))}&take={take}&skip={skip}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderOverview>(uris);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersReleasedSince(OrderState orderState, DateTime releasedSince, int take, int skip = 0)
+        {
+            return await GetOrdersReleasedSince([orderState], releasedSince, take, skip);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersReleasedSince(OrderState[] orderStates, DateTime releasedSince, int take, int skip = 0)
+        {
+            var uris = orderStates
+                .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"{_OrderRoute}?releasedSince={Uri.EscapeDataString(releasedSince.ToString(CultureInfo.InvariantCulture))}&take={take}&skip={skip}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
         /// <inheritdoc />

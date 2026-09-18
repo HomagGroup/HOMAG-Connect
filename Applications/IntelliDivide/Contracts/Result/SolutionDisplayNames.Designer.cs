@@ -70,6 +70,42 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kosten Platten.
+        /// </summary>
+        public static string BoardCost {
+            get {
+                return ResourceManager.GetString("BoardCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kosten Platten (anteilig).
+        /// </summary>
+        public static string BoardCostProportional {
+            get {
+                return ResourceManager.GetString("BoardCostProportional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kosten Platten Gesamt.
+        /// </summary>
+        public static string BoardCostTotal {
+            get {
+                return ResourceManager.GetString("BoardCostTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattenbedarf (anteilig).
+        /// </summary>
+        public static string BoardDemandProportional {
+            get {
+                return ResourceManager.GetString("BoardDemandProportional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kundenname.
         /// </summary>
         public static string CustomerName {
@@ -93,6 +129,33 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         public static string DestackingGroup {
             get {
                 return ResourceManager.GetString("DestackingGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kantenkosten.
+        /// </summary>
+        public static string EdgebandCost {
+            get {
+                return ResourceManager.GetString("EdgebandCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kosten Kantenbänder Gesamt.
+        /// </summary>
+        public static string EdgebandCostTotal {
+            get {
+                return ResourceManager.GetString("EdgebandCostTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kantenbedarf.
+        /// </summary>
+        public static string EdgebandDemand {
+            get {
+                return ResourceManager.GetString("EdgebandDemand", resourceCulture);
             }
         }
         
@@ -169,6 +232,24 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Materialkosten (anteilig).
+        /// </summary>
+        public static string MaterialCostProportional {
+            get {
+                return ResourceManager.GetString("MaterialCostProportional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materialkosten.
+        /// </summary>
+        public static string MaterialCostTotal {
+            get {
+                return ResourceManager.GetString("MaterialCostTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notizen.
         /// </summary>
         public static string Notes {
@@ -201,6 +282,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         public static string OrderName {
             get {
                 return ResourceManager.GetString("OrderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teilefläche.
+        /// </summary>
+        public static string PartArea {
+            get {
+                return ResourceManager.GetString("PartArea", resourceCulture);
             }
         }
         

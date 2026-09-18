@@ -34,6 +34,13 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public OrderState State { get; set; } = OrderState.New;
 
         /// <summary>
+        /// Gets the type of the order.
+        /// </summary>
+        [JsonProperty(Order = 102)]
+        [DefaultValue(OrderType.CustomerOrder)]
+        public OrderType Type { get; set; } = OrderType.CustomerOrder;
+
+        /// <summary>
         /// The number of the order
         /// </summary>
         [JsonProperty(Order = 110)]
@@ -94,6 +101,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
         /// <summary>
+        /// Gets the planned completion date of this order.
+        /// </summary>
+        [JsonProperty(Order = 124)]
+        public DateTimeOffset? CompletionDatePlanned { get; set; }
+
+        /// <summary>
         /// Gets or sets the link to the order in orderManager.
         /// </summary>
         [JsonProperty(Order = 150)]
@@ -104,6 +117,12 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 151)]
         public bool HasErrors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the referenced order id. This is used to link orders together, e.g. for a reclaim order that references the original order.
+        /// </summary>
+        [JsonProperty(Order = 152)]
+        public Guid? ReferencedOrderId { get; set; }
 
         #endregion
 
