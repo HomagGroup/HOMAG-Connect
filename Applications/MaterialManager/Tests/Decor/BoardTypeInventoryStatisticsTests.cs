@@ -23,7 +23,17 @@ public class BoardDecorTests : MaterialManagerTestBase
 
         var decors = await materialClient.Material.Boards.SearchBoardDecors(new BoardTypeDecorMatchSearchRequest
         {
-            Material = new BoardType()
+            Material = new BoardType
+            {
+                BoardCode = "code",
+                MaterialCode = "code",
+                ManufacturerName = "Egger",
+                DecorCode = "egger:aaa_bbb",
+                DecorName = "f004",
+                EmbossingTop = "st04",
+                Width = 1,
+                Length = 1
+            }
         });
 
         decors.ShouldNotBeNull($"object required");

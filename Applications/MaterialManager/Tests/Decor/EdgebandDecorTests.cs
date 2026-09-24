@@ -1,5 +1,6 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 
@@ -23,6 +24,13 @@ public class EdgebandDecorTests : MaterialManagerTestBase
         var decors = await materialClient.Material.Edgebands.SearchBoardDecors(new EdgebandTypeDecorMatchSearchRequest
         {
             Material = new EdgebandType()
+            {
+                    EdgebandCode = "code",
+                    ManufacturerName = "Egger",
+                    DecorCode = "egger:aaa_bbb",
+                    DecorName = "f004",
+                    DecorEmbossingCode = "st04"
+            }
         });
 
         decors.ShouldNotBeNull($"object required");
