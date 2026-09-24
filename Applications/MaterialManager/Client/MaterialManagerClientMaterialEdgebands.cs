@@ -17,6 +17,7 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
@@ -32,6 +33,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 {
     private const string _BaseRoute = "api/materialManager/materials/edgebands";
     private const string _EdgebandTypeAllocations = _BaseRoute + "/allocations";
+    private const string _DecorMatchSearchRoute = _BaseRoute + "/decormatches/search";
 
     private const string _BaseStatisticsRoute = "api/materialManager/statistics";
     private const string _EdgebandCode = "edgebandCode";
@@ -503,4 +505,25 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     }
 
     #endregion Delete
+
+    #region decor
+    /// <inheritdoc />
+    public async Task<DecorMatchSearchResponse> SearchBoardDecors(EdgebandTypeDecorMatchSearchRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        ValidateRequiredProperties(request);
+
+        var payload = JsonConvert.SerializeObject(request, SerializerSettings.Default);
+        using var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_DecorMatchSearchRoute, UriKind.Relative), content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<DecorMatchSearchResponse>(responseContent, SerializerSettings.Default);
+
+        return result ?? new DecorMatchSearchResponse();
+    }
+    #endregion
 }

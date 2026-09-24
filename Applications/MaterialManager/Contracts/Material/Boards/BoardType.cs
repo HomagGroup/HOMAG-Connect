@@ -17,7 +17,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// Represents a board material type including material classification, dimensions, manufacturer data, inventory totals, and optimization settings.
     /// </summary>
     /// <example>
-    /// { "boardCode": "P2_Gold_Craft_Oak_19.0", "materialCode": "P2_Gold_Craft_Oak", "thickness": 19.0, "materialCategory": "ParticleBoard", "coatingCategory": "MelamineResinCoated", "standardQuality": "P2", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Stock", "manufacturerName": "HOMAG Sample Supplier", "productName": "Gold Craft Oak", "quantity": 12, "totalQuantityInInventory": 12, "unitSystem": "Metric" }
+    /// { "boardCode": "P2_Gold_Craft_Oak_19.0", "materialCode": "P2_Gold_Craft_Oak", "thickness": 19.0, "materialCategory": "ParticleBoard", "coatingCategory": "MelamineResinCoated", "standardQuality": "P2", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Stock", "manufacturerName": "HOMAG Sample Supplier", "productName": "Gold Craft Oak", "quantity": 12, "totalQuantityInInventory": 12, "unitSystem": "Metric" ,"ManufacturerName" : "Egger", "DecorName":"f004","EmbossingTop":"st07"}
     /// </example>
     [DebuggerDisplay("{BoardCode}")]
     public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties

@@ -14,8 +14,11 @@ using System.Runtime.Serialization;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
-/// A edgeband type.
+/// An edgeband type.
 /// </summary>
+/// <example>
+/// { "EdgebandCode": "edge001","ManufacturerName" : "Egger", "DecorName":"f004","EmbossingTop":"st07"}
+/// </example>
 [DebuggerDisplay("{EdgebandCode}")]
 public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
 {

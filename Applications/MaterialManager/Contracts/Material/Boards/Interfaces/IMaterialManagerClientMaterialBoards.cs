@@ -7,6 +7,7 @@ using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
@@ -120,6 +121,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>
         Task<IEnumerable<BoardType>?> GetBoardTypesByMaterialCode(string materialCode);
+
+        /// <summary>
+        /// Searches for decor candidates matching a board type.
+        /// </summary>
+        /// <param name="request">The board decor match search request.</param>
+        /// <returns>The matching decor candidates.</returns>
+        Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request);
 
         /// <summary>
         /// Gets the board types by material code including details (inventory, allocation, images).
