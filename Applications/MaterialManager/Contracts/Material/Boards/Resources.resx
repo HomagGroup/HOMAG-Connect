@@ -183,6 +183,9 @@
   <data name="BoardTypeProperties_EmbossingBottom" xml:space="preserve">
     <value>Prägung unten</value>
   </data>
+  <data name="BoardTypeProperties_DecorId" xml:space="preserve">
+    <value>DekorId</value>
+  </data>
   <data name="BoardTypeProperties_TotalQuantityAvailableWarningLimit" xml:space="preserve">
     <value>Mindestbestand</value>
   </data>

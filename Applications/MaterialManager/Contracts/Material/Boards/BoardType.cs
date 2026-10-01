@@ -272,6 +272,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public string? EmbossingBottom { get; set; }
 
         /// <summary>
+        /// Gets or sets the DecorId.
+        /// </summary>
+        /// <example>ST10</example>
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_DecorId))]
+        [JsonProperty(Order = 39)]
+        public string? DecorId { get; set; }
+
+        /// <summary>
         /// Gets or sets the identifier from an external system.
         /// </summary>
         /// <example>EXT-4711</example>
