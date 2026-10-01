@@ -150,6 +150,11 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     public string? DecorCode { get; set; }
 
     /// <summary>
+    /// Gets or sets the DecorId.
+    /// </summary>
+    public string? DecorId { get; set; }
+
+    /// <summary>
     /// Gets or sets the decor embossing code.
     /// </summary>
     public string? DecorEmbossingCode { get; set; }
