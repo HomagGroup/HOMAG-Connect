@@ -5,8 +5,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     /// <summary>
-    /// Represents an edgeband type entry from the Tadamo material catalog, including classification,
-    /// dimensions, manufacturer data, and processing information.
+    /// A catalog edgeband type is a manufacturer-sourced edge material that can be added to materialManager with its identifying and product information.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
     /// </summary>
     public class CatalogEdgebandType
     {

@@ -3,7 +3,8 @@
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     /// <summary>
-    /// A edgeband type inventory.
+    /// An edgeband inventory record tracks stock of a particular edge band so its availability can be managed for production.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
     /// </summary>
     public class EdgebandTypeInventory
     {
