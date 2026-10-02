@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     /// <summary>
-    /// The cutting standard quality.
+    /// Specifies the expected cut quality for board processing, such as a raw cut, a finish cut, or no preset.
     /// </summary>
     [ResourceManager(typeof(StandardQualityDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]
