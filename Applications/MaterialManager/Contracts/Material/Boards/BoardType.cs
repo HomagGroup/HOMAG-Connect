@@ -18,7 +18,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
     /// </summary>
     /// <example>
-    /// { "boardCode": "P2_Gold_Craft_Oak_19.0_2800_2070", "materialCode": "P2_Gold_Craft_Oak_19.0", "thickness": 19.0, "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board", "manufacturerName": "HOMAG Sample Supplier", "productName": "Gold Craft Oak", "totalQuantityInInventory": 12, "unitSystem": "Metric" }
+    /// { "boardCode": "P2_Gold_Craft_Oak_19.0_2800_2070", "materialCode": "P2_Gold_Craft_Oak_19.0", "thickness": 19.0, "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board", "manufacturerName": "Egger", "productName": "Gold Craft Oak", "decorName": "f004", "embossingTop": "st07", "totalQuantityInInventory": 12, "unitSystem": "Metric" }
     /// </example>
     [DebuggerDisplay("{BoardCode}")]
     public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties

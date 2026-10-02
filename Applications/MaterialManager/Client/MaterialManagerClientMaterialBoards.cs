@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-
-using HomagConnect.Base;
-using HomagConnect.Base.Client;
+﻿using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -18,9 +8,17 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Update;
-
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -41,7 +39,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
     private const string _AvailibilityCheckRoute = _GatewayMaterialRoutePrefix + "/storage/availabilityCheck";
     private const string _GatewayDeleteRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
-
+    private const string _DecorMatchSearchRoute = _BaseRoute + "/decormatches/search";
     #endregion
 
     #region Import
@@ -776,4 +774,32 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
+
+    #region decor
+    /// <inheritdoc />
+    public async Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        ValidateRequiredProperties(request);
+
+        var payload = JsonConvert.SerializeObject(request, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_DecorMatchSearchRoute, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<DecorMatchSearchResponse>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(DecorMatchSearchResponse)}");
+    }
+    #endregion
+
 }
