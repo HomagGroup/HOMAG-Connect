@@ -6,8 +6,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
     /// <summary>
-    /// Represents a board type entry from the Tadamo material catalog, including classification,
-    /// dimensions, manufacturer data, and surface information.
+    /// A catalog board type is a manufacturer-sourced sheet material that can be added to materialManager with its identifying and product information.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
     /// </summary>
     public class CatalogBoardType
     {

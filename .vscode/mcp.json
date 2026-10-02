@@ -1,0 +1,37 @@
+{
+  "servers": {
+    "Document360": {
+      "url": "https://mcp.document360.io/mcp",
+      "type": "http"
+    },
+    "azure-devops": {
+      "type": "stdio",
+      "command": "${userHome}\\AppData\\Local\\Yarn\\bin\\mcp-server-azuredevops.cmd",
+      "args": ["homag-group"]
+    },
+    "Figma": {
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp",
+      "type": "http"
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${userHome}\\source\\repos"
+      ]
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp"
+      ]
+    }
+  }
+}

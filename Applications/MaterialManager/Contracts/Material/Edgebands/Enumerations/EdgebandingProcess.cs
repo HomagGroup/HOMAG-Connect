@@ -7,7 +7,8 @@ using HomagConnect.Base.Contracts.Converter;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
 /// <summary>
-/// Process.
+/// The edgebanding process identifies how an edge band is joined to a board, for example with hot-melt glue or a zero-joint process.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
 /// </summary>
 [ResourceManager(typeof(EdgebandingProcessDisplayNames))]
 [JsonConverter(typeof(TolerantEnumConverter))]

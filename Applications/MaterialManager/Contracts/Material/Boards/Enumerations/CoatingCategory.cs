@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     /// <summary>
-    /// Enum for the coating category
+    /// The coating category describes a board's surface finish, such as melamine, veneer, or paint, and can affect how the material is processed.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board materials</see>.
     /// </summary>
     [ResourceManager(typeof(CoatingCategoryDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]
