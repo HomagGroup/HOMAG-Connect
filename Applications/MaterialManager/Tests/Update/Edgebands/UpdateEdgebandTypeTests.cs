@@ -1,4 +1,5 @@
 ﻿using HomagConnect.MaterialManager.Client;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Samples.Update.Edgebands;
 using Shouldly;
 
@@ -52,5 +53,59 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 
         await act.ShouldNotThrowAsync(
             $"because creating edgeband type with edgeband code '{EdgebandCode}' and additional data should complete successfully");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandsPatchEdgebandType()
+    {
+        await UpdateEdgebandTypeSamples.Edgebands_PatchEdgebandType(_MaterialManagerClient, EdgebandCode);
+
+        var checkEdgeband = await _MaterialManagerClient.GetEdgebandTypeByEdgebandCode(EdgebandCode);
+
+        checkEdgeband.ShouldNotBeNull(
+            $"because edgeband type with edgeband code '{EdgebandCode}' should exist after patch");
+
+        checkEdgeband.DefaultLength.ShouldNotBeNull();
+        checkEdgeband.DefaultLength!.Value.ShouldBe(50.0, 0.0001, "because the default length was patched");
+
+        checkEdgeband.Thickness.ShouldNotBeNull();
+        checkEdgeband.Thickness!.Value.ShouldBe(1.0, 0.0001, "because the thickness was patched");
+
+        checkEdgeband.Height.ShouldNotBeNull();
+        checkEdgeband.Height!.Value.ShouldBe(23.0, 0.0001, "because the height was patched");
+
+        checkEdgeband.MaterialCategory.ShouldBe(EdgebandMaterialCategory.Veneer,
+            "because the material category was patched");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandsPatchEdgebandType_ClearValue_Succeeds()
+    {
+        await UpdateEdgebandTypeSamples.Edgebands_PatchEdgebandType_ClearValue(_MaterialManagerClient, EdgebandCode);
+
+        var checkEdgeband = await _MaterialManagerClient.GetEdgebandTypeByEdgebandCode(EdgebandCode);
+
+        checkEdgeband.ShouldNotBeNull(
+            $"because edgeband type with edgeband code '{EdgebandCode}' should exist after patch");
+        checkEdgeband.Costs.ShouldBeNull("because the costs were cleared by the patch");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandsPatchEdgebandType_UnchangedPropertiesAreKept()
+    {
+        var value = Math.Round(RandomBetween(50.0, 100.0), 2);
+
+        await UpdateEdgebandTypeSamples.Edgebands_UpdateEdgebandType(_MaterialManagerClient, EdgebandCode, value);
+
+        await UpdateEdgebandTypeSamples.Edgebands_PatchEdgebandType_ClearValue(_MaterialManagerClient, EdgebandCode);
+
+        var checkEdgeband = await _MaterialManagerClient.GetEdgebandTypeByEdgebandCode(EdgebandCode);
+
+        checkEdgeband.ShouldNotBeNull();
+        checkEdgeband.DefaultLength.ShouldBe(value,
+            "because properties which are not part of the patch must stay unchanged");
     }
 }
