@@ -9,7 +9,8 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 /// <summary>
-/// Represents detailed board type information including inventory, allocations, and additional data.
+/// Board type details bring together a material's stock, production allocations, and supporting information for managing it in materialManager.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
 /// </summary>
 /// <example>
 /// { "boardCode": "P2_Gold_Craft_Oak_19.0", "inventory": [], "allocations": [], "additionalData": [] }

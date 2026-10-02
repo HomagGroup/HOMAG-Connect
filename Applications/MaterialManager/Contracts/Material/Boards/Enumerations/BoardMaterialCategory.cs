@@ -8,7 +8,8 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     /// <summary>
-    /// Board material category
+    /// The board material category identifies what a sheet is made from, such as particleboard or MDF, and helps determine relevant processing parameters.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board materials</see>.
     /// </summary>
     [ResourceManager(typeof(BoardMaterialCategoryDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]

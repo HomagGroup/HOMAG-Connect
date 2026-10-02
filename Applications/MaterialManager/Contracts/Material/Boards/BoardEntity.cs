@@ -11,7 +11,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
     /// <summary>
-    /// Represents a board inventory entry including dimensions, quantity, and storage information.
+    /// A board inventory entry connects a physical board format to its quantity and storage location for day-to-day stock management.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
     /// </summary>
     /// <example>
     /// { "id": "B-1001", "boardType": { "boardCode": "P2_Gold_Craft_Oak_19.0", "materialCode": "P2_Gold_Craft_Oak", "thickness": 19.0, "materialCategory": "ParticleBoard", "coatingCategory": "MelamineResinCoated", "standardQuality": "P2", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "unitSystem": "Metric" }, "comments": "Reserved for production", "creationDate": "2025-04-01T08:30:00+00:00", "length": 2800.0, "location": { "barcode": "COMP-0004711", "locationId": "LOC-01-02-03", "name": "Main Buffer 03" }, "managementType": "StockMaterial", "quantity": 12, "width": 2070.0 }
@@ -19,9 +20,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
     public class BoardEntity
     {
         /// <summary>
-        /// Gets or sets the board type properties.
+        /// Gets or sets the material and format definition for the board represented by this inventory entry.
         /// </summary>
-        /// <example>{}</example>
+        /// <example>{ "boardCode": "P2_Gold_Craft_Oak_19.0", "materialCode": "P2_Gold_Craft_Oak", "thickness": 19.0, "width": 2070.0, "length": 2800.0, "unitSystem": "Metric" }</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardEntityProperties_BoardType))]
         public BoardType BoardType { get; set; }
 
