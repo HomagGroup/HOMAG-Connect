@@ -15,7 +15,7 @@ public class CustomTableRowValidationResult
     /// Gets or sets the id of the row this validation result belongs to. May be null for rows without a known id.
     /// </summary>
     [JsonProperty(Order = 10)]
-    public Guid? RowId { get; set; }
+    public string? RowId { get; set; }
 
     /// <summary>
     /// Gets or sets the per-cell validation results of the row.
