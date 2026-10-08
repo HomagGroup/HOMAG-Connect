@@ -87,7 +87,7 @@ namespace HomagConnect.OrderManager.Samples.ConfigurationDataManagement.Actions
                     new CustomTableRow
                     {
                         // RowId set => the existing row keeps this id.
-                        RowId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        RowId = "1",
                         Cells =
                         [
                             new CustomTableCell { ColumnId = "Name", Value = "Row 2" },

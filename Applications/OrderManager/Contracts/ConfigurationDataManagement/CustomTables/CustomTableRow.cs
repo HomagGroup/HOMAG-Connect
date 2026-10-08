@@ -16,7 +16,7 @@ public class CustomTableRow
     /// is generated.
     /// </summary>
     [JsonProperty(Order = 10)]
-    public Guid? RowId { get; set; }
+    public string? RowId { get; set; }
 
     /// <summary>
     /// Gets or sets the cells of the row. Each cell addresses a column by its id. Missing input columns are stored as empty
