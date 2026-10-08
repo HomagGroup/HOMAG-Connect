@@ -17,6 +17,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 /// An edgeband type describes the roll material used to cover exposed board edges, including the properties needed to identify and process it.
 /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
 /// </summary>
+/// <example>
+/// { "edgebandCode": "edge001", "manufacturerName": "Egger", "decorName": "f004", "decorEmbossingCode": "st07" }
+/// </example>
 [DebuggerDisplay("{EdgebandCode}")]
 public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
 {
