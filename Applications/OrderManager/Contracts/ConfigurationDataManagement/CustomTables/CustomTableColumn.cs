@@ -34,10 +34,4 @@ public class CustomTableColumn
     /// </summary>
     [JsonProperty(Order = 40)]
     public bool IsInput { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the values of this column must be unique across all rows.
-    /// </summary>
-    [JsonProperty(Order = 50)]
-    public bool IsUnique { get; set; }
 }
