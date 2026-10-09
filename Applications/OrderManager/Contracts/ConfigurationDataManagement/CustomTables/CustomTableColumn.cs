@@ -29,15 +29,15 @@ public class CustomTableColumn
     public CustomTableColumnType Type { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the column allows null values.
+    /// </summary>
+    [JsonProperty(Order = 40)]
+    public bool? AllowNull { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the column is an input column. Non-input columns are calculated and cannot be
     /// written.
     /// </summary>
-    [JsonProperty(Order = 40)]
-    public bool IsInput { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the values of this column must be unique across all rows.
-    /// </summary>
     [JsonProperty(Order = 50)]
-    public bool IsUnique { get; set; }
+    public bool IsInput { get; set; }
 }

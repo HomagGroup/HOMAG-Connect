@@ -30,8 +30,16 @@ public class CustomTableStructure
     public Collection<CustomTableColumn> Columns { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the ETag identifying the current version of the structure. Use it to detect structure changes.
+    /// Gets or sets a value indicating whether all input entries must be unique. 
+    /// If true, the system will enforce uniqueness of input values across all rows for the defined input columns.
+    /// Default is false.
     /// </summary>
     [JsonProperty(Order = 40)]
+    public bool? AllInputEntriesMustBeUnique { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ETag identifying the current version of the structure. Use it to detect structure changes.
+    /// </summary>
+    [JsonProperty(Order = 50)]
     public string? ETag { get; set; }
 }
