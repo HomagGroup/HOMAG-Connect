@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Contracts.Update;
 
@@ -11,6 +12,9 @@ namespace HomagConnect.MaterialManager.Contracts.Update;
 /// </summary>
 public class MaterialManagerUpdateMaterialType
 {
+    private double? _costs;
+    private bool _costsSpecified;
+
     /// <summary>
     /// Gets or sets the additional data.
     /// </summary>
@@ -32,7 +36,24 @@ public class MaterialManagerUpdateMaterialType
     /// Gets or sets the costs of the board per m² or ft².
     /// </summary>
     [Range(0, double.PositiveInfinity)]
-    public double? Costs { get; set; } = null;
+    [JsonProperty(NullValueHandling = NullValueHandling.Include)]
+    public double? Costs
+    {
+        get => _costs;
+        set
+        {
+            _costs = value;
+            _costsSpecified = true;
+        }
+    }
+
+    /// <summary>
+    /// Determines whether the costs property was explicitly assigned for JSON serialization.
+    /// </summary>
+    public bool ShouldSerializeCosts()
+    {
+        return _costsSpecified;
+    }
 
     /// <summary>
     /// Gets or sets the decor code.
