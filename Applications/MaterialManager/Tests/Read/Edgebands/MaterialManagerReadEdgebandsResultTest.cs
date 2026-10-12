@@ -1,4 +1,4 @@
-using HomagConnect.MaterialManager.Client;
+﻿using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Samples.Read.Edgebands;
 
@@ -142,7 +142,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         const string externalSystemId = "EXT-4711";
 
         var act = async () => await MaterialManagerReadEdgebandResultsSamples
-            .Edgebands_GetEdgebandTypesByExternalSystemId(materialManagerClient, externalSystemId);
+            .Edgebands_GetEdgebandTypesByExternalSystemId(_MaterialManagerClient, externalSystemId);
 
         await Should.NotThrowAsync(act,
             $"because GetEdgebandTypesByExternalSystemId should retrieve edgeband types for external system id '{externalSystemId}' successfully");
@@ -155,7 +155,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         const string externalSystemId = "EXT-4711";
 
         var act = async () => await MaterialManagerReadEdgebandResultsSamples
-            .Edgebands_GetEdgebandTypesByExternalSystemIdIncludingDetails(materialManagerClient, externalSystemId);
+            .Edgebands_GetEdgebandTypesByExternalSystemIdIncludingDetails(_MaterialManagerClient, externalSystemId);
 
         await Should.NotThrowAsync(act,
             $"because GetEdgebandTypesByExternalSystemId with includingDetails should retrieve edgeband types with inventory for external system id '{externalSystemId}' successfully");
