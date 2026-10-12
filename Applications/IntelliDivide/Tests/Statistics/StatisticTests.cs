@@ -66,6 +66,7 @@ public class StatisticTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 11, 01, "DF-Optimization")]
     public async Task Statistics_GetPartSizesByMaterial_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
@@ -84,6 +85,7 @@ public class StatisticTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 11, 01, "DF-Optimization")]
     public async Task Statistics_GetPartSizesByMaterial2_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();

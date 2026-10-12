@@ -126,14 +126,15 @@ public enum SolutionCharacteristic
     LowestOffcutsTotalQuantity,
 
     /// <summary>
-    /// Minimizes complexity by reducing recuts, headcuts, and max book weight.
+    /// Minimizes complexity by reducing the number of cuts, recuts, headcuts, and max book weight.
     /// </summary>
     [Display(ResourceType = typeof(SolutionCharacteristicDisplayNames), Name = nameof(LowestComplexity), Description = "LowestComplexityDescription")]
     [DisplayIcon("https://core.homag.cloud/cdn/images/intellidivide/characteristics/lowest_complexity.svg")]
     [SolutionCharacteristicScoreWeights(
-        SolutionKeyFigure.Recuts, 1000,
-        SolutionKeyFigure.Headcuts, 500,
-        SolutionKeyFigure.BookWeightMax, 200
+        SolutionKeyFigure.Cuts, 1000,
+        SolutionKeyFigure.Recuts, 400,
+        SolutionKeyFigure.Headcuts, 300,
+        SolutionKeyFigure.BookWeightMax, 100
     )]
     LowestComplexity,
 

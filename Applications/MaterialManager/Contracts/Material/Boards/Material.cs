@@ -15,7 +15,8 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 /// <summary>
-/// Represents aggregated material information for board materials, including classification, optimization parameters, and unit-dependent values.
+/// A board material groups interchangeable board types that share core material characteristics, such as category and surface coating.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board materials</see>.
 /// </summary>
 /// <example>
 /// { "code": "P2_Gold_Craft_Oak", "materialCategory": "ParticleBoard", "thickness": 19.0, "hasGrain": true, "coatingCategory": "MelamineResinCoated", "standardQuality": "P2", "decorName": [ "Craft Oak" ], "decorCode": [ "DCR-7788" ], "thumbnail": "https://example.com/materials/P2_Gold_Craft_Oak.png", "manufacturer": [ "HOMAG Sample Supplier" ], "productName": [ "Gold Craft Oak" ], "masterDataComments": [ "Preferred stock item" ], "averageCosts": 12.45, "density": 650.0, "materialParameterForOptimization": [ "QUALITY=A" ], "boardParameterForOptimization": [ "GRAIN=LENGTHWISE" ], "unitSystem": "Metric" }
