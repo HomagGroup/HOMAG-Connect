@@ -68,5 +68,14 @@ namespace HomagConnect.ProductionAssist.Contracts {
                 return ResourceManager.GetString("AssignedTapioMachineId", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gruppen Name.
+        /// </summary>
+        public static string GroupName {
+            get {
+                return ResourceManager.GetString("GroupName", resourceCulture);
+            }
+        }
     }
 }

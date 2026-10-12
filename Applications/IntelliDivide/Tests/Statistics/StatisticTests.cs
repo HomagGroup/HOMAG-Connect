@@ -66,11 +66,11 @@ public class StatisticTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 11, 01, "DF-Optimization")]
     public async Task Statistics_GetPartSizesByMaterial_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
-
-        var materialCodes = new[] { "P2_White_19", "P2_White_8" };
+        var materialCodes = (await intelliDivide.GetBoardTypes(9999)).Select(ma=> ma.BoardCode);
 
         var to = DateTime.Now.AddDays(-1);
         var from = to.AddMonths(-3);
@@ -85,11 +85,12 @@ public class StatisticTests : IntelliDivideTestBase
     }
 
     [TestMethod]
+    [TemporaryDisabledOnServer(2026, 11, 01, "DF-Optimization")]
     public async Task Statistics_GetPartSizesByMaterial2_NoException()
     {
         var intelliDivide = GetIntelliDivideClient();
 
-        var materialCodes = new[] { "P2_White_19", "P2_White_8" };
+        var materialCodes = (await intelliDivide.GetBoardTypes(9999)).Select(ma => ma.BoardCode);
 
         var statistics = await intelliDivide.GetPartSizesByMaterialStatistics(materialCodes, 90).ToListAsync();
         if (statistics == null || !statistics.Any())

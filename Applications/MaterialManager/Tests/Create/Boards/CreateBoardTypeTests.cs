@@ -10,8 +10,8 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
 {
     /// <summary />
     [TestClass]
-    [TestCategory("MaterialManager")]
-    [TestCategory("MaterialManager.Boards")]
+    [TestCategory("DeploymentTests.MaterialManager")]
+    [TestCategory("DeploymentTests.MaterialManager.Boards")]
     public class CreateBoardTypeTests : MaterialManagerTestBase
     {
         /// <summary />

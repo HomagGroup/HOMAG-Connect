@@ -1,5 +1,4 @@
-﻿using HomagConnect.Base.TestBase.Attributes;
-using HomagConnect.MaterialManager.Client;
+﻿using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using Shouldly;
 
@@ -8,7 +7,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 /// <summary>
 /// </summary>
 [TestClass]
-[TestCategory("MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager")]
 public class ReadBoardTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>

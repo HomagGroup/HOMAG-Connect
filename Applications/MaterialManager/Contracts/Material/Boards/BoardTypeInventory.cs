@@ -8,7 +8,8 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 /// <summary>
-/// Represents inventory information for a specific board type.
+/// A board inventory record tracks a quantity of a board type at a storage location so available material can be managed for production.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
 /// </summary>
 /// <example>
 /// { "code": "B-1001", "creationDate": "2025-04-01T08:30:00+00:00", "location": "Main Buffer 03", "orderNumber": "4711", "quantity": 12, "workstation": "Saw-01", "additionalCommentsBoards": "Reserved for production" }

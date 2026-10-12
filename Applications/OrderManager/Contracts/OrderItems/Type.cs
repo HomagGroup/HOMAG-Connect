@@ -89,4 +89,9 @@ public enum Type
     /// Represents a calculation error
     /// </summary>
     CalculationError,
+
+    /// <summary>
+    /// Represents a reclaim
+    /// </summary>
+    Reclaim,
 }

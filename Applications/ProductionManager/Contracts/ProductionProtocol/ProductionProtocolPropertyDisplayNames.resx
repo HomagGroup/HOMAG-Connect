@@ -135,6 +135,18 @@
   <data name="CustomerName" xml:space="preserve">
     <value>Kundenname</value>
   </data>
+  <data name="EdgeBackThumbnail" xml:space="preserve">
+    <value>Kante hinten Miniaturansicht</value>
+  </data>
+  <data name="EdgeFrontThumbnail" xml:space="preserve">
+    <value>Kante vorne Miniaturansicht</value>
+  </data>
+  <data name="EdgeLeftThumbnail" xml:space="preserve">
+    <value>Kante links Miniaturansicht</value>
+  </data>
+  <data name="EdgeRightThumbnail" xml:space="preserve">
+    <value>Kante rechts Miniaturansicht</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>Herkunft</value>
   </data>
@@ -144,11 +156,23 @@
   <data name="ItemType" xml:space="preserve">
     <value>Eintragstyp</value>
   </data>
+  <data name="LaminateBottomThumbnail" xml:space="preserve">
+    <value>Belag unten Miniaturansicht</value>
+  </data>
+  <data name="LaminateTopThumbnail" xml:space="preserve">
+    <value>Belag oben Miniaturansicht</value>
+  </data>
+  <data name="MaterialThumbnail" xml:space="preserve">
+    <value>Material Miniaturansicht</value>
+  </data>
   <data name="OptimizationName" xml:space="preserve">
     <value>Optimierung</value>
   </data>
   <data name="OrderName" xml:space="preserve">
     <value>Auftragsname</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Auftragsnummer</value>
   </data>
   <data name="PatternCycle" xml:space="preserve">
     <value>Zyklus</value>

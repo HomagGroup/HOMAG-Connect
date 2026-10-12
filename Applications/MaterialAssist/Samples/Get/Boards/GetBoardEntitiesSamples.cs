@@ -9,7 +9,7 @@ namespace HomagConnect.MaterialAssist.Samples.Get.Boards
         // GetAllEntities
         public static async Task<IList<BoardEntity>> Boards_GetBoardEntities(MaterialAssistClientBoards materialAssist)
         {
-            var result = await materialAssist.GetBoardEntities(100000, 0);
+            var result = await materialAssist.GetBoardEntities(5, 0);
             return result != null? result.ToList() : [];
         }
 

@@ -184,6 +184,57 @@ public class ClientBase
         return response;
     }
 
+    protected async Task<HttpResponseMessage> PutObject(Uri uri, StringContent content = null)
+    {
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Put,
+            RequestUri = uri,
+            Content = content
+        };
+
+        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        return response;
+    }
+
+    protected async Task<HttpResponseMessage> PutObject<T>(Uri uri, T payload)
+    {
+        var serializedPayload = JsonConvert.SerializeObject(payload, SerializerSettings.Default);
+        var content = new StringContent(serializedPayload, Encoding.UTF8, "application/json");
+
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Put,
+            RequestUri = uri,
+            Content = content
+        };
+
+        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        return response;
+    }
+
+    protected async Task<T2> PutObject<T1, T2>(Uri uri, T1 payload)
+    {
+        var response = await PutObject(uri, payload);
+        var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+        T2 result = JsonConvert.DeserializeObject<T2>(rawResult, SerializerSettings.Default);
+
+        if (object.Equals(result, default(T2)))
+        {
+            throw new ProblemDetailsException()
+            {
+                Title = "Invalid or no result. Process returned null!"
+            };
+        }
+
+        return result;
+    }
+
     protected async Task<T?> RequestObject<T>(Uri uri)
     {
         var request = new HttpRequestMessage

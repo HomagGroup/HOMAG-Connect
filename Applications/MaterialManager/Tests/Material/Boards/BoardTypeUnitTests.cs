@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
@@ -91,6 +92,54 @@ public class BoardTypeUnitTests
             "because MDF typical density should be converted to imperial units");
         boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeLessThan(50,
             "because MDF typical density should be converted to imperial units");
+    }
+
+    /// <summary>
+    /// Verifies that board material categories with texture references are returned as dictionary mappings.
+    /// </summary>
+    [TestMethod]
+    public void BoardMaterialCategory_GetTextureReferences_ReturnsDefinedMappings()
+    {
+        var textureReferences = BoardMaterialCategory.Undefined.GetTextureReferences();
+
+        textureReferences.ShouldContainKey(BoardMaterialCategory.Chipboard);
+        textureReferences[BoardMaterialCategory.Chipboard].Id.ShouldBe("testing101:mr_chipboard");
+        textureReferences[BoardMaterialCategory.Chipboard].Catalog.ShouldBe("testing101");
+        textureReferences[BoardMaterialCategory.Chipboard].DecorCode.ShouldBe("mr");
+        textureReferences[BoardMaterialCategory.Chipboard].Embossing.ShouldBe("chipboard");
+
+        textureReferences.ShouldContainKey(BoardMaterialCategory.MediumdensityFiberboard_MDF);
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Id.ShouldBe("testing101:mdf_board");
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Catalog.ShouldBe("testing101");
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].DecorCode.ShouldBe("mdf");
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Embossing.ShouldBe("board");
+
+        textureReferences.Trace();
+    }
+
+    /// <summary>
+    /// Verifies that texture reference properties stay synchronized when one of them changes.
+    /// </summary>
+    [TestMethod]
+    public void TextureReference_Properties_AffectEachOther()
+    {
+        var textureReference = new TextureReference("testing101:mr_chipboard");
+
+        textureReference.Catalog.ShouldBe("testing101");
+        textureReference.DecorCode.ShouldBe("mr");
+        textureReference.Embossing.ShouldBe("chipboard");
+
+        textureReference.Id = "catalogx:decorx_embx";
+
+        textureReference.Catalog.ShouldBe("catalogx");
+        textureReference.DecorCode.ShouldBe("decorx");
+        textureReference.Embossing.ShouldBe("embx");
+
+        textureReference.Catalog = "catalogy";
+        textureReference.DecorCode = "decory";
+        textureReference.Embossing = "emby";
+
+        textureReference.Id.ShouldBe("catalogy:decory_emby");
     }
 
     /// <summary>

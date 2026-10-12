@@ -8,7 +8,8 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
 {
     /// <summary>
-    /// Board material category
+    /// The board material category identifies what a sheet is made from, such as particleboard or MDF, and helps determine relevant processing parameters.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board materials</see>.
     /// </summary>
     [ResourceManager(typeof(BoardMaterialCategoryDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]
@@ -98,6 +99,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// Chipboard.
         /// </summary>
         [TypicalDensity(650)]
+        [TextureReference("testing101:mr_chipboard")]
         [Display(Description = "Chipboard")]
         Chipboard,
 
@@ -273,6 +275,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations
         /// Medium-density fiberboard (MDF).
         /// </summary>
         [TypicalDensity(700)]
+        [TextureReference("testing101:mdf_board")]
         [Display(Description = "Medium-density fiberboard (MDF)")]
         MediumdensityFiberboard_MDF,
 

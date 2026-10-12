@@ -51,15 +51,18 @@
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
 	  <Compile Update="Result\SolutionDisplayNames.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>SolutionDisplayNames.resx</DependentUpon>
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>SolutionDisplayNames.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Statistics\StatisticsDisplayNames.Designer.cs">
+		<DesignTime>True</DesignTime>
+		<AutoGen>True</AutoGen>
+		<DependentUpon>StatisticsDisplayNames.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-  	<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="10.0.9" />
-  	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
 	  <EmbeddedResource Update="Common\ProgramTransferModeDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ProgramTransferModeDisplayNames.Designer.cs</LastGenOutput>
@@ -81,8 +84,12 @@
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Result\SolutionDisplayNames.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>SolutionDisplayNames.Designer.cs</LastGenOutput>
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>SolutionDisplayNames.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Statistics\StatisticsDisplayNames.resx">
+		<Generator>PublicResXFileCodeGenerator</Generator>
+		<LastGenOutput>StatisticsDisplayNames.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

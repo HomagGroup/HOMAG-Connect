@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -15,8 +15,8 @@ namespace HomagConnect.MaterialManager.Tests.Material.Boards;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Boards")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Boards")]
 public class BoardTypeTests : MaterialManagerTestBase
 {
     /// <summary />
@@ -104,7 +104,7 @@ public class BoardTypeTests : MaterialManagerTestBase
 
         boardType.ShouldNotBeNull(
             $"because board type with board code '{fullBoardCode}' should be created successfully");
-        boardType!.BoardCode.ShouldBe(fullBoardCode,
+        boardType.BoardCode.ShouldBe(fullBoardCode,
             $"because created board type should have board code '{fullBoardCode}'");
         boardType.MaterialCode.ShouldBe(materialCode,
             $"because created board type should have material code '{materialCode}'");

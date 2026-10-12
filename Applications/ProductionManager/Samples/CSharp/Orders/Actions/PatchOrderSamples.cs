@@ -1,7 +1,6 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Orders;
-using Newtonsoft.Json.Linq;
 using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Samples.Orders.Actions
@@ -32,11 +31,9 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
                 .Set(o => o.AdditionalProperties, new Dictionary<string, object>
                 {
                     ["CustomProperty"] = "CustomPropertyValue",
-                })
-                .Build();
+                });
 
-            var jPatchData = JObject.FromObject(patchData);
-            await productionManagerClient.PatchOrder(identifier, jPatchData);
+            await productionManagerClient.PatchOrder(identifier, patchData);
         }
     }
 }

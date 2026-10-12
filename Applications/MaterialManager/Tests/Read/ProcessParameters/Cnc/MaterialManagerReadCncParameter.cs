@@ -6,8 +6,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.ProcessParameters.Cnc;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Cnc.Read.Parameters")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Cnc.Read.Parameters")]
 public class MaterialManagerReadCncParameter : MaterialManagerTestBase
 {
     /// <summary />

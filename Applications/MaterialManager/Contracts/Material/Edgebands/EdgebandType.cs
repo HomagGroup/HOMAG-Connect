@@ -14,7 +14,8 @@ using System.Runtime.Serialization;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
-/// A edgeband type.
+/// An edgeband type describes the roll material used to cover exposed board edges, including the properties needed to identify and process it.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
 /// </summary>
 [DebuggerDisplay("{EdgebandCode}")]
 public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
@@ -148,6 +149,11 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// Gets or sets the decor code.
     /// </summary>
     public string? DecorCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the DecorId.
+    /// </summary>
+    public string? DecorId { get; set; }
 
     /// <summary>
     /// Gets or sets the decor embossing code.

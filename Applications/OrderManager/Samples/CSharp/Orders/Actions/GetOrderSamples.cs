@@ -52,6 +52,14 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
         }
 
         /// <summary />
+        public static async Task GetAllOrdersHavingStatusReadyForProductionAndLatestChangedSinceDate5MinsAgo(IOrderManagerClient orderManager)
+        {
+            var response = await orderManager.GetOrdersChangedSince(OrderState.ReadyForProduction, DateTime.UtcNow.AddMinutes(-5), 5);
+
+            response.Trace();
+        }
+
+        /// <summary />
         public static OrderDetails GetSampleOrder()
         {
             var order = new OrderDetails();

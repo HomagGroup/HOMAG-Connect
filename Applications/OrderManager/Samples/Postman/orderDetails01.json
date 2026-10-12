@@ -4,6 +4,7 @@
   "orderNumber": "736362",
   "orderName": "Bedroom & bathroom 01",
   "orderDescription": "Lorem ipsum dolor sit amet...",
+  "source": "OrderConfigurator",
   "project": "Single family house Müller John",
   "personInCharge": "Joe",
   "orderDate": "2025-11-06T00:00:00+01:00",

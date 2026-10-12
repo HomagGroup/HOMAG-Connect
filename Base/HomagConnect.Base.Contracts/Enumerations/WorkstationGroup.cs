@@ -100,6 +100,11 @@ namespace HomagConnect.Base.Contracts.Enumerations
         /// <summary>
         /// Boards
         /// </summary>
-        Boards
+        Boards,
+
+        /// <summary>
+        /// Individual
+        /// </summary>
+        Individual
     }
 }

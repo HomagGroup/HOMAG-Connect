@@ -8,7 +8,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     /// <summary>
-    /// Describe an edgeband entity.
+    /// An edgeband inventory entry represents material held in stock and connects it to the edgeband type used in production.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
     /// </summary>
     public class EdgebandEntity
     {
