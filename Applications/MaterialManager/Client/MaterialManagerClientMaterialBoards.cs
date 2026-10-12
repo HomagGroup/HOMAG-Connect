@@ -177,7 +177,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(patchData));
         }
 
-        var url = $"{_BaseRoute}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+        var url = $"{_BaseRoute}/patch/{Uri.EscapeDataString(boardCode)}";
 
         var content = new StringContent(
             JsonConvert.SerializeObject(patchData.Build(), Formatting.None),

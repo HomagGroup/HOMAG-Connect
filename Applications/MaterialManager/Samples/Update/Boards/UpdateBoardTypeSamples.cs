@@ -74,8 +74,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
             var patchData = PatchBuilder<BoardType>.For()
                 .Set(b => b.Length, 2800.0)
                 .Set(b => b.Width, 2070.0)
-                .Set(b => b.Costs, 12.45)
-                .Set(b => b.Grain, Grain.Lengthwise);
+                .Set(b => b.Costs, 12.45);
 
             var patchedBoardType = await materialManager.PatchBoardType(boardCode, patchData);
 

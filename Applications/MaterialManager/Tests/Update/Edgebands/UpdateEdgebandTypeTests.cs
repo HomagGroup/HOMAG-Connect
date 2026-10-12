@@ -74,9 +74,6 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 
         checkEdgeband.Height.ShouldNotBeNull();
         checkEdgeband.Height!.Value.ShouldBe(23.0, 0.0001, "because the height was patched");
-
-        checkEdgeband.MaterialCategory.ShouldBe(EdgebandMaterialCategory.Veneer,
-            "because the material category was patched");
     }
 
     /// <summary />

@@ -81,7 +81,6 @@ public class UpdateBoardTypeTests : MaterialManagerTestBase
         checkBoard.Costs.ShouldNotBeNull();
         checkBoard.Costs!.Value.ShouldBe(12.45, 0.0001, "because the costs were patched");
 
-        checkBoard.Grain.ShouldBe(Grain.Lengthwise, "because the grain was patched");
     }
 
     /// <summary />

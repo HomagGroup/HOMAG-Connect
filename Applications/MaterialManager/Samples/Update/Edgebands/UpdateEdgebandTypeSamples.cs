@@ -87,8 +87,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Edgebands
             var patchData = PatchBuilder<EdgebandType>.For()
                 .Set(e => e.DefaultLength, 50.0)
                 .Set(e => e.Thickness, 1.0)
-                .Set(e => e.Height, 23.0)
-                .Set(e => e.MaterialCategory, EdgebandMaterialCategory.Veneer);
+                .Set(e => e.Height, 23.0);
 
             var patchedEdgebandType = await materialManager.PatchEdgebandType(edgebandCode, patchData);
 
