@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -174,5 +174,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <returns>The edgeband types matching the external system id sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="externalSystemId" /> is null or whitespace.</exception>
         Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesByExternalSystemId(string externalSystemId, int take, int skip = 0, bool includingDetails = false);
+
+        /// <summary>
+        /// Partially updates the edgeband type identified by the edgeband code using merge-patch semantics.
+        /// </summary>
+        /// <param name="edgebandCode">The code of the edgeband type to patch.</param>
+        /// <param name="patchData">The properties to update.</param>
+        /// <returns>The patched edgeband type <see cref="EdgebandType" />.</returns>
+        Task<EdgebandType> PatchEdgebandType(string edgebandCode, PatchBuilder<EdgebandType> patchData);
     }
 }
