@@ -84,6 +84,10 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
                 Project = "Single family house Müller John",
                 PersonInCharge = "Hendrik Albers",
                 OrderDescription = "Lorem ipsum dolor sit amet...",
+
+                // The system the order originates from. Optional - if it is not provided,
+                // orderManager records "HG Connect" as the source.
+                Source = "OrderConfigurator",
                 OrderDate = DateTime.Today,
                 DeliveryDatePlanned = DateTime.Today.AddDays(14)
             };

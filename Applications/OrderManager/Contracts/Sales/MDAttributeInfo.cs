@@ -53,7 +53,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         /// User right (can be: Master, Advanced, Simple)
         /// </summary>
         [JsonProperty("userRight")]
-        public string UserRight { get; set; } = null!;
+        public MDAttributeUserRight UserRight { get; set; }
 
         /// <summary>
         /// Implicit relevant

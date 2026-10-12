@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
@@ -37,5 +38,11 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         /// </summary>
         [JsonProperty(Order = 40)]
         public double[]? Rotation { get; set; }
+
+        /// <summary>
+        /// Contains configuration attributes for this group
+        /// </summary>
+        [JsonProperty(Order = 50)]
+        public Collection<ConfigurationAttribute>? Attributes { get; set; } = new Collection<ConfigurationAttribute>();
     }
 }

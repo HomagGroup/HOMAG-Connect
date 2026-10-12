@@ -8,11 +8,11 @@ namespace HomagConnect.MaterialManager.Tests.Read.Edgebands;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Edgebands")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Edgebands")]
 public class ReadEdgebandTypeTests : MaterialManagerTestBase
 {
-    private MaterialManagerClientMaterialEdgebands materialManagerClient = null!;
+    private MaterialManagerClientMaterialEdgebands _MaterialManagerClient = null!;
 
     /// <summary>
     /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
@@ -20,9 +20,9 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [TestInitialize]
     public async Task Init()
     {
-        materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
-        await EnsureEdgebandTypeExist(materialManagerClient, "ABS_Abruzzo_colore_1.00_100.0_HM", 1.0, 100.0);
-        await EnsureEdgebandTypeExist(materialManagerClient, "ABS_Black_1.20_23.0_ZJ", 1.2);
+        _MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+        await EnsureEdgebandTypeExist(_MaterialManagerClient, "ABS_Abruzzo_colore_1.00_100.0_HM", 1.0, 100.0);
+        await EnsureEdgebandTypeExist(_MaterialManagerClient, "ABS_Black_1.20_23.0_ZJ", 1.2);
     }
 
     /// <summary />
@@ -30,7 +30,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypeByEdgebandCode()
     {
         const string edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
-        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCode(materialManagerClient, edgebandCode);
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCode(_MaterialManagerClient, edgebandCode);
 
         result.ShouldNotBeNull(
             $"because edgeband type with edgeband code '{edgebandCode}' should exist");
@@ -43,7 +43,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypeByEdgebandCodeIncludingDetails()
     {
         const string edgebandCode = "ABS_Abruzzo_colore_1.00_100.0_HM";
-        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(materialManagerClient, edgebandCode);
+        var result = await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeByEdgebandCodeIncludingDetails(_MaterialManagerClient, edgebandCode);
 
         result.ShouldNotBeNull(
             $"because edgeband type with edgeband code '{edgebandCode}' should exist including details");
@@ -56,7 +56,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypeInventoryHistoryAsync()
     {        
 
-        var act = async () => await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeInventoryHistoryAsync(materialManagerClient);
+        var act = async () => await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypeInventoryHistoryAsync(_MaterialManagerClient);
 
         await Should.NotThrowAsync(act,
             "because GetEdgebandTypeInventoryHistoryAsync should retrieve inventory history successfully");
@@ -66,7 +66,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypes()
     {
-        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypes(materialManagerClient) ?? Array.Empty<EdgebandType>()).ToArray();
+        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypes(_MaterialManagerClient) ?? Array.Empty<EdgebandType>()).ToArray();
 
         result.ShouldNotBeNull(
             "because GetEdgebandTypes should return a collection of edgeband types");
@@ -78,7 +78,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task GetEdgebandTypes_ChangedSince_NoException()
     {
-        var result = await materialManagerClient.GetEdgebandTypes(DateTimeOffset.UtcNow.AddDays(-2), 2);
+        var result = await _MaterialManagerClient.GetEdgebandTypes(DateTimeOffset.UtcNow.AddDays(-2), 2);
         Assert.IsNotNull(result, "because GetEdgebandTypes should return a result for changed since filter");
     }
     
@@ -87,7 +87,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodes()
     {        
         var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
-        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodes(materialManagerClient, edgebandCodes)).ToArray();
+        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodes(_MaterialManagerClient, edgebandCodes)).ToArray();
 
         result.ShouldNotBeNull(
             "because GetEdgebandTypesByEdgebandCodes should return a collection of edgeband types");
@@ -102,7 +102,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     public async Task EdgebandsGetEdgebandTypesByEdgebandCodesIncludingDetails()
     {
         var edgebandCodes = new List<string> { "ABS_Abruzzo_colore_1.00_100.0_HM", "ABS_Black_1.20_23.0_ZJ" };
-        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(materialManagerClient, edgebandCodes)).ToArray();
+        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesByEdgebandCodesIncludingDetails(_MaterialManagerClient, edgebandCodes)).ToArray();
 
         result.ShouldNotBeNull(
             "because GetEdgebandTypesByEdgebandCodesIncludingDetails should return a collection of edgeband types with details");
@@ -116,7 +116,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandsGetEdgebandTypesIncludingDetails()
     {
-        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesIncludingDetails(materialManagerClient) ?? Array.Empty<EdgebandTypeDetails>())
+        var result = (await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetEdgebandTypesIncludingDetails(_MaterialManagerClient) ?? Array.Empty<EdgebandTypeDetails>())
             .ToArray();
 
         result.ShouldNotBeNull(
@@ -129,7 +129,7 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
     [TestMethod]
     public async Task EdgebandsGetLicensedMachines()
     {
-                var act = async () => await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetLicensedMachines(materialManagerClient);
+                var act = async () => await MaterialManagerReadEdgebandResultsSamples.Edgebands_GetLicensedMachines(_MaterialManagerClient);
 
         await Should.NotThrowAsync(act,
             "because GetLicensedMachines should retrieve licensed machines successfully");

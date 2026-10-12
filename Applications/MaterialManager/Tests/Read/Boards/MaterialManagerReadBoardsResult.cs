@@ -6,8 +6,8 @@ namespace HomagConnect.MaterialManager.Tests.Read.Boards;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Board.Read.Results")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Board.Read.Results")]
 public class MaterialManagerReadBoardsResult : MaterialManagerTestBase
 {
     /// <summary />

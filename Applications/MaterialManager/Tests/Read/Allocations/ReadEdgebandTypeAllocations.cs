@@ -7,7 +7,7 @@ namespace HomagConnect.MaterialManager.Tests.Read.Allocations;
 /// <summary>
 /// </summary>
 [TestClass]
-[TestCategory("MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager")]
 [TemporaryDisabledOnServer(2026, 03, 31, "DF-Material")]
 public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
 {
@@ -43,7 +43,7 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
             project: project,
             usedLength: 50.0);
 
-        var createdAllocation = await MaterialManagerClientMaterialEdgebandTypes.CreateEdgebandTypeAllocation(allocationRequest);
+        await MaterialManagerClientMaterialEdgebandTypes.CreateEdgebandTypeAllocation(allocationRequest);
 
         // Act
         var allocation = await MaterialManagerClientMaterialEdgebandTypes.GetEdgebandTypeAllocation(order, customer, project, edgebandCode);
@@ -52,7 +52,7 @@ public class ReadEdgebandTypeTypeAllocationTests : MaterialManagerTestBase
         allocation.ShouldNotBeNull("because the allocation should exist for the given parameters");
         //code is not returned correctly yet
         //allocation.EdgebandCode.Should().Be(edgebandCode, "because the allocation was created for this edgeband code");
-        allocation!.Order.ShouldBe(order, "because the allocation was created for this order");
+        allocation.Order.ShouldBe(order, "because the allocation was created for this order");
         allocation.Customer.ShouldBe(customer, "because the allocation was created for this customer");
         allocation.Project.ShouldBe(project, "because the allocation was created for this project");
 

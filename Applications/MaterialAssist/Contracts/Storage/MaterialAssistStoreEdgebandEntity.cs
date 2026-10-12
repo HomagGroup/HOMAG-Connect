@@ -19,7 +19,7 @@ public class MaterialAssistStoreEdgebandEntity
     /// ft).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-    [Range(0.1, 9999.99)]
+    [Range(0.1, 2000.00)]
     public double Length { get; set; }
 
     /// <summary>

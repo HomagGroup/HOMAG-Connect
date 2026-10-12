@@ -71,4 +71,10 @@ public class MaterialManagerUpdateMaterialType
     /// </summary>
     [Obsolete("This parameter is obsolete. Use AdditionalData instead.")]
     public Uri? Thumbnail { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the decor ID.
+    /// </summary>
+    [StringLength(50)]
+    public string? DecorId { get; set; } = null;
 }

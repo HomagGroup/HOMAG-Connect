@@ -8,7 +8,7 @@ namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager")]
 public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>
@@ -50,7 +50,7 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
 
         allocationResult.ShouldNotBeNull(
             $"because Edgeband type allocation with EdgebandCode '{EdgebandCode}' should be created successfully");
-        allocationResult!.Comments.ShouldBe(comments,
+        allocationResult.Comments.ShouldBe(comments,
             $"because Edgeband type allocation '{EdgebandCode}' was created with comments '{comments}'");
         //do not compare until clarified 
         //allocationResult.CreatedBy.ShouldBe(createdBy,

@@ -142,13 +142,14 @@ public static partial class LocalizationExtensions
             return propertyName;
         }
 
-        var propertyDisplayName = GetPropertyDisplayName(displayAttribute, culture);
+        var resourceType = displayAttribute.ResourceType ?? type.GetCustomAttribute<LocalizationResourceAttribute>()?.ResourceType;
+
+        var propertyDisplayName = GetPropertyDisplayName(displayAttribute, resourceType, culture);
         return string.IsNullOrWhiteSpace(propertyDisplayName) ? propertyName : propertyDisplayName;
     }
 
-    private static string GetPropertyDisplayName(DisplayAttribute displayAttribute, CultureInfo culture)
+    private static string GetPropertyDisplayName(DisplayAttribute displayAttribute, Type? resourceType, CultureInfo culture)
     {
-        var resourceType = displayAttribute.ResourceType;
         var resourceName = displayAttribute.Name;
 
         if (resourceType != null && !string.IsNullOrWhiteSpace(resourceName))

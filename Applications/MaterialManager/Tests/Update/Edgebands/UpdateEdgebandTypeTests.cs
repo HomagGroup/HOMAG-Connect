@@ -6,12 +6,12 @@ namespace HomagConnect.MaterialManager.Tests.Update.Edgebands;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
-[TestCategory("MaterialManager.Edgebands")]
+[TestCategory("DeploymentTests.MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager.Edgebands")]
 public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 {
 
-    private MaterialManagerClientMaterialEdgebands materialManagerClient = null!;
+    private MaterialManagerClientMaterialEdgebands _MaterialManagerClient = null!;
 
     /// <summary>
     /// Initializes the test by setting up the <see cref="MaterialManagerClient"/> and ensuring the board type exists.
@@ -19,8 +19,8 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
     [TestInitialize]
     public async Task Init()
     {
-        materialManagerClient = GetMaterialManagerClient().Material.Edgebands;
-        await EnsureEdgebandTypeExist(materialManagerClient, EdgebandCode, 2);
+        _MaterialManagerClient = GetMaterialManagerClient().Material.Edgebands;
+        await EnsureEdgebandTypeExist(_MaterialManagerClient, EdgebandCode, 2);
     }
 
     /// <summary />
@@ -37,9 +37,8 @@ public class UpdateEdgebandTypeTests : MaterialManagerTestBase
 
         checkEdgeband.ShouldNotBeNull(
             $"because edgeband type with edgeband code '{EdgebandCode}' should exist after update");
-        checkEdgeband!.DefaultLength.ShouldBe(value,
+        checkEdgeband.DefaultLength.ShouldBe(value,
             $"because edgeband type '{EdgebandCode}' was updated to default length {value}");
-        return;       
     }
 
     /// <summary />

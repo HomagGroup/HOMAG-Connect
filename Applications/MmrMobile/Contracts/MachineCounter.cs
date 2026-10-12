@@ -1,15 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MmrMobile.Contracts
 {
     /// <summary>
     /// Machine counter details
     /// </summary>
+    [LocalizationResource(typeof(MmrPropertyDisplayNames))]
     public class MachineCounter : MachineInformation
     {
         /// <summary>
         /// Counter value
         /// </summary>
+        [Display(Name = nameof(MmrPropertyDisplayNames.Value))]
         public double Value { get; set; }
 
         /// <summary>
@@ -22,11 +28,13 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Translated text of the counter
         /// </summary>
         [JsonProperty("Counter")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.CounterTranslation))]
         public string? CounterTranslation { get; set; }
 
         /// <summary>
         /// Related unit to the counter
         /// </summary>
+        [Display(Name = nameof(MmrPropertyDisplayNames.Unit))]
         public string? Unit { get; set; }
     }
 }

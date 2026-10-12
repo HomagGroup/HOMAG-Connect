@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -45,6 +46,42 @@ namespace HomagConnect.OrderManager.Client
         {
             var url = $"{_OrderRoute}?take={take}&skip={skip}";
             return await RequestEnumerable<OrderOverview>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState orderState, DateTime changedSince, int take, int skip = 0)
+        {
+            return await GetOrdersChangedSince([orderState], changedSince, take, skip);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState[] orderStates, DateTime changedSince, int take, int skip = 0)
+        {
+            var uris = orderStates
+                .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"{_OrderRoute}?changedSince={Uri.EscapeDataString(changedSince.ToString(CultureInfo.InvariantCulture))}&take={take}&skip={skip}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderOverview>(uris);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersReleasedSince(OrderState orderState, DateTime releasedSince, int take, int skip = 0)
+        {
+            return await GetOrdersReleasedSince([orderState], releasedSince, take, skip);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<OrderOverview>?> GetOrdersReleasedSince(OrderState[] orderStates, DateTime releasedSince, int take, int skip = 0)
+        {
+            var uris = orderStates
+                .Select(o => $"&orderStatus={Uri.EscapeDataString(o.ToString())}")
+                .Join(QueryParametersMaxLength)
+                .Select(c => $"{_OrderRoute}?releasedSince={Uri.EscapeDataString(releasedSince.ToString(CultureInfo.InvariantCulture))}&take={take}&skip={skip}" + c)
+                .Select(c => new Uri(c, UriKind.Relative));
+
+            return await RequestEnumerableAsync<OrderOverview>(uris);
         }
 
         /// <inheritdoc />
@@ -570,5 +607,24 @@ namespace HomagConnect.OrderManager.Client
 
         #endregion
 
+        #region Create Customer
+
+        /// <inheritdoc />
+        public async Task<Customer> CreateCustomer(CreateCustomerRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            var response = await PostObject(new Uri(_CustomerRoute, UriKind.Relative), request);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<Customer>(result, SerializerSettings.Default);
+
+            return responseObject ?? throw new InvalidOperationException("Failed to deserialize the created customer.");
+        }
+
+        #endregion
     }
 }

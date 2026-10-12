@@ -31,6 +31,27 @@ namespace HomagConnect.OrderManager.Contracts
         /// </summary>
         Task<IEnumerable<OrderOverview>> GetOrders(string[] orderNumbers);
 
+        /// <summary>
+        /// Gets all orders for the given order state and the latest changedSince Date.
+        /// </summary>
+        /// >
+        Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState orderState, DateTime changedSince, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets all orders for the given order states and the latest changedSince Date.
+        /// </summary>
+        Task<IEnumerable<OrderOverview>?> GetOrdersChangedSince(OrderState[] orderStates, DateTime changedSince, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets all orders for the given order state and the latest releasedSince Date.
+        /// </summary>
+        Task<IEnumerable<OrderOverview>?> GetOrdersReleasedSince(OrderState orderState, DateTime releasedSince, int take, int skip = 0);
+
+        /// <summary>
+        /// Gets all orders for the given order states and the latest releasedSince Date.
+        /// </summary>
+        Task<IEnumerable<OrderOverview>?> GetOrdersReleasedSince(OrderState[] orderStates, DateTime releasedSince, int take, int skip = 0);
+
         #endregion
 
         #region Order details
@@ -193,6 +214,17 @@ namespace HomagConnect.OrderManager.Contracts
         /// <param name="customerId"></param>
         /// <returns></returns>
         Task<Customer?> GetCustomer(Guid customerId);
+
+        #endregion
+
+        #region Create customer
+
+        /// <summary>
+        /// Create a new customer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<Customer> CreateCustomer(CreateCustomerRequest request);
 
         #endregion
     }

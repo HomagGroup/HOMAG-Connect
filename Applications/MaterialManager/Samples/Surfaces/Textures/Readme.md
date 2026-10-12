@@ -26,7 +26,7 @@ Console.WriteLine($"Name: {texture.Name}");
 
 ## GetTextures
 
-Retrieve textures with pagination support using continuation tokens.
+Retrieve textures with pagination support using continuation tokens. Use a `TextureFilter` to narrow results by `Catalog`, `DecorCode`, and/or `Embossing`; pass `null` or an empty `TextureFilter` to return all textures.
 
 **Example:**
 
@@ -60,11 +60,9 @@ Retrieve textures filtered by catalog.
 ```csharp
 var client = new MaterialManagerClientTextures(subscriptionId, authorizationKey);
 
-var catalog = "hpl";
+var result = await client.GetTextures(new TextureFilter { Catalog = "hpl" }, pageSize: 10);
 
-var result = await client.GetTextures(catalog: catalog, pageSize: 10);
-
-Console.WriteLine($"Retrieved {result.Textures.Count} textures from catalog '{catalog}'");
+Console.WriteLine($"Retrieved {result.Textures.Count} textures from catalog 'hpl'");
 
 foreach (var texture in result.Textures)
 {
@@ -81,16 +79,32 @@ Retrieve textures filtered by catalog and decor code.
 ```csharp
 var client = new MaterialManagerClientTextures(subscriptionId, authorizationKey);
 
-var catalog = "hpl";
-var decorCode = "f274_9";
-
-var result = await client.GetTextures(catalog: catalog, decorCode: decorCode, pageSize: 10);
+var result = await client.GetTextures(new TextureFilter { Catalog = "hpl", DecorCode = "f274_9" }, pageSize: 10);
 
 Console.WriteLine($"Retrieved {result.Textures.Count} textures");
 
 foreach (var texture in result.Textures)
 {
     Console.WriteLine($"Embossing: {texture.Embossing}");
+}
+```
+
+## GetTextures by Catalog, DecorCode and Embossing
+
+Retrieve textures filtered by catalog, decor code and embossing.
+
+**Example:**
+
+```csharp
+var client = new MaterialManagerClientTextures(subscriptionId, authorizationKey);
+
+var result = await client.GetTextures(new TextureFilter { Catalog = "hpl", DecorCode = "f274_9", Embossing = "st7" }, pageSize: 10);
+
+Console.WriteLine($"Retrieved {result.Textures.Count} textures");
+
+foreach (var texture in result.Textures)
+{
+    Console.WriteLine($"- {texture.Id} ({texture.Name})");
 }
 ```
 

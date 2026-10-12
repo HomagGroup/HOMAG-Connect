@@ -60,7 +60,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Aktion.
         /// </summary>
@@ -69,7 +69,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("Action", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Von.
         /// </summary>
@@ -78,7 +78,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("From", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Anzahl.
         /// </summary>
@@ -87,7 +87,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("Quantity", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Arbeitsplatz.
         /// </summary>
@@ -96,7 +96,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems {
                 return ResourceManager.GetString("Workstation", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Arbeitsplatztyp.
         /// </summary>

@@ -120,6 +120,18 @@
   <data name="ArticleNumber" xml:space="preserve">
     <value>Artikelnummer</value>
   </data>
+  <data name="BoardCost" xml:space="preserve">
+    <value>Kosten Platten</value>
+  </data>
+  <data name="BoardCostProportional" xml:space="preserve">
+    <value>Kosten Platten (anteilig)</value>
+  </data>
+  <data name="BoardCostTotal" xml:space="preserve">
+    <value>Kosten Platten Gesamt</value>
+  </data>
+  <data name="BoardDemandProportional" xml:space="preserve">
+    <value>Plattenbedarf (anteilig)</value>
+  </data>
   <data name="CustomerName" xml:space="preserve">
     <value>Kundenname</value>
   </data>
@@ -128,6 +140,15 @@
   </data>
   <data name="DestackingGroup" xml:space="preserve">
     <value>Abstapelgruppe</value>
+  </data>
+  <data name="EdgebandCost" xml:space="preserve">
+    <value>Kantenkosten</value>
+  </data>
+  <data name="EdgebandCostTotal" xml:space="preserve">
+    <value>Kosten Kantenbänder Gesamt</value>
+  </data>
+  <data name="EdgebandDemand" xml:space="preserve">
+    <value>Kantenbedarf</value>
   </data>
   <data name="Exports" xml:space="preserve">
     <value>Exporte</value>
@@ -153,6 +174,12 @@
   <data name="Material" xml:space="preserve">
     <value>Material</value>
   </data>
+  <data name="MaterialCostProportional" xml:space="preserve">
+    <value>Materialkosten (anteilig)</value>
+  </data>
+  <data name="MaterialCostTotal" xml:space="preserve">
+    <value>Materialkosten</value>
+  </data>
   <data name="Notes" xml:space="preserve">
     <value>Notizen</value>
   </data>
@@ -164,6 +191,9 @@
   </data>
   <data name="OrderName" xml:space="preserve">
     <value>Auftragsname</value>
+  </data>
+  <data name="PartArea" xml:space="preserve">
+    <value>Teilefläche</value>
   </data>
   <data name="Parts" xml:space="preserve">
     <value>Teile</value>

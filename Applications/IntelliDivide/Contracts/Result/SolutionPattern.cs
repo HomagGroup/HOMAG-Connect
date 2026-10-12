@@ -232,5 +232,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         [Range(0.0, 999.9)]
         public double MaxBookHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets details about offcuts contained in this pattern.
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        public IReadOnlyCollection<SolutionOffcutDetails>? OffcutDetails { get; set; }
     }
 }

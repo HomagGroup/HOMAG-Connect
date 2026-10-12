@@ -1,16 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MmrMobile.Contracts
 {
     /// <summary>
     /// Machine state details
     /// </summary>
+    [LocalizationResource(typeof(MmrPropertyDisplayNames))]
     public class MachineState : MachineInformation
     {
         /// <summary>
         /// Duration in hours
         /// </summary>
         [JsonProperty("Duration [h]")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.DurationInHours))]
         public double DurationInHours { get; set; }
 
         /// <summary>
@@ -23,6 +27,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Translated text of the detailed state
         /// </summary>
         [JsonProperty("Detailed State")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.DetailedStateTranslation))]
         public string? DetailedStateTranslation { get; set; }
 
         /// <summary>
@@ -35,6 +40,7 @@ namespace HomagConnect.MmrMobile.Contracts
         /// Translation of the state
         /// </summary>
         [JsonProperty("State")]
+        [Display(Name = nameof(MmrPropertyDisplayNames.StateTranslation))]
         public string? StateTranslation { get; set; }
     }
 }

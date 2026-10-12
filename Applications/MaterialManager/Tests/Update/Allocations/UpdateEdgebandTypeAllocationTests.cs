@@ -6,7 +6,7 @@ namespace HomagConnect.MaterialManager.Tests.Update.Allocations
 {
     /// <summary />
     [TestClass]
-    [TestCategory("MaterialManager")]
+    [TestCategory("DeploymentTests.MaterialManager")]
     public class UpdateEdgebandTypeAllocationTests : MaterialManagerTestBase
     {
         /// <summary>

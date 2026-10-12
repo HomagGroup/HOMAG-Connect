@@ -10,7 +10,7 @@ namespace HomagConnect.MaterialManager.Tests.Create.Allocations;
 
 /// <summary />
 [TestClass]
-[TestCategory("MaterialManager")]
+[TestCategory("DeploymentTests.MaterialManager")]
 public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
 {
     /// <summary>
@@ -55,7 +55,7 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
         firstMaterial.ShouldNotBeNull(
             "because at least one board type should exist in the system");
 
-        var boardCode = firstMaterial!.BoardCode;
+        var boardCode = firstMaterial.BoardCode;
         var requestBoardTypeAllocation = CreateBoardTypeAllocationRequest(boardCode, comments, createdBy,
             name, quantity, source, workstation);
 

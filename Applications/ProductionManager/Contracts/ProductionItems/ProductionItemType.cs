@@ -1,5 +1,5 @@
-﻿using HomagConnect.Base.Contracts.Converter;
-
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
@@ -10,6 +10,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 /// Production entity type enumeration
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
+[ResourceManager(typeof(ProductionItemTypeDisplayNames))]
+
 public enum ProductionItemType
 {
     /// <summary>
@@ -39,10 +41,11 @@ public enum ProductionItemType
 
     /// <summary />
     [Obsolete("Replace with Part")]
-    ProductionOrder,
+    ProductionOrder,    
 
     /// <summary>
     /// Resource
     /// </summary>
+        
     Resource
 }

@@ -5,8 +5,8 @@ using Shouldly;
 namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Edgebands")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Edgebands")]
 public class CreateEdgebandsTests : MaterialAssistTestBase
 {
     [TestCleanup]

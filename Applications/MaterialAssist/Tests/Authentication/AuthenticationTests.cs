@@ -5,8 +5,8 @@ using HomagConnect.MaterialAssist.Samples.Authentication;
 namespace HomagConnect.MaterialAssist.Tests.Authentication;
 
 [TestClass]
-[TestCategory("MaterialAssist")]
-[TestCategory("MaterialAssist.Authentication")]
+[TestCategory("DeploymentTests.MaterialAssist")]
+[TestCategory("DeploymentTests.MaterialAssist.Authentication")]
 public class AuthenticationTests : MaterialAssistTestBase
 {
     [TestMethod]

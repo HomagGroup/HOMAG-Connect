@@ -18,6 +18,10 @@
     - Reset release order
    		- [Reset release order](CSharp/Orders/Actions/Readme.md)
 
+- Patch order
+	- Patch order
+   		- [Patch order](CSharp/Orders/Actions/Readme.md)
+
 - Retrieving reworks
 	- Get reworks
 		- [Retrieve requested reworks](CSharp/Reworks/Actions/Readme.md)

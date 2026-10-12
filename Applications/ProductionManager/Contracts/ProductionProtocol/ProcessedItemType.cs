@@ -36,6 +36,11 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         ProcessedPartCnc,
 
         /// <summary>
+        /// Processed laminating part.
+        /// </summary>
+        ProcessedPartLaminating,
+
+        /// <summary>
         /// Processed position.
         /// </summary>
         ProcessedPosition,

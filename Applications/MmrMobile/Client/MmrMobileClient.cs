@@ -1,5 +1,6 @@
-﻿using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Services;
+﻿using HomagConnect.Base.Client;
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MmrMobile.Contracts;
 using Newtonsoft.Json;
 using System;
@@ -10,11 +11,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using HomagConnect.Base.Client;
-
 namespace HomagConnect.MmrMobile.Client
 {
-    public class MmrMobileClient : ServiceBase, IMmrMobileClient
+    public class MmrMobileClient : ClientBase, IMmrMobileClient
     {
         #region Constructors
 
@@ -25,148 +24,158 @@ namespace HomagConnect.MmrMobile.Client
         public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
 
         /// <inheritdoc />
-        public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+        public MmrMobileClient(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
 
         #endregion
 
         #region machinedata
 
         /// <summary>
-        /// get all machines, the customer has access to
+        /// Get all machines, the customer has access to.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<MmrMachine>> GetMachines()
+        public Task<IEnumerable<MmrMachine>> GetMachines(OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetMachinesCore(format, culture);
+        }
+
+        private async Task<IEnumerable<MmrMachine>> GetMachinesCore(OutputFormat format, CultureInfo culture)
         {
             const string url = "/api/machinedata/machines";
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
-
-            HttpResponseMessage response = await Client.SendAsync(request).ConfigureAwait(false);
-            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
-
-            var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<IEnumerable<MmrMachine>>(result, SerializerSettings.Default);
-
-            return data ?? Array.Empty<MmrMachine>();
-        }
-
-        /// <summary>
-        /// retrieve for a given machinenumber a list of valid nodes with data available
-        /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <returns>list of nodenames</returns>
-        public async Task<MmrNodeList> GetNodesOfMachine(string machineNumber)
-        {
-            var url = $"/api/machinedata/machines/{machineNumber}/nodes";
-
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
-
+            var request = CreateGetRequest(url, culture);
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<MmrNodeList>(result, SerializerSettings.Default);
+            return DeserializeCollection<MmrMachine>(result, format, culture);
+        }
+
+        /// <summary>
+        /// Retrieve all available nodes of a machine.
+        /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="format"></param>
+        /// <param name="culture"></param>
+        /// <returns>list of nodenames</returns>
+        public Task<MmrNodeList> GetNodesOfMachine(string machineNumber, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetNodesOfMachineCore(machineNumber, format, culture);
+        }
+
+        private async Task<MmrNodeList> GetNodesOfMachineCore(string machineNumber, OutputFormat format, CultureInfo culture)
+        {
+            var url = $"/api/machinedata/machines/{machineNumber}/nodes";
+
+            var request = CreateGetRequest(url, culture);
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            var data = DeserializeObject<MmrNodeList>(result, format, culture);
 
             return data ?? new MmrNodeList { MachineNumber = machineNumber };
         }
 
         /// <summary>
-        /// retrieve for a given machinenumber one specific value (current value)
+        /// Retrieve the current value of one machine node or node subtree.
         /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <param name="node">Can ba a comma separated list of values. Each value is taken as a prefix, 
-        /// so all nodes beginning with the entry are selected"</param>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="format"></param>
+        /// <param name="culture"></param>
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
-        public async Task<MmrNodeData> GetCurrentValuesFromMachine(string machineNumber, string node)
+        public Task<MmrNodeData> GetCurrentValuesFromMachine(string machineNumber, string node, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetCurrentValuesFromMachineCore(machineNumber, node, format, culture);
+        }
+
+        private async Task<MmrNodeData> GetCurrentValuesFromMachineCore(string machineNumber, string node, OutputFormat format, CultureInfo culture)
         {
             var url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}";
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
-
+            var request = CreateGetRequest(url, culture);
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<MmrNodeData>(result, SerializerSettings.Default);
+            var data = DeserializeObject<MmrNodeData>(result, format, culture);
 
             return data ?? new MmrNodeData { MachineNumber = machineNumber };
         }
 
         /// <summary>
-        /// retrieve for a given machinenumber one specific value (current value)
+        /// Retrieve the value of one machine node or node subtree at a specific point in time.
         /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <param name="node">Can ba a comma separated list of values. Each value is taken as a prefix, 
-        /// so all nodes beginning with the entry are selected"</param>
-        /// <param name="timestamp" ></param>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="timestamp">The point in time to query.</param>
+        /// <param name="format"></param>
+        /// <param name="culture"></param>
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
-        public async Task<MmrNodeData> GetPointInTimeValuesFromMachine(string machineNumber, string node, DateTime timestamp)
+        public Task<MmrNodeData> GetPointInTimeValuesFromMachine(string machineNumber, string node, DateTime timestamp, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
         {
-            string url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}?timestamp={Uri.EscapeDataString(timestamp.ToString("o", CultureInfo.InvariantCulture))}";
+            return GetPointInTimeValuesFromMachineCore(machineNumber, node, timestamp, format, culture);
+        }
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+        private async Task<MmrNodeData> GetPointInTimeValuesFromMachineCore(string machineNumber, string node, DateTime timestamp, OutputFormat format, CultureInfo culture)
+        {
+            var url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}?timestamp={Uri.EscapeDataString(timestamp.ToString("o", CultureInfo.InvariantCulture))}";
 
+            var request = CreateGetRequest(url, culture);
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<MmrNodeData>(result, SerializerSettings.Default);
+            var data = DeserializeObject<MmrNodeData>(result, format, culture);
 
             return data ?? new MmrNodeData { MachineNumber = machineNumber };
         }
 
         /// <summary>
-        /// retrieve for a given machinenumber one specific value (current value)
+        /// Retrieve the values of one machine node or node subtree for a time span.
         /// </summary>
-        /// <param name="machineNumber"></param>
-        /// <param name="node">Can ba a comma separated list of values. Each value is taken as a prefix, 
-        /// so all nodes beginning with the entry are selected"</param>
-        /// <param name="from">mandatory : timestamp, from when the data are retrieved (included)</param>
-        /// <param name="to">mandatory : timestamp, up to when the data are retrieved </param>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="from">Inclusive start timestamp.</param>
+        /// <param name="to">Inclusive end timestamp.</param>
         /// <param name="take">optional, how many rows to take</param>
         /// <param name="skip">optional, how many rows should be skipped before taking them into account</param>
+        /// <param name="format"></param>
+        /// <param name="culture"></param>
         /// <returns>list of values applying to the filtered nodenames of the machine</returns>
-        public async Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take, int skip = 0)
+        public Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, DateTime from, DateTime to, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
         {
-            string url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}/history?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}&take={take}&skip={skip}";
+            return GetTimeSeriesFromMachineCore(machineNumber, node, from, to, null, take, skip, format, culture);
+        }
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+        /// <summary>
+        /// Retrieve the values of one machine node or node subtree for a relative lookback window.
+        /// </summary>
+        /// <param name="machineNumber">The machine number.</param>
+        /// <param name="node">The node key or node subtree.</param>
+        /// <param name="daysBack">Optional relative lookback window in days.</param>
+        /// <param name="take">optional, how many rows to take</param>
+        /// <param name="skip">optional, how many rows should be skipped before taking them into account</param>
+        /// <param name="format"></param>
+        /// <param name="culture"></param>
+        /// <returns>list of values applying to the filtered nodenames of the machine</returns>
+        public Task<MmrNodeData> GetTimeSeriesFromMachine(string machineNumber, string node, int daysBack, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetTimeSeriesFromMachineCore(machineNumber, node, null, null, daysBack, take, skip, format, culture);
+        }
 
+        private async Task<MmrNodeData> GetTimeSeriesFromMachineCore(string machineNumber, string node, DateTime? from, DateTime? to, int? daysBack, int take, int skip, OutputFormat format, CultureInfo culture)
+        {
+            var url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}/history";
+            var parameters = GetParameters(from, to, daysBack, null, null, null, null, null, null, null, take, skip, null);
+
+            var request = CreateGetRequest(url + parameters, culture);
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<MmrNodeData>(result, SerializerSettings.Default);
+            var data = DeserializeObject<MmrNodeData>(result, format, culture);
 
             return data ?? new MmrNodeData { MachineNumber = machineNumber };
         }
@@ -198,24 +207,53 @@ namespace HomagConnect.MmrMobile.Client
         #region eventdatadata of a machine
 
         /// <inheritdoc />
-        public async Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0)
+        public Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, DateTime from, DateTime to, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
         {
-            var url = $"/api/machinedata/machines/{machineNumber}/alerts/history" +
-                      $"?from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}" +
-                      $"&to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}" +
-                      $"&take={take}&skip={skip}";
-
-            return await RequestEnumerable<AlertEvent>(new Uri(url, UriKind.Relative));
+            return GetAlertEventsFromMachineCore(machineNumber, from, to, null, take, skip, format, culture);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0)
+        public Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachine(string machineNumber, int daysBack, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
         {
-            var url = $"/api/machinedata/machines/{machineNumber}/alerts/history" +
-                      $"?daysBack={daysBack}" +
-                      $"&take={take}&skip={skip}";
+            return GetAlertEventsFromMachineCore(machineNumber, null, null, daysBack, take, skip, format, culture);
+        }
 
-            return await RequestEnumerable<AlertEvent>(new Uri(url, UriKind.Relative));
+        private async Task<IEnumerable<AlertEvent>> GetAlertEventsFromMachineCore(string machineNumber, DateTime? from, DateTime? to, int? daysBack, int take, int skip, OutputFormat format, CultureInfo culture)
+        {
+            var url = $"/api/machinedata/machines/{machineNumber}/alerts/history";
+            var parameters = GetParameters(from, to, daysBack, null, null, null, null, null, null, null, take, skip, null);
+
+            var request = CreateGetRequest(url + parameters, culture);
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            return DeserializeCollection<AlertEvent>(result, format, culture);
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, int daysBack, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetRecentAlertEventsCore(machineNumber, daysBack, take, skip, format, culture);
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<AlertEvent>> GetRecentAlertEvents(string machineNumber, DateTime from, DateTime to, int take, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetAlertEventsFromMachine(machineNumber, from, to, take, skip, format, culture);
+        }
+
+        private async Task<IEnumerable<AlertEvent>> GetRecentAlertEventsCore(string machineNumber, int daysBack, int take, int skip, OutputFormat format, CultureInfo culture)
+        {
+            var url = $"/api/machinedata/machines/{machineNumber}/alerts/history";
+            var parameters = GetParameters(null, null, daysBack, null, null, null, null, null, null, null, take, skip, null);
+
+            var request = CreateGetRequest(url + parameters, culture);
+            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
+
+            var result = await response.Content.ReadAsStringAsync();
+            return DeserializeCollection<AlertEvent>(result, format, culture);
         }
         #endregion
 
@@ -224,98 +262,100 @@ namespace HomagConnect.MmrMobile.Client
         /// get all machines, the customer has access to
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<MmrMachine>> GetMmrMachines()
+        public Task<IEnumerable<MmrMachine>> GetMmrMachines()
+        {
+            return GetMmrMachinesCore(JsonFormat.Default, null);
+        }
+
+        private async Task<IEnumerable<MmrMachine>> GetMmrMachinesCore(JsonFormat format, CultureInfo culture)
         {
             const string url = "/api/mmr-mobile/machines";
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
-
+            var request = CreateGetRequest(url, culture);
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<IEnumerable<MmrMachine>>(result, SerializerSettings.Default);
-
-            return data ?? Array.Empty<MmrMachine>();
+            return DeserializeCollection<MmrMachine>(result, format, culture);
         }
 
         /// <summary>
         /// get one machine information
         /// </summary>
         /// <param name="machineNumber"></param>
+        /// <param name="format"></param>
+        /// <param name="culture"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<MmrMachine>> GetMmrMachine(string machineNumber)
+        public Task<MmrMachine> GetMmrMachine(string machineNumber, JsonFormat format = JsonFormat.Default, CultureInfo culture = null)
         {
-            string url = $"/api/mmr-mobile/machines/{machineNumber}";
+            return GetMmrMachineCore(machineNumber, format, culture);
+        }
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url, UriKind.Relative)
-            };
-            request.Headers.AcceptLanguage.Clear();
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(CultureInfo.CurrentUICulture.Name));
+        private async Task<MmrMachine> GetMmrMachineCore(string machineNumber, JsonFormat format, CultureInfo culture)
+        {
+            var url = $"/api/mmr-mobile/machines/{machineNumber}";
 
+            var request = CreateGetRequest(url, culture);
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<IEnumerable<MmrMachine>>(result, SerializerSettings.Default);
+            var data = DeserializeObject<MmrMachine>(result, format, culture);
 
-            return data ?? Array.Empty<MmrMachine>();
+            return data;
         }
 
 
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,
+        public Task<IEnumerable<MachineState>> GetStateData(DateTime? from = null, DateTime? to = null,
             string machineNumber = null, string instanceId = null,
-            string machineType = null, string stateId = null, string detailedStateId = null, Granularity? granularity = null)
+            string machineType = null, string stateId = null, string detailedStateId = null, Granularity? granularity = null,
+            int? take = null, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetStateDataCore(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, granularity, take, skip, format, culture);
+        }
+
+        private async Task<IEnumerable<MachineState>> GetStateDataCore(DateTime? from, DateTime? to,
+            string machineNumber, string instanceId, string machineType, string stateId, string detailedStateId, Granularity? granularity,
+            int? take, int skip, OutputFormat format, CultureInfo culture)
         {
             const string url = "/api/mmr-mobile/states";
-            string parameters = GetParameters(from, to, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity);
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url + parameters, UriKind.Relative)
-            };
+            string parameters = GetParameters(from, to, null, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity, take, skip, null);
+            var request = CreateGetRequest(url + parameters, culture);
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var machineStateResponse = JsonConvert.DeserializeObject<IEnumerable<MachineState>>(result, SerializerSettings.Default);
-            return machineStateResponse;
+            return DeserializeCollection<MachineState>(result, format, culture);
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
-            string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null)
+        public Task<IEnumerable<MachineCounter>> GetCounterData(DateTime? from = null, DateTime? to = null,
+            string machineNumber = null, string instanceId = null, string machineType = null, string counterId = null, Granularity? granularity = null,
+            int? take = null, int skip = 0, OutputFormat format = OutputFormat.Default, CultureInfo culture = null)
+        {
+            return GetCounterDataCore(from, to, machineNumber, instanceId, machineType, counterId, granularity, take, skip, format, culture);
+        }
+
+        private async Task<IEnumerable<MachineCounter>> GetCounterDataCore(DateTime? from, DateTime? to,
+            string machineNumber, string instanceId, string machineType, string counterId, Granularity? granularity,
+            int? take, int skip, OutputFormat format, CultureInfo culture)
         {
             const string url = "/api/mmr-mobile/counters";
-            var parameters = GetParameters(from, to, machineNumber, instanceId, machineType, null, null, counterId, granularity);
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url + parameters, UriKind.Relative)
-            };
+            var parameters = GetParameters(from, to, null, machineNumber, instanceId, machineType, null, null, counterId, granularity, take, skip, null);
+            var request = CreateGetRequest(url + parameters, culture);
 
             var response = await Client.SendAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
-            var machineCounterResponse = JsonConvert.DeserializeObject<IEnumerable<MachineCounter>>(result, SerializerSettings.Default);
-            return machineCounterResponse;
+            return DeserializeCollection<MachineCounter>(result, format, culture);
         }
 
-        private static string GetParameters(DateTime? from, DateTime? to, string machineNumber, string instanceId, string machineType,
-            string stateId, string detailedStateId, string counterId, Granularity? granularity)
+        private static string GetParameters(DateTime? from, DateTime? to, int? daysBack, string machineNumber, string instanceId, string machineType,
+            string stateId, string detailedStateId, string counterId, Granularity? granularity, int? take, int skip, int? defaultTakeLimit)
         {
             string parameters = string.Empty;
             string separator = "?";
@@ -324,14 +364,41 @@ namespace HomagConnect.MmrMobile.Client
             {
                 parameters += separator;
                 separator = "&";
-                parameters += $"from={from:s}";
+                parameters += $"from={Uri.EscapeDataString(from.Value.ToString("o", CultureInfo.InvariantCulture))}";
             }
 
             if (to != null)
             {
                 parameters += separator;
                 separator = "&";
-                parameters += $"to={to:s}";
+                parameters += $"to={Uri.EscapeDataString(to.Value.ToString("o", CultureInfo.InvariantCulture))}";
+            }
+
+            if (daysBack != null)
+            {
+                parameters += separator;
+                separator = "&";
+                parameters += $"daysBack={daysBack.Value}";
+            }
+
+            if (take != null)
+            {
+                parameters += separator;
+                separator = "&";
+                parameters += $"take={take.Value}";
+            }
+            else if (defaultTakeLimit != null)
+            {
+                parameters += separator;
+                separator = "&";
+                parameters += $"take={defaultTakeLimit.Value}";
+            }
+
+            if (skip > 0)
+            {
+                parameters += separator;
+                separator = "&";
+                parameters += $"skip={skip}";
             }
 
             if (!string.IsNullOrEmpty(machineNumber))
@@ -384,6 +451,51 @@ namespace HomagConnect.MmrMobile.Client
 
             return parameters;
         }
+        private static HttpRequestMessage CreateGetRequest(string url, CultureInfo culture)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(url, UriKind.Relative)
+            };
+
+            request.Headers.AcceptLanguage.Clear();
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue((culture ?? CultureInfo.CurrentUICulture).Name));
+            return request;
+        }
+
+        private static T DeserializeObject<T>(string result, JsonFormat format, CultureInfo culture)
+        {
+            if (format == JsonFormat.Localized && culture != null)
+            {
+                return JsonConvert.DeserializeObject<T>(result, SerializerSettings.Localized(culture));
+            }
+
+            return JsonConvert.DeserializeObject<T>(result, SerializerSettings.Default);
+        }
+
+        private static T DeserializeObject<T>(string result, OutputFormat format, CultureInfo culture)
+        {
+            if (format == OutputFormat.Localized && culture != null)
+            {
+                return JsonConvert.DeserializeObject<T>(result, SerializerSettings.Localized(culture));
+            }
+
+            return JsonConvert.DeserializeObject<T>(result, SerializerSettings.Default);
+        }
+
+        private static IEnumerable<T> DeserializeCollection<T>(string result, JsonFormat format, CultureInfo culture)
+        {
+            var data = DeserializeObject<IEnumerable<T>>(result, format, culture);
+            return data ?? Array.Empty<T>();
+        }
+
+        private static IEnumerable<T> DeserializeCollection<T>(string result, OutputFormat format, CultureInfo culture)
+        {
+            var data = DeserializeObject<IEnumerable<T>>(result, format, culture);
+            return data ?? Array.Empty<T>();
+        }
+
         #endregion
     }
 }

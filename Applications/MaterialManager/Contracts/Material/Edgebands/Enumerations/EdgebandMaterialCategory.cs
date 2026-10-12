@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations
 {
     /// <summary>
-    /// Edgeband material category.
+    /// The edgeband material category identifies the material an edge band is made from, such as ABS, PVC, or real wood.
+    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
     /// </summary>
     [ResourceManager(typeof(EdgebandMaterialCategoryDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]

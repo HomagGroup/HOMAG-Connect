@@ -7,7 +7,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
-/// The edgeband type details.
+/// Edgeband type details bring together a material's stock and supporting information for managing it in materialManager.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
 /// </summary>
 public class EdgebandTypeDetails : EdgebandType
 {

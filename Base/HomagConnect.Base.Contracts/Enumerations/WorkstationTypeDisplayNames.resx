@@ -153,6 +153,9 @@
   <data name="FeedbackEdgebanding" xml:space="preserve">
     <value>Kantenanleimen</value>
   </data>
+  <data name="FeedbackIndividual" xml:space="preserve">
+    <value>Individueller Arbeitsplatz</value>
+  </data>
   <data name="FeedbackInsertFittings" xml:space="preserve">
     <value>Beschläge setzen</value>
   </data>

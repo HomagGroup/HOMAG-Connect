@@ -31,7 +31,7 @@ public class TextureSamples
     /// </summary>
     public static async Task Textures_GetTextures(IMaterialManagerClientTextures textureClient)
     {
-        var result = await textureClient.GetTextures(pageSize: 10);
+        var result = await textureClient.GetTextures(new TextureFilter(), pageSize: 10);
 
         foreach (var texture in result.Textures)
         {
@@ -41,7 +41,7 @@ public class TextureSamples
         // Use continuation token for next page if available
         if (!string.IsNullOrEmpty(result.ContinuationToken))
         {
-            var nextResult = await textureClient.GetTextures(pageSize: 10, continuationToken: result.ContinuationToken);
+            var nextResult = await textureClient.GetTextures(new TextureFilter(), pageSize: 10, continuationToken: result.ContinuationToken);
         }
     }
 
@@ -50,7 +50,7 @@ public class TextureSamples
     /// </summary>
     public static async Task Textures_GetTexturesByCatalog(IMaterialManagerClientTextures textureClient, string catalog)
     {
-        var result = await textureClient.GetTextures(catalog: catalog, pageSize: 10);
+        var result = await textureClient.GetTextures(new TextureFilter { Catalog = catalog }, pageSize: 10);
 
         foreach (var texture in result.Textures)
         {
@@ -66,7 +66,7 @@ public class TextureSamples
         string catalog,
         string decorCode)
     {
-        var result = await textureClient.GetTextures(catalog: catalog, decorCode: decorCode, pageSize: 10);
+        var result = await textureClient.GetTextures(new TextureFilter { Catalog = catalog, DecorCode = decorCode }, pageSize: 10);
 
         foreach (var texture in result.Textures)
         {

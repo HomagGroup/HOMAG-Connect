@@ -1,6 +1,5 @@
 ﻿using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
-using HomagConnect.Base.Services;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
 using HomagConnect.ProductionManager.Contracts.Lots;
@@ -11,6 +10,7 @@ using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,14 +19,18 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
-using HomagConnect.ProductionManager.Contracts.ProductionProtocolFlow;
+using HomagConnect.Base.Client;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.QueryFilter;
+using HomagConnect.ProductionManager.Contracts.WorkstationYield;
 
 namespace HomagConnect.ProductionManager.Client
 {
     /// <inheritdoc cref="IProductionManagerClient" />
-    public class ProductionManagerClient : ServiceBase, IProductionManagerClient
+    public class ProductionManagerClient : ClientBase, IProductionManagerClient
     {
         #region IProductionManagerClient
 
@@ -272,6 +276,21 @@ namespace HomagConnect.ProductionManager.Client
         {
             var url = $"/api/productionManager/orders/{orderId}/resetRelease";
             var response = await PatchObject(new Uri(url, UriKind.Relative));
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        #endregion
+
+        #region Patch order
+
+        /// <inheritdoc />
+        public async Task PatchOrder(string identifier, PatchBuilder<OrderDetails> patchData)
+        {
+            var url = $"/api/productionManager/orders/{identifier}";
+
+            var content = new StringContent(JsonConvert.SerializeObject(patchData.Build(), Formatting.None), Encoding.UTF8, "application/merge-patch+json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
 
             response.EnsureSuccessStatusCode();
         }
@@ -587,19 +606,94 @@ namespace HomagConnect.ProductionManager.Client
             var reworks = await RequestEnumerable<Rework>(new Uri(url, UriKind.Relative));
 
             return reworks ?? Enumerable.Empty<Rework>();
-        }       
+        }
 
         #endregion Rework
 
         #region ProductionProtocol
 
         /// <inheritdoc />
-        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7)
-        {
-            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?daysBack={daysBack}";
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId,
+            int take = 100000, int skip = 0, 
+            int daysBack = 7, 
+            OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            string? filter = null, string? orderBy = null)
+        {   
+            var queryParameters = new List<string>
+            {
+                $"daysBack={daysBack.ToString(CultureInfo.InvariantCulture)}",
+                $"take={take.ToString(CultureInfo.InvariantCulture)}",
+                $"skip={skip.ToString(CultureInfo.InvariantCulture)}",
+                $"outputFormat={outputFormat.ToString()}",
+            };
+            if (cultureInfo != null)
+            {
+                queryParameters.Add($"cultureInfo={Uri.EscapeDataString(cultureInfo.Name)}");
+            }
+            if (filter != null)
+            {
+                queryParameters.Add($"filter={Uri.EscapeDataString(filter)}");
+            }
+            if (orderBy != null)
+            {
+                queryParameters.Add($"orderBy={Uri.EscapeDataString(orderBy)}");
+            }
+
+            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?{string.Join("&", queryParameters)}";
             var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?>(new Uri(url, UriKind.Relative));
 
             return productionProtocol;
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7, OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            FilterRequest? filterRequest = null, OrderByRequest? orderByRequest = null)
+        {
+            string? odataFilter = ODataQueryBuilder.BuildFilter(filterRequest);
+            string? odataOrderBy = ODataQueryBuilder.BuildOrderBy(orderByRequest);
+            return GetProductionProtocol(workstationId, take, skip, daysBack, outputFormat, cultureInfo, odataFilter, odataOrderBy);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, DateTime from, DateTime to,
+            int take = 100000, int skip = 0,
+            OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            string? filter = null, string? orderBy = null)
+        {
+            var queryParameters = new List<string>
+            {
+                $"from={Uri.EscapeDataString(from.ToString("o", CultureInfo.InvariantCulture))}",
+                $"to={Uri.EscapeDataString(to.ToString("o", CultureInfo.InvariantCulture))}",
+                $"take={take.ToString(CultureInfo.InvariantCulture)}",
+                $"skip={skip.ToString(CultureInfo.InvariantCulture)}",
+                $"outputFormat={outputFormat.ToString()}",
+            };
+            if (cultureInfo != null)
+            {
+                queryParameters.Add($"cultureInfo={Uri.EscapeDataString(cultureInfo.Name)}");
+            }
+            if (filter != null)
+            {
+                queryParameters.Add($"filter={Uri.EscapeDataString(filter)}");
+            }
+            if (orderBy != null)
+            {
+                queryParameters.Add($"orderBy={Uri.EscapeDataString(orderBy)}");
+            }
+
+            var url = $"/api/productionManager/workstations/{Uri.EscapeDataString(workstationId)}/productionprotocol?{string.Join("&", queryParameters)}";
+            var productionProtocol = await RequestObject<IEnumerable<ProcessedItem>?>(new Uri(url, UriKind.Relative));
+
+            return productionProtocol;
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, DateTime from, DateTime to, int take = 100000, int skip = 0, OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
+            FilterRequest? filterRequest = null, OrderByRequest? orderByRequest = null)
+        {
+            string? odataFilter = ODataQueryBuilder.BuildFilter(filterRequest);
+            string? odataOrderBy = ODataQueryBuilder.BuildOrderBy(orderByRequest);
+            return GetProductionProtocol(workstationId, from, to, take, skip, outputFormat, cultureInfo, odataFilter, odataOrderBy);
         }
 
         /// <inheritdoc />
@@ -654,7 +748,7 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<ProductionProtocolFlowDetails?> GetProductionFlow(DateTime from, DateTime? to)
+        public async Task<IEnumerable<WorkstationYield>?> GetWorkstationsYield(DateTime from, DateTime? to)
         {
             var intTo = to ??DateTime.UtcNow;
 
@@ -664,10 +758,10 @@ namespace HomagConnect.ProductionManager.Client
                 $"to={Uri.EscapeDataString(intTo.ToString("o", CultureInfo.InvariantCulture))}"
             };
 
-            var url = $"/api/productionManager/productionprotocolflow?{string.Join("&", queryParameters)}";
-            var productionFlow = await RequestObject<ProductionProtocolFlowDetails>(new Uri(url, UriKind.Relative));
+            var url = $"/api/productionManager/workstations/yield?{string.Join("&", queryParameters)}";
+            var workstationsYield = await RequestObject<IEnumerable<WorkstationYield>>(new Uri(url, UriKind.Relative));
 
-            return productionFlow;
+            return workstationsYield;
         }
         #endregion Usage statistics
 

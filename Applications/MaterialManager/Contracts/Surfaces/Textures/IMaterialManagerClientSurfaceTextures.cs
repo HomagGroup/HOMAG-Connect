@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
@@ -31,6 +32,7 @@ public interface IMaterialManagerClientTextures
     /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
     /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
     /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
     Task<PagedTextureResult> GetTextures(int pageSize = 100, string? continuationToken = null);
 
     /// <summary>
@@ -40,6 +42,7 @@ public interface IMaterialManagerClientTextures
     /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
     /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
     /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
     Task<PagedTextureResult> GetTextures(string? catalog, int pageSize = 100, string? continuationToken = null);
 
     /// <summary>
@@ -50,7 +53,20 @@ public interface IMaterialManagerClientTextures
     /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
     /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
     /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
     Task<PagedTextureResult> GetTextures(string? catalog, string? decorCode, int pageSize = 100, string? continuationToken = null);
+
+    /// <summary>
+    /// Gets a paged list of textures with optional filtering using continuation token pagination.
+    /// </summary>
+    /// <param name="filter">
+    /// Optional filter criteria. Pass <see langword="null" /> or an empty <see cref="TextureFilter" /> to return all textures.
+    /// Any combination of filter properties is supported.
+    /// </param>
+    /// <param name="pageSize">The maximum number of items to return. Defaults to 100.</param>
+    /// <param name="continuationToken">Optional continuation token for paged traversal.</param>
+    /// <returns>A paged result containing textures and optional continuation token for the next page.</returns>
+    Task<PagedTextureResult> GetTextures(TextureFilter? filter = null, int pageSize = 100, string? continuationToken = null);
 
     /// <summary>
     /// Imports or updates a single Roomle material definition with optional file references.
