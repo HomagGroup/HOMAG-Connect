@@ -134,4 +134,30 @@ public class ReadEdgebandTypeTests : MaterialManagerTestBase
         await Should.NotThrowAsync(act,
             "because GetLicensedMachines should retrieve licensed machines successfully");
     }
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandsGetEdgebandTypesByExternalSystemId()
+    {
+        const string externalSystemId = "EXT-4711";
+
+        var act = async () => await MaterialManagerReadEdgebandResultsSamples
+            .Edgebands_GetEdgebandTypesByExternalSystemId(_MaterialManagerClient, externalSystemId);
+
+        await Should.NotThrowAsync(act,
+            $"because GetEdgebandTypesByExternalSystemId should retrieve edgeband types for external system id '{externalSystemId}' successfully");
+    }
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandsGetEdgebandTypesByExternalSystemIdIncludingDetails()
+    {
+        const string externalSystemId = "EXT-4711";
+
+        var act = async () => await MaterialManagerReadEdgebandResultsSamples
+            .Edgebands_GetEdgebandTypesByExternalSystemIdIncludingDetails(_MaterialManagerClient, externalSystemId);
+
+        await Should.NotThrowAsync(act,
+            $"because GetEdgebandTypesByExternalSystemId with includingDetails should retrieve edgeband types with inventory for external system id '{externalSystemId}' successfully");
+    }
 }
