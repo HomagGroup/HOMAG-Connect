@@ -1,13 +1,13 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 using HomagConnect.Base.Contracts.AdditionalData;
-using HomagConnect.OrderManager.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Extensions;
 
-namespace HomagConnect.OrderManager.Tests.Extensions
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace HomagConnect.Base.Tests.Extensions
 {
     [TestClass]
-    [TestCategory("OrderManager")]
-    [TestCategory("OrderManager.Extensions")]
     public sealed class AdditionalDataEntityExtensionsTests
     {
         private static readonly Uri _DownloadUri = new("https://example.com/file.jpg");
