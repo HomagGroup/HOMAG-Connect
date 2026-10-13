@@ -86,4 +86,16 @@
 	<value>Kandidaten</value>
 	<comment>Candidates</comment>
   </data>
+  <data name="Catalog" xml:space="preserve">
+	<value>Katalog</value>
+	<comment>Catalog</comment>
+  </data>
+  <data name="DecorName" xml:space="preserve">
+	<value>Dekorname</value>
+	<comment>Decor name</comment>
+  </data>
+  <data name="Embossing" xml:space="preserve">
+	<value>Prägestruktur</value>
+	<comment>Embossing</comment>
+  </data>
 </root>
