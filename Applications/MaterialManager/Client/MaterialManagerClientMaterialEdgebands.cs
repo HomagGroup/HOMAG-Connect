@@ -21,6 +21,8 @@ using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
+using Tapio.Tadamo.Clients.WebApi;
+
 // ReSharper disable LocalizableElement
 
 namespace HomagConnect.MaterialManager.Client;
@@ -37,6 +39,25 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _EdgebandCode = "edgebandCode";
     private const string _IncludingDetails = "includingDetails";
     private const string _ExternalSystemId = "externalSystemId";
+
+    #region Catalog
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, GetSearchMasterData? filter = null)
+    {
+        var url = $"{_BaseRoute}/catalog?take={take}&skip={skip}";
+
+        var payload = JsonConvert.SerializeObject(filter ?? new GetSearchMasterData(), SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<IEnumerable<EdgebandType>>(responseContent, SerializerSettings.Default);
+
+        return result ?? [];
+    }
+
+    #endregion
 
     #region Private Methods
 
@@ -305,6 +326,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         {
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
+
         ValidateRequiredProperties(edgebandTypeUpdate);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);

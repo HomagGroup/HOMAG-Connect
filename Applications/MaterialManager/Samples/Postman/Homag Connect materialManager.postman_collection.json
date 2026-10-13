@@ -1,1565 +1,1736 @@
 {
-	"info": {
+  "info": {
 		"_postman_id": "165dcd5e-11c3-4775-b301-36f84fb34ff1",
-		"name": "Homag Connect materialManager",
+    "name": "Homag Connect materialManager",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Read",
-			"item": [
-				{
-					"name": "Boards",
-					"item": [
-						{
-							"name": "Get all boards",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?includingDetails=true&take=&skip",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "includingDetails",
-											"value": "true"
-										},
-										{
-											"key": "take",
-											"value": "",
-											"description": "Max. 1000 boards at once"
-										},
-										{
-											"key": "skip",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get boards for a certain materialCode",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=P2_White_15.0&includingDetails=true&take&skip",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "materialCode",
-											"value": "P2_White_15.0"
-										},
-										{
-											"key": "includingDetails",
-											"value": "true"
-										},
-										{
-											"key": "take",
-											"value": null,
-											"description": "Max. 1000 boards at once"
-										},
-										{
-											"key": "skip",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get boards for a certain boardCode",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=P2_White_15.0_2800.0_2070.0&includingDetails=true&take&skip",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "boardCode",
-											"value": "P2_White_15.0_2800.0_2070.0"
-										},
-										{
-											"key": "includingDetails",
-											"value": "true"
-										},
-										{
-											"key": "take",
-											"value": null,
-											"description": "Max. 1000 boards at once"
-										},
-										{
-											"key": "skip",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get inventory for boardCodes",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?boardCode=P2_White_15.0_2800.0_2070.0",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"statistics",
-										"inventory",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "boardCode",
-											"value": "P2_White_15.0_2800.0_2070.0"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get materials for current subscription",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"materials"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get materials by material code for current subscription",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials?materialCode=HPL_Grey_0.8",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"materials"
-									],
-									"query": [
-										{
-											"key": "materialCode",
-											"value": "HPL_Grey_0.8"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Edgebands",
-					"item": [
-						{
-							"name": "Get all edgebands",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands"
-									],
-									"query": [
-										{
-											"key": "skip",
-											"value": "0",
-											"description": "Has to be >= 0",
-											"disabled": true
-										},
-										{
-											"key": "take",
-											"value": "500",
-											"description": "Has to be in range of 0 - 1000",
-											"disabled": true
-										},
-										{
-											"key": "includingDetails",
-											"value": "false",
-											"description": "bool",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get edgebands with list filters for edgeband codes",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands"
-									],
-									"query": [
-										{
-											"key": "edgebandCode",
-											"value": "Test",
-											"disabled": true
-										},
-										{
-											"key": "includingDetails",
-											"value": "true",
-											"description": "bool",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetLicensedMachines",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands/machines",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands",
-										"machines"
-									],
-									"query": [
-										{
-											"key": "take",
-											"value": "",
-											"disabled": true
-										},
-										{
-											"key": "skip",
-											"value": "",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetMacrosFromMachine",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands/machines/{{tapioMachineId}}/macros",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands",
-										"machines",
-										"{{tapioMachineId}}",
-										"macros"
-									],
-									"query": [
-										{
-											"key": "take",
-											"value": "",
-											"disabled": true
-										},
-										{
-											"key": "skip",
-											"value": "",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "BoardTypeAllocations",
-					"item": [
-						{
-							"name": "Get all board type allocations",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
+  },
+  "item": [
+    {
+      "name": "Read",
+      "item": [
+        {
+          "name": "Boards",
+          "item": [
+            {
+              "name": "Get all boards",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards?includingDetails=true&take=&skip",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "includingDetails",
+                      "value": "true"
+                    },
+                    {
+                      "key": "take",
+                      "value": "",
+                      "description": "Max. 1000 boards at once"
+                    },
+                    {
+                      "key": "skip",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get boards for a certain materialCode",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards?materialCode=P2_White_15.0&includingDetails=true&take&skip",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "materialCode",
+                      "value": "P2_White_15.0"
+                    },
+                    {
+                      "key": "includingDetails",
+                      "value": "true"
+                    },
+                    {
+                      "key": "take",
+                      "value": null,
+                      "description": "Max. 1000 boards at once"
+                    },
+                    {
+                      "key": "skip",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get boards for a certain boardCode",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=P2_White_15.0_2800.0_2070.0&includingDetails=true&take&skip",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "boardCode",
+                      "value": "P2_White_15.0_2800.0_2070.0"
+                    },
+                    {
+                      "key": "includingDetails",
+                      "value": "true"
+                    },
+                    {
+                      "key": "take",
+                      "value": null,
+                      "description": "Max. 1000 boards at once"
+                    },
+                    {
+                      "key": "skip",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get inventory for boardCodes",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?boardCode=P2_White_15.0_2800.0_2070.0",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "statistics",
+                    "inventory",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "boardCode",
+                      "value": "P2_White_15.0_2800.0_2070.0"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get materials for current subscription",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "materials"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get materials by material code for current subscription",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards/materials?materialCode=HPL_Grey_0.8",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "materials"
+                  ],
+                  "query": [
+                    {
+                      "key": "materialCode",
+                      "value": "HPL_Grey_0.8"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Edgebands",
+          "item": [
+            {
+              "name": "Get all edgebands",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0",
+                      "description": "Has to be >= 0",
+                      "disabled": true
+                    },
+                    {
+                      "key": "take",
+                      "value": "500",
+                      "description": "Has to be in range of 0 - 1000",
+                      "disabled": true
+                    },
+                    {
+                      "key": "includingDetails",
+                      "value": "false",
+                      "description": "bool",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get edgebands with list filters for edgeband codes",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands"
+                  ],
+                  "query": [
+                    {
+                      "key": "edgebandCode",
+                      "value": "Test",
+                      "disabled": true
+                    },
+                    {
+                      "key": "includingDetails",
+                      "value": "true",
+                      "description": "bool",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetLicensedMachines",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands/machines",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands",
+                    "machines"
+                  ],
+                  "query": [
+                    {
+                      "key": "take",
+                      "value": "",
+                      "disabled": true
+                    },
+                    {
+                      "key": "skip",
+                      "value": "",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetMacrosFromMachine",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands/machines/{{tapioMachineId}}/macros",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands",
+                    "machines",
+                    "{{tapioMachineId}}",
+                    "macros"
+                  ],
+                  "query": [
+                    {
+                      "key": "take",
+                      "value": "",
+                      "disabled": true
+                    },
+                    {
+                      "key": "skip",
+                      "value": "",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "BoardTypeAllocations",
+          "item": [
+            {
+              "name": "Get all board type allocations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
 									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?take=10&skip=0",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"allocations"
-									],
-									"query": [
-										{
-											"key": "take",
-											"value": "",
-											"disabled": true
-										},
-										{
-											"key": "skip",
-											"value": "",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all board type allocations by names",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/byNames?allocationNames=Kitchen",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"allocations",
-										"byNames"
-									],
-									"query": [
-										{
-											"key": "allocationNames",
-											"value": "Kitchen"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all board type allocations search",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/search?search=Kitchen",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"allocations",
-										"search"
-									],
-									"query": [
-										{
-											"key": "search",
-											"value": "Kitchen"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "EdgebandTypeAllocations",
-					"item": [
-						{
-							"name": "Get edgeband type allocation by properties",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations?order=Kitchen Job&project=Project&customer=Customer&edgebandCode=ABS_Bronze_0.80_28.0_HM",
-									"host": [
-										"{{ConnectHostINT}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands",
-										"allocations"
-									],
-									"query": [
-										{
-											"key": "order",
-											"value": "Kitchen Job"
-										},
-										{
-											"key": "project",
-											"value": "Project"
-										},
-										{
-											"key": "customer",
-											"value": "Customer"
-										},
-										{
-											"key": "edgebandCode",
-											"value": "ABS_Bronze_0.80_28.0_HM"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get all edgeband type allocations",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations/getall",
-									"host": [
-										"{{ConnectHostINT}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands",
-										"allocations",
-										"getall"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Processing",
-			"item": [
-				{
-					"name": "Optimization",
-					"item": [
-						{
-							"name": "Get offcut parametersets by materialCodes",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/processing/optimization/offcuts?materialCode=ST_Raw_16",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"processing",
-										"optimization",
-										"offcuts"
-									],
-									"query": [
-										{
-											"key": "materialCode",
-											"value": "ST_Raw_16"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "CNC",
-					"item": [
-						{
-							"name": "Get milling tool groups",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/toolGroups",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"processing",
-										"cnc",
-										"milling",
-										"toolGroups"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get milling material groups",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/materialGroups",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"processing",
-										"cnc",
-										"milling",
-										"materialGroups"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get milling parameter groups",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/parameterGroups",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"processing",
-										"cnc",
-										"milling",
-										"parameterGroups"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Statistics",
-			"item": [
-				{
-					"name": "Get BoardInventory History",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?from=2024-04-01&to=2024-06-01&materialCode=P2_Icy White_19",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"statistics",
-								"inventory",
-								"boards"
-							],
-							"query": [
-								{
-									"key": "from",
-									"value": "2024-04-01"
-								},
-								{
-									"key": "to",
-									"value": "2024-06-01"
-								},
-								{
-									"key": "boardtypetype",
-									"value": "Board",
-									"disabled": true
-								},
-								{
-									"key": "materialCode",
-									"value": "P2_Icy White_19"
-								},
-								{
-									"key": "materialCode",
-									"value": "VERT_19",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Edgeband Inventory History",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/edgebands?from=2024-05-01&to=2024-06-01",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"statistics",
-								"inventory",
-								"edgebands"
-							],
-							"query": [
-								{
-									"key": "from",
-									"value": "2024-05-01"
-								},
-								{
-									"key": "to",
-									"value": "2024-06-01"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Create",
-			"item": [
-				{
-					"name": "CreateBoardType",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"materialCode\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"width\": 9999.9,\r\n  \"length\": 9999.9,\r\n  \"thickness\": 19,\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"type\": \"Board\",\r\n  \"coatingCategory\": \"undefined\",\r\n  \"grain\": \"nograin\",\r\n  \"standardQuality\": \"rawcut\",\r\n  \"totalQuantityAvailableWarningLimit\": 2,\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"lockedForOptimization\": true,\r\n  \"lockedForConfiguration\": false,\r\n  \"embossingTop\": \"string\",\r\n  \"embossingBottom\": \"string\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/materials/boards",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"boards"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateBoardTypeAllocation",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",\r\n  \"createdBy\": \"user\",\r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"boards",
-								"allocations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateEdgebandTypeAllocation",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"allocatedLength\": 1,\r\n  \"comments\": \"comment\",\r\n  \"createdBy\": \"createdBy\",\r\n  \"customer\": \"customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"order\",\r\n  \"project\": \"project\",\r\n  \"source\": \"MaterialManager\",\r\n  \"usedLength\": 0,\r\n  \"workstation\": \"workstation\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
-							"host": [
-								"{{ConnectHostINT}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"edgebands",
-								"allocations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateBoardType With AdditionalData",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "boardTypeRequest",
-									"value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 999.9,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"lockedForConfiguration\": false,\n  \"embossingTop\": \"string\",\n  \"embossingBottom\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
-									"type": "text"
-								},
-								{
-									"key": "Red.png",
-									"type": "file",
-									"src": "Applications/MaterialManager/Tests/Data/Red.png"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/materials/boards",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"boards"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateEdgebandType",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"edgebandCode\": \"string\",\r\n  \"thickness\": 1.2,\r\n  \"height\": 23,\r\n  \"defaultLength\": 150,\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"materialCategory\": \"abs\",\r\n  \"process\": \"Zerojoint\",\r\n  \"lasertec\": 0,\r\n  \"airtec\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"functionLayerThickness\": 0,\r\n  \"technologyMacro\": \"string\",\r\n  \"machineTechnologyMacro\": {\r\n    \"<tmid>\": \"MacroName\"\r\n  },\r\n  \"decorEmbossingCode\": \"string\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"edgebands"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateEdgebandType With AdditionalData",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "edgebandTypeRequest",
-									"value": "{\n  \"edgebandCode\": \"ABS_Concrete_0.80_23.0_NN_Hgc_AdditionalData\",\n  \"thickness\": 1.2,\n  \"height\": 23,\n  \"defaultLength\": 150,\n  \"articleNumber\": \"article_number\",\n  \"comments\": \"comments\",\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"materialCategory\": \"abs\",\n  \"process\": \"Zerojoint\",\n  \"lasertec\": 0,\n  \"airtec\": 0,\n  \"protectionFilmThickness\": 0,\n  \"functionLayerThickness\": 0,\n  \"technologyMacro\": \"technology_macro\",\n  \"decorEmbossingCode\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
-									"type": "text"
-								},
-								{
-									"key": "Red.png",
-									"type": "file",
-									"src": "Applications/MaterialManager/Tests/Data/Red.png"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
-							"host": [
-								"{{ConnectHost}}"
-							],
-							"path": [
-								"api",
-								"materialManager",
-								"materials",
-								"edgebands"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Update",
-			"item": [
-				{
-					"name": "Boards",
-					"item": [
-						{
-							"name": "Update a board type",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"coatingCategory\": 0,\r\n  \"grain\": 0,\r\n  \"length\": 9999.9,\r\n  \"lockedForOptimization\": true,\r\n  \"lockedForConfiguration\": false,\r\n  \"materialCategory\": 0,\r\n  \"materialCode\": \"string\",\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"standardQuality\": 0,\r\n  \"thickness\": 0.01,\r\n  \"totalQuantityAvailableWarningLimit\": 0,\r\n  \"type\": 0,\r\n  \"width\": 9999.9\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "boardCode",
-											"value": null,
-											"description": "Required"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update a board type With AdditionalData",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "boardTypeRequest",
-											"value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 888.8,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"lockedForConfiguration\": false,\n  \"embossingTop\": \"string\",\n  \"embossingBottom\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
-											"type": "text"
-										},
-										{
-											"key": "Red.png",
-											"type": "file",
-											"src": "Applications/MaterialManager/Tests/Data/Red.png"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=HPL_Chilli_Red_0.8_Hgc_AdditionalData",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "boardCode",
-											"value": "HPL_Chilli_Red_0.8_Hgc_AdditionalData"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Edgebands",
-					"item": [
-						{
-							"name": "Update an edgeband type",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"gtin\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"airtec\": 0,\r\n  \"decorEmbossingCode\": \"string\",\r\n  \"edgebandCode\": \"string\",\r\n  \"functionLayerThickness\": 0,\r\n  \"process\": 0,\r\n  \"height\": 999.9,\r\n  \"lasertec\": 0,\r\n  \"defaultLength\": 9999.9,\r\n  \"technologyMacro\": \"string\",\r\n  \"machineTechnologyMacro\": {\r\n    \"<tmid>\": \"MacroName\"\r\n  },\r\n  \"materialCategory\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"thickness\": 99.9,\r\n  \"totalLengthAvailableWarningLimit\": 0,\r\n  \"totalQuantityAvailableWarningLimit\": 2147483647\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands"
-									],
-									"query": [
-										{
-											"key": "edgebandCode",
-											"value": "",
-											"description": "required"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update an edgeband type With AdditionalData Copy",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "edgebandTypeRequest",
-											"value": "{\n  \"edgebandCode\": \"ABS_Concrete_0.80_23.0_NN_Hgc_AdditionalData\",\n  \"thickness\": 1.2,\n  \"height\": 23,\n  \"defaultLength\": 150,\n  \"articleNumber\": \"article_number\",\n  \"comments\": \"comments\",\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"materialCategory\": \"abs\",\n  \"process\": \"Zerojoint\",\n  \"lasertec\": 0,\n  \"airtec\": 0,\n  \"protectionFilmThickness\": 0,\n  \"functionLayerThickness\": 0,\n  \"technologyMacro\": \"technology_macro\",\n  \"decorEmbossingCode\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
-											"type": "text"
-										},
-										{
-											"key": "Red.png",
-											"type": "file",
-											"src": "Applications/MaterialManager/Tests/Data/Red.png"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands"
-									],
-									"query": [
-										{
-											"key": "edgebandCode",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "BoardTypeAllocations",
-					"item": [
-						{
-							"name": "Update a board type allocation",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",  \r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationName=Q3-2025-Allocation",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"allocations"
-									],
-									"query": [
-										{
-											"key": "allocationName",
-											"value": "Q3-2025-Allocation"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "EdgebandTypeAllocations",
-					"item": [
-						{
-							"name": "Update edgeband type allocation",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"allocatedLength\": 1,\r\n  \"comments\": \"comment\",\r\n  \"createdBy\": \"createdBy\",\r\n  \"customer\": \"customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"order\",\r\n  \"project\": \"project\",\r\n  \"source\": \"MaterialManager\",\r\n  \"usedLength\": 0,\r\n  \"workstation\": \"workstation\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
-									"host": [
-										"{{ConnectHostINT}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands",
-										"allocations"
-									],
-									"query": [
-										{
-											"key": "skip",
-											"value": "",
-											"description": "int",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Delete",
-			"item": [
-				{
-					"name": "Boards",
-					"item": [
-						{
-							"name": "Delete boards",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards"
-									],
-									"query": [
-										{
-											"key": "boardCode",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Edgebands",
-					"item": [
-						{
-							"name": "Delete edgebands",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands"
-									],
-									"query": [
-										{
-											"key": "edgebandCode",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "BoardTypeAllocations",
-					"item": [
-						{
-							"name": "Delete board type allocations",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationNames=Q3-2025-Allocation",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"boards",
-										"allocations"
-									],
-									"query": [
-										{
-											"key": "allocationNames",
-											"value": "Q3-2025-Allocation"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "EdgebandTypeAllocations",
-					"item": [
-						{
-							"name": "Delete by properties",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{  \r\n  \"customer\": \"Customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"Order\",\r\n  \"project\": \"Project\"\r\n  }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
-									"host": [
-										"{{ConnectHostINT}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"materials",
-										"edgebands",
-										"allocations"
-									],
-									"query": [
-										{
-											"key": "skip",
-											"value": "",
-											"description": "int",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Surfaces",
-			"item": [
-				{
-					"name": "Textures",
-					"item": [
-						{
-							"name": "Get Texture By Id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures/byId?id=egger_f187_st9",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures",
-										"byId"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "egger_f187_st9",
-											"description": "The texture identifier"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get All Textures",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?pageSize=100",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures"
-									],
-									"query": [
-										{
-											"key": "pageSize",
-											"value": "100",
-											"description": "Page size (1-100, default 100)"
-										},
-										{
-											"key": "continuationToken",
-											"value": null,
-											"description": "Continuation token for pagination",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Textures By Catalog",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?catalog=egger&pageSize=100",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures"
-									],
-									"query": [
-										{
-											"key": "catalog",
-											"value": "egger",
-											"description": "Filter by catalog"
-										},
-										{
-											"key": "pageSize",
-											"value": "100",
-											"description": "Page size (1-100, default 100)"
-										},
-										{
-											"key": "continuationToken",
-											"value": null,
-											"description": "Continuation token for pagination",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Textures By Catalog and DecorCode",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?catalog=egger&decorCode=f187&pageSize=100",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures"
-									],
-									"query": [
-										{
-											"key": "catalog",
-											"value": "egger",
-											"description": "Filter by catalog"
-										},
-										{
-											"key": "decorCode",
-											"value": "f187",
-											"description": "Filter by decor code (requires catalog)"
-										},
-										{
-											"key": "pageSize",
-											"value": "100",
-											"description": "Page size (1-100, default 100)"
-										},
-										{
-											"key": "continuationToken",
-											"value": null,
-											"description": "Continuation token for pagination",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Import Single Texture",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"material\": {\r\n    \"externalIdentifier\": \"TD001_ST9\",\r\n    \"version\": 0,\r\n    \"id\": \"test-catalog:TD001_ST9\",\r\n    \"shading\": {\r\n      \"version\": \"2.0.0\",\r\n      \"alpha\": 1.0,\r\n      \"alphaCutoff\": 0,\r\n      \"alphaMode\": \"OPAQUE\",\r\n      \"basecolor\": {\r\n        \"r\": 1.0,\r\n        \"g\": 1.0,\r\n        \"b\": 1.0\r\n      },\r\n      \"transmission\": 0.0,\r\n      \"transmissionIOR\": 1.45,\r\n      \"metallic\": 0.0,\r\n      \"roughness\": 0.38,\r\n      \"doubleSided\": true,\r\n      \"occlusion\": 0,\r\n      \"emissiveColor\": {\r\n        \"r\": 0.0,\r\n        \"g\": 0.0,\r\n        \"b\": 0.0\r\n      },\r\n      \"emissiveIntensity\": 1.0,\r\n      \"clearcoatIntensity\": 0.0,\r\n      \"clearcoatRoughness\": 0.0,\r\n      \"clearcoatNormalScale\": 0.0,\r\n      \"sheenColor\": {\r\n        \"r\": 0,\r\n        \"g\": 0,\r\n        \"b\": 0\r\n      },\r\n      \"sheenIntensity\": 0.0,\r\n      \"sheenRoughness\": 0.65,\r\n      \"normalScale\": 1.0,\r\n      \"thicknessFactor\": 0.0,\r\n      \"attenuationColor\": {\r\n        \"r\": 0,\r\n        \"g\": 0,\r\n        \"b\": 0\r\n      },\r\n      \"attenuationDistance\": 0.0\r\n    },\r\n    \"thumbnail\": \"https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/materials/u999_st7/thumbnail.png?marker=1740061654\",\r\n    \"textureObjects\": [\r\n      {\r\n        \"id\": 99001,\r\n        \"material\": \"test-catalog:TD001_ST9\",\r\n        \"image\": \"https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/49123/image.png?marker=1739838494\",\r\n        \"height\": 0,\r\n        \"width\": 0,\r\n        \"mmHeight\": 200,\r\n        \"mmWidth\": 200,\r\n        \"qualityLevel\": 0,\r\n        \"tileable\": true,\r\n        \"created\": \"2025-01-21T10:00:00.000Z\",\r\n        \"updated\": \"2025-01-21T10:00:00.000Z\",\r\n        \"definition\": {\r\n          \"height\": 0,\r\n          \"width\": 0,\r\n          \"mmHeight\": 200,\r\n          \"mmWidth\": 200,\r\n          \"tileable\": true,\r\n          \"mapping\": \"RGBA\"\r\n        },\r\n        \"mapping\": \"RGBA\",\r\n        \"url\": \"https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/49123/image.png?marker=1739838494\",\r\n        \"assets\": {}\r\n      }\r\n    ],\r\n    \"textures\": [ 99001 ],\r\n    \"tags\": [ \"test\", \"import\" ],\r\n    \"label\": \"Test Delete Material TD001 ST9\",\r\n    \"language\": \"en\",\r\n    \"catalog\": \"test-catalog\",\r\n    \"links\": {\r\n      \"textures\": \"/materials/test-catalog:TD001_ST9/textures\"\r\n    },\r\n    \"hidden\": false,\r\n    \"visibilityStatus\": 0,\r\n    \"active\": true,\r\n    \"created\": \"2025-01-21T10:00:00.000Z\",\r\n    \"updated\": \"2025-01-21T10:00:00.000Z\",\r\n    \"additionalInfos\": []\r\n  }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures/import",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures",
-										"import"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Import Batch Textures",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"materials\": [\r\n    {\r\n      \"externalIdentifier\": \"TD001_ST9\",\r\n      \"version\": 0,\r\n      \"id\": \"test-catalog-a:TD001_ST9\",\r\n      \"label\": \"Test Material A TD001 ST9\",\r\n      \"language\": \"en\",\r\n      \"catalog\": \"test-catalog-a\",\r\n      \"tags\": [ \"test\", \"retrieval\" ],\r\n      \"thumbnail\": null,\r\n      \"textureObjects\": [],\r\n      \"textures\": [],\r\n      \"shading\": {\r\n        \"version\": \"2.0.0\",\r\n        \"alpha\": 1.0,\r\n        \"alphaCutoff\": 0,\r\n        \"alphaMode\": \"OPAQUE\",\r\n        \"basecolor\": {\"r\": 1.0, \"g\": 1.0, \"b\": 1.0},\r\n        \"transmission\": 0.0,\r\n        \"transmissionIOR\": 1.45,\r\n        \"metallic\": 0.0,\r\n        \"roughness\": 0.38,\r\n        \"doubleSided\": true,\r\n        \"occlusion\": 0,\r\n        \"emissiveColor\": {\"r\": 0.0, \"g\": 0.0, \"b\": 0.0},\r\n        \"emissiveIntensity\": 1.0,\r\n        \"clearcoatIntensity\": 0.0,\r\n        \"clearcoatRoughness\": 0.0,\r\n        \"clearcoatNormalScale\": 0.0,\r\n        \"sheenColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"sheenIntensity\": 0.0,\r\n        \"sheenRoughness\": 0.65,\r\n        \"normalScale\": 1.0,\r\n        \"thicknessFactor\": 0.0,\r\n        \"attenuationColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"attenuationDistance\": 0.0\r\n      },\r\n      \"hidden\": false,\r\n      \"visibilityStatus\": 0,\r\n      \"active\": true,\r\n      \"created\": \"2025-01-21T10:00:00.000Z\",\r\n      \"updated\": \"2025-01-21T10:00:00.000Z\"\r\n    },\r\n    {\r\n      \"externalIdentifier\": \"TD002_ST9\",\r\n      \"version\": 0,\r\n      \"id\": \"test-catalog-a:TD002_ST9\",\r\n      \"label\": \"Test Material A TD002 ST9\",\r\n      \"language\": \"en\",\r\n      \"catalog\": \"test-catalog-a\",\r\n      \"tags\": [ \"test\", \"retrieval\" ],\r\n      \"thumbnail\": null,\r\n      \"textureObjects\": [],\r\n      \"textures\": [],\r\n      \"shading\": {\r\n        \"version\": \"2.0.0\",\r\n        \"alpha\": 1.0,\r\n        \"alphaCutoff\": 0,\r\n        \"alphaMode\": \"OPAQUE\",\r\n        \"basecolor\": {\"r\": 1.0, \"g\": 1.0, \"b\": 1.0},\r\n        \"transmission\": 0.0,\r\n        \"transmissionIOR\": 1.45,\r\n        \"metallic\": 0.0,\r\n        \"roughness\": 0.38,\r\n        \"doubleSided\": true,\r\n        \"occlusion\": 0,\r\n        \"emissiveColor\": {\"r\": 0.0, \"g\": 0.0, \"b\": 0.0},\r\n        \"emissiveIntensity\": 1.0,\r\n        \"clearcoatIntensity\": 0.0,\r\n        \"clearcoatRoughness\": 0.0,\r\n        \"clearcoatNormalScale\": 0.0,\r\n        \"sheenColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"sheenIntensity\": 0.0,\r\n        \"sheenRoughness\": 0.65,\r\n        \"normalScale\": 1.0,\r\n        \"thicknessFactor\": 0.0,\r\n        \"attenuationColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"attenuationDistance\": 0.0\r\n      },\r\n      \"hidden\": false,\r\n      \"visibilityStatus\": 0,\r\n      \"active\": true,\r\n      \"created\": \"2025-01-21T10:00:00.000Z\",\r\n      \"updated\": \"2025-01-21T10:00:00.000Z\"\r\n    },\r\n    {\r\n      \"externalIdentifier\": \"TD003_ST9\",\r\n      \"version\": 0,\r\n      \"id\": \"test-catalog-b:TD003_ST9\",\r\n      \"label\": \"Test Material B TD003 ST9\",\r\n      \"language\": \"en\",\r\n      \"catalog\": \"test-catalog-b\",\r\n      \"tags\": [ \"test\", \"retrieval\" ],\r\n      \"thumbnail\": null,\r\n      \"textureObjects\": [],\r\n      \"textures\": [],\r\n      \"shading\": {\r\n        \"version\": \"2.0.0\",\r\n        \"alpha\": 1.0,\r\n        \"alphaCutoff\": 0,\r\n        \"alphaMode\": \"OPAQUE\",\r\n        \"basecolor\": {\"r\": 1.0, \"g\": 1.0, \"b\": 1.0},\r\n        \"transmission\": 0.0,\r\n        \"transmissionIOR\": 1.45,\r\n        \"metallic\": 0.0,\r\n        \"roughness\": 0.38,\r\n        \"doubleSided\": true,\r\n        \"occlusion\": 0,\r\n        \"emissiveColor\": {\"r\": 0.0, \"g\": 0.0, \"b\": 0.0},\r\n        \"emissiveIntensity\": 1.0,\r\n        \"clearcoatIntensity\": 0.0,\r\n        \"clearcoatRoughness\": 0.0,\r\n        \"clearcoatNormalScale\": 0.0,\r\n        \"sheenColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"sheenIntensity\": 0.0,\r\n        \"sheenRoughness\": 0.65,\r\n        \"normalScale\": 1.0,\r\n        \"thicknessFactor\": 0.0,\r\n        \"attenuationColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"attenuationDistance\": 0.0\r\n      },\r\n      \"hidden\": false,\r\n      \"visibilityStatus\": 0,\r\n      \"active\": true,\r\n      \"created\": \"2025-01-21T10:00:00.000Z\",\r\n      \"updated\": \"2025-01-21T10:00:00.000Z\"\r\n    }\r\n  ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures/import/batch",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures",
-										"import",
-										"batch"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Texture",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?id=egger_f187_st9",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"materialManager",
-										"surfaces",
-										"textures"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "egger_f187_st9",
-											"description": "The texture ID to delete"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		}
-	],
-	"auth": {
-		"type": "basic",
-		"basic": [
-			{
-				"key": "password",
-				"value": "{{ConnectPassword}}",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "{{ConnectUserName}}",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	]
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "allocations"
+                  ],
+                  "query": [
+                    {
+                      "key": "take",
+                      "value": "",
+                      "disabled": true
+                    },
+                    {
+                      "key": "skip",
+                      "value": "",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all board type allocations by names",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/byNames?allocationNames=Kitchen",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "allocations",
+                    "byNames"
+                  ],
+                  "query": [
+                    {
+                      "key": "allocationNames",
+                      "value": "Kitchen"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all board type allocations search",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations/search?search=Kitchen",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "allocations",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "Kitchen"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "EdgebandTypeAllocations",
+          "item": [
+            {
+              "name": "Get edgeband type allocation by properties",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations?order=Kitchen Job&project=Project&customer=Customer&edgebandCode=ABS_Bronze_0.80_28.0_HM",
+                  "host": [
+                    "{{ConnectHostINT}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands",
+                    "allocations"
+                  ],
+                  "query": [
+                    {
+                      "key": "order",
+                      "value": "Kitchen Job"
+                    },
+                    {
+                      "key": "project",
+                      "value": "Project"
+                    },
+                    {
+                      "key": "customer",
+                      "value": "Customer"
+                    },
+                    {
+                      "key": "edgebandCode",
+                      "value": "ABS_Bronze_0.80_28.0_HM"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all edgeband type allocations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations/getall",
+                  "host": [
+                    "{{ConnectHostINT}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands",
+                    "allocations",
+                    "getall"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Processing",
+      "item": [
+        {
+          "name": "Optimization",
+          "item": [
+            {
+              "name": "Get offcut parametersets by materialCodes",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/processing/optimization/offcuts?materialCode=ST_Raw_16",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "processing",
+                    "optimization",
+                    "offcuts"
+                  ],
+                  "query": [
+                    {
+                      "key": "materialCode",
+                      "value": "ST_Raw_16"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "CNC",
+          "item": [
+            {
+              "name": "Get milling tool groups",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/toolGroups",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "processing",
+                    "cnc",
+                    "milling",
+                    "toolGroups"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get milling material groups",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/materialGroups",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "processing",
+                    "cnc",
+                    "milling",
+                    "materialGroups"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get milling parameter groups",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/processing/cnc/milling/parameterGroups",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "processing",
+                    "cnc",
+                    "milling",
+                    "parameterGroups"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Statistics",
+      "item": [
+        {
+          "name": "Get BoardInventory History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/boards?from=2024-04-01&to=2024-06-01&materialCode=P2_Icy White_19",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "statistics",
+                "inventory",
+                "boards"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2024-04-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2024-06-01"
+                },
+                {
+                  "key": "boardtypetype",
+                  "value": "Board",
+                  "disabled": true
+                },
+                {
+                  "key": "materialCode",
+                  "value": "P2_Icy White_19"
+                },
+                {
+                  "key": "materialCode",
+                  "value": "VERT_19",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Edgeband Inventory History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/statistics/inventory/edgebands?from=2024-05-01&to=2024-06-01",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "statistics",
+                "inventory",
+                "edgebands"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2024-05-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2024-06-01"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Create",
+      "item": [
+        {
+          "name": "CreateBoardType",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"materialCode\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"width\": 9999.9,\r\n  \"length\": 9999.9,\r\n  \"thickness\": 19,\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"type\": \"Board\",\r\n  \"coatingCategory\": \"undefined\",\r\n  \"grain\": \"nograin\",\r\n  \"standardQuality\": \"rawcut\",\r\n  \"totalQuantityAvailableWarningLimit\": 2,\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"lockedForOptimization\": true,\r\n  \"lockedForConfiguration\": false,\r\n  \"embossingTop\": \"string\",\r\n  \"embossingBottom\": \"string\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/materials/boards",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "boards"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateBoardTypeAllocation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",\r\n  \"createdBy\": \"user\",\r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "boards",
+                "allocations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateEdgebandTypeAllocation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"allocatedLength\": 1,\r\n  \"comments\": \"comment\",\r\n  \"createdBy\": \"createdBy\",\r\n  \"customer\": \"customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"order\",\r\n  \"project\": \"project\",\r\n  \"source\": \"MaterialManager\",\r\n  \"usedLength\": 0,\r\n  \"workstation\": \"workstation\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
+              "host": [
+                "{{ConnectHostINT}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "edgebands",
+                "allocations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateBoardType With AdditionalData",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "boardTypeRequest",
+                  "value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 999.9,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"lockedForConfiguration\": false,\n  \"embossingTop\": \"string\",\n  \"embossingBottom\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "Red.png",
+                  "type": "file",
+                  "src": "Applications/MaterialManager/Tests/Data/Red.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/materials/boards",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "boards"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateEdgebandType",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"edgebandCode\": \"string\",\r\n  \"thickness\": 1.2,\r\n  \"height\": 23,\r\n  \"defaultLength\": 150,\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 10,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"materialCategory\": \"abs\",\r\n  \"process\": \"Zerojoint\",\r\n  \"lasertec\": 0,\r\n  \"airtec\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"functionLayerThickness\": 0,\r\n  \"technologyMacro\": \"string\",\r\n  \"machineTechnologyMacro\": {\r\n    \"<tmid>\": \"MacroName\"\r\n  },\r\n  \"decorEmbossingCode\": \"string\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "edgebands"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateEdgebandType With AdditionalData",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "edgebandTypeRequest",
+                  "value": "{\n  \"edgebandCode\": \"ABS_Concrete_0.80_23.0_NN_Hgc_AdditionalData\",\n  \"thickness\": 1.2,\n  \"height\": 23,\n  \"defaultLength\": 150,\n  \"articleNumber\": \"article_number\",\n  \"comments\": \"comments\",\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"materialCategory\": \"abs\",\n  \"process\": \"Zerojoint\",\n  \"lasertec\": 0,\n  \"airtec\": 0,\n  \"protectionFilmThickness\": 0,\n  \"functionLayerThickness\": 0,\n  \"technologyMacro\": \"technology_macro\",\n  \"decorEmbossingCode\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+                  "type": "text"
+                },
+                {
+                  "key": "Red.png",
+                  "type": "file",
+                  "src": "Applications/MaterialManager/Tests/Data/Red.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands",
+              "host": [
+                "{{ConnectHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "edgebands"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Update",
+      "item": [
+        {
+          "name": "Boards",
+          "item": [
+            {
+              "name": "Update a board type",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"boardCode\": \"string\",\r\n  \"coatingCategory\": 0,\r\n  \"grain\": 0,\r\n  \"length\": 9999.9,\r\n  \"lockedForOptimization\": true,\r\n  \"lockedForConfiguration\": false,\r\n  \"materialCategory\": 0,\r\n  \"materialCode\": \"string\",\r\n  \"optimizeAgainstInfinite\": true,\r\n  \"standardQuality\": 0,\r\n  \"thickness\": 0.01,\r\n  \"totalQuantityAvailableWarningLimit\": 0,\r\n  \"type\": 0,\r\n  \"width\": 9999.9\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "boardCode",
+                      "value": null,
+                      "description": "Required"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update a board type With AdditionalData",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "boardTypeRequest",
+                      "value": "{\n  \"materialCode\": \"HPL_Chilli_Red_0.8\",\n  \"boardCode\": \"HPL_Chilli_Red_0.8_Hgc_AdditionalData\",\n  \"width\": 999.9,\n  \"length\": 888.8,\n  \"thickness\": 19,\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"type\": \"Board\",\n  \"coatingCategory\": \"undefined\",\n  \"grain\": \"nograin\",\n  \"standardQuality\": \"rawcut\",\n  \"totalQuantityAvailableWarningLimit\": 2,\n  \"optimizeAgainstInfinite\": true,\n  \"lockedForOptimization\": true,\n  \"lockedForConfiguration\": false,\n  \"embossingTop\": \"string\",\n  \"embossingBottom\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "Red.png",
+                      "type": "file",
+                      "src": "Applications/MaterialManager/Tests/Data/Red.png"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=HPL_Chilli_Red_0.8_Hgc_AdditionalData",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "boardCode",
+                      "value": "HPL_Chilli_Red_0.8_Hgc_AdditionalData"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Edgebands",
+          "item": [
+            {
+              "name": "Update an edgeband type",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"articleNumber\": \"string\",\r\n  \"gtin\": \"string\",\r\n  \"comments\": \"string\",\r\n  \"costs\": 0,\r\n  \"decorCode\": \"string\",\r\n  \"decorName\": \"string\",\r\n  \"manufacturerName\": \"string\",\r\n  \"productName\": \"string\",\r\n  \"thumbnail\": \"string\",\r\n  \"airtec\": 0,\r\n  \"decorEmbossingCode\": \"string\",\r\n  \"edgebandCode\": \"string\",\r\n  \"functionLayerThickness\": 0,\r\n  \"process\": 0,\r\n  \"height\": 999.9,\r\n  \"lasertec\": 0,\r\n  \"defaultLength\": 9999.9,\r\n  \"technologyMacro\": \"string\",\r\n  \"machineTechnologyMacro\": {\r\n    \"<tmid>\": \"MacroName\"\r\n  },\r\n  \"materialCategory\": 0,\r\n  \"protectionFilmThickness\": 0,\r\n  \"thickness\": 99.9,\r\n  \"totalLengthAvailableWarningLimit\": 0,\r\n  \"totalQuantityAvailableWarningLimit\": 2147483647\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands"
+                  ],
+                  "query": [
+                    {
+                      "key": "edgebandCode",
+                      "value": "",
+                      "description": "required"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update an edgeband type With AdditionalData Copy",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "edgebandTypeRequest",
+                      "value": "{\n  \"edgebandCode\": \"ABS_Concrete_0.80_23.0_NN_Hgc_AdditionalData\",\n  \"thickness\": 1.2,\n  \"height\": 23,\n  \"defaultLength\": 150,\n  \"articleNumber\": \"article_number\",\n  \"comments\": \"comments\",\n  \"costs\": 10,\n  \"decorCode\": \"decor_code\",\n  \"decorName\": \"decor_name\",\n  \"manufacturerName\": \"manufacturer_name\",\n  \"productName\": \"product_name\",\n  \"materialCategory\": \"abs\",\n  \"process\": \"Zerojoint\",\n  \"lasertec\": 0,\n  \"airtec\": 0,\n  \"protectionFilmThickness\": 0,\n  \"functionLayerThickness\": 0,\n  \"technologyMacro\": \"technology_macro\",\n  \"decorEmbossingCode\": \"string\",\n  \"additionalData\": [ \n  { \n    \"type\": \"Image\", \n    \"category\": \"Decor\", \n    \"downloadFileName\": \"Red.png\",\n    \"downloadUri\": \"Red.png\" \n  } ]\n}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "Red.png",
+                      "type": "file",
+                      "src": "Applications/MaterialManager/Tests/Data/Red.png"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands"
+                  ],
+                  "query": [
+                    {
+                      "key": "edgebandCode",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "BoardTypeAllocations",
+          "item": [
+            {
+              "name": "Update a board type allocation",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"boardTypeCode\": \"P2_White_19.0_2800.0_2070.0\",\r\n  \"comments\": \"Comment\",  \r\n  \"name\": \"Q3-2025-Allocation\",\r\n  \"quantity\": 1,\r\n  \"source\": \"MaterialManager\",\r\n  \"workstation\": \"workstation\"\r\n  \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationName=Q3-2025-Allocation",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "allocations"
+                  ],
+                  "query": [
+                    {
+                      "key": "allocationName",
+                      "value": "Q3-2025-Allocation"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "EdgebandTypeAllocations",
+          "item": [
+            {
+              "name": "Update edgeband type allocation",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"allocatedLength\": 1,\r\n  \"comments\": \"comment\",\r\n  \"createdBy\": \"createdBy\",\r\n  \"customer\": \"customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"order\",\r\n  \"project\": \"project\",\r\n  \"source\": \"MaterialManager\",\r\n  \"usedLength\": 0,\r\n  \"workstation\": \"workstation\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
+                  "host": [
+                    "{{ConnectHostINT}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands",
+                    "allocations"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "",
+                      "description": "int",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Delete",
+      "item": [
+        {
+          "name": "Boards",
+          "item": [
+            {
+              "name": "Delete boards",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards?boardCode=",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards"
+                  ],
+                  "query": [
+                    {
+                      "key": "boardCode",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Edgebands",
+          "item": [
+            {
+              "name": "Delete edgebands",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/edgebands?edgebandCode=",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands"
+                  ],
+                  "query": [
+                    {
+                      "key": "edgebandCode",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "BoardTypeAllocations",
+          "item": [
+            {
+              "name": "Delete board type allocations",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/materials/boards/allocations?allocationNames=Q3-2025-Allocation",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "boards",
+                    "allocations"
+                  ],
+                  "query": [
+                    {
+                      "key": "allocationNames",
+                      "value": "Q3-2025-Allocation"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "EdgebandTypeAllocations",
+          "item": [
+            {
+              "name": "Delete by properties",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{  \r\n  \"customer\": \"Customer\",\r\n  \"edgebandCode\": \"ABS_Bronze_0.80_28.0_HM\",\r\n  \"order\": \"Order\",\r\n  \"project\": \"Project\"\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHostINT}}/api/materialManager/materials/edgebands/allocations",
+                  "host": [
+                    "{{ConnectHostINT}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "materials",
+                    "edgebands",
+                    "allocations"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "",
+                      "description": "int",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Surfaces",
+      "item": [
+        {
+          "name": "Textures",
+          "item": [
+            {
+              "name": "Get Texture By Id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures/byId?id=egger_f187_st9",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures",
+                    "byId"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "egger_f187_st9",
+                      "description": "The texture identifier"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Textures",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?pageSize=100",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100",
+                      "description": "Page size (1-100, default 100)"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": null,
+                      "description": "Continuation token for pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Textures By Catalog",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?catalog=egger&pageSize=100",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures"
+                  ],
+                  "query": [
+                    {
+                      "key": "catalog",
+                      "value": "egger",
+                      "description": "Filter by catalog"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100",
+                      "description": "Page size (1-100, default 100)"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": null,
+                      "description": "Continuation token for pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Textures By Catalog and DecorCode",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?catalog=egger&decorCode=f187&pageSize=100",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures"
+                  ],
+                  "query": [
+                    {
+                      "key": "catalog",
+                      "value": "egger",
+                      "description": "Filter by catalog"
+                    },
+                    {
+                      "key": "decorCode",
+                      "value": "f187",
+                      "description": "Filter by decor code (requires catalog)"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100",
+                      "description": "Page size (1-100, default 100)"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": null,
+                      "description": "Continuation token for pagination",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Import Single Texture",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"material\": {\r\n    \"externalIdentifier\": \"TD001_ST9\",\r\n    \"version\": 0,\r\n    \"id\": \"test-catalog:TD001_ST9\",\r\n    \"shading\": {\r\n      \"version\": \"2.0.0\",\r\n      \"alpha\": 1.0,\r\n      \"alphaCutoff\": 0,\r\n      \"alphaMode\": \"OPAQUE\",\r\n      \"basecolor\": {\r\n        \"r\": 1.0,\r\n        \"g\": 1.0,\r\n        \"b\": 1.0\r\n      },\r\n      \"transmission\": 0.0,\r\n      \"transmissionIOR\": 1.45,\r\n      \"metallic\": 0.0,\r\n      \"roughness\": 0.38,\r\n      \"doubleSided\": true,\r\n      \"occlusion\": 0,\r\n      \"emissiveColor\": {\r\n        \"r\": 0.0,\r\n        \"g\": 0.0,\r\n        \"b\": 0.0\r\n      },\r\n      \"emissiveIntensity\": 1.0,\r\n      \"clearcoatIntensity\": 0.0,\r\n      \"clearcoatRoughness\": 0.0,\r\n      \"clearcoatNormalScale\": 0.0,\r\n      \"sheenColor\": {\r\n        \"r\": 0,\r\n        \"g\": 0,\r\n        \"b\": 0\r\n      },\r\n      \"sheenIntensity\": 0.0,\r\n      \"sheenRoughness\": 0.65,\r\n      \"normalScale\": 1.0,\r\n      \"thicknessFactor\": 0.0,\r\n      \"attenuationColor\": {\r\n        \"r\": 0,\r\n        \"g\": 0,\r\n        \"b\": 0\r\n      },\r\n      \"attenuationDistance\": 0.0\r\n    },\r\n    \"thumbnail\": \"https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/materials/u999_st7/thumbnail.png?marker=1740061654\",\r\n    \"textureObjects\": [\r\n      {\r\n        \"id\": 99001,\r\n        \"material\": \"test-catalog:TD001_ST9\",\r\n        \"image\": \"https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/49123/image.png?marker=1739838494\",\r\n        \"height\": 0,\r\n        \"width\": 0,\r\n        \"mmHeight\": 200,\r\n        \"mmWidth\": 200,\r\n        \"qualityLevel\": 0,\r\n        \"tileable\": true,\r\n        \"created\": \"2025-01-21T10:00:00.000Z\",\r\n        \"updated\": \"2025-01-21T10:00:00.000Z\",\r\n        \"definition\": {\r\n          \"height\": 0,\r\n          \"width\": 0,\r\n          \"mmHeight\": 200,\r\n          \"mmWidth\": 200,\r\n          \"tileable\": true,\r\n          \"mapping\": \"RGBA\"\r\n        },\r\n        \"mapping\": \"RGBA\",\r\n        \"url\": \"https://catalog.roomle.com/f309ee59-ce3a-4a81-8c32-f75ee6a8a46e/textures/49123/image.png?marker=1739838494\",\r\n        \"assets\": {}\r\n      }\r\n    ],\r\n    \"textures\": [ 99001 ],\r\n    \"tags\": [ \"test\", \"import\" ],\r\n    \"label\": \"Test Delete Material TD001 ST9\",\r\n    \"language\": \"en\",\r\n    \"catalog\": \"test-catalog\",\r\n    \"links\": {\r\n      \"textures\": \"/materials/test-catalog:TD001_ST9/textures\"\r\n    },\r\n    \"hidden\": false,\r\n    \"visibilityStatus\": 0,\r\n    \"active\": true,\r\n    \"created\": \"2025-01-21T10:00:00.000Z\",\r\n    \"updated\": \"2025-01-21T10:00:00.000Z\",\r\n    \"additionalInfos\": []\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures/import",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures",
+                    "import"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Import Batch Textures",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"materials\": [\r\n    {\r\n      \"externalIdentifier\": \"TD001_ST9\",\r\n      \"version\": 0,\r\n      \"id\": \"test-catalog-a:TD001_ST9\",\r\n      \"label\": \"Test Material A TD001 ST9\",\r\n      \"language\": \"en\",\r\n      \"catalog\": \"test-catalog-a\",\r\n      \"tags\": [ \"test\", \"retrieval\" ],\r\n      \"thumbnail\": null,\r\n      \"textureObjects\": [],\r\n      \"textures\": [],\r\n      \"shading\": {\r\n        \"version\": \"2.0.0\",\r\n        \"alpha\": 1.0,\r\n        \"alphaCutoff\": 0,\r\n        \"alphaMode\": \"OPAQUE\",\r\n        \"basecolor\": {\"r\": 1.0, \"g\": 1.0, \"b\": 1.0},\r\n        \"transmission\": 0.0,\r\n        \"transmissionIOR\": 1.45,\r\n        \"metallic\": 0.0,\r\n        \"roughness\": 0.38,\r\n        \"doubleSided\": true,\r\n        \"occlusion\": 0,\r\n        \"emissiveColor\": {\"r\": 0.0, \"g\": 0.0, \"b\": 0.0},\r\n        \"emissiveIntensity\": 1.0,\r\n        \"clearcoatIntensity\": 0.0,\r\n        \"clearcoatRoughness\": 0.0,\r\n        \"clearcoatNormalScale\": 0.0,\r\n        \"sheenColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"sheenIntensity\": 0.0,\r\n        \"sheenRoughness\": 0.65,\r\n        \"normalScale\": 1.0,\r\n        \"thicknessFactor\": 0.0,\r\n        \"attenuationColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"attenuationDistance\": 0.0\r\n      },\r\n      \"hidden\": false,\r\n      \"visibilityStatus\": 0,\r\n      \"active\": true,\r\n      \"created\": \"2025-01-21T10:00:00.000Z\",\r\n      \"updated\": \"2025-01-21T10:00:00.000Z\"\r\n    },\r\n    {\r\n      \"externalIdentifier\": \"TD002_ST9\",\r\n      \"version\": 0,\r\n      \"id\": \"test-catalog-a:TD002_ST9\",\r\n      \"label\": \"Test Material A TD002 ST9\",\r\n      \"language\": \"en\",\r\n      \"catalog\": \"test-catalog-a\",\r\n      \"tags\": [ \"test\", \"retrieval\" ],\r\n      \"thumbnail\": null,\r\n      \"textureObjects\": [],\r\n      \"textures\": [],\r\n      \"shading\": {\r\n        \"version\": \"2.0.0\",\r\n        \"alpha\": 1.0,\r\n        \"alphaCutoff\": 0,\r\n        \"alphaMode\": \"OPAQUE\",\r\n        \"basecolor\": {\"r\": 1.0, \"g\": 1.0, \"b\": 1.0},\r\n        \"transmission\": 0.0,\r\n        \"transmissionIOR\": 1.45,\r\n        \"metallic\": 0.0,\r\n        \"roughness\": 0.38,\r\n        \"doubleSided\": true,\r\n        \"occlusion\": 0,\r\n        \"emissiveColor\": {\"r\": 0.0, \"g\": 0.0, \"b\": 0.0},\r\n        \"emissiveIntensity\": 1.0,\r\n        \"clearcoatIntensity\": 0.0,\r\n        \"clearcoatRoughness\": 0.0,\r\n        \"clearcoatNormalScale\": 0.0,\r\n        \"sheenColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"sheenIntensity\": 0.0,\r\n        \"sheenRoughness\": 0.65,\r\n        \"normalScale\": 1.0,\r\n        \"thicknessFactor\": 0.0,\r\n        \"attenuationColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"attenuationDistance\": 0.0\r\n      },\r\n      \"hidden\": false,\r\n      \"visibilityStatus\": 0,\r\n      \"active\": true,\r\n      \"created\": \"2025-01-21T10:00:00.000Z\",\r\n      \"updated\": \"2025-01-21T10:00:00.000Z\"\r\n    },\r\n    {\r\n      \"externalIdentifier\": \"TD003_ST9\",\r\n      \"version\": 0,\r\n      \"id\": \"test-catalog-b:TD003_ST9\",\r\n      \"label\": \"Test Material B TD003 ST9\",\r\n      \"language\": \"en\",\r\n      \"catalog\": \"test-catalog-b\",\r\n      \"tags\": [ \"test\", \"retrieval\" ],\r\n      \"thumbnail\": null,\r\n      \"textureObjects\": [],\r\n      \"textures\": [],\r\n      \"shading\": {\r\n        \"version\": \"2.0.0\",\r\n        \"alpha\": 1.0,\r\n        \"alphaCutoff\": 0,\r\n        \"alphaMode\": \"OPAQUE\",\r\n        \"basecolor\": {\"r\": 1.0, \"g\": 1.0, \"b\": 1.0},\r\n        \"transmission\": 0.0,\r\n        \"transmissionIOR\": 1.45,\r\n        \"metallic\": 0.0,\r\n        \"roughness\": 0.38,\r\n        \"doubleSided\": true,\r\n        \"occlusion\": 0,\r\n        \"emissiveColor\": {\"r\": 0.0, \"g\": 0.0, \"b\": 0.0},\r\n        \"emissiveIntensity\": 1.0,\r\n        \"clearcoatIntensity\": 0.0,\r\n        \"clearcoatRoughness\": 0.0,\r\n        \"clearcoatNormalScale\": 0.0,\r\n        \"sheenColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"sheenIntensity\": 0.0,\r\n        \"sheenRoughness\": 0.65,\r\n        \"normalScale\": 1.0,\r\n        \"thicknessFactor\": 0.0,\r\n        \"attenuationColor\": {\"r\": 0, \"g\": 0, \"b\": 0},\r\n        \"attenuationDistance\": 0.0\r\n      },\r\n      \"hidden\": false,\r\n      \"visibilityStatus\": 0,\r\n      \"active\": true,\r\n      \"created\": \"2025-01-21T10:00:00.000Z\",\r\n      \"updated\": \"2025-01-21T10:00:00.000Z\"\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures/import/batch",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures",
+                    "import",
+                    "batch"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Texture",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{ConnectHost}}/api/materialManager/surfaces/textures?id=egger_f187_st9",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "materialManager",
+                    "surfaces",
+                    "textures"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "egger_f187_st9",
+                      "description": "The texture ID to delete"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Catalog",
+      "item": [
+        {
+          "name": "Get Tadamo Boards Simple",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"search\": \"*\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectedHostLocalHost}}/api/materialManager/materials/boards/catalog?take=5",
+              "host": [
+                "{{ConnectedHostLocalHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "boards",
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "skip",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "take",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tadamo Edgebands Simple",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"search\": \"*\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectedHostLocalHost}}/api/materialManager/materials/edgebands/catalog?take=5",
+              "host": [
+                "{{ConnectedHostLocalHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "edgebands",
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "skip",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "take",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tadamo Boards Complex",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"search\": \"egger\",\r\n  \"locale\": \"de-DE\",\r\n  \"payloadFilters\": [\r\n      {\r\n         \"parameterName\": \"material.manufacturerInformation.articleNo.value\",\r\n         \"value\": \"923566\",\r\n         \"operation\": \"equal\",\r\n         \"payloadType\": \"masterdata\"\r\n      },\r\n      {\r\n         \"parameterName\": \"material.identification.materialId.value\",\r\n         \"value\": \"9008676942816\",\r\n         \"operation\": \"equal\",\r\n         \"payloadType\": \"masterdata\"\r\n      }\r\n   ],\r\n   \"LogicalOperator\": \"LogicalOperator.Or\",\r\n   \"orderBy\": [      \r\n        {\r\n          \"field\": \"articleNumber\",\r\n          \"sortingType\": \"desc\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectedHostLocalHost}}/api/materialManager/materials/boards/catalog?take=5",
+              "host": [
+                "{{ConnectedHostLocalHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "materials",
+                "boards",
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "take",
+                  "value": "5",
+                  "description": "Max. 1000 boards at once"
+                },
+                {
+                  "key": "skip",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tadamo Edgebands Complex",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"search\": \"egger\",\r\n  \"locale\": \"de-DE\",\r\n  \"payloadFilters\": [\r\n      {\r\n         \"parameterName\": \"material.manufacturerInformation.articleNo.value\",\r\n         \"value\": \"923566\",\r\n         \"operation\": \"equal\",\r\n         \"payloadType\": \"masterdata\"\r\n      },\r\n      {\r\n         \"parameterName\": \"material.identification.materialId.value\",\r\n         \"value\": \"9008676942816\",\r\n         \"operation\": \"equal\",\r\n         \"payloadType\": \"masterdata\"\r\n      }\r\n   ],\r\n   \"LogicalOperator\": \"LogicalOperator.Or\",\r\n   \"orderBy\": [      \r\n        {\r\n          \"field\": \"articleNumber\",\r\n          \"sortingType\": \"desc\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ConnectedHostLocalHost}}/api/materialManager/edgebands/boards/catalog?take=5",
+              "host": [
+                "{{ConnectedHostLocalHost}}"
+              ],
+              "path": [
+                "api",
+                "materialManager",
+                "edgebands",
+                "boards",
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "take",
+                  "value": "5",
+                  "description": "Max. 1000 boards at once"
+                },
+                {
+                  "key": "skip",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "password",
+        "value": "{{ConnectPassword}}",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "{{ConnectUserName}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
 }
