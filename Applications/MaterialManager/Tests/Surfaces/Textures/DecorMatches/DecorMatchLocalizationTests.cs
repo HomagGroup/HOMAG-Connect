@@ -55,6 +55,12 @@ public class DecorMatchLocalizationTests
 
         propertyDisplayNames[nameof(DecorMatchCandidate.LocalizedName)].ShouldBe("Bezeichnung",
             "because LocalizedName should be localized as 'Bezeichnung' in German");
+        propertyDisplayNames[nameof(DecorMatchCandidate.DecorName)].ShouldBe("Dekorname",
+            "because DecorName should be localized as 'Dekorname' in German");
+        propertyDisplayNames[nameof(DecorMatchCandidate.Catalog)].ShouldBe("Katalog",
+            "because Catalog should be localized as 'Katalog' in German");
+        propertyDisplayNames[nameof(DecorMatchCandidate.Embossing)].ShouldBe("Prägestruktur",
+            "because Embossing should be localized as 'Prägestruktur' in German");
 
         propertyDisplayNames.Trace();
     }
@@ -68,6 +74,9 @@ public class DecorMatchLocalizationTests
         var candidate = new DecorMatchCandidate
         {
             DecorId = "dec-001",
+            DecorName = "dec-001",
+            Catalog = "egger",
+            Embossing = "ST7",
             LocalizedName = "Weiß",
             TextureUri = new Uri("https://example.com/textures/dec-001"),
             ConfidenceScore = 0.95,
@@ -83,6 +92,12 @@ public class DecorMatchLocalizationTests
         localizedJson.ShouldNotBeNullOrWhiteSpace();
         Assert.IsTrue(localizedJson.Contains("Bezeichnung"),
             "because LocalizedName should be serialized with the German property name");
+        Assert.IsTrue(localizedJson.Contains("Dekorname"),
+            "because DecorName should be serialized with the German property name");
+        Assert.IsTrue(localizedJson.Contains("Katalog"),
+            "because Catalog should be serialized with the German property name");
+        Assert.IsTrue(localizedJson.Contains("Prägestruktur"),
+            "because Embossing should be serialized with the German property name");
 
         localizedJson.Trace();
     }
