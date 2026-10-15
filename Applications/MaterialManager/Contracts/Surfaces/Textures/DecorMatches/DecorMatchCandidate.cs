@@ -24,7 +24,7 @@ public class DecorMatchCandidate : ISupportsLocalizedSerialization, ISupportsAdd
     public string DecorId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the name of the decor.
+    /// Gets or sets the decor.
     /// </summary>
     /// <example>dec-001</example>
     [JsonProperty(Order = 2)]
