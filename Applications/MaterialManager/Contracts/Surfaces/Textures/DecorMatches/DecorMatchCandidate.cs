@@ -33,7 +33,7 @@ public class DecorMatchCandidate : ISupportsLocalizedSerialization, ISupportsAdd
     public string DecorCode { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the name of the decor.
+    /// Gets or sets the name of the catalog.
     /// </summary>
     /// <example>catalog</example>
     [JsonProperty(Order = 3)]
@@ -42,7 +42,7 @@ public class DecorMatchCandidate : ISupportsLocalizedSerialization, ISupportsAdd
     public string Catalog { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the name of the decor.
+    /// Gets or sets the embossing of the decor.
     /// </summary>
     /// <example>sand</example>
     [JsonProperty(Order = 4)]
