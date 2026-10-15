@@ -29,8 +29,8 @@ public class DecorMatchCandidate : ISupportsLocalizedSerialization, ISupportsAdd
     /// <example>dec-001</example>
     [JsonProperty(Order = 2)]
     [Required]
-    [Display(ResourceType = typeof(DecorMatchDisplayNames), Name = nameof(DecorName))]
-    public string DecorName { get; set; } = string.Empty;
+    [Display(ResourceType = typeof(DecorMatchDisplayNames), Name = nameof(DecorCode))]
+    public string DecorCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the name of the decor.
