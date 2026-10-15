@@ -81,7 +81,7 @@ namespace HomagConnect.OrderManager.Samples.ConfigurationDataManagement.Actions
                         Cells =
                         [
                             new CustomTableCell { ColumnId = "Name", Value = "Row 1" },
-                            new CustomTableCell { ColumnId = "Width", Value = 100 }
+                            new CustomTableCell { ColumnId = "Width", Value = "100" }
                         ]
                     },
                     new CustomTableRow
@@ -91,7 +91,7 @@ namespace HomagConnect.OrderManager.Samples.ConfigurationDataManagement.Actions
                         Cells =
                         [
                             new CustomTableCell { ColumnId = "Name", Value = "Row 2" },
-                            new CustomTableCell { ColumnId = "Width", Value = 200 }
+                            new CustomTableCell { ColumnId = "Width", Value = "200" }
                         ]
                     }
                 ]
