@@ -18,10 +18,10 @@
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="JsonSubTypes" Version="2.2.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-		<PackageReference Include="System.Linq.Async" Version="7.0.1" />
+		<PackageReference Include="JsonSubTypes" />
+		<PackageReference Include="Newtonsoft.Json" />
+		<PackageReference Include="System.ComponentModel.Annotations" />
+		<PackageReference Include="System.Linq.Async" />
 	</ItemGroup>
 
 	<ItemGroup>
