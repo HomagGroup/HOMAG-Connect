@@ -13,6 +13,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 /// </summary>
 [TestClass]
 [DeploymentTest("IntelliDivide.Requests.Cutting.ProjectZip")]
+[TemporaryDisabledOnServer(2026, 10, 31, "DF-Optimization")]
 public class CuttingOptimizationRequestUsingProjectZipTests : IntelliDivideTestBase
 {
     /// <summary />
