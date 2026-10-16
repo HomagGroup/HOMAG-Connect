@@ -5,11 +5,13 @@
 - Second general instruction
 - Use absolute URLs for links.
 - Use structured developer-friendly Bruno docs with action-oriented headlines, purpose, parameter tables, examples, error codes, and runnable C# and PowerShell samples. Ensure links are absolute GitHub type links. Avoid using the term 'gateway' and do not reference IIntelliDivideClient.
+- Write new neutral `.resx` resource values in German; they are the source text for the repository's translation process.
 
 ## Code Style
 - Use specific formatting rules
 - Follow naming conventions, including using a leading underscore for private fields in this codebase/workspace and for static readonly fields (e.g., _fieldName).
 - Use `/// <inheritdoc />` for properties derived from an interface or base class instead of duplicating documentation when documenting contracts.
+- Write XML documentation for API properties from the API consumer's perspective: explain what value the property contains or what the consumer should provide, including relevant constraints. Avoid implementation-focused phrases such as "Gets or sets".
 - When implementing deserialization-only private setters, prefer a StyleCop- and ReSharper-compatible implementation instead of an empty setter body.
 - Use Newtonsoft.Json instead of System.Text.Json in this codebase when working on JSON serialization/deserialization.
 
