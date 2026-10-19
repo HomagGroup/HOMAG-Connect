@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="MSTest.TestFramework" />
-    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
   <ItemGroup>

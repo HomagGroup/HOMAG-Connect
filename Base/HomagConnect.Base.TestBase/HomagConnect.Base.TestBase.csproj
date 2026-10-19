@@ -17,9 +17,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Shouldly" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration" />
 	  <PackageReference Include="MSTest.TestFramework" />
-	  <PackageReference Include="Newtonsoft.Json" />
 	  <PackageReference Include="System.Configuration.ConfigurationManager" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
