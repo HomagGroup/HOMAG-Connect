@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
@@ -81,4 +82,18 @@ public interface IMaterialManagerClientTextures
     /// <param name="materials">The Roomle materials collection.</param>
     /// <returns>The resulting textures.</returns>
     Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials);
+
+    /// <summary>
+    /// Searches for decor candidates matching a board type.
+    /// </summary>
+    /// <param name="request">The board decor match search request.</param>
+    /// <returns>The matching decor candidates.</returns>
+    Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request);
+
+    /// <summary>
+    /// Searches for decor candidates matching an edgeband type.
+    /// </summary>
+    /// <param name="request">The edgeband decor match search request.</param>
+    /// <returns>The matching decor candidates.</returns>
+    Task<DecorMatchSearchResponse> SearchBoardDecors(EdgebandTypeDecorMatchSearchRequest request);
 }

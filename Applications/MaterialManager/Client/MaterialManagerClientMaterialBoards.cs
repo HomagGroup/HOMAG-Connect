@@ -39,7 +39,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
     private const string _AvailibilityCheckRoute = _GatewayMaterialRoutePrefix + "/storage/availabilityCheck";
     private const string _GatewayDeleteRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
-    private const string _DecorMatchSearchRoute = _BaseRoute + "/decormatches/search";
     private const string _ExternalSystemId = "externalSystemId";
 
     #endregion
@@ -795,31 +794,5 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #endregion
 
-    #region decor
-    /// <inheritdoc />
-    public async Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
-    {
-        if (request == null)
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
-
-        ValidateRequiredProperties(request);
-
-        var payload = JsonConvert.SerializeObject(request, SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PostObject(new Uri(_DecorMatchSearchRoute, UriKind.Relative), content);
-
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<DecorMatchSearchResponse>(responseContent, SerializerSettings.Default);
-
-        if (result != null)
-        {
-            return result;
-        }
-
-        throw new Exception($"The returned object is not of type {nameof(DecorMatchSearchResponse)}");
-    }
-    #endregion
 
 }

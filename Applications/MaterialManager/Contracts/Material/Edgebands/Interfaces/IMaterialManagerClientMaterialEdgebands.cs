@@ -125,13 +125,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         Task<IEnumerable<EdgebandTypeDetails?>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
         /// <summary>
-        /// Searches for decor candidates matching an edgeband type.
-        /// </summary>
-        /// <param name="request">The edgeband decor match search request.</param>
-        /// <returns>The matching decor candidates.</returns>
-        Task<DecorMatchSearchResponse> SearchBoardDecors(EdgebandTypeDecorMatchSearchRequest request);
-
-        /// <summary>
         /// Gets all edgebands including details.
         /// </summary>
         Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesIncludingDetails(int take, int skip = 0);

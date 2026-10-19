@@ -1,8 +1,7 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
-using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
-using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 
 namespace HomagConnect.MaterialManager.Samples.Surfaces.Textures;
@@ -16,7 +15,7 @@ public static class DecorMatchSamples
     /// Searches for decors matching a board type.
     /// </summary>
     public static async Task SearchBoardDecors(
-        IMaterialManagerClientMaterialBoards materialManagerClient,
+        IMaterialManagerClientTextures materialManagerClient,
         BoardType boardType)
     {
         var result = await materialManagerClient.SearchBoardDecors(
@@ -29,7 +28,7 @@ public static class DecorMatchSamples
     /// Searches for decors matching an edgeband type.
     /// </summary>
     public static async Task SearchEdgebandDecors(
-        IMaterialManagerClientMaterialEdgebands materialManagerClient,
+        IMaterialManagerClientTextures materialManagerClient,
         EdgebandType edgebandType)
     {
         var result = await materialManagerClient.SearchBoardDecors(

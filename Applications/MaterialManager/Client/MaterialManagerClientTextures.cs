@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using HomagConnect.Base.Client;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 namespace HomagConnect.MaterialManager.Client;
@@ -14,6 +15,7 @@ namespace HomagConnect.MaterialManager.Client;
 public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientTextures
 {
     private const string _BaseRoute = "api/materialManager/surfaces/textures";
+    private const string _DecorSearchRoute = "/api/catalogs/decors/search";
 
     /// <inheritdoc />
     public MaterialManagerClientTextures(HttpClient client) : base(client) { }
@@ -110,6 +112,29 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
             new Uri($"{_BaseRoute}/import/batch", UriKind.Relative), materials);
 
         return texture;
+    }
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchBoardDecors(EdgebandTypeDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        ValidateRequiredProperties(request);
+
+        var result = await PostObject<DecorMatchSearchRequest, DecorMatchSearchResponse>(
+            new Uri(_DecorSearchRoute, UriKind.Relative), request);
+
+        return result ?? new DecorMatchSearchResponse();
     }
 
     /// <inheritdoc />

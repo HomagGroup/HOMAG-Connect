@@ -123,13 +123,6 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task<IEnumerable<BoardType>?> GetBoardTypesByMaterialCode(string materialCode);
 
         /// <summary>
-        /// Searches for decor candidates matching a board type.
-        /// </summary>
-        /// <param name="request">The board decor match search request.</param>
-        /// <returns>The matching decor candidates.</returns>
-        Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request);
-
-        /// <summary>
         /// Gets the board types by material code including details (inventory, allocation, images).
         /// </summary>
         /// <returns>The board types sorted by <see cref="BoardType.BoardCode" />.</returns>

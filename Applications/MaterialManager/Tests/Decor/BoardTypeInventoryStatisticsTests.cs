@@ -16,12 +16,12 @@ public class BoardDecorTests : MaterialManagerTestBase
 {
     /// <summary />
     [TestMethod]
-    [TemporaryDisabledOnServer(2026, 10, 15, "DF-Insights")]
+    [TemporaryDisabledOnServer(2026, 11, 01, "DF-Insights")]
     public async Task Decor_Search_NoException()
     {
         var materialClient = GetMaterialManagerClient();
 
-        var decors = await materialClient.Material.Boards.SearchBoardDecors(new BoardTypeDecorMatchSearchRequest
+        var decors = await materialClient.Textures.SearchBoardDecors(new BoardTypeDecorMatchSearchRequest
         {
             Material = new BoardType
             {

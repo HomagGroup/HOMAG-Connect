@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Tests.Decor;
 [TestClass]
 [TestCategory("DeploymentTests.MaterialManager")]
 [TestCategory("DeploymentTests.MaterialManager.Decor")]
-[TemporaryDisabledOnServer(2026, 10, 15, "DF-Insights")]
+[TemporaryDisabledOnServer(2026, 11, 01, "DF-Insights")]
 public class EdgebandDecorTests : MaterialManagerTestBase
 {
     /// <summary />
@@ -21,7 +21,7 @@ public class EdgebandDecorTests : MaterialManagerTestBase
     {
         var materialClient = GetMaterialManagerClient();
 
-        var decors = await materialClient.Material.Edgebands.SearchBoardDecors(new EdgebandTypeDecorMatchSearchRequest
+        var decors = await materialClient.Textures.SearchBoardDecors(new EdgebandTypeDecorMatchSearchRequest
         {
             Material = new EdgebandType()
             {
