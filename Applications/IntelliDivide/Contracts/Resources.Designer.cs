@@ -68,5 +68,14 @@ namespace HomagConnect.IntelliDivide.Contracts {
                 return ResourceManager.GetString("OptimizationRequestPart_AllowedRotationAngle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Der Name der Optimierung enthält ungültige Zeichen: {0}.
+        /// </summary>
+        public static string OptimizationName_InvalidCharacters {
+            get {
+                return ResourceManager.GetString("OptimizationName_InvalidCharacters", resourceCulture);
+            }
+        }
     }
 }
