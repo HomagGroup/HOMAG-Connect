@@ -20,7 +20,7 @@ public class EdgebandDecorTests : MaterialManagerTestBase
     {
         var materialClient = GetMaterialManagerClient();
 
-        var decors = await materialClient.Textures.SearchBoardDecors(new EdgebandTypeDecorMatchSearchRequest
+        var decors = await materialClient.Textures.SearchEdgebandDecors(new EdgebandTypeDecorMatchSearchRequest
         {
             Material = new EdgebandType()
             {

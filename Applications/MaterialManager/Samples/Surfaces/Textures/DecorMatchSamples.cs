@@ -15,7 +15,7 @@ public static class DecorMatchSamples
     /// Searches for decors matching a board type.
     /// </summary>
     public static async Task SearchBoardDecors(
-        IMaterialManagerClientTextures materialManagerClient,
+        IMaterialManagerClientDecorCatalog materialManagerClient,
         BoardType boardType)
     {
         var result = await materialManagerClient.SearchBoardDecors(
@@ -28,10 +28,10 @@ public static class DecorMatchSamples
     /// Searches for decors matching an edgeband type.
     /// </summary>
     public static async Task SearchEdgebandDecors(
-        IMaterialManagerClientTextures materialManagerClient,
+        IMaterialManagerClientDecorCatalog materialManagerClient,
         EdgebandType edgebandType)
     {
-        var result = await materialManagerClient.SearchBoardDecors(
+        var result = await materialManagerClient.SearchEdgebandDecors(
             DecorMatchSearchRequest.ForEdgeband(edgebandType));
 
         result.Trace();

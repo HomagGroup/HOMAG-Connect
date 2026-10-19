@@ -12,7 +12,7 @@ namespace HomagConnect.MaterialManager.Client;
 /// <summary>
 /// materialManager Client for textures
 /// </summary>
-public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientTextures
+public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientTextures, IMaterialManagerClientDecorCatalog
 {
     private const string _BaseRoute = "api/materialManager/surfaces/textures";
     private const string _DecorSearchRoute = "/api/catalogs/decors/search";
@@ -119,7 +119,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
         => SearchDecors(request);
 
     /// <inheritdoc />
-    public Task<DecorMatchSearchResponse> SearchBoardDecors(EdgebandTypeDecorMatchSearchRequest request)
+    public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
         => SearchDecors(request);
 
     private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
