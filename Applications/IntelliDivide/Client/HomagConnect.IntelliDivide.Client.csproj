@@ -16,10 +16,6 @@
 		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 
-	<ItemGroup Label="Package References">
-		<PackageReference Include="Newtonsoft.Json" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base.Client\HomagConnect.Base.Client.csproj" />
 		<ProjectReference Include="..\..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
