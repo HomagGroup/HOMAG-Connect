@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Client;
+using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -40,6 +40,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _AvailibilityCheckRoute = _GatewayMaterialRoutePrefix + "/storage/availabilityCheck";
     private const string _GatewayDeleteRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
     private const string _DecorMatchSearchRoute = _BaseRoute + "/decormatches/search";
+    private const string _ExternalSystemId = "externalSystemId";
+
     #endregion
 
     #region Import
@@ -465,6 +467,24 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         return boardTypesDetails;
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByExternalSystemId(string externalSystemId, int take, int skip = 0, bool includingDetails = false)
+    {
+        if (string.IsNullOrWhiteSpace(externalSystemId))
+        {
+            throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
+        }
+
+        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+
+        if (includingDetails)
+        {
+            url += $"&{_IncludingDetails}=true";
+        }
+
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
