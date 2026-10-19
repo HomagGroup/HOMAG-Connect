@@ -17,10 +17,6 @@
 	</PropertyGroup>
 
 	<ItemGroup Label="Package References">
-		<PackageReference Include="JsonSubTypes" />
-		<PackageReference Include="Newtonsoft.Json" />
-		<PackageReference Include="System.ComponentModel.Annotations" />
-		<PackageReference Include="System.Linq.Async" />
 	</ItemGroup>
 
 	<ItemGroup>

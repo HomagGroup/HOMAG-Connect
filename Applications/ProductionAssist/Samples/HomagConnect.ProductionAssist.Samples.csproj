@@ -23,8 +23,6 @@
 
 	<ItemGroup Label="Package References">
 		<PackageReference Include="MSTest.TestFramework" />
-		<PackageReference Include="Newtonsoft.Json" />
-		<PackageReference Include="System.Linq.Async" />
 	</ItemGroup>
 
 	<ItemGroup>
