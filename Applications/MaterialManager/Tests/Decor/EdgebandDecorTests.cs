@@ -1,6 +1,5 @@
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
-using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 
