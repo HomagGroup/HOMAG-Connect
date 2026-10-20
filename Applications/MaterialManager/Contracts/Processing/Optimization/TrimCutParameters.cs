@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -16,15 +15,6 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Optimization
     {
         private const double _LengthConstraintMin = 0;
         private const double _LengthConstraintMax = 19999.9;
-
-        /// <summary>
-        /// Gets or sets the minimum trim cut. The value is dependent on the unit system (Metric: mm, Imperial: inch).
-        /// </summary>
-        [JsonProperty(Order = 20)]
-        [Range(_LengthConstraintMin, _LengthConstraintMax)]
-        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-        [Obsolete("This parameter is obsolete and should not be used.")]
-        public double MinimumTrimCut { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum trim cut front. The value is dependent on the unit system (Metric: mm, Imperial: inch).
