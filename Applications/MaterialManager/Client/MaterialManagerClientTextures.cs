@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using HomagConnect.Base.Client;
+﻿using HomagConnect.Base.Client;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -15,7 +14,7 @@ namespace HomagConnect.MaterialManager.Client;
 public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientTextures, IMaterialManagerClientDecorCatalog
 {
     private const string _BaseRoute = "api/materialManager/surfaces/textures";
-    private const string _DecorSearchRoute = "/api/catalogs/decors/search";
+    private const string _DecorSearchRoute = "api/materialManager/catalogs/decors/search";
 
     /// <inheritdoc />
     public MaterialManagerClientTextures(HttpClient client) : base(client) { }
