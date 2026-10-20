@@ -55,12 +55,14 @@ public class OptimizationRequest : OptimizationRequestBase
     private const int _NameMaxLength = 100;
 
     /// <summary>
-    /// Gets or sets the name of the optimization. Must be between 3 and 100 characters.
-    /// If not provided, the name is generated automatically.
+    /// The name to assign to the optimization. Use 3 to 100 characters and do not include
+    /// <c>\</c>, <c>/</c>, <c>:</c>, <c>*</c>, <c>?</c>, <c>"</c>, <c>&lt;</c>, <c>&gt;</c>, or <c>|</c>.
+    /// If omitted, a name is generated automatically.
     /// </summary>
     /// <example>Order_20250120</example>
     [Required]
     [StringLength(_NameMaxLength, MinimumLength = 3)]
+    [ValidOptimizationName]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
