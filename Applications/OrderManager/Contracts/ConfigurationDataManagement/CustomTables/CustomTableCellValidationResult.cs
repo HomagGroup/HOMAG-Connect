@@ -20,7 +20,7 @@ public class CustomTableCellValidationResult
     /// Gets or sets the value that was validated.
     /// </summary>
     [JsonProperty(Order = 20)]
-    public object? Value { get; set; }
+    public string? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the cell value is valid.

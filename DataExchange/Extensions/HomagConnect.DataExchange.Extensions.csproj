@@ -17,10 +17,6 @@
 		<UserSecretsId>bf811064-cb09-447b-9ec3-fec454e41bd5</UserSecretsId>
 	</PropertyGroup>
 
-	<ItemGroup Label="Package References">
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Applications\OrderManager\Contracts\HomagConnect.OrderManager.Contracts.csproj" />
 	  <ProjectReference Include="..\..\Base\HomagConnect.Base\HomagConnect.Base.csproj" />
