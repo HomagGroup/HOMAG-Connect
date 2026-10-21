@@ -88,6 +88,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Usage
         /// <example>Default</example>
         [JsonProperty(Order = 8)]
         [Display(ResourceType = typeof(StatisticsDisplayNames), Name = nameof(StatisticsDisplayNames.OptimizingParameterSet))]
-        public TimeSpan OptimizingParameterSetName { get; set; }
+        public string OptimizingParameterSetName { get; set; }
     }
 }
