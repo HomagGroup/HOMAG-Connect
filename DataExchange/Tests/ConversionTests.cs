@@ -158,7 +158,7 @@ public class ConversionTests
     {
         using var tempDirectory = DisposableTempDirectory.Create();
 
-        var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
+        using var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
         var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive, tempDirectory.DirectoryInfo);
         var projectWrapper = new ProjectWrapper(project);
@@ -193,7 +193,7 @@ public class ConversionTests
     private void ConvertProjectToOrder(FileInfo fileInfo)
     {
         using var tempDirectory = DisposableTempDirectory.Create();
-        var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
+        using var zipArchive = ZipFile.OpenRead(fileInfo.FullName);
 
         var (project, projectFiles) = ProjectPersistenceManager.Load(zipArchive, tempDirectory.DirectoryInfo);
         var projectWrapper = new ProjectWrapper(project);

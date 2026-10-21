@@ -58,7 +58,8 @@ namespace HomagConnect.ProductionManager.Tests.Orders.Import
 
             using var tempDirectory = DisposableTempDirectory.Create();
 
-            var (project, projectFiles) = ProjectPersistenceManager.Load(new ZipArchive(projectZip.OpenRead()), tempDirectory.DirectoryInfo);
+            using var projectZipArchive = new ZipArchive(projectZip.OpenRead());
+            var (project, projectFiles) = ProjectPersistenceManager.Load(projectZipArchive, tempDirectory.DirectoryInfo);
 
             //project.SetSource(source);
             project.SetOrderDate(DateTime.Today + TimeSpan.FromDays(-1));
