@@ -205,6 +205,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Statistics {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameter.
+        /// </summary>
+        public static string OptimizingParameterSet {
+            get {
+                return ResourceManager.GetString("OptimizingParameterSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teile (Fläche).
         /// </summary>
         public static string PartsArea {
