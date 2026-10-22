@@ -42,10 +42,6 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         [JsonProperty(Order = 22)]
         public string? ModuleDescription { get; set; }
 
-        /// <inheritdoc />
-        [JsonProperty(Order = 23)]
-        public string? ModuleImage { get; set; }
-
         /// <summary>
         /// An optional id of the group this module belongs to
         /// </summary>

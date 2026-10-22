@@ -38,10 +38,6 @@ public class Configuration : Base, IConfiguration
     [JsonProperty(Order = 22)]
     public string? ModuleDescription { get; set; }
 
-    /// <inheritdoc />
-    [JsonProperty(Order = 23)]
-    public string? ModuleImage { get; set; }
-
     /// <summary>
     /// The sub-article through which this configuration was added (if any)
     /// </summary>
