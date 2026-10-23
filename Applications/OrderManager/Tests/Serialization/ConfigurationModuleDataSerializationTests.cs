@@ -1,3 +1,4 @@
+﻿using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.OrderManager.Contracts.OrderItems;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,23 +19,54 @@ namespace HomagConnect.OrderManager.Tests.Serialization
             var position = new ConfigurationPosition
             {
                 ModuleId = "shape01",
-                ModuleShortName = "Tall cabinet",
+                ModuleName = "Tall cabinet",
                 ModuleDescription = "Tall cabinet with drop container",
-                ModuleImage = "https://images/shape01.png"
+                SubArticle = new SubArticle
+                {
+                    Id = "subArticle_tallCabinet",
+                    Name = "Tall cabinet",
+                    Description = "Tall cabinet article",
+                    AdditionalData = [
+                        new AdditionalDataEntity
+                        {
+                            Type = AdditionalDataType.Image,
+                            Category = "ArticleImage",
+                            DownloadUri = new Uri("https://images/subArticle_tallCabinet.png")
+                        }
+                    ]
+                },
+                AdditionalData = [
+                    new AdditionalDataEntity
+                    {
+                        Type = AdditionalDataType.Image,
+                        Category = "ModuleImage",
+                        DownloadUri = new Uri("https://images/shape01.png")
+                    }
+                ]
             };
 
             // Act
             var json = JObject.Parse(JsonConvert.SerializeObject(position));
             var names = json.Properties().Select(p => p.Name).ToList();
+            var moduleImage = json["AdditionalData"]?.FirstOrDefault(t => (string?)t["Category"] == "ModuleImage");
+            var subArticle = json["SubArticle"];
+            var articleImage = subArticle?["AdditionalData"]?.FirstOrDefault(t => (string?)t["Category"] == "ArticleImage");
 
             // Assert
-            Assert.AreEqual("Tall cabinet", (string?)json["ModuleShortName"]);
+            Assert.AreEqual("Tall cabinet", (string?)json["ModuleName"]);
             Assert.AreEqual("Tall cabinet with drop container", (string?)json["ModuleDescription"]);
-            Assert.AreEqual("https://images/shape01.png", (string?)json["ModuleImage"]);
-            Assert.IsNull(json["SubArticle"]);
-            Assert.IsTrue(names.IndexOf("ModuleId") < names.IndexOf("ModuleShortName"));
-            Assert.IsTrue(names.IndexOf("ModuleShortName") < names.IndexOf("ModuleDescription"));
-            Assert.IsTrue(names.IndexOf("ModuleDescription") < names.IndexOf("ModuleImage"));
+            Assert.IsNotNull(subArticle);
+            Assert.AreEqual(JTokenType.Object, subArticle.Type);
+            Assert.AreEqual("subArticle_tallCabinet", (string?)subArticle["Id"]);
+            Assert.AreEqual("Tall cabinet", (string?)subArticle["Name"]);
+            Assert.AreEqual("Tall cabinet article", (string?)subArticle["Description"]);
+            Assert.IsNotNull(articleImage);
+            Assert.AreEqual("https://images/subArticle_tallCabinet.png", (string?)articleImage["DownloadUri"]);
+            Assert.IsNotNull(moduleImage);
+            Assert.AreEqual("https://images/shape01.png", (string?)moduleImage["DownloadUri"]);
+            Assert.IsTrue(names.IndexOf("ModuleId") < names.IndexOf("ModuleName"));
+            Assert.IsTrue(names.IndexOf("ModuleName") < names.IndexOf("ModuleDescription"));
+            Assert.IsTrue(names.IndexOf("ModuleDescription") < names.IndexOf("SubArticle"));
         }
 
         [TestMethod]
@@ -44,10 +76,9 @@ namespace HomagConnect.OrderManager.Tests.Serialization
             var configuration = new Configuration
             {
                 ModuleId = "singleDrawer",
-                ModuleShortName = "Drawer",
+                ModuleName = "Drawer",
                 ModuleDescription = "Single drawer",
-                ModuleImage = "https://images/singleDrawer.png",
-                SubArticle = new SubArticle { Id = "subArticle_drawer", Name = "Drawer", Description = "Drawer article", Image = "https://images/drawer.png" }
+                SubArticle = new SubArticle { Id = "subArticle_drawer", Name = "Drawer", Description = "Drawer article" }
             };
 
             // Act
@@ -55,13 +86,11 @@ namespace HomagConnect.OrderManager.Tests.Serialization
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Drawer", result.ModuleShortName);
+            Assert.AreEqual("Drawer", result.ModuleName);
             Assert.AreEqual("Single drawer", result.ModuleDescription);
-            Assert.AreEqual("https://images/singleDrawer.png", result.ModuleImage);
             Assert.AreEqual("subArticle_drawer", result.SubArticle?.Id);
             Assert.AreEqual("Drawer", result.SubArticle?.Name);
             Assert.AreEqual("Drawer article", result.SubArticle?.Description);
-            Assert.AreEqual("https://images/drawer.png", result.SubArticle?.Image);
         }
 
         [TestMethod]
@@ -77,21 +106,19 @@ namespace HomagConnect.OrderManager.Tests.Serialization
             Assert.IsNotNull(result);
             Assert.AreEqual("shape01", result.ModuleId);
             Assert.AreEqual("Position text", result.Description);
-            Assert.IsNull(result.ModuleShortName);
+            Assert.IsNull(result.ModuleName);
             Assert.IsNull(result.ModuleDescription);
-            Assert.IsNull(result.ModuleImage);
         }
 
         [TestMethod]
-        public void Serialize_ConfigurationWithSubArticle_ContainsSubArticleAfterModuleImage()
+        public void Serialize_ConfigurationWithSubArticle_ContainsSubArticleAfterModuleDescription()
         {
             // Arrange
             var configuration = new Configuration
             {
                 ModuleId = "singleDrawer",
-                ModuleShortName = "Drawer",
+                ModuleName = "Drawer",
                 ModuleDescription = "Single drawer",
-                ModuleImage = "https://images/singleDrawer.png",
                 SubArticle = new SubArticle { Id = "subArticle_drawer" }
             };
 
@@ -100,10 +127,9 @@ namespace HomagConnect.OrderManager.Tests.Serialization
             var names = json.Properties().Select(p => p.Name).ToList();
 
             // Assert
-            Assert.IsTrue(names.IndexOf("ModuleId") < names.IndexOf("ModuleShortName"));
-            Assert.IsTrue(names.IndexOf("ModuleShortName") < names.IndexOf("ModuleDescription"));
-            Assert.IsTrue(names.IndexOf("ModuleDescription") < names.IndexOf("ModuleImage"));
-            Assert.IsTrue(names.IndexOf("ModuleImage") < names.IndexOf("SubArticle"));
+            Assert.IsTrue(names.IndexOf("ModuleId") < names.IndexOf("ModuleName"));
+            Assert.IsTrue(names.IndexOf("ModuleName") < names.IndexOf("ModuleDescription"));
+            Assert.IsTrue(names.IndexOf("ModuleDescription") < names.IndexOf("SubArticle"));
             Assert.IsTrue(names.IndexOf("SubArticle") < names.IndexOf("Attributes"));
         }
 
@@ -119,9 +145,8 @@ namespace HomagConnect.OrderManager.Tests.Serialization
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual("singleDrawer", result.ModuleId);
-            Assert.IsNull(result.ModuleShortName);
+            Assert.IsNull(result.ModuleName);
             Assert.IsNull(result.ModuleDescription);
-            Assert.IsNull(result.ModuleImage);
             Assert.IsNull(result.SubArticle);
         }
     }
