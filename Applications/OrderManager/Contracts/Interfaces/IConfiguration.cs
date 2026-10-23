@@ -28,12 +28,6 @@ namespace HomagConnect.OrderManager.Contracts.Interfaces
         string? ModuleDescription { get; set; }
 
         /// <summary>
-        /// The image url of the configuration module
-        /// </summary>
-        [JsonProperty(Order = 23)]
-        string? ModuleImage { get; set; }
-
-        /// <summary>
         /// Contains configuration attributes.
         /// </summary>
         [JsonProperty(Order = 50)]
