@@ -32,7 +32,7 @@ public class Configuration : Base, IConfiguration
 
     /// <inheritdoc />
     [JsonProperty(Order = 21)]
-    public string? ModuleShortName { get; set; }
+    public string? ModuleName { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 22)]
@@ -41,7 +41,7 @@ public class Configuration : Base, IConfiguration
     /// <summary>
     /// The sub-article through which this configuration was added (if any)
     /// </summary>
-    [JsonProperty(Order = 24)]
+    [JsonProperty(Order = 23)]
     public SubArticle? SubArticle { get; set; }
 
     /// <summary>

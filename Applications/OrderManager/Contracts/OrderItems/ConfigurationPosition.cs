@@ -1,6 +1,5 @@
 ﻿using HomagConnect.OrderManager.Contracts.Interfaces;
 using Newtonsoft.Json;
-using System.Collections.ObjectModel;
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
@@ -36,11 +35,17 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
 
         /// <inheritdoc />
         [JsonProperty(Order = 21)]
-        public string? ModuleShortName { get; set; }
+        public string? ModuleName { get; set; }
 
         /// <inheritdoc />
         [JsonProperty(Order = 22)]
         public string? ModuleDescription { get; set; }
+
+        /// <summary>
+        /// The sub-article through which this configuration was added (if any)
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        public SubArticle? SubArticle { get; set; }
 
         /// <summary>
         /// An optional id of the group this module belongs to

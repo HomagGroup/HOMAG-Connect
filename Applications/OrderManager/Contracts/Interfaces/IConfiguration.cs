@@ -16,16 +16,22 @@ namespace HomagConnect.OrderManager.Contracts.Interfaces
         string? ModuleId { get; set; }
 
         /// <summary>
-        /// The localized short name of the configuration module
+        /// The localized name of the configuration module
         /// </summary>
         [JsonProperty(Order = 21)]
-        string? ModuleShortName { get; set; }
+        string? ModuleName { get; set; }
 
         /// <summary>
         /// The localized description of the configuration module
         /// </summary>
         [JsonProperty(Order = 22)]
         string? ModuleDescription { get; set; }
+
+        /// <summary>
+        /// The sub-article through which this configuration was added (if any)
+        /// </summary>
+        [JsonProperty(Order = 23)]
+        public SubArticle? SubArticle { get; set; }
 
         /// <summary>
         /// Contains configuration attributes.
