@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>default</LangVersion>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -10,6 +11,9 @@
 		<Description>Base assembly for all Homag-Connect tests</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
 		<IsPackable>true</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<OutputType>Library</OutputType>
