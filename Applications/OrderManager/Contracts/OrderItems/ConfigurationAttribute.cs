@@ -51,6 +51,12 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     public bool? IsMain { get; set; }
 
     /// <summary>
+    /// Specifies whether the attribute is relevant for the configuration in the point of sale (POS) system.
+    /// If <c>false</c>, the attribute is used internally only.
+    /// </summary>
+    public bool? IsPosRelevant { get; set; }
+
+    /// <summary>
     /// Defines if the attribute is an input value or an output value.
     /// </summary>
     public bool? IsInput { get; set; }
