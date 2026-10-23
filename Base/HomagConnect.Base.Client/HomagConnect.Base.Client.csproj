@@ -11,6 +11,9 @@
 		<Description>Base assembly for all Homag-Connect clients</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Client</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>
