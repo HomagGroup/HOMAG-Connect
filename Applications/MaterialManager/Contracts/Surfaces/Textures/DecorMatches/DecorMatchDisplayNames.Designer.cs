@@ -71,6 +71,15 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Katalog.
+        /// </summary>
+        public static string Catalog {
+            get {
+                return ResourceManager.GetString("Catalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Konfidenzwert.
         /// </summary>
         public static string ConfidenceScore {
@@ -80,11 +89,29 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches 
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dekorcode.
+        /// </summary>
+        public static string DecorCode {
+            get {
+                return ResourceManager.GetString("DecorCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dekor-ID.
         /// </summary>
         public static string DecorId {
             get {
                 return ResourceManager.GetString("DecorId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prägestruktur.
+        /// </summary>
+        public static string Embossing {
+            get {
+                return ResourceManager.GetString("Embossing", resourceCulture);
             }
         }
         

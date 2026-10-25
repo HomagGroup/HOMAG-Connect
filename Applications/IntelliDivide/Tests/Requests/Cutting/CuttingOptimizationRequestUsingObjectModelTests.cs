@@ -13,6 +13,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Cutting;
 /// </summary>
 [TestClass]
 [DeploymentTest("IntelliDivide.Requests.Cutting.ObjectModel", TestPriority.Critical)]
+[TemporaryDisabledOnServer(2026, 10, 31, "DF-Optimization")]
 public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTestBase
 {
     /// <summary />
