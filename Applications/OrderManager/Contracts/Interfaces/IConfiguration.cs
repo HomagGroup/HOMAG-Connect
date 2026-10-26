@@ -7,7 +7,7 @@ namespace HomagConnect.OrderManager.Contracts.Interfaces
     /// <summary>
     /// Basic configuration data
     /// </summary>
-    public interface IConfiguration
+    public interface IConfiguration : IArticle
     {
         /// <summary>
         /// The id of this configuration module
@@ -26,12 +26,6 @@ namespace HomagConnect.OrderManager.Contracts.Interfaces
         /// </summary>
         [JsonProperty(Order = 22)]
         string? ModuleDescription { get; set; }
-
-        /// <summary>
-        /// The sub-article through which this configuration was added (if any)
-        /// </summary>
-        [JsonProperty(Order = 23)]
-        public SubArticle? SubArticle { get; set; }
 
         /// <summary>
         /// Contains configuration attributes.

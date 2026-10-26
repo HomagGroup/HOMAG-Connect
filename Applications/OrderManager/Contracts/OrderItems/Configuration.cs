@@ -38,11 +38,17 @@ public class Configuration : Base, IConfiguration
     [JsonProperty(Order = 22)]
     public string? ModuleDescription { get; set; }
 
-    /// <summary>
-    /// The sub-article through which this configuration was added (if any)
-    /// </summary>
-    [JsonProperty(Order = 23)]
-    public SubArticle? SubArticle { get; set; }
+    /// <inheritdoc />
+    public string? ArticleNumber { get; set; }
+
+    /// <inheritdoc />
+    public string? ArticleName { get; set; }
+
+    /// <inheritdoc />
+    public string? Description { get; set; }
+
+    /// <inheritdoc />
+    public string? ArticleCategory { get; set; }
 
     /// <summary>
     /// Contains configuration attributes.

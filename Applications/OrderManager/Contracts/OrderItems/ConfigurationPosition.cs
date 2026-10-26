@@ -42,12 +42,6 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public string? ModuleDescription { get; set; }
 
         /// <summary>
-        /// The sub-article through which this configuration was added (if any)
-        /// </summary>
-        [JsonProperty(Order = 23)]
-        public SubArticle? SubArticle { get; set; }
-
-        /// <summary>
         /// An optional id of the group this module belongs to
         /// </summary>
         [JsonProperty(Order = 25)]
