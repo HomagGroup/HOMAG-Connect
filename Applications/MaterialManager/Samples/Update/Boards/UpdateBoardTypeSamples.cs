@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
@@ -54,7 +54,7 @@ namespace HomagConnect.MaterialManager.Samples.Update.Boards
                 {
                     new AdditionalDataImage
                     {
-                        Category = "Decor",
+                        Category = nameof(AdditionalDataCategory.Decor),
                         DownloadFileName = additionalDataImage.Reference,
                         DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
                     }
