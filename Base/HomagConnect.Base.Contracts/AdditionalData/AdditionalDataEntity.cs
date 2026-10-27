@@ -40,6 +40,7 @@ public class AdditionalDataEntity
     /// * ThreeDModel (Type=ThreeD) => per group or per position
     /// * ArticleImage (Type=Image) => per position
     /// * AttributeValueImage (Type=Image) => per ConfigurationAttribute
+    /// * ModuleImage (Type=Image) => per module
     /// </remarks>
     [JsonProperty(Order = 1)]
     [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Category))]
