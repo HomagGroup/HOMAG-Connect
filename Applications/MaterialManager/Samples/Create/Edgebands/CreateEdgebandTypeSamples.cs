@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
@@ -52,7 +52,7 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
                 {
                     new AdditionalDataImage
                     {
-                        Category = "Decor",
+                        Category = nameof(AdditionalDataCategory.Decor),
                         DownloadFileName = additionalDataImage.Reference,
                         DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
                     }

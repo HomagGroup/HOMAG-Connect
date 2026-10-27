@@ -41,8 +41,8 @@ public enum AdditionalDataCategory
     /// <summary>
     /// Image of a surface (Type=Image).
     /// </summary>
-    [Display(Description = "Surface image")]
-    SurfaceImage,
+    [Display(Description = "Surface")]
+    Surface,
 
     /// <summary>
     /// Image of a configuration attribute value (Type=Image).
