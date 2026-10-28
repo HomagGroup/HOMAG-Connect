@@ -1,4 +1,4 @@
-﻿using Shouldly;
+using Shouldly;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.MaterialManager.Client;
@@ -14,23 +14,52 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
     [TestCategory("DeploymentTests.MaterialManager.Boards")]
     public class CreateBoardTypeTests : MaterialManagerTestBase
     {
+        private const string _BoardCode = "MDF_H3171_12_11.6_2800.0_1310.0";
+        private const string _BoardCodeWithAdditionalData = "HPL_F274_9_12.0_4100.0_650.01";
+        private const string _BoardCodeWithDecorId = "MDF_H3171_12_19.0_2800.0_1310.0";
+
+        private MaterialManagerClient _MaterialManagerClient = null!;
+
+        /// <summary>
+        /// Initializes the test class.
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            _MaterialManagerClient = GetMaterialManagerClient();
+        }
+
         /// <summary />
         [TestMethod]
         public async Task BoardsCreateBoardType()
         {
-            var materialManagerClient = GetMaterialManagerClient();
             var materialCode = "MDF_H3171_12_11.6";
-            var boardCode = "MDF_H3171_12_11.6_2800.0_1310.0";
-            await CreateBoardTypeSamples.Boards_CreateBoardType(materialManagerClient.Material.Boards, materialCode, boardCode);
+            await CreateBoardTypeSamples.Boards_CreateBoardType(_MaterialManagerClient.Material.Boards, materialCode, _BoardCode);
         }
 
+        /// <summary />
+        [TestMethod]
+        public async Task BoardsCreateBoardType_DecorId()
+        {
+            const string materialCode = "MDF_H3171_12_19.0";
+            const string decorId = "egger:u599_pm";
+
+            var boardType = await CreateBoardTypeSamples.Boards_CreateBoardType_DecorId(
+                _MaterialManagerClient.Material.Boards, materialCode, _BoardCodeWithDecorId, decorId);
+
+            boardType.ShouldNotBeNull();
+            boardType.DecorId.ShouldBe(decorId, "because the decor id passed in the request must be persisted on the board type");
+            boardType.Thumbnail.ShouldNotBeNull();
+        }
+
+        /// <summary>
+        /// The example shows how to create a board type with additional data (e.g., a picture).
+        /// </summary>
         [TestMethod]
         public async Task BoardsCreateBoardType_AdditionalData()
         {
-            var materialManagerClient = GetMaterialManagerClient();
             var materialCode = "HPL_F274_9_12.0";
-            var boardCode = "HPL_F274_9_12.0_4100.0_650.01";
-            await CreateBoardTypeSamples.Boards_CreateBoardType_AdditionalData(materialManagerClient.Material.Boards, materialCode, boardCode);
+            await CreateBoardTypeSamples.Boards_CreateBoardType_AdditionalData(_MaterialManagerClient.Material.Boards, materialCode, _BoardCodeWithAdditionalData);
         }
 
         /// <summary />
@@ -53,24 +82,42 @@ namespace HomagConnect.MaterialManager.Tests.Create.Boards
             await Should.ThrowAsync<ValidationException>(act);
         }
 
-        [ClassCleanup]
-        public static async Task Cleanup()
+
+
+        /// <summary>
+        /// Cleanup method to delete the created board types after the tests have run.
+        /// </summary>
+        [TestCleanup]
+        public async Task Cleanup()
         {
-            var classInstance = new CreateBoardTypeTests();
-            var materialManagerClient = classInstance.GetMaterialManagerClient().Material.Boards;
-            await materialManagerClient.DeleteBoardType("MDF_H3171_12_11.6_2800.0_1310.0");
-            await materialManagerClient.DeleteBoardType("HPL_F274_9_12.0_4100.0_650.01");
+            await DeleteBoardType(_BoardCode);
+            await DeleteBoardType(_BoardCodeWithAdditionalData);
+            await DeleteBoardType(_BoardCodeWithDecorId);
+        }
+
+        private async Task DeleteBoardType(string boardCode)
+        {
+            try
+            {
+                await _MaterialManagerClient.Material.Boards.DeleteBoardType(boardCode);
+            }
+            catch (Exception _)
+            {
+                // ignored
+            }
         }
 
         private static MaterialManagerRequestBoardType CreateBoardTypeRequest(string materialCode, string boardCode, double length, double width,
             double thickness)
         {
-            var boardType = new MaterialManagerRequestBoardType();
-            boardType.MaterialCode = materialCode;
-            boardType.BoardCode = boardCode;
-            boardType.Length = length;
-            boardType.Width = width;
-            boardType.Thickness = thickness;
+            var boardType = new MaterialManagerRequestBoardType
+            {
+                MaterialCode = materialCode,
+                BoardCode = boardCode,
+                Length = length,
+                Width = width,
+                Thickness = thickness
+            };
             return boardType;
         }
     }

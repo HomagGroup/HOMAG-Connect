@@ -2,16 +2,20 @@ using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 
 namespace HomagConnect.MaterialManager.Samples.Create.Boards
 {
+    /// <summary>
+    /// Create boardType samples.
+    /// </summary>
     public class CreateBoardTypeSamples
     {
         /// <summary>
-        /// The example shows how create a boardtype.
+        /// The example shows how create a boardType.
         /// </summary>
         public static async Task Boards_CreateBoardType(IMaterialManagerClientMaterialBoards materialManager, string materialCode, string boardCode)
         {
@@ -35,7 +39,7 @@ namespace HomagConnect.MaterialManager.Samples.Create.Boards
         }
 
         /// <summary>
-        /// The example shows how create a boardtype.
+        /// The example shows how create a boardType with additional data.
         /// </summary>
         public static async Task Boards_CreateBoardType_AdditionalData(
             IMaterialManagerClientMaterialBoards materialManager,
@@ -67,8 +71,41 @@ namespace HomagConnect.MaterialManager.Samples.Create.Boards
                 }
             };
 
-            var result = await materialManager.CreateBoardType(boardTypeRequest, new[] { additionalDataImage });
+            var result = await materialManager.CreateBoardType(boardTypeRequest, [additionalDataImage]);
             result.Trace();
+        }
+
+        /// <summary>
+        /// The example shows how create a boardType including the decor id.
+        /// </summary>
+        public static async Task<BoardType> Boards_CreateBoardType_DecorId(
+            IMaterialManagerClientMaterialBoards materialManager,
+            string materialCode,
+            string boardCode,
+            string decorId)
+        {
+            var boardTypeRequest = new MaterialManagerRequestBoardType
+            {
+                MaterialCode = materialCode,
+                BoardCode = boardCode,
+                Length = 2800.0,
+                Width = 1310.0,
+                Thickness = 19.0,
+                Type = BoardTypeType.Board,
+                MaterialCategory = BoardMaterialCategory.Undefined,
+                CoatingCategory = CoatingCategory.Undefined,
+                Grain = Grain.None,
+                DecorCode = "H3171",
+                DecorName = "Oak Natural",
+
+                // The decor id links the board type to a decor in the decor master data.
+                DecorId = decorId
+            };
+
+            var result = await materialManager.CreateBoardType(boardTypeRequest);
+            result.Trace();
+
+            return result;
         }
     }
 }
