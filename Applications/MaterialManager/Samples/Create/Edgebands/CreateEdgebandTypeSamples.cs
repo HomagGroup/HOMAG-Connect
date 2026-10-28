@@ -1,6 +1,7 @@
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Extensions;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -59,8 +60,37 @@ namespace HomagConnect.MaterialManager.Samples.Create.Edgebands
                 }
             };
 
-            var newEdgebandType = await materialManager.CreateEdgebandType(edgebandTypeRequest, new[] { additionalDataImage });
+            var newEdgebandType = await materialManager.CreateEdgebandType(edgebandTypeRequest, [additionalDataImage]);
             newEdgebandType.Trace();
+        }
+
+        /// <summary>
+        /// The example shows how to create an edgeband type including the decor id.
+        /// </summary>
+        public static async Task<EdgebandType> Edgebands_CreateEdgebandType_DecorId(
+            IMaterialManagerClientMaterialEdgebands materialManager,
+            string edgebandCode,
+            string decorId)
+        {
+            var edgebandTypeRequest = new MaterialManagerRequestEdgebandType
+            {
+                EdgebandCode = edgebandCode,
+                Height = 20,
+                Thickness = 1.0,
+                DefaultLength = 23.0,
+                MaterialCategory = EdgebandMaterialCategory.ABS,
+                Process = EdgebandingProcess.Other,
+                DecorCode = "H3171",
+                DecorName = "Oak Natural",
+
+                // The decor id links the edgeband type to the same decor as the matching board type.
+                DecorId = decorId
+            };
+
+            var newEdgebandType = await materialManager.CreateEdgebandType(edgebandTypeRequest);
+            newEdgebandType.Trace();
+
+            return newEdgebandType;
         }
 
         /// <summary>
