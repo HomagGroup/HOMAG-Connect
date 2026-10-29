@@ -27,7 +27,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// The date and time when this specific board type was most recently used, tracked separately from when its shared material group was last used.
         /// </summary>
-        /// <example>4/1/2025 8:30 AM</example>
+        /// <example>2025-04-01T08:30:00+00:00</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LastUsed))]
         [JsonProperty(Order = 90)]
         [DataType(DataType.Date)]
@@ -105,7 +105,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Date and time when the shared material group was most recently used.
         /// </summary>
-        /// <example>4/1/2025 8:30 AM</example>
+        /// <example>2025-04-01T08:30:00+00:00</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_MaterialLastUsed))]
         [JsonProperty(Order = 15)]
         [DisplayFormat(DataFormatString = "{0:g}")]

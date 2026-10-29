@@ -25,8 +25,8 @@ Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `B
 ### Examples
 - Add a class-level `<example>` for every class. Add property-level examples when they clarify the property's wire value; avoid redundant or misleading examples, especially for complex properties.
 - Enum examples must use an actual enum member name as serialized by the JSON converter, never a display label or invented business term.
+- `DateTimeOffset` examples must use ISO 8601 wire format, including an offset when applicable, even when the property has `[DisplayFormat]`. `[DisplayFormat]` affects presentation and does not replace the serialized example format.
 - Class examples must be valid JSON using the actual wire names (camelCase unless `[JsonProperty(Name)]` specifies otherwise). Include required properties, existing members only, and values with matching types and formats, such as ISO 8601 dates and numeric JSON numbers.
-- For properties with `[DisplayFormat]`, make the property-level example match that display format. For culture-sensitive formats, use a consistent culture and identify it when needed. Keep class-level JSON examples in the actual serialized wire format rather than replacing it with a presentation-only format.
 - Keep examples consistent: use the same board, order, or code across the class example and its property examples.
 
 ### Constraints and defaults
