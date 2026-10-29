@@ -99,5 +99,29 @@ namespace HomagConnect.MaterialManager.Samples.Read.Edgebands
             var edgebands = await materialManager.GetEdgebandTypesByExternalSystemId(externalSystemId, 6, includingDetails: true);
             return edgebands;
         }
+
+        /// <summary>
+        /// Get edgeband types from the Tadamo catalog.
+        /// </summary>
+        public static async Task<IEnumerable<EdgebandType>?> Edgebands_GetEdgebandTypesFromCatalog(IMaterialManagerClientMaterialEdgebands materialManager)
+        {
+            // Browse the Tadamo catalog using paging (take / skip):
+            var edgebandTypes = await materialManager.GetEdgebandTypesFromCatalog(6);
+            return edgebandTypes;
+        }
+
+        /// <summary>
+        /// Get edgeband types from the Tadamo catalog using optional filters.
+        /// </summary>
+        public static async Task<IEnumerable<EdgebandType>?> Edgebands_GetEdgebandTypesFromCatalogFiltered(IMaterialManagerClientMaterialEdgebands materialManager)
+        {
+            // Filter the Tadamo catalog by manufacturer and decor code (all optional, exact match):
+            var edgebandTypes = await materialManager.GetEdgebandTypesFromCatalog(
+                6,
+                skip: 0,
+                manufacturers: ["Egger"],
+                decorCode: "H3359");
+            return edgebandTypes;
+        }
     }
 }
