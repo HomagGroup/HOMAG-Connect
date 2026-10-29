@@ -14,11 +14,10 @@ using System.Diagnostics;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards
 {
     /// <summary>
-    /// A board type represents a specific sheet material format managed in materialManager, such as a stock sheet or offcut, and is identified separately from its shared material group.
-    /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
+    /// A board type identifies a specific sheet format or offcut and is distinct from its shared material group.
     /// </summary>
     /// <example>
-    /// { "boardCode": "P2_Gold_Craft_Oak_19.0_2800_2070", "materialCode": "P2_Gold_Craft_Oak_19.0", "thickness": 19.0, "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board", "manufacturerName": "Egger", "productName": "Gold Craft Oak", "decorName": "f004", "embossingTop": "st07", "totalQuantityInInventory": 12, "unitSystem": "Metric" }
+    /// { "boardCode": "P2_Gold_Craft_Oak_19.0_2800_2070", "materialCode": "P2_Gold_Craft_Oak_19.0", "thickness": 19.0, "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0, "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board", "manufacturerName": "Egger", "productName": "Gold Craft Oak", "decorName": "f004", "embossingTop": "st07", "totalQuantityInInventory": 12, "totalQuantityAllocated": 3, "totalQuantityAvailableWarningLimit": 16, "insufficientInventory": true, "unitSystem": "Metric" }
     /// </example>
     [DebuggerDisplay("{BoardCode}")]
     public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties
@@ -28,7 +27,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// The date and time when this specific board type was most recently used, tracked separately from when its shared material group was last used.
         /// </summary>
-        /// <example>2025-04-01T08:30:00+00:00</example>
+        /// <example>4/1/2025 8:30 AM</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LastUsed))]
         [JsonProperty(Order = 90)]
         [DataType(DataType.Date)]
@@ -66,7 +65,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public string MaterialCode { get; set; } = string.Empty;
 
         /// <summary>
-        /// Thickness of the board.
+        /// Thickness of the board. When omitted, the thickness is unknown.
         /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
         /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
         /// </summary>
@@ -77,16 +76,16 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public double? Thickness { get; set; }
 
         /// <summary>
-        /// Base material the board is made from, used to identify relevant processing parameters.
+        /// Base material the board is made from, used to identify relevant processing parameters and typical density.
         /// </summary>
         /// <example>Chipboard</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_MaterialCategory))]
-        [DefaultValue(BoardMaterialCategory.AcrylicCompositeMaterials)]
+        [DefaultValue(BoardMaterialCategory.Undefined)]
         [JsonProperty(Order = 12)]
-        public BoardMaterialCategory MaterialCategory { get; set; } = BoardMaterialCategory.AcrylicCompositeMaterials;
+        public BoardMaterialCategory MaterialCategory { get; set; } = BoardMaterialCategory.Undefined;
 
         /// <summary>
-        /// Surface coating of the board, which can affect how the material is processed. When no value is specified, it defaults to <c>Undefined</c>.
+        /// Surface coating of the board, which can affect how the material is processed.
         /// </summary>
         /// <example>MelamineThermoset</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_CoatingCategory))]
@@ -95,7 +94,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public CoatingCategory CoatingCategory { get; set; } = CoatingCategory.Undefined;
 
         /// <summary>
-        /// Standard cut quality assigned to the board. When no value is specified, it defaults to <c>RawCut</c>.
+        /// Standard cut quality assigned to the board.
         /// </summary>
         /// <example>RawCut</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_StandardQuality))]
@@ -106,9 +105,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// <summary>
         /// Date and time when the shared material group was most recently used.
         /// </summary>
-        /// <example>2025-04-01T08:30:00+00:00</example>
+        /// <example>4/1/2025 8:30 AM</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_MaterialLastUsed))]
         [JsonProperty(Order = 15)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? MaterialLastUsed { get; set; }
 
         #endregion
@@ -184,7 +184,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public double? Density { get; set; }
 
         /// <summary>
-        /// Density used for calculations: the specified value, or the typical value for the material category when none is provided.
+        /// Density used for calculations: the specified value, or the typical value for the material category when none is provided. This value is null when density is unspecified and the category is <see cref="BoardMaterialCategory.Undefined" /> or has no typical density.
         /// <para>Unit for <see cref="UnitSystem.Metric" />: kg/m³.</para>
         /// <para>Unit for <see cref="UnitSystem.Imperial" />: lb/ft³.</para>
         /// </summary>
@@ -202,7 +202,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Classification that determines how this board type is handled in material management and optimization.
+        /// Identifies whether this entry represents a full board, an offcut, or a template, separately from its material category.
         /// </summary>
         /// <example>Board</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_BoardTypeType))]
@@ -306,15 +306,15 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         #region Material Management
 
         /// <summary>
-        /// Minimum available board quantity that triggers a low-stock warning.
+        /// Quantity threshold for a low-stock warning. When omitted, no quantity threshold is configured.
         /// </summary>
-        /// <example>10</example>
+        /// <example>16</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalQuantityAvailableWarningLimit))]
         [JsonProperty(Order = 53)]
         public int? TotalQuantityAvailableWarningLimit { get; set; }
 
         /// <summary>
-        /// Minimum available board area that triggers a low-stock warning.
+        /// Area threshold for a low-stock warning. When omitted, no area threshold is configured.
         /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
         /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
@@ -329,6 +329,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         /// </summary>
         /// <example>true</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_OptimizeAgainstInfinite))]
+        [DefaultValue(true)]
         [JsonProperty(Order = 92)]
         public bool OptimizeAgainstInfinite { get; set; } = true;
 
@@ -407,7 +408,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         public int? TotalQuantityAllocated { get; set; }
 
         /// <summary>
-        /// Number of boards remaining for use after production allocations are accounted for.
+        /// Number of boards remaining for use after production allocations are accounted for. This value is null when inventory has not been recorded; if allocations are omitted, it equals the inventory quantity.
         /// </summary>
         /// <example>9</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalQuantityAvailable))]
@@ -432,9 +433,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Estimated value of the current stock, calculated from its total area and the board's unit-area cost.
+        /// Estimated value of the current stock, calculated from its total area and the board's unit-area cost. This value is null when either input is unavailable.
         /// </summary>
-        /// <example>112.05</example>
+        /// <example>866.67</example>
         [JsonProperty(Order = 53)]
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalValueInInventory))]
         public double? TotalValueInInventory
@@ -452,7 +453,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Combined area of all boards of this type currently in inventory.
+        /// Combined area of all boards of this type currently in inventory, calculated from board dimensions and inventory quantity. This value is null when any required input is unavailable.
         /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
         /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
@@ -470,7 +471,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Combined area of this board type reserved for production orders.
+        /// Combined area of this board type reserved for production orders, calculated from board dimensions and allocated quantity. This value is null when any required input is unavailable.
         /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
         /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
@@ -488,7 +489,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Combined area remaining for use after production allocations are accounted for.
+        /// Combined area remaining for use after production allocations are accounted for, calculated from board dimensions and available quantity. This value is null when any required input is unavailable.
         /// <para>Unit for <see cref="UnitSystem.Metric" />: m².</para>
         /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft².</para>
         /// </summary>
@@ -506,7 +507,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         }
 
         /// <summary>
-        /// Whether the available quantity is below the configured low-stock warning limit.
+        /// Whether the available quantity is below the configured low-stock warning limit. A null value means the status is unknown.
         /// </summary>
         /// <example>false</example>
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_InsufficientInventory))]
