@@ -44,32 +44,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
         string? decorCode = null, string? embossingTop = null, string? embossingBottom = null)
     {
-        var query = new StringBuilder($"{_BaseRoute}/catalog?take={take}&skip={skip}");
+        var uri = CatalogHelpers.BuildCatalogQuery(_BaseRoute, take, skip, manufacturers, decorCode, embossingTop, embossingBottom);
 
-        if (manufacturers != null)
-        {
-            foreach (var manufacturer in manufacturers.Where(m => !string.IsNullOrWhiteSpace(m)))
-            {
-                query.Append($"&manufacturers={Uri.EscapeDataString(manufacturer)}");
-            }
-        }
-
-        if (!string.IsNullOrWhiteSpace(decorCode))
-        {
-            query.Append($"&decorCode={Uri.EscapeDataString(decorCode)}");
-        }
-
-        if (!string.IsNullOrWhiteSpace(embossingTop))
-        {
-            query.Append($"&embossingTop={Uri.EscapeDataString(embossingTop)}");
-        }
-
-        if (!string.IsNullOrWhiteSpace(embossingBottom))
-        {
-            query.Append($"&embossingBottom={Uri.EscapeDataString(embossingBottom)}");
-        }
-
-        var result = await RequestEnumerable<EdgebandType>(new Uri(query.ToString(), UriKind.Relative));
+        var result = await RequestEnumerable<EdgebandType>(uri);
 
         return result ?? [];
     }
