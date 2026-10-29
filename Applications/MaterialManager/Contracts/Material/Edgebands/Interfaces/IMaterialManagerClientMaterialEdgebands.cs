@@ -4,11 +4,6 @@ using HomagConnect.MaterialManager.Contracts.Delete;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Tapio.Tadamo.Clients.WebApi;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
 {
@@ -131,9 +126,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// </summary>
         /// <param name="take">The maximum number of catalog items to return.</param>
         /// <param name="skip">The number of items to skip before returning results.</param>
-        /// <param name="filter">Optional structured search filter for Tadamo catalog queries.</param>
+        /// <param name="manufacturers">Optional manufacturer names to filter by.</param>
+        /// <param name="decorCode">Optional decor code to filter by (exact match).</param>
+        /// <param name="embossingTop">Optional top embossing value to filter by (exact match).</param>
+        /// <param name="embossingBottom">Optional bottom embossing value to filter by (exact match).</param>
         /// <returns>A collection of <see cref="EdgebandType" /> from the catalog.</returns>
-        Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, GetSearchMasterData? filter = null);
+        Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+            string? decorCode = null, string? embossingTop = null, string? embossingBottom = null);
 
         #endregion
 

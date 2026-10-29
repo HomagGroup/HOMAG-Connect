@@ -10,16 +10,8 @@ using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-
-using Tapio.Tadamo.Clients.WebApi;
 
 using Material = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
 
@@ -33,16 +25,35 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     #region Catalog
 
     /// <inheritdoc />
-    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take = 100000, int skip = 0, GetSearchMasterData? filter = null)
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+        string? decorCode = null, string? embossingTop = null, string? embossingBottom = null)
     {
-        var url = $"{_BaseRoute}/catalog?take={take}&skip={skip}";
+        var query = new StringBuilder($"{_BaseRoute}/catalog?take={take}&skip={skip}");
 
-        var payload = JsonConvert.SerializeObject(filter ?? new GetSearchMasterData(), SerializerSettings.Default);
-        var content = new StringContent(payload, Encoding.UTF8, "application/json");
-        var response = await PostObject(new Uri(url, UriKind.Relative), content);
+        if (manufacturers != null)
+        {
+            foreach (var manufacturer in manufacturers.Where(m => !string.IsNullOrWhiteSpace(m)))
+            {
+                query.Append($"&manufacturers={Uri.EscapeDataString(manufacturer)}");
+            }
+        }
 
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var result = JsonConvert.DeserializeObject<IEnumerable<BoardType>>(responseContent, SerializerSettings.Default);
+        if (!string.IsNullOrWhiteSpace(decorCode))
+        {
+            query.Append($"&decorCode={Uri.EscapeDataString(decorCode)}");
+        }
+
+        if (!string.IsNullOrWhiteSpace(embossingTop))
+        {
+            query.Append($"&embossingTop={Uri.EscapeDataString(embossingTop)}");
+        }
+
+        if (!string.IsNullOrWhiteSpace(embossingBottom))
+        {
+            query.Append($"&embossingBottom={Uri.EscapeDataString(embossingBottom)}");
+        }
+
+        var result = await RequestEnumerable<BoardType>(new Uri(query.ToString(), UriKind.Relative));
 
         return result ?? [];
     }
