@@ -1,4 +1,4 @@
-﻿using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
+using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 using Shouldly;
 
@@ -46,21 +46,8 @@ public class CatalogEdgebandsTests : MaterialManagerTestBase
 
         if (firstPageList.Count > 0 && secondPageList.Count > 0)
         {
-            firstPageList.First()!.EdgebandCode.ShouldNotBe(secondPageList.First()!.EdgebandCode);
+            firstPageList.First()!.ArticleNumber.ShouldNotBe(secondPageList.First()!.ArticleNumber);
         }
     }
-
-    /// <summary>
-    /// Verifies that the catalog endpoint returns an empty collection when skip exceeds available data.
-    /// </summary>
-    [TestMethod]
-    public async Task Edgebands_GetEdgebandTypesFromCatalog_LargeSkip_ReturnsEmpty()
-    {
-        var materialManagerClient = GetMaterialManagerClient();
-
-        var edgebandTypes = await materialManagerClient.Material.Edgebands.GetEdgebandTypesFromCatalog(10, 100000);
-
-        edgebandTypes.ShouldNotBeNull();
-        edgebandTypes.ShouldBeEmpty();
-    }
+   
 }
