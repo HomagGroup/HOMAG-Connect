@@ -31,7 +31,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_LastUsed))]
         [JsonProperty(Order = 90)]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:g}")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset? LastUsed { get; set; }
 
         #region IContainsUnitSystemDependentProperties Members
