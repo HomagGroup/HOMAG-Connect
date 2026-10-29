@@ -38,6 +38,21 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _IncludingDetails = "includingDetails";
     private const string _ExternalSystemId = "externalSystemId";
 
+    #region Catalog
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+        string? decorCode = null, string? embossingTop = null, string? embossingBottom = null)
+    {
+        var uri = CatalogHelpers.BuildCatalogQuery(_BaseRoute, take, skip, manufacturers, decorCode, embossingTop, embossingBottom);
+
+        var result = await RequestEnumerable<EdgebandType>(uri);
+
+        return result ?? [];
+    }
+
+    #endregion
+
     #region Private Methods
 
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
@@ -305,6 +320,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         {
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
+
         ValidateRequiredProperties(edgebandTypeUpdate);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);

@@ -10,14 +10,10 @@ using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+
+using Material = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -26,6 +22,21 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Catalog
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+        string? decorCode = null, string? embossingTop = null, string? embossingBottom = null)
+    {
+        var uri = CatalogHelpers.BuildCatalogQuery(_BaseRoute, take, skip, manufacturers, decorCode, embossingTop, embossingBottom);
+
+        var result = await RequestEnumerable<BoardType>(uri);
+
+        return result ?? [];
+    }
+
+    #endregion
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -133,7 +144,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardTypeCode, boardTypeUpdate);
 
-        
         return await UpdateHelpers.SendMultipartPatchAsync<BoardType>(Client, uri, json, fileReferences, nameof(boardTypeUpdate)).ConfigureAwait(false);
     }
 
@@ -722,13 +732,14 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
-    
+
     #endregion Delete
 
     #region statistics
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, DateTime from, DateTime to,
+        TimeInterval interval = TimeInterval.Day)
     {
         if (materialCodes == null)
         {
@@ -762,7 +773,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack, TimeInterval interval = TimeInterval.Day)
+    public Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryAsync(IEnumerable<string> materialCodes, BoardTypeType boardTypeType, int daysBack,
+        TimeInterval interval = TimeInterval.Day)
     {
         return GetBoardTypeInventoryHistoryAsync(materialCodes, boardTypeType, DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
@@ -779,7 +791,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         return GetBoardTypeInventoryHistoryAsync(materialCodes, DateTime.Now.AddDays(-daysBack), DateTime.Now, interval);
     }
 
-    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to, TimeInterval interval = TimeInterval.Day)
+    private async Task<IEnumerable<BoardTypeInventoryHistory>> GetBoardTypeInventoryHistoryInternalAsync(IEnumerable<string>? materialCodes, BoardTypeType? boardTypeType, DateTime from, DateTime to,
+        TimeInterval interval = TimeInterval.Day)
     {
         IEnumerable<String> paths;
         if (materialCodes != null)

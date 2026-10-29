@@ -4,9 +4,6 @@ using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {
@@ -282,5 +279,21 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         Task UpdateServiceAvailabilityCheck(string serviceName, Dictionary<string, string> details = null);
 
         #endregion
+
+        #region Catalog
+
+        /// <summary>
+        /// Gets board types from the Tadamo catalog.
+        /// </summary>
+        /// <param name="take">The maximum number of catalog items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="manufacturers">Optional manufacturer names to filter by.</param>
+        /// <param name="decorCode">Optional decor code to filter by (exact match).</param>
+        /// <param name="embossingTop">Optional top embossing value to filter by (exact match).</param>
+        /// <param name="embossingBottom">Optional bottom embossing value to filter by (exact match).</param>
+        /// <returns>A collection of <see cref="BoardType" /> from the catalog.</returns>
+        Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+            string? decorCode = null, string? embossingTop = null, string? embossingBottom = null);
+#endregion
     }
 }
