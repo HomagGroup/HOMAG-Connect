@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -38,6 +38,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     private const string _BaseStatisticsRoute = "api/materialManager/statistics";
     private const string _EdgebandCode = "edgebandCode";
     private const string _IncludingDetails = "includingDetails";
+    private const string _ExternalSystemId = "externalSystemId";
 
     #region Catalog
 
@@ -270,6 +271,24 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         return await RequestEnumerable<TapioMachine>(new Uri(url, UriKind.Relative));
     }
 
+    /// <inheritdoc />
+    public async Task<IEnumerable<EdgebandTypeDetails>?> GetEdgebandTypesByExternalSystemId(string externalSystemId, int take, int skip = 0, bool includingDetails = false)
+    {
+        if (string.IsNullOrWhiteSpace(externalSystemId))
+        {
+            throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
+        }
+
+        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+
+        if (includingDetails)
+        {
+            url += $"&{_IncludingDetails}=true";
+        }
+
+        return await RequestEnumerable<EdgebandTypeDetails>(new Uri(url, UriKind.Relative));
+    }
+
     #endregion Get
 
     #region Update
@@ -342,6 +361,39 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         }
 
         throw new Exception($"The returned object is not of type {nameof(EdgebandTypeAllocation)}");
+    }
+
+    /// <inheritdoc />
+    public async Task<EdgebandType> PatchEdgebandType(string edgebandCode, PatchBuilder<EdgebandType> patchData)
+    {
+        if (string.IsNullOrWhiteSpace(edgebandCode))
+        {
+            throw new ArgumentException("Edgeband code must not be null or empty.", nameof(edgebandCode));
+        }
+
+        if (patchData == null)
+        {
+            throw new ArgumentNullException(nameof(patchData));
+        }
+
+        var url = $"{_BaseRoute}/patch/{Uri.EscapeDataString(edgebandCode)}";
+
+        var content = new StringContent(
+            JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
+            Encoding.UTF8,
+            "application/merge-patch+json");
+
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<EdgebandType>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(EdgebandType)}");
     }
 
     #endregion Update

@@ -1,12 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -18,8 +9,15 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
-
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 using Tapio.Tadamo.Clients.WebApi;
 
@@ -63,6 +61,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _ImportInventoryRoute = _GatewayMaterialRoutePrefix + "/storage/importInventory";
     private const string _AvailibilityCheckRoute = _GatewayMaterialRoutePrefix + "/storage/availabilityCheck";
     private const string _GatewayDeleteRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
+    private const string _ExternalSystemId = "externalSystemId";
 
     #endregion
 
@@ -183,6 +182,39 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var result = JsonConvert.DeserializeObject<IEnumerable<BoardTypeAllocation>>(responseContent, SerializerSettings.Default);
 
         return result;
+    }
+
+    /// <inheritdoc />
+    public async Task<BoardType> PatchBoardType(string boardCode, PatchBuilder<BoardType> patchData)
+    {
+        if (string.IsNullOrWhiteSpace(boardCode))
+        {
+            throw new ArgumentException("Board code must not be null or empty.", nameof(boardCode));
+        }
+
+        if (patchData == null)
+        {
+            throw new ArgumentNullException(nameof(patchData));
+        }
+
+        var url = $"{_BaseRoute}/patch/{Uri.EscapeDataString(boardCode)}";
+
+        var content = new StringContent(
+            JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
+            Encoding.UTF8,
+            "application/merge-patch+json");
+
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
     }
 
     #endregion Update
@@ -488,6 +520,24 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         return boardTypesDetails;
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardTypeDetails>?> GetBoardTypesByExternalSystemId(string externalSystemId, int take, int skip = 0, bool includingDetails = false)
+    {
+        if (string.IsNullOrWhiteSpace(externalSystemId))
+        {
+            throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
+        }
+
+        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+
+        if (includingDetails)
+        {
+            url += $"&{_IncludingDetails}=true";
+        }
+
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
     }
 
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
@@ -800,4 +850,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
+
+
 }

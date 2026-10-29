@@ -30,6 +30,25 @@ public class Configuration : Base, IConfiguration
     [JsonProperty(Order = 20)]
     public string? ModuleId { get; set; }
 
+    /// <inheritdoc />
+    [JsonProperty(Order = 21)]
+    public string? ModuleName { get; set; }
+
+    /// <inheritdoc />
+    [JsonProperty(Order = 22)]
+    public string? ModuleDescription { get; set; }
+
+    /// <inheritdoc />
+    public string? ArticleNumber { get; set; }
+
+    /// <inheritdoc />
+    public string? ArticleName { get; set; }
+
+    /// <inheritdoc />
+    public string? Description { get; set; }
+
+    /// <inheritdoc />
+    public string? ArticleCategory { get; set; }
 
     /// <summary>
     /// Contains configuration attributes.

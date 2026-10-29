@@ -8,3 +8,4 @@ updates:
       microsoft-packages:
         patterns:
           - "Microsoft.*"
+          - "MSTest.*"

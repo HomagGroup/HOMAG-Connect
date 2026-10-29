@@ -13,6 +13,7 @@ namespace HomagConnect.IntelliDivide.Tests.Requests.Nesting;
 /// </summary>
 [TestClass]
 [DeploymentTest("IntelliDivide.Requests.Nesting.ProjectZip")]
+[TemporaryDisabledOnServer(2026, 10, 31, "DF-Optimization")]
 public class NestingOptimizationRequestUsingProjectZipTests : IntelliDivideTestBase
 {
     /// <summary />

@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>default</LangVersion>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -10,19 +11,20 @@
 		<Description>Base assembly for all Homag-Connect tests</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
 		<IsPackable>true</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Shouldly" Version="4.3.0" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.12" />
-	  <PackageReference Include="MSTest.TestFramework" Version="4.4.1" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.12" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.12" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.12" />
+	  <PackageReference Include="Shouldly" />
+	  <PackageReference Include="MSTest.TestFramework" />
+	  <PackageReference Include="System.Configuration.ConfigurationManager" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
 	</ItemGroup>
 
 	<ItemGroup>

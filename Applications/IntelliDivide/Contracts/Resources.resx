@@ -120,4 +120,7 @@
   <data name="OptimizationRequestPart_AllowedRotationAngle" xml:space="preserve">
     <value>Drehwinkel</value>
   </data>
+  <data name="OptimizationName_InvalidCharacters" xml:space="preserve">
+    <value>Der Name der Optimierung enthält ungültige Zeichen: {0}</value>
+  </data>
 </root>

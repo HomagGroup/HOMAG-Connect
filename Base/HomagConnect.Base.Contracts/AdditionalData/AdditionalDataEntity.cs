@@ -1,4 +1,4 @@
-﻿using JsonSubTypes;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +19,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataPdf), AdditionalDataType.Pdf)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataZip), AdditionalDataType.Zip)]
 [JsonSubtypes.KnownSubType(typeof(AdditionalDataSurfaceTexture), AdditionalDataType.SurfaceTexture)]
+[JsonSubtypes.KnownSubType(typeof(AdditionalDataDecor), AdditionalDataType.Decor)]
 [DebuggerDisplay("Type={Type}, Name={Name}")]
 public class AdditionalDataEntity
 {
@@ -40,6 +41,7 @@ public class AdditionalDataEntity
     /// * ThreeDModel (Type=ThreeD) => per group or per position
     /// * ArticleImage (Type=Image) => per position
     /// * AttributeValueImage (Type=Image) => per ConfigurationAttribute
+    /// * ModuleImage (Type=Image) => per module
     /// </remarks>
     [JsonProperty(Order = 1)]
     [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Category))]

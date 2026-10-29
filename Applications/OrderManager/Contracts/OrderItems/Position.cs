@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.OrderManager.Contracts.Interfaces;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -9,7 +10,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 /// <summary>
 /// An order position.
 /// </summary>
-public class Position : Base
+public class Position : Base, IArticle
 {
     /// <summary>
     /// Gets or sets the name.
@@ -59,7 +60,13 @@ public class Position : Base
     public string? ArticleName { get; set; }
 
     /// <summary>
-    /// Gets or sets the description.
+    /// Gets or sets the article category.
+    /// </summary>
+    [JsonProperty(Order = 2)]
+    public string? ArticleCategory { get; set; }
+
+    /// <summary>
+    /// Gets or sets the (article) description.
     /// </summary>
     [JsonProperty(Order = 3)]
     public string? Description { get; set; }
