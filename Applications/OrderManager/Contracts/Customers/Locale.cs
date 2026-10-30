@@ -1,40 +1,51 @@
-﻿namespace HomagConnect.OrderManager.Contracts.Customers
+﻿using HomagConnect.Base.Contracts.Converter;
+
+using Newtonsoft.Json;
+
+namespace HomagConnect.OrderManager.Contracts.Customers
 {
     /// <summary>
     /// Locale
     /// </summary>
+    /// <remarks>When deserializing from JSON, unknown values are mapped to <see cref="Unknown"/> due to the tolerant enum converter.</remarks>
+    [JsonConverter(typeof(TolerantEnumConverter))]
     public enum Locale
     {
         /// <summary>
-        /// Deutsch (Deutschland)
+        /// Unknown locale (fallback if the locale is new or not known).
+        /// Uses -1 to keep the numeric values and the default value <see cref="deDE"/> of the existing entries unchanged.
+        /// </summary>
+        Unknown = -1,
+        /// <summary>
+        /// German (Germany)
         /// </summary>
         deDE,
         /// <summary>
-        /// Deutsch (Österreich)
+        /// German (Austria)
         /// </summary>
         deAt,
         /// <summary>
-        /// Deutsch (Schweiz)
+        /// German (Switzerland)
         /// </summary>
         deCh,
         /// <summary>
-        /// English (Großbritannien)
+        /// English (United Kingdom)
         /// </summary>
         enGB,
         /// <summary>
-        /// English (USA)
+        /// English (United States)
         /// </summary>
         enUS,
         /// <summary>
-        /// Spanisch (Spanien)
+        /// Spanish (Spain)
         /// </summary>
         esES,
         /// <summary>
-        /// Niederländisch (Niederlande)
+        /// Dutch (Netherlands)
         /// </summary>
         nlNL,
         /// <summary>
-        /// Niederländisch (Belgien)
+        /// Dutch (Belgium)
         /// </summary>
         nlBE
     }
