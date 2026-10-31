@@ -44,6 +44,12 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public string? Description { get; set; }
 
         /// <summary>
+        /// For future use.
+        /// </summary>
+        [JsonProperty("llmData")]
+        public string? LlmData { get; set; }
+
+        /// <summary>
         /// The localized description of the article keyed by culture/language code.
         /// </summary>
         [JsonProperty("descriptionLocalized")]
