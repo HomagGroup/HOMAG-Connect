@@ -91,14 +91,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         public double? PartArea { get; set; }
 
         /// <summary>
-        /// Gets the proportional board demand.
-        /// </summary>
-        [JsonProperty(Order = 19)] 
-        [Range(0, int.MaxValue)]
-        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardDemandProportional))]
-        public double? BoardDemandProportional { get; set; }
-
-        /// <summary>
         /// Gets the board cost.
         /// </summary>
         [JsonProperty(Order = 20)]
@@ -113,14 +105,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [Range(0, int.MaxValue)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardCostTotal))]
         public double? BoardCostTotal { get; set; }
-
-        /// <summary>
-        /// Gets the proportional board cost.
-        /// </summary>
-        [JsonProperty(Order = 22)]
-        [Range(0, int.MaxValue)]
-        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(BoardCostProportional))]
-        public double? BoardCostProportional { get; set; }
 
         /// <summary>
         /// Gets the edge band demand for the part.
@@ -154,13 +138,5 @@ namespace HomagConnect.IntelliDivide.Contracts.Result
         [Range(0, int.MaxValue)]
         [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(MaterialCostTotal))]
         public double? MaterialCostTotal { get; set; }
-
-        /// <summary>
-        /// Gets the proportional material cost.
-        /// </summary>
-        [JsonProperty(Order = 27)]
-        [Range(0, int.MaxValue)]
-        [Display(ResourceType = typeof(SolutionDisplayNames), Name = nameof(MaterialCostProportional))]
-        public double? MaterialCostProportional { get; set; }
     }
 }
