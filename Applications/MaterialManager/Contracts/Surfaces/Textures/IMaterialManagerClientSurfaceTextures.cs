@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 
 namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
@@ -81,4 +82,23 @@ public interface IMaterialManagerClientTextures
     /// <param name="materials">The Roomle materials collection.</param>
     /// <returns>The resulting textures.</returns>
     Task<Texture[]> ImportOrUpdate(MaterialDefinitionsRoomle materials);
+
+    /// <summary>
+    /// Searches for decors that match an image. The server downloads the image from
+    /// <see cref="DecorImageSearchRequest.ImageUri" /> and returns the best matching decors.
+    /// </summary>
+    /// <param name="request">The request containing the public <c>https</c> URI of a PNG or JPEG image (max. 10 MB).</param>
+    /// <param name="take">The maximum number of decors to return (1 to 100). Defaults to 10.</param>
+    /// <param name="skip">The number of decors to skip, for paging through results. Must not be negative. Defaults to 0.</param>
+    /// <param name="cancellationToken">A token to cancel the request.</param>
+    /// <returns>The matching decor candidates.</returns>
+    /// <remarks>
+    /// Calls <c>POST materialManager/catalogs/decors/search/image?take={take}&amp;skip={skip}</c>.
+    /// The server responds with <c>200</c> and a <see cref="DecorMatchSearchResponse" />, <c>400</c> for a missing or invalid
+    /// <c>imageUri</c>, an invalid image or invalid <c>take</c>/<c>skip</c>, and <c>401</c> for invalid Basic authentication.
+    /// </remarks>
+    /// <exception cref="ArgumentNullException"><paramref name="request" /> is <see langword="null" />.</exception>
+    /// <exception cref="ArgumentException"><see cref="DecorImageSearchRequest.ImageUri" /> is missing, not absolute or not <c>https</c>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="take" /> is outside 1 to 100 or <paramref name="skip" /> is negative.</exception>
+    Task<DecorMatchSearchResponse> SearchDecorMatchesByImageAsync(DecorImageSearchRequest request, int take = 10, int skip = 0, CancellationToken cancellationToken = default);
 }
