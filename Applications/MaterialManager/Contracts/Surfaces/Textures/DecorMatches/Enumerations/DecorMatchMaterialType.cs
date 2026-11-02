@@ -1,4 +1,4 @@
-using HomagConnect.Base.Contracts.Attributes;
+﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
 
 using Newtonsoft.Json;
@@ -24,5 +24,17 @@ public enum DecorMatchMaterialType
     /// The material is an edgeband type.
     /// </summary>
     [Display(Description = "Edgeband")]
-    Edgeband
+    Edgeband,
+
+    /// <summary>
+    /// The material is a board type with details.
+    /// </summary>
+    [Display(Description = "BoardDetails")]
+    BoardDetails,
+
+    /// <summary>
+    /// The material is an edgeband type with details.
+    /// </summary>
+    [Display(Description = "EdgebandDetails")]
+    EdgebandDetails
 }

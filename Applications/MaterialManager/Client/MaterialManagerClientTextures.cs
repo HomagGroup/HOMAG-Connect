@@ -27,8 +27,8 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
 {
     private const string _BaseRoute = "api/materialManager/surfaces/textures";
     private const string _DecorSearchRoute = "api/materialManager/catalogs/decors/search";
+    private const string _DecorImageSearchRoute = "api/materialManager/catalogs/decors/search/image";
 
-        private const string _DecorImageSearchRoute = "api/materialManager/catalogs/decors/search/image";
     /// <inheritdoc />
     public MaterialManagerClientTextures(HttpClient client) : base(client) { }
 
@@ -132,6 +132,14 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
 
     /// <inheritdoc />
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchBoardDetailsDecors(BoardTypeDetailsDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchEdgebandDetailsDecors(EdgebandTypeDetailsDecorMatchSearchRequest request)
         => SearchDecors(request);
 
     private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
