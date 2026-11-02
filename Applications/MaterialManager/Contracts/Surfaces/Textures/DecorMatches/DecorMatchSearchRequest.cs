@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
@@ -17,6 +17,8 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 [JsonConverter(typeof(JsonSubtypes), nameof(MaterialType))]
 [JsonSubtypes.KnownSubType(typeof(BoardTypeDecorMatchSearchRequest), DecorMatchMaterialType.Board)]
 [JsonSubtypes.KnownSubType(typeof(EdgebandTypeDecorMatchSearchRequest), DecorMatchMaterialType.Edgeband)]
+[JsonSubtypes.KnownSubType(typeof(BoardTypeDetailsDecorMatchSearchRequest), DecorMatchMaterialType.BoardDetails)]
+[JsonSubtypes.KnownSubType(typeof(EdgebandTypeDetailsDecorMatchSearchRequest), DecorMatchMaterialType.EdgebandDetails)]
 public abstract class DecorMatchSearchRequest
 {
     /// <summary>
@@ -87,6 +89,46 @@ public abstract class DecorMatchSearchRequest
     public static EdgebandTypeDecorMatchSearchRequest ForEdgeband(EdgebandType material, string? searchTerm = null, CultureInfo? culture = null, int skip = 0, int take = 50)
     {
         return new EdgebandTypeDecorMatchSearchRequest
+        {
+            Material = material,
+            SearchTerm = searchTerm,
+            Culture = culture ?? CultureInfo.CurrentUICulture,
+            Skip = skip,
+            Take = take
+        };
+    }
+
+    /// <summary>
+    /// Creates a request to search for decors that match the given board with details.
+    /// </summary>
+    /// <param name="material">The board with details used as the matching signal.</param>
+    /// <param name="searchTerm">An optional free text search term.</param>
+    /// <param name="culture">The preferred language. Defaults to <see cref="CultureInfo.CurrentUICulture" />.</param>
+    /// <param name="skip">The number of matching decors to skip, for paging through results.</param>
+    /// <param name="take">The maximum number of decors to return.</param>
+    public static BoardTypeDetailsDecorMatchSearchRequest ForBoardDetails(BoardTypeDetails material, string? searchTerm = null, CultureInfo? culture = null, int skip = 0, int take = 50)
+    {
+        return new BoardTypeDetailsDecorMatchSearchRequest
+        {
+            Material = material,
+            SearchTerm = searchTerm,
+            Culture = culture ?? CultureInfo.CurrentUICulture,
+            Skip = skip,
+            Take = take
+        };
+    }
+
+    /// <summary>
+    /// Creates a request to search for decors that match the given edgeband with details.
+    /// </summary>
+    /// <param name="material">The edgeband with details used as the matching signal.</param>
+    /// <param name="searchTerm">An optional free text search term.</param>
+    /// <param name="culture">The preferred language. Defaults to <see cref="CultureInfo.CurrentUICulture" />.</param>
+    /// <param name="skip">The number of matching decors to skip, for paging through results.</param>
+    /// <param name="take">The maximum number of decors to return.</param>
+    public static EdgebandTypeDetailsDecorMatchSearchRequest ForEdgebandDetails(EdgebandTypeDetails material, string? searchTerm = null, CultureInfo? culture = null, int skip = 0, int take = 50)
+    {
+        return new EdgebandTypeDetailsDecorMatchSearchRequest
         {
             Material = material,
             SearchTerm = searchTerm,

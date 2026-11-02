@@ -78,5 +78,23 @@ namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches.
                 return ResourceManager.GetString("Edgeband", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platte mit Details.
+        /// </summary>
+        public static string BoardDetails {
+            get {
+                return ResourceManager.GetString("BoardDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kante mit Details.
+        /// </summary>
+        public static string EdgebandDetails {
+            get {
+                return ResourceManager.GetString("EdgebandDetails", resourceCulture);
+            }
+        }
     }
 }
