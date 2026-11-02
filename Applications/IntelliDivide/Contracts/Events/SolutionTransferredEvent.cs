@@ -80,4 +80,11 @@ public class SolutionTransferredEvent : AppEvent
     [JsonProperty(Order = 17)]
     [Required]
     public SolutionDetails SolutionDetails { get; set; }
+
+    /// <summary>
+    /// Gets or sets the optimizing parameter set name.
+    /// </summary>
+    [JsonProperty(Order = 18)]
+    [Required]
+    public string OptimizingParameterSetName { get; set; }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using HomagConnect.Base.Client;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
@@ -19,9 +23,11 @@ namespace HomagConnect.MaterialManager.Client;
 /// <summary>
 /// materialManager Client for textures
 /// </summary>
-public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientTextures
+public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientTextures, IMaterialManagerClientDecorCatalog
 {
     private const string _BaseRoute = "api/materialManager/surfaces/textures";
+    private const string _DecorSearchRoute = "api/materialManager/catalogs/decors/search";
+
         private const string _DecorImageSearchRoute = "api/materialManager/catalogs/decors/search/image";
     /// <inheritdoc />
     public MaterialManagerClientTextures(HttpClient client) : base(client) { }
@@ -118,6 +124,29 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
             new Uri($"{_BaseRoute}/import/batch", UriKind.Relative), materials);
 
         return texture;
+    }
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        ValidateRequiredProperties(request);
+
+        var result = await PostObject<DecorMatchSearchRequest, DecorMatchSearchResponse>(
+            new Uri(_DecorSearchRoute, UriKind.Relative), request);
+
+        return result ?? new DecorMatchSearchResponse();
     }
 
     /// <inheritdoc />

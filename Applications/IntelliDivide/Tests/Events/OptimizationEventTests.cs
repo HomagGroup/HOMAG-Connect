@@ -45,6 +45,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
         solutionTransferredEvent.AlgorithmName = "APS";
         solutionTransferredEvent.OptimizationName = "Optimization 01";
         solutionTransferredEvent.AlgorithmSettings = "01";
+        solutionTransferredEvent.OptimizingParameterSetName = "Default";
         solutionTransferredEvent.TransferredBy = "Test.SolutionTransferred@homag.com";
         solutionTransferredEvent.MachineDisplayName = "My Sawteq 0101";
         solutionTransferredEvent.MachineType = MachineType.Cutting;
@@ -71,6 +72,7 @@ public class OptimizationEventTests : IntelliDivideTestBase
         solutionTransferredEventDeserialized!.Id.ShouldBe(solutionTransferredEvent.Id);
         solutionTransferredEventDeserialized.Timestamp.ShouldBe(solutionTransferredEvent.Timestamp);
         solutionTransferredEventDeserialized.SubscriptionId.ShouldBe(solutionTransferredEvent.SubscriptionId);
+        solutionTransferredEventDeserialized.OptimizingParameterSetName.ShouldBe(solutionTransferredEvent.OptimizingParameterSetName);
         solutionTransferredEventDeserialized.TransferredBy.ShouldBe(solutionTransferredEvent.TransferredBy);
         solutionTransferredEventDeserialized.SolutionDetails.Parts.First().Description.ShouldBe(solutionTransferredEvent.SolutionDetails.Parts.First().Description);
     }

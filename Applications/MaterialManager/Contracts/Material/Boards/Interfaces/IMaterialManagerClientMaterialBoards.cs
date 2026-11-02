@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {
@@ -210,6 +209,14 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
         /// </summary>
         /// <returns>The updated board type allocation <see cref="BoardTypeAllocation" />.</returns>
         Task<IEnumerable<BoardTypeAllocation>?> UpdateBoardTypeAllocation(string allocationName, BoardTypeAllocationUpdate boardTypeAllocationUpdate);
+
+        /// <summary>
+        /// Partially updates the board type identified by the board code using merge-patch semantics.
+        /// </summary>
+        /// <param name="boardCode">The code of the board type to patch.</param>
+        /// <param name="patchData">The properties to update.</param>
+        /// <returns>The patched board type <see cref="BoardType" />.</returns>
+        Task<BoardType> PatchBoardType(string boardCode, PatchBuilder<BoardType> patchData);
 
         #region Inventory History
 

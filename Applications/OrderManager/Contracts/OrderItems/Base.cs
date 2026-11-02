@@ -29,7 +29,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(EdgeBand), Type.EdgeBand)]
 [JsonSubtypes.KnownSubType(typeof(Offcut), Type.Offcut)]
 [JsonSubtypes.KnownSubType(typeof(Reclaim), Type.Reclaim)]
-public abstract class Base: ISupportsAdditionalData
+public abstract class Base: ISupportsAdditionalData, ISupportsItems
 {
     /// <summary>
     /// Gets or sets the type of the item entity.

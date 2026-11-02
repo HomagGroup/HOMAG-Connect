@@ -1,13 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-
-using HomagConnect.Base;
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -19,8 +9,15 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
-
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -163,6 +160,39 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         var result = JsonConvert.DeserializeObject<IEnumerable<BoardTypeAllocation>>(responseContent, SerializerSettings.Default);
 
         return result;
+    }
+
+    /// <inheritdoc />
+    public async Task<BoardType> PatchBoardType(string boardCode, PatchBuilder<BoardType> patchData)
+    {
+        if (string.IsNullOrWhiteSpace(boardCode))
+        {
+            throw new ArgumentException("Board code must not be null or empty.", nameof(boardCode));
+        }
+
+        if (patchData == null)
+        {
+            throw new ArgumentNullException(nameof(patchData));
+        }
+
+        var url = $"{_BaseRoute}/patch/{Uri.EscapeDataString(boardCode)}";
+
+        var content = new StringContent(
+            JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
+            Encoding.UTF8,
+            "application/merge-patch+json");
+
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
     }
 
     #endregion Update
@@ -795,4 +825,6 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
+
+
 }

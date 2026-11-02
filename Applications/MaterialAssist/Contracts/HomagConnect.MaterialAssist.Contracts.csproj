@@ -11,6 +11,9 @@
     <Description>Client assembly for the usage of Homag-Connect materialAssist API</Description>
     <PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Applications/MaterialAssist/Contracts</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EmbedAllSources>true</EmbedAllSources>
+    <DebugType>Embedded</DebugType>
   </PropertyGroup>
 
 	<ItemGroup>

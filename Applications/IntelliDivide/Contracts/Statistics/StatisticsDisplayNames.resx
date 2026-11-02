@@ -165,6 +165,9 @@
   <data name="OptimizationName" xml:space="preserve">
     <value>Optimierungsname</value>
   </data>
+  <data name="OptimizingParameterSet" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
   <data name="PartsArea" xml:space="preserve">
     <value>Teile (Fläche)</value>
   </data>

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Globalization;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -77,13 +77,13 @@ public class TextureTests : MaterialManagerTestBase
             new AdditionalDataImage
             {
                 Name = texture.Name,
-                Category = "Thumbnail",
+                Category = nameof(AdditionalDataCategory.Thumbnail),
                 DownloadUri = new Uri($"{baseUrl}{relativePath}.png")
             },
             new AdditionalDataSurfaceTexture
             {
                 Name = texture.Name,
-                Category = "Roomle",
+                Category = nameof(AdditionalDataCategory.Roomle),
                 DownloadUri = new Uri($"{baseUrl}{relativePath}.rml")
             }
         ];

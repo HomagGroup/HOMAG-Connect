@@ -10,7 +10,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request;
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
 public sealed class ValidOptimizationNameAttribute : ValidationAttribute
 {
-    private static readonly char[] _InvalidCharacters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|'];
+    private static readonly char[] _InvalidCharacters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|', ',', ';'];
 
     /// <inheritdoc />
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)

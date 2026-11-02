@@ -2,15 +2,18 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
-		<LangVersion>default</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<LangVersion>default</LangVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>HomagGroup.HomagConnect.Base.Contracts</PackageId>
 		<Title>Homag-Connect Base Contracts</Title>
 		<Description>Base Contracts assembly for all Homag-Connect clients</Description>
 		<PackageProjectUrl>https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/HomagGroup/HOMAG-Connect</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
 	</PropertyGroup>
 	<ItemGroup Label="Package References">
 		<PackageReference Include="JsonSubTypes" />
