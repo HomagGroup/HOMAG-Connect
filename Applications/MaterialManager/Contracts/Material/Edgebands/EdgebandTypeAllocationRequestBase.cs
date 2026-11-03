@@ -15,6 +15,7 @@ public class EdgebandTypeAllocationRequestBase
     /// Gets or sets the allocation edgeband code.
     /// </summary>
     [Required]
+    [StringLength(50, MinimumLength = 1)]
     public string EdgebandCode { get; set; } = string.Empty;
 
     /// <summary>

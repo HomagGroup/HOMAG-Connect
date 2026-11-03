@@ -1,42 +1,44 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HomagConnect.MaterialManager.Contracts.Update
+namespace HomagConnect.MaterialManager.Contracts.Update;
+
+/// <summary>
+/// Update object to create an Allocation in materialManager.
+/// </summary>
+public class BoardTypeAllocationUpdate
 {
     /// <summary>
-    /// Update object to create an Allocation in materialManager.
+    /// Gets or sets the boardType code.
+    /// Null or empty leaves the current board type unchanged.
     /// </summary>
-    public class BoardTypeAllocationUpdate
-    {
-        /// <summary>
-        /// Gets or sets the boardType code.
-        /// </summary>
 
-        public string? BoardTypeCode { get; set; } = null;
+    [StringLength(50)]
+    public string? BoardTypeCode { get; set; } = null;
 
-        /// <summary>
-        /// Gets or sets the allocation comments.
-        /// </summary>
-        public string? Comments { get; set; } = null;
+    /// <summary>
+    /// Gets or sets the allocation comments.
+    /// </summary>
+    public string? Comments { get; set; } = null;
 
-        /// <summary>
-        /// Gets or sets the allocation name.
-        /// </summary>
-        [Required]
-        public string Name { get; set; } = string.Empty;
+    /// <summary>
+    /// Gets or sets the allocation name.
+    /// </summary>
+    [Required]
+    public string Name { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Gets or sets the quantity.
-        /// </summary>
-        public int? Quantity { get; set; } = null;
+    /// <summary>
+    /// Gets or sets the quantity.
+    /// </summary>
+    [Range(1, int.MaxValue)]
+    public int? Quantity { get; set; } = null;
 
-        /// <summary>
-        /// Gets or sets source of the allocation.
-        /// </summary>
-        public string? Source { get; set; } = null;
+    /// <summary>
+    /// Gets or sets source of the allocation.
+    /// </summary>
+    public string? Source { get; set; } = null;
 
-        /// <summary>
-        /// Gets or sets the allocation workstation.
-        /// </summary>
-        public string? Workstation { get; set; } = null;
-    }
+    /// <summary>
+    /// Gets or sets the allocation workstation.
+    /// </summary>
+    public string? Workstation { get; set; } = null;
 }

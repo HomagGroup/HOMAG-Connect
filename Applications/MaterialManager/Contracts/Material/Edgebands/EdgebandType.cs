@@ -1,21 +1,19 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands.Enumerations;
 
-using Newtonsoft.Json;
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Runtime.Serialization;
-
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
-/// An edgeband type describes the roll material used to cover exposed board edges, including the properties needed to identify and process it.
-/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
+/// An edgeband type describes the roll material used to cover exposed board edges, including the properties needed to
+/// identify and process it.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>
+/// .
 /// </summary>
 /// <example>
 /// { "edgebandCode": "edge001", "manufacturerName": "Egger", "decorName": "f004", "decorEmbossingCode": "st07" }
@@ -48,6 +46,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// Gets or sets the edgeband code
     /// </summary>
     [Key]
+    [StringLength(50, MinimumLength = 1)]
     public string? EdgebandCode { get; set; }
 
     /// <summary>
@@ -60,6 +59,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// inch).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    [Range(0.1, 999.9)]
     public double? Height { get; set; }
 
     /// <summary>
@@ -67,6 +67,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// inch).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
+    [Range(0.01, 99.99)]
     public double? Thickness { get; set; }
 
     /// <summary>
@@ -74,11 +75,13 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// ft).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+    [Range(0, 2000.0)]
     public double? DefaultLength { get; set; }
 
     /// <summary>
     /// Gets or sets the costs of the edgeband. The unit depends on the settings of the subscription.
     /// </summary>
+    [Range(0.1, 99999.99)]
     public double? Costs { get; set; }
 
     #endregion
@@ -98,24 +101,28 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Gets or sets the lasertec (J/cm^2).
     /// </summary>
+    [Range(0, double.PositiveInfinity)]
     public double? Lasertec { get; set; } // TODO: Bool? No bool, here the pressure (J/cm^2) for the values is set
 
     /// <summary>
     /// Gets or sets the airtec. The unit depends on the settings of the subscription (metric: bar, imperial: psi).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Bar)]
+    [Range(0, double.PositiveInfinity)]
     public double? Airtec { get; set; } // TODO: Bool? No bool, here the pressure (bar) for the values is set
 
     /// <summary>
     /// Gets or sets the protection film thickness.
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
+    [Range(0, double.PositiveInfinity)]
     public double? ProtectionFilmThickness { get; set; }
 
     /// <summary>
     /// Gets or sets the protection layer thickness.
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
+    [Range(0, double.PositiveInfinity)]
     public double? FunctionLayerThickness { get; set; }
 
     /// <summary>
@@ -136,50 +143,57 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Gets or sets the name of the manufacturer.
     /// </summary>
+    [StringLength(50)]
     public string? ManufacturerName { get; set; }
 
     /// <summary>
     /// Gets or sets the decor name.
     /// </summary>
+    [StringLength(50)]
     public string? DecorName { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the product.
     /// </summary>
+    [StringLength(200)]
     public string? ProductName { get; set; }
 
     /// <summary>
     /// Gets or sets the decor code.
     /// </summary>
+    [StringLength(50)]
     public string? DecorCode { get; set; }
 
     /// <summary>
     /// Gets or sets the DecorId.
     /// </summary>
+    [StringLength(50)]
     public string? DecorId { get; set; }
 
     /// <summary>
     /// Gets or sets the decor embossing code.
     /// </summary>
+    [StringLength(50)]
     public string? DecorEmbossingCode { get; set; }
 
     /// <summary>
     /// Gets or sets the article number.
     /// </summary>
+    [StringLength(50)]
     public string? ArticleNumber { get; set; }
 
     /// <summary>
     /// Gets or sets the gtin.
     /// </summary>
+    [StringLength(50)]
     public string? Gtin { get; set; }
 
     /// <summary>
     /// Gets or sets the id from an external system.
     /// </summary>
-    [Obsolete ("use ExternalSystemId instead", false)]
+    [Obsolete("use ExternalSystemId instead", false)]
     public string? ExternalId { get; set; }
 
-  
     #endregion
 
     #region Inventory
@@ -187,6 +201,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Gets or sets the total quantity available warning limit.
     /// </summary>
+    [Range(0, int.MaxValue)]
     public int? TotalQuantityAvailableWarningLimit { get; set; }
 
     /// <summary>
@@ -194,6 +209,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// imperial: ft).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+    [Range(0, 999999.99)]
     public double? TotalLengthAvailableWarningLimit { get; set; }
 
     /// <summary>
@@ -222,6 +238,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Gets or sets the additional comments.
     /// </summary>
+    [StringLength(300)]
     public string? Comments { get; set; }
 
     /// <summary>

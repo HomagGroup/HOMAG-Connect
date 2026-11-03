@@ -32,12 +32,12 @@ public class MaterialAssistUpdateEdgebandEntity
     /// ft).
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-    [Range(0.1, 2000.00)]
+    [Range(0, 2000.00)]
     public double? Length { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the quantity of the edgeband entity.
     /// </summary>
-    [Range(1, 100)]
+    [Range(1, 9999)]
     public int? Quantity { get; set; } = null;
 }

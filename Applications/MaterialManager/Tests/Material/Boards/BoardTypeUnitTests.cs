@@ -1,4 +1,7 @@
-﻿using HomagConnect.Base.Contracts;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
@@ -7,9 +10,10 @@ using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.Base.TestBase.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
+
 using Newtonsoft.Json;
+
 using Shouldly;
-using System.Globalization;
 
 namespace HomagConnect.MaterialManager.Tests.Material.Boards;
 
@@ -23,19 +27,50 @@ public class BoardTypeUnitTests
     public TestContext? TestContext { get; set; }
 
     /// <summary>
-    /// Verifies that the specific density is returned when it is explicitly set.
+    /// Verifies that board material categories with texture references are returned as dictionary mappings.
     /// </summary>
     [TestMethod]
-    public void BoardType_Density_ReturnsSpecificWhenSet()
+    public void BoardMaterialCategory_GetTextureReferences_ReturnsDefinedMappings()
+    {
+        var textureReferences = BoardMaterialCategory.Undefined.GetTextureReferences();
+
+        textureReferences.ShouldContainKey(BoardMaterialCategory.Chipboard);
+        textureReferences[BoardMaterialCategory.Chipboard].Id.ShouldBe("testing101:mr_chipboard");
+        textureReferences[BoardMaterialCategory.Chipboard].Catalog.ShouldBe("testing101");
+        textureReferences[BoardMaterialCategory.Chipboard].DecorCode.ShouldBe("mr");
+        textureReferences[BoardMaterialCategory.Chipboard].Embossing.ShouldBe("chipboard");
+
+        textureReferences.ShouldContainKey(BoardMaterialCategory.MediumdensityFiberboard_MDF);
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Id.ShouldBe("testing101:mdf_board");
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Catalog.ShouldBe("testing101");
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].DecorCode.ShouldBe("mdf");
+        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Embossing.ShouldBe("board");
+
+        textureReferences.Trace();
+    }
+
+    /// <summary>
+    /// Verifies that the typical density is converted when switching the unit system.
+    /// </summary>
+    [TestMethod]
+    public void BoardType_Density_ConvertsOnUnitSwitch()
     {
         var boardType = new BoardType
         {
-            MaterialCategory = BoardMaterialCategory.Chipboard,
-            Density = 485.9
+            MaterialCategory = BoardMaterialCategory.MediumdensityFiberboard_MDF,
+            Density = null
         };
 
-        boardType.DensityOrCategoryTypical.ShouldNotBeNull();
-        boardType.DensityOrCategoryTypical.Value.ShouldBe(485.9, 0.0001, "because the specific density is set");
+        boardType.DensityOrCategoryTypical.ShouldBe(700,
+            "because MDF typical density should be used in metric");
+
+        var boardTypeImperial = boardType.SwitchUnitSystem(UnitSystem.Imperial, true);
+
+        boardTypeImperial.DensityOrCategoryTypical.ShouldNotBeNull();
+        boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeGreaterThan(40,
+            "because MDF typical density should be converted to imperial units");
+        boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeLessThan(50,
+            "because MDF typical density should be converted to imperial units");
     }
 
     /// <summary>
@@ -71,75 +106,48 @@ public class BoardTypeUnitTests
     }
 
     /// <summary>
-    /// Verifies that the typical density is converted when switching the unit system.
+    /// Verifies that the specific density is returned when it is explicitly set.
     /// </summary>
     [TestMethod]
-    public void BoardType_Density_ConvertsOnUnitSwitch()
+    public void BoardType_Density_ReturnsSpecificWhenSet()
     {
         var boardType = new BoardType
         {
-            MaterialCategory = BoardMaterialCategory.MediumdensityFiberboard_MDF,
-            Density = null
+            MaterialCategory = BoardMaterialCategory.Chipboard,
+            Density = 485.9
         };
 
-        boardType.DensityOrCategoryTypical.ShouldBe(700,
-            "because MDF typical density should be used in metric");
-
-        var boardTypeImperial = boardType.SwitchUnitSystem(UnitSystem.Imperial, true);
-
-        boardTypeImperial.DensityOrCategoryTypical.ShouldNotBeNull();
-        boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeGreaterThan(40,
-            "because MDF typical density should be converted to imperial units");
-        boardTypeImperial.DensityOrCategoryTypical.Value.ShouldBeLessThan(50,
-            "because MDF typical density should be converted to imperial units");
+        boardType.DensityOrCategoryTypical.ShouldNotBeNull();
+        boardType.DensityOrCategoryTypical.Value.ShouldBe(485.9, 0.0001, "because the specific density is set");
     }
 
     /// <summary>
-    /// Verifies that board material categories with texture references are returned as dictionary mappings.
+    /// Characterizes the current unit-blind range check; these outcomes are not the desired unit-aware behavior.
     /// </summary>
     [TestMethod]
-    public void BoardMaterialCategory_GetTextureReferences_ReturnsDefinedMappings()
+    [DataRow(20000.0, false, true)]
+    [DataRow(1.27, true, false)]
+    public void BoardType_LengthRange_AfterImperialConversion_UsesUnchangedMetricBounds(
+        double metricLength, bool expectedMetricValid, bool expectedImperialValid)
     {
-        var textureReferences = BoardMaterialCategory.Undefined.GetTextureReferences();
+        var metric = new BoardType { Length = metricLength };
+        var imperial = metric.SwitchUnitSystem(UnitSystem.Imperial, false);
+        var metricResults = new List<ValidationResult>();
+        var imperialResults = new List<ValidationResult>();
 
-        textureReferences.ShouldContainKey(BoardMaterialCategory.Chipboard);
-        textureReferences[BoardMaterialCategory.Chipboard].Id.ShouldBe("testing101:mr_chipboard");
-        textureReferences[BoardMaterialCategory.Chipboard].Catalog.ShouldBe("testing101");
-        textureReferences[BoardMaterialCategory.Chipboard].DecorCode.ShouldBe("mr");
-        textureReferences[BoardMaterialCategory.Chipboard].Embossing.ShouldBe("chipboard");
+        var metricValid = Validator.TryValidateProperty(metric.Length,
+            new ValidationContext(metric) { MemberName = nameof(BoardType.Length) }, metricResults);
+        var imperialValid = Validator.TryValidateProperty(imperial.Length,
+            new ValidationContext(imperial) { MemberName = nameof(BoardType.Length) }, imperialResults);
 
-        textureReferences.ShouldContainKey(BoardMaterialCategory.MediumdensityFiberboard_MDF);
-        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Id.ShouldBe("testing101:mdf_board");
-        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Catalog.ShouldBe("testing101");
-        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].DecorCode.ShouldBe("mdf");
-        textureReferences[BoardMaterialCategory.MediumdensityFiberboard_MDF].Embossing.ShouldBe("board");
+        metricValid.ShouldBe(expectedMetricValid);
+        imperialValid.ShouldBe(expectedImperialValid);
+        imperial.UnitSystem.ShouldBe(UnitSystem.Imperial);
+        imperial.Length!.Value.ShouldBe(metricLength * 0.03937008, 0.000000001);
+        metric.Length.ShouldBe(metricLength);
 
-        textureReferences.Trace();
-    }
-
-    /// <summary>
-    /// Verifies that texture reference properties stay synchronized when one of them changes.
-    /// </summary>
-    [TestMethod]
-    public void TextureReference_Properties_AffectEachOther()
-    {
-        var textureReference = new TextureReference("testing101:mr_chipboard");
-
-        textureReference.Catalog.ShouldBe("testing101");
-        textureReference.DecorCode.ShouldBe("mr");
-        textureReference.Embossing.ShouldBe("chipboard");
-
-        textureReference.Id = "catalogx:decorx_embx";
-
-        textureReference.Catalog.ShouldBe("catalogx");
-        textureReference.DecorCode.ShouldBe("decorx");
-        textureReference.Embossing.ShouldBe("embx");
-
-        textureReference.Catalog = "catalogy";
-        textureReference.DecorCode = "decory";
-        textureReference.Embossing = "emby";
-
-        textureReference.Id.ShouldBe("catalogy:decory_emby");
+        TestContext?.WriteLine(
+            $"Metric: {metric.Length:R} mm, valid={metricValid}; Imperial: {imperial.Length:R} in, valid={imperialValid}");
     }
 
     /// <summary>
@@ -159,6 +167,33 @@ public class BoardTypeUnitTests
 
         deserializedBoardType.AdditionalProperties.ShouldBeNullOrEmpty();
         deserializedBoardType.ShouldBeEquivalentTo(boardType);
+    }
+
+    /// <summary>
+    /// Verifies that localized serialization of generated board types produces valid JSON that can be deserialized.
+    /// </summary>
+    [TestMethod]
+    public void BoardType_SerializeLocalized_ReturnsDeserializableJson()
+    {
+        var boardTypes = new[]
+        {
+            CreateBoardType(),
+            CreateBoardType("BOARD-456", "MAT-456")
+        };
+
+        var cultureInfo = CultureInfo.GetCultureInfo("de-DE");
+        var serializedBoardTypesLocalized = boardTypes.SerializeLocalized(cultureInfo);
+
+        serializedBoardTypesLocalized.ShouldNotBeNullOrWhiteSpace(
+            "because localized serialization should produce JSON content");
+
+        var deserializedBoardTypes = JsonConvert.DeserializeObject(serializedBoardTypesLocalized);
+
+        deserializedBoardTypes.ShouldNotBeNull(
+            "because localized serialization should produce valid JSON that can be deserialized");
+
+        TestContext?.AddResultFile(boardTypes.TraceToFile(nameof(BoardType_SerializeLocalized_ReturnsDeserializableJson) + "_BoardTypes").FullName);
+        TestContext?.AddResultFile(deserializedBoardTypes.TraceToFile(nameof(BoardType_SerializeLocalized_ReturnsDeserializableJson) + "_Deserialized").FullName);
     }
 
     /// <summary>
@@ -198,30 +233,28 @@ public class BoardTypeUnitTests
     }
 
     /// <summary>
-    /// Verifies that localized serialization of generated board types produces valid JSON that can be deserialized.
+    /// Verifies that texture reference properties stay synchronized when one of them changes.
     /// </summary>
     [TestMethod]
-    public void BoardType_SerializeLocalized_ReturnsDeserializableJson()
+    public void TextureReference_Properties_AffectEachOther()
     {
-        var boardTypes = new[]
-        {
-            CreateBoardType(),
-            CreateBoardType("BOARD-456", "MAT-456")
-        };
+        var textureReference = new TextureReference("testing101:mr_chipboard");
 
-        var cultureInfo = CultureInfo.GetCultureInfo("de-DE");
-        var serializedBoardTypesLocalized = boardTypes.SerializeLocalized(cultureInfo);
+        textureReference.Catalog.ShouldBe("testing101");
+        textureReference.DecorCode.ShouldBe("mr");
+        textureReference.Embossing.ShouldBe("chipboard");
 
-        serializedBoardTypesLocalized.ShouldNotBeNullOrWhiteSpace(
-            "because localized serialization should produce JSON content");
+        textureReference.Id = "catalogx:decorx_embx";
 
-        var deserializedBoardTypes = JsonConvert.DeserializeObject(serializedBoardTypesLocalized);
+        textureReference.Catalog.ShouldBe("catalogx");
+        textureReference.DecorCode.ShouldBe("decorx");
+        textureReference.Embossing.ShouldBe("embx");
 
-        deserializedBoardTypes.ShouldNotBeNull(
-            "because localized serialization should produce valid JSON that can be deserialized");
+        textureReference.Catalog = "catalogy";
+        textureReference.DecorCode = "decory";
+        textureReference.Embossing = "emby";
 
-        TestContext?.AddResultFile(boardTypes.TraceToFile(nameof(BoardType_SerializeLocalized_ReturnsDeserializableJson) + "_BoardTypes").FullName);
-        TestContext?.AddResultFile(deserializedBoardTypes.TraceToFile(nameof(BoardType_SerializeLocalized_ReturnsDeserializableJson) + "_Deserialized").FullName);
+        textureReference.Id.ShouldBe("catalogy:decory_emby");
     }
 
     private static BoardType CreateBoardType()

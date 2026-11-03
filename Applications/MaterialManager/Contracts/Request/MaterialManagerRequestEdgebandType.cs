@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
@@ -30,7 +29,8 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// ft).
     /// </summary>
     [Required]
-    [Range(0.1, 9999.9)]
+    [Range(0, 2000.0)]
+    [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     public double DefaultLength { get; set; }
 
     /// <summary>
@@ -58,6 +58,7 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// </summary>
     [Required]
     [Range(0.1, 999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Height { get; set; }
 
     /// <summary>
@@ -101,14 +102,16 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     /// inch).
     /// </summary>
     [Required]
-    [Range(0.1, 99.9)]
+    [Range(0.01, 99.99)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
     public double Thickness { get; set; }
 
     /// <summary>
     /// Gets or sets the total length available warning limit. The unit depends on the settings of the subscription (metric: m,
     /// imperial: ft).
     /// </summary>
-    [Range(0, double.PositiveInfinity)]
+    [Range(0, 999999.99)]
+    [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     public double? TotalLengthAvailableWarningLimit { get; set; }
 
     /// <summary>

@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
@@ -280,7 +274,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
 
-        ValidateRequiredProperties(edgebandTypeUpdate);
+        ValidateRequiredProperties(edgebandTypeUpdate, recursive: true);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
@@ -305,7 +299,8 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         {
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
-        ValidateRequiredProperties(edgebandTypeUpdate);
+
+        ValidateRequiredProperties(edgebandTypeUpdate, recursive: true);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
@@ -399,7 +394,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(edgebandTypeRequest));
         }
 
-        ValidateRequiredProperties(edgebandTypeRequest);
+        ValidateRequiredProperties(edgebandTypeRequest, recursive: true);
 
         var payload = JsonConvert.SerializeObject(edgebandTypeRequest, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -419,10 +414,17 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     /// <inheritdoc />
     public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest, FileReference[] fileReferences)
     {
+        if (edgebandTypeRequest == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeRequest));
+        }
+
         if (fileReferences == null)
         {
             throw new ArgumentNullException(nameof(fileReferences));
         }
+
+        ValidateRequiredProperties(edgebandTypeRequest, recursive: true);
 
         var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
 

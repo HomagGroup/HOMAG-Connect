@@ -1,9 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-
-using Newtonsoft.Json;
-
-using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Request;
 
@@ -20,11 +19,6 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     public string BoardCode { get; set; }
 
     /// <summary>
-    /// Gets or sets the id from an external system for the board type.
-    /// </summary>
-    public string? ExternalSystemId { get; set; }
-
-    /// <summary>
     /// Gets or sets the coating category of the board.
     /// </summary>
     [Required]
@@ -33,7 +27,26 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// <summary>
     /// Gets or sets the density of the board.
     /// </summary>
+    [Range(0.1, double.PositiveInfinity)]
+    [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
     public double? Density { get; set; }
+
+    /// <summary>
+    /// Gets or sets the decor bottom embossing.
+    /// </summary>
+    [StringLength(50)]
+    public string? EmbossingBottom { get; set; }
+
+    /// <summary>
+    /// Gets or sets the decor top embossing.
+    /// </summary>
+    [StringLength(50)]
+    public string? EmbossingTop { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id from an external system for the board type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
 
     /// <summary>
     /// Gets or sets the grain of the board.
@@ -46,17 +59,18 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// </summary>
     [Required]
     [Range(0.1, 19999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Length { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the board type is locked for optimization.
-    /// </summary>
-    public bool LockedForOptimization { get; set; }
 
     /// <summary>
     /// Gets or sets whether the board type is locked for configuration.
     /// </summary>
     public bool LockedForConfiguration { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the board type is locked for optimization.
+    /// </summary>
+    public bool LockedForOptimization { get; set; }
 
     /// <summary>
     /// Gets or sets the material category of the board.
@@ -85,12 +99,14 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// Gets or sets the thickness of the board.
     /// </summary>
     [Required]
-    [Range(0.01, double.PositiveInfinity)]
+    [Range(0.1, 999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Thickness { get; set; }
 
     /// <summary>
     /// Gets or sets the total quantity available warning limit.
     /// </summary>
+    [Range(0, int.MaxValue)]
     public int? TotalQuantityAvailableWarningLimit { get; set; }
 
     /// <summary>
@@ -104,18 +120,6 @@ public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialTyp
     /// </summary>
     [Required]
     [Range(0.1, 19999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Width { get; set; }
-
-    /// <summary>
-    /// Gets or sets the decor top embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingTop { get; set; }
-
-    /// <summary>
-    /// Gets or sets the decor bottom embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingBottom { get; set; }
-
 }

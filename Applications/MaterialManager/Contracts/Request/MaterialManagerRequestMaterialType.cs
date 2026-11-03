@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 
@@ -31,7 +29,7 @@ public abstract class MaterialManagerRequestMaterialType
     /// <summary>
     /// Gets or sets the costs of the board per m² or ft².
     /// </summary>
-    [Range(0, double.PositiveInfinity)]
+    [Range(0.1, 99999.99)]
     public double? Costs { get; set; }
 
     /// <summary>
@@ -39,6 +37,12 @@ public abstract class MaterialManagerRequestMaterialType
     /// </summary>
     [StringLength(50)]
     public string? DecorCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the decor ID.
+    /// </summary>
+    [StringLength(50)]
+    public string? DecorId { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the decor name.
@@ -69,10 +73,4 @@ public abstract class MaterialManagerRequestMaterialType
     /// </summary>
     [Obsolete("This parameter is obsolete. Use AdditionalData instead.")]
     public Uri? Thumbnail { get; set; }
-
-    /// <summary>
-    /// Gets or sets the decor ID.
-    /// </summary>
-    [StringLength(50)]
-    public string? DecorId { get; set; } = null;
 }

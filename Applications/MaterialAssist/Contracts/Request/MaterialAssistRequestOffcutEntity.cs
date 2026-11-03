@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+
 namespace HomagConnect.MaterialAssist.Contracts.Request;
 
 public class MaterialAssistRequestOffcutEntity : MaterialAssistRequestBase
@@ -16,6 +19,7 @@ public class MaterialAssistRequestOffcutEntity : MaterialAssistRequestBase
     /// </summary>
     [Required]
     [Range(0.1, 19999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Length { get; set; }
 
     /// <summary>
@@ -23,5 +27,6 @@ public class MaterialAssistRequestOffcutEntity : MaterialAssistRequestBase
     /// </summary>
     [Required]
     [Range(0.1, 19999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Width { get; set; }
 }
