@@ -92,6 +92,48 @@ public class MaterialMutationValidationTests
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
+    public async Task EdgebandCreate_AllowsZeroDefaultLength(bool multipart)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialManagerClientMaterialEdgebands(http);
+        var request = new MaterialManagerRequestEdgebandType
+        {
+            EdgebandCode = "edge", DefaultLength = 0, Height = 20, Thickness = 1.2
+        };
+
+        if (multipart)
+            await client.CreateEdgebandType(request, []);
+        else
+            await client.CreateEdgebandType(request);
+
+        Assert.AreEqual(1, handler.RequestCount);
+        Assert.AreEqual(0, JObject.Parse(handler.Payload!)["defaultLength"]!.Value<double>());
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task EdgebandCreate_RejectsNegativeDefaultLengthBeforeTransport(bool multipart)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialManagerClientMaterialEdgebands(http);
+        var request = new MaterialManagerRequestEdgebandType
+        {
+            EdgebandCode = "edge", DefaultLength = -0.01, Height = 20, Thickness = 1.2
+        };
+
+        await Assert.ThrowsExactlyAsync<ValidationException>(() => multipart
+            ? client.CreateEdgebandType(request, [])
+            : client.CreateEdgebandType(request));
+
+        Assert.AreEqual(0, handler.RequestCount);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
     public async Task EdgebandUpdate_EnforcesRangesAndPreservesOmission(bool multipart)
     {
         using var handler = new MaterialValidationTestSupport();
