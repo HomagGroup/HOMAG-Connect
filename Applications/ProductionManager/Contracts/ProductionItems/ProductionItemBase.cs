@@ -177,6 +177,12 @@ public class ProductionItemBase
     [JsonProperty(Order = 34)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
+    /// <summary>
+    /// Gets or sets the manufacturer of the production entity.
+    /// </summary>
+    [JsonProperty(Order = 35)]
+    public string? Manufacturer { get; set; }
+
     #endregion
 
     #region (80) Additional data
