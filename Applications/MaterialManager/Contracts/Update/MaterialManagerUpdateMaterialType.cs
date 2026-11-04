@@ -5,71 +5,74 @@ using HomagConnect.Base.Contracts.AdditionalData;
 namespace HomagConnect.MaterialManager.Contracts.Update;
 
 /// <summary>
-/// Update object to update a material type in materialManager.
+/// Provides shared material values for an update. The default client serializer omits properties whose values are null.
 /// </summary>
+/// <example>
+/// { "articleNumber": "ART-001", "comments": "Updated material notes" }
+/// </example>
 public class MaterialManagerUpdateMaterialType
 {
     /// <summary>
-    /// Gets or sets the additional data.
+    /// Supplementary name-and-value data associated with the material.
     /// </summary>
     public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
-    /// Gets or sets the article number.
+    /// Manufacturer's article number for identifying or ordering the material.
     /// </summary>
     [StringLength(50)]
     public string? ArticleNumber { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the additional comments.
+    /// Notes about the material.
     /// </summary>
     [StringLength(300)]
     public string? Comments { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the costs of the board per m² or ft².
+    /// Cost associated with the material.
     /// </summary>
     [Range(0.1, 99999.99)]
     public double? Costs { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the decor code.
+    /// Code identifying the material's decorative design.
     /// </summary>
     [StringLength(50)]
     public string? DecorCode { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the decor ID.
+    /// Identifier associated with the decorative design.
     /// </summary>
     [StringLength(50)]
     public string? DecorId { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the decor name.
+    /// Name of the material's decorative design.
     /// </summary>
     [StringLength(50)]
     public string? DecorName { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the gtin.
+    /// Global Trade Item Number used to identify the material in the supply chain.
     /// </summary>
     [StringLength(50)]
     public string? Gtin { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the name of the manufacturer.
+    /// Name of the company that manufactures the material.
     /// </summary>
     [StringLength(50)]
     public string? ManufacturerName { get; set; } = null;
 
     /// <summary>
-    /// Gets or sets the name of the product.
+    /// Product name used by the manufacturer or supplier.
     /// </summary>
     [StringLength(200)]
     public string? ProductName { get; set; } = null;
 
     /// <summary>
-    /// Gets or set the thumbnail uri.
+    /// URI of an image that helps identify the material. This property is obsolete; use <see cref="AdditionalData" /> instead.
     /// </summary>
     [Obsolete("This parameter is obsolete. Use AdditionalData instead.")]
     public Uri? Thumbnail { get; set; } = null;

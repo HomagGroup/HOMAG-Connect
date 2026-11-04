@@ -18,10 +18,10 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// A board type identifies a specific sheet format or offcut and is distinct from its shared material group.
 /// </summary>
 /// <example>
-/// { "boardCode": "P2_Gold_Craft_Oak_19.0_2800_2070", "materialCode": "P2_Gold_Craft_Oak_19.0", "thickness": 19.0,
+/// { "boardCode": "BOARD-001-2800x2070-19", "materialCode": "MAT-001-19", "thickness": 19.0,
 /// "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0,
 /// "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board",
-/// "manufacturerName": "Egger", "productName": "Gold Craft Oak", "decorName": "f004", "embossingTop": "st07",
+/// "manufacturerName": "Example Supplier", "productName": "Oak sample board", "decorName": "Oak", "embossingTop": "ST22",
 /// "totalQuantityInInventory": 12, "totalQuantityAllocated": 3, "totalQuantityAvailableWarningLimit": 16,
 /// "insufficientInventory": true, "unitSystem": "Metric" }
 /// </example>
@@ -65,7 +65,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// Code that identifies the shared material and may include its thickness; the board code distinguishes formats by length
     /// and width.
     /// </summary>
-    /// <example>P2_Gold_Craft_Oak_19.0</example>
+    /// <example>MAT-001-19</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_MaterialCode))]
     [Required]
     [StringLength(50, MinimumLength = 1)]
@@ -127,7 +127,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Unique code for this board format or variant, often including dimensional information.
     /// </summary>
-    /// <example>P2_Gold_Craft_Oak_19.0_2800_2070</example>
+    /// <example>BOARD-001-2800x2070-19</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_BoardCode))]
     [Key]
     [Required]
@@ -229,7 +229,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Name of the company that manufactures the board material.
     /// </summary>
-    /// <example>HOMAG Sample Supplier</example>
+    /// <example>Example Supplier</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ManufacturerName))]
     [JsonProperty(Order = 31)]
     [StringLength(50)]
@@ -238,7 +238,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Product name used by the manufacturer or supplier for this board material.
     /// </summary>
-    /// <example>Gold Craft Oak</example>
+    /// <example>Oak sample board</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ProductName))]
     [JsonProperty(Order = 32)]
     [StringLength(200)]
@@ -265,7 +265,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Name of the board's surface decor.
     /// </summary>
-    /// <example>Craft Oak</example>
+    /// <example>Oak</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_DecorName))]
     [JsonProperty(Order = 35)]
     [StringLength(50)]
@@ -459,7 +459,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// Estimated value of the current stock, calculated from its total area and the board's unit-area cost. This value is null
     /// when either input is unavailable.
     /// </summary>
-    /// <example>866.67</example>
+    /// <example>865.92</example>
     [JsonProperty(Order = 53)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_TotalValueInInventory))]
     public double? TotalValueInInventory
@@ -537,7 +537,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// Whether the available quantity is below the configured low-stock warning limit. A null value means the status is
     /// unknown.
     /// </summary>
-    /// <example>false</example>
+    /// <example>true</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_InsufficientInventory))]
     [JsonProperty(Order = 55)]
     public bool? InsufficientInventory { get; set; }
@@ -585,7 +585,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Image used to help users visually identify this board type.
     /// </summary>
-    /// <example>https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png</example>
+    /// <example>https://example.com/materials/boards/BOARD-001-2800x2070-19.png</example>
     [JsonProperty(Order = 3)]
     public Uri? Thumbnail { get; set; }
 

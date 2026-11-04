@@ -10,21 +10,21 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// Represents the allocation of a board type to a production-related entity.
 /// </summary>
 /// <example>
-/// { "boardCode": "P2_Gold_Craft_Oak_19.0", "quantity": 4 }
+/// { "boardCode": "BOARD-001", "name": "Production reservation", "quantity": 4 }
 /// </example>
 public class BoardTypeAllocation : Allocation
 {
     /// <summary>
-    /// Gets or sets the board code of the allocated board type.
+    /// Code of the board type reserved by this allocation.
     /// </summary>
-    /// <example>P2_Gold_Craft_Oak_19.0</example>
+    /// <example>BOARD-001</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeAllocationProperties_BoardCode))]
     [Required]
     [StringLength(50, MinimumLength = 1)]
     public string BoardCode { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the allocated quantity of boards.
+    /// Number of boards reserved by this allocation.
     /// </summary>
     /// <example>4</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeAllocationProperties_Quantity))]
