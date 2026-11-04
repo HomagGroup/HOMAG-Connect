@@ -168,7 +168,7 @@ public static partial class LocalizationExtensions
 
     private static string AppendDisplayUnit(string displayName, PropertyInfo propertyInfo, Contracts.Enumerations.UnitSystem unitSystem, Type declaringType)
     {
-        var attribute = propertyInfo.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>(true);
+        var attribute = GetPropertyAttribute<ValueDependsOnUnitSystemAttribute>(declaringType, propertyInfo.Name);
 
         if (attribute == null)
         {

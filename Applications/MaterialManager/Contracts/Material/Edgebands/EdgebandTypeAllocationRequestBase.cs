@@ -3,28 +3,33 @@
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
+/// Identifies the edgeband type and order associated with an allocation.
 /// </summary>
+/// <example>
+/// { "edgebandCode": "EDGE-001", "order": "ORDER-2401" }
+/// </example>
 public class EdgebandTypeAllocationRequestBase
 {
     /// <summary>
-    /// Customer of the edgeband type allocation.
+    /// Name of the customer associated with the allocation, when applicable.
     /// </summary>
     public string Customer { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the allocation edgeband code.
+    /// Code of the edgeband type associated with the allocation.
     /// </summary>
     [Required]
+    [StringLength(50, MinimumLength = 1)]
     public string EdgebandCode { get; set; } = string.Empty;
 
     /// <summary>
-    /// Order of the edgeband type allocation.
+    /// Order identifier associated with the edgeband allocation.
     /// </summary>
     [Required]
     public string Order { get; set; } = string.Empty;
 
     /// <summary>
-    /// Project of the edgeband type allocation.
+    /// Project identifier associated with the allocation, when applicable.
     /// </summary>
     public string Project { get; set; } = string.Empty;
 }

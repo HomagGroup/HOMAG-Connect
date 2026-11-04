@@ -6,13 +6,21 @@ using HomagConnect.Base.Contracts.Enumerations;
 namespace HomagConnect.Base.Contracts.Interfaces;
 
 /// <summary>
-/// Defines length and width properties for parts or boards.
+/// Length and width of a part or board, expressed in the unit system of the containing contract.
 /// </summary>
+/// <remarks>
+/// Measurements are nullable; implementing contracts can require them.
+/// Range attributes define metric bounds and do not automatically convert those bounds for imperial values.
+/// </remarks>
+/// <example>
+/// { "length": 2800.0, "width": 2070.0 }
+/// </example>
 public interface IDimensionPropertiesLengthWidth
 {
     /// <summary>
-    /// Gets or sets the length.
-    /// Unit: mm when <c>UnitSystem.Metric</c> is used; inches when <c>UnitSystem.Imperial</c> is used.
+    /// Length of the part or board; null represents an unspecified measurement.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
+    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
     /// </summary>
     /// <example>2800</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Length))]
@@ -21,8 +29,9 @@ public interface IDimensionPropertiesLengthWidth
     public double? Length { get; set; }
 
     /// <summary>
-    /// Gets or sets the width.
-    /// Unit: mm when <c>UnitSystem.Metric</c> is used; inches when <c>UnitSystem.Imperial</c> is used.
+    /// Width of the part or board; null represents an unspecified measurement.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
+    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
     /// </summary>
     /// <example>2070</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Width))]

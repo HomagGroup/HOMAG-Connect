@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -15,25 +13,31 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 /// <summary>
-/// A board material groups interchangeable board types that share core material characteristics, such as category and surface coating.
+/// A board material groups interchangeable board types that share core material characteristics, such as category and
+/// surface coating.
 /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board materials</see>.
 /// </summary>
 /// <example>
-/// { "code": "P2_Gold_Craft_Oak", "materialCategory": "ParticleBoard", "thickness": 19.0, "hasGrain": true, "coatingCategory": "MelamineResinCoated", "standardQuality": "P2", "decorName": [ "Craft Oak" ], "decorCode": [ "DCR-7788" ], "thumbnail": "https://example.com/materials/P2_Gold_Craft_Oak.png", "manufacturer": [ "HOMAG Sample Supplier" ], "productName": [ "Gold Craft Oak" ], "masterDataComments": [ "Preferred stock item" ], "averageCosts": 12.45, "density": 650.0, "materialParameterForOptimization": [ "QUALITY=A" ], "boardParameterForOptimization": [ "GRAIN=LENGTHWISE" ], "unitSystem": "Metric" }
+/// {
+/// "code": "MAT-001-19",
+/// "materialCategory": "Chipboard",
+/// "thickness": { "value": 19.0, "unitSystem": "Metric" },
+/// "hasGrain": true,
+/// "coatingCategory": "MelamineThermoset",
+/// "standardQuality": "RawCut",
+/// "decorName": [ "Oak" ],
+/// "decorCode": [ "DCR-001" ],
+/// "manufacturer": [ "Example Supplier" ],
+/// "productName": [ "Oak sample board" ],
+/// "unitSystem": "Metric"
+/// }
 /// </example>
 public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditionalData
 {
     /// <summary>
-    /// Gets or sets the additional data entries associated with the material.
-    /// </summary>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_AdditionalData))]
-    [JsonProperty(Order = 80)]
-    public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
-
-    /// <summary>
-    /// Gets or sets the average material cost in the subscription currency and subscription unit system.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: amount/m².</para>
-    /// <para>Unit for <see cref="UnitSystem.Imperial" />: amount/ft².</para>
+    /// Average cost per unit area across board types belonging to this material.
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: amount/m².</para>
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: amount/ft².</para>
     /// </summary>
     /// <example>12.45</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_AverageCosts))]
@@ -41,7 +45,7 @@ public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditio
     public double? AverageCosts { get; set; }
 
     /// <summary>
-    /// Gets or sets the board parameters used for optimization.
+    /// Board-specific optimization parameters collected from this material's board types.
     /// </summary>
     /// <example>[ "GRAIN=LENGTHWISE" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_BoardParameterForOptimization))]
@@ -49,40 +53,40 @@ public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditio
     public ICollection<string> BoardParameterForOptimization { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the coating category of the material.
+    /// Surface coating shared by the board types belonging to this material.
     /// </summary>
-    /// <example>MelamineResinCoated</example>
+    /// <example>MelamineThermoset</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_CoatingCategory))]
     [JsonProperty(Order = 5)]
     public CoatingCategory CoatingCategory { get; set; }
 
     /// <summary>
-    /// Gets or sets the material code.
+    /// Code identifying the shared material, distinct from the codes of its individual board formats.
     /// </summary>
-    /// <example>P2_Gold_Craft_Oak</example>
+    /// <example>MAT-001-19</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_Code))]
     [JsonProperty(Order = 1)]
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the decor codes used by board types of the material.
+    /// Decorative-design codes collected from this material's board types.
     /// </summary>
-    /// <example>[ "DCR-7788" ]</example>
+    /// <example>[ "DCR-001" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_DecorCode))]
     [JsonProperty(Order = 9)]
     public ICollection<string> DecorCode { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the decor names used by board types of the material.
+    /// Decorative-design names collected from this material's board types.
     /// </summary>
-    /// <example>[ "Craft Oak" ]</example>
+    /// <example>[ "Oak" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_DecorName))]
     [JsonProperty(Order = 8)]
     public ICollection<string> DecorName { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the material density.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: kg/m³.</para>
+    /// Mass per unit volume of the board material, when known.
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: kg/m³.</para>
     /// <para>Unit for <see cref="UnitSystem.Imperial" />: lb/ft³.</para>
     /// </summary>
     /// <example>650.0</example>
@@ -92,22 +96,22 @@ public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditio
     public double? Density { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the material has a grain direction.
+    /// Whether this material has a grain direction that affects part orientation.
     /// </summary>
     /// <example>true</example>
     [JsonProperty(Order = 4)]
     public bool HasGrain { get; set; }
 
     /// <summary>
-    /// Gets or sets the manufacturer names used by board types of the material.
+    /// Manufacturer names collected from this material's board types.
     /// </summary>
-    /// <example>[ "HOMAG Sample Supplier" ]</example>
+    /// <example>[ "Example Supplier" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_Manufacturer))]
     [JsonProperty(Order = 11)]
     public ICollection<string> Manufacturer { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the master data comments used by board types of the material.
+    /// Master-data notes collected from this material's board types.
     /// </summary>
     /// <example>[ "Preferred stock item" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_MasterDataComments))]
@@ -115,15 +119,15 @@ public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditio
     public ICollection<string> MasterDataComments { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the material category.
+    /// Base material shared by the board types in this group.
     /// </summary>
-    /// <example>ParticleBoard</example>
+    /// <example>Chipboard</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_MaterialCategory))]
     [JsonProperty(Order = 2)]
     public BoardMaterialCategory MaterialCategory { get; set; }
 
     /// <summary>
-    /// Gets or sets the material-dependent parameters used for optimization.
+    /// Material-level optimization parameters collected from this material's board types.
     /// </summary>
     /// <example>[ "QUALITY=A" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_MaterialParameterForOptimization))]
@@ -131,35 +135,35 @@ public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditio
     public ICollection<string> MaterialParameterForOptimization { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the product names used by board types of the material.
+    /// Product names collected from this material's board types.
     /// </summary>
-    /// <example>[ "Gold Craft Oak" ]</example>
+    /// <example>[ "Oak sample board" ]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_ProductName))]
     [JsonProperty(Order = 10)]
     public ICollection<string> ProductName { get; set; } = new List<string>();
 
     /// <summary>
-    /// Gets or sets the standard quality classification of the material.
+    /// Standard cut quality associated with the material, when specified.
     /// </summary>
-    /// <example>P2</example>
+    /// <example>RawCut</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_StandardQuality))]
     [JsonProperty(Order = 6)]
     public StandardQuality? StandardQuality { get; set; }
 
     /// <summary>
-    /// Gets or sets the material thickness.
+    /// Thickness measurement with an optional tolerance and its own unit system.
     /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
     /// </summary>
-    /// <example>19.0</example>
+    /// <example>{ "value": 19.0, "unitSystem": "Metric" }</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_Thickness))]
     [JsonProperty(Order = 3)]
     public DoubleValue Thickness { get; set; } = new DoubleValue(null);
 
     /// <summary>
-    /// Gets or sets the thumbnail URI.
+    /// Image used to help identify the shared material.
     /// </summary>
-    /// <example>https://example.com/materials/P2_Gold_Craft_Oak.png</example>
+    /// <example>https://example.com/materials/MAT-001-19.png</example>
     [JsonProperty(Order = 7)]
     public Uri? Thumbnail { get; set; }
 
@@ -167,7 +171,14 @@ public class Material : IContainsUnitSystemDependentProperties, ISupportsAdditio
     [JsonProperty(Order = 50)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Supporting data associated with the shared material, such as documents or images.
+    /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MaterialProperties_AdditionalData))]
+    [JsonProperty(Order = 80)]
+    public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
+
+    /// <inheritdoc />
     [JsonExtensionData]
     [JsonProperty(Order = 999)]
     [Display(ResourceType = typeof(HomagConnect.Base.Contracts.Resources), Name = nameof(AdditionalProperties))]

@@ -79,6 +79,8 @@ public class LocalizationTests
     }
 
     [DataRow("de", true, UnitSystem.Metric)]
+    [DataRow("de", false, UnitSystem.Metric)]
+    [DataRow("de", true, UnitSystem.Imperial)]
     [DataRow("de", false, UnitSystem.Imperial)]
     [TestMethod]
     public void MaterialManager_Localization_BoardType(string cultureName, bool includingUnitSystem, UnitSystem unitSystem)
@@ -91,7 +93,10 @@ public class LocalizationTests
             var resourceKey = $"BoardTypeProperties_{propertyName}";
             var expected = CapitalizeFirstLetter(Resources.ResourceManager.GetString(resourceKey, culture));
             if (string.IsNullOrEmpty(expected)) continue; //not all properties have resources like HasGrain
-            var valueDependsOnUnitSystemAttribute = typeof(BoardType).GetProperty(propertyName)?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>(true);
+            var valueDependsOnUnitSystemAttribute = typeof(BoardType).GetProperty(propertyName)?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>(true)
+                ?? typeof(BoardType).GetInterfaces()
+                    .Select(interfaceType => interfaceType.GetProperty(propertyName)?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>(true))
+                    .FirstOrDefault(attribute => attribute != null);
             if (includingUnitSystem && valueDependsOnUnitSystemAttribute != null)
             {
                 expected += boardType.UnitSystem == UnitSystem.Imperial
