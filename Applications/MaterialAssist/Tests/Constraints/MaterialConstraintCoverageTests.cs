@@ -5,6 +5,8 @@ using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialAssist.Tests.Constraints;
 
 [TestClass]
@@ -18,7 +20,9 @@ public class MaterialConstraintCoverageTests
             .Where(type => type.IsClass && !type.IsNested && type.Namespace != null &&
                            (type.Namespace.EndsWith(".Request") || type.Namespace.EndsWith(".Update") || type.Namespace.EndsWith(".Storage")));
         foreach (var type in discovered)
-            Assert.IsTrue(known.Contains(type), $"Classify {type.FullName} before adding material validation.");
+        {
+            known.ShouldContain(type, $"Classify {type.FullName} before adding material validation.");
+        }
     }
 
     [TestMethod]
@@ -32,16 +36,15 @@ public class MaterialConstraintCoverageTests
             .Where(method => method.Name.StartsWith("Create") || method.Name.StartsWith("Update") || method.Name.StartsWith("Store"))
             .Select(method => $"{method.Name}({string.Join(",", method.GetParameters().Select(parameter => parameter.ParameterType.Name))})")
             .ToArray();
-        CollectionAssert.AreEquivalent(reviewed.Split(';'), actual);
+        actual.ShouldBe(reviewed.Split(';'), ignoreOrder: true);
     }
 
     [TestMethod]
     [DynamicData(nameof(ReviewedShapes))]
     public void PublicShape_HasReviewedMappingOrExplicitDisposition(Type type, string reviewed)
     {
-        CollectionAssert.AreEquivalent(reviewed.Split(' '),
-            type.GetProperties().Select(property => property.Name).ToArray(),
-            $"Review {type.Name} against its operation-specific material mapping.");
+        type.GetProperties().Select(property => property.Name).ShouldBe(reviewed.Split(' '),
+            ignoreOrder: true, customMessage: $"Review {type.Name} against its operation-specific material mapping.");
     }
 
     public static IEnumerable<object[]> ReviewedShapes()

@@ -6,6 +6,8 @@ using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialManager.Tests.Constraints;
 
 [TestClass]
@@ -16,8 +18,8 @@ public class MaterialUnitMetadataTests
     public void Measurement_HasCorrectBaseUnit(Type type, string member, BaseUnit expected)
     {
         var metadata = type.GetProperty(member)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>();
-        Assert.IsNotNull(metadata, $"{type.Name}.{member}");
-        Assert.AreEqual(expected, metadata.BaseUnit);
+        metadata.ShouldNotBeNull($"{type.Name}.{member}");
+        metadata.BaseUnit.ShouldBe(expected);
     }
 
     public static IEnumerable<object[]> Measurements()
@@ -54,6 +56,6 @@ public class MaterialUnitMetadataTests
                      (typeof(MaterialManagerRequestEdgebandType), "Lasertec"),
                      (typeof(BoardTypeAllocationRequest), "Quantity")
                  })
-            Assert.IsNull(row.Item1.GetProperty(row.Item2)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>());
+            row.Item1.GetProperty(row.Item2)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>().ShouldBeNull();
     }
 }

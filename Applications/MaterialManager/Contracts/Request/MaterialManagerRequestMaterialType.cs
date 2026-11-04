@@ -45,7 +45,7 @@ public abstract class MaterialManagerRequestMaterialType
     /// Identifier associated with the decorative design.
     /// </summary>
     [StringLength(50)]
-    public string? DecorId { get; set; } = null;
+    public string? DecorId { get; set; }
 
     /// <summary>
     /// Name of the material's decorative design.

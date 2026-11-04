@@ -5,6 +5,8 @@ using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialAssist.Tests.Constraints;
 
 [TestClass]
@@ -15,13 +17,13 @@ public class MaterialConstraintAnnotationTests
     public void MappedRange_AcceptsInclusiveBoundaries(Type type, string name, double minimum, double maximum)
     {
         var rule = type.GetProperty(name)!.GetCustomAttribute<RangeAttribute>();
-        Assert.IsNotNull(rule);
-        Assert.AreEqual(minimum, Convert.ToDouble(rule.Minimum), $"{type.Name}.{name}");
-        Assert.AreEqual(maximum, Convert.ToDouble(rule.Maximum), $"{type.Name}.{name}");
-        Assert.IsTrue(rule.IsValid(minimum));
-        Assert.IsTrue(rule.IsValid(maximum));
-        Assert.IsFalse(rule.IsValid(minimum - 1));
-        Assert.IsFalse(rule.IsValid(maximum + 1));
+        rule.ShouldNotBeNull();
+        Convert.ToDouble(rule.Minimum).ShouldBe(minimum, $"{type.Name}.{name}");
+        Convert.ToDouble(rule.Maximum).ShouldBe(maximum, $"{type.Name}.{name}");
+        rule.IsValid(minimum).ShouldBeTrue();
+        rule.IsValid(maximum).ShouldBeTrue();
+        rule.IsValid(minimum - 1).ShouldBeFalse();
+        rule.IsValid(maximum + 1).ShouldBeFalse();
     }
 
     [TestMethod]

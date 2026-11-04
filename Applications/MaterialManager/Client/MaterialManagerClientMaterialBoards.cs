@@ -26,11 +26,19 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private static void ValidateInventoryProperties(ImportInventoryRequest data)
     {
         if (data.Materials == null)
+        {
             throw new ValidationException("Materials must not be null.");
+        }
+
         if (data.Instances == null)
+        {
             throw new ValidationException("Instances must not be null.");
+        }
+
         if (data.Allocations == null)
+        {
             throw new ValidationException("Allocations must not be null.");
+        }
 
         var index = 0;
         foreach (var material in data.Materials)

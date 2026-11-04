@@ -8,6 +8,8 @@ using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Request;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialAssist.Tests.Constraints;
 
 [TestClass]
@@ -20,7 +22,7 @@ public class MaterialMutationValidationTests
         using var http = handler.CreateClient();
         var client = new MaterialAssistClientBoards(http);
         await client.CreateBoardEntity(new MaterialAssistRequestBoardEntity { Id = "id", BoardCode = "board", Quantity = 9999 });
-        Assert.AreEqual(1, handler.RequestCount);
+        handler.RequestCount.ShouldBe(1);
     }
 
     [TestMethod]
@@ -29,9 +31,9 @@ public class MaterialMutationValidationTests
         using var handler = new MaterialValidationTestSupport();
         using var http = handler.CreateClient();
         var client = new MaterialAssistClientBoards(http);
-        await Assert.ThrowsExactlyAsync<ValidationException>(() =>
-            client.UpdateBoardEntity("id", new MaterialAssistUpdateBoardEntity { Length = 19999.95 }));
-        Assert.AreEqual(0, handler.RequestCount);
+        (await Should.ThrowAsync<ValidationException>(() =>
+            client.UpdateBoardEntity("id", new MaterialAssistUpdateBoardEntity { Length = 19999.95 }))).ShouldBeOfType<ValidationException>();
+        handler.RequestCount.ShouldBe(0);
     }
 
     [TestMethod]
@@ -44,14 +46,14 @@ public class MaterialMutationValidationTests
         {
             Id = "id", EdgebandCode = "edge", Quantity = 10000, Length = 0, CurrentThickness = 0.01
         };
-        await Assert.ThrowsExactlyAsync<ValidationException>(() => edges.CreateEdgebandEntity(request));
-        await Assert.ThrowsExactlyAsync<ValidationException>(() => edges.UpdateEdgebandEntity("id",
-            new MaterialAssistUpdateEdgebandEntity { CurrentThickness = 100 }));
-        Assert.AreEqual(0, handler.RequestCount);
+        (await Should.ThrowAsync<ValidationException>(() => edges.CreateEdgebandEntity(request))).ShouldBeOfType<ValidationException>();
+        (await Should.ThrowAsync<ValidationException>(() => edges.UpdateEdgebandEntity("id",
+            new MaterialAssistUpdateEdgebandEntity { CurrentThickness = 100 }))).ShouldBeOfType<ValidationException>();
+        handler.RequestCount.ShouldBe(0);
         request.Quantity = 9999;
         await edges.CreateEdgebandEntity(request);
         await edges.UpdateEdgebandEntity("id", new MaterialAssistUpdateEdgebandEntity { Comments = string.Empty });
-        Assert.AreEqual(2, handler.RequestCount);
+        handler.RequestCount.ShouldBe(2);
     }
 
     [TestMethod]
@@ -61,15 +63,15 @@ public class MaterialMutationValidationTests
         using var http = handler.CreateClient();
         var boards = new MaterialAssistClientBoards(http);
         var offcut = new MaterialAssistRequestOffcutEntity { Id = "id", BoardCode = "board", Quantity = 1, Length = 20000, Width = 100 };
-        await Assert.ThrowsExactlyAsync<ValidationException>(() => boards.CreateOffcutEntity(offcut));
+        (await Should.ThrowAsync<ValidationException>(() => boards.CreateOffcutEntity(offcut))).ShouldBeOfType<ValidationException>();
         var template = new MaterialAssistRequestTemplateEntity { Id = "id", BoardCode = "board", Quantity = 1, Length = 100, Width = 20000 };
-        await Assert.ThrowsExactlyAsync<ValidationException>(() => boards.CreateTemplateEntity(template));
-        Assert.AreEqual(0, handler.RequestCount);
+        (await Should.ThrowAsync<ValidationException>(() => boards.CreateTemplateEntity(template))).ShouldBeOfType<ValidationException>();
+        handler.RequestCount.ShouldBe(0);
         offcut.Length = 0.1;
         template.Width = 19999.9;
         await boards.CreateOffcutEntity(offcut);
         await boards.CreateTemplateEntity(template);
-        Assert.AreEqual(2, handler.RequestCount);
+        handler.RequestCount.ShouldBe(2);
     }
 
     [TestMethod]
@@ -78,14 +80,14 @@ public class MaterialMutationValidationTests
         using var handler = new MaterialValidationTestSupport();
         using var http = handler.CreateClient();
         var client = new MaterialAssistClientBoards(http);
-        await Assert.ThrowsExactlyAsync<ArgumentException>(() =>
-            client.StoreBoardEntity(new MaterialAssistStoreBoardEntity { Id = "id" }));
-        await Assert.ThrowsExactlyAsync<ValidationException>(() =>
+        (await Should.ThrowAsync<ArgumentException>(() =>
+            client.StoreBoardEntity(new MaterialAssistStoreBoardEntity { Id = "id" }))).ShouldBeOfType<ArgumentException>();
+        (await Should.ThrowAsync<ValidationException>(() =>
             client.StoreBoardEntity(new MaterialAssistStoreBoardEntity
             {
                 Id = "id", Length = 20000, StorageLocation = new StorageLocation(), Workstation = new Workstation()
-            }));
-        Assert.AreEqual(0, handler.RequestCount);
+            }))).ShouldBeOfType<ValidationException>();
+        handler.RequestCount.ShouldBe(0);
     }
 
     [TestMethod]
@@ -94,12 +96,12 @@ public class MaterialMutationValidationTests
         using var handler = new MaterialValidationTestSupport();
         using var http = handler.CreateClient();
         var client = new MaterialAssistClientEdgebands(http);
-        await Assert.ThrowsExactlyAsync<ValidationException>(() =>
+        (await Should.ThrowAsync<ValidationException>(() =>
             client.StoreEdgebandEntity(new MaterialAssistStoreEdgebandEntity
             {
                 Id = "id", Length = 2001, StorageLocation = new StorageLocation(), Workstation = new Workstation()
-            }));
-        Assert.AreEqual(0, handler.RequestCount);
+            }))).ShouldBeOfType<ValidationException>();
+        handler.RequestCount.ShouldBe(0);
     }
 
     [TestMethod]
@@ -109,11 +111,11 @@ public class MaterialMutationValidationTests
         using var http = handler.CreateClient();
         var boards = new MaterialAssistClientBoards(http);
         var edges = new MaterialAssistClientEdgebands(http);
-        await Assert.ThrowsExactlyAsync<ValidationException>(() => boards.CreateBoardType(
-            new MaterialManagerRequestBoardType { BoardCode = "board", MaterialCode = "material", Length = 200, Width = 100, Thickness = 1000 }));
-        await Assert.ThrowsExactlyAsync<ValidationException>(() => edges.CreateEdgebandType(
-            new MaterialManagerRequestEdgebandType { EdgebandCode = "edge", DefaultLength = 2001, Height = 20, Thickness = 1 }));
-        Assert.AreEqual(0, handler.RequestCount);
+        (await Should.ThrowAsync<ValidationException>(() => boards.CreateBoardType(
+            new MaterialManagerRequestBoardType { BoardCode = "board", MaterialCode = "material", Length = 200, Width = 100, Thickness = 1000 }))).ShouldBeOfType<ValidationException>();
+        (await Should.ThrowAsync<ValidationException>(() => edges.CreateEdgebandType(
+            new MaterialManagerRequestEdgebandType { EdgebandCode = "edge", DefaultLength = 2001, Height = 20, Thickness = 1 }))).ShouldBeOfType<ValidationException>();
+        handler.RequestCount.ShouldBe(0);
     }
 
     [TestMethod]
@@ -143,9 +145,9 @@ public class MaterialMutationValidationTests
             AdditionalData = [texture]
         });
 
-        Assert.AreEqual(2, handler.RequestCount);
-        Assert.AreEqual(dimension, texture.Length);
-        Assert.AreEqual(dimension, texture.Width);
+        handler.RequestCount.ShouldBe(2);
+        texture.Length.ShouldBe(dimension);
+        texture.Width.ShouldBe(dimension);
     }
 
     [TestMethod]
@@ -164,7 +166,7 @@ public class MaterialMutationValidationTests
         {
             Id = "id", Length = 0, StorageLocation = new StorageLocation(), Workstation = new Workstation()
         });
-        Assert.AreEqual(2, handler.RequestCount);
-        Assert.AreEqual(0.1, board.Length);
+        handler.RequestCount.ShouldBe(2);
+        board.Length.ShouldBe(0.1);
     }
 }

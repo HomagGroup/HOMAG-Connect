@@ -6,6 +6,8 @@ using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialAssist.Tests.Constraints;
 
 [TestClass]
@@ -22,8 +24,8 @@ public class MaterialUnitMetadataTests
         foreach (var name in new[] { "Length", "Width" })
         {
             var metadata = type.GetProperty(name)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>();
-            Assert.IsNotNull(metadata, $"{type.Name}.{name}");
-            Assert.AreEqual(BaseUnit.Millimeter, metadata.BaseUnit);
+            metadata.ShouldNotBeNull($"{type.Name}.{name}");
+            metadata.BaseUnit.ShouldBe(BaseUnit.Millimeter);
         }
     }
 
@@ -36,15 +38,15 @@ public class MaterialUnitMetadataTests
     public void EdgebandMeasurements_PreserveTheCorrectUnits(Type type, string name, BaseUnit expected, int decimals)
     {
         var metadata = type.GetProperty(name)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>();
-        Assert.IsNotNull(metadata);
-        Assert.AreEqual(expected, metadata.BaseUnit);
-        Assert.AreEqual(decimals, metadata.DecimalsMetric);
+        metadata.ShouldNotBeNull();
+        metadata.BaseUnit.ShouldBe(expected);
+        metadata.DecimalsMetric.ShouldBe(decimals);
     }
 
     [TestMethod]
     public void Quantity_HasNoConversionMetadata()
     {
-        Assert.IsNull(typeof(MaterialAssistRequestBase).GetProperty("Quantity")!
-            .GetCustomAttribute<ValueDependsOnUnitSystemAttribute>());
+        typeof(MaterialAssistRequestBase).GetProperty("Quantity")!
+            .GetCustomAttribute<ValueDependsOnUnitSystemAttribute>().ShouldBeNull();
     }
 }

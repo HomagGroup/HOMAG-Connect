@@ -38,13 +38,13 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// Embossing or texture pattern on the bottom decor side.
     /// </summary>
     [StringLength(50)]
-    public string? EmbossingBottom { get; set; } = null;
+    public string? EmbossingBottom { get; set; }
 
     /// <summary>
     /// Embossing or texture pattern on the top decor side.
     /// </summary>
     [StringLength(50)]
-    public string? EmbossingTop { get; set; } = null;
+    public string? EmbossingTop { get; set; }
 
     /// <summary>
     /// Identifier used by an external system to refer to this board type.

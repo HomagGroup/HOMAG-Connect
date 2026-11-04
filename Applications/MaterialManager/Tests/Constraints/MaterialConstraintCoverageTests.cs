@@ -8,6 +8,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialManager.Tests.Constraints;
 
 [TestClass]
@@ -33,17 +35,17 @@ public class MaterialConstraintCoverageTests
                              method.Name.StartsWith("Patch") || method.Name == "ImportInventory")
             .Select(method => $"{method.Name}({string.Join(",", method.GetParameters().Select(parameter => parameter.ParameterType.Name))})")
             .ToArray();
-        CollectionAssert.AreEquivalent(reviewed.Split(';'), actual,
-            "A new overload needs mapping, validation invocation and zero-HTTP regression coverage.");
+        actual.ShouldBe(reviewed.Split(';'), ignoreOrder: true,
+            customMessage: "A new overload needs mapping, validation invocation and zero-HTTP regression coverage.");
     }
 
     [TestMethod]
     [DynamicData(nameof(ReviewedShapes))]
     public void PublicShape_HasReviewedMappingOrExplicitDisposition(Type type, string reviewed)
     {
-        CollectionAssert.AreEquivalent(reviewed.Split(' ', StringSplitOptions.RemoveEmptyEntries),
-            type.GetProperties().Select(property => property.Name).ToArray(),
-            $"Review every added/removed {type.Name} property in the material mapping, including inherited/nested contexts.");
+        type.GetProperties().Select(property => property.Name)
+            .ShouldBe(reviewed.Split(' ', StringSplitOptions.RemoveEmptyEntries), ignoreOrder: true,
+                customMessage: $"Review every added/removed {type.Name} property in the material mapping, including inherited/nested contexts.");
     }
 
     [TestMethod]
@@ -66,10 +68,9 @@ public class MaterialConstraintCoverageTests
     [DataRow(typeof(AdditionalDataPreview), "Size Uri")]
     public void ReadOnlyAndNestedShapes_HaveExplicitDispositions(Type type, string reviewed)
     {
-        CollectionAssert.AreEquivalent(reviewed.Split(' '),
-            type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                .Select(property => property.Name).ToArray(),
-            $"Review nested/read-only {type.Name} before extending material rules.");
+        type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+            .Select(property => property.Name).ShouldBe(reviewed.Split(' '), ignoreOrder: true,
+                customMessage: $"Review nested/read-only {type.Name} before extending material rules.");
     }
 
     [TestMethod]
@@ -83,7 +84,7 @@ public class MaterialConstraintCoverageTests
                            (type.Namespace == typeof(MaterialManagerRequestBoardType).Namespace ||
                             type.Namespace == typeof(MaterialManagerUpdateBoardType).Namespace));
         foreach (var type in discovered)
-            Assert.IsTrue(known.Contains(type), $"Classify the new operation input {type.FullName}.");
+            known.ShouldContain(type, $"Classify the new operation input {type.FullName}.");
     }
 
     public static IEnumerable<object[]> ReviewedShapes()

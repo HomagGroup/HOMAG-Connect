@@ -7,6 +7,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
 
+using Shouldly;
+
 namespace HomagConnect.MaterialManager.Tests.Constraints;
 
 [TestClass]
@@ -30,17 +32,17 @@ public class MaterialConstraintAnnotationTests
     {
         var property = type.GetProperty(member)!;
         var range = property.GetCustomAttribute<RangeAttribute>();
-        Assert.IsNotNull(range, $"{type.Name}.{member}");
-        Assert.AreEqual(minimum, Convert.ToDouble(range.Minimum));
-        Assert.AreEqual(maximum, Convert.ToDouble(range.Maximum));
-        Assert.IsTrue(range.IsValid(minimum));
-        Assert.IsFalse(range.IsValid(minimum - 0.01));
-        Assert.IsFalse(range.IsValid(double.NaN));
+        range.ShouldNotBeNull($"{type.Name}.{member}");
+        Convert.ToDouble(range.Minimum).ShouldBe(minimum);
+        Convert.ToDouble(range.Maximum).ShouldBe(maximum);
+        range.IsValid(minimum).ShouldBeTrue();
+        range.IsValid(minimum - 0.01).ShouldBeFalse();
+        range.IsValid(double.NaN).ShouldBeFalse();
         if (!double.IsPositiveInfinity(maximum))
         {
-            Assert.IsTrue(range.IsValid(maximum));
-            Assert.IsFalse(range.IsValid(maximum + 0.01));
-            Assert.IsFalse(range.IsValid(double.PositiveInfinity));
+            range.IsValid(maximum).ShouldBeTrue();
+            range.IsValid(maximum + 0.01).ShouldBeFalse();
+            range.IsValid(double.PositiveInfinity).ShouldBeFalse();
         }
     }
 
@@ -52,8 +54,8 @@ public class MaterialConstraintAnnotationTests
         request.BoardCode = "warning#code";
         Validator.ValidateObject(request, new ValidationContext(request), true);
         request.Comments += "x";
-        Assert.ThrowsExactly<ValidationException>(() =>
-            Validator.ValidateObject(request, new ValidationContext(request), true));
+        Should.Throw<ValidationException>(() =>
+            Validator.ValidateObject(request, new ValidationContext(request), true)).ShouldBeOfType<ValidationException>();
     }
 
     [TestMethod]
@@ -61,7 +63,7 @@ public class MaterialConstraintAnnotationTests
     {
         var results = new List<ValidationResult>();
         var update = new MaterialManagerUpdateBoardType();
-        Assert.IsTrue(Validator.TryValidateObject(update, new ValidationContext(update), results, true));
+        Validator.TryValidateObject(update, new ValidationContext(update), results, true).ShouldBeTrue();
     }
 
     public static IEnumerable<object[]> EdgebandAndAllocationRanges()
@@ -88,16 +90,16 @@ public class MaterialConstraintAnnotationTests
     public void RemainingRanges_MatchMappedDefinitions(Type type, string member, double minimum, double maximum)
     {
         var range = type.GetProperty(member)!.GetCustomAttribute<RangeAttribute>();
-        Assert.IsNotNull(range, $"{type.Name}.{member}");
-        Assert.AreEqual(minimum, Convert.ToDouble(range.Minimum));
-        Assert.AreEqual(maximum, Convert.ToDouble(range.Maximum));
-        Assert.IsTrue(range.IsValid(minimum));
-        Assert.IsFalse(range.IsValid(minimum - 1));
+        range.ShouldNotBeNull($"{type.Name}.{member}");
+        Convert.ToDouble(range.Minimum).ShouldBe(minimum);
+        Convert.ToDouble(range.Maximum).ShouldBe(maximum);
+        range.IsValid(minimum).ShouldBeTrue();
+        range.IsValid(minimum - 1).ShouldBeFalse();
         if (!double.IsPositiveInfinity(maximum))
         {
-            Assert.IsTrue(range.IsValid(maximum));
+            range.IsValid(maximum).ShouldBeTrue();
             if (range.OperandType != typeof(int))
-                Assert.IsFalse(range.IsValid(maximum + 1));
+                range.IsValid(maximum + 1).ShouldBeFalse();
         }
     }
 
@@ -137,11 +139,11 @@ public class MaterialConstraintAnnotationTests
     public void TextRules_EnforceMaximumWithoutBlockingWarnings(Type type, string name, int maximum)
     {
         var rule = type.GetProperty(name)!.GetCustomAttribute<StringLengthAttribute>();
-        Assert.IsNotNull(rule, $"{type.Name}.{name}");
-        Assert.AreEqual(maximum, rule.MaximumLength);
-        Assert.IsTrue(rule.IsValid(new string('#', maximum)));
-        Assert.IsFalse(rule.IsValid(new string('x', maximum + 1)));
-        Assert.IsTrue(rule.IsValid(null));
+        rule.ShouldNotBeNull($"{type.Name}.{name}");
+        rule.MaximumLength.ShouldBe(maximum);
+        rule.IsValid(new string('#', maximum)).ShouldBeTrue();
+        rule.IsValid(new string('x', maximum + 1)).ShouldBeFalse();
+        rule.IsValid(null).ShouldBeTrue();
     }
 
     [TestMethod]
@@ -150,8 +152,8 @@ public class MaterialConstraintAnnotationTests
         foreach (var name in new[] { "Length", "Width" })
         {
             var property = typeof(AdditionalDataTexture).GetProperty(name)!;
-            Assert.AreEqual(typeof(double), property.PropertyType);
-            Assert.IsNull(property.GetCustomAttribute<RangeAttribute>());
+            property.PropertyType.ShouldBe(typeof(double));
+            property.GetCustomAttribute<RangeAttribute>().ShouldBeNull();
         }
     }
 }
