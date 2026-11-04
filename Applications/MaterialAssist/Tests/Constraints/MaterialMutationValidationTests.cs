@@ -8,6 +8,8 @@ using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Request;
 
+using Newtonsoft.Json.Linq;
+
 using Shouldly;
 
 namespace HomagConnect.MaterialAssist.Tests.Constraints;
@@ -15,6 +17,57 @@ namespace HomagConnect.MaterialAssist.Tests.Constraints;
 [TestClass]
 public class MaterialMutationValidationTests
 {
+    [TestMethod]
+    [DynamicData(nameof(BoardDimensionChanges))]
+    public async Task BoardUpdateAndStore_EnforceInterfaceDimensionsBeforeTransport(bool store, string member,
+        double? value, bool expectedValid)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialAssistClientBoards(http);
+        object request = store
+            ? new MaterialAssistStoreBoardEntity
+            {
+                Id = "id", StorageLocation = new StorageLocation(), Workstation = new Workstation()
+            }
+            : new MaterialAssistUpdateBoardEntity();
+        request.GetType().GetProperty(member)!.SetValue(request, value);
+        Func<Task> act = store
+            ? () => client.StoreBoardEntity((MaterialAssistStoreBoardEntity)request)
+            : () => client.UpdateBoardEntity("id", (MaterialAssistUpdateBoardEntity)request);
+
+        if (expectedValid)
+        {
+            await act();
+            handler.RequestCount.ShouldBe(1);
+            var wireName = member == "Length" ? "length" : "width";
+            var payload = JObject.Parse(handler.Payload!);
+            if (value.HasValue)
+            {
+                payload[wireName]!.Value<double>().ShouldBe(value.Value);
+            }
+            else
+            {
+                payload[wireName].ShouldBeNull();
+            }
+        }
+        else
+        {
+            await Should.ThrowAsync<ValidationException>(act);
+            handler.RequestCount.ShouldBe(0);
+        }
+    }
+
+    public static IEnumerable<object?[]> BoardDimensionChanges()
+    {
+        foreach (var store in new[] { false, true })
+        foreach (var member in new[] { "Length", "Width" })
+        foreach (var value in new double?[] { null, 0.09, 0.1, 19999.9, 20000 })
+        {
+            yield return [store, member, value, value == null || value >= 0.1 && value <= 19999.9];
+        }
+    }
+
     [TestMethod]
     public async Task BoardQuantity_AboveFormerLimitButWithinCloudRange_IsSubmitted()
     {

@@ -5,6 +5,7 @@ using System.Text;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Exceptions;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 
@@ -267,7 +268,7 @@ public class ClientBase
     {
         var validationResults = new List<ValidationResult>();
         var validationContext = new ValidationContext(boardTypeRequest, null, null);
-        var isValid = Validator.TryValidateObject(boardTypeRequest, validationContext, validationResults, true);
+        var isValid = PropertyValidation.TryValidateObject(boardTypeRequest, validationContext, validationResults);
 
         if (isValid)
         {

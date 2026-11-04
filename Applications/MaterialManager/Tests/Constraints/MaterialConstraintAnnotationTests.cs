@@ -2,6 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Contracts.Interfaces;
+using HomagConnect.Base.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
@@ -14,6 +18,59 @@ namespace HomagConnect.MaterialManager.Tests.Constraints;
 [TestClass]
 public class MaterialConstraintAnnotationTests
 {
+    [TestMethod]
+    [DataRow(nameof(BoardType.Length))]
+    [DataRow(nameof(BoardType.Width))]
+    [DataRow(nameof(BoardType.Thickness))]
+    public void BoardDimensions_DeclareSharedRulesOnlyOnTheInterface(string member)
+    {
+        typeof(IDimensionProperties).IsAssignableFrom(typeof(BoardType)).ShouldBeTrue();
+        var property = typeof(BoardType).GetProperty(member)!;
+        property.GetCustomAttribute<RangeAttribute>().ShouldBeNull();
+        property.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>().ShouldBeNull();
+        if (member == nameof(BoardType.Thickness))
+        {
+            property.GetCustomAttribute<RequiredAttribute>().ShouldBeNull();
+        }
+        else
+        {
+            property.GetCustomAttribute<RequiredAttribute>().ShouldNotBeNull();
+        }
+        property.GetCustomAttribute<DisplayAttribute>().ShouldBeNull();
+    }
+
+    [TestMethod]
+    [DataRow(nameof(BoardType.Length), 0.09, false)]
+    [DataRow(nameof(BoardType.Length), 0.1, true)]
+    [DataRow(nameof(BoardType.Length), 19999.9, true)]
+    [DataRow(nameof(BoardType.Length), 20000.0, false)]
+    [DataRow(nameof(BoardType.Width), 0.09, false)]
+    [DataRow(nameof(BoardType.Width), 0.1, true)]
+    [DataRow(nameof(BoardType.Width), 19999.9, true)]
+    [DataRow(nameof(BoardType.Width), 20000.0, false)]
+    [DataRow(nameof(BoardType.Thickness), 0.09, false)]
+    [DataRow(nameof(BoardType.Thickness), 0.1, true)]
+    [DataRow(nameof(BoardType.Thickness), 999.9, true)]
+    [DataRow(nameof(BoardType.Thickness), 1000.0, false)]
+    public void BoardDimensions_RecursiveValidationEnforcesInterfaceRange(string member, double value, bool expectedValid)
+    {
+        var board = new BoardType
+        {
+            BoardCode = "board", MaterialCode = "material", Length = 2800, Width = 2070, Thickness = 19
+        };
+        typeof(BoardType).GetProperty(member)!.SetValue(board, value);
+
+        DataAnnotationsValidator.TryValidateObjectRecursive(board, out var results).ShouldBe(expectedValid);
+        if (expectedValid)
+        {
+            results.ShouldBeEmpty();
+        }
+        else
+        {
+            results.ShouldContain(result => result.MemberNames.Contains(member));
+        }
+    }
+
     public static IEnumerable<object[]> BoardRanges()
     {
         foreach (var type in new[] { typeof(MaterialManagerRequestBoardType), typeof(MaterialManagerUpdateBoardType), typeof(BoardType) })
@@ -31,7 +88,7 @@ public class MaterialConstraintAnnotationTests
     public void BoardRanges_MatchMetricDefinitions(Type type, string member, double minimum, double maximum)
     {
         var property = type.GetProperty(member)!;
-        var range = property.GetCustomAttribute<RangeAttribute>();
+        var range = PropertyValidation.GetValidationAttributes(type, property).OfType<RangeAttribute>().SingleOrDefault();
         range.ShouldNotBeNull($"{type.Name}.{member}");
         Convert.ToDouble(range.Minimum).ShouldBe(minimum);
         Convert.ToDouble(range.Maximum).ShouldBe(maximum);

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
@@ -16,7 +17,8 @@ public class MaterialConstraintAnnotationTests
     [DynamicData(nameof(Ranges))]
     public void MappedRange_AcceptsInclusiveBoundaries(Type type, string name, double minimum, double maximum)
     {
-        var rule = type.GetProperty(name)!.GetCustomAttribute<RangeAttribute>();
+        var rule = PropertyValidation.GetValidationAttributes(type, type.GetProperty(name)!)
+            .OfType<RangeAttribute>().SingleOrDefault();
         rule.ShouldNotBeNull();
         Convert.ToDouble(rule.Minimum).ShouldBe(minimum, $"{type.Name}.{name}");
         Convert.ToDouble(rule.Maximum).ShouldBe(maximum, $"{type.Name}.{name}");

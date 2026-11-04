@@ -17,7 +17,9 @@ public class MaterialUnitMetadataTests
     [DynamicData(nameof(Measurements))]
     public void Measurement_HasCorrectBaseUnit(Type type, string member, BaseUnit expected)
     {
-        var metadata = type.GetProperty(member)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>();
+        var metadata = type.GetProperty(member)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>() ??
+            type.GetInterfaces().Select(interfaceType => interfaceType.GetProperty(member)
+                ?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>()).FirstOrDefault(attribute => attribute != null);
         metadata.ShouldNotBeNull($"{type.Name}.{member}");
         metadata.BaseUnit.ShouldBe(expected);
     }

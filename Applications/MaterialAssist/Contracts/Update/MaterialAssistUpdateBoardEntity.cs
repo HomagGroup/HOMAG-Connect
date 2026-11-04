@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using HomagConnect.Base.Contracts.Attributes;
-using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 
 namespace HomagConnect.MaterialAssist.Contracts.Update;
 
 /// <summary>
 /// Changes to an existing board entity; omitted or null properties leave their current values unchanged.
+/// Dimension changes are supported only for individually managed boards.
 /// </summary>
 /// <example>
 /// { "length": 1000, "width": 500, "comments": "Trimmed to measured dimensions." }
 /// </example>
-public class MaterialAssistUpdateBoardEntity
+public class MaterialAssistUpdateBoardEntity : IDimensionPropertiesLengthWidth
 {
     /// <summary>
     /// Replacement notes for the board entity; omit to keep the existing notes.
@@ -26,12 +26,7 @@ public class MaterialAssistUpdateBoardEntity
     [StringLength(50)]
     public string? Id { get; set; } = null;
 
-    /// <summary>
-    /// Replacement length, supported only for individually managed boards.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm; for <see cref="UnitSystem.Imperial" />: in.</para>
-    /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 19999.9)]
+    /// <inheritdoc />
     public double? Length { get; set; }
 
     /// <summary>
@@ -40,11 +35,6 @@ public class MaterialAssistUpdateBoardEntity
     [Range(1, 9999)]
     public int? Quantity { get; set; }
 
-    /// <summary>
-    /// Replacement width, supported only for individually managed boards.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm; for <see cref="UnitSystem.Imperial" />: in.</para>
-    /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 19999.9)]
+    /// <inheritdoc />
     public double? Width { get; set; }
 }

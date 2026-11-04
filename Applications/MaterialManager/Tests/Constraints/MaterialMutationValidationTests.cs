@@ -83,6 +83,93 @@ public class MaterialMutationValidationTests
     }
 
     [TestMethod]
+    [DataRow(nameof(BoardType.Length))]
+    [DataRow(nameof(BoardType.Width))]
+    public void BoardPatch_EnforcesInterfaceRangeAndPreservesRequiredness(string member)
+    {
+        var patch = PatchBuilder<BoardType>.For();
+        if (member == nameof(BoardType.Length))
+        {
+            Should.Throw<ValidationException>(() => patch.Set(board => board.Length, (double?)0.09));
+            Should.Throw<ValidationException>(() => patch.Set(board => board.Length, (double?)20000));
+            Should.Throw<ValidationException>(() => patch.Set(board => board.Length, (double?)null));
+            patch.Set(board => board.Length, (double?)0.1);
+            patch.Set(board => board.Length, (double?)19999.9);
+        }
+        else
+        {
+            Should.Throw<ValidationException>(() => patch.Set(board => board.Width, (double?)0.09));
+            Should.Throw<ValidationException>(() => patch.Set(board => board.Width, (double?)20000));
+            Should.Throw<ValidationException>(() => patch.Set(board => board.Width, (double?)null));
+            patch.Set(board => board.Width, (double?)0.1);
+            patch.Set(board => board.Width, (double?)19999.9);
+        }
+
+        patch.Build().Count.ShouldBe(1);
+    }
+
+    [TestMethod]
+    [DataRow(nameof(BoardType.Length), 0.09)]
+    [DataRow(nameof(BoardType.Length), 20000.0)]
+    [DataRow(nameof(BoardType.Width), 0.09)]
+    [DataRow(nameof(BoardType.Width), 20000.0)]
+    public async Task InventoryImport_EnforcesInterfaceDimensionRangesBeforeTransport(string member, double invalidValue)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialManagerClientMaterialBoards(http);
+        var board = new BoardType { BoardCode = "board" };
+        typeof(BoardType).GetProperty(member)!.SetValue(board, invalidValue);
+
+        var exception = await Should.ThrowAsync<ValidationException>(() =>
+            client.ImportInventory(new ImportInventoryRequest { Materials = [board] }));
+        exception.Message.ShouldContain($"Materials[0].{member}");
+        handler.RequestCount.ShouldBe(0);
+
+        foreach (var value in new double?[] { null, 0.1, 19999.9 })
+        {
+            typeof(BoardType).GetProperty(member)!.SetValue(board, value);
+            await client.ImportInventory(new ImportInventoryRequest { Materials = [board] });
+        }
+
+        handler.RequestCount.ShouldBe(3);
+    }
+
+    [TestMethod]
+    [DataRow(nameof(MaterialManagerUpdateBoardType.Length), 19999.9, false)]
+    [DataRow(nameof(MaterialManagerUpdateBoardType.Length), 19999.9, true)]
+    [DataRow(nameof(MaterialManagerUpdateBoardType.Width), 19999.9, false)]
+    [DataRow(nameof(MaterialManagerUpdateBoardType.Width), 19999.9, true)]
+    [DataRow(nameof(MaterialManagerUpdateBoardType.Thickness), 999.9, false)]
+    [DataRow(nameof(MaterialManagerUpdateBoardType.Thickness), 999.9, true)]
+    public async Task BoardUpdate_EnforcesInterfaceDimensionsBeforeTransport(string member, double maximum, bool multipart)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialManagerClientMaterialBoards(http);
+        var request = new MaterialManagerUpdateBoardType();
+        var property = typeof(MaterialManagerUpdateBoardType).GetProperty(member)!;
+        Func<Task> act = multipart
+            ? () => client.UpdateBoardType("board", request, [])
+            : () => client.UpdateBoardType("board", request);
+
+        foreach (var invalid in new[] { 0.09, maximum + 0.1 })
+        {
+            property.SetValue(request, invalid);
+            await Should.ThrowAsync<ValidationException>(act);
+        }
+
+        handler.RequestCount.ShouldBe(0);
+        foreach (var valid in new double?[] { null, 0.1, maximum })
+        {
+            property.SetValue(request, valid);
+            await act();
+        }
+
+        handler.RequestCount.ShouldBe(3);
+    }
+
+    [TestMethod]
     public void EdgebandPatch_UsesOnlySuppliedValuesAndAllowsClearing()
     {
         var patch = PatchBuilder<EdgebandType>.For().Set(x => x.Thickness, 0.01);

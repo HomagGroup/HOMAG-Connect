@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
@@ -8,6 +9,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// and product information.
 /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
 /// </summary>
+/// <remarks>Catalog dimensions are expressed in millimeters.</remarks>
 /// <example>
 /// { "articleNumber": "ART-100200", "coatingCategory": "MelamineThermoset",
 /// "decorCode": "DCR-7788", "decorName": "Craft Oak", "embossingBottom": "ST10",
@@ -16,7 +18,7 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// "productName": "Gold Craft Oak", "thickness": 19.0,
 /// "thumbnail": "https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png", "width": 2070.0 }
 /// </example>
-public class CatalogBoardType
+public class CatalogBoardType : IDimensionProperties
 {
     /// <summary>
     /// Article number assigned to the board product by its manufacturer, when available.
@@ -66,10 +68,7 @@ public class CatalogBoardType
     /// <example>04012345678901</example>
     public string? Gtin { get; set; }
 
-    /// <summary>
-    /// Board length in mm, when available.
-    /// </summary>
-    /// <example>2800.0</example>
+    /// <inheritdoc />
     public double? Length { get; set; }
 
     /// <summary>
@@ -90,10 +89,7 @@ public class CatalogBoardType
     /// <example>Gold Craft Oak</example>
     public string? ProductName { get; set; }
 
-    /// <summary>
-    /// Board thickness in mm, when available.
-    /// </summary>
-    /// <example>19.0</example>
+    /// <inheritdoc />
     public double? Thickness { get; set; }
 
     /// <summary>
@@ -102,9 +98,6 @@ public class CatalogBoardType
     /// <example>https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png</example>
     public Uri? Thumbnail { get; set; }
 
-    /// <summary>
-    /// Board width in mm, when available.
-    /// </summary>
-    /// <example>2070.0</example>
+    /// <inheritdoc />
     public double? Width { get; set; }
 }

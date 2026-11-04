@@ -5,6 +5,7 @@ using System.Text;
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Common;
@@ -100,7 +101,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     {
         var value = target.GetType().GetProperty(member)!.GetValue(target);
         var results = new List<ValidationResult>();
-        if (!Validator.TryValidateProperty(value, new ValidationContext(target) { MemberName = member }, results))
+        if (!PropertyValidation.TryValidateProperty(value, new ValidationContext(target) { MemberName = member }, results))
         {
             throw new ValidationException($"{path}: " + string.Join("; ", results.Select(result => result.ErrorMessage)));
         }

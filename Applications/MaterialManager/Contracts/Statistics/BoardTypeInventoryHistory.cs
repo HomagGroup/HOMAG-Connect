@@ -22,12 +22,11 @@ namespace HomagConnect.MaterialManager.Contracts.Statistics;
 /// "totalAreaAvailable": 52.16, "totalValueInInventory": 865.8975, "unitSystem": "Metric", "supplierBatch":
 /// "BATCH-2025-04" }
 /// </example>
-public class BoardTypeInventoryHistory : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties
+public class BoardTypeInventoryHistory : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties,
+    IDimensionPropertiesLengthWidth
 {
     private const int _BoardCodeMaxLength = 50;
     private const int _MaterialCodeMaxLength = 50;
-    private const double _LengthDimensionMinValue = 0.1;
-    private const double _LengthDimensionMaxValue = 19999.9;
 
     /// <summary>
     /// Code identifying the board format represented by this inventory snapshot.
@@ -58,17 +57,9 @@ public class BoardTypeInventoryHistory : IContainsUnitSystemDependentProperties,
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Costs))]
     public double? Costs { get; set; }
 
-    /// <summary>
-    /// Length of one board; the nullable C# type permits null, but validation requires a value.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    /// <example>2800.0</example>
+    /// <inheritdoc />
     [Required]
-    [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
     [JsonProperty(Order = 4)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Length))]
     public double? Length { get; set; }
 
     /// <summary>
@@ -192,17 +183,9 @@ public class BoardTypeInventoryHistory : IContainsUnitSystemDependentProperties,
         }
     }
 
-    /// <summary>
-    /// Width of one board; the nullable C# type permits null, but validation requires a value.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    /// <example>2070.0</example>
+    /// <inheritdoc />
     [Required]
-    [Range(_LengthDimensionMinValue, _LengthDimensionMaxValue)]
     [JsonProperty(Order = 5)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Width))]
     public double? Width { get; set; }
 
     /// <inheritdoc />

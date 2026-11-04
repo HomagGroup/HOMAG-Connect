@@ -135,9 +135,9 @@ public class BoardTypeUnitTests
         var metricResults = new List<ValidationResult>();
         var imperialResults = new List<ValidationResult>();
 
-        var metricValid = Validator.TryValidateProperty(metric.Length,
+        var metricValid = PropertyValidation.TryValidateProperty(metric.Length,
             new ValidationContext(metric) { MemberName = nameof(BoardType.Length) }, metricResults);
-        var imperialValid = Validator.TryValidateProperty(imperial.Length,
+        var imperialValid = PropertyValidation.TryValidateProperty(imperial.Length,
             new ValidationContext(imperial) { MemberName = nameof(BoardType.Length) }, imperialResults);
 
         metricValid.ShouldBe(expectedMetricValid);
@@ -224,6 +224,8 @@ public class BoardTypeUnitTests
             "because length should be converted from metric to imperial units");
         boardTypeImperial.Width.ShouldNotBe(boardTypeMetric.Width,
             "because width should be converted from metric to imperial units");
+        boardTypeImperial.Length!.Value.ShouldBe(110.236, 0.000001);
+        boardTypeImperial.Width!.Value.ShouldBe(81.496, 0.000001);
         boardTypeImperial.Thickness.ShouldNotBe(boardTypeMetric.Thickness,
             "because thickness should be converted from metric to imperial units");
         boardTypeImperial.TotalAreaAvailableWarningLimit.ShouldNotBe(boardTypeMetric.TotalAreaAvailableWarningLimit,

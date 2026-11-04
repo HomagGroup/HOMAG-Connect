@@ -2,6 +2,7 @@
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
 
 namespace HomagConnect.MaterialManager.Contracts.Update;
@@ -12,7 +13,7 @@ namespace HomagConnect.MaterialManager.Contracts.Update;
 /// <example>
 /// { "boardCode": "BOARD-001", "thickness": 19.0, "width": 2070.0 }
 /// </example>
-public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
+public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType, IDimensionProperties
 {
     /// <summary>
     /// Code that identifies this board format or variant.
@@ -56,13 +57,7 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// </summary>
     public Grain? Grain { get; set; } = null;
 
-    /// <summary>
-    /// Length of the board.
-    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    [Range(0.1, 19999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    /// <inheritdoc />
     public double? Length { get; set; } = null;
 
     /// <summary>
@@ -96,13 +91,7 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// </summary>
     public StandardQuality? StandardQuality { get; set; } = null;
 
-    /// <summary>
-    /// Thickness of the board.
-    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    [Range(0.1, 999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    /// <inheritdoc />
     public double? Thickness { get; set; } = null;
 
     /// <summary>
@@ -116,12 +105,6 @@ public class MaterialManagerUpdateBoardType : MaterialManagerUpdateMaterialType
     /// </summary>
     public BoardTypeType? Type { get; set; } = null;
 
-    /// <summary>
-    /// Width of the board.
-    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    [Range(0.1, 19999.9)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
+    /// <inheritdoc />
     public double? Width { get; set; } = null;
 }

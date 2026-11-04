@@ -26,7 +26,8 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// "insufficientInventory": true, "unitSystem": "Metric" }
 /// </example>
 [DebuggerDisplay("{BoardCode}")]
-public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties
+public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties,
+    IDimensionProperties
 {
 #pragma warning disable S109 // Magic numbers should not be used
 
@@ -72,16 +73,8 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     [JsonProperty(Order = 10)]
     public string MaterialCode { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Thickness of the board. When omitted, the thickness is unknown.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    /// <example>19.0</example>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Thickness))]
+    /// <inheritdoc />
     [JsonProperty(Order = 24)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
-    [Range(0.1, 999.9)]
     public double? Thickness { get; set; }
 
     /// <summary>
@@ -135,30 +128,14 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     [JsonProperty(Order = 1)]
     public string BoardCode { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Width of the board.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    /// <example>2070.0</example>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Width))]
+    /// <inheritdoc />
     [Required]
-    [Range(0.1, 19999.9)]
     [JsonProperty(Order = 22)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
-    /// <summary>
-    /// Length of the board.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
-    /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
-    /// </summary>
-    /// <example>2800.0</example>
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Length))]
+    /// <inheritdoc />
     [Required]
-    [Range(0.1, 19999.9)]
     [JsonProperty(Order = 23)]
-    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
     /// <summary>

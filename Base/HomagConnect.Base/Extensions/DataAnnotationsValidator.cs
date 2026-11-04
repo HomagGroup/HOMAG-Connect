@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
+using HomagConnect.Base.Contracts.Extensions;
+
 namespace HomagConnect.Base.Extensions;
 
 #pragma warning disable S3956 // "Generic.List" instances should not be part of public APIs
@@ -58,24 +60,7 @@ public static class DataAnnotationsValidator
                 continue;
             }
 
-            // Validate attributes defined on the interface as well as on the class property
-            var validationAttributes = property.GetCustomAttributes(typeof(ValidationAttribute), true)
-                .Cast<ValidationAttribute>()
-                .ToList();
-
-            foreach (var i in type.GetInterfaces())
-            {
-                var interfaceProperty = i.GetProperty(property.Name);
-
-                if (interfaceProperty != null)
-                {
-                    var interfaceAttrs = interfaceProperty.GetCustomAttributes(typeof(ValidationAttribute), true)
-                        .Cast<ValidationAttribute>();
-                    validationAttributes.AddRange(interfaceAttrs);
-                }
-            }
-
-            foreach (var attr in validationAttributes.Distinct())
+            foreach (var attr in PropertyValidation.GetValidationAttributes(type, property))
             {
                 var validationResult = attr.GetValidationResult(value, new ValidationContext(obj) { MemberName = property.Name });
                 if (validationResult != ValidationResult.Success)
