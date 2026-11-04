@@ -1,6 +1,6 @@
 ---
 name: user-centric-contract-docs
-description: 'Improve or review customer-facing documentation for HOMAG Connect contracts, including C# DTOs, enums, and interfaces. Use when adding or changing contract types, or when asked to improve, review, or validate XML docs, examples, defaults, constraints, or samples in Applications/*/Contracts and Base.'
+description: 'Improve or review customer-facing documentation for HOMAG Connect contracts, including C# DTOs, enums, interfaces, and exact-match shared interface reuse. Use when adding or changing contract types, or when asked to improve, review, or validate XML docs, examples, defaults, constraints, inherited metadata, or samples in Applications/*/Contracts and Base.'
 ---
 
 # HOMAG Connect contract documentation
@@ -9,7 +9,7 @@ description: 'Improve or review customer-facing documentation for HOMAG Connect 
 Make every public contract type understandable for customers and integrators, not only HOMAG developers. XML documentation and attributes are the source of truth for NuGet XML files, IntelliSense, OpenAPI, and the automatically generated public Document360 "Contracts & Enums" pages. These outputs include summaries, examples, constraints, defaults, and enum descriptions.
 
 ## Scope
-Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `Base/HomagConnect.Base.Contracts`. Edit documentation, examples, and documentation metadata only. Never change declarations, property names, types, JSON names, or runtime behavior. Report suspicious defaults or constraints instead of silently changing them.
+Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `Base/HomagConnect.Base.Contracts`. Edit documentation, examples, and documentation metadata. The only permitted declaration/metadata refactoring is exact-match shared interface reuse under the rules below. Otherwise, never change declarations, property names, types, JSON names, or runtime behavior. Report suspicious defaults or constraints instead of silently changing them.
 
 ## Rules
 
@@ -21,6 +21,16 @@ Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `B
 - State whether values are optional or computed and what happens when a value is omitted. Keep summaries to one or two sentences.
 - Use `<see cref>` for related types and `<see href>` for useful external links.
 - Use `<inheritdoc />` only when the inherited text accurately describes the documented member.
+
+### Shared interfaces and inherited metadata
+- Check existing shared interfaces, including their inherited members, before documenting properties. Automatically implement the most specific compatible interface without asking only when every affected member has the same business meaning, name, type, accessors, nullability, and matching metadata.
+- Require a 100% match for each attribute supplied by the interface: attribute type, constructor arguments, and effective named/default values. Compare range bounds and operand types, display resource types/keys, units, and rounding precision. An absent class attribute, a stricter range, or a different display key is not an exact match; do not infer equivalence.
+- Keep the concrete properties. Remove only exactly duplicated interface-provided attributes, such as `[Range]`, `[Display]`, and `[ValueDependsOnUnitSystem]`, and replace duplicated summaries/examples with `<inheritdoc />`. Preserve class-specific attributes, including `[Required]`, JSON serialization attributes, defaults, and any operation-specific documentation.
+- Verify that adding the interface introduces no other rules or behavior, and that affected validation, conversion, localization, serialization, and generated-documentation paths already resolve interface metadata. C# does not automatically inherit interface property attributes. Do not remove attributes when support is missing or unverified.
+- Trace the actual validation call sites, not just the available helpers. `HomagConnect.Base.Extensions.DataAnnotationsValidator.TryValidateObjectRecursive` checks interface constraints for whole objects; `HomagConnect.Base.Contracts.Extensions.PropertyValidation` supports interface-aware flat-object and single-property validation. Standard `System.ComponentModel.DataAnnotations.Validator.TryValidateObject` and `TryValidateProperty` do not inspect interface attributes. An interface-aware helper existing elsewhere is not evidence that a call site uses it.
+- Preserve validation scope: do not replace single-property patch or sparse-import validation with whole-object recursive validation, which can reject intentionally omitted fields. If a call site uses an interface-unaware validator, keep the concrete attributes and report that prerequisite; do not modify infrastructure as part of this skill.
+- If any member or consumer fails these checks, leave the candidate interface adoption and its property metadata unchanged. Report the near match and exact reason, for example: "Skipped IDimensionProperties: Thickness minimum is 0.1 on the class but 0.01 on the interface; automatic replacement could change validation."
+- Do not change property types/nullability, shared interfaces, or infrastructure to force a match. Report required follow-up work instead. Add or update focused tests for successful reuse: prove the attributes are absent from the concrete property, invalid values still fail through the actual operation, boundaries and null/omission behavior are preserved, and unit conversion, localized labels/units, and serialization still work where applicable.
 
 ### Examples
 - Add a class-level `<example>` for every class. Add property-level examples when they clarify the property's wire value; avoid redundant or misleading examples, especially for complex properties.
@@ -38,7 +48,7 @@ Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `B
 ### Suspicious patterns and questions
 - Treat these patterns as signals to investigate, not automatic defects:
 	- A `DateTimeOffset` without `[DisplayFormat]`: ask whether a culture-aware display format is expected. Keep serialized JSON examples in their wire format.
-	- A unit-sensitive `double` without `[ValueDependsOnUnitSystem]`: ask which physical unit applies and whether values should change with the unit system. Do not assume every `double` is unit-dependent.
+	- A unit-sensitive `double` without effective `[ValueDependsOnUnitSystem]` metadata on the class or its interfaces: ask which physical unit applies and whether values should change with the unit system. Do not assume every `double` is unit-dependent.
 	- A `string` without `[StringLength]`: ask whether a maximum length exists elsewhere or is intentionally unrestricted. Never invent a limit.
 	- A nullable property with `[Required]`: explain that the C# type permits null while validation rejects null, then ask whether that distinction is intentional. Do not assume this is a mismatch.
 - Ask a focused question before making a documentation decision that depends on unknown intent. Do not add or change constraints, defaults, unit-conversion metadata, or display formats based on a guess; these may change validation, conversion, or presentation behavior.
@@ -57,13 +67,13 @@ Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `B
 
 ## Workflow
 1. **Scope the change.** Work on the application or folder named by the user. If none is named, use the provided files or current diff; ask a concise question only when the scope cannot be determined.
-2. **Inspect before editing.** For each type, read its declarations, attributes, initializers, base types, interfaces, and existing documentation.
+2. **Inspect before editing.** For each type, read its declarations, attributes, initializers, base types, interfaces, and existing documentation. Check exact-match shared interface reuse by default using the rules above.
 3. **Investigate suspicious patterns.** Use nearby contracts and existing code to determine whether a pattern is intentional. Ask focused questions when user or owner intent is needed; do not infer missing constraints or metadata.
-4. **Edit documentation only.** Improve XML docs, examples, and documentation attributes while preserving declarations and runtime behavior. Do not change behavior-affecting attributes without explicit confirmation.
+4. **Improve documentation and reuse exact-match interfaces.** Improve XML docs, examples, and documentation attributes. Apply interface reuse only when all checks above pass; otherwise preserve declarations and behavior-affecting attributes.
 5. **Validate examples.** Check each example against its declared type, constraints, required properties, JSON names, and actual enum members.
 6. **Cross-check contracts.** Compare defaults with initializers and examples; check `[Required]` against nullable (`?`) types without treating that combination as automatically wrong; verify constraint ranges, `<see cref>` targets, and XML validity.
-7. **Build the contracts project** with documentation generation enabled. Fix relevant XML documentation warnings, including CS1570, CS1572, CS1574, and CS1573.
-8. **Report results.** List changed files briefly, then report findings separately for issues not changed, including unresolved questions about defaults, constraints, unit metadata, display formats, nullable/required combinations, or enum descriptions.
+7. **Build the contracts project** with documentation generation enabled. Fix relevant XML documentation warnings, including CS1570, CS1572, CS1574, and CS1573. When reusing interfaces, also run the focused regression tests described above.
+8. **Report results.** List changed files and adopted interfaces briefly, then report skipped near matches with their exact mismatches or missing consumer support. Report other findings separately, including unresolved questions about defaults, constraints, unit metadata, display formats, nullable/required combinations, or enum descriptions.
 
 ## Output
 Make edits directly and do not create extra Markdown files. End with a compact summary of the types and properties improved and any findings that require an owner decision.
