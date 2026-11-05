@@ -2,7 +2,7 @@
 
 With the HOMAG Connect Client, orders can be retrieved, released, or have their release reset for further programmatic evaluation.
 
-<strong>Example GetOrders:</strong>
+#### Example GetOrders
 
 ```c#
 // Create new instance of the orderManager client:
@@ -32,7 +32,7 @@ var releasedSince = await client.GetOrdersReleasedSince(OrderState.ReadyForProdu
 
 The sample code can be found at [OrderManager - Get Orders sample](GetOrderSamples.cs).
 
-<strong>Example GetOrder:</strong>
+#### Example GetOrder
 
 ```c#
 // Create new instance of the orderManager client:
@@ -53,7 +53,7 @@ The response is [OrderDetails](../../../../Contracts/Orders/OrderDetails.cs) whi
 
 The sample code can be found at [OrderManager - Get Orders sample](GetOrderSamples.cs).
 
-<strong>Example ReleaseOrder:</strong>
+#### Example ReleaseOrder
 
 ```c#
  // Create new instance of the orderManager client:
@@ -68,7 +68,7 @@ The sample code can be found at [OrderManager - Get Orders sample](GetOrderSampl
  await client.ReleaseOrder(orderId.Value);
 ```
 
-<strong>Example ResetReleaseOrder:</strong>
+#### Example ResetReleaseOrder
 
 ```c#
  // Create new instance of the orderManager client:
@@ -82,7 +82,7 @@ The sample code can be found at [OrderManager - Get Orders sample](GetOrderSampl
 
  The sample code can be found at [OrderManager - Release Orders sample](ReleaseOrderSamples.cs).
 
- <strong>Example DeleteOrdersByOrderId:</strong>
+ #### Example DeleteOrdersByOrderId
 
  ```c#
  // Create new instance of the orderManager client:
@@ -93,7 +93,7 @@ The sample code can be found at [OrderManager - Get Orders sample](GetOrderSampl
  await client.DeleteOrdersByOrderId(orderId);
  ```
 
- <strong>Example DeleteOrdersByOrderIds:</strong>
+ #### Example DeleteOrdersByOrderIds
 
  ```c#
  // Create new instance of the orderManager client:
@@ -108,7 +108,7 @@ The sample code can be found at [OrderManager - Get Orders sample](GetOrderSampl
  await client.DeleteOrdersByOrderIds(orderIds);
  ```
 
- <strong>Example DeleteOrdersByOrderNumber / DeleteOrdersByOrderNumbers:</strong>
+ #### Example DeleteOrdersByOrderNumber / DeleteOrdersByOrderNumbers
 
  ```c#
  // Create new instance of the orderManager client:

@@ -2,7 +2,7 @@
 
 With the HOMAG Connect Client, customers can be retrieved, created, or deleted for further programmatic evaluation.
 
-<strong>Example GetCustomers (all):</strong>
+#### Example GetCustomers (all)
 
 ```c#
 // Create new instance of the orderManager client:
@@ -15,7 +15,7 @@ customers.Trace();
 
 The response is a list of [Customer](../../../../Contracts/Customers/Customer.cs) which exposes basic and additional information about the customer.
 
-<strong>Example GetCustomers by customer numbers / ids:</strong>
+#### Example GetCustomers by customer numbers / ids
 
 ```c#
 var byNumbers = await client.GetCustomers(["11111111111", "22222222222"]);
@@ -23,7 +23,7 @@ var byNumbers = await client.GetCustomers(["11111111111", "22222222222"]);
 var byIds = await client.GetCustomers([Guid.Parse("PUT_CUSTOMER_ID1_HERE"), Guid.Parse("PUT_CUSTOMER_ID2_HERE")]);
 ```
 
-<strong>Example GetCustomer (single, by number or id):</strong>
+#### Example GetCustomer (single, by number or id)
 
 ```c#
 var customerByNumber = await client.GetCustomer("11111111111");
@@ -33,7 +33,7 @@ var customerById = await client.GetCustomer(Guid.Parse("PUT_CUSTOMER_ID_HERE"));
 
 The sample code can be found at [OrderManager - Customer sample](CustomerSamples.cs).
 
-<strong>Example CreateCustomer:</strong>
+#### Example CreateCustomer
 
 ```c#
 // Create new instance of the orderManager client:
@@ -56,7 +56,7 @@ The request is a [CreateCustomerRequest](../../../../Contracts/Customers/CreateC
 
 The sample code can be found at [OrderManager - Customer sample](CustomerSamples.cs).
 
-<strong>Example DeleteCustomersByCustomerIds / DeleteCustomersByCustomerNumbers:</strong>
+#### Example DeleteCustomersByCustomerIds / DeleteCustomersByCustomerNumbers
 
 ```c#
 // Create new instance of the orderManager client:

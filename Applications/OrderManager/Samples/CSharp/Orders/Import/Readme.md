@@ -80,7 +80,7 @@ The sample code can be found at [OrderManager - Import Order sample](ImportOrder
 
 With the HOMAG Connect Client, a new [Group](../../../../Contracts/OrderItems/Group.cs) can be added, or an existing one updated, within an already imported order, either using file references or a project `.zip` file.
 
-<strong>Example AddOrUpdateGroup using file references:</strong>
+#### Example AddOrUpdateGroup using file references
 
 ```c#
 // Create new instance of the orderManager client:
@@ -102,7 +102,7 @@ var fileReferences = new[]
 var response = await client.AddOrUpdateGroup(orderNumber, group, fileReferences);
 ```
 
-<strong>Example AddOrUpdateGroup using a project `.zip` file:</strong>
+#### Example AddOrUpdateGroup using a project `.zip` file
 
 ```c#
 // Create new instance of the orderManager client:

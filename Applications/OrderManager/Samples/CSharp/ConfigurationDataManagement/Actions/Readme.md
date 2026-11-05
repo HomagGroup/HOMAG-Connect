@@ -2,7 +2,7 @@
 
 With the HOMAG Connect Client, the custom tables of a configuration data management (cDM) library can be read and written for further programmatic evaluation. Custom tables are used, for example, to drive order configurators with external master data.
 
-<strong>Example GetLibraries:</strong>
+#### Example GetLibraries
 
 ```c#
 // Create new instance of the configurationDataManagement client:
@@ -13,7 +13,7 @@ var libraries = await client.GetLibraries();
 
 The response is a list of [LibraryOverview](../../../../Contracts/ConfigurationDataManagement/LibraryOverview.cs) which exposes the available cDM libraries.
 
-<strong>Example GetCustomTables:</strong>
+#### Example GetCustomTables
 
 ```c#
 var libraryId = "Default"; // the library name is its identifier
@@ -23,7 +23,7 @@ var customTables = await client.GetCustomTables(libraryId);
 
 The response is a list of [CustomTableOverview](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableOverview.cs).
 
-<strong>Example GetCustomTableStructure:</strong>
+#### Example GetCustomTableStructure
 
 ```c#
 var structure = await client.GetCustomTableStructure(libraryId, "MyCustomTable");
@@ -31,7 +31,7 @@ var structure = await client.GetCustomTableStructure(libraryId, "MyCustomTable")
 
 The response is a [CustomTableStructure](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableStructure.cs), which describes the column definitions of the custom table, including its `ETag`.
 
-<strong>Example GetCustomTableData:</strong>
+#### Example GetCustomTableData
 
 ```c#
 var data = await client.GetCustomTableData(libraryId, "MyCustomTable");
@@ -39,7 +39,7 @@ var data = await client.GetCustomTableData(libraryId, "MyCustomTable");
 
 The response is a [CustomTableData](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableData.cs), which contains the complete content (all rows) of the custom table, including its `ETag`.
 
-<strong>Example SetCustomTableData:</strong>
+#### Example SetCustomTableData
 
 ```c#
 var request = new SetCustomTableDataRequest
