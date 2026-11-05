@@ -16,7 +16,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 /// <summary>
 /// A board type identifies a specific sheet format or offcut and is distinct from its shared material group.
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
 /// </summary>
+/// <remarks>
+/// The product examples use EGGER Decorative Chipboard in H2033 ST10 Hunton Oak dark,
+/// with a length of 2800 mm, a width of 2070 mm, and a thickness of 19 mm.
+/// Costs, inventory quantities, and warning thresholds are illustrative, not manufacturer specifications.
+/// </remarks>
 /// <example>
 /// { "boardCode": "P2_Hunton_Oak_dark_19.0_2800.0_2070.0", "materialCode": "P2_Hunton_Oak_dark_19.0",
 /// "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "FinishCut", 
