@@ -71,52 +71,55 @@ The sample code can be found at [OrderManager - Get Orders sample](GetOrderSampl
 #### Example ResetReleaseOrder
 
 ```c#
- // Create new instance of the orderManager client:
- var client = new OrderManagerClient(subscriptionId, authorizationKey);
+// Create new instance of the orderManager client:
+var client = new OrderManagerClient(subscriptionId, authorizationKey);
 
- Guid? orderId = null; // set existing order id
- if (orderId == null)
- {
-     throw new ArgumentNullException("No order id set");
- }
+Guid? orderId = null; // set existing order id
+if (orderId == null)
+{
+    throw new ArgumentNullException("No order id set");
+}
 
- The sample code can be found at [OrderManager - Release Orders sample](ReleaseOrderSamples.cs).
+await client.ResetReleaseOrder(orderId.Value);
+```
 
- #### Example DeleteOrdersByOrderId
+The sample code can be found at [OrderManager - Release Orders sample](ReleaseOrderSamples.cs).
 
- ```c#
- // Create new instance of the orderManager client:
- var client = new OrderManagerClient(subscriptionId, authorizationKey);
+#### Example DeleteOrdersByOrderId
 
- var orderId = Guid.Parse("PUT_ORDER_ID_HERE");
+```c#
+// Create new instance of the orderManager client:
+var client = new OrderManagerClient(subscriptionId, authorizationKey);
 
- await client.DeleteOrdersByOrderId(orderId);
- ```
+var orderId = Guid.Parse("PUT_ORDER_ID_HERE");
 
- #### Example DeleteOrdersByOrderIds
+await client.DeleteOrdersByOrderId(orderId);
+```
 
- ```c#
- // Create new instance of the orderManager client:
- var client = new OrderManagerClient(subscriptionId, authorizationKey);
+#### Example DeleteOrdersByOrderIds
 
- var orderIds = new[]
- {
-     Guid.Parse("PUT_ORDER_ID1_HERE"),
-     Guid.Parse("PUT_ORDER_ID2_HERE")
- };
+```c#
+// Create new instance of the orderManager client:
+var client = new OrderManagerClient(subscriptionId, authorizationKey);
 
- await client.DeleteOrdersByOrderIds(orderIds);
- ```
+var orderIds = new[]
+{
+    Guid.Parse("PUT_ORDER_ID1_HERE"),
+    Guid.Parse("PUT_ORDER_ID2_HERE")
+};
 
- #### Example DeleteOrdersByOrderNumber / DeleteOrdersByOrderNumbers
+await client.DeleteOrdersByOrderIds(orderIds);
+```
 
- ```c#
- // Create new instance of the orderManager client:
- var client = new OrderManagerClient(subscriptionId, authorizationKey);
+#### Example DeleteOrdersByOrderNumber / DeleteOrdersByOrderNumbers
 
- await client.DeleteOrdersByOrderNumber("10000001");
+```c#
+// Create new instance of the orderManager client:
+var client = new OrderManagerClient(subscriptionId, authorizationKey);
 
- await client.DeleteOrdersByOrderNumbers(["10000001", "10000002"]);
- ```
+await client.DeleteOrdersByOrderNumber("10000001");
 
- The sample code can be found at [OrderManager - Delete Orders sample](DeleteOrderSamples.cs).
+await client.DeleteOrdersByOrderNumbers(["10000001", "10000002"]);
+```
+
+The sample code can be found at [OrderManager - Delete Orders sample](DeleteOrderSamples.cs).
