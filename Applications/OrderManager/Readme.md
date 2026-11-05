@@ -18,7 +18,7 @@ Once you have confirmed your license, you can create an instance of the client b
 var client = new OrderManagerClient(subscriptionId, authorizationKey);
 ``` 
 
-For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/CSharp/Authentication/Readme.md) page for detailed instructions.
+For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](../../Documentation/Authentication/Readme.md) page for detailed instructions.
 
 ### Import Order
 

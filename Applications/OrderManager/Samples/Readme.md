@@ -1,6 +1,6 @@
 # HOMAG Connect OrderManager Samples
 
-- [Authentication / Authorization](CSharp/Authentication/Readme.md)
+- [Authentication / Authorization](../../../Documentation/Authentication/Readme.md)
 
 - Import an order
 	- Using a structured file (.Zip)

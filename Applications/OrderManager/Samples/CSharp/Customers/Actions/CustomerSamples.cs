@@ -1,8 +1,6 @@
 ﻿using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Customers;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace HomagConnect.OrderManager.Samples.Customers.Actions
