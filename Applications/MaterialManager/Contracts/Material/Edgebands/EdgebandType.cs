@@ -15,15 +15,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 /// </summary>
 /// <remarks>
 /// The product examples use EGGER ABS edging in H2033 ST10 Hunton Oak dark, with a height of 23 mm,
-/// a thickness of 2 mm, and a roll length of 75 m.
-/// <see href="https://www.dispano.fr/p/panneaux-decoratifs/bande-de-chant-thermoplastique-abs-egger-decor-chene-de-hunton-fonce-h2033-finition-st10-epaisseur-2mm-largeur-23mm-rouleau-de-75m-A7790653">Catalog product details</see>.
+/// a thickness of 2 mm, and a coil length of 75 m.
 /// </remarks>
 /// <example>
-/// { "unitSystem": "Metric", "edgebandCode": "ABS_Hunton_Oak_dark_2.00_23.0_HM",
-/// "height": 23.0, "thickness": 2.0, "defaultLength": 75.0,
+/// { "edgebandCode": "ABS_Hunton_Oak_dark_2.00_23.0_HM", "height": 23.0, "thickness": 2.0, "defaultLength": 75.0,
 /// "materialCategory": "ABS", "process": "HotmeltGlue", "manufacturerName": "Egger",
 /// "decorName": "Hunton Oak dark", "productName": "EGGER ABS Edging", "decorCode": "H2033",
-/// "decorEmbossingCode": "10", "articleNumber": "1380463", "gtin": "9010389217822" }
+/// "decorEmbossingCode": "10", "articleNumber": "1380463", "gtin": "9010389217822", "unitSystem": "Metric" }
 /// </example>
 [DebuggerDisplay("{EdgebandCode}")]
 public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
@@ -33,17 +31,17 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// </summary>
     public DateTimeOffset? LastUsed { get; set; }
 
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
-
     #region IExtensibleDataObject Members
 
     /// <inheritdoc />
     public ExtensionDataObject? ExtensionData { get; set; }
+
+    #endregion
+
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc />
+    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion
 
@@ -89,7 +87,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     public double? Thickness { get; set; }
 
     /// <summary>
-    /// Default length used when storing a new roll of this edgeband type.
+    /// Default length used when storing a new coil of this edgeband type.
     /// <para>Unit for <see cref="UnitSystem.Metric" />: m.</para>
     /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft.</para>
     /// </summary>
