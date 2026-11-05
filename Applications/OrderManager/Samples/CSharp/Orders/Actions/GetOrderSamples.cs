@@ -60,6 +60,38 @@ namespace HomagConnect.OrderManager.Samples.Orders.Actions
         }
 
         /// <summary />
+        public static async Task GetAllOrdersHavingStatusReadyForProductionAndLatestReleasedSinceDate5MinsAgo(IOrderManagerClient orderManager)
+        {
+            var response = await orderManager.GetOrdersReleasedSince(OrderState.ReadyForProduction, DateTime.UtcNow.AddMinutes(-5), 5);
+
+            response.Trace();
+        }
+
+        /// <summary>
+        /// Gets a single order by its order id, optionally including configuration data.
+        /// </summary>
+        public static async Task<OrderDetails?> GetOrderByOrderId(IOrderManagerClient orderManager, Guid orderId)
+        {
+            var order = await orderManager.GetOrder(orderId);
+
+            order.Trace();
+
+            return order;
+        }
+
+        /// <summary>
+        /// Gets a single order by its order number.
+        /// </summary>
+        public static async Task<OrderDetails?> GetOrderByOrderNumber(IOrderManagerClient orderManager, string orderNumber)
+        {
+            var order = await orderManager.GetOrder(orderNumber);
+
+            order.Trace();
+
+            return order;
+        }
+
+        /// <summary /> 
         public static OrderDetails GetSampleOrder()
         {
             var order = new OrderDetails();
