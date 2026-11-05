@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Exceptions;
+using HomagConnect.Base.Contracts.Extensions;
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 
 using Newtonsoft.Json;
@@ -97,6 +93,19 @@ public class ClientBase
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
     }
 
+    protected async Task<HttpResponseMessage> PatchObject(Uri uri, StringContent content = null)
+    {
+        var request = new HttpRequestMessage(new HttpMethod("PATCH"), uri)
+        {
+            Content = content
+        };
+
+        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        return response;
+    }
+
     protected async Task<HttpResponseMessage> PostObject(Uri uri, StringContent content = null)
     {
         var request = new HttpRequestMessage
@@ -119,9 +128,9 @@ public class ClientBase
 
         T2 result = JsonConvert.DeserializeObject<T2>(rawResult, SerializerSettings.Default);
 
-        if (object.Equals(result, default(T2)))
+        if (Equals(result, default(T2)))
         {
-            throw new ProblemDetailsException()
+            throw new ProblemDetailsException
             {
                 Title = "Invalid or no result. Process returned null!"
             };
@@ -139,42 +148,6 @@ public class ClientBase
         {
             Method = HttpMethod.Post,
             RequestUri = uri,
-            Content = content
-        };
-
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-
-        return response;
-    }
-
-    protected async Task<IEnumerable<T>> RequestEnumerableAsync<T>(IEnumerable<Uri> uris)
-    {
-        return (await Task.WhenAll(uris.AsParallel().Select(RequestEnumerable<T>))).SelectMany(s => s);
-    }
-
-    protected async Task<IEnumerable<T>?> RequestEnumerable<T>(Uri uri)
-
-    {
-        var request = new HttpRequestMessage
-        {
-            Method = HttpMethod.Get,
-            RequestUri = uri
-        };
-
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
-
-        var result = await response.Content.ReadAsStringAsync();
-        var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
-
-        return enumerable;
-    }
-
-    protected async Task<HttpResponseMessage> PatchObject(Uri uri, StringContent content = null)
-    {
-        var request = new HttpRequestMessage(new HttpMethod("PATCH"), uri)
-        {
             Content = content
         };
 
@@ -224,15 +197,38 @@ public class ClientBase
 
         T2 result = JsonConvert.DeserializeObject<T2>(rawResult, SerializerSettings.Default);
 
-        if (object.Equals(result, default(T2)))
+        if (Equals(result, default(T2)))
         {
-            throw new ProblemDetailsException()
+            throw new ProblemDetailsException
             {
                 Title = "Invalid or no result. Process returned null!"
             };
         }
 
         return result;
+    }
+
+    protected async Task<IEnumerable<T>?> RequestEnumerable<T>(Uri uri)
+
+    {
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = uri
+        };
+
+        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+
+        var result = await response.Content.ReadAsStringAsync();
+        var enumerable = JsonConvert.DeserializeObject<IEnumerable<T>>(result, SerializerSettings.Default);
+
+        return enumerable;
+    }
+
+    protected async Task<IEnumerable<T>> RequestEnumerableAsync<T>(IEnumerable<Uri> uris)
+    {
+        return (await Task.WhenAll(uris.AsParallel().Select(RequestEnumerable<T>))).SelectMany(s => s);
     }
 
     protected async Task<T?> RequestObject<T>(Uri uri)
@@ -272,7 +268,7 @@ public class ClientBase
     {
         var validationResults = new List<ValidationResult>();
         var validationContext = new ValidationContext(boardTypeRequest, null, null);
-        var isValid = Validator.TryValidateObject(boardTypeRequest, validationContext, validationResults, true);
+        var isValid = PropertyValidation.TryValidateObject(boardTypeRequest, validationContext, validationResults);
 
         if (isValid)
         {
@@ -281,6 +277,28 @@ public class ClientBase
 
         var errorMessages = validationResults.Select(vr => vr.ErrorMessage);
         throw new ValidationException("Required properties are missing: " + string.Join(", ", errorMessages));
+    }
+
+    /// <summary>
+    /// Opts a mutation payload into nested validation without traversing URI internals or open extension data.
+    /// </summary>
+    protected static void ValidateRequiredProperties(object request, bool recursive)
+    {
+        if (!recursive)
+        {
+            ValidateRequiredProperties(request);
+            return;
+        }
+
+        if (DataAnnotationsValidator.TryValidateObjectRecursive(request, out var results, new Dictionary<object, object>(),
+                property => property.PropertyType != typeof(Uri) &&
+                            !property.IsDefined(typeof(JsonExtensionDataAttribute), true)))
+        {
+            return;
+        }
+
+        throw new ValidationException("Invalid properties: " + string.Join("; ", results.Select(result =>
+            $"{string.Join(", ", result.MemberNames)}: {result.ErrorMessage}")));
     }
 
     private void Initialize(Guid subscriptionOrPartnerId, string authorizationKey, Uri baseUri)

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 using Shouldly;
 
@@ -18,6 +18,8 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
 {
     private const string _EdgebandCodeWhite = "ABS_White_3mm";
     private const string _EdgebandCodeAdditionalData = "EB_White_1mm_AdditionalData";
+    private const string _EdgebandCodeDecorId = "ABS_White_1mm_DecorId";
+
 
     private MaterialManagerClientMaterialEdgebands _MaterialManagerClientMaterialEdgebands;
 
@@ -43,7 +45,6 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     [DataRow(null, 20, 1.2, 150)] // EdgebandCode not set
     [DataRow("EdgebandCode", null, 1.2, 150)] // Height not set
     [DataRow("EdgebandCode", 20, null, 150)] // Thickness not set
-    [DataRow("EdgebandCode", 20, 1.2, null)] // Length not set
     public async Task EdgebandTypeCreation_RequiredPropertiesMissing_ThrowsException(string edgebandCode, double height, double thickness, double length)
     {
         var requestEdgebandType = CreateEdgebandTypeRequest(edgebandCode, height, thickness, length);
@@ -65,6 +66,21 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
             $"because creating edgeband type with edgeband code '{_EdgebandCodeAdditionalData}' and additional data should complete successfully");
     }
 
+
+    /// <summary />
+    [TestMethod]
+    public async Task EdgebandTypeCreation_WithDecorId_PersistsDecorId()
+    {
+        const string decorId = "egger:u599_pm";
+
+        var edgebandType = await CreateEdgebandTypeSamples.Edgebands_CreateEdgebandType_DecorId(
+            _MaterialManagerClientMaterialEdgebands, _EdgebandCodeDecorId, decorId);
+
+        edgebandType.ShouldNotBeNull();
+        edgebandType.DecorId.ShouldBe(decorId, "because the decor id passed in the request must be persisted on the edgeband type");
+        edgebandType.Thumbnail.ShouldNotBeNull();
+    }
+
     /// <summary>
     /// </summary>
     [TestInitialize]
@@ -78,6 +94,7 @@ public class CreateEdgebandTypeTests : MaterialManagerTestBase
     {
         await DeleteEdgeBand(_EdgebandCodeWhite);
         await DeleteEdgeBand(_EdgebandCodeAdditionalData);
+        await DeleteEdgeBand(_EdgebandCodeDecorId);
     }
 
     private static MaterialManagerRequestEdgebandType CreateEdgebandTypeRequest(string edgebandCode, double height, double thickness, double length)

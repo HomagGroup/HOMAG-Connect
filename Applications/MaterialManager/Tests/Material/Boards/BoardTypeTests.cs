@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -95,7 +95,7 @@ public class BoardTypeTests : MaterialManagerTestBase
             {
                 new AdditionalDataImage
                 {
-                    Category = "Decor",
+                    Category = nameof(AdditionalDataCategory.Decor),
                     DownloadFileName = additionalDataImage.Reference,
                     DownloadUri = new Uri(additionalDataImage.Reference, UriKind.Relative)
                 }

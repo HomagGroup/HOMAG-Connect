@@ -29,7 +29,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 [JsonSubtypes.KnownSubType(typeof(EdgeBand), Type.EdgeBand)]
 [JsonSubtypes.KnownSubType(typeof(Offcut), Type.Offcut)]
 [JsonSubtypes.KnownSubType(typeof(Reclaim), Type.Reclaim)]
-public abstract class Base: ISupportsAdditionalData
+public abstract class Base: ISupportsAdditionalData, ISupportsItems
 {
     /// <summary>
     /// Gets or sets the type of the item entity.
@@ -71,4 +71,10 @@ public abstract class Base: ISupportsAdditionalData
     [JsonExtensionData]
     [JsonProperty(Order = 999)]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <summary>
+    /// Gets or sets the manufacturer of the entity.
+    /// </summary>
+    [JsonProperty(Order = 1000)]
+    public string? Manufacturer { get; set; }
 }

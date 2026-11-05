@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
@@ -24,6 +24,9 @@ public enum AdditionalDataType
 
     /// <summary />
     Texture,
+
+    /// <summary />
+    Decor,
 
     /// <summary />
     [Display(Description = "Surface texture")]

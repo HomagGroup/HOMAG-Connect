@@ -1,121 +1,139 @@
+using System.ComponentModel.DataAnnotations;
+
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.MaterialManager.Contracts.Material.Boards.Enumerations;
-
-using Newtonsoft.Json;
-
-using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.MaterialManager.Contracts.Request;
 
 /// <summary>
-/// Request object to create a board in materialManager.
+/// Describes the shared material and dimensions of a board type to be created.
+/// A board code identifies the specific format, while the material code identifies its shared material.
 /// </summary>
+/// <example>
+/// { "boardCode": "BOARD-001", "materialCode": "MAT-001", "coatingCategory": "MelamineThermoset",
+/// "grain": "Lengthwise", "length": 2800.0, "materialCategory": "Chipboard", "thickness": 19.0,
+/// "type": "Board", "width": 2070.0 }
+/// </example>
 public class MaterialManagerRequestBoardType : MaterialManagerRequestMaterialType
 {
     /// <summary>
-    /// Gets or sets the board code.
+    /// Code that identifies this board format or variant.
     /// </summary>
     [Required]
     [StringLength(50, MinimumLength = 1)]
     public string BoardCode { get; set; }
 
     /// <summary>
-    /// Gets or sets the id from an external system for the board type.
-    /// </summary>
-    public string? ExternalSystemId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the coating category of the board.
+    /// Surface coating category of the board.
     /// </summary>
     [Required]
     public CoatingCategory CoatingCategory { get; set; } = CoatingCategory.Undefined;
 
     /// <summary>
-    /// Gets or sets the density of the board.
+    /// Mass per unit volume of the board material.
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: kg/m³.</para>
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: lb/ft³.</para>
     /// </summary>
+    [Range(0.1, double.PositiveInfinity)]
+    [ValueDependsOnUnitSystem(BaseUnit.KilogramPerCubicMeter)]
     public double? Density { get; set; }
 
     /// <summary>
-    /// Gets or sets the grain of the board.
+    /// Embossing or texture pattern on the bottom decor side.
+    /// </summary>
+    [StringLength(50)]
+    public string? EmbossingBottom { get; set; }
+
+    /// <summary>
+    /// Embossing or texture pattern on the top decor side.
+    /// </summary>
+    [StringLength(50)]
+    public string? EmbossingTop { get; set; }
+
+    /// <summary>
+    /// Identifier used by an external system to refer to this board type.
+    /// </summary>
+    public string? ExternalSystemId { get; set; }
+
+    /// <summary>
+    /// Grain direction, which guides how parts can be oriented during optimization.
     /// </summary>
     [Required]
     public Grain Grain { get; set; }
 
     /// <summary>
-    /// Gets or sets the length of the board.
+    /// Length of the board.
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: mm.</para>
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: inch.</para>
     /// </summary>
     [Required]
     [Range(0.1, 19999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Length { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the board type is locked for optimization.
-    /// </summary>
-    public bool LockedForOptimization { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the board type is locked for configuration.
+    /// Whether configuration changes to this board type are locked.
     /// </summary>
     public bool LockedForConfiguration { get; set; }
 
     /// <summary>
-    /// Gets or sets the material category of the board.
+    /// Whether this board type is excluded from optimization.
+    /// </summary>
+    public bool LockedForOptimization { get; set; }
+
+    /// <summary>
+    /// Base material the board is made from.
     /// </summary>
     [Required]
     public BoardMaterialCategory MaterialCategory { get; set; } = BoardMaterialCategory.Undefined;
 
     /// <summary>
-    /// Gets or sets the material code.
+    /// Code identifying the shared material associated with this board type.
     /// </summary>
     [Required]
     [StringLength(50, MinimumLength = 1)]
     public string MaterialCode { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the board type should be optimized against infinite.
+    /// Whether optimization treats this board type as having unlimited stock.
     /// </summary>
     public bool OptimizeAgainstInfinite { get; set; } = true;
 
     /// <summary>
-    /// Gets or set the standard quality.
+    /// Standard cut quality assigned to the board.
     /// </summary>
     public StandardQuality StandardQuality { get; set; } = StandardQuality.FinishCut;
 
     /// <summary>
-    /// Gets or sets the thickness of the board.
+    /// Thickness of the board.
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: mm.</para>
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: inch.</para>
     /// </summary>
     [Required]
-    [Range(0.01, double.PositiveInfinity)]
+    [Range(0.1, 999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Thickness { get; set; }
 
     /// <summary>
-    /// Gets or sets the total quantity available warning limit.
+    /// Optional quantity threshold for a low-stock warning.
     /// </summary>
+    [Range(0, int.MaxValue)]
     public int? TotalQuantityAvailableWarningLimit { get; set; }
 
     /// <summary>
-    /// Gets or sets the type of the board.
+    /// Identifies whether this entry represents a full board, an offcut, or a template.
     /// </summary>
     [Required]
     public BoardTypeType Type { get; set; } = BoardTypeType.Board;
 
     /// <summary>
-    /// Gets or sets the width of the board.
+    /// Width of the board.
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: mm.</para>
+    /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: inch.</para>
     /// </summary>
     [Required]
     [Range(0.1, 19999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double Width { get; set; }
-
-    /// <summary>
-    /// Gets or sets the decor top embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingTop { get; set; }
-
-    /// <summary>
-    /// Gets or sets the decor bottom embossing.
-    /// </summary>
-    [StringLength(50)]
-    public string? EmbossingBottom { get; set; }
-
 }
