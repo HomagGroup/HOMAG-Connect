@@ -18,12 +18,13 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// A board type identifies a specific sheet format or offcut and is distinct from its shared material group.
 /// </summary>
 /// <example>
-/// { "boardCode": "BOARD-001-2800x2070-19", "materialCode": "MAT-001-19", "thickness": 19.0,
-/// "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0,
-/// "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board",
-/// "manufacturerName": "Example Supplier", "productName": "Oak sample board", "decorName": "Oak", "embossingTop": "ST22",
-/// "totalQuantityInInventory": 12, "totalQuantityAllocated": 3, "totalQuantityAvailableWarningLimit": 16,
-/// "insufficientInventory": true, "unitSystem": "Metric" }
+/// { "boardCode": "P2_Hunton_Oak_dark_19.0_2800.0_2070.0", "materialCode": "P2_Hunton_Oak_dark_19.0",
+/// "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "FinishCut", 
+/// "length": 2800.0, "width": 2070.0, "thickness": 19.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board",
+/// "manufacturerName": "Egger", "productName": "EGGER Decorative Chipboard", "articleNumber": "1689493",
+/// "decorCode": "H2033", "decorName": "Hunton Oak dark", "gtin": "9010771253940", "embossingTop": "10",
+/// "embossingBottom": "10", "totalQuantityInInventory": 12, "totalQuantityAllocated": 3,
+/// "totalQuantityAvailableWarningLimit": 16, "insufficientInventory": true, "unitSystem": "Metric" }
 /// </example>
 [DebuggerDisplay("{BoardCode}")]
 public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocalizedSerialization, ISupportsAdditionalProperties,
@@ -46,6 +47,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
 
     /// <inheritdoc />
     [DefaultValue(UnitSystem.Metric)]
+    [JsonProperty(Order = 998)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion
@@ -63,10 +65,13 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     #region Material
 
     /// <summary>
-    /// Code that identifies the shared material and may include its thickness; the board code distinguishes formats by length
-    /// and width.
+    /// Code that identifies the shared material; the board code distinguishes formats by length and width.
+    /// <para>
+    /// By convention it is built as <c>{category abbreviation}_{decor name}_{thickness}</c>, with spaces in the decor name
+    /// replaced by underscores, for example <c>P2_Hunton_Oak_dark_19.0</c>.
+    /// </para>
     /// </summary>
-    /// <example>MAT-001-19</example>
+    /// <example>P2_Hunton_Oak_dark_19.0</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_MaterialCode))]
     [Required]
     [StringLength(50, MinimumLength = 1)]
@@ -98,7 +103,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Standard cut quality assigned to the board.
     /// </summary>
-    /// <example>RawCut</example>
+    /// <example>FinishCut</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_StandardQuality))]
     [DefaultValue(StandardQuality.RawCut)]
     [JsonProperty(Order = 14)]
@@ -118,9 +123,13 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     #region Board type
 
     /// <summary>
-    /// Unique code for this board format or variant, often including dimensional information.
+    /// Unique code for this board format or variant.
+    /// <para>
+    /// By convention it is built as <c>{material code}_{length}_{width}</c>, for example
+    /// <c>P2_Hunton_Oak_dark_19.0_2800.0_2070.0</c>.
+    /// </para>
     /// </summary>
-    /// <example>BOARD-001-2800x2070-19</example>
+    /// <example>P2_Hunton_Oak_dark_19.0_2800.0_2070.0</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_BoardCode))]
     [Key]
     [Required]
@@ -130,12 +139,12 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
 
     /// <inheritdoc />
     [Required]
-    [JsonProperty(Order = 22)]
+    [JsonProperty(Order = 23)]
     public double? Width { get; set; }
 
     /// <inheritdoc />
     [Required]
-    [JsonProperty(Order = 23)]
+    [JsonProperty(Order = 22)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -206,7 +215,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Name of the company that manufactures the board material.
     /// </summary>
-    /// <example>Example Supplier</example>
+    /// <example>Egger</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ManufacturerName))]
     [JsonProperty(Order = 31)]
     [StringLength(50)]
@@ -215,7 +224,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Product name used by the manufacturer or supplier for this board material.
     /// </summary>
-    /// <example>Oak sample board</example>
+    /// <example>EGGER Decorative Chipboard</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ProductName))]
     [JsonProperty(Order = 32)]
     [StringLength(200)]
@@ -224,7 +233,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Manufacturer's article number for identifying or ordering the product.
     /// </summary>
-    /// <example>ART-100200</example>
+    /// <example>1689493</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_ArticleNumber))]
     [JsonProperty(Order = 33)]
     [StringLength(50)]
@@ -233,7 +242,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Code identifying the board's surface decor.
     /// </summary>
-    /// <example>DCR-7788</example>
+    /// <example>H2033</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_DecorCode))]
     [JsonProperty(Order = 34)]
     [StringLength(50)]
@@ -242,7 +251,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Name of the board's surface decor.
     /// </summary>
-    /// <example>Oak</example>
+    /// <example>Hunton Oak dark</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_DecorName))]
     [JsonProperty(Order = 35)]
     [StringLength(50)]
@@ -251,7 +260,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Global Trade Item Number used to identify this product in the supply chain.
     /// </summary>
-    /// <example>04012345678901</example>
+    /// <example>9010771253940</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Gtin))]
     [JsonProperty(Order = 36)]
     [StringLength(50)]
@@ -260,7 +269,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Embossing or texture pattern on the top decor side.
     /// </summary>
-    /// <example>ST22</example>
+    /// <example>10</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_EmbossingTop))]
     [JsonProperty(Order = 37)]
     [StringLength(50)]
@@ -269,7 +278,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Embossing or texture pattern on the bottom decor side.
     /// </summary>
-    /// <example>ST10</example>
+    /// <example>10</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_EmbossingBottom))]
     [JsonProperty(Order = 38)]
     [StringLength(50)]
@@ -562,7 +571,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Image used to help users visually identify this board type.
     /// </summary>
-    /// <example>https://example.com/materials/boards/BOARD-001-2800x2070-19.png</example>
+    /// <example>https://example.com/materials/boards/P2_Hunton_Oak_dark_19.0_2800.0_2070.0.png</example>
     [JsonProperty(Order = 3)]
     public Uri? Thumbnail { get; set; }
 
