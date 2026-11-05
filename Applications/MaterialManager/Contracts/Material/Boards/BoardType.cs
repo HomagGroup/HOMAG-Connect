@@ -18,9 +18,9 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 /// A board type identifies a specific sheet format or offcut and is distinct from its shared material group.
 /// </summary>
 /// <example>
-/// { "boardCode": "BOARD-001-2800x2070-19", "materialCode": "MAT-001-19", "thickness": 19.0,
+/// { "boardCode": "P2_Gold_Craft_Oak_19.0_2800.0_2070.0", "materialCode": "P2_Gold_Craft_Oak_19.0",
 /// "materialCategory": "Chipboard", "coatingCategory": "MelamineThermoset", "standardQuality": "RawCut", "width": 2070.0,
-/// "length": 2800.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board",
+/// "length": 2800.0, "thickness": 19.0, "grain": "Lengthwise", "costs": 12.45, "density": 650.0, "boardTypeType": "Board",
 /// "manufacturerName": "Example Supplier", "productName": "Oak sample board", "decorName": "Oak", "embossingTop": "ST22",
 /// "totalQuantityInInventory": 12, "totalQuantityAllocated": 3, "totalQuantityAvailableWarningLimit": 16,
 /// "insufficientInventory": true, "unitSystem": "Metric" }
@@ -46,6 +46,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
 
     /// <inheritdoc />
     [DefaultValue(UnitSystem.Metric)]
+    [JsonProperty(Order = 998)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion
@@ -66,7 +67,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// Code that identifies the shared material and may include its thickness; the board code distinguishes formats by length
     /// and width.
     /// </summary>
-    /// <example>MAT-001-19</example>
+    /// <example>P2_Gold_Craft_Oak_19.0</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_MaterialCode))]
     [Required]
     [StringLength(50, MinimumLength = 1)]
@@ -120,7 +121,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Unique code for this board format or variant, often including dimensional information.
     /// </summary>
-    /// <example>BOARD-001-2800x2070-19</example>
+    /// <example>P2_Gold_Craft_Oak_19.0_2800.0_2070.0</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_BoardCode))]
     [Key]
     [Required]
@@ -562,7 +563,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <summary>
     /// Image used to help users visually identify this board type.
     /// </summary>
-    /// <example>https://example.com/materials/boards/BOARD-001-2800x2070-19.png</example>
+    /// <example>https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0_2800.0_2070.0.png</example>
     [JsonProperty(Order = 3)]
     public Uri? Thumbnail { get; set; }
 

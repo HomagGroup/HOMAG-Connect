@@ -37,6 +37,7 @@ Cover public classes, interfaces, and enums in `Applications/*/Contracts` and `B
 - Enum examples must use an actual enum member name as serialized by the JSON converter, never a display label or invented business term.
 - `DateTimeOffset` examples must use ISO 8601 wire format, including an offset when applicable, even when the property has `[DisplayFormat]`. `[DisplayFormat]` affects presentation and does not replace the serialized example format.
 - Class examples must be valid JSON using the actual wire names (camelCase unless `[JsonProperty(Name)]` specifies otherwise). Include required properties, existing members only, and values with matching types and formats, such as ISO 8601 dates and numeric JSON numbers.
+- Order the properties in a class-level JSON example by their `[JsonProperty(Order = n)]` value, ascending, because that is the order in which they are serialized. Properties without an explicit `Order` are serialized first, in declaration order; do not use source order for ordered properties. By convention, `UnitSystem` uses `Order = 998` and `AdditionalProperties` uses `Order = 999`, so they always come last (add the `Order` to `UnitSystem` when it is missing).
 - Keep examples consistent: use the same board, order, or code across the class example and its property examples.
 
 ### Constraints and defaults
