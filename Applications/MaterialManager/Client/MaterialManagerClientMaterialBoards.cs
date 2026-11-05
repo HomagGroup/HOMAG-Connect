@@ -835,17 +835,16 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentException("At least one allocation name must be passed.", nameof(allocationNames));
         }
 
-        // DELETE /allocations?allocationName=...&allocationName=...
-        var urls = names
-            .Select(name => $"&{_AllocationNameParameter}={Uri.EscapeDataString(name)}")
-            .Join(QueryParametersMaxLength)
-            .Select(parameters => $"{_BoardTypeAllocationsRoute}?{parameters.Remove(0, 1)}")
-            .ToList();
-
-        foreach (var url in urls)
+        var query = new StringBuilder();
+        foreach (var name in names)
         {
-            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+            query.Append(query.Length == 0 ? "?" : "&");
+            query.Append($"allocationName={Uri.EscapeDataString(name)}");
         }
+
+        var url = $"{_BoardTypeAllocationsRoute}{query}";
+
+        await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
     }
 
     #endregion Delete
