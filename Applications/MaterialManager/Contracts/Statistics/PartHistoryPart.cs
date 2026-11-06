@@ -90,15 +90,12 @@ public class PartHistoryPart : IPartProperties, ISupportsLocalizedSerialization,
     public UnitSystem UnitSystem { get; set; }
 
     /// <inheritdoc />
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Thickness))]
     public double? Thickness { get; set; }
 
     /// <inheritdoc />
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Length))]
     public double? Length { get; set; }
 
     /// <inheritdoc />
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Width))]
     public double? Width { get; set; }
 
     /// <inheritdoc />

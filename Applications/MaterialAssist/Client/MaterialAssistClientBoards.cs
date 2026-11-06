@@ -11,436 +11,439 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Request;
 
 using Newtonsoft.Json;
+
 // ReSharper disable LocalizableElement
 
-namespace HomagConnect.MaterialAssist.Client
+namespace HomagConnect.MaterialAssist.Client;
+
+/// <summary>
+/// materialAssist client for boards
+/// </summary>
+public class MaterialAssistClientBoards : ServiceBase, IMaterialAssistClientBoards
 {
-    /// <summary>
-    /// materialAssist client for boards
-    /// </summary>
-    public class MaterialAssistClientBoards : ServiceBase, IMaterialAssistClientBoards
+    #region Private methods
+
+    private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
     {
-        #region Private methods
-
-        private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "")
-        {
-            var urls = codes
-                .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
-                .Join(QueryParametersMaxLength)
-                .Select(x => x.Remove(0, 1).Insert(0, "?"))
-                .Select(parameter => $"{_BaseRouteMaterialAssist}{route}" + parameter).ToList();
-
-            return urls;
-        }
-
-        #endregion Private methods
-
-        #region Constructors
-
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(HttpClient client) : base(client) { }
-
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
-
-        /// <inheritdoc />
-        public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
-
-        #endregion
-
-        #region Delete
-
-        /// <inheritdoc />
-        public async Task DeleteBoardEntity(string id)
-        {
-            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
-
-            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public async Task DeleteBoardEntities(IEnumerable<string> ids)
-        {
-            var url = $"{_BaseRouteMaterialAssist}";
-
-            var boardCodes = new StringBuilder("?");
-            boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={Uri.EscapeDataString(id)}")));
-
-            url += boardCodes;
-
-            await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
-        }
-
-        #endregion Delete
-
-        #region Constants
-
-        private const string _BaseRouteMaterialAssist = "api/materialAssist/boardEntities";
-        private const string _BaseRouteMaterialManager = "api/materialManager/boards";
-        private const string _Id = "Id";
-        private const string _BoardCode = "boardCode";
-        private const string _StorageLocation = "storageLocation";
-        private const string _DeleteFromInventory = "deleteFromInventory";
-        private const string _Length = "length";
-        private const string _Width = "width";
-        private const string _RemovalType = "removalType";
-        private const string _Quantity = "quantity";
-        private const string _MaterialCode = "materialCode";
-        private const string _BoardEntityCreation = "/type/board";
-        private const string _OffcutEntityCreation = "/type/offcut";
-        private const string _TemplateEntityCreation = "/type/template";
-
-        #endregion Constants
-
-        #region Read
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>?> GetBoardEntities(int take, int skip = 0)
-        {
-            var url = $"{_BaseRouteMaterialAssist}?take={take}&skip={skip}";
-
-            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
-        }
-
-        public async Task<IEnumerable<BoardEntity>?> GetBoardEntities(DateTimeOffset changedSince, int take, int skip = 0)
-        {
-            var url = $"{_BaseRouteMaterialAssist}?changedSince={Uri.EscapeDataString(changedSince.ToString("o"))}&take={take}&skip={skip}";
-            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<BoardEntity?> GetBoardEntityByCode(string code)
-        {
-            return await GetBoardEntitiesByCodes([code]).FirstOrDefaultAsync();
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByCodes(IEnumerable<string> codes)
-        {
-            if (codes == null)
-            {
-                throw new ArgumentNullException(nameof(codes));
-            }
-
-            var filteredCodes = codes
-                .Where(b => !string.IsNullOrWhiteSpace(b))
-                .Distinct()
-                .OrderBy(b => b).ToList();
-
-            if (!filteredCodes.Any())
-            {
-                throw new ArgumentNullException(nameof(codes), "At least one id must be passed.");
-            }
-
-            var urls = CreateUrls(filteredCodes, _Id);
-            var boardEntities = new List<BoardEntity>();
-
-            foreach (var url in urls)
-            {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
-            }
-
-            return boardEntities;
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByBoardCode(string boardCode)
-        {
-            var url = $"{_BaseRouteMaterialAssist}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
-
-            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCodes(IEnumerable<string> boardCodes)
-        {
-            if (boardCodes == null)
-            {
-                throw new ArgumentNullException(nameof(boardCodes));
-            }
-
-            var codes = boardCodes
-                .Where(b => !string.IsNullOrWhiteSpace(b))
-                .Distinct()
-                .OrderBy(b => b).ToList();
-
-            if (!codes.Any())
-            {
-                throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
-            }
-
-            var urls = CreateUrls(codes, _BoardCode);
-            var boardEntities = new List<BoardEntity>();
-
-            foreach (var url in urls)
-            {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
-            }
-
-            return boardEntities;
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByMaterialCode(string materialCode)
-        {
-            var url = $"{_BaseRouteMaterialAssist}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
-
-            return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCodes(IEnumerable<string> materialCodes)
-        {
-            if (materialCodes == null)
-            {
-                throw new ArgumentNullException(nameof(materialCodes));
-            }
-
-            var codes = materialCodes
-                .Where(b => !string.IsNullOrWhiteSpace(b))
-                .Distinct()
-                .OrderBy(b => b).ToList();
-
-            if (!codes.Any())
-            {
-                throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
-            }
-
-            var urls = CreateUrls(codes, _MaterialCode);
-            var boardEntities = new List<BoardEntity>();
-
-            foreach (var url in urls)
-            {
-                boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
-            }
-
-            return boardEntities;
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
-        {
-            const string url = $"{_BaseRouteMaterialAssist}/storageLocations";
-
-            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstationId)
-        {
-            var url = $"{_BaseRouteMaterialAssist}/storageLocations?workstationId={Uri.EscapeDataString(workstationId)}";
-
-            return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<Workstation>> GetWorkstations()
-        {
-            var url = $"{_BaseRouteMaterialAssist}/workstations";
-
-            return await RequestEnumerable<Workstation>(new Uri(url, UriKind.Relative));
-        }
-
-        #endregion Read
-
-        #region Create
-
-        /// <inheritdoc />
-        public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
-        {
-            if (boardTypeRequest == null)
-            {
-                throw new ArgumentNullException(nameof(boardTypeRequest));
-            }
-
-            ValidateRequiredProperties(boardTypeRequest);
-
-            var payload = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            throw new Exception($"The returned object is not of type {nameof(BoardType)}");
-        }
-
-        public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest)
-        {
-            {
-                if (boardEntityRequest == null)
-                {
-                    throw new ArgumentNullException(nameof(boardEntityRequest));
-                }
-
-                ValidateRequiredProperties(boardEntityRequest);
-
-                var payload = JsonConvert.SerializeObject(boardEntityRequest, SerializerSettings.Default);
-                var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _BoardEntityCreation, UriKind.Relative), content);
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
-
-                if (result != null)
-                {
-                    return result;
-                }
-
-                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
-            }
-        }
-
-        public async Task<BoardEntity> CreateOffcutEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest)
-        {
-            {
-                if (offcutEntityRequest == null)
-                {
-                    throw new ArgumentNullException(nameof(offcutEntityRequest));
-                }
-
-                ValidateRequiredProperties(offcutEntityRequest);
-
-                var payload = JsonConvert.SerializeObject(offcutEntityRequest, SerializerSettings.Default);
-                var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _OffcutEntityCreation, UriKind.Relative), content);
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
-
-                if (result != null)
-                {
-                    return result;
-                }
-
-                throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
-            }
-        }
-
-        public async Task<BoardEntity> CreateTemplateEntity(MaterialAssistRequestTemplateEntity templateEntityRequest)
-        {
-            if (templateEntityRequest == null)
-            {
-                throw new ArgumentNullException(nameof(templateEntityRequest));
-            }
-
-            ValidateRequiredProperties(templateEntityRequest);
-
-            var payload = JsonConvert.SerializeObject(templateEntityRequest, SerializerSettings.Default);
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _TemplateEntityCreation, UriKind.Relative), content);
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
-        }
-
-        #endregion Create
-
-        #region Update
-
-        /// <inheritdoc />
-        public async Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity)
-        {
-            if (updateBoardEntity == null)
-            {
-                throw new ArgumentNullException(nameof(updateBoardEntity));
-            }
-
-            ValidateRequiredProperties(updateBoardEntity);
-
-            var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
-
-            var payload = JsonConvert.SerializeObject(updateBoardEntity, SerializerSettings.Default);
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
-        }
-
-        /// <inheritdoc />
-        public async Task StoreBoardEntity(MaterialAssistStoreBoardEntity storeBoardEntity)
-        {
-            if (storeBoardEntity == null)
-            {
-                throw new ArgumentNullException(nameof(storeBoardEntity));
-            }
-
-            if (string.IsNullOrEmpty(storeBoardEntity.Id))
-            {
-                throw new ArgumentException("Id must not be null or empty.", nameof(storeBoardEntity.Id));
-            }
-
-            if (storeBoardEntity.StorageLocation == null)
-            {
-                throw new ArgumentException("Storage location must be provided.", nameof(storeBoardEntity.StorageLocation));
-            }
-
-            if (storeBoardEntity.Workstation == null)
-            {
-                throw new ArgumentException("Workstation must be provided.", nameof(storeBoardEntity.Workstation));
-            }
-
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(storeBoardEntity.Id)}/store";
-
-            var payload = JsonConvert.SerializeObject(storeBoardEntity, SerializerSettings.Default);
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await PostObject(new Uri(url, UriKind.Relative), content).ConfigureAwait(false);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Failed to store board entity. Status: {response.StatusCode}, Response: {responseContent}");
-            }
-        }
-
-        [Obsolete($"This method is obsolete. Use the method with {nameof(MaterialAssistStoreBoardEntity)} instead.", true)]
-        public Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
-        {
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
-        /// <inheritdoc />
-        public Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false)
-        {
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
-        /// <inheritdoc />
-        public Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
-        {
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
-        /// <inheritdoc />
-        public Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
-        {
-            var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
-            throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
-        }
-
-        #endregion Update
+        var urls = codes
+            .Select(code => $"&{searchCode}={Uri.EscapeDataString(code)}")
+            .Join(QueryParametersMaxLength)
+            .Select(x => x.Remove(0, 1).Insert(0, "?"))
+            .Select(parameter => $"{_BaseRouteMaterialAssist}{route}" + parameter).ToList();
+
+        return urls;
     }
+
+    #endregion Private methods
+
+    #region Constructors
+
+    /// <inheritdoc />
+    public MaterialAssistClientBoards(HttpClient client) : base(client) { }
+
+    /// <inheritdoc />
+    public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey) : base(subscriptionOrPartnerId, authorizationKey) { }
+
+    /// <inheritdoc />
+    public MaterialAssistClientBoards(Guid subscriptionOrPartnerId, string authorizationKey, Uri? baseUri) : base(subscriptionOrPartnerId, authorizationKey, baseUri) { }
+
+    #endregion
+
+    #region Delete
+
+    /// <inheritdoc />
+    public async Task DeleteBoardEntity(string id)
+    {
+        var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
+
+        await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteBoardEntities(IEnumerable<string> ids)
+    {
+        var url = $"{_BaseRouteMaterialAssist}";
+
+        var boardCodes = new StringBuilder("?");
+        boardCodes.Append(string.Join("&", ids.Select(id => $"{_Id}={Uri.EscapeDataString(id)}")));
+
+        url += boardCodes;
+
+        await DeleteObject(new Uri(url, UriKind.Relative)).ConfigureAwait(false);
+    }
+
+    #endregion Delete
+
+    #region Constants
+
+    private const string _BaseRouteMaterialAssist = "api/materialAssist/boardEntities";
+    private const string _BaseRouteMaterialManager = "api/materialManager/boards";
+    private const string _Id = "Id";
+    private const string _BoardCode = "boardCode";
+    private const string _StorageLocation = "storageLocation";
+    private const string _DeleteFromInventory = "deleteFromInventory";
+    private const string _Length = "length";
+    private const string _Width = "width";
+    private const string _RemovalType = "removalType";
+    private const string _Quantity = "quantity";
+    private const string _MaterialCode = "materialCode";
+    private const string _BoardEntityCreation = "/type/board";
+    private const string _OffcutEntityCreation = "/type/offcut";
+    private const string _TemplateEntityCreation = "/type/template";
+
+    #endregion Constants
+
+    #region Read
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardEntity>?> GetBoardEntities(int take, int skip = 0)
+    {
+        var url = $"{_BaseRouteMaterialAssist}?take={take}&skip={skip}";
+
+        return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc/>
+    public async Task<IEnumerable<BoardEntity>?> GetBoardEntities(DateTimeOffset changedSince, int take, int skip = 0)
+    {
+        var url = $"{_BaseRouteMaterialAssist}?changedSince={Uri.EscapeDataString(changedSince.ToString("o"))}&take={take}&skip={skip}";
+        return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<BoardEntity?> GetBoardEntityByCode(string code)
+    {
+        return await GetBoardEntitiesByCodes([code]).FirstOrDefaultAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByCodes(IEnumerable<string> codes)
+    {
+        if (codes == null)
+        {
+            throw new ArgumentNullException(nameof(codes));
+        }
+
+        var filteredCodes = codes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).ToList();
+
+        if (!filteredCodes.Any())
+        {
+            throw new ArgumentNullException(nameof(codes), "At least one id must be passed.");
+        }
+
+        var urls = CreateUrls(filteredCodes, _Id);
+        var boardEntities = new List<BoardEntity>();
+
+        foreach (var url in urls)
+        {
+            boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
+        }
+
+        return boardEntities;
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByBoardCode(string boardCode)
+    {
+        var url = $"{_BaseRouteMaterialAssist}?{_BoardCode}={Uri.EscapeDataString(boardCode)}";
+
+        return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByBoardCodes(IEnumerable<string> boardCodes)
+    {
+        if (boardCodes == null)
+        {
+            throw new ArgumentNullException(nameof(boardCodes));
+        }
+
+        var codes = boardCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).ToList();
+
+        if (!codes.Any())
+        {
+            throw new ArgumentNullException(nameof(boardCodes), "At least one board code must be passed.");
+        }
+
+        var urls = CreateUrls(codes, _BoardCode);
+        var boardEntities = new List<BoardEntity>();
+
+        foreach (var url in urls)
+        {
+            boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
+        }
+
+        return boardEntities;
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardEntity>?> GetBoardEntitiesByMaterialCode(string materialCode)
+    {
+        var url = $"{_BaseRouteMaterialAssist}?{_MaterialCode}={Uri.EscapeDataString(materialCode)}";
+
+        return await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardEntity>> GetBoardEntitiesByMaterialCodes(IEnumerable<string> materialCodes)
+    {
+        if (materialCodes == null)
+        {
+            throw new ArgumentNullException(nameof(materialCodes));
+        }
+
+        var codes = materialCodes
+            .Where(b => !string.IsNullOrWhiteSpace(b))
+            .Distinct()
+            .OrderBy(b => b).ToList();
+
+        if (!codes.Any())
+        {
+            throw new ArgumentNullException(nameof(materialCodes), "At least one material code must be passed.");
+        }
+
+        var urls = CreateUrls(codes, _MaterialCode);
+        var boardEntities = new List<BoardEntity>();
+
+        foreach (var url in urls)
+        {
+            boardEntities.AddRange(await RequestEnumerable<BoardEntity>(new Uri(url, UriKind.Relative)) ?? []);
+        }
+
+        return boardEntities;
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<StorageLocation>> GetStorageLocations()
+    {
+        const string url = $"{_BaseRouteMaterialAssist}/storageLocations";
+
+        return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<StorageLocation>> GetStorageLocations(string workstationId)
+    {
+        var url = $"{_BaseRouteMaterialAssist}/storageLocations?workstationId={Uri.EscapeDataString(workstationId)}";
+
+        return await RequestEnumerable<StorageLocation>(new Uri(url, UriKind.Relative));
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<Workstation>> GetWorkstations()
+    {
+        var url = $"{_BaseRouteMaterialAssist}/workstations";
+
+        return await RequestEnumerable<Workstation>(new Uri(url, UriKind.Relative));
+    }
+
+    #endregion Read
+
+    #region Create
+
+    /// <inheritdoc />
+    public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest)
+    {
+        if (boardTypeRequest == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeRequest));
+        }
+
+        ValidateRequiredProperties(boardTypeRequest, recursive: true);
+
+        var payload = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_BaseRouteMaterialManager, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardType>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardType)}");
+    }
+
+    public async Task<BoardEntity> CreateBoardEntity(MaterialAssistRequestBoardEntity boardEntityRequest)
+    {
+        {
+            if (boardEntityRequest == null)
+            {
+                throw new ArgumentNullException(nameof(boardEntityRequest));
+            }
+
+            ValidateRequiredProperties(boardEntityRequest);
+
+            var payload = JsonConvert.SerializeObject(boardEntityRequest, SerializerSettings.Default);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _BoardEntityCreation, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+        }
+    }
+
+    public async Task<BoardEntity> CreateOffcutEntity(MaterialAssistRequestOffcutEntity offcutEntityRequest)
+    {
+        {
+            if (offcutEntityRequest == null)
+            {
+                throw new ArgumentNullException(nameof(offcutEntityRequest));
+            }
+
+            ValidateRequiredProperties(offcutEntityRequest);
+
+            var payload = JsonConvert.SerializeObject(offcutEntityRequest, SerializerSettings.Default);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _OffcutEntityCreation, UriKind.Relative), content);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+        }
+    }
+
+    public async Task<BoardEntity> CreateTemplateEntity(MaterialAssistRequestTemplateEntity templateEntityRequest)
+    {
+        if (templateEntityRequest == null)
+        {
+            throw new ArgumentNullException(nameof(templateEntityRequest));
+        }
+
+        ValidateRequiredProperties(templateEntityRequest);
+
+        var payload = JsonConvert.SerializeObject(templateEntityRequest, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(_BaseRouteMaterialAssist + _TemplateEntityCreation, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+    }
+
+    #endregion Create
+
+    #region Update
+
+    /// <inheritdoc />
+    public async Task<BoardEntity> UpdateBoardEntity(string id, MaterialAssistUpdateBoardEntity updateBoardEntity)
+    {
+        if (updateBoardEntity == null)
+        {
+            throw new ArgumentNullException(nameof(updateBoardEntity));
+        }
+
+        ValidateRequiredProperties(updateBoardEntity);
+
+        var url = $"{_BaseRouteMaterialAssist}?{_Id}={Uri.EscapeDataString(id)}";
+
+        var payload = JsonConvert.SerializeObject(updateBoardEntity, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<BoardEntity>(responseContent, SerializerSettings.Default);
+
+        if (result != null)
+        {
+            return result;
+        }
+
+        throw new Exception($"The returned object is not of type {nameof(BoardEntity)}");
+    }
+
+    /// <inheritdoc />
+    public async Task StoreBoardEntity(MaterialAssistStoreBoardEntity storeBoardEntity)
+    {
+        if (storeBoardEntity == null)
+        {
+            throw new ArgumentNullException(nameof(storeBoardEntity));
+        }
+
+        if (string.IsNullOrEmpty(storeBoardEntity.Id))
+        {
+            throw new ArgumentException("Id must not be null or empty.", nameof(storeBoardEntity.Id));
+        }
+
+        if (storeBoardEntity.StorageLocation == null)
+        {
+            throw new ArgumentException("Storage location must be provided.", nameof(storeBoardEntity.StorageLocation));
+        }
+
+        if (storeBoardEntity.Workstation == null)
+        {
+            throw new ArgumentException("Workstation must be provided.", nameof(storeBoardEntity.Workstation));
+        }
+
+        var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(storeBoardEntity.Id)}/store";
+
+        ValidateRequiredProperties(storeBoardEntity);
+
+        var payload = JsonConvert.SerializeObject(storeBoardEntity, SerializerSettings.Default);
+        var content = new StringContent(payload, Encoding.UTF8, "application/json");
+        var response = await PostObject(new Uri(url, UriKind.Relative), content).ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            throw new Exception($"Failed to store board entity. Status: {response.StatusCode}, Response: {responseContent}");
+        }
+    }
+
+    [Obsolete($"This method is obsolete. Use the method with {nameof(MaterialAssistStoreBoardEntity)} instead.", true)]
+    public Task StoreBoardEntity(string id, int length, int width, StorageLocation storageLocation)
+    {
+        var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/store?{_Length}={length}&{_Width}={width}&{_StorageLocation}={storageLocation}";
+        throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+    }
+
+    /// <inheritdoc />
+    public Task RemoveAllBoardEntitiesFromWorkplace(string id, bool deleteBoardFromInventory = false)
+    {
+        var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=All";
+        throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+    }
+
+    /// <inheritdoc />
+    public Task RemoveSubsetBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
+    {
+        var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Subset";
+        throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+    }
+
+    /// <inheritdoc />
+    public Task RemoveSingleBoardEntitiesFromWorkplace(string id, int quantity, bool deleteBoardFromInventory = false)
+    {
+        var url = $"{_BaseRouteMaterialAssist}/{Uri.EscapeDataString(id)}/remove?{_Quantity}={quantity}&{_DeleteFromInventory}={deleteBoardFromInventory}&{_RemovalType}=Single";
+        throw new NotImplementedException("This feature is going to be implemented in the future", new Exception());
+    }
+
+    #endregion Update
 }

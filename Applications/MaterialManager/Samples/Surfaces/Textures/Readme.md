@@ -256,3 +256,50 @@ await client.DeleteTexture(textureId);
 
 Console.WriteLine($"Deleted texture: {textureId}");
 ```
+
+# Search decors by image
+
+Searches SmartDecor matches by an image. The server downloads the image from a public `https` URI (PNG or JPEG: `.png`, `.jpg`, `.jpeg`; max 10 MB) and returns the best matching decors. No file is uploaded.
+
+| Parameter | Description |
+| --- | --- |
+| `request.ImageUri` | Required. Absolute public `https` URI of the image. |
+| `take` | Maximum number of decors to return, 1 to 100. Defaults to 10. |
+| `skip` | Number of decors to skip, 0 or greater. Defaults to 0. |
+
+Calls `POST /api/materialManager/catalogs/decors/search/image?take={take}&skip={skip}` with `{ "imageUri": "..." }` as JSON.
+
+| Status | Meaning |
+| --- | --- |
+| `200` | `DecorMatchSearchResponse` with the matching candidates. |
+| `400` | Missing or invalid `imageUri`, invalid image, or invalid `take`/`skip` (RFC 7807 problem details). |
+| `401` | Invalid Basic authentication. |
+
+Invalid arguments are rejected by the client before a request is sent (`ArgumentNullException`, `ArgumentException`, `ArgumentOutOfRangeException`).
+
+**Example (C#):**
+
+```csharp
+var client = new MaterialManagerClientTextures(subscriptionId, authorizationKey);
+
+var request = new DecorImageSearchRequest { ImageUri = new Uri("https://example.com/images/oak.jpg") };
+
+var response = await client.SearchDecorMatchesByImageAsync(request, take: 10, skip: 0);
+
+foreach (var candidate in response.Candidates)
+{
+    Console.WriteLine($"{candidate.DecorCode}: {candidate.ConfidenceScore}");
+}
+```
+
+**Example (PowerShell):**
+
+```powershell
+$body = @{ imageUri = "https://example.com/images/oak.jpg" } | ConvertTo-Json
+$cred = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("${subscriptionId}:${authorizationKey}"))
+
+Invoke-RestMethod -Method Post -Uri "https://connect.homag.cloud/api/materialManager/catalogs/decors/search/image?take=10&skip=0" `
+    -Headers @{ Authorization = "Basic $cred" } -ContentType "application/json" -Body $body
+```
+
+

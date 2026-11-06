@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
@@ -20,6 +14,7 @@ using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // ReSharper disable LocalizableElement
 
@@ -202,7 +197,14 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
                   $"&project={Uri.EscapeDataString(project)}" +
                   $"&edgebandCode={Uri.EscapeDataString(edgebandCode)}";
 
-        var response = await RequestObject<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        var token = await RequestObject<JToken>(new Uri(url, UriKind.Relative));
+        var serializer = JsonSerializer.Create(SerializerSettings.Default);
+        var response = token switch
+        {
+            JArray array => array.ToObject<IEnumerable<EdgebandTypeAllocation>>(serializer)?.FirstOrDefault(),
+            JObject obj => obj.ToObject<EdgebandTypeAllocation>(serializer),
+            _ => null
+        };
         if (response != null)
         {
             return response;
@@ -273,7 +275,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
         }
 
-        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+        var url = $"{_BaseRoute}?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
 
         if (includingDetails)
         {
@@ -295,7 +297,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
 
-        ValidateRequiredProperties(edgebandTypeUpdate);
+        ValidateRequiredProperties(edgebandTypeUpdate, recursive: true);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
@@ -321,7 +323,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(edgebandTypeUpdate));
         }
 
-        ValidateRequiredProperties(edgebandTypeUpdate);
+        ValidateRequiredProperties(edgebandTypeUpdate, recursive: true);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
@@ -415,7 +417,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(edgebandTypeRequest));
         }
 
-        ValidateRequiredProperties(edgebandTypeRequest);
+        ValidateRequiredProperties(edgebandTypeRequest, recursive: true);
 
         var payload = JsonConvert.SerializeObject(edgebandTypeRequest, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -435,10 +437,17 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     /// <inheritdoc />
     public async Task<EdgebandType> CreateEdgebandType(MaterialManagerRequestEdgebandType edgebandTypeRequest, FileReference[] fileReferences)
     {
+        if (edgebandTypeRequest == null)
+        {
+            throw new ArgumentNullException(nameof(edgebandTypeRequest));
+        }
+
         if (fileReferences == null)
         {
             throw new ArgumentNullException(nameof(fileReferences));
         }
+
+        ValidateRequiredProperties(edgebandTypeRequest, recursive: true);
 
         var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
 

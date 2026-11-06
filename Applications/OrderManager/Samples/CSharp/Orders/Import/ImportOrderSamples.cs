@@ -71,6 +71,59 @@ namespace HomagConnect.OrderManager.Samples.Orders.Import
             orderDetails.Trace();
         }
 
+        /// <summary>
+        /// Sample method to start an import using a project zip file and poll the import state separately.
+        /// </summary>
+        /// <param name="orderManager"></param>
+        /// <returns></returns>
+        public static async Task ImportOrderUsingProjectZipAndPollState(IOrderManagerClient orderManager)
+        {
+            var projectFile = new FileInfo(@"Orders\Samples\project-01.zip");
+            var response = await orderManager.ImportOrderRequest(projectFile);
+
+            var importState = await orderManager.GetImportOrderState(response.CorrelationId);
+            importState.Trace();
+        }
+
+        /// <summary>
+        /// Sample method to add a new group (or update an existing one) to an existing order, providing the files
+        /// referenced by the group as <see cref="FileReference" />.
+        /// </summary>
+        /// <param name="orderManager"></param>
+        /// <returns></returns>
+        public static async Task AddOrUpdateGroupUsingFileReferences(IOrderManagerClient orderManager)
+        {
+            var orderNumber = "736362"; // set existing order number
+
+            var group = new Group
+            {
+                Name = "Bedroom & bathroom 02",
+                Source = "orderConfigurator"
+            };
+
+            var fileReferences = new[]
+            {
+                new FileReference("testImage.png", new FileInfo(@"Orders\Samples\testImage.png"))
+            };
+
+            var response = await orderManager.AddOrUpdateGroup(orderNumber, group, fileReferences);
+            response.Trace();
+        }
+
+        /// <summary>
+        /// Sample method to add a new group (or update an existing one) to an existing order using a project zip file.
+        /// </summary>
+        /// <param name="orderManager"></param>
+        /// <returns></returns>
+        public static async Task AddOrUpdateGroupUsingProjectZip(IOrderManagerClient orderManager)
+        {
+            var orderNumber = "736362"; // set existing order number
+            var projectFile = new FileInfo(@"Orders\Samples\project-01.zip");
+
+            var response = await orderManager.AddOrUpdateGroup(orderNumber, projectFile);
+            response.Trace();
+        }
+
         /// <summary />
         private static OrderDetails GetOrderDetailSample()
         {

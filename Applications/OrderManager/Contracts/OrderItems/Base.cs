@@ -71,4 +71,10 @@ public abstract class Base: ISupportsAdditionalData, ISupportsItems
     [JsonExtensionData]
     [JsonProperty(Order = 999)]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
+
+    /// <summary>
+    /// Gets or sets the manufacturer of the entity.
+    /// </summary>
+    [JsonProperty(Order = 1000)]
+    public string? Manufacturer { get; set; }
 }

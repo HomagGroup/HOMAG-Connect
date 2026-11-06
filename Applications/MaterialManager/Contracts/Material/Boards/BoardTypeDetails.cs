@@ -1,5 +1,5 @@
 ﻿#nullable enable
-using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -9,16 +9,27 @@ using Newtonsoft.Json;
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards;
 
 /// <summary>
-/// Board type details bring together a material's stock, production allocations, and supporting information for managing it in materialManager.
+/// Board type details bring together a material's stock, production allocations, and supporting information for managing
+/// it in materialManager.
 /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-platten">Learn more about board types</see>.
 /// </summary>
 /// <example>
-/// { "boardCode": "P2_Gold_Craft_Oak_19.0", "inventory": [], "allocations": [], "additionalData": [] }
+/// {
+/// "boardCode": "BOARD-001-2800x2070-19",
+/// "materialCode": "MAT-001-19",
+/// "length": 2800.0,
+/// "width": 2070.0,
+/// "thickness": 19.0,
+/// "unitSystem": "Metric",
+/// "inventory": [],
+/// "allocations": [],
+/// "additionalData": []
+/// }
 /// </example>
 public class BoardTypeDetails : BoardType
 {
     /// <summary>
-    /// Gets or sets the additional data entries associated with the board type.
+    /// Supporting data associated with the board type, such as documents or images.
     /// </summary>
     /// <example>[]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeDetailsProperties_AdditionalData))]
@@ -26,7 +37,7 @@ public class BoardTypeDetails : BoardType
     public ICollection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
-    /// Gets or sets the allocations for the board type.
+    /// Production reservations associated with this board type.
     /// </summary>
     /// <example>[]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeDetailsProperties_Allocations))]
@@ -34,7 +45,7 @@ public class BoardTypeDetails : BoardType
     public ICollection<BoardTypeAllocation> Allocations { get; set; } = new List<BoardTypeAllocation>();
 
     /// <summary>
-    /// Gets or sets the inventory entries for the board type.
+    /// Inventory entries associated with this board type.
     /// </summary>
     /// <example>[]</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeDetailsProperties_Inventory))]

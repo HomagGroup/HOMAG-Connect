@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
+using HomagConnect.Base.Contracts.Extensions;
+
 namespace HomagConnect.Base.Contracts;
 
 /// <summary>
@@ -9,7 +11,7 @@ namespace HomagConnect.Base.Contracts;
 /// assignment and validation.
 /// </summary>
 /// <remarks>Use this class to construct a dictionary representing only the properties you wish to update on an
-/// object of type T. Property values are validated according to data annotation attributes defined on T. The resulting
+/// object of type T. Property values are validated according to data annotation attributes defined on T and its interfaces. The resulting
 /// patch can be used for scenarios such as HTTP PATCH requests or partial updates in APIs.</remarks>
 /// <typeparam name="T">The type of object for which the patch is being built. Must be a reference type with a parameterless constructor.</typeparam>
 public class PatchBuilder<T> where T : class, new()
@@ -63,7 +65,7 @@ public class PatchBuilder<T> where T : class, new()
 
         var results = new List<ValidationResult>();
 
-        bool isValid = Validator.TryValidateProperty(value, context, results);
+        bool isValid = PropertyValidation.TryValidateProperty(value, context, results);
 
         if (!isValid)
         {

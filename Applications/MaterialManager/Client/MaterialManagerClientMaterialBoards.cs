@@ -1,6 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Text;
+
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.MaterialManager.Contracts.Common;
@@ -9,9 +14,8 @@ using HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
+
 using Newtonsoft.Json;
-using System.Globalization;
-using System.Text;
 
 using Material = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
 
@@ -37,6 +41,89 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
     #endregion
 
+    private static void ValidateInventoryProperties(ImportInventoryRequest data)
+    {
+        if (data.Materials == null)
+        {
+            throw new ValidationException("Materials must not be null.");
+        }
+
+        if (data.Instances == null)
+        {
+            throw new ValidationException("Instances must not be null.");
+        }
+
+        if (data.Allocations == null)
+        {
+            throw new ValidationException("Allocations must not be null.");
+        }
+
+        var index = 0;
+        foreach (var material in data.Materials)
+        {
+            if (material == null)
+            {
+                throw new ValidationException($"Materials[{index}] must not be null.");
+            }
+
+            // Import maps only these fields; sparse material records are not type-creation requests.
+            foreach (var name in new[]
+                     {
+                         nameof(BoardType.BoardCode), nameof(BoardType.MaterialCode), nameof(BoardType.Thickness),
+                         nameof(BoardType.Length), nameof(BoardType.Width), nameof(BoardType.Density),
+                         nameof(BoardType.Costs), nameof(BoardType.DecorCode), nameof(BoardType.Barcode),
+                         nameof(BoardType.MaterialParameterForOptimization), nameof(BoardType.BoardParameterForOptimization),
+                         nameof(BoardType.TotalQuantityAvailableWarningLimit), nameof(BoardType.DecorName)
+                     })
+            {
+                var value = typeof(BoardType).GetProperty(name)!.GetValue(material);
+                if (name != nameof(BoardType.BoardCode) && (value == null || value is string { Length: 0 }))
+                {
+                    continue;
+                }
+
+                ValidateInventoryProperty(material, name, $"Materials[{index}].{name}");
+            }
+
+            index++;
+        }
+
+        index = 0;
+        foreach (var instance in data.Instances)
+        {
+            if (instance?.BoardType == null)
+            {
+                throw new ValidationException($"Instances[{index}].BoardType must not be null.");
+            }
+
+            ValidateInventoryProperty(instance.BoardType, nameof(BoardType.BoardCode), $"Instances[{index}].BoardType.BoardCode");
+            index++;
+        }
+
+        index = 0;
+        foreach (var allocation in data.Allocations)
+        {
+            if (allocation == null)
+            {
+                throw new ValidationException($"Allocations[{index}] must not be null.");
+            }
+
+            ValidateInventoryProperty(allocation, nameof(BoardTypeAllocation.BoardCode), $"Allocations[{index}].BoardCode");
+            ValidateInventoryProperty(allocation, nameof(BoardTypeAllocation.Name), $"Allocations[{index}].Name");
+            index++;
+        }
+    }
+
+    private static void ValidateInventoryProperty(object target, string member, string path)
+    {
+        var value = target.GetType().GetProperty(member)!.GetValue(target);
+        var results = new List<ValidationResult>();
+        if (!PropertyValidation.TryValidateProperty(value, new ValidationContext(target) { MemberName = member }, results))
+        {
+            throw new ValidationException($"{path}: " + string.Join("; ", results.Select(result => result.ErrorMessage)));
+        }
+    }
+
     #region Constants
 
     private const string _BaseRoute = "api/materialManager/materials/boards";
@@ -50,6 +137,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     private const string _AvailibilityCheckRoute = _GatewayMaterialRoutePrefix + "/storage/availabilityCheck";
     private const string _GatewayDeleteRoute = _GatewayMaterialRoutePrefix + "/storage/boardTypes";
     private const string _ExternalSystemId = "externalSystemId";
+    private const string _AllocationNameParameter = "allocationName";
+    private const string _SearchParameter = "search";
 
     #endregion
 
@@ -62,6 +151,8 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         {
             throw new ArgumentNullException(nameof(data));
         }
+
+        ValidateInventoryProperties(data);
 
         var payload = JsonConvert.SerializeObject(data, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -114,7 +205,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(boardTypeUpdate));
         }
 
-        ValidateRequiredProperties(boardTypeUpdate);
+        ValidateRequiredProperties(boardTypeUpdate, recursive: true);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardCode, boardTypeUpdate);
 
@@ -140,7 +231,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(boardTypeUpdate));
         }
 
-        ValidateRequiredProperties(boardTypeUpdate);
+        ValidateRequiredProperties(boardTypeUpdate, recursive: true);
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardTypeCode, boardTypeUpdate);
 
@@ -151,15 +242,23 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     public async Task<IEnumerable<BoardTypeAllocation>?> UpdateBoardTypeAllocation(string allocationName, BoardTypeAllocationUpdate boardTypeAllocationUpdate)
     {
         if (string.IsNullOrWhiteSpace(allocationName))
+        {
             throw new ArgumentException("Allocation name must not be null or empty.", nameof(allocationName));
+        }
 
         if (boardTypeAllocationUpdate == null)
+        {
             throw new ArgumentNullException(nameof(boardTypeAllocationUpdate));
+        }
 
         if (string.IsNullOrWhiteSpace(boardTypeAllocationUpdate.Name))
+        {
             throw new ArgumentException("The allocation update must have a valid Name.", nameof(boardTypeAllocationUpdate));
+        }
 
-        var url = $"{_BoardTypeAllocationsRoute}?allocationName={Uri.EscapeDataString(allocationName)}";
+        ValidateRequiredProperties(boardTypeAllocationUpdate);
+
+        var url = $"{_BoardTypeAllocationsRoute}/{Uri.EscapeDataString(allocationName)}";
 
         var payload = JsonConvert.SerializeObject(boardTypeAllocationUpdate, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -185,7 +284,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(patchData));
         }
 
-        var url = $"{_BaseRoute}/patch/{Uri.EscapeDataString(boardCode)}";
+        var url = $"{_BaseRoute}/{Uri.EscapeDataString(boardCode)}";
 
         var content = new StringContent(
             JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
@@ -230,7 +329,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentNullException(nameof(boardTypeRequest));
         }
 
-        ValidateRequiredProperties(boardTypeRequest);
+        ValidateRequiredProperties(boardTypeRequest, recursive: true);
 
         var payload = JsonConvert.SerializeObject(boardTypeRequest, SerializerSettings.Default);
         var content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -250,10 +349,17 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     /// <inheritdoc />
     public async Task<BoardType> CreateBoardType(MaterialManagerRequestBoardType boardTypeRequest, FileReference[] fileReferences)
     {
+        if (boardTypeRequest == null)
+        {
+            throw new ArgumentNullException(nameof(boardTypeRequest));
+        }
+
         if (fileReferences == null)
         {
             throw new ArgumentNullException(nameof(fileReferences));
         }
+
+        ValidateRequiredProperties(boardTypeRequest, recursive: true);
 
         var missingFile = fileReferences.FirstOrDefault(f => !f.FileInfo.Exists);
 
@@ -518,14 +624,16 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
         }
 
-        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+        // Preferred REST style: filter through the base collection route
+        // GET /materialManager/materials/boards?externalSystemId=...
+        var url = $"{_BaseRoute}?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
 
         if (includingDetails)
         {
             url += $"&{_IncludingDetails}=true";
         }
 
-        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative));
+        return await RequestEnumerable<BoardTypeDetails>(new Uri(url, UriKind.Relative)) ?? [];
     }
 
     private static List<string> CreateUrls(IEnumerable<string> codes, string searchCode, string route = "",
@@ -602,7 +710,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     public async Task<IEnumerable<BoardTypeAllocation>?> GetBoardTypeAllocationsByAllocationNames(IEnumerable<string> allocationNames, int take, int skip = 0)
     {
         if (allocationNames == null)
+        {
             throw new ArgumentNullException(nameof(allocationNames));
+        }
 
         var names = allocationNames
             .Where(n => !string.IsNullOrWhiteSpace(n))
@@ -616,30 +726,47 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
         }
 
         if (take > 1000)
-            throw new ArgumentException("The maximum value for 'take' is 1000.", nameof(take));
-
-        var query = new StringBuilder($"?take={take}&skip={skip}");
-        foreach (var name in names)
         {
-            query.Append($"&allocationNames={Uri.EscapeDataString(name)}");
+            throw new ArgumentException("The maximum value for 'take' is 1000.", nameof(take));
         }
 
-        var url = $"{_BoardTypeAllocationsRoute}/byNames{query}";
-        var result = await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
-        return result ?? [];
+        // Preferred REST style: filter through the base collection route
+        // GET /allocations?allocationName=...&allocationName=...
+        var urls = names
+            .Select(name => $"&{_AllocationNameParameter}={Uri.EscapeDataString(name)}")
+            .Join(QueryParametersMaxLength)
+            .Select(parameters => $"{_BoardTypeAllocationsRoute}?take={take}&skip={skip}{parameters}")
+            .ToList();
+
+        var allocations = new List<BoardTypeAllocation>();
+
+        foreach (var url in urls)
+        {
+            allocations.AddRange(await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative)) ?? []);
+        }
+
+        return allocations;
     }
 
     /// <inheritdoc />
     public async Task<IEnumerable<BoardTypeAllocation>?> SearchBoardTypeAllocations(string search, int take, int skip = 0)
     {
         if (string.IsNullOrWhiteSpace(search))
+        {
             throw new ArgumentException("Search term must not be null or empty.", nameof(search));
+        }
 
         if (take > 1000)
+        {
             throw new ArgumentException("The maximum value for 'take' is 1000.", nameof(take));
+        }
+        
 
-        var url = $"{_BoardTypeAllocationsRoute}/search?search={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
-        return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative));
+        // Preferred REST style: filter through the base collection route
+        // GET /allocations?search=...
+        var url = $"{_BoardTypeAllocationsRoute}?{_SearchParameter}={Uri.EscapeDataString(search)}&take={take}&skip={skip}";
+
+        return await RequestEnumerable<BoardTypeAllocation>(new Uri(url, UriKind.Relative)) ?? [];
     }
 
     #endregion
@@ -710,7 +837,9 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     public async Task DeleteBoardTypeAllocations(IEnumerable<string> allocationNames)
     {
         if (allocationNames == null)
+        {
             throw new ArgumentNullException(nameof(allocationNames));
+        }
 
         var names = allocationNames
             .Where(n => !string.IsNullOrWhiteSpace(n))
@@ -719,13 +848,15 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
             .ToList();
 
         if (!names.Any())
+        {
             throw new ArgumentException("At least one allocation name must be passed.", nameof(allocationNames));
+        }
 
         var query = new StringBuilder();
         foreach (var name in names)
         {
             query.Append(query.Length == 0 ? "?" : "&");
-            query.Append($"allocationNames={Uri.EscapeDataString(name)}");
+            query.Append($"allocationName={Uri.EscapeDataString(name)}");
         }
 
         var url = $"{_BoardTypeAllocationsRoute}{query}";
@@ -838,6 +969,4 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
     }
 
     #endregion
-
-
 }

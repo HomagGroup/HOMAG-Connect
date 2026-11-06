@@ -3,8 +3,20 @@ using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
 using System;
+using System.Globalization;
 using System.Net.Http;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
+using HomagConnect.Base.Client;
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Exceptions;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
+using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
+
+using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -15,6 +27,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
 {
     private const string _BaseRoute = "api/materialManager/surfaces/textures";
     private const string _DecorSearchRoute = "api/materialManager/catalogs/decors/search";
+    private const string _DecorImageSearchRoute = "api/materialManager/catalogs/decors/search/image";
 
     /// <inheritdoc />
     public MaterialManagerClientTextures(HttpClient client) : base(client) { }
@@ -121,6 +134,14 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
         => SearchDecors(request);
 
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchBoardDetailsDecors(BoardTypeDetailsDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
+    /// <inheritdoc />
+    public Task<DecorMatchSearchResponse> SearchEdgebandDetailsDecors(EdgebandTypeDetailsDecorMatchSearchRequest request)
+        => SearchDecors(request);
+
     private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
     {
         if (request == null)
@@ -134,6 +155,49 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
             new Uri(_DecorSearchRoute, UriKind.Relative), request);
 
         return result ?? new DecorMatchSearchResponse();
+    }
+
+    /// <inheritdoc />
+    public async Task<DecorMatchSearchResponse> SearchDecorMatchesByImageAsync(DecorImageSearchRequest request, int take = 10, int skip = 0, CancellationToken cancellationToken = default)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        var imageUri = request.ImageUri;
+
+        if (imageUri == null || !imageUri.IsAbsoluteUri || !string.Equals(imageUri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new ArgumentException("ImageUri must be an absolute https URI.", nameof(request));
+        }
+
+        if (take < 1 || take > 100)
+        {
+            throw new ArgumentOutOfRangeException(nameof(take), take, "take must be between 1 and 100.");
+        }
+
+        if (skip < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(skip), skip, "skip must not be negative.");
+        }
+
+        var url = string.Format(CultureInfo.InvariantCulture, "{0}?take={1}&skip={2}", _DecorImageSearchRoute, take, skip);
+
+        var payload = JsonConvert.SerializeObject(request, SerializerSettings.Default);
+
+        using var httpRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(url, UriKind.Relative))
+        {
+            Content = new StringContent(payload, Encoding.UTF8, "application/json")
+        };
+
+        using var response = await Client.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+        await response.EnsureSuccessStatusCodeWithDetailsAsync(httpRequest).ConfigureAwait(false);
+
+        var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var result = JsonConvert.DeserializeObject<DecorMatchSearchResponse>(rawResult, SerializerSettings.Default);
+
+        return result ?? throw new ProblemDetailsException { Title = "Invalid or no result. Process returned null!" };
     }
 
     /// <inheritdoc />
