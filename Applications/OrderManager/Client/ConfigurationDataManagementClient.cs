@@ -58,14 +58,14 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<CustomTableSyncResult> StartCustomTableSync(string libraryId, string customTableId)
         {
-            var uri = new Uri($"{_LibrariesRoute}/{Uri.EscapeDataString(libraryId)}/sync/customTable/start?customTableId={Uri.EscapeDataString(customTableId)}", UriKind.Relative);
+            var uri = new Uri($"{CustomTableRoute(libraryId, customTableId)}/sync/start", UriKind.Relative);
             return await PostWithoutBody<CustomTableSyncResult>(uri);
         }
 
         /// <inheritdoc />
         public async Task<CustomTableSyncStateData?> GetCustomTableSyncState(string correlationId)
         {
-            var uri = new Uri($"{_LibrariesRoute}/sync/state?correlationId={Uri.EscapeDataString(correlationId)}", UriKind.Relative);
+            var uri = new Uri($"{_BaseRoute}/sync/customTable/state?correlationId={Uri.EscapeDataString(correlationId)}", UriKind.Relative);
 
             return await RequestObject<CustomTableSyncStateData>(uri);
         }

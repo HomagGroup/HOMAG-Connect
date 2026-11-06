@@ -30,7 +30,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             // Assert
             Assert.IsNotNull(handler.Request);
             Assert.AreEqual(HttpMethod.Post, handler.Request.Method);
-            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/libraries/my%20lib/sync/customTable/start?customTableId=table%2F1", handler.Request.RequestUri!.AbsoluteUri);
+            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/libraries/my%20lib/customTables/table%2F1/sync/start", handler.Request.RequestUri!.AbsoluteUri);
             Assert.AreEqual(CustomTableSyncState.Queued, result.State);
             Assert.AreEqual("c1", result.CorrelationId);
         }
@@ -78,7 +78,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             // Assert
             Assert.IsNotNull(handler.Request);
             Assert.AreEqual(HttpMethod.Get, handler.Request.Method);
-            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/libraries/sync/state?correlationId=c%2F1", handler.Request.RequestUri!.AbsoluteUri);
+            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/sync/customTable/state?correlationId=c%2F1", handler.Request.RequestUri!.AbsoluteUri);
             Assert.AreEqual(CustomTableSyncState.Succeeded, result.State);
             Assert.AreEqual(CustomTableSyncDataSource.Edgebands, result.DataSource);
             Assert.AreEqual(100d, result.Progress);

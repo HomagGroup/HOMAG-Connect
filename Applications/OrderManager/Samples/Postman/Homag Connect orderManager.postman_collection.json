@@ -942,7 +942,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/sync/customTable/start?customTableId={{customTableId}}",
+									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/customTables/{{customTableId}}/sync/start",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -952,15 +952,10 @@
 										"configurationDataManagement",
 										"libraries",
 										"{{libraryId}}",
+										"customTables",
+										"{{customTableId}}",
 										"sync",
-										"customTable",
 										"start"
-									],
-									"query": [
-										{
-											"key": "customTableId",
-											"value": "{{customTableId}}"
-										}
 									]
 								}
 							},
@@ -972,7 +967,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/sync/state?correlationId={{syncCorrelationId}}",
+									configurationDataManagement/sync/customTable/state?correlationId={{syncCorrelationId}}",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -980,8 +975,8 @@
 										"api",
 										"orderManager",
 										"configurationDataManagement",
-										"libraries",
 										"sync",
+										"customTable",
 										"state"
 									],
 									"query": [
