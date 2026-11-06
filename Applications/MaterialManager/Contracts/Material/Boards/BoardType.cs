@@ -1,9 +1,10 @@
-﻿#nullable enable
+#nullable enable
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
+using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Extensions;
@@ -579,7 +580,17 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// </summary>
     /// <example>https://example.com/materials/boards/P2_Hunton_Oak_dark_19.0_2800.0_2070.0.png</example>
     [JsonProperty(Order = 3)]
+    [Obsolete("use PrimaryImage.Thumbnail instead", false)]
     public Uri? Thumbnail { get; set; }
+
+    /// <summary>
+    /// Links to the main image that represents this board type, in several sizes. When the board type has a valid
+    /// <see cref="DecorId" />, the decor image is used; otherwise the image is selected from the board type's additional
+    /// data. The value is null when no image is available.
+    /// </summary>
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_PrimaryImage))]
+    [JsonProperty(Order = 4)]
+    public ImageUris? PrimaryImage { get; set; }
 
     #endregion
 
