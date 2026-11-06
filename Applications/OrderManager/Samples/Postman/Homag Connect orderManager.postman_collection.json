@@ -920,6 +920,79 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "StartCustomTableSync",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const result = pm.response.json();",
+											"const correlationId = result.correlationId ?? result.CorrelationId;",
+											"if (correlationId) {",
+											"    pm.collectionVariables.set(\"syncCorrelationId\", correlationId);",
+											"}"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/sync/customTable/start?customTableId={{customTableId}}",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"configurationDataManagement",
+										"libraries",
+										"{{libraryId}}",
+										"sync",
+										"customTable",
+										"start"
+									],
+									"query": [
+										{
+											"key": "customTableId",
+											"value": "{{customTableId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomTableSyncState",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/sync/state?correlationId={{syncCorrelationId}}",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"configurationDataManagement",
+										"libraries",
+										"sync",
+										"state"
+									],
+									"query": [
+										{
+											"key": "correlationId",
+											"value": "{{syncCorrelationId}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},

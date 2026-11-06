@@ -137,5 +137,46 @@ namespace HomagConnect.OrderManager.Samples.ConfigurationDataManagement.Actions
 
             return result;
         }
+
+        /// <summary>
+        /// Start the synchronization of a custom table linked to materialManager and wait until it has finished.
+        /// </summary>
+        /// <param name="configurationDataManagement"></param>
+        /// <param name="timeout">The maximum time to wait for the synchronization to finish.</param>
+        public static async Task<CustomTableSyncStateData?> SyncCustomTable(IConfigurationDataManagementClient configurationDataManagement, TimeSpan timeout)
+        {
+            var libraryId = "Default";
+            var customTableId = "MyCustomTable";
+
+            var result = await configurationDataManagement.StartCustomTableSync(libraryId, customTableId);
+            var correlationId = result.CorrelationId ?? string.Empty;
+
+            if (result.State == CustomTableSyncState.Error ||
+                !string.IsNullOrEmpty(result.ErrorText) ||
+                string.IsNullOrEmpty(correlationId))
+            {
+                // The synchronization could not be started, e.g. the custom table is not linked to materialManager.
+                return new CustomTableSyncStateData
+                {
+                    CorrelationId = correlationId,
+                    State = result.State,
+                    ErrorTexts = [result.ErrorText ?? "Custom table synchronization could not be started"]
+                };
+            }
+
+            using var cancellation = new CancellationTokenSource(timeout);
+            CustomTableSyncStateData? state;
+
+            do
+            {
+                await Task.Delay(TimeSpan.FromSeconds(2), cancellation.Token);
+
+                state = await configurationDataManagement.GetCustomTableSyncState(correlationId);
+            }
+            while (state?.State is CustomTableSyncState.Queued or CustomTableSyncState.Started);
+
+            // state.ErrorTexts and state.WarningTexts contain the details of the finished synchronization.
+            return state;
+        }
     }
 }
