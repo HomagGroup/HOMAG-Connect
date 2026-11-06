@@ -181,7 +181,8 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
                   $"&project={Uri.EscapeDataString(project)}" +
                   $"&edgebandCode={Uri.EscapeDataString(edgebandCode)}";
 
-        var response = await RequestObject<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        var allocations = await RequestEnumerable<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        var response = allocations?.FirstOrDefault();
         if (response != null)
         {
             return response;
@@ -193,7 +194,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     /// <inheritdoc />
     public async Task<IEnumerable<EdgebandTypeAllocation>> GetEdgebandTypeAllocations()
     {
-        var url = $"{_EdgebandTypeAllocations}/getall";
+        const string url = _EdgebandTypeAllocations;
         var result = await RequestEnumerable<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
         return result ?? [];
     }
@@ -252,7 +253,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
         }
 
-        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+        var url = $"{_BaseRoute}?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
 
         if (includingDetails)
         {
