@@ -8,7 +8,7 @@ namespace HomagConnect.Base.Contracts.AdditionalData;
 /// <example>
 /// { "thumbnail": "https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_thumbnail.png", "small": "https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_thumbnail.png",
 /// "medium": "https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_texture.png", "large": "https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_texture.png",
-/// "original": "https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_texture.png" }
+/// "original": "https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_texture.png", "downloadFileName": "f434_st20_texture.png" }
 /// </example>
 public class ImageUris
 {
@@ -46,4 +46,11 @@ public class ImageUris
     /// <example>https://materialmanager.homag.cloud/catalogs/decors/egger/f434_st20_texture.png</example>
     [JsonProperty(Order = 4)]
     public Uri? Original { get; set; }
+
+    /// <summary>
+    /// File name, including extension, to use when saving the image locally.
+    /// </summary>
+    /// <example>f434_st20_texture.png</example>
+    [JsonProperty(Order = 5)]
+    public string? DownloadFileName { get; set; }
 }
