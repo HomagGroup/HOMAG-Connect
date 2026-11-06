@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -224,6 +224,9 @@
   </data>
   <data name="BoardTypeProperties_Comments" xml:space="preserve">
     <value>Anmerkungen (Stammdaten)</value>
+  </data>
+  <data name="BoardTypeProperties_PrimaryImage" xml:space="preserve">
+    <value>Hauptbild</value>
   </data>
   <data name="LockedForConfiguration_True" xml:space="preserve">
     <value>ja</value>

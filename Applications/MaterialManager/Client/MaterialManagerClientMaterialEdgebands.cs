@@ -14,6 +14,7 @@ using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // ReSharper disable LocalizableElement
 
@@ -181,7 +182,14 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
                   $"&project={Uri.EscapeDataString(project)}" +
                   $"&edgebandCode={Uri.EscapeDataString(edgebandCode)}";
 
-        var response = await RequestObject<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
+        var token = await RequestObject<JToken>(new Uri(url, UriKind.Relative));
+        var serializer = JsonSerializer.Create(SerializerSettings.Default);
+        var response = token switch
+        {
+            JArray array => array.ToObject<IEnumerable<EdgebandTypeAllocation>>(serializer)?.FirstOrDefault(),
+            JObject obj => obj.ToObject<EdgebandTypeAllocation>(serializer),
+            _ => null
+        };
         if (response != null)
         {
             return response;
@@ -252,7 +260,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentException("External system id must not be null or empty.", nameof(externalSystemId));
         }
 
-        var url = $"{_BaseRoute}/byExternalSystemId?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
+        var url = $"{_BaseRoute}?{_ExternalSystemId}={Uri.EscapeDataString(externalSystemId)}&take={take}&skip={skip}";
 
         if (includingDetails)
         {
