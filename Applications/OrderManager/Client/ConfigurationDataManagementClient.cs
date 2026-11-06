@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-
 using HomagConnect.Base.Client;
 using HomagConnect.OrderManager.Contracts.ConfigurationDataManagement;
 using HomagConnect.OrderManager.Contracts.ConfigurationDataManagement.CustomTables;
@@ -58,6 +53,21 @@ namespace HomagConnect.OrderManager.Client
             var uri = new Uri($"{CustomTableRoute(libraryId, customTableId)}/data", UriKind.Relative);
 
             return await PutObject<SetCustomTableDataRequest, SetCustomTableDataResult>(uri, request);
+        }
+
+        /// <inheritdoc />
+        public async Task<CustomTableSyncResult> StartCustomTableSync(string libraryId, string customTableId)
+        {
+            var uri = new Uri($"{CustomTableRoute(libraryId, customTableId)}/sync/start", UriKind.Relative);
+            return await PostWithoutBody<CustomTableSyncResult>(uri);
+        }
+
+        /// <inheritdoc />
+        public async Task<CustomTableSyncStateData?> GetCustomTableSyncState(string correlationId)
+        {
+            var uri = new Uri($"{_BaseRoute}/sync/customTable/state?correlationId={Uri.EscapeDataString(correlationId)}", UriKind.Relative);
+
+            return await RequestObject<CustomTableSyncStateData>(uri);
         }
 
         private static string CustomTablesRoute(string libraryId)

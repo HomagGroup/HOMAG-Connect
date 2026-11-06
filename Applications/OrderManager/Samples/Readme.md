@@ -52,3 +52,5 @@
 		- [Retrieve the content of a custom table](CSharp/ConfigurationDataManagement/Actions/Readme.md#example-getcustomtabledata)
 	- Set custom table data
 		- [Replace the content of a custom table](CSharp/ConfigurationDataManagement/Actions/Readme.md#example-setcustomtabledata)
+	- Synchronize custom tables
+		- [Synchronize a custom table with materialManager](CSharp/ConfigurationDataManagement/Actions/Readme.md#example-synccustomtable)
