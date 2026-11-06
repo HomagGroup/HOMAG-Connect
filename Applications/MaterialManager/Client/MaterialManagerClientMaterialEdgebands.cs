@@ -357,7 +357,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             throw new ArgumentNullException(nameof(patchData));
         }
 
-        var url = $"{_BaseRoute}/patch/{Uri.EscapeDataString(edgebandCode)}";
+        var url = $"{_BaseRoute}/{Uri.EscapeDataString(edgebandCode)}";
 
         var content = new StringContent(
             JsonConvert.SerializeObject(patchData.Build(), Formatting.None),
