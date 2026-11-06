@@ -1,5 +1,4 @@
 ﻿using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.OrderManager.Contracts;
 using HomagConnect.OrderManager.Contracts.Customers;
 using System.Collections.ObjectModel;
@@ -44,6 +43,60 @@ namespace HomagConnect.OrderManager.Samples.Customers.Actions
             var customer = await orderManager.GetCustomer(customerNumber);
 
             return customer;
+        }
+
+        /// <summary>
+        /// Get customer by id
+        /// </summary>
+        /// <param name="orderManager"></param>
+        public static async Task<Customer?> GetCustomerByCustomerId(IOrderManagerClient orderManager)
+        {
+            var customerId = Guid.Parse("PUT_CUSTOMER_ID_HERE");
+
+            var customer = await orderManager.GetCustomer(customerId);
+
+            return customer;
+        }
+
+        /// <summary>
+        /// Get all customers
+        /// </summary>
+        /// <param name="orderManager"></param>
+        public static async Task<IEnumerable<Customer?>> GetAllCustomers(IOrderManagerClient orderManager)
+        {
+            var customers = await orderManager.GetCustomers();
+
+            return customers;
+        }
+
+        /// <summary>
+        /// Get customers by their customer numbers
+        /// </summary>
+        /// <param name="orderManager"></param>
+        public static async Task<IEnumerable<Customer?>> GetCustomersByCustomerNumbers(IOrderManagerClient orderManager)
+        {
+            var customerNumbers = new[] { "11111111111", "22222222222" };
+
+            var customers = await orderManager.GetCustomers(customerNumbers);
+
+            return customers;
+        }
+
+        /// <summary>
+        /// Get customers by their customer ids
+        /// </summary>
+        /// <param name="orderManager"></param>
+        public static async Task<IEnumerable<Customer?>> GetCustomersByCustomerIds(IOrderManagerClient orderManager)
+        {
+            var customerIds = new[]
+            {
+                Guid.Parse("PUT_CUSTOMER_ID1_HERE"),
+                Guid.Parse("PUT_CUSTOMER_ID2_HERE")
+            };
+
+            var customers = await orderManager.GetCustomers(customerIds);
+
+            return customers;
         }
 
         /// <summary>
