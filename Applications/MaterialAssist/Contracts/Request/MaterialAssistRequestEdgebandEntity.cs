@@ -12,6 +12,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Request;
 /// <remarks>
 /// For <see cref="MaterialManager.Contracts.Material.Base.ManagementType.Single" />, supply a Quantity of one.
 /// The service enforces this rule in addition to the local property constraints.
+/// Length is required for creation; see MaterialAssistUpdateEdgebandEntity for optional length updates via PATCH.
 /// </remarks>
 /// <example>
 /// {
@@ -42,12 +43,17 @@ public class MaterialAssistRequestEdgebandEntity : MaterialAssistRequestBase
     public string EdgebandCode { get; set; } = string.Empty;
 
     /// <summary>
-    /// Optional length of one edgeband item, not the combined length of all items in Quantity.
+    /// Required coil length of one edgeband item, not the combined length of all items in Quantity. Edgebands are defined by their coil length.
     /// <para>Unit for <see cref="UnitSystem.Metric" />: m; for <see cref="UnitSystem.Imperial" />: ft.</para>
     /// </summary>
+    /// <remarks>
+    /// This property is mandatory when creating an edgeband entity. See <see cref="IMaterialAssistEdgebandLength" /> for complete documentation
+    /// of creation vs. update semantics and constraint details (range 0 - 2000 in the specified unit).
+    /// </remarks>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     [Range(0, 2000.00)]
-    public double? Length { get; set; }
+    [Required]
+    public double Length { get; set; }
 
     /// <summary>
     /// How the edgeband items are tracked: individually, as a stack, or as goods in stock.
