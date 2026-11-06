@@ -14,6 +14,7 @@ using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // ReSharper disable LocalizableElement
 
@@ -181,8 +182,14 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
                   $"&project={Uri.EscapeDataString(project)}" +
                   $"&edgebandCode={Uri.EscapeDataString(edgebandCode)}";
 
-        var allocations = await RequestEnumerable<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
-        var response = allocations?.FirstOrDefault();
+        var token = await RequestObject<JToken>(new Uri(url, UriKind.Relative));
+        var serializer = JsonSerializer.Create(SerializerSettings.Default);
+        var response = token switch
+        {
+            JArray array => array.ToObject<IEnumerable<EdgebandTypeAllocation>>(serializer)?.FirstOrDefault(),
+            JObject obj => obj.ToObject<EdgebandTypeAllocation>(serializer),
+            _ => null
+        };
         if (response != null)
         {
             return response;
@@ -194,7 +201,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
     /// <inheritdoc />
     public async Task<IEnumerable<EdgebandTypeAllocation>> GetEdgebandTypeAllocations()
     {
-        const string url = _EdgebandTypeAllocations;
+        var url = $"{_EdgebandTypeAllocations}/getall";
         var result = await RequestEnumerable<EdgebandTypeAllocation>(new Uri(url, UriKind.Relative));
         return result ?? [];
     }
