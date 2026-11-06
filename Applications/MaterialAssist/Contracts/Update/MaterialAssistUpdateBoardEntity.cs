@@ -9,8 +9,7 @@ namespace HomagConnect.MaterialAssist.Contracts.Update;
 /// </summary>
 /// <remarks>
 /// <para><strong>Dimension Updates</strong>: Length and Width inherit from <see cref="IDimensionPropertiesLengthWidth" />,
-/// which documents the complete validation rules. In update operations (PATCH semantics), both are optional: omit or set to null
-/// to leave current values unchanged. When provided, they must satisfy the range constraint (0.1 - 19999.9 mm).</para>
+/// which documents their units and validation rules. Omit either value or set it to null to leave the current dimension unchanged.</para>
 /// <para><strong>Supported Operations</strong>: Dimension changes are only supported for individually managed boards
 /// (MaterialManagementType.Single).</para>
 /// </remarks>
@@ -32,10 +31,8 @@ public class MaterialAssistUpdateBoardEntity : IDimensionPropertiesLengthWidth
     [StringLength(50)]
     public string? Id { get; set; } = null;
 
-    /// <summary>
-    /// Replacement length of the board in millimetres; omit to leave unchanged. When provided, must be between 0.1 and 19999.9 mm.
-    /// See <see cref="IDimensionPropertiesLengthWidth"/> for complete documentation.
-    /// </summary>
+    /// <inheritdoc cref="IDimensionPropertiesLengthWidth.Length" />
+    /// <remarks>Omit or set to null to leave the current length unchanged.</remarks>
     public double? Length { get; set; }
 
     /// <summary>
@@ -44,9 +41,7 @@ public class MaterialAssistUpdateBoardEntity : IDimensionPropertiesLengthWidth
     [Range(1, 9999)]
     public int? Quantity { get; set; }
 
-    /// <summary>
-    /// Replacement width of the board in millimetres; omit to leave unchanged. When provided, must be between 0.1 and 19999.9 mm.
-    /// See <see cref="IDimensionPropertiesLengthWidth"/> for complete documentation.
-    /// </summary>
+    /// <inheritdoc cref="IDimensionPropertiesLengthWidth.Width" />
+    /// <remarks>Omit or set to null to leave the current width unchanged.</remarks>
     public double? Width { get; set; }
 }

@@ -6,31 +6,23 @@ using HomagConnect.Base.Contracts.Enumerations;
 namespace HomagConnect.MaterialAssist.Contracts;
 
 /// <summary>
-/// Defines edgeband length validation rules for both creation and update operations.
+/// Defines shared unit and range metadata for an edgeband coil length in update contracts.
 /// </summary>
 /// <remarks>
-/// <para>This interface consolidates length validation across different operation contexts:</para>
-/// <para><strong>Creation Operations</strong>: Implementations define Length as <c>double</c> (non-nullable)
-/// with <c>[Required]</c> attribute. Must be between 0 and 2000 metres. Edgebands are defined by their coil length,
-/// making this mandatory at creation. Example: <c>MaterialAssistRequestEdgebandEntity</c>.</para>
-/// <para><strong>Update Operations (PATCH)</strong>: Implementations define Length as <c>double?</c> (nullable)
-/// to support partial updates. When omitted, current value is unchanged; when provided, must be between 0 and 2000 metres.
-/// Example: <c>MaterialAssistUpdateEdgebandEntity</c>.</para>
-/// <para><strong>Unit</strong>: Length is expressed in metres (m), representing the coil length.</para>
-/// <para><strong>Constraint Validation</strong>: <c>[Range(0, 2000)]</c> attribute enforces the valid range
-/// in both creation and update contexts.</para>
+/// <para>Creation requests use a required, non-nullable length. Update requests use this nullable property so callers can omit it
+/// to leave the existing length unchanged.</para>
 /// </remarks>
 public interface IMaterialAssistEdgebandLength
 {
     /// <summary>
-    /// Coil length of the edgeband in metres (m).
-    /// <para>Valid Range: 0 - 2000 m.</para>
+    /// Length of one edgeband coil.
     /// </summary>
     /// <remarks>
-    /// <para><strong>Creation</strong>: Required property (marked with <c>[Required]</c>). Edgebands are identified and tracked by coil length,
-    /// making this mandatory. Must be explicitly provided.</para>
-    /// <para><strong>Update</strong>: Optional property. Omit in JSON to leave unchanged; provide to validate and update.</para>
-    /// <para>See implementing class documentation for operation-specific details.</para>
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: m.</para>
+    /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft.</para>
+    /// <para>Creation requires a length; see <see cref="HomagConnect.MaterialAssist.Contracts.Request.MaterialAssistRequestEdgebandEntity.Length" />.
+    /// Updates may omit or set this property to null to leave the existing length unchanged; see
+    /// <see cref="HomagConnect.MaterialAssist.Contracts.Update.MaterialAssistUpdateEdgebandEntity.Length" />.</para>
     /// </remarks>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     [Range(0, 2000.00)]

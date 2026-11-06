@@ -7,7 +7,7 @@ namespace HomagConnect.MaterialManager.Contracts.Request;
 /// </summary>
 /// <example>
 /// { "boardTypeCode": "BOARD-001", "createdBy": "planner@example.com", "name": "Production reservation",
-/// "quantity": 4, "workstation": "SAW-01" }
+/// "quantity": 4, "source": "source", "workstation": "SAW-01" }
 /// </example>
 public class BoardTypeAllocationRequest
 {

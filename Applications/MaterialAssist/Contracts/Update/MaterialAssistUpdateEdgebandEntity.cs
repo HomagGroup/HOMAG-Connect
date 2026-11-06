@@ -42,10 +42,7 @@ public class MaterialAssistUpdateEdgebandEntity : IMaterialAssistEdgebandLength
     [StringLength(50)]
     public string? Id { get; set; } = null;
 
-    /// <summary>
-    /// Replacement coil length of one edgeband item. See <see cref="IMaterialAssistEdgebandLength" /> for complete documentation.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: m; for <see cref="UnitSystem.Imperial" />: ft.</para>
-    /// </summary>
+    /// <inheritdoc cref="IMaterialAssistEdgebandLength.Length" />
     public double? Length { get; set; } = null;
 
     /// <summary>
