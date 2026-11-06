@@ -4,9 +4,6 @@ using HomagConnect.MaterialManager.Contracts.Common;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Statistics;
 using HomagConnect.MaterialManager.Contracts.Update;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HomagConnect.MaterialManager.Contracts.Material.Boards.Interfaces
 {
