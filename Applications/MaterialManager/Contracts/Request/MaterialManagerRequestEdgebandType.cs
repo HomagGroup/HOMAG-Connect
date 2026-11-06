@@ -31,14 +31,13 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     public string? DecorEmbossingCode { get; set; }
 
     /// <summary>
-    /// Default length of the edgeband roll.
+    /// Optional default length of the edgeband roll.
     /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: m.</para>
     /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: ft.</para>
     /// </summary>
-    [Required]
     [Range(0, 2000.0)]
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-    public double DefaultLength { get; set; }
+    public double? DefaultLength { get; set; }
 
     /// <summary>
     /// Code used to identify this edgeband type.

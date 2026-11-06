@@ -123,6 +123,44 @@ public class MaterialConstraintAnnotationTests
         Validator.TryValidateObject(update, new ValidationContext(update), results, true).ShouldBeTrue();
     }
 
+    [TestMethod]
+    public void MaterialCreationAndAllocation_RequirednessMatchesBackend()
+    {
+        var defaultLength = typeof(MaterialManagerRequestEdgebandType).GetProperty(nameof(MaterialManagerRequestEdgebandType.DefaultLength))!;
+        defaultLength.PropertyType.ShouldBe(typeof(double?));
+        defaultLength.GetCustomAttribute<RequiredAttribute>().ShouldBeNull();
+
+        typeof(BoardTypeAllocationRequest).GetProperty(nameof(BoardTypeAllocationRequest.Source))!
+            .GetCustomAttribute<RequiredAttribute>().ShouldNotBeNull();
+        typeof(EdgebandTypeAllocationRequest).GetProperty(nameof(EdgebandTypeAllocationRequest.AllocatedLength))!
+            .GetCustomAttribute<RequiredAttribute>().ShouldNotBeNull();
+        typeof(BoardTypeAllocationRequest).GetProperty(nameof(BoardTypeAllocationRequest.Workstation))!
+            .GetCustomAttribute<RequiredAttribute>().ShouldBeNull();
+        typeof(EdgebandTypeAllocationRequest).GetProperty(nameof(EdgebandTypeAllocationRequest.Workstation))!
+            .GetCustomAttribute<RequiredAttribute>().ShouldBeNull();
+
+        var boardAllocation = new BoardTypeAllocationRequest
+        {
+            BoardTypeCode = "board",
+            CreatedBy = "user",
+            Name = "allocation",
+            Quantity = 1,
+            Source = "source",
+            Workstation = null
+        };
+        Validator.TryValidateObject(boardAllocation, new ValidationContext(boardAllocation), null, true).ShouldBeTrue();
+
+        var edgebandAllocation = new EdgebandTypeAllocationRequest
+        {
+            EdgebandCode = "edge",
+            Order = "order",
+            CreatedBy = "user",
+            AllocatedLength = 10,
+            Workstation = null
+        };
+        Validator.TryValidateObject(edgebandAllocation, new ValidationContext(edgebandAllocation), null, true).ShouldBeTrue();
+    }
+
     public static IEnumerable<object[]> EdgebandAndAllocationRanges()
     {
         foreach (var type in new[] { typeof(MaterialManagerRequestEdgebandType), typeof(MaterialManagerUpdateEdgebandType), typeof(EdgebandType) })
