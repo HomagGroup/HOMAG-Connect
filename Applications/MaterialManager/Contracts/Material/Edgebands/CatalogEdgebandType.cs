@@ -49,7 +49,7 @@ public class CatalogEdgebandType
     public string? DecorName { get; set; }
 
     /// <summary>
-    /// Catalog roll length in m, when available.
+    /// Catalog coil length in m, when available.
     /// </summary>
     /// <example>500.0</example>
     public double? DefaultLength { get; set; }
