@@ -121,6 +121,23 @@ public class ClientBase
         return response;
     }
 
+    protected async Task<T> PostWithoutBody<T>(Uri uri)
+    {
+        var response = await PostObject(uri);
+        var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var result = JsonConvert.DeserializeObject<T>(rawResult, SerializerSettings.Default);
+
+        if (Equals(result, default(T)))
+        {
+            throw new ProblemDetailsException
+            {
+                Title = "Invalid or no result. Process returned null!"
+            };
+        }
+
+        return result;
+    }
+
     protected async Task<T2> PostObject<T1, T2>(Uri uri, T1 payload)
     {
         var response = await PostObject(uri, payload);

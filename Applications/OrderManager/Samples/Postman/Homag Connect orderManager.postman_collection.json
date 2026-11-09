@@ -920,6 +920,74 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "StartCustomTableSync",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const result = pm.response.json();",
+											"const correlationId = result.correlationId ?? result.CorrelationId;",
+											"if (correlationId) {",
+											"    pm.collectionVariables.set(\"syncCorrelationId\", correlationId);",
+											"}"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/customTables/{{customTableId}}/sync/start",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"configurationDataManagement",
+										"libraries",
+										"{{libraryId}}",
+										"customTables",
+										"{{customTableId}}",
+										"sync",
+										"start"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomTableSyncState",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									configurationDataManagement/sync/customTable/state?correlationId={{syncCorrelationId}}",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"configurationDataManagement",
+										"sync",
+										"customTable",
+										"state"
+									],
+									"query": [
+										{
+											"key": "correlationId",
+											"value": "{{syncCorrelationId}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
