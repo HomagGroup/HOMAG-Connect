@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using HomagConnect.Base.Contracts.DataModel;
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.IntelliDivide.Contracts.Configuration;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Contracts.Statistics;
@@ -52,6 +53,26 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// </summary>
         /// <returns>The machine if exists, otherwise null.</returns>
         Task<OptimizationMachine> GetMachine(string machineName);
+
+        /// <summary>
+        /// Gets the configuration details of the machine with the specified name.
+        /// </summary>
+        /// <param name="machineName">The name of the machine.</param>
+        /// <returns>The machine details if the machine exists; otherwise, null.</returns>
+        Task<MachineDetails?> GetMachineDetails(string machineName);
+
+        /// <summary>
+        /// Creates a machine from the specified details.
+        /// </summary>
+        /// <param name="machineDetails">The name and configuration of the machine to create.</param>
+        /// <returns>The details of the created machine.</returns>
+        Task<MachineDetails> CreateMachine(MachineDetails machineDetails);
+
+        /// <summary>
+        /// Deletes the machine with the specified name.
+        /// </summary>
+        /// <param name="machineName">The name of the machine to delete.</param>
+        Task DeleteMachine(string machineName);
 
         /// <summary>
         /// Gets the list of machines.
