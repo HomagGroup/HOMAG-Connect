@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.Extensions;
 using HomagConnect.MaterialManager.Contracts.Material.Base;
 
 namespace HomagConnect.MaterialAssist.Tests.Integration;
@@ -49,7 +50,7 @@ public class MaterialContractNullabilityIntegrationTests
 
         // Act 2 - Validate update request
         var updateResults = new List<ValidationResult>();
-        var updateValid = Validator.TryValidateObject(updateRequest, new ValidationContext(updateRequest), updateResults, validateAllProperties: true);
+        var updateValid = PropertyValidation.TryValidateObject(updateRequest, new ValidationContext(updateRequest), updateResults);
 
         // Assert 2 - Update should pass (null Length/Width are valid in PATCH operations)
         updateValid.ShouldBeTrue("because nullable properties can be omitted in PATCH operations");
@@ -91,7 +92,7 @@ public class MaterialContractNullabilityIntegrationTests
 
         // Act 2 - Validate update request
         var updateResults = new List<ValidationResult>();
-        var updateValid = Validator.TryValidateObject(updateRequest, new ValidationContext(updateRequest), updateResults, validateAllProperties: true);
+        var updateValid = PropertyValidation.TryValidateObject(updateRequest, new ValidationContext(updateRequest), updateResults);
 
         // Assert 2 - Update should pass (omitting Length is valid in PATCH)
         updateValid.ShouldBeTrue("because Length is optional in PATCH operations (nullable in UpdateEdgebandEntity)");
@@ -101,7 +102,7 @@ public class MaterialContractNullabilityIntegrationTests
     /// <summary>
     /// T043: Integration test for validation behavior on edgeband creation.
     /// Note: Since Length is a `double` (value type), it defaults to 0 when not explicitly set in code.
-    /// The [Required] attribute works during JSON deserialization but not on C# objects without binding context.
+    /// The [Required] attribute does not distinguish an omitted non-nullable value from an explicit zero.
     /// This test verifies that explicitly setting Length=0 (minimum boundary) is valid.
     /// </summary>
     [TestMethod]
@@ -141,7 +142,7 @@ public class MaterialContractNullabilityIntegrationTests
 
         // Act - Validate update request
         var results = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(updateRequest, new ValidationContext(updateRequest), results, validateAllProperties: true);
+        var isValid = PropertyValidation.TryValidateObject(updateRequest, new ValidationContext(updateRequest), results);
 
         // Assert - Validation should fail because Length exceeds Range(0, 2000)
         isValid.ShouldBeFalse("because Length=2100 exceeds the maximum boundary (2000)");
@@ -165,7 +166,7 @@ public class MaterialContractNullabilityIntegrationTests
 
         // Act 1 - Validate board update
         var boardResults = new List<ValidationResult>();
-        var boardValid = Validator.TryValidateObject(boardUpdate, new ValidationContext(boardUpdate), boardResults, validateAllProperties: true);
+        var boardValid = PropertyValidation.TryValidateObject(boardUpdate, new ValidationContext(boardUpdate), boardResults);
 
         // Assert 1 - Should pass (no new required fields added to Update DTOs)
         boardValid.ShouldBeTrue("because no new required fields were added to UpdateBoardEntity");
@@ -178,7 +179,7 @@ public class MaterialContractNullabilityIntegrationTests
 
         // Act 2 - Validate edgeband update
         var edgeResults = new List<ValidationResult>();
-        var edgeValid = Validator.TryValidateObject(edgebandUpdate, new ValidationContext(edgebandUpdate), edgeResults, validateAllProperties: true);
+        var edgeValid = PropertyValidation.TryValidateObject(edgebandUpdate, new ValidationContext(edgebandUpdate), edgeResults);
 
         // Assert 2 - Should pass (UpdateEdgebandEntity.Length remains nullable, no breaking change)
         edgeValid.ShouldBeTrue("because UpdateEdgebandEntity.Length remains nullable for backward compatibility");
@@ -194,31 +195,31 @@ public class MaterialContractNullabilityIntegrationTests
         // Test 1: Board Length at minimum boundary (0.1)
         var boardMinLength = new MaterialAssistUpdateBoardEntity { Length = 0.1 };
         var boardMinResults = new List<ValidationResult>();
-        var boardMinValid = Validator.TryValidateObject(boardMinLength, new ValidationContext(boardMinLength), boardMinResults, validateAllProperties: true);
+        var boardMinValid = PropertyValidation.TryValidateObject(boardMinLength, new ValidationContext(boardMinLength), boardMinResults);
         boardMinValid.ShouldBeTrue("because Length=0.1 is at the minimum boundary for boards");
 
         // Test 2: Board Length at maximum boundary (19999.9)
         var boardMaxLength = new MaterialAssistUpdateBoardEntity { Length = 19999.9 };
         var boardMaxResults = new List<ValidationResult>();
-        var boardMaxValid = Validator.TryValidateObject(boardMaxLength, new ValidationContext(boardMaxLength), boardMaxResults, validateAllProperties: true);
+        var boardMaxValid = PropertyValidation.TryValidateObject(boardMaxLength, new ValidationContext(boardMaxLength), boardMaxResults);
         boardMaxValid.ShouldBeTrue("because Length=19999.9 is at the maximum boundary for boards");
 
         // Test 3: Board Width at minimum boundary (0.1)
         var boardMinWidth = new MaterialAssistUpdateBoardEntity { Width = 0.1 };
         var boardMinWidthResults = new List<ValidationResult>();
-        var boardMinWidthValid = Validator.TryValidateObject(boardMinWidth, new ValidationContext(boardMinWidth), boardMinWidthResults, validateAllProperties: true);
+        var boardMinWidthValid = PropertyValidation.TryValidateObject(boardMinWidth, new ValidationContext(boardMinWidth), boardMinWidthResults);
         boardMinWidthValid.ShouldBeTrue("because Width=0.1 is at the minimum boundary for boards");
 
         // Test 4: Edgeband Length at minimum boundary (0)
         var edgeMinLength = new MaterialAssistUpdateEdgebandEntity { Length = 0 };
         var edgeMinResults = new List<ValidationResult>();
-        var edgeMinValid = Validator.TryValidateObject(edgeMinLength, new ValidationContext(edgeMinLength), edgeMinResults, validateAllProperties: true);
+        var edgeMinValid = PropertyValidation.TryValidateObject(edgeMinLength, new ValidationContext(edgeMinLength), edgeMinResults);
         edgeMinValid.ShouldBeTrue("because Length=0 is at the minimum boundary for edgebands");
 
         // Test 5: Edgeband Length at maximum boundary (2000)
         var edgeMaxLength = new MaterialAssistUpdateEdgebandEntity { Length = 2000 };
         var edgeMaxResults = new List<ValidationResult>();
-        var edgeMaxValid = Validator.TryValidateObject(edgeMaxLength, new ValidationContext(edgeMaxLength), edgeMaxResults, validateAllProperties: true);
+        var edgeMaxValid = PropertyValidation.TryValidateObject(edgeMaxLength, new ValidationContext(edgeMaxLength), edgeMaxResults);
         edgeMaxValid.ShouldBeTrue("because Length=2000 is at the maximum boundary for edgebands");
     }
 }
