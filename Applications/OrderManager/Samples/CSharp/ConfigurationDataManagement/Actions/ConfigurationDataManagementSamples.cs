@@ -149,19 +149,14 @@ namespace HomagConnect.OrderManager.Samples.ConfigurationDataManagement.Actions
             var customTableId = "MyCustomTable";
 
             var result = await configurationDataManagement.StartCustomTableSync(libraryId, customTableId);
-            var correlationId = result.CorrelationId ?? string.Empty;
+            var correlationId = result.CorrelationId;
 
             if (result.State == CustomTableSyncState.Error ||
-                !string.IsNullOrEmpty(result.ErrorText) ||
+                result.ErrorTexts.Count > 0 ||
                 string.IsNullOrEmpty(correlationId))
             {
                 // The synchronization could not be started, e.g. the custom table is not linked to materialManager.
-                return new CustomTableSyncStateData
-                {
-                    CorrelationId = correlationId,
-                    State = result.State,
-                    ErrorTexts = [result.ErrorText ?? "Custom table synchronization could not be started"]
-                };
+                return result;
             }
 
             using var cancellation = new CancellationTokenSource(timeout);

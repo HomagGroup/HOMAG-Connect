@@ -85,23 +85,18 @@ var result = await client.SetCustomTableData(libraryId, "MyCustomTable", request
 
 #### Example SyncCustomTable
 
-A custom table linked to materialManager can be synchronized with its materialManager data source. The synchronization runs asynchronously: `StartCustomTableSync` returns a [CustomTableSyncResult](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableSyncResult.cs) with a `CorrelationId`, which is used to query the progress with `GetCustomTableSyncState`.
+A custom table linked to materialManager can be synchronized with its materialManager data source. The synchronization runs asynchronously: `StartCustomTableSync` returns a [CustomTableSyncStateData](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableSyncStateData.cs) with a `CorrelationId`, which is used to query the progress with `GetCustomTableSyncState`.
 
 ```c#
 var result = await client.StartCustomTableSync(libraryId, "MyCustomTable");
-var correlationId = result.CorrelationId ?? string.Empty;
+var correlationId = result.CorrelationId;
 
 if (result.State == CustomTableSyncState.Error ||
-	!string.IsNullOrEmpty(result.ErrorText) ||
+	result.ErrorTexts.Count > 0 ||
 	string.IsNullOrEmpty(correlationId))
 {
 	// The synchronization could not be started, e.g. the custom table is not linked to materialManager.
-	return new CustomTableSyncStateData
-	{
-		CorrelationId = correlationId,
-		State = result.State,
-		ErrorTexts = [ result.ErrorText ?? "Custom table synchronization could not be started" ]
-	};
+	return result;
 }
 
 using var cancellation = new CancellationTokenSource(TimeSpan.FromMinutes(1));
@@ -116,6 +111,6 @@ do
 while (state?.State is CustomTableSyncState.Queued or CustomTableSyncState.Started);
 ```
 
-`StartCustomTableSync` does not throw when the synchronization could not be started; check `State` and `ErrorText` instead. `GetCustomTableSyncState` returns a [CustomTableSyncStateData](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableSyncStateData.cs) with the [state](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableSyncState.cs), the progress (0-100) and the error and warning texts; it throws when the correlation id is unknown.
+`StartCustomTableSync` does not throw when the synchronization could not be started; check `State` and `ErrorTexts` instead. `GetCustomTableSyncState` returns the same type with the [state](../../../../Contracts/ConfigurationDataManagement/CustomTables/CustomTableSyncState.cs), the progress (0-100) and the error and warning texts; it throws when the correlation id is unknown.
 
 The sample code can be found at [OrderManager - Configuration data management sample](ConfigurationDataManagementSamples.cs).

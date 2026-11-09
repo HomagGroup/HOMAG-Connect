@@ -54,16 +54,17 @@ public interface IConfigurationDataManagementClient
 
     /// <summary>
     /// Starts the synchronization of a custom table linked to materialManager. The synchronization runs asynchronously; use
-    /// <see cref="CustomTableSyncResult.CorrelationId" /> with <see cref="GetCustomTableSyncState" /> to follow its progress.
+    /// <see cref="CustomTableSyncStateData.CorrelationId" /> with <see cref="GetCustomTableSyncState" /> to follow its progress.
+    /// If the synchronization cannot be started, <see cref="CustomTableSyncStateData.CorrelationId" /> is an empty string.
     /// </summary>
     /// <param name="libraryId">The name of the library, which is its unique identifier.</param>
     /// <param name="customTableId">The id of the custom table to synchronize.</param>
     /// <returns>
     /// The result of the start request. If the synchronization cannot be started, for example because the custom table is not
-    /// linked, <see cref="CustomTableSyncResult.State" /> is <see cref="CustomTableSyncState.Error" /> and
-    /// <see cref="CustomTableSyncResult.ErrorText" /> contains the reason; no exception is thrown in this case.
+    /// linked, <see cref="CustomTableSyncStateData.State" /> is <see cref="CustomTableSyncState.Error" /> and
+    /// <see cref="CustomTableSyncStateData.ErrorTexts" /> contains the reason; no exception is thrown in this case.
     /// </returns>
-    Task<CustomTableSyncResult> StartCustomTableSync(string libraryId, string customTableId);
+    Task<CustomTableSyncStateData> StartCustomTableSync(string libraryId, string customTableId);
 
     /// <summary>
     /// Gets the current state and progress of a custom table synchronization.

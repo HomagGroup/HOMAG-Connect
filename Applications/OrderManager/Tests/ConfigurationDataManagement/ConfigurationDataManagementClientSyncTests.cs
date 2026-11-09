@@ -39,7 +39,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
         public async Task StartCustomTableSync_StateError_DoesNotThrow()
         {
             // Arrange
-            var handler = new StubHandler(HttpStatusCode.OK, "{\"State\":\"Error\",\"ErrorText\":\"Not linked\"}");
+            var handler = new StubHandler(HttpStatusCode.OK, "{\"State\":\"Error\",\"ErrorTexts\":[\"Not linked\"]}");
             var client = CreateClient(handler);
 
             // Act
@@ -47,8 +47,9 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
 
             // Assert
             Assert.AreEqual(CustomTableSyncState.Error, result.State);
-            Assert.IsNull(result.CorrelationId);
-            Assert.AreEqual("Not linked", result.ErrorText);
+            Assert.AreEqual(string.Empty, result.CorrelationId);
+            Assert.HasCount(1, result.ErrorTexts);
+            Assert.AreEqual("Not linked", result.ErrorTexts[0]);
         }
 
         [TestMethod]
@@ -126,29 +127,30 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
         }
 
         [TestMethod]
-        public void Deserialize_CustomTableSyncResult_ReadsEnumByName()
+        public void Deserialize_CustomTableSyncStateData_ReadsEnumByName()
         {
             // Arrange
-            const string json = "{\"State\":\"Error\",\"CorrelationId\":null,\"ErrorText\":\"Not linked\"}";
+            const string json = "{\"State\":\"Error\",\"CorrelationId\":\"\",\"ErrorTexts\":[\"Not linked\"]}";
 
             // Act
-            var result = JsonConvert.DeserializeObject<CustomTableSyncResult>(json);
+            var result = JsonConvert.DeserializeObject<CustomTableSyncStateData>(json);
 
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(CustomTableSyncState.Error, result.State);
-            Assert.IsNull(result.CorrelationId);
-            Assert.AreEqual("Not linked", result.ErrorText);
+            Assert.AreEqual(string.Empty, result.CorrelationId);
+            Assert.HasCount(1, result.ErrorTexts);
+            Assert.AreEqual("Not linked", result.ErrorTexts[0]);
         }
 
         [TestMethod]
-        public void Deserialize_CustomTableSyncResult_UnknownState_MapsToUnknown()
+        public void Deserialize_CustomTableSyncStateData_UnknownState_MapsToUnknown()
         {
             // Arrange
             const string json = "{\"State\":\"SomethingNew\"}";
 
             // Act
-            var result = JsonConvert.DeserializeObject<CustomTableSyncResult>(json);
+            var result = JsonConvert.DeserializeObject<CustomTableSyncStateData>(json);
 
             // Assert
             Assert.IsNotNull(result);

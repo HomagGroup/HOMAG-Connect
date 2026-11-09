@@ -25,6 +25,9 @@ public class CustomTableSyncStateData
     /// <summary>
     /// The id returned by the start request, which identifies the synchronization.
     /// </summary>
+    /// <remarks>
+    /// Can be an empty string if the synchronization could not be started.
+    /// </remarks>
     [JsonProperty(Order = 30)]
     public string CorrelationId { get; set; } = string.Empty;
 
