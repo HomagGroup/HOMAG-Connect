@@ -1,6 +1,8 @@
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
 
 using Shouldly;
+using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Samples.Settings;
 using HomagConnect.IntelliDivide.Tests.Base;
 
@@ -27,6 +29,41 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
             var intelliDivide = GetIntelliDivideClient();
 
             await MachineSamples.Settings_GetCuttingMachinesSample(intelliDivide);
+        }
+
+        [TestMethod]
+        public async Task Settings_GetMachineDetails_CreateAndDeleteMachine()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+            var machine = (await intelliDivide.GetMachines(OptimizationType.Cutting).ToListAsync())
+                .FirstOrDefault(machine =>
+                    machine.Name.Contains("S-100", StringComparison.OrdinalIgnoreCase)
+                    || machine.Name.Contains("S-200", StringComparison.OrdinalIgnoreCase)
+                    || machine.Name.Contains("S-300", StringComparison.OrdinalIgnoreCase)
+                    || machine.Name.Contains("S-400", StringComparison.OrdinalIgnoreCase));
+
+            if (machine == null)
+            {
+                Assert.Inconclusive("No cutting machine with model S-100, S-200, S-300, or S-400 is available.");
+            }
+
+            machine.ShouldNotBeNull();
+
+            var machineDetails = await intelliDivide.GetMachineDetails(machine.Name);
+
+            machineDetails.ShouldNotBeNull();
+            machineDetails.Name = $"HOMAG Connect Test {Guid.NewGuid():N}";
+
+            var createdMachine = await intelliDivide.CreateMachine(machineDetails);
+
+            try
+            {
+                createdMachine.Name.ShouldBe(machineDetails.Name);
+            }
+            finally
+            {
+                await intelliDivide.DeleteMachine(machineDetails.Name);
+            }
         }
 
         [TestMethod]
