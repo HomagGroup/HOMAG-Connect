@@ -1,6 +1,7 @@
 ﻿using HomagConnect.Base.Extensions;
 using HomagConnect.IntelliDivide.Contracts;
 using HomagConnect.IntelliDivide.Contracts.Common;
+using HomagConnect.IntelliDivide.Contracts.Configuration;
 using HomagConnect.IntelliDivide.Contracts.Request;
 using HomagConnect.IntelliDivide.Contracts.Result;
 using HomagConnect.IntelliDivide.Contracts.Statistics;
@@ -186,6 +187,30 @@ namespace HomagConnect.IntelliDivide.Client
             var url = $"/api/intelliDivide/{optimizationType}/machines";
 
             return await RequestEnumerable<OptimizationMachine>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<MachineDetails?> GetMachineDetails(string machineName)
+        {
+            var url = $"api/intelliDivide/machineDetails?machineName={Uri.EscapeDataString(machineName)}";
+
+            return await RequestObject<MachineDetails>(new Uri(url, UriKind.Relative));
+        }
+
+        /// <inheritdoc />
+        public async Task<MachineDetails> CreateMachine(MachineDetails machineDetails)
+        {
+            var url = "api/intelliDivide/machines";
+
+            return await PostObject<MachineDetails, MachineDetails>(new Uri(url, UriKind.Relative), machineDetails);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteMachine(string machineName)
+        {
+            var url = $"api/intelliDivide/machines?machineName={Uri.EscapeDataString(machineName)}";
+
+            await DeleteObject(new Uri(url, UriKind.Relative));
         }
 
         /// <inheritdoc />
