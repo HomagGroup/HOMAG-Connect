@@ -2,7 +2,6 @@ using System.Reflection;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
-using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
@@ -42,8 +41,6 @@ public class MaterialConstraintCoverageTests
 
     [TestMethod]
     [DynamicData(nameof(ReviewedShapes))]
-    [TemporaryDisabledOnServer(2026, 11, 15, "DF-Material")]
-
     public void PublicShape_HasReviewedMappingOrExplicitDisposition(Type type, string reviewed)
     {
         type.GetProperties().Select(property => property.Name)
@@ -104,12 +101,12 @@ public class MaterialConstraintCoverageTests
         yield return
         [
             typeof(BoardType),
-            "AdditionalProperties LastUsed UnitSystem MaterialCode Thickness MaterialCategory CoatingCategory StandardQuality MaterialLastUsed BoardCode Width Length Grain Costs Density DensityOrCategoryTypical BoardTypeType ManufacturerName ProductName ArticleNumber DecorCode DecorName Gtin EmbossingTop EmbossingBottom DecorId ExternalId ExternalSystemId TotalQuantityAvailableWarningLimit TotalAreaAvailableWarningLimit OptimizeAgainstInfinite LockedForOptimization LockedForConfiguration OrderDemand TotalQuantityInInventory TotalQuantityAllocated TotalQuantityAvailable TotalValueInInventory TotalAreaInInventory TotalAreaAllocated TotalAreaAvailable InsufficientInventory Barcode MaterialParameterForOptimization BoardParameterForOptimization Comments Thumbnail"
+            "AdditionalProperties LastUsed UnitSystem MaterialCode Thickness MaterialCategory CoatingCategory StandardQuality MaterialLastUsed BoardCode Width Length Grain Costs Density DensityOrCategoryTypical BoardTypeType ManufacturerName ProductName ArticleNumber DecorCode DecorName Gtin EmbossingTop EmbossingBottom DecorId ExternalId ExternalSystemId TotalQuantityAvailableWarningLimit TotalAreaAvailableWarningLimit OptimizeAgainstInfinite LockedForOptimization LockedForConfiguration OrderDemand TotalQuantityInInventory TotalQuantityAllocated TotalQuantityAvailable TotalValueInInventory TotalAreaInInventory TotalAreaAllocated TotalAreaAvailable InsufficientInventory Barcode MaterialParameterForOptimization BoardParameterForOptimization Comments Thumbnail PrimaryImage"
         ];
         yield return
         [
             typeof(EdgebandType),
-            "LastUsed UnitSystem ExtensionData EdgebandCode ExternalSystemId Height Thickness DefaultLength Costs MaterialCategory Process Lasertec Airtec ProtectionFilmThickness FunctionLayerThickness TechnologyMacro MachineTechnologyMacro ManufacturerName DecorName ProductName DecorCode DecorId DecorEmbossingCode ArticleNumber Gtin ExternalId TotalQuantityAvailableWarningLimit TotalLengthAvailableWarningLimit TotalQuantityAvailable TotalLengthAvailable InsufficientInventory Comments Thumbnail"
+            "LastUsed UnitSystem ExtensionData EdgebandCode ExternalSystemId Height Thickness DefaultLength Costs MaterialCategory Process Lasertec Airtec ProtectionFilmThickness FunctionLayerThickness TechnologyMacro MachineTechnologyMacro ManufacturerName DecorName ProductName DecorCode DecorId DecorEmbossingCode ArticleNumber Gtin ExternalId TotalQuantityAvailableWarningLimit TotalLengthAvailableWarningLimit TotalQuantityAvailable TotalLengthAvailable InsufficientInventory Comments Thumbnail PrimaryImage"
         ];
         yield return [typeof(BoardEntity), "BoardType Comments CreationDate Id Length Location ManagementType Quantity Width"];
         yield return [typeof(BoardTypeAllocation), "BoardCode Quantity AdditionalData AdditionalProperties Comments CreatedAt CreatedBy Name Source Workstation"];

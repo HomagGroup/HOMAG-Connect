@@ -8,10 +8,18 @@ namespace HomagConnect.MaterialAssist.Contracts.Update;
 /// <summary>
 /// Changes to an existing edgeband entity; omitted or null properties leave their current values unchanged.
 /// </summary>
+/// <remarks>
+/// <para><strong>Length Updates</strong>: Length implements <see cref="IMaterialAssistEdgebandLength" />,
+/// which documents the complete validation rules for both creation and update contexts. In update operations (PATCH semantics),
+/// Length is optional: omit or set to null to leave current value unchanged. When provided, it must satisfy the range constraint
+/// (0 - 2000 m for coil length).</para>
+/// <para>Edgebands are identified and tracked by their coil length; see the interface documentation for full context on why
+/// this property is mandatory for creation but optional for updates.</para>
+/// </remarks>
 /// <example>
 /// { "currentThickness": 1.2, "length": 45, "comments": "Measured after use." }
 /// </example>
-public class MaterialAssistUpdateEdgebandEntity
+public class MaterialAssistUpdateEdgebandEntity : IMaterialAssistEdgebandLength
 {
     /// <summary>
     /// Replacement notes for the edgeband entity; omit to keep the existing notes.
@@ -34,12 +42,7 @@ public class MaterialAssistUpdateEdgebandEntity
     [StringLength(50)]
     public string? Id { get; set; } = null;
 
-    /// <summary>
-    /// Replacement length of one edgeband item, not the combined length of all items in Quantity.
-    /// <para>Unit for <see cref="UnitSystem.Metric" />: m; for <see cref="UnitSystem.Imperial" />: ft.</para>
-    /// </summary>
-    [ValueDependsOnUnitSystem(BaseUnit.Meter)]
-    [Range(0, 2000.00)]
+    /// <inheritdoc cref="IMaterialAssistEdgebandLength.Length" />
     public double? Length { get; set; } = null;
 
     /// <summary>

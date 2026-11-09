@@ -90,6 +90,7 @@ public class MaterialAssistTestBase : TestBase
                 Id = id,
                 EdgebandCode = edgebandCode,
                 ManagementType = managementType,
+                Length = 23,
                 Quantity = quantity
             });
         }
