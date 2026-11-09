@@ -23,7 +23,7 @@ public class CreateBoardTypeAllocationTests : MaterialManagerTestBase
     [DataRow(null, "comments", "createdBy", "name", 1000, "source", "workstation")] //boardCode not set
     [DataRow("boardCode", "comments", null, "name", 1000, "source", "workstation")] //createdBy not set
     [DataRow("boardCode", "comments", "createdBy", null, 1000, "source", "workstation")] //name not set
-    [DataRow("boardCode", "comments", "createdBy", "name", 1, "source", null)] //workstation not set
+    [DataRow("boardCode", "comments", "createdBy", "name", 1, "", "workstation")] //source not set
     public async Task BoardTypeAllocationCreation_RequiredPropertiesMissing_ThrowsException(string boardCode, string comments, string createdBy,
         string name, int quantity, string source, string workstation)
     {

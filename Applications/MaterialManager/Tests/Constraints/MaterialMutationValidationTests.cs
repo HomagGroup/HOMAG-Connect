@@ -471,7 +471,7 @@ public class MaterialMutationValidationTests
         var edges = new MaterialManagerClientMaterialEdgebands(http);
         var board = new BoardTypeAllocationRequest
         {
-            Name = "allocation", BoardTypeCode = "board", CreatedBy = "user", Workstation = "station", Quantity = 0
+            Name = "allocation", BoardTypeCode = "board", CreatedBy = "user", Source = "source", Workstation = "station", Quantity = 0
         };
         (await Should.ThrowAsync<ValidationException>(() => boards.CreateBoardTypeAllocation(board))).ShouldBeOfType<ValidationException>();
         var edge = new EdgebandTypeAllocationUpdate { EdgebandCode = "edge", Order = "order", AllocatedLength = -1 };

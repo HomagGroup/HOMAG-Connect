@@ -21,6 +21,7 @@ public class EdgebandTypeAllocationRequest : EdgebandTypeAllocationRequestBase
     /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: ft.</para>
     /// </summary>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
+    [Required]
     [Range(0, 99999.0)]
     public double AllocatedLength { get; set; }
 
@@ -49,8 +50,7 @@ public class EdgebandTypeAllocationRequest : EdgebandTypeAllocationRequestBase
     public double UsedLength { get; set; }
 
     /// <summary>
-    /// Workstation associated with the allocation.
+    /// Optional workstation associated with the allocation.
     /// </summary>
-    [Required]
-    public string Workstation { get; set; } = string.Empty;
+    public string? Workstation { get; set; }
 }

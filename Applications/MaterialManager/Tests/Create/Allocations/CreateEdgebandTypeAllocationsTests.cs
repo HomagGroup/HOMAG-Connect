@@ -20,7 +20,6 @@ public class CreateEdgebandTypeAllocationTests : MaterialManagerTestBase
     [TestMethod]
     [DataRow("", "comments", "createdBy", "source", "workstation", 10.0, "customer", "order", "project", 5.0)] // Missing required EdgebandCode
     [DataRow("E123", "comments", "", "source", "workstation", 10.0, "customer", "order", "project", 5.0)] // Missing required CreatedBy
-    [DataRow("E123", "comments", "createdBy", "source", "", 10.0, "customer", "order", "project", 5.0)] // Missing required Workstation
     [DataRow("E123", "comments", "createdBy", "source", "workstation", 10.0, "customer", "", "project", 5.0)] // Missing required Order
     public async Task EdgebandTypeAllocationCreation_RequiredPropertiesMissing_ThrowsException(string edgebandCode, string comments, string createdBy, string source, string workstation,
         double allocatedLength,
