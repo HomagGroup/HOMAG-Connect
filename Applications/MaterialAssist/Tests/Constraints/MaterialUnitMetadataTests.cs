@@ -56,7 +56,9 @@ public class MaterialUnitMetadataTests
     [DataRow(typeof(MaterialAssistUpdateEdgebandEntity), "CurrentThickness", BaseUnit.Millimeter, 2)]
     public void EdgebandMeasurements_PreserveTheCorrectUnits(Type type, string name, BaseUnit expected, int decimals)
     {
-        var metadata = type.GetProperty(name)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>();
+        var metadata = type.GetProperty(name)!.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>() ??
+            type.GetInterfaces().Select(interfaceType => interfaceType.GetProperty(name)
+                ?.GetCustomAttribute<ValueDependsOnUnitSystemAttribute>()).FirstOrDefault(attribute => attribute != null);
         metadata.ShouldNotBeNull();
         metadata.BaseUnit.ShouldBe(expected);
         metadata.DecimalsMetric.ShouldBe(decimals);
