@@ -17,6 +17,8 @@ using HomagConnect.MaterialManager.Contracts.Update;
 
 using Newtonsoft.Json;
 
+using Material = HomagConnect.MaterialManager.Contracts.Material.Boards.Material;
+
 namespace HomagConnect.MaterialManager.Client;
 
 /// <summary>
@@ -24,6 +26,21 @@ namespace HomagConnect.MaterialManager.Client;
 /// </summary>
 public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManagerClientMaterialBoards
 {
+    #region Catalog
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<BoardType>?> GetBoardTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+        string? decorCode = null, string? embossingTop = null, string? embossingBottom = null)
+    {
+        var uri = CatalogHelpers.BuildCatalogQuery(_BaseRoute, take, skip, manufacturers, decorCode, embossingTop, embossingBottom);
+
+        var result = await RequestEnumerable<BoardType>(uri);
+
+        return result ?? [];
+    }
+
+    #endregion
+
     private static void ValidateInventoryProperties(ImportInventoryRequest data)
     {
         if (data.Materials == null)

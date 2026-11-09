@@ -119,6 +119,23 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands.Interfaces
         /// <returns>The edgeband types sorted by <see cref="EdgebandType.EdgebandCode" />.</returns>
         Task<IEnumerable<EdgebandTypeDetails?>> GetEdgebandTypesByEdgebandCodesIncludingDetails(IEnumerable<string> edgebandCodes);
 
+        #region Catalog
+
+        /// <summary>
+        /// Gets edgeband types from the Tadamo catalog.
+        /// </summary>
+        /// <param name="take">The maximum number of catalog items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="manufacturers">Optional manufacturer names to filter by.</param>
+        /// <param name="decorCode">Optional decor code to filter by (exact match).</param>
+        /// <param name="embossingTop">Optional top embossing value to filter by (exact match).</param>
+        /// <param name="embossingBottom">Optional bottom embossing value to filter by (exact match).</param>
+        /// <returns>A collection of <see cref="EdgebandType" /> from the catalog.</returns>
+        Task<IEnumerable<EdgebandType>?> GetEdgebandTypesFromCatalog(int take = 100000, int skip = 0, string[]? manufacturers = null,
+            string? decorCode = null, string? embossingTop = null, string? embossingBottom = null);
+
+        #endregion
+
         /// <summary>
         /// Gets all edgebands including details.
         /// </summary>

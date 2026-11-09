@@ -12,12 +12,17 @@ namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 
 /// <summary>
 /// Describes an edgeband material, its dimensions, and the processing details used to identify and apply it.
-/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>
-/// .
+/// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
 /// </summary>
+/// <remarks>
+/// The product examples use EGGER ABS edging in H2033 ST10 Hunton Oak dark, with a height of 23 mm,
+/// a thickness of 2 mm, and a coil length of 75 m.
+/// </remarks>
 /// <example>
-/// { "edgebandCode": "EDGE-001", "height": 23.0, "thickness": 0.8, "defaultLength": 100.0,
-/// "materialCategory": "ABS", "process": "HotmeltGlue", "unitSystem": "Metric" }
+/// { "edgebandCode": "ABS_Hunton_Oak_dark_2.00_23.0_HM", "height": 23.0, "thickness": 2.0, "defaultLength": 75.0,
+/// "materialCategory": "ABS", "process": "HotmeltGlue", "manufacturerName": "Egger",
+/// "decorName": "Hunton Oak dark", "productName": "EGGER ABS Edging", "decorCode": "H2033",
+/// "decorEmbossingCode": "10", "articleNumber": "1380463", "gtin": "9010389217822", "unitSystem": "Metric" }
 /// </example>
 [DebuggerDisplay("{EdgebandCode}")]
 public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentProperties
@@ -27,13 +32,6 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// </summary>
     public DateTimeOffset? LastUsed { get; set; }
 
-    #region IContainsUnitSystemDependentProperties Members
-
-    /// <inheritdoc />
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
-
-    #endregion
-
     #region IExtensibleDataObject Members
 
     /// <inheritdoc />
@@ -41,11 +39,25 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
 
     #endregion
 
+    #region IContainsUnitSystemDependentProperties Members
+
+    /// <inheritdoc />
+    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
+
+    #endregion
+
     #region EdgebandType
 
     /// <summary>
-    /// Code used to identify this edgeband type.
+    /// Unique code for this edgeband type, distinct from the manufacturer's article number.
+    /// <para>
+    /// A common convention is <c>{material abbreviation}_{decor name}_{thickness}_{height}_{process abbreviation}</c>,
+    /// with spaces in the decor name replaced by underscores, for example <c>ABS_Hunton_Oak_dark_2.00_23.0_HM</c>.
+    /// In this metric example, thickness and height are in mm and <c>HM</c> represents <see cref="EdgebandingProcess.HotmeltGlue" />.
+    /// The code suggested when adding a catalog item can be changed; this naming convention is not a validation rule.
+    /// </para>
     /// </summary>
+    /// <example>ABS_Hunton_Oak_dark_2.00_23.0_HM</example>
     [Key]
     [StringLength(50, MinimumLength = 1)]
     public string? EdgebandCode { get; set; }
@@ -60,6 +72,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
     /// </summary>
+    /// <example>23.0</example>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     [Range(0.1, 999.9)]
     public double? Height { get; set; }
@@ -69,15 +82,17 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
     /// </summary>
+    /// <example>2.0</example>
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2, 3)]
     [Range(0.01, 99.99)]
     public double? Thickness { get; set; }
 
     /// <summary>
-    /// Default length of the edgeband roll.
+    /// Default length used when storing a new coil of this edgeband type.
     /// <para>Unit for <see cref="UnitSystem.Metric" />: m.</para>
     /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft.</para>
     /// </summary>
+    /// <example>75.0</example>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     [Range(0, 2000.0)]
     public double? DefaultLength { get; set; }
@@ -95,11 +110,13 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Material category that identifies what the edgeband is made from.
     /// </summary>
+    /// <example>ABS</example>
     public EdgebandMaterialCategory? MaterialCategory { get; set; }
 
     /// <summary>
     /// Process used to attach the edgeband to a board.
     /// </summary>
+    /// <example>HotmeltGlue</example>
     public EdgebandingProcess? Process { get; set; }
 
     /// <summary>
@@ -153,24 +170,28 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Name of the company that manufactures the edgeband.
     /// </summary>
+    /// <example>Egger</example>
     [StringLength(50)]
     public string? ManufacturerName { get; set; }
 
     /// <summary>
     /// Name of the decorative design on the edgeband.
     /// </summary>
+    /// <example>Hunton Oak dark</example>
     [StringLength(50)]
     public string? DecorName { get; set; }
 
     /// <summary>
     /// Product name used by the manufacturer or supplier.
     /// </summary>
+    /// <example>EGGER ABS Edging</example>
     [StringLength(200)]
     public string? ProductName { get; set; }
 
     /// <summary>
     /// Code identifying the decorative design.
     /// </summary>
+    /// <example>H2033</example>
     [StringLength(50)]
     public string? DecorCode { get; set; }
 
@@ -183,18 +204,21 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Code identifying the embossing or texture pattern.
     /// </summary>
+    /// <example>10</example>
     [StringLength(50)]
     public string? DecorEmbossingCode { get; set; }
 
     /// <summary>
     /// Manufacturer's article number for identifying or ordering the edgeband.
     /// </summary>
+    /// <example>1380463</example>
     [StringLength(50)]
     public string? ArticleNumber { get; set; }
 
     /// <summary>
     /// Global Trade Item Number used to identify the edgeband in the supply chain.
     /// </summary>
+    /// <example>9010389217822</example>
     [StringLength(50)]
     public string? Gtin { get; set; }
 
