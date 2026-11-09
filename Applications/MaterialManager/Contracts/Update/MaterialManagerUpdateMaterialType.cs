@@ -32,7 +32,7 @@ public class MaterialManagerUpdateMaterialType
     /// <summary>
     /// Cost associated with the material.
     /// </summary>
-    [Range(0.1, 99999.99)]
+    [Range(0, double.PositiveInfinity)]
     public double? Costs { get; set; } = null;
 
     /// <summary>

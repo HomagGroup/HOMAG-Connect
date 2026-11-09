@@ -171,7 +171,7 @@ public class BoardType : IContainsUnitSystemDependentProperties, ISupportsLocali
     /// <example>12.45</example>
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BoardTypeProperties_Costs))]
     [JsonProperty(Order = 26)]
-    [Range(0.1, 99999.99)]
+    [Range(0, double.PositiveInfinity)]
     public double? Costs { get; set; }
 
     /// <summary>

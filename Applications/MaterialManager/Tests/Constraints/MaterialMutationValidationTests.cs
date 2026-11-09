@@ -20,6 +20,75 @@ namespace HomagConnect.MaterialManager.Tests.Constraints;
 public class MaterialMutationValidationTests
 {
     [TestMethod]
+    [DataRow(null, true)]
+    [DataRow(0.0, true)]
+    [DataRow(0.01, true)]
+    [DataRow(0.03, true)]
+    [DataRow(0.09, true)]
+    [DataRow(0.1, true)]
+    [DataRow(99999.99, true)]
+    [DataRow(100000.0, true)]
+    [DataRow(double.MaxValue, true)]
+    [DataRow(-0.01, false)]
+    public async Task MaterialCosts_PreserveNonnegativeUnboundedRange(double? costs, bool expectedValid)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var boards = new MaterialManagerClientMaterialBoards(http);
+        var edges = new MaterialManagerClientMaterialEdgebands(http);
+        var board = MaterialValidationTestSupport.Board();
+        board.Costs = costs;
+        var edge = new MaterialManagerRequestEdgebandType
+        {
+            EdgebandCode = "edge", Height = 23, Thickness = 1, Costs = costs
+        };
+        var boardUpdate = new MaterialManagerUpdateBoardType { Costs = costs };
+        var edgeUpdate = new MaterialManagerUpdateEdgebandType { Costs = costs };
+        Func<Task>[] mutations =
+        [
+            () => boards.CreateBoardType(board),
+            () => boards.CreateBoardType(board, []),
+            () => edges.CreateEdgebandType(edge),
+            () => edges.CreateEdgebandType(edge, []),
+            () => boards.UpdateBoardType("board", boardUpdate),
+            () => boards.UpdateBoardType("board", boardUpdate, []),
+            () => edges.UpdateEdgebandType("edge", edgeUpdate),
+            () => edges.UpdateEdgebandType("edge", edgeUpdate, []),
+            () => boards.PatchBoardType("board", PatchBuilder<BoardType>.For().Set(x => x.Costs, costs)),
+            () => edges.PatchEdgebandType("edge", PatchBuilder<EdgebandType>.For().Set(x => x.Costs, costs))
+        ];
+
+        foreach (var mutate in mutations)
+        {
+            if (expectedValid)
+            {
+                await mutate();
+                JObject.Parse(handler.Payload!)["costs"]?.Value<double?>().ShouldBe(costs);
+            }
+            else
+            {
+                await Should.ThrowAsync<ValidationException>(mutate);
+            }
+        }
+
+        Func<Task> import = () => boards.ImportInventory(new ImportInventoryRequest
+        {
+            Materials = [new BoardType { BoardCode = "board", Costs = costs }]
+        });
+        if (expectedValid)
+        {
+            await import();
+            JObject.Parse(handler.Payload!)["materials"]![0]!["costs"]?.Value<double?>().ShouldBe(costs);
+        }
+        else
+        {
+            await Should.ThrowAsync<ValidationException>(import);
+        }
+
+        handler.RequestCount.ShouldBe(expectedValid ? mutations.Length + 1 : 0);
+    }
+
+    [TestMethod]
     public async Task AllocationMutations_CheckMappedValues()
     {
         using var handler = new MaterialValidationTestSupport();

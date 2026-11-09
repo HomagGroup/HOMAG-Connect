@@ -100,7 +100,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// Cost associated with the edgeband.
     /// </summary>
-    [Range(0.1, 99999.99)]
+    [Range(0, double.PositiveInfinity)]
     public double? Costs { get; set; }
 
     #endregion

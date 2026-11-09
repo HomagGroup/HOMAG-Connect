@@ -79,7 +79,7 @@ public class MaterialConstraintAnnotationTests
             yield return [type, "Width", 0.1, 19999.9];
             yield return [type, "Thickness", 0.1, 999.9];
             yield return [type, "Density", 0.1, double.PositiveInfinity];
-            yield return [type, "Costs", 0.1, 99999.99];
+            yield return [type, "Costs", 0.0, double.PositiveInfinity];
         }
     }
 
@@ -168,7 +168,7 @@ public class MaterialConstraintAnnotationTests
             yield return [type, "DefaultLength", 0.0, 2000.0];
             yield return [type, "Height", 0.1, 999.9];
             yield return [type, "Thickness", 0.01, 99.99];
-            yield return [type, "Costs", 0.1, 99999.99];
+            yield return [type, "Costs", 0.0, double.PositiveInfinity];
             yield return [type, "TotalLengthAvailableWarningLimit", 0.0, 999999.99];
             foreach (var name in new[] { "Airtec", "Lasertec", "FunctionLayerThickness", "ProtectionFilmThickness" })
                 yield return [type, name, 0.0, double.PositiveInfinity];
