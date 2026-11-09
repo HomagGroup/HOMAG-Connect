@@ -62,7 +62,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
             }
             finally
             {
-                await intelliDivide.DeleteMachine(createdMachine.Name);
+                await intelliDivide.DeleteMachine(machineDetails.Name);
             }
         }
 
