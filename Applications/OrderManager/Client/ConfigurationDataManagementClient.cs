@@ -67,7 +67,7 @@ namespace HomagConnect.OrderManager.Client
         {
             var uri = new Uri($"{_BaseRoute}/sync/customTable/state?correlationId={Uri.EscapeDataString(correlationId)}", UriKind.Relative);
 
-            return await RequestObject<CustomTableSyncStateData>(uri);
+            return await RequestObject<CustomTableSyncStateData>(uri, true);
         }
 
         private static string CustomTablesRoute(string libraryId)

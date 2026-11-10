@@ -80,6 +80,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             Assert.IsNotNull(handler.Request);
             Assert.AreEqual(HttpMethod.Get, handler.Request.Method);
             Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/sync/customTable/state?correlationId=c%2F1", handler.Request.RequestUri!.AbsoluteUri);
+            Assert.IsNotNull(result);
             Assert.AreEqual(CustomTableSyncState.Succeeded, result.State);
             Assert.AreEqual(CustomTableSyncDataSource.Edgebands, result.DataSource);
             Assert.AreEqual(100d, result.Progress);
@@ -87,17 +88,31 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
         }
 
         [TestMethod]
-        public async Task GetCustomTableSyncState_NotFound_Throws()
+        public async Task GetCustomTableSyncState_NotFound_ReturnsNull()
         {
             // Arrange
             var handler = new StubHandler(HttpStatusCode.NotFound, "{\"type\":\"ProblemDetailsException\",\"title\":\"Not found\",\"status\":404}", "application/problem+json");
             var client = CreateClient(handler);
 
             // Act
-            var exception = await Assert.ThrowsExactlyAsync<ProblemDetailsException>(() => client.GetCustomTableSyncState("unknown"));
+            var result = await client.GetCustomTableSyncState("unknown");
 
             // Assert
-            Assert.AreEqual("Not found", exception.Title);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public async Task GetCustomTableSyncState_ServerError_Throws()
+        {
+            // Arrange
+            var handler = new StubHandler(HttpStatusCode.InternalServerError, "{\"type\":\"ProblemDetailsException\",\"title\":\"Server error\",\"status\":500}", "application/problem+json");
+            var client = CreateClient(handler);
+
+            // Act
+            var exception = await Assert.ThrowsExactlyAsync<ProblemDetailsException>(() => client.GetCustomTableSyncState("c1"));
+
+            // Assert
+            Assert.AreEqual("Server error", exception.Title);
         }
 
         [TestMethod]
