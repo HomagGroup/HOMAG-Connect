@@ -131,7 +131,7 @@ public class MaterialConstraintAnnotationTests
         defaultLength.GetCustomAttribute<RequiredAttribute>().ShouldBeNull();
 
         typeof(BoardTypeAllocationRequest).GetProperty(nameof(BoardTypeAllocationRequest.Source))!
-            .GetCustomAttribute<RequiredAttribute>().ShouldNotBeNull();
+            .GetCustomAttribute<RequiredAttribute>().ShouldBeNull();
         typeof(EdgebandTypeAllocationRequest).GetProperty(nameof(EdgebandTypeAllocationRequest.AllocatedLength))!
             .GetCustomAttribute<RequiredAttribute>().ShouldNotBeNull();
         typeof(BoardTypeAllocationRequest).GetProperty(nameof(BoardTypeAllocationRequest.Workstation))!
@@ -145,7 +145,6 @@ public class MaterialConstraintAnnotationTests
             CreatedBy = "user",
             Name = "allocation",
             Quantity = 1,
-            Source = "source",
             Workstation = null
         };
         Validator.TryValidateObject(boardAllocation, new ValidationContext(boardAllocation), null, true).ShouldBeTrue();

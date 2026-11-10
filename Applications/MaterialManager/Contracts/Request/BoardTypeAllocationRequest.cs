@@ -43,10 +43,10 @@ public class BoardTypeAllocationRequest
     public int Quantity { get; set; }
 
     /// <summary>
-    /// Source that identifies the allocation.
+    /// Optional source that identifies the allocation. If omitted, null, or empty, the service uses its default
+    /// source (<c>materialManager</c>); a non-empty supplied value is preserved.
     /// </summary>
-    [Required]
-    public string Source { get; set; } = string.Empty;
+    public string? Source { get; set; }
 
     /// <summary>
     /// Optional workstation associated with the allocation.
