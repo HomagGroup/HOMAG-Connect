@@ -143,6 +143,33 @@ public class MaterialMutationValidationTests
     }
 
     [TestMethod]
+    [DataRow(false, null)]
+    [DataRow(true, null)]
+    [DataRow(true, "")]
+    [DataRow(true, "custom-source")]
+    public async Task BoardAllocationCreation_AllowsOptionalSourceValues(bool setSource, string? source)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialManagerClientMaterialBoards(http);
+        var request = new BoardTypeAllocationRequest
+        {
+            BoardTypeCode = "board",
+            CreatedBy = "user",
+            Name = "allocation",
+            Quantity = 1
+        };
+        if (setSource)
+            request.Source = source;
+
+        await client.CreateBoardTypeAllocation(request);
+
+        handler.RequestCount.ShouldBe(1);
+        if (source is not null)
+            JObject.Parse(handler.Payload!)["source"]!.Value<string>().ShouldBe(source);
+    }
+
+    [TestMethod]
     public void BoardPatch_ValidatesOnlyTheSuppliedProperty()
     {
         var patch = PatchBuilder<BoardType>.For().Set(x => x.Thickness, 0.1);
