@@ -145,6 +145,12 @@ public class ProductionItemBase
     [JsonProperty(Order = 23)]
     public int Quantity { get; set; } = 1;
 
+    /// <summary>
+    /// Gets or sets the quantity unit of the production entity.
+    /// </summary>
+    [JsonProperty(Order = 24)]
+    public string? QuantityUnit { get; set; }
+
     #endregion
 
     #region (30) Production data
