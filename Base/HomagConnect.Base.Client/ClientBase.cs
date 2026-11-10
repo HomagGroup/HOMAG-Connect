@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -248,7 +249,19 @@ public class ClientBase
         return (await Task.WhenAll(uris.AsParallel().Select(RequestEnumerable<T>))).SelectMany(s => s);
     }
 
-    protected async Task<T?> RequestObject<T>(Uri uri)
+    /// <summary>
+    /// Sends a GET request to the specified uri and deserializes the response body to <typeparamref name="T" />.
+    /// </summary>
+    /// <typeparam name="T">The type the response body is deserialized to.</typeparam>
+    /// <param name="uri">The uri of the resource to request.</param>
+    /// <param name="returnDefaultIfNotFound">
+    /// <c>true</c> to return <c>default</c> instead of throwing when the service responds with 404 (Not Found);
+    /// <c>false</c> to throw a <see cref="ProblemDetailsException" /> for every unsuccessful status code.
+    /// Note that any 404 response is treated as not found, including responses caused by an invalid route.
+    /// </param>
+    /// <returns>The deserialized response, or <c>default</c> if the resource was not found and <paramref name="returnDefaultIfNotFound" /> is <c>true</c>.</returns>
+    /// <exception cref="ProblemDetailsException">The service returned an unsuccessful status code that is not handled by <paramref name="returnDefaultIfNotFound" />.</exception>
+    protected async Task<T?> RequestObject<T>(Uri uri, bool returnDefaultIfNotFound = false)
     {
         var request = new HttpRequestMessage
         {
@@ -257,6 +270,11 @@ public class ClientBase
         };
 
         var response = await Client.SendAsync(request).ConfigureAwait(false);
+        if (returnDefaultIfNotFound && response.StatusCode == HttpStatusCode.NotFound)
+        {
+            return default;
+        }
+
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();

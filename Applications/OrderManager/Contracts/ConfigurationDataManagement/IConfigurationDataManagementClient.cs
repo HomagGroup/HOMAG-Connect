@@ -70,7 +70,10 @@ public interface IConfigurationDataManagementClient
     /// Gets the current state and progress of a custom table synchronization.
     /// </summary>
     /// <param name="correlationId">The correlation id returned by <see cref="StartCustomTableSync" />.</param>
-    /// <returns>The state, progress, errors and warnings of the synchronization.</returns>
-    /// <exception cref="HomagConnect.Base.Contracts.Exceptions.ProblemDetailsException">The correlation id is unknown.</exception>
+    /// <returns>
+    /// The state, progress, errors and warnings of the synchronization,
+    /// or <c>null</c> if no synchronization exists for the given correlation id.
+    /// </returns>
+    /// <exception cref="HomagConnect.Base.Contracts.Exceptions.ProblemDetailsException">The service returned an error other than 404 (Not Found).</exception>
     Task<CustomTableSyncStateData?> GetCustomTableSyncState(string correlationId);
 }
