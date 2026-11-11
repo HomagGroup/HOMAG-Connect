@@ -166,7 +166,7 @@ namespace HomagConnect.OrderManager.Samples.ConfigurationDataManagement.Actions
             {
                 await Task.Delay(TimeSpan.FromSeconds(2), cancellation.Token);
 
-                state = await configurationDataManagement.GetCustomTableSyncState(correlationId);
+                state = await configurationDataManagement.GetCustomTableSyncState(libraryId, customTableId, correlationId);
             }
             while (state?.State is CustomTableSyncState.Queued or CustomTableSyncState.Started);
 

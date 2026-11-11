@@ -106,7 +106,7 @@ do
 {
 	await Task.Delay(TimeSpan.FromSeconds(2), cancellation.Token);
 
-	state = await client.GetCustomTableSyncState(correlationId);
+	state = await client.GetCustomTableSyncState(libraryId, "MyCustomTable", correlationId);
 }
 while (state?.State is CustomTableSyncState.Queued or CustomTableSyncState.Started);
 ```
