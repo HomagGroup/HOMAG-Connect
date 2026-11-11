@@ -942,7 +942,31 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/customTables/{{customTableId}}/sync/start",
+									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/customTables/{{customTableId}}/sync",
+									"host": [
+										"{{ConnectHost}}"
+									],
+									"path": [
+										"api",
+										"orderManager",
+										"configurationDataManagement",
+										"libraries",
+										"{{libraryId}}",
+										"customTables",
+										"{{customTableId}}",
+										"sync"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomTableSyncState",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ConnectHost}}/api/orderManager/configurationDataManagement/libraries/{{libraryId}}/customTables/{{customTableId}}/sync/{{syncCorrelationId}}",
 									"host": [
 										"{{ConnectHost}}"
 									],
@@ -955,35 +979,7 @@
 										"customTables",
 										"{{customTableId}}",
 										"sync",
-										"start"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetCustomTableSyncState",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									configurationDataManagement/sync/customTable/state?correlationId={{syncCorrelationId}}",
-									"host": [
-										"{{ConnectHost}}"
-									],
-									"path": [
-										"api",
-										"orderManager",
-										"configurationDataManagement",
-										"sync",
-										"customTable",
-										"state"
-									],
-									"query": [
-										{
-											"key": "correlationId",
-											"value": "{{syncCorrelationId}}"
-										}
+										"{{syncCorrelationId}}"
 									]
 								}
 							},

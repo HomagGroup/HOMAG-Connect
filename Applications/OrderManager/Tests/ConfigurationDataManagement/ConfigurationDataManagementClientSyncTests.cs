@@ -30,7 +30,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             // Assert
             Assert.IsNotNull(handler.Request);
             Assert.AreEqual(HttpMethod.Post, handler.Request.Method);
-            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/libraries/my%20lib/customTables/table%2F1/sync/start", handler.Request.RequestUri!.AbsoluteUri);
+            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/libraries/my%20lib/customTables/table%2F1/sync", handler.Request.RequestUri!.AbsoluteUri);
             Assert.AreEqual(CustomTableSyncState.Queued, result.State);
             Assert.AreEqual("c1", result.CorrelationId);
         }
@@ -74,12 +74,12 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             var client = CreateClient(handler);
 
             // Act
-            var result = await client.GetCustomTableSyncState("c/1");
+            var result = await client.GetCustomTableSyncState("my lib", "table/1", "c/1");
 
             // Assert
             Assert.IsNotNull(handler.Request);
             Assert.AreEqual(HttpMethod.Get, handler.Request.Method);
-            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/sync/customTable/state?correlationId=c%2F1", handler.Request.RequestUri!.AbsoluteUri);
+            Assert.AreEqual("https://connect.example.com/api/orderManager/configurationDataManagement/libraries/my%20lib/customTables/table%2F1/sync/c%2F1", handler.Request.RequestUri!.AbsoluteUri);
             Assert.IsNotNull(result);
             Assert.AreEqual(CustomTableSyncState.Succeeded, result.State);
             Assert.AreEqual(CustomTableSyncDataSource.Edgebands, result.DataSource);
@@ -95,7 +95,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             var client = CreateClient(handler);
 
             // Act
-            var result = await client.GetCustomTableSyncState("unknown");
+            var result = await client.GetCustomTableSyncState("lib", "table", "unknown");
 
             // Assert
             Assert.IsNull(result);
@@ -109,7 +109,7 @@ namespace HomagConnect.OrderManager.Tests.ConfigurationDataManagement
             var client = CreateClient(handler);
 
             // Act
-            var exception = await Assert.ThrowsExactlyAsync<ProblemDetailsException>(() => client.GetCustomTableSyncState("c1"));
+            var exception = await Assert.ThrowsExactlyAsync<ProblemDetailsException>(() => client.GetCustomTableSyncState("lib", "table", "c1"));
 
             // Assert
             Assert.AreEqual("Server error", exception.Title);

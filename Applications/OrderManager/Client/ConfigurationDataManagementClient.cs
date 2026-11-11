@@ -7,8 +7,7 @@ namespace HomagConnect.OrderManager.Client
     /// <inheritdoc cref="IConfigurationDataManagementClient" />
     public class ConfigurationDataManagementClient : ClientBase, IConfigurationDataManagementClient
     {
-        private static readonly string _BaseRoute = "api/orderManager/configurationDataManagement";
-        private static readonly string _LibrariesRoute = $"{_BaseRoute}/libraries";
+        private static readonly string _BaseRoute = "api/orderManager/configurationDataManagement/libraries";
 
         /// <inheritdoc />
         public ConfigurationDataManagementClient(HttpClient client) : base(client) { }
@@ -22,7 +21,7 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<IEnumerable<LibraryOverview>> GetLibraries()
         {
-            var uri = new Uri(_LibrariesRoute, UriKind.Relative);
+            var uri = new Uri(_BaseRoute, UriKind.Relative);
             return await RequestEnumerable<LibraryOverview>(uri) ?? Array.Empty<LibraryOverview>();
         }
 
@@ -58,21 +57,21 @@ namespace HomagConnect.OrderManager.Client
         /// <inheritdoc />
         public async Task<CustomTableSyncStateData> StartCustomTableSync(string libraryId, string customTableId)
         {
-            var uri = new Uri($"{CustomTableRoute(libraryId, customTableId)}/sync/start", UriKind.Relative);
+            var uri = new Uri($"{CustomTableRoute(libraryId, customTableId)}/sync", UriKind.Relative);
             return await PostWithoutBody<CustomTableSyncStateData>(uri);
         }
 
         /// <inheritdoc />
-        public async Task<CustomTableSyncStateData?> GetCustomTableSyncState(string correlationId)
+        public async Task<CustomTableSyncStateData?> GetCustomTableSyncState(string libraryId, string customTableId, string correlationId)
         {
-            var uri = new Uri($"{_BaseRoute}/sync/customTable/state?correlationId={Uri.EscapeDataString(correlationId)}", UriKind.Relative);
+            var uri = new Uri($"{CustomTableRoute(libraryId, customTableId)}/sync/{Uri.EscapeDataString(correlationId)}", UriKind.Relative);
 
             return await RequestObject<CustomTableSyncStateData>(uri, true);
         }
 
         private static string CustomTablesRoute(string libraryId)
         {
-            return $"{_LibrariesRoute}/{Uri.EscapeDataString(libraryId)}/customTables";
+            return $"{_BaseRoute}/{Uri.EscapeDataString(libraryId)}/customTables";
         }
 
         private static string CustomTableRoute(string libraryId, string customTableId)
