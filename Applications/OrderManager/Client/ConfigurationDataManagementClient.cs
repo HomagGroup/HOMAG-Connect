@@ -7,7 +7,7 @@ namespace HomagConnect.OrderManager.Client
     /// <inheritdoc cref="IConfigurationDataManagementClient" />
     public class ConfigurationDataManagementClient : ClientBase, IConfigurationDataManagementClient
     {
-        private static readonly string _BaseRoute = "api/orderManager/configurationDataManagement/libraries";
+        private const string _BaseRoute = "api/orderManager/configurationDataManagement/libraries";
 
         /// <inheritdoc />
         public ConfigurationDataManagementClient(HttpClient client) : base(client) { }
