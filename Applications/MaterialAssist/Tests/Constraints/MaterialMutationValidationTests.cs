@@ -8,6 +8,7 @@ using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
 using HomagConnect.MaterialManager.Contracts.Request;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using Shouldly;
@@ -87,6 +88,61 @@ public class MaterialMutationValidationTests
         (await Should.ThrowAsync<ValidationException>(() =>
             client.UpdateBoardEntity("id", new MaterialAssistUpdateBoardEntity { Length = 19999.95 }))).ShouldBeOfType<ValidationException>();
         handler.RequestCount.ShouldBe(0);
+    }
+
+    [TestMethod]
+    public async Task EdgebandCreation_RejectsUnassignedLengthBeforeHttp()
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialAssistClientEdgebands(http);
+        var request = new MaterialAssistRequestEdgebandEntity
+        {
+            Id = "id", EdgebandCode = "edge", Quantity = 1
+        };
+
+        request.Length.ShouldBeNull();
+        var error = await Should.ThrowAsync<ValidationException>(() => client.CreateEdgebandEntity(request));
+        error.Message.ShouldContain("Length");
+        handler.RequestCount.ShouldBe(0);
+    }
+
+    [TestMethod]
+    [DataRow("{\"id\":\"id\",\"edgebandCode\":\"edge\",\"quantity\":1}")]
+    [DataRow("{\"id\":\"id\",\"edgebandCode\":\"edge\",\"quantity\":1,\"length\":null}")]
+    public async Task EdgebandCreation_RejectsMissingOrNullJsonLength(string json)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialAssistClientEdgebands(http);
+        var request = JsonConvert.DeserializeObject<MaterialAssistRequestEdgebandEntity>(json, SerializerSettings.Default)!;
+
+        request.Length.ShouldBeNull();
+        var error = await Should.ThrowAsync<ValidationException>(() => client.CreateEdgebandEntity(request));
+        error.Message.ShouldContain("Length");
+        handler.RequestCount.ShouldBe(0);
+    }
+
+    [TestMethod]
+    [DataRow(0.0)]
+    [DataRow(2000.0)]
+    public async Task EdgebandCreation_SendsSuppliedLengthAndUpdateStillOmitsIt(double length)
+    {
+        using var handler = new MaterialValidationTestSupport();
+        using var http = handler.CreateClient();
+        var client = new MaterialAssistClientEdgebands(http);
+        await client.CreateEdgebandEntity(new MaterialAssistRequestEdgebandEntity
+        {
+            Id = "id", EdgebandCode = "edge", Quantity = 1, Length = length
+        });
+
+        var createJson = JObject.Parse(handler.Payload!);
+        createJson["length"]!.Value<double>().ShouldBe(length);
+
+        await client.UpdateEdgebandEntity("id", new MaterialAssistUpdateEdgebandEntity { Comments = "Updated" });
+
+        JObject.Parse(handler.Payload!).ContainsKey("length").ShouldBeFalse();
+        handler.RequestCount.ShouldBe(2);
     }
 
     [TestMethod]

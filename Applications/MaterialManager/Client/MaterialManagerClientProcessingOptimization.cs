@@ -50,7 +50,7 @@ public class MaterialManagerClientProcessingOptimization : ServiceBase, IMateria
             .OrderBy(m => m).ToArray();
 
         StringBuilder materialCodesString = new StringBuilder();
-        materialCodesString.Append(string.Join("&", validatedMaterialCodes.Select(materialCode => $"{_MaterialCode}={materialCode}")));
+        materialCodesString.Append(string.Join("&", validatedMaterialCodes.Select(materialCode => $"{_MaterialCode}={Uri.EscapeDataString(materialCode)}")));
 
         var url = $"{_BaseRoute}/{_Offcuts}?{materialCodesString}";
 

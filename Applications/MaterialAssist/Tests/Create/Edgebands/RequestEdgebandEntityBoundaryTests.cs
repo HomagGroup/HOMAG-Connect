@@ -9,7 +9,7 @@ namespace HomagConnect.MaterialAssist.Tests.Create.Edgebands;
 
 /// <summary>
 /// Boundary tests for MaterialAssistRequestEdgebandEntity Length [Required] and [Range] validation.
-/// Verifies that Length is mandatory (non-nullable) and validates Range(0, 2000) constraints.
+/// Verifies that Length must be supplied and validates Range(0, 2000) constraints.
 /// </summary>
 [TestClass]
 [TestCategory("DeploymentTests.MaterialAssist.Contracts")]

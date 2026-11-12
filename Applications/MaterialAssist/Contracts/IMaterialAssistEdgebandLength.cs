@@ -9,8 +9,8 @@ namespace HomagConnect.MaterialAssist.Contracts;
 /// Defines shared unit and range metadata for an edgeband coil length in update contracts.
 /// </summary>
 /// <remarks>
-/// <para>Creation requests use a required, non-nullable length. Update requests use this nullable property so callers can omit it
-/// to leave the existing length unchanged.</para>
+/// <para>Creation requests require an explicitly supplied length and reject null.
+/// Update requests use this nullable property so callers can omit it to leave the existing length unchanged.</para>
 /// </remarks>
 public interface IMaterialAssistEdgebandLength
 {

@@ -77,7 +77,7 @@ public class MaterialAssistClientBoards : ServiceBase, IMaterialAssistClientBoar
     #region Constants
 
     private const string _BaseRouteMaterialAssist = "api/materialAssist/boardEntities";
-    private const string _BaseRouteMaterialManager = "api/materialManager/boards";
+    private const string _BaseRouteMaterialManager = "api/materialManager/materials/boards";
     private const string _Id = "Id";
     private const string _BoardCode = "boardCode";
     private const string _StorageLocation = "storageLocation";

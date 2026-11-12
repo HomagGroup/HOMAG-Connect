@@ -17,7 +17,7 @@ Once you have confirmed your license, you can create an instance of the client b
 ```c#
 // Create new instance of the materialManager client:
             
-var client = new materialManagerClient(subscriptionId, authorizationKey);
+var client = new MaterialManagerClient(subscriptionId, authorizationKey);
 ``` 
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](../../Documentation/Authentication/Readme.md) page for detailed instructions.
@@ -39,7 +39,7 @@ The numeric annotations use **metric bounds only**, inclusively:
 | Board length / width, offcut and template dimensions | 0.1..19999.9 mm |
 | Board thickness | 0.1..999.9 mm |
 | Board density | >=0.1 kg/m3, no upper bound |
-| Board / edgeband costs | 0.1..99999.99 in the existing monetary convention |
+| Board / edgeband costs | >=0 in the existing monetary convention; no local upper bound |
 | Edgeband default / instance / stored length | 0..2000 m |
 | Edgeband height | 0.1..999.9 mm |
 | Edgeband thickness / current thickness | 0.01..99.99 mm |
@@ -62,11 +62,11 @@ range; converting 1.27 mm to approximately 0.05 inches can incorrectly fail it.
 No request unit-system fields, automatic normalization or formatting changes were
 introduced. Keep using the endpoint's existing unit convention.
 
-Inclusive local lower bounds can differ from stricter backend comparisons. Costs
-and inventory quantities also have narrower local cloud-metadata bounds than some
-backend rules. A local pass means only eligibility for submission, not guaranteed
-service acceptance: uniqueness, references, inventory and other state-dependent
-checks remain authoritative on the service.
+Inclusive local lower bounds can differ from stricter backend comparisons.
+Inventory quantities have local bounds that may differ from service rules. A local
+pass means only eligibility for submission, not guaranteed service acceptance:
+uniqueness, references, inventory and other state-dependent checks remain
+authoritative on the service.
 
 Imports validate only mapped supplied fields. Missing nullable dimensions and
 unused response metadata are not demanded; nonpositive import quantities retain
@@ -75,6 +75,20 @@ these checks unit-aware. URI internals and open extension dictionaries are not
 recursively validated.
 
 ### Compatibility and maintenance
+
+Edgeband allocation updates now use nullable `AllocatedLength`, `UsedLength`,
+`Customer` and `Project` values. The update contract no longer inherits from the
+shared creation/deletion request base; creation and deletion contracts are unchanged.
+`EdgebandCode` and `Order` remain required identifiers. Null optional values are
+omitted from PATCH payloads, while explicit zero lengths and empty strings are sent.
+Consumers reading the nullable lengths or using the former base-class relationship
+must adjust their code.
+
+Partial edgeband allocation updates require coordinated gateway and service package
+adoption. The intelliSettings-backend allocation service must also be changed to
+preserve omitted values rather than assign them unconditionally. Publishing the SDK
+alone does not establish this behavior. Verify preservation through the gateway
+after the aligned service is deployed.
 
 These are intentional earlier rejections of previously unchecked input. SDK,
 gateway and service consumers must coordinate package adoption. No new validation
