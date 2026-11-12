@@ -101,9 +101,7 @@ public class MaterialContractNullabilityIntegrationTests
 
     /// <summary>
     /// T043: Integration test for validation behavior on edgeband creation.
-    /// Note: Since Length is a `double` (value type), it defaults to 0 when not explicitly set in code.
-    /// The [Required] attribute does not distinguish an omitted non-nullable value from an explicit zero.
-    /// This test verifies that explicitly setting Length=0 (minimum boundary) is valid.
+    /// Explicitly setting Length=0 supplies the required value at the valid minimum boundary.
     /// </summary>
     [TestMethod]
     public void Integration_EdgebandEntity_CreateWithMinimumLength_Success()

@@ -50,11 +50,13 @@ public class MaterialAssistRequestEdgebandEntity : MaterialAssistRequestBase
     /// <remarks>
     /// This property is required when creating an edgeband entity. Updates may omit it; see
     /// <see cref="HomagConnect.MaterialAssist.Contracts.Update.MaterialAssistUpdateEdgebandEntity" />.
+    /// The nullable type represents an unsupplied value, which validation rejects on creation.
+    /// Explicit zero is a supplied length and remains valid.
     /// </remarks>
     [ValueDependsOnUnitSystem(BaseUnit.Meter)]
     [Range(0, 2000.00)]
     [Required]
-    public double Length { get; set; }
+    public double? Length { get; set; }
 
     /// <summary>
     /// How the edgeband items are tracked: individually, as a stack, or as goods in stock.

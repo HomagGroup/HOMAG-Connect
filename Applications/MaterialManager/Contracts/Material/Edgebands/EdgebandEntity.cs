@@ -8,66 +8,92 @@ using HomagConnect.MaterialManager.Contracts.Material.Base;
 namespace HomagConnect.MaterialManager.Contracts.Material.Edgebands
 {
     /// <summary>
-    /// An edgeband inventory entry represents material held in stock and connects it to the edgeband type used in production.
+    /// Represents one edgeband inventory entry, including its associated edgeband type, stock quantity, and storage location.
     /// <see href="https://docs.homag.cloud/docs/materialmanager-materialtypen-kantenbaender">Learn more about edgeband types</see>.
     /// </summary>
+    /// <example>
+    /// {
+    ///   "comments": "Finished coil",
+    ///   "creationDate": "2026-11-12T10:00:00+02:00",
+    ///   "currentThickness": 2.0,
+    ///   "edgebandType": { "unitSystem": "Metric", "edgebandCode": "ABS_Hunton_Oak_dark_2.00_23.0_HM", "height": 23.0, "thickness": 2.0 },
+    ///   "id": "edge-001",
+    ///   "length": 50.0,
+    ///   "location": { "locationId": "LOC-01-02-03" },
+    ///   "managementType": "Single",
+    ///   "quantity": 1,
+    ///   "totalLength": 50.0
+    /// }
+    /// </example>
     public class EdgebandEntity
     {
         /// <summary>
-        /// Gets or sets the additional comments.
+        /// Notes associated with this inventory entry.
         /// </summary>
+        /// <example>Finished coil</example>
         public string? Comments { get; set; }
 
         /// <summary>
-        /// Gets or sets the creation date.
+        /// Date and time when this inventory entry was created, when known.
         /// </summary>
+        /// <example>2026-11-12T10:00:00+02:00</example>
         public DateTimeOffset? CreationDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the thickness of the edgeband. The unit depends on the settings of the subscription (metric: mm, imperial:
-        /// inch).
+        /// Thickness recorded for this edgeband inventory entry.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: inch.</para>
         /// </summary>
+        /// <example>2.0</example>
         [ValueDependsOnUnitSystem(BaseUnit.Millimeter, 2,3)]
         public double CurrentThickness { get; set; }
 
         /// <summary>
-        /// Gets or sets the edgeband type.
+        /// Edgeband type associated with this inventory entry.
         /// </summary>
+        /// <example>{ "edgebandCode": "ABS_Hunton_Oak_dark_2.00_23.0_HM", "height": 23.0, "thickness": 2.0 }</example>
         public EdgebandType EdgebandType { get; set; }
 
         /// <summary>
-        /// Gets or sets the id (#)
+        /// Unique identifier for this inventory entry.
         /// </summary>
+        /// <example>edge-001</example>
         [Key]
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the edgeband. The unit depends on the settings of the subscription (metric: m, imperial:
-        /// ft).
+        /// Length associated with this edgeband inventory entry.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: m.</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft.</para>
         /// </summary>
+        /// <example>50.0</example>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double Length { get; set; }
 
         /// <summary>
-        /// Gets or set the location.
+        /// Storage location associated with this inventory entry.
         /// </summary>
+        /// <example>{ "locationId": "LOC-01-02-03" }</example>
         public StorageLocation Location { get; set; }
 
         /// <summary>
-        /// Gets or sets the management type (single, stack, goods in stock).
+        /// How this inventory entry is tracked: individually, as a stack, or as goods in stock.
         /// </summary>
+        /// <example>Single</example>
         public ManagementType ManagementType { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity of the edgeband entity.
+        /// Number of edgeband items represented by this inventory entry.
         /// </summary>
+        /// <example>1</example>
         public int Quantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the total length of the edgeband. The unit depends on the settings of the subscription (metric: m,
-        /// imperial:
-        /// ft).
+        /// Total edgeband length represented by this inventory entry.
+        /// <para>Unit for <see cref="UnitSystem.Metric" />: m.</para>
+        /// <para>Unit for <see cref="UnitSystem.Imperial" />: ft.</para>
         /// </summary>
+        /// <example>50.0</example>
         [ValueDependsOnUnitSystem(BaseUnit.Meter)]
         public double TotalLength { get; set; }
     }

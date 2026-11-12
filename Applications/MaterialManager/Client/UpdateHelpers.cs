@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Exceptions;
 using Newtonsoft.Json;
 
 namespace HomagConnect.MaterialManager.Client
@@ -25,7 +26,6 @@ namespace HomagConnect.MaterialManager.Client
         }
 
         public static async Task<T> SendMultipartPatchAsync<T>(HttpClient client, Uri uri, string json, FileReference[] fileReferences, string jsonPartName = "update")
-            where T : new()
         {
             if (fileReferences == null)
             {
@@ -66,7 +66,10 @@ namespace HomagConnect.MaterialManager.Client
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var responseObject = JsonConvert.DeserializeObject<T>(result, SerializerSettings.Default);
 
-            return responseObject ?? new T();
+            return responseObject ?? throw new ProblemDetailsException
+            {
+                Title = $"Invalid or no result. Process returned null for {typeof(T).Name}!"
+            };
         }
     }
 }

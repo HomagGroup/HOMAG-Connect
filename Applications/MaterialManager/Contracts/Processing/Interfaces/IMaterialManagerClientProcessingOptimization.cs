@@ -11,17 +11,19 @@ namespace HomagConnect.MaterialManager.Contracts.Processing.Interfaces
     public interface IMaterialManagerClientProcessingOptimization
     {
         /// <summary>
-        /// Get offcut parameter set for the given material code
+        /// Retrieves offcut optimization parameters for one material code.
         /// </summary>
-        /// <param name="materialCode"></param>
-        /// <returns></returns>
+        /// <param name="materialCode">Material code to include in the request.</param>
+        /// <returns>The offcut parameter set returned for the material code.</returns>
         Task<OffcutParameterSet> GetOffcutParameterSetAsync(string materialCode);
 
         /// <summary>
-        /// Get offcut parameter sets for the given material codes
+        /// Retrieves offcut optimization parameters for multiple material codes. The client trims codes, ignores blank
+        /// entries, removes duplicates, and sends each remaining code as a URL-encoded <c>materialCode</c> query
+        /// parameter.
         /// </summary>
-        /// <param name="materialCodes"></param>
-        /// <returns></returns>
+        /// <param name="materialCodes">Material codes to include in the request.</param>
+        /// <returns>The offcut parameter sets returned by the service.</returns>
         Task<IEnumerable<OffcutParameterSet>?> GetOffcutParameterSetsAsync(ICollection<string> materialCodes);
     }
 }

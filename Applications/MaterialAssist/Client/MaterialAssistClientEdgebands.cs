@@ -134,7 +134,7 @@ public class MaterialAssistClientEdgebands : ServiceBase, IMaterialAssistClientE
     #region Constants
 
     private const string _BaseRouteMaterialAssist = "api/materialAssist/edgebandEntities";
-    private const string _BaseRouteMaterialManager = "api/materialManager/edgebands";
+    private const string _BaseRouteMaterialManager = "api/materialManager/materials/edgebands";
     private const string _Id = "Id";
     private const string _EdgebandCode = "edgebandCode";
     private const string _StorageLocation = "storageLocation";

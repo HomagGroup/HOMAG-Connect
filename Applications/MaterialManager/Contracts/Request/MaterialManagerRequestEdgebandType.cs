@@ -31,7 +31,7 @@ public class MaterialManagerRequestEdgebandType : MaterialManagerRequestMaterial
     public string? DecorEmbossingCode { get; set; }
 
     /// <summary>
-    /// Optional default length of the edgeband roll.
+    /// Optional default length of the edgeband coil.
     /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Metric" />: m.</para>
     /// <para>Unit for <see cref="HomagConnect.Base.Contracts.Enumerations.UnitSystem.Imperial" />: ft.</para>
     /// </summary>
