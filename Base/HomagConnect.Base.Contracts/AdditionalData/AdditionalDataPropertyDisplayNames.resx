@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -140,6 +140,9 @@
   <data name="Id" xml:space="preserve">
     <value>Id</value>
     <comment>Id</comment>
+  </data>
+  <data name="IsPrimary" xml:space="preserve">
+    <value>Primär</value>
   </data>
   <data name="Length" xml:space="preserve">
     <value>Länge</value>
