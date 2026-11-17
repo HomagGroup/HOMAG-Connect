@@ -48,7 +48,7 @@ public class MachineDetailsSerializationTests
         var deserialized = JsonConvert.DeserializeObject<MachineDetails>(json, SerializerSettings.Default);
 
         json.ShouldContain("\"SchnittlaengeMaximal_LS\"");
-        json.ShouldNotContain("cuttingParameters");
+        Newtonsoft.Json.Linq.JObject.Parse(json)["parameters"].ShouldBeNull();
 
         deserialized.ShouldNotBeNull();
         deserialized.Name.ShouldBe("SAWTEQ S-300");
@@ -70,16 +70,17 @@ public class MachineDetailsSerializationTests
     }
 
     /// <summary>
-    /// Verifies that all six cutting parameter sections survive a roundtrip and that unavailable values are omitted.
+    /// Verifies that the cutting parameters are deserialized as <see cref="CuttingMachineParameters" /> via the
+    /// optimization type, that all six sections survive a roundtrip and that unavailable values are omitted.
     /// </summary>
     [TestMethod]
-    [Ignore("Enable once the backend returns CuttingParameters (gateway update and NuGet release pending).")]
+    [Ignore("Enable once the backend returns the machine parameters (gateway update and NuGet release pending).")]
     public void MachineDetails_SerializeDeserialize_KeepsCuttingParameterSections()
     {
         var machineDetails = new MachineDetails
         {
             Name = "SAWTEQ S-300",
-            CuttingParameters = new CuttingMachineParameters
+            Parameters = new CuttingMachineParameters
             {
                 General = new CuttingGeneralParameters { MaxCuttingLength = 4300, OptimizationDirection = CuttingOptimizationDirection.Right, DownloadOption = MachineDownloadOption.FileAgent },
                 Offcuts = new CuttingOffcutParameters { SmallOffcutPercentage = 30, LargeOffcutPercentage = 80 },
@@ -91,13 +92,14 @@ public class MachineDetailsSerializationTests
         };
 
         var json = JsonConvert.SerializeObject(machineDetails, SerializerSettings.Default);
-        var parameters = JsonConvert.DeserializeObject<MachineDetails>(json, SerializerSettings.Default)!.CuttingParameters;
+        var deserialized = JsonConvert.DeserializeObject<MachineDetails>(json, SerializerSettings.Default)!;
 
         var jsonDocument = Newtonsoft.Json.Linq.JObject.Parse(json);
-        ((string?)jsonDocument.SelectToken("cuttingParameters.general.optimizationDirection")).ShouldBe("Right");
-        ((string?)jsonDocument.SelectToken("cuttingParameters.tensionTrims.tensionTrimType")).ShouldBe("SlotCenteredBetweenStrips");
+        ((string?)jsonDocument.SelectToken("parameters.optimizationType")).ShouldBe("Cutting");
+        ((string?)jsonDocument.SelectToken("parameters.general.optimizationDirection")).ShouldBe("Right");
+        ((string?)jsonDocument.SelectToken("parameters.tensionTrims.tensionTrimType")).ShouldBe("SlotCenteredBetweenStrips");
 
-        parameters.ShouldNotBeNull();
+        var parameters = deserialized.Parameters.ShouldBeOfType<CuttingMachineParameters>();
         parameters.General!.DownloadOption.ShouldBe(MachineDownloadOption.FileAgent);
         parameters.Offcuts!.LargeOffcutPercentage.ShouldBe(80);
         parameters.Offcuts!.SmallOffcutPercentage.ShouldBe(30);
@@ -112,7 +114,7 @@ public class MachineDetailsSerializationTests
     /// Verifies that switching to imperial converts the lengths and areas of all sections and keeps percentages and flags.
     /// </summary>
     [TestMethod]
-    [Ignore("Enable once the backend returns CuttingParameters (gateway update and NuGet release pending).")]
+    [Ignore("Enable once the backend returns the machine parameters (gateway update and NuGet release pending).")]
     public void CuttingMachineParameters_SwitchToImperial_ConvertsLengthsAndAreasOnly()
     {
         var parameters = new CuttingMachineParameters
