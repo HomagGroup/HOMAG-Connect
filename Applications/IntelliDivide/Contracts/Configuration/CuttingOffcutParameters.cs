@@ -16,7 +16,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Configuration;
 /// ones of small offcuts.
 /// </remarks>
 /// <example>
-/// { "useMaterialManagerOffcuts": false, "smallOffcutsEnabled": true, "smallOffcutMinimumLength": 500, "smallOffcutMinimumWidth": 300, "smallOffcutMinimumArea": 0.15, "smallOffcutRating": 30, "largeOffcutsEnabled": true, "largeOffcutMinimumLength": 2000, "largeOffcutMinimumWidth": 800, "largeOffcutMinimumArea": 1.6, "largeOffcutRating": 80 }
+/// { "useMaterialManagerOffcuts": false, "smallOffcutsEnabled": true, "smallOffcutMinimumLength": 500, "smallOffcutMinimumWidth": 300, "smallOffcutMinimumArea": 0.15, "smallOffcutPercentage": 30, "largeOffcutsEnabled": true, "largeOffcutMinimumLength": 2000, "largeOffcutMinimumWidth": 800, "largeOffcutMinimumArea": 1.6, "largeOffcutPercentage": 80 }
 /// </example>
 public class CuttingOffcutParameters
 {

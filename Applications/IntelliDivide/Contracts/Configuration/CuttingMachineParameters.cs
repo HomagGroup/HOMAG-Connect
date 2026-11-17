@@ -16,7 +16,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Configuration;
 /// {
 ///   "unitSystem": "Metric",
 ///   "general": { "maxCuttingLength": 4300, "maxTravelProgramFence": 4300, "ripCutBladeThickness": 4.8, "crossCutBladeThickness": 4.8, "downloadOption": "Download" },
-///   "offcuts": { "smallOffcutsEnabled": true, "smallOffcutRating": 30, "largeOffcutsEnabled": true, "largeOffcutMinimumLength": 2000, "largeOffcutMinimumWidth": 800, "largeOffcutMinimumArea": 1.6, "largeOffcutRating": 80 },
+///   "offcuts": { "smallOffcutsEnabled": true, "smallOffcutPercentage": 30, "largeOffcutsEnabled": true, "largeOffcutMinimumLength": 2000, "largeOffcutMinimumWidth": 800, "largeOffcutMinimumArea": 1.6, "largeOffcutPercentage": 80 },
 ///   "trimCuts": { "trimFront": 15, "trimBack": 15, "trimLeft": 15, "trimRight": 15, "reducibleTrims": true },
 ///   "tensionTrims": { "useTensionTrims": false, "tensionTrimWidth": 30, "tensionTrimMinDistance": 150, "tensionTrimMinCutLength": 2000, "tensionTrimSlotDistance": 20, "tensionTrimMiddleBridge": 30 },
 ///   "bookHeight": { "maximumBookHeight": 95 },
