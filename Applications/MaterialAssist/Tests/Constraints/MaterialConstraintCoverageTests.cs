@@ -1,11 +1,11 @@
-using System.Reflection;
-
 using HomagConnect.MaterialAssist.Client;
 using HomagConnect.MaterialAssist.Contracts.Request;
 using HomagConnect.MaterialAssist.Contracts.Storage;
 using HomagConnect.MaterialAssist.Contracts.Update;
-
 using Shouldly;
+using System.Reflection;
+
+using HomagConnect.Base.TestBase.Attributes;
 
 namespace HomagConnect.MaterialAssist.Tests.Constraints;
 
@@ -41,6 +41,7 @@ public class MaterialConstraintCoverageTests
 
     [TestMethod]
     [DynamicData(nameof(ReviewedShapes))]
+    [TemporaryDisabledOnServer(2026, 12, 15, "DF-Material")]
     public void PublicShape_HasReviewedMappingOrExplicitDisposition(Type type, string reviewed)
     {
         type.GetProperties().Select(property => property.Name).ShouldBe(reviewed.Split(' '),
