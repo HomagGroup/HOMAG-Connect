@@ -74,4 +74,10 @@ public class Group : Base
     /// </summary>
     [JsonProperty(Order = 50)]
     public string? Origin { get; set; }
+
+    /// <summary>
+    /// Gets or sets the optional Roomle Planner ID associated with the group, if applicable.
+    /// </summary>
+    [JsonProperty(Order = 60)]
+    public string? RoomlePlannerId { get; set; }
 }
