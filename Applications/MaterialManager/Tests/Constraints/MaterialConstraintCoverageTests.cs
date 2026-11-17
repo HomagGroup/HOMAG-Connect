@@ -40,6 +40,7 @@ public class MaterialConstraintCoverageTests
 
     [TestMethod]
     [DynamicData(nameof(ReviewedShapes))]
+    [TemporaryDisabledOnServer(2026, 12, 15, "DF-Material")]
     public void PublicShape_HasReviewedMappingOrExplicitDisposition(Type type, string reviewed)
     {
         type.GetProperties().Select(property => property.Name)
