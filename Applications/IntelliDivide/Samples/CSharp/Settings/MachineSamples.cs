@@ -38,6 +38,24 @@ namespace HomagConnect.IntelliDivide.Samples.Settings
         }
 
         /// <summary>
+        /// The example shows how to read the machine parameters of a cutting machine
+        /// (sections In general, Offcuts, Trim cuts, Tension trims, Book height and Allocations).
+        /// </summary>
+        public static async Task Settings_GetCuttingMachineParametersSample(IIntelliDivideClient intelliDivide, string machineName)
+        {
+            var machineDetails = await intelliDivide.GetMachineDetails(machineName);
+            if (machineDetails?.CuttingParameters == null)
+            {
+                Assert.Fail($"No cutting parameters could be found for machine '{machineName}'.");
+            }
+
+            var parameters = machineDetails.CuttingParameters;
+
+            // Sections and properties which aren't available for the machine or the license are null and omitted.
+            parameters.Trace();
+        }
+
+        /// <summary>
         /// The example shows how to get the defined machines of type nesting.
         /// </summary>
         public static async Task Settings_GetNestingMachinesSample(IIntelliDivideClient intelliDivide)
