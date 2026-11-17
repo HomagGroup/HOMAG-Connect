@@ -5,16 +5,15 @@
       "type": "http"
     },
     "azure-devops": {
-      "type": "stdio",
-      "command": "${userHome}\\AppData\\Local\\Yarn\\bin\\mcp-server-azuredevops.cmd",
-      "args": ["homag-group"]
+      "type": "http",
+      "url": "https://mcp.dev.azure.com/homag-group"
     },
     "Figma": {
       "type": "http",
-      "url": "http://127.0.0.1:3845/mcp"
+      "url": "https://mcp.figma.com/mcp"
     },
     "github": {
-      "url": "https://api.githubcopilot.com/mcp",
+      "url": "https://api.githubcopilot.com/mcp/",
       "type": "http"
     },
     "filesystem": {
@@ -23,13 +22,14 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "${userHome}\\source\\repos"
+        "${workspaceFolder}"
       ]
     },
     "playwright": {
       "type": "stdio",
       "command": "npx",
       "args": [
+        "-y",
         "@playwright/mcp"
       ]
     }
