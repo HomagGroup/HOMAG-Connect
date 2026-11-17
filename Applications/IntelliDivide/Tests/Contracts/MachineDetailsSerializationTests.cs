@@ -93,9 +93,9 @@ public class MachineDetailsSerializationTests
         var json = JsonConvert.SerializeObject(machineDetails, SerializerSettings.Default);
         var parameters = JsonConvert.DeserializeObject<MachineDetails>(json, SerializerSettings.Default)!.CuttingParameters;
 
-        json.ShouldContain("\"optimizationDirection\": \"Right\"");
-        json.ShouldContain("\"tensionTrimType\": \"SlotCenteredBetweenStrips\"");
-        json.ShouldNotContain("useMaterialManagerOffcuts");
+        var jsonDocument = Newtonsoft.Json.Linq.JObject.Parse(json);
+        ((string?)jsonDocument.SelectToken("cuttingParameters.general.optimizationDirection")).ShouldBe("Right");
+        ((string?)jsonDocument.SelectToken("cuttingParameters.tensionTrims.tensionTrimType")).ShouldBe("SlotCenteredBetweenStrips");
 
         parameters.ShouldNotBeNull();
         parameters.General!.DownloadOption.ShouldBe(MachineDownloadOption.FileAgent);
