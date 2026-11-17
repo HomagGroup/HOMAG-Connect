@@ -64,7 +64,7 @@ public class CuttingOffcutParameters
 
     /// <summary>
     /// The rating of a small offcut in percent. Supported values are 0 to 100 in steps of 10 and must not exceed
-    /// <see cref="LargeOffcutRating" />. Defaults to 30.
+    /// <see cref="LargeOffcutPercentage" />. Defaults to 30.
     /// </summary>
     /// <example>30</example>
     [Range(0, 100)]
