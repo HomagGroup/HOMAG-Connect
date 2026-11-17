@@ -21,7 +21,6 @@ public class CuttingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
     public async Task Initialize()
     {
         await EnsureSampleMaterialCodesExists(CommonSampleSettings.SampleMaterialCodeGrainLengthwise, CommonSampleSettings.SampleMaterialCodeGrainNone);
-        await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Cutting, CommonSampleSettings.TimeoutDuration);
     }
 
     /// <summary />
