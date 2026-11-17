@@ -21,7 +21,6 @@ public class NestingOptimizationRequestUsingObjectModelTests : IntelliDivideTest
     public async Task Initialize()
     {
         await EnsureSampleMaterialCodesExists(CommonSampleSettings.SampleMaterialCodeGrainLengthwise, CommonSampleSettings.SampleMaterialCodeGrainNone);
-        await WaitForParallelRunningOptimizationsWithinLimit(OptimizationType.Nesting, CommonSampleSettings.TimeoutDuration);
     }
 
     /// <summary />
