@@ -76,6 +76,15 @@ public class AdditionalDataEntity
     public string? Name { get; set; }
 
     /// <summary>
+    /// Indicates whether this additional data entry is the primary entry of its category (for example, the main image shown for an item).
+    /// Defaults to <c>false</c>. Set it to <c>true</c> on only one entry per category.
+    /// </summary>
+    /// <example>true</example>
+    [JsonProperty(Order = 4)]
+    [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(IsPrimary))]
+    public bool IsPrimary { get; set; }
+
+    /// <summary>
     /// Previews
     /// </summary>
     [JsonProperty(Order = 20)]

@@ -115,6 +115,15 @@ namespace HomagConnect.Base.Contracts.AdditionalData {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Primär.
+        /// </summary>
+        public static string IsPrimary {
+            get {
+                return ResourceManager.GetString("IsPrimary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Länge.
         /// </summary>
         public static string Length {
