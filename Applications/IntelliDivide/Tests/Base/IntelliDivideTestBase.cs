@@ -16,8 +16,6 @@ namespace HomagConnect.IntelliDivide.Tests.Base;
 
 public class IntelliDivideTestBase : TestBase
 {
-    private static bool _ParallelJobsStuck;
-
     /// <summary>
     /// Checks if the test material codes exist.
     /// </summary>
@@ -142,37 +140,4 @@ public class IntelliDivideTestBase : TestBase
         }
     }
 
-    /// <summary>
-    /// Waits until no more optimizations are running.
-    /// </summary>
-    protected async Task WaitForParallelRunningOptimizationsWithinLimit(OptimizationType optimizationType, TimeSpan timeout)
-    {
-        if (_ParallelJobsStuck)
-        {
-            Assert.Fail($"Subscription {SubscriptionId.ToString()} has too many parallel optimizations running slow.");
-        }
-
-        var startTime = DateTime.Now;
-        const int parallelOptimizationsRunningLimit = 2;
-        var intelliDivideClient = GetIntelliDivideClient();
-
-        while (startTime.Add(timeout) > DateTime.Now)
-        {
-            var startedOptimization = await intelliDivideClient.GetOptimizations(optimizationType, OptimizationStatus.Started, parallelOptimizationsRunningLimit + 1).ToListAsync();
-            if (startedOptimization == null)
-            {
-                return;
-            }
-
-            if (startedOptimization.Count < parallelOptimizationsRunningLimit)
-            {
-                return;
-            }
-
-            await Task.Delay(5000);
-        }
-
-        _ParallelJobsStuck = true;
-        Assert.Fail($"Subscription {SubscriptionId.ToString()} has too many parallel optimizations running slow.");
-    }
 }
