@@ -14,15 +14,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Configuration;
 ///     "machineConfiguration": { "optimizationType": "Cutting", "configurationOptions": { "conf_saegeart": "WS", "option_dreht": "1" }, "programFences": [ { "number": 1, "clamps": [ { "number": 1, "position": 120.5, "group": 1, "clampFingers": [ { "offset": 0, "width": 40 } ], "width": 40 } ] } ] },
 ///     "sawMaterialConfiguration": { "optimizationType": "Cutting", "parameters": { "SaegeblattStaerke": "4.4", "ResteLaenge": "300" } },
 ///     "sawConfiguration": { "optimizationType": "Cutting", "parameters": { "SchnittlaengeMaximal_LS": "4300", "SchnitthoeheMaximal": "95" } }
-///   },
-///   "cuttingParameters": {
-///     "unitSystem": "Metric",
-///     "general": { "maxCuttingLength": 4300, "maxTravelProgramFence": 4300, "ripCutBladeThickness": 4.8, "crossCutBladeThickness": 4.8, "downloadOption": "Download", "productionCosts": 120 },
-///     "offcuts": { "useMaterialManagerOffcuts": false, "smallOffcutsEnabled": true, "smallOffcutMinimumLength": 300, "smallOffcutMinimumWidth": 200, "smallOffcutMinimumArea": 0.1, "smallOffcutRating": 30, "largeOffcutsEnabled": true, "largeOffcutMinimumLength": 2000, "largeOffcutMinimumWidth": 800, "largeOffcutMinimumArea": 1.6, "largeOffcutRating": 80 },
-///     "trimCuts": { "useMaterialManagerTrims": false, "trimFront": 15, "trimBack": 15, "trimLeft": 15, "trimRight": 15, "trimRecutsFront": 0, "trimRecutsBack": 0, "reducibleTrims": true },
-///     "tensionTrims": { "useMaterialManagerTensionTrims": false, "useTensionTrims": true, "tensionTrimType": "SimpleTensionTrim", "tensionTrimWidth": 30, "tensionTrimMinDistance": 150, "tensionTrimMinCutLength": 2000, "tensionTrimSlotDistance": 20, "tensionTrimMiddleBridge": 30 },
-///     "bookHeight": { "useMaterialManagerBookHeights": false, "maximumBookHeight": 95 },
-///     "allocations": { "edgebandAllocations": false, "boardAllocations": true, "offcutAllocations": true }
 ///   }
 /// }
 /// </example>
