@@ -12,7 +12,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Configuration;
 /// </summary>
 /// <remarks>
 /// When <see cref="UseMaterialManagerOffcuts" /> is <c>true</c>, the offcut sizes are taken from the materials in materialManager
-/// and the machine values are not used. The minimum sizes and the rating of large offcuts must be at least as large as the
+/// and the machine values are not used. The minimum sizes and the percentage of large offcuts must be at least as large as the
 /// ones of small offcuts.
 /// </remarks>
 /// <example>
@@ -64,7 +64,7 @@ public class CuttingOffcutParameters
 
     /// <summary>
     /// The rating of a small offcut in percent. Supported values are 0 to 100 in steps of 10 and must not exceed
-    /// <see cref="LargeOffcutPercentage" />. Defaults to 30.
+    /// <see cref="SmallOffcutPercentage" />. Defaults to 30.
     /// </summary>
     /// <example>30</example>
     [Range(0, 100)]
