@@ -42,6 +42,7 @@ public class AdditionalDataEntity
     /// * ArticleImage (Type=Image) => per position
     /// * AttributeValueImage (Type=Image) => per ConfigurationAttribute
     /// * ModuleImage (Type=Image) => per module
+    /// * PartDrawing (Type=Image) => per part
     /// </remarks>
     [JsonProperty(Order = 1)]
     [Display(ResourceType = typeof(AdditionalDataPropertyDisplayNames), Name = nameof(Category))]
