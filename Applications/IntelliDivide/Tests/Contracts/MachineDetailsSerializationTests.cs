@@ -74,7 +74,6 @@ public class MachineDetailsSerializationTests
     /// optimization type, that all six sections survive a roundtrip and that unavailable values are omitted.
     /// </summary>
     [TestMethod]
-    [Ignore("Enable once the backend returns the machine parameters (gateway update and NuGet release pending).")]
     public void MachineDetails_SerializeDeserialize_KeepsCuttingParameterSections()
     {
         var machineDetails = new MachineDetails
@@ -114,7 +113,6 @@ public class MachineDetailsSerializationTests
     /// Verifies that switching to imperial converts the lengths and areas of all sections and keeps percentages and flags.
     /// </summary>
     [TestMethod]
-    [Ignore("Enable once the backend returns the machine parameters (gateway update and NuGet release pending).")]
     public void CuttingMachineParameters_SwitchToImperial_ConvertsLengthsAndAreasOnly()
     {
         var parameters = new CuttingMachineParameters
