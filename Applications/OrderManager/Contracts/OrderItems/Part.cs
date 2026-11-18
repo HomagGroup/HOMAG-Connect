@@ -71,6 +71,12 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     [JsonProperty(Order = 830)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
+    /// <summary>
+    /// Production route used to manufacture the part.
+    /// </summary>
+    [JsonProperty(Order = 835)]
+    public string? ProductionRoute { get; set; }
+
     #endregion
 
     #region ICuttingProperties Members
