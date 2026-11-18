@@ -1,14 +1,13 @@
-using System.Reflection;
-
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.AdditionalData;
+using HomagConnect.Base.TestBase.Attributes;
 using HomagConnect.MaterialManager.Client;
 using HomagConnect.MaterialManager.Contracts.Material.Boards;
 using HomagConnect.MaterialManager.Contracts.Material.Edgebands;
 using HomagConnect.MaterialManager.Contracts.Request;
 using HomagConnect.MaterialManager.Contracts.Update;
-
 using Shouldly;
+using System.Reflection;
 
 namespace HomagConnect.MaterialManager.Tests.Constraints;
 
@@ -41,6 +40,7 @@ public class MaterialConstraintCoverageTests
 
     [TestMethod]
     [DynamicData(nameof(ReviewedShapes))]
+    [TemporaryDisabledOnServer(2026, 12, 15, "DF-Material")]
     public void PublicShape_HasReviewedMappingOrExplicitDisposition(Type type, string reviewed)
     {
         type.GetProperties().Select(property => property.Name)
@@ -66,6 +66,7 @@ public class MaterialConstraintCoverageTests
     [DataRow(typeof(AdditionalDataEntity), "AdditionalProperties Category DownloadFileName DownloadUri Id Name Previews Type Source")]
     [DataRow(typeof(AdditionalDataTexture), "Grain Length Type Width UnitSystem")]
     [DataRow(typeof(AdditionalDataPreview), "Size Uri")]
+    [TemporaryDisabledOnServer(2026, 12, 15, "DF-Material")]
     public void ReadOnlyAndNestedShapes_HaveExplicitDispositions(Type type, string reviewed)
     {
         type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)

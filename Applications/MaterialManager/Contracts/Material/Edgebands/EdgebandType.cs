@@ -1,8 +1,7 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
-using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -279,15 +278,7 @@ public class EdgebandType : IExtensibleDataObject, IContainsUnitSystemDependentP
     /// <summary>
     /// URI of an image that helps identify this edgeband type.
     /// </summary>
-    [Obsolete("use PrimaryImage.Thumbnail instead", false)]
     public Uri? Thumbnail { get; set; }
-
-    /// <summary>
-    /// Links to the main image that represents this edgeband type, in several sizes. When the edgeband type has a valid
-    /// <see cref="DecorId" />, the decor image is used; otherwise the image is selected from the edgeband type's
-    /// additional data. The value is null when no image is available.
-    /// </summary>
-    public ImageUris? PrimaryImage { get; set; }
 
     #endregion
 }
