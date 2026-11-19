@@ -195,29 +195,47 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(string[] orderNumbersExternal)
+        public async Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(string[] orderNumbersExternal, int take = 1000, int skip = 0)
         {
             if (orderNumbersExternal is null)
             {
                 throw new ArgumentNullException(nameof(orderNumbersExternal));
             }
 
+            const int maxTake = 1000;
+            if (take < 1 || take > maxTake)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take), take, "Take must be between 1 and 1000.");
+            }
+
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip), skip, "Skip must not be negative.");
+            }
+
+            // Reserve enough space to keep the same filter batches on every page.
+            var filterMaxLength = QueryParametersMaxLength - $"?take={maxTake}&skip={int.MaxValue}".Length;
             var parameters = orderNumbersExternal
                 .Where(value => !string.IsNullOrWhiteSpace(value))
                 .Distinct(StringComparer.Ordinal)
                 .Select(value => $"&orderNumberExternal={Uri.EscapeDataString(value)}")
                 .ToArray();
 
-            if (parameters.Any(parameter => parameter.Length > QueryParametersMaxLength))
+            if (parameters.Any(parameter => parameter.Length > filterMaxLength))
             {
                 throw new ArgumentException("An encoded external order number exceeds the query parameter length limit.", nameof(orderNumbersExternal));
             }
 
-            var uris = parameters
-                .Join(QueryParametersMaxLength)
-                .Select(query => new Uri("/api/productionManager/orders?" + query.Trim('&'), UriKind.Relative));
+            var orders = new List<Order>();
+            foreach (var query in parameters.Join(filterMaxLength))
+            {
+                var uri = new Uri($"/api/productionManager/orders?take={take}&skip={skip}{query}", UriKind.Relative);
+                var batch = await RequestEnumerable<Order>(uri)
+                    ?? throw new InvalidOperationException("The order lookup did not return an array.");
+                orders.AddRange(batch);
+            }
 
-            return await RequestEnumerableAsync<Order>(uris);
+            return orders;
         }
 
         /// <inheritdoc />

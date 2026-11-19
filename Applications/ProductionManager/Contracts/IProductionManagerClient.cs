@@ -39,10 +39,16 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Get orders matching any of the specified external order numbers.
         /// </summary>
         /// <param name="orderNumbersExternal">The external order numbers to match. Blank entries are ignored.</param>
-        /// <remarks>Long lists are split into multiple requests. Each request uses the API's default limit of 1,000 orders.</remarks>
+        /// <param name="take">The maximum number of matching orders to return per batch, from 1 to 1000.</param>
+        /// <param name="skip">The number of matching orders to skip per batch. Must be nonnegative.</param>
+        /// <remarks>
+        /// Long lists are split into sequential requests. Paging applies to each request, not the combined results.
+        /// To fetch the next page from each batch, keep the same input and increase <paramref name="skip"/> by <paramref name="take"/>.
+        /// </remarks>
         /// <exception cref="ArgumentNullException"><paramref name="orderNumbersExternal"/> is null.</exception>
         /// <exception cref="ArgumentException">An encoded external order number is too long to use as a query parameter.</exception>
-        Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(string[] orderNumbersExternal);
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="take"/> or <paramref name="skip"/> is outside its supported range.</exception>
+        Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(string[] orderNumbersExternal, int take = 1000, int skip = 0);
 
         #endregion
 

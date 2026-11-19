@@ -51,10 +51,12 @@ The response is [OrderDetails](../../../../Contracts/Orders/OrderDetails.cs) whi
 
 ```c#
 var client = new ProductionManagerClient(subscriptionId, authorizationKey);
-var matches = await client.GetOrdersByOrderNumberExternal(["4711", "4712"]);
+string[] externalNumbers = ["4711", "4712"];
+var matches = await client.GetOrdersByOrderNumberExternal(externalNumbers);
+var nextPage = await client.GetOrdersByOrderNumberExternal(externalNumbers, take: 1000, skip: 1000);
 ```
 
-Pass an array with one or more external order numbers. The method returns matching [Order](../../../../Contracts/Orders/Order.cs) overviews. It splits long input lists into multiple requests, each subject to the API's default limit of 1,000 orders. An external order number may match multiple orders and is separate from the internal order number.
+Pass an array with one or more external order numbers. The method returns matching [Order](../../../../Contracts/Orders/Order.cs) overviews. It sends long input lists in sequential batches and does not fetch additional pages automatically. `take` (default 1,000) and `skip` (default 0) apply to each batch, not to the combined results. Use the same input list when requesting another page. An external order number may match multiple orders and is separate from the internal order number.
 
 <strong>Example ReleaseOrder :</strong>
 
