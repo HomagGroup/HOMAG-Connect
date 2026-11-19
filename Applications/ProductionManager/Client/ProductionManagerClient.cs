@@ -195,6 +195,32 @@ namespace HomagConnect.ProductionManager.Client
         }
 
         /// <inheritdoc />
+        public async Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(string[] orderNumbersExternal)
+        {
+            if (orderNumbersExternal is null)
+            {
+                throw new ArgumentNullException(nameof(orderNumbersExternal));
+            }
+
+            var parameters = orderNumbersExternal
+                .Where(value => !string.IsNullOrWhiteSpace(value))
+                .Distinct(StringComparer.Ordinal)
+                .Select(value => $"&orderNumberExternal={Uri.EscapeDataString(value)}")
+                .ToArray();
+
+            if (parameters.Any(parameter => parameter.Length > QueryParametersMaxLength))
+            {
+                throw new ArgumentException("An encoded external order number exceeds the query parameter length limit.", nameof(orderNumbersExternal));
+            }
+
+            var uris = parameters
+                .Join(QueryParametersMaxLength)
+                .Select(query => new Uri("/api/productionManager/orders?" + query.Trim('&'), UriKind.Relative));
+
+            return await RequestEnumerableAsync<Order>(uris);
+        }
+
+        /// <inheritdoc />
         public async Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers)
         {
             var validOrderNumbers = orderNumbers

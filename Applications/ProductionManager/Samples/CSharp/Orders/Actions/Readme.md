@@ -47,6 +47,15 @@ var order =  await client.GetOrder(orderId);
 
 The response is [OrderDetails](../../../../Contracts/Orders/OrderDetails.cs) which exposes detailed information about the order
 
+<strong>Example GetOrdersByOrderNumberExternal:</strong>
+
+```c#
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+var matches = await client.GetOrdersByOrderNumberExternal(["4711", "4712"]);
+```
+
+Pass an array with one or more external order numbers. The method returns matching [Order](../../../../Contracts/Orders/Order.cs) overviews. It splits long input lists into multiple requests, each subject to the API's default limit of 1,000 orders. An external order number may match multiple orders and is separate from the internal order number.
+
 <strong>Example ReleaseOrder :</strong>
 
 ```c#

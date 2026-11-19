@@ -35,6 +35,15 @@ namespace HomagConnect.ProductionManager.Contracts
         /// </summary>
         Task<IEnumerable<Order>> GetOrders(OrderStatus[] orderStatus, int take, int skip = 0);
 
+        /// <summary>
+        /// Get orders matching any of the specified external order numbers.
+        /// </summary>
+        /// <param name="orderNumbersExternal">The external order numbers to match. Blank entries are ignored.</param>
+        /// <remarks>Long lists are split into multiple requests. Each request uses the API's default limit of 1,000 orders.</remarks>
+        /// <exception cref="ArgumentNullException"><paramref name="orderNumbersExternal"/> is null.</exception>
+        /// <exception cref="ArgumentException">An encoded external order number is too long to use as a query parameter.</exception>
+        Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(string[] orderNumbersExternal);
+
         #endregion
 
         #region Order items

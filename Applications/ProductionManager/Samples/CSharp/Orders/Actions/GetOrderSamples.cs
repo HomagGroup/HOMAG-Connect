@@ -68,6 +68,18 @@ namespace HomagConnect.ProductionManager.Samples.Orders.Actions
             }
         }
 
+        /// <summary>
+        /// Gets orders matching any of the supplied external order numbers.
+        /// </summary>
+        public static async Task<IEnumerable<Order>> GetOrdersByOrderNumberExternal(IProductionManagerClient productionManager, string[] orderNumbersExternal)
+        {
+            var orders = await productionManager.GetOrdersByOrderNumberExternal(orderNumbersExternal);
+
+            orders.Trace();
+
+            return orders;
+        }
+
         /// <summary />
         public static async Task<Order?> GetOrder(IProductionManagerClient productionManager, Guid orderId)
         {

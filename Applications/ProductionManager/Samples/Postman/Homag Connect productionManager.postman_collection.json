@@ -293,6 +293,76 @@
               "response": []
             },
             {
+              "name": "Get order by internal order number",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "description": "Returns an array with at most one matching order for the specified internal order number. Do not combine orderNumber with orderNumberExternal.",
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders?orderNumber=10001234",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "10001234",
+                      "description": "Replace with an internal order number."
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get orders by external order number",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "description": "Returns a page of orders matching any supplied external order number. Repeat orderNumberExternal to search multiple values. Multiple orders can share an external order number. Use take and skip to page through results. Do not combine orderNumberExternal with orderNumber.",
+                "url": {
+                  "raw": "{{ConnectHost}}/api/productionManager/orders?orderNumberExternal=4711&take=100&skip=0",
+                  "host": [
+                    "{{ConnectHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "productionManager",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumberExternal",
+                      "value": "4711",
+                      "description": "Replace with an external order number."
+                    },
+                    {
+                      "key": "orderNumberExternal",
+                      "value": "4712",
+                      "description": "Enable this parameter to search for another external order number in the same request.",
+                      "disabled": true
+                    },
+                    {
+                      "key": "take",
+                      "value": "100",
+                      "description": "Maximum orders per page (1 to 1000)."
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0",
+                      "description": "Number of matching orders to skip."
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "Get orders details + bill of materials",
               "request": {
                 "method": "GET",
