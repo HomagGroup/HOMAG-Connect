@@ -47,6 +47,17 @@ var order =  await client.GetOrder(orderId);
 
 The response is [OrderDetails](../../../../Contracts/Orders/OrderDetails.cs) which exposes detailed information about the order
 
+<strong>Example GetOrdersByOrderNumberExternal:</strong>
+
+```c#
+var client = new ProductionManagerClient(subscriptionId, authorizationKey);
+string[] externalNumbers = ["4711", "4712"];
+var matches = await client.GetOrdersByOrderNumberExternal(externalNumbers);
+var nextPage = await client.GetOrdersByOrderNumberExternal(externalNumbers, take: 1000, skip: 1000);
+```
+
+Pass an array with one or more external order numbers. The method returns matching [Order](../../../../Contracts/Orders/Order.cs) overviews. It sends long input lists in sequential batches and does not fetch additional pages automatically. `take` (default 1,000) and `skip` (default 0) apply to each batch, not to the combined results. Use the same input list when requesting another page. An external order number may match multiple orders and is separate from the internal order number.
+
 <strong>Example ReleaseOrder :</strong>
 
 ```c#
