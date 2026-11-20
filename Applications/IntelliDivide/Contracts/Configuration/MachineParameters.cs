@@ -1,5 +1,3 @@
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.IntelliDivide.Contracts.Common;
 
 using JsonSubTypes;
@@ -16,11 +14,11 @@ namespace HomagConnect.IntelliDivide.Contracts.Configuration;
 /// <see cref="CuttingMachineParameters" />.
 /// </remarks>
 /// <example>
-/// { "optimizationType": "Cutting", "unitSystem": "Metric", "general": { "maxCuttingLength": 4300 } }
+/// { "optimizationType": "Cutting", "general": { "maxCuttingLength": 4300 } }
 /// </example>
 [JsonConverter(typeof(JsonSubtypes), nameof(OptimizationType))]
 [JsonSubtypes.KnownSubType(typeof(CuttingMachineParameters), OptimizationType.Cutting)]
-public class MachineParameters : IContainsUnitSystemDependentProperties
+public class MachineParameters
 {
     /// <summary>
     /// The <see cref="OptimizationType" /> of the machine. Determines which parameters are available.
@@ -28,8 +26,4 @@ public class MachineParameters : IContainsUnitSystemDependentProperties
     /// <example>Cutting</example>
     [JsonProperty(Order = 1)]
     public virtual OptimizationType OptimizationType { get; set; }
-
-    /// <inheritdoc />
-    [JsonProperty(Order = 2)]
-    public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 }
