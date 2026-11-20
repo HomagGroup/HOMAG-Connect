@@ -50,6 +50,10 @@ var states = await mmrMobileClient.GetStateData(from: DateTime.Now.AddDays(-3), 
 
 ```
 
+### Rate limiting
+
+All endpoints of HOMAG Connect are rate limited. If your application sends too many requests within a short time, HOMAG Connect rejects them with **HTTP 429 (Too Many Requests)** and the client throws an `HttpRequestException`. Some endpoints have a particularly low limit, see [Rate Limiting](Client/README.md#rate-limiting) in the endpoint documentation. Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
+
 ## Further details and explanations
 
 For a detailed examples and explanations, please refer to [HOMAG Connect MMR Mobile Samples](./Samples/readme.md).

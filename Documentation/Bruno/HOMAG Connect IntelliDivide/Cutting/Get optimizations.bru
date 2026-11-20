@@ -213,6 +213,10 @@ docs {
   }
   ```
   
+  ### Too Many Requests (HTTP 429)
+
+  Returned when the rate limit is exceeded. The request is not processed. Wait before you retry; if the response contains a `Retry-After` header, wait at least for the indicated time.
+
   ### Internal Server Error (HTTP 500)
   
   Returned when the server encounters an unexpected error.
@@ -282,11 +286,14 @@ docs {
   ```
   
   ## Rate Limiting
-  
-  No specific rate limiting is documented. However, it is recommended to:
+
+  All endpoints are rate limited. If you exceed the limit, the request is rejected with HTTP 429 (Too Many Requests). The limits may be adjusted over time, so do not hard-code them. To stay within the limit, it is recommended to:
+  - Retry with an increasing pause (exponential backoff) after HTTP 429 and respect the `Retry-After` header if present
   - Keep `take` parameter at or below 100 to minimize response time
   - Implement appropriate pagination strategies for large datasets
   - Cache results when appropriate to reduce server load
+
+  See [Rate Limiting](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting) for details.
   
   ## Authentication
   

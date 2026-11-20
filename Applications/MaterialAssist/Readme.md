@@ -36,6 +36,10 @@ value and must not be silently converted to zero.
 
 
 
+### Rate limiting
+
+All endpoints of HOMAG Connect are rate limited. If your application sends too many requests within a short time, HOMAG Connect rejects them with **HTTP 429 (Too Many Requests)** and the client throws an `HttpRequestException`. Wait before you retry and reduce the number of requests where possible (for example by using paging and caching). Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
+
 ## Further details and explanations
 
 - [Utilize Templates to Analyze Material Data with Excel](Samples/Statistics/Excel/Templates/Readme.md)<br>

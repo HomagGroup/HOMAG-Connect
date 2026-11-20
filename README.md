@@ -55,6 +55,55 @@ By using this API, you confirm that:
 *   You ensure that passwords are stored securely and used only in secure environments
 *   Any misuse resulting from insecure storage or exposure of credentials falls under your responsibility
 
+## Rate Limiting
+
+All HOMAG Connect endpoints are rate limited to ensure a stable service for all customers.
+If your application sends more requests than allowed within a time window, the additional requests are rejected with the status code **HTTP 429 (Too Many Requests)**.
+
+*   The limits differ per application and endpoint and may be adjusted over time. Do not hard-code them in your application.
+*   A rejected request is not processed. Send it again after a short pause.
+*   If the response contains a `Retry-After` header, wait at least for the indicated time before the next request.
+
+### Recommendations
+
+*   **Retry with backoff:** When you receive HTTP 429, wait before you retry and increase the pause with every further attempt (exponential backoff).
+*   **Reduce the number of requests:** Use paging (`take` / `skip`) and filters instead of many small requests, and request only the data you need.
+*   **Cache data that rarely changes:** For example machines, parameter sets, templates or material types.
+*   **Avoid tight polling loops:** When you wait for a state change, poll in intervals of several seconds instead of continuously.
+*   **Limit parallel requests:** Throttle the number of concurrent requests instead of sending bursts.
+
+### Handling HTTP 429 with the .NET clients
+
+The HOMAG Connect Clients do not retry automatically. A rejected request surfaces as an `HttpRequestException`; with .NET 8 or later its `StatusCode` is `HttpStatusCode.TooManyRequests`.
+The following example retries a call with exponential backoff:
+
+```c#
+using System.Net;
+
+static async Task<T> RetryOnRateLimitAsync<T>(Func<Task<T>> call, int maxRetries = 5)
+{
+    var delay = TimeSpan.FromSeconds(2);
+
+    for (var attempt = 0; ; attempt++)
+    {
+        try
+        {
+            return await call();
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.TooManyRequests && attempt < maxRetries)
+        {
+            await Task.Delay(delay);
+            delay = TimeSpan.FromSeconds(Math.Min(delay.TotalSeconds * 2, 60));
+        }
+    }
+}
+
+// Usage:
+var optimizations = await RetryOnRateLimitAsync(() => intelliDivide.GetOptimizations(OptimizationType.Cutting, 100));
+```
+
+When you call the REST API directly, evaluate the `Retry-After` response header (if present) instead of using a fixed delay.
+
 ## HOMAG Connect Clients
 
 There are HOMAG Connect Clients available for the following applications:

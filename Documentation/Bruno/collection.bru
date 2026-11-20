@@ -6,3 +6,17 @@ auth:basic {
   username: {{SubscriptionId}}
   password: {{AuthorizationKey}}
 }
+
+docs {
+  # HOMAG Connect API
+
+  ## Rate limiting
+
+  All endpoints are rate limited. If you send more requests than allowed within a time window, the request is rejected with `429 Too Many Requests` and is not processed.
+
+  - The limits differ per application and endpoint and may be adjusted over time.
+  - Wait before you retry. If the response contains a `Retry-After` header, wait at least for the indicated time; otherwise retry with an increasing pause (exponential backoff).
+  - Reduce the number of requests by using paging, filters and caching.
+
+  Details and a C# retry example: [Rate Limiting](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting)
+}

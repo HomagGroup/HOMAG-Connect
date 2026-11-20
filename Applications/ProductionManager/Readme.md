@@ -74,6 +74,10 @@ var importState = await productionManager.GetImportOrderStateAsync(correlationId
 The result is a [ImportOrderStateResponse](./Contracts/Import/ImportOrderStateResponse.cs) which based on the progress of the import job can retrieve a link to the newly created order and also the ID of the order.
 In case of error during import, 'ErrorDetails' should contain some basic information why the import failed
 
+### Rate limiting
+
+All endpoints of HOMAG Connect are rate limited. If your application sends too many requests within a short time, HOMAG Connect rejects them with **HTTP 429 (Too Many Requests)** and the client throws an `HttpRequestException`. Wait before you retry and reduce the number of requests where possible (for example by using paging and caching). Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
+
 ## Further details and explanations
 
 For a detailed examples and explanations, please refer to [HOMAG Connect ProductionManager Samples](Samples/Readme.md).
