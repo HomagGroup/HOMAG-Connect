@@ -67,7 +67,7 @@ GetMmrMachine |GET     |`api/mmr-mobile/`<br/>`machines/{machineNumber}`        
 
 ### Rate Limiting
 
-As mentioned in the base documentation, all endpoints are rate limited and the limits differ per application. For the following endpoints this limit is currently set to 6 requests in a minute. If you exceed it, you will receive **HTTP 429 (Too Many Requests)**. Wait before you retry; further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
+As mentioned in the base documentation, all endpoints are rate limited and the limits differ per application. For the following endpoints this limit is currently set to 6 requests in a minute. If you exceed it, you will receive **HTTP 429 (Too Many Requests)**. Wait before you retry. The waiting times of the optional [retry mode](https://github.com/HomagGroup/HOMAG-Connect#retry-mode) (`RetryOnRateLimit = true`) are short, so for a limit of 6 requests per minute reduce the number of requests instead. Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
 
 ### GetStateData
 

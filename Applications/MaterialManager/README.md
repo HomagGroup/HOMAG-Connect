@@ -111,7 +111,7 @@ each authoritative definition change:
 
 ### Rate limiting
 
-All endpoints of HOMAG Connect are rate limited. If your application sends too many requests within a short time, HOMAG Connect rejects them with **HTTP 429 (Too Many Requests)** and the client throws an `HttpRequestException`. Wait before you retry and reduce the number of requests where possible (for example by using paging and caching). Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
+All endpoints of HOMAG Connect are rate limited. If your application sends too many requests within a short time, HOMAG Connect rejects them with **HTTP 429 (Too Many Requests)** and the client throws an `HttpRequestException`. Wait before you retry and reduce the number of requests where possible (for example by using paging and caching). To let the client repeat rejected requests automatically, set `RetryOnRateLimit = true` (see [retry mode](https://github.com/HomagGroup/HOMAG-Connect#retry-mode)). Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
 
 ## Further details and explanations
 

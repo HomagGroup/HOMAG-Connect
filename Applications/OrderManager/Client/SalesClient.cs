@@ -94,7 +94,7 @@ namespace HomagConnect.OrderManager.Client
                 Content = requestContent
             };
 
-            using var response = await Client.SendAsync(request);
+            using var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 

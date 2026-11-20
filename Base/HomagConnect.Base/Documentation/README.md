@@ -6,7 +6,7 @@ Version   | Date     | Comment
 ----------|----------|---------
 1.0.0     |07.09.2023| First Draft
 1.1.0     |27.10.2023| Updating documentation
-1.2.0     |20.11.2026| All endpoints are rate limited
+1.2.0     |20.11.2026| All endpoints are rate limited; the .NET clients offer an optional retry mode
 
 ## Introduction
 
@@ -36,6 +36,7 @@ All endpoints of HOMAG Connect are rate limited to ensure a stable service for a
 If you send more requests than allowed within a time window, you will receive a **HTTP 429: Too Many Requests** as response. The rejected request is not processed and has to be sent again.
 
 If the response contains a `Retry-After` header, wait at least for the indicated time before the next request. Otherwise retry with an increasing pause (exponential backoff).
+The .NET clients can do this for you: if you set `RetryOnRateLimit = true`, a rejected request is repeated up to 3 times after 2, 4 and 8 seconds. This mode is optional; by default every call is sent once.
 Further recommendations and a retry example for the .NET clients can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
 
 #### Additional header data

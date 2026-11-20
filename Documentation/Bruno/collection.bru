@@ -17,6 +17,7 @@ docs {
   - The limits differ per application and endpoint and may be adjusted over time.
   - Wait before you retry. If the response contains a `Retry-After` header, wait at least for the indicated time; otherwise retry with an increasing pause (exponential backoff).
   - Reduce the number of requests by using paging, filters and caching.
+  - The .NET clients can repeat rejected requests automatically (up to 3 times after 2, 4 and 8 seconds) if `RetryOnRateLimit = true` is set. This mode is optional.
 
   Details and a C# retry example: [Rate Limiting](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting)
 }

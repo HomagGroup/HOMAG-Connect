@@ -74,8 +74,32 @@ If your application sends more requests than allowed within a time window, the a
 
 ### Handling HTTP 429 with the .NET clients
 
-The HOMAG Connect Clients do not retry automatically. A rejected request surfaces as an `HttpRequestException`; with .NET 8 or later its `StatusCode` is `HttpStatusCode.TooManyRequests`.
-The following example retries a call with exponential backoff:
+By default, every call of a HOMAG Connect Client sends exactly one request. A rejected request surfaces as an `HttpRequestException`; with .NET 8 or later its `StatusCode` is `HttpStatusCode.TooManyRequests`.
+
+#### Retry mode
+
+All clients offer an optional retry mode. Set `RetryOnRateLimit` to `true` and the client repeats a request which is rejected with HTTP 429:
+
+```c#
+var client = new IntelliDivideClient(subscriptionId, authorizationKey) { RetryOnRateLimit = true };
+
+var optimizations = await client.GetOptimizations(OptimizationType.Cutting, 100);
+```
+
+*   The mode is **off by default**. Without it, a request is sent once, as before.
+*   A rejected request is repeated up to **3 times**. The client waits **2, 4 and 8 seconds** before the 1st, 2nd and 3rd repetition.
+*   If the response contains a `Retry-After` header that asks for a longer pause, the client waits for the indicated time instead. If the requested pause is longer than 30 seconds, the request is not repeated.
+*   If the request is still rejected after the 3rd repetition, the client throws the same `HttpRequestException` as without the mode.
+*   Other errors are not repeated.
+*   Clients which consist of several sub clients (for example `MaterialManagerClient` with `Material`, `Processing` and `Textures`) pass the setting on to their sub clients. Set the property on the client you use, and assign it before you replace a sub client by your own instance.
+*   While the mode is on, the content of a request (for example an uploaded file) is held in memory so it can be sent again.
+*   The property is available on the client classes, not on the client interfaces (for example `IIntelliDivideClient`). Enable the mode where you create the client.
+
+The waiting times are short. If a limit applies per minute, a request can still be rejected after the 3rd repetition. In this case reduce the number of requests as described in the recommendations above.
+
+#### Custom retry handling
+
+If you need a different behavior (for example more repetitions), handle the exception yourself. The following example retries a call with exponential backoff:
 
 ```c#
 using System.Net;

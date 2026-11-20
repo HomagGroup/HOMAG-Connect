@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Services;
+﻿using HomagConnect.Base.Client;
+using HomagConnect.Base.Services;
 
 namespace HomagConnect.MaterialAssist.Client
 {
@@ -35,5 +36,8 @@ namespace HomagConnect.MaterialAssist.Client
         public MaterialAssistClientBoards Boards { get; set; }
 
         public MaterialAssistClientEdgebands Edgebands { get; }
+
+        /// <inheritdoc />
+        protected override IEnumerable<ClientBase?> ChildClients => [Boards, Edgebands];
     }
 }

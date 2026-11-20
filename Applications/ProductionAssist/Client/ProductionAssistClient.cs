@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-
+﻿using HomagConnect.Base.Client;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts;
@@ -30,6 +25,9 @@ namespace HomagConnect.ProductionAssist.Client
         /// ProductionAssistNestingClient
         /// </summary>
         public ProductionAssistNestingClient Nesting { get; set; }
+
+        /// <inheritdoc />
+        protected override IEnumerable<ClientBase?> ChildClients => [Cutting, Nesting, Feedback];
 
         #region Constructors
 
