@@ -62,12 +62,13 @@ namespace HomagConnect.IntelliDivide.Contracts.Request
         #region (1) Required properties
 
         /// <summary>
-        /// Gets or sets the required number of copies of this part. Must be between 1 and 10,000. Defaults to 1.
+        /// Gets or sets the required number of copies of this part. Must be between 0 and 10,000. Defaults to 1.
+        /// A value of 0 is allowed, but at least one part of the request must have a <see cref="Quantity" /> greater than 0.
         /// </summary>
         /// <example>5</example>
         [Required]
         [JsonProperty(Order = 13)]
-        [Range(1, 10000)]
+        [Range(0, 10000)]
         public int Quantity { get; set; } = 1;
 
         /// <summary>
