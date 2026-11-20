@@ -34,6 +34,8 @@ public class ClientBase
     /// </summary>
     private readonly Uri _DefaultBaseUri = new("https://connect.homag.cloud");
 
+    private bool _RetryOnRateLimit;
+
     /// <summary>
     /// Creates a new instance of the service base
     /// </summary>
@@ -82,6 +84,92 @@ public class ClientBase
     /// </summary>
     public bool ThrowExceptionOnDeprecatedCalls { get; set; }
 
+    /// <summary>
+    /// <c>true</c> to repeat calls which are rejected because the rate limit is exceeded (HTTP 429).
+    /// A rejected call is repeated up to 3 times after 2, 4 and 8 seconds. If the response contains a longer
+    /// <c>Retry-After</c> duration (up to 30 seconds), this duration is awaited instead. If the call is still rejected,
+    /// the exception for HTTP 429 is thrown as without this mode.
+    /// The default is <c>false</c>: every call is sent once.
+    /// </summary>
+    /// <remarks>
+    /// Requests with content are held in memory while this mode is enabled, so they can be sent again.
+    /// Sub clients (for example <c>Boards</c> or <c>Textures</c> of a client) use the same setting.
+    /// </remarks>
+    public bool RetryOnRateLimit
+    {
+        get => _RetryOnRateLimit;
+        set
+        {
+            _RetryOnRateLimit = value;
+
+            foreach (var childClient in ChildClients)
+            {
+                if (childClient != null)
+                {
+                    childClient.RetryOnRateLimit = value;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Clients which are used by this client and have to use the same <see cref="RetryOnRateLimit" /> setting.
+    /// </summary>
+    protected virtual IEnumerable<ClientBase?> ChildClients => Array.Empty<ClientBase?>();
+
+    /// <summary>
+    /// Waits before a rate limited call is repeated.
+    /// </summary>
+    /// <param name="delay">The duration to wait.</param>
+    /// <param name="cancellationToken">The token to cancel the wait.</param>
+    protected virtual Task DelayAsync(TimeSpan delay, CancellationToken cancellationToken)
+    {
+        return Task.Delay(delay, cancellationToken);
+    }
+
+    /// <summary>
+    /// Sends the request. If <see cref="RetryOnRateLimit" /> is enabled, the request is repeated when the service rejects it
+    /// because the rate limit is exceeded (HTTP 429).
+    /// </summary>
+    /// <param name="request">The request to send.</param>
+    /// <param name="completionOption">Indicates when the operation is completed.</param>
+    /// <param name="cancellationToken">The token to cancel the operation.</param>
+    /// <returns>The response of the last call.</returns>
+    protected async Task<HttpResponseMessage> SendRequestAsync(HttpRequestMessage request,
+        HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
+        CancellationToken cancellationToken = default)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        if (!RetryOnRateLimit)
+        {
+            return await Client.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
+        }
+
+        // A request can only be sent once, so the repetitions use a copy which is taken before the first call.
+        var snapshot = await RequestSnapshot.CreateAsync(request).ConfigureAwait(false);
+        var response = await Client.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
+
+        var retry = 0;
+
+        while (retry < RateLimitRetry.MaxRetries
+               && RateLimitRetry.IsRateLimited(response)
+               && RateLimitRetry.TryGetDelay(retry, response, out var delay))
+        {
+            response.Dispose();
+
+            await DelayAsync(delay, cancellationToken).ConfigureAwait(false);
+
+            response = await Client.SendAsync(snapshot.CreateRequest(), completionOption, cancellationToken).ConfigureAwait(false);
+            retry++;
+        }
+
+        return response;
+    }
+
     protected async Task DeleteObject(Uri uri)
     {
         var request = new HttpRequestMessage
@@ -90,7 +178,7 @@ public class ClientBase
             RequestUri = uri
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
     }
 
@@ -101,7 +189,7 @@ public class ClientBase
             Content = content
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         return response;
@@ -116,7 +204,7 @@ public class ClientBase
             Content = content
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         return response;
@@ -169,7 +257,7 @@ public class ClientBase
             Content = content
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         return response;
@@ -184,7 +272,7 @@ public class ClientBase
             Content = content
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         return response;
@@ -202,7 +290,7 @@ public class ClientBase
             Content = content
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         return response;
@@ -235,7 +323,7 @@ public class ClientBase
             RequestUri = uri
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();
@@ -269,7 +357,7 @@ public class ClientBase
             RequestUri = uri
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         if (returnDefaultIfNotFound && response.StatusCode == HttpStatusCode.NotFound)
         {
             return default;
@@ -291,7 +379,7 @@ public class ClientBase
             RequestUri = uri
         };
 
-        var response = await Client.SendAsync(request).ConfigureAwait(false);
+        var response = await SendRequestAsync(request).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var data = await response.Content.ReadAsByteArrayAsync();

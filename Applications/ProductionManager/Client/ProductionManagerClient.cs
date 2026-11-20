@@ -1,4 +1,7 @@
-﻿using HomagConnect.Base.Contracts;
+﻿using HomagConnect.Base.Client;
+using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.Base.Contracts.QueryFilter;
 using HomagConnect.Base.Extensions;
 using HomagConnect.ProductionManager.Contracts;
 using HomagConnect.ProductionManager.Contracts.Import;
@@ -9,23 +12,12 @@ using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Contracts.Rework;
+using HomagConnect.ProductionManager.Contracts.WorkstationYield;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-
-using HomagConnect.Base.Client;
-using HomagConnect.Base.Contracts.Enumerations;
-using HomagConnect.Base.Contracts.QueryFilter;
-using HomagConnect.ProductionManager.Contracts.WorkstationYield;
 
 namespace HomagConnect.ProductionManager.Client
 {
@@ -64,9 +56,9 @@ namespace HomagConnect.ProductionManager.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
-            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
@@ -156,7 +148,7 @@ namespace HomagConnect.ProductionManager.Client
             httpContent.Add(streamContent, fileName, fileName);
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var responseObject = JsonConvert.DeserializeObject<ImportOrderStateResponse>(result, SerializerSettings.Default);

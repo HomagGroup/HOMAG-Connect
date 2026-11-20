@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http;
-
+﻿using HomagConnect.Base.Client;
 using HomagConnect.Base.Services;
 
 namespace HomagConnect.MaterialManager.Client;
@@ -39,4 +37,7 @@ public class MaterialManagerClientProcessing : ServiceBase
     /// Client for managing optimization processing.
     /// </summary>
     public MaterialManagerClientProcessingOptimization Optimization { get; }
+
+    /// <inheritdoc />
+    protected override IEnumerable<ClientBase?> ChildClients => [Optimization, Cnc];
 }
