@@ -5,28 +5,28 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Orders
 {
     /// <summary>
-    /// Order Status Enumeration
-    /// </summary>
+    /// Production status of an order, from import through production to archiving. Serialized as the member name.
+            /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum OrderStatus
     {
         /// <summary>
-        /// After a successful import of a customer order, it receives the state "New".
+        /// The customer order was imported successfully and has not been released yet.
         /// </summary>
         New,
 
         /// <summary>
-        /// After an order has been release it receives the state "ReadyForProduction".
+        /// The order has been released and is ready for production.
         /// </summary>
         ReadyForProduction,
 
         /// <summary>
-        /// As soon as a production order of a order is in production.
+        /// At least one production order of the order is in production.
         /// </summary>
         InProduction,
 
         /// <summary>
-        /// As soon as all production orders have been completed, the order receives the state "Completed".
+        /// All production orders of the order have been completed.
         /// </summary>
         Completed,
 
@@ -39,8 +39,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         Finished,
 
         /// <summary>
-        /// After a successful import of a customer order, but not all blob operations are finished it receives the state "New (in
-        /// calculation)
+        /// The customer order was imported successfully, but background calculations are not finished yet ("New (in calculation)").
         /// </summary>
         NewCalculating
     }

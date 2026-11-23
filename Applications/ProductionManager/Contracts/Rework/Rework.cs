@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Interfaces;
 
@@ -7,17 +7,16 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.Rework
 {
     /// <summary>
-    /// Represents a rework item including classification, quantities, status, and related capture or rejection details.
+    /// Represents a rework request for parts that have to be produced again, including category, reason, quantity, state, and the capture or rejection details.
     /// </summary>
     /// <example>
-    /// { "id": "PART-1001", "description": "Visible edge damage", "material": "P2_Gold_Craft_Oak_19.0", "orderName": "Kitchen Order", "quantityOfReworks": 2, "category": "Damage", "reason": "HandlingError", "state": "Open", "capturedAt": "2025-03-14T08:42:15+00:00", "customerName": "Muster GmbH", "length": 720.0, "width": 480.0, "reworkId": "RW-2025-0001" }
+    ///"description": "Visible edge damage", "orderName": "Kitchen Order", "material": "P2_Gold_Craft_Oak_19.0",
     /// </example>
     [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Rework))]
     public class Rework : ISupportsLocalizedSerialization
     {
         /// <summary>
-        /// Gets or sets additional custom properties configured in the application.
-        /// JSON properties that are not mapped to typed members are captured here via <c>[JsonExtensionData]</c>.
+        /// Additional properties configured in productionManager that are not part of the standard contract. Optional.
         /// </summary>
         /// <example>{ "externalSource": "MES" }</example>
         [JsonProperty(Order = 90)]
@@ -26,23 +25,24 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         /// <summary>
-        /// Gets or sets the date and time when the rework was captured.
+        /// Date and time the rework was captured. Optional.
         /// </summary>
         /// <example>2025-03-14T08:42:15+00:00</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CapturedAt))]
         [JsonProperty(Order = 37)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? CapturedAt { get; set; }
 
         /// <summary>
-        /// Gets or sets the category used to classify the rework.
+        /// Category that classifies the rework by the production step it relates to.
         /// </summary>
-        /// <example>Damage</example>
+        /// <example>Edgebanding</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Category))]
         [JsonProperty(Order = 20)]
         public ReworkCategory Category { get; set; }
 
         /// <summary>
-        /// Gets or sets the capture details recorded when the rework was created, if available.
+        /// Details recorded when the rework was captured. Optional.
         /// </summary>
         /// <example>{ "comment": "Captured during quality inspection." }</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CaptureDetails))]
@@ -50,7 +50,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public CaptureDetails? CaptureDetails { get; set; }
 
         /// <summary>
-        /// Gets or sets the description of the rework.
+        /// Description of the rework. Optional.
         /// </summary>
         /// <example>Visible edge damage</example>
         [JsonProperty(Order = 2)]
@@ -58,7 +58,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the identifier of the part for which the rework was created.
+        /// Identifier of the part the rework was created for. Optional.
         /// </summary>
         /// <example>PART-1001</example>
         [JsonProperty(Order = 1)]
@@ -66,7 +66,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the material of the parts to be reworked.
+        /// Material code of the parts to be reworked. Optional.
         /// </summary>
         /// <example>P2_Gold_Craft_Oak_19.0</example>
         [JsonProperty(Order = 4)]
@@ -74,15 +74,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Material { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the related order.
+        /// Name of the order the rework belongs to. Optional.
         /// </summary>
         /// <example>Kitchen Order</example>
-        [JsonProperty(Order = 2)]
+        [JsonProperty(Order = 3)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(OrderName))]
         public string? OrderName { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of parts that require rework.
+        /// Number of parts that require rework.
         /// </summary>
         /// <example>2</example>
         [JsonProperty(Order = 5)]
@@ -90,15 +90,15 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public int QuantityOfReworks { get; set; }
 
         /// <summary>
-        /// Gets or sets the reason assigned to the rework.
+        /// Reason why the rework is needed.
         /// </summary>
-        /// <example>HandlingError</example>
+        /// <example>PartDamaged</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Reason))]
         [JsonProperty(Order = 21)]
         public ReworkReason Reason { get; set; }
 
         /// <summary>
-        /// Gets or sets the rejection details, if the rework item was rejected.
+        /// Details of the rejection. Only set when the rework was rejected.
         /// </summary>
         /// <example>{ "comment": "Rejected after final review." }</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectionDetails))]
@@ -106,36 +106,36 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public RejectionDetails? RejectionDetails { get; set; } = null;
 
         /// <summary>
-        /// Gets or sets the current state of the rework item.
+        /// Current state of the rework in its approval workflow.
         /// </summary>
-        /// <example>Open</example>
+        /// <example>Pending</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(State))]
         [JsonProperty(Order = 35)]
         public ReworkState State { get; set; }
 
         /// <summary>
-        /// Gets or sets the customer name associated with the rework.
+        /// Name of the customer the rework relates to. Optional.
         /// </summary>
         /// <example>Muster GmbH</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CustomerName))]
         public string? CustomerName { get; set; }
 
         /// <summary>
-        /// Gets or sets the part length.
+        /// Length of the part. Optional.
         /// </summary>
         /// <example>720.0</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
         public decimal? Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the part width.
+        /// Width of the part. Optional.
         /// </summary>
         /// <example>480.0</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
         public decimal? Width { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier of the rework item.
+        /// Unique identifier of the rework. Optional.
         /// </summary>
         /// <example>RW-2025-0001</example>
         public string? ReworkId { get; set; }

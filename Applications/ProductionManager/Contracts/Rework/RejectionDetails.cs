@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
@@ -17,8 +17,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     public class RejectionDetails
     {
         /// <summary>
-        /// Gets or sets additional custom properties configured in the application.
-        /// JSON properties that are not mapped to typed members are captured here via <c>[JsonExtensionData]</c>.
+        /// Additional properties configured in productionManager that are not part of the standard contract. Optional.
         /// </summary>
         /// <example>{ "rejectionSource": "QualityCheck" }</example>
         [JsonProperty(Order = 90)]
@@ -27,7 +26,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         /// <summary>
-        /// Gets or sets attachments associated with the rejection.
+        /// Attachments that document the rejection. Optional.
         /// </summary>
         /// <example>[]</example>
         [JsonProperty(Order = 80)]
@@ -35,7 +34,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public Collection<AdditionalDataEntity>? Attachments { get; set; }
 
         /// <summary>
-        /// Gets or sets the comment entered for the rejection.
+        /// Comment entered for the rejection. Optional.
         /// </summary>
         /// <example>Rejected due to visible surface damage.</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Comment))]
@@ -43,15 +42,16 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Comment { get; set; }
 
         /// <summary>
-        /// Gets or sets the date and time when the item was rejected.
+        /// Date and time the rework was rejected. Optional.
         /// </summary>
         /// <example>2025-03-14T08:42:15+00:00</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectedAt))]
         [JsonProperty(Order = 10)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? RejectedAt { get; set; }
 
         /// <summary>
-        /// Gets or sets the user who rejected the item.
+        /// User who rejected the rework. Optional.
         /// </summary>
         /// <example>operator@example.com</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(RejectedBy))]

@@ -10,21 +10,22 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
     /// Represents usage details for an individual order action within license usage reporting.
     /// </summary>
     /// <example>
-    /// { "timestamp": "2025-03-14T08:42:15+00:00", "orderNumber": "4711", "orderName": "Kitchen Order", "customerNumber": "C-10025", "customerName": "Muster GmbH", "quantityOfParts": 84, "action": "Released", "changedBy": "planner@example.com", "source": "ProductionManager" }
+    /// { "timestamp": "2025-03-14T08:42:15+00:00", "orderNumber": "4711", "orderName": "Kitchen Order", "customerNumber": "C-10025", "customerName": "Muster GmbH", "quantityOfParts": 84, "action": "Release", "changedBy": "planner@example.com", "source": "ProductionManager" }
     /// </example>
     [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(UsageDetails))]
     public class UsageDetails : ISupportsLocalizedSerialization
     {
         /// <summary>
-        /// Gets or sets the date and time when the order action was recorded.
+        /// Date and time when the order action was recorded.
         /// </summary>
         /// <example>2025-03-14T08:42:15+00:00</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(Timestamp))]
         [JsonProperty(Order = 1)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset Timestamp { get; set; }
 
         /// <summary>
-        /// Gets or sets the business identifier of the order.
+        /// Order number of the order the action was performed on.
         /// </summary>
         /// <example>4711</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(OrderNumber))]
@@ -32,7 +33,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string OrderNumber { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the display name of the order.
+        /// Name of the order.
         /// </summary>
         /// <example>Kitchen Order</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(OrderName))]
@@ -40,7 +41,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string OrderName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the business identifier of the customer assigned to the order.
+        /// Customer number of the customer assigned to the order. Empty when the order has none.
         /// </summary>
         /// <example>C-10025</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(CustomerNumber))]
@@ -48,7 +49,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string CustomerNumber { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the customer name assigned to the order.
+        /// Name of the customer assigned to the order. Empty when the order has none.
         /// </summary>
         /// <example>Muster GmbH</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(CustomerName))]
@@ -56,7 +57,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string CustomerName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the number of parts contained in the order.
+        /// Number of parts in the order.
         /// </summary>
         /// <example>84</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(QuantityOfParts))]
@@ -64,15 +65,15 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public int QuantityOfParts { get; set; }
 
         /// <summary>
-        /// Gets or sets the order action that affected usage reporting.
+        /// Order action that affected usage reporting.
         /// </summary>
-        /// <example>Released</example>
+        /// <example>Release</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(Action))]
         [JsonProperty(Order = 7, DefaultValueHandling = DefaultValueHandling.Include)]
         public OrderAction Action { get; set; }
 
         /// <summary>
-        /// Gets or sets the user who performed the recorded order action.
+        /// User who performed the recorded order action.
         /// </summary>
         /// <example>planner@example.com</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(ChangedBy))]
@@ -80,7 +81,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string ChangedBy { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the source system that reported the order action.
+        /// System that reported the order action. Optional.
         /// </summary>
         /// <example>ProductionManager</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(Source))]

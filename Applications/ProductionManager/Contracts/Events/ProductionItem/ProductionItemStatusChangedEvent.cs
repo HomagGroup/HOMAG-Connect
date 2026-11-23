@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using Newtonsoft.Json;
@@ -14,14 +14,14 @@ namespace Applications.ProductionManager.Contracts.Events.ProductionItem
     public class ProductionItemStatusChangedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the Identifier of the ProductionItem that was completed.
+        /// Identifier of the production item whose status changed. Optional.
         /// </summary>
         [Required]
         [JsonProperty(Order = 10)]
         public string? Identifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the Quantity of the ProductionItem that was completed.
+        /// Number of items affected by the status change. Defaults to 1.
         /// </summary>
         [Required]
         [DefaultValue(1)]
@@ -29,20 +29,20 @@ namespace Applications.ProductionManager.Contracts.Events.ProductionItem
         public int Quantity { get; set; } = 1;
 
         /// <summary>
-        /// Gets or sets the Source - person or program that triggered the feedback pf the item
+        /// Person or program that triggered the feedback for the item. Optional.
         /// </summary>
         [JsonProperty(Order = 12)]
         public string? Source { get; set; }
 
         /// <summary>
-        /// Gets or sets the WorkstationId on which the status change occurred.
+        /// The WorkstationId on which the status change occurred.
         /// </summary>
         [Required]
         [JsonProperty(Order = 13)]
         public Guid WorkstationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the status of the ProductionItem after the change.
+        /// The status of the ProductionItem after the change.
         /// </summary>
         [Required]
         [JsonProperty(Order = 14)]

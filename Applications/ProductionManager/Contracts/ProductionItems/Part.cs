@@ -12,15 +12,20 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Represents a part in an order, including its properties for laminating, edgebanding, dimensions, materials, and CNC
-/// programs.
+/// A part of an order that is produced, with its dimensions, material, edgebanding, laminating, CNC programs, and lots.
 /// </summary>
+/// <example>
+/// { "type": "Part", "id": "P-0001", "identifier": "4711000001", "articleNumber": "SIDE-L", "description": "Left side panel",
+/// "length": 720.0, "width": 560.0, "barcode": "4711000001", "productionStatus": "New", "quantity": 1, "thickness": 19.0,
+/// "dimensions": "720 x 560 x 19", "material": "P2_Hunton_Oak_dark_19.0", "grain": "Lengthwise", "quantityPlanned": 1,
+/// "edgeFront": "ABS_Oak_2.0", "unitSystem": "Metric" }
+/// </example>
 public class Part : ProductionItemBase, IPartProperties
 {
     #region (60) Production resources
 
     /// <summary>
-    /// Gets or set the production resources.
+    /// Production resources, such as hardware, that belong to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 60)]
     public Collection<Resource>? ProductionResources { get; set; }
@@ -42,22 +47,27 @@ public class Part : ProductionItemBase, IPartProperties
     public override ProductionItemType Type { get; set; } = ProductionItemType.Part;
 
     /// <summary>
-    /// Gets or sets the orderItem description.
+    /// Description of the position (order item) the part belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 15)]
     public string? OrderItemDescription { get; set; }
 
     /// <summary>
-    /// Gets or sets the thickness.
+    /// Thickness of the part. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
+    /// <example>19.0</example>
     [JsonProperty(Order = 16)]
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Thickness { get; set; }
 
     /// <summary>
-    /// Gets the dimensions as a string.
+    /// Dimensions as text in the form length x width x thickness, or length x width when no thickness is set. The value is
+    /// computed from <see cref="ProductionItemBase.Length" />, <see cref="ProductionItemBase.Width" />, and <see cref="Thickness" />;
+    /// a value sent by the consumer is ignored.
     /// </summary>
+    /// <example>720 x 560 x 19</example>
     [JsonProperty(Order = 17)]
     public string? Dimensions
     {
@@ -85,19 +95,22 @@ public class Part : ProductionItemBase, IPartProperties
     #region IMaterialProperties
 
     /// <summary>
-    /// Gets or sets the material.
+    /// Material code of the part. Optional.
     /// </summary>
+    /// <example>P2_Hunton_Oak_dark_19.0</example>
     [JsonProperty(Order = 17)]
     public string? Material { get; set; }
 
     /// <summary>
-    /// Gets or sets the grain.
+    /// Grain direction of the part.
     /// </summary>
+    /// <example>Lengthwise</example>
     [JsonProperty(Order = 18)]
     public Grain Grain { get; set; }
 
     /// <summary>
-    /// Gets or sets the finish length.
+    /// Length of the finished part after all processing. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 19)]
     [Range(0.1, 9999.9)]
@@ -105,7 +118,8 @@ public class Part : ProductionItemBase, IPartProperties
     public double? FinishLength { get; set; }
 
     /// <summary>
-    /// Gets or sets the finish width.
+    /// Width of the finished part after all processing. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 20)]
     [Range(0.1, 9999.9)]
@@ -113,12 +127,12 @@ public class Part : ProductionItemBase, IPartProperties
     public double? FinishWidth { get; set; }
 
     /// <summary>
-    /// Surface Bottom
+    /// Surface of the bottom side of the part. Optional.
     /// </summary>
     public string? SurfaceBottom { get; set; }
 
     /// <summary>
-    /// Surface Top
+    /// Surface of the top side of the part. Optional.
     /// </summary>
     public string? SurfaceTop { get; set; }
 
@@ -129,13 +143,15 @@ public class Part : ProductionItemBase, IPartProperties
     #region (20) Production
 
     /// <summary>
-    /// Gets or sets the quantity planned.
+    /// Number of pieces of the part that are planned for production. Optional.
     /// </summary>
+    /// <example>1</example>
     [JsonProperty(Order = 23)]
     public int? QuantityPlanned { get; set; }
 
     /// <summary>
-    /// Gets or sets the second cut length.
+    /// Length of the part for the second cut. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 40)]
     [Range(0.1, 9999.9)]
@@ -143,7 +159,8 @@ public class Part : ProductionItemBase, IPartProperties
     public double? SecondCutLength { get; set; }
 
     /// <summary>
-    /// Gets or sets the second cut width.
+    /// Width of the part for the second cut. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 41)]
     [Range(0.1, 9999.9)]
@@ -151,31 +168,31 @@ public class Part : ProductionItemBase, IPartProperties
     public double? SecondCutWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the production route.
+    /// Production route the part follows through the workstations. Optional.
     /// </summary>
     [JsonProperty(Order = 42)]
     public string? ProductionRoute { get; set; }
 
     /// <summary>
-    /// Gets or sets the production order type.
+    /// Type of the production order the part belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 43)]
     public string? ProductionOrderType { get; set; }
 
     /// <summary>
-    /// Gets or sets the grain matching template.
+    /// Name of the grain matching template applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 44)]
     public string? Template { get; set; }
 
     /// <summary>
-    /// Gets or sets the label layout.
+    /// Layout used to print the label of the part. Optional.
     /// </summary>
     [JsonProperty(Order = 45)]
     public string? LabelLayout { get; set; }
 
     /// <summary>
-    /// Gets or sets the list of lots in which the production entity is included.
+    /// Lots that contain the part. Optional.
     /// </summary>
     [JsonProperty(Order = 47)]
     public ProductionOrderLotReference[]? Lots { get; set; }
@@ -209,7 +226,8 @@ public class Part : ProductionItemBase, IPartProperties
     public string? EdgeRight { get; set; }
 
     /// <summary>
-    /// Gets or sets the edge back thickness.
+    /// Thickness of the edge on the back side. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 35)]
     [Range(0.1, 9999.9)]
@@ -217,7 +235,8 @@ public class Part : ProductionItemBase, IPartProperties
     public double? EdgeThicknessBack { get; set; }
 
     /// <summary>
-    /// Gets or sets the edge front thickness.
+    /// Thickness of the edge on the front side. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 36)]
     [Range(0.1, 9999.9)]
@@ -225,7 +244,8 @@ public class Part : ProductionItemBase, IPartProperties
     public double? EdgeThicknessFront { get; set; }
 
     /// <summary>
-    /// Gets or sets the edge left thickness.
+    /// Thickness of the edge on the left side. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 37)]
     [Range(0.1, 9999.9)]
@@ -233,7 +253,8 @@ public class Part : ProductionItemBase, IPartProperties
     public double? EdgeThicknessLeft { get; set; }
 
     /// <summary>
-    /// Gets or sets the edge right thickness.
+    /// Thickness of the edge on the right side. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
     [JsonProperty(Order = 38)]
     [Range(0.1, 9999.9)]
@@ -245,19 +266,19 @@ public class Part : ProductionItemBase, IPartProperties
     #region (40) ICncProgramProperties
 
     /// <summary>
-    /// Gets or sets the CNC program name 1.
+    /// Name of the first CNC program applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 40)]
     public string? CncProgramName1 { get; set; }
 
     /// <summary>
-    /// Gets or sets the CNC program name 2.
+    /// Name of the second CNC program applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 41)]
     public string? CncProgramName2 { get; set; }
 
     /// <summary>
-    /// Gets or sets the CNC program name 3.
+    /// Name of the third CNC program applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 42)]
     public string? CncProgramName3 { get; set; }
@@ -272,19 +293,19 @@ public class Part : ProductionItemBase, IPartProperties
     public string? LaminateTop { get; set; }
 
     /// <summary>
-    /// Gets or sets the material code of the laminate type which should get applied on the bottom.
+    /// Material code of the laminate applied on the bottom side. Optional.
     /// </summary>
     [JsonProperty(Order = 52)]
     [StringLength(50, MinimumLength = 1)]
     public string? LaminateBottom { get; set; }
 
     /// <summary>
-    /// LaminateBottomGrain: optional
+    /// Grain direction of the laminate on the bottom side. Optional.
     /// </summary>
     public Grain? LaminateBottomGrain { get; set; }
 
     /// <summary>
-    /// LaminateTopGrain: optional
+    /// Grain direction of the laminate on the top side. Optional.
     /// </summary>
     public Grain? LaminateTopGrain { get; set; }
 

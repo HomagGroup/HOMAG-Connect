@@ -7,7 +7,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Production item status enumeration
+/// Production status of a production item. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 [ResourceManager(typeof(ProductionItemStatusDisplayNames))]
@@ -15,27 +15,27 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 public enum ProductionItemStatus
 {
     /// <summary>
-    /// Unknown
+    /// The status could not be determined. Do not use it when creating items.
     /// </summary>
     Unknown,
 
     /// <summary>
-    /// New
-    /// </summary>
+    /// The item exists but has not been released for production yet.
+        /// </summary>
     New,
 
     /// <summary>
-    /// Ready for production
+    /// The item has been released and is waiting to be produced.
     /// </summary>
     ReadyForProduction,
 
     /// <summary>
-    /// In Production
+    /// Production of the item has started but is not finished.
     /// </summary>
     InProduction,
 
     /// <summary>
-    /// Completed
-    /// </summary>
+    /// Production of the item is finished.
+        /// </summary>
     Completed,
 }

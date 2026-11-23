@@ -94,7 +94,7 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
 
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the part's material. Optional.
     /// </summary>
     /// <example>https://example.com/materials/boards/P2_Gold_Craft_Oak_19.0.png</example>
     [JsonProperty(Order = 27)]

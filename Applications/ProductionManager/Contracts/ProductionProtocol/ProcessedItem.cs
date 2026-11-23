@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -35,8 +35,8 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 public class ProcessedItem : ISupportsLocalizedSerialization
 {
     /// <summary>
-    /// Gets or sets additional custom properties.
-    /// Any JSON properties not mapped to typed members can be captured here via <c>[JsonExtensionData]</c>.
+    /// Additional properties that are not part of the standard contract. Optional.
+    /// <para>Any JSON property not mapped to a typed member is captured here.</para>
     /// </summary>
     /// <example>{ "machine": "SAWTEQ B-300" }</example>
     [JsonProperty(Order = 90)]
@@ -45,7 +45,7 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
-    /// Gets or sets the source of the processing information, for example the workstation or system name.
+    /// Source of the processing information, for example the workstation or system name. Optional.
     /// </summary>
     /// <example>productionAssist Cutting</example>
     [JsonProperty(Order = 2)]
@@ -53,8 +53,8 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     public string? From { get; set; }
 
     /// <summary>
-    /// Gets or sets the production item type.
-    /// The base implementation returns <c>Unknown</c>; derived types provide the concrete value.
+    /// Type of the production item that was processed. The value is determined by the concrete processed item type;
+    /// a value sent by the consumer is ignored. The base type reports <see cref="ProductionItemType.Unknown" />.
     /// </summary>
     /// <example>Part</example>
     [JsonProperty(Order = 5)]
@@ -73,7 +73,7 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     }
 
     /// <summary>
-    /// Gets or sets the subscription identifier associated with the processed item.
+    /// Identifier of the subscription the processed item belongs to.
     /// </summary>
     /// <example>11111111-2222-3333-4444-555555555555</example>
     [JsonProperty(Order = 3)]
@@ -81,15 +81,17 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     public Guid SubscriptionId { get; set; }
 
     /// <summary>
-    /// Gets or sets the timestamp of when the item was processed.
+    /// Date and time the item was processed.
     /// </summary>
     /// <example>2025-01-20T14:32:10+00:00</example>
     [JsonProperty(Order = 4)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Timestamp))]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset Timestamp { get; set; }
 
     /// <summary>
-    /// Gets or sets the processed item discriminator used during JSON deserialization to determine the concrete contract type.
+    /// Discriminator that selects the concrete processed item contract when deserializing. Defaults to
+        /// <see cref="ProcessedItemType.ProcessedItem" />.
     /// </summary>
     /// <example>ProcessedPart</example>
     [JsonProperty(Order = 0)]
@@ -97,7 +99,7 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     public virtual ProcessedItemType Type { get; set; } = ProcessedItemType.ProcessedItem;
 
     /// <summary>
-    /// Gets or sets the unique identifier of the workstation where the item was processed.
+    /// Unique identifier of the workstation where the item was processed.
     /// </summary>
     /// <example>6f9619ff-8b86-d011-b42d-00cf4fc964ff</example>
     [JsonProperty(Order = 1)]
@@ -105,8 +107,9 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     public Guid WorkstationId { get; set; }
 
     /// <summary>
-    /// The processed part category: planned, rework, or surplus. 
+    /// Category of the processing: planned, rework, or unplanned. Defaults to <see cref="ProcessedItemCategory.Planned" />.
     /// </summary>
+    /// <example>Planned</example>
     [JsonProperty(Order = 6)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Category))]
     public ProcessedItemCategory Category { get; set; } = ProcessedItemCategory.Planned;

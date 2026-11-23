@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -50,13 +50,13 @@ public class CuttingPredictionRequest
     }
 
     /// <summary>
-    /// Gets or sets the machine number for which the prediction should be calculated.
+    /// The machine number for which the prediction should be calculated.
     /// </summary>
     /// <example>1-001-01-0001</example>
     public string? MachineNumber { get; set; }
 
     /// <summary>
-    /// Gets or sets the parts for which the cutting duration prediction should be calculated.
+    /// The parts for which the cutting duration prediction should be calculated.
     /// </summary>
     /// <example>
     /// [
@@ -73,7 +73,7 @@ public class CuttingPredictionRequest
     public IEnumerable<CuttingPredictionPart>? PredictionParts { get; set; }
     
     /// <summary>
-    /// Gets or sets additional custom properties configured in the application.
+    /// Additional custom properties configured in the application.
     /// JSON properties that are not mapped to typed members are captured here via <c>[JsonExtensionData]</c>.
     /// </summary>
     /// <example>{ "customField1": "value1" }</example>

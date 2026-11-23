@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 
 namespace HomagConnect.ProductionManager.Contracts.Events.ProductionItem;
@@ -8,33 +8,33 @@ namespace HomagConnect.ProductionManager.Contracts.Events.ProductionItem;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Gets or sets an event that occurs when an order has been released.
+/// Represents an event that occurs when a production item has been processed at a workstation.
 /// </summary>
 [AppEvent("ProductionItemProcessed")]
 public class ProductionItemProcessedEvent : AppEvent
 {
     /// <summary>
-    /// Gets or sets the action to be taken when a production item is processed.
+    /// The action to be taken when a production item is processed.
     /// </summary>
     public ProductionItemProcessedAction Action { get; set; }
 
     /// <summary>
-    /// Identification
+    /// Identifier of the processed production item.
     /// </summary>
     public string Identification { get; set; }
 
     /// <summary>
-    /// Quantity
+    /// Number of items that were processed.
     /// </summary>
     public int Quantity { get; set; }
 
     /// <summary>
-    /// Gets or Sets the source
+    /// Person or program that triggered the processing. Optional.
     /// </summary>
     public string? Source { get; set; }
 
     /// <summary>
-    /// Workstation id
+    /// Unique identifier of the workstation at which the item was processed.
     /// </summary>
     public Guid WorkstationId { get; set; }
 }

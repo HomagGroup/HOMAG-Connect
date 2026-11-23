@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -15,8 +15,14 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Represents a base class for production items, which can be group, parts, positions, assembly groups, or resources.
+/// Base type of all items in the bill of materials of an order: groups, positions, parts, assembly groups, and resources.
+/// The <see cref="Type" /> property determines the concrete item type when deserializing.
 /// </summary>
+/// <example>
+/// { "type": "Part", "id": "P-0001", "identifier": "4711000001", "articleNumber": "SIDE-L", "description": "Left side panel",
+/// "length": 720.0, "width": 560.0, "barcode": "4711000001", "productionStatus": "New", "quantity": 1,
+/// "startDatePlanned": "2025-04-03T00:00:00+00:00", "completionDatePlanned": "2025-04-04T00:00:00+00:00", "notes": "Handle with care" }
+/// </example>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(Group), ProductionItemType.Group)]
 [JsonSubtypes.KnownSubType(typeof(Position), ProductionItemType.Position)]
@@ -30,15 +36,16 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 public class ProductionItemBase
 {
     /// <summary>
-    /// Grouping
+    /// Grouping criterion the item is assigned to. Optional.
     /// </summary>
     public string? Grouping { get; set; }
 
     #region (10) Article
 
     /// <summary>
-    /// Gets or sets the type of the production entity.
+    /// Type of the item, which determines the concrete contract the item is deserialized to.
     /// </summary>
+    /// <example>Part</example>
     [JsonProperty(Order = 0)]
     public virtual ProductionItemType Type { get; set; }
 
@@ -47,14 +54,17 @@ public class ProductionItemBase
     #region (20) Production
 
     /// <summary>
-    /// Gets or sets the id
+    /// Identifier of the item within the order. Optional.
     /// </summary>
+    /// <example>P-0001</example>
     [JsonProperty(Order = 1)]
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets the identifier, which is either the barcode (if available) or the id.
+    /// Identifier to refer to the item: the <see cref="Barcode" /> if one exists, otherwise the <see cref="Id" />.
+    /// The value is computed; a value sent by the consumer is ignored.
     /// </summary>
+    /// <example>4711000001</example>
     [JsonProperty(Order = 2)]
     public string? Identifier
     {
@@ -70,83 +80,92 @@ public class ProductionItemBase
     }
 
     /// <summary>
-    /// Gets or sets the order item.
+    /// Identifier of the order item (position) the item belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 3)]
     public string? OrderItem { get; set; }
 
     /// <summary>
-    /// Gets or sets the order item group.
+    /// Group of the order item the item belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 4)]
     public string? OrderItemGroup { get; set; }
 
     /// <summary>
-    /// Gets or sets the article number.
+    /// Article number of the item. Optional.
     /// </summary>
+    /// <example>SIDE-L</example>
     [JsonProperty(Order = 5)]
     public string? ArticleNumber { get; set; }
 
     /// <summary>
-    /// Gets or sets the description.
+    /// Description of the item. Optional.
     /// </summary>
+    /// <example>Left side panel</example>
     [JsonProperty(Order = 6)]
     public string? Description { get; set; }
 
     /// <summary>
-    /// Gets or sets the group.
+    /// Article group the item belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 7)]
     public string? ArticleGroup { get; set; }
 
     /// <summary>
-    /// Gets or sets the procurement type.
+    /// How the item is procured, for example produced in-house or purchased. Optional.
     /// </summary>
     [JsonProperty(Order = 8)]
     public string? ProcurementType { get; set; }
 
     /// <summary>
-    /// Gets the external system id of the item which can be used as a reference.
+    /// Identifier of the item in an external system, usable as a reference. Optional.
     /// </summary>
     [JsonProperty(Order = 9)]
     public string? ExternalSystemId { get; set; }
 
     /// <summary>
-    /// Gets or sets the length.
+    /// Length of the item. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
+    /// <example>720.0</example>
     [JsonProperty(Order = 14)]
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
     /// <summary>
-    /// Gets or sets the width.
+    /// Width of the item. Optional.
+    /// <para>Unit for <see cref="UnitSystem.Metric" />: mm.</para>
     /// </summary>
+    /// <example>560.0</example>
     [JsonProperty(Order = 15)]
     [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
     /// <summary>
-    /// Barcode used to identify a production entity.
+    /// Barcode that identifies the item in production, for example when scanning at a machine. Optional.
     /// </summary>
+    /// <example>4711000001</example>
     [JsonProperty(Order = 21)]
     public string? Barcode { get; set; }
 
     /// <summary>
-    /// Gets or sets the status of the production entity.
+    /// Current production status of the item. Defaults to <see cref="ProductionItemStatus.New" />.
     /// </summary>
+    /// <example>New</example>
     [JsonProperty(Order = 22)]
     public ProductionItemStatus ProductionStatus { get; set; } = ProductionItemStatus.New;
 
     /// <summary>
-    /// Gets or sets the quantity of the production entity.
+    /// Number of pieces of the item. Defaults to 1.
     /// </summary>
+    /// <example>1</example>
     [JsonProperty(Order = 23)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the quantity unit of the production entity.
+    /// Unit in which <see cref="Quantity" /> is expressed, for example pieces. Optional.
     /// </summary>
     [JsonProperty(Order = 24)]
     public string? QuantityUnit { get; set; }
@@ -156,35 +175,47 @@ public class ProductionItemBase
     #region (30) Production data
 
     /// <summary>
-    /// Gets or sets the planned end date of the production entity.
+    /// Date on which production of the item is planned to start. Optional.
     /// </summary>
+    /// <example>2025-04-03T00:00:00+00:00</example>
     [JsonProperty(Order = 30)]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? StartDatePlanned { get; set; }
 
     /// <summary>
-    /// Gets or sets the started at date of the production entity.
+    /// Date and time production of the item started. Empty until production starts.
     /// </summary>
+    /// <example>2025-04-03T07:15:00+00:00</example>
     [JsonProperty(Order = 31)]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? StartedAt { get; set; }
 
-    /// <summary>Gets or sets the completed date planned</summary>
+    /// <summary>
+        /// Date on which production of the item is planned to be completed. Optional.
+        /// </summary>
+        /// <example>2025-04-04T00:00:00+00:00</example>
     [JsonProperty(Order = 32)]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>
-    /// Gets or sets the completed at date of the production entity.
+    /// Date and time production of the item was completed. Empty until completion.
     /// </summary>
+    /// <example>2025-04-04T15:40:00+00:00</example>
     [JsonProperty(Order = 33)]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? CompletedAt { get; set; }
 
     /// <summary>
-    /// Gets or sets the planned delivery date of the production entity.
+    /// Date on which the item is planned to be delivered. Optional.
     /// </summary>
+    /// <example>2025-05-15T00:00:00+00:00</example>
     [JsonProperty(Order = 34)]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
     /// <summary>
-    /// Gets or sets the manufacturer of the production entity.
+    /// Manufacturer of the item. Optional.
     /// </summary>
     [JsonProperty(Order = 35)]
     public string? Manufacturer { get; set; }
@@ -194,19 +225,20 @@ public class ProductionItemBase
     #region (80) Additional data
 
     /// <summary>
-    /// Gets or sets the notes of the production entity.
+    /// Free-text notes about the item. Optional.
     /// </summary>
+    /// <example>Handle with care</example>
     [JsonProperty(Order = 80)]
     public string? Notes { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional data.
+    /// Additional data entries attached to the item. Optional.
     /// </summary>
     [JsonProperty(Order = 81)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional properties configured in the application.
+    /// Additional properties configured in productionManager that are not part of the standard contract. Optional.
     /// </summary>
     [JsonProperty(Order = 90)]
     [JsonExtensionData]

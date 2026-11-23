@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +14,7 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Rework
     public class ReworkCreatedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the rework associated with this event.
+        /// The rework associated with this event.
         /// </summary>
         [Required]
         [JsonProperty(Order = 10)]

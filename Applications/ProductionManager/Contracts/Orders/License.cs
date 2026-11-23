@@ -12,7 +12,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
     public class License
     {
         /// <summary>
-        /// Gets or sets the unique identifier of the licensed application.
+        /// Unique identifier of the licensed application.
         /// </summary>
         /// <example>7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c</example>
         [JsonProperty(Order = 1)]
@@ -20,7 +20,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public Guid ApplicationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the full product name of the licensed application.
+        /// Full product name of the licensed application.
         /// </summary>
         /// <example>ProductionManager Professional</example>
         [JsonProperty(Order = 2)]
@@ -28,7 +28,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         public string ApplicationLicenseFullName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the number of licenses available for the application.
+        /// Number of licenses available for the application. Defaults to 1.
         /// </summary>
         /// <example>3</example>
         [JsonProperty(Order = 3)]

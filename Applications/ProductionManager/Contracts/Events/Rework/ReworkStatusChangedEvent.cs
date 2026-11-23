@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.ProductionManager.Contracts.Rework;
 using Newtonsoft.Json;
@@ -13,35 +13,35 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Rework
     public class ReworkStatusChangedEvent : AppEvent
     {
         /// <summary>
-        /// Gets or sets the rework id.
+        /// The rework id.
         /// </summary>
         [Required]
         [JsonProperty(Order = 10)]
         public string? ReworkId { get; set; }
 
         /// <summary>
-        /// Gets or sets the current state of the rework.
+        /// The current state of the rework.
         /// </summary>
         [Required]
         [JsonProperty(Order = 11)]
         public ReworkState State { get; set; }
 
         /// <summary>
-        /// Gets or sets the user or system that changed the rework status.
+        /// The user or system that changed the rework status.
         /// </summary>
         [Required]
         [JsonProperty(Order = 12)]
         public string? StatusChangedBy { get; set; }
 
         /// <summary>
-        /// Gets or sets the Part Identifier.
+        /// The Part Identifier.
         /// </summary>
         [Required]
         [JsonProperty(Order = 13)]
         public string? Identifier { get; set; }
 
         /// <summary>
-        /// Rejection details if available
+        /// Rejection details. Only set when the rework was rejected.
         /// </summary>
         [JsonProperty(Order = 14)]
         public RejectionDetails? RejectionDetails { get; set; } = null;

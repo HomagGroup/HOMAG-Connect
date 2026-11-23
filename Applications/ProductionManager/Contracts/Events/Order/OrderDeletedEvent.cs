@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 
@@ -7,13 +7,13 @@ using HomagConnect.Base.Contracts.Events;
 namespace HomagConnect.ProductionManager.Contracts.Events.Order;
 
 /// <summary>
-/// Gets or sets an event that occurs when an order has been deleted.
+/// Represents an event that occurs when an order has been deleted.
 /// </summary>
 [AppEvent(nameof(ProductionManager) + "." + nameof(Order) + "." + nameof(OrderDeletedEvent))]
 public class OrderDeletedEvent : AppEvent
 {
     /// <summary>
-    /// Gets or sets the order id that has been deleted.
+    /// The order id that has been deleted.
     /// </summary>
     [Required]
     public Guid OrderId { get; set; }

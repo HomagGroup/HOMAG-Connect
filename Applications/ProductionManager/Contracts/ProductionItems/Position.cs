@@ -7,12 +7,15 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Represents a position in an order, which can contain multiple production items.
+/// A position (order item) of an order, for example a piece of furniture, which contains the production items it consists of.
 /// </summary>
+/// <example>
+/// { "type": "Position", "id": "1", "description": "Base cabinet", "productionStatus": "New", "quantity": 2, "items": [] }
+/// </example>
 public class Position : ProductionItemBase
 {
     /// <summary>
-    /// Gets or sets the production entities.
+    /// Production items contained in the position. Optional.
     /// </summary>
     [JsonProperty(Order = 999)]
     public Collection<ProductionItemBase>? Items { get; set; }

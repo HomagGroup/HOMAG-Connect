@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 using HomagConnect.ProductionManager.Contracts.Orders;
 using Newtonsoft.Json;
@@ -20,7 +20,7 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Order
         public Guid OrderId { get; set; }
 
         /// <summary>
-        /// Gets the status of the order.
+        /// The status of the order.
         /// </summary>
         [Required]
         [JsonProperty(Order = 11)]
