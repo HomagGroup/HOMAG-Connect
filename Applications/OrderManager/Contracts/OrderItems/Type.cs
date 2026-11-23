@@ -13,7 +13,8 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 public enum Type
 {
     /// <summary>
-    /// Type is not known (fallback for new or unrecognized values).    /// </summary>
+    /// Type is not known (fallback for new or unrecognized values).
+    /// </summary>
     Unknown,
 
     /// <summary>

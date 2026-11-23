@@ -6,7 +6,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
 {
     /// <summary>
     /// Production status of an order, from import through production to archiving. Serialized as the member name.
-            /// </summary>
+    /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum OrderStatus
     {
@@ -35,6 +35,9 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         Archived,
 
+        /// <summary>
+        /// Obsolete. Use <see cref="Completed"/> instead.
+        /// </summary>
         [Obsolete("Use Completed instead", true)]
         Finished,
 

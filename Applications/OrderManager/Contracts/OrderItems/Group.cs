@@ -75,6 +75,7 @@ public class Group : Base
     /// <summary>
     /// Origin of the group, indicating where its items were added or edited. Optional.
     /// </summary>
+    /// <example>orderConfigurator</example>
     [JsonProperty(Order = 50)]
     public string? Origin { get; set; }
 }

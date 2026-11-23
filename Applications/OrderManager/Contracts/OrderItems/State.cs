@@ -13,34 +13,42 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 public enum State
 {
     /// <summary>
-    /// State is not known (fallback for new or unrecognized values).    /// </summary>
+    /// State is not known (fallback for new or unrecognized values).
+    /// </summary>
     Unknown,
 
     /// <summary>
-    /// The item is new and has not been released yet.    /// </summary>
+    /// The item is new and has not been released yet.
+    /// </summary>
     New,
 
     /// <summary>
-    /// The item is ready for production.    /// </summary>
+    /// The item is ready for production.
+    /// </summary>
     ReadyForProduction,
 
     /// <summary>
-    /// The item is in production.    /// </summary>
+    /// The item is in production.
+    /// </summary>
     InProduction,
 
     /// <summary>
-    /// Production of the item is completed.    /// </summary>
+    /// Production of the item is completed.
+    /// </summary>
     Completed,
 
     /// <summary>
-    /// The item has been distributed.    /// </summary>
+    /// The item has been distributed.
+    /// </summary>
     Distributed,
 
     /// <summary>
-    /// The item has been delivered.    /// </summary>
+    /// The item has been delivered.
+    /// </summary>
     Delivered,
 
     /// <summary>
-    /// The item has been archived.    /// </summary>
+    /// The item has been archived.
+    /// </summary>
     Archived
 }

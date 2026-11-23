@@ -108,22 +108,30 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     public double? FinishWidth { get; set; }
 
     /// <summary>
-    /// Label layout used to print the label of the part. Optional.    /// </summary>
+    /// Label layout used to print the label of the part. Optional.
+    /// </summary>
+    /// <example>Standard</example>
     [JsonProperty(Order = 260)]
     public string? LabelLayout { get; set; }
 
     /// <summary>
-    /// Template used for the part. Optional.    /// </summary>
+    /// Template used for the part. Optional.
+    /// </summary>
+    /// <example>Template-01</example>
     [JsonProperty(Order = 250)]
     public string? Template { get; set; }
 
     /// <summary>
-    /// Length of the second cut size. Optional.    /// </summary>
+    /// Length of the second cut size. Optional.
+    /// </summary>
+    /// <example>700</example>
     [JsonProperty(Order = 220)]
     public double? SecondCutLength { get; set; }
 
     /// <summary>
-    /// Width of the second cut size. Optional.    /// </summary>
+    /// Width of the second cut size. Optional.
+    /// </summary>
+    /// <example>580</example>
     [JsonProperty(Order = 230)]
     public double? SecondCutWidth { get; set; }
 
@@ -139,18 +147,23 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     public string? Material { get; set; }
 
     /// <summary>
-    /// Surface of the top side. Optional.    /// </summary>
+    /// Surface of the top side. Optional.
+    /// </summary>
+    /// <example>Melamine</example>
     [JsonProperty(Order = 120)]
     public string? SurfaceTop { get; set; }
 
     /// <summary>
-    /// Surface of the bottom side. Optional.    /// </summary>
+    /// Surface of the bottom side. Optional.
+    /// </summary>
+    /// <example>Melamine</example>
     [JsonProperty(Order = 130)]
     public string? SurfaceBottom { get; set; }
 
     /// <summary>
     /// Grain direction of the part.
     /// </summary>
+    /// <example>Lengthwise</example>
     [JsonProperty(Order = 110)]
     public Grain Grain { get; set; }
 
@@ -179,22 +192,30 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     public string? EdgeRight { get; set; }
 
     /// <summary>
-    /// Edge thickness at the front. Optional.    /// </summary>
+    /// Edge thickness at the front. Optional.
+    /// </summary>
+    /// <example>2</example>
     [JsonProperty(Order = 415)]
     public double? EdgeThicknessFront { get; set; }
 
     /// <summary>
-    /// Edge thickness at the back. Optional.    /// </summary>
+    /// Edge thickness at the back. Optional.
+    /// </summary>
+    /// <example>2</example>
     [JsonProperty(Order = 425)]
     public double? EdgeThicknessBack { get; set; }
 
     /// <summary>
-    /// Edge thickness at the left. Optional.    /// </summary>
+    /// Edge thickness at the left. Optional.
+    /// </summary>
+    /// <example>0.8</example>
     [JsonProperty(Order = 435)]
     public double? EdgeThicknessLeft { get; set; }
 
     /// <summary>
-    /// Edge thickness at the right. Optional.    /// </summary>
+    /// Edge thickness at the right. Optional.
+    /// </summary>
+    /// <example>0.8</example>
     [JsonProperty(Order = 445)]
     public double? EdgeThicknessRight { get; set; }
 
@@ -203,17 +224,23 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     #region ICncProgramProperties
 
     /// <summary>
-    /// Name of the first CNC program. Optional.    /// </summary>
+    /// Name of the first CNC program. Optional.
+    /// </summary>
+    /// <example>Drill_Hinges.mpr</example>
     [JsonProperty(Order = 410)]
     public string? CncProgramName1 { get; set; }
 
     /// <summary>
-    /// Name of the second CNC program. Optional.    /// </summary>
+    /// Name of the second CNC program. Optional.
+    /// </summary>
+    /// <example>Groove_Back.mpr</example>
     [JsonProperty(Order = 420)]
     public string? CncProgramName2 { get; set; }
 
     /// <summary>
-    /// Name of the third CNC program. Optional.    /// </summary>
+    /// Name of the third CNC program. Optional.
+    /// </summary>
+    /// <example>Contour.mpr</example>
     [JsonProperty(Order = 430)]
     public string? CncProgramName3 { get; set; }
 
@@ -228,16 +255,21 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// <summary>
     /// Material code of the laminate applied on the bottom. Optional.
     /// </summary>
+    /// <example>HPL_White_0.8</example>
     [JsonProperty(Order = 530)]
     public string? LaminateBottom { get; set; }
 
     /// <summary>
-    /// Grain direction of the top laminate. Optional.    /// </summary>
+    /// Grain direction of the top laminate. Optional.
+    /// </summary>
+    /// <example>Lengthwise</example>
     [JsonProperty(Order = 520)]
     public Grain? LaminateTopGrain { get; set; }
 
     /// <summary>
-    /// Grain direction of the bottom laminate. Optional.    /// </summary>
+    /// Grain direction of the bottom laminate. Optional.
+    /// </summary>
+    /// <example>None</example>
     [JsonProperty(Order = 540)]
     public Grain? LaminateBottomGrain { get; set; }
 

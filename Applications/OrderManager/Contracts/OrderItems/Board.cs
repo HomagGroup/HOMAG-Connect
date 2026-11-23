@@ -52,18 +52,23 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public string? Material { get; set; }
 
         /// <summary>
-        /// Surface of the top side. Optional.        /// </summary>
+        /// Surface of the top side. Optional.
+        /// </summary>
+        /// <example>Melamine</example>
         [JsonProperty(Order = 120)]
         public string? SurfaceTop { get; set; }
 
         /// <summary>
-        /// Surface of the bottom side. Optional.        /// </summary>
+        /// Surface of the bottom side. Optional.
+        /// </summary>
+        /// <example>Melamine</example>
         [JsonProperty(Order = 130)]
         public string? SurfaceBottom { get; set; }
 
         /// <summary>
         /// Grain direction of the board.
         /// </summary>
+        /// <example>Lengthwise</example>
         [JsonProperty(Order = 110)]
         public Grain Grain { get; set; }
 

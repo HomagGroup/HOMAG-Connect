@@ -12,7 +12,8 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 public enum PositionType
 {
        /// <summary>
-    /// Standard position.    /// </summary>
+    /// Standard position.
+    /// </summary>
     Standard,
 
     /// <summary>

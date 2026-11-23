@@ -5,6 +5,9 @@ namespace HomagConnect.OrderManager.Contracts.Sales
     /// <summary>
     /// Master data describing an attribute (parameter) that can occur on a module.
     /// </summary>
+    /// <example>
+    /// { "id": "width", "name": "Width", "desc": "Width of the module", "isMain": true, "group": "Dimensions", "type": "dim", "userRight": "Simple", "sorting": 10, "selections": [] }
+    /// </example>
     public class MDAttributeInfo
     {
         /// <summary>
@@ -26,7 +29,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public string? Description { get; set; }
 
         /// <summary>
-        /// Is main attribute
+        /// <c>true</c> if this is a main attribute of the module. Optional.
         /// </summary>
         [JsonProperty("isMain")]
         public bool? IsMain { get; set; }
@@ -50,7 +53,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public string Type { get; set; } = null!;
 
         /// <summary>
-        /// User right (can be: Master, Advanced, Simple)
+        /// User right required to see or change the attribute: <c>Master</c>, <c>Advanced</c> or <c>Simple</c>.
         /// </summary>
         [JsonProperty("userRight")]
         public MDAttributeUserRight UserRight { get; set; }
@@ -68,7 +71,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public string? PosView { get; set; }
 
         /// <summary>
-        /// Sorting of the attribute
+        /// Sort position of the attribute. Optional.
         /// </summary>
         [JsonProperty("sorting")]
         public int? Sorting { get; set; }

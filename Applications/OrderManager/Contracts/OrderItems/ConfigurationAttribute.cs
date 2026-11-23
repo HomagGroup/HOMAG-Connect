@@ -61,6 +61,7 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     /// Specifies whether the attribute is relevant for the configuration in the point of sale (POS) system.
     /// If <c>false</c>, the attribute is used internally only.
     /// </summary>
+    /// <example>true</example>
     public bool? IsPosRelevant { get; set; }
 
     /// <summary>
@@ -97,6 +98,7 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     /// <summary>
     /// Specifies if the attribute was marked as hidden during creation.
     /// </summary>
+    /// <example>false</example>
     [JsonProperty("isHidden")]
     public bool? IsHidden { get; set; }
 

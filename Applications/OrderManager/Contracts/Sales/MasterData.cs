@@ -5,6 +5,9 @@ namespace HomagConnect.OrderManager.Contracts.Sales
     /// <summary>
     /// Master data container holding the available modules and attributes used to describe articles.
     /// </summary>
+    /// <example>
+    /// { "LibraryId": "kitchen-lib", "modules": [], "attributes": [] }
+    /// </example>
     public class MasterData
     {
         /// <summary>
