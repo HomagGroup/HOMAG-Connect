@@ -1,7 +1,7 @@
-﻿namespace HomagConnect.ProductionAssist.Contracts.Nesting.Interfaces
+namespace HomagConnect.ProductionAssist.Contracts.Nesting.Interfaces
 {
     /// <summary>
-    /// productionAssist Client for cutting jobs.
+    /// productionAssist Client for nesting jobs.
     /// </summary>
     public interface IProductionAssistNestingClient
     {

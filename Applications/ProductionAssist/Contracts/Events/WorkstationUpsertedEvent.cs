@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using Newtonsoft.Json;
@@ -8,20 +8,23 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.ProductionAssist.Contracts.Events;
 
 /// <summary>
-/// Base class for events that occur on a workstation that has been updated or created.
+/// Event that occurs when a workstation has been created or updated.
 /// </summary>
+/// <example>
+/// { "id": "0b9f6c1e-52a8-4a3e-9d52-8d3b0c1f7a10", "timestamp": "2025-03-14T08:42:15+00:00", "subscriptionId": "c2f1a6d4-7e53-4b8a-b0c9-1a2d3e4f5a6b", "key": "ProductionAssist.WorkstationUpsertedEvent", "workstation": { "id": "6f9619ff-8b86-d011-b42d-00cf4fc964ff", "name": "productionAssist Cutting" }, "action": "Created" }
+/// </example>
 [AppEvent(nameof(ProductionAssist) + "." + nameof(WorkstationUpsertedEvent))]
 public class WorkstationUpsertedEvent : AppEvent
 {
     /// <summary>
-    /// Gets or sets the Workstation information.
+    /// Workstation that was created or updated.
     /// </summary>
     [Required]
     [JsonProperty(Order = 10)]
     public Workstation Workstation { get; set; }
 
     /// <summary>
-    /// Gets or sets the action performed during the upsert operation.
+    /// Whether the workstation was created or updated. Defaults to Created.
     /// </summary>
     [Required]
     [JsonProperty(Order = 11)]

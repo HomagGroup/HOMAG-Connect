@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 
 namespace HomagConnect.ProductionAssist.Contracts
@@ -23,7 +23,7 @@ namespace HomagConnect.ProductionAssist.Contracts
         /// <summary>
         /// Retrieve the list all workstations.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The workstations, or <c>null</c> if none are available.</returns>
         Task<IEnumerable<Workstation>?> GetWorkstations();
     }
 }

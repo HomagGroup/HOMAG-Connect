@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces
+namespace HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces
 {
     /// <summary>
     /// productionAssist Client for cutting jobs.
@@ -15,7 +15,7 @@
         /// <summary>
         /// Retrieve the list of all cutting jobs.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The cutting jobs.</returns>
         Task<IEnumerable<CuttingJob>> GetCuttingJobs();
 
         /// <summary>

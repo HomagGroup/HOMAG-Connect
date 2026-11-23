@@ -9,6 +9,9 @@ namespace HomagConnect.ProductionManager.Contracts.Events.Rework
     /// <summary>
     /// Represents an event that is triggered when the status of a rework changes in the Production Manager.
     /// </summary>
+    /// <example>
+    /// { "id": "0b9f6c1e-52a8-4a3e-9d52-8d3b0c1f7a10", "timestamp": "2025-03-14T08:42:15+00:00", "subscriptionId": "c2f1a6d4-7e53-4b8a-b0c9-1a2d3e4f5a6b", "key": "ProductionManager.Rework.ReworkStatusChangedEvent", "reworkId": "RW-1001", "state": "Approved", "statusChangedBy": "planner@example.com", "identifier": "PART-1001" }
+    /// </example>
     [AppEvent(nameof(ProductionManager) + "." + nameof(Rework) + "." + nameof(ReworkStatusChangedEvent))]
     public class ReworkStatusChangedEvent : AppEvent
     {

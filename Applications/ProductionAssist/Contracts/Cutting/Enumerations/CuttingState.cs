@@ -5,28 +5,28 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionAssist.Contracts.Cutting.Enumerations
 {
     /// <summary>
-    /// Cutting State
+    /// Production state of a cutting job. Serialized as the member name.
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum CuttingState
     {
         /// <summary>
-        /// Not yet started
+        /// Production has not started yet.
         /// </summary>
         NotStarted,
 
         /// <summary>
-        /// Started (at least one part produced)
+        /// Production has started; at least one part was produced.
         /// </summary>
         Started,
 
         /// <summary>
-        /// Finished (all parts produced)
+        /// Production is finished; all parts were produced.
         /// </summary>
         Finished,
 
         /// <summary>
-        /// Archived
+        /// The cutting job was archived.
         /// </summary>
         Archived
     }
