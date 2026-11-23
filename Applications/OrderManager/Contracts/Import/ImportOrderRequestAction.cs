@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Import;
 
 /// <summary>
-/// Defines the actions which should get performed on import.
+/// Actions that can be performed on import. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 public enum ImportOrderRequestAction

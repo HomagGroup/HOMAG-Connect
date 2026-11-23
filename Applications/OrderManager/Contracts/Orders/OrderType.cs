@@ -7,25 +7,25 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Orders;
 
 /// <summary>
-/// Order type.
+/// Type of an order. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 [ResourceManager(typeof(OrderTypeDisplayNames))]
 public enum OrderType
 {
     /// <summary>
-    /// Default / unknown type (fallback if the enum is new or not known)
+    /// Type is not known (fallback for new or unrecognized values).
     /// </summary>
     Unknown,
 
     /// <summary>
-    /// The order is a customer order. Default type of an order.
+    /// The order is a customer order. This is the default type.
     /// </summary>
     CustomerOrder,
 
     /// <summary>
-    /// The order is a reclaim. This type of order is used when a customer returns an item 
-    /// or requests a replacement due to issues such as damage, defects, or other issues.
+    /// The order is a reclaim, used when a customer returns an item or requests a replacement
+    /// because of damage, defects or other issues.
     /// </summary>
     ReclaimOrder
 }

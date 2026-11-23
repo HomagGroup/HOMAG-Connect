@@ -9,8 +9,11 @@ using System.ComponentModel;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Order item part
+/// Part of an order, including its material, dimensions, edgebanding, CNC programs and production dates.
 /// </summary>
+/// <example>
+/// { "type": "Part", "id": "PART-1001", "material": "P2_Gold_Craft_Oak_19.0", "grain": "Lengthwise", "length": 720, "width": 596, "thickness": 19, "quantity": 2, "edgeFront": "ABS_Oak_2.0", "state": "New" }
+/// </example>
 public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties, IDimensionProperties,
     IMaterialProperties, ICncProgramProperties, ICuttingProperties
 {
@@ -34,8 +37,9 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     #region IDimensionProperties
 
     /// <summary>
-    /// Gets or sets the thickness.
+    /// Thickness of the part. Optional.
     /// </summary>
+    /// <example>19</example>
     [JsonProperty(Order = 15)]
     public double? Thickness { get; set; }
 
@@ -44,36 +48,44 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     #region Production Properties
 
     /// <summary>
-    /// Gets or sets the planned end date of the  entity.
+    /// Planned start date and time of the part. Optional.
     /// </summary>
+    /// <example>2025-04-04T06:00:00+00:00</example>
     [JsonProperty(Order = 810)]
     public DateTimeOffset? StartDatePlanned { get; set; }
 
     /// <summary>
-    /// Gets or sets the started at date of the  entity.
+    /// Date and time production of the part started. Optional.
     /// </summary>
+    /// <example>2025-04-04T06:15:00+00:00</example>
     [JsonProperty(Order = 815)]
     public DateTimeOffset? StartedAt { get; set; }
 
-    /// <summary>Gets or sets the completed date planned</summary>
+    /// <summary>
+        /// Planned completion date and time of the part. Optional.
+        /// </summary>
+        /// <example>2025-04-08T15:00:00+00:00</example>
     [JsonProperty(Order = 820)]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>
-    /// Gets or sets the completed at date of the  entity.
+    /// Date and time production of the part was completed. Optional.
     /// </summary>
+    /// <example>2025-04-08T15:40:00+00:00</example>
     [JsonProperty(Order = 825)]
     public DateTimeOffset? CompletedAt { get; set; }
 
     /// <summary>
-    /// Gets or sets the planned delivery date of the  entity.
+    /// Planned delivery date and time of the part. Optional.
     /// </summary>
+    /// <example>2025-05-15T00:00:00+00:00</example>
     [JsonProperty(Order = 830)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
     /// <summary>
-    /// Production route used to manufacture the part.
+    /// Production route used to manufacture the part. Optional.
     /// </summary>
+    /// <example>Cutting-Edgebanding-Drilling</example>
     [JsonProperty(Order = 835)]
     public string? ProductionRoute { get; set; }
 
@@ -82,38 +94,36 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     #region ICuttingProperties Members
 
     /// <summary>
-    /// Finish length
+    /// Finished length of the part. Optional.
     /// </summary>
+    /// <example>720</example>
     [JsonProperty(Order = 200)]
     public double? FinishLength { get; set; }
 
     /// <summary>
-    /// Finish width
+    /// Finished width of the part. Optional.
     /// </summary>
+    /// <example>596</example>
     [JsonProperty(Order = 210)]
     public double? FinishWidth { get; set; }
 
     /// <summary>
-    /// Label layout
-    /// </summary>
+    /// Label layout used to print the label of the part. Optional.    /// </summary>
     [JsonProperty(Order = 260)]
     public string? LabelLayout { get; set; }
 
     /// <summary>
-    /// Template
-    /// </summary>
+    /// Template used for the part. Optional.    /// </summary>
     [JsonProperty(Order = 250)]
     public string? Template { get; set; }
 
     /// <summary>
-    /// 2. Cut size length
-    /// </summary>
+    /// Length of the second cut size. Optional.    /// </summary>
     [JsonProperty(Order = 220)]
     public double? SecondCutLength { get; set; }
 
     /// <summary>
-    /// 2. Cut size width
-    /// </summary>
+    /// Width of the second cut size. Optional.    /// </summary>
     [JsonProperty(Order = 230)]
     public double? SecondCutWidth { get; set; }
 
@@ -122,25 +132,24 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     #region IMaterialProperties
 
     /// <summary>
-    /// Gets or sets the material.
+    /// Material code of the part. Optional.
     /// </summary>
+    /// <example>P2_Gold_Craft_Oak_19.0</example>
     [JsonProperty(Order = 100)]
     public string? Material { get; set; }
 
     /// <summary>
-    /// Surface Top
-    /// </summary>
+    /// Surface of the top side. Optional.    /// </summary>
     [JsonProperty(Order = 120)]
     public string? SurfaceTop { get; set; }
 
     /// <summary>
-    /// Surface Bottom
-    /// </summary>
+    /// Surface of the bottom side. Optional.    /// </summary>
     [JsonProperty(Order = 130)]
     public string? SurfaceBottom { get; set; }
 
     /// <summary>
-    /// Gets or sets the grain.
+    /// Grain direction of the part.
     /// </summary>
     [JsonProperty(Order = 110)]
     public Grain Grain { get; set; }
@@ -170,26 +179,22 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     public string? EdgeRight { get; set; }
 
     /// <summary>
-    /// Edge Thickness Front
-    /// </summary>
+    /// Edge thickness at the front. Optional.    /// </summary>
     [JsonProperty(Order = 415)]
     public double? EdgeThicknessFront { get; set; }
 
     /// <summary>
-    /// Edge Thickness Back
-    /// </summary>
+    /// Edge thickness at the back. Optional.    /// </summary>
     [JsonProperty(Order = 425)]
     public double? EdgeThicknessBack { get; set; }
 
     /// <summary>
-    /// Edge Thickness Left
-    /// </summary>
+    /// Edge thickness at the left. Optional.    /// </summary>
     [JsonProperty(Order = 435)]
     public double? EdgeThicknessLeft { get; set; }
 
     /// <summary>
-    /// Edge Thickness Right
-    /// </summary>
+    /// Edge thickness at the right. Optional.    /// </summary>
     [JsonProperty(Order = 445)]
     public double? EdgeThicknessRight { get; set; }
 
@@ -198,20 +203,17 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     #region ICncProgramProperties
 
     /// <summary>
-    /// Cnc program name 1
-    /// </summary>
+    /// Name of the first CNC program. Optional.    /// </summary>
     [JsonProperty(Order = 410)]
     public string? CncProgramName1 { get; set; }
 
     /// <summary>
-    /// Cnc program name 2
-    /// </summary>
+    /// Name of the second CNC program. Optional.    /// </summary>
     [JsonProperty(Order = 420)]
     public string? CncProgramName2 { get; set; }
 
     /// <summary>
-    /// CNC Program Name 3
-    /// </summary>
+    /// Name of the third CNC program. Optional.    /// </summary>
     [JsonProperty(Order = 430)]
     public string? CncProgramName3 { get; set; }
 
@@ -224,20 +226,18 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     public string? LaminateTop { get; set; }
 
     /// <summary>
-    /// Gets or sets the material code of the laminate type which should get applied on the bottom.
+    /// Material code of the laminate applied on the bottom. Optional.
     /// </summary>
     [JsonProperty(Order = 530)]
     public string? LaminateBottom { get; set; }
 
     /// <summary>
-    /// LaminateTopGrain: optional
-    /// </summary>
+    /// Grain direction of the top laminate. Optional.    /// </summary>
     [JsonProperty(Order = 520)]
     public Grain? LaminateTopGrain { get; set; }
 
     /// <summary>
-    /// LaminateBottomGrain: optional
-    /// </summary>
+    /// Grain direction of the bottom laminate. Optional.    /// </summary>
     [JsonProperty(Order = 540)]
     public Grain? LaminateBottomGrain { get; set; }
 

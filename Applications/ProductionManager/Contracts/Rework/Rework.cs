@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Interfaces;
 
@@ -10,7 +10,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     /// Represents a rework request for parts that have to be produced again, including category, reason, quantity, state, and the capture or rejection details.
     /// </summary>
     /// <example>
-    ///"description": "Visible edge damage", "orderName": "Kitchen Order", "material": "P2_Gold_Craft_Oak_19.0",
+    /// { "id": "PART-1001", "description": "Visible edge damage", "orderName": "Kitchen Order", "material": "P2_Gold_Craft_Oak_19.0", "quantityOfReworks": 2, "category": "Edgebanding", "reason": "PartDamaged", "state": "Pending", "capturedAt": "2025-03-14T08:42:15+00:00" }
     /// </example>
     [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Rework))]
     public class Rework : ISupportsLocalizedSerialization

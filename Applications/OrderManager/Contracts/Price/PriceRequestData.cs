@@ -2,18 +2,22 @@
 namespace HomagConnect.OrderManager.Contracts.Price
 {
     /// <summary>
-    /// Data for the price calculation request
+    /// Request to calculate the price of an order.
     /// </summary>
+    /// <example>
+    /// { "orderData": { "id": "3f2b8c1e-5a47-4d6e-9b0a-7c1d2e3f4a5b", "orderName": "Kitchen Miller" }, "libraryId": "StandardPrices" }
+    /// </example>
     public class PriceRequestData
     {
         /// <summary>
-        /// The order data for which the price should be calculated
+        /// Order for which the price is calculated.
         /// </summary>
         public Orders.OrderDetails OrderData { get; set; } = null!;
 
         /// <summary>
-        /// Optional the library which should be used for the price calculation
+        /// Identifier of the price library to use. Optional.
         /// </summary>
+        /// <example>StandardPrices</example>
         public string? LibraryId { get; set; }
     }
 }

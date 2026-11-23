@@ -1,13 +1,11 @@
 ﻿namespace HomagConnect.OrderManager.Contracts.Customers
 {
     /// <summary>
-    /// State
-    /// </summary>
+    /// Registration and activation state of a customer.    /// </summary>
     public enum State
     {
         /// <summary>
-        /// Approved
-        /// </summary>
+        /// The customer is approved and active.        /// </summary>
         Approved,
 
         /// <summary>
@@ -16,13 +14,11 @@
         Pending,
 
         /// <summary>
-        /// Blocked
-        /// </summary>
+        /// The customer is blocked.        /// </summary>
         Blocked,
 
         /// <summary>
-        /// Archived
-        /// </summary>
+        /// The customer is archived.        /// </summary>
         Archived
     }
 }

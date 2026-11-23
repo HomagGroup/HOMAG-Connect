@@ -8,26 +8,30 @@ namespace HomagConnect.OrderManager.Contracts.Interfaces
     public interface IArticle
     {
         /// <summary>
-        /// The article id of the (sub-)article
+        /// Article number of the (sub-)article. Optional.
         /// </summary>
+        /// <example>BU-600</example>
         [JsonProperty(Order = 2)]
         public string? ArticleNumber { get; set; }
 
         /// <summary>
-        /// The localized short name of the (sub-)article
+        /// Localized short name of the (sub-)article. Optional.
         /// </summary>
+        /// <example>Base unit 600</example>
         [JsonProperty(Order = 2)]
         public string? ArticleName { get; set; }
 
         /// <summary>
-        /// The localized category of the (sub-)article
+        /// Localized category of the (sub-)article. Optional.
         /// </summary>
+        /// <example>Base units</example>
         [JsonProperty(Order = 2)]
         public string? ArticleCategory { get; set; }
 
         /// <summary>
-        /// The localized description of the (sub-)article
+        /// Localized description of the (sub-)article. Optional.
         /// </summary>
+        /// <example>Base unit with one door</example>
         [JsonProperty(Order = 3)]
         public string? Description { get; set; }
     }

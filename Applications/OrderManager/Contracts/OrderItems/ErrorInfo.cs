@@ -3,8 +3,11 @@
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// 
+/// Error or warning information attached to an order item, for example from a failed calculation.
 /// </summary>
+/// <example>
+/// { "type": "ErrorInfo", "text": "No price found for position 3.", "category": "Warning" }
+/// </example>
 public class ErrorInfo : Base
 {
     /// <inheritdoc cref="Base" />
@@ -21,15 +24,14 @@ public class ErrorInfo : Base
     }
 
     /// <summary>
-    /// Optional an error information or text
+    /// Text of the error or warning. Optional.
     /// </summary>
+    /// <example>No price found for position 3.</example>
     public string? Text { get; set; }
 
     /// <summary>
-    /// Optional an error category
-    /// Possible values are:
-    /// * Error
-    /// * Warning
+    /// Category of the error information, either <c>Error</c> or <c>Warning</c>. Optional.
     /// </summary>
+    /// <example>Warning</example>
     public string? Category { get; set; }
 }

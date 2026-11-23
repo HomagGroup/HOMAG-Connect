@@ -5,8 +5,11 @@ using System.ComponentModel;
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
     /// <summary>
-    /// Represents a edge band.
+    /// Edge band of an order, including its material, dimensions, length and costs.
     /// </summary>
+    /// <example>
+    /// { "type": "EdgeBand", "id": "E1", "material": "ABS_Oak_2.0", "height": 23, "thickness": 2, "costs": 31.2, "length": 18500, "coilQuantity": 1, "unitSystem": "Metric" }
+    /// </example>
     public class EdgeBand : Base
     {
         #region ComponentBase Members
@@ -27,48 +30,55 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         #endregion
 
         /// <summary>
-        /// Gets or sets the material.
+        /// Material code of the edge band.
         /// </summary>
+        /// <example>ABS_Oak_2.0</example>
         [JsonProperty(Order = 1)]
         public string Material { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the height.
+        /// Height of the edge band.
         /// </summary>
+        /// <example>23</example>
         [JsonProperty(Order = 2)]
         [DefaultValue(0.0)]
         public double Height { get; set; }
 
         /// <summary>
-        /// Gets or sets the thickness.
+        /// Thickness of the edge band.
         /// </summary>
+        /// <example>2</example>
         [JsonProperty(Order = 3)]
         [DefaultValue(0.0)]
         public double Thickness { get; set; }
 
         /// <summary>
-        /// Gets or sets the total cost.
+        /// Total costs of the edge band. Defaults to 0.
         /// </summary>
+        /// <example>31.2</example>
         [JsonProperty(Order = 5)]
         [DefaultValue(0.0)]
         public double Costs { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the edgeband.
+        /// Length of the edge band.
         /// </summary>
+        /// <example>18500</example>
         [JsonProperty(Order = 22)]
         [DefaultValue(0.0)]
         public double Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity of the edge band coils.
+        /// Number of edge band coils. Optional.
         /// </summary>
+        /// <example>1</example>
         [JsonProperty(Order = 23)]
         public int? CoilQuantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the unit system.
+        /// Unit system of the dimensions. Defaults to <c>Metric</c>.
         /// </summary>
+        /// <example>Metric</example>
         [JsonProperty(Order = 999)]
         [DefaultValue(UnitSystem.Metric)]
         public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;

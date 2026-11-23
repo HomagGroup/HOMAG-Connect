@@ -7,8 +7,11 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Order item group.
+/// Group of order items, for example the items of a room or of an optimization.
 /// </summary>
+/// <example>
+/// { "type": "Group", "id": "G1", "name": "Kitchen", "source": "orderConfigurator", "quantity": 1, "groupType": "Default", "items": [] }
+/// </example>
 public class Group : Base
 {
     /// <inheritdoc cref="Base" />
@@ -25,52 +28,52 @@ public class Group : Base
     }
 
     /// <summary>
-    /// Gets or sets the name of the group.
+    /// Name of the group. Optional.
     /// </summary>
+    /// <example>Kitchen</example>
     [JsonProperty(Order = 10)]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the source of the group.
-    /// Possible values:
-    /// * orderConfigurator
-    /// * TODO: ???
+    /// Source of the group, for example <c>orderConfigurator</c>. Optional.
     /// </summary>
+    /// <example>orderConfigurator</example>
     [JsonProperty(Order = 11)]
     public string? Source { get; set; }
 
     /// <summary>
-    /// Gets or sets the quantity.
+    /// Quantity of the group. Defaults to 1.
     /// </summary>
+    /// <example>1</example>
     [DefaultValue(1)]
     [JsonProperty(Order = 13)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>
-    /// An optional definition of the room information.
-    /// This can also be mutiple rooms.
-    /// The data structure is sperately defined.
-    /// The position of each ConfigurationPosition must match 
-    /// with the corrdinate system of the room data.
+    /// Room information of the group, which can describe several rooms. Optional.
+    /// The data structure is defined separately; the position of each configuration position
+    /// must match the coordinate system of the room data.
     /// </summary>
     [JsonProperty(Order = 20)]
     public string? RoomInformation { get; set; }
 
     /// <summary>
-    /// Gets or sets the type of group.
+    /// Type of the group. Defaults to <see cref="OrderItems.GroupType.Default" />.
     /// </summary>
+    /// <example>Default</example>
     [DefaultValue(GroupType.Default)]
     [JsonProperty(Order = 30)]
     public GroupType GroupType { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Bill of Materials (BOM) data is required for processing.
+    /// <c>true</c> if bill of materials (BOM) data is required for processing the group. Optional.
     /// </summary>
+    /// <example>false</example>
     [JsonProperty(Order = 40)]
     public bool? NeedsBOMData { get; set; }
 
     /// <summary>
-    /// Gets or sets the optional origin of the group, indicating where its items were added or edited from.
+    /// Origin of the group, indicating where its items were added or edited. Optional.
     /// </summary>
     [JsonProperty(Order = 50)]
     public string? Origin { get; set; }

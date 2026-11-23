@@ -7,14 +7,13 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Order item type.
+/// Kind of an order item. Serialized as the member name and used as discriminator when items are deserialized.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 public enum Type
 {
     /// <summary>
-    /// Unknown
-    /// </summary>
+    /// Type is not known (fallback for new or unrecognized values).    /// </summary>
     Unknown,
 
     /// <summary>
@@ -46,7 +45,7 @@ public enum Type
     //Packaging,
 
     /// <summary>
-    /// A price information.
+    /// A price.
     /// </summary>
     Price,
 
@@ -56,7 +55,7 @@ public enum Type
     Configuration,
 
     /// <summary>
-    /// (Software) Root configuration position.
+    /// Root configuration position of a (software) configuration.
     /// </summary>
     ConfigurationPosition,
 
@@ -71,27 +70,27 @@ public enum Type
     ErrorInfo,
 
     /// <summary>
-    /// Represents board
+    /// A board.
     /// </summary>
     Board,
 
     /// <summary>
-    /// Represents an edge band
+    /// An edge band.
     /// </summary>
     EdgeBand,
 
     /// <summary>
-    /// Represents an offcut
+    /// An offcut.
     /// </summary>
     Offcut,
 
     /// <summary>
-    /// Represents a calculation error
+    /// A calculation error.
     /// </summary>
     CalculationError,
 
     /// <summary>
-    /// Represents a reclaim
+    /// A reclaim.
     /// </summary>
     Reclaim,
 }

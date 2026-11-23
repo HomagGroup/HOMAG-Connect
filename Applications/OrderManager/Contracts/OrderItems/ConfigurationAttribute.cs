@@ -8,8 +8,11 @@ using System.Collections.ObjectModel;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Configuration attribute.
+/// Name and value of a configuration attribute of an article or module.
 /// </summary>
+/// <example>
+/// { "name": "Width", "displayName": "Width", "value": 600, "isInput": true, "isMain": true }
+/// </example>
 public class ConfigurationAttribute : ISupportsAdditionalData
 {
     /// <summary>
@@ -31,23 +34,27 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     }
 
     /// <summary>
-    /// The name of the attribute.
+    /// Technical name of the attribute. Required.
     /// </summary>
+    /// <example>Width</example>
     public string Name { get; set; } = null!;
 
     /// <summary>
-    /// An optional localized display name of the attribute.
+    /// Localized display name of the attribute. Optional.
     /// </summary>
+    /// <example>Width</example>
     public string? DisplayName { get; set; }
 
     /// <summary>
-    /// An optional localized category of the attribute.
+    /// Localized category of the attribute. Optional.
     /// </summary>
+    /// <example>Dimensions</example>
     public string? Category { get; set; }
 
     /// <summary>
-    /// Specifies if this is a main attribute for the configuration.
+    /// <c>true</c> if this is a main attribute of the configuration. Optional.
     /// </summary>
+    /// <example>true</example>
     public bool? IsMain { get; set; }
 
     /// <summary>
@@ -57,28 +64,33 @@ public class ConfigurationAttribute : ISupportsAdditionalData
     public bool? IsPosRelevant { get; set; }
 
     /// <summary>
-    /// Defines if the attribute is an input value or an output value.
+    /// <c>true</c> if the attribute is an input value, <c>false</c> if it is an output value. Optional.
     /// </summary>
+    /// <example>true</example>
     public bool? IsInput { get; set; }
 
     /// <summary>
-    /// The value of the attribute.
+    /// Value of the attribute. Can be a string, number or boolean. Optional.
     /// </summary>
+    /// <example>600</example>
     public object? Value { get; set; } = null!;
 
     /// <summary>
-    /// An optional localized display value of the attribute (NOT used for numbers).
+    /// Localized display value of the attribute. Optional. Not used for numbers.
     /// </summary>
+    /// <example>Oak</example>
     public string? DisplayValue { get; set; }
 
     /// <summary>
-    /// An optional sorting of the attribute within a category.
+    /// Sort position of the attribute within its category. Optional.
     /// </summary>
+    /// <example>10</example>
     public int? Sorting { get; set; }
 
     /// <summary>
-    /// User right (can be: Master, Advanced, Simple)
+    /// User right required to see the attribute: <c>Master</c>, <c>Advanced</c> or <c>Simple</c>. Optional.
     /// </summary>
+    /// <example>Simple</example>
     [JsonProperty("userRight")]
     public string? UserRight { get; set; }
 
@@ -90,13 +102,13 @@ public class ConfigurationAttribute : ISupportsAdditionalData
 
 
     /// <summary>
-    /// Gets or sets the additional data.
+    /// Additional data.
     /// </summary>
     [JsonProperty(Order = 997)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional properties configured in the application.
+    /// Additional properties configured in the application.
     /// </summary>
     [JsonExtensionData]
     [JsonProperty(Order = 999)]

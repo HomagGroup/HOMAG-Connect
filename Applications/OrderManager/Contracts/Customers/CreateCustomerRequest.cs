@@ -8,60 +8,70 @@ namespace HomagConnect.OrderManager.Contracts.Customers;
 /// <summary>
 /// Request to create a new customer.
 /// </summary>
+/// <example>
+/// { "customerNumber": "C-1001", "customerName": "Miller Kitchens", "email": "info@miller.example.com", "telephoneNumber": "+49 7443 12-0", "locale": "deDE", "apiAccess": false, "salesPortalAccess": ["buyer@miller.example.com"] }
+/// </example>
 public class CreateCustomerRequest
 {
     /// <summary>
-    /// Gets or sets the customer number. Optional. If omitted, the backend generates a unique customer number.
+    /// Unique customer number. Optional. If omitted, a unique customer number is generated.
     /// </summary>
+    /// <example>C-1001</example>
     public string? CustomerNumber { get; set; }
 
     /// <summary>
-    /// Gets or sets the external customer number.
+    /// Customer number from an external system, for example an ERP system. Optional.
     /// </summary>
+    /// <example>ERP-4711</example>
     public string? CustomerNumberExternal { get; set; }
 
     /// <summary>
-    /// Gets or sets the customer name.
+    /// Name of the customer. Optional.
     /// </summary>
+    /// <example>Miller Kitchens</example>
     public string? CustomerName { get; set; }
 
     /// <summary>
-    /// Gets or sets the email address of the customer.
+    /// Email address of the customer. Optional.
     /// </summary>
+    /// <example>info@miller.example.com</example>
     public string? Email { get; set; }
 
     /// <summary>
-    /// Gets or sets the telephone number of the customer.
+    /// Telephone number of the customer. Optional.
     /// </summary>
+    /// <example>+49 7443 12-0</example>
     public string? TelephoneNumber { get; set; }
 
     /// <summary>
-    /// Gets or sets additional notes for the customer.
+    /// Additional notes about the customer. Optional.
     /// </summary>
     public string? Notes { get; set; }
 
     /// <summary>
-    /// Gets or sets the locale of the customer.
+    /// Language and region of the customer.
     /// </summary>
+    /// <example>deDE</example>
     public Locale Locale { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the customer has API access.
+    /// <c>true</c> if the customer is granted API access; otherwise <c>false</c>.
     /// </summary>
     public bool ApiAccess { get; set; }
 
     /// <summary>
-    /// Gets or sets the collection of addresses associated with the customer.
+    /// Addresses of the customer. Optional.
     /// </summary>
     public Collection<Address>? Addresses { get; set; }
 
     /// <summary>
-    /// Gets or sets the collection of additional data entities for the customer.
+    /// Additional data entries attached to the customer. Optional.
     /// </summary>
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
-    /// Gets or sets the email addresses of the users who are granted sales portal access for the customer.
+    /// Email addresses of the users who are granted sales portal access for the customer. Empty by default.
     /// </summary>
+    /// <example>["buyer@miller.example.com"]</example>
     public ICollection<string> SalesPortalAccess { get; set; } = new List<string>();
 }
