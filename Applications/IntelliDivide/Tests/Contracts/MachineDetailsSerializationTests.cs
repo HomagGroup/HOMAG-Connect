@@ -108,35 +108,4 @@ public class MachineDetailsSerializationTests
         parameters.Allocations!.BoardAllocations.ShouldBe(true);
         parameters.Allocations.EdgebandAllocations.ShouldBeNull();
     }
-
-    /// <summary>
-    /// Verifies that switching to imperial converts the lengths and areas of all sections and keeps percentages and flags.
-    /// </summary>
-    [TestMethod]
-    public void CuttingMachineParameters_SwitchToImperial_ConvertsLengthsAndAreasOnly()
-    {
-        var parameters = new CuttingMachineParameters
-        {
-            General = new CuttingGeneralParameters { MaxCuttingLength = 254, RipCutBladeThickness = 25.4 },
-            Offcuts = new CuttingOffcutParameters { LargeOffcutMinimumLength = 2540, LargeOffcutMinimumArea = 1, LargeOffcutPercentage = 80, SmallOffcutPercentage = 30 },
-            TrimCuts = new CuttingTrimCutParameters { TrimFront = 25.4 },
-            TensionTrims = new CuttingTensionTrimParameters { TensionTrimWidth = 25.4, TensionTrimSlotDistance = 20 },
-            BookHeight = new CuttingBookHeightParameters { MaximumBookHeight = 50.8 }
-        };
-
-        var imperial = parameters.SwitchUnitSystem(UnitSystem.Imperial, false);
-
-        imperial.UnitSystem.ShouldBe(UnitSystem.Imperial);
-        imperial.General!.MaxCuttingLength!.Value.ShouldBe(10, 0.0001);
-        imperial.General.RipCutBladeThickness!.Value.ShouldBe(1, 0.0001);
-        imperial.Offcuts!.LargeOffcutMinimumLength!.Value.ShouldBe(100, 0.0001);
-        imperial.Offcuts.LargeOffcutMinimumArea!.Value.ShouldBe(10.7639, 0.001);
-        imperial.Offcuts.LargeOffcutPercentage.ShouldBe(80);
-        imperial.Offcuts.SmallOffcutPercentage.ShouldBe(30);
-        imperial.TrimCuts!.TrimFront!.Value.ShouldBe(1, 0.0001);
-        imperial.TensionTrims!.TensionTrimWidth!.Value.ShouldBe(1, 0.0001);
-        imperial.TensionTrims.TensionTrimSlotDistance.ShouldBe(20);
-        imperial.BookHeight!.MaximumBookHeight!.Value.ShouldBe(2, 0.0001);
-        parameters.General.MaxCuttingLength.ShouldBe(254);
-    }
 }

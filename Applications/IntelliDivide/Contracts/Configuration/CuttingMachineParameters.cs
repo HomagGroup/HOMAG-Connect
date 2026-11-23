@@ -14,7 +14,6 @@ namespace HomagConnect.IntelliDivide.Contracts.Configuration;
 /// <example>
 /// {
 ///   "optimizationType": "Cutting",
-///   "unitSystem": "Metric",
 ///   "general": { "maxCuttingLength": 4300, "maxTravelProgramFence": 4300, "ripCutBladeThickness": 4.8, "crossCutBladeThickness": 4.8, "downloadOption": "Download" },
 ///   "offcuts": { "smallOffcutsEnabled": true, "smallOffcutPercentage": 30, "largeOffcutsEnabled": true, "largeOffcutMinimumLength": 2000, "largeOffcutMinimumWidth": 800, "largeOffcutMinimumArea": 1.6, "largeOffcutPercentage": 80 },
 ///   "trimCuts": { "trimFront": 15, "trimBack": 15, "trimLeft": 15, "trimRight": 15, "reducibleTrims": true },
