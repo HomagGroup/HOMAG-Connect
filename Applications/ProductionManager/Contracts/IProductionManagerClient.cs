@@ -9,8 +9,6 @@ using HomagConnect.ProductionManager.Contracts.Predict;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 using HomagConnect.ProductionManager.Contracts.Rework;
-using HomagConnect.ProductionManager.Contracts.WorkstationYield;
-using Newtonsoft.Json.Linq;
 using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Contracts
@@ -23,16 +21,24 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get all orders sorted by <see cref="Order.OrderDate" />.
         /// </summary>
+        /// <param name="take">The maximum number of orders to return.</param>
+        /// <param name="skip">The number of orders to skip before returning results. Must be nonnegative.</param>
         Task<IEnumerable<Order>?> GetOrders(int take, int skip = 0);
 
         /// <summary>
         /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
         /// </summary>
+        /// <param name="orderStatus">The status the returned orders must have.</param>
+        /// <param name="take">The maximum number of orders to return.</param>
+        /// <param name="skip">The number of orders to skip before returning results. Must be nonnegative.</param>
         Task<IEnumerable<Order>> GetOrders(OrderStatus orderStatus, int take, int skip = 0);
 
         /// <summary>
         /// Get all orders having the specified status sorted by <see cref="Order.OrderDate" />.
         /// </summary>
+        /// <param name="orderStatus">The statuses the returned orders can have. An order matches if it has any of them.</param>
+        /// <param name="take">The maximum number of orders to return.</param>
+        /// <param name="skip">The number of orders to skip before returning results. Must be nonnegative.</param>
         Task<IEnumerable<Order>> GetOrders(OrderStatus[] orderStatus, int take, int skip = 0);
 
         /// <summary>
@@ -57,6 +63,7 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get order item by its identifier (public id or id)
         /// </summary>
+        /// <param name="identifiers">The identifiers (public id or id) of the order items to return.</param>
         public Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers);
 
         #endregion
@@ -66,16 +73,19 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get a specific order by its id
         /// </summary>
+        /// <param name="orderId">The unique identifier of the order.</param>
         Task<OrderDetails?> GetOrder(Guid orderId);
 
         /// <summary>
         /// Get a specific order by its order number.
         /// </summary>
+        /// <param name="orderNumber">The order number of the order.</param>
         Task<OrderDetails> GetOrder(string orderNumber);
 
         /// <summary>
         /// Gets all orders for the given order numbers.
         /// </summary>
+        /// <param name="orderNumbers">The order numbers of the orders to return.</param>
         Task<IEnumerable<OrderDetails>> GetOrders(string[] orderNumbers);
 
         /// <summary>
@@ -91,15 +101,15 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Release order
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
+        /// <param name="orderId">The unique identifier of the order to release.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task ReleaseOrder(Guid orderId);
 
         /// <summary>
         /// Reset release order
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
+        /// <param name="orderId">The unique identifier of the order whose release is reset.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task ResetReleaseOrder(Guid orderId);
 
         #endregion
@@ -110,8 +120,8 @@ namespace HomagConnect.ProductionManager.Contracts
         /// Patch order
         /// </summary>
         /// <param name="identifier">Can be OrderId/OrderNumber/ExternalOrderNumber</param>
-        /// <param name="patchData"></param>
-        /// <returns></returns>
+        /// <param name="patchData">The changes to apply to the order.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task PatchOrder(string identifier, PatchBuilder<OrderDetails> patchData);
 
         #endregion
@@ -142,12 +152,17 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Wait for the import to be completed.
         /// </summary>
+        /// <param name="correlationId">The correlationId of the import job which was triggered by the import request.</param>
+        /// <param name="maxDuration">The maximum time to wait for the import to be completed.</param>
         Task<Order> WaitForImportOrderCompletion(Guid correlationId, TimeSpan maxDuration);
 
         /// <summary>
         /// Importing part data via template to an existing order or create a new order
         /// </summary>
-        /// <returns></returns>
+        /// <param name="templateId">The identifier of the import template to use.</param>
+        /// <param name="importFile">The file containing the part data to import.</param>
+        /// <param name="orderName">The name of the order to create. Optional.</param>
+        /// <returns>The state of the import.</returns>
         Task<ImportOrderStateResponse> ImportViaTemplateAsync(string templateId, FileInfo importFile, string? orderName = null);
 
         #endregion
@@ -157,29 +172,29 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Deletes an order by its id
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
+        /// <param name="orderId">The unique identifier of the order to delete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrderByOrderId(Guid orderId);
 
         /// <summary>
         /// Deletes multiple orders by their ids
         /// </summary>
-        /// <param name="orderIds"></param>
-        /// <returns></returns>
+        /// <param name="orderIds">The unique identifiers of the orders to delete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrdersByOrderIds(Guid[] orderIds);
 
         /// <summary>
         /// Deletes an order by its order number
         /// </summary>
-        /// <param name="orderNumber"></param>
-        /// <returns></returns>
+        /// <param name="orderNumber">The order number of the order to delete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrderByOrderNumber(string orderNumber);
 
         /// <summary>
         /// Deletes multiple orders by their order numbers
         /// </summary>
-        /// <param name="orderNumbers"></param>
-        /// <returns></returns>
+        /// <param name="orderNumbers">The order numbers of the orders to delete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrdersByOrderNumbers(string[] orderNumbers);
 
         #endregion Order deletion
@@ -189,29 +204,29 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Deletes or decomposes a lot by its id
         /// </summary>
-        /// <param name="lotId"></param>
-        /// <returns></returns>
+        /// <param name="lotId">The unique identifier of the lot.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrDecomposeLotByLotId(Guid lotId);
 
         /// <summary>
         /// Deletes or decomposes lots by their ids
         /// </summary>
-        /// <param name="lotIds"></param>
-        /// <returns></returns>
+        /// <param name="lotIds">The unique identifiers of the lots.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrDecomposeLotsByLotIds(Guid[] lotIds);
 
         /// <summary>
         /// Deletes or decomposes a lot by its name
         /// </summary>
-        /// <param name="lotName"></param>
-        /// <returns></returns>
+        /// <param name="lotName">The name of the lot.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrDecomposeLotByLotName(string lotName);
 
         /// <summary>
         /// Deletes or decomposes lots by their names
         /// </summary>
-        /// <param name="lotNames"></param>
-        /// <returns></returns>
+        /// <param name="lotNames">The names of the lots.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteOrDecomposeLotsByLotNames(string[] lotNames);
 
         #endregion
@@ -221,8 +236,8 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Creates a new lot based on the given request
         /// </summary>
-        /// <param name="createLotRequest"></param>
-        /// <returns></returns>
+        /// <param name="createLotRequest">The data of the lot to create.</param>
+        /// <returns>The response containing the created lot.</returns>
         Task<CreateLotResponse> CreateLotRequest(CreateLotRequest createLotRequest);
 
         #endregion
@@ -232,16 +247,16 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get all lots
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <returns></returns>
+        /// <param name="take">The maximum number of lots to return.</param>
+        /// <param name="skip">The number of lots to skip before returning results. Must be nonnegative.</param>
+        /// <returns>The lots, or <see langword="null" /> if none are found.</returns>
         public Task<IEnumerable<Lot>?> GetLots(int take, int skip = 0);
 
         /// <summary>
         /// Get a single lot details by its identifier (public id or id)
         /// </summary>
-        /// <param name="identifier"></param>
-        /// <returns></returns>
+        /// <param name="identifier">The public id or id of the lot.</param>
+        /// <returns>The lot details, or <see langword="null" /> if the lot is not found.</returns>
         public Task<LotDetails?> GetLotDetails(string identifier);
 
         #endregion
@@ -305,22 +320,31 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get the ProductionProtocol for one workstation 
         /// </summary>
-        /// <param name="workstationId"></param>
-        /// <param name="daysBack"></param>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <param name="outputFormat"></param>
-        /// <param name="cultureInfo"></param>
+        /// <param name="workstationId">The identifier of the workstation.</param>
+        /// <param name="daysBack">The number of days to look back from now.</param>
+        /// <param name="take">The maximum number of items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="outputFormat">The format of the returned values.</param>
+        /// <param name="cultureInfo">The culture used to format the returned values.</param>
         /// <param name="filter">Filter in ODATA format. Not all function of OData are supported. see https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Contracts/QueryFilter</param>
-        /// <param name="orderBy"></param>
-        /// <returns></returns>
+        /// <param name="orderBy">Sort order in OData format.</param>
+        /// <returns>The processed items of the workstation.</returns>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7, 
-            OutputFormat outputFormat = OutputFormat.Default, CultureInfo ? cultureInfo = null, 
+            OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null, 
             string? filter = null, string? orderBy = null);
 
         /// <summary>
         /// Get the ProductionProtocol for one workstation odata-info is created by convenient classes in HomagConnect.Base.Contracts.QueryFilter. see https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Contracts/QueryFilter
         /// </summary>
+        /// <param name="workstationId">The identifier of the workstation.</param>
+        /// <param name="take">The maximum number of items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="daysBack">The number of days to look back from now.</param>
+        /// <param name="outputFormat">The format of the returned values.</param>
+        /// <param name="cultureInfo">The culture used to format the returned values.</param>
+        /// <param name="filterRequest">The filter to apply.</param>
+        /// <param name="orderByRequest">The sort order to apply.</param>
+        /// <returns>The processed items of the workstation.</returns>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, int take = 100000, int skip = 0, int daysBack = 7,
             OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
             FilterRequest? filterRequest = null, OrderByRequest? orderByRequest = null);
@@ -328,23 +352,32 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Get the ProductionProtocol for one workstation 
         /// </summary>
-        /// <param name="workstationId"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <param name="outputFormat"></param>
-        /// <param name="cultureInfo"></param>
+        /// <param name="workstationId">The identifier of the workstation.</param>
+        /// <param name="from">The start of the date range.</param>
+        /// <param name="to">The end of the date range.</param>
+        /// <param name="take">The maximum number of items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="outputFormat">The format of the returned values.</param>
+        /// <param name="cultureInfo">The culture used to format the returned values.</param>
         /// <param name="filter">Filter in ODATA format. Not all function of OData are supported. see https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Contracts/QueryFilter</param>
-        /// <param name="orderBy"></param>
-        /// <returns></returns>
+        /// <param name="orderBy">Sort order in OData format.</param>
+        /// <returns>The processed items of the workstation.</returns>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, DateTime from, DateTime to, int take = 100000, int skip = 0, 
             OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null, 
             string? filter = null, string? orderBy = null);
-
         /// <summary>
         /// Get the ProductionProtocol for one workstation odata-info is created by convenient classes in HomagConnect.Base.Contracts.QueryFilter. see https://github.com/HomagGroup/HOMAG-Connect/tree/main/Base/HomagConnect.Base.Contracts/QueryFilter
         /// </summary>
+        /// <param name="workstationId">The identifier of the workstation.</param>
+        /// <param name="from">The start of the date range.</param>
+        /// <param name="to">The end of the date range.</param>
+        /// <param name="take">The maximum number of items to return.</param>
+        /// <param name="skip">The number of items to skip before returning results.</param>
+        /// <param name="outputFormat">The format of the returned values.</param>
+        /// <param name="cultureInfo">The culture used to format the returned values.</param>
+        /// <param name="filterRequest">The filter to apply.</param>
+        /// <param name="orderByRequest">The sort order to apply.</param>
+        /// <returns>The processed items of the workstation.</returns>
         Task<IEnumerable<ProcessedItem>?> GetProductionProtocol(string workstationId, DateTime from, DateTime to, int take = 100000, int skip = 0,
             OutputFormat outputFormat = OutputFormat.Default, CultureInfo? cultureInfo = null,
             FilterRequest? filterRequest = null, OrderByRequest? orderByRequest = null);
@@ -361,15 +394,17 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Predicts the edgebanding duration based on a list of parts and the length of edgebands
         /// </summary>
-        /// <returns></returns>
+        /// <param name="edgebandingPredictionRequest">The parts and edgeband lengths to base the prediction on.</param>
+        /// <returns>The predicted edgebanding duration.</returns>
         Task<EdgebandingPrediction> Predict(EdgebandingPredictionRequest edgebandingPredictionRequest);
 
         /// <summary>
-        /// Predicts the cutting duration based on the number of parts in the request
+        /// Predicts the cutting
         /// </summary>
-        /// <returns></returns>
+        /// <param name="cuttingPredictionRequest">The number of parts to base the prediction on.</param>
+        /// <returns>The predicted cutting duration.</returns>
         Task<CuttingPrediction> Predict(CuttingPredictionRequest cuttingPredictionRequest);
-        
+
         #endregion
 
         #region Usage statistics
@@ -408,7 +443,8 @@ namespace HomagConnect.ProductionManager.Contracts
         /// <summary>
         /// Retrieve the order progress details for given order numbers and workplace ids.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="orderProgressRequest">The order numbers and workplace ids to retrieve the progress for.</param>
+        /// <returns>The order progress details.</returns>
         Task<IEnumerable<OrderProgressDetails>?> GetOrderProgress(OrderProgressRequest orderProgressRequest);
 
         /// <summary>

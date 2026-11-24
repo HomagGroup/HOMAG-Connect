@@ -32,5 +32,6 @@ public class Component : ComponentBase
     /// Height. Optional.
     /// </summary>
     /// <example>35</example>
+    [JsonProperty(Order = 1)]
     public double? Height { get; set; }
 }

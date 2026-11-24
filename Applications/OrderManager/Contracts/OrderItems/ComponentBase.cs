@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-
+﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
@@ -34,6 +34,8 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>720</example>
     [JsonProperty(Order = 13)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
     /// <summary>
@@ -41,6 +43,8 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>596</example>
     [JsonProperty(Order = 14)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
     /// <summary>
@@ -86,6 +90,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>2</example>
     [JsonProperty(Order = 22)]
+    [Range(1, int.MaxValue)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>

@@ -43,14 +43,18 @@ public class Configuration : Base, IConfiguration
     public string? ModuleDescription { get; set; }
 
     /// <inheritdoc />
+    [JsonProperty(Order = 23)]
     public string? ArticleNumber { get; set; }
 
+    [JsonProperty(Order = 24)]
     /// <inheritdoc />
     public string? ArticleName { get; set; }
 
+    [JsonProperty(Order = 25)]
     /// <inheritdoc />
     public string? Description { get; set; }
 
+    [JsonProperty(Order = 26)]
     /// <inheritdoc />
     public string? ArticleCategory { get; set; }
 

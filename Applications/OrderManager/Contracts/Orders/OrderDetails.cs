@@ -228,6 +228,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-02T09:00:00+00:00</example>
         [JsonProperty(Order = 490)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
@@ -249,6 +251,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-01T08:30:00+00:00</example>
         [JsonProperty(Order = 421)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
@@ -256,6 +260,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-03T07:00:00+00:00</example>
         [JsonProperty(Order = 422)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? ReleasedAt { get; set; }
 
         /// <summary>
@@ -263,6 +269,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-04T06:15:00+00:00</example>
         [JsonProperty(Order = 423)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? StartedAt { get; set; }
 
         /// <summary>
@@ -270,6 +278,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-08T15:40:00+00:00</example>
         [JsonProperty(Order = 424)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? CompletedAt { get; set; }
 
         /// <summary>
@@ -277,6 +287,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-20T10:00:00+00:00</example>
         [JsonProperty(Order = 425)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? ArchivedAt { get; set; }
 
         /// <summary>
@@ -284,6 +296,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>12</example>
         [JsonProperty(Order = 420)]
+        [Range(0, int.MaxValue)]
         public int? QuantityOfArticles { get; set; }
 
         /// <summary>
@@ -291,6 +304,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>96</example>
         [JsonProperty(Order = 410)]
+        [Range(0, int.MaxValue)]
         public int? QuantityOfParts { get; set; }
 
         /// <summary>
@@ -298,6 +312,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>96</example>
         [JsonProperty(Order = 411)]
+        [Range(0, int.MaxValue)]
         public int? QuantityOfPartsPlanned { get; set; }
 
         /// <summary>

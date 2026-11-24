@@ -1,5 +1,7 @@
 ﻿// Note: This is preliminary code and is subject to change
 
+using Newtonsoft.Json;
+
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
@@ -27,11 +29,13 @@ public class ErrorInfo : Base
     /// Text of the error or warning. Optional.
     /// </summary>
     /// <example>No price found for position 3.</example>
+    [JsonProperty(Order = 2)]
     public string? Text { get; set; }
 
     /// <summary>
     /// Category of the error information, either <c>Error</c> or <c>Warning</c>. Optional.
     /// </summary>
     /// <example>Warning</example>
+    [JsonProperty(Order = 3)]
     public string? Category { get; set; }
 }

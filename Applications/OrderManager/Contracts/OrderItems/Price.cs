@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
@@ -30,6 +32,7 @@ public class Price : Base
     /// </summary>
     /// <example>1250.0</example>
     [JsonProperty(Order = 2)]
+    [Range(0, double.MaxValue)]
     public double? TotalPrice { get; set; }
 
     /// <summary>
@@ -37,6 +40,7 @@ public class Price : Base
     /// </summary>
     /// <example>625.0</example>
     [JsonProperty(Order = 1)]
+    [Range(0, double.MaxValue)]
     public double? UnitPrice { get; set; }
 
     /// <summary>
@@ -44,6 +48,7 @@ public class Price : Base
     /// </summary>
     /// <example>EUR</example>
     [JsonProperty(Order = 3)]
+    [DefaultValue("EUR")]
     public string? Currency { get; set; } = "EUR";
 
     /// <summary>

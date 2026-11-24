@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 // Note: This is preliminary code and is subject to change
@@ -47,6 +47,7 @@ public class Group : Base
     /// <example>1</example>
     [DefaultValue(1)]
     [JsonProperty(Order = 13)]
+    [Range(1, int.MaxValue)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>

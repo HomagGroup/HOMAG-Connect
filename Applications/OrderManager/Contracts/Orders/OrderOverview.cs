@@ -58,6 +58,7 @@ public class OrderOverview
     /// Description of the order. Optional.
     /// </summary>
     /// <example>Kitchen with oak fronts</example>
+    [JsonProperty(Order = 113)]
     public string? OrderDescription { get; set; }
 
     /// <summary>
@@ -71,6 +72,7 @@ public class OrderOverview
     /// Person in charge of the order. Optional.
     /// </summary>
     /// <example>J. Smith</example>
+    [JsonProperty(Order = 121)]
     public string? PersonInCharge { get; set; }
 
     /// <summary>

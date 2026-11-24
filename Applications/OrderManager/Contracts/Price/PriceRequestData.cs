@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+
 namespace HomagConnect.OrderManager.Contracts.Price
 {
     /// <summary>
@@ -12,12 +14,14 @@ namespace HomagConnect.OrderManager.Contracts.Price
         /// <summary>
         /// Order for which the price is calculated.
         /// </summary>
+        [JsonProperty(Order = 1)]
         public Orders.OrderDetails OrderData { get; set; } = null!;
 
         /// <summary>
         /// Identifier of the price library to use. Optional.
         /// </summary>
         /// <example>StandardPrices</example>
+        [JsonProperty(Order = 2)]
         public string? LibraryId { get; set; }
     }
 }

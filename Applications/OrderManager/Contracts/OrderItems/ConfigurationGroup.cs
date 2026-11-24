@@ -27,6 +27,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         /// <summary>
         /// Surrounding contour of the articles in the group. Optional. The data structure is defined separately.
         /// </summary>
+        [JsonProperty(Order = 20)]
         public string? ContourInformation { get; set; }
 
         /// <summary>

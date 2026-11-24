@@ -13,12 +13,16 @@ namespace HomagConnect.ProductionAssist.Contracts
         /// Gets the <see cref="ProductionItemBase" /> for a given <see cref="ProductionItemBase.Id" /> id or
         /// <see cref="ProductionItemBase.Barcode" /> which belongs to any not archived order.
         /// </summary>
+        /// <param name="identifier">The id or barcode of the order item.</param>
+        /// <returns>The order item, or <c>null</c> if it is not found.</returns>
         Task<ProductionItemBase?> GetOrderItem(string identifier);
 
         /// <summary>
         /// Gets the <see cref="ProductionItemBase" />s for given <see cref="ProductionItemBase.Id" />s or
         /// <see cref="ProductionItemBase.Barcode" />s which belongs to any not archived order.
         /// </summary>
+        /// <param name="identifiers">The ids or barcodes of the order items.</param>
+        /// <returns>The order items, or <c>null</c> if none are found.</returns>
         Task<ProductionItemBase[]?> GetOrderItems(string[] identifiers);
 
         /// <summary>

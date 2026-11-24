@@ -2,6 +2,8 @@
 
 // Note: This is preliminary code and is subject to change
 
+using Newtonsoft.Json;
+
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
@@ -29,5 +31,6 @@ public class Resource : ComponentBase
     /// Height. Optional.
     /// </summary>
     /// <example>35</example>
+    [JsonProperty(Order = 15)]
     public double? Height { get; set; }
 }

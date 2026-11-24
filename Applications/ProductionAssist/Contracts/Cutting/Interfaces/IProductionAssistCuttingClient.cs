@@ -11,6 +11,8 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces
         /// <summary>
         /// Retrieve a cutting job by id.
         /// </summary>
+        /// <param name="cuttingJobId">The unique identifier of the cutting job.</param>
+        /// <returns>The cutting job.</returns>
         Task<CuttingJob> GetCuttingJob(Guid cuttingJobId);
 
         /// <summary>
@@ -22,6 +24,8 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces
         /// <summary>
         /// Retrieve cutting jobs by id.
         /// </summary>
+        /// <param name="cuttingJobIds">The unique identifiers of the cutting jobs.</param>
+        /// <returns>The cutting jobs.</returns>
         Task<IEnumerable<CuttingJob>> GetCuttingJobs(Guid[] cuttingJobIds);
 
         #endregion Read
@@ -31,11 +35,15 @@ namespace HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces
         /// <summary>
         /// Delete a cutting job.
         /// </summary>
+        /// <param name="cuttingJobId">The unique identifier of the cutting job to delete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteCuttingJob(Guid cuttingJobId);
 
         /// <summary>
         /// Delete cutting jobs
         /// </summary>
+        /// <param name="cuttingJobIds">The unique identifiers of the cutting jobs to delete.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task DeleteCuttingJobs(Guid[] cuttingJobIds);
 
         #endregion Delete
