@@ -61,7 +61,6 @@ public class ProcessedPart : ProcessedOrderItem, IDimensionProperties, IMaterial
     /// <inheritdoc />
     [Display(ResourceType = typeof(Base.Contracts.Resources), Name = nameof(Length))]
     [JsonProperty(Order = 21)]
-    [Range(0.1, 9999.9)]
     [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Length { get; set; }
 
