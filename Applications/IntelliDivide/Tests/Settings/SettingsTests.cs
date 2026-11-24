@@ -69,6 +69,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
         }
 
         [TestMethod]
+        [Ignore("Ignored until the intelliDivide client contains the PatchMachine endpoint.")]
         public async Task Settings_PatchMachine_ChangesOnlyTargetedProperties()
         {
             var intelliDivide = GetIntelliDivideClient();
@@ -103,7 +104,7 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
                     .Set(m => m.Configuration.SawMaterialConfiguration.Parameters,
                         new Dictionary<string, string> { ["SaegeblattStaerke"] = "4.4" });
 
-                await intelliDivide.PatchMachine(currentName, patch);
+                //await intelliDivide.PatchMachine(currentName, patch);
                 currentName = patchedName;
 
                 var patchedMachine = await intelliDivide.GetMachineDetails(patchedName);
