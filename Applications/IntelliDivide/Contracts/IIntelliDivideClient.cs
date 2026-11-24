@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
-using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.DataModel;
 using HomagConnect.IntelliDivide.Contracts.Common;
 using HomagConnect.IntelliDivide.Contracts.Configuration;
@@ -68,13 +67,6 @@ namespace HomagConnect.IntelliDivide.Contracts
         /// <param name="machineDetails">The name and configuration of the machine to create.</param>
         /// <returns>The details of the created machine.</returns>
         Task<MachineDetails> CreateMachine(MachineDetails machineDetails);
-
-        /// <summary>
-        /// Applies the specified changes to the machine with the given name.
-        /// </summary>
-        /// <param name="machineName">The current name of the machine to update.</param>
-        /// <param name="patchData">The machine properties to update.</param>
-        Task PatchMachine(string machineName, PatchBuilder<MachineDetails> patchData);
 
         /// <summary>
         /// Deletes the machine with the specified name.
