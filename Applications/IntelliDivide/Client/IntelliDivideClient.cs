@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Security.Authentication;
+using System.Text;
 
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts.DataModel;
@@ -203,6 +204,17 @@ namespace HomagConnect.IntelliDivide.Client
             var url = "api/intelliDivide/machines";
 
             return await PostObject<MachineDetails, MachineDetails>(new Uri(url, UriKind.Relative), machineDetails);
+        }
+
+        /// <inheritdoc />
+        public async Task PatchMachine(string machineName, PatchBuilder<MachineDetails> patchData)
+        {
+            var url = $"api/intelliDivide/machines?machineName={Uri.EscapeDataString(machineName)}";
+
+            var content = new StringContent(JsonConvert.SerializeObject(patchData.Build(), Formatting.None), Encoding.UTF8, "application/merge-patch+json");
+            var response = await PatchObject(new Uri(url, UriKind.Relative), content);
+
+            response.EnsureSuccessStatusCode();
         }
 
         /// <inheritdoc />
