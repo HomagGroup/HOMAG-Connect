@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
+﻿namespace HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 
 /// <summary>
 /// Client interface for searching the decor catalog in MaterialManager.
@@ -14,6 +10,8 @@ public interface IMaterialManagerClientDecorCatalog
     /// </summary>
     /// <param name="request">The board decor match search request.</param>
     /// <returns>The matching decor candidates.</returns>
+    /// <remarks>Deprecated until 31 March 2027. Use <see cref="SearchBoardDetailsDecors" /> instead.</remarks>
+    [Obsolete("Deprecated until 31 March 2027. Use SearchBoardDetailsDecors instead.")]
     Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request);
 
     /// <summary>
@@ -21,6 +19,8 @@ public interface IMaterialManagerClientDecorCatalog
     /// </summary>
     /// <param name="request">The edgeband decor match search request.</param>
     /// <returns>The matching decor candidates.</returns>
+    /// <remarks>Deprecated until 31 March 2027. Use <see cref="SearchEdgebandDetailsDecors" /> instead.</remarks>
+    [Obsolete("Deprecated until 31 March 2027. Use SearchEdgebandDetailsDecors instead.")]
     Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request);
 
     /// <summary>

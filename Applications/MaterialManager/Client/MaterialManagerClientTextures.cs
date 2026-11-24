@@ -1,22 +1,12 @@
 ﻿using HomagConnect.Base.Client;
-using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
-using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
-using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
-using System;
-using System.Globalization;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Exceptions;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.DecorMatches;
 using HomagConnect.MaterialManager.Contracts.Surfaces.Textures.Roomle;
-
 using Newtonsoft.Json;
+using System.Globalization;
+using System.Text;
 
 namespace HomagConnect.MaterialManager.Client;
 
@@ -127,22 +117,24 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     }
 
     /// <inheritdoc />
+    [Obsolete("Deprecated until 31 March 2027. Use SearchBoardDetailsDecors instead.")]
     public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, _DecorSearchRoute);
 
     /// <inheritdoc />
+    [Obsolete("Deprecated until 31 March 2027. Use SearchEdgebandDetailsDecors instead.")]
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, _DecorSearchRoute);
 
     /// <inheritdoc />
     public Task<DecorMatchSearchResponse> SearchBoardDetailsDecors(BoardTypeDetailsDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, $"{_DecorSearchRoute}/boards");
 
     /// <inheritdoc />
     public Task<DecorMatchSearchResponse> SearchEdgebandDetailsDecors(EdgebandTypeDetailsDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, $"{_DecorSearchRoute}/edgebands");
 
-    private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
+    private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request, string route)
     {
         if (request == null)
         {
@@ -152,9 +144,9 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
         ValidateRequiredProperties(request);
 
         var result = await PostObject<DecorMatchSearchRequest, DecorMatchSearchResponse>(
-            new Uri(_DecorSearchRoute, UriKind.Relative), request);
+            new Uri(route, UriKind.Relative), request);
 
-        return result ?? new DecorMatchSearchResponse();
+        return result;
     }
 
     /// <inheritdoc />
