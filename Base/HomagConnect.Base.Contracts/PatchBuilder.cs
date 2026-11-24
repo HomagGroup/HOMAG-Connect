@@ -27,6 +27,9 @@ public class PatchBuilder<T> where T : class, new()
         var path = GetNestedPath(propertyExpression);
         if (path.Count > 1)
         {
+            var (leafProperty, ownerType) = GetNestedProperty(path);
+            ValidateProperty(leafProperty, ownerType, value);
+
             var target = _values;
             for (var i = 0; i < path.Count - 1; i++)
             {
@@ -51,7 +54,7 @@ public class PatchBuilder<T> where T : class, new()
 
         var property = GetPropertyInfo(propertyExpression);
 
-        ValidateProperty(property, value);
+        ValidateProperty(property, typeof(T), value);
 
         var jsonName = ToCamelCase(property.Name);
         _values[jsonName] = value;
@@ -103,9 +106,38 @@ public class PatchBuilder<T> where T : class, new()
         throw new ArgumentException("Expression must point to a property.");
     }
 
-    private static void ValidateProperty<TProperty>(PropertyInfo property, TProperty value)
+    private static (PropertyInfo Property, Type OwnerType) GetNestedProperty(IReadOnlyList<string> path)
     {
-        var instance = new T();
+        var ownerType = typeof(T);
+        PropertyInfo? property = null;
+        for (var i = 0; i < path.Count; i++)
+        {
+            property = ownerType.GetProperty(path[i]);
+            if (property == null)
+            {
+                throw new ArgumentException("Expression must point to a property.");
+            }
+
+            if (i < path.Count - 1)
+            {
+                ownerType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+            }
+        }
+
+        return (property!, ownerType);
+    }
+
+    private static void ValidateProperty<TProperty>(PropertyInfo property, Type ownerType, TProperty value)
+    {
+        if (!PropertyValidation.GetValidationAttributes(ownerType, property).Any())
+        {
+            return;
+        }
+
+        var instance = ownerType == typeof(T)
+            ? new T()
+            : Activator.CreateInstance(ownerType) ?? throw new InvalidOperationException(
+                $"Cannot validate nested property '{property.Name}' because '{ownerType}' cannot be instantiated.");
 
         var context = new ValidationContext(instance)
         {
