@@ -31,10 +31,15 @@ public class PatchBuilder<T> where T : class, new()
             for (var i = 0; i < path.Count - 1; i++)
             {
                 var key = ToCamelCase(path[i]);
-                if (!(target.TryGetValue(key, out var child) && child is Dictionary<string, object?> childDictionary))
+                if (!target.TryGetValue(key, out var child))
                 {
-                    childDictionary = new Dictionary<string, object?>();
-                    target[key] = childDictionary;
+                    child = new Dictionary<string, object?>();
+                    target[key] = child;
+                }
+
+                if (!(child is Dictionary<string, object?> childDictionary))
+                {
+                    throw new InvalidOperationException($"Cannot set a nested property because '{key}' already has an assigned value.");
                 }
 
                 target = childDictionary;
