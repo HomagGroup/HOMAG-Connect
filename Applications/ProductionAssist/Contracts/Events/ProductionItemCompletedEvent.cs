@@ -28,8 +28,8 @@ namespace HomagConnect.ProductionAssist.Contracts.Events
         [Required]
         [DefaultValue(1)]
         [JsonProperty(Order = 21)]
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; } = 1;
-
 
         /// <summary>
         /// Person or program that triggered the feedback for the item. Optional.

@@ -2,7 +2,7 @@ using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Events;
 using Newtonsoft.Json;
-
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionAssist.Contracts.Events;
@@ -28,5 +28,6 @@ public class WorkstationUpsertedEvent : AppEvent
     /// </summary>
     [Required]
     [JsonProperty(Order = 11)]
+    [DefaultValue(UpsertAction.Created)]
     public UpsertAction Action { get; set; } = UpsertAction.Created;
 }

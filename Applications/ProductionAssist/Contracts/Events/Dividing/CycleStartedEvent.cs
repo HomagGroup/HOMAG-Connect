@@ -38,6 +38,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events.Dividing
         /// </summary>
         [Required]
         [JsonProperty(Order = 22)]
+        [Range(0, int.MaxValue)]
         public int? PatternCycle { get; set; }
 
         /// <summary>

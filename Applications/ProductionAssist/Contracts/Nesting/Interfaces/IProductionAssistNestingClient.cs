@@ -2,6 +2,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Nesting.Interfaces
 {
     /// <summary>
     /// productionAssist Client for nesting jobs.
+    /// <see href="https://docs.homag.cloud/docs/en/productionassist-nesting-tutorial-first-steps">Learn more about productionAssist nesting</see>.
     /// </summary>
     public interface IProductionAssistNestingClient
     {

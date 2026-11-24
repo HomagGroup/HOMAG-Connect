@@ -5,6 +5,7 @@ namespace HomagConnect.ProductionAssist.Contracts
 {
     /// <summary>
     /// productionAssist Client
+    /// <see href="https://docs.homag.cloud/docs/en/productionassist-tutorial-first-steps">Learn more about productionAssist</see>.
     /// </summary>
     public interface IProductionAssistClient
     {
