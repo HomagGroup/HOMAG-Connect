@@ -27,7 +27,15 @@ public class PatchBuilder<T> where T : class, new()
         var path = GetNestedPath(propertyExpression);
         if (path.Count > 1)
         {
-            var (leafProperty, ownerType) = GetNestedProperty(path);
+            var leafExpression = propertyExpression.Body;
+            while (leafExpression is UnaryExpression unary)
+            {
+                leafExpression = unary.Operand;
+            }
+
+            var leafMember = (MemberExpression)leafExpression;
+            var leafProperty = (PropertyInfo)leafMember.Member;
+            var ownerType = leafMember.Expression!.Type;
             ValidateProperty(leafProperty, ownerType, value);
 
             var target = _values;
