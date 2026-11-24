@@ -6,7 +6,7 @@ using System.Diagnostics;
 namespace HomagConnect.OrderManager.Contracts.Import;
 
 /// <summary>
-/// Request to import an order into productionManager.
+/// Request to import an order into orderManager.
 /// </summary>
 /// <example>
 /// { "action": "ImportOnly" }
