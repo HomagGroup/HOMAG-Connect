@@ -84,6 +84,12 @@ public class PatchBuilder<T> where T : class, new()
             }
             else if (current is MemberExpression member && member.Member is PropertyInfo)
             {
+                if (member.Member.DeclaringType is Type declaringType &&
+                    Nullable.GetUnderlyingType(declaringType) != null)
+                {
+                    throw new ArgumentException("Select the nullable property itself rather than its Value or HasValue member.", nameof(expression));
+                }
+
                 names.Insert(0, member.Member.Name);
                 current = member.Expression!;
             }
