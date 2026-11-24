@@ -81,6 +81,11 @@ public class PatchBuilder<T> where T : class, new()
             }
             else
             {
+                if (current != expression.Parameters[0])
+                {
+                    throw new ArgumentException("Expression must point to a property rooted in the lambda parameter.", nameof(expression));
+                }
+
                 break;
             }
         }
