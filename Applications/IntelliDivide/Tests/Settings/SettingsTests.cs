@@ -1,5 +1,7 @@
+using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Extensions;
 using HomagConnect.Base.TestBase.Attributes;
+using HomagConnect.IntelliDivide.Contracts.Configuration;
 
 using Shouldly;
 using HomagConnect.IntelliDivide.Contracts.Common;
@@ -63,6 +65,57 @@ namespace HomagConnect.IntelliDivide.Tests.Settings
             finally
             {
                 await intelliDivide.DeleteMachine(machineDetails.Name);
+            }
+        }
+
+        [TestMethod]
+        public async Task Settings_PatchMachine_ChangesOnlyTargetedProperties()
+        {
+            var intelliDivide = GetIntelliDivideClient();
+            var machine = (await intelliDivide.GetMachines(OptimizationType.Cutting).ToListAsync())
+                .FirstOrDefault(machine =>
+                    machine.Name.Contains("S-100", StringComparison.OrdinalIgnoreCase)
+                    || machine.Name.Contains("S-200", StringComparison.OrdinalIgnoreCase)
+                    || machine.Name.Contains("S-300", StringComparison.OrdinalIgnoreCase)
+                    || machine.Name.Contains("S-400", StringComparison.OrdinalIgnoreCase));
+
+            if (machine == null)
+            {
+                Assert.Inconclusive("No cutting machine with model S-100, S-200, S-300, or S-400 is available.");
+            }
+
+            machine.ShouldNotBeNull();
+
+            var machineDetails = await intelliDivide.GetMachineDetails(machine.Name);
+
+            machineDetails.ShouldNotBeNull();
+            machineDetails.Name = $"HOMAG Connect Test {Guid.NewGuid():N}";
+
+            await intelliDivide.CreateMachine(machineDetails);
+
+            var patchedName = $"{machineDetails.Name} patched";
+            var currentName = machineDetails.Name;
+
+            try
+            {
+                var patch = PatchBuilder<MachineDetails>.For()
+                    .Set(m => m.Name, patchedName)
+                    .Set(m => m.Configuration.SawMaterialConfiguration.Parameters,
+                        new Dictionary<string, string> { ["SaegeblattStaerke"] = "4.4" });
+
+                await intelliDivide.PatchMachine(currentName, patch);
+                currentName = patchedName;
+
+                var patchedMachine = await intelliDivide.GetMachineDetails(patchedName);
+
+                patchedMachine.ShouldNotBeNull();
+                patchedMachine.Configuration.SawMaterialConfiguration.Parameters["SaegeblattStaerke"].ShouldBe("4.4");
+                patchedMachine.Configuration.SawConfiguration.Parameters.Count
+                    .ShouldBe(machineDetails.Configuration.SawConfiguration.Parameters.Count);
+            }
+            finally
+            {
+                await intelliDivide.DeleteMachine(currentName);
             }
         }
 

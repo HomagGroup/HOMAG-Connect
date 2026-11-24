@@ -24,6 +24,26 @@ public class PatchBuilder<T> where T : class, new()
         Expression<Func<T, TProperty>> propertyExpression,
         TProperty value)
     {
+        var path = GetNestedPath(propertyExpression);
+        if (path.Count > 1)
+        {
+            var target = _values;
+            for (var i = 0; i < path.Count - 1; i++)
+            {
+                var key = ToCamelCase(path[i]);
+                if (!(target.TryGetValue(key, out var child) && child is Dictionary<string, object?> childDictionary))
+                {
+                    childDictionary = new Dictionary<string, object?>();
+                    target[key] = childDictionary;
+                }
+
+                target = childDictionary;
+            }
+
+            target[ToCamelCase(path[path.Count - 1])] = value;
+            return this;
+        }
+
         var property = GetPropertyInfo(propertyExpression);
 
         ValidateProperty(property, value);
@@ -35,6 +55,30 @@ public class PatchBuilder<T> where T : class, new()
     }
 
     public IReadOnlyDictionary<string, object?> Build() => _values;
+
+    private static List<string> GetNestedPath<TProperty>(Expression<Func<T, TProperty>> expression)
+    {
+        var names = new List<string>();
+        var current = expression.Body;
+        while (true)
+        {
+            if (current is UnaryExpression unary)
+            {
+                current = unary.Operand;
+            }
+            else if (current is MemberExpression member && member.Member is PropertyInfo)
+            {
+                names.Insert(0, member.Member.Name);
+                current = member.Expression!;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return names;
+    }
 
     private static PropertyInfo GetPropertyInfo<TProperty>(Expression<Func<T, TProperty>> expression)
     {
