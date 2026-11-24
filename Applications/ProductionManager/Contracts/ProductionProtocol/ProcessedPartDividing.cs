@@ -67,6 +67,7 @@ public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerializat
     /// <example>2</example>
     [JsonProperty(Order = 34)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(PatternCycle))]
+    [Range(0, int.MaxValue)]
     public int? PatternCycle { get; set; }
 
     /// <summary>

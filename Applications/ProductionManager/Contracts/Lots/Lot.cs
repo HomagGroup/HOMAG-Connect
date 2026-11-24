@@ -1,11 +1,11 @@
-using System.ComponentModel.DataAnnotations;
-
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.Lots
 {
     /// <summary>
     /// Represents a production lot with scheduling and quantity information.
+    /// <see href="https://docs.homag.cloud/docs/en/productionmanager-tutorial-lot-generation">Learn more about lot generation </see>.
     /// </summary>
     /// <example>
     /// { "id": "7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c", "name": "Lot-2025-04-01", "quantityOfParts": 24, "status": "Planned", "startDatePlanned": "2025-04-14T06:00:00+00:00", "completionDatePlanned": "2025-04-14T14:00:00+00:00", "earliestDeliveryDatePlanned": "2025-04-16T00:00:00+00:00", "changedAt": "2025-04-09T08:15:00+00:00" }
@@ -49,6 +49,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// <example>2025-04-14T06:00:00+00:00</example>
         [JsonProperty(Order = 30)]
         [DisplayFormat(DataFormatString = "{0:g}")]
+        [DataType(DataType.Date)]
         public DateTimeOffset? StartDatePlanned { get; set; }
 
         /// <summary>
@@ -57,6 +58,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// <example>2025-04-14T14:00:00+00:00</example>
         [JsonProperty(Order = 31)]
         [DisplayFormat(DataFormatString = "{0:g}")]
+        [DataType(DataType.Date)]
         public DateTimeOffset? CompletionDatePlanned { get; set; }
 
         /// <summary>
@@ -64,7 +66,8 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// </summary>
         /// <example>2025-04-16T00:00:00+00:00</example>
         [JsonProperty(Order = 32)]
-        [DisplayFormat(DataFormatString = "{0:g}")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DataType(DataType.Date)]
         public DateTimeOffset? EarliestDeliveryDatePlanned { get; set; }
 
         /// <summary>
@@ -73,6 +76,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// <example>2025-04-09T08:15:00+00:00</example>
         [JsonProperty(Order = 40)]
         [DisplayFormat(DataFormatString = "{0:g}")]
+        [DataType(DataType.DateTime)]
         public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
     }
 }

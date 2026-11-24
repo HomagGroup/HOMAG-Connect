@@ -51,6 +51,7 @@ public class OrderLotReference
     /// </summary>
     /// <example>60</example>
     [JsonProperty(Order = 231)]
+    [Range(0, int.MaxValue)]
     public int QuantityOfParts { get; set; }
 
     /// <summary>
@@ -58,7 +59,8 @@ public class OrderLotReference
     /// </summary>
     /// <example>2025-04-03T00:00:00+00:00</example>
     [JsonProperty(Order = 30)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? StartDatePlanned { get; set; }
 
     /// <summary>
@@ -66,7 +68,8 @@ public class OrderLotReference
     /// </summary>
     /// <example>2025-04-04T00:00:00+00:00</example>
     [JsonProperty(Order = 31)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>

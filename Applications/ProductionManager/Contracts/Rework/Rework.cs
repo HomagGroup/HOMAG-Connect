@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.Rework
 {
     /// <summary>
     /// Represents a rework request for parts that have to be produced again, including category, reason, quantity, state, and the capture or rejection details.
+    /// <see href="https://docs.homag.cloud/docs/en/productionmanager-tutorial-rework">Learn more about rework</see>.
     /// </summary>
     /// <example>
     /// { "id": "PART-1001", "description": "Visible edge damage", "orderName": "Kitchen Order", "material": "P2_Gold_Craft_Oak_19.0", "quantityOfReworks": 2, "category": "Edgebanding", "reason": "PartDamaged", "state": "Pending", "capturedAt": "2025-03-14T08:42:15+00:00" }
@@ -87,6 +88,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <example>2</example>
         [JsonProperty(Order = 5)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(QuantityOfReworks))]
+        [Range(0, int.MaxValue)]
         public int QuantityOfReworks { get; set; }
 
         /// <summary>
@@ -125,6 +127,8 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// </summary>
         /// <example>720.0</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Length))]
+        [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public decimal? Length { get; set; }
 
         /// <summary>
@@ -132,6 +136,8 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// </summary>
         /// <example>480.0</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Width))]
+        [Range(0.1, 9999.9)]
+        [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
         public decimal? Width { get; set; }
 
         /// <summary>

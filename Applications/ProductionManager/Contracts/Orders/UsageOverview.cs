@@ -20,6 +20,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// <example>2025-03-01T00:00:00Z</example>
         [Display(ResourceType = typeof(UsageOverviewPropertyDisplayNames), Name = nameof(Period))]
         [JsonProperty(Order = 1)]
+        [DataType(DataType.DateTime)]
         public DateTime Period { get; set; }
 
         /// <summary>
@@ -36,6 +37,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// <example>150000</example>
         [Display(ResourceType = typeof(UsageOverviewPropertyDisplayNames), Name = nameof(QuantityOfPartsCoveredByTheLicenses))]
         [JsonProperty(Order = 3)]
+        [Range(0, int.MaxValue)]
         public int QuantityOfPartsCoveredByTheLicenses { get; set; }
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// <example>126430</example>
         [Display(ResourceType = typeof(UsageOverviewPropertyDisplayNames), Name = nameof(QuantityOfReleasedParts))]
         [JsonProperty(Order = 4)]
+        [Range(0, int.MaxValue)]
         public int QuantityOfReleasedParts { get; set; }
     }
 }

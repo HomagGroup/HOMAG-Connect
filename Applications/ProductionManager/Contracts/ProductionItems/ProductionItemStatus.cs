@@ -36,6 +36,6 @@ public enum ProductionItemStatus
 
     /// <summary>
     /// Production of the item is finished.
-        /// </summary>
+    /// </summary>
     Completed,
 }

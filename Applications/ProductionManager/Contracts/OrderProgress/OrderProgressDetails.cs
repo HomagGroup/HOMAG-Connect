@@ -3,12 +3,14 @@ using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.OrderProgress
 {
     /// <summary>
     /// Represents processed part totals for one order at one workstation.
+    /// <see href="https://docs.homag.cloud/docs/en/productionmanager-in-a-nutshell-order-progress">Learn more about order progress</see>.
     /// </summary>
     /// <example>
     /// { "orderNumber": "4711", "group": "Saw", "id": "7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c", "aggregatedItemQuantity": 84 }
@@ -29,6 +31,7 @@ namespace HomagConnect.ProductionManager.Contracts.OrderProgress
         /// <example>Saw</example>
         [JsonProperty(Order = 2)]
         [Display(ResourceType = typeof(Resources), Name = nameof(WorkstationGroup))]
+        [DefaultValue(WorkstationGroup.None)]
         public WorkstationGroup Group { get; set; } = WorkstationGroup.None;
 
         /// <summary>

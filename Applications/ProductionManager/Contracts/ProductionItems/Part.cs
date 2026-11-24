@@ -1,11 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-
-using HomagConnect.Base.Contracts.Attributes;
+﻿using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
-
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
@@ -36,6 +35,7 @@ public class Part : ProductionItemBase, IPartProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 999)]
+    [DefaultValue(UnitSystem.Metric)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion
@@ -44,6 +44,7 @@ public class Part : ProductionItemBase, IPartProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 0)]
+    [DefaultValue(ProductionItemType.Part)]
     public override ProductionItemType Type { get; set; } = ProductionItemType.Part;
 
     /// <summary>
@@ -147,6 +148,7 @@ public class Part : ProductionItemBase, IPartProperties
     /// </summary>
     /// <example>1</example>
     [JsonProperty(Order = 23)]
+    [Range(0, int.MaxValue)]
     public int? QuantityPlanned { get; set; }
 
     /// <summary>

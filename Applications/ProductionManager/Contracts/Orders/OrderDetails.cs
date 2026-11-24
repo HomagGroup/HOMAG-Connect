@@ -11,6 +11,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders;
 
 /// <summary>
 /// An order including its additional data and the production items (bill of materials) it consists of.
+/// <see href="https://docs.homag.cloud/docs/en/productionmanager-in-a-nutshell-order-details">Learn more about order </see>.
 /// </summary>
 /// <example>
 /// { "id": "3f2b8c1e-5a47-4d6e-9b0a-7c1d2e3f4a5b", "orderName": "Kitchen Miller", "orderDate": "2025-04-01T08:30:00+00:00",

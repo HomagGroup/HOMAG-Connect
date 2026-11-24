@@ -1,11 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
-
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -64,6 +63,7 @@ public class CuttingPredictionPart : IDimensionProperties, IContainsUnitSystemDe
     /// </summary>
     /// <example>Metric</example>
     [JsonProperty(Order = 999)]
+    [DefaultValue(UnitSystem.Metric)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion

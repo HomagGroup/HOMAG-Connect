@@ -22,6 +22,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(Timestamp))]
         [JsonProperty(Order = 1)]
         [DisplayFormat(DataFormatString = "{0:g}")]
+        [DataType(DataType.DateTime)]
         public DateTimeOffset Timestamp { get; set; }
 
         /// <summary>
@@ -62,6 +63,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// <example>84</example>
         [Display(ResourceType = typeof(UsageDetailsPropertyDisplayNames), Name = nameof(QuantityOfParts))]
         [JsonProperty(Order = 6)]
+        [Range(0, int.MaxValue)]
         public int QuantityOfParts { get; set; }
 
         /// <summary>

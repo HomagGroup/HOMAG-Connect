@@ -41,6 +41,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         /// <example>4</example>
         [JsonProperty(Order = 12)]
         [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Quantity))]
+        [Range(0, int.MaxValue)]
         public int? Quantity { get; set; }
 
         /// <summary>

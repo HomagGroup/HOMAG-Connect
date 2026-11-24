@@ -6,6 +6,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
 {
     /// <summary>
     /// Represents a request to create a production lot.
+    /// <see href="https://docs.homag.cloud/docs/en/productionmanager-tutorial-lot-generation">Learn more about Lot generation</see>.
     /// </summary>
     /// <example>
     /// { "name": "Lot-2025-04-01", "startDatePlanned": "2025-04-14T06:00:00+00:00", "completionDatePlanned": "2025-04-14T14:00:00+00:00", "partIds": [ "PART-1001", "PART-1002" ] }
@@ -24,7 +25,8 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// </summary>
         /// <example>2025-04-14T06:00:00+00:00</example>
         [JsonProperty(Order = 2)]
-        [DisplayFormat(DataFormatString = "{0:g}")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DataType(DataType.Date)]
         public DateTimeOffset? StartDatePlanned { get; set; }
 
         /// <summary>
@@ -32,7 +34,8 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// </summary>
         /// <example>2025-04-14T14:00:00+00:00</example>
         [JsonProperty(Order = 3)]
-        [DisplayFormat(DataFormatString = "{0:g}")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DataType(DataType.Date)]
         public DateTimeOffset? CompletionDatePlanned { get; set; }
 
         /// <summary>

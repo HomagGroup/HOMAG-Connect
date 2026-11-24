@@ -1,12 +1,11 @@
-using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
-
 using JsonSubTypes;
-
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
 
@@ -96,6 +95,7 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     /// <example>ProcessedPart</example>
     [JsonProperty(Order = 0)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Type))]
+    [DefaultValue(ProcessedItemType.ProcessedItem)]
     public virtual ProcessedItemType Type { get; set; } = ProcessedItemType.ProcessedItem;
 
     /// <summary>
@@ -112,6 +112,7 @@ public class ProcessedItem : ISupportsLocalizedSerialization
     /// <example>Planned</example>
     [JsonProperty(Order = 6)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Category))]
+    [DefaultValue(ProcessedItemCategory.Planned)]
     public ProcessedItemCategory Category { get; set; } = ProcessedItemCategory.Planned;
     
 }

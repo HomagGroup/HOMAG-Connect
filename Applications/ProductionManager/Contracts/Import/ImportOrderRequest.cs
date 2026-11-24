@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace HomagConnect.ProductionManager.Contracts.Import;
@@ -14,5 +15,6 @@ public class ImportOrderRequest
     /// <summary>
     /// Action to perform on import. Defaults to ImportOnly.
     /// </summary>
+    [DefaultValue(ImportOrderRequestAction.ImportOnly)]
     public ImportOrderRequestAction Action { get; set; } = ImportOrderRequestAction.ImportOnly;
 }

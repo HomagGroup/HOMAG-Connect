@@ -45,7 +45,6 @@ public enum ProductionItemType
 
     /// <summary>
     /// A resource used in production, for example hardware or a fitting.
-    /// </summary>
-        
+    /// </summary>        
     Resource
 }

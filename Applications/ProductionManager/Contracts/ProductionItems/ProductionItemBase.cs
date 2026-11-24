@@ -1,14 +1,12 @@
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
-
 using JsonSubTypes;
-
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 
@@ -155,6 +153,7 @@ public class ProductionItemBase
     /// </summary>
     /// <example>New</example>
     [JsonProperty(Order = 22)]
+    [DefaultValue(ProductionItemStatus.New)]
     public ProductionItemStatus ProductionStatus { get; set; } = ProductionItemStatus.New;
 
     /// <summary>
@@ -162,6 +161,7 @@ public class ProductionItemBase
     /// </summary>
     /// <example>1</example>
     [JsonProperty(Order = 23)]
+    [DefaultValue(1)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>
@@ -179,7 +179,8 @@ public class ProductionItemBase
     /// </summary>
     /// <example>2025-04-03T00:00:00+00:00</example>
     [JsonProperty(Order = 30)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? StartDatePlanned { get; set; }
 
     /// <summary>
@@ -188,6 +189,7 @@ public class ProductionItemBase
     /// <example>2025-04-03T07:15:00+00:00</example>
     [JsonProperty(Order = 31)]
     [DisplayFormat(DataFormatString = "{0:g}")]
+    [DataType(DataType.DateTime)]
     public DateTimeOffset? StartedAt { get; set; }
 
     /// <summary>
@@ -195,7 +197,8 @@ public class ProductionItemBase
         /// </summary>
         /// <example>2025-04-04T00:00:00+00:00</example>
     [JsonProperty(Order = 32)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>
@@ -204,6 +207,7 @@ public class ProductionItemBase
     /// <example>2025-04-04T15:40:00+00:00</example>
     [JsonProperty(Order = 33)]
     [DisplayFormat(DataFormatString = "{0:g}")]
+    [DataType(DataType.DateTime)]
     public DateTimeOffset? CompletedAt { get; set; }
 
     /// <summary>
@@ -211,7 +215,8 @@ public class ProductionItemBase
     /// </summary>
     /// <example>2025-05-15T00:00:00+00:00</example>
     [JsonProperty(Order = 34)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
     /// <summary>

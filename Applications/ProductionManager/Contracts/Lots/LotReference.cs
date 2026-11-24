@@ -36,6 +36,7 @@ public class LotReference
     /// Unique identifier of the referenced lot.
     /// </summary>
     /// <example>7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c</example>
+    [Key]
     [JsonProperty(Order = 1)]
     public Guid LotId { get; set; }
 
@@ -51,7 +52,8 @@ public class LotReference
     /// </summary>
     /// <example>2025-04-14T06:00:00+00:00</example>
     [JsonProperty(Order = 30)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? StartDatePlanned { get; set; }
 
     /// <summary>
@@ -59,7 +61,8 @@ public class LotReference
     /// </summary>
     /// <example>2025-04-14T14:00:00+00:00</example>
     [JsonProperty(Order = 31)]
-    [DisplayFormat(DataFormatString = "{0:g}")]
+    [DisplayFormat(DataFormatString = "{0:d}")]
+    [DataType(DataType.Date)]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>
