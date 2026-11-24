@@ -11,7 +11,7 @@ namespace HomagConnect.OrderManager.Contracts.Import;
 public enum ImportOrderRequestAction
 {
     /// <summary>
-    /// Creates a new order in productionManager using the provided data.
+    /// Creates a new order in orderManager using the provided data.
     /// </summary>
     ImportOnly
 }
