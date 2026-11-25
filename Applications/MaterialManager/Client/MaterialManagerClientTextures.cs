@@ -117,12 +117,12 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     }
 
     /// <inheritdoc />
-    [Obsolete("Use " + nameof(SearchBoardDetailsDecors) + " with a BoardTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForBoardDetails).",true)]
+    [Obsolete("Use " + nameof(SearchBoardDetailsDecors) + " with a BoardTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForBoardDetails).",false)]
     public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
         => SearchDecors(request, _DecorSearchRoute);
 
     /// <inheritdoc />
-    [Obsolete("Use " + nameof(SearchEdgebandDetailsDecors) + " with an EdgebandTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForEdgebandDetails).", true)]
+    [Obsolete("Use " + nameof(SearchEdgebandDetailsDecors) + " with an EdgebandTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForEdgebandDetails).", false)]
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
         => SearchDecors(request, _DecorSearchRoute);
 
