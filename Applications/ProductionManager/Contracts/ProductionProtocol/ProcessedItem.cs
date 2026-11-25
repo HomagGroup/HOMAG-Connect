@@ -1,5 +1,4 @@
 using HomagConnect.Base.Contracts;
-using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
 using JsonSubTypes;

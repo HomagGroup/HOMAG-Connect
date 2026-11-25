@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Contracts.Feedback;
