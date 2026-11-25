@@ -51,6 +51,7 @@ public class Part : ProductionItemBase, IPartProperties
     /// Description of the position (order item) the part belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 15)]
+    [StringLength(100)]
     public string? OrderItemDescription { get; set; }
 
     /// <summary>
@@ -100,6 +101,7 @@ public class Part : ProductionItemBase, IPartProperties
     /// </summary>
     /// <example>P2_Hunton_Oak_dark_19.0</example>
     [JsonProperty(Order = 17)]
+    [StringLength(255)]
     public string? Material { get; set; }
 
     /// <summary>
@@ -130,11 +132,15 @@ public class Part : ProductionItemBase, IPartProperties
     /// <summary>
     /// Surface of the bottom side of the part. Optional.
     /// </summary>
+    [JsonProperty(Order = 21)]
+    [StringLength(100)]
     public string? SurfaceBottom { get; set; }
 
     /// <summary>
     /// Surface of the top side of the part. Optional.
     /// </summary>
+    [JsonProperty(Order = 22)]
+    [StringLength(100)]
     public string? SurfaceTop { get; set; }
 
     #endregion
@@ -173,6 +179,7 @@ public class Part : ProductionItemBase, IPartProperties
     /// Production route the part follows through the workstations. Optional.
     /// </summary>
     [JsonProperty(Order = 42)]
+    [StringLength(255)]
     public string? ProductionRoute { get; set; }
 
     /// <summary>
@@ -185,12 +192,14 @@ public class Part : ProductionItemBase, IPartProperties
     /// Name of the grain matching template applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 44)]
+    [StringLength(50)]
     public string? Template { get; set; }
 
     /// <summary>
     /// Layout used to print the label of the part. Optional.
     /// </summary>
     [JsonProperty(Order = 45)]
+    [StringLength(50)]
     public string? LabelLayout { get; set; }
 
     /// <summary>
@@ -205,7 +214,7 @@ public class Part : ProductionItemBase, IPartProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 32)]
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(100)]
     public string? EdgeBack { get; set; }
 
     /// <inheritdoc />
@@ -214,17 +223,17 @@ public class Part : ProductionItemBase, IPartProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 31)]
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(100)]
     public string? EdgeFront { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 33)]
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(100)]
     public string? EdgeLeft { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 34)]
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(100)]
     public string? EdgeRight { get; set; }
 
     /// <summary>
@@ -271,18 +280,21 @@ public class Part : ProductionItemBase, IPartProperties
     /// Name of the first CNC program applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 40)]
+    [StringLength(255)]
     public string? CncProgramName1 { get; set; }
 
     /// <summary>
     /// Name of the second CNC program applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 41)]
+    [StringLength(255)]
     public string? CncProgramName2 { get; set; }
 
     /// <summary>
     /// Name of the third CNC program applied to the part. Optional.
     /// </summary>
     [JsonProperty(Order = 42)]
+    [StringLength(255)]
     public string? CncProgramName3 { get; set; }
 
     #endregion
@@ -291,24 +303,26 @@ public class Part : ProductionItemBase, IPartProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 51)]
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(100)]
     public string? LaminateTop { get; set; }
 
     /// <summary>
     /// Material code of the laminate applied on the bottom side. Optional.
     /// </summary>
     [JsonProperty(Order = 52)]
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(100)]
     public string? LaminateBottom { get; set; }
 
     /// <summary>
     /// Grain direction of the laminate on the bottom side. Optional.
     /// </summary>
+    [JsonProperty(Order = 53)]
     public Grain? LaminateBottomGrain { get; set; }
 
     /// <summary>
     /// Grain direction of the laminate on the top side. Optional.
     /// </summary>
+    [JsonProperty(Order = 53)]
     public Grain? LaminateTopGrain { get; set; }
 
     #endregion

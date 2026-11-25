@@ -36,6 +36,7 @@ public class ProductionItemBase
     /// <summary>
     /// Grouping criterion the item is assigned to. Optional.
     /// </summary>
+    [StringLength(100)]
     public string? Grouping { get; set; }
 
     #region (10) Article
@@ -81,12 +82,14 @@ public class ProductionItemBase
     /// Identifier of the order item (position) the item belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 3)]
+    [StringLength(100)]
     public string? OrderItem { get; set; }
 
     /// <summary>
     /// Group of the order item the item belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 4)]
+    [StringLength(100)]
     public string? OrderItemGroup { get; set; }
 
     /// <summary>
@@ -94,6 +97,7 @@ public class ProductionItemBase
     /// </summary>
     /// <example>SIDE-L</example>
     [JsonProperty(Order = 5)]
+    [StringLength(100)]
     public string? ArticleNumber { get; set; }
 
     /// <summary>
@@ -101,24 +105,28 @@ public class ProductionItemBase
     /// </summary>
     /// <example>Left side panel</example>
     [JsonProperty(Order = 6)]
+    [StringLength(1000)]
     public string? Description { get; set; }
 
     /// <summary>
     /// Article group the item belongs to. Optional.
     /// </summary>
     [JsonProperty(Order = 7)]
+    [StringLength(100)]
     public string? ArticleGroup { get; set; }
 
     /// <summary>
     /// How the item is procured, for example produced in-house or purchased. Optional.
     /// </summary>
     [JsonProperty(Order = 8)]
+    [StringLength(100)]
     public string? ProcurementType { get; set; }
 
     /// <summary>
     /// Identifier of the item in an external system, usable as a reference. Optional.
     /// </summary>
     [JsonProperty(Order = 9)]
+    [StringLength(300)]
     public string? ExternalSystemId { get; set; }
 
     /// <summary>
@@ -146,6 +154,7 @@ public class ProductionItemBase
     /// </summary>
     /// <example>4711000001</example>
     [JsonProperty(Order = 21)]
+    [StringLength(100)]
     public string? Barcode { get; set; }
 
     /// <summary>
@@ -162,12 +171,14 @@ public class ProductionItemBase
     /// <example>1</example>
     [JsonProperty(Order = 23)]
     [DefaultValue(1)]
+    [Range(1, int.MaxValue)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>
     /// Unit in which <see cref="Quantity" /> is expressed, for example pieces. Optional.
     /// </summary>
     [JsonProperty(Order = 24)]
+    [StringLength(50)]
     public string? QuantityUnit { get; set; }
 
     #endregion
@@ -223,6 +234,7 @@ public class ProductionItemBase
     /// Manufacturer of the item. Optional.
     /// </summary>
     [JsonProperty(Order = 35)]
+    [StringLength(255)]
     public string? Manufacturer { get; set; }
 
     #endregion
@@ -234,6 +246,7 @@ public class ProductionItemBase
     /// </summary>
     /// <example>Handle with care</example>
     [JsonProperty(Order = 80)]
+    [StringLength(255)]
     public string? Notes { get; set; }
 
     /// <summary>

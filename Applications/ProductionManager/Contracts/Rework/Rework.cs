@@ -56,6 +56,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <example>Visible edge damage</example>
         [JsonProperty(Order = 2)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Description))]
+        [StringLength(1000)]
         public string? Description { get; set; }
 
         /// <summary>
@@ -72,6 +73,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <example>P2_Gold_Craft_Oak_19.0</example>
         [JsonProperty(Order = 4)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(Material))]
+        [StringLength(255)]
         public string? Material { get; set; }
 
         /// <summary>
@@ -80,6 +82,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// <example>Kitchen Order</example>
         [JsonProperty(Order = 3)]
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(OrderName))]
+        [StringLength(100)]
         public string? OrderName { get; set; }
 
         /// <summary>
@@ -120,6 +123,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         /// </summary>
         /// <example>Muster GmbH</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CustomerName))]
+        [StringLength(100)]
         public string? CustomerName { get; set; }
 
         /// <summary>

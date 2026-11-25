@@ -44,6 +44,7 @@ public class OrderLotReference
     /// </summary>
     /// <example>Lot 2025-04-02</example>
     [JsonProperty(Order = 2)]
+    [StringLength(100)]
     public string? LotName { get; set; }
 
     /// <summary>

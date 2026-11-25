@@ -18,6 +18,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
         /// </summary>
         /// <example>Lot-2025-04-01</example>
         [JsonProperty(Order = 1)]
+        [StringLength(LotConstraints.MaxNameLength)]
         public string? Name { get; set; }
 
         /// <summary>

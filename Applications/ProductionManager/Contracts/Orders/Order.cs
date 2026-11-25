@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HomagConnect.Base.Contracts;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using HomagConnect.Base.Contracts;
-using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Orders
 {
@@ -42,6 +42,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Kitchen Miller</example>
         [JsonProperty(Order = 110)]
+        [StringLength(100)]
         public string OrderName { get; set; } = null!;
 
         /// <summary>
@@ -49,6 +50,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Miller</example>
         [JsonProperty(Order = 111)]
+        [StringLength(100)]
         public string? CustomerName { get; set; }
 
         /// <summary>
@@ -56,6 +58,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>10025</example>
         [JsonProperty(Order = 112)]
+        [StringLength(100)]
         public string? CustomerNumber { get; set; }
 
         /// <summary>
@@ -63,6 +66,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>+49 7453 12345</example>
         [JsonProperty(Order = 113)]
+        [StringLength(100)]
         public string? TelephoneNumber { get; set; }
 
         /// <summary>
@@ -70,6 +74,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>info@miller.example</example>
         [JsonProperty(Order = 114)]
+        [StringLength(100)]
         public string? Email { get; set; }
 
         /// <summary>
@@ -77,6 +82,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Miller Woodworks</example>
         [JsonProperty(Order = 115)]
+        [StringLength(100)]
         public string? Company { get; set; }
 
         /// <summary>
@@ -84,6 +90,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Kitchen with island</example>
         [JsonProperty(Order = 116)]
+        [StringLength(300)]
         public string? OrderDescription { get; set; }
 
         /// <summary>
@@ -91,6 +98,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Residential Building 7</example>
         [JsonProperty(Order = 117)]
+        [StringLength(100)]
         public string? Project { get; set; }
 
         /// <summary>
@@ -98,6 +106,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Jane Doe</example>
         [JsonProperty(Order = 118)]
+        [StringLength(100)]
         public string? PersonInCharge { get; set; }
 
         /// <summary>
@@ -123,6 +132,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>ERP-48213</example>
         [JsonProperty(Order = 121)]
+        [StringLength(300)]
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
@@ -144,6 +154,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>SO-778412</example>
         [JsonProperty(Order = 124)]
+        [StringLength(100)]
         public string? OrderNumberExternal { get; set; }
 
         #endregion
@@ -219,6 +230,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// Source the order originates from, for example the system or import it was created by. Optional.
         /// </summary>
         /// <example>Import</example>
+        [StringLength(100)]
         public string? Source { get; set; }
 
         #region Production
@@ -301,6 +313,7 @@ namespace HomagConnect.ProductionManager.Contracts.Orders
         /// </summary>
         /// <example>Handle with care</example>
         [JsonProperty(Order = 400)]
+        [StringLength(1000)]
         public string? Notes { get; set; }
 
         #endregion

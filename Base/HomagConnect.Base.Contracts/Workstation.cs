@@ -1,4 +1,5 @@
 ﻿using HomagConnect.Base.Contracts.Enumerations;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.Base.Contracts;
@@ -15,6 +16,7 @@ public class Workstation
     /// Gets or sets the unique identifier of the workstation.
     /// </summary>
     /// <example>6f9619ff-8b86-d011-b42d-00cf4fc964ff</example>
+    [JsonProperty(Order = 1)]
     public Guid Id { get; set; }
 
     /// <summary>
@@ -22,6 +24,7 @@ public class Workstation
     /// </summary>
     /// <example>productionAssist Cutting</example>
     [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(Name))]
+    [JsonProperty(Order = 2)]
     public string Name { get; set; }
 
     /// <summary>
@@ -30,6 +33,7 @@ public class Workstation
     /// </summary>
     /// <example>Cutting</example>
     [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(Type))]
+    [JsonProperty(Order = 3)]
     public WorkstationType Type { get; set; }
 
     /// <summary>
@@ -38,5 +42,6 @@ public class Workstation
     /// </summary>
     /// <example>Dividing</example>
     [Display(ResourceType = typeof(WorkstationPropertyDisplayNames), Name = nameof(Group))]
+    [JsonProperty(Order = 4)]
     public WorkstationGroup Group { get; set; }
 }
