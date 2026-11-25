@@ -42,17 +42,17 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     }
 
     /// <inheritdoc />
-    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
+    [Obsolete()]
     public Task<PagedTextureResult> GetTextures(int pageSize = 100, string? continuationToken = null)
         => GetTextures(new TextureFilter(), pageSize, continuationToken);
 
     /// <inheritdoc />
-    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
+    [Obsolete()]
     public Task<PagedTextureResult> GetTextures(string? catalog, int pageSize = 100, string? continuationToken = null)
         => GetTextures(new TextureFilter { Catalog = catalog }, pageSize, continuationToken);
 
     /// <inheritdoc />
-    [Obsolete("Use GetTextures(TextureFilter, ...) instead.")]
+    [Obsolete()]
     public Task<PagedTextureResult> GetTextures(string? catalog, string? decorCode, int pageSize = 100, string? continuationToken = null)
         => GetTextures(new TextureFilter { Catalog = catalog, DecorCode = decorCode }, pageSize, continuationToken);
 
@@ -117,12 +117,12 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     }
 
     /// <inheritdoc />
-    [Obsolete("Deprecated until 31 March 2027. Use SearchBoardDetailsDecors instead.")]
+    [Obsolete()]
     public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
         => SearchDecors(request, _DecorSearchRoute);
 
     /// <inheritdoc />
-    [Obsolete("Deprecated until 31 March 2027. Use SearchEdgebandDetailsDecors instead.")]
+    [Obsolete()]
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
         => SearchDecors(request, _DecorSearchRoute);
 
