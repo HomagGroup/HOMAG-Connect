@@ -92,5 +92,5 @@ public class CreateCustomerRequest
     /// </summary>
     /// <example>["buyer@miller.example.com"]</example>
     [JsonProperty(Order = 11)]
-    public ICollection<string> SalesPortalAccess { get; set; }
+    public ICollection<string> SalesPortalAccess { get; set; }  = new List<string>();
 }
