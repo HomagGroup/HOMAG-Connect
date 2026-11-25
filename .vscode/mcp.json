@@ -9,9 +9,9 @@
       "command": "${userHome}\\AppData\\Local\\Yarn\\bin\\mcp-server-azuredevops.cmd",
       "args": ["homag-group"]
     },
-    "Figma": {
+    "figma": {
       "type": "http",
-      "url": "http://127.0.0.1:3845/mcp"
+      "url": "https://mcp.figma.com/mcp"
     },
     "github": {
       "url": "https://api.githubcopilot.com/mcp",
