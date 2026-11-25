@@ -81,6 +81,25 @@ public class PropertyValidationTests
     }
 
     [TestMethod]
+    public void Patch_ValidatesOnlyTheSelectedNestedProperty()
+    {
+        var patch = PatchBuilder<NestedPatchRoot>.For()
+            .Set(item => item.Child!.Value, 75);
+
+        ((Dictionary<string, object?>)patch.Build()["child"]!)["value"].ShouldBe(75);
+    }
+
+    [TestMethod]
+    public void Patch_RejectsInvalidNestedPropertyWithoutChangingThePatch()
+    {
+        var patch = PatchBuilder<NestedPatchRoot>.For();
+
+        Should.Throw<ValidationException>(() => patch.Set(item => item.Child!.Value, 0));
+
+        patch.Build().Count.ShouldBe(0);
+    }
+
+    [TestMethod]
     public void RecursiveValidation_UsesInheritedInterfaceRules()
     {
         DataAnnotationsValidator.TryValidateObjectRecursive(new Dimensions { Length = 20000 }, out var results)
@@ -134,5 +153,19 @@ public class PropertyValidationTests
     public class NestedDimensions : Dimensions
     {
         public Dimensions? Child { get; set; }
+    }
+
+    public class NestedPatchRoot
+    {
+        public NestedPatchChild? Child { get; set; }
+    }
+
+    public class NestedPatchChild
+    {
+        [Range(50, 100)]
+        public int Value { get; set; }
+
+        [Range(50, 100)]
+        public int OmittedValue { get; set; }
     }
 }
