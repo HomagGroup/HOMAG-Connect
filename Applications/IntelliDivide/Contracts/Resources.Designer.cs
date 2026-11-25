@@ -70,6 +70,15 @@ namespace HomagConnect.IntelliDivide.Contracts {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Mindestens ein Teil muss eine Quantity größer als 0 haben..
+        /// </summary>
+        public static string OptimizationRequest_NoPartWithQuantity {
+            get {
+                return ResourceManager.GetString("OptimizationRequest_NoPartWithQuantity", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Der Name der Optimierung enthält ungültige Zeichen: {0}.
         /// </summary>
         public static string OptimizationName_InvalidCharacters {

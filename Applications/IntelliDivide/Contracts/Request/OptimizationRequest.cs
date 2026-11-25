@@ -50,7 +50,7 @@ namespace HomagConnect.IntelliDivide.Contracts.Request;
 /// }
 /// </example>
 [DebuggerDisplay("Name={Name}, Action={Action}")]
-public class OptimizationRequest : OptimizationRequestBase
+public class OptimizationRequest : OptimizationRequestBase, IValidatableObject
 {
     private const int _NameMaxLength = 100;
 
@@ -66,7 +66,8 @@ public class OptimizationRequest : OptimizationRequestBase
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the parts to include in the optimization. At least one part is required.
+    /// Gets or sets the parts to include in the optimization. At least one part is required, and at least one part
+    /// must have a <see cref="OptimizationRequestPart.Quantity" /> greater than 0.
     /// </summary>
     /// <example>
     /// [
@@ -75,4 +76,13 @@ public class OptimizationRequest : OptimizationRequestBase
     /// </example>
     [MinLength(1)]
     public Collection<OptimizationRequestPart> Parts { get; set; } = [];
+
+    /// <inheritdoc />
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (Parts is { Count: > 0 } && !Parts.Any(p => p is { Quantity: > 0 }))
+        {
+            yield return new ValidationResult(Resources.OptimizationRequest_NoPartWithQuantity, new[] { nameof(Parts) });
+        }
+    }
 }
