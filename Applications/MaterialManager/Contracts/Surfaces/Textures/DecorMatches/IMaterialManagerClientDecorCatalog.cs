@@ -10,8 +10,8 @@ public interface IMaterialManagerClientDecorCatalog
     /// </summary>
     /// <param name="request">The board decor match search request.</param>
     /// <returns>The matching decor candidates.</returns>
-    /// <remarks>Deprecated until 31 March 2027. Use <see cref="SearchBoardDetailsDecors" /> instead.</remarks>
-    [Obsolete()]
+    /// <remarks>Use <see cref="SearchBoardDetailsDecors" /> instead.</remarks>
+    [Obsolete("Use " + nameof(SearchBoardDetailsDecors) + " with a BoardTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForBoardDetails).")]
     Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request);
 
     /// <summary>
@@ -19,8 +19,8 @@ public interface IMaterialManagerClientDecorCatalog
     /// </summary>
     /// <param name="request">The edgeband decor match search request.</param>
     /// <returns>The matching decor candidates.</returns>
-    /// <remarks>Deprecated until 31 March 2027. Use <see cref="SearchEdgebandDetailsDecors" /> instead.</remarks>
-    [Obsolete()]
+    /// <remarks>Use <see cref="SearchEdgebandDetailsDecors" /> instead.</remarks>
+    [Obsolete("Use " + nameof(SearchEdgebandDetailsDecors) + " with an EdgebandTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForEdgebandDetails).")]
     Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request);
 
     /// <summary>
