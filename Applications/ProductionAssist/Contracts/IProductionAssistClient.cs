@@ -4,9 +4,12 @@ using HomagConnect.ProductionManager.Contracts.ProductionItems;
 namespace HomagConnect.ProductionAssist.Contracts
 {
     /// <summary>
-    /// productionAssist Client
+    /// Provides asynchronous operations to retrieve production order items by item identifier or barcode and to list
+    /// available workstations for non-archived orders.
     /// <see href="https://docs.homag.cloud/docs/en/productionassist-tutorial-first-steps">Learn more about productionAssist</see>.
     /// </summary>
+    /// <remarks>All operations are read-only and return <c>null</c> when no matching data is
+    /// available.</remarks>
     public interface IProductionAssistClient
     {
         /// <summary>

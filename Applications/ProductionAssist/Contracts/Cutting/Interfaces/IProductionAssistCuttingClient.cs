@@ -1,7 +1,7 @@
 namespace HomagConnect.ProductionAssist.Contracts.Cutting.Interfaces
 {
     /// <summary>
-    /// productionAssist Client for cutting jobs.
+    /// Provides operations to manage cutting jobs, including retrieval and deletion of cutting job data.
     /// </summary>
     /// <see href="https://docs.homag.cloud/docs/en/productionassist-cutting-tutorial-first-steps">Learn more about productionAssist cutting</see>.
     public interface IProductionAssistCuttingClient

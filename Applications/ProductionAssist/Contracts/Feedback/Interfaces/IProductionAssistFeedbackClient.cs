@@ -1,7 +1,8 @@
 ﻿namespace HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
 
 /// <summary>
-/// Interface for the ProductionAssist client.
+/// Provides operations to report production entities as finished.
+/// <see href="https://docs.homag.cloud/docs/en/productionassist-feedback-tutorial-report-parts-as-finished">Learn more about reporting parts as finished</see>.
 /// </summary>
 public interface IProductionAssistFeedbackClient
 {
@@ -14,6 +15,5 @@ public interface IProductionAssistFeedbackClient
     /// <param name="timestamp">The date and time the feedback applies to. Optional.</param>
     /// <param name="source">The person or program that triggered the feedback. Optional.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    /// <see href="https://docs.homag.cloud/docs/en/productionassist-feedback-tutorial-report-parts-as-finished">Learn more about reporting parts as finished</see>.
     Task ReportAsFinished(Guid workstationId, string identification, int quantity, DateTimeOffset? timestamp, string? source = null);
 }

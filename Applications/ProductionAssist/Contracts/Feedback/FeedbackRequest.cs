@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionAssist.Contracts.Feedback;
@@ -47,5 +47,6 @@ public class FeedbackRequest
     /// </summary>
     /// <example>operator@example.com</example>
     [JsonProperty(Order = 5)]
+    [StringLength(100)]
     public string? Source { get; set; }
 }

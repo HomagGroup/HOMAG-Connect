@@ -13,7 +13,13 @@ using System.Globalization;
 
 namespace HomagConnect.ProductionManager.Contracts
 {
-    /// <summary />
+    /// <summary>
+    /// Provides operations to manage production manager data, including orders, lots, imports, rework, production
+    /// protocol, predictions, and usage statistics.
+    /// <see href="https://docs.homag.cloud/docs/en/productionmanager-in-a-nutshell">Learn more about productionManager</see>.
+    /// </summary>
+    /// <remarks>Use this client to query, create, update, release, import, and delete production-related
+    /// entities, and to retrieve operational and analytical data for production workflows.</remarks>
     public interface IProductionManagerClient
     {
         #region Order overview

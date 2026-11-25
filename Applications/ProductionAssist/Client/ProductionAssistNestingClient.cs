@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts.Nesting;
 using HomagConnect.ProductionAssist.Contracts.Nesting.Interfaces;
