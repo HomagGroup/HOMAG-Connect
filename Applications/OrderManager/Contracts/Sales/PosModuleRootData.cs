@@ -8,14 +8,16 @@ namespace HomagConnect.OrderManager.Contracts.Sales
     public class PosModuleRootData : PosModuleData
     {
         /// <summary>
-        /// optional a position of this article; if not set it is always 0,0,0 (x/y/z)
+        /// Position (x, y, z) of the article. Optional. Defaults to 0, 0, 0.
         /// </summary>
+        /// <example>[0, 0, 0]</example>
         [JsonProperty("articlePos")]
         public IList<double>? ArticlePos { get; set; }
 
         /// <summary>
-        /// The Y-Rotation of this root module; if it is not set, it is always 0
+        /// Rotation of the root module around the Y axis. Optional. Defaults to 0.
         /// </summary>
+        /// <example>90</example>
         [JsonProperty("rotationY")]
         public double? RotationY { get; set; }
     }

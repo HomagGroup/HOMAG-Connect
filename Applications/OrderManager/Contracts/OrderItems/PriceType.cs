@@ -7,54 +7,50 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Specifies the type of price represented in a monetary calculation, such as total, gross, net, shipping, discount,
-/// tax, or subtotal amounts.
+/// Kind of a price, such as total, gross, net, shipping, discount, tax or subtotal. Serialized as the member name.
 /// </summary>
-/// <remarks>This enumeration is used to distinguish between different components of a price in financial or
-/// e-commerce contexts. The <see cref="Unknown"/> value serves as a fallback for cases where the price type is not
-/// recognized or is newly introduced. When deserializing from JSON, unknown values will be mapped to <see
-/// cref="Unknown"/> due to the tolerant enum converter.</remarks>
+/// <remarks>When deserializing from JSON, unknown values are mapped to <see cref="Unknown"/> due to the tolerant enum converter.</remarks>
 [JsonConverter(typeof(TolerantEnumConverter))]
 [ResourceManager(typeof(PriceTypeDisplayNames))]
 public enum PriceType
 {
     /// <summary>
-    /// Default / unknown type (fallback if the enum is new or not known)
+    /// Type is not known (fallback for new or unrecognized values).
     /// </summary>
     Unknown,
 
     /// <summary>
-    /// The total amount represented by this instance.
+    /// Total amount.
     /// </summary>
     Total,
 
     /// <summary>
-    /// The gross total amount represented by this instance.
+    /// Gross total amount.
     /// </summary>
     GrossTotal,
 
     /// <summary>
-    /// The net total amount represented by this instance.
+    /// Net total amount.
     /// </summary>
     NetTotal,
 
     /// <summary>
-    /// The shipping cost represented by this instance.
+    /// Shipping costs.
     /// </summary>
     Shipping,
 
     /// <summary>
-    /// The discount amount represented by this instance.
+    /// Discount amount.
     /// </summary>
     Discount,
 
     /// <summary>
-    /// The tax amount represented by this instance.
+    /// Tax amount.
     /// </summary>
     Tax,
 
     /// <summary>
-    /// The subtotal amount represented by this instance.
+    /// Subtotal amount.
     /// </summary>
     SubTotal
 }

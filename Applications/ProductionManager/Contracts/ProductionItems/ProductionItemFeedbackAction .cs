@@ -1,78 +1,78 @@
-﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionItems
 {
     /// <summary>
-    /// 
+    /// Action that a production item feedback reports, such as a status change or a handling step. Serialized as the member name.
     /// </summary>
     [ResourceManager(typeof(ProductionItemFeedbackActionDisplayNames))]
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum ProductionItemFeedbackAction
     {
         /// <summary>
-        /// Default unknown value
+        /// The action is not known. Do not use it when reporting feedback.
         /// </summary>
         Unknown,
 
         /// <summary>
-        /// Ready for production
+        /// The item has been released and is waiting to be produced.
         /// </summary>
         ReadyForProduction,
 
         /// <summary>
-        /// In Production
+        /// Production of the item has started.
         /// </summary>
         InProduction,
 
         /// <summary>
-        /// Completed
+        /// Production of the item is finished.
         /// </summary>
         Completed,
 
         /// <summary>
-        /// Item has been placed in the sorting shelf
+        /// The item was placed in the sorting shelf.
         /// </summary>
         PlacedInSortingShelf,
 
         /// <summary>
-        /// Item has been picked from the sorting shelf
+        /// The item was picked from the sorting shelf.
         /// </summary>
         PickedFromSortingShelf,
 
         /// <summary>
-        /// Item has been confirmed for dividing after processing at the dividing workstation
+        /// The item was confirmed for dividing after processing at the dividing workstation.
         /// </summary>
         DividingPartConfirmed,
 
         /// <summary>
-        /// Item has been labeled
+        /// The item was labeled.
         /// </summary>
         Labeled,
 
         /// <summary>
-        /// Indicates whether the feedback has been confirmed.
+        /// The feedback for the item was confirmed.
         /// </summary>
         FeedbackConfirmed,
 
         /// <summary>
-        /// Indicates that the feedback has been confirmed by the parent item, e.g. the assembly group to which a part belongs, or the production order to which a position belongs.
+        /// The feedback was confirmed through the parent item, for example the assembly group a part belongs to.
         /// </summary>
         FeedbackConfirmedByParent,
 
         /// <summary>
-        /// Item has been sent to productioAssist
+        /// The item was sent to productionAssist.
         /// </summary>
         SentToProductionAssist,
 
         /// <summary>
-        /// Item has been received by the productionManager
+        /// The item was received by productionManager.
         /// </summary>
         ReceivedByProductionManager,
 
         /// <summary>
-        /// Item has been sent to intelliDivide
+        /// The item was sent to intelliDivide.
         /// </summary>
         SentToIntelliDivide
     }

@@ -1,4 +1,4 @@
-﻿namespace HomagConnect.ProductionManager.Contracts.Lots
+namespace HomagConnect.ProductionManager.Contracts.Lots
 {
     /// <summary>
     /// Defines validation constraints for lot-related contract properties.
@@ -6,13 +6,13 @@
     public static class LotConstraints
     {
         /// <summary>
-        /// Gets the maximum number of parts allowed in a lot.
+        /// Maximum number of parts allowed in a lot.
         /// </summary>
         /// <example>100000</example>
         public const int MaxQuantityOfProductionOrders = 100000;
 
         /// <summary>
-        /// Gets the maximum allowed length of a lot name.
+        /// Maximum allowed length of a lot name, in characters.
         /// </summary>
         /// <example>100</example>
         public const int MaxNameLength = 100;

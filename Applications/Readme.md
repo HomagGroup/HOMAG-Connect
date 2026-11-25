@@ -17,3 +17,6 @@
 
 6. productionAssist <br>
    [Documentation for productionAssist Client](./ProductionAssist/Readme.md) and [some samples](./ProductionAssist/Samples) for the usage.
+
+7. orderManager <br>
+   [Documentation for orderManager Client](./OrderManager/Readme.md) and [some samples](./OrderManager/Samples) for the usage.

@@ -1,10 +1,13 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
     /// Master data container holding the available modules and attributes used to describe articles.
     /// </summary>
+    /// <example>
+    /// { "LibraryId": "kitchen-lib", "modules": [], "attributes": [] }
+    /// </example>
     public class MasterData
     {
         /// <summary>
@@ -25,7 +28,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public IList<MDAttributeInfo> Attributes { get; set; } = new List<MDAttributeInfo>();
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application.
         /// </summary>
         [JsonExtensionData]
         [JsonProperty(Order = 999)]

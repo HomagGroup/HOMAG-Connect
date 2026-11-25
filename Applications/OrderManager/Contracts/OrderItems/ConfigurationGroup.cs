@@ -4,8 +4,11 @@ using System.Collections.ObjectModel;
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
     /// <summary>
-    /// A configuration group.
+    /// Group of configured articles, with its position and rotation inside the room.
     /// </summary>
+    /// <example>
+    /// { "type": "ConfigurationGroup", "id": "G1", "position": [0, 0, 0], "rotation": [0, 90, 0], "attributes": [ { "name": "width", "value": 600, "isInput": true } ] }
+    /// </example>
     public class ConfigurationGroup : Base
     {
         /// <inheritdoc />
@@ -22,25 +25,27 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         }
 
         /// <summary>
-        /// Gets or sets the contour information for this group
-        /// which is the surrounding contour of the articles in this group.
+        /// Surrounding contour of the articles in the group. Optional. The data structure is defined separately.
         /// </summary>
+        [JsonProperty(Order = 20)]
         public string? ContourInformation { get; set; }
 
         /// <summary>
-        /// The position of this group inside the room (x, y, z)
+        /// Position (x, y, z) of the group inside the room. Optional.
         /// </summary>
+        /// <example>[0, 0, 0]</example>
         [JsonProperty(Order = 30)]
         public double[]? Position { get; set; }
 
         /// <summary>
-        /// The rotation of this group inside the room (x, y, z)
+        /// Rotation (x, y, z) of the group inside the room. Optional.
         /// </summary>
+        /// <example>[0, 90, 0]</example>
         [JsonProperty(Order = 40)]
         public double[]? Rotation { get; set; }
 
         /// <summary>
-        /// Contains configuration attributes for this group
+        /// Configuration attributes of the group. Optional.
         /// </summary>
         [JsonProperty(Order = 50)]
         public Collection<ConfigurationAttribute>? Attributes { get; set; } = new Collection<ConfigurationAttribute>();

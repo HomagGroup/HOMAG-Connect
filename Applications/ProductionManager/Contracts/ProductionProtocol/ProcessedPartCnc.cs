@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol;
@@ -35,7 +35,7 @@ public class ProcessedPartCnc : ProcessedPart
     }
 
     /// <summary>
-    /// Gets or sets the duration of the CNC program execution for this part.
+    /// Duration of the CNC program execution for the part, as a time span. Optional.
     /// </summary>
     /// <example>00:03:12</example>
     [JsonProperty(Order = 31)]
@@ -43,7 +43,7 @@ public class ProcessedPartCnc : ProcessedPart
     public TimeSpan? ProgramDuration { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the CNC program executed for this part.
+    /// Name of the CNC program executed for the part. Optional.
     /// </summary>
     /// <example>Drilling_Main.mpr</example>
     [JsonProperty(Order = 32)]
@@ -51,7 +51,7 @@ public class ProcessedPartCnc : ProcessedPart
     public string? ProgramName { get; set; }
 
     /// <summary>
-    /// Gets or sets the preview image URL for this part.
+    /// URL of a preview image of the part. Optional.
     /// </summary>
     /// <example>https://example.com/previews/part-10.png</example>
     [JsonProperty(Order = 33)]
@@ -59,18 +59,20 @@ public class ProcessedPartCnc : ProcessedPart
     public Uri? Preview { get; set; }
 
     /// <summary>
-    /// Gets or sets the timestamp when the CNC program execution started.
+    /// Date and time the CNC program execution started. Optional.
     /// </summary>
     /// <example>2025-01-20T14:32:10+00:00</example>
     [JsonProperty(Order = 34)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(StartedAt))]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? StartedAt { get; set; }
 
     /// <summary>
-    /// Gets or sets the timestamp when the CNC program execution completed.
+    /// Date and time the CNC program execution completed. Optional.
     /// </summary>
     /// <example>2025-01-20T14:35:22+00:00</example>
     [JsonProperty(Order = 35)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(CompletedAt))]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? CompletedAt { get; set; }
 }

@@ -1,4 +1,4 @@
-using HomagConnect.OrderManager.Contracts.ConfigurationDataManagement.CustomTables;
+﻿using HomagConnect.OrderManager.Contracts.ConfigurationDataManagement.CustomTables;
 
 namespace HomagConnect.OrderManager.Contracts.ConfigurationDataManagement;
 
@@ -13,13 +13,13 @@ namespace HomagConnect.OrderManager.Contracts.ConfigurationDataManagement;
 public interface IConfigurationDataManagementClient
 {
     /// <summary>
-    /// Gets the list of available configuration data management libraries.
+    /// List of available configuration data management libraries.
     /// </summary>
     /// <returns>The available libraries; an empty list if there are none.</returns>
     Task<IEnumerable<LibraryOverview>> GetLibraries();
 
     /// <summary>
-    /// Gets the list of custom tables of the specified library.
+    /// List of custom tables of the specified library.
     /// </summary>
     /// <param name="libraryId">The name of the library, which is its unique identifier.</param>
     /// <returns>The custom tables of the library; an empty list if the library has none.</returns>
@@ -67,7 +67,7 @@ public interface IConfigurationDataManagementClient
     Task<CustomTableSyncStateData> StartCustomTableSync(string libraryId, string customTableId);
 
     /// <summary>
-    /// Gets the current state and progress of a custom table synchronization.
+    /// Current state and progress of a custom table synchronization.
     /// </summary>
     /// <param name="libraryId">The name of the library, which is its unique identifier.</param>
     /// <param name="customTableId">The id of the synchronized custom table.</param>

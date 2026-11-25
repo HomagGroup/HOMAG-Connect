@@ -1,10 +1,13 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
     /// Represents a single attribute (parameter) of a <see cref="PosModuleData"/>.
     /// </summary>
+    /// <example>
+    /// { "id": "width", "value": 600, "isInput": true }
+    /// </example>
     public class PosModuleAttribute
     {
         /// <summary>
@@ -15,20 +18,21 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public string Id { get; set; } = null!;
 
         /// <summary>
-        /// The value of this attribute
-        /// Can be string, decimal, double, bool
+        /// Value of the attribute. Can be a string, decimal, double or boolean.
         /// </summary>
+        /// <example>600</example>
         [JsonProperty("value")]
         public object? Value { get; set; }
 
         /// <summary>
-        /// Defines if the attribute was passed as input into the calculation
+        /// <c>true</c> if the attribute was passed as input into the calculation. Optional.
         /// </summary>
+        /// <example>true</example>
         [JsonProperty("isInput")]
         public bool? IsInput { get; set; }
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application.
         /// </summary>
         [JsonExtensionData]
         [JsonProperty(Order = 999)]

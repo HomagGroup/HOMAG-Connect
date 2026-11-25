@@ -22,14 +22,16 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         }
 
         /// <summary>
-        /// An library id
+        /// Id of the library the configuration belongs to. Optional.
         /// </summary>
+        /// <example>kitchen-lib</example>
         [JsonProperty(Order = 10)]
         public string? LibraryId { get; set; }
 
         /// <summary>
-        /// The id of this configuration module
+        /// Id of the configuration module. Optional.
         /// </summary>
+        /// <example>m1</example>
         [JsonProperty(Order = 20)]
         public string? ModuleId { get; set; }
 
@@ -42,8 +44,9 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public string? ModuleDescription { get; set; }
 
         /// <summary>
-        /// An optional id of the group this module belongs to
+        /// Id of the group the module belongs to. Optional.
         /// </summary>
+        /// <example>g1</example>
         [JsonProperty(Order = 25)]
         public string? GroupId { get; set; }
 
@@ -59,14 +62,16 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         public string? LinkedConfigurationId { get; set; }
 
         /// <summary>
-        /// An optional position of this module (x, y, z)
+        /// Position (x, y, z) of the module. Optional.
         /// </summary>
+        /// <example>[0, 0, 0]</example>
         [JsonProperty(Order = 30)]
         public double[]? Position { get; set; }
 
         /// <summary>
-        /// An optional rotation of this module (x, y, z)
+        /// Rotation (x, y, z) of the module. Optional.
         /// </summary>
+        /// <example>[0, 90, 0]</example>
         [JsonProperty(Order = 40)]
         public double[]? Rotation { get; set; }
 

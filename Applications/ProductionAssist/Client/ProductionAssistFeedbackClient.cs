@@ -1,9 +1,6 @@
 ﻿using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts.Feedback;
 using HomagConnect.ProductionAssist.Contracts.Feedback.Interfaces;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace HomagConnect.ProductionAssist.Client
 {

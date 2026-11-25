@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
-
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -18,14 +17,14 @@ namespace HomagConnect.ProductionManager.Contracts.Predict;
 public class CuttingPredictionPart : IDimensionProperties, IContainsUnitSystemDependentProperties
 {
     /// <summary>
-    /// Gets or sets the client-side identifier of the part.
+    /// The client-side identifier of the part.
     /// </summary>
     /// <example>Part-1001</example>
     [JsonProperty(Order = 1)]
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets how many times the part is required in the prediction request.
+    /// Number of times the part is required in the prediction request.
     /// </summary>
     /// <example>2</example>
     [Required]
@@ -58,12 +57,13 @@ public class CuttingPredictionPart : IDimensionProperties, IContainsUnitSystemDe
     #region IContainsUnitSystemDependentProperties Members
 
     /// <summary>
-    /// Gets or sets the unit system for unit-dependent values such as <see cref="Length" />, <see cref="Width" />, and <see cref="Thickness" />.
+    /// The unit system for unit-dependent values such as <see cref="Length" />, <see cref="Width" />, and <see cref="Thickness" />.
     /// Use <c>Metric</c> when dimension values are provided in millimeters.
     /// Use <c>Imperial</c> when dimension values are provided in inches.
     /// </summary>
     /// <example>Metric</example>
     [JsonProperty(Order = 999)]
+    [DefaultValue(UnitSystem.Metric)]
     public UnitSystem UnitSystem { get; set; } = UnitSystem.Metric;
 
     #endregion

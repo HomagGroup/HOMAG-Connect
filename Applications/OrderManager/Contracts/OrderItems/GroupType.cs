@@ -7,29 +7,29 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Type of group.
+/// Type of a group. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 [ResourceManager(typeof(GroupTypeDisplayNames))]
 public enum GroupType
 {
     /// <summary>
-    /// Default group type or if nothing is specified
+    /// Default group type, used if nothing is specified.
     /// </summary>
     Default,
 
     /// <summary>
-    /// Contains the optimization boards as positions
+    /// Contains the optimization boards as positions.
     /// </summary>
     OptimizationBoards,
 
     /// <summary>
-    /// Contains the optimization offcuts as positions
+    /// Contains the optimization offcuts as positions.
     /// </summary>
     OptimizationOffcuts,
 
     /// <summary>
-    /// Contains the optimization edge bands as positions
+    /// Contains the optimization edge bands as positions.
     /// </summary>
     OptimizationEdgeBands,
 }  

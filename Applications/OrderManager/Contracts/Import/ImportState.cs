@@ -5,30 +5,25 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Import
 {
     /// <summary>
-    /// Import state
+    /// State of an order import process. Serialized as the member name.
     /// </summary>
-    /// <summary>The state of an order import process</summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum ImportState
     {
         /// <summary>
-        /// Queued
-        /// </summary>
+        /// The import is waiting to be processed.        /// </summary>
         Queued,
 
         /// <summary>
-        /// InProgress
-        /// </summary>
+        /// The import is currently being processed.        /// </summary>
         InProgress,
 
         /// <summary>
-        /// Succeeded
-        /// </summary>
+        /// The import finished successfully and the order was created.        /// </summary>
         Succeeded,
 
         /// <summary>
-        /// Error
-        /// </summary>
+        /// The import failed. See the error details of the response.        /// </summary>
         Error
     }
 }

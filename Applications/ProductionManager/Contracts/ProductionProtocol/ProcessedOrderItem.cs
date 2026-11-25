@@ -20,7 +20,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
     public class ProcessedOrderItem : ProcessedItem
     {
         /// <summary>
-        /// Gets or sets the identifier of the processed order item.
+        /// Identifier of the processed item, for example its position number or barcode. Optional.
         /// </summary>
         /// <example>10</example>
         [JsonProperty(Order = 10)]
@@ -28,7 +28,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         public string? Identifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the description of the processed order item.
+        /// Description of the processed item. Optional.
         /// </summary>
         /// <example>Side Panel Left</example>
         [JsonProperty(Order = 11)]
@@ -36,15 +36,16 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         public string? Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity processed.
+        /// Number of pieces processed. Optional.
         /// </summary>
         /// <example>4</example>
         [JsonProperty(Order = 12)]
         [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(Quantity))]
+        [Range(0, int.MaxValue)]
         public int? Quantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the order in which the order item was defined.
+        /// Name of the order the item belongs to. Optional.
         /// </summary>
         /// <example>Kitchen_4711</example>
         [JsonProperty(Order = 13)]
@@ -52,7 +53,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         public string? OrderName { get; set; }
 
         /// <summary>
-        /// Gets or sets the order number in which the order item was defined.
+        /// Number of the order the item belongs to. Optional.
         /// </summary>
         /// <example>4711</example>
         [JsonProperty(Order = 14)]
@@ -60,7 +61,7 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         public string? OrderNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets the customer name.
+        /// Name of the customer of the order. Optional.
         /// </summary>
         /// <example>Miller</example>
         [JsonProperty(Order = 15)]

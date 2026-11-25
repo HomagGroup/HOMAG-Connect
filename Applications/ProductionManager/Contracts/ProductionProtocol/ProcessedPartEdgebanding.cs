@@ -66,7 +66,7 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
     public string? EdgeDiagram { get; set; }
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the edgeband on the front edge. Optional.
     /// </summary>
     /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
     [JsonProperty(Order = 37)]
@@ -74,7 +74,7 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
     public Uri? EdgeFrontThumbnail { get; set; }
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the edgeband on the back edge. Optional.
     /// </summary>
     /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
     [JsonProperty(Order = 38)]
@@ -82,7 +82,7 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
     public Uri? EdgeBackThumbnail { get; set; }
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the edgeband on the left edge. Optional.
     /// </summary>
     /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
     [JsonProperty(Order = 39)]
@@ -90,7 +90,7 @@ public class ProcessedPartEdgebanding : ProcessedPart, IEdgebandingProperties
     public Uri? EdgeLeftThumbnail { get; set; }
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the edgeband on the right edge. Optional.
     /// </summary>
     /// <example>https://example.com/materials/edgebands/EB_White_1mm.png</example>
     [JsonProperty(Order = 40)]

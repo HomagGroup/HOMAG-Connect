@@ -4,18 +4,23 @@
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Represents a reclaim item in the order.
+/// Reclaim (complaint) of an order item.
 /// </summary>
+/// <example>
+/// { "type": "Reclaim", "reason": "Scratches", "comment": "Scratch on the front panel." }
+/// </example>
 public class Reclaim : Base
 {
     /// <summary>
-    /// Gets or sets the reason for reclaiming the item.
+    /// Reason for the reclaim.
     /// </summary>
+    /// <example>Scratches</example>
     public ReclaimReason Reason { get; set; }
 
     /// <summary>
-    /// Gets or sets the comment for the reclaim item.
+    /// Additional free-text comment. Optional.
     /// </summary>
+    /// <example>Scratch on the front panel.</example>
     public string? Comment { get; set; }
 
     /// <inheritdoc />
