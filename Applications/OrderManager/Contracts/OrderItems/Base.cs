@@ -59,6 +59,7 @@ public abstract class Base: ISupportsAdditionalData, ISupportsItems
     /// </summary>
     /// <example>Check measurements on site</example>
     [JsonProperty(Order = 990)]
+    [StringLength(1000)]
     public string? Notes { get; set; }
 
     /// <summary>
@@ -86,5 +87,6 @@ public abstract class Base: ISupportsAdditionalData, ISupportsItems
     /// </summary>
     /// <example>HOMAG</example>
     [JsonProperty(Order = 1000)]
+    [StringLength(255)]
     public string? Manufacturer { get; set; }
 }

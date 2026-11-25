@@ -38,6 +38,7 @@ public class OrderOverview
     /// </summary>
     /// <example>ORD-2025-0042</example>
     [JsonProperty(Order = 110)]
+    [StringLength(19)]
     public string? OrderNumber { get; set; }
 
     /// <summary>
@@ -45,6 +46,7 @@ public class OrderOverview
     /// </summary>
     /// <example>ERP-90017</example>
     [JsonProperty(Order = 111)]
+    [StringLength(19)]
     public string? OrderNumberExternal { get; set; }
 
     /// <summary>
@@ -52,6 +54,7 @@ public class OrderOverview
     /// </summary>
     /// <example>Kitchen Miller</example>
     [JsonProperty(Order = 112)]
+    [StringLength(100)]
     public string OrderName { get; set; } = null!;
 
     /// <summary>
@@ -59,6 +62,7 @@ public class OrderOverview
     /// </summary>
     /// <example>Kitchen with oak fronts</example>
     [JsonProperty(Order = 113)]
+    [StringLength(300)]
     public string? OrderDescription { get; set; }
 
     /// <summary>
@@ -66,6 +70,7 @@ public class OrderOverview
     /// </summary>
     /// <example>Miller House</example>
     [JsonProperty(Order = 120)]
+    [StringLength(100)]
     public string? Project { get; set; }
 
     /// <summary>
@@ -73,6 +78,7 @@ public class OrderOverview
     /// </summary>
     /// <example>J. Smith</example>
     [JsonProperty(Order = 121)]
+    [StringLength(100)]
     public string? PersonInCharge { get; set; }
 
     /// <summary>
@@ -80,6 +86,7 @@ public class OrderOverview
     /// </summary>
     /// <example>2025-04-01T08:30:00+00:00</example>
     [JsonProperty(Order = 122)]
+    [DataType(DataType.Date)]
     public DateTimeOffset OrderDate { get; set; }
 
     /// <summary>
@@ -87,6 +94,7 @@ public class OrderOverview
     /// </summary>
     /// <example>2025-05-15T00:00:00+00:00</example>
     [JsonProperty(Order = 123)]
+    [DataType(DataType.Date)]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
     /// <summary>
@@ -94,6 +102,7 @@ public class OrderOverview
     /// </summary>
     /// <example>2025-05-10T00:00:00+00:00</example>
     [JsonProperty(Order = 125)]
+    [DataType(DataType.Date)]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>
@@ -101,6 +110,7 @@ public class OrderOverview
     /// </summary>
     /// <example>ext-7781</example>
     [JsonProperty(Order = 126)]
+    [StringLength(300)]
     public string? ExternalSystemId { get; set; }
 
     /// <summary>
@@ -108,6 +118,7 @@ public class OrderOverview
     /// </summary>
     /// <example>ERP</example>
     [JsonProperty(Order = 128)]
+    [StringLength(100)]
     public string? Source { get; set; }
 
     /// <summary>

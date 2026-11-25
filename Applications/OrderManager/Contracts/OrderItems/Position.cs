@@ -1,7 +1,10 @@
-﻿using HomagConnect.OrderManager.Contracts.Interfaces;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using HomagConnect.OrderManager.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
@@ -41,6 +44,7 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>1</example>
     [JsonProperty(Order = 1)]
+    [StringLength(100)]
     public string? PositionNumber { get; set; }
 
     /// <summary>
@@ -52,10 +56,12 @@ public class Position : Base, IArticle
 
     /// <inheritdoc />
     [JsonProperty(Order = 2)]
+    [StringLength(100)]
     public string? ArticleNumber { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 2)]
+    [StringLength(100)]
     public string? ArticleName { get; set; }
 
     /// <inheritdoc />
@@ -64,6 +70,7 @@ public class Position : Base, IArticle
 
     /// <inheritdoc />
     [JsonProperty(Order = 3)]
+    [StringLength(1000)]
     public string? Description { get; set; }
 
     /// <summary>
@@ -78,6 +85,7 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>2</example>
     [JsonProperty(Order = 4)]
+    [Range(0, int.MaxValue)]
     public int Quantity { get; set; } = 1;
 
     /// <summary>
@@ -85,6 +93,8 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>720</example>
     [JsonProperty(Order = 5)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Height { get; set; }
 
     /// <summary>
@@ -92,6 +102,8 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>600</example>
     [JsonProperty(Order = 6)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Width { get; set; }
 
     /// <summary>
@@ -99,14 +111,16 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>560</example>
     [JsonProperty(Order = 7)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Depth { get; set; }
-
 
     /// <summary>
     /// Color of the position. Optional.
     /// </summary>
     /// <example>Oak</example>
     [JsonProperty(Order = 8)]
+    [StringLength(100)]
     public string? Color { get; set; }
 
     /// <summary>
@@ -114,6 +128,7 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>White</example>
     [JsonProperty(Order = 8)]
+    [StringLength(100)]
     public string? CarcaseColor { get; set; }
 
     /// <summary>
@@ -121,6 +136,7 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>Left</example>
     [JsonProperty(Order = 8)]
+    [StringLength(100)]
     public string? DoorDirection { get; set; }
 
     /// <summary>
@@ -133,6 +149,7 @@ public class Position : Base, IArticle
     /// </summary>
     /// <example>MTO</example>
     [JsonProperty(Order = 9)]
+    [StringLength(100)]
     public string? ProcurementType { get; set; }
 
     /// <summary>

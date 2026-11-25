@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
@@ -33,5 +36,7 @@ public class Component : ComponentBase
     /// </summary>
     /// <example>35</example>
     [JsonProperty(Order = 1)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Height { get; set; }
 }

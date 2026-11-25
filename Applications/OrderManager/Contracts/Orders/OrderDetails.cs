@@ -52,6 +52,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>ORD-2025-0042</example>
         [JsonProperty(Order = 110)]
+        [StringLength(19)]
         public string? OrderNumber { get; set; }
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>ERP-90017</example>
         [JsonProperty(Order = 111)]
+        [StringLength(100)]
         public string? OrderNumberExternal { get; set; }
 
         /// <summary>
@@ -66,6 +68,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>Kitchen Miller</example>
         [JsonProperty(Order = 112)]
+        [StringLength(100)]
         public string OrderName { get; set; } = null!;
 
         /// <summary>
@@ -73,6 +76,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>Kitchen with oak fronts</example>
         [JsonProperty(Order = 113)]
+        [StringLength(300)]
         public string? OrderDescription { get; set; }
 
         /// <summary>
@@ -80,6 +84,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>ext-7781</example>
         [JsonProperty(Order = 114)]
+        [StringLength(300)]
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
@@ -87,6 +92,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>ERP</example>
         [JsonProperty(Order = 115)]
+        [StringLength(100)]
         public string? Source { get; set; }
 
         /// <summary>
@@ -94,6 +100,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>Miller House</example>
         [JsonProperty(Order = 120)]
+        [StringLength(100)]
         public string? Project { get; set; }
 
         /// <summary>
@@ -101,6 +108,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>J. Smith</example>
         [JsonProperty(Order = 121)]
+        [StringLength(100)]
         public string? PersonInCharge { get; set; }
 
         /// <summary>
@@ -108,6 +116,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-04-01T08:30:00+00:00</example>
         [JsonProperty(Order = 122)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset OrderDate { get; set; }
 
         /// <summary>
@@ -115,6 +125,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-05-15T00:00:00+00:00</example>
         [JsonProperty(Order = 123)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
         /// <summary>
@@ -122,6 +134,8 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>2025-05-10T00:00:00+00:00</example>
         [JsonProperty(Order = 124)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset? CompletionDatePlanned { get; set; }
 
         /// <summary>
@@ -154,6 +168,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>Miller Kitchens</example>
         [JsonProperty(Order = 300)]
+        [StringLength(100)]
         public string? CustomerName { get; set; }
 
         /// <summary>
@@ -161,6 +176,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>C-1001</example>
         [JsonProperty(Order = 310)]
+        [StringLength(100)]
         public string? CustomerNumber { get; set; }
 
         /// <summary>
@@ -168,6 +184,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>ERP-4711</example>
         [JsonProperty(Order = 315)]
+        [StringLength(100)]
         public string? CustomerNumberExternal { get; set; }
 
         /// <summary>
@@ -175,6 +192,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         [JsonProperty(Order = 320)]
         [Obsolete("Use CustomerName instead.")]
+        [StringLength(100)]
         public string? Company { get; set; }
 
         /// <summary>
@@ -182,6 +200,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>+49 7443 12-0</example>
         [JsonProperty(Order = 321)]
+        [StringLength(100)]
         public string? TelephoneNumber { get; set; }
 
         /// <summary>
@@ -189,24 +208,29 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>info@miller.example.com</example>
         [JsonProperty(Order = 322)]
+        [StringLength(100)]
         public string? Email { get; set; }
 
         /// <summary>
         /// Country and language of the customer as an IETF language tag. Optional.
         /// </summary>
         /// <example>de-CH</example>
+        [JsonProperty(Order = 323)]
         public string? CustomerCulture { get; set; }
 
         /// <summary>
         /// Preferred language of the customer as a two-letter ISO code. Optional.
         /// </summary>
         /// <example>EN</example>
+        [JsonProperty(Order = 324)]
+
         public string? CustomerLanguage { get; set; }
 
         /// <summary>
         /// Currency of the customer as an ISO 4217 currency code. Optional.
         /// </summary>
         /// <example>EUR</example>
+        [JsonProperty(Order = 325)]
         public string? CustomerCurrency { get; set; }
 
         #endregion
@@ -237,6 +261,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>planner@example.com</example>
         [JsonProperty(Order = 491)]
+        [StringLength(100)]
         public string? ChangedBy { get; set; }
 
         /// <summary>
@@ -244,6 +269,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>planner@example.com</example>
         [JsonProperty(Order = 492)]
+        [StringLength(100)]
         public string? CreatedBy { get; set; }
 
         /// <summary>
@@ -352,6 +378,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         /// </summary>
         /// <example>Deliver on pallet</example>
         [JsonProperty(Order = 601)]
+        [StringLength(1000)]
         public string? Notes { get; set; }
 
         #endregion

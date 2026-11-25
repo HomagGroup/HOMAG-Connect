@@ -20,6 +20,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>HW-4711</example>
     [JsonProperty(Order = 11)]
+    [StringLength(100)]
     public string? ArticleNumber { get; set; }
 
     /// <summary>
@@ -27,6 +28,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>Hinge 110 degrees</example>
     [JsonProperty(Order = 12)]
+    [StringLength(1000)]
     public string? Description { get; set; }
     
     /// <summary>
@@ -52,6 +54,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>Hinges</example>
     [JsonProperty(Order = 17)]
+    [StringLength(100)]
     public string? ArticleGroup { get; set; }
 
     /// <summary>
@@ -64,6 +67,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>MTO</example>
     [JsonProperty(Order = 18)]
+    [StringLength(100)]
     public string? ProcurementType { get; set; }
 
     #endregion
@@ -83,6 +87,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>4006381333931</example>
     [JsonProperty(Order = 21)]
+    [StringLength(100)]
     public string? Barcode { get; set; }
     
     /// <summary>
@@ -98,6 +103,7 @@ public abstract class ComponentBase : Base
     /// </summary>
     /// <example>ext-7781</example>
     [JsonProperty(Order = 23)]
+    [StringLength(300)]
     public string? ExternalSystemId { get; set; }
 
     #endregion

@@ -1,8 +1,9 @@
-﻿using HomagConnect.Base.Contracts.Enumerations;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
 using HomagConnect.Base.Contracts.Interfaces;
 
 using Newtonsoft.Json;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
@@ -52,6 +53,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>2025-04-04T06:00:00+00:00</example>
     [JsonProperty(Order = 810)]
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:d}")]
     public DateTimeOffset? StartDatePlanned { get; set; }
 
     /// <summary>
@@ -59,13 +62,17 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>2025-04-04T06:15:00+00:00</example>
     [JsonProperty(Order = 815)]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:g}")]
     public DateTimeOffset? StartedAt { get; set; }
 
     /// <summary>
-        /// Planned completion date and time of the part. Optional.
-        /// </summary>
-        /// <example>2025-04-08T15:00:00+00:00</example>
+    /// Planned completion date and time of the part. Optional.
+    /// </summary>
+    /// <example>2025-04-08T15:00:00+00:00</example>
     [JsonProperty(Order = 820)]
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:d}")]
     public DateTimeOffset? CompletionDatePlanned { get; set; }
 
     /// <summary>
@@ -73,6 +80,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>2025-04-08T15:40:00+00:00</example>
     [JsonProperty(Order = 825)]
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:d}")]
     public DateTimeOffset? CompletedAt { get; set; }
 
     /// <summary>
@@ -80,6 +89,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>2025-05-15T00:00:00+00:00</example>
     [JsonProperty(Order = 830)]
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:d}")]
     public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
     /// <summary>
@@ -87,6 +98,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Cutting-Edgebanding-Drilling</example>
     [JsonProperty(Order = 835)]
+    [StringLength(255)]
     public string? ProductionRoute { get; set; }
 
     #endregion
@@ -98,6 +110,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>720</example>
     [JsonProperty(Order = 200)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? FinishLength { get; set; }
 
     /// <summary>
@@ -105,6 +119,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>596</example>
     [JsonProperty(Order = 210)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? FinishWidth { get; set; }
 
     /// <summary>
@@ -112,6 +128,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Standard</example>
     [JsonProperty(Order = 260)]
+    [StringLength(50)]
     public string? LabelLayout { get; set; }
 
     /// <summary>
@@ -119,6 +136,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Template-01</example>
     [JsonProperty(Order = 250)]
+    [StringLength(50)]
     public string? Template { get; set; }
 
     /// <summary>
@@ -126,6 +144,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>700</example>
     [JsonProperty(Order = 220)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? SecondCutLength { get; set; }
 
     /// <summary>
@@ -133,6 +153,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>580</example>
     [JsonProperty(Order = 230)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? SecondCutWidth { get; set; }
 
     #endregion
@@ -144,6 +166,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>P2_Gold_Craft_Oak_19.0</example>
     [JsonProperty(Order = 100)]
+    [StringLength(255)]
     public string? Material { get; set; }
 
     /// <summary>
@@ -151,6 +174,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Melamine</example>
     [JsonProperty(Order = 120)]
+    [StringLength(100)]
     public string? SurfaceTop { get; set; }
 
     /// <summary>
@@ -158,6 +182,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Melamine</example>
     [JsonProperty(Order = 130)]
+    [StringLength(100)]
     public string? SurfaceBottom { get; set; }
 
     /// <summary>
@@ -173,22 +198,27 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 410)]
+    [StringLength(100)]
     public string? EdgeFront { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 420)]
+    [StringLength(100)]
     public string? EdgeBack { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 450)]
+    [StringLength(100)]
     public string? EdgeDiagram { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 430)]
+    [StringLength(100)]
     public string? EdgeLeft { get; set; }
 
     /// <inheritdoc />
     [JsonProperty(Order = 440)]
+    [StringLength(100)]
     public string? EdgeRight { get; set; }
 
     /// <summary>
@@ -196,6 +226,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>2</example>
     [JsonProperty(Order = 415)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? EdgeThicknessFront { get; set; }
 
     /// <summary>
@@ -203,6 +235,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>2</example>
     [JsonProperty(Order = 425)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? EdgeThicknessBack { get; set; }
 
     /// <summary>
@@ -210,6 +244,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>0.8</example>
     [JsonProperty(Order = 435)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? EdgeThicknessLeft { get; set; }
 
     /// <summary>
@@ -217,6 +253,8 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>0.8</example>
     [JsonProperty(Order = 445)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? EdgeThicknessRight { get; set; }
 
     #endregion
@@ -228,6 +266,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Drill_Hinges.mpr</example>
     [JsonProperty(Order = 410)]
+    [StringLength(255)]
     public string? CncProgramName1 { get; set; }
 
     /// <summary>
@@ -235,6 +274,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Groove_Back.mpr</example>
     [JsonProperty(Order = 420)]
+    [StringLength(255)]
     public string? CncProgramName2 { get; set; }
 
     /// <summary>
@@ -242,6 +282,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>Contour.mpr</example>
     [JsonProperty(Order = 430)]
+    [StringLength(255)]
     public string? CncProgramName3 { get; set; }
 
     #endregion
@@ -250,6 +291,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
 
     /// <inheritdoc />
     [JsonProperty(Order = 510)]
+    [StringLength(100)]
     public string? LaminateTop { get; set; }
 
     /// <summary>
@@ -257,6 +299,7 @@ public class Part : ComponentBase, ILaminatingProperties, IEdgebandingProperties
     /// </summary>
     /// <example>HPL_White_0.8</example>
     [JsonProperty(Order = 530)]
+    [StringLength(100)]
     public string? LaminateBottom { get; set; }
 
     /// <summary>
