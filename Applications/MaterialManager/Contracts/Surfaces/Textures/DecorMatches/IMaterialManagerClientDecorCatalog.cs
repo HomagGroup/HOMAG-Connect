@@ -5,6 +5,7 @@
 /// </summary>
 public interface IMaterialManagerClientDecorCatalog
 {
+#pragma warning disable S1133 // Deprecated code should be removed eventually
     /// <summary>
     /// Searches for decor candidates matching a board type.
     /// </summary>
@@ -22,6 +23,7 @@ public interface IMaterialManagerClientDecorCatalog
     /// <remarks>Use <see cref="SearchEdgebandDetailsDecors" /> instead.</remarks>
     [Obsolete("Use " + nameof(SearchEdgebandDetailsDecors) + " with an EdgebandTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForEdgebandDetails).", false)]
     Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request);
+#pragma warning restore S1133 // Deprecated code should be removed eventually
 
     /// <summary>
     /// Searches for decor candidates matching a board type with details.

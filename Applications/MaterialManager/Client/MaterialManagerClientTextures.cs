@@ -116,6 +116,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
         return texture;
     }
 
+#pragma warning disable S1133 // Deprecated code should be removed eventually
     /// <inheritdoc />
     [Obsolete("Use " + nameof(SearchBoardDetailsDecors) + " with a BoardTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForBoardDetails).",false)]
     public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
@@ -125,6 +126,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
     [Obsolete("Use " + nameof(SearchEdgebandDetailsDecors) + " with an EdgebandTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForEdgebandDetails).", false)]
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
         => SearchDecors(request, _DecorSearchRoute);
+#pragma warning restore S1133 // Deprecated code should be removed eventually
 
     /// <inheritdoc />
     public Task<DecorMatchSearchResponse> SearchBoardDetailsDecors(BoardTypeDetailsDecorMatchSearchRequest request)
