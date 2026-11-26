@@ -116,23 +116,27 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
         return texture;
     }
 
+#pragma warning disable S1133 // Deprecated code should be removed eventually
     /// <inheritdoc />
+    [Obsolete("Use " + nameof(SearchBoardDetailsDecors) + " with a BoardTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForBoardDetails).",false)]
     public Task<DecorMatchSearchResponse> SearchBoardDecors(BoardTypeDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, _DecorSearchRoute);
 
     /// <inheritdoc />
+    [Obsolete("Use " + nameof(SearchEdgebandDetailsDecors) + " with an EdgebandTypeDetailsDecorMatchSearchRequest instead (see DecorMatchSearchRequest.ForEdgebandDetails).", false)]
     public Task<DecorMatchSearchResponse> SearchEdgebandDecors(EdgebandTypeDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, _DecorSearchRoute);
+#pragma warning restore S1133 // Deprecated code should be removed eventually
 
     /// <inheritdoc />
     public Task<DecorMatchSearchResponse> SearchBoardDetailsDecors(BoardTypeDetailsDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, $"{_DecorSearchRoute}/boards");
 
     /// <inheritdoc />
     public Task<DecorMatchSearchResponse> SearchEdgebandDetailsDecors(EdgebandTypeDetailsDecorMatchSearchRequest request)
-        => SearchDecors(request);
+        => SearchDecors(request, $"{_DecorSearchRoute}/edgebands");
 
-    private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request)
+    private async Task<DecorMatchSearchResponse> SearchDecors(DecorMatchSearchRequest request, string route)
     {
         if (request == null)
         {
@@ -142,9 +146,9 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
         ValidateRequiredProperties(request);
 
         var result = await PostObject<DecorMatchSearchRequest, DecorMatchSearchResponse>(
-            new Uri(_DecorSearchRoute, UriKind.Relative), request);
+            new Uri(route, UriKind.Relative), request);
 
-        return result ?? new DecorMatchSearchResponse();
+        return result;
     }
 
     /// <inheritdoc />
