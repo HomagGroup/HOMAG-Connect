@@ -1,40 +1,44 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
-    /// Represents a module within an article, including its sub modules and attributes.
+    /// Module within an article, including its sub modules and attributes.
     /// </summary>
+    /// <example>
+    /// { "id": "m1", "name": "Carcase", "modules": [], "attributes": [ { "id": "width", "value": 600, "isInput": true } ] }
+    /// </example>
     public class PosModuleData
     {
         /// <summary>
-        /// An unique id of this module; this is also stable across multiple calculation calls
+        /// Unique id of the module. Stays the same across multiple calculation calls.
         /// </summary>
+        /// <example>m1</example>
         [JsonProperty("id")]
         public string Id { get; set; } = null!;
 
         /// <summary>
-        /// The name of this module; this is NOT unique
-        /// It is internally needed to calculate the article
-        /// See also <see cref="MDModuleInfo"/> for more info about modules
+        /// Name of the module. Not unique. Required to calculate the article.
+        /// See also <see cref="MDModuleInfo"/> for more info about modules.
         /// </summary>
+        /// <example>Carcase</example>
         [JsonProperty("name")]
         public string Name { get; set; } = null!;
 
         /// <summary>
-        /// possible sub modules
+        /// Sub modules of the module. Optional.
         /// </summary>
         [JsonProperty("modules")]
         public IList<PosModuleData>? Modules { get; set; }
 
         /// <summary>
-        /// These are the parameters of this module
+        /// Parameters of the module. Optional.
         /// </summary>
         [JsonProperty("attributes")]
         public IList<PosModuleAttribute>? Attributes { get; set; }
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application.
         /// </summary>
         [JsonExtensionData]
         [JsonProperty(Order = 999)]

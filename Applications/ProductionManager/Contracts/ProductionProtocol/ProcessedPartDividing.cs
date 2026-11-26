@@ -38,7 +38,7 @@ public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerializat
     }
 
     /// <summary>
-    /// Gets or sets the identifier of the board entity used for the processed part.
+    /// Identifier of the board entity the part was cut from. Optional.
     /// </summary>
     /// <example>BOARD-0001</example>
     [JsonProperty(Order = 31)]
@@ -46,7 +46,7 @@ public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerializat
     public string? BoardEntityId { get; set; }
 
     /// <summary>
-    /// Gets or sets the board code.
+    /// Code of the board type the part was cut from. Optional.
     /// </summary>
     /// <example>P2_White_19.0_2800_2070</example>
     [JsonProperty(Order = 32)]
@@ -54,7 +54,7 @@ public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerializat
     public string? BoardCode { get; set; }
 
     /// <summary>
-    /// Gets or sets the optimization name.
+    /// Name of the optimization the part was produced in. Optional.
     /// </summary>
     /// <example>Kitchen_4711_Run_1</example>
     [JsonProperty(Order = 33)]
@@ -62,18 +62,19 @@ public class ProcessedPartDividing : ProcessedPart, ISupportsLocalizedSerializat
     public string? OptimizationName { get; set; }
 
     /// <summary>
-    /// Gets or sets the pattern cycle.
+    /// Number of the cycle of the cutting pattern in which the part was produced. Optional.
     /// </summary>
     /// <example>2</example>
     [JsonProperty(Order = 34)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(PatternCycle))]
+    [Range(0, int.MaxValue)]
     public int? PatternCycle { get; set; }
 
     /// <summary>
-    /// Gets or sets the pattern name.
+    /// Name of the cutting pattern the part was produced with. Optional.
     /// </summary>
     /// <example>Pattern A</example>
-    [JsonProperty(Order = 3)]
+    [JsonProperty(Order = 35)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(PatternName))]
     public string? PatternName { get; set; }
 }

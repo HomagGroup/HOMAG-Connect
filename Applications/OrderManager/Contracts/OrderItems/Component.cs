@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using HomagConnect.Base.Contracts.Attributes;
+using HomagConnect.Base.Contracts.Enumerations;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
@@ -6,8 +9,11 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 
 /// <summary>
-/// A (hardware) component.
+/// Hardware component of an order, for example a hinge or a handle.
 /// </summary>
+/// <example>
+/// { "type": "Component", "id": "C1", "articleNumber": "HW-4711", "description": "Hinge 110 degrees", "quantity": 4, "state": "New" }
+/// </example>
 public class Component : ComponentBase
 {
 
@@ -26,7 +32,11 @@ public class Component : ComponentBase
     }
 
     /// <summary>
-    /// Gets or sets the height.
+    /// Height. Optional.
     /// </summary>
+    /// <example>35</example>
+    [JsonProperty(Order = 1)]
+    [Range(0.1, 9999.9)]
+    [ValueDependsOnUnitSystem(BaseUnit.Millimeter)]
     public double? Height { get; set; }
 }

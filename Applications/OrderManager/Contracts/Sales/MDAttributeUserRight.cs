@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
-    /// Library attribute user right
+    /// User right required to see or change a library attribute. Serialized as the member name.
     /// </summary>
     [JsonConverter(typeof(TolerantEnumConverter))]
     public enum MDAttributeUserRight
@@ -17,17 +17,17 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         Unknown,
 
         /// <summary>
-        /// Master
+        /// Attribute is available to master users only.
         /// </summary>
         Master,
 
         /// <summary>
-        /// Advanced
+        /// Attribute is available to advanced users and above.
         /// </summary>
         Advanced,
 
         /// <summary>
-        /// Simple
+        /// Attribute is available to all users.
         /// </summary>
         Simple,
     }

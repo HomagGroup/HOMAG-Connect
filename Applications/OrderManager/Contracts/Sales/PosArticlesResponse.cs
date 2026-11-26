@@ -2,23 +2,25 @@
 {
     
     /// <summary>
-    /// Represents a paginated response containing a list of POS articles.
+    /// Paginated response containing a list of POS articles.
     /// </summary>
     public class PosArticlesResponse
     {
         /// <summary>
-        /// Gets or sets the list of POS articles returned in the current page.
+        /// List of POS articles returned in the current page.
         /// </summary>
         public IList<PosArticle> Data { get; set; } = new List<PosArticle>();
 
         /// <summary>
-        /// Gets or sets the maximum number of articles requested per page.
+        /// Maximum number of articles requested per page.
         /// </summary>
+        /// <example>50</example>
         public int Take { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of articles skipped before the current page.
+        /// Number of articles skipped before the current page.
         /// </summary>
+        /// <example>0</example>
         public int Skip { get; set; }
     }
 }

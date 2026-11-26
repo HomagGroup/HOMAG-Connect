@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Lots
 {
@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots
     public class CreateLotResponse
     {
         /// <summary>
-        /// Gets or sets the unique identifier of the newly created lot.
+        /// Unique identifier of the newly created lot.
         /// </summary>
         /// <example>7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c</example>
         [JsonProperty(Order = 1)]

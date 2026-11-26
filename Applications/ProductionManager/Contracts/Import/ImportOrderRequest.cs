@@ -1,15 +1,20 @@
-﻿using System.Diagnostics;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace HomagConnect.ProductionManager.Contracts.Import;
 
 /// <summary>
-/// Optimization request class to use to create requests on object model.
+/// Request that controls how an order is imported into productionManager.
 /// </summary>
+/// <example>
+/// { "action": "ImportOnly" }
+/// </example>
 [DebuggerDisplay("Action={Action}")]
 public class ImportOrderRequest
 {
     /// <summary>
-    /// Gets or sets the action which should get performed on import.
+    /// Action to perform on import. Defaults to ImportOnly.
     /// </summary>
+    [DefaultValue(ImportOrderRequestAction.ImportOnly)]
     public ImportOrderRequestAction Action { get; set; } = ImportOrderRequestAction.ImportOnly;
 }

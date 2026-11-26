@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomagConnect.Base.Contracts;
 
@@ -20,6 +21,7 @@ public class Address
     /// </summary>
     /// <example>Germany</example>
     [JsonProperty(Order = 6)]
+    [StringLength(100)]
     public string? Country { get; set; }
 
     /// <summary>
@@ -27,6 +29,7 @@ public class Address
     /// </summary>
     /// <example>12A</example>
     [JsonProperty(Order = 3)]
+    [StringLength(100)]
     public string? HouseNumber { get; set; }
 
     /// <summary>
@@ -34,6 +37,7 @@ public class Address
     /// </summary>
     /// <example>72622</example>
     [JsonProperty(Order = 4)]
+    [StringLength(100)]
     public string? PostalCode { get; set; }
 
     /// <summary>
@@ -41,6 +45,7 @@ public class Address
     /// </summary>
     /// <example>HOMAG GmbH</example>
     [JsonProperty(Order = 1)]
+    [StringLength(100)]
     public string? Name { get; set; }
 
     /// <summary>
@@ -48,6 +53,7 @@ public class Address
     /// </summary>
     /// <example>Homagstrasse</example>
     [JsonProperty(Order = 2)]
+    [StringLength(100)]
     public string? Street { get; set; }
 
     /// <summary>
@@ -55,6 +61,7 @@ public class Address
     /// </summary>
     /// <example>Nuertingen</example>
     [JsonProperty(Order = 5)]
+    [StringLength(100)]
     public string? City { get; set; }
 
     /// <summary>
@@ -70,6 +77,8 @@ public class Address
     /// Gets or sets the additional info.
     /// </summary>
     /// <example>2nd floor</example>
+    [JsonProperty(Order = 6)]
+    [StringLength(100)]
     public string? AdditionalInfo { get; set; }
 
     /// <summary>

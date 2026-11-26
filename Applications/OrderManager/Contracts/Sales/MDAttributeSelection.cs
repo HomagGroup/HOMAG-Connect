@@ -1,38 +1,45 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
-    /// Represents a single selectable value for an <see cref="MDAttributeInfo"/>.
+    /// Single selectable value of an <see cref="MDAttributeInfo"/>.
     /// </summary>
+    /// <example>
+    /// { "value": "oak", "desc": "Natural oak", "name": "Oak", "imageUrl": "https://example.com/images/oak.png" }
+    /// </example>
     public class MDAttributeSelection
     {
         /// <summary>
-        /// Can be string, decimal, double, bool
+        /// Selectable value. Can be a string, decimal, double or boolean.
         /// </summary>
+        /// <example>oak</example>
         [JsonProperty("value")]
         public object? Value { get; set; }
 
         /// <summary>
-        /// A localized description of this selection.
+        /// Localized description of the selection. Optional.
         /// </summary>
+        /// <example>Natural oak</example>
         [JsonProperty("desc")]
         public string? Description { get; set; }
 
         /// <summary>
-        /// The localized display name of this selection.
+        /// Localized display name of the selection. Optional.
         /// </summary>
+        /// <example>Oak</example>
         [JsonProperty("name")]
         public string? Name { get; set; }
 
         /// <summary>
-        /// An optional URL pointing to a preview image for this selection.
+        /// URL of a preview image for the selection. Optional.
         /// </summary>
+        /// <example>https://example.com/images/oak.png</example>
         [JsonProperty("imageUrl")]
         public string? ImageUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application.
         /// </summary>
         [JsonExtensionData]
         [JsonProperty(Order = 999)]

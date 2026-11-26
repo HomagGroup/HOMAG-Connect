@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Customers
 {
     /// <summary>
-    /// Locale
+    /// Language and region of a customer. Serialized as the member name.
     /// </summary>
     /// <remarks>When deserializing from JSON, unknown values are mapped to <see cref="Unknown"/> due to the tolerant enum converter.</remarks>
     [JsonConverter(typeof(TolerantEnumConverter))]

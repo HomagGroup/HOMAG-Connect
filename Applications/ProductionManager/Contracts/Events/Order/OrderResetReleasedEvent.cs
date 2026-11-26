@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Events;
 
@@ -7,19 +7,22 @@ using HomagConnect.Base.Contracts.Events;
 namespace HomagConnect.ProductionManager.Contracts.Events.Order;
 
 /// <summary>
-/// Gets or sets an event that occurs when an order has been released.
+/// Event that occurs when the release of an order has been reset.
 /// </summary>
+/// <example>
+/// { "id": "0b9f6c1e-52a8-4a3e-9d52-8d3b0c1f7a10", "timestamp": "2025-03-14T08:42:15+00:00", "subscriptionId": "c2f1a6d4-7e53-4b8a-b0c9-1a2d3e4f5a6b", "key": "ProductionManager.Order.OrderResetReleasedEvent", "orderId": "7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c", "releasedBy": "planner@example.com" }
+/// </example>
 [AppEvent(nameof(ProductionManager) + "." + nameof(Order) + "." + nameof(OrderResetReleasedEvent))]
 public class OrderResetReleasedEvent : AppEvent
 {
     /// <summary>
-    /// Gets or sets the order id that has been released.
+    /// Unique identifier of the order whose release was reset.
     /// </summary>
     [Required]
     public Guid OrderId { get; set; }
 
     /// <summary>
-    /// Gets or sets the email of the person that reset the release of the order
+    /// Email address of the person who reset the release of the order.
     /// </summary>
     [Required]
     public string ReleasedBy { get; set; }

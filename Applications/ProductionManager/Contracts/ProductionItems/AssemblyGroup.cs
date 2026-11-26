@@ -5,12 +5,15 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Represents a group of production items that can be assembled together.
+/// A group of production items that are assembled together.
 /// </summary>
+/// <example>
+/// { "type": "AssemblyGroup", "id": "AG-1", "description": "Cabinet carcass", "productionStatus": "New", "quantity": 1, "items": [] }
+/// </example>
 public class AssemblyGroup : ProductionItemBase
 {
     /// <summary>
-    /// Gets or sets the production entities.
+    /// Production items that are assembled in the group. Optional.
     /// </summary>
     public Collection<ProductionItemBase>? Items { get; set; }
 

@@ -7,8 +7,11 @@ using Newtonsoft.Json;
 namespace HomagConnect.ProductionManager.Contracts.ProductionItems
 {
     /// <summary>
-    /// Production entity lot reference.
+    /// Reference from a production item to a lot, including how many pieces of the item are in that lot.
     /// </summary>
+    /// <example>
+    /// { "lotId": "9c1e7a52-3b64-4f08-a1d2-5e6f7a8b9c0d", "lotName": "Lot 2025-04-02", "quantity": 2 }
+    /// </example>
     public class ProductionOrderLotReference
     {
         #region Constructors
@@ -46,20 +49,24 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems
         #endregion
 
         /// <summary>
-        /// Gets or sets the lot id.
+        /// Unique identifier of the lot.
         /// </summary>
+        /// <example>9c1e7a52-3b64-4f08-a1d2-5e6f7a8b9c0d</example>
         [JsonProperty(Order = 1)]
         public Guid LotId { get; set; }
 
         /// <summary>
-        /// Gets or sets the lot name.
+        /// Name of the lot. Optional.
         /// </summary>
+        /// <example>Lot 2025-04-02</example>
         [JsonProperty(Order = 2)]
+        [StringLength(100)]
         public string? LotName { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity of entities in the lot.
+        /// Number of pieces of the production item that are in the lot.
         /// </summary>
+        /// <example>2</example>
         [JsonProperty(Order = 3)]
         [Range(1, LotConstraints.MaxQuantityOfProductionOrders)]
         public int Quantity { get; set; }

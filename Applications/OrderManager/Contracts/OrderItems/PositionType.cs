@@ -6,24 +6,23 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Specifies the type of position used to categorize items, 
-/// such as standard positions or those related to material and processing.
+/// Category of a position, such as a standard position or one for material and processing. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 public enum PositionType
 {
        /// <summary>
-    /// Standard position
+    /// Standard position.
     /// </summary>
     Standard,
 
     /// <summary>
-    /// A position representing a material and processing item
+    /// Position for material and processing.
     /// </summary>
     MaterialAndProcessing,
 
     /// <summary>
-    /// Gets or sets a value indicating whether the price has been generated.
+    /// Position whose price has been generated.
     /// </summary>
     PriceGenerated,
 }

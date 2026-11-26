@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 using Newtonsoft.Json;
 
@@ -11,13 +11,13 @@ namespace HomagConnect.OrderManager.Contracts.ConfigurationDataManagement.Custom
 public class CustomTableCell
 {
     /// <summary>
-    /// Gets or sets the id of the column this cell belongs to.
+    /// Id of the column this cell belongs to.
     /// </summary>
     [JsonProperty(Order = 10)]
     public string ColumnId { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the value of the cell. For attachment or model columns this is a reference to an existing image id.
+    /// Value of the cell. For attachment or model columns this is a reference to an existing image id.
     /// </summary>
     /// <remarks>
     /// This can be of type string, number, boolean or null or even an JSON object as string.

@@ -4,6 +4,7 @@ using HomagConnect.Base.Contracts.Interfaces;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 // Note: This is preliminary code and is subject to change
@@ -11,114 +12,150 @@ using System.Diagnostics;
 namespace HomagConnect.OrderManager.Contracts.Orders
 {
     /// <summary>
-    /// Order data
+    /// Order with its header data, customer, addresses, additional data and order items.
     /// </summary>
+    /// <example>
+    /// { "id": "3f2b8c1e-5a47-4d6e-9b0a-7c1d2e3f4a5b", "state": "ReadyForProduction", "type": "CustomerOrder", "orderNumber": "ORD-2025-0042", "orderName": "Kitchen Miller", "orderDate": "2025-04-01T08:30:00+00:00",
+    /// "customerName": "Miller Kitchens", "customerNumber": "C-1001", "quantityOfParts": 96, "createdAt": "2025-04-01T08:30:00+00:00", "changedAt": "2025-04-02T09:00:00+00:00", "items": [] }
+    /// </example>
     [DebuggerDisplay("OrderName={OrderName}")]
     public class OrderDetails : ISupportsAdditionalData, OrderItems.ISupportsItems
     {
         #region (100) Header
 
         /// <summary>
-        /// The unique id of this order
+        /// Unique identifier of the order.
         /// </summary>
+        /// <example>3f2b8c1e-5a47-4d6e-9b0a-7c1d2e3f4a5b</example>
+        [Key]
         [JsonProperty(Order = 100)]
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets the status of the order.
+        /// Current state of the order. Defaults to <c>New</c>.
         /// </summary>
+        /// <example>ReadyForProduction</example>
         [JsonProperty(Order = 101)]
         [DefaultValue(OrderState.New)]
         public OrderState State { get; set; } = OrderState.New;
 
         /// <summary>
-        /// Gets the type of the order.
+        /// Type of the order. Defaults to <c>CustomerOrder</c>.
         /// </summary>
+        /// <example>CustomerOrder</example>
         [JsonProperty(Order = 102)]
         [DefaultValue(OrderType.CustomerOrder)]
         public OrderType Type { get; set; } = OrderType.CustomerOrder;
 
         /// <summary>
-        /// The number of the order
+        /// Number of the order. Optional.
         /// </summary>
+        /// <example>ORD-2025-0042</example>
         [JsonProperty(Order = 110)]
+        [StringLength(19)]
         public string? OrderNumber { get; set; }
 
         /// <summary>
-        /// The order number from the preceding system
+        /// Order number from the preceding system, for example an ERP system. Optional.
         /// </summary>
+        /// <example>ERP-90017</example>
         [JsonProperty(Order = 111)]
+        [StringLength(100)]
         public string? OrderNumberExternal { get; set; }
 
         /// <summary>
-        /// The name of the order
+        /// Name of the order.
         /// </summary>
+        /// <example>Kitchen Miller</example>
         [JsonProperty(Order = 112)]
+        [StringLength(100)]
         public string OrderName { get; set; } = null!;
 
         /// <summary>
-        /// The description of the order
+        /// Description of the order. Optional.
         /// </summary>
+        /// <example>Kitchen with oak fronts</example>
         [JsonProperty(Order = 113)]
+        [StringLength(300)]
         public string? OrderDescription { get; set; }
 
         /// <summary>
-        /// Gets the external system id of the item which can be used as a reference.
+        /// Identifier of the order in an external system, which can be used as a reference. Optional.
         /// </summary>
+        /// <example>ext-7781</example>
         [JsonProperty(Order = 114)]
+        [StringLength(300)]
         public string? ExternalSystemId { get; set; }
 
         /// <summary>
-        /// Gets or sets the source of the order, indicating the system the order originates from.
+        /// System the order originates from. Optional.
         /// </summary>
+        /// <example>ERP</example>
         [JsonProperty(Order = 115)]
+        [StringLength(100)]
         public string? Source { get; set; }
 
         /// <summary>
-        /// The project of the order
+        /// Project the order belongs to. Optional.
         /// </summary>
+        /// <example>Miller House</example>
         [JsonProperty(Order = 120)]
+        [StringLength(100)]
         public string? Project { get; set; }
 
         /// <summary>
-        /// The description of the order
+        /// Person in charge of the order. Optional.
         /// </summary>
+        /// <example>J. Smith</example>
         [JsonProperty(Order = 121)]
+        [StringLength(100)]
         public string? PersonInCharge { get; set; }
 
         /// <summary>
-        /// The date the order was created at
+        /// Date and time of the order.
         /// </summary>
+        /// <example>2025-04-01T08:30:00+00:00</example>
         [JsonProperty(Order = 122)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset OrderDate { get; set; }
 
         /// <summary>
-        /// Gets the planned delivery date of this order.
+        /// Planned delivery date and time of the order. Optional.
         /// </summary>
+        /// <example>2025-05-15T00:00:00+00:00</example>
         [JsonProperty(Order = 123)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset? DeliveryDatePlanned { get; set; }
 
         /// <summary>
-        /// Gets the planned completion date of this order.
+        /// Planned completion date and time of the order. Optional.
         /// </summary>
+        /// <example>2025-05-10T00:00:00+00:00</example>
         [JsonProperty(Order = 124)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset? CompletionDatePlanned { get; set; }
 
         /// <summary>
-        /// Gets or sets the link to the order in orderManager.
+        /// Link to the order in orderManager. Optional.
         /// </summary>
+        /// <example>https://example.com/orders/3f2b8c1e-5a47-4d6e-9b0a-7c1d2e3f4a5b</example>
         [JsonProperty(Order = 150)]
         public Uri? Link { get; set; }
 
         /// <summary>
-        /// Gets the HasErrors flag indicates whether the order has errors. The definition of what an error is, is up to the implementation of the OrderManager. This is a flag that can be used by the UI to display an error state for the order.
+        /// <c>true</c> if the order has errors; otherwise <c>false</c>. What counts as an error is defined by orderManager; clients can use the flag to display an error state.
         /// </summary>
+        /// <example>false</example>
         [JsonProperty(Order = 151)]
         public bool HasErrors { get; set; }
 
         /// <summary>
-        /// Gets or sets the referenced order id. This is used to link orders together, e.g. for a reclaim order that references the original order.
+        /// Identifier of the order this order refers to, for example the original order of a reclaim order. Optional.
         /// </summary>
+        /// <example>5a1c7e90-3b2d-4f68-8a14-9c0e1d2f3a4b</example>
         [JsonProperty(Order = 152)]
         public Guid? ReferencedOrderId { get; set; }
 
@@ -127,58 +164,73 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         #region (300) Customer
 
         /// <summary>
-        /// The name of the customer of this order
+        /// Name of the customer of the order. Optional.
         /// </summary>
+        /// <example>Miller Kitchens</example>
         [JsonProperty(Order = 300)]
+        [StringLength(100)]
         public string? CustomerName { get; set; }
 
         /// <summary>
-        /// The number of the customer of this order
+        /// Number of the customer of the order. Optional.
         /// </summary>
+        /// <example>C-1001</example>
         [JsonProperty(Order = 310)]
+        [StringLength(100)]
         public string? CustomerNumber { get; set; }
 
         /// <summary>
-        /// The external id of the customer of this order (e.g. from the ERP system)
+        /// Number of the customer in an external system, for example an ERP system. Optional.
         /// </summary>
+        /// <example>ERP-4711</example>
         [JsonProperty(Order = 315)]
+        [StringLength(100)]
         public string? CustomerNumberExternal { get; set; }
 
         /// <summary>
-        /// The company of the customer of this order
+        /// Company of the customer. Obsolete; use <see cref="CustomerName" /> instead.
         /// </summary>
         [JsonProperty(Order = 320)]
         [Obsolete("Use CustomerName instead.")]
+        [StringLength(100)]
         public string? Company { get; set; }
 
         /// <summary>
-        /// The telephone number of the customer of this order
+        /// Telephone number of the customer. Optional.
         /// </summary>
+        /// <example>+49 7443 12-0</example>
         [JsonProperty(Order = 321)]
+        [StringLength(100)]
         public string? TelephoneNumber { get; set; }
 
         /// <summary>
-        /// The email of the customer of this order
+        /// Email address of the customer. Optional.
         /// </summary>
+        /// <example>info@miller.example.com</example>
         [JsonProperty(Order = 322)]
+        [StringLength(100)]
         public string? Email { get; set; }
 
         /// <summary>
-        /// The country and language code of the customer of this order
-        /// IETF language tag, e.g. "de-CH" for German/Switzerland
+        /// Country and language of the customer as an IETF language tag. Optional.
         /// </summary>
+        /// <example>de-CH</example>
+        [JsonProperty(Order = 323)]
         public string? CustomerCulture { get; set; }
 
         /// <summary>
-        /// Gets or sets the language preference associated with the customer. 
-        /// ISO 2 Letter code e.g. "EN"
+        /// Preferred language of the customer as a two-letter ISO code. Optional.
         /// </summary>
+        /// <example>EN</example>
+        [JsonProperty(Order = 324)]
+
         public string? CustomerLanguage { get; set; }
 
         /// <summary>
-        /// Gets or sets the ISO currency code associated with the customer.
-        /// e.g. "CHF" for Swiss Francs, "EUR" for Euro, "USD" for US Dollar
+        /// Currency of the customer as an ISO 4217 currency code. Optional.
         /// </summary>
+        /// <example>EUR</example>
+        [JsonProperty(Order = 325)]
         public string? CustomerCurrency { get; set; }
 
         #endregion
@@ -186,7 +238,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         #region (200) Address
 
         /// <summary>
-        /// Gets or sets the addresses of the order.
+        /// Addresses of the order. Optional.
         /// </summary>
         [JsonProperty(Order = 200)]
         public Collection<Address>? Addresses { get; set; }
@@ -196,82 +248,110 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         #region (400) Order Details
 
         /// <summary>
-        /// Gets the timestamp the order was last changed at.
+        /// Date and time the order was last changed.
         /// </summary>
+        /// <example>2025-04-02T09:00:00+00:00</example>
         [JsonProperty(Order = 490)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset ChangedAt { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
-        /// Gets the user who changed the order last.
+        /// User who last changed the order. Optional.
         /// </summary>
+        /// <example>planner@example.com</example>
         [JsonProperty(Order = 491)]
+        [StringLength(100)]
         public string? ChangedBy { get; set; }
 
         /// <summary>
-        /// Gets the user who created the order.
+        /// User who created the order. Optional.
         /// </summary>
+        /// <example>planner@example.com</example>
         [JsonProperty(Order = 492)]
+        [StringLength(100)]
         public string? CreatedBy { get; set; }
 
         /// <summary>
-        /// Gets the timestamp the order was created at.
+        /// Date and time the order was created.
         /// </summary>
+        /// <example>2025-04-01T08:30:00+00:00</example>
         [JsonProperty(Order = 421)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
-        /// Gets the timestamp the order was released at for production.
+        /// Date and time the order was released for production. Optional.
         /// </summary>
+        /// <example>2025-04-03T07:00:00+00:00</example>
         [JsonProperty(Order = 422)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? ReleasedAt { get; set; }
 
         /// <summary>
-        /// Gets the timestamp the order was started at, indicating the time when the first feedback was received from the
-        /// production system.
+        /// Date and time the order was started, which is when the first feedback was received from production. Optional.
         /// </summary>
+        /// <example>2025-04-04T06:15:00+00:00</example>
         [JsonProperty(Order = 423)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? StartedAt { get; set; }
 
         /// <summary>
-        /// Gets the timestamp the order was completed at, indicating the time when the production system confirmed the order as
-        /// completed.
+        /// Date and time the production system confirmed the order as completed. Optional.
         /// </summary>
+        /// <example>2025-04-08T15:40:00+00:00</example>
         [JsonProperty(Order = 424)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? CompletedAt { get; set; }
 
         /// <summary>
-        /// Gets the timestamp the order was archived at.
+        /// Date and time the order was archived. Optional.
         /// </summary>
+        /// <example>2025-04-20T10:00:00+00:00</example>
         [JsonProperty(Order = 425)]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset? ArchivedAt { get; set; }
 
         /// <summary>
-        /// Gets the quantity of articles in this order.
+        /// Number of articles in the order. Optional.
         /// </summary>
+        /// <example>12</example>
         [JsonProperty(Order = 420)]
+        [Range(0, int.MaxValue)]
         public int? QuantityOfArticles { get; set; }
 
         /// <summary>
-        /// Gets the quantity of parts in this order.
+        /// Number of parts in the order. Optional.
         /// </summary>
+        /// <example>96</example>
         [JsonProperty(Order = 410)]
+        [Range(0, int.MaxValue)]
         public int? QuantityOfParts { get; set; }
 
         /// <summary>
-        /// Gets the quantity of parts planned in this order.
+        /// Number of parts planned in the order. Optional.
         /// </summary>
+        /// <example>96</example>
         [JsonProperty(Order = 411)]
+        [Range(0, int.MaxValue)]
         public int? QuantityOfPartsPlanned { get; set; }
 
         /// <summary>
-        /// Defines if the order should ship offcuts.
+        /// <c>true</c> if offcuts are shipped with the order. Optional.
         /// </summary>
+        /// <example>false</example>
         [JsonProperty(Order = 450)]
         public bool? IncludeOffcuts { get; set; }
 
         /// <summary>
-        /// Defines if the order should include edgebands.
+        /// <c>true</c> if edgebands are included in the order. Optional.
         /// </summary>
+        /// <example>true</example>
         [JsonProperty(Order = 451)]
         public bool? IncludeEdgeBands { get; set; }
 
@@ -280,22 +360,25 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         #region (600) Additional Data
 
         /// <summary>
-        /// Gets or sets the additional data.
+        /// Additional data entries attached to the order. Optional.
         /// </summary>
         [JsonProperty(Order = 600)]
         public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application that are not part of the standard contract. Optional.
         /// </summary>
+        /// <example>{ "externalSource": "ERP" }</example>
         [JsonExtensionData]
         [JsonProperty(Order = 602)]
         public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         /// <summary>
-        /// Gets or sets the notes of the order.
+        /// Notes about the order. Optional.
         /// </summary>
+        /// <example>Deliver on pallet</example>
         [JsonProperty(Order = 601)]
+        [StringLength(1000)]
         public string? Notes { get; set; }
 
         #endregion
@@ -303,7 +386,7 @@ namespace HomagConnect.OrderManager.Contracts.Orders
         #region (700) Order items
 
         /// <summary>
-        /// Gets or sets the items.
+        /// Items of the order, such as groups, positions, parts and components. Optional.
         /// </summary>
         [JsonProperty(Order = 700)]
         public Collection<OrderItems.Base>? Items { get; set; }

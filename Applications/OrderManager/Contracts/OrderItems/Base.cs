@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.AdditionalData;
 using HomagConnect.Base.Contracts.Interfaces;
@@ -12,8 +13,11 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Production entity
+/// Base class of all items of an order. The concrete item kind is identified by the <c>type</c> property.
 /// </summary>
+/// <example>
+/// { "type": "Position", "id": "1", "notes": "Check measurements on site" }
+/// </example>
 [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
 [JsonSubtypes.KnownSubType(typeof(Group), Type.Group)]
 [JsonSubtypes.KnownSubType(typeof(Position), Type.Position)]
@@ -32,8 +36,9 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems;
 public abstract class Base: ISupportsAdditionalData, ISupportsItems
 {
     /// <summary>
-    /// Gets or sets the type of the item entity.
+    /// Kind of the item. Determines which concrete item type is used when the item is deserialized.
     /// </summary>
+    /// <example>Position</example>
     /// <remarks>
     /// We need to allow the *setter* here, because otherwise this property is handled 
     /// with "JsonExtensionDataAttribute" and the type is added to this collection.
@@ -42,39 +47,46 @@ public abstract class Base: ISupportsAdditionalData, ISupportsItems
     public abstract Type Type { get; set; }
 
     /// <summary>
-    /// Gets or sets the id
+    /// Identifier of the item. Optional.
     /// </summary>
+    /// <example>1</example>
+    [Key]
     [JsonProperty(Order = 0)]
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the notes of the entity.
+    /// Notes about the item. Optional.
     /// </summary>
+    /// <example>Check measurements on site</example>
     [JsonProperty(Order = 990)]
+    [StringLength(1000)]
     public string? Notes { get; set; }
 
     /// <summary>
-    /// Gets or sets the items.
+    /// Child items of the item. Optional.
     /// </summary>
     [JsonProperty(Order = 995)]
     public Collection<Base>? Items { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional data.
+    /// Additional data entries attached to the item. Optional.
     /// </summary>
     [JsonProperty(Order = 997)]
     public Collection<AdditionalDataEntity>? AdditionalData { get; set; }
 
     /// <summary>
-    /// Gets or sets the additional properties configured in the application.
+    /// Additional properties configured in the application that are not part of the standard contract. Optional.
     /// </summary>
+    /// <example>{ "externalSource": "ERP" }</example>
     [JsonExtensionData]
     [JsonProperty(Order = 999)]
     public IDictionary<string, object>? AdditionalProperties { get; set; }
 
     /// <summary>
-    /// Gets or sets the manufacturer of the entity.
+    /// Manufacturer of the item. Optional.
     /// </summary>
+    /// <example>HOMAG</example>
     [JsonProperty(Order = 1000)]
+    [StringLength(255)]
     public string? Manufacturer { get; set; }
 }

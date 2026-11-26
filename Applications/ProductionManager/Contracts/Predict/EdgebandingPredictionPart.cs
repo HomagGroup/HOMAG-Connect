@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 using HomagConnect.Base.Contracts.Attributes;
 using HomagConnect.Base.Contracts.Enumerations;
@@ -29,14 +29,14 @@ namespace HomagConnect.ProductionManager.Contracts.Predict
     public class EdgebandingPredictionPart : IEdgebandingProperties, IDimensionProperties, IContainsUnitSystemDependentProperties
     {
         /// <summary>
-        /// Gets or sets the identifier of the part.
+        /// The identifier of the part.
         /// </summary>
         /// <example>PART-10</example>
         [JsonProperty(Order = 1)]
         public string? Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the required quantity of the part. Must be between 1 and 10,000.
+        /// The required quantity of the part. Must be between 1 and 10,000.
         /// </summary>
         /// <example>2</example>
         [Required]

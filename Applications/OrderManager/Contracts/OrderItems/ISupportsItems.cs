@@ -9,7 +9,7 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
     public interface ISupportsItems
     {
         /// <summary>
-        /// Gets or sets the items.
+        /// Items contained in the object. Optional.
         /// </summary>
         public Collection<Base>? Items { get; set; }
     }
