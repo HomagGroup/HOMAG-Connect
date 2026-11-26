@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using HomagConnect.Base.Client;
 using HomagConnect.Base.Contracts;
 using HomagConnect.Base.Contracts.Exceptions;
@@ -25,7 +20,12 @@ namespace HomagConnect.MaterialManager.Client
             return (new Uri(url, UriKind.Relative), json);
         }
 
-        public static async Task<T> SendMultipartPatchAsync<T>(HttpClient client, Uri uri, string json, FileReference[] fileReferences, string jsonPartName = "update")
+        public static Task<T> SendMultipartPatchAsync<T>(HttpClient client, Uri uri, string json, FileReference[] fileReferences, string jsonPartName = "update")
+        {
+            return SendMultipartPatchAsync<T>(request => client.SendAsync(request), uri, json, fileReferences, jsonPartName);
+        }
+
+        public static async Task<T> SendMultipartPatchAsync<T>(Func<HttpRequestMessage, Task<HttpResponseMessage>> send, Uri uri, string json, FileReference[] fileReferences, string jsonPartName = "update")
         {
             if (fileReferences == null)
             {
@@ -59,7 +59,7 @@ namespace HomagConnect.MaterialManager.Client
 
             request.Content = httpContent;
 
-            var response = await client.SendAsync(request).ConfigureAwait(false);
+            var response = await send(request).ConfigureAwait(false);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 

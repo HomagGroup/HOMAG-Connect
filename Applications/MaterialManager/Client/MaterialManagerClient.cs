@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http;
-
+﻿using HomagConnect.Base.Client;
 using HomagConnect.Base.Services;
 
 namespace HomagConnect.MaterialManager.Client;
@@ -48,4 +46,7 @@ public class MaterialManagerClient : ServiceBase
     /// Client for managing textures.
     /// </summary>
     public MaterialManagerClientTextures Textures { get; set; }
+
+    /// <inheritdoc />
+    protected override IEnumerable<ClientBase?> ChildClients => [Material, Processing, Textures];
 }

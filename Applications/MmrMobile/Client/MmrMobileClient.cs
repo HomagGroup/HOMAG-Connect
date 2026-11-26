@@ -43,8 +43,8 @@ namespace HomagConnect.MmrMobile.Client
         {
             const string url = "/api/machinedata/machines";
 
-            var request = CreateGetRequest(url, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+                        var request = CreateGetRequest(url, culture);
+                        var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -67,8 +67,8 @@ namespace HomagConnect.MmrMobile.Client
         {
             var url = $"/api/machinedata/machines/{machineNumber}/nodes";
 
-            var request = CreateGetRequest(url, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+                        var request = CreateGetRequest(url, culture);
+                        var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -94,8 +94,8 @@ namespace HomagConnect.MmrMobile.Client
         {
             var url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}";
 
-            var request = CreateGetRequest(url, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+                        var request = CreateGetRequest(url, culture);
+                        var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -123,7 +123,7 @@ namespace HomagConnect.MmrMobile.Client
             var url = $"/api/machinedata/machines/{machineNumber}/nodes/{node}?timestamp={Uri.EscapeDataString(timestamp.ToString("o", CultureInfo.InvariantCulture))}";
 
             var request = CreateGetRequest(url, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -171,7 +171,7 @@ namespace HomagConnect.MmrMobile.Client
             var parameters = GetParameters(from, to, daysBack, null, null, null, null, null, null, null, take, skip, null);
 
             var request = CreateGetRequest(url + parameters, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -196,7 +196,7 @@ namespace HomagConnect.MmrMobile.Client
 
             request.Content = new StreamContent(file);
 
-            var response = await Client.SendAsync(request);
+                        var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -224,7 +224,7 @@ namespace HomagConnect.MmrMobile.Client
             var parameters = GetParameters(from, to, daysBack, null, null, null, null, null, null, null, take, skip, null);
 
             var request = CreateGetRequest(url + parameters, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -249,7 +249,7 @@ namespace HomagConnect.MmrMobile.Client
             var parameters = GetParameters(null, null, daysBack, null, null, null, null, null, null, null, take, skip, null);
 
             var request = CreateGetRequest(url + parameters, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -271,8 +271,8 @@ namespace HomagConnect.MmrMobile.Client
         {
             const string url = "/api/mmr-mobile/machines";
 
-            var request = CreateGetRequest(url, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+                        var request = CreateGetRequest(url, culture);
+                        var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -295,8 +295,8 @@ namespace HomagConnect.MmrMobile.Client
         {
             var url = $"/api/mmr-mobile/machines/{machineNumber}";
 
-            var request = CreateGetRequest(url, culture);
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+                        var request = CreateGetRequest(url, culture);
+                        var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -324,7 +324,7 @@ namespace HomagConnect.MmrMobile.Client
             string parameters = GetParameters(from, to, null, machineNumber, instanceId, machineType, stateId, detailedStateId, null, granularity, take, skip, null);
             var request = CreateGetRequest(url + parameters, culture);
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -347,7 +347,7 @@ namespace HomagConnect.MmrMobile.Client
             var parameters = GetParameters(from, to, null, machineNumber, instanceId, machineType, null, null, counterId, granularity, take, skip, null);
             var request = CreateGetRequest(url + parameters, culture);
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();

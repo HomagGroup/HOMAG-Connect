@@ -55,6 +55,79 @@ By using this API, you confirm that:
 *   You ensure that passwords are stored securely and used only in secure environments
 *   Any misuse resulting from insecure storage or exposure of credentials falls under your responsibility
 
+## Rate Limiting
+
+All HOMAG Connect endpoints are rate limited to ensure a stable service for all customers.
+If your application sends more requests than allowed within a time window, the additional requests are rejected with the status code **HTTP 429 (Too Many Requests)**.
+
+*   The limits differ per application and endpoint and may be adjusted over time. Do not hard-code them in your application.
+*   A rejected request is not processed. Send it again after a short pause.
+*   If the response contains a `Retry-After` header, wait at least for the indicated time before the next request.
+
+### Recommendations
+
+*   **Retry with backoff:** When you receive HTTP 429, wait before you retry and increase the pause with every further attempt (exponential backoff).
+*   **Reduce the number of requests:** Use paging (`take` / `skip`) and filters instead of many small requests, and request only the data you need.
+*   **Cache data that rarely changes:** For example machines, parameter sets, templates or material types.
+*   **Avoid tight polling loops:** When you wait for a state change, poll in intervals of several seconds instead of continuously.
+*   **Limit parallel requests:** Throttle the number of concurrent requests instead of sending bursts.
+
+### Handling HTTP 429 with the .NET clients
+
+By default, every call of a HOMAG Connect Client sends exactly one request. A rejected request surfaces as an `HttpRequestException`; with .NET 8 or later its `StatusCode` is `HttpStatusCode.TooManyRequests`.
+
+#### Retry mode
+
+All clients offer an optional retry mode. Set `RetryOnRateLimit` to `true` and the client repeats a request which is rejected with HTTP 429:
+
+```c#
+var client = new IntelliDivideClient(subscriptionId, authorizationKey) { RetryOnRateLimit = true };
+
+var optimizations = await client.GetOptimizations(OptimizationType.Cutting, 100);
+```
+
+*   The mode is **off by default**. Without it, a request is sent once, as before.
+*   A rejected request is repeated up to **3 times**. The client waits **2, 4 and 8 seconds** before the 1st, 2nd and 3rd repetition.
+*   If the response contains a `Retry-After` header that asks for a longer pause, the client waits for the indicated time instead. If the requested pause is longer than 30 seconds, the request is not repeated.
+*   If the request is still rejected after the 3rd repetition, the client throws the same `HttpRequestException` as without the mode.
+*   Other errors are not repeated.
+*   Clients which consist of several sub clients (for example `MaterialManagerClient` with `Material`, `Processing` and `Textures`) pass the setting on to their sub clients. Set the property on the client you use, and assign it before you replace a sub client by your own instance.
+*   While the mode is on, the content of a request (for example an uploaded file) is held in memory so it can be sent again.
+*   The property is available on the client classes, not on the client interfaces (for example `IIntelliDivideClient`). Enable the mode where you create the client.
+
+The waiting times are short. If a limit applies per minute, a request can still be rejected after the 3rd repetition. In this case reduce the number of requests as described in the recommendations above.
+
+#### Custom retry handling
+
+If you need a different behavior (for example more repetitions), handle the exception yourself. The following example retries a call with exponential backoff:
+
+```c#
+using System.Net;
+
+static async Task<T> RetryOnRateLimitAsync<T>(Func<Task<T>> call, int maxRetries = 5)
+{
+    var delay = TimeSpan.FromSeconds(2);
+
+    for (var attempt = 0; ; attempt++)
+    {
+        try
+        {
+            return await call();
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.TooManyRequests && attempt < maxRetries)
+        {
+            await Task.Delay(delay);
+            delay = TimeSpan.FromSeconds(Math.Min(delay.TotalSeconds * 2, 60));
+        }
+    }
+}
+
+// Usage:
+var optimizations = await RetryOnRateLimitAsync(() => intelliDivide.GetOptimizations(OptimizationType.Cutting, 100));
+```
+
+When you call the REST API directly, evaluate the `Retry-After` response header (if present) instead of using a fixed delay.
+
 ## HOMAG Connect Clients
 
 There are HOMAG Connect Clients available for the following applications:

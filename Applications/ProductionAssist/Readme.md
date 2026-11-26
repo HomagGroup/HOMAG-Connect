@@ -20,6 +20,10 @@ var client = new ProductionAssistClient(subscriptionId, authorizationKey);
 
 For further information on how to obtain your Authorization Key and Subscription Id, please visit the [Authentication](Samples/CSharp/Authentication) page for detailed instructions.
 
+### Rate limiting
+
+All endpoints of HOMAG Connect are rate limited. This applies to the productionAssist Client as well as to the productionAssist Feedback Client. If your application sends too many requests within a short time, HOMAG Connect rejects them with **HTTP 429 (Too Many Requests)** and the client throws an `HttpRequestException`. Wait before you retry and reduce the number of requests where possible (for example by using paging and caching). To let the client repeat rejected requests automatically, set `RetryOnRateLimit = true` (see [retry mode](https://github.com/HomagGroup/HOMAG-Connect#retry-mode)). Further recommendations and a retry example can be found in the [rate limiting documentation](https://github.com/HomagGroup/HOMAG-Connect#rate-limiting).
+
 ## Further details and explanations
 1. For detailed examples and explanations, please refer to [Samples](Samples/Readme.md)
 

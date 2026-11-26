@@ -261,7 +261,7 @@ namespace HomagConnect.IntelliDivide.Client
             request.Headers.AcceptLanguage.Clear();
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo.Name));
 
-            var response = await Client.SendAsync(request).ConfigureAwait(false);
+                        var response = await SendRequestAsync(request).ConfigureAwait(false);
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request).ConfigureAwait(false);
 
             var result = await response.Content.ReadAsStringAsync();
@@ -328,7 +328,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -360,7 +360,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -403,7 +403,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -503,7 +503,7 @@ namespace HomagConnect.IntelliDivide.Client
 
             const string uri = "api/intelliDivide/optimizations/GetPartProperties";
             request.RequestUri = new Uri(uri, UriKind.Relative);
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 

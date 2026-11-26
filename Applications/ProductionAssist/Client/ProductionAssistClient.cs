@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Client;
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
@@ -16,7 +17,7 @@ namespace HomagConnect.ProductionAssist.Client
         public ProductionAssistCuttingClient Cutting { get; set; }
 
         /// <summary>
-        /// ProductionAssistFeedbackClient
+        /// ProductionAssistFeedbackClient 
         /// </summary>
         public ProductionAssistFeedbackClient Feedback { get; set; }
 
@@ -24,6 +25,9 @@ namespace HomagConnect.ProductionAssist.Client
         /// ProductionAssistNestingClient
         /// </summary>
         public ProductionAssistNestingClient Nesting { get; set; }
+
+        /// <inheritdoc />
+        protected override IEnumerable<ClientBase?> ChildClients => [Cutting, Nesting, Feedback];
 
         #region Constructors
 

@@ -328,7 +328,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _EdgebandCode, edgebandCode, edgebandTypeUpdate);
 
         // reuse shared multipart logic
-        return await UpdateHelpers.SendMultipartPatchAsync<EdgebandType>(Client, uri, json, fileReferences, nameof(edgebandTypeUpdate)).ConfigureAwait(false);
+        return await UpdateHelpers.SendMultipartPatchAsync<EdgebandType>(request => SendRequestAsync(request), uri, json, fileReferences, nameof(edgebandTypeUpdate)).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -482,9 +482,9 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
 
         request.Content = httpContent;
 
-        var response = await Client.SendAsync(request);
+        var response = await SendRequestAsync(request);
 
-        await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
+                await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
         var result = await response.Content.ReadAsStringAsync();
         var responseObject = JsonConvert.DeserializeObject<EdgebandType>(result, SerializerSettings.Default);
@@ -575,7 +575,7 @@ public class MaterialManagerClientMaterialEdgebands : ServiceBase, IMaterialMana
             Content = content
         };
 
-        var response = await Client.SendAsync(request);
+        var response = await SendRequestAsync(request);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
     }
 

@@ -185,7 +185,7 @@ public class MaterialManagerClientTextures : ClientBase, IMaterialManagerClientT
             Content = new StringContent(payload, Encoding.UTF8, "application/json")
         };
 
-        using var response = await Client.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+        using var response = await SendRequestAsync(httpRequest, cancellationToken: cancellationToken).ConfigureAwait(false);
         await response.EnsureSuccessStatusCodeWithDetailsAsync(httpRequest).ConfigureAwait(false);
 
         var rawResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);

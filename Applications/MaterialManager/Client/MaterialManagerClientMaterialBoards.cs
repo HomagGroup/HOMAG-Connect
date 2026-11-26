@@ -235,7 +235,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         var (uri, json) = UpdateHelpers.PrepareUpdatePayload(_BaseRoute, _BoardCode, boardTypeCode, boardTypeUpdate);
 
-        return await UpdateHelpers.SendMultipartPatchAsync<BoardType>(Client, uri, json, fileReferences, nameof(boardTypeUpdate)).ConfigureAwait(false);
+        return await UpdateHelpers.SendMultipartPatchAsync<BoardType>(request => SendRequestAsync(request), uri, json, fileReferences, nameof(boardTypeUpdate)).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -394,7 +394,7 @@ public class MaterialManagerClientMaterialBoards : ServiceBase, IMaterialManager
 
         request.Content = httpContent;
 
-        var response = await Client.SendAsync(request);
+        var response = await SendRequestAsync(request);
 
         await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 

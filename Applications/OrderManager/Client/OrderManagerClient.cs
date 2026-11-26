@@ -168,7 +168,7 @@ namespace HomagConnect.OrderManager.Client
             request.Content = requestContent;
             requestContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-            using var response = await Client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            using var response = await SendRequestAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -285,7 +285,7 @@ namespace HomagConnect.OrderManager.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -317,9 +317,9 @@ namespace HomagConnect.OrderManager.Client
             HttpContent streamContent = new StreamContent(stream);
             httpContent.Add(streamContent, fileName, fileName);
 
-            request.Content = httpContent;
+                        request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+                        var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
@@ -370,7 +370,7 @@ namespace HomagConnect.OrderManager.Client
 
             request.Content = httpContent;
 
-            var response = await Client.SendAsync(request);
+            var response = await SendRequestAsync(request);
 
             await response.EnsureSuccessStatusCodeWithDetailsAsync(request);
 
