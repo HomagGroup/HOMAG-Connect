@@ -11,27 +11,27 @@ namespace HomagConnect.MaterialManager.Samples.Surfaces.Textures;
 public static class DecorMatchSamples
 {
     /// <summary>
-    /// Searches for decors matching a board type.
+    /// Searches for decors matching a board type with details.
     /// </summary>
     public static async Task SearchBoardDecors(
         IMaterialManagerClientDecorCatalog materialManagerClient,
-        BoardType boardType)
+        BoardTypeDetails boardType)
     {
-        var result = await materialManagerClient.SearchBoardDecors(
-            DecorMatchSearchRequest.ForBoard(boardType));
+        var result = await materialManagerClient.SearchBoardDetailsDecors(
+            DecorMatchSearchRequest.ForBoardDetails(boardType));
 
         result.Trace();
     }
 
     /// <summary>
-    /// Searches for decors matching an edgeband type.
+    /// Searches for decors matching an edgeband type with details.
     /// </summary>
     public static async Task SearchEdgebandDecors(
         IMaterialManagerClientDecorCatalog materialManagerClient,
-        EdgebandType edgebandType)
+        EdgebandTypeDetails edgebandType)
     {
-        var result = await materialManagerClient.SearchEdgebandDecors(
-            DecorMatchSearchRequest.ForEdgeband(edgebandType));
+        var result = await materialManagerClient.SearchEdgebandDetailsDecors(
+            DecorMatchSearchRequest.ForEdgebandDetails(edgebandType));
 
         result.Trace();
     }

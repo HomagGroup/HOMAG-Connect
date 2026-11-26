@@ -240,4 +240,7 @@
   <data name="LowestMaterialCostsPerPartDescription" xml:space="preserve">
     <value>Die Alternative erzielt die niedrigsten Materialkosten pro Teil und eignet sich für Szenarien mit Plusteilen, in denen der Materialverbrauch im Fokus steht. Die Produktionszeit kann dabei höher ausfallen oder die Pläne können komplexer sein.</value>
   </data>
+  <data name="Unknown1" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
 </root>

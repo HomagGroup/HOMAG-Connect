@@ -422,6 +422,15 @@ namespace HomagConnect.IntelliDivide.Contracts.Result {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unbekannt.
+        /// </summary>
+        public static string Unknown1 {
+            get {
+                return ResourceManager.GetString("Unknown1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unbekannte Charakteristic.
         /// </summary>
         public static string UnknownDescription {
