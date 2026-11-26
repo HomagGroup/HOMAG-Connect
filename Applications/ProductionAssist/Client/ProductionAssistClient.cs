@@ -17,7 +17,7 @@ namespace HomagConnect.ProductionAssist.Client
         public ProductionAssistCuttingClient Cutting { get; set; }
 
         /// <summary>
-        /// ProductionAssistFeedbackClient
+        /// ProductionAssistFeedbackClient 
         /// </summary>
         public ProductionAssistFeedbackClient Feedback { get; set; }
 
