@@ -1,12 +1,17 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 // Note: This is preliminary code and is subject to change
 
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// A price information.
+/// Price information of an order item.
 /// </summary>
+/// <example>
+/// { "type": "Price", "id": "PR1", "unitPrice": 625.0, "priceType": "NetTotal", "totalPrice": 1250.0, "currency": "EUR" }
+/// </example>
 public class Price : Base
 {
     /// <inheritdoc cref="Base" />
@@ -23,29 +28,33 @@ public class Price : Base
     }
 
     /// <summary>
-    /// The total price of the item
+    /// Total price of the item. Optional.
     /// </summary>
+    /// <example>1250.0</example>
     [JsonProperty(Order = 2)]
+    [Range(0, double.MaxValue)]
     public double? TotalPrice { get; set; }
 
     /// <summary>
-    /// The total price of one item
+    /// Price of one unit of the item. Optional.
     /// </summary>
+    /// <example>625.0</example>
     [JsonProperty(Order = 1)]
+    [Range(0, double.MaxValue)]
     public double? UnitPrice { get; set; }
 
     /// <summary>
-    /// The currency of the price
+    /// ISO 4217 currency code of the price. Defaults to <c>EUR</c>.
     /// </summary>
+    /// <example>EUR</example>
     [JsonProperty(Order = 3)]
+    [DefaultValue("EUR")]
     public string? Currency { get; set; } = "EUR";
 
     /// <summary>
-    /// An optional type of the price
+    /// Kind of the price, for example a net total or a discount. Optional.
     /// </summary>
-    /// <example>
-    /// Total, GrossTotal, NetTotal, Shipping, Discount, Tax, SubTotal, etc.
-    /// </example>
+    /// <example>NetTotal</example>
     [JsonProperty(Order = 1)]
     public PriceType? PriceType { get; set; }
 }

@@ -7,48 +7,48 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.OrderItems;
 
 /// <summary>
-/// Item state.
+/// Production and delivery state of an order item. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 public enum State
 {
     /// <summary>
-    /// Unknown
+    /// State is not known (fallback for new or unrecognized values).
     /// </summary>
     Unknown,
 
     /// <summary>
-    /// New
+    /// The item is new and has not been released yet.
     /// </summary>
     New,
 
     /// <summary>
-    /// Ready for production
+    /// The item is ready for production.
     /// </summary>
     ReadyForProduction,
 
     /// <summary>
-    /// In Production
+    /// The item is in production.
     /// </summary>
     InProduction,
 
     /// <summary>
-    /// Completed
+    /// Production of the item is completed.
     /// </summary>
     Completed,
 
     /// <summary>
-    /// Distributed
+    /// The item has been distributed.
     /// </summary>
     Distributed,
 
     /// <summary>
-    /// Delivered
+    /// The item has been delivered.
     /// </summary>
     Delivered,
 
     /// <summary>
-    /// Archived
+    /// The item has been archived.
     /// </summary>
     Archived
 }

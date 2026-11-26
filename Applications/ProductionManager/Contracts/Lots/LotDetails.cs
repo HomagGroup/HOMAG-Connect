@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Lots;
 
@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionManager.Contracts.Lots;
 public class LotDetails : Lot
 {
     /// <summary>
-    /// Gets or sets the part identifiers assigned to the lot.
+    /// Identifiers of the parts assigned to the lot. Empty if no parts are assigned.
     /// </summary>
     /// <example>[ "PART-1001", "PART-1002" ]</example>
     [JsonProperty(Order = 50)]

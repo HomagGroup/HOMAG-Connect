@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -17,7 +17,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict;
 public class PredictionWorkplaceData : PredictionBaseData
 {
     /// <summary>
-    /// Gets or sets the workplace identifier used as the prediction data source.
+    /// The workplace identifier used as the prediction data source.
     /// </summary>
     /// <example>6f9619ff-8b86-d011-b42d-00cf4fc964ff</example>
     [JsonProperty(Order = 1)]

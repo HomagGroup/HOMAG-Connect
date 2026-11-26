@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using HomagConnect.Base.Contracts.Events;
 
 using Newtonsoft.Json;
@@ -11,7 +11,7 @@ namespace HomagConnect.ProductionAssist.Contracts.Events;
 public abstract class WorkstationEvent : AppEvent
 {
     /// <summary>
-    /// Gets or sets the Identifier of the Workstation where the event occurred.
+    /// Unique identifier of the workstation at which the event occurred.
     /// </summary>
     [Required]
     [JsonProperty(Order = 10)]

@@ -1,28 +1,38 @@
-﻿namespace HomagConnect.OrderManager.Contracts.Price
+﻿using Newtonsoft.Json;
+
+namespace HomagConnect.OrderManager.Contracts.Price
 {
     /// <summary>
-    /// Data for the price calculation response
+    /// Result of a price calculation, including the priced order and any errors or warnings.
     /// </summary>
+    /// <example>
+    /// { "orderData": { "id": "3f2b8c1e-5a47-4d6e-9b0a-7c1d2e3f4a5b", "orderName": "Kitchen Miller" }, "libraryId": "StandardPrices", "errors": [], "warnings": ["No price found for position 3."] }
+    /// </example>
     public class PriceResponseData
     {
         /// <summary>
-        /// The order data for which the price was calculated
+        /// Order including the calculated prices.
         /// </summary>
+        [JsonProperty(Order = 1)]
         public Orders.OrderDetails OrderData { get; set; } = null!;
 
         /// <summary>
-        /// The library which was used for the price calculation
+        /// Identifier of the price library that was used.
         /// </summary>
+        /// <example>StandardPrices</example>
+        [JsonProperty(Order = 2)]
         public string LibraryId { get; set; } = null!;
 
         /// <summary>
-        /// Possible errors during price calculation
+        /// Errors that occurred during the price calculation. Empty if there were none.
         /// </summary>
+        [JsonProperty(Order = 3)]
         public IList<string> Errors { get; set; } = new List<string>();
 
         /// <summary>
-        /// Possible warnings during price calculation
+        /// Warnings that occurred during the price calculation. Empty if there were none.
         /// </summary>
+        [JsonProperty(Order = 4)]
         public IList<string> Warnings { get; set; } = new List<string>();
     }
 }

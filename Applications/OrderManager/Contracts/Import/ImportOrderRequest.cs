@@ -1,15 +1,24 @@
-﻿using System.Diagnostics;
+﻿using HomagConnect.Base.Contracts.Enumerations;
+using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace HomagConnect.OrderManager.Contracts.Import;
 
 /// <summary>
-/// Optimization request class to use to create requests on object model.
+/// Request to import an order into orderManager.
 /// </summary>
+/// <example>
+/// { "action": "ImportOnly" }
+/// </example>
 [DebuggerDisplay("Action={Action}")]
 public class ImportOrderRequest
 {
     /// <summary>
-    /// Gets or sets the action which should get performed on import.
+    /// Action to perform on import. Defaults to <see cref="ImportOrderRequestAction.ImportOnly" />.
     /// </summary>
+    /// <example>ImportOnly</example>
+    [DefaultValue(BoardTypeType.Board)]
+    [JsonProperty(Order = 1)]
     public ImportOrderRequestAction Action { get; set; } = ImportOrderRequestAction.ImportOnly;
 }

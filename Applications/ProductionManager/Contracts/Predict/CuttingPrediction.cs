@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -19,7 +19,7 @@ namespace HomagConnect.ProductionManager.Contracts.Predict;
 public class CuttingPrediction : PredictionBase
 {
     /// <summary>
-    /// Gets or sets the machine-specific prediction data used as the basis for the aggregated cutting prediction.
+    /// The machine-specific prediction data used as the basis for the aggregated cutting prediction.
     /// Machine identifiers use the format <c>x-xxx-xx-xxxx</c>.
     /// </summary>
     /// <example>

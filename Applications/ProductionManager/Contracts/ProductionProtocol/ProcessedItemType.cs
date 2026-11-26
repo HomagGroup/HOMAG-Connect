@@ -1,4 +1,4 @@
-﻿using HomagConnect.Base.Contracts.Converter;
+using HomagConnect.Base.Contracts.Converter;
 using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
@@ -11,12 +11,12 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
     public enum ProcessedItemType
     {
         /// <summary>
-        /// Base processed item.
+        /// Base processed item without a more specific type.
         /// </summary>
         ProcessedItem,
 
         /// <summary>
-        /// Processed part.
+        /// A part that was processed at a workstation without a more specific processing type.
         /// </summary>
         ProcessedPart,
 
@@ -36,17 +36,17 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionProtocol
         ProcessedPartCnc,
 
         /// <summary>
-        /// Processed laminating part.
+        /// A part that was processed at a laminating workstation.
         /// </summary>
         ProcessedPartLaminating,
 
         /// <summary>
-        /// Processed position.
+        /// A position that was processed.
         /// </summary>
         ProcessedPosition,
 
         /// <summary>
-        /// Processed assembly group.
+        /// An assembly group that was processed.
         /// </summary>
         ProcessedAssemblyGroup
     }

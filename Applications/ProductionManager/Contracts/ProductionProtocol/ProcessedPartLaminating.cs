@@ -71,17 +71,17 @@ public class ProcessedPartLaminating : ProcessedPart, ILaminatingProperties
     #endregion
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the laminate on the bottom side. Optional.
     /// </summary>
-    /// <example>https://example.com/materials/boards/EB_White_19mm.png</example>
+    /// <example>https://example.com/materials/laminates/Laminate_White_Matt.png</example>
     [JsonProperty(Order = 39)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(LaminateBottomThumbnail))]
     public Uri? LaminateBottomThumbnail { get; set; }
 
     /// <summary>
-    /// Gets or sets the URI of the product thumbnail image.
+    /// URI of a thumbnail image of the laminate on the top side. Optional.
     /// </summary>
-    /// <example>https://example.com/materials/boards/EB_White_19mm.png</example>
+    /// <example>https://example.com/materials/laminates/Laminate_Oak_Natural.png</example>
     [JsonProperty(Order = 40)]
     [Display(ResourceType = typeof(ProductionProtocolPropertyDisplayNames), Name = nameof(LaminateTopThumbnail))]
     public Uri? LaminateTopThumbnail { get; set; }

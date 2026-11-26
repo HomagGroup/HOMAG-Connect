@@ -1,10 +1,13 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
-    /// Represents an article on a position, including its catalog, descriptive metadata and module roots.
+    /// Article on a position, including its catalog, descriptive metadata and module roots.
     /// </summary>
+    /// <example>
+    /// { "libraryId": "kitchen-lib", "catalog": "Base units", "articleId": "BU-600", "articleName": "Base unit 600", "articleNameLocalized": { "de-DE": "Unterschrank 600" }, "description": "Base unit with one door", "imageUrl": "https://example.com/images/bu-600.png", "category": "Base units", "isConfigDummy": false, "roots": [] }
+    /// </example>
     public class PosArticle
     {
         /// <summary>
@@ -86,7 +89,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public IList<PosModuleRootData> ModuleRoots { get; set; } = new List<PosModuleRootData>();
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application.
         /// </summary>
         [JsonExtensionData]
         [JsonProperty(Order = 999)]

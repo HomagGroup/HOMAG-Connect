@@ -6,8 +6,11 @@ using System.ComponentModel;
 namespace HomagConnect.OrderManager.Contracts.OrderItems
 {
     /// <summary>
-    /// Order item board
+    /// Board of an order, including its material, thickness and costs.
     /// </summary>
+    /// <example>
+    /// { "type": "Board", "id": "B1", "material": "P2_Gold_Craft_Oak_19.0", "thickness": 19, "grain": "Lengthwise", "costs": 42.5 }
+    /// </example>
     public class Board : ComponentBase, IDimensionProperties, IMaterialProperties
     {
         #region ComponentBase Members
@@ -30,8 +33,9 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         #region IDimensionProperties
 
         /// <summary>
-        /// Gets or sets the thickness.
+        /// Thickness of the board.
         /// </summary>
+        /// <example>19</example>
         [JsonProperty(Order = 15)]
         [DefaultValue(0.0)]
         public double? Thickness { get; set; }
@@ -41,34 +45,39 @@ namespace HomagConnect.OrderManager.Contracts.OrderItems
         #region IMaterialProperties
 
         /// <summary>
-        /// Gets or sets the material.
+        /// Material code of the board. Optional.
         /// </summary>
+        /// <example>P2_Gold_Craft_Oak_19.0</example>
         [JsonProperty(Order = 100)]
         public string? Material { get; set; }
 
         /// <summary>
-        /// Surface Top
+        /// Surface of the top side. Optional.
         /// </summary>
+        /// <example>Melamine</example>
         [JsonProperty(Order = 120)]
         public string? SurfaceTop { get; set; }
 
         /// <summary>
-        /// Surface Bottom
+        /// Surface of the bottom side. Optional.
         /// </summary>
+        /// <example>Melamine</example>
         [JsonProperty(Order = 130)]
         public string? SurfaceBottom { get; set; }
 
         /// <summary>
-        /// Gets or sets the grain.
+        /// Grain direction of the board.
         /// </summary>
+        /// <example>Lengthwise</example>
         [JsonProperty(Order = 110)]
         public Grain Grain { get; set; }
 
         #endregion
 
         /// <summary>
-        /// Gets or sets the total costs.
+        /// Total costs of the board. Defaults to 0.
         /// </summary>
+        /// <example>42.5</example>
         [JsonProperty(Order = 7)]
         [DefaultValue(0.0)]
         public double Costs { get; set; }

@@ -6,17 +6,20 @@ namespace HomagConnect.ProductionManager.Contracts.ProductionItems;
 // Note: This is preliminary code and is subject to change
 
 /// <summary>
-/// Represents a group of production items.
+/// A group of production items, for example items that are produced or handled together.
 /// </summary>
+/// <example>
+/// { "type": "Group", "id": "G-01", "description": "Base cabinets", "productionStatus": "New", "quantity": 1, "items": [] }
+/// </example>
 public class Group : ProductionItemBase
 {
     /// <summary>
-    /// Gets or sets the production entities.
+    /// Production items contained in the group. Optional.
     /// </summary>
     [JsonProperty(Order = 999)]
     public Collection<ProductionItemBase>? Items { get; set; }
 
-    [JsonProperty(Order = 1)]
     /// <inheritdoc />
+    [JsonProperty(Order = 1)]
     public override ProductionItemType Type { get; set; } = ProductionItemType.Group;
 }

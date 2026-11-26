@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace HomagConnect.ProductionManager.Contracts.Predict;
 
@@ -28,14 +28,14 @@ namespace HomagConnect.ProductionManager.Contracts.Predict;
 public class EdgebandingPrediction : PredictionBase
 {
     /// <summary>
-    /// Gets or sets the predicted edgeband length grouped by edgeband code.
+    /// The predicted edgeband length grouped by edgeband code.
     /// </summary>
     /// <example>{ "EB_White_1mm": 124.5 }</example>
     [JsonProperty(Order = 4)]
     public Dictionary<string, double> LengthByEdgebandCode { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the machine-specific prediction data used as the basis for the aggregated edgebanding prediction.
+    /// The machine-specific prediction data used as the basis for the aggregated edgebanding prediction.
     /// Machine identifiers use the format <c>x-xxx-xx-xxxx</c>.
     /// </summary>
     /// <example>

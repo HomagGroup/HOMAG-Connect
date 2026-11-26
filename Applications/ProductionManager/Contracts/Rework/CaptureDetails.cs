@@ -17,8 +17,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
     public class CaptureDetails
     {
         /// <summary>
-        /// Gets or sets additional custom properties configured in the application.
-        /// JSON properties that are not mapped to typed members are captured here via <c>[JsonExtensionData]</c>.
+        /// Additional properties configured in productionManager that are not part of the standard contract. Optional.
         /// </summary>
         /// <example>{ "incidentType": "Damage" }</example>
         [JsonProperty(Order = 90)]
@@ -27,7 +26,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public IDictionary<string, object>? AdditionalProperties { get; set; }
 
         /// <summary>
-        /// Gets or sets attachments associated with the rework capture.
+        /// Attachments that document the rework capture. Optional.
         /// </summary>
         /// <example>[]</example>
         [JsonProperty(Order = 80)]
@@ -35,7 +34,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public Collection<AdditionalDataEntity>? Attachments { get; set; }
 
         /// <summary>
-        /// Gets or sets the comment entered when the rework was captured.
+        /// Comment entered when the rework was captured. Optional.
         /// </summary>
         /// <example>Panel edge damaged during handling.</example>
         [JsonProperty(Order = 10)]
@@ -43,7 +42,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? Comment { get; set; }
 
         /// <summary>
-        /// Gets or sets the user who captured the rework.
+        /// User who captured the rework. Optional.
         /// </summary>
         /// <example>operator@example.com</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(CapturedBy))]
@@ -51,7 +50,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? CapturedBy { get; set; }
 
         /// <summary>
-        /// Gets or sets the last workstation where the rework was captured.
+        /// Name of the last workstation the part was processed at before the rework was captured. Optional.
         /// </summary>
         /// <example>Saw-01</example>
         [Display(ResourceType = typeof(ReworkPropertyDisplayNames), Name = nameof(LastWorkstation))]
@@ -59,7 +58,7 @@ namespace HomagConnect.ProductionManager.Contracts.Rework
         public string? LastWorkstation { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier of the last workstation where the rework was captured.
+        /// Unique identifier of the last workstation the part was processed at before the rework was captured. Optional.
         /// </summary>
         /// <example>7d6d4f52-6a9c-4bd5-8e9b-0d7d58ec7d8c</example>
         [JsonProperty(Order = 31)]

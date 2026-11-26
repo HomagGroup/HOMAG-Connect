@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 using Newtonsoft.Json;
@@ -8,29 +8,32 @@ namespace HomagConnect.OrderManager.Contracts.ConfigurationDataManagement.Custom
 /// <summary>
 /// The structure (column definitions) of a custom table, including the current ETag.
 /// </summary>
+/// <example>
+/// { "customTableId": "hinges", "name": "Hinges", "columns": [ { "id": "width", "name": "Width", "type": "Number", "allowNull": false, "isInput": true } ], "allInputEntriesMustBeUnique": false, "eTag": "\"0x8DC1\"" }
+/// </example>
 [DebuggerDisplay("CustomTableId={CustomTableId}, Columns={Columns.Count}")]
 public class CustomTableStructure
 {
     /// <summary>
-    /// Gets or sets the id of the custom table.
+    /// Id of the custom table.
     /// </summary>
     [JsonProperty(Order = 10)]
     public string CustomTableId { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the name of the custom table.
+    /// Name of the custom table.
     /// </summary>
     [JsonProperty(Order = 20)]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the column definitions of the custom table.
+    /// Column definitions of the custom table.
     /// </summary>
     [JsonProperty(Order = 30)]
     public Collection<CustomTableColumn> Columns { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets a value indicating whether all input entries must be unique. 
+    /// Value indicating whether all input entries must be unique. 
     /// If true, the system will enforce uniqueness of input values across all rows for the defined input columns.
     /// Default is false.
     /// </summary>
@@ -38,7 +41,7 @@ public class CustomTableStructure
     public bool? AllInputEntriesMustBeUnique { get; set; }
 
     /// <summary>
-    /// Gets or sets the ETag identifying the current version of the structure. Use it to detect structure changes.
+    /// ETag identifying the current version of the structure. Use it to detect structure changes.
     /// </summary>
     [JsonProperty(Order = 50)]
     public string? ETag { get; set; }

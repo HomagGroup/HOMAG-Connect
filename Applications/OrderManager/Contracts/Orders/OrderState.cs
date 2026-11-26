@@ -6,28 +6,28 @@ using Newtonsoft.Json;
 namespace HomagConnect.OrderManager.Contracts.Orders;
 
 /// <summary>
-/// Order Status Enumeration
+/// State of an order. Serialized as the member name.
 /// </summary>
 [JsonConverter(typeof(TolerantEnumConverter))]
 public enum OrderState
 {
     /// <summary>
-    /// After a successful import of a customer order, it receives the state "New".
+    /// The order was imported successfully and has not been released yet.
     /// </summary>
     New,
 
     /// <summary>
-    /// After an order has been release it receives the state "ReadyForProduction".
+    /// The order has been released and is ready for production.
     /// </summary>
     ReadyForProduction,
 
     /// <summary>
-    /// As soon as a production order of a order is in progress.
+    /// Production of the order is in progress.
     /// </summary>
     InProgress,
 
     /// <summary>
-    /// As soon as all production orders have been completed, the order receives the state "Completed".
+    /// All production orders of the order have been completed.
     /// </summary>
     Completed,
 
@@ -37,12 +37,12 @@ public enum OrderState
     Archived,
 
     /// <summary>
-    /// As soon as an order group has been created or updated, the order receives the state "NewInCalculation" until all data has been generated.
+    /// An order group has been created or updated and the order data is still being generated.
     /// </summary>
     NewInCalculation,
 
     /// <summary>
-    /// Represents a draft order that is not yet finalized.
+    /// The order is a draft that is not yet finalized.
     /// </summary>
     Draft,
 }

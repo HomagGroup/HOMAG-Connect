@@ -8,26 +8,29 @@ using System.ComponentModel.DataAnnotations;
 namespace HomagConnect.ProductionManager.Contracts.WorkstationYield;
 
 /// <summary>
-/// Workstation
+/// Represents the number of parts processed at a workstation, in total and per production item type.
 /// </summary>
+/// <example>
+/// { "totalCount": 12, "yields": [ { "key": "Part", "value": 12 } ] }
+/// </example>
 public class WorkstationYield : ISupportsLocalizedSerialization
 {
     /// <summary>
-    /// Gets or sets the tapio machine ID
+    /// Workstation the yield was measured at. Optional.
     /// </summary>
     [JsonProperty(Order = 20)]
     [Display(ResourceType = typeof(WorkstationYieldPropertyNames), Name = nameof(Workstation))]
     public Workstation? Workstation { get; set; }
 
     /// <summary>
-    /// Gets or sets the total count of parts on this workstation
+    /// Total number of parts processed at this workstation.
     /// </summary>
     [JsonProperty(Order = 21)]
     [Display(ResourceType = typeof(WorkstationYieldPropertyNames), Name = nameof(TotalCount))]
     public int TotalCount { get; set; }
     
     /// <summary>
-    /// Gets or sets the distribution of parts per type on this workstation
+    /// Number of processed parts per production item type at this workstation, as a list of key/value entries. Empty if nothing was processed.
     /// </summary>
     [JsonProperty(Order = 23)]
     [Display(ResourceType = typeof(WorkstationYieldPropertyNames), Name = nameof(Yields))]

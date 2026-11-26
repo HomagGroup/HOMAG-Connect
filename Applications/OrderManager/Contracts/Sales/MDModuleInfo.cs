@@ -1,10 +1,13 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace HomagConnect.OrderManager.Contracts.Sales
 {
     /// <summary>
     /// Master data describing a module that can be used to compose an article.
     /// </summary>
+    /// <example>
+    /// { "id": "carcase", "name": "Carcase", "desc": "Carcase of a base unit", "group": "Units", "assignedAttributes": [ "width", "height" ], "allowedChildModules": [ "door" ], "initialAttributes": { "width": "600" }, "ModuleType": "RootModule" }
+    /// </example>
     public class MDModuleInfo
     {
         /// <summary>
@@ -52,7 +55,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public IList<string>? AllowedChildModules { get; set; }
 
         /// <summary>
-        /// Contains the initial attribute data when we create a new module
+        /// Initial attribute values (attribute id and value) that are set when a new module is created. Optional.
         /// </summary>
         [JsonProperty("initialAttributes")]
         public IDictionary<string, string>? InitialAttributes { get; set; }
@@ -79,7 +82,7 @@ namespace HomagConnect.OrderManager.Contracts.Sales
         public bool? IsDropContainer { get; set; }
 
         /// <summary>
-        /// Gets or sets the additional properties configured in the application.
+        /// Additional properties configured in the application.
         /// </summary>
         [JsonExtensionData]
         [JsonProperty(Order = 999)]
