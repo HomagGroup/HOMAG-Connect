@@ -1,4 +1,5 @@
-﻿using HomagConnect.Base.Extensions;
+﻿using HomagConnect.Base.Client;
+using HomagConnect.Base.Extensions;
 using HomagConnect.Base.Services;
 using HomagConnect.ProductionAssist.Contracts;
 using HomagConnect.ProductionManager.Contracts.ProductionItems;
