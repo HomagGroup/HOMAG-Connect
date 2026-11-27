@@ -63,6 +63,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
 	  <EmbeddedResource Update="Common\ProgramTransferModeDisplayNames.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ProgramTransferModeDisplayNames.Designer.cs</LastGenOutput>
